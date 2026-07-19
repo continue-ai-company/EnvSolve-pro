@@ -827,3 +827,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   endpoint、package 或 repository rule。全量回归为 `373 passed, 1 skipped`，真实 Docker 边界通过。
   Harness v25 还会在缺少真实 image ID 与 RepoDigest 时拒绝 freeze，独立验证为 `valid=true`。这仍是
   合成机制修复，不是效果结果。下一步必须从剩余 151 个 identity 中预注册新的 outcome-blind 资格实验。
+- Q10 已完成预注册、metadata-only 选样和执行绑定。Commit `a38896d` 在选样前固定 phase trigger 与
+  反向 candidate-network 安全不变量；`190f43f` 从 151 个 identity 中选择 5 个，剩余 146 个保持
+  untouched；execution binding `e48318f` 哈希 15 项输入。Treatment comparison 与原始预算不变，
+  禁止 phase-signature 预筛、repository inspection 和 prior-case reuse。哈希/pairing preflight 与
+  `33` 项聚焦测试通过，全量仍为 `373 passed, 1 skipped`，真实 Docker 边界通过，Harness v25 以
+  不可变镜像身份验证有效。当前没有使用 selected repository、model request 或 evaluator result。
+  Q10 已可按照冻结的触发与关闭规则逐 pair 执行。

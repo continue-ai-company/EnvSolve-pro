@@ -418,6 +418,11 @@ validate this boundary without naming the observed service or repository. The
 revision is frozen as v11. This again establishes internal semantics rather than
 deployment effectiveness.
 
+A new five-pair qualification of v11 is now preregistered and execution-bound. Five
+identities were selected by metadata hash from 151 untouched cases, leaving 146.
+The phase trigger, reverse network-safety invariant, schedule, and budgets were
+fixed before selection; no selected repository or model result has been observed.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
@@ -472,7 +477,8 @@ diagnostic-admission failure and is closed. The minimal repair and new mechanism
 freeze are complete, but the next qualification closed on a phase-agnostic
 infrastructure-classification defect before v10 was exercised. The next milestone
 is a new untouched development qualification of the now-frozen phase-aware v11.
-Held-out evaluation remains blocked until the mechanism qualifies.
+That qualification is ready to execute. Held-out evaluation remains blocked until
+the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

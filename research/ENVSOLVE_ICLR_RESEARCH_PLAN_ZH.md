@@ -302,6 +302,10 @@ case 不执行，也没有 official result 或 effectiveness estimate。
 测试与 Q9 raw artifact 只读 replay 验证了这条边界，没有命名观测到的 service 或 repository。该
 revision 已冻结为 v11。这仍只建立内部语义，不代表部署效果。
 
+新的 5-pair v11 资格实验现已完成预注册与执行绑定。Metadata hash 从 151 个 untouched case 中选择
+5 个 identity，剩余 146 个。Phase trigger、反向 network-safety invariant、schedule 与预算都在选样
+前固定；当前没有查看 selected repository 或模型结果。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
@@ -340,7 +344,8 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。
 最小合成修复与新 mechanism freeze 已完成，但下一次资格实验在 v10 被触发前，因不感知 failure
 phase 的 infrastructure classifier 缺陷而关闭。Phase-aware v11 现已冻结，下一里程碑是使用新的
-untouched development identity 完成资格验证。机制通过资格验证前，held-out evaluation 保持锁定。
+untouched development identity 完成资格验证；该实验现已可执行。机制通过资格验证前，held-out
+evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中
