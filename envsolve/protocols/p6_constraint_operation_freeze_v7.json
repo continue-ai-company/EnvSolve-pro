@@ -1,0 +1,66 @@
+{
+  "freeze_id": "p6-constraint-operation-v7-scientific-eligibility",
+  "frozen_at": "2026-07-19T07:40:00Z",
+  "source_revision": "40e28095f58fd90ef7eaa5c84c6ad311238d3eb4",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v6.json",
+    "sha256": "840789b785d47bb4ddf4f39109b9e4e6de302379e66bc03fbc189a87285fbed4"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v21.json",
+    "sha256": "c6e6fda98e7d8810a473a90b14f743507e9f0cbabaf124a1c6e5fa615d2ba002",
+    "note": "The later selection-only tool commit does not change solver, verifier, runner, evaluator, or candidate semantics. A final execution freeze will include Q6 identities before launch."
+  },
+  "typed_replay_freeze": {
+    "path": "experiments/protocols/typed_replay_ir_v7_freeze.json",
+    "sha256": "c0516037096f944c0b06cd3eda7e09a7a1c32a86f477a88d663cf25dc204440b"
+  },
+  "change_from_v6": [
+    "Separate artifact integrity from scientific eligibility.",
+    "Require committed clean source, primitive-budget compliance, and complete suspend-free runtime heartbeat for scientific use.",
+    "Use one hash-bound resumable coordinator with process-group hard deadlines.",
+    "Bind project virtual environments by effective root path.",
+    "Admit bounded PDM install and sync mutations.",
+    "Generate pair statistics only from independently audited, hash-chained source artifacts."
+  ],
+  "files": {
+    "envsolve_harness/eligibility.py": "9791d58785907f886bbfa2c501da5a900448d23a4e3259a70e991998c8096183",
+    "envsolve_harness/execution/heartbeat.py": "84ce2744d94b1ed59b0290fc21979def5c5dddc3803dc843d6af776a53bcd460",
+    "envsolve_harness/execution/schedule.py": "6d7005e17c5e5994a81e275f84c62c6d778af965a3e4c23358d87d5f15136631",
+    "envsolve_harness/scripts/candidate_validation.py": "af47c735dd1454cfd291bfde1dd711f3ff0c49b88dc189deb3396c4deedfba37",
+    "envsolve_harness/scripts/replay_actions.py": "2452354040321d1b816467abc734d8b1fd6c760ba78410ba0ef0f0392d3c2e8e",
+    "envsolve_harness/results.py": "19cb5016642a817d46befde820e2db8fe22485dbc84b95fa8788a29c7d981eb6",
+    "experiments/run_schedule.py": "edf5fe17328b3313beeba85869801723f16f2114334811263253200975e563f4",
+    "experiments/summarize_schedule.py": "1d9ffd026be68f3ba3601ab01d6399c5d52bb5c1843db5e77630896c6a39e619"
+  },
+  "semantic_boundary": {
+    "methods": ["envsolve-operation", "envsolve-operation-ablation"],
+    "shared_obligation_profile": "two-layer",
+    "treatment_difference": "constraint-derived operation plan visibility and guard admission only",
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "scientific_eligibility": {
+    "artifact_integrity_required": true,
+    "committed_clean_revision_required": true,
+    "runtime_heartbeat_required": true,
+    "host_suspension_allowed": false,
+    "primitive_budget_overrun_allowed": false,
+    "schedule_identity_match_required": true
+  },
+  "verification": {
+    "full_regression": "343 passed, 1 skipped",
+    "docker_integration": "1 passed",
+    "harness_v21_verification": "valid=true",
+    "q4_q5_artifact_reaudit": "20/20 artifact-valid, 0/20 scientifically eligible"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_cases_reusable": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false
+  }
+}
