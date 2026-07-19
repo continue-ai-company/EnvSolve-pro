@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v8-runtime-state",
+  "preregistered_at": "2026-07-19T22:36:53+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Outcome-blind paired development qualification of image-bound runtime admission, hard runtime state, fresh-candidate preservation, and failed-prefix feasibility.",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v9.json",
+    "sha256": "110e2e570870a934f6a44238cf306443d79c3cf2555045b15c6bdf0209310fa2"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v23.json",
+    "sha256": "ffef5145afdad6a3f2398077c36b40f5f0362d01c15ea74aae835521e60a3e5a"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "selection_tool": {
+    "path": "experiments/tools/freeze_paired_qualification.py",
+    "sha256": "6d87c1aa277275447db986c4c0048514c4e751f7c5a6e8fe8cd05cf984b97701"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification_v7_161.jsonl",
+    "source_sha256": "53d8892dfc344f6188d0cc31d04a88601c670cafa90736772da2692fb05c8917",
+    "source_count": 161,
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v8-2026-07-19",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "runtime_trigger_prescreen": false,
+    "prior_qualification_case_reuse": false,
+    "selected_path": "experiments/cases/dev_operation_qualification_v8_5.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v8_156.jsonl",
+    "provenance_path": "experiments/validations/p6_operation_qualification_v8_selection.json",
+    "selected_split": "dev-operation-qualification-v8-5",
+    "remaining_split": "train-untouched-after-operation-qualification-v8-156"
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "repository_observer": true,
+      "base_runtime_observer": true,
+      "initial_constraint_admission": false,
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "repository_observer": true,
+      "base_runtime_observer": true,
+      "initial_constraint_admission": true,
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "shared_observation_contract": {
+    "repository_observer": "envsolve-repository-declarations-v2",
+    "base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "fresh_verifier": "python-deployment-v5",
+    "package_probe": "importlib.metadata presence and version",
+    "official_evaluator_access": "post-episode-only"
+  },
+  "schedule": {
+    "output_path": "experiments/validations/p6_operation_qualification_v8_schedule.json",
+    "run_prefix": "p6-operation-q8",
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "matched_primitive_limits": {
+    "max_candidates": 5,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000
+  },
+  "operational_circuit_breaker": {
+    "max_estimated_cost_usd": 5.0,
+    "scientific_matching_variable": false,
+    "expected_to_bind": false
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation.json",
+    "sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "primary_mechanism_outcomes": {
+    "base_runtime_image_identity_match": true,
+    "runtime_mismatch_to_hard_conflict": true,
+    "runtime_conflict_to_runtime_configure_obligation": true,
+    "candidate_scoped_satisfaction_preserved_on_fresh_replay": true,
+    "localized_failed_prefix_not_repeated": true,
+    "covering_candidate_not_rejected_for_missing_novelty": true
+  },
+  "mechanism_exercise_rule": {
+    "minimum_triggered_full_runs": 1,
+    "trigger": "scientifically eligible full run with an incompatible runtime declaration or deterministic runtime mismatch and at least one later proposal opportunity",
+    "zero_trigger_result": "unexercised; v9 cannot qualify and no replacement case is selected",
+    "invariant_violation_result": "shared mechanism defect"
+  },
+  "secondary_outcomes": [
+    "paired official Boolean outcome when both sides are eligible and Boolean",
+    "internal-pass and official-evaluator reach rate",
+    "candidate, environment, command, model request, token, and wall-clock resources",
+    "repeated candidate and failed-prefix rate",
+    "runtime operation obligation and coverage counts",
+    "package and runtime requirements closed by positive fresh observations"
+  ],
+  "scientific_eligibility": {
+    "artifact_integrity_valid": true,
+    "committed_clean_revision": true,
+    "schedule_identity_match": true,
+    "primitive_budget_compliance": true,
+    "runtime_heartbeat_complete": true,
+    "host_suspension_suspected": false
+  },
+  "adaptation_policy": {
+    "code_or_protocol_changes_after_selection": false,
+    "shared_mechanism_defect": "finish the current pair, close Q8, consume all five selected identities, and start a new frozen qualification",
+    "zero_runtime_trigger": "complete and report the frozen batch as unexercised; do not select replacement identities",
+    "host_suspension": "stop the batch and classify affected or orphaned positions as scientifically ineligible; do not overwrite them",
+    "infrastructure_failure": "record Unknown and censor the pair; no automatic retry inside Q8"
+  },
+  "claim_scope": "development runtime-state mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V8.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V8_ZH.md"
+  ]
+}
