@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v6_preregistration.json",
+  "preregistration_sha256": "2984573278caf17660c781598a771ee56a650d6a68ae8143c114d6da70884341",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v6_166.jsonl",
+  "remaining_sha256": "acd46a8bfcd5d0494e6ca503228c750213afc09a44f4a28d532f8c0a16b17e98",
+  "salt": "envsolve-p6-operation-qualification-v6-2026-07-19",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "envbench-python-adamchainz__django-mysql@d6f0500565b1e4bc94044ca061e745cada955c11",
+    "envbench-python-smarr__rebench@1de0e22fb3e9578b3aeb7a994481ead300fa977f",
+    "envbench-python-getnikola__plugins@b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+    "envbench-python-huggingface__datasets@a6ccf944e42c1a84de81bf326accab9999b86c90"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v6_5.jsonl",
+  "selected_sha256": "93790d204bed77744725649c7258004c350a62e8a262052780c7228aa5050924",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v5_171.jsonl",
+  "source_sha256": "e6c0e3b17fc91f335418c26d7eab63784e25fefc11b3d9dfc0c6bab9cc549693"
+}
