@@ -1,0 +1,1183 @@
+{
+  "aggregate": {
+    "active_repair_obligations": 17,
+    "cases": 3,
+    "findings": 45,
+    "official_pass": 0
+  },
+  "cases": [
+    {
+      "assessment_summary": {
+        "active_repair_obligations": 8,
+        "dispositions": {
+          "active_obligation": 8,
+          "documentation_scope": 3,
+          "guarded_optional": 1
+        },
+        "findings": 12,
+        "roles": {
+          "build": 1,
+          "documentation": 3,
+          "runtime": 7,
+          "test": 1
+        }
+      },
+      "assessments": [
+        {
+          "active_repair_obligation": false,
+          "disposition": "documentation_scope",
+          "evidence": [
+            {
+              "detail": "documentation",
+              "kind": "source-role",
+              "line": 108,
+              "source_sha256": "b24cc8608ef6682edb5fc1e9d5ce7ddaf0a71a524b7ee6467226f47b107d253e"
+            }
+          ],
+          "file": "docs/source/conf.py",
+          "line": 108,
+          "module": "sphinx_rtd_theme",
+          "role": "documentation",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "documentation_scope",
+          "evidence": [
+            {
+              "detail": "documentation",
+              "kind": "source-role",
+              "line": 0,
+              "source_sha256": "e1844f05cbce9a3af2c1baf0bfc46adbc902d3b10422864ce88a2746bde12fa9"
+            }
+          ],
+          "file": "docs/source/examples/breakdowns/solartest.py",
+          "line": 0,
+          "module": "solar.solar",
+          "role": "documentation",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "documentation_scope",
+          "evidence": [
+            {
+              "detail": "documentation",
+              "kind": "source-role",
+              "line": 0,
+              "source_sha256": "1edd38d781515c567dcef495eb94ecc2bdc1d78e0d684ed7b986d95ea31eea5f"
+            }
+          ],
+          "file": "docs/source/figures/solartest.py",
+          "line": 0,
+          "module": "solar.solar",
+          "role": "documentation",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "guarded_optional",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 164,
+              "source_sha256": "adffad8bb072ab002fe91bb813e939d27af71d2ee7d76b6d1eab5bc8c4b90fca"
+            },
+            {
+              "detail": "ImportError",
+              "kind": "import-fallback",
+              "line": 162,
+              "source_sha256": "adffad8bb072ab002fe91bb813e939d27af71d2ee7d76b6d1eab5bc8c4b90fca"
+            }
+          ],
+          "file": "gpkit/build.py",
+          "line": 164,
+          "module": "mosek",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 6,
+              "source_sha256": "3296358d32a754f72ed3a3e8b7002960de5882f8063848f34031903d4629c033"
+            }
+          ],
+          "file": "gpkit/interactive/sankey.py",
+          "line": 6,
+          "module": "ipywidgets",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 7,
+              "source_sha256": "3296358d32a754f72ed3a3e8b7002960de5882f8063848f34031903d4629c033"
+            }
+          ],
+          "file": "gpkit/interactive/sankey.py",
+          "line": 7,
+          "module": "ipysankeywidget",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 1,
+              "source_sha256": "53da0c580a74d1c39e80f1ac1e66130b5e97dc529853e03ef80809b11e090448"
+            }
+          ],
+          "file": "gpkit/interactive/widgets.py",
+          "line": 1,
+          "module": "ipywidgets",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 2,
+              "source_sha256": "53da0c580a74d1c39e80f1ac1e66130b5e97dc529853e03ef80809b11e090448"
+            }
+          ],
+          "file": "gpkit/interactive/widgets.py",
+          "line": 2,
+          "module": "traitlets",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 605,
+              "source_sha256": "c733bcc0ce984618323e6da35ece7827b8bff6cf72418a90f5974535bc74e09d"
+            }
+          ],
+          "file": "gpkit/solution_array.py",
+          "line": 605,
+          "module": "pandas",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 3,
+              "source_sha256": "b9f3e733ea9ccacadc6c79121e41de0bd158e2e56e5b3b4c4d6d1c123ee6676f"
+            }
+          ],
+          "file": "gpkit/solvers/mosek_conif.py",
+          "line": 3,
+          "module": "mosek",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "test",
+              "kind": "source-role",
+              "line": 111,
+              "source_sha256": "02c82fe18a8d859137036dc492ca8439ae77a36e6b909fb40d0c30559b440a92"
+            }
+          ],
+          "file": "gpkit/tests/helpers.py",
+          "line": 111,
+          "module": "xmlrunner",
+          "role": "test",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "build",
+              "kind": "source-role",
+              "line": 2,
+              "source_sha256": "13a4e985fbb26378fabbf64296888a3c4f497ff0bdcb2966531957dd755432a0"
+            }
+          ],
+          "file": "setup.py",
+          "line": 2,
+          "module": "distutils.core",
+          "role": "build",
+          "source_error": null
+        }
+      ],
+      "exclusion_rules": [],
+      "official": {
+        "exit_code": 0,
+        "issues_count": 12,
+        "official_pass": false
+      },
+      "project_config_hashes": {},
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "source_blob_hashes": {
+        "docs/source/conf.py": "b24cc8608ef6682edb5fc1e9d5ce7ddaf0a71a524b7ee6467226f47b107d253e",
+        "docs/source/examples/breakdowns/solartest.py": "e1844f05cbce9a3af2c1baf0bfc46adbc902d3b10422864ce88a2746bde12fa9",
+        "docs/source/figures/solartest.py": "1edd38d781515c567dcef495eb94ecc2bdc1d78e0d684ed7b986d95ea31eea5f",
+        "gpkit/build.py": "adffad8bb072ab002fe91bb813e939d27af71d2ee7d76b6d1eab5bc8c4b90fca",
+        "gpkit/interactive/sankey.py": "3296358d32a754f72ed3a3e8b7002960de5882f8063848f34031903d4629c033",
+        "gpkit/interactive/widgets.py": "53da0c580a74d1c39e80f1ac1e66130b5e97dc529853e03ef80809b11e090448",
+        "gpkit/solution_array.py": "c733bcc0ce984618323e6da35ece7827b8bff6cf72418a90f5974535bc74e09d",
+        "gpkit/solvers/mosek_conif.py": "b9f3e733ea9ccacadc6c79121e41de0bd158e2e56e5b3b4c4d6d1c123ee6676f",
+        "gpkit/tests/helpers.py": "02c82fe18a8d859137036dc492ca8439ae77a36e6b909fb40d0c30559b440a92",
+        "setup.py": "13a4e985fbb26378fabbf64296888a3c4f497ff0bdcb2966531957dd755432a0"
+      }
+    },
+    {
+      "assessment_summary": {
+        "active_repair_obligations": 9,
+        "dispositions": {
+          "active_obligation": 8,
+          "guarded_optional": 2,
+          "inactive_platform": 7,
+          "unresolved": 1
+        },
+        "findings": 18,
+        "roles": {
+          "runtime": 13,
+          "test": 2,
+          "vendored": 3
+        }
+      },
+      "assessments": [
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 74,
+              "source_sha256": "0fad95dbd24c1095da17ab254d45665dd4b1e8ee0b00ea36f171ec39f6c69fdb"
+            },
+            {
+              "detail": "RNS.vendor.platformutils.is_android()",
+              "kind": "inactive-branch",
+              "line": 65,
+              "source_sha256": "0fad95dbd24c1095da17ab254d45665dd4b1e8ee0b00ea36f171ec39f6c69fdb"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/KISSInterface.py",
+          "line": 74,
+          "module": "usbserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 139,
+              "source_sha256": "0fad95dbd24c1095da17ab254d45665dd4b1e8ee0b00ea36f171ec39f6c69fdb"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/KISSInterface.py",
+          "line": 139,
+          "module": "usb4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 150,
+              "source_sha256": "0fad95dbd24c1095da17ab254d45665dd4b1e8ee0b00ea36f171ec39f6c69fdb"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/KISSInterface.py",
+          "line": 150,
+          "module": "usbserial4a.cdcacmserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 92,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 92,
+          "module": "jnius",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 254,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            },
+            {
+              "detail": "port != None",
+              "kind": "inactive-branch",
+              "line": 251,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 254,
+          "module": "usb4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 261,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            },
+            {
+              "detail": "port != None",
+              "kind": "inactive-branch",
+              "line": 251,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 261,
+          "module": "usbserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 266,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            },
+            {
+              "detail": "port != None",
+              "kind": "inactive-branch",
+              "line": 251,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 266,
+          "module": "usbserial4a.cdcacmserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 334,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            },
+            {
+              "detail": "RNS.vendor.platformutils.is_android()",
+              "kind": "inactive-branch",
+              "line": 325,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 334,
+          "module": "usbserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 520,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 520,
+          "module": "usb4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 531,
+              "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/RNodeInterface.py",
+          "line": 531,
+          "module": "usbserial4a.cdcacmserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 64,
+              "source_sha256": "4709ddccab552b6e025a53693ee231db18d32ea713ba2dadac7934a90e4fa809"
+            },
+            {
+              "detail": "RNS.vendor.platformutils.is_android()",
+              "kind": "inactive-branch",
+              "line": 55,
+              "source_sha256": "4709ddccab552b6e025a53693ee231db18d32ea713ba2dadac7934a90e4fa809"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/SerialInterface.py",
+          "line": 64,
+          "module": "usbserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 112,
+              "source_sha256": "4709ddccab552b6e025a53693ee231db18d32ea713ba2dadac7934a90e4fa809"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/SerialInterface.py",
+          "line": 112,
+          "module": "usb4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "runtime",
+              "kind": "source-role",
+              "line": 123,
+              "source_sha256": "4709ddccab552b6e025a53693ee231db18d32ea713ba2dadac7934a90e4fa809"
+            }
+          ],
+          "file": "RNS/Interfaces/Android/SerialInterface.py",
+          "line": 123,
+          "module": "usbserial4a.cdcacmserial4a",
+          "role": "runtime",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "unresolved",
+          "evidence": [
+            {
+              "detail": "vendored",
+              "kind": "source-role",
+              "line": 130,
+              "source_sha256": "37847fad9ed8221e0b716a543c67668e38d7b52f790f99dc2a98931e1ec2e98f"
+            }
+          ],
+          "file": "RNS/vendor/configobj.py",
+          "line": 130,
+          "module": "compiler",
+          "role": "vendored",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "guarded_optional",
+          "evidence": [
+            {
+              "detail": "vendored",
+              "kind": "source-role",
+              "line": 2172,
+              "source_sha256": "37847fad9ed8221e0b716a543c67668e38d7b52f790f99dc2a98931e1ec2e98f"
+            },
+            {
+              "detail": "preserve_errors",
+              "kind": "default-disabled-branch",
+              "line": 2169,
+              "source_sha256": "37847fad9ed8221e0b716a543c67668e38d7b52f790f99dc2a98931e1ec2e98f"
+            }
+          ],
+          "file": "RNS/vendor/configobj.py",
+          "line": 2172,
+          "module": "validate",
+          "role": "vendored",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "vendored",
+              "kind": "source-role",
+              "line": 683,
+              "source_sha256": "4ce39f422ee71467ccac8bed76beb05f8c321c7f0ceda9279ae2dfa3670106b3"
+            },
+            {
+              "detail": "PY3",
+              "kind": "inactive-branch",
+              "line": 641,
+              "source_sha256": "4ce39f422ee71467ccac8bed76beb05f8c321c7f0ceda9279ae2dfa3670106b3"
+            }
+          ],
+          "file": "RNS/vendor/six.py",
+          "line": 683,
+          "module": "StringIO",
+          "role": "vendored",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "guarded_optional",
+          "evidence": [
+            {
+              "detail": "test",
+              "kind": "source-role",
+              "line": 636,
+              "source_sha256": "7adcfb60779111657a501c622b0ac314a76034ce3e6e6bafd1b5a01c96cb5428"
+            },
+            {
+              "detail": "yp",
+              "kind": "default-disabled-branch",
+              "line": 635,
+              "source_sha256": "7adcfb60779111657a501c622b0ac314a76034ce3e6e6bafd1b5a01c96cb5428"
+            }
+          ],
+          "file": "tests/link.py",
+          "line": 636,
+          "module": "yappi",
+          "role": "test",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": true,
+          "disposition": "active_obligation",
+          "evidence": [
+            {
+              "detail": "test",
+              "kind": "source-role",
+              "line": 749,
+              "source_sha256": "7adcfb60779111657a501c622b0ac314a76034ce3e6e6bafd1b5a01c96cb5428"
+            }
+          ],
+          "file": "tests/link.py",
+          "line": 749,
+          "module": "yappi",
+          "role": "test",
+          "source_error": null
+        }
+      ],
+      "exclusion_rules": [],
+      "official": {
+        "exit_code": 0,
+        "issues_count": 18,
+        "official_pass": false
+      },
+      "project_config_hashes": {},
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "source_blob_hashes": {
+        "RNS/Interfaces/Android/KISSInterface.py": "0fad95dbd24c1095da17ab254d45665dd4b1e8ee0b00ea36f171ec39f6c69fdb",
+        "RNS/Interfaces/Android/RNodeInterface.py": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446",
+        "RNS/Interfaces/Android/SerialInterface.py": "4709ddccab552b6e025a53693ee231db18d32ea713ba2dadac7934a90e4fa809",
+        "RNS/vendor/configobj.py": "37847fad9ed8221e0b716a543c67668e38d7b52f790f99dc2a98931e1ec2e98f",
+        "RNS/vendor/six.py": "4ce39f422ee71467ccac8bed76beb05f8c321c7f0ceda9279ae2dfa3670106b3",
+        "tests/link.py": "7adcfb60779111657a501c622b0ac314a76034ce3e6e6bafd1b5a01c96cb5428"
+      }
+    },
+    {
+      "assessment_summary": {
+        "active_repair_obligations": 0,
+        "dispositions": {
+          "inactive_platform": 1,
+          "project_excluded_fixture": 14
+        },
+        "findings": 15,
+        "roles": {
+          "fixture": 14,
+          "test": 1
+        }
+      },
+      "assessments": [
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 2,
+              "source_sha256": "d0b39bcf6c884ee01d539c72c91b19786eff5f792c439504119d18842fbbb342"
+            },
+            {
+              "detail": "mypy:prefix:tests/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 2,
+              "source_sha256": "d0b39bcf6c884ee01d539c72c91b19786eff5f792c439504119d18842fbbb342"
+            }
+          ],
+          "file": "tests/fixtures/directory/project_with_transitive_directory_dependencies/setup.py",
+          "line": 2,
+          "module": "distutils.core",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "inactive_platform",
+          "evidence": [
+            {
+              "detail": "test",
+              "kind": "source-role",
+              "line": 1294,
+              "source_sha256": "7cf2cafed9429d99ab4747e867755d5b92fac7ed32c86b8889c93bd963507c15"
+            },
+            {
+              "detail": "sys.platform != 'darwin'",
+              "kind": "active-skip",
+              "line": 1292,
+              "source_sha256": "7cf2cafed9429d99ab4747e867755d5b92fac7ed32c86b8889c93bd963507c15"
+            }
+          ],
+          "file": "tests/utils/env/test_env_manager.py",
+          "line": 1294,
+          "module": "xattr",
+          "role": "test",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 10,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 10,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 10,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/ansible/setup.py",
+          "line": 10,
+          "module": "distutils.command.build_scripts",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 30,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 30,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 30,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/ansible/setup.py",
+          "line": 30,
+          "module": "ansible.release",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 31,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 31,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 31,
+              "source_sha256": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/ansible/setup.py",
+          "line": 31,
+          "module": "ansible.release",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 2,
+              "source_sha256": "5b118b5781b361d32cbc36ae609f8124e298803086b0d0aed9303c9c15e60022"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 2,
+              "source_sha256": "5b118b5781b361d32cbc36ae609f8124e298803086b0d0aed9303c9c15e60022"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 2,
+              "source_sha256": "5b118b5781b361d32cbc36ae609f8124e298803086b0d0aed9303c9c15e60022"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pendulum/setup.py",
+          "line": 2,
+          "module": "distutils.core",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 65,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 65,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 65,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 65,
+          "module": "distutils.core",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 66,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 66,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 66,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 66,
+          "module": "distutils.core",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 67,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 67,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 67,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 67,
+          "module": "distutils.core",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 68,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 68,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 68,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 68,
+          "module": "distutils.core",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 69,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 69,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 69,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 69,
+          "module": "distutils.dir_util",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 84,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 84,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 84,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 84,
+          "module": "Cython.Distutils",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 85,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 85,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 85,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 85,
+          "module": "Cython.Distutils.extension",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 92,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 92,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 92,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 92,
+          "module": "wheel.bdist_wheel",
+          "role": "fixture",
+          "source_error": null
+        },
+        {
+          "active_repair_obligation": false,
+          "disposition": "project_excluded_fixture",
+          "evidence": [
+            {
+              "detail": "fixture",
+              "kind": "source-role",
+              "line": 316,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "mypy:prefix:tests/utils/fixtures:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 316,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            },
+            {
+              "detail": "ruff:glob:tests/utils/fixtures/setups/*:12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+              "kind": "project-exclusion",
+              "line": 316,
+              "source_sha256": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+            }
+          ],
+          "file": "tests/utils/fixtures/setups/pyyaml/setup.py",
+          "line": 316,
+          "module": "test_all",
+          "role": "fixture",
+          "source_error": null
+        }
+      ],
+      "exclusion_rules": [
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/fixtures",
+          "syntax": "prefix",
+          "tool": "mypy"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/masonry/builders/fixtures",
+          "syntax": "prefix",
+          "tool": "mypy"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/utils/fixtures",
+          "syntax": "prefix",
+          "tool": "mypy"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "docs/*",
+          "syntax": "glob",
+          "tool": "ruff"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/fixtures/git/*",
+          "syntax": "glob",
+          "tool": "ruff"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/fixtures/project_with_setup*/*",
+          "syntax": "glob",
+          "tool": "ruff"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/masonry/builders/fixtures/pep_561_stub_only*/*",
+          "syntax": "glob",
+          "tool": "ruff"
+        },
+        {
+          "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611",
+          "pattern": "tests/utils/fixtures/setups/*",
+          "syntax": "glob",
+          "tool": "ruff"
+        }
+      ],
+      "official": {
+        "exit_code": 0,
+        "issues_count": 15,
+        "official_pass": false
+      },
+      "project_config_hashes": {
+        "pyproject.toml": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611"
+      },
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "source_blob_hashes": {
+        "tests/fixtures/directory/project_with_transitive_directory_dependencies/setup.py": "d0b39bcf6c884ee01d539c72c91b19786eff5f792c439504119d18842fbbb342",
+        "tests/utils/env/test_env_manager.py": "7cf2cafed9429d99ab4747e867755d5b92fac7ed32c86b8889c93bd963507c15",
+        "tests/utils/fixtures/setups/ansible/setup.py": "7ebbfeac1a90d262c3bd39faa567c0929b76f263eea1aef97ece8447c27334e9",
+        "tests/utils/fixtures/setups/pendulum/setup.py": "5b118b5781b361d32cbc36ae609f8124e298803086b0d0aed9303c9c15e60022",
+        "tests/utils/fixtures/setups/pyyaml/setup.py": "ccaeacde6c7c43638930cfa622dffbecfd09a0262d5bd19447219bbaf514094d"
+      }
+    }
+  ],
+  "environment_facts": {
+    "platform_name": "linux",
+    "python_major": 3,
+    "source": "frozen evaluator image and retained raw run logs",
+    "sys_platform": "linux"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "network_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_score_modified": false,
+    "official_test100_inspected": false,
+    "repository_mutations": 0,
+    "source_mode": "git-object"
+  },
+  "preregistration": {
+    "path": "experiments/validations/p5_round1_preregistration.json",
+    "sha256": "02d5fbeab42460b04f2cbf8fe4493fe01b846cbd4772ff27d78139e69a45a55e"
+  },
+  "validation_id": "p5-hierarchical-import-audit-round1-v1"
+}

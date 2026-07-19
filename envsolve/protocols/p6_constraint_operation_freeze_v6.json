@@ -1,0 +1,34 @@
+{
+  "freeze_id": "p6-constraint-operation-v6-bound-verifier-runtime",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v5.json",
+    "sha256": "5cbb4d555b46996584c7090d166f1c2afcac5756bcf4eaf6371adf7462536575"
+  },
+  "change_from_v5": "Require each project virtual environment created by a complete candidate to be activated after creation so internal and terminal verification use the candidate's installed runtime.",
+  "files": {
+    "envsolve_harness/scripts/candidate_validation.py": "5cc5b6492079be3949646a62e92a986097b4bf89bd06814faf78d9bd117e6339",
+    "experiments/validations/p6_operation_q4_results.json": "9af0f39e1878c00d3d991c3d341de03f693113ff1091f4e48817a05f3cca9148",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V5.md": "91944a5938bf0d427bd6c9591acb98c6f3191f31b6f974967127528c519212df",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V5_ZH.md": "cf7e38ac3725dd9d0224cec52d3e1406aa7fc4ae240d104d757998ca563f8326",
+    "tests/test_candidate_validation.py": "7a7fc64c1b9e5777937e878a4c098009a8ac4ccab2eaf318ff7c6ed1ce0899b4"
+  },
+  "semantic_boundary": {
+    "applies_to_full_and_ablation": true,
+    "candidate_validator_policy": "complete-candidate-v3+typed-replay-ir-v6",
+    "created_virtual_environment_requires_later_matching_activation": true,
+    "operation_treatment_changed": false,
+    "verifier_changed": false
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "new_package_or_provider_mapping": false,
+    "new_repository_specific_rule": false,
+    "official_test100_inspected": false,
+    "q4_cases_reusable_for_qualification": false
+  },
+  "verification": {
+    "focused_tests": "4 passed",
+    "full_regression": "327 passed, 1 skipped",
+    "docker_integration": "1 passed"
+  }
+}

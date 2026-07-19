@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_v3_unseen_dev5_preregistration.json",
+  "preregistration_sha256": "620c13da2de1693e40b1ea72075e9533a4d0e615e949b42647042eba034eaf83",
+  "remaining_path": "experiments/cases/train_untouched_after_v3_qualification196.jsonl",
+  "remaining_sha256": "337f72f00b3731fe7388628a01e45f09ac07a4b3f579bc2fbdbdeddfede352ce",
+  "salt": "envsolve-p6-v3-qualification-v1-2026-07-16",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+    "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+    "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+    "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+    "envbench-python-mampfes__hacs_waste_collection_schedule@a107f0e393b8f77b0da7971e530d0996344c6248"
+  ],
+  "selected_path": "experiments/cases/dev_v3_qualification5.jsonl",
+  "selected_sha256": "225d3ee61c0970af47b67c278b7f37354f31f0409a396f143afb01754aa9a7dd",
+  "source": "experiments/cases/train_untouched201.jsonl",
+  "source_sha256": "076ef72dbab0bb5cdefa72b10b2a84d4391914716fb640c5ab5f579b46677bfe"
+}

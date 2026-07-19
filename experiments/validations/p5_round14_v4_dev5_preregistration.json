@@ -1,0 +1,122 @@
+{
+  "preregistration_id": "p5-v4-native-dev5-round14-v1",
+  "created_at": "2026-07-14T23:40:00Z",
+  "development_only": true,
+  "verification_level": "V4",
+  "objective": "Collect the first project-declared, network-disabled native collection or wheel-build evidence on the unchanged Dev-5 environment plans.",
+  "base_preregistration": {
+    "path": "experiments/validations/p5_round4_v3_dev5_preregistration.json",
+    "sha256": "6cd27a6976c63173d512587553cfe2f1b9b5c96441719384df2f1e79088846b8",
+    "inherit": ["environment", "targets"]
+  },
+  "frozen_observations": {
+    "round11_v3_result": {
+      "path": "experiments/validations/p5_round11_v3_dev5_results.json",
+      "sha256": "86a3dc27d153d465d36e8d9ce06c542cd0cc0d7128f45fd8bf680a2a420b3726"
+    },
+    "round13_v1_result": {
+      "path": "experiments/validations/p5_round13_v1_dev5_results.json",
+      "sha256": "8f7fbd3330987773b9ef7d865a60888f55c5f0cc433b5b826121f9709acd218d"
+    },
+    "round13_v1_analysis": {
+      "path": "experiments/validations/p5_round13_v1_dev5_analysis.json",
+      "sha256": "55cf1abb1dfd90206f42e3b91683cffdd4faa7d7e70e20a0e2fde839b91f2090"
+    }
+  },
+  "frozen_policy_sources": {
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "ae2775e124cdc7ac8d4d1d3722120b7f10a80b71ce77f603b6809ccb564a3a11"
+    },
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v4_in_container.py",
+      "sha256": "4b20bcaeb9ef7c333ec3434110ee55c6059417fb04d63fbdf9145f821e4fce51"
+    },
+    "native_project_policy": {
+      "path": "envsolve/verification/native_project.py",
+      "sha256": "6404568fe42dde91f476420b98b5ddf5c9d3a3015af7770825d685fb08c7073f"
+    },
+    "network_isolation_policy": {
+      "path": "envsolve/verification/network_isolation.py",
+      "sha256": "eca442099b7691a27133de0da26774384c8eb08f940db50addcb06acb9f03548"
+    },
+    "runtime_requirements": {
+      "path": "envsolve/requirements.txt",
+      "sha256": "deafe36471531ac94cf32ba0e7ca1ca180efeae967f1c19945842caed7d8536c"
+    },
+    "protocol_en": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL.md",
+      "sha256": "35d6c47b13da6ac1d41490596af5f4c155e5ba677ab839ca508526ea4d6f5d80"
+    },
+    "protocol_zh": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL_ZH.md",
+      "sha256": "26d2ae23110252ca58980da023fa17f6e0b48f01096af6d7c1c572378d08be78"
+    }
+  },
+  "frozen_planner_expectations": {
+    "convexengineering/gpkit": {
+      "kind": "wheel_build",
+      "config_path": "setup.py",
+      "config_sha256": "13a4e985fbb26378fabbf64296888a3c4f497ff0bdcb2966531957dd755432a0"
+    },
+    "jaraco/inflect": {
+      "kind": "pytest_collection",
+      "config_path": "pytest.ini",
+      "config_sha256": "a5068ec1ead2f7ba9f9c1c4d7f9087aa693c95233e045027b80ff03049ddbd63"
+    },
+    "markqvist/reticulum": {
+      "kind": "wheel_build",
+      "config_path": "setup.py",
+      "config_sha256": "97b3709fa45b6d45d9b141f9ac5a6c820220bf75c10913dde111799bb7ec22f8"
+    },
+    "pytest-dev/pytest-xdist": {
+      "kind": "pytest_collection",
+      "config_path": "pyproject.toml",
+      "config_sha256": "7d4af8eb793ccad3debd17c8a9b0a29184839e3d93efb41e42642f943f9be222"
+    },
+    "python-poetry/poetry": {
+      "kind": "pytest_collection",
+      "config_path": "pyproject.toml",
+      "config_sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611"
+    }
+  },
+  "runner_contract": {
+    "source": "Create a local no-hardlinks detached checkout from the retained Git object database at the exact inherited revision; never fetch or read dirty worktree files.",
+    "cleanliness_gate": "Require exact HEAD and tree identity plus an empty git status before adding declared external fixtures or running bootstrap.",
+    "container_git_gate": "Add only /data/project to Git safe.directory for the temporary bind mount.",
+    "mount": "Mount the temporary checkout at /data/project and EnvSolve policy code read-only.",
+    "pre_bootstrap_directories": ["build_output"],
+    "external_fixture": "Create only preregistered safe single-component directories after the clean-checkout gate and fail on repository-path collision.",
+    "bootstrap": "Source the exact inherited frozen bootstrap in one persistent shell without creating benchmark result artifacts.",
+    "network_transition": "Allow network only during bootstrap; disconnect every Docker network before V4 planning and execution.",
+    "v4_planning": "Prefer content-addressed explicit pytest configuration; otherwise use standard pyproject.toml or setup.py build metadata; never use repository identity or execute arbitrary project commands.",
+    "v4_execution": "Use fixed direct argv without a shell, PIP_NO_INDEX=1, no bytecode, no pip version check, a 300-second probe timeout, bounded diagnostic tails, and temporary wheel output.",
+    "v4_decision": "Pytest exit zero passes, exit five is unknown, other nonzero or timeout fails; wheel build requires exit zero and at least one content-addressed wheel; no plan or outcome is unknown.",
+    "temporary_storage": "Use the host platform temporary directory unless an explicit bind-mount-safe root is supplied.",
+    "cleanup": "Always remove the container and temporary checkout.",
+    "case_timeout_seconds": 1800,
+    "source_materialization": "detached_git_checkout"
+  },
+  "expected_causal_checks": {
+    "planner": "Every observed probe kind and configuration hash must match frozen_planner_expectations before its outcome is interpreted.",
+    "collection": "Collection success claims only import-time test discovery, not test execution or V5.",
+    "build": "Build success requires a wheel artifact hash and does not imply native tests exist.",
+    "network": "Every planned probe executes only after Docker has no connected network and the container has no default route.",
+    "bootstrap": "A bootstrap failure leaves V4 unknown and is classified separately from the native probe.",
+    "official_outcomes": "No official verifier runs and no official score changes."
+  },
+  "limits": {
+    "attempts_per_case": 1,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "retained_worktree_mutations": 0,
+    "native_probe_network_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false,
+    "case_specific_policy": false
+  }
+}

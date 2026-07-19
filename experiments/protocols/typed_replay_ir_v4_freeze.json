@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "typed-replay-ir-v4",
+  "frozen_at": "2026-07-14T02:03:28Z",
+  "candidate_frozen_at": "2026-07-14T02:01:56Z",
+  "files": {
+    "research/TYPED_REPLAY_IR_V4.md": "c48aa2cfadad124dbec54404c09bcb5ebb006d30fb8643bec8b7b6d1bfda78a1",
+    "tests/fixtures/replay_ir_v4_cases.json": "635dedde4f7e38cf18e1c10ccb02456c2ff00e472654126644e2b99d679e39a9",
+    "envsolve_harness/scripts/replay_actions.py": "287e4b46dcc24f691fe07972819356da031d3d96cda4b7c9a9eb0ebaebdf5475",
+    "tests/test_replay_ir.py": "7878c5a3879ba6d9f1bee4d98bb9c35971d381786f5770642ceac9ecd8a3a4f8"
+  },
+  "validation": {
+    "synthetic_cases": 23,
+    "full_unit_tests": 38,
+    "compile_check": true,
+    "safety_matrix_check": true,
+    "recorded_redistillation_integration": true
+  },
+  "candidate_correction": {
+    "trigger": "The first read-only compatibility audit terminated before producing any accept/reject result.",
+    "defect": "A newline inside a quoted shell token recursively re-analyzed the unchanged command.",
+    "fix": "Recurse only when top-level newline splitting produces more than one segment, with a synthetic quoted-newline regression case.",
+    "semantic_contract_changed": false
+  },
+  "development_disclosure": {
+    "development_informed": true,
+    "note": "The v3 rejection of compound observational commands in development trajectories motivated a benchmark-independent shell-semantics revision. The frozen grammar and corpus contain no repository or case identifiers.",
+    "development_only_splits": [
+      "dev-5",
+      "dev-extension-3"
+    ],
+    "untouched_confirmatory_splits": [
+      "canary-20",
+      "official-test-100"
+    ],
+    "case_specific_rules": false
+  },
+  "change_policy": "Any accepted-language or safety change requires a new policy identifier, new hashes, and a new freeze record before benchmark replay."
+}

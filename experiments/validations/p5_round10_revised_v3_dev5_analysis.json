@@ -1,0 +1,74 @@
+{
+  "analysis_id": "p5-v3-revised-contract-dev5-round10-analysis-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round10_revised_v3_dev5_preregistration.json",
+    "sha256": "39d1c8e5c4e129a7bb97ed129b53bb53c1a027c60fa4b1b11965446a22c52dd7"
+  },
+  "result": {
+    "path": "experiments/validations/p5_round10_revised_v3_dev5_results.json",
+    "sha256": "65ac8d6c2778865d50db6c69186bb16ff6f6ed884ee91064ca1b2a42bb375a3c"
+  },
+  "aggregate": {
+    "cases": 5,
+    "bootstrap_pass": 3,
+    "v3_pass": 3,
+    "v3_fail": 0,
+    "v3_unknown": 2,
+    "executed_probes": 21,
+    "failed_probes": 0,
+    "collection_errors": 0
+  },
+  "cases": [
+    {
+      "repository": "convexengineering/gpkit",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "probes": 1,
+      "classification": "revised-contract pass"
+    },
+    {
+      "repository": "jaraco/inflect",
+      "bootstrap": "failed",
+      "v3": "unknown",
+      "probes": 0,
+      "classification": "experimental-fixture mismatch",
+      "evidence": "Frozen bootstrap expected the verifier-owned build_output directory and failed at mv before installation. Round 10 intentionally removed the runner hardcode; the next round must declare this external precondition as generic preregistered input."
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "probes": 19,
+      "classification": "revised-contract pass"
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "probes": 1,
+      "classification": "revised-contract pass"
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "bootstrap": "failed",
+      "v3": "unknown",
+      "probes": 0,
+      "classification": "infrastructure-blocked",
+      "evidence": "Two files.pythonhosted.org ReadTimeout failures prevented installation of cmake for rapidfuzz build-system requirements."
+    }
+  ],
+  "conclusions": [
+    "Every revised V3 probe that executed passed; there is no observed semantic regression from replacing CLI --help with console PATH resolution.",
+    "The fail-closed distribution aggregation path observed no collection error in the three completed cases.",
+    "Inflect does not justify a method change: its failure occurred before bootstrap semantics because an external workspace precondition was omitted from the Round 10 runner contract.",
+    "Poetry does not justify a method change: its failure is a repeated network read timeout and requires the preregistered infrastructure-only retry gate."
+  ],
+  "integrity": {
+    "model_requests": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "source_edits": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

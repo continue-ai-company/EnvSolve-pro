@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-16",
+  "development_only": true,
+  "schedule_position": 4,
+  "run_id": "p6-v3-q1-02-envsolve-full",
+  "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+  "method": "envsolve-full",
+  "audit_valid": true,
+  "result": {
+    "generation_completed": false,
+    "classification": "infrastructure_unknown",
+    "official_evaluator_claims": 0,
+    "model_requests": 3,
+    "model_responses": 3,
+    "total_tokens": 17992,
+    "estimated_cost_usd": 0.01019205,
+    "candidates": 3,
+    "environments": 3,
+    "constraints_updated": 6
+  },
+  "algorithm_observation": {
+    "candidate_2_static_requirements": [
+      "gtk",
+      "haishoku.haishoku",
+      "setuptools"
+    ],
+    "candidate_3_attempted_system_and_python_dependencies": true,
+    "candidate_3_exit_code": 124,
+    "candidate_3_infrastructure_signature": "execution-timeout",
+    "timeout_admitted_as_counterexample": false,
+    "episode_terminated_after_unknown": true
+  },
+  "budget_accounting_diagnostic": {
+    "control_budget_enforced": true,
+    "command_timeout_seconds": 900,
+    "episode_started_at": "2026-07-16T09:15:40.937856+00:00",
+    "episode_finished_at": "2026-07-16T09:33:57.607021+00:00",
+    "observed_episode_wall_clock_seconds": 1096.669165,
+    "persisted_elapsed_wall_clock_seconds": 196.496924,
+    "defect": "The terminal infrastructure path did not persist a final BudgetLedger snapshot, so the ledger excluded the last command duration.",
+    "effect_on_control": "none; the independent 900-second command timeout fired",
+    "effect_on_measurement": "terminal wall-time cost was understated",
+    "generic_repair": "Finalize and close every online ledger before writing SolverResult; v0.2 audit requires finalized_at.",
+    "source_artifact_mutated": false
+  },
+  "paired_interpretation": {
+    "runtime_only_official_pass": false,
+    "runtime_only_issues_count": 2,
+    "full_method_status": "infrastructure_unknown",
+    "complete_pair": false,
+    "effectiveness_claim_allowed": false
+  },
+  "immutable_hashes": {
+    "solver_result_sha256": "caef71075210dbcc889df93adbae9423abea84f59e031c2e99fc2986576b9c0f",
+    "budget_ledger_sha256": "43e4f433316ca962a6faa4d2fee26c91fec2468a3920151f5e2bd70b304fc755",
+    "episode_log_sha256": "b00abbf01d06f1092eee3c5218bd76850787e180c1792c4328116b46b8773b0e"
+  },
+  "scientific_use": {
+    "case_specific_rule_added": false,
+    "rerun_allowed": false,
+    "confirmatory_claim": false
+  }
+}

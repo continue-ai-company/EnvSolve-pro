@@ -1,0 +1,108 @@
+{
+  "analysis_id": "p5-v1-real-evidence-dev5-round12-analysis-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round12_v1_dev5_preregistration.json",
+    "sha256": "6698e7e81fdee53ae6b012a696c40fe5cc69213288ddaa0250ee46f07e761d1b"
+  },
+  "result": {
+    "path": "experiments/validations/p5_round12_v1_dev5_results.json",
+    "sha256": "2fb7e34e2be4ab8339a1b5489e921258c437cbe854286adc31ea45118b3c00e4"
+  },
+  "aggregate": {
+    "cases": 5,
+    "bootstrap_pass": 4,
+    "v1_pass": 4,
+    "v1_fail": 0,
+    "v1_unknown": 1,
+    "active_requirements": 23,
+    "resolver_pass": 4,
+    "resolver_fail": 0,
+    "resolver_timeout": 0,
+    "collection_errors": 0,
+    "duration_seconds": 316.01291604200003
+  },
+  "cases": [
+    {
+      "repository": "convexengineering/gpkit",
+      "bootstrap": "pass",
+      "v1": "pass",
+      "project": "gpkit 1.1.1",
+      "metadata_source": "PKG-INFO",
+      "provenance": "legacy-egg-link",
+      "selected_extras": [],
+      "installed_distributions": 74,
+      "active_requirements": 7,
+      "resolver_exit_code": 0,
+      "collection_errors": 0
+    },
+    {
+      "repository": "jaraco/inflect",
+      "bootstrap": "pass",
+      "v1": "pass",
+      "project": "inflect 0.0.0",
+      "metadata_source": "METADATA",
+      "provenance": "pep610-direct-url",
+      "selected_extras": ["test"],
+      "installed_distributions": 96,
+      "active_requirements": 9,
+      "resolver_exit_code": 0,
+      "collection_errors": 0
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "bootstrap": "pass",
+      "v1": "pass",
+      "project": "rns 0.7.6",
+      "metadata_source": "PKG-INFO",
+      "provenance": "legacy-egg-link",
+      "selected_extras": [],
+      "installed_distributions": 57,
+      "active_requirements": 2,
+      "resolver_exit_code": 0,
+      "collection_errors": 0
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "bootstrap": "pass",
+      "v1": "pass",
+      "project": "pytest-xdist 0.1.dev1+gc7b4f6114",
+      "metadata_source": "METADATA",
+      "provenance": "pep610-direct-url",
+      "selected_extras": ["psutil", "setproctitle", "testing"],
+      "installed_distributions": 62,
+      "active_requirements": 5,
+      "resolver_exit_code": 0,
+      "collection_errors": 0
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "bootstrap": "failed",
+      "v1": "unknown",
+      "selected_extras": [],
+      "classification": "infrastructure-blocked",
+      "evidence": "The frozen bootstrap failed before V1 collection while downloading keyring from files.pythonhosted.org. The log records TimeoutError, ReadTimeoutError, and ConnectionError; no project metadata, installed-state, marker, or resolver decision was produced."
+    }
+  ],
+  "causal_checks": {
+    "explicit_extras": "Every completed case reported exactly the extra set bound to its frozen bootstrap SHA256.",
+    "project_attribution": "All 23 active project requirements were uniquely installed and compatible; no project-closure failure or ambient resolver conflict was observed.",
+    "resolver": "All four executed direct python -m pip check commands exited zero without timeout after network disconnection.",
+    "network_isolation": "Every completed V1 artifact reports the host marker and no default route; the host runner reports an empty connected-network set.",
+    "poetry": "The missing V1 outcome is caused by a pre-collection package-host read timeout and cannot be interpreted as V1 Pass or Fail."
+  },
+  "conclusions": [
+    "Round 12 establishes the first real V1 Pass evidence for four Dev-5 repositories across both PEP 610 and legacy editable provenance.",
+    "Poetry requires a preregistered infrastructure-only retry after user-confirmed network change; no V1 policy change is justified.",
+    "No nonzero resolver or attributable closure counterexample was observed in real cases, so those branches remain supported only by synthetic tests.",
+    "These development results do not establish Official Pass, held-out generalization, or leaderboard improvement."
+  ],
+  "integrity": {
+    "model_requests": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "retained_worktree_mutations": 0,
+    "resolver_network_requests": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

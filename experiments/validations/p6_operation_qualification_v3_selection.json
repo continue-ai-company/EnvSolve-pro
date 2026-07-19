@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v3_preregistration.json",
+  "preregistration_sha256": "41a027ff72e0af3d8bd069fdd7dd833ec77388343211c0cd1a73b48cca9bd3c5",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v3_181.jsonl",
+  "remaining_sha256": "61c8175b5cdcc29d32c37e8ca5bb18b2e47ebb88e8bccd70820319c43dcf3db4",
+  "salt": "envsolve-p6-operation-qualification-v3-2026-07-17",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+    "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+    "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+    "envbench-python-robbievanleeuwen__section-properties@0a41ea141394ccca9df1625e1d44ea132a2ccf37",
+    "envbench-python-getsentry__sentry-python@ec7172e15311b88695827a76ca7fa83fba2efff4"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v3_5.jsonl",
+  "selected_sha256": "ccf758935f56c34b671fdf25da62f03d3a41329213c7768d6bb26c38e0ee04e7",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v2_186.jsonl",
+  "source_sha256": "fc4fd281c00c881578b06dde83985bbd64d750249e65d12ec5ea9946b3891f62"
+}

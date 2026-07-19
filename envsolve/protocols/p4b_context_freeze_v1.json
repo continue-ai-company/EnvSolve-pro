@@ -1,0 +1,106 @@
+{
+  "change_policy": "Any context evidence schema, confidence gate, probe command/parser, manager priority, context builder, or provider parser semantic change requires a new P4B policy and freeze version.",
+  "created_at": "2026-07-14T05:19:36.103713+00:00",
+  "policy_id": "envsolve-context-acquisition-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "p0_scoring_changed": false,
+    "p2_semantics_changed": false,
+    "p3_semantics_changed": false,
+    "p4_complete": false,
+    "p4a_semantics_changed": false,
+    "repository_specific_rules": false
+  },
+  "semantics": {
+    "capability_provider": "apt-file-exact-path-v1",
+    "context_fields_require_evidence": true,
+    "hard_confidence": 0.8,
+    "optional_missing_tools_are_failures": false,
+    "system_manager_priority": [
+      "apt-get",
+      "apk",
+      "dnf",
+      "yum",
+      "brew"
+    ]
+  },
+  "source_files": {
+    "envsolve/context/__init__.py": "5de3ccf0e79e4c1715794ec6eb5a077b99ed9be68d234d2447cae9d696bd940d",
+    "envsolve/context/builder.py": "34bbb79cf8acfcf1202ebbf2eef6695bfb5228e24199422ff6c2596db4409a61",
+    "envsolve/context/models.py": "5cf70b27dcba6528229f038b54062cb68fb2c8c4949d216810b18a40faab33ed",
+    "envsolve/context/policy.py": "536df431ff3a2ab9f22f0e8df0c167245a18d7c685ecbfb15c1474e6dd0a7a85",
+    "envsolve/context/probes.py": "8dcded1698aa4eac494aa99a2ffd1a451cd9a7f53acd6edbd2d7b5ef60b9155e",
+    "envsolve/context/providers.py": "bb86e07aab7e24d7de10cce805940839eaf532b2daffd06700b05801c9ef2abd",
+    "envsolve/tests/test_context.py": "e385ac14889ddf9f301b2aacc0d8dbb06e5dd8ff5fb5ac3229bc52b5b840351a",
+    "envsolve/tools/p4b_freeze.py": "aa8961165a394af01d039856f28128d553f7f801e9c8efbffcfa09aa2ed22c42",
+    "envsolve/tools/run_context_image_inventory.py": "ebe5e333a2477f5b76b827f14fd212906f2e393948020873b592040725b5e891",
+    "research/P4B_CONTEXT_ACQUISITION_PROTOCOL.md": "b15b342a30ee7bc3923d8f0c8f0c41d11bf6a4674f7ce12ff6197dda53f6a1c7"
+  },
+  "validation": {
+    "case_free_image_inventory": {
+      "artifact": {
+        "audit_valid": true,
+        "case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "event_count": 39,
+        "event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+        "root": "runs/p4b-context-image-v1",
+        "snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+        "snapshot_sha256": "c0773e2442ab9bae7bbf26826ce98f29659391b22b2630b80e4505af82d78832"
+      },
+      "context": {
+        "available_python_versions": [
+          "3.8.18",
+          "3.9.18",
+          "3.10.13",
+          "3.11.7",
+          "3.12.0",
+          "3.13.1"
+        ],
+        "capability_packages": {},
+        "evidence_ids": [
+          "evidence-context-runtime-pyenv-versions",
+          "evidence-context-system-manager-apt-get",
+          "evidence-context-tool-pyenv"
+        ],
+        "module_distributions": {},
+        "runtime_manager": "pyenv",
+        "system_package_manager": "apt-get"
+      },
+      "image": {
+        "architecture": "arm64",
+        "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "os": "linux",
+        "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "repo_digests": [
+          "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+        ]
+      },
+      "isolation": {
+        "benchmark_repository_mounted": false,
+        "mounts": [],
+        "network": "none"
+      },
+      "path": "experiments/validations/p4b_context_image_results.json",
+      "result": {
+        "actions_executed": 7,
+        "actions_failed": 0,
+        "actions_succeeded": 7,
+        "goal_status": "satisfied",
+        "snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+        "stop_reason": "context acquisition complete"
+      },
+      "sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e"
+    },
+    "compile_check": true,
+    "p0_regression_tests": 44,
+    "p2_regression_tests": 7,
+    "p3_regression_tests": 17,
+    "p4a_regression_tests": 13,
+    "synthetic_tests": 11
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "p6-civet-v2-qualification-r7-v1",
+  "registered_at": "2026-07-16T06:26:07Z",
+  "purpose": "Development-informed same-case qualification of recoverable proposal failures after R6 terminated on malformed model output. This run is not algorithm-effect evidence.",
+  "execution_gate": "Satisfied by the user's 2026-07-16 confirmation that the local network was ready before R6; R6 showed no network or artifact-integrity failure.",
+  "case": {
+    "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+    "split_role": "development-only-consumed",
+    "prior_attempts": [
+      "envsolve-p6-devext3-civet-r1",
+      "envsolve-p6-devext3-civet-r2",
+      "envsolve-p6-devext3-civet-r3",
+      "envsolve-p6-devext3-civet-r4",
+      "envsolve-p6-devext3-civet-r5",
+      "envsolve-p6-devext3-civet-r6"
+    ]
+  },
+  "implementation": {
+    "harness_freeze": "experiments/protocols/harness_freeze_v11.json",
+    "harness_freeze_sha256": "fa5167226703cd9e9e65aa33e192af9d7282e9864826591f30a31b35f25e4e4a",
+    "internal_verifier": "python-deployment-v2",
+    "online_feedback": "internal-execution-only",
+    "infrastructure_failure_policy": "unknown-and-stop",
+    "official_evaluator_access": "one atomic post-episode claim",
+    "max_consecutive_policy_output_failures": 3
+  },
+  "condition": {
+    "runner": "envsolve",
+    "method": "envsolve-full",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 7,
+    "max_candidates": 5,
+    "episode_restarts": 0,
+    "verifier_unknown_retries": 0,
+    "model_transport_max_retries": 2
+  },
+  "qualification_checks": [
+    "The independent run audit is valid and persisted model usage is nonzero.",
+    "Malformed model output is hashed and persisted; if below the consecutive-failure cap, a later proposal is allowed without consuming candidate, environment, or command budget.",
+    "A candidate-DSL rejection is persisted and may be repaired by a later proposal; it consumes candidate budget but no environment or command budget.",
+    "The model state explicitly identifies active module requirements and recent policy-output failures.",
+    "Attributable network or artifact-integrity failure terminates before another model proposal.",
+    "Post-episode official evidence is absent from every model request and online state transition."
+  ],
+  "reporting": {
+    "algorithm_claim_allowed": false,
+    "held_out_claim_allowed": false,
+    "retain_all_failures": true,
+    "success_on_case_required_for_qualification": false,
+    "note": "R7 evaluates the generic recovery semantics introduced by v11. Any final EnvBench outcome remains development-only diagnostic evidence."
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.0.0",
+  "analysis_id": "p6-operation-q4-audit-valid-paired-analysis-v1",
+  "analyzed_at": "2026-07-17T17:00:00+08:00",
+  "classification": "audit-valid-positive-mechanism-evidence-with-shared-runtime-binding-defect",
+  "claim_scope": "development mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocol": {
+    "freeze_path": "experiments/protocols/p6_operation_qualification_freeze_v4.json",
+    "freeze_sha256": "8961751ec7ef326519c18cfa505cfe2606031a1e99ec96064addcf22a1c1900b",
+    "preregistration_path": "experiments/validations/p6_operation_qualification_v4_preregistration.json",
+    "preregistration_sha256": "04169dda84214c5465e5bd50b20ef447217251ac850f6a1f84b04e05211016aa",
+    "schedule_path": "experiments/validations/p6_operation_qualification_v4_schedule.json",
+    "schedule_sha256": "d10e747d788e8bcc3cd1c202f775f40fc8d359bf0275c225f7079ae24543b32f"
+  },
+  "audit": {
+    "runs": 10,
+    "valid": 10,
+    "invalid": 0,
+    "official_evaluator_claims": 4
+  },
+  "aggregate": {
+    "pairs": 5,
+    "infrastructure_censored_pairs": 1,
+    "uncensored_pairs": 4,
+    "full_only_pass": 1,
+    "ablation_only_pass": 0,
+    "both_pass": 1,
+    "both_fail": 2,
+    "full_operation_triggered_pairs": 4,
+    "full_non_triggering_pairs": 1
+  },
+  "resource_vector_definition": [
+    "candidates",
+    "model_requests",
+    "input_tokens",
+    "output_tokens",
+    "cache_read_tokens",
+    "environments",
+    "commands",
+    "wall_clock_seconds"
+  ],
+  "dollar_cost_policy": "Provider-price conversions remain in immutable ledgers for operational audit only. They are not a matching variable, task definition, or scientific outcome.",
+  "pairs": [
+    {
+      "repository": "cherrypy/cheroot",
+      "pair_class": "infrastructure_censored",
+      "operation_triggered": true,
+      "full": {
+        "generation_completed": false,
+        "official_pass": null,
+        "terminal_class": "infrastructure_unknown",
+        "signature": "read-timeout",
+        "resources": {
+          "candidates": 2,
+          "model_requests": 2,
+          "input_tokens": 11489,
+          "output_tokens": 5222,
+          "cache_read_tokens": 0,
+          "environments": 2,
+          "commands": 2,
+          "wall_clock_seconds": 303.827942
+        }
+      },
+      "ablation": {
+        "generation_completed": true,
+        "official_pass": false,
+        "terminal_class": "official_fail",
+        "resources": {
+          "candidates": 3,
+          "model_requests": 3,
+          "input_tokens": 19749,
+          "output_tokens": 2589,
+          "cache_read_tokens": 0,
+          "environments": 3,
+          "commands": 3,
+          "wall_clock_seconds": 148.514158
+        }
+      },
+      "interpretation": "The full trajectory is censored by infrastructure and the pair estimates no treatment effect."
+    },
+    {
+      "repository": "mdolab/openaerostruct",
+      "pair_class": "both_fail",
+      "operation_triggered": true,
+      "full": {
+        "generation_completed": false,
+        "official_pass": null,
+        "terminal_class": "candidate_limit",
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 33785,
+          "output_tokens": 16539,
+          "cache_read_tokens": 0,
+          "environments": 5,
+          "commands": 5,
+          "wall_clock_seconds": 556.53566
+        }
+      },
+      "ablation": {
+        "generation_completed": false,
+        "official_pass": null,
+        "terminal_class": "candidate_limit",
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 31956,
+          "output_tokens": 18471,
+          "cache_read_tokens": 768,
+          "environments": 4,
+          "commands": 4,
+          "wall_clock_seconds": 1685.905508
+        }
+      },
+      "interpretation": "The operation plan exposed nine missing modules, but module-to-provider and platform availability remained unresolved; the final full candidate still requested unavailable openvsp on linux-aarch64."
+    },
+    {
+      "repository": "andrew-codechimp/HA-Battery-Notes",
+      "pair_class": "full_only_pass",
+      "operation_triggered": true,
+      "full": {
+        "generation_completed": true,
+        "official_pass": true,
+        "terminal_class": "official_pass",
+        "operation_requirements_in_final_repair": 2,
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 23534,
+          "output_tokens": 14364,
+          "cache_read_tokens": 512,
+          "environments": 3,
+          "commands": 3,
+          "wall_clock_seconds": 1382.608036
+        }
+      },
+      "ablation": {
+        "generation_completed": false,
+        "official_pass": null,
+        "terminal_class": "candidate_limit",
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 24314,
+          "output_tokens": 20259,
+          "cache_read_tokens": 1664,
+          "environments": 3,
+          "commands": 3,
+          "wall_clock_seconds": 916.204049
+        }
+      },
+      "interpretation": "The full condition converted async_timeout and pytablewriter conflicts into package-install obligations and satisfied both in its final candidate; the free-form condition exhausted its candidate limit before making that repair."
+    },
+    {
+      "repository": "karlicoss/hpi",
+      "pair_class": "both_fail_non_triggering",
+      "operation_triggered": false,
+      "full": {
+        "generation_completed": false,
+        "official_pass": null,
+        "terminal_class": "candidate_limit",
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 29910,
+          "output_tokens": 2820,
+          "cache_read_tokens": 192,
+          "environments": 4,
+          "commands": 4,
+          "wall_clock_seconds": 294.33952
+        }
+      },
+      "ablation": {
+        "generation_completed": false,
+        "official_pass": null,
+        "terminal_class": "candidate_limit",
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 29089,
+          "output_tokens": 1418,
+          "cache_read_tokens": 256,
+          "environments": 3,
+          "commands": 3,
+          "wall_clock_seconds": 87.820986
+        }
+      },
+      "interpretation": "Both methods installed packages through .venv executables without activating that environment; the verifier repeatedly used /opt/conda/bin/python and produced no attributable module conflict. This pair does not estimate operation-plan benefit."
+    },
+    {
+      "repository": "mpmath/mpmath",
+      "pair_class": "both_pass_full_more_efficient",
+      "operation_triggered": true,
+      "full": {
+        "generation_completed": true,
+        "official_pass": true,
+        "terminal_class": "official_pass",
+        "operation_requirements_in_final_repair": 9,
+        "resources": {
+          "candidates": 2,
+          "model_requests": 2,
+          "input_tokens": 10422,
+          "output_tokens": 3217,
+          "cache_read_tokens": 0,
+          "environments": 2,
+          "commands": 2,
+          "wall_clock_seconds": 151.101612
+        }
+      },
+      "ablation": {
+        "generation_completed": true,
+        "official_pass": true,
+        "terminal_class": "official_pass",
+        "resources": {
+          "candidates": 5,
+          "model_requests": 5,
+          "input_tokens": 28547,
+          "output_tokens": 3804,
+          "cache_read_tokens": 192,
+          "environments": 4,
+          "commands": 4,
+          "wall_clock_seconds": 247.609861
+        }
+      },
+      "interpretation": "The full condition responded to nine typed obligations in one repair and passed on candidate 2; the free-form condition required candidate 5."
+    }
+  ],
+  "mechanism_decision": {
+    "operation_layer_qualified": true,
+    "reason": "All boundaries are audit-valid, four full episodes triggered typed obligations, and two uncensored triggering pairs show obligation-directed successful repair without an ablation-only success. Five development cases do not establish aggregate effectiveness.",
+    "guard_rejections": 0,
+    "remaining_risks": [
+      "The typed operation guard has not yet shown a beneficial rejection on Q4.",
+      "Module-to-distribution and provider selection remains model-chosen and can fail on platform-specific packages.",
+      "The shared candidate language does not require a created virtual environment to become the verifier runtime."
+    ]
+  },
+  "next_defect": {
+    "signature": "created-virtual-environment-not-bound-to-verifier-runtime",
+    "scope": "method-neutral candidate-language semantics",
+    "repair_policy": "Require every project virtual environment created by a candidate to be activated before the candidate ends. Specify and test the invariant only with synthetic paths; add no repository, package, provider, or evaluator-derived rule.",
+    "case_policy": "All five Q4 cases remain development-consumed and may not be used to qualify the repair."
+  }
+}

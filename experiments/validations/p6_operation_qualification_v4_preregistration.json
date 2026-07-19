@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v4",
+  "preregistered_at": "2026-07-17T00:00:00+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Repeat the outcome-blind paired operation-layer qualification after replacing leaf-wise truncation with an aggregate-bounded sufficient-state projection.",
+  "parent_freeze": {
+    "freeze_id": "p6-constraint-operation-v5-aggregate-bounded-state-projection",
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v5.json",
+    "sha256": "5cbb4d555b46996584c7090d166f1c2afcac5756bcf4eaf6371adf7462536575"
+  },
+  "closed_predecessor": {
+    "path": "experiments/validations/p6_operation_q3_closure.json",
+    "sha256": "1819bc293c62f9854e32066e1bc11e81924219907d375bb3df0d0ca42bc28b03"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification_v3_181.jsonl",
+    "source_sha256": "61c8175b5cdcc29d32c37e8ca5bb18b2e47ebb88e8bccd70820319c43dcf3db4",
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v4-2026-07-17",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "q1_q2_q3_case_reuse": false
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "model": "deepseek/deepseek-v4-pro",
+  "temperature": 0,
+  "seed": 0,
+  "budget": {
+    "max_candidates": 5,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "max_estimated_cost_usd": 5.0,
+    "episode_timeout_seconds": 7200,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000,
+    "config": "experiments/configs/local_mac_p6_operation.json",
+    "config_sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+  },
+  "fresh_environment_per_executed_candidate": true,
+  "official_evaluator": {
+    "maximum_claims_per_method_case": 1,
+    "access": "post-episode-only",
+    "feedback_to_online_state": false
+  },
+  "adaptation_policy": {
+    "code_or_protocol_changes_after_selection": false,
+    "mechanism_defect": "close Q4, consume all five cases, and start a newly frozen qualification on the remaining pool",
+    "infrastructure_failure": "record diagnostic and retry only under the frozen infrastructure retry policy"
+  },
+  "claim_scope": "development mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1_ZH.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2_ZH.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V3.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V3_ZH.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V4.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V4_ZH.md"
+  ]
+}

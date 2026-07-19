@@ -1,0 +1,105 @@
+{
+  "preregistration_id": "p5-hierarchical-import-audit-round2-v1",
+  "created_at": "2026-07-14T11:00:00Z",
+  "development_only": true,
+  "reason": {
+    "round1_result": {
+      "path": "experiments/validations/p5_round1_import_audit_results.json",
+      "sha256": "ad093ed0e8ab2c6963639c3699c236c4f3075a6b76719cb76ace0867a01c6f4e"
+    },
+    "observed_failure": "Round 1 propagated arbitrary function defaults as observed runtime values. A default such as port=None does not prove that callers omit the argument, so branches comparing that parameter were incorrectly treated as inactive.",
+    "scope": "Correct only function-default semantics; do not add inter-file reachability or change official benchmark semantics."
+  },
+  "frozen_inputs": {
+    "round1_preregistration": {
+      "path": "experiments/validations/p5_round1_preregistration.json",
+      "sha256": "02d5fbeab42460b04f2cbf8fe4493fe01b846cbd4772ff27d78139e69a45a55e"
+    },
+    "round1_policy": {
+      "path": "envsolve/verification/imports.py",
+      "sha256": "144dc38ff45c06fec3160f86fb2841049b4f1ae4f3c450eb6333dcb573adaef7"
+    },
+    "round1_tests": {
+      "path": "envsolve/tests/test_import_verifier.py",
+      "sha256": "a08fa6ddff81c2d1f392cf6389d0f15311e7adff51b9e264f94157b2bba341a9"
+    },
+    "round1_runner": {
+      "path": "envsolve/tools/run_p5_import_audit.py",
+      "sha256": "450e852856f9bf18aaa9b74a98c79bb386d9c1ba362394a23090dcf807ecc77c"
+    }
+  },
+  "intervention": {
+    "remove": [
+      "Propagation of None, numeric, string, true, or computed function defaults into general branch evaluation",
+      "Use of a default parameter value to resolve comparisons involving that parameter"
+    ],
+    "retain": [
+      "Evaluation of module constants derived from frozen environment facts",
+      "Platform and Python-major branch evaluation",
+      "ImportError fallback, active skipif, project exclusion, and source-role evidence"
+    ],
+    "add": [
+      "A guarded-optional rule restricted to a direct `if flag` body where flag has literal default False in the enclosing function",
+      "A counterexample where `port=None` and `if port is not None` must remain an active repair obligation",
+      "A counterexample where a default-true flag must remain an active repair obligation"
+    ]
+  },
+  "expected_effects": {
+    "official_results_unchanged": true,
+    "gpkit_findings_unchanged": true,
+    "poetry_findings_unchanged": true,
+    "reticulum_false_inactive_findings_become_active": true,
+    "allowed_other_changes": "Only findings whose Round 1 evidence kind was default-disabled-branch or whose inactive-branch decision depended on a function default may change."
+  },
+  "environment_facts": {
+    "sys_platform": "linux",
+    "platform_name": "linux",
+    "python_major": 3,
+    "source": "frozen evaluator image and retained raw run logs"
+  },
+  "targets": [
+    {
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "expected_findings": 12,
+      "raw_result": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/evaluation/json/results/convexengineering__gpkit.json",
+        "sha256": "d4aa340ecc96d99d4e957fbb8a613f2500916dd1c1cb97e703ab83385706a108"
+      },
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/generation/repos/convexengineering__gpkit@bea1234606649dd11a2e59b610b2ba8b8c8adfae"
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "expected_findings": 18,
+      "raw_result": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/evaluation/json/results/markqvist__reticulum.json",
+        "sha256": "5a30864f97f2b00e6e2642e10e43d23a6b1af50f6e6195215e8778d9cdfdd5b1"
+      },
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/generation/repos/markqvist__reticulum@6ded42edd7ae203e5a565cb70138c2d7b4b58b5b"
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "expected_findings": 15,
+      "raw_result": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/evaluation/json/results/python-poetry__poetry.json",
+        "sha256": "54d2b680dc220fdad0f884a7a4306e5384a9b790e595a99a6c6cccea750a364a"
+      },
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v1/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/generation/repos/python-poetry__poetry@5bab98c9500f1050c6bb6adfb55580a23173f18d"
+    }
+  ],
+  "limits": {
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0
+  },
+  "integrity": {
+    "read_source_from_git_objects": true,
+    "ignore_worktree_files": true,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

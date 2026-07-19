@@ -1,0 +1,144 @@
+{
+  "analysis_policy": {
+    "collect_before_analysis": "Complete and preserve all ten first attempts.",
+    "labels": [
+      "solver_error",
+      "verifier_rejection",
+      "official_failure",
+      "unsafe_or_unreplayable_action",
+      "evaluator_error",
+      "infrastructure_unknown"
+    ],
+    "mechanism_admission": "Add no mechanism unless one error family appears in at least two EnvSolve v0 cases and is the plurality of attributable failures.",
+    "no_dominant_error": "Freeze another outcome-blind discovery batch instead of choosing a mechanism from a singleton.",
+    "unit": "Paired case plus complete action/result trajectory.",
+    "validation": "Any admitted mechanism must improve a separately frozen unseen development batch before Canary-20 execution."
+  },
+  "development_only": true,
+  "execution": {
+    "attempts_per_case_condition": 1,
+    "automatic_case_retries": 0,
+    "infrastructure_retry": "Preserve the first attempt as Unknown; any retry requires a separate preregistration with unchanged method sources and execution limits.",
+    "max_workers": 1,
+    "model": "deepseek/deepseek-v4-pro",
+    "official_evaluator_after_generation": true,
+    "order": "Process cases by frozen rank; on odd ranks run EnvSolve v0 then FreeAgent, and on even ranks reverse the order.",
+    "provider_base_url": "https://openrouter.ai/api/v1",
+    "provider_protocol": "OpenAI-compatible API via environment variables",
+    "seed": 0
+  },
+  "forbidden": [
+    "Per-case policy or repository-identity branches",
+    "Method, prompt, verifier, budget, or script changes during the batch",
+    "Canary-20 or Official-Test-100 inspection",
+    "Treating infrastructure Unknown as solver Fail or Pass",
+    "Claiming confirmatory or leaderboard evidence from this development batch"
+  ],
+  "frozen_artifacts": {
+    "analysis_sources": {
+      "envsolve/analysis/discovery.py": "743d0a9c6e38b2017a4862fd38ad2333de646209b102185526694136001da9b4",
+      "envsolve/analysis/trajectory.py": "19ec32b60d05b346f6e60242d32f33db77c352603a12f4ad3623e22bc8686a7c",
+      "envsolve/tools/analyze_v0_discovery.py": "df6d75c2bb638d65459ee9372d58094c02f774e56e572346702b520c624497f0"
+    },
+    "case_file": {
+      "path": "experiments/cases/envsolve_v0_discovery5.jsonl",
+      "sha256": "0c697c2c653b117c46d3c85a2854bb2b835234790b495b22a3a1d979fc05b37c"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac.json",
+      "sha256": "2a10d8206875741a1adbf1a0ee38174bd916b865f2a30d8de518c7c7b680f1ea"
+    },
+    "method_sources": {
+      "envsolve/tools/run_v0_inference.py": "88594b57b1049fffb87bf3057d6ebb6694a5cd126d26373bff989497509280d9",
+      "envsolve/v0/agent.py": "63e6b7c76e492128812c3d6360682cb88a19b2c05ab5dd58cc8eb653245fe474",
+      "envsolve/v0/finalization.py": "68291a9bd942c1ab15490e5a14206d560b64c86cbf07878acb05ae6b8973eee1",
+      "envsolve/v0/verification.py": "5c31305b003a1de209ba4f22c9fcfa8ab938252691f609c19fecef955f509a0b",
+      "envsolve_harness/runners/envbench_agent.py": "1daf7affefec15cde887194b16ca2499dc656dcbdc5630049ac8e652dc3ef6f3",
+      "envsolve_harness/runners/envsolve_v0.py": "5168eeb27e90a99cac950f98d4e33d35b18b3f0e81b3bf1d307bc2fb14e63cfa",
+      "experiments/run_v0_discovery.py": "9ab9c78de76402beabbe6de21eb5ea3b87cf1e94f1ad3c311d4b73a1f84bcb32",
+      "experiments/tools/freeze_envsolve_v0_discovery.py": "ff159b1210c7d09659de7553e3772157b8b9264b138612b428982b7abdc21888"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    }
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "case_specific_policy": false,
+    "dev5_excluded_by_source": true,
+    "dev_extension3_excluded_by_source": true,
+    "official_test100_inspected": false,
+    "p0_consumed_cases_excluded": true
+  },
+  "paired_conditions": [
+    {
+      "condition": "freeagent",
+      "method": "envbench-react-freeagent",
+      "runner": "envbench-agent"
+    },
+    {
+      "condition": "envsolve_v0",
+      "method": "envsolve-v0",
+      "only_added_mechanism": "A fixed python -m pip check tool must pass at the final action-state boundary before trajectory distillation.",
+      "runner": "envsolve-v0"
+    }
+  ],
+  "preregistration_id": "envsolve-v0-paired-discovery5-round1-v1",
+  "purpose": "Obtain the first outcome-blind EnvSolve v0 failure distribution and a same-backbone paired reference before selecting any additional mechanism.",
+  "registered_at": "2026-07-14T16:23:28Z",
+  "resource_limits": {
+    "agent_max_iterations": 30,
+    "bash_command_timeout_seconds": 900,
+    "generation_timeout_seconds": 7200,
+    "model_max_estimated_cost_usd": 5.0,
+    "model_max_output_tokens_per_request": 16384,
+    "model_max_requests": 30,
+    "model_max_retries": 2,
+    "model_max_total_tokens": 1000000,
+    "model_request_timeout_seconds": 180
+  },
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "Exclude P0 post-freeze consumed cases, rank the remainder by SHA256(salt|repository@revision), and take the first five.",
+    "excluded_consumed_case_ids": [
+      "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+      "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+      "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21"
+    ],
+    "outcome_blind": true,
+    "protected_splits": [
+      "experiments/cases/dev5.jsonl",
+      "experiments/cases/dev_extension3.jsonl",
+      "experiments/cases/canary20.jsonl",
+      "experiments/cases/official_test100.jsonl"
+    ],
+    "salt": "envsolve-v0-discovery-v1-2026-07-15",
+    "selected": [
+      {
+        "case_id": "envbench-python-ibm__ibmi-bob@d741050ea70c32474d58a5f0897ab0056d9a611e",
+        "rank_sha256": "01567296be5f660bd0a4b7f042433406a56c6ff9ae7d1887d27cf8234a24932d"
+      },
+      {
+        "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+        "rank_sha256": "02cbfd4dcf4b0fae5e8bc96aabaeeaa2b8415042dc630cdbf91e1c0523c6efc8"
+      },
+      {
+        "case_id": "envbench-python-fhempy__fhempy@2c61a608c664b25c7b5ecdcba6195b521e7bc74a",
+        "rank_sha256": "03545682bfb2227fbe8733ace5c707f8582dd7e3c70a93b999d2bcb00e2949e9"
+      },
+      {
+        "case_id": "envbench-python-commaai__comma10k@7a1293562fd8c0f3932c2c55f6e8a509efa1c66d",
+        "rank_sha256": "03db930e8dfeaf9fff5924e7e7c6ba1f7ab50e6802abf3d8e4a79fed3eef2413"
+      },
+      {
+        "case_id": "envbench-python-gymrek-lab__TRTools@99d7fb4ef0a420e4a689bafecba5189127d657ba",
+        "rank_sha256": "0813c7f33637f457477c2dabbd7bbe3c8e61ccf8abac95da52262f9c2ba2272b"
+      }
+    ],
+    "selected_before_execution": true,
+    "size": 5,
+    "source": "experiments/cases/train_untouched201.jsonl",
+    "source_sha256": "076ef72dbab0bb5cdefa72b10b2a84d4391914716fb640c5ab5f579b46677bfe"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "change_policy": "Round 1 source and failure artifacts are immutable. Any provider acquisition or candidate-selection change requires a new round.",
+  "created_at": "2026-07-14T06:18:13.420897+00:00",
+  "finding": {
+    "fact_superseded": false,
+    "failure": "hard-timeout",
+    "repair_attempted": false,
+    "stage": "provider-index-update",
+    "timeout_seconds": 600
+  },
+  "policy_id": "envsolve-p4d-capability-round1-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "development_only": true,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "p4_complete": false,
+    "repository_specific_rules": false
+  },
+  "source_files": {
+    "envsolve/discovery/__init__.py": "735d288dc65f6e0e7d05b10b149e5bd85d2e992a37f94d0c1ad14ae0d5470748",
+    "envsolve/discovery/apt_file.py": "dbcee8dc8d68de5f844aa0efa8b39ced13f995c20bd39805e8648f2b4126ed5f",
+    "envsolve/discovery/policy.py": "513f126bf15efb3c4e163722d5db4918f9599841ec6873917f6c069dc9026f5a",
+    "envsolve/tests/test_capability_discovery.py": "926fad93e7ab9b032951cdf17e432f3491186e1b5f8bdec9ace66ed5fae776d3",
+    "envsolve/tools/p4d_round1_freeze.py": "654e7e11da6810c038bfe54c558177e0d31789c7fc6f8af638b14dd11bdd6634",
+    "envsolve/tools/run_p4d_capability_validation.py": "662afd8975f6a5a633a2f883c1cb1c4d4f70d65f434baa5911487f50240169d9",
+    "experiments/validations/p4d_capability_round1_preregistration.json": "ab44354d0bf4605d7c41a8b4efa5fc2f29a4c977490e58546e0bacc93b1f9fc4",
+    "research/P4D_CAPABILITY_DISCOVERY_PROTOCOL.md": "2c715d6619c42399c70ea91f53d6134fd9cb533f9d692952bb07311b141fc25d"
+  },
+  "validation": {
+    "compile_check": true,
+    "provider_blocked_trajectory": {
+      "artifact": {
+        "audit_valid": true,
+        "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+        "event_count": 46,
+        "event_log_sha256": "5291ce47ab5d3d7a41d3ecd197fbdb576baf173d1f90bfed69aad0e2fc9a3274",
+        "plan_sha256": null,
+        "root": "runs/p4d-capability-round1-v1",
+        "snapshot_hash": "9ac607ea258ea43e3ece740fd5272d4e215b9b215c008b7d5566684332e82a6e",
+        "snapshot_sha256": "429a77f5e843ea301cd3b32de8d5949814164d2d5fc781fa4c798677e812ae70"
+      },
+      "commands": [
+        "printf 'path\\t%s\\n' \"$PATH\"; printf 'architecture\\t'; dpkg --print-architecture; . /etc/os-release; printf 'os\\t%s\\t%s\\n' \"$ID\" \"${VERSION_CODENAME:-unknown}\"",
+        "if p=$(command -v -- pg_config); then printf 'present\\t%s\\n' \"$p\"; else printf 'absent\\n'; fi",
+        "if p=$(command -v -- apt-file); then printf 'present\\t%s\\n' \"$p\"; else printf 'absent\\n'; fi",
+        "apt-get update",
+        "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends -- apt-file",
+        "if p=$(command -v -- apt-file); then printf 'present\\t%s\\n' \"$p\"; else printf 'absent\\n'; fi",
+        "apt-file update"
+      ],
+      "discovery": {
+        "actions_executed": 7,
+        "actions_failed": 1,
+        "actions_succeeded": 6,
+        "goal_status": "blocked",
+        "snapshot_hash": "9ac607ea258ea43e3ece740fd5272d4e215b9b215c008b7d5566684332e82a6e",
+        "stop_reason": "Provider action discovery-pg_config-index-update did not succeed"
+      },
+      "image": {
+        "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "repo_digests": [
+          "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+        ]
+      },
+      "integrity": {
+        "canary20_inspected": false,
+        "model_requests": 0,
+        "new_benchmark_cases": 0,
+        "new_benchmark_executions": 0,
+        "official_test100_inspected": false,
+        "repository_mounted": false
+      },
+      "isolation": {
+        "mounts": [],
+        "network": "bridge",
+        "network_purpose": "apt provider and package acquisition",
+        "official_evaluation": false,
+        "repository_mounted": false
+      },
+      "path": "experiments/validations/p4d_capability_round1_results.json",
+      "post_state": {
+        "conflicts": [
+          {
+            "conflict_id": "conflict-23f9b7c35b3ad522",
+            "constraint_ids": [
+              "constraint-capability-7d7a75f5f64b44eb",
+              "constraint-capability-b902f3e32dd6a8e8"
+            ],
+            "domain": "capability",
+            "evidence_ids": [
+              "evidence-0001"
+            ],
+            "message": "Observed pg_config value does not satisfy its requirement",
+            "subject": "pg_config"
+          }
+        ],
+        "managed_constraints": 2,
+        "provisional_constraints": [],
+        "satisfiable": false,
+        "statuses": {
+          "constraint-capability-7d7a75f5f64b44eb": "violated",
+          "constraint-capability-b902f3e32dd6a8e8": "violated"
+        }
+      },
+      "sha256": "8a36bdeb8827d994ed9e2c07571d82532699541a5a9f59374e31253e10770e70"
+    },
+    "synthetic_tests": 4
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "candidates": [
+    {
+      "commands": [
+        "apt-get update",
+        "apt-get install -y -- libpq-dev",
+        "command -v -- pg_config",
+        "pg_config --version"
+      ],
+      "package": "libpq-dev",
+      "qualified": true,
+      "results": [
+        {
+          "duration_seconds": 51.426576749999995,
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "Get:1 https://deb.nodesource.com/node_20.x nodistro InRelease [12.1 kB]\nGet:2 https://deb.nodesource.com/node_20.x nodistro/main arm64 Packages [14.6 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports jammy InRelease [270 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports jammy-updates InRelease [128 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports jammy-backports InRelease [127 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports jammy-security InRelease [129 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports jammy/universe arm64 Packages [17.2 MB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports jammy/restricted arm64 Packages [24.2 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports jammy/multiverse arm64 Packages [224 kB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 Packages [1758 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports jammy-updates/restricted arm64 Packages [7619 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports jammy-updates/multiverse arm64 Packages [63.5 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 Packages [4236 kB]\nGet:14 http://ports.ubuntu.com/ubuntu-ports jammy-updates/universe arm64 Packages [1681 kB]\nGet:15 http://ports.ubuntu.com/ubuntu-ports jammy-backports/main arm64 Packages [82.4 kB]\nGet:16 http://ports.ubuntu.com/ubuntu-ports jammy-backports/universe arm64 Packages [33.7 kB]\nGet:17 http://ports.ubuntu.com/ubuntu-ports jammy-security/restricted arm64 Packages [7321 kB]\nGet:18 http://ports.ubuntu.com/ubuntu-ports jammy-security/multiverse arm64 Packages [56.7 kB]\nGet:19 http://ports.ubuntu.com/ubuntu-ports jammy-security/main arm64 Packages [3913 kB]\nGet:20 http://ports.ubuntu.com/ubuntu-ports jammy-security/universe arm64 Packages [1385 kB]\nFetched 46.3 MB in 50s (920 kB/s)\nReading package lists...\n"
+        },
+        {
+          "duration_seconds": 4.357192458,
+          "exit_code": 0,
+          "stderr": "debconf: delaying package configuration, since apt-utils is not installed\n",
+          "stdout": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  libpq5\nSuggested packages:\n  postgresql-doc-14\nThe following NEW packages will be installed:\n  libpq-dev libpq5\n0 upgraded, 2 newly installed, 0 to remove and 160 not upgraded.\nNeed to get 298 kB of archives.\nAfter this operation, 1030 kB of additional disk space will be used.\nGet:1 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 libpq5 arm64 14.23-0ubuntu0.22.04.1 [148 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 libpq-dev arm64 14.23-0ubuntu0.22.04.1 [150 kB]\nFetched 298 kB in 3s (110 kB/s)\nSelecting previously unselected package libpq5:arm64.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 34654 files and directories currently installed.)\nPreparing to unpack .../libpq5_14.23-0ubuntu0.22.04.1_arm64.deb ...\nUnpacking libpq5:arm64 (14.23-0ubuntu0.22.04.1) ...\nSelecting previously unselected package libpq-dev.\nPreparing to unpack .../libpq-dev_14.23-0ubuntu0.22.04.1_arm64.deb ...\nUnpacking libpq-dev (14.23-0ubuntu0.22.04.1) ...\nSetting up libpq5:arm64 (14.23-0ubuntu0.22.04.1) ...\nSetting up libpq-dev (14.23-0ubuntu0.22.04.1) ...\nProcessing triggers for libc-bin (2.35-0ubuntu3.10) ...\n"
+        },
+        {
+          "duration_seconds": 0.07121554199999736,
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "/usr/bin/pg_config\n"
+        },
+        {
+          "duration_seconds": 0.060438250000004246,
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "PostgreSQL 14.23 (Ubuntu 14.23-0ubuntu0.22.04.1)\n"
+        }
+      ]
+    }
+  ],
+  "capability": "pg_config",
+  "completed_at": "2026-07-14T06:58:21.342085+00:00",
+  "development_only": true,
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "repository_mounted": false
+  },
+  "parent_sha256": "f2db315ca35d0e432f050b03097d947f94dea0ccad3065467c2e9016ca3e95f9",
+  "preregistration_sha256": "34c43a5306b59483dd5dcfe3425064a172f9e33be1c6740e162b312a3ad3ade6",
+  "qualified_packages": [
+    "libpq-dev"
+  ],
+  "retry_id": "p4d-capability-round3-retry1-v1",
+  "schema_version": "1.0.0",
+  "selected_package": "libpq-dev"
+}

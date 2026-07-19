@@ -1,0 +1,32 @@
+{
+  "freeze_id": "envsolve-structured-finding-adapter-v3-freeze",
+  "created_on": "2026-07-15",
+  "supersedes": "envsolve-structured-finding-adapter-v2-freeze",
+  "supersession_reason": "Recorded development qualification showed that normalized module names without finding provenance were insufficient for grounded repair selection.",
+  "status": "recorded-qualified-unseen-batch-not-started",
+  "preregistration": {
+    "path": "experiments/protocols/structured_finding_adapter_v3_preregistration.json",
+    "sha256": "8a86b640275b58548371306a3064bd568479902781db3c140f17c3aed9ba674f"
+  },
+  "source_files": {
+    "envsolve/verification/__init__.py": "dce5e8f98247c8ebceb80c2fc1f117d0641eff0989282ee7c91f08b663b7be88",
+    "envsolve/verification/counterexamples.py": "c872754eded3011131bd64b47426203b3e3d58cfb54660a6bf951dc7f4418c3d"
+  },
+  "test_files": {
+    "envsolve/tests/test_structured_counterexamples.py": "55038d2642b267b3386914cdb257af1435accbef623cbcbf2c10cca434333296"
+  },
+  "documents": {
+    "research/STRUCTURED_FINDING_ADAPTER_V3_AMENDMENT.md": "bfe8163d8e7da9c8767a8d494f726876be26954638ab1c5783864967bc205515",
+    "research/STRUCTURED_FINDING_ADAPTER_V3_AMENDMENT_ZH.md": "47b3d4002ec88ddc0e43ea5218103d948113fc03145e8261c0ea1c97cac716d5"
+  },
+  "qualification": {
+    "focused_tests": 10,
+    "full_suite_tests": 254,
+    "finding_provenance_retained_in_evidence": true,
+    "normalized_constraint_semantics_changed": false,
+    "new_real_case_executions": 0,
+    "recorded_development_cases_inspected": 1,
+    "model_requests": 0
+  },
+  "change_policy": "Evidence provenance shape, goal-decision ownership, finding dispositions, domain mapping, or Unknown precedence changes require a new adapter freeze."
+}

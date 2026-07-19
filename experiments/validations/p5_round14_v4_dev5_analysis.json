@@ -1,0 +1,113 @@
+{
+  "analysis_id": "p5-v4-native-dev5-round14-analysis-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round14_v4_dev5_preregistration.json",
+    "sha256": "f15c7e7d49c6a92e848ba3cc3e2bd555934f3a025c0b4dba032bc8a1918b92f0"
+  },
+  "result": {
+    "path": "experiments/validations/p5_round14_v4_dev5_results.json",
+    "sha256": "b691a0e761a505ca7816d97710b49865603e6e5a3fc5287293efa866b9661661"
+  },
+  "aggregate": {
+    "cases": 5,
+    "bootstrap_pass": 5,
+    "v4_pass": 5,
+    "v4_fail": 0,
+    "v4_unknown": 0,
+    "pytest_collection_pass": 3,
+    "wheel_build_pass": 2,
+    "probe_timeout": 0,
+    "probe_nonzero": 0,
+    "duration_seconds": 443.4901691249999
+  },
+  "cases": [
+    {
+      "repository": "convexengineering/gpkit",
+      "v4": "pass",
+      "kind": "wheel_build",
+      "config": {
+        "path": "setup.py",
+        "sha256": "13a4e985fbb26378fabbf64296888a3c4f497ff0bdcb2966531957dd755432a0"
+      },
+      "exit_code": 0,
+      "probe_duration_seconds": 0.7233928340000375,
+      "artifact": {
+        "name": "gpkit-1.1.1-py3-none-any.whl",
+        "sha256": "84c9d017b441d8f81881ec5a718fef1b1e5d7fa317e458ecff4a1d52335cbc33"
+      }
+    },
+    {
+      "repository": "jaraco/inflect",
+      "v4": "pass",
+      "kind": "pytest_collection",
+      "config": {
+        "path": "pytest.ini",
+        "sha256": "a5068ec1ead2f7ba9f9c1c4d7f9087aa693c95233e045027b80ff03049ddbd63"
+      },
+      "exit_code": 0,
+      "probe_duration_seconds": 3.048365418000003,
+      "collected_tests": 284
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "v4": "pass",
+      "kind": "wheel_build",
+      "config": {
+        "path": "setup.py",
+        "sha256": "97b3709fa45b6d45d9b141f9ac5a6c820220bf75c10913dde111799bb7ec22f8"
+      },
+      "exit_code": 0,
+      "probe_duration_seconds": 0.7948683340000002,
+      "artifact": {
+        "name": "rns-0.7.6-py3-none-any.whl",
+        "sha256": "456250579c774bbc289de731ac00c6b69370c423e13fc11491fc3824c77ef914"
+      }
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "v4": "pass",
+      "kind": "pytest_collection",
+      "config": {
+        "path": "pyproject.toml",
+        "sha256": "7d4af8eb793ccad3debd17c8a9b0a29184839e3d93efb41e42642f943f9be222"
+      },
+      "exit_code": 0,
+      "probe_duration_seconds": 0.34626774999998133,
+      "collected_tests": 207
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "v4": "pass",
+      "kind": "pytest_collection",
+      "config": {
+        "path": "pyproject.toml",
+        "sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611"
+      },
+      "exit_code": 0,
+      "probe_duration_seconds": 2.771636667999985,
+      "collected_tests": 1668,
+      "deselected_tests": 27
+    }
+  ],
+  "causal_checks": {
+    "planner_identity": "All five observed probe kinds, config paths, and config hashes exactly match the preregistered expectations.",
+    "network_isolation": "Every probe ran after the host reported no connected Docker network and the container reported no default route.",
+    "build_artifacts": "Both wheel-build passes produced exactly one content-addressed wheel in temporary output storage.",
+    "collection_scope": "The three pytest outcomes establish import-time project-native collection only; no test body execution or V5 claim is made.",
+    "command_boundary": "Every probe used fixed direct argv; no repository-provided command string or shell was executed."
+  },
+  "conclusions": [
+    "Round 14 establishes real V4 Pass evidence for all five Dev-5 repositories under the preregistered two-mode contract.",
+    "The result covers both legacy wheel-build projects and explicitly configured pytest projects without repository-name dispatch.",
+    "This closes the current Dev-5 V4 evidence requirement but does not establish V5, V6, Official Pass, held-out generalization, or leaderboard improvement."
+  ],
+  "integrity": {
+    "model_requests": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "retained_worktree_mutations": 0,
+    "native_probe_network_requests": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

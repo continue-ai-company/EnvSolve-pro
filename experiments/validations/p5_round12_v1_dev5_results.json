@@ -1,0 +1,1712 @@
+{
+  "aggregate": {
+    "bootstrap_pass": 4,
+    "cases": 5,
+    "v1_fail": 0,
+    "v1_pass": 4,
+    "v1_unknown": 1
+  },
+  "cases": [
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "35d0b1f23efa001b3914bf1ed72539f462d5c377763679c62f06b78ce09399fa",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/scripts/bootstrap.sh",
+        "sha256": "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "60bc92b9b251fca318fc834c612e0fdb373ee9dfac7b291eec3ef1e468dd39ac",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 113.32926120799999,
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "source": {
+        "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc",
+        "head": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v1": {
+        "collection_errors": [],
+        "decision": {
+          "active_requirements": [
+            "adce",
+            "cvxopt>=1.1.8",
+            "matplotlib",
+            "numpy>=1.16.4",
+            "pint>=0.8.1",
+            "plotly",
+            "scipy"
+          ],
+          "issues": [],
+          "passed": true,
+          "reason": "all project distributions passed V1"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "active_requirements": [
+                "numpy>=1.16.4",
+                "pint>=0.8.1",
+                "plotly",
+                "scipy",
+                "adce",
+                "cvxopt>=1.1.8",
+                "matplotlib"
+              ],
+              "issues": [],
+              "passed": true,
+              "reason": "metadata, installed state, and resolver agree"
+            },
+            "metadata_source": "PKG-INFO",
+            "project": {
+              "metadata_sha256": "5858be822b8d620163f70c3b6fb09489a3aea87a421e74a4e6923b58bed98ad9",
+              "name": "gpkit",
+              "provenance_kind": "legacy-egg-link",
+              "provenance_sha256": "d862bdc2daf23535709bf45bc732c81d1a02c60afd93fa99f1106547dd5a65cc",
+              "requires_dist": [
+                "numpy>=1.16.4",
+                "pint>=0.8.1",
+                "plotly",
+                "scipy",
+                "adce",
+                "cvxopt>=1.1.8",
+                "matplotlib"
+              ],
+              "version": "1.1.1"
+            }
+          }
+        ],
+        "installed_distributions": [
+          {
+            "name": "adce",
+            "version": "1.3.3.2"
+          },
+          {
+            "name": "anaconda-anon-usage",
+            "version": "0.7.0"
+          },
+          {
+            "name": "annotated-types",
+            "version": "0.6.0"
+          },
+          {
+            "name": "archspec",
+            "version": "0.2.3"
+          },
+          {
+            "name": "boltons",
+            "version": "24.1.0"
+          },
+          {
+            "name": "Brotli",
+            "version": "1.0.9"
+          },
+          {
+            "name": "certifi",
+            "version": "2025.4.26"
+          },
+          {
+            "name": "cffi",
+            "version": "1.17.1"
+          },
+          {
+            "name": "charset-normalizer",
+            "version": "3.3.2"
+          },
+          {
+            "name": "click",
+            "version": "8.2.1"
+          },
+          {
+            "name": "conda",
+            "version": "25.3.1"
+          },
+          {
+            "name": "conda-anaconda-telemetry",
+            "version": "0.1.2"
+          },
+          {
+            "name": "conda-anaconda-tos",
+            "version": "0.1.3"
+          },
+          {
+            "name": "conda-content-trust",
+            "version": "0.2.0"
+          },
+          {
+            "name": "conda-libmamba-solver",
+            "version": "25.4.0"
+          },
+          {
+            "name": "conda-package-handling",
+            "version": "2.4.0"
+          },
+          {
+            "name": "conda_package_streaming",
+            "version": "0.11.0"
+          },
+          {
+            "name": "contourpy",
+            "version": "1.3.3"
+          },
+          {
+            "name": "cryptography",
+            "version": "44.0.1"
+          },
+          {
+            "name": "cvxopt",
+            "version": "1.3.3"
+          },
+          {
+            "name": "cycler",
+            "version": "0.12.1"
+          },
+          {
+            "name": "distlib",
+            "version": "0.3.9"
+          },
+          {
+            "name": "distro",
+            "version": "1.9.0"
+          },
+          {
+            "name": "filelock",
+            "version": "3.18.0"
+          },
+          {
+            "name": "flexcache",
+            "version": "0.3"
+          },
+          {
+            "name": "flexparser",
+            "version": "0.4"
+          },
+          {
+            "name": "fonttools",
+            "version": "4.63.0"
+          },
+          {
+            "name": "frozendict",
+            "version": "2.4.2"
+          },
+          {
+            "name": "gpkit",
+            "version": "1.1.1"
+          },
+          {
+            "name": "idna",
+            "version": "3.7"
+          },
+          {
+            "name": "jsonpatch",
+            "version": "1.33"
+          },
+          {
+            "name": "jsonpointer",
+            "version": "2.1"
+          },
+          {
+            "name": "kiwisolver",
+            "version": "1.5.0"
+          },
+          {
+            "name": "libmambapy",
+            "version": "2.0.5"
+          },
+          {
+            "name": "markdown-it-py",
+            "version": "2.2.0"
+          },
+          {
+            "name": "matplotlib",
+            "version": "3.11.0"
+          },
+          {
+            "name": "mdurl",
+            "version": "0.1.0"
+          },
+          {
+            "name": "menuinst",
+            "version": "2.2.0"
+          },
+          {
+            "name": "narwhals",
+            "version": "2.24.0"
+          },
+          {
+            "name": "nodeenv",
+            "version": "1.9.1"
+          },
+          {
+            "name": "numpy",
+            "version": "2.5.1"
+          },
+          {
+            "name": "packaging",
+            "version": "24.2"
+          },
+          {
+            "name": "pillow",
+            "version": "12.3.0"
+          },
+          {
+            "name": "Pint",
+            "version": "0.25.3"
+          },
+          {
+            "name": "pip",
+            "version": "25.0"
+          },
+          {
+            "name": "pipenv",
+            "version": "2025.0.3"
+          },
+          {
+            "name": "platformdirs",
+            "version": "4.3.7"
+          },
+          {
+            "name": "plotly",
+            "version": "6.9.0"
+          },
+          {
+            "name": "pluggy",
+            "version": "1.5.0"
+          },
+          {
+            "name": "pycosat",
+            "version": "0.6.6"
+          },
+          {
+            "name": "pycparser",
+            "version": "2.21"
+          },
+          {
+            "name": "pydantic",
+            "version": "2.10.3"
+          },
+          {
+            "name": "pydantic_core",
+            "version": "2.27.1"
+          },
+          {
+            "name": "Pygments",
+            "version": "2.19.1"
+          },
+          {
+            "name": "pyparsing",
+            "version": "3.3.2"
+          },
+          {
+            "name": "pyright",
+            "version": "1.1.402"
+          },
+          {
+            "name": "PySocks",
+            "version": "1.7.1"
+          },
+          {
+            "name": "python-dateutil",
+            "version": "2.9.0.post0"
+          },
+          {
+            "name": "requests",
+            "version": "2.32.3"
+          },
+          {
+            "name": "rich",
+            "version": "13.9.4"
+          },
+          {
+            "name": "ruamel.yaml",
+            "version": "0.18.10"
+          },
+          {
+            "name": "ruamel.yaml.clib",
+            "version": "0.2.12"
+          },
+          {
+            "name": "scipy",
+            "version": "1.18.0"
+          },
+          {
+            "name": "search_and_replace",
+            "version": "0.2.2"
+          },
+          {
+            "name": "setuptools",
+            "version": "78.1.1"
+          },
+          {
+            "name": "six",
+            "version": "1.17.0"
+          },
+          {
+            "name": "tqdm",
+            "version": "4.67.1"
+          },
+          {
+            "name": "truststore",
+            "version": "0.10.0"
+          },
+          {
+            "name": "typing_extensions",
+            "version": "4.12.2"
+          },
+          {
+            "name": "urllib3",
+            "version": "2.3.0"
+          },
+          {
+            "name": "uv",
+            "version": "0.7.13"
+          },
+          {
+            "name": "virtualenv",
+            "version": "20.31.2"
+          },
+          {
+            "name": "wheel",
+            "version": "0.45.1"
+          },
+          {
+            "name": "zstandard",
+            "version": "0.23.0"
+          }
+        ],
+        "marker_environment": {
+          "implementation_name": "cpython",
+          "implementation_version": "3.13.2",
+          "os_name": "posix",
+          "platform_machine": "aarch64",
+          "platform_python_implementation": "CPython",
+          "platform_release": "6.12.76-linuxkit",
+          "platform_system": "Linux",
+          "platform_version": "#1 SMP Thu Jun 25 13:45:40 UTC 2026",
+          "python_full_version": "3.13.2",
+          "python_version": "3.13",
+          "sys_platform": "linux"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "resolver": {
+          "argv": [
+            "/opt/conda/bin/python",
+            "-m",
+            "pip",
+            "check"
+          ],
+          "duration_seconds": 0.22144904200000326,
+          "exit_code": 0,
+          "network_disabled": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+          "timed_out": false
+        },
+        "schema": "envsolve-p5-v1-container-v1",
+        "selected_extras": []
+      },
+      "v1_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "92274e7957dfed937e76386cc4f9d25d95663d8fef07d719e019383461bcfc3b",
+        "path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh",
+        "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "7e2c88d6f348d0fd6a26a0467d81c3db44f64fa35a4c2a1a44b35d9bbe43e50d",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 68.552818333,
+      "repository": "jaraco/inflect",
+      "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+      "source": {
+        "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68",
+        "head": "1f42293f30caacb0637f7eb30a483b44489f4812",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v1": {
+        "collection_errors": [],
+        "decision": {
+          "active_requirements": [
+            "more_itertools",
+            "pygments; extra == \"test\"",
+            "pytest!=8.1.*,>=6; extra == \"test\"",
+            "pytest-checkdocs>=2.4; extra == \"test\"",
+            "pytest-cov; extra == \"test\"",
+            "pytest-enabler>=2.2; extra == \"test\"",
+            "pytest-mypy; extra == \"test\"",
+            "pytest-ruff>=0.2.1; extra == \"test\"",
+            "typeguard>=4.0.1"
+          ],
+          "issues": [],
+          "passed": true,
+          "reason": "all project distributions passed V1"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "active_requirements": [
+                "more_itertools",
+                "typeguard>=4.0.1",
+                "pytest!=8.1.*,>=6; extra == \"test\"",
+                "pytest-checkdocs>=2.4; extra == \"test\"",
+                "pytest-cov; extra == \"test\"",
+                "pytest-mypy; extra == \"test\"",
+                "pytest-enabler>=2.2; extra == \"test\"",
+                "pytest-ruff>=0.2.1; extra == \"test\"",
+                "pygments; extra == \"test\""
+              ],
+              "issues": [],
+              "passed": true,
+              "reason": "metadata, installed state, and resolver agree"
+            },
+            "metadata_source": "METADATA",
+            "project": {
+              "metadata_sha256": "e2f381e42b8c77a036766559d862ef300153dd288b8b9fff2ec4253ce172cd82",
+              "name": "inflect",
+              "provenance_kind": "pep610-direct-url",
+              "provenance_sha256": "fb247f8b66a7a3c3f7e691b90faa9350d8bf35207ead004144a3b969e2252e7c",
+              "requires_dist": [
+                "more_itertools",
+                "typeguard>=4.0.1",
+                "typing_extensions; python_version < \"3.9\"",
+                "pytest!=8.1.*,>=6; extra == \"test\"",
+                "pytest-checkdocs>=2.4; extra == \"test\"",
+                "pytest-cov; extra == \"test\"",
+                "pytest-mypy; extra == \"test\"",
+                "pytest-enabler>=2.2; extra == \"test\"",
+                "pytest-ruff>=0.2.1; extra == \"test\"",
+                "pygments; extra == \"test\"",
+                "sphinx>=3.5; extra == \"doc\"",
+                "jaraco.packaging>=9.3; extra == \"doc\"",
+                "rst.linker>=1.9; extra == \"doc\"",
+                "furo; extra == \"doc\"",
+                "sphinx-lint; extra == \"doc\"",
+                "jaraco.tidelift>=1.4; extra == \"doc\""
+              ],
+              "version": "0.0.0"
+            }
+          }
+        ],
+        "installed_distributions": [
+          {
+            "name": "alabaster",
+            "version": "1.0.0"
+          },
+          {
+            "name": "anaconda-anon-usage",
+            "version": "0.7.0"
+          },
+          {
+            "name": "annotated-types",
+            "version": "0.6.0"
+          },
+          {
+            "name": "archspec",
+            "version": "0.2.3"
+          },
+          {
+            "name": "ast_serialize",
+            "version": "0.6.0"
+          },
+          {
+            "name": "babel",
+            "version": "2.18.0"
+          },
+          {
+            "name": "boltons",
+            "version": "24.1.0"
+          },
+          {
+            "name": "Brotli",
+            "version": "1.0.9"
+          },
+          {
+            "name": "build",
+            "version": "1.5.1"
+          },
+          {
+            "name": "certifi",
+            "version": "2025.4.26"
+          },
+          {
+            "name": "cffi",
+            "version": "1.17.1"
+          },
+          {
+            "name": "charset-normalizer",
+            "version": "3.3.2"
+          },
+          {
+            "name": "click",
+            "version": "8.2.1"
+          },
+          {
+            "name": "conda",
+            "version": "25.3.1"
+          },
+          {
+            "name": "conda-anaconda-telemetry",
+            "version": "0.1.2"
+          },
+          {
+            "name": "conda-anaconda-tos",
+            "version": "0.1.3"
+          },
+          {
+            "name": "conda-content-trust",
+            "version": "0.2.0"
+          },
+          {
+            "name": "conda-libmamba-solver",
+            "version": "25.4.0"
+          },
+          {
+            "name": "conda-package-handling",
+            "version": "2.4.0"
+          },
+          {
+            "name": "conda_package_streaming",
+            "version": "0.11.0"
+          },
+          {
+            "name": "coverage",
+            "version": "7.15.1"
+          },
+          {
+            "name": "cryptography",
+            "version": "44.0.1"
+          },
+          {
+            "name": "distlib",
+            "version": "0.3.9"
+          },
+          {
+            "name": "distro",
+            "version": "1.9.0"
+          },
+          {
+            "name": "docutils",
+            "version": "0.22.4"
+          },
+          {
+            "name": "domdf_python_tools",
+            "version": "3.10.0"
+          },
+          {
+            "name": "filelock",
+            "version": "3.29.7"
+          },
+          {
+            "name": "frozendict",
+            "version": "2.4.2"
+          },
+          {
+            "name": "idna",
+            "version": "3.7"
+          },
+          {
+            "name": "imagesize",
+            "version": "2.0.0"
+          },
+          {
+            "name": "inflect",
+            "version": "0.0.0"
+          },
+          {
+            "name": "iniconfig",
+            "version": "2.3.0"
+          },
+          {
+            "name": "jaraco.context",
+            "version": "6.1.2"
+          },
+          {
+            "name": "jaraco.functools",
+            "version": "4.6.0"
+          },
+          {
+            "name": "jaraco.packaging",
+            "version": "10.4.0"
+          },
+          {
+            "name": "Jinja2",
+            "version": "3.1.6"
+          },
+          {
+            "name": "jsonpatch",
+            "version": "1.33"
+          },
+          {
+            "name": "jsonpointer",
+            "version": "2.1"
+          },
+          {
+            "name": "libmambapy",
+            "version": "2.0.5"
+          },
+          {
+            "name": "librt",
+            "version": "0.13.0"
+          },
+          {
+            "name": "markdown-it-py",
+            "version": "2.2.0"
+          },
+          {
+            "name": "MarkupSafe",
+            "version": "3.0.3"
+          },
+          {
+            "name": "mdurl",
+            "version": "0.1.0"
+          },
+          {
+            "name": "menuinst",
+            "version": "2.2.0"
+          },
+          {
+            "name": "more-itertools",
+            "version": "11.1.0"
+          },
+          {
+            "name": "mypy",
+            "version": "2.3.0"
+          },
+          {
+            "name": "mypy_extensions",
+            "version": "1.1.0"
+          },
+          {
+            "name": "natsort",
+            "version": "8.4.0"
+          },
+          {
+            "name": "nodeenv",
+            "version": "1.9.1"
+          },
+          {
+            "name": "packaging",
+            "version": "24.2"
+          },
+          {
+            "name": "pathspec",
+            "version": "1.1.1"
+          },
+          {
+            "name": "pip",
+            "version": "25.0"
+          },
+          {
+            "name": "pipenv",
+            "version": "2025.0.3"
+          },
+          {
+            "name": "platformdirs",
+            "version": "4.3.7"
+          },
+          {
+            "name": "pluggy",
+            "version": "1.5.0"
+          },
+          {
+            "name": "pycosat",
+            "version": "0.6.6"
+          },
+          {
+            "name": "pycparser",
+            "version": "2.21"
+          },
+          {
+            "name": "pydantic",
+            "version": "2.10.3"
+          },
+          {
+            "name": "pydantic_core",
+            "version": "2.27.1"
+          },
+          {
+            "name": "Pygments",
+            "version": "2.19.1"
+          },
+          {
+            "name": "pyproject_hooks",
+            "version": "1.2.0"
+          },
+          {
+            "name": "pyright",
+            "version": "1.1.402"
+          },
+          {
+            "name": "PySocks",
+            "version": "1.7.1"
+          },
+          {
+            "name": "pytest",
+            "version": "9.1.1"
+          },
+          {
+            "name": "pytest-checkdocs",
+            "version": "2.14.0"
+          },
+          {
+            "name": "pytest-cov",
+            "version": "7.1.0"
+          },
+          {
+            "name": "pytest-enabler",
+            "version": "3.4.0"
+          },
+          {
+            "name": "pytest-mypy",
+            "version": "1.0.1"
+          },
+          {
+            "name": "pytest-ruff",
+            "version": "0.5"
+          },
+          {
+            "name": "python-discovery",
+            "version": "1.4.4"
+          },
+          {
+            "name": "requests",
+            "version": "2.32.3"
+          },
+          {
+            "name": "rich",
+            "version": "13.9.4"
+          },
+          {
+            "name": "roman-numerals",
+            "version": "4.1.0"
+          },
+          {
+            "name": "ruamel.yaml",
+            "version": "0.18.10"
+          },
+          {
+            "name": "ruamel.yaml.clib",
+            "version": "0.2.12"
+          },
+          {
+            "name": "ruff",
+            "version": "0.15.21"
+          },
+          {
+            "name": "search_and_replace",
+            "version": "0.2.2"
+          },
+          {
+            "name": "setuptools",
+            "version": "78.1.1"
+          },
+          {
+            "name": "snowballstemmer",
+            "version": "3.1.1"
+          },
+          {
+            "name": "Sphinx",
+            "version": "9.1.0"
+          },
+          {
+            "name": "sphinxcontrib-applehelp",
+            "version": "2.0.0"
+          },
+          {
+            "name": "sphinxcontrib-devhelp",
+            "version": "2.0.0"
+          },
+          {
+            "name": "sphinxcontrib-htmlhelp",
+            "version": "2.1.0"
+          },
+          {
+            "name": "sphinxcontrib-jsmath",
+            "version": "1.0.1"
+          },
+          {
+            "name": "sphinxcontrib-qthelp",
+            "version": "2.0.0"
+          },
+          {
+            "name": "sphinxcontrib-serializinghtml",
+            "version": "2.0.0"
+          },
+          {
+            "name": "toml",
+            "version": "0.10.2"
+          },
+          {
+            "name": "tqdm",
+            "version": "4.67.1"
+          },
+          {
+            "name": "truststore",
+            "version": "0.10.0"
+          },
+          {
+            "name": "typeguard",
+            "version": "4.5.2"
+          },
+          {
+            "name": "typing_extensions",
+            "version": "4.16.0"
+          },
+          {
+            "name": "urllib3",
+            "version": "2.3.0"
+          },
+          {
+            "name": "uv",
+            "version": "0.7.13"
+          },
+          {
+            "name": "virtualenv",
+            "version": "21.6.1"
+          },
+          {
+            "name": "wheel",
+            "version": "0.45.1"
+          },
+          {
+            "name": "zstandard",
+            "version": "0.23.0"
+          }
+        ],
+        "marker_environment": {
+          "implementation_name": "cpython",
+          "implementation_version": "3.13.2",
+          "os_name": "posix",
+          "platform_machine": "aarch64",
+          "platform_python_implementation": "CPython",
+          "platform_release": "6.12.76-linuxkit",
+          "platform_system": "Linux",
+          "platform_version": "#1 SMP Thu Jun 25 13:45:40 UTC 2026",
+          "python_full_version": "3.13.2",
+          "python_version": "3.13",
+          "sys_platform": "linux"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "resolver": {
+          "argv": [
+            "/opt/conda/bin/python",
+            "-m",
+            "pip",
+            "check"
+          ],
+          "duration_seconds": 0.20426429100001542,
+          "exit_code": 0,
+          "network_disabled": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+          "timed_out": false
+        },
+        "schema": "envsolve-p5-v1-container-v1",
+        "selected_extras": [
+          "test"
+        ]
+      },
+      "v1_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "ade85cc38b93835a8495623b77a49b8c26ad3d6e9ef8077539325817a73f4ac9",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/scripts/bootstrap.sh",
+        "sha256": "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "1c77ebe08527631fe0d320de28509b327ea410fbeb32f86d5442c9685640b7b0",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 3.949176209000001,
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "source": {
+        "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed",
+        "head": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v1": {
+        "collection_errors": [],
+        "decision": {
+          "active_requirements": [
+            "cryptography>=3.4.7",
+            "pyserial>=3.5"
+          ],
+          "issues": [],
+          "passed": true,
+          "reason": "all project distributions passed V1"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "active_requirements": [
+                "cryptography>=3.4.7",
+                "pyserial>=3.5"
+              ],
+              "issues": [],
+              "passed": true,
+              "reason": "metadata, installed state, and resolver agree"
+            },
+            "metadata_source": "PKG-INFO",
+            "project": {
+              "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+              "name": "rns",
+              "provenance_kind": "legacy-egg-link",
+              "provenance_sha256": "d862bdc2daf23535709bf45bc732c81d1a02c60afd93fa99f1106547dd5a65cc",
+              "requires_dist": [
+                "cryptography>=3.4.7",
+                "pyserial>=3.5"
+              ],
+              "version": "0.7.6"
+            }
+          }
+        ],
+        "installed_distributions": [
+          {
+            "name": "anaconda-anon-usage",
+            "version": "0.7.0"
+          },
+          {
+            "name": "annotated-types",
+            "version": "0.6.0"
+          },
+          {
+            "name": "archspec",
+            "version": "0.2.3"
+          },
+          {
+            "name": "boltons",
+            "version": "24.1.0"
+          },
+          {
+            "name": "Brotli",
+            "version": "1.0.9"
+          },
+          {
+            "name": "certifi",
+            "version": "2025.4.26"
+          },
+          {
+            "name": "cffi",
+            "version": "1.17.1"
+          },
+          {
+            "name": "charset-normalizer",
+            "version": "3.3.2"
+          },
+          {
+            "name": "click",
+            "version": "8.2.1"
+          },
+          {
+            "name": "conda",
+            "version": "25.3.1"
+          },
+          {
+            "name": "conda-anaconda-telemetry",
+            "version": "0.1.2"
+          },
+          {
+            "name": "conda-anaconda-tos",
+            "version": "0.1.3"
+          },
+          {
+            "name": "conda-content-trust",
+            "version": "0.2.0"
+          },
+          {
+            "name": "conda-libmamba-solver",
+            "version": "25.4.0"
+          },
+          {
+            "name": "conda-package-handling",
+            "version": "2.4.0"
+          },
+          {
+            "name": "conda_package_streaming",
+            "version": "0.11.0"
+          },
+          {
+            "name": "cryptography",
+            "version": "44.0.1"
+          },
+          {
+            "name": "distlib",
+            "version": "0.3.9"
+          },
+          {
+            "name": "distro",
+            "version": "1.9.0"
+          },
+          {
+            "name": "filelock",
+            "version": "3.18.0"
+          },
+          {
+            "name": "frozendict",
+            "version": "2.4.2"
+          },
+          {
+            "name": "idna",
+            "version": "3.7"
+          },
+          {
+            "name": "jsonpatch",
+            "version": "1.33"
+          },
+          {
+            "name": "jsonpointer",
+            "version": "2.1"
+          },
+          {
+            "name": "libmambapy",
+            "version": "2.0.5"
+          },
+          {
+            "name": "markdown-it-py",
+            "version": "2.2.0"
+          },
+          {
+            "name": "mdurl",
+            "version": "0.1.0"
+          },
+          {
+            "name": "menuinst",
+            "version": "2.2.0"
+          },
+          {
+            "name": "nodeenv",
+            "version": "1.9.1"
+          },
+          {
+            "name": "packaging",
+            "version": "24.2"
+          },
+          {
+            "name": "pip",
+            "version": "25.0"
+          },
+          {
+            "name": "pipenv",
+            "version": "2025.0.3"
+          },
+          {
+            "name": "platformdirs",
+            "version": "4.3.7"
+          },
+          {
+            "name": "pluggy",
+            "version": "1.5.0"
+          },
+          {
+            "name": "pycosat",
+            "version": "0.6.6"
+          },
+          {
+            "name": "pycparser",
+            "version": "2.21"
+          },
+          {
+            "name": "pydantic",
+            "version": "2.10.3"
+          },
+          {
+            "name": "pydantic_core",
+            "version": "2.27.1"
+          },
+          {
+            "name": "Pygments",
+            "version": "2.19.1"
+          },
+          {
+            "name": "pyright",
+            "version": "1.1.402"
+          },
+          {
+            "name": "pyserial",
+            "version": "3.5"
+          },
+          {
+            "name": "PySocks",
+            "version": "1.7.1"
+          },
+          {
+            "name": "requests",
+            "version": "2.32.3"
+          },
+          {
+            "name": "rich",
+            "version": "13.9.4"
+          },
+          {
+            "name": "rns",
+            "version": "0.7.6"
+          },
+          {
+            "name": "ruamel.yaml",
+            "version": "0.18.10"
+          },
+          {
+            "name": "ruamel.yaml.clib",
+            "version": "0.2.12"
+          },
+          {
+            "name": "search_and_replace",
+            "version": "0.2.2"
+          },
+          {
+            "name": "setuptools",
+            "version": "78.1.1"
+          },
+          {
+            "name": "tqdm",
+            "version": "4.67.1"
+          },
+          {
+            "name": "truststore",
+            "version": "0.10.0"
+          },
+          {
+            "name": "typing_extensions",
+            "version": "4.12.2"
+          },
+          {
+            "name": "urllib3",
+            "version": "2.3.0"
+          },
+          {
+            "name": "uv",
+            "version": "0.7.13"
+          },
+          {
+            "name": "virtualenv",
+            "version": "20.31.2"
+          },
+          {
+            "name": "wheel",
+            "version": "0.45.1"
+          },
+          {
+            "name": "zstandard",
+            "version": "0.23.0"
+          }
+        ],
+        "marker_environment": {
+          "implementation_name": "cpython",
+          "implementation_version": "3.13.2",
+          "os_name": "posix",
+          "platform_machine": "aarch64",
+          "platform_python_implementation": "CPython",
+          "platform_release": "6.12.76-linuxkit",
+          "platform_system": "Linux",
+          "platform_version": "#1 SMP Thu Jun 25 13:45:40 UTC 2026",
+          "python_full_version": "3.13.2",
+          "python_version": "3.13",
+          "sys_platform": "linux"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "resolver": {
+          "argv": [
+            "/opt/conda/bin/python",
+            "-m",
+            "pip",
+            "check"
+          ],
+          "duration_seconds": 0.18467749999999228,
+          "exit_code": 0,
+          "network_disabled": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+          "timed_out": false
+        },
+        "schema": "envsolve-p5-v1-container-v1",
+        "selected_extras": []
+      },
+      "v1_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "6067f9a69c2beab1c39af9a815447661300fdc04f4647ad252c0d0ec6728ddd3",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/scripts/bootstrap.sh",
+        "sha256": "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "e33b034cb3ea8bc6f5f7337e28495156c6b514103c6214c93d85eade2c4f0dcf",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 12.238984958000003,
+      "repository": "pytest-dev/pytest-xdist",
+      "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+      "source": {
+        "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52",
+        "head": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v1": {
+        "collection_errors": [],
+        "decision": {
+          "active_requirements": [
+            "execnet>=2.1",
+            "filelock; extra == \"testing\"",
+            "psutil>=3.0; extra == \"psutil\"",
+            "pytest>=7.0.0",
+            "setproctitle; extra == \"setproctitle\""
+          ],
+          "issues": [],
+          "passed": true,
+          "reason": "all project distributions passed V1"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "active_requirements": [
+                "execnet>=2.1",
+                "pytest>=7.0.0",
+                "filelock; extra == \"testing\"",
+                "psutil>=3.0; extra == \"psutil\"",
+                "setproctitle; extra == \"setproctitle\""
+              ],
+              "issues": [],
+              "passed": true,
+              "reason": "metadata, installed state, and resolver agree"
+            },
+            "metadata_source": "METADATA",
+            "project": {
+              "metadata_sha256": "d790d01a56725d27780bf5b5bd09b99c105f4953275ce946c00f3202d5e61c42",
+              "name": "pytest-xdist",
+              "provenance_kind": "pep610-direct-url",
+              "provenance_sha256": "fb247f8b66a7a3c3f7e691b90faa9350d8bf35207ead004144a3b969e2252e7c",
+              "requires_dist": [
+                "execnet>=2.1",
+                "pytest>=7.0.0",
+                "filelock; extra == \"testing\"",
+                "psutil>=3.0; extra == \"psutil\"",
+                "setproctitle; extra == \"setproctitle\""
+              ],
+              "version": "0.1.dev1+gc7b4f6114"
+            }
+          }
+        ],
+        "installed_distributions": [
+          {
+            "name": "anaconda-anon-usage",
+            "version": "0.7.0"
+          },
+          {
+            "name": "annotated-types",
+            "version": "0.6.0"
+          },
+          {
+            "name": "archspec",
+            "version": "0.2.3"
+          },
+          {
+            "name": "boltons",
+            "version": "24.1.0"
+          },
+          {
+            "name": "Brotli",
+            "version": "1.0.9"
+          },
+          {
+            "name": "certifi",
+            "version": "2025.4.26"
+          },
+          {
+            "name": "cffi",
+            "version": "1.17.1"
+          },
+          {
+            "name": "charset-normalizer",
+            "version": "3.3.2"
+          },
+          {
+            "name": "click",
+            "version": "8.2.1"
+          },
+          {
+            "name": "conda",
+            "version": "25.3.1"
+          },
+          {
+            "name": "conda-anaconda-telemetry",
+            "version": "0.1.2"
+          },
+          {
+            "name": "conda-anaconda-tos",
+            "version": "0.1.3"
+          },
+          {
+            "name": "conda-content-trust",
+            "version": "0.2.0"
+          },
+          {
+            "name": "conda-libmamba-solver",
+            "version": "25.4.0"
+          },
+          {
+            "name": "conda-package-handling",
+            "version": "2.4.0"
+          },
+          {
+            "name": "conda_package_streaming",
+            "version": "0.11.0"
+          },
+          {
+            "name": "cryptography",
+            "version": "44.0.1"
+          },
+          {
+            "name": "distlib",
+            "version": "0.3.9"
+          },
+          {
+            "name": "distro",
+            "version": "1.9.0"
+          },
+          {
+            "name": "execnet",
+            "version": "2.1.2"
+          },
+          {
+            "name": "filelock",
+            "version": "3.18.0"
+          },
+          {
+            "name": "frozendict",
+            "version": "2.4.2"
+          },
+          {
+            "name": "idna",
+            "version": "3.7"
+          },
+          {
+            "name": "iniconfig",
+            "version": "2.3.0"
+          },
+          {
+            "name": "jsonpatch",
+            "version": "1.33"
+          },
+          {
+            "name": "jsonpointer",
+            "version": "2.1"
+          },
+          {
+            "name": "libmambapy",
+            "version": "2.0.5"
+          },
+          {
+            "name": "markdown-it-py",
+            "version": "2.2.0"
+          },
+          {
+            "name": "mdurl",
+            "version": "0.1.0"
+          },
+          {
+            "name": "menuinst",
+            "version": "2.2.0"
+          },
+          {
+            "name": "nodeenv",
+            "version": "1.9.1"
+          },
+          {
+            "name": "packaging",
+            "version": "24.2"
+          },
+          {
+            "name": "pip",
+            "version": "25.0"
+          },
+          {
+            "name": "pipenv",
+            "version": "2025.0.3"
+          },
+          {
+            "name": "platformdirs",
+            "version": "4.3.7"
+          },
+          {
+            "name": "pluggy",
+            "version": "1.5.0"
+          },
+          {
+            "name": "psutil",
+            "version": "7.2.2"
+          },
+          {
+            "name": "pycosat",
+            "version": "0.6.6"
+          },
+          {
+            "name": "pycparser",
+            "version": "2.21"
+          },
+          {
+            "name": "pydantic",
+            "version": "2.10.3"
+          },
+          {
+            "name": "pydantic_core",
+            "version": "2.27.1"
+          },
+          {
+            "name": "Pygments",
+            "version": "2.19.1"
+          },
+          {
+            "name": "pyright",
+            "version": "1.1.402"
+          },
+          {
+            "name": "PySocks",
+            "version": "1.7.1"
+          },
+          {
+            "name": "pytest",
+            "version": "9.1.1"
+          },
+          {
+            "name": "pytest-xdist",
+            "version": "0.1.dev1+gc7b4f6114"
+          },
+          {
+            "name": "pytest-xdist",
+            "version": "0.1.dev1+gc7b4f6114"
+          },
+          {
+            "name": "requests",
+            "version": "2.32.3"
+          },
+          {
+            "name": "rich",
+            "version": "13.9.4"
+          },
+          {
+            "name": "ruamel.yaml",
+            "version": "0.18.10"
+          },
+          {
+            "name": "ruamel.yaml.clib",
+            "version": "0.2.12"
+          },
+          {
+            "name": "search_and_replace",
+            "version": "0.2.2"
+          },
+          {
+            "name": "setproctitle",
+            "version": "1.3.7"
+          },
+          {
+            "name": "setuptools",
+            "version": "78.1.1"
+          },
+          {
+            "name": "tqdm",
+            "version": "4.67.1"
+          },
+          {
+            "name": "truststore",
+            "version": "0.10.0"
+          },
+          {
+            "name": "typing_extensions",
+            "version": "4.12.2"
+          },
+          {
+            "name": "urllib3",
+            "version": "2.3.0"
+          },
+          {
+            "name": "uv",
+            "version": "0.7.13"
+          },
+          {
+            "name": "virtualenv",
+            "version": "20.31.2"
+          },
+          {
+            "name": "wheel",
+            "version": "0.45.1"
+          },
+          {
+            "name": "zstandard",
+            "version": "0.23.0"
+          }
+        ],
+        "marker_environment": {
+          "implementation_name": "cpython",
+          "implementation_version": "3.13.2",
+          "os_name": "posix",
+          "platform_machine": "aarch64",
+          "platform_python_implementation": "CPython",
+          "platform_release": "6.12.76-linuxkit",
+          "platform_system": "Linux",
+          "platform_version": "#1 SMP Thu Jun 25 13:45:40 UTC 2026",
+          "python_full_version": "3.13.2",
+          "python_version": "3.13",
+          "sys_platform": "linux"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "resolver": {
+          "argv": [
+            "/opt/conda/bin/python",
+            "-m",
+            "pip",
+            "check"
+          ],
+          "duration_seconds": 0.1914694590000181,
+          "exit_code": 0,
+          "network_disabled": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+          "timed_out": false
+        },
+        "schema": "envsolve-p5-v1-container-v1",
+        "selected_extras": [
+          "psutil",
+          "setproctitle",
+          "testing"
+        ]
+      },
+      "v1_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 1,
+        "log_sha256": "63a44543ca3fbe6310fb53c99b748aeb7ed9a5575967c9f2b3e296b966db0de1",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/scripts/bootstrap.sh",
+        "sha256": "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f"
+      },
+      "container": {
+        "exit_code": 1,
+        "id": "8106e58fa31bee97e993419a7fa0b7a3deb671025d5a0ade6eb17341a50080cd",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": []
+      },
+      "duration_seconds": 117.942675334,
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "source": {
+        "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d",
+        "head": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v1": null,
+      "v1_log_sha256": null
+    }
+  ],
+  "image": {
+    "architecture": "arm64",
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "os": "linux",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "implementation": {
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v1_in_container.py",
+      "sha256": "a07be066deec898880bafbe58f39836fc679d46cbe30902e457c2e7753708f51"
+    },
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "7c71d0b53a520ecf487cf290f211a6842a77ff7315bb7a7902d4d650b3e9b21c"
+    },
+    "metadata_consistency_policy": {
+      "path": "envsolve/verification/metadata_consistency.py",
+      "sha256": "f8380551e8e390fe0c4738347f29cb2ba37a1165ca82729668f9dc6327c8730d"
+    },
+    "metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "network_isolation_policy": {
+      "path": "envsolve/verification/network_isolation.py",
+      "sha256": "eca442099b7691a27133de0da26774384c8eb08f940db50addcb06acb9f03548"
+    },
+    "project_provenance_policy": {
+      "path": "envsolve/verification/project_provenance.py",
+      "sha256": "2902907da0e84ae127fafe7df1422b073b1860c2bff24bb06a4707f158dd22df"
+    }
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_score_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "probe_network_requests": 0,
+    "retained_worktree_mutations": 0
+  },
+  "preregistration": {
+    "path": "experiments/validations/p5_round12_v1_dev5_preregistration.json",
+    "sha256": "6698e7e81fdee53ae6b012a696c40fe5cc69213288ddaa0250ee46f07e761d1b"
+  },
+  "validation_id": "p5-v1-real-evidence-dev5-round12-v1"
+}

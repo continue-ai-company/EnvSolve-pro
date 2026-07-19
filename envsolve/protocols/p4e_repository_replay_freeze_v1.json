@@ -1,0 +1,67 @@
+{
+  "change_policy": "Any workspace ownership gate, project-extra selection, replay outcome, or P4 terminal semantic change requires a new P4E version and freeze.",
+  "created_at": "2026-07-14T08:38:15.162472+00:00",
+  "policy_id": "envsolve-p4e-repository-replay-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "benchmark_executions": 3,
+    "canary20_inspected": false,
+    "development_only": true,
+    "environment_terminal_claim": "5/5",
+    "model_requests": 0,
+    "official_pass_claim": "2/5",
+    "official_test100_inspected": false,
+    "p4_complete": true,
+    "repository_specific_rules": false
+  },
+  "source_files": {
+    "envsolve/controller/__init__.py": "afa53bf92f5ee3965c0d2569b6b5bc3ec470421551fe659bb9cf7f0006d05027",
+    "envsolve/controller/outcomes.py": "12fee149b10d4f817ad54e54a04b5a1948d58253aafa387ef9ba90e85f07c2b5",
+    "envsolve/scripts/p4e_inflect_round2_project_extra.sh": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d",
+    "envsolve/scripts/p4e_workspace_artifact_relocation.sh": "32b88d3f3dafec4da1b1098fa6fa4d2e9aaeab8e3f805c22aee991a406f12aca",
+    "envsolve/tests/test_project_metadata.py": "dcb374f9f2f2609ff3d09ec9ffd8a57491180acfdf7cb2a6939cdf698f8ab786",
+    "envsolve/tests/test_replay_outcomes.py": "a1149c8bc314c92718df8e73ec0a2a1ecf98d625c3953b9a6ab323f483e69eb6",
+    "envsolve/tests/test_workspace_artifacts.py": "ebfe56924eafe1a8160810658770f0a1bd957b14959f307d9d0c9cc141c7af79",
+    "envsolve/tools/p4e_freeze.py": "d352104fb265541b17c1b76b2c362da1896059d86d901f2137fe3b584c0adaaa",
+    "envsolve/workspace/__init__.py": "15dc4d41c1adcbbc8f5ff0e110455533526852cde7f276ff056252576b1b2ba5",
+    "envsolve/workspace/artifacts.py": "1689b8f58e224cb2dec4c186af01ed25867fbeeee4b2336e7fe39136af69390d",
+    "envsolve/workspace/project_metadata.py": "99b1d3d90adf449bf0d8ea5fe80c88766025251102055e91a1be12e448cc8909",
+    "experiments/validations/p4e_dev5_scope_audit.json": "3531bf5cc36e6b269bab0b02913ac420aeb7992afa56089c860885a0bd46abd1",
+    "experiments/validations/p4e_round1_preregistration.json": "771c647022e4e5a9eb02118657770d8cbb2c91d1f0609408c166ec4d9e30b9c3",
+    "experiments/validations/p4e_round1_results.json": "b1fcd0085f328bcc05c62026f6aa29f7fc278e923627ad150779503c0340f139",
+    "experiments/validations/p4e_round2_preregistration.json": "ed0931f31b632b4763117a37e9a1f68d62a824ceb82d0008d070a4da5fe5d831",
+    "experiments/validations/p4e_round2_results.json": "6113d806c22a3d7361c44ef8335c87b64091cc7b24a22ce9aa1696a03362a5f7",
+    "experiments/validations/p4e_round2_retry_preregistration.json": "66eac14bf644eb6fa3577bb3d6e8f4e3d0039aec4159ed6b963e3a7001b893e0",
+    "experiments/validations/p4e_round2_retry_results.json": "97524f144930baf1d3e3df85692458111cd6f04d1f399d54076d06bc66ddf5ea",
+    "research/P4E_REPOSITORY_REPLAY_PROTOCOL.md": "e6874960e86165f1624f0553e933b612d146aead477f4060aae51cc670d67d61",
+    "research/P4E_REPOSITORY_REPLAY_PROTOCOL_ZH.md": "8cd38a373b00e7e6d2fef1a9270a093c113a10104c645b4df15a4ec50d780475"
+  },
+  "validation": {
+    "compile_check": true,
+    "p4e_policy_tests": 13,
+    "results": {
+      "dev5_final": {
+        "auditable_terminal_cases": 5,
+        "bootstrap_conflicts_open": 0,
+        "bootstrap_satisfied_verifier_open": 3,
+        "official_pass": 2
+      },
+      "retry": {
+        "path": "experiments/validations/p4e_round2_retry_results.json",
+        "sha256": "97524f144930baf1d3e3df85692458111cd6f04d1f399d54076d06bc66ddf5ea"
+      },
+      "round1": {
+        "path": "experiments/validations/p4e_round1_results.json",
+        "sha256": "b1fcd0085f328bcc05c62026f6aa29f7fc278e923627ad150779503c0340f139"
+      },
+      "round2": {
+        "path": "experiments/validations/p4e_round2_results.json",
+        "sha256": "6113d806c22a3d7361c44ef8335c87b64091cc7b24a22ce9aa1696a03362a5f7"
+      },
+      "scope": {
+        "path": "experiments/validations/p4e_dev5_scope_audit.json",
+        "sha256": "3531bf5cc36e6b269bab0b02913ac420aeb7992afa56089c860885a0bd46abd1"
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "algorithm": {
+    "case_order": "ascending SHA256(salt + NUL + case-order + NUL + case_id)",
+    "method_order": "runtime-only/full, reversed when SHA256(salt + NUL + method-order + NUL + case_id) is odd"
+  },
+  "case_file": "experiments/cases/dev_v3_qualification5.jsonl",
+  "case_file_sha256": "225d3ee61c0970af47b67c278b7f37354f31f0409a396f143afb01754aa9a7dd",
+  "episodes": [
+    {
+      "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+      "method": "envsolve-runtime-only",
+      "method_index": 1,
+      "pair_index": 1,
+      "position": 1,
+      "run_id": "p6-v3-q1-01-envsolve-runtime-only",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+      "method": "envsolve-full",
+      "method_index": 2,
+      "pair_index": 1,
+      "position": 2,
+      "run_id": "p6-v3-q1-01-envsolve-full",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+      "method": "envsolve-runtime-only",
+      "method_index": 1,
+      "pair_index": 2,
+      "position": 3,
+      "run_id": "p6-v3-q1-02-envsolve-runtime-only",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+      "method": "envsolve-full",
+      "method_index": 2,
+      "pair_index": 2,
+      "position": 4,
+      "run_id": "p6-v3-q1-02-envsolve-full",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-mampfes__hacs_waste_collection_schedule@a107f0e393b8f77b0da7971e530d0996344c6248",
+      "method": "envsolve-full",
+      "method_index": 1,
+      "pair_index": 3,
+      "position": 5,
+      "run_id": "p6-v3-q1-03-envsolve-full",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-mampfes__hacs_waste_collection_schedule@a107f0e393b8f77b0da7971e530d0996344c6248",
+      "method": "envsolve-runtime-only",
+      "method_index": 2,
+      "pair_index": 3,
+      "position": 6,
+      "run_id": "p6-v3-q1-03-envsolve-runtime-only",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "method": "envsolve-runtime-only",
+      "method_index": 1,
+      "pair_index": 4,
+      "position": 7,
+      "run_id": "p6-v3-q1-04-envsolve-runtime-only",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "method": "envsolve-full",
+      "method_index": 2,
+      "pair_index": 4,
+      "position": 8,
+      "run_id": "p6-v3-q1-04-envsolve-full",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+      "method": "envsolve-full",
+      "method_index": 1,
+      "pair_index": 5,
+      "position": 9,
+      "run_id": "p6-v3-q1-05-envsolve-full",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+      "method": "envsolve-runtime-only",
+      "method_index": 2,
+      "pair_index": 5,
+      "position": 10,
+      "run_id": "p6-v3-q1-05-envsolve-runtime-only",
+      "seed": 0
+    }
+  ],
+  "model": "deepseek/deepseek-v4-pro",
+  "salt": "envsolve-p6-v3-qualification-v1-2026-07-16",
+  "schema_version": "1.0.0",
+  "selection_provenance": "experiments/validations/p6_v3_unseen_dev5_selection.json",
+  "selection_provenance_sha256": "76c4fa170736dcbc72a8f55522392ed33bc236b19248b385ec7072932d711484"
+}

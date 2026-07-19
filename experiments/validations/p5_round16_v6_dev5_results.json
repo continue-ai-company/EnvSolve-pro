@@ -1,0 +1,355 @@
+{
+  "aggregate": {
+    "cases": 5,
+    "v6_fail": 0,
+    "v6_pass": 4,
+    "v6_unknown": 1
+  },
+  "cases": [
+    {
+      "collection_errors": {
+        "replay_a": [],
+        "replay_b": []
+      },
+      "decision": {
+        "differences": [],
+        "first_snapshot_sha256": null,
+        "passed": null,
+        "reason": "one or both replay snapshots are missing",
+        "second_snapshot_sha256": "57f1d2556f7d0c94257b4db6586751e551be25cc76a718d0af263dea28fe1d6e"
+      },
+      "identity": {
+        "bootstrap_sha256": "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a",
+        "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc",
+        "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "platform": "linux/arm64",
+        "preregistration_sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308",
+        "repository": "convexengineering/gpkit",
+        "repository_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+        "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae"
+      },
+      "replay_a": {
+        "bootstrap_exit_code": 2,
+        "container_id": "69aa860b964844c1cd64d9468199be9ed581b443fece7e3b0f8c679ec4890ea7",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-a/convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/result.json",
+          "sha256": "e052d11ab8a63dd6ced171a3ec29f553e3aaf2c4d57947fb3e619fd969981e88"
+        },
+        "snapshot_sha256": null,
+        "source": {
+          "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc",
+          "head": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "replay_b": {
+        "bootstrap_exit_code": 0,
+        "container_id": "5ad86c1b2e5f081379ffe843d6b3ee4c860709fe53067f08325a589e56428543",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-b/convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/result.json",
+          "sha256": "b57997dcf39b55707260e3964fd2f98f5bc3943e2904e6f9e3e648371d55d0c0"
+        },
+        "snapshot_sha256": "57f1d2556f7d0c94257b4db6586751e551be25cc76a718d0af263dea28fe1d6e",
+        "source": {
+          "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc",
+          "head": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae"
+    },
+    {
+      "collection_errors": {
+        "replay_a": [],
+        "replay_b": []
+      },
+      "decision": {
+        "differences": [],
+        "first_snapshot_sha256": "d01d8a77dc26ad8087a6d0095990d7421b4677726fd052ae0b52d91cb88bab69",
+        "passed": true,
+        "reason": "fresh replay environment snapshots are identical",
+        "second_snapshot_sha256": "d01d8a77dc26ad8087a6d0095990d7421b4677726fd052ae0b52d91cb88bab69"
+      },
+      "identity": {
+        "bootstrap_sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d",
+        "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68",
+        "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "platform": "linux/arm64",
+        "preregistration_sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308",
+        "repository": "jaraco/inflect",
+        "repository_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+        "revision": "1f42293f30caacb0637f7eb30a483b44489f4812"
+      },
+      "replay_a": {
+        "bootstrap_exit_code": 0,
+        "container_id": "1e12cd61220aadfee03fe9005fcfd76459628a3a007092c8061a24ccb8c169a5",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-a/jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/result.json",
+          "sha256": "606c812817e94411bdf2d3b196d344ebe8536bd455f3b73895188bfb256d9e53"
+        },
+        "snapshot_sha256": "d01d8a77dc26ad8087a6d0095990d7421b4677726fd052ae0b52d91cb88bab69",
+        "source": {
+          "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68",
+          "head": "1f42293f30caacb0637f7eb30a483b44489f4812",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "replay_b": {
+        "bootstrap_exit_code": 0,
+        "container_id": "806a693c33710b31e792e5e3e1009b38daffd0deb9a8bf864f5ecae0eaa48304",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-b/jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/result.json",
+          "sha256": "b262be2275f271e714f12c11d4bcdbff5d43d1cbc11a4c5f27010bda23b8dfef"
+        },
+        "snapshot_sha256": "d01d8a77dc26ad8087a6d0095990d7421b4677726fd052ae0b52d91cb88bab69",
+        "source": {
+          "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68",
+          "head": "1f42293f30caacb0637f7eb30a483b44489f4812",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "repository": "jaraco/inflect",
+      "revision": "1f42293f30caacb0637f7eb30a483b44489f4812"
+    },
+    {
+      "collection_errors": {
+        "replay_a": [],
+        "replay_b": []
+      },
+      "decision": {
+        "differences": [],
+        "first_snapshot_sha256": "0e18b5f84ec8b53c6b7a0023947995f2f868bfebcc03d77d726bbfa6518978a5",
+        "passed": true,
+        "reason": "fresh replay environment snapshots are identical",
+        "second_snapshot_sha256": "0e18b5f84ec8b53c6b7a0023947995f2f868bfebcc03d77d726bbfa6518978a5"
+      },
+      "identity": {
+        "bootstrap_sha256": "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a",
+        "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed",
+        "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "platform": "linux/arm64",
+        "preregistration_sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308",
+        "repository": "markqvist/reticulum",
+        "repository_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+        "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b"
+      },
+      "replay_a": {
+        "bootstrap_exit_code": 0,
+        "container_id": "79aad89ddd747d30f041e9e7f1912d465af926e112547cece15803c6cf8ede0c",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-a/markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/result.json",
+          "sha256": "1cd5d6d533f56fbd29736d6fadc70a63dc97cb7f87c244a05e70e37f7123ef5e"
+        },
+        "snapshot_sha256": "0e18b5f84ec8b53c6b7a0023947995f2f868bfebcc03d77d726bbfa6518978a5",
+        "source": {
+          "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed",
+          "head": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "replay_b": {
+        "bootstrap_exit_code": 0,
+        "container_id": "d6910e119872f9c6f2dc0f4b8aee56630a1e98bb9348bb10a375a7995029db17",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-b/markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/result.json",
+          "sha256": "fee24f44c5a01b2f187bda53569e54db4844220ada0f09579aa18b51eca8cbbd"
+        },
+        "snapshot_sha256": "0e18b5f84ec8b53c6b7a0023947995f2f868bfebcc03d77d726bbfa6518978a5",
+        "source": {
+          "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed",
+          "head": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b"
+    },
+    {
+      "collection_errors": {
+        "replay_a": [],
+        "replay_b": []
+      },
+      "decision": {
+        "differences": [],
+        "first_snapshot_sha256": "fa440521645232c025b04f3360427abc9bfa68edc1138518ce179012b77e5814",
+        "passed": true,
+        "reason": "fresh replay environment snapshots are identical",
+        "second_snapshot_sha256": "fa440521645232c025b04f3360427abc9bfa68edc1138518ce179012b77e5814"
+      },
+      "identity": {
+        "bootstrap_sha256": "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b",
+        "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52",
+        "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "platform": "linux/arm64",
+        "preregistration_sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308",
+        "repository": "pytest-dev/pytest-xdist",
+        "repository_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+        "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4"
+      },
+      "replay_a": {
+        "bootstrap_exit_code": 0,
+        "container_id": "f1848beb180bfbc804376451d1032f12a85688053b7d6dfa9bc19135cd86c683",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-a/pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/result.json",
+          "sha256": "2066144348ed6083d5e7009dea6e6c25d084d445ce98f6b609c8b1feb8bc2cd7"
+        },
+        "snapshot_sha256": "fa440521645232c025b04f3360427abc9bfa68edc1138518ce179012b77e5814",
+        "source": {
+          "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52",
+          "head": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "replay_b": {
+        "bootstrap_exit_code": 0,
+        "container_id": "8b28df20caa3d6d548c89d70f7288586d6854b7bc13aaa1308c6547b4962c07e",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-b/pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/result.json",
+          "sha256": "04cf162e8517537ec36e24020c00b9363ca528a168eedcf121d32717f0de8c91"
+        },
+        "snapshot_sha256": "fa440521645232c025b04f3360427abc9bfa68edc1138518ce179012b77e5814",
+        "source": {
+          "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52",
+          "head": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "repository": "pytest-dev/pytest-xdist",
+      "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4"
+    },
+    {
+      "collection_errors": {
+        "replay_a": [],
+        "replay_b": []
+      },
+      "decision": {
+        "differences": [],
+        "first_snapshot_sha256": "58c96391c15b573f2920bcad62f2e558db16acca0475c531522793b8ea19e3c0",
+        "passed": true,
+        "reason": "fresh replay environment snapshots are identical",
+        "second_snapshot_sha256": "58c96391c15b573f2920bcad62f2e558db16acca0475c531522793b8ea19e3c0"
+      },
+      "identity": {
+        "bootstrap_sha256": "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f",
+        "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d",
+        "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "platform": "linux/arm64",
+        "preregistration_sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308",
+        "repository": "python-poetry/poetry",
+        "repository_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+        "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d"
+      },
+      "replay_a": {
+        "bootstrap_exit_code": 0,
+        "container_id": "f5c053030fde63abe8c739e5129dd69d0f7ff8819d7b2e936ee22b0e9493d923",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-a/python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/result.json",
+          "sha256": "fc0b57c148156b544a45c129329a7b9e91884306b473b370a45cc7cae6cbd109"
+        },
+        "snapshot_sha256": "58c96391c15b573f2920bcad62f2e558db16acca0475c531522793b8ea19e3c0",
+        "source": {
+          "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d",
+          "head": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "replay_b": {
+        "bootstrap_exit_code": 0,
+        "container_id": "81cebfc824af348846e1479fbca542e914425109a977aea9e1cc194036fd0623",
+        "execution_error": null,
+        "result": {
+          "path": "runs/p5-v6-paired-dev5-round16-v1/replay-b/python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/result.json",
+          "sha256": "b4cd6417f440bd81e2203105afdd76ea8233647f85356df688ed2a4de6e026fd"
+        },
+        "snapshot_sha256": "58c96391c15b573f2920bcad62f2e558db16acca0475c531522793b8ea19e3c0",
+        "source": {
+          "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d",
+          "head": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+          "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_materialization": "detached_git_checkout"
+        }
+      },
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d"
+    }
+  ],
+  "image": {
+    "architecture": "arm64",
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "os": "linux",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "implementation": {
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v6_in_container.py",
+      "sha256": "2e190a01d28c183c646f93e634e1c9ad08df12919d7c30d9be018b3fc9c1c2fc"
+    },
+    "environment_state_policy": {
+      "path": "envsolve/verification/environment_state.py",
+      "sha256": "8bcbb241e2cba90d8dd309b496169cb13b7f921a92bb0f4bbb61ba3b6b16e74f"
+    },
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "6c829204e9180d53180b156e21f84f8fdf76f5c92e25edb9508d5982e0eba7f8"
+    },
+    "metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "network_isolation_policy": {
+      "path": "envsolve/verification/network_isolation.py",
+      "sha256": "eca442099b7691a27133de0da26774384c8eb08f940db50addcb06acb9f03548"
+    },
+    "paired_runner": {
+      "path": "envsolve/tools/run_p5_v6_dev5.py",
+      "sha256": "cf0000dd37e822083b879874002da11677b3ed9509424b4d35ff1b79296f0bb0"
+    },
+    "project_provenance_policy": {
+      "path": "envsolve/verification/project_provenance.py",
+      "sha256": "2902907da0e84ae127fafe7df1422b073b1860c2bff24bb06a4707f158dd22df"
+    },
+    "replay_equivalence_policy": {
+      "path": "envsolve/verification/replay_equivalence.py",
+      "sha256": "4e623f264a22f09f362dcf8a7315d970ae0a413c4e8c0e41354fe8c76fab975f"
+    }
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "fresh_replays_per_case": 2,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_score_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "retained_worktree_mutations": 0,
+    "shared_writable_volumes_between_replays": 0,
+    "snapshot_network_requests": 0
+  },
+  "preregistration": {
+    "path": "experiments/validations/p5_round16_v6_dev5_preregistration.json",
+    "sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308"
+  },
+  "validation_id": "p5-v6-paired-fresh-replay-dev5-round16-v1"
+}

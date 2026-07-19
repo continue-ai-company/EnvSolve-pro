@@ -1,0 +1,69 @@
+{
+  "analysis_id": "p5-v3-legacy-clean-dev5-round6-analysis-v1",
+  "source_result": {
+    "path": "experiments/validations/p5_round6_v3_dev5_results.json",
+    "sha256": "b36c0f7131633fb9d32ddb243bf7ea5e342a9b9e37684d07e8d80d05f52344a8"
+  },
+  "aggregate": {
+    "cases": 5,
+    "bootstrap_pass": 4,
+    "v3_pass": 2,
+    "v3_fail": 0,
+    "v3_unknown": 3
+  },
+  "cases": [
+    {
+      "repository": "convexengineering/gpkit",
+      "bootstrap_exit_code": 0,
+      "terminal_class": "v3_collection_error",
+      "cause": "Legacy project distribution was provenance-matched, but its egg-info exposes PKG-INFO rather than METADATA.",
+      "v3_log_sha256": "cc55392a499d4f8d023039c94317eab8fa5fd81a1d93a95e167f29be3c475d4e"
+    },
+    {
+      "repository": "jaraco/inflect",
+      "bootstrap_exit_code": 0,
+      "terminal_class": "v3_pass",
+      "cause": "The network-changed retry completed; PEP 610 provenance and package import both passed after network disconnection.",
+      "probes": ["package:inflect"],
+      "bootstrap_log_sha256": "d0680603e78ae1ba7134a5fa5018c70faf9631dcafad1611d1c5ae6f4900010c"
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "bootstrap_exit_code": 0,
+      "terminal_class": "v3_collection_error",
+      "cause": "Legacy project distribution was provenance-matched, but its egg-info exposes PKG-INFO rather than METADATA.",
+      "v3_log_sha256": "cc55392a499d4f8d023039c94317eab8fa5fd81a1d93a95e167f29be3c475d4e"
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "bootstrap_exit_code": 1,
+      "terminal_class": "source_materialization_conflict",
+      "cause": "The package-host download completed, then setuptools-scm rejected the git-archive source because it contains no .git metadata.",
+      "network_timeout_recurred": false,
+      "bootstrap_log_sha256": "afcb2789c001c141c26d502b2ef4dfd40281f10d32b6f3c864d362f9c4e1ccaf"
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "bootstrap_exit_code": 0,
+      "terminal_class": "v3_pass_control",
+      "cause": "PEP 610 snapshot and complete entry-point/CLI probe plan are identical to Round 4 and remain passing.",
+      "round4_snapshot_identical": true,
+      "round4_probe_plan_identical": true,
+      "probes": ["entry:poetry:import", "entry:poetry:cli"]
+    }
+  ],
+  "causal_findings": [
+    "Changing the network was sufficient for the previously blocked Inflect bootstrap.",
+    "The xdist retry disproved a pure-network explanation and identified missing VCS metadata in source materialization.",
+    "Legacy egg-link provenance matching works far enough to select the project distribution, but the snapshot policy lacks the egg-info PKG-INFO metadata filename.",
+    "The unchanged PEP 610 control did not regress."
+  ],
+  "claim_boundaries": {
+    "collector_errors_count_as_v3_pass": false,
+    "source_materialization_conflict_counts_as_bootstrap_pass": false,
+    "official_results_modified": false,
+    "new_official_verifier_executions": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

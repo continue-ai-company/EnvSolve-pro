@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "preregistered_at": "2026-07-16T00:00:00+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Outcome-blind paired development qualification of two-layer import obligations against a runtime-only evidence-admission ablation.",
+  "parent_freeze": {
+    "freeze_id": "envsolve-harness-v13",
+    "path": "experiments/protocols/harness_freeze_v13.json",
+    "sha256": "60079e6bfd12d9aead2172a47d334b7394eaac46965458c55b08fc3beefd4ba6"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched201.jsonl",
+    "source_sha256": "076ef72dbab0bb5cdefa72b10b2a84d4391914716fb640c5ab5f579b46677bfe",
+    "count": 5,
+    "salt": "envsolve-p6-v3-qualification-v1-2026-07-16",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false
+  },
+  "methods": [
+    {
+      "method": "envsolve-runtime-only",
+      "obligation_profile": "runtime-only"
+    },
+    {
+      "method": "envsolve-full",
+      "obligation_profile": "two-layer"
+    }
+  ],
+  "model": "deepseek/deepseek-v4-pro",
+  "temperature": 0,
+  "paired_budget": true,
+  "fresh_environment_per_candidate": true,
+  "official_evaluator": {
+    "maximum_claims_per_method_case": 1,
+    "access": "post-episode-only",
+    "feedback_to_online_state": false
+  },
+  "claim_scope": "development mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    "research/P6_V3_UNSEEN_DEV5_QUALIFICATION_V1.md",
+    "research/P6_V3_UNSEEN_DEV5_QUALIFICATION_V1_ZH.md"
+  ]
+}

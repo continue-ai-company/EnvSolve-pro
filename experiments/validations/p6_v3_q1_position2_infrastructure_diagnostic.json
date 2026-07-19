@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "p6-v3-q1-01-envsolve-full",
+  "schedule_position": 2,
+  "method": "envsolve-full",
+  "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+  "classification": "pre-episode-infrastructure-failure",
+  "audit_valid": true,
+  "repository_acquired": false,
+  "model_requests": 0,
+  "candidates_attempted": 0,
+  "official_evaluator_claims": 0,
+  "failure_stage": "repository_acquisition",
+  "failure_signature": "huggingface-read-timeout",
+  "retry_policy": {
+    "allowed": true,
+    "reason": "No repository, model, candidate, or evaluator information was observed.",
+    "preserve_failed_artifact": true,
+    "retry_run_id": "p6-v3-q1-01-envsolve-full-infra-retry1"
+  },
+  "infrastructure_correction": "Use a shared immutable revision cache across runs while retaining independent clean checkouts, ledgers, scripts, and containers.",
+  "algorithm_change": false,
+  "artifacts": {
+    "manifest_sha256": "2838dabee6c51ae7da5fe67bf509a53b2d4fa8f60cde16fd6c4c5ff226193a41",
+    "solver_result_sha256": "325630399586c452ca974a025c3e12bceb7241cb409203e371c00736a9cc4dcb",
+    "solver_log_sha256": "659c1c3c4010f457bf295afc77edbaede6e41385791ecd3ce45c665cb9ab5aee"
+  }
+}

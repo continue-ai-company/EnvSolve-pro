@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "envsolve-v0-round2-pyenv-v5-evaluator-retry-v1",
+  "preregistration_sha256": "3e961b87036449587062f061cc5e0398ed267a2f5dc52733deccfe445dad3f9c",
+  "batch_summary": {
+    "path": "runs/envsolve-v0-r2-pyenv-v5-evalretry-v1/batch_summary.json",
+    "sha256": "ed3e419ef77dadedafdd010e6e5190cb427ae4d9b81bacde70af38cc18a73649"
+  },
+  "outcomes": {
+    "attempted": 4,
+    "generation_completed": 2,
+    "generation_rejected_fail_closed": 2,
+    "evaluation_completed": 0,
+    "official_unobserved": 2,
+    "target_audits_valid": 4
+  },
+  "evaluator_failure": {
+    "family": "sandbox_macos_system_configuration_unavailable",
+    "scope": "host_uv_before_envbench_start",
+    "shared_by_evaluable_records": 2,
+    "network_related": false,
+    "docker_started": false,
+    "pyfirebirdsql_log_sha256": "30d3b3787b454c1ac8b4ed31b8ea22e31c77afae12d47a155ec9d2f7e458abb1",
+    "islandora_log_sha256": "0b68a44369673de07053c53ee36b94eaf5490f1fe473080e15ba4ba673f24614"
+  },
+  "interpretation": {
+    "uv_cache_fix_effective": true,
+    "official_effect_observed": false,
+    "next_action": "Execute a new immutable run outside the filesystem/network sandbox so uv and Docker can read macOS system configuration."
+  }
+}

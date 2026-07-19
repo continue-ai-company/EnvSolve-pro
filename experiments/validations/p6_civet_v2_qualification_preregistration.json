@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "p6-civet-v2-qualification-v1",
+  "registered_at": "2026-07-16T05:16:00+00:00",
+  "purpose": "Development-informed same-case qualification of python-deployment-v2 counterexample timing, shared budget persistence, and post-episode evaluation isolation. This run is not admissible as algorithm-effect or held-out evidence.",
+  "case": {
+    "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+    "split_role": "development-only-consumed",
+    "prior_attempts": [
+      "envsolve-p6-devext3-civet-r1",
+      "envsolve-p6-devext3-civet-r2"
+    ]
+  },
+  "implementation": {
+    "harness_freeze": "experiments/protocols/harness_freeze_v7.json",
+    "harness_freeze_sha256": "979999f336a3ca1306b570f52129a8779d07dbe0cfa4af0344b6a44a1aa0d53f",
+    "internal_verifier": "python-deployment-v2",
+    "online_feedback": "internal-execution-only",
+    "official_evaluator_access": "one atomic post-episode claim"
+  },
+  "condition": {
+    "runner": "envsolve",
+    "method": "envsolve-full",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 7,
+    "max_candidates": 5,
+    "automatic_retries": 0
+  },
+  "qualification_checks": [
+    "The independent run audit is valid and persisted model usage is nonzero.",
+    "Every candidate and fresh environment consumes the shared persisted budget exactly once.",
+    "Any second candidate is proposed only after first-candidate internal evidence and normalized constraints are persisted.",
+    "Post-episode official evidence is absent from every model request and online state transition.",
+    "Malformed, unresolved, or contradictory verifier output fails closed."
+  ],
+  "reporting": {
+    "algorithm_claim_allowed": false,
+    "held_out_claim_allowed": false,
+    "retain_all_failures": true,
+    "network_retry": "Only one separately recorded retry after explicit user confirmation of a local network failure."
+  }
+}

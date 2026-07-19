@@ -1,0 +1,37 @@
+{
+  "protocol_id": "envsolve-envbench-finding-collector-v1-preregistration",
+  "created_on": "2026-07-15",
+  "development_only": true,
+  "new_real_case_executions": 0,
+  "recorded_qualification_case_count": 1,
+  "official_goal_contract": "exit_code == 0 and issues_count == 0",
+  "finding_contract": {
+    "accepted_goal_diagnostic": "exact reportMissingImports with revision-owned source",
+    "goal_disposition": "all attributable official missing imports are active",
+    "semantic_disposition": "P5 assessment retained in provenance",
+    "unknown": [
+      "identity mismatch",
+      "missing or malformed source evidence",
+      "diagnostic cardinality mismatch",
+      "unresolved P5 assessment",
+      "incomplete evaluation"
+    ]
+  },
+  "bootstrap_contract": {
+    "typed_sources": [
+      "python version mismatch",
+      "missing executable capability",
+      "missing module"
+    ],
+    "network_failure": "infrastructure Unknown",
+    "other_failure": "failed without invented counterexample"
+  },
+  "forbidden": [
+    "module-to-package map",
+    "repository-specific rule",
+    "source modification",
+    "automatic network retry",
+    "non-missing-import Pyright error repair",
+    "official score reinterpretation"
+  ]
+}

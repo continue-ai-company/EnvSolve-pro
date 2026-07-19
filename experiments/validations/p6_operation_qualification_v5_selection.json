@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v5_preregistration.json",
+  "preregistration_sha256": "7e8d654553738ae940097add4595f80c1c3a08e85c6eaadaf26907bb5c4b3f45",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v5_171.jsonl",
+  "remaining_sha256": "e6c0e3b17fc91f335418c26d7eab63784e25fefc11b3d9dfc0c6bab9cc549693",
+  "salt": "envsolve-p6-operation-qualification-v5-2026-07-17",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-eastsidepreparatoryschool__epschedule@76cc6bec7d37dedae67c6926142ae37cbf15194a",
+    "envbench-python-neurogym__neurogym@ee0a140cf2c6f14f36f524997c269cf110afc73d",
+    "envbench-python-ibm__ibmi-bob@d741050ea70c32474d58a5f0897ab0056d9a611e",
+    "envbench-python-rl-institut__spice_ev@81f63291a7b52ce00ffc1a4746af6dacc92e3f1e",
+    "envbench-python-giskard-ai__giskard@e724a9f5d7d90e88c1575cdb06ccd573548f033b"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v5_5.jsonl",
+  "selected_sha256": "38189d49beeacc4ac797e872ca5654a8ecb8d8b227ddda03db300296f33d5d6d",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v4_176.jsonl",
+  "source_sha256": "38efbf84a3d6148dffd08f188b3e45b9818a3519248e35e5c4b3c635f617cc63"
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "envsolve-v0-round2-pyenv-v5-unsandboxed-evaluator-v1",
+  "preregistration_sha256": "afcc5b452e7f81c27d205148f33af134c51b28ac11432804cce969a36d7cb17d",
+  "batch_summary": {
+    "path": "runs/envsolve-v0-r2-pyenv-v5-unsandboxed-eval-v1/batch_summary.json",
+    "sha256": "7eff4e4b5df8a068abb6b35130f2ae26b061c18e03b40532b837d28449d1695f"
+  },
+  "validity": {
+    "attempted": 4,
+    "target_audits_valid": 4,
+    "generation_completed": 2,
+    "generation_rejected_fail_closed": 2,
+    "evaluation_completed": 2,
+    "provider_requests_made": 0,
+    "source_artifacts_overwritten": 0
+  },
+  "official": {
+    "passes": 0,
+    "fails": 2,
+    "pass_rate_among_evaluated": 0.0,
+    "eligible_population": "Only the two Round2 source trajectories fully redistilled by the development-informed v5 replay rule"
+  },
+  "records": [
+    {
+      "repository": "avaiga/taipy-core",
+      "generation_completed": false,
+      "outcome": "still_rejected",
+      "primary_family": "unsupported_absolute_working_directory"
+    },
+    {
+      "repository": "nakagami/pyfirebirdsql",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "raw_result_sha256": "961dbbb3e25bbfed91c4fc2879731c3bf5b81c02496ca5687ec26a4daca892e5",
+      "evaluation_log_sha256": "20d262969020c6298da2ca2f6773e04dcbd5c79fc51ebd08f190b404a75f3c36",
+      "metrics": {
+        "exit_code": 0,
+        "issues_count": 11,
+        "pyright_error_count": 701,
+        "pyright_warning_count": 1,
+        "missing_import_count": 7,
+        "non_missing_import_error_count": 690
+      },
+      "primary_family": "completion_verifier_goal_mismatch"
+    },
+    {
+      "repository": "wireless-innovation-forum/spectrum-access-system",
+      "generation_completed": false,
+      "outcome": "still_rejected",
+      "primary_family": "multiple_unrepresented_execution_effects"
+    },
+    {
+      "repository": "islandora/documentation",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "raw_result_sha256": "b56df464903dbf344cc4f9ff91acaccc2c944fb519627569cc76de6389c19722",
+      "evaluation_log_sha256": "fa4e756f0a53fa9fc3175d45bf04d235192e14be566460d207732411117b8b53",
+      "metrics": {
+        "exit_code": 2,
+        "issues_count": 0,
+        "pyright_error_count": null
+      },
+      "primary_family": "bootstrap_network_read_timeout",
+      "network_censored": true
+    }
+  ],
+  "findings": [
+    "Typed replay IR v5 removes the repeated pyenv representation blocker but does not itself improve the environment-solving policy.",
+    "The fixed in-place pip check completion gate is not sufficient for fresh-container replayability or the public goal verifier.",
+    "One evaluated candidate reproduced package installation but failed the goal verifier; the other was censored by a package-download timeout during fresh replay.",
+    "The next minimal algorithm mechanism should verify candidate actions in a clean environment through a benchmark-independent verifier contract and feed structured counterexamples back into solver state."
+  ],
+  "claim_boundary": {
+    "typed_replay_ir_v5_qualified": true,
+    "envsolve_v0_effect_improved": false,
+    "held_out_generalization_claim": false,
+    "network_retry_in_this_run": false
+  }
+}

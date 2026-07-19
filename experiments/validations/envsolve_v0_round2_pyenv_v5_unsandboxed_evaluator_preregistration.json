@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "envsolve-v0-round2-pyenv-v5-unsandboxed-evaluator-v1",
+  "registered_at": "2026-07-15T06:22:00Z",
+  "purpose": "Run the unchanged v5 counterfactual and official evaluator with host system configuration and Docker access unavailable inside the managed sandbox.",
+  "claim_scope": "Infrastructure recovery only; development-informed and non-confirmatory.",
+  "prior_attempts": [
+    {
+      "results": "experiments/validations/envsolve_v0_round2_pyenv_v5_counterfactual_results.json",
+      "failure": "default uv cache was outside writable roots"
+    },
+    {
+      "results": "experiments/validations/envsolve_v0_round2_pyenv_v5_evaluator_retry_results.json",
+      "failure": "macOS SystemConfiguration was unavailable inside the managed sandbox"
+    }
+  ],
+  "execution": {
+    "run_id": "envsolve-v0-r2-pyenv-v5-unsandboxed-eval-v1",
+    "case_file": "experiments/cases/envsolve_v0_round2_pyenv_trigger4.jsonl",
+    "case_file_sha256": "47b55addb2d6ebfe9acefa5cf263a2cc17571de2856e6a8d37a05620f993914c",
+    "source_run": "runs/envsolve-v0-discovery5-r2-v0",
+    "runner": "envbench-recorded",
+    "method": "envsolve-v0-v5-recorded-counterfactual",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_workers": 1,
+    "overwrite": false,
+    "provider_requests_allowed": false,
+    "UV_CACHE_DIR": "/tmp/anydeploy-uv-cache-v1",
+    "sandbox": "host execution required for uv SystemConfiguration and Docker"
+  },
+  "frozen_invariants": {
+    "harness_freeze": "experiments/protocols/harness_freeze_v3.json",
+    "harness_freeze_sha256": "0f32f10cab7c39f3350c7747705466bd7ef3a68f8a41fc2a2087f3d36be76465",
+    "typed_replay_ir_policy": "typed-replay-ir-v5",
+    "replay_grammar_unchanged": true,
+    "official_evaluator_unchanged": true,
+    "source_trajectories_unchanged": true
+  },
+  "precommitted_expectations": {
+    "generation_completed": 2,
+    "generation_rejected_fail_closed": 2,
+    "evaluation_attempted": 2,
+    "official_outcomes": "Report all completed outcomes without retrying an environment failure."
+  },
+  "stop_rule": "Collect all four first attempts in this run and stop after audit, regardless of official pass or fail."
+}

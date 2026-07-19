@@ -1,0 +1,51 @@
+{
+  "freeze_id": "p6-constraint-operation-v4-partial-observation-transition",
+  "change_from_v3": "Retire an earlier fresh-environment fact only when a later verifier outcome observes the same domain, subject, and predicate; hypothesis-only and unrelated partial observations preserve unresolved obligations.",
+  "files": {
+    "envsolve/constraints/engine.py": "1c66c9d694d7a21047498c42e58192607c1b5c1cfc91a3bd2a4b5cac1198fee4",
+    "envsolve/operations/models.py": "45744bd9be24dee32e1e87bfa76915045ca6d7af548033123f732036be73b83d",
+    "envsolve/operations/planner.py": "938e70148f0926dd9c42bfa3929b033c26081f3263d6761a749743bedb336452",
+    "envsolve/runtime/policy.py": "94f331f8bc88b8643075fc2ae2205f117c4fd99ea9fa6002b4ca379e6c3d2f20",
+    "envsolve/solver/counterexample.py": "198e3cbb058f4d6e274b3f779be2f60c42765ab01fbd6f27ef1d1ab90ead0442",
+    "envsolve/tests/test_constraints.py": "c2f37693df8db63d62059574c6326b6b95ebc58c2c78e17de121dcb2242ceb5a",
+    "envsolve/tests/test_counterexample_loop.py": "1d03689da6dd67d517a5831e405fcb45ced67bb3bd3cced9263db9645a41bd6f",
+    "envsolve/tools/run_envsolve_episode.py": "4f4d0f2ca754dc8833bd8f59a1f2817810c54a020dc3b64c91f86a3f4ab6b790",
+    "envsolve_harness/runners/envsolve_p6.py": "da71bc2982013eae405a58bd05892e0c2ce59868c07b6d8a7f945e2651520e42",
+    "envsolve_harness/scripts/candidate_validation.py": "e80da219edae8a07162b323e7a2d8b1efac86d1e0c6557915c95babd86db1570",
+    "envsolve_harness/scripts/constraint_operations.py": "a419f8a7130fe03b04deaeaef9dd09b67736ef3b2a9d0bf2f4f6e1192f547738",
+    "envsolve_harness/scripts/replay_actions.py": "36cb572aa2c185862c28a61bad93321a00c81cc679704cc9294fb54caf101ebd",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/validations/p6_operation_q2_closure.json": "5ec45013f6e9f864ef28b8342e5041ac189a606d78ebda081ccc2876bfa07c5c",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V3.md": "17b9560f33757e82fcae14a290c13fe4de3419d2fb7434d3945dd4823de212b8",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V3_ZH.md": "89cafcfcc97cbd0d125410586b0b020fc77e2f976479035215e0385557d3754d",
+    "tests/test_constraint_operation_loop.py": "49924a8fd1fc7e28909f4fb4c763ed1227659ff351e90780bdf0bb25cd67c9c0"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "new_repository_specific_rule": false,
+    "official_test100_inspected": false,
+    "q1_closed": true,
+    "q2_closed": true,
+    "q3_model_requests": 0,
+    "q3_official_evaluator_executions": 0,
+    "q3_repository_inspections": 0,
+    "q3_selection_executed": false
+  },
+  "semantic_boundary": {
+    "absence_of_observation_means_satisfied": false,
+    "fact_replacement_key": [
+      "domain",
+      "subject",
+      "predicate"
+    ],
+    "hypothesis_can_retire_fact": false,
+    "operation_treatment_changed": false,
+    "passing_verifier_terminates_episode": true
+  },
+  "verification": {
+    "compile": "passed",
+    "docker_integration": "1 passed",
+    "full_regression": "319 passed, 1 skipped",
+    "focused_tests": "41 passed"
+  }
+}

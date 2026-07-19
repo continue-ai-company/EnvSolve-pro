@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v1",
+  "preregistered_at": "2026-07-17T00:00:00+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Outcome-blind paired development qualification of the complete constraint-to-operation layer against a free-form operation ablation.",
+  "parent_freeze": {
+    "freeze_id": "p6-constraint-operation-v2-ablation",
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v2.json",
+    "sha256": "c38e831eb0953586fab1691cfbe93754d43b473033d739c46196195edb73cfa2"
+  },
+  "closed_predecessor": {
+    "path": "experiments/validations/p6_v3_q1_closure.json",
+    "sha256": "3356b9f3ac7f182c4c81d095116fa2d3eff403e9ce200537d7273bdf8233b77c"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_v3_qualification196.jsonl",
+    "source_sha256": "337f72f00b3731fe7388628a01e45f09ac07a4b3f579bc2fbdbdeddfede352ce",
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v1-2026-07-17",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "shared_information": [
+    "repository profile",
+    "typed facts and constraints",
+    "active hypotheses",
+    "bounded prior candidate feedback",
+    "two-layer verifier",
+    "typed replay candidate language"
+  ],
+  "model": "deepseek/deepseek-v4-pro",
+  "temperature": 0,
+  "seed": 0,
+  "budget": {
+    "max_candidates": 5,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "max_estimated_cost_usd": 5.0,
+    "episode_timeout_seconds": 7200,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "config": "experiments/configs/local_mac_p6_operation.json",
+    "config_sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+  },
+  "fresh_environment_per_executed_candidate": true,
+  "official_evaluator": {
+    "maximum_claims_per_method_case": 1,
+    "access": "post-episode-only",
+    "feedback_to_online_state": false
+  },
+  "claim_scope": "development mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    {
+      "path": "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1.md",
+      "sha256": "9cb85f585145045fa7196896a903aa012e2aa48b8525de2a9cce1bbbb2f9eca7"
+    },
+    {
+      "path": "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1_ZH.md",
+      "sha256": "8ca09147684545205212aea762ae9f6fb9c51008045f4ced38f0b4cb6aedd954"
+    }
+  ]
+}

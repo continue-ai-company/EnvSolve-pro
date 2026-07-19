@@ -1,0 +1,61 @@
+{
+  "analysis_id": "p5-v1-network-retry-dev5-round13-analysis-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round13_v1_dev5_retry_preregistration.json",
+    "sha256": "d4882224aa00c7470ae8d078b407ad52d9ff3b3c583c5ccfbd3175a1a4278b72"
+  },
+  "result": {
+    "path": "experiments/validations/p5_round13_v1_dev5_results.json",
+    "sha256": "8f7fbd3330987773b9ef7d865a60888f55c5f0cc433b5b826121f9709acd218d"
+  },
+  "aggregate": {
+    "cases": 5,
+    "bootstrap_pass": 4,
+    "v1_pass": 4,
+    "v1_fail": 0,
+    "v1_unknown": 1,
+    "active_requirements": 23,
+    "resolver_pass": 4,
+    "resolver_fail": 0,
+    "resolver_timeout": 0,
+    "collection_errors": 0,
+    "duration_seconds": 780.6531258320001
+  },
+  "non_regression": {
+    "repositories": [
+      "convexengineering/gpkit",
+      "jaraco/inflect",
+      "markqvist/reticulum",
+      "pytest-dev/pytest-xdist"
+    ],
+    "v1_decisions_identical_to_round12": true,
+    "project_metadata_hashes_identical_to_round12": true,
+    "resolver_output_hashes_identical_to_round12": true,
+    "active_requirement_counts_identical_to_round12": true,
+    "selected_extras_identical_to_round12": true
+  },
+  "poetry": {
+    "bootstrap": "failed",
+    "v1": "unknown",
+    "classification": "infrastructure-blocked",
+    "v1_collection_started": false,
+    "evidence": "The unchanged bootstrap failed while installing cmake as a rapidfuzz build-system requirement. The package transfer ended with IncompleteRead, ProtocolError, and ChunkedEncodingError before V1 evidence collection.",
+    "relation_to_round12": "The specific dependency differs from Round 12 keyring, but both failures are incomplete files.pythonhosted.org package transfers before V1 collection.",
+    "retry_budget": "The single preregistered user-confirmed network retry was consumed. No further local retry is authorized by this experiment."
+  },
+  "conclusions": [
+    "Round 13 independently reproduces the four real V1 Pass decisions and their content-addressed evidence under substantially slower network conditions.",
+    "Poetry remains V1 unknown because required evidence was never observed; it is neither a V1 failure nor a V1 pass.",
+    "The repeated pre-collection transfer failures motivate an infrastructure-reliability protocol for later server batching, not a V1 policy change or another unregistered local retry.",
+    "Current real Dev-5 V1 coverage is 4/5. P5 remains open, and no Official Pass, held-out, or leaderboard claim is made."
+  ],
+  "integrity": {
+    "model_requests": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "retained_worktree_mutations": 0,
+    "resolver_network_requests": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

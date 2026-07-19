@@ -1,0 +1,72 @@
+{
+  "validation_id": "p5-v3-legacy-metadata-round8-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round8_legacy_metadata_preregistration.json",
+    "sha256": "92c0f6b7dc3723dcc0f1d6906dbbdd4e018381f53b416c79b7d5b5b8d5ffacbc"
+  },
+  "implementation": {
+    "metadata_collector": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "metadata_tests": {
+      "path": "envsolve/tests/test_installed_metadata.py",
+      "sha256": "01f642f70fe291032380ac1d28a1a03493f346972b5ef57e69da6171bd56aab1"
+    },
+    "container_runner": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "5bd928f5a63c46524e05d63da8af8f4948e18578eb869973b989ce6cac373bb1"
+    },
+    "unchanged_smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    }
+  },
+  "checks": {
+    "focused_tests": {
+      "command": "python3 -m unittest envsolve.tests.test_installed_metadata envsolve.tests.test_v3_container_tool envsolve.tests.test_smoke_verifier -v",
+      "tests": 24,
+      "passed": true
+    },
+    "envsolve_tests": {
+      "command": "python3 -m unittest discover -s envsolve/tests -p 'test_*.py'",
+      "tests": 126,
+      "passed": true
+    },
+    "harness_tests": {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+      "tests": 44,
+      "passed": true
+    },
+    "compile": {
+      "command": "PYTHONPYCACHEPREFIX=/tmp/envsolve-p5-pyc python3 -m compileall -q envsolve envsolve_harness tests",
+      "passed": true
+    },
+    "diff_check": {
+      "command": "git diff --check -- envsolve experiments research tests",
+      "passed": true
+    }
+  },
+  "contract_observations": {
+    "metadata_precedence": ["METADATA", "PKG-INFO"],
+    "modern_fixture_hash_preserved": "b5b7e20b20f6d0c6f7c2765503eb53c817f4e4608a845027fdb18a6784ffeafd",
+    "legacy_metadata_content_addressed": true,
+    "metadata_source_recorded": true,
+    "missing_metadata_structured_unknown": true,
+    "smoke_policy_changed": false
+  },
+  "claims": {
+    "synthetic_contract_validated": true,
+    "new_real_v3_passes_claimed": 0
+  },
+  "integrity": {
+    "model_requests": 0,
+    "real_repository_executions": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

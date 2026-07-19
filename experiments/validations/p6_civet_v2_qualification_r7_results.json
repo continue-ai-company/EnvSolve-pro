@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "p6-civet-v2-qualification-r7-v1",
+  "run_id": "envsolve-p6-devext3-civet-r7",
+  "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+  "split_role": "development-only-consumed",
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v11.json",
+    "sha256": "fa5167226703cd9e9e65aa33e192af9d7282e9864826591f30a31b35f25e4e4a"
+  },
+  "audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "online_episode": {
+    "generation_completed": true,
+    "goal_status": "satisfied",
+    "candidates_attempted": 4,
+    "fresh_environments": 4,
+    "commands": 4,
+    "model_requests": 4,
+    "input_tokens": 16953,
+    "output_tokens": 11426,
+    "total_tokens": 28379,
+    "estimated_cost_usd": 0.017315175,
+    "elapsed_wall_clock_seconds": 2126.830221,
+    "accepted_candidate_id": "candidate-0004",
+    "accepted_script_sha256": "688c6231870b3a254d625b1aa22356b17f2fccdd81a07e87fd1fbf57081e0ff0",
+    "candidate_outcomes": [
+      {
+        "candidate_id": "candidate-0001",
+        "bootstrap_exit_code": 124,
+        "v11_classification": "candidate-failure",
+        "correct_classification": "infrastructure-unknown"
+      },
+      {
+        "candidate_id": "candidate-0002",
+        "bootstrap_exit_code": 124,
+        "v11_classification": "candidate-failure",
+        "correct_classification": "infrastructure-unknown"
+      },
+      {
+        "candidate_id": "candidate-0003",
+        "bootstrap_exit_code": 0,
+        "internal_goal_passed": false,
+        "active_module_obligations": [
+          "redis.exceptions"
+        ]
+      },
+      {
+        "candidate_id": "candidate-0004",
+        "bootstrap_exit_code": 0,
+        "internal_goal_passed": true,
+        "active_module_obligations": []
+      }
+    ]
+  },
+  "post_episode_evaluation": {
+    "official_claim_count": 1,
+    "official_pass": false,
+    "exit_code": 0,
+    "issues_count": 15,
+    "error_count": 1594,
+    "warning_count": 10,
+    "missing_import_occurrences": 15,
+    "missing_import_modules": [
+      "ConfigParser",
+      "Queue",
+      "requests.packages.urllib3.exceptions",
+      "urlparse"
+    ],
+    "non_missing_import_error_count": 1579
+  },
+  "qualification": {
+    "valid": false,
+    "reasons": [
+      "Harness-enforced timeout was admitted as candidate feedback instead of infrastructure Unknown.",
+      "Candidate 2 was generated from the right-censored candidate-1 timeout observation."
+    ],
+    "recoverable_policy_output_branch_observed": false,
+    "candidate_dsl_recovery_branch_observed": false,
+    "official_feedback_absent_online": true,
+    "algorithm_claim_allowed": false,
+    "held_out_claim_allowed": false
+  },
+  "follow_up": {
+    "timeout_fix_freeze": "experiments/protocols/harness_freeze_v12.json",
+    "timeout_fix_freeze_sha256": "c9a9747b1c042fa0429f5e80e0daee237505881f4aaa92833953f241b45a18eb",
+    "next_error_family": "semantic-runtime-import-pass-versus-static-missing-import-failure",
+    "case_specific_repairs_allowed": false
+  }
+}

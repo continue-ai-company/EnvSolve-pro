@@ -1,0 +1,232 @@
+{
+  "artifact": {
+    "audit_valid": true,
+    "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "event_count": 55,
+    "event_log_sha256": "7936976581275c953f1cdee4daad6c1ec430778b2bbc786dc42d17d6896ddda5",
+    "plan_sha256": "a398d64da0de30160bbf0c84fee70dac6a2771382614d7be4ace4ca95a7703ba",
+    "root": "runs/p4d-capability-round2-v1",
+    "snapshot_hash": "dc3912ae275ffc1afd1040894bc577401fdf425a8c07a8bc36309e461f41ebb3",
+    "snapshot_sha256": "62065a8ffb541f38a7b0769e245977c9d19170e2a7d295f99941fca8f6d87565"
+  },
+  "commands": [
+    "printf 'path\\t%s\\n' \"$PATH\"; printf 'architecture\\t'; dpkg --print-architecture; . /etc/os-release; printf 'os\\t%s\\t%s\\n' \"$ID\" \"${VERSION_CODENAME:-unknown}\"",
+    "if p=$(command -v -- pg_config); then printf 'present\\t%s\\n' \"$p\"; else printf 'absent\\n'; fi",
+    "apt-get update",
+    "python -c 'import hashlib,json,sys,urllib.request;url,timeout,limit,agent=sys.argv[1],int(sys.argv[2]),int(sys.argv[3]),sys.argv[4];request=urllib.request.Request(url,headers={'\"'\"'User-Agent'\"'\"':agent});response=urllib.request.urlopen(request,timeout=timeout);body=response.read(limit+1);len(body)<=limit or (_ for _ in ()).throw(ValueError('\"'\"'response too large'\"'\"'));text=body.decode('\"'\"'utf-8'\"'\"');print(json.dumps({'\"'\"'request_url'\"'\"':url,'\"'\"'final_url'\"'\"':response.geturl(),'\"'\"'status'\"'\"':response.status,'\"'\"'bytes'\"'\"':len(body),'\"'\"'sha256'\"'\"':hashlib.sha256(body).hexdigest(),'\"'\"'body'\"'\"':text},ensure_ascii=True,separators=('\"'\"','\"'\"','\"'\"':'\"'\"')))' 'https://packages.ubuntu.com/search?searchon=contents&keywords=pg_config&mode=exactfilename&suite=jammy&arch=arm64' 120 12000 'EnvSolve-P4D/1.0 capability-index-research'",
+    "if apt-cache show --no-all-versions libpq-dev >/dev/null 2>&1; then printf 'present\\t%s\\n' libpq-dev; else printf 'absent\\t%s\\n' libpq-dev; fi; if apt-cache show --no-all-versions postgresql-common >/dev/null 2>&1; then printf 'present\\t%s\\n' postgresql-common; else printf 'absent\\t%s\\n' postgresql-common; fi",
+    "apt-get install -y -- postgresql-common",
+    "command -v -- pg_config"
+  ],
+  "completed_at": "2026-07-14T06:40:50.537675+00:00",
+  "development_only": true,
+  "discovery": {
+    "actions_executed": 5,
+    "actions_failed": 0,
+    "actions_succeeded": 5,
+    "goal_status": "satisfied",
+    "snapshot_hash": "c56a6cfe909dabb5ad784eeff2af89dcf707440a7bf9a9772eb8f529c8561af4",
+    "stop_reason": "capability package discovery complete"
+  },
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "repository_mounted": false
+  },
+  "isolation": {
+    "mounts": [],
+    "network": "bridge",
+    "network_endpoints": [
+      "configured apt sources",
+      "packages.ubuntu.com"
+    ],
+    "official_evaluation": false,
+    "repository_mounted": false
+  },
+  "lineage": {
+    "source_case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "source_event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+    "source_snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+    "source_summary_sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e",
+    "target_audit_sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2",
+    "target_manifest_sha256": "76010967232865341241ac7863673146f7f65e7f951f4d6ae8ef4a353b998e40",
+    "target_raw_result_path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+    "target_raw_result_sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+  },
+  "plans": [
+    {
+      "kind": "system_capability_install",
+      "mutation_action_id": "repair-system_capability_install-2db45e2d86e610b4-apply",
+      "mutation_action_type": "system_package_install",
+      "mutation_command": "apt-get install -y -- postgresql-common",
+      "prerequisite_constraint_ids": [],
+      "probe": {
+        "command": "command -v -- pg_config",
+        "expected_fact": {
+          "confidence": 1.0,
+          "domain": "capability",
+          "predicate": "present",
+          "subject": "pg_config",
+          "value": true
+        },
+        "kind": "capability_presence"
+      },
+      "proposed_fact": {
+        "confidence": 1.0,
+        "domain": "capability",
+        "predicate": "present",
+        "subject": "pg_config",
+        "value": true
+      },
+      "rationale": "Install context-provided package postgresql-common for capability pg_config",
+      "repair_id": "repair-system_capability_install-2db45e2d86e610b4",
+      "risk": "high",
+      "rollback_command": null,
+      "schema_version": "1.0.0",
+      "source_conflict_ids": [
+        "conflict-23f9b7c35b3ad522"
+      ],
+      "source_constraint_ids": [
+        "constraint-capability-7d7a75f5f64b44eb",
+        "constraint-capability-b902f3e32dd6a8e8"
+      ],
+      "supersede_constraint_ids": [
+        "constraint-capability-7d7a75f5f64b44eb"
+      ],
+      "supporting_evidence_ids": [
+        "evidence-packages-discovery-pg_config-capability-packages",
+        "evidence-transferred-evidence-context-runtime-pyenv-versions",
+        "evidence-transferred-evidence-context-system-manager-apt-get",
+        "evidence-transferred-evidence-context-tool-pyenv"
+      ],
+      "verification_action_id": "repair-system_capability_install-2db45e2d86e610b4-verify"
+    },
+    {
+      "kind": "system_capability_install",
+      "mutation_action_id": "repair-system_capability_install-991f1c4e755563f5-apply",
+      "mutation_action_type": "system_package_install",
+      "mutation_command": "apt-get install -y -- libpq-dev",
+      "prerequisite_constraint_ids": [],
+      "probe": {
+        "command": "command -v -- pg_config",
+        "expected_fact": {
+          "confidence": 1.0,
+          "domain": "capability",
+          "predicate": "present",
+          "subject": "pg_config",
+          "value": true
+        },
+        "kind": "capability_presence"
+      },
+      "proposed_fact": {
+        "confidence": 1.0,
+        "domain": "capability",
+        "predicate": "present",
+        "subject": "pg_config",
+        "value": true
+      },
+      "rationale": "Install context-provided package libpq-dev for capability pg_config",
+      "repair_id": "repair-system_capability_install-991f1c4e755563f5",
+      "risk": "high",
+      "rollback_command": null,
+      "schema_version": "1.0.0",
+      "source_conflict_ids": [
+        "conflict-23f9b7c35b3ad522"
+      ],
+      "source_constraint_ids": [
+        "constraint-capability-7d7a75f5f64b44eb",
+        "constraint-capability-b902f3e32dd6a8e8"
+      ],
+      "supersede_constraint_ids": [
+        "constraint-capability-7d7a75f5f64b44eb"
+      ],
+      "supporting_evidence_ids": [
+        "evidence-packages-discovery-pg_config-capability-packages",
+        "evidence-transferred-evidence-context-runtime-pyenv-versions",
+        "evidence-transferred-evidence-context-system-manager-apt-get",
+        "evidence-transferred-evidence-context-tool-pyenv"
+      ],
+      "verification_action_id": "repair-system_capability_install-991f1c4e755563f5-verify"
+    }
+  ],
+  "post_state": {
+    "conflicts": [],
+    "managed_constraints": 2,
+    "provisional_constraints": [],
+    "satisfiable": true,
+    "statuses": {
+      "constraint-capability-b902f3e32dd6a8e8": "satisfied",
+      "constraint-capability-ee4639c85977b06e": "satisfied"
+    }
+  },
+  "preregistration": {
+    "path": "experiments/validations/p4d_capability_round2_preregistration.json",
+    "sha256": "ea51cd320af59f12babe3375133d15eb0e880e1746d558e03e04e3a384424d95"
+  },
+  "repair_results": [
+    {
+      "execution": {
+        "actions_executed": 2,
+        "actions_failed": 0,
+        "actions_succeeded": 2,
+        "goal_status": "satisfied",
+        "snapshot_hash": "dc3912ae275ffc1afd1040894bc577401fdf425a8c07a8bc36309e461f41ebb3",
+        "stop_reason": "typed repair verified"
+      },
+      "repair_id": "repair-system_capability_install-2db45e2d86e610b4"
+    }
+  ],
+  "repository": "benadida/helios-server",
+  "revision": "c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+  "satisfied_repair_id": "repair-system_capability_install-2db45e2d86e610b4",
+  "schema_version": "1.0.0",
+  "superseded_constraint_ids": [
+    "constraint-capability-7d7a75f5f64b44eb",
+    "constraint-capability-7d7a75f5f64b44eb"
+  ],
+  "target": {
+    "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "conflict_id": "conflict-23f9b7c35b3ad522",
+    "domain": "capability",
+    "repository": "benadida/helios-server",
+    "revision": "c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "subject": "pg_config"
+  },
+  "transfer": {
+    "appended_evidence": 3,
+    "image": {
+      "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+      "repo_digests": [
+        "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+      ]
+    },
+    "lineage": {
+      "source_case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "source_event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+      "source_snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+      "source_summary_sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e",
+      "target_audit_sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2",
+      "target_manifest_sha256": "76010967232865341241ac7863673146f7f65e7f951f4d6ae8ef4a353b998e40",
+      "target_raw_result_path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+      "target_raw_result_sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+    },
+    "profile_appended": true,
+    "transferred_evidence_ids": [
+      "evidence-transferred-evidence-context-runtime-pyenv-versions",
+      "evidence-transferred-evidence-context-system-manager-apt-get",
+      "evidence-transferred-evidence-context-tool-pyenv"
+    ]
+  },
+  "validation_id": "p4d-capability-round2-v1"
+}

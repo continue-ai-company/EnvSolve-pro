@@ -1,0 +1,35 @@
+{
+  "freeze_id": "envsolve-structured-finding-adapter-v1-freeze",
+  "created_on": "2026-07-15",
+  "status": "synthetic-qualified-real-collector-not-started",
+  "source_files": {
+    "envsolve/verification/__init__.py": "dce5e8f98247c8ebceb80c2fc1f117d0641eff0989282ee7c91f08b663b7be88",
+    "envsolve/verification/counterexamples.py": "0534adcd45c9713dc759fe3ac73e629bc1fc0aa0aff6817ea1c8cfb21c300812"
+  },
+  "test_files": {
+    "envsolve/tests/test_structured_counterexamples.py": "7d5421249e484e64367022e2545bb594a9fef1b4321c8c3b6ff182be85b54e31"
+  },
+  "documents": {
+    "research/STRUCTURED_FINDING_ADAPTER_V1.md": "79c2f288af30d2bb003983d836c9a2d1110b77834a464299817535e5a58cf856",
+    "research/STRUCTURED_FINDING_ADAPTER_V1_ZH.md": "d14ba7cd048a9aacb0c6dd39751e99f2cac84f7e6a98768f3f7cd01e147dac94"
+  },
+  "qualification": {
+    "focused_tests": 8,
+    "full_suite_tests": 245,
+    "supported_domains": [
+      "runtime",
+      "package",
+      "capability",
+      "module",
+      "platform"
+    ],
+    "unknown_dominates_active": true,
+    "infrastructure_emits_no_repair_signal": true,
+    "free_form_log_parsing": false,
+    "benchmark_specific_logic": false,
+    "end_to_end_v2_feedback_test": true,
+    "real_case_executions": 0,
+    "model_requests": 0
+  },
+  "change_policy": "Finding dispositions, domain/predicate mapping, Unknown precedence, or evidence schema changes require a new adapter freeze. Real collectors are frozen separately."
+}

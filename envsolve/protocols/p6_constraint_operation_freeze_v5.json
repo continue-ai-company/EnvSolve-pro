@@ -1,0 +1,53 @@
+{
+  "freeze_id": "p6-constraint-operation-v5-aggregate-bounded-state-projection",
+  "change_from_v4": "Project immutable solver history into deterministic aggregate-bounded conflict, candidate, verifier, hypothesis, and grouped operation views before model inference.",
+  "files": {
+    "envsolve/constraints/engine.py": "1c66c9d694d7a21047498c42e58192607c1b5c1cfc91a3bd2a4b5cac1198fee4",
+    "envsolve/operations/models.py": "45744bd9be24dee32e1e87bfa76915045ca6d7af548033123f732036be73b83d",
+    "envsolve/operations/planner.py": "938e70148f0926dd9c42bfa3929b033c26081f3263d6761a749743bedb336452",
+    "envsolve/runtime/policy.py": "80a4c02e732c203361c682b37499c865ecb54126230eaa963c4f6e890abb66cd",
+    "envsolve/solver/counterexample.py": "198e3cbb058f4d6e274b3f779be2f60c42765ab01fbd6f27ef1d1ab90ead0442",
+    "envsolve/tests/test_constraints.py": "c2f37693df8db63d62059574c6326b6b95ebc58c2c78e17de121dcb2242ceb5a",
+    "envsolve/tests/test_counterexample_loop.py": "1d03689da6dd67d517a5831e405fcb45ced67bb3bd3cced9263db9645a41bd6f",
+    "envsolve/tools/run_envsolve_episode.py": "4f4d0f2ca754dc8833bd8f59a1f2817810c54a020dc3b64c91f86a3f4ab6b790",
+    "envsolve_harness/runners/envsolve_p6.py": "da71bc2982013eae405a58bd05892e0c2ce59868c07b6d8a7f945e2651520e42",
+    "envsolve_harness/scripts/candidate_validation.py": "e80da219edae8a07162b323e7a2d8b1efac86d1e0c6557915c95babd86db1570",
+    "envsolve_harness/scripts/constraint_operations.py": "a419f8a7130fe03b04deaeaef9dd09b67736ef3b2a9d0bf2f4f6e1192f547738",
+    "envsolve_harness/scripts/replay_actions.py": "36cb572aa2c185862c28a61bad93321a00c81cc679704cc9294fb54caf101ebd",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/validations/p6_operation_q3_closure.json": "1819bc293c62f9854e32066e1bc11e81924219907d375bb3df0d0ca42bc28b03",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V4.md": "a201868bb9a2146686bf6297952961510b70b60fc46b37e164e881dcb85d2471",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V4_ZH.md": "66d7e504ac2cd7513f7aa26cf1654d7366487723c03a16ed780faf10d7580d14",
+    "tests/test_constraint_operation_loop.py": "49924a8fd1fc7e28909f4fb4c763ed1227659ff351e90780bdf0bb25cd67c9c0",
+    "tests/test_envsolve_runtime.py": "584c39cc5d6d792278d918885ed7a0b0bff18dd8b49316d058459de921797231"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "new_repository_specific_rule": false,
+    "official_test100_inspected": false,
+    "q1_q2_q3_closed": true,
+    "q4_model_requests": 0,
+    "q4_official_evaluator_executions": 0,
+    "q4_repository_inspections": 0,
+    "q4_selection_executed": false
+  },
+  "semantic_boundary": {
+    "aggregate_feedback_limit_chars": 64000,
+    "common_projection_equal_across_treatments": true,
+    "event_state_is_lossless": true,
+    "free_form_operation_plan_visible": false,
+    "full_operation_plan_grouped_for_prompt": true,
+    "operation_guard_uses_complete_plan": true,
+    "operation_treatment_changed": false
+  },
+  "verification": {
+    "compile": "passed",
+    "docker_integration": "1 passed",
+    "full_regression": "324 passed, 1 skipped",
+    "focused_tests": "61 passed",
+    "q3_read_only_projection_chars": {
+      "ablation": 40114,
+      "full": 27526
+    }
+  }
+}

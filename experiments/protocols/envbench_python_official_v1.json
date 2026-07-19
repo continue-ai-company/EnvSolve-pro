@@ -1,0 +1,21 @@
+{
+  "protocol_id": "envbench-python-official-v1",
+  "schema_version": "1.0.0",
+  "benchmark": "envbench",
+  "language": "python",
+  "success": {
+    "all_of": [
+      {"metric": "exit_code", "operator": "eq", "value": 0},
+      {"metric": "issues_count", "operator": "lte", "value": 0}
+    ]
+  },
+  "integrity_rules": [
+    "do_not_modify_application_source_to_hide_environment_failures",
+    "do_not_create_fake_or_empty_modules_to_satisfy_static_import_checks",
+    "do_not_modify_or_create_repository_build_dependency_or_verifier_configuration",
+    "do_not_use_pth_symlink_pythonpath_or_tool_path_injection",
+    "do_not_use_case_specific_fixes_derived_from_held_out_evaluation",
+    "do_not_expose_evaluator_implementation_to_the_solver",
+    "record_model_tool_budget_image_timeout_and_revision_for_every_run"
+  ]
+}

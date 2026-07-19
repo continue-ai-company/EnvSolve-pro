@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "closure_id": "p6-operation-q2-closed-for-state-transition-correction",
+  "closed_at": "2026-07-17T00:00:00+08:00",
+  "classification": "audit-valid-triggering-pair-with-mechanism-defect",
+  "parent_freeze": {
+    "path": "experiments/protocols/p6_operation_qualification_freeze_v2.json",
+    "sha256": "40dd29a7c4ff6aabca006d76f6da1216a6db138a3268718b4f272733d4b12144"
+  },
+  "schedule": {
+    "path": "experiments/validations/p6_operation_qualification_v2_schedule.json",
+    "sha256": "1e6adc944fa3ceaad7e85f19f48b0dfedc66b135d1723373de1c653344169262"
+  },
+  "attempted_positions": [
+    1,
+    2
+  ],
+  "unexecuted_positions": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "pair_result": {
+    "case_id": "envbench-python-pyvisa__pyvisa@df628ff00a0a4ae4efee5277738b12a9d2fd0da0",
+    "official_evaluator_claims": 0,
+    "ablation": {
+      "generation_completed": false,
+      "stop_reason": "candidate budget exhausted",
+      "candidates": 5,
+      "environments": 4,
+      "model_requests": 5,
+      "tokens": 53726,
+      "estimated_cost_usd": 0.030313845,
+      "wall_seconds": 814.338698,
+      "guard_rejections": 0,
+      "final_active_findings": 1
+    },
+    "full": {
+      "generation_completed": false,
+      "stop_reason": "candidate budget exhausted",
+      "candidates": 5,
+      "environments": 4,
+      "model_requests": 7,
+      "tokens": 108185,
+      "estimated_cost_usd": 0.061147022,
+      "wall_seconds": 985.265564,
+      "guard_rejections": 1,
+      "final_active_findings": 18
+    }
+  },
+  "mechanism_observation": "The guard rejected one exactly repeated candidate without provisioning an environment, but a later hypothesis-only bootstrap failure superseded prior environment facts and removed all operation requirements without contradictory replacement evidence.",
+  "defect_signature": "hypothesis-only-failure-clears-unresolved-hard-conflict",
+  "scientific_interpretation": "This pair is valid negative mechanism evidence and resource evidence, but Q2 is stopped because the observed state transition violates the intended persistent-counterexample semantics.",
+  "case_policy": "All five Q2 cases remain development-consumed and no remaining Q2 position may execute.",
+  "repair_policy": "A generic synthetic transition must prove that hypothesis-only failures preserve prior unresolved conflicts; no repository or module name may enter the fix.",
+  "artifacts": {
+    "ablation": {
+      "budget_ledger.json": "e26f09364adf6454922c5f9cba9909cb6ed025c8a28024d5d2dd9085a23c5e58",
+      "episode.jsonl": "597a57da61b344a402795e2771debaadc84caa482cae189d2914f1fd9a3672d2",
+      "episode_snapshot.json": "0fe1d71082bdd428a77fb259374f97f9a91c0c156adeeccf03f5a9ef9c8fc9fc",
+      "manifest.json": "1b42b1c09788afd496f2f48f67937fa86f7eb48843aed297faccbd7976d850d3",
+      "result.json": "5c20bc871ba8724522e50b8d61394270eb4e29f057bfc5388548a7e0638ebcb7"
+    },
+    "full": {
+      "budget_ledger.json": "d6913758feac01be0963984fabbbacc4eb0776f2960941666b1cdb05868aa656",
+      "episode.jsonl": "05dde76c19de9aaae6e79376dca1554a4558b3c9d3793bc3ae98f4991a2babe7",
+      "episode_snapshot.json": "5ed2efea014c25eb5e7cfd56e9b8cfdd70c6df420ddd917f4129e857836c29b3",
+      "manifest.json": "becf83e796f0bce6c9b905fed8ebcb0427755e4d8e87e922cc450367cc8f5b53",
+      "result.json": "cf206e7c97477f46616b19fb731519962aef7555637aec56579668a8b924661e"
+    }
+  }
+}

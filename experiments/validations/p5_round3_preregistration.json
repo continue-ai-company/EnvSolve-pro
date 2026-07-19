@@ -1,0 +1,83 @@
+{
+  "preregistration_id": "p5-v3-metadata-smoke-contract-round3-v1",
+  "created_at": "2026-07-14T12:00:00Z",
+  "development_only": true,
+  "objective": "Freeze a benchmark-independent V3 smoke-probe contract before executing it on development repositories.",
+  "frozen_context": {
+    "english_protocol": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL.md",
+      "sha256": "088ff33b6b2e93d2e9c8d979fdbaea4fd264043f4e8458d9e3ff97aba99016c6"
+    },
+    "chinese_protocol": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL_ZH.md",
+      "sha256": "a6bc1a719b7556857cdbf31013cbb71206b18eb7971322b017ca78aa29dec624"
+    },
+    "hierarchy_policy": {
+      "path": "envsolve/verification/hierarchy.py",
+      "sha256": "07c3435e92ca036953a55c07176dc3ea6499cb1404eb1b026f45cd6b18851211"
+    },
+    "round2_result": {
+      "path": "experiments/validations/p5_round2_import_audit_results.json",
+      "sha256": "c5c332955f335f0eec72d623967e8dec767b20624daf7969bac252c45aaed446"
+    },
+    "round2_difference_validation": {
+      "path": "experiments/validations/p5_round2_difference_validation.json",
+      "sha256": "4ab336559fcf3c8792959fbf448c611523410beb23a4d69ddb7273e091f53f1a"
+    }
+  },
+  "input_contract": {
+    "source": "installed distribution metadata snapshot",
+    "required_provenance": [
+      "distribution name",
+      "distribution version",
+      "metadata SHA-256",
+      "explicit top-level import names where present",
+      "declared console entry points where present"
+    ],
+    "prohibited_inference": [
+      "guessing import names from distribution names",
+      "case-specific package maps",
+      "using source-directory import success as installed-package evidence"
+    ]
+  },
+  "probe_contract": {
+    "package_import": "Use fixed Python code with `python -I`; pass the validated module as an argv value.",
+    "entry_point_import": "Import the declared entry-point module and resolve every declared attribute without invoking it.",
+    "cli_help": "Invoke each validated console executable with `--help` as a direct argv vector.",
+    "execution": {
+      "shell": false,
+      "network": false,
+      "working_directory": "fresh empty directory",
+      "timeout_seconds": 30,
+      "capture": ["exit code", "duration", "stdout SHA-256", "stderr SHA-256"]
+    }
+  },
+  "decision_contract": {
+    "pass": "At least one semantic import probe is planned, every planned probe has an observed zero exit code, no metadata item is rejected, and every declared console entry point has both import and CLI coverage.",
+    "fail": "Any observed planned probe exits nonzero or times out.",
+    "unknown": "Required metadata or outcomes are missing, no semantic import probe can be planned, or metadata is rejected as unsafe/ambiguous.",
+    "fail_closed_in_robust_pass": true
+  },
+  "synthetic_counterexamples": [
+    "No metadata produces unknown rather than pass.",
+    "A distribution name is never converted into an import name.",
+    "Invalid module, attribute, or executable names are rejected.",
+    "A missing outcome produces unknown.",
+    "A timeout or nonzero exit produces fail.",
+    "Source working-directory masking is prevented by isolated mode and an empty working directory.",
+    "Every declared console entry point requires both target import and CLI probes."
+  ],
+  "round_scope": {
+    "synthetic_tests_only": true,
+    "real_repository_executions": 0,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

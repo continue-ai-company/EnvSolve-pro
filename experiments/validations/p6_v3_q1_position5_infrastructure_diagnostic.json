@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-16",
+  "development_only": true,
+  "schedule_position": 5,
+  "run_id": "p6-v3-q1-03-envsolve-full",
+  "case_id": "envbench-python-mampfes__hacs_waste_collection_schedule@a107f0e393b8f77b0da7971e530d0996344c6248",
+  "method": "envsolve-full",
+  "audit_valid": true,
+  "failure": {
+    "stage": "repository_acquisition",
+    "signature": "repository-acquisition-network",
+    "github_fetch_exit_code": 128,
+    "huggingface_signature": "read-timeout",
+    "model_requests": 0,
+    "candidates": 0,
+    "environments": 0,
+    "official_evaluator_claims": 0
+  },
+  "retry_policy": {
+    "admissible": true,
+    "basis": "No method information or online state was acquired.",
+    "run_id": "p6-v3-q1-03-envsolve-full-infra-retry1",
+    "max_retries": 1,
+    "requires_declared_network_recovery": true,
+    "if_retry_fails": "retain infrastructure Unknown and permit no further retry",
+    "source_artifact_mutated": false
+  },
+  "immutable_hashes": {
+    "solver_result_sha256": "c3577b8bcc5d779ec29ecbad9549f3340e5a8743e200c427a46f54030f396275",
+    "solver_log_sha256": "b61cd0ee81b0d930e07fc4040f7c0ed46d7348e50ade5dc7fc44b134d76800aa"
+  },
+  "scientific_use": {
+    "qualification_observation": false,
+    "case_specific_rule_added": false,
+    "confirmatory_claim": false
+  }
+}

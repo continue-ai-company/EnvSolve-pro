@@ -1,0 +1,74 @@
+{
+  "artifact": {
+    "audit_valid": true,
+    "case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "event_count": 39,
+    "event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+    "root": "runs/p4b-context-image-v1",
+    "snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+    "snapshot_sha256": "c0773e2442ab9bae7bbf26826ce98f29659391b22b2630b80e4505af82d78832"
+  },
+  "context": {
+    "context": {
+      "available_python_versions": [
+        "3.8.18",
+        "3.9.18",
+        "3.10.13",
+        "3.11.7",
+        "3.12.0",
+        "3.13.1"
+      ],
+      "capability_packages": {},
+      "evidence_ids": [
+        "evidence-context-runtime-pyenv-versions",
+        "evidence-context-system-manager-apt-get",
+        "evidence-context-tool-pyenv"
+      ],
+      "module_distributions": {},
+      "runtime_manager": "pyenv",
+      "system_package_manager": "apt-get"
+    },
+    "provisional_evidence_ids": [],
+    "recognized_evidence_ids": [
+      "evidence-context-runtime-pyenv-versions",
+      "evidence-context-system-manager-apk",
+      "evidence-context-system-manager-apt-get",
+      "evidence-context-system-manager-brew",
+      "evidence-context-system-manager-dnf",
+      "evidence-context-system-manager-yum",
+      "evidence-context-tool-pyenv"
+    ]
+  },
+  "created_at": "2026-07-14T05:14:46.572140+00:00",
+  "image": {
+    "architecture": "arm64",
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "os": "linux",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false
+  },
+  "isolation": {
+    "benchmark_repository_mounted": false,
+    "mounts": [],
+    "network": "none"
+  },
+  "result": {
+    "actions_executed": 7,
+    "actions_failed": 0,
+    "actions_succeeded": 7,
+    "goal_status": "satisfied",
+    "snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+    "stop_reason": "context acquisition complete"
+  },
+  "schema_version": "1.0.0",
+  "validation_id": "p4b-case-free-image-context-v1"
+}

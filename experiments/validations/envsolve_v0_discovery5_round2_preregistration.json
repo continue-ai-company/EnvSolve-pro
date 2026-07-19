@@ -1,0 +1,158 @@
+{
+  "analysis_policy": {
+    "collect_before_analysis": "Complete and preserve all ten first attempts.",
+    "labels": [
+      "solver_error",
+      "verifier_rejection",
+      "unsafe_or_unreplayable_action",
+      "evaluator_error",
+      "official_failure",
+      "infrastructure_unknown",
+      "success"
+    ],
+    "mechanism_admission": "Add no mechanism unless one error family appears in at least two valid v0 trajectories and is the plurality of attributable failures.",
+    "no_dominant_error": "Freeze another outcome-blind discovery batch instead of choosing from a singleton.",
+    "validation": "Any admitted mechanism must improve a separately frozen unseen batch before Canary-20."
+  },
+  "development_only": true,
+  "execution": {
+    "analysis_output": "experiments/validations/envsolve_v0_discovery5_round2_results.json",
+    "attempts_per_case_condition": 1,
+    "automatic_case_retries": 0,
+    "coordinator_run_id": "envsolve-v0-discovery5-r2-paired",
+    "max_workers": 1,
+    "model": "deepseek/deepseek-v4-pro",
+    "order": "Odd ranks run v0 then FreeAgent; even ranks reverse the order.",
+    "provider_base_url": "https://openrouter.ai/api/v1",
+    "run_ids": {
+      "envsolve_v0": "envsolve-v0-discovery5-r2-v0",
+      "freeagent": "envsolve-v0-discovery5-r2-freeagent"
+    },
+    "seed": 0
+  },
+  "forbidden": [
+    "Per-case or repository-identity policy",
+    "Method, prompt, verifier, budget, or replay change during the batch",
+    "Canary-20 or Official-Test-100 inspection",
+    "Treating infrastructure Unknown as solver Fail or Pass",
+    "Confirmatory or leaderboard claims from this development batch"
+  ],
+  "frozen_artifacts": {
+    "analysis_sources": {
+      "envsolve/analysis/discovery.py": "743d0a9c6e38b2017a4862fd38ad2333de646209b102185526694136001da9b4",
+      "envsolve/analysis/trajectory.py": "19ec32b60d05b346f6e60242d32f33db77c352603a12f4ad3623e22bc8686a7c",
+      "envsolve/tools/analyze_v0_discovery.py": "0f844f358619164179db6b18491dc38e36f08503ab80ca9f2a0974b5d501ca12"
+    },
+    "case_file": {
+      "path": "experiments/cases/envsolve_v0_discovery5_round2.jsonl",
+      "sha256": "43295d365e95133392f31d20d8cebc94cfbeb6cbc5231367c8c936195e93b70e"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac.json",
+      "sha256": "2a10d8206875741a1adbf1a0ee38174bd916b865f2a30d8de518c7c7b680f1ea"
+    },
+    "execution_sources": {
+      "experiments/run_v0_discovery.py": "b4abab8577037f6cf2c7f0b61f4e43211bc03819aeb74b745057b36faae0fa5f",
+      "experiments/tools/freeze_envsolve_v0_discovery_round2.py": "bd9374f10d2acd4892fbb9522d53be938b7677cd0e031cc329f6da85671c1436"
+    },
+    "method_sources": {
+      "envsolve/tools/run_v0_inference.py": "88594b57b1049fffb87bf3057d6ebb6694a5cd126d26373bff989497509280d9",
+      "envsolve/v0/agent.py": "dd7bad0859eb6f6db7f979555276f0d21c6a21f76c952970c0c042897f7b7461",
+      "envsolve/v0/finalization.py": "68291a9bd942c1ab15490e5a14206d560b64c86cbf07878acb05ae6b8973eee1",
+      "envsolve/v0/verification.py": "5c31305b003a1de209ba4f22c9fcfa8ab938252691f609c19fecef955f509a0b",
+      "envsolve_harness/runners/envbench_agent.py": "1daf7affefec15cde887194b16ca2499dc656dcbdc5630049ac8e652dc3ef6f3",
+      "envsolve_harness/runners/envsolve_v0.py": "5168eeb27e90a99cac950f98d4e33d35b18b3f0e81b3bf1d307bc2fb14e63cfa"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    }
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "case_specific_policy": false,
+    "official_test100_inspected": false,
+    "p0_and_round1_consumed_cases_excluded": true
+  },
+  "paired_conditions": [
+    {
+      "condition": "freeagent",
+      "method": "envbench-react-freeagent",
+      "runner": "envbench-agent"
+    },
+    {
+      "condition": "envsolve_v0",
+      "method": "envsolve-v0",
+      "only_added_mechanism": "A fixed python -m pip check tool must pass at the final action-state boundary before distillation.",
+      "runner": "envsolve-v0"
+    }
+  ],
+  "preregistration_id": "envsolve-v0-paired-discovery5-round2-v1",
+  "purpose": "Collect the first valid outcome-blind paired failure distribution after qualifying the generic LangGraph transport repair.",
+  "qualification": {
+    "passed": true,
+    "path": "experiments/validations/envsolve_v0_round1_agent_state_qualification_results.json",
+    "scope": "Transport only; no effectiveness claim inherited.",
+    "sha256": "247cdd8e0c7c1f23a6c16dc1f8ec84d7fbca8d13c8e489d1785af25843d55444"
+  },
+  "registered_at": "2026-07-15T04:33:00Z",
+  "resource_limits": {
+    "agent_max_iterations": 30,
+    "bash_command_timeout_seconds": 900,
+    "generation_timeout_seconds": 7200,
+    "model_max_estimated_cost_usd": 5.0,
+    "model_max_output_tokens_per_request": 16384,
+    "model_max_requests": 30,
+    "model_max_retries": 2,
+    "model_max_total_tokens": 1000000,
+    "model_request_timeout_seconds": 180
+  },
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "Exclude P0 and Round-1 consumed cases, rank by SHA256(salt|repository@revision), and take the first five.",
+    "excluded_consumed_case_ids": [
+      "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+      "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+      "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+      "envbench-python-commaai__comma10k@7a1293562fd8c0f3932c2c55f6e8a509efa1c66d",
+      "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "envbench-python-fhempy__fhempy@2c61a608c664b25c7b5ecdcba6195b521e7bc74a",
+      "envbench-python-gymrek-lab__TRTools@99d7fb4ef0a420e4a689bafecba5189127d657ba",
+      "envbench-python-ibm__ibmi-bob@d741050ea70c32474d58a5f0897ab0056d9a611e"
+    ],
+    "outcome_blind": true,
+    "protected_splits": [
+      "experiments/cases/dev5.jsonl",
+      "experiments/cases/dev_extension3.jsonl",
+      "experiments/cases/canary20.jsonl",
+      "experiments/cases/official_test100.jsonl"
+    ],
+    "salt": "envsolve-v0-discovery-round2-v1-2026-07-15",
+    "selected": [
+      {
+        "case_id": "envbench-python-avaiga__taipy-core@62f0d8521cbb80ae13654c53620ddc856ba86d33",
+        "rank_sha256": "03af74147236248d5b64474b6ac940b1209e98a5a739e53e0d6b3e2c83f2e27f"
+      },
+      {
+        "case_id": "envbench-python-nakagami__pyfirebirdsql@44f155d50e1668cf3e3f08ec15693eb72d4f1b60",
+        "rank_sha256": "03f7938efeab29833181c2a3c656cb025a293002f441935df338d78e13590f46"
+      },
+      {
+        "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc",
+        "rank_sha256": "04d9ff0a2c9bdf8e3b569c7cf59d6a409af0931f8eea719a53fb675954bc00d5"
+      },
+      {
+        "case_id": "envbench-python-wireless-innovation-forum__spectrum-access-system@928c3150adf7b31e53a96b695bf1fbdd3284ecb2",
+        "rank_sha256": "06767e334956e8d2276c6cb4bba84f72f4e56d04c2e76ac35681ebb3b3b28bcf"
+      },
+      {
+        "case_id": "envbench-python-islandora__documentation@d9b18ffb2678dfcf2f5d20cd36de0de2aacef528",
+        "rank_sha256": "071cf37e85942c0325b58afd9bb14e0b629ace475dad447d40f2916872ba473c"
+      }
+    ],
+    "selected_before_execution": true,
+    "size": 5,
+    "source": "experiments/cases/train_untouched201.jsonl",
+    "source_sha256": "076ef72dbab0bb5cdefa72b10b2a84d4391914716fb640c5ab5f579b46677bfe"
+  }
+}

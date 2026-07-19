@@ -1,0 +1,71 @@
+{
+  "preregistration_id": "p5-v1-metadata-resolver-contract-round7-v1",
+  "created_at": "2026-07-14T15:30:00Z",
+  "development_only": true,
+  "objective": "Freeze a benchmark-independent V1 contract for agreement among project metadata, installed distributions, environment markers, selected extras, and resolver evidence.",
+  "frozen_context": {
+    "round6_pending_preregistration": {
+      "path": "experiments/validations/p5_round6_v3_dev5_preregistration.json",
+      "sha256": "9fd4ef011a48009eaf05b226af5b00b811ce512b5badd98caffe8e67ec9bf923"
+    },
+    "english_protocol": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL.md",
+      "sha256": "c74e4b5c184b7673646357f8a778f3735b60746a3e7134da9ce53fd3effd50ea"
+    },
+    "chinese_protocol": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL_ZH.md",
+      "sha256": "df1213dd29773ad4c6a3afdf9f0614996623fb39638b2157bc4ce129e1cf7d89"
+    },
+    "hierarchy_policy": {
+      "path": "envsolve/verification/hierarchy.py",
+      "sha256": "07c3435e92ca036953a55c07176dc3ea6499cb1404eb1b026f45cd6b18851211"
+    },
+    "packaging_dependency": {
+      "path": "envsolve/requirements.txt",
+      "sha256": "9e79e152b5ed2d41b66d7949b743d8caa32f82b305a309a9bc07e700b47c24c3"
+    }
+  },
+  "evidence_contract": {
+    "project": "A provenance-matched installed project distribution with a valid composite metadata SHA-256.",
+    "requirements": "Exact Requires-Dist strings from that same metadata snapshot.",
+    "installed": "Canonical distribution names and PEP 440 versions observed under the same Python executable.",
+    "environment": "An explicit PEP 508 marker environment captured under the same Python executable.",
+    "extras": "An explicit set of selected extras; no test/dev extra is inferred from path names.",
+    "resolver": "Direct argv `python -m pip check`, network disabled, with exit code and stdout/stderr hashes."
+  },
+  "decision_contract": {
+    "pass": "Project provenance is valid, every active declared requirement has one compatible installed distribution, and the observed pip check exits zero.",
+    "fail": "An active requirement is missing/incompatible/ambiguous, metadata is malformed, an installed version is invalid, or pip check exits nonzero.",
+    "unknown": "Project provenance, marker environment, resolver outcome, or another required evidence field is absent.",
+    "marker_semantics": "Evaluate base requirements with extra='', and optional requirements against each explicitly selected extra. Inactive markers do not create obligations.",
+    "robust_pass_behavior": "Unknown V1 fails closed."
+  },
+  "prohibitions": [
+    "No distribution-name to import-name inference",
+    "No repository-specific dependency map",
+    "No implicit extras",
+    "No host-environment marker evaluation for container evidence",
+    "No parsing pip-check prose to override its exit status"
+  ],
+  "synthetic_counterexamples": [
+    "Missing resolver evidence is unknown, not pass.",
+    "A false platform marker creates no obligation.",
+    "An extra requirement is active only when that exact extra is selected.",
+    "Missing, incompatible, duplicate, or invalid installed versions fail.",
+    "A nonzero pip-check outcome fails even when declared project requirements appear satisfied.",
+    "Malformed Requires-Dist metadata fails."
+  ],
+  "round_scope": {
+    "synthetic_tests_only": true,
+    "real_repository_executions": 0,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

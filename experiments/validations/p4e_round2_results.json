@@ -1,0 +1,39 @@
+{
+  "validation_id": "p4e-repository-replay-round2-v1",
+  "preregistration": {
+    "path": "experiments/validations/p4e_round2_preregistration.json",
+    "sha256": "ed0931f31b632b4763117a37e9a1f68d62a824ceb82d0008d070a4da5fe5d831"
+  },
+  "target": {
+    "repository": "jaraco/inflect",
+    "revision": "1f42293f30caacb0637f7eb30a483b44489f4812"
+  },
+  "outcome": {
+    "exit_code": 2,
+    "issues_count": 0,
+    "verifier_completed": false,
+    "terminal_class": "infrastructure_blocked",
+    "repair_semantically_rejected": false
+  },
+  "infrastructure_evidence": {
+    "exception": "pip._vendor.urllib3.exceptions.ReadTimeoutError",
+    "host": "files.pythonhosted.org",
+    "failed_transfer": "babel-2.18.0-py3-none-any.whl",
+    "dependency_resolution_reached_download_phase": true
+  },
+  "artifacts": {
+    "raw_result": {"path": "runs/p4e-inflect-project-extra-round2-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/evaluation/json/results.jsonl", "sha256": "cdd9794a32fde387702f80b516a8058a11b3a6e905fbb27d3f96a361b894b5b8"},
+    "evaluation_result": {"path": "runs/p4e-inflect-project-extra-round2-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/evaluation/result.json", "sha256": "cbb967d9f3d314cccd2314c7e4f7147cce257da3c91551ef15b7a2047cd1e679"},
+    "manifest": {"path": "runs/p4e-inflect-project-extra-round2-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/manifest.json", "sha256": "c2e6cc30a8bcc466e2d3933717b3c347ac6404000101034be1a0a1792a625a9a"},
+    "bootstrap": {"path": "runs/p4e-inflect-project-extra-round2-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh", "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"}
+  },
+  "integrity": {
+    "audit_valid": true,
+    "model_requests": 0,
+    "benchmark_executions": 1,
+    "application_source_edits": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}
+

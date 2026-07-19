@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-v0-round1-agent-state-qualification-result-v1",
+  "preregistration": {
+    "path": "experiments/validations/envsolve_v0_round1_agent_state_qualification_preregistration.json",
+    "sha256": "6927ccd12b3ec430922e92a0419fc11baf3b0d4692f5d8f04d0665a43cef312f"
+  },
+  "target": {
+    "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+    "repository": "alteryx/featuretools",
+    "revision": "8c99ff7d62d723e90d406ac56bae22aad82e6a47"
+  },
+  "artifacts": {
+    "run_root": "runs/envsolve-v0-round1-agent-state-qualification-v1/envbench-python-alteryx__featuretools__8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+    "solver_result_sha256": "ceebbefae2b2369f6edb87f2b5e6052dd525e0f008494b51588aa5835bacb0b0",
+    "trajectory_sha256": "6b531728c2f29bc4562fd9472b17043e4dd4e6c455e9412e69c23f58539061da",
+    "audit_valid": true
+  },
+  "qualification": {
+    "passed": true,
+    "model_requests_started": 7,
+    "model_responses_completed": 7,
+    "model_request_errors": 0,
+    "trajectory_contains_agent_update": true,
+    "messages_channel_exception_present": false,
+    "prior_zero_request_failure_reproduced": false
+  },
+  "secondary_observations": {
+    "v0_completion_passed": true,
+    "verifier_calls": 1,
+    "last_verifier_exit_code": 0,
+    "generation_completed": false,
+    "generation_error": "trajectory contains an unsupported successful eval pyenv-init mutation",
+    "interpretation": "The transport repair is qualified. Replay-policy rejection is retained as a new singleton observation and does not admit a mechanism."
+  },
+  "resource_usage": {
+    "input_tokens": 35266,
+    "output_tokens": 1387,
+    "cache_read_tokens": 19456,
+    "total_tokens": 36653,
+    "estimated_cost_usd": 0.008154568
+  },
+  "integrity": {
+    "official_outcome_used_for_qualification": false,
+    "new_case_consumed": false,
+    "round1_original_attempt_overwritten": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "case_specific_policy": false
+  }
+}

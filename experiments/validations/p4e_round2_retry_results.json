@@ -1,0 +1,46 @@
+{
+  "validation_id": "p4e-repository-replay-round2-retry1-v1",
+  "preregistration": {
+    "path": "experiments/validations/p4e_round2_retry_preregistration.json",
+    "sha256": "66eac14bf644eb6fa3577bb3d6e8f4e3d0039aec4159ed6b963e3a7001b893e0"
+  },
+  "target": {
+    "repository": "jaraco/inflect",
+    "revision": "1f42293f30caacb0637f7eb30a483b44489f4812"
+  },
+  "outcome": {
+    "exit_code": 0,
+    "issues_count": 0,
+    "pyright_completed": true,
+    "pyright_error_count": 526,
+    "missing_import_count": 0,
+    "terminal_class": "official_pass",
+    "repair_verified": true
+  },
+  "transition_chain": [
+    {"round": "agent-baseline", "exit_code": 1, "issues_count": 0, "state": "bootstrap_conflict"},
+    {"round": "p4e-round1", "exit_code": 0, "issues_count": 3, "state": "bootstrap_satisfied_verifier_open"},
+    {"round": "p4e-round2", "exit_code": 2, "issues_count": 0, "state": "infrastructure_blocked"},
+    {"round": "p4e-round2-retry1", "exit_code": 0, "issues_count": 0, "state": "official_pass"}
+  ],
+  "verified_repairs": [
+    "temporarily_relocate_then_restore_verifier_owned_workspace_artifact",
+    "install_metadata_declared_test_extra"
+  ],
+  "artifacts": {
+    "raw_result": {"path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/evaluation/json/results.jsonl", "sha256": "388f99efacff24863b1cde1b4c017fa1640a4c8f822e5ff257d4a47285357840"},
+    "evaluation_result": {"path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/evaluation/result.json", "sha256": "126392f4efbb4e4080064bf124fc181183c770fbc3413332736e1f0df46439c9"},
+    "manifest": {"path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/manifest.json", "sha256": "73f4cf40d4fa6dfee349aee8c5c0eb3d2f37d73acb774a02508080c8396eaee4"},
+    "bootstrap": {"path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh", "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"}
+  },
+  "integrity": {
+    "audit_valid": true,
+    "same_script_as_blocked_round": true,
+    "model_requests": 0,
+    "benchmark_executions": 1,
+    "application_source_edits": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}
+

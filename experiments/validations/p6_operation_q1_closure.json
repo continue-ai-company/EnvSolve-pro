@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "closure_id": "p6-operation-q1-qualification-invalid",
+  "closed_at": "2026-07-17T00:00:00+08:00",
+  "classification": "qualification-invalid-harness-diagnostic",
+  "reason": "The shared candidate validator accepted project virtual-environment creation while the full method operation guard rejected the same normalized command as unsupported.",
+  "parent_freeze": {
+    "path": "experiments/protocols/p6_operation_qualification_freeze_v1.json",
+    "sha256": "dd121bb3cc77c3d5e7b7b14ccd15009f05770975591feea563068bec07b41b39"
+  },
+  "schedule": {
+    "path": "experiments/validations/p6_operation_qualification_schedule.json",
+    "sha256": "75316a149499be69a2566fe8b6aaac97934abc484b7d55125f98881990364572"
+  },
+  "attempted_positions": [
+    1,
+    2
+  ],
+  "unexecuted_positions": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "position_1": {
+    "classification": "audit-valid-non-triggering-ablation-diagnostic",
+    "generation_completed": false,
+    "stop_reason": "candidate budget exhausted",
+    "candidates": 5,
+    "environments": 3,
+    "model_requests": 5,
+    "tokens": 38202,
+    "estimated_cost_usd": 0.017762616,
+    "hard_constraints": 0,
+    "operation_requirements": 0,
+    "official_evaluator_claims": 0,
+    "artifacts": {
+      "budget_ledger.json": "4f9579692bc4e0b6632798e2b3ae7a9114d4ab5e854a1777e544ca1cc9b0de0f",
+      "episode.jsonl": "87107a5f6dbc7a6411db32457ccc330a62a374c8aa78e965221ae22cd9384317",
+      "episode_snapshot.json": "5f2b4a0f0402128b22652bc00cf81e7812cabe1519cc439f60e72bbedc438c98",
+      "manifest.json": "a09ed97d42215cf35872ab8de90bf35b9812b0f085c6f577ba167a12a5764574",
+      "result.json": "ea7a0ecebee18278877ae7aec26a2e3df1fc191237e79b142769a9e6ea667ab1"
+    }
+  },
+  "position_2": {
+    "classification": "audit-valid-harness-failure",
+    "generation_completed": false,
+    "candidates": 1,
+    "environments": 0,
+    "model_requests": 1,
+    "tokens": 4503,
+    "estimated_cost_usd": 0.00251343,
+    "official_evaluator_claims": 0,
+    "failure_signature": "validator-guard-virtual-environment-parser-mismatch",
+    "artifacts": {
+      "budget_ledger.json": "56366db9eaa3a652550bc23667529174ccfa4a0a50c5b11199109dc898b26301",
+      "episode.jsonl": "a7bb2e8352faa825b2f46383959c70d3daf871bc5aa028d894c46c675be4a3e8",
+      "episode_snapshot.json": "01d74e2863939c9e0e3f646e9a0ae737d03fccafd96527df1c33f8b7583a9ba7",
+      "manifest.json": "654c1abb465bfdfdcc75ee5388e32a6189f2d98321f16f5afd3375e51c35f637",
+      "result.json": "86ec1120c6503f516e794e7e7264ea7fd58f72e819f184dd1f07f8e15042370f"
+    }
+  },
+  "scientific_use": "Harness diagnosis and resource accounting only; no operation-layer comparison is permitted.",
+  "case_policy": "All five selected cases remain development-consumed. No position or retry under Q1 may be executed.",
+  "repair_policy": "Only a benchmark-independent parser consistency fix with synthetic regression coverage is admissible; qualification restarts from the remaining 191-case pool."
+}

@@ -1,0 +1,46 @@
+{
+  "freeze_id": "p6-operation-qualification-v2",
+  "files": {
+    "envsolve/protocols/p6_constraint_operation_freeze_v3.json": "b90de3dc3048f42d98e4329d6417c024b6a2ad2283fc4c00e6080e2ed9a8156d",
+    "experiments/cases/dev_operation_qualification_v2_5.jsonl": "dbc5b619d534428e6bfadb017e19b1da3018cd8a85850e93cb06ed35c2364ca6",
+    "experiments/cases/train_untouched_after_operation_qualification191.jsonl": "d09112fa54fc7f020a74744e7a6718bf8e4cd6f250d3570e3307a1bca14ae8ef",
+    "experiments/cases/train_untouched_after_operation_qualification_v2_186.jsonl": "fc4fd281c00c881578b06dde83985bbd64d750249e65d12ec5ea9946b3891f62",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/run_p6_operation_qualification_v2.py": "39df6dbdead46072bf98e8c5c9f55b64594e719d648592434eec67f1f808ea09",
+    "experiments/tools/build_p6_operation_schedule_v2.py": "76e72367080b26fbc5ecd007cc4d20bf3d6cd7ad36b828dab84a40260a5d3c6b",
+    "experiments/tools/select_p6_operation_qualification_v2.py": "e7407e7ef1f676b48323bd65a5b855b610d21d59b8282804978ffe58614dc40b",
+    "experiments/validations/p6_operation_q1_closure.json": "52ff1d8158a017fec6ee6f80e50438b9752a9f4b2bf121f64d09940ba15dfe7a",
+    "experiments/validations/p6_operation_qualification_v2_preregistration.json": "8e943dceaca37696dff791458d64f98fdf99737977244b34c4603a89bd612189",
+    "experiments/validations/p6_operation_qualification_v2_schedule.json": "1e6adc944fa3ceaad7e85f19f48b0dfedc66b135d1723373de1c653344169262",
+    "experiments/validations/p6_operation_qualification_v2_selection.json": "025420d09ca110d36901a730682aecc68ea6c6e6326f467c618503c1dd3d6dc8",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1.md": "9cb85f585145045fa7196896a903aa012e2aa48b8525de2a9cce1bbbb2f9eca7",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1_ZH.md": "8ca09147684545205212aea762ae9f6fb9c51008045f4ced38f0b4cb6aedd954",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2.md": "62015e5351bf3b1c07c20840313befc0ae8afc37e37e49496f2dd8519dcb7d1d",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2_ZH.md": "aecda795fd267d60718a77e77aec7ced585e7c1322102fc0a69c115c35dfcd8a",
+    "tests/test_p6_operation_qualification_v2.py": "96f272599cedb1492abf0bc5f84ed480d876241192c5bafff128d2913592a664"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests_after_q2_selection": 0,
+    "official_evaluator_executions_after_q2_selection": 0,
+    "official_test100_inspected": false,
+    "q1_cases_reused": false,
+    "repository_inspections_after_q2_selection": 0,
+    "selection_metadata_only": true
+  },
+  "schedule": {
+    "episodes": 10,
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "pairs": 5,
+    "seed": 0
+  },
+  "verification": {
+    "compile": "passed",
+    "docker_integration": "1 passed",
+    "full_regression": "317 passed, 1 skipped",
+    "q2_integrity_tests": "3 passed"
+  }
+}

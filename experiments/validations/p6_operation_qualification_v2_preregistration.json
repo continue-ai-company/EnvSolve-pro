@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v2",
+  "preregistered_at": "2026-07-17T00:00:00+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Repeat the outcome-blind paired operation-layer qualification after the shared virtual-environment replay-IR consistency correction.",
+  "parent_freeze": {
+    "freeze_id": "p6-constraint-operation-v3-shared-venv-ir",
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v3.json",
+    "sha256": "b90de3dc3048f42d98e4329d6417c024b6a2ad2283fc4c00e6080e2ed9a8156d"
+  },
+  "closed_predecessor": {
+    "path": "experiments/validations/p6_operation_q1_closure.json",
+    "sha256": "52ff1d8158a017fec6ee6f80e50438b9752a9f4b2bf121f64d09940ba15dfe7a"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification191.jsonl",
+    "source_sha256": "d09112fa54fc7f020a74744e7a6718bf8e4cd6f250d3570e3307a1bca14ae8ef",
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v2-2026-07-17",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "model": "deepseek/deepseek-v4-pro",
+  "temperature": 0,
+  "seed": 0,
+  "budget": {
+    "max_candidates": 5,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "max_estimated_cost_usd": 5.0,
+    "episode_timeout_seconds": 7200,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "config": "experiments/configs/local_mac_p6_operation.json",
+    "config_sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+  },
+  "fresh_environment_per_executed_candidate": true,
+  "official_evaluator": {
+    "maximum_claims_per_method_case": 1,
+    "access": "post-episode-only",
+    "feedback_to_online_state": false
+  },
+  "claim_scope": "development mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1_ZH.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2_ZH.md"
+  ]
+}

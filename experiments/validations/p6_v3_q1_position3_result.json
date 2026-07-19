@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-16",
+  "development_only": true,
+  "schedule_position": 3,
+  "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+  "method": "envsolve-runtime-only",
+  "source_episode": {
+    "run_id": "p6-v3-q1-02-envsolve-runtime-only",
+    "audit_valid": true,
+    "generation_completed": true,
+    "internal_pass": true,
+    "model_requests": 2,
+    "model_responses": 2,
+    "total_tokens": 8234,
+    "estimated_cost_usd": 0.004594267,
+    "candidates": 2,
+    "environments": 2,
+    "official_attempt_classification": "infrastructure_unknown"
+  },
+  "terminal_measurement": {
+    "run_id": "p6-v3-q1-02-envsolve-runtime-only-eval-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "audit_valid": true,
+    "exact_source_script": true,
+    "new_model_requests": 0,
+    "evaluation_completed": true,
+    "official_pass": false,
+    "exit_code": 0,
+    "issues_count": 2,
+    "pyright_error_count": 35,
+    "pyright_missing_import_count": 2,
+    "pyright_non_missing_import_error_count": 33,
+    "missing_import_modules": [
+      "gtk",
+      "haishoku.haishoku"
+    ]
+  },
+  "calibration": {
+    "runtime_only_unresolved_but_inactive_modules": [
+      "gtk",
+      "haishoku.haishoku"
+    ],
+    "exact_match_to_official_missing_imports": true,
+    "interpretation": "Runtime-semantic admission produced an internal Pass while terminal static import closure failed on exactly the waived modules."
+  },
+  "immutable_hashes": {
+    "bootstrap_sha256": "19890fd0c6e64f7f5e6ae8b8743e22e0eeb77b822d7d6548827858802571cfce",
+    "evaluation_result_sha256": "1c4086656e536fa756ca7f48056664c2423711a657dd4c30a7815faaa6bf1d2e",
+    "raw_result_sha256": "dde705b03d8ae25561ae56adada0dc14541165c4bc089b44d3b9212a7d498577"
+  },
+  "scientific_use": {
+    "paired_comparison_pending": true,
+    "case_specific_rule_added": false,
+    "official_feedback_enters_full_method": false,
+    "confirmatory_claim": false
+  }
+}

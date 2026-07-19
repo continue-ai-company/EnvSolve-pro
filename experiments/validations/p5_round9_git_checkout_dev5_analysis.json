@@ -1,0 +1,92 @@
+{
+  "analysis_id": "p5-v3-git-checkout-dev5-round9-analysis-v1",
+  "source_result": {
+    "path": "experiments/validations/p5_round9_git_checkout_dev5_results.json",
+    "sha256": "ca90bcfc7a32d82f33fa0589d2c1e2d1a856b01951afa49a865780dead65ca99"
+  },
+  "aggregate": {
+    "cases": 5,
+    "clean_detached_checkouts": 5,
+    "bootstrap_pass": 5,
+    "v3_pass": 5,
+    "v3_fail": 0,
+    "v3_unknown": 0,
+    "semantic_probes": 24,
+    "probe_failures": 0,
+    "collection_errors": 0,
+    "pep610_distributions": 3,
+    "legacy_egg_link_distributions": 2,
+    "metadata_sources": {"METADATA": 3, "PKG-INFO": 2}
+  },
+  "case_results": [
+    {
+      "repository": "convexengineering/gpkit",
+      "source_materialization": "detached_git_checkout",
+      "bootstrap_exit_code": 0,
+      "v3_pass": true,
+      "distribution": "gpkit==1.1.1",
+      "provenance": "legacy-egg-link",
+      "metadata_source": "PKG-INFO",
+      "probes": ["package:gpkit"]
+    },
+    {
+      "repository": "jaraco/inflect",
+      "source_materialization": "detached_git_checkout",
+      "bootstrap_exit_code": 0,
+      "v3_pass": true,
+      "distribution": "inflect==0.0.0",
+      "provenance": "pep610-direct-url",
+      "metadata_source": "METADATA",
+      "probes": ["package:inflect"]
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "source_materialization": "detached_git_checkout",
+      "bootstrap_exit_code": 0,
+      "v3_pass": true,
+      "distribution": "rns==0.7.6",
+      "provenance": "legacy-egg-link",
+      "metadata_source": "PKG-INFO",
+      "probe_count": 19,
+      "coverage": "package import plus import-target and CLI-help probes for nine declared console scripts"
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "source_materialization": "detached_git_checkout",
+      "bootstrap_exit_code": 0,
+      "v3_pass": true,
+      "distribution": "pytest-xdist==0.1.dev1+gc7b4f6114",
+      "provenance": "pep610-direct-url",
+      "metadata_source": "METADATA",
+      "probes": ["package:xdist"],
+      "round6_source_conflict_resolved": true
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "source_materialization": "detached_git_checkout",
+      "bootstrap_exit_code": 0,
+      "v3_pass": true,
+      "distribution": "poetry==1.9.0.dev0",
+      "provenance": "pep610-direct-url",
+      "metadata_source": "METADATA",
+      "probes": ["entry:poetry:import", "entry:poetry:cli"]
+    }
+  ],
+  "causal_findings": [
+    "A source tree hash alone is insufficient for environment replay when build metadata depends on VCS state.",
+    "Replacing git archive with a clean detached checkout resolved the preregistered setuptools-scm failure without changing the bootstrap script.",
+    "Legacy editable installs can be verified without distribution-name guessing by combining egg-link, project-owned egg-info, PKG-INFO, and explicit top-level/entry-point metadata.",
+    "The unchanged PEP 610 controls continued to pass after source materialization changed."
+  ],
+  "claim_boundaries": {
+    "official_pass_claimed_from_v3": false,
+    "robust_pass_claimed": false,
+    "v1_real_evidence_complete": false,
+    "v4_complete": false,
+    "v6_complete": false,
+    "official_verifier_executions": 0,
+    "official_results_modified": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

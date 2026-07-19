@@ -1,0 +1,43 @@
+{
+  "validation_id": "p5-v6-paired-fresh-replay-dev5-round15-v1",
+  "status": "preflight-failed",
+  "preregistration": {
+    "path": "experiments/validations/p5_round15_v6_dev5_preregistration.json",
+    "sha256": "650112c9deb7e65bdcaed9d0f54584e3bd995fb7747a66e19627af213e137471"
+  },
+  "failure": {
+    "stage": "paired-runner module import",
+    "exception": "ModuleNotFoundError",
+    "detail": "No module named 'envsolve'",
+    "cause": "The directly executed paired-runner file imported envsolve before adding the workspace root to sys.path."
+  },
+  "execution": {
+    "docker_containers_started": 0,
+    "case_bootstraps_started": 0,
+    "snapshots_collected": 0,
+    "output_root_created": false,
+    "result_created": false,
+    "network_requests": 0
+  },
+  "resolution": {
+    "scope": "Initialize the workspace root before package imports and add a direct-script --help regression test.",
+    "v6_policy_changed": false,
+    "snapshot_schema_changed": false,
+    "comparison_changed": false,
+    "fixed_paired_runner_sha256": "cf0000dd37e822083b879874002da11677b3ed9509424b4d35ff1b79296f0bb0",
+    "focused_tests_passed": 9
+  },
+  "claims": {
+    "v6_outcomes_observed": 0,
+    "round15_counts_as_paired_execution": false,
+    "new_preregistration_required": true
+  },
+  "integrity": {
+    "model_requests": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "retained_worktree_mutations": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

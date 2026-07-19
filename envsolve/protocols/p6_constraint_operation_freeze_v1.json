@@ -1,0 +1,44 @@
+{
+  "freeze_id": "p6-constraint-operation-v1",
+  "files": {
+    "envsolve/operations/__init__.py": "24a3e3b7bab6f76092bf79774a5ff616cfdd0d2cb555c4f10d5bc54a96a8629a",
+    "envsolve/operations/models.py": "45744bd9be24dee32e1e87bfa76915045ca6d7af548033123f732036be73b83d",
+    "envsolve/operations/planner.py": "938e70148f0926dd9c42bfa3929b033c26081f3263d6761a749743bedb336452",
+    "envsolve/runtime/policy.py": "8d50bf0bd8c4287ff8f99337b025cbd09d5e1cb252b5e31b87885917e25b48b9",
+    "envsolve/solver/__init__.py": "b3ea19a9b09348f97d85c25f9cc93cd0344bd2bde44029b712540b6ca2d40703",
+    "envsolve/solver/counterexample.py": "0189dc2f8ce56d5dd325be226c6d419087d8a5add48416d341d5cb6dab9778ec",
+    "envsolve/tests/test_operations.py": "6f9f96d1579a6fe83bcd006fd9587f080f6716d8dca62663542d22ef1b67c386",
+    "envsolve/tools/run_envsolve_episode.py": "df9c7422208dfc132fba686b1e907ab1f37f34ab8f90a6483bb500ccda437bfa",
+    "envsolve_harness/runners/envsolve.py": "dba084d7c061170e2ba7ff44ba2932330ccb5186ad2432374d4560a2cc93cec9",
+    "envsolve_harness/scripts/__init__.py": "2b70310d17edd3a3104d3e43a9c85da5dba79c7d05cd8b0b5f6a1338d53ad36d",
+    "envsolve_harness/scripts/constraint_operations.py": "a419f8a7130fe03b04deaeaef9dd09b67736ef3b2a9d0bf2f4f6e1192f547738",
+    "research/P6_CONSTRAINT_OPERATION_PROTOCOL_V1.md": "7033fcddd93fdf0cdc0c2c458158a135cef3b403d16f6d4416ab8aed5cceaaae",
+    "research/P6_CONSTRAINT_OPERATION_PROTOCOL_V1_ZH.md": "aad75888af646139b7012522451ce04d8692744d3e05283b682723403e19f466",
+    "tests/test_constraint_operation_loop.py": "0d1be9824c20ae63137406fa957c8be0a5775774fa6de3b8002d512d631815a0",
+    "tests/test_envsolve_runtime.py": "26cc5066a3227526e7cab92dcbe10baf2cf9e5784a41f703002338dc9c59aa18"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "cross_case_experience_enabled": false,
+    "official_results_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "repository_specific_repair_mapping_added": false
+  },
+  "mechanism": {
+    "operation_guard_policy": "constraint-operation-guard-v1",
+    "operation_plan_schema": "1.0.0",
+    "supported_conflict_domains": [
+      "capability",
+      "module",
+      "package",
+      "runtime"
+    ]
+  },
+  "verification": {
+    "compile": "passed",
+    "docker_integration": "1 passed",
+    "full_regression": "308 passed, 1 skipped",
+    "focused_tests": "18 passed"
+  }
+}

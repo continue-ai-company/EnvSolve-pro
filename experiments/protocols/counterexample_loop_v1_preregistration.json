@@ -1,0 +1,59 @@
+{
+  "protocol_id": "envsolve-counterexample-loop-v1-design-preregistration",
+  "created_on": "2026-07-15",
+  "development_only": true,
+  "real_case_outcomes_observed_before_freeze": 0,
+  "hypothesis": "Persisting typed executable-verifier counterexamples before the next candidate proposal improves environment construction under matched model, tool, and resource budgets.",
+  "single_treatment": "verifier-failure-to-state feedback loop",
+  "state_order": [
+    "candidate_proposed",
+    "fresh_environment_verified",
+    "candidate_action_recorded",
+    "verification_recorded",
+    "failure_recorded_if_any",
+    "counterexample_evidence_recorded_if_any",
+    "constraints_normalized_and_persisted_if_any",
+    "next_candidate_permitted"
+  ],
+  "fail_closed": [
+    "malformed verifier result",
+    "unknown or infrastructure-blocked verifier result",
+    "reused environment identity",
+    "passing result with nonzero bootstrap exit",
+    "passing result with counterexamples",
+    "failed result with no normalized constraint",
+    "candidate budget exhaustion"
+  ],
+  "forbidden_mechanisms": [
+    "repository identity rules",
+    "import-to-distribution guess maps",
+    "application source modification",
+    "automatic network retry",
+    "search-tree branching",
+    "benchmark-specific verifier logic in core"
+  ],
+  "synthetic_exit_criteria": {
+    "event_order_is_auditable": true,
+    "failure_constraints_reach_next_policy_state": true,
+    "unknown_and_unnormalizable_results_block": true,
+    "fresh_environment_identity_is_enforced": true,
+    "full_test_suite_passes": true
+  },
+  "real_batch_admission": {
+    "requires_separate_outcome_blind_preregistration": true,
+    "same_backbone_conditions": [
+      "freeagent",
+      "envsolve-v0",
+      "envsolve-counterexample-loop-v1"
+    ],
+    "primary_metric": "official case completion",
+    "must_improve_over": "envsolve-v0",
+    "repository_integrity_must_not_decrease": true,
+    "provider_and_infrastructure_censoring_reported_separately": true,
+    "single_case_rule_change_allowed": false
+  },
+  "documents": [
+    "research/COUNTEREXAMPLE_LOOP_V1.md",
+    "research/COUNTEREXAMPLE_LOOP_V1_ZH.md"
+  ]
+}

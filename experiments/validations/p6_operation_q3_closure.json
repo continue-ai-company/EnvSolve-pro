@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "closure_id": "p6-operation-q3-closed-for-bounded-context-correction",
+  "closed_at": "2026-07-17T00:00:00+08:00",
+  "classification": "audit-valid-triggering-pair-with-common-harness-defect",
+  "parent_freeze": {
+    "path": "experiments/protocols/p6_operation_qualification_freeze_v3.json",
+    "sha256": "4487299b29d0e48d0c751fec135511794e0c1c5fde3cc5538e9827876c528f5c"
+  },
+  "schedule": {
+    "path": "experiments/validations/p6_operation_qualification_v3_schedule.json",
+    "sha256": "cabe878b7fc54da3fe1793062994fcd452e3e3b667d9a212038b55513144a68e"
+  },
+  "progress": {
+    "path": "experiments/runs/p6-operation-q3-progress.json",
+    "sha256": "eb6479c3931921773ff221bf58bfe2770e9c86318bf5a4ca20f1c2018a2b90de"
+  },
+  "attempted_positions": [
+    1,
+    2
+  ],
+  "unexecuted_positions": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "pair_result": {
+    "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+    "official_evaluator_claims": 0,
+    "ablation": {
+      "audit_valid": true,
+      "generation_completed": false,
+      "stop_reason": "ValueError: Bounded solver feedback exceeds the model context contract",
+      "candidates": 4,
+      "environments": 4,
+      "model_requests": 4,
+      "tokens": 40007,
+      "estimated_cost_usd": 0.021182963,
+      "wall_seconds": 744.541159,
+      "active_constraints": 138,
+      "fallback_projection_chars": 108802
+    },
+    "full": {
+      "audit_valid": true,
+      "generation_completed": false,
+      "stop_reason": "ValueError: Bounded solver feedback exceeds the model context contract",
+      "candidates": 2,
+      "environments": 1,
+      "model_requests": 2,
+      "tokens": 11601,
+      "estimated_cost_usd": 0.006605475,
+      "wall_seconds": 226.068714,
+      "guard_rejections": 1,
+      "active_constraints": 138,
+      "fallback_projection_chars": 109760
+    }
+  },
+  "projection_diagnostic": {
+    "max_feedback_chars": 64000,
+    "shared_fields": {
+      "active_constraints_chars": 38210,
+      "active_module_requirements_chars": 1165,
+      "repository_profile_chars": 9516,
+      "verification_feedback_chars": 32510
+    },
+    "ablation_fields": {
+      "active_hypotheses_chars": 12906,
+      "prior_candidates_chars": 13936
+    },
+    "full_fields": {
+      "active_hypotheses_chars": 2,
+      "operation_plan_chars": 19987,
+      "prior_candidates_chars": 7791
+    }
+  },
+  "mechanism_observation": "The bounded-value helper limits individual string leaves but not the serialized size of dictionaries or lists. Repeated typed constraints, raw verifier details, candidate observations, hypotheses, and the operation plan therefore exceed the fixed projection contract even after the current fallback.",
+  "defect_signature": "leaf-bounded-feedback-is-not-aggregate-bounded",
+  "scientific_interpretation": "The pair is valid common-failure and resource evidence. It cannot estimate operation-treatment effectiveness because both methods terminate at the shared context projection boundary before exhausting the candidate budget.",
+  "case_policy": "All five Q3 cases remain development-consumed and no remaining Q3 position may execute.",
+  "repair_policy": "Define a deterministic aggregate-bounded state projection on synthetic high-cardinality states. Preserve treatment parity and prioritize compact constraints and operation obligations over duplicated raw verifier payloads. No selected repository name, dependency, or outcome-specific rule may enter the fix.",
+  "artifacts": {
+    "ablation": {
+      "budget_ledger.json": "1ccbdf1e97ae6d64ed13697c0a66fca6d72b115cb1ab34fa9b5e515956422ba3",
+      "episode.jsonl": "da917aa8d1b890a88d13132ffbd4a7875e0b86ec6e28ce62c7c1aa20265a14db",
+      "episode_snapshot.json": "436d71e5dbdd72140524eab4517351d31bfb38151ef7da8c7eaf6c718e23d60d",
+      "manifest.json": "a1b2ba8d0fd28c4ae7b3b52085a14cd89ac6fa6cdef562296d5bbd37f72dc36b",
+      "result.json": "9fa3135994291e7cd64124a39f9fa0b4773ea3a0597aeb96da7944449820962d"
+    },
+    "full": {
+      "budget_ledger.json": "fd1c896cf5000a82c3a59f911448f8eac34809b148a23369f76422a619ab157a",
+      "episode.jsonl": "f6876de6a8f7d9ae918c2277c8c02c406a8421b42694c7dd914ac43bffbaf17b",
+      "episode_snapshot.json": "9051d126d658e321984a4738558e311693c39bf3d2a7d1f67e28c5a76fac1bf2",
+      "manifest.json": "9d24e96f591a4cb074729d15adabc80509dca7194593bdba649f21c8c09be360",
+      "result.json": "f803deb4c8ea3358a611e62edfead8b033edf27c8354c3acb02c615c2dba9b29"
+    }
+  }
+}

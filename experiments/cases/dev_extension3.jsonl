@@ -1,0 +1,3 @@
+{"case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5", "language": "python", "repository": "idaholab/civet", "revision": "282f2cb1c72197cd34d4a38d396720bfaa6d7fc5", "split": "dev-extension-3", "tags": []}
+{"case_id": "envbench-python-scylladb__sphinx-scylladb-theme@4e3917945c5c194a7119cf10629f35664b451d61", "language": "python", "repository": "scylladb/sphinx-scylladb-theme", "revision": "4e3917945c5c194a7119cf10629f35664b451d61", "split": "dev-extension-3", "tags": []}
+{"case_id": "envbench-python-jmetal__jmetalpy@0c9dc83ab4534d2cf053a1d159613cdc58b42c57", "language": "python", "repository": "jmetal/jmetalpy", "revision": "0c9dc83ab4534d2cf053a1d159613cdc58b42c57", "split": "dev-extension-3", "tags": []}

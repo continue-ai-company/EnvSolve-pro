@@ -1,0 +1,108 @@
+{
+  "preregistration_id": "p5-v3-clean-dev5-replay-round4-v1",
+  "created_at": "2026-07-14T13:00:00Z",
+  "development_only": true,
+  "objective": "Execute the frozen metadata-derived V3 contract on clean Dev-5 source archives without invoking or modifying the EnvBench official verifier.",
+  "frozen_inputs": {
+    "dev5": {
+      "path": "experiments/cases/dev5.jsonl",
+      "sha256": "81ffcd29cfede3fd0a4993aa84e58b96702660189fbba5c570a6bdbf635da981"
+    },
+    "round3_contract": {
+      "path": "experiments/validations/p5_round3_synthetic_results.json",
+      "sha256": "6e5604a110fe0be07bb77cc6bee8c862a6265d7541b5099b763f79e59675053f"
+    },
+    "smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    },
+    "metadata_collector": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "0e19c92390d6091aeb995465ffc8a25ffad9715fefee00d05394490f4f346aa8"
+    }
+  },
+  "environment": {
+    "image_reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "platform": "linux/arm64"
+  },
+  "runner_contract": {
+    "source": "Create a fresh temporary tree using `git archive <revision>` from the retained Git object database; never read or mutate retained worktree files.",
+    "mount": "Mount only the temporary source tree at /data/project and the EnvSolve policy tree read-only.",
+    "bootstrap": "Source the exact frozen script inside one persistent shell so PATH and virtual-environment changes survive into V3.",
+    "network_transition": "Allow the default Docker network only during bootstrap; after the bootstrap-complete marker, disconnect the container from every network before metadata collection or probes.",
+    "project_distribution": "Select only installed distributions whose PEP 610 direct_url.json resolves to /data/project or a descendant. Do not infer distribution or import names from repository identity.",
+    "probe_execution": "Run the frozen Round 3 planner in the same shell environment, from a fresh empty working directory, with fixed argv and a 30-second timeout per probe.",
+    "cleanup": "Always remove the container and temporary source tree after artifacts are written.",
+    "case_timeout_seconds": 1800
+  },
+  "decision_contract": {
+    "v3_pass": "Every detected project distribution passes the frozen smoke contract and at least one project distribution is provenance-matched.",
+    "v3_fail": "Any observed project-distribution smoke decision is false.",
+    "v3_unknown": "Bootstrap succeeds but no provenance-matched project distribution exists, metadata is rejected, outcomes are missing, or all project decisions are unknown.",
+    "bootstrap_blocked": "Bootstrap fails or exceeds its case budget; V3 remains unknown.",
+    "official_score_effect": "none"
+  },
+  "targets": [
+    {
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/generation/repos/convexengineering__gpkit@bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "bootstrap": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/scripts/bootstrap.sh",
+        "sha256": "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a"
+      }
+    },
+    {
+      "repository": "jaraco/inflect",
+      "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/generation/repos/jaraco__inflect@1f42293f30caacb0637f7eb30a483b44489f4812",
+      "bootstrap": {
+        "path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh",
+        "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"
+      }
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/generation/repos/markqvist__reticulum@6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "bootstrap": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/scripts/bootstrap.sh",
+        "sha256": "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a"
+      }
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/generation/repos/pytest-dev__pytest-xdist@c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+      "bootstrap": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/scripts/bootstrap.sh",
+        "sha256": "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b"
+      }
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "git_object_root": "runs/dev5-envbench-agent-deepseek-v4-pro-v1/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/generation/repos/python-poetry__poetry@5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "bootstrap": {
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/scripts/bootstrap.sh",
+        "sha256": "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f"
+      }
+    }
+  ],
+  "limits": {
+    "attempts_per_case": 1,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "source_worktree_mutations": 0,
+    "probe_network_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false,
+    "case_specific_policy": false
+  }
+}

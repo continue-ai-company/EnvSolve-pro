@@ -1,0 +1,70 @@
+{
+  "counts": {
+    "all": 329,
+    "canary20": 20,
+    "dev5": 5,
+    "dev_extension": 3,
+    "dev_v3_qualification": 5,
+    "official_test": 100,
+    "official_train_reconstructed": 229,
+    "train_rest": 204,
+    "train_untouched_after_dev_extension": 201,
+    "train_untouched_after_v3_qualification": 196
+  },
+  "schema_version": "1.1.0",
+  "selection": {
+    "canary20": {
+      "algorithm": "First 20 SHA256-ranked cases from official train excluding Dev-5",
+      "outcome_blind": true,
+      "salt": "envsolve-canary-v1-2026-07-13"
+    },
+    "dev5": {
+      "convexengineering/gpkit": {
+        "category": "system-or-native-dependency",
+        "rationale": "Scientific package with external solver and system dependency surface"
+      },
+      "jaraco/inflect": {
+        "category": "standard-metadata",
+        "rationale": "Pure-Python package with conventional packaging metadata"
+      },
+      "markqvist/reticulum": {
+        "category": "platform-optional-dependency",
+        "rationale": "Platform-specific and optional imports expose verifier-fidelity risks"
+      },
+      "pytest-dev/pytest-xdist": {
+        "category": "test-and-development-dependencies",
+        "rationale": "Test plugin whose usable environment depends on development tooling"
+      },
+      "python-poetry/poetry": {
+        "category": "version-and-package-manager",
+        "rationale": "Lockfile and package-manager-driven environment"
+      }
+    },
+    "dev_extension3": {
+      "algorithm": "First 3 SHA256-ranked cases from Train-Rest-204 using the frozen development-extension salt",
+      "excluded_from_future_training_pool": true,
+      "outcome_blind": true,
+      "salt": "envsolve-dev-extension-v1-2026-07-13",
+      "selected_before_execution": true
+    },
+    "dev_v3_qualification5": {
+      "algorithm": "First 5 SHA256-ranked cases from Train-Untouched-201 using the frozen P6 V3 qualification salt",
+      "excluded_from_future_training_pool": true,
+      "outcome_blind": true,
+      "preregistration": "experiments/validations/p6_v3_unseen_dev5_preregistration.json",
+      "salt": "envsolve-p6-v3-qualification-v1-2026-07-16",
+      "selected_before_repository_inspection": true,
+      "selection_provenance": "experiments/validations/p6_v3_unseen_dev5_selection.json"
+    }
+  },
+  "source": {
+    "files": {
+      "splits/python_baseline_failure.jsonl": "f145b829393a1da17aced5cf96d28173c2b4a9ebc7dcb9a849fa7a6f8031b01e",
+      "splits/python_baseline_failure_test.jsonl": "96bb402eee8d5717c3b32ee7879fb3bedd16a7f0a17abcffb14ae628fcace962"
+    },
+    "note": "Official train is reconstructed as all-329 minus official-test-100 because the upstream train JSONL has a concatenated record at line 72.",
+    "repository": "JetBrains-Research/EnvBench",
+    "repository_type": "dataset",
+    "revision": "d1e96e6b10335cad40ac7b4f709f46a2c579765a"
+  }
+}

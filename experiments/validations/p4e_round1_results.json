@@ -1,0 +1,38 @@
+{
+  "validation_id": "p4e-repository-replay-round1-v1",
+  "preregistration": {
+    "path": "experiments/validations/p4e_round1_preregistration.json",
+    "sha256": "771c647022e4e5a9eb02118657770d8cbb2c91d1f0609408c166ec4d9e30b9c3"
+  },
+  "target": {
+    "repository": "jaraco/inflect",
+    "revision": "1f42293f30caacb0637f7eb30a483b44489f4812"
+  },
+  "transition": {
+    "before": {"exit_code": 1, "issues_count": 0, "stage": "bootstrap"},
+    "after": {"exit_code": 0, "issues_count": 3, "stage": "verification"},
+    "bootstrap_conflict_resolved": true,
+    "official_pass": false,
+    "terminal_class": "bootstrap_satisfied_verifier_open"
+  },
+  "remaining_obligations": [
+    {"module": "pytest", "file": "tests/test_inflections.py", "role": "test"},
+    {"module": "pytest", "file": "tests/test_pl_si.py", "role": "test"},
+    {"module": "pytest", "file": "tests/test_pwd.py", "role": "test"}
+  ],
+  "artifacts": {
+    "raw_result": {"path": "runs/p4e-inflect-workspace-round1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/evaluation/json/results.jsonl", "sha256": "5f8ef5c43489508f409449c1f2026be703375b1808d45e7b2d16e7b7ae6ece70"},
+    "evaluation_result": {"path": "runs/p4e-inflect-workspace-round1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/evaluation/result.json", "sha256": "b3dcbb43c16d8ab116297e476a6c83c80c24d77488040378b65c5756565e4449"},
+    "manifest": {"path": "runs/p4e-inflect-workspace-round1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/manifest.json", "sha256": "db632228e41de07e21119573a7d9b30742d37651868d923834c70c38d7143651"},
+    "bootstrap": {"path": "runs/p4e-inflect-workspace-round1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh", "sha256": "32b88d3f3dafec4da1b1098fa6fa4d2e9aaeab8e3f805c22aee991a406f12aca"}
+  },
+  "integrity": {
+    "audit_valid": true,
+    "model_requests": 0,
+    "benchmark_executions": 1,
+    "application_source_edits": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}
+

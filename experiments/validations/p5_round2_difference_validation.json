@@ -1,0 +1,143 @@
+{
+  "aggregate": {
+    "active_repair_obligations_after": 20,
+    "active_repair_obligations_before": 17,
+    "changed_findings": 3
+  },
+  "changes": [
+    {
+      "after": {
+        "active_repair_obligation": true,
+        "disposition": "active_obligation",
+        "evidence": [
+          {
+            "detail": "runtime",
+            "kind": "source-role",
+            "line": 254,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          }
+        ]
+      },
+      "before": {
+        "active_repair_obligation": false,
+        "disposition": "inactive_platform",
+        "evidence": [
+          {
+            "detail": "runtime",
+            "kind": "source-role",
+            "line": 254,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          },
+          {
+            "detail": "port != None",
+            "kind": "inactive-branch",
+            "line": 251,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          }
+        ]
+      },
+      "file": "RNS/Interfaces/Android/RNodeInterface.py",
+      "line": 254,
+      "module": "usb4a",
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b"
+    },
+    {
+      "after": {
+        "active_repair_obligation": true,
+        "disposition": "active_obligation",
+        "evidence": [
+          {
+            "detail": "runtime",
+            "kind": "source-role",
+            "line": 261,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          }
+        ]
+      },
+      "before": {
+        "active_repair_obligation": false,
+        "disposition": "inactive_platform",
+        "evidence": [
+          {
+            "detail": "runtime",
+            "kind": "source-role",
+            "line": 261,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          },
+          {
+            "detail": "port != None",
+            "kind": "inactive-branch",
+            "line": 251,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          }
+        ]
+      },
+      "file": "RNS/Interfaces/Android/RNodeInterface.py",
+      "line": 261,
+      "module": "usbserial4a",
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b"
+    },
+    {
+      "after": {
+        "active_repair_obligation": true,
+        "disposition": "active_obligation",
+        "evidence": [
+          {
+            "detail": "runtime",
+            "kind": "source-role",
+            "line": 266,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          }
+        ]
+      },
+      "before": {
+        "active_repair_obligation": false,
+        "disposition": "inactive_platform",
+        "evidence": [
+          {
+            "detail": "runtime",
+            "kind": "source-role",
+            "line": 266,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          },
+          {
+            "detail": "port != None",
+            "kind": "inactive-branch",
+            "line": 251,
+            "source_sha256": "cb04855965dfa72ddaff8857929cbbc979e7d85a12f718b28ba565817ba7c446"
+          }
+        ]
+      },
+      "file": "RNS/Interfaces/Android/RNodeInterface.py",
+      "line": 266,
+      "module": "usbserial4a.cdcacmserial4a",
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b"
+    }
+  ],
+  "checks": {
+    "all_passed": true,
+    "allowed_transition_only": true,
+    "case_identities_unchanged": true,
+    "finding_identities_unchanged": true,
+    "official_results_unchanged": true
+  },
+  "inputs": {
+    "baseline": {
+      "path": "experiments/validations/p5_round1_import_audit_results.json",
+      "sha256": "ad093ed0e8ab2c6963639c3699c236c4f3075a6b76719cb76ace0867a01c6f4e"
+    },
+    "candidate": {
+      "path": "experiments/validations/p5_round2_import_audit_results.json",
+      "sha256": "c5c332955f335f0eec72d623967e8dec767b20624daf7969bac252c45aaed446"
+    },
+    "preregistration": {
+      "id": "p5-hierarchical-import-audit-round2-v1",
+      "path": "experiments/validations/p5_round2_preregistration.json",
+      "sha256": "170aa545bfb1d8c320e09493b629c2a7f7cabb57f04937ebb2e955c087276337"
+    }
+  },
+  "validation_id": "p5-import-audit-round-difference-v1"
+}

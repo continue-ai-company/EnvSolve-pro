@@ -1,0 +1,38 @@
+{
+  "freeze_id": "envsolve-envbench-finding-collector-v1-freeze",
+  "created_on": "2026-07-15",
+  "status": "recorded-qualified-unseen-batch-not-started",
+  "preregistration": {
+    "path": "experiments/protocols/envbench_finding_collector_v1_preregistration.json",
+    "sha256": "fd3cf50ff585e1376124cd1cc49e37f1184de2fa6bbff62010b35c44c56e529f"
+  },
+  "source_files": {
+    "envsolve/integrations/__init__.py": "a660c2ee4db3fc74dc35747aed738c51c3b64fc0850f1d8e08df082dc53b2a7d",
+    "envsolve/integrations/envbench_findings.py": "8fcfc28fca9c414958e5cc849c9d1b8315baf399574ad04211d8826decd97622"
+  },
+  "test_files": {
+    "envsolve/tests/test_envbench_findings.py": "d3a0ce1eb0d5936f10f11d239b389ec7b827c2eb34e734f9b3381e179e41c696"
+  },
+  "documents": {
+    "research/ENVBENCH_FINDING_COLLECTOR_V1.md": "07c6b642e591124eb25d47e8583dfbd9669ff1fc93d0e64542e956ff4532cf94",
+    "research/ENVBENCH_FINDING_COLLECTOR_V1_ZH.md": "bde70591db3ab948062594f4cd8a3c8f5db5c24716d23f110c5cac6ab4fde04e"
+  },
+  "recorded_qualification": {
+    "path": "experiments/validations/envbench_finding_collector_v1_recorded_qualification.json",
+    "sha256": "b2cba11eec58603985c0f2abb15fbdb694676440bacb46a2d3271a500c828cb7"
+  },
+  "qualification": {
+    "synthetic_tests": 7,
+    "full_suite_tests": 254,
+    "recorded_cases": 1,
+    "recorded_missing_import_diagnostics": 11,
+    "recorded_goal_active_findings": 11,
+    "recorded_unknown_findings": 0,
+    "recorded_semantic_active_obligation": 5,
+    "recorded_semantic_guarded_optional": 6,
+    "recorded_non_missing_import_errors_not_admitted": 690,
+    "new_real_case_executions": 0,
+    "model_requests": 0
+  },
+  "change_policy": "Official goal ownership, raw diagnostic schema, source binding, semantic provenance, bootstrap normalization, or infrastructure classification changes require a new collector freeze."
+}

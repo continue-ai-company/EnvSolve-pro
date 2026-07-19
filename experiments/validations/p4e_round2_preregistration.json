@@ -1,0 +1,44 @@
+{
+  "preregistration_id": "p4e-repository-replay-round2-v1",
+  "created_at": "2026-07-14T08:25:00Z",
+  "development_only": true,
+  "protocols": {
+    "english": "research/P4E_REPOSITORY_REPLAY_PROTOCOL.md",
+    "chinese": "research/P4E_REPOSITORY_REPLAY_PROTOCOL_ZH.md"
+  },
+  "target": {
+    "case_id": "envbench-python-jaraco__inflect@1f42293f30caacb0637f7eb30a483b44489f4812",
+    "repository": "jaraco/inflect",
+    "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+    "selection_rule": "same consumed case; Round 1 exposed exactly three test-file module obligations"
+  },
+  "evidence": {
+    "missing_module": "pytest",
+    "finding_role": "all reportMissingImports occur under tests/",
+    "metadata_extra": "test",
+    "metadata_extra_declares_distribution": "pytest >= 6, != 8.1.*",
+    "test_tool_selects_extra": "tox.ini [testenv] extras = test",
+    "pyproject_sha256": "cad31efca1d13c919d3bf1c12dd7cac2d46cd1202c4b8a52eb441efc6713e3e1",
+    "tox_ini_sha256": "3fe2f8391c8df8e9df7326be20f7eccde264a52939c201384b2715de7161fd03"
+  },
+  "intervention": {
+    "operator": "install_project_extra",
+    "extra": "test",
+    "command": "python -m pip install --no-build-isolation -e \".[test]\"",
+    "carried_repairs": ["temporarily_relocate_then_restore verifier-owned build_output"],
+    "verification_gate": "clean official replay has exit_code=0 and zero reportMissingImports"
+  },
+  "limits": {
+    "benchmark_executions": 1,
+    "model_requests": 0,
+    "new_typed_repair_actions": 1
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "application_source_edits": false,
+    "verifier_configuration_edits": false,
+    "import_stubs": false,
+    "module_distribution_name_equality_assumed": false
+  }
+}

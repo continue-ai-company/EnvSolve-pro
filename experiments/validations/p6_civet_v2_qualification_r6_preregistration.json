@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "p6-civet-v2-qualification-r6-v1",
+  "registered_at": "2026-07-16T05:59:44+00:00",
+  "purpose": "Development-informed same-case qualification of evidence-complete model state after R5 exposed terminal-log loss and module-to-distribution name guessing. This run is not algorithm-effect evidence.",
+  "execution_gate": "Do not execute until the user explicitly confirms that the local network has been changed or checked after the R5 artifact hash mismatch.",
+  "case": {
+    "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+    "split_role": "development-only-consumed",
+    "prior_attempts": [
+      "envsolve-p6-devext3-civet-r1",
+      "envsolve-p6-devext3-civet-r2",
+      "envsolve-p6-devext3-civet-r3",
+      "envsolve-p6-devext3-civet-r4",
+      "envsolve-p6-devext3-civet-r5"
+    ]
+  },
+  "implementation": {
+    "harness_freeze": "experiments/protocols/harness_freeze_v10.json",
+    "harness_freeze_sha256": "74a75f7339a32cd8840a155a75e472de37bbaabbf60181bb52e1c69fab7cf123",
+    "internal_verifier": "python-deployment-v2",
+    "online_feedback": "internal-execution-only",
+    "infrastructure_failure_policy": "unknown-and-stop",
+    "official_evaluator_access": "one atomic post-episode claim"
+  },
+  "condition": {
+    "runner": "envsolve",
+    "method": "envsolve-full",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 7,
+    "max_candidates": 5,
+    "automatic_retries": 0
+  },
+  "qualification_checks": [
+    "The independent run audit is valid and persisted model usage is nonzero.",
+    "Attributable network or artifact-integrity failure terminates before another model proposal.",
+    "The model receives current runtime version, latest structured verification, active constraints, and terminal execution errors.",
+    "No candidate assumes module and distribution names are equal without additional evidence.",
+    "Post-episode official evidence is absent from every model request and online state transition."
+  ],
+  "reporting": {
+    "algorithm_claim_allowed": false,
+    "held_out_claim_allowed": false,
+    "retain_all_failures": true,
+    "network_retry": "This registration consumes the one user-confirmed local-network retry only after the execution gate is satisfied."
+  }
+}

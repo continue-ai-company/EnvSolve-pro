@@ -1,0 +1,18 @@
+{
+  "protocol_id": "envsolve-structured-finding-adapter-v2-preregistration",
+  "created_on": "2026-07-15",
+  "supersedes": "envsolve-structured-finding-adapter-v1-freeze",
+  "development_only": true,
+  "real_case_outcomes_observed_before_freeze": 0,
+  "amendment_trigger": "Synthetic audit found that finding disposition could otherwise overwrite the executable verifier's goal decision.",
+  "single_change": "Structured reports must carry an explicit three-valued goal_passed decision; finding disposition controls evidence emission only.",
+  "invariants": [
+    "inactive findings never relabel a reported goal failure as pass",
+    "unknown findings, incomplete execution, and infrastructure errors produce Unknown",
+    "reported pass with active counterexamples remains contradictory and is rejected by the core pass contract",
+    "domain and predicate evidence mappings are unchanged",
+    "free-form log parsing remains outside the structured adapter"
+  ],
+  "real_case_executions": 0,
+  "model_requests": 0
+}

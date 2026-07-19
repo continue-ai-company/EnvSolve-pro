@@ -1,0 +1,55 @@
+{
+  "freeze_id": "p6-constraint-operation-v2-ablation",
+  "files": {
+    "envsolve/operations/__init__.py": "24a3e3b7bab6f76092bf79774a5ff616cfdd0d2cb555c4f10d5bc54a96a8629a",
+    "envsolve/operations/models.py": "45744bd9be24dee32e1e87bfa76915045ca6d7af548033123f732036be73b83d",
+    "envsolve/operations/planner.py": "938e70148f0926dd9c42bfa3929b033c26081f3263d6761a749743bedb336452",
+    "envsolve/runtime/policy.py": "94f331f8bc88b8643075fc2ae2205f117c4fd99ea9fa6002b4ca379e6c3d2f20",
+    "envsolve/solver/counterexample.py": "0189dc2f8ce56d5dd325be226c6d419087d8a5add48416d341d5cb6dab9778ec",
+    "envsolve/tests/test_operations.py": "6f9f96d1579a6fe83bcd006fd9587f080f6716d8dca62663542d22ef1b67c386",
+    "envsolve/tools/run_envsolve_episode.py": "4f4d0f2ca754dc8833bd8f59a1f2817810c54a020dc3b64c91f86a3f4ab6b790",
+    "envsolve_harness/runners/envsolve.py": "dba084d7c061170e2ba7ff44ba2932330ccb5186ad2432374d4560a2cc93cec9",
+    "envsolve_harness/runners/envsolve_p6.py": "da71bc2982013eae405a58bd05892e0c2ce59868c07b6d8a7f945e2651520e42",
+    "envsolve_harness/scripts/constraint_operations.py": "a419f8a7130fe03b04deaeaef9dd09b67736ef3b2a9d0bf2f4f6e1192f547738",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/run_p6_operation_qualification.py": "f1ef3845822a686f4a22c518e86590f1cbbe8742c442105c85075eaa55b655ed",
+    "experiments/tools/build_p6_operation_schedule.py": "78f0311185a0177650ba452af18f89644c12a2c36f4181d442c333144afd0752",
+    "experiments/tools/select_p6_operation_qualification.py": "5e1bf0fa3bc7981bc3ec2792b1d1d7b445cb77642fec591790406486c3e579ee",
+    "research/P6_CONSTRAINT_OPERATION_PROTOCOL_V1.md": "7033fcddd93fdf0cdc0c2c458158a135cef3b403d16f6d4416ab8aed5cceaaae",
+    "research/P6_CONSTRAINT_OPERATION_PROTOCOL_V1_ZH.md": "aad75888af646139b7012522451ce04d8692744d3e05283b682723403e19f466",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1.md": "9cb85f585145045fa7196896a903aa012e2aa48b8525de2a9cce1bbbb2f9eca7",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V1_ZH.md": "8ca09147684545205212aea762ae9f6fb9c51008045f4ced38f0b4cb6aedd954",
+    "tests/test_constraint_operation_loop.py": "0d1be9824c20ae63137406fa957c8be0a5775774fa6de3b8002d512d631815a0",
+    "tests/test_envsolve_runtime.py": "42891343d23825a2fe3565133ce59bf1321475fe087cba5f0f8331c6e109c2c5"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "cross_case_experience_enabled": false,
+    "new_repository_inspections": 0,
+    "official_results_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "repository_specific_repair_mapping_added": false,
+    "selection_executed": false
+  },
+  "treatment": {
+    "ablation": {
+      "operation_guard": false,
+      "operation_plan_visible": false,
+      "operation_profile": "free-form"
+    },
+    "full": {
+      "operation_guard": true,
+      "operation_plan_visible": true,
+      "operation_profile": "constraint-driven"
+    },
+    "shared_obligation_profile": "two-layer"
+  },
+  "verification": {
+    "compile": "passed",
+    "docker_integration": "1 passed",
+    "full_regression": "310 passed, 1 skipped",
+    "focused_tests": "20 passed"
+  }
+}
+

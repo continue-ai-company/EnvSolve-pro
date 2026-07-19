@@ -1,0 +1,78 @@
+{
+  "preregistration_id": "p5-v3-legacy-editable-provenance-round5-v1",
+  "created_at": "2026-07-14T14:00:00Z",
+  "development_only": true,
+  "objective": "Extend installed-project provenance to legacy editable installs without guessing a distribution or import name from repository identity.",
+  "frozen_observation": {
+    "round4_result": {
+      "path": "experiments/validations/p5_round4_v3_dev5_results.json",
+      "sha256": "6b87b7b3ab75d029104983abdfc9ebb5115a91a9cc3f7dd0559bae5fc2bee41b"
+    },
+    "aggregate": {
+      "bootstrap_pass": 3,
+      "v3_pass": 1,
+      "v3_fail": 0,
+      "v3_unknown": 4
+    },
+    "collector_gap": "Two bootstrap-success cases had no PEP 610 direct_url.json match; both remained unknown as required.",
+    "infrastructure_failures_excluded": "The two files.pythonhosted.org ReadTimeout failures are handled by a separate identical-retry protocol and do not motivate this policy change."
+  },
+  "frozen_sources": {
+    "smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    },
+    "metadata_collector": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "0e19c92390d6091aeb995465ffc8a25ffad9715fefee00d05394490f4f346aa8"
+    },
+    "round4_container_runner": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "e92a4bf7c4c4536b501df8f23b43c42fa4b0e276f2f599dd8b287460f36f08c0"
+    }
+  },
+  "intervention": {
+    "accepted_legacy_evidence": [
+      "An installed site-packages `*.egg-link` whose first non-empty line resolves to /data/project or a descendant.",
+      "A project-root distribution discoverable from project-owned `.egg-info` metadata.",
+      "A unique PEP 503 canonical-name match between the egg-link filename and project-owned distribution Name."
+    ],
+    "content_addressing": [
+      "SHA-256 of the matched egg-link payload",
+      "Existing composite hash of METADATA, top_level.txt, and entry_points.txt"
+    ],
+    "rejections": [
+      "egg-link outside the project",
+      "missing project-owned distribution metadata",
+      "canonical-name mismatch",
+      "zero or multiple matching project distributions",
+      "malformed or non-local link path"
+    ],
+    "unchanged": [
+      "Round 3 smoke planning and three-valued decision policy",
+      "PEP 610 direct_url matching",
+      "No distribution-name to import-name inference",
+      "No repository-specific maps",
+      "Official EnvBench semantics"
+    ]
+  },
+  "synthetic_counterexamples": [
+    "An egg-link that points outside /data/project is rejected.",
+    "An egg-link name that differs from project metadata after PEP 503 normalization is rejected.",
+    "Two matching project distributions are ambiguous and produce no accepted provenance.",
+    "A valid legacy link preserves explicit top_level and console metadata without guessing."
+  ],
+  "round_scope": {
+    "synthetic_tests_only": true,
+    "real_repository_executions": 0,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

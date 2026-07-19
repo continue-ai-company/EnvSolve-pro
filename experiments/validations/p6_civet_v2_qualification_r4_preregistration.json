@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "p6-civet-v2-qualification-r4-v1",
+  "registered_at": "2026-07-16T05:20:37+00:00",
+  "purpose": "Second development-informed same-case qualification after R3 exposed that the policy lacked the validator-owned candidate language contract. This run tests interface alignment, V2 counterexample timing, and failed/successful budget auditability; it is not algorithm-effect evidence.",
+  "case": {
+    "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+    "split_role": "development-only-consumed",
+    "prior_attempts": [
+      "envsolve-p6-devext3-civet-r1",
+      "envsolve-p6-devext3-civet-r2",
+      "envsolve-p6-devext3-civet-r3"
+    ]
+  },
+  "implementation": {
+    "harness_freeze": "experiments/protocols/harness_freeze_v8.json",
+    "harness_freeze_sha256": "5204b357a296c80360bebbf21c719c373abd84661871e546b5c72edef89ca081",
+    "internal_verifier": "python-deployment-v2",
+    "candidate_language_source": "TypedReplayCandidateValidator.prompt_contract",
+    "online_feedback": "internal-execution-only",
+    "official_evaluator_access": "one atomic post-episode claim"
+  },
+  "condition": {
+    "runner": "envsolve",
+    "method": "envsolve-full",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 7,
+    "max_candidates": 5,
+    "automatic_retries": 0
+  },
+  "qualification_checks": [
+    "The independent run audit is valid and persisted model usage is nonzero.",
+    "The candidate is validated against the same language contract shown to the model.",
+    "Every accepted candidate executes in a distinct fresh checkout and container.",
+    "Any second candidate is proposed only after first-candidate internal V2 evidence and normalized constraints are persisted.",
+    "Post-episode official evidence is absent from every model request and online state transition."
+  ],
+  "reporting": {
+    "algorithm_claim_allowed": false,
+    "held_out_claim_allowed": false,
+    "retain_all_failures": true,
+    "network_retry": "Only one separately recorded retry after explicit user confirmation of a local network failure."
+  }
+}

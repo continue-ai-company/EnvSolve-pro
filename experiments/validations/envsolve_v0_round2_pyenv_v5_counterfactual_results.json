@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "envsolve-v0-round2-pyenv-v5-counterfactual-v1",
+  "preregistration": "experiments/validations/envsolve_v0_round2_pyenv_v5_counterfactual_preregistration.json",
+  "run_root": "runs/envsolve-v0-r2-pyenv-v5-counterfactual-v1",
+  "batch_summary": {
+    "path": "runs/envsolve-v0-r2-pyenv-v5-counterfactual-v1/batch_summary.json",
+    "sha256": "819aec7a18150dfe8fb2657a9080d40ebbe128b3cc5cd7fed10af5e45b296058"
+  },
+  "validity": {
+    "source_identity_valid": 4,
+    "source_audit_valid": 4,
+    "source_distillation_only_failure_valid": 4,
+    "target_audits_valid": 4,
+    "provider_requests_made": 0,
+    "overwritten_source_artifacts": 0
+  },
+  "outcomes": {
+    "attempted": 4,
+    "generation_completed": 2,
+    "generation_rejected_fail_closed": 2,
+    "evaluation_completed": 0,
+    "official_pass": null,
+    "official_fail": null,
+    "official_unobserved": 2
+  },
+  "records": [
+    {
+      "repository": "avaiga/taipy-core",
+      "generation_completed": false,
+      "outcome": "still_rejected",
+      "reason_family": "unsupported_absolute_working_directory"
+    },
+    {
+      "repository": "nakagami/pyfirebirdsql",
+      "generation_completed": true,
+      "generated_script_sha256": "bcfd0be71e4b75e18ae66ee93bc89eae35633e9e6123b41b0e46affc9931716c",
+      "evaluation_completed": false,
+      "outcome": "evaluator_infrastructure_failure",
+      "evaluation_log_sha256": "8b233a824b96b3fd20cc8a7ccd6e9e8707f39d73bd0ab04f6d112a2866f934bf"
+    },
+    {
+      "repository": "wireless-innovation-forum/spectrum-access-system",
+      "generation_completed": false,
+      "outcome": "still_rejected",
+      "reason_family": "multiple_unsupported_working_directory_observation_and_absolute_pip_actions"
+    },
+    {
+      "repository": "islandora/documentation",
+      "generation_completed": true,
+      "generated_script_sha256": "f0539eb02149cede0e1198e9817d6985c24bd84494d2a77944b9b013ad40c04b",
+      "evaluation_completed": false,
+      "outcome": "evaluator_infrastructure_failure",
+      "evaluation_log_sha256": "3c7d64e7d78758c7811175cfaa09d2a26ac781782d08cef441d491280e7db176"
+    }
+  ],
+  "evaluator_failure": {
+    "family": "host_uv_cache_permission",
+    "scope": "infrastructure_before_envbench_start",
+    "shared_by_evaluable_records": 2,
+    "message": "uv could not initialize its default cache under /Users/admin/.cache/uv because that path is outside the writable sandbox",
+    "network_related": false,
+    "docker_started": false
+  },
+  "interpretation": {
+    "redistillation_expectation_met": true,
+    "typed_replay_ir_v5_qualified": true,
+    "official_effect_observed": false,
+    "held_out_generalization_claim": false,
+    "next_action": "Run a separately registered evaluator retry that changes only UV_CACHE_DIR to a writable temporary directory."
+  }
+}

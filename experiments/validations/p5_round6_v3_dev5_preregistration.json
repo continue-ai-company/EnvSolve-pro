@@ -1,0 +1,75 @@
+{
+  "preregistration_id": "p5-v3-legacy-clean-dev5-round6-v1",
+  "created_at": "2026-07-14T15:00:00Z",
+  "development_only": true,
+  "objective": "Validate legacy editable provenance on clean Dev-5 replay, retain a PEP 610 control, and retry only the bootstrap phase previously blocked by confirmed network read timeouts.",
+  "base_preregistration": {
+    "path": "experiments/validations/p5_round4_v3_dev5_preregistration.json",
+    "sha256": "6cd27a6976c63173d512587553cfe2f1b9b5c96441719384df2f1e79088846b8",
+    "inherit": ["environment", "runner_contract", "targets"]
+  },
+  "frozen_inputs": {
+    "round4_result": {
+      "path": "experiments/validations/p5_round4_v3_dev5_results.json",
+      "sha256": "6b87b7b3ab75d029104983abdfc9ebb5115a91a9cc3f7dd0559bae5fc2bee41b"
+    },
+    "round5_result": {
+      "path": "experiments/validations/p5_round5_legacy_editable_results.json",
+      "sha256": "d4b4c011f436323424e002e44d2194440aad5e2404950f051bf8f2380d8e7826"
+    },
+    "smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    },
+    "metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "0e19c92390d6091aeb995465ffc8a25ffad9715fefee00d05394490f4f346aa8"
+    },
+    "legacy_container_collector": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "9e5a457ce3fdaa108414c32ec2ca714a2e449cd615168c28a76f4d103750b84c"
+    }
+  },
+  "pre_intervention_source": {
+    "round4_host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "27570aaeec5521b0fc47feea047f4c62941d2609f5296d7c6683b2b32b61db2b"
+    }
+  },
+  "target_roles": {
+    "convexengineering/gpkit": "legacy editable coverage validation after Round 4 bootstrap success and provenance unknown",
+    "markqvist/reticulum": "legacy editable coverage validation after Round 4 bootstrap success and provenance unknown",
+    "python-poetry/poetry": "PEP 610 pass non-regression control",
+    "jaraco/inflect": "identical source revision and bootstrap retry after files.pythonhosted.org ReadTimeout",
+    "pytest-dev/pytest-xdist": "identical source revision and bootstrap retry after files.pythonhosted.org ReadTimeout"
+  },
+  "execution_gate": {
+    "requires_user_network_change_confirmation": true,
+    "reason": "Two Round 4 bootstrap failures share a confirmed Python package-host read-timeout signature."
+  },
+  "allowed_intervention": {
+    "collector": "Use the frozen Round 5 PEP 610 plus legacy egg-link provenance collector.",
+    "host_runner": "Add only deterministic base-preregistration inheritance; source extraction, bootstrap scripts, image, network transition, probes, timeouts, and cleanup remain unchanged.",
+    "bootstrap": "No change from Round 4 for any target."
+  },
+  "expected_causal_checks": {
+    "gpkit_reticulum": "Any Round 4 V3-unknown to known transition must carry legacy-egg-link provenance and both the egg-link and metadata snapshot hashes.",
+    "poetry": "Must remain PEP 610 matched; a changed probe plan or loss of V3 Pass is a regression.",
+    "inflect_xdist": "Bootstrap recovery may be attributed only to infrastructure retry; any later V3 result uses the already frozen Round 5 collector.",
+    "official_outcomes": "No official verifier runs and no official result changes."
+  },
+  "limits": {
+    "attempts_per_case": 1,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "source_worktree_mutations": 0,
+    "probe_network_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false,
+    "case_specific_policy": false
+  }
+}

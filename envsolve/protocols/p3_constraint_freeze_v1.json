@@ -1,0 +1,85 @@
+{
+  "change_policy": "Any normalized constraint schema, confidence threshold, propagation, conflict, or preflight semantic change requires a new P3 policy and freeze version.",
+  "created_at": "2026-07-14T03:44:19.662065+00:00",
+  "policy_id": "envsolve-typed-constraints-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "p0_scoring_changed": false,
+    "p2_semantics_changed": false,
+    "solver_case_specific_rules": false
+  },
+  "semantics": {
+    "constraint_schema": "1.0.0",
+    "dispositions": [
+      "allow",
+      "require_evidence",
+      "reject"
+    ],
+    "hard_confidence": 0.8,
+    "pep440_library": "packaging>=24,<27"
+  },
+  "source_files": {
+    "envsolve/constraints/__init__.py": "7d77059f6433f8d04a07a5131c33191eae83e8be90fffc64945606ec8b066282",
+    "envsolve/constraints/engine.py": "092d299cfc32a732e9234c5247b8ae40bec188674af72945c12e10cab1b065a4",
+    "envsolve/constraints/models.py": "1d19d408ac64a1a00d3ac4b9a2145efa66f504fad7863b68567f27611bd86071",
+    "envsolve/constraints/normalization.py": "f884c0df6e288c8b3ccdd65a2e690029cac478798d624c43e469a8a086560e1f",
+    "envsolve/constraints/policy.py": "1c8bbd159f6c7ebeeac17c72a831e1cec1c8fc3a4f98364e4905ef4d715eb74c",
+    "envsolve/constraints/preflight.py": "d3fbc177f9fa3a94f6279944751d3f9f63812cfce14ca2d61f4b62eb673878f4",
+    "envsolve/requirements.txt": "9e79e152b5ed2d41b66d7949b743d8caa32f82b305a309a9bc07e700b47c24c3",
+    "envsolve/tests/test_constraints.py": "5e42058ec67eff48711df106d21d9abc21477701d1a17006a7a23da5571d99ee",
+    "envsolve/tools/p3_freeze.py": "e4ca5ea3f9c34cdbcd99f924608a13d1b19705e0b2a0c84e07d6ad90a183c049",
+    "envsolve/tools/replay_recorded_results.py": "a6268ede07cb9bb0453801a78773fd027cb7863253e9c100325c89ef912e0123",
+    "research/P3_CONSTRAINT_PROTOCOL.md": "617d8ded585b48d0512bd87e0e16c244d7e71d43b1300384cbef71ee7626cc6a"
+  },
+  "validation": {
+    "compile_check": true,
+    "p0_regression_tests": 44,
+    "p2_regression_tests": 7,
+    "recorded_development": {
+      "aggregate": {
+        "audit_valid": true,
+        "cases": 2,
+        "conflicts": 2,
+        "constraints": 4,
+        "model_requests": 0,
+        "new_benchmark_executions": 0
+      },
+      "artifacts": [
+        {
+          "artifact_root": "runs/p3-constraint-recorded-dev-v1/automl-neps-6a6c0c273f59",
+          "audit_valid": true,
+          "case_id": "recorded-result:automl/neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+          "conflicts": 1,
+          "constraints": 2,
+          "event_count": 6,
+          "event_log_sha256": "7f7664a2ce8a3cc07990a92f1f0c23359953431549e2b4761961281e5c635657",
+          "snapshot_hash": "3a0ee44ffe77caeb88342a4a5a5a9a2f709eb959ab668003f2dd7ebe1be6bc0b",
+          "snapshot_sha256": "c9fd7f3903d49c5cc249746b3a1aa90762642caeb6d08fa990d4323f69ccb00a",
+          "source": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-automl__neps__6a6c0c273f59036b8605086c43a6a714ea02bd23/evaluation/json/results/automl__neps.json",
+          "source_sha256": "37a9a47252d1d564b7750f0d84115d49a5658c69e78bcbcb9fb623ea07bdff54"
+        },
+        {
+          "artifact_root": "runs/p3-constraint-recorded-dev-v1/benadida-helios-server-c7ed0608e2cd",
+          "audit_valid": true,
+          "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+          "conflicts": 1,
+          "constraints": 2,
+          "event_count": 6,
+          "event_log_sha256": "45acaa8a2f5e8f510c00805a8b1f65fc2ba72dd4c29df47fd8f424ea3fd59e9e",
+          "snapshot_hash": "151ff03a526c4bc4b76a8ed5553fc611cb112fe4321ef44488804c32f1b59bfc",
+          "snapshot_sha256": "bb34feff7beb0933e09bf8c2f2860bf9cbb78477570dcb5381c8f25995e92fcf",
+          "source": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+          "source_sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+        }
+      ],
+      "summary": "experiments/validations/p3_constraint_recorded_dev_results.json",
+      "summary_sha256": "29175a003f51b0fd6e1732d4ef3454c1abdbdd6bb029861477c9bb4ff6e224cb"
+    },
+    "synthetic_tests": 17
+  }
+}

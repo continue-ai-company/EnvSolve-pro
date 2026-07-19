@@ -1,0 +1,119 @@
+{
+  "preregistration_id": "p5-v1-real-evidence-dev5-round12-v1",
+  "created_at": "2026-07-14T22:30:00Z",
+  "development_only": true,
+  "verification_level": "V1",
+  "objective": "Collect the first real-repository V1 metadata, installed-state, marker, explicit-extra, and network-disabled resolver evidence on the unchanged Dev-5 environment plans.",
+  "base_preregistration": {
+    "path": "experiments/validations/p5_round4_v3_dev5_preregistration.json",
+    "sha256": "6cd27a6976c63173d512587553cfe2f1b9b5c96441719384df2f1e79088846b8",
+    "inherit": ["environment", "targets"]
+  },
+  "frozen_observations": {
+    "round7_preregistration": {
+      "path": "experiments/validations/p5_round7_v1_consistency_preregistration.json",
+      "sha256": "28c7bbe83c69cb88bfcba65b9d6e407e1d94424c94e398cd1c195d4e7d6002ca"
+    },
+    "round7_synthetic_result": {
+      "path": "experiments/validations/p5_round7_v1_consistency_results.json",
+      "sha256": "ab5e25045eca6f55d5d2bda8decd554cfdb07f8b64d329772f0370f25b1bc169"
+    },
+    "round11_v3_result": {
+      "path": "experiments/validations/p5_round11_v3_dev5_results.json",
+      "sha256": "86a3dc27d153d465d36e8d9ce06c542cd0cc0d7128f45fd8bf680a2a420b3726"
+    },
+    "round11_v3_analysis": {
+      "path": "experiments/validations/p5_round11_v3_dev5_analysis.json",
+      "sha256": "2293f3e965dc190c226c41e1f6e845c7ad3ddbfb9783c5f271dfe48227276b47"
+    }
+  },
+  "frozen_policy_sources": {
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "7c71d0b53a520ecf487cf290f211a6842a77ff7315bb7a7902d4d650b3e9b21c"
+    },
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v1_in_container.py",
+      "sha256": "a07be066deec898880bafbe58f39836fc679d46cbe30902e457c2e7753708f51"
+    },
+    "metadata_consistency_policy": {
+      "path": "envsolve/verification/metadata_consistency.py",
+      "sha256": "f8380551e8e390fe0c4738347f29cb2ba37a1165ca82729668f9dc6327c8730d"
+    },
+    "metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "project_provenance_policy": {
+      "path": "envsolve/verification/project_provenance.py",
+      "sha256": "2902907da0e84ae127fafe7df1422b073b1860c2bff24bb06a4707f158dd22df"
+    },
+    "network_isolation_policy": {
+      "path": "envsolve/verification/network_isolation.py",
+      "sha256": "eca442099b7691a27133de0da26774384c8eb08f940db50addcb06acb9f03548"
+    },
+    "protocol_en": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL.md",
+      "sha256": "157f90f0c0b895a7b0ea11e2bb7468fd1cf00a663863fec1fdc3a4d3b2680fac"
+    },
+    "protocol_zh": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL_ZH.md",
+      "sha256": "dfafca1dd97c908c0062d2fd73bff267e3ab1bd35d5fbda3a15097616da5a34b"
+    }
+  },
+  "environment_plan": {
+    "selected_extras_by_bootstrap_sha256": {
+      "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a": [],
+      "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d": ["test"],
+      "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a": [],
+      "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b": ["testing", "psutil", "setproctitle"],
+      "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f": []
+    },
+    "selected_extra_evidence": {
+      "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a": "The frozen bootstrap uses `pip install -e .` and declares no PEP 508 extra.",
+      "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d": "The frozen bootstrap explicitly uses `python -m pip install --no-build-isolation -e .[test]`.",
+      "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a": "The frozen bootstrap uses `pip install -e .` and declares no PEP 508 extra.",
+      "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b": "The frozen bootstrap explicitly uses `pip install -e .[testing,psutil,setproctitle]`.",
+      "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f": "The frozen bootstrap uses Poetry dependency groups but declares no PEP 508 package extra. Dependency groups are not reclassified as extras."
+    }
+  },
+  "runner_contract": {
+    "source": "Create a local no-hardlinks detached checkout from the retained Git object database at the exact inherited revision; never fetch or read dirty worktree files.",
+    "cleanliness_gate": "Require exact HEAD and tree identity plus an empty git status before adding declared external fixtures or running bootstrap.",
+    "container_git_gate": "Add only /data/project to Git safe.directory for the temporary bind mount.",
+    "mount": "Mount the temporary checkout at /data/project and EnvSolve policy code read-only.",
+    "pre_bootstrap_directories": ["build_output"],
+    "external_fixture": "Create only preregistered safe single-component directories after the clean-checkout gate and fail on repository-path collision.",
+    "bootstrap": "Source the exact inherited frozen bootstrap in one persistent shell without creating benchmark result artifacts.",
+    "network_transition": "Allow network only during bootstrap; disconnect every Docker network before V1 evidence collection and resolver execution.",
+    "project_distribution": "Use only frozen PEP 610 or legacy egg-link plus uniquely matched project-owned metadata provenance.",
+    "v1_collection": "Read exact Requires-Dist from content-addressed installed project metadata; record installed name/version observations and the container marker environment; pass only preregistered extras; execute direct python -m pip check from an empty directory.",
+    "aggregation": "Any attributable project-closure failure fails V1; incomplete collection or an unattributable nonzero ambient resolver makes V1 unknown; only complete consistent evidence may pass.",
+    "temporary_storage": "Use the host platform temporary directory unless an explicit bind-mount-safe root is supplied.",
+    "cleanup": "Always remove the container and temporary checkout.",
+    "case_timeout_seconds": 1800,
+    "source_materialization": "detached_git_checkout"
+  },
+  "expected_causal_checks": {
+    "bootstrap_non_regression": "Round 11 established 5/5 bootstrap Pass; any new bootstrap failure is an environment or runner regression and does not produce V1 evidence.",
+    "extras": "Observed selected extras must exactly match the list keyed by each frozen bootstrap SHA256.",
+    "resolver": "Every resolver check must use the active container Python, direct argv, an empty working directory, and host-confirmed network isolation.",
+    "project_attribution": "A project-closure issue may fail V1 independently of pip check; a nonzero bare pip check cannot fail an otherwise consistent project closure.",
+    "unknown": "Missing provenance, incomplete installed-state collection, invalid resolver evidence, or ambient-only resolver failure remains unknown.",
+    "official_outcomes": "No official verifier runs and no official score changes."
+  },
+  "limits": {
+    "attempts_per_case": 1,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "retained_worktree_mutations": 0,
+    "resolver_network_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false,
+    "case_specific_policy": false
+  }
+}

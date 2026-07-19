@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v2_preregistration.json",
+  "preregistration_sha256": "8e943dceaca37696dff791458d64f98fdf99737977244b34c4603a89bd612189",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v2_186.jsonl",
+  "remaining_sha256": "fc4fd281c00c881578b06dde83985bbd64d750249e65d12ec5ea9946b3891f62",
+  "salt": "envsolve-p6-operation-qualification-v2-2026-07-17",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+    "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+    "envbench-python-fatal1ty__mashumaro@e945ee4319db49da9f7b8ede614e988cc8c8956b",
+    "envbench-python-pyvisa__pyvisa@df628ff00a0a4ae4efee5277738b12a9d2fd0da0",
+    "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v2_5.jsonl",
+  "selected_sha256": "dbc5b619d534428e6bfadb017e19b1da3018cd8a85850e93cb06ed35c2364ca6",
+  "source": "experiments/cases/train_untouched_after_operation_qualification191.jsonl",
+  "source_sha256": "d09112fa54fc7f020a74744e7a6718bf8e4cd6f250d3570e3307a1bca14ae8ef"
+}

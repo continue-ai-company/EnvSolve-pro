@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "retry_id": "p0-post-freeze-dev3-retry1",
+  "completed_at": "2026-07-14T03:07:16Z",
+  "run_id": "p0-post-freeze-dev3-deterministic-v2",
+  "aggregate": {
+    "cases": 3,
+    "generation_completed": 3,
+    "evaluation_completed": 3,
+    "artifact_audits_valid": 3,
+    "bootstrap_pass": 1,
+    "pyright_completed": 1,
+    "official_pass": 0,
+    "model_requests": 0,
+    "failed_case_processes": 0,
+    "interrupted": 0,
+    "not_started": 0
+  },
+  "comparison": [
+    {
+      "repository": "dfki-ric/phobos",
+      "first_attempt": {
+        "failure_stage": "bootstrap",
+        "cause": "PyPI read timeout while downloading numpy."
+      },
+      "retry": {
+        "exit_code": 0,
+        "execution_time_seconds": 54.83042788505554,
+        "failure_stage": "verification",
+        "pyright_completed": true,
+        "error_count": 1328,
+        "issues_count": 100,
+        "official_pass": false
+      },
+      "interpretation": "The first-attempt network failure was transient; the unchanged bootstrap succeeded and exposed verifier failures."
+    },
+    {
+      "repository": "automl/neps",
+      "first_attempt": {
+        "failure_stage": "bootstrap",
+        "cause": "ConfigSpace isolated build could not resolve setuptools."
+      },
+      "retry": {
+        "exit_code": 1,
+        "execution_time_seconds": 190.24885177612305,
+        "failure_stage": "bootstrap",
+        "pyright_completed": false,
+        "official_pass": false,
+        "cause": "Project requires Python >=3.8,<3.12 but the evaluator image provides Python 3.13.2."
+      },
+      "interpretation": "Index access progressed on retry and exposed a stable runtime-version constraint."
+    },
+    {
+      "repository": "benadida/helios-server",
+      "first_attempt": {
+        "failure_stage": "bootstrap",
+        "cause": "PyPI read timeout while downloading psycopg2."
+      },
+      "retry": {
+        "exit_code": 1,
+        "execution_time_seconds": 3.847730875015259,
+        "failure_stage": "bootstrap",
+        "pyright_completed": false,
+        "official_pass": false,
+        "cause": "psycopg2 source build requires pg_config, which is absent from the evaluator environment."
+      },
+      "interpretation": "The first-attempt network failure was transient and had masked a stable system-package constraint."
+    }
+  ],
+  "artifacts": {
+    "batch_summary_sha256": "cec00a29952cf21b5546730731709f39061bc451ca1f70680f7bde0e43d11b43",
+    "summary_sha256": "b69b1bd44bf2fd66ff4d4e7546c39de0b9ac5d6b64ed0eade28f8f95e98f888c"
+  },
+  "interpretation": {
+    "first_attempt_network_failures_reproduced": false,
+    "first_attempt_network_failures_confirmed_transient": true,
+    "underlying_environment_constraints_exposed": 3,
+    "official_pass_changed": false,
+    "replace_preregistered_first_attempt": false,
+    "include_in_official_pass_at_1": false,
+    "harness_or_protocol_changed": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

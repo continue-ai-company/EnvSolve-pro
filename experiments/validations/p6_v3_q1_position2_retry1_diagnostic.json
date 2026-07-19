@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "p6-v3-q1-01-envsolve-full-infra-retry1",
+  "schedule_position": 2,
+  "method": "envsolve-full",
+  "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+  "classification": "qualification-invalid-infrastructure-diagnostic",
+  "audit_valid": true,
+  "official_evaluator_claims": 0,
+  "candidates_attempted": 3,
+  "model_requests": 3,
+  "total_tokens": 21194,
+  "estimated_cost_usd": 0.01175109,
+  "observations": [
+    {
+      "candidate": 1,
+      "kind": "candidate-dsl-rejection",
+      "detail": "A safe .venv/bin/pip install command was outside the bounded executable grammar."
+    },
+    {
+      "candidate": 2,
+      "kind": "unclassified-infrastructure",
+      "detail": "Ubuntu mirror returned 502 Bad Gateway and explicit apt Connection failed messages."
+    },
+    {
+      "candidate": 3,
+      "kind": "execution-timeout",
+      "detail": "The model repeated the candidate-2 script because the mirror failure was retained as a hypothesis; v17 correctly terminated the timeout as infrastructure Unknown."
+    }
+  ],
+  "generic_corrections": [
+    "Accept only project-local .venv/venv bin pip and python executable paths as typed package mutations.",
+    "Classify explicit upstream HTTP 500/502/503/504 and apt Connection failed signatures as infrastructure Unknown."
+  ],
+  "case_specific_rule_added": false,
+  "replacement_run_allowed": false,
+  "remaining_schedule_starts_at": 3,
+  "admissible_pair_count_after_exclusion": 4,
+  "artifacts": {
+    "manifest_sha256": "fbb62b0253b114fbb8db068a320ea8c5bc5f6f0509d22048d15d2d325ac6cdb0",
+    "solver_result_sha256": "d0fa2ceb2c3d3f3dfa5866cc0d73c613999e2cf6220f42aa2df3b613852eadba",
+    "episode_log_sha256": "35cf1189737e5bb66d716e18570d254149ef1ecb6912e3155adab2524d6a65ad"
+  }
+}

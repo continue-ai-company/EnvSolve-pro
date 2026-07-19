@@ -1,0 +1,94 @@
+{
+  "candidate_order": [
+    "libpq-dev",
+    "postgresql-common"
+  ],
+  "candidates": [
+    {
+      "commands": [
+        "apt-get update"
+      ],
+      "package": "libpq-dev",
+      "qualified": false,
+      "results": [
+        {
+          "duration_seconds": 180.00830175000002,
+          "exit_code": 124,
+          "stderr": "P4D action timed out",
+          "stdout": "Get:1 https://deb.nodesource.com/node_20.x nodistro InRelease [12.1 kB]\nGet:2 https://deb.nodesource.com/node_20.x nodistro/main arm64 Packages [14.6 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports jammy InRelease [270 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports jammy-updates InRelease [128 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports jammy-backports InRelease [127 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports jammy-security InRelease [129 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports jammy/multiverse arm64 Packages [224 kB]\nIgn:8 http://ports.ubuntu.com/ubuntu-ports jammy/universe arm64 Packages\nGet:9 http://ports.ubuntu.com/ubuntu-ports jammy/restricted arm64 Packages [24.2 kB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 Packages [1758 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports jammy-updates/universe arm64 Packages [1681 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports jammy-updates/restricted arm64 Packages [7619 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports jammy-updates/multiverse arm64 Packages [63.5 kB]\nIgn:14 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 Packages\nGet:15 http://ports.ubuntu.com/ubuntu-ports jammy-backports/main arm64 Packages [82.4 kB]\nGet:16 http://ports.ubuntu.com/ubuntu-ports jammy-backports/universe arm64 Packages [33.7 kB]\nGet:17 http://ports.ubuntu.com/ubuntu-ports jammy-security/universe arm64 Packages [1385 kB]\nGet:18 http://ports.ubuntu.com/ubuntu-ports jammy-security/multiverse arm64 Packages [56.7 kB]\n"
+        }
+      ]
+    },
+    {
+      "commands": [
+        "apt-get update",
+        "apt-get install -y -- postgresql-common",
+        "command -v -- pg_config",
+        "pg_config --version"
+      ],
+      "package": "postgresql-common",
+      "qualified": false,
+      "results": [
+        {
+          "duration_seconds": 50.73747875000001,
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "Get:1 https://deb.nodesource.com/node_20.x nodistro InRelease [12.1 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports jammy InRelease [270 kB]\nGet:3 https://deb.nodesource.com/node_20.x nodistro/main arm64 Packages [14.6 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports jammy-updates InRelease [128 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports jammy-backports InRelease [127 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports jammy-security InRelease [129 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 Packages [1758 kB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports jammy/multiverse arm64 Packages [224 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports jammy/universe arm64 Packages [17.2 MB]\nGet:10 http://ports.ubuntu.com/ubuntu-ports jammy/restricted arm64 Packages [24.2 kB]\nGet:11 http://ports.ubuntu.com/ubuntu-ports jammy-updates/multiverse arm64 Packages [63.5 kB]\nGet:12 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 Packages [4236 kB]\nGet:13 http://ports.ubuntu.com/ubuntu-ports jammy-updates/universe arm64 Packages [1681 kB]\nGet:14 http://ports.ubuntu.com/ubuntu-ports jammy-updates/restricted arm64 Packages [7619 kB]\nGet:15 http://ports.ubuntu.com/ubuntu-ports jammy-backports/main arm64 Packages [82.4 kB]\nGet:16 http://ports.ubuntu.com/ubuntu-ports jammy-backports/universe arm64 Packages [33.7 kB]\nGet:17 http://ports.ubuntu.com/ubuntu-ports jammy-security/restricted arm64 Packages [7321 kB]\nGet:18 http://ports.ubuntu.com/ubuntu-ports jammy-security/main arm64 Packages [3913 kB]\nGet:19 http://ports.ubuntu.com/ubuntu-ports jammy-security/universe arm64 Packages [1385 kB]\nGet:20 http://ports.ubuntu.com/ubuntu-ports jammy-security/multiverse arm64 Packages [56.7 kB]\nFetched 46.3 MB in 50s (929 kB/s)\nReading package lists...\n"
+        },
+        {
+          "duration_seconds": 16.110639041999974,
+          "exit_code": 0,
+          "stderr": "debconf: delaying package configuration, since apt-utils is not installed\n",
+          "stdout": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  libcommon-sense-perl libjson-perl libjson-xs-perl libpopt0\n  libtypes-serialiser-perl logrotate postgresql-client-common ssl-cert\nSuggested packages:\n  bsd-mailx | mailx\nThe following NEW packages will be installed:\n  libcommon-sense-perl libjson-perl libjson-xs-perl libpopt0\n  libtypes-serialiser-perl logrotate postgresql-client-common\n  postgresql-common ssl-cert\n0 upgraded, 9 newly installed, 0 to remove and 160 not upgraded.\nNeed to get 496 kB of archives.\nAfter this operation, 1773 kB of additional disk space will be used.\nGet:1 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 libpopt0 arm64 1.18-3build1 [28.0 kB]\nGet:2 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 logrotate arm64 3.19.0-1ubuntu1.1 [50.7 kB]\nGet:3 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 libcommon-sense-perl arm64 3.75-2build1 [21.2 kB]\nGet:4 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 libjson-perl all 4.04000-1 [81.8 kB]\nGet:5 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 libtypes-serialiser-perl all 1.01-1 [11.6 kB]\nGet:6 http://ports.ubuntu.com/ubuntu-ports jammy-updates/main arm64 libjson-xs-perl arm64 4.040-0ubuntu0.22.04.1 [86.9 kB]\nGet:7 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 postgresql-client-common all 238 [29.6 kB]\nGet:8 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 ssl-cert all 1.1.2 [17.4 kB]\nGet:9 http://ports.ubuntu.com/ubuntu-ports jammy/main arm64 postgresql-common all 238 [169 kB]\nFetched 496 kB in 14s (36.6 kB/s)\nSelecting previously unselected package libpopt0:arm64.\n(Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 34654 files and directories currently installed.)\nPreparing to unpack .../0-libpopt0_1.18-3build1_arm64.deb ...\nUnpacking libpopt0:arm64 (1.18-3build1) ...\nSelecting previously unselected package logrotate.\nPreparing to unpack .../1-logrotate_3.19.0-1ubuntu1.1_arm64.deb ...\nUnpacking logrotate (3.19.0-1ubuntu1.1) ...\nSelecting previously unselected package libcommon-sense-perl:arm64.\nPreparing to unpack .../2-libcommon-sense-perl_3.75-2build1_arm64.deb ...\nUnpacking libcommon-sense-perl:arm64 (3.75-2build1) ...\nSelecting previously unselected package libjson-perl.\nPreparing to unpack .../3-libjson-perl_4.04000-1_all.deb ...\nUnpacking libjson-perl (4.04000-1) ...\nSelecting previously unselected package libtypes-serialiser-perl.\nPreparing to unpack .../4-libtypes-serialiser-perl_1.01-1_all.deb ...\nUnpacking libtypes-serialiser-perl (1.01-1) ...\nSelecting previously unselected package libjson-xs-perl.\nPreparing to unpack .../5-libjson-xs-perl_4.040-0ubuntu0.22.04.1_arm64.deb ...\nUnpacking libjson-xs-perl (4.040-0ubuntu0.22.04.1) ...\nSelecting previously unselected package postgresql-client-common.\nPreparing to unpack .../6-postgresql-client-common_238_all.deb ...\nUnpacking postgresql-client-common (238) ...\nSelecting previously unselected package ssl-cert.\nPreparing to unpack .../7-ssl-cert_1.1.2_all.deb ...\nUnpacking ssl-cert (1.1.2) ...\nSelecting previously unselected package postgresql-common.\nPreparing to unpack .../8-postgresql-common_238_all.deb ...\nAdding 'diversion of /usr/bin/pg_config to /usr/bin/pg_config.libpq-dev by postgresql-common'\nUnpacking postgresql-common (238) ...\nSetting up postgresql-client-common (238) ...\nSetting up libcommon-sense-perl:arm64 (3.75-2build1) ...\nSetting up ssl-cert (1.1.2) ...\nSetting up libtypes-serialiser-perl (1.01-1) ...\nSetting up libjson-perl (4.04000-1) ...\nSetting up libpopt0:arm64 (1.18-3build1) ...\nSetting up logrotate (3.19.0-1ubuntu1.1) ...\nCreated symlink /etc/systemd/system/timers.target.wants/logrotate.timer \u2192 /lib/systemd/system/logrotate.timer.\nSetting up libjson-xs-perl (4.040-0ubuntu0.22.04.1) ...\nSetting up postgresql-common (238) ...\nAdding user postgres to group ssl-cert\n\nCreating config file /etc/postgresql-common/createcluster.conf with new version\nBuilding PostgreSQL dictionaries from installed myspell/hunspell packages...\nRemoving obsolete dictionary files:\nCreated symlink /etc/systemd/system/multi-user.target.wants/postgresql.service \u2192 /lib/systemd/system/postgresql.service.\nProcessing triggers for libc-bin (2.35-0ubuntu3.10) ...\n"
+        },
+        {
+          "duration_seconds": 0.06765920899999855,
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "/usr/bin/pg_config\n"
+        },
+        {
+          "duration_seconds": 0.06995458299999768,
+          "exit_code": 1,
+          "stderr": "You need to install postgresql-server-dev-NN for building a server-side extension or libpq-dev for building a client-side application.\n",
+          "stdout": ""
+        }
+      ]
+    }
+  ],
+  "capability": "pg_config",
+  "completed_at": "2026-07-14T06:55:17.313025+00:00",
+  "development_only": true,
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "repository_mounted": false
+  },
+  "isolation": {
+    "mounts": [],
+    "network": "bridge",
+    "network_endpoints": [
+      "configured apt sources"
+    ],
+    "repository_mounted": false
+  },
+  "preregistration": {
+    "path": "experiments/validations/p4d_capability_round3_preregistration.json",
+    "sha256": "3f8462eb4b0eed1780aedc9aa90f71362e0bd832077a6daefd62bc270db36b5d"
+  },
+  "qualification_id": "p4d-capability-round3-qualification-v1",
+  "qualified_packages": [],
+  "round2_result_sha256": "514ccec7e1a9e3eb8439f5baa44d212f490e87955f218ca4543c48bb0028618b",
+  "schema_version": "1.0.0",
+  "selected_package": null
+}

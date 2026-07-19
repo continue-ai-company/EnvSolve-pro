@@ -1,0 +1,84 @@
+{
+  "created_at": "2026-07-14T07:07:56.232030+00:00",
+  "finding": {
+    "final_v2_transition_satisfied": true,
+    "qualified_package": "libpq-dev",
+    "v1_false_success_package": "postgresql-common",
+    "v1_presence_passed": true,
+    "v2_semantic_passed": false
+  },
+  "policy_id": "envsolve-p4d-semantic-capability-v2",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "development_only": true,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "p4_complete": false,
+    "repository_specific_rules": false
+  },
+  "source_files": {
+    "envsolve/tests/test_semantic_capability.py": "c927f94cee728feaaaa9b74f8d92d6a345afdc1906ccccdf6bdf8e84987e3ea6",
+    "envsolve/tools/p4d_round3_freeze.py": "d5cc68c5a06e0a3e5595a5df9b856a25a086e53520596eea554d138d1b6f92f1",
+    "envsolve/tools/run_p4d_round3_qualification.py": "d6aa8926fdbd0f60a1a7c1d20515d3d00601dee7096d395f0457d66b4b78ec5c",
+    "envsolve/tools/run_p4d_round3_repair.py": "53e840c3dcc9f314be74bdbfdcb20ffda1354249cae8c44700f07edc7fe8f5ed",
+    "envsolve/tools/run_p4d_round3_retry.py": "0dab1957b94ef3ed7bf39455d35186b64cb3330a781ceca6bd2b39aee55a8650",
+    "envsolve/verification/__init__.py": "f99503e069a60fa406563cd52b85076f471c3b8aa938cb635ee6f0c39b1c1e56",
+    "envsolve/verification/capability.py": "aa4268309fb32fa6ab436e848bcb488e7192e80be9e48c25ee7a14c4c893fd7b",
+    "experiments/validations/p4d_capability_round3_preregistration.json": "3f8462eb4b0eed1780aedc9aa90f71362e0bd832077a6daefd62bc270db36b5d",
+    "experiments/validations/p4d_capability_round3_repair_preregistration.json": "3c139be010aa7d36eee21df3419fddefbc4d96a4c407f7671f64f39d687ea731",
+    "experiments/validations/p4d_capability_round3_retry_preregistration.json": "34c43a5306b59483dd5dcfe3425064a172f9e33be1c6740e162b312a3ad3ade6",
+    "research/P4D_CAPABILITY_DISCOVERY_ROUND3_PROTOCOL.md": "527dd7f28a02bcd8b399b7b0782f582fdacc38af57685ab5ddfeedeab709fdae"
+  },
+  "validation": {
+    "compile_check": true,
+    "semantic_policy_tests": 2,
+    "trajectories": {
+      "qualification": {
+        "path": "experiments/validations/p4d_capability_round3_qualification.json",
+        "sha256": "f2db315ca35d0e432f050b03097d947f94dea0ccad3065467c2e9016ca3e95f9"
+      },
+      "repair": {
+        "artifact": {
+          "audit_valid": true,
+          "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+          "event_count": 37,
+          "event_log_sha256": "43304f8ba2309fc3a62799ec517998fd3d9cbdf504b8c98108f526ef57bef164",
+          "plan_sha256": "7e2a63587d0ea5f9c52af80e32fba7e3b7124e51762925a50fa38ab384f80a84",
+          "root": "runs/p4d-capability-round3-repair-v1",
+          "snapshot_hash": "3d00bde31c7a082b7b20e3ff391c90cd8b1bc0d9a6a23636c7966121b40c5e78",
+          "snapshot_sha256": "fcb0339248df76b38acc44b0e1b0ac7fff139c9c0334a9ae30b9be4ede2b26f5"
+        },
+        "execution": {
+          "actions_executed": 3,
+          "actions_failed": 0,
+          "actions_succeeded": 3,
+          "goal_status": "satisfied",
+          "snapshot_hash": "3d00bde31c7a082b7b20e3ff391c90cd8b1bc0d9a6a23636c7966121b40c5e78",
+          "stop_reason": "semantic capability repair verified"
+        },
+        "path": "experiments/validations/p4d_capability_round3_repair_results.json",
+        "post_state": {
+          "conflicts": [],
+          "managed_constraints": 2,
+          "provisional_constraints": [],
+          "satisfiable": true,
+          "statuses": {
+            "constraint-capability-b902f3e32dd6a8e8": "satisfied",
+            "constraint-capability-ee4639c85977b06e": "satisfied"
+          }
+        },
+        "selected_package": "libpq-dev",
+        "sha256": "f678ae4e2bebfc170405c51adff1eadeace081c0cb75f4f28108f54eb97d53ef",
+        "superseded_constraint_ids": [
+          "constraint-capability-7d7a75f5f64b44eb"
+        ]
+      },
+      "retry": {
+        "path": "experiments/validations/p4d_capability_round3_retry_results.json",
+        "sha256": "ff9c3f140bebecf8df6eef90b655583d702a456fcc8dd3a2d58985ebcb88616a"
+      }
+    }
+  }
+}

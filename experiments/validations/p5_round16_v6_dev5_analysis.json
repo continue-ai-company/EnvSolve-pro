@@ -1,0 +1,116 @@
+{
+  "analysis_id": "p5-v6-paired-fresh-replay-dev5-round16-analysis-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round16_v6_dev5_preregistration.json",
+    "sha256": "2b351a85d4aa6523bcf2f6df5e067b96459a8f16d676647a6ec34aa88642b308"
+  },
+  "result": {
+    "path": "experiments/validations/p5_round16_v6_dev5_results.json",
+    "sha256": "6fd1dd9fba8eeaf97c0857db793c60ae781102f9346e47984db57db5b961ecd0"
+  },
+  "aggregate": {
+    "cases": 5,
+    "required_fresh_replays": 10,
+    "raw_replay_artifacts": 10,
+    "complete_snapshots": 9,
+    "complete_pairs": 4,
+    "identical_complete_pairs": 4,
+    "v6_pass": 4,
+    "v6_fail": 0,
+    "v6_unknown": 1,
+    "bootstrap_pass": 9,
+    "bootstrap_infrastructure_blocked": 1,
+    "duration_seconds": 753.673
+  },
+  "cases": [
+    {
+      "repository": "convexengineering/gpkit",
+      "v6": "unknown",
+      "replay_a": {
+        "bootstrap_exit_code": 2,
+        "snapshot_sha256": null,
+        "duration_seconds": 113.895,
+        "classification": "infrastructure-blocked",
+        "failure": "files.pythonhosted.org read timeout while downloading plotly-6.9.0 before snapshot collection",
+        "bootstrap_log_sha256": "0766267d650729c57fc3ff2dab9130046ed678114a7d191736c7c58c6a4e21e1"
+      },
+      "replay_b": {
+        "bootstrap_exit_code": 0,
+        "snapshot_sha256": "57f1d2556f7d0c94257b4db6586751e551be25cc76a718d0af263dea28fe1d6e",
+        "installed_distributions": 74,
+        "project_distributions": 1,
+        "duration_seconds": 299.751
+      },
+      "reason": "A single complete snapshot is insufficient for V6 Pass, and no state difference can be inferred without the missing replay-A snapshot."
+    },
+    {
+      "repository": "jaraco/inflect",
+      "v6": "pass",
+      "snapshot_sha256": "d01d8a77dc26ad8087a6d0095990d7421b4677726fd052ae0b52d91cb88bab69",
+      "installed_distributions_per_replay": 96,
+      "project_distributions_per_replay": 1,
+      "duration_seconds": [49.243, 94.26]
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "v6": "pass",
+      "snapshot_sha256": "0e18b5f84ec8b53c6b7a0023947995f2f868bfebcc03d77d726bbfa6518978a5",
+      "installed_distributions_per_replay": 57,
+      "project_distributions_per_replay": 1,
+      "duration_seconds": [3.072, 3.435]
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "v6": "pass",
+      "snapshot_sha256": "fa440521645232c025b04f3360427abc9bfa68edc1138518ce179012b77e5814",
+      "installed_distributions_per_replay": 62,
+      "project_distributions_per_replay": 1,
+      "duration_seconds": [27.749, 9.902]
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "v6": "pass",
+      "snapshot_sha256": "58c96391c15b573f2920bcad62f2e558db16acca0475c531522793b8ea19e3c0",
+      "installed_distributions_per_replay": 64,
+      "project_distributions_per_replay": 1,
+      "duration_seconds": [66.305, 86.061]
+    }
+  ],
+  "independent_audit": {
+    "frozen_sources_still_match_after_post_outcome_reporting": true,
+    "preregistration_hash_matches_result": true,
+    "all_frozen_sources_match_preregistration": true,
+    "result_implementation_matches_preregistration": true,
+    "all_10_raw_result_hashes_recomputed": true,
+    "all_9_declared_snapshot_hashes_recomputed": true,
+    "all_source_identity_and_cleanliness_checks_pass": true,
+    "all_containers_disconnected_by_host": true,
+    "all_9_collected_snapshots_prove_no_default_route": true,
+    "all_5_replay_container_id_pairs_distinct": true,
+    "all_5_aggregate_decisions_rederived": true,
+    "state_differences_in_complete_pairs": 0
+  },
+  "causal_checks": {
+    "freshness": "Each case used two distinct container IDs, detached checkouts, control directories, and writable layers with no shared writable volume.",
+    "identity": "Every raw replay matched the frozen repository revision, Git tree, bootstrap hash, image identity, platform, and preregistration identity.",
+    "network_isolation": "All containers were disconnected by the host; every collected snapshot independently reported no default route.",
+    "state_equivalence": "All four complete replay pairs matched exactly across Python runtime, marker environment, the full installed-distribution multiset, and content-addressed project metadata/provenance.",
+    "infrastructure_separation": "Gpkit replay A failed before snapshot collection on a package-host read timeout, so it is counted as bootstrap infrastructure blocked and V6 Unknown, not V6 Fail."
+  },
+  "conclusions": [
+    "Round 16 establishes prospective real V6 Pass evidence for four of five Dev-5 repositories under the unchanged preregistered exact-state contract.",
+    "No normalized state drift was observed in any complete replay pair; the only unresolved case lacks a pair because one online bootstrap failed before measurement.",
+    "The result does not justify a fifth V6 Pass, a held-out generalization claim, an Official Pass, or a leaderboard claim.",
+    "No local Round 16 retry is permitted by the frozen contract. Remaining package-fetch reliability must be handled by a separately preregistered server-side artifact/cache protocol."
+  ],
+  "integrity": {
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "retained_worktree_mutations": 0,
+    "snapshot_network_requests": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_preregistration.json",
+  "preregistration_sha256": "ecfd2c942da4866bab1bdfc4549b6ad3bd504c4d12461578422e900b0d70d62b",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification191.jsonl",
+  "remaining_sha256": "d09112fa54fc7f020a74744e7a6718bf8e4cd6f250d3570e3307a1bca14ae8ef",
+  "salt": "envsolve-p6-operation-qualification-v1-2026-07-17",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+    "envbench-python-commaai__comma10k@7a1293562fd8c0f3932c2c55f6e8a509efa1c66d",
+    "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+    "envbench-python-dnarayanan__powderday@d81ce05aa0baedaa4b63b17abc0963b64fb33bbc",
+    "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification5.jsonl",
+  "selected_sha256": "2f49c866d40143a0e6a823a769cb3122a015fea9b39e0d5d5c009f0c8b1ed2ee",
+  "source": "experiments/cases/train_untouched_after_v3_qualification196.jsonl",
+  "source_sha256": "337f72f00b3731fe7388628a01e45f09ac07a4b3f579bc2fbdbdeddfede352ce"
+}

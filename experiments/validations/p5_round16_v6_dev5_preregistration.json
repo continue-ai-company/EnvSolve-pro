@@ -1,0 +1,145 @@
+{
+  "preregistration_id": "p5-v6-paired-fresh-replay-dev5-round16-v1",
+  "created_at": "2026-07-15T01:00:00Z",
+  "development_only": true,
+  "verification_level": "V6",
+  "objective": "Execute the unchanged Round 15 paired fresh-container V6 contract after fixing only the zero-execution direct-file package import preflight failure.",
+  "base_preregistration": {
+    "path": "experiments/validations/p5_round4_v3_dev5_preregistration.json",
+    "sha256": "6cd27a6976c63173d512587553cfe2f1b9b5c96441719384df2f1e79088846b8",
+    "inherit": ["environment", "targets"]
+  },
+  "frozen_observations": {
+    "round15_preregistration": {
+      "path": "experiments/validations/p5_round15_v6_dev5_preregistration.json",
+      "sha256": "650112c9deb7e65bdcaed9d0f54584e3bd995fb7747a66e19627af213e137471"
+    },
+    "round15_preflight_failure": {
+      "path": "experiments/validations/p5_round15_v6_preflight_failure.json",
+      "sha256": "2ce43e66da41d7d023602104c90bd52665bd825134ef9ca9d9a4ad68b13bee70"
+    },
+    "round15_outcomes_observed": 0
+  },
+  "frozen_policy_sources": {
+    "paired_runner": {
+      "path": "envsolve/tools/run_p5_v6_dev5.py",
+      "sha256": "cf0000dd37e822083b879874002da11677b3ed9509424b4d35ff1b79296f0bb0"
+    },
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "6c829204e9180d53180b156e21f84f8fdf76f5c92e25edb9508d5982e0eba7f8"
+    },
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v6_in_container.py",
+      "sha256": "2e190a01d28c183c646f93e634e1c9ad08df12919d7c30d9be018b3fc9c1c2fc"
+    },
+    "environment_state_policy": {
+      "path": "envsolve/verification/environment_state.py",
+      "sha256": "8bcbb241e2cba90d8dd309b496169cb13b7f921a92bb0f4bbb61ba3b6b16e74f"
+    },
+    "metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "project_provenance_policy": {
+      "path": "envsolve/verification/project_provenance.py",
+      "sha256": "2902907da0e84ae127fafe7df1422b073b1860c2bff24bb06a4707f158dd22df"
+    },
+    "network_isolation_policy": {
+      "path": "envsolve/verification/network_isolation.py",
+      "sha256": "eca442099b7691a27133de0da26774384c8eb08f940db50addcb06acb9f03548"
+    },
+    "replay_equivalence_policy": {
+      "path": "envsolve/verification/replay_equivalence.py",
+      "sha256": "4e623f264a22f09f362dcf8a7315d970ae0a413c4e8c0e41354fe8c76fab975f"
+    },
+    "protocol_en": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL.md",
+      "sha256": "18a5d97459d51f777dd6889c78d7752edccc6ffc7a021b5d609661b4698e744d"
+    },
+    "protocol_zh": {
+      "path": "research/P5_HIERARCHICAL_VERIFIER_PROTOCOL_ZH.md",
+      "sha256": "6a290e21a40114341826c5a033d732403ca8dfe1654571546d6974c019a6bdc6"
+    }
+  },
+  "allowed_change_from_round15": {
+    "paired_runner": "Add the workspace root to sys.path before importing envsolve when the file is executed directly.",
+    "regression_test": "Direct-file --help must exit zero and load the workspace package.",
+    "forbidden": "No target, image, bootstrap, fixture, timeout, snapshot field, normalization, comparison, decision, or retry change."
+  },
+  "runner_contract": {
+    "source": "For each repetition, create a new local no-hardlinks detached checkout at the exact inherited revision without fetching or reading dirty worktree files.",
+    "cleanliness_gate": "Require exact HEAD and tree identity plus an empty git status independently before each bootstrap.",
+    "container_git_gate": "Add only /data/project to Git safe.directory inside each temporary container.",
+    "mount": "Each repetition receives distinct source and control directories plus the EnvSolve policy tree read-only; no writable volume is shared.",
+    "pre_bootstrap_directories": ["build_output"],
+    "external_fixture": "Create only the preregistered collision-checked build_output directory in each temporary checkout.",
+    "bootstrap": "Source the exact inherited frozen bootstrap in one persistent shell for each repetition.",
+    "network_transition": "Allow network only during bootstrap; disconnect every Docker network before snapshot collection.",
+    "snapshot_collection": "Collect Python runtime, full marker environment, complete canonical-name/raw-version installed-distribution multiset, and content-addressed project metadata/provenance.",
+    "snapshot_hash": "Canonical JSON with normalized ordering and retained duplicates; independently recompute each declared SHA-256.",
+    "comparison": "Require identical frozen identities and exact snapshot hashes; emit structured component multiset deltas on state drift.",
+    "temporary_storage": "Use distinct host-platform temporary directories unless an explicit bind-mount-safe root is supplied.",
+    "cleanup": "Always remove each container and temporary checkout after writing its raw replay artifact.",
+    "case_timeout_seconds": 1800,
+    "source_materialization": "detached_git_checkout"
+  },
+  "paired_replay_contract": {
+    "fresh_replays_per_case": 2,
+    "conditional_retries": 0,
+    "ordering": "Execute required replay A then required replay B for each target regardless of A outcome.",
+    "independence": "Require distinct container IDs, checkouts, control directories, and writable layers with zero shared writable volumes.",
+    "frozen_identity": [
+      "image_id",
+      "repository_digest",
+      "platform",
+      "repository",
+      "revision",
+      "git_tree",
+      "bootstrap_sha256",
+      "preregistration_sha256"
+    ],
+    "snapshot_components": [
+      "python_runtime",
+      "marker_environment",
+      "installed_distributions",
+      "project_distributions"
+    ],
+    "excluded_ephemera": [
+      "container_id",
+      "duration",
+      "logs",
+      "control_directory",
+      "temporary_checkout_path",
+      "verifier_output_artifacts"
+    ]
+  },
+  "decision_contract": {
+    "v6_pass": "Both complete validated snapshots are hash-identical with no component delta.",
+    "v6_fail": "Both snapshots are valid under the same identity but normalized state differs.",
+    "v6_unknown": "Bootstrap/snapshot is missing, collection or source/network/hash evidence is invalid, a container ID is reused, or identities differ.",
+    "single_snapshot": "Never sufficient for V6 Pass."
+  },
+  "expected_causal_checks": {
+    "online_resolution": "Unpinned package-version drift must appear in installed-distributions deltas.",
+    "project_state": "Metadata/provenance drift must appear in project-distributions deltas.",
+    "ephemera": "Container IDs and timings may differ without causing state failure.",
+    "infrastructure": "A pre-snapshot failure leaves the pair unknown rather than pass or fail.",
+    "official_outcomes": "No official verifier runs and no official score changes."
+  },
+  "limits": {
+    "fresh_replays_per_case": 2,
+    "conditional_retries": 0,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "retained_worktree_mutations": 0,
+    "snapshot_network_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false,
+    "case_specific_policy": false
+  }
+}

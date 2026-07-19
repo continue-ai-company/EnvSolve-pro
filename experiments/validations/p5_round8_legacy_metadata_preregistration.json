@@ -1,0 +1,65 @@
+{
+  "preregistration_id": "p5-v3-legacy-metadata-round8-v1",
+  "created_at": "2026-07-14T16:30:00Z",
+  "development_only": true,
+  "objective": "Support standards-based legacy egg-info PKG-INFO snapshots and convert missing metadata into structured V3 unknown evidence rather than a runner exception.",
+  "frozen_observation": {
+    "round6_analysis": {
+      "path": "experiments/validations/p5_round6_v3_dev5_analysis.json",
+      "sha256": "40b2005ae08a84eb3a2398cd76cdb5f7cc6360b824f5a92ec2a739c4c223e581"
+    },
+    "observed_error": "Two provenance-matched legacy editable distributions expose PKG-INFO under egg-info; the Round 3 collector required METADATA and raised ValueError.",
+    "affected_claims": "Both cases remain V3 unknown."
+  },
+  "frozen_sources": {
+    "metadata_collector": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "0e19c92390d6091aeb995465ffc8a25ffad9715fefee00d05394490f4f346aa8"
+    },
+    "metadata_tests": {
+      "path": "envsolve/tests/test_installed_metadata.py",
+      "sha256": "b950e896604fb0f547fe1cc250ac364119cf5779995a1959f843800a603cb9a7"
+    },
+    "smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    },
+    "container_runner": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "9e5a457ce3fdaa108414c32ec2ca714a2e449cd615168c28a76f4d103750b84c"
+    }
+  },
+  "intervention": {
+    "metadata_precedence": ["METADATA", "PKG-INFO"],
+    "modern_hash_regression_guard": "The existing METADATA fixture hash must remain b5b7e20b20f6d0c6f7c2765503eb53c817f4e4608a845027fdb18a6784ffeafd.",
+    "legacy_hashing": "Frame PKG-INFO by its actual filename together with top_level.txt and entry_points.txt before SHA-256.",
+    "result_provenance": "Record metadata_source as METADATA or PKG-INFO for every accepted snapshot.",
+    "missing_metadata": "If neither file exists, emit a structured collection error and aggregate V3 unknown; do not abort the container runner.",
+    "unchanged": [
+      "Round 3 smoke plan and three-valued decision semantics",
+      "PEP 610 and egg-link project matching",
+      "No name guessing or repository-specific map",
+      "Official benchmark semantics"
+    ]
+  },
+  "synthetic_counterexamples": [
+    "METADATA remains preferred when both metadata filenames exist.",
+    "PKG-INFO alone produces a content-addressed snapshot.",
+    "Changing PKG-INFO changes the snapshot hash.",
+    "Missing both metadata files remains unknown and does not become Pass.",
+    "Modern snapshot hash and probe behavior do not change."
+  ],
+  "round_scope": {
+    "synthetic_tests_only": true,
+    "real_repository_executions": 0,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

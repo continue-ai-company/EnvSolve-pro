@@ -1,0 +1,110 @@
+# EnvSolve-RL Research Plan / EnvSolve-RL 研究计划
+
+Status / 状态：独立后续项目，当前不属于 EnvSolve 的论文 claim、方法或实验。
+
+## 中文版
+
+### 1. 核心问题
+
+EnvSolve-RL 研究：能否利用大量可执行部署轨迹，学习一个比固定 LLM policy 更有效的
+constraint-to-action policy，并在严格的跨仓库划分和预算约束下泛化到未见项目？
+
+它不研究如何重新定义 verifier，也不把 EnvSolve 的规则包装成 RL。前置条件是 EnvSolve 已经产生
+稳定、可审计的状态、操作和结果接口，并且数据规模足以支持学习。
+
+### 2. 从 EnvSolve 继承什么
+
+冻结并复用：
+
+- 不可变 observation 与 provenance；
+- typed constraint state；
+- `OperationPlan` 与合法 action space；
+- fresh-environment verifier；
+- 统一的 candidate、token、environment、wall-time 和 cost ledger；
+- terminal-only official evaluation 规则。
+
+可以学习：
+
+- 给定约束状态时的 operation kind 选择；
+- 具体 operation 参数和完整部署程序生成；
+- 在剩余预算下继续、停止或探索的策略；
+- 对 hypothesis 的风险敏感排序。
+
+不得学习或读取：
+
+- Official-Test case 的在线 evaluator feedback；
+- 同一 evaluation case 的官方结果；
+- 违反环境边界的源码修复；
+- train/evaluation 之间的仓库身份泄漏。
+
+### 3. 最小数据单元
+
+每个 transition 至少包含：
+
+```text
+repository split and revision
+state before action
+source constraints and hypotheses
+operation requirements
+candidate action/program
+guard decision
+fresh-environment observation
+verifier outcome
+resource cost
+termination reason
+```
+
+Raw event 永远不可修改。Reward、advantage、failure cluster 和训练样本都是独立版本化的 derived view。
+
+### 4. 暂定研究假设
+
+1. Typed state-action trajectories 比 raw terminal-history trajectories 更具样本效率。
+2. 在相同 backbone 和总预算下，学习后的 policy 能提高 unseen-repository success-cost frontier。
+3. Provenance、Unknown censoring 和合法 action mask 能减少错误 credit assignment。
+
+### 5. 必要实验
+
+- 固定 EnvSolve 与 EnvSolve-RL 的 verifier、action space、信息和评测权限；
+- 按 repository identity 做严格 train/dev/test 切分；
+- 比较 imitation learning、offline RL、online RL 和无训练 EnvSolve；
+- 消融 typed state、provenance、Unknown mask、operation mask 与 cost-aware objective；
+- 报告 Official Pass@1、success-cost frontier、OOD 泛化和 invalid-action rate；
+- 检查训练数据规模曲线，证明收益不是简单来自更多推理计算。
+
+### 6. 启动门槛
+
+只有满足以下条件才启动正式研究：EnvSolve 的核心算法和 evaluator 冻结；轨迹 schema 稳定；具有足够
+数量的跨仓库有效 transition；数据泄漏审计通过；固定 policy baseline 已经建立。否则只收集数据，
+不提前声称 RL 是有效方向。
+
+## English Version
+
+### 1. Core question
+
+EnvSolve-RL asks whether executable deployment trajectories can train a
+constraint-to-action policy that improves unseen-repository deployment under fixed
+information and total budgets. It is a separate project, not an extension of the
+current EnvSolve claim.
+
+### 2. Inherited and learnable components
+
+The immutable observation/provenance layer, typed constraint state, operation
+schema, fresh verifier, budget ledger, and terminal-only evaluation protocol remain
+frozen. The policy may learn operation selection, concrete parameters, complete
+program generation, budget-aware stopping, and hypothesis ranking. It may not use
+official online feedback, evaluation-case leakage, or source-edit repairs.
+
+### 3. Data and evaluation contract
+
+Training examples preserve the complete state-constraint-action-guard-observation-
+outcome-cost chain. Raw events are immutable; rewards and training views are
+versioned derivatives. Experiments require repository-disjoint splits, matched
+budgets, fixed verifier access, comparisons with imitation and RL alternatives, and
+ablations of typed state, provenance, censoring, action masks, and cost objectives.
+
+### 4. Start criterion
+
+Formal work starts only after EnvSolve and its trajectory schema are stable, enough
+cross-repository transitions exist, leakage audits pass, and a fixed-policy baseline
+is available.
+

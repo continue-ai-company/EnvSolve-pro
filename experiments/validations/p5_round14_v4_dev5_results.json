@@ -1,0 +1,442 @@
+{
+  "aggregate": {
+    "bootstrap_pass": 5,
+    "cases": 5,
+    "v4_fail": 0,
+    "v4_pass": 5,
+    "v4_unknown": 0
+  },
+  "cases": [
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "25c356d9bf17cd7d6bff33a62904cf84b27e5ad1a9e5ed90d24af2dcb1749240",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/scripts/bootstrap.sh",
+        "sha256": "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "c0a537b8427f95f342bc97c4cba9810e3a5350378f30138c96de727bb1f6ae33",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 265.039498708,
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "source": {
+        "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc",
+        "head": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v4": {
+        "decision": {
+          "passed": true,
+          "reason": "project-native collection or build passed"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "outcome": {
+          "duration_seconds": 0.7233928340000375,
+          "exit_code": 0,
+          "output_artifacts": [
+            {
+              "name": "gpkit-1.1.1-py3-none-any.whl",
+              "sha256": "84c9d017b441d8f81881ec5a718fef1b1e5d7fa317e458ecff4a1d52335cbc33"
+            }
+          ],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_tail": "",
+          "stdout_sha256": "13e6240090c28679efe4d90002ab0633b62ca09ce1e97faf4ae45798b12929ff",
+          "stdout_tail": "Processing /data/project\n  Preparing metadata (setup.py): started\n  Preparing metadata (setup.py): finished with status 'done'\nBuilding wheels for collected packages: gpkit\n  Building wheel for gpkit (setup.py): started\n  Building wheel for gpkit (setup.py): finished with status 'done'\n  Created wheel for gpkit: filename=gpkit-1.1.1-py3-none-any.whl size=159093 sha256=84c9d017b441d8f81881ec5a718fef1b1e5d7fa317e458ecff4a1d52335cbc33\n  Stored in directory: /tmp/pip-ephem-wheel-cache-2_5qvj5i/wheels/67/02/e5/d3b8dd9336e11ff6c62a4e0d0c96ce40c89fb80c0d31272b48\nSuccessfully built gpkit\n",
+          "timed_out": false
+        },
+        "plan": {
+          "probe": {
+            "argv": [
+              "/opt/conda/bin/python",
+              "-m",
+              "pip",
+              "wheel",
+              "--no-deps",
+              "--no-build-isolation",
+              "--wheel-dir",
+              "/tmp/envsolve-v4-wheel-jtxv0dlv",
+              "."
+            ],
+            "config_evidence": [
+              {
+                "path": "setup.py",
+                "role": "legacy-build-script",
+                "sha256": "13a4e985fbb26378fabbf64296888a3c4f497ff0bdcb2966531957dd755432a0"
+              }
+            ],
+            "kind": "wheel_build",
+            "probe_id": "native:wheel-build"
+          },
+          "reason": "project declares Python build metadata"
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v4-container-v1"
+      },
+      "v4_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "3cb1281dcbc21fa1400cc0efc746023b2d616a612f043225a9572f0bf4d85acb",
+        "path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh",
+        "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "c2ed1e7adfdbe4ee7d6f502cbe9817c8d655820013d9105fcb9d4daec9428fd6",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 66.88589791699997,
+      "repository": "jaraco/inflect",
+      "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+      "source": {
+        "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68",
+        "head": "1f42293f30caacb0637f7eb30a483b44489f4812",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v4": {
+        "decision": {
+          "passed": true,
+          "reason": "project-native collection or build passed"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "outcome": {
+          "duration_seconds": 3.048365418000003,
+          "exit_code": 0,
+          "output_artifacts": [],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_tail": "",
+          "stdout_sha256": "5810e07980d561019cc35aa3a00b454d7e572367ddc017f06eb3f4032654cc7e",
+          "stdout_tail": "st_numwords_group[123456-kwargs1-one twenty-three, four fifty-six]\ntests/test_pwd.py::Test::test_numwords_group[12345-kwargs2-one, two, three, four, five]\ntests/test_pwd.py::Test::test_numwords_group[1234th-kwargs3-one thousand, two hundred and thirty-fourth]\ntests/test_pwd.py::Test::test_numwords_group[1234th-kwargs4-one thousand, two hundred and thirty-fourth]\ntests/test_pwd.py::Test::test_numwords_group[120-kwargs5-twelve, zero]\ntests/test_pwd.py::Test::test_numwords_group[120-kwargs6-twelve, oh]\ntests/test_pwd.py::Test::test_numwords_group[555_1202-kwargs7-five, five, five, one, two, oh, two]\ntests/test_pwd.py::Test::test_numwords_group[555_1202-kwargs8-five, five, five, unity, two, zero, two]\ntests/test_pwd.py::Test::test_numwords_group[123.456-kwargs9-one, two, three, mark, four, five, six]\ntests/test_pwd.py::Test::test_numwords_group[12345-kwargs10-one hundred and twenty-three]\ntests/test_pwd.py::Test::test_numwords_group[101-kwargs11-ten, unity]\ntests/test_pwd.py::Test::test_wordlist\ntests/test_pwd.py::Test::test_doc_examples\ntests/test_pwd.py::Test::test_unknown_method\ntests/test_unicode.py::mypy\ntests/test_unicode.py::ruff\ntests/test_unicode.py::ruff::format\ntests/test_unicode.py::TestUnicode::test_unicode_plural\n\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.2-final-0 ________________\n\nName                              Stmts   Miss  Cover   Missing\n---------------------------------------------------------------\ndocs/conf.py                         10      0   100%\ninflect/__init__.py                1215    844    31%   1709-1716, 2020-2023, 2039, 2060, 2064, 2072-2076, 2094-2101, 2109-2112, 2120-2122, 2130-2132, 2138-2143, 2149, 2153-2162, 2183-2196, 2209-2218, 2232-2235, 2241-2257, 2265-2287, 2304-2327, 2332-2359, 2362-2366, 2381-2390, 2407-2411, 2428-2435, 2452-2456, 2483-2485, 2501, 2517, 2533, 2568-2575, 2578-2601, 2604-2605, 2608-2630, 2641-2644, 2654-2671, 2677-2961, 2978-2985, 2999-3011, 3015-3021, 3026-3103, 3108-3127, 3132-3163, 3172-3489, 3506-3515, 3551-3570, 3591-3608, 3620-3627, 3642-3662, 3665-3667, 3670, 3673-3682, 3685-3694, 3697-3703, 3706-3710, 3713-3719, 3722-3737, 3740-3744, 3747, 3750, 3756-3779, 3783-3784, 3788-3793, 3802-3804, 3808, 3840-3923, 3927-3935, 3959-3986\ninflect/compat/__init__.py            0      0   100%\ninflect/compat/py38.py                3      0   100%\ntests/test_an.py                     23     20    13%   5-21, 25-29\ntests/test_classical_all.py          31     28    10%   6-49\ntests/test_classical_ancient.py      11      9    18%   5-22\ntests/test_classical_herd.py         11      9    18%   5-22\ntests/test_classical_names.py        13     11    15%   5-24\ntests/test_classical_person.py       12     10    17%   5-23\ntests/test_classical_zero.py         11      9    18%   5-22\ntests/test_compounds.py              32     21    34%   7, 11, 15, 19, 23-31, 35-47, 51-63, 67-76, 80-90\ntests/test_inflections.py           194    179     8%   9, 18-71, 77-90, 94-118, 122-187, 198-200, 204-210, 214-222, 226-237, 241-252, 259-262, 266-268\ntests/test_join.py                   28     26     7%   5-59\ntests/test_numwords.py               52     46    12%   5-16, 20-44, 48-375, 379-389, 396-398\ntests/test_pl_si.py                  10      4    60%   8, 13-15\ntests/test_pwd.py                   497    432    13%   19, 23, 30-75, 79-105, 108-135, 138-190, 193-196, 200-203, 206-219, 222-236, 239-300, 303-332, 335-402, 445, 464, 475, 495, 500-503, 506-512, 515-520, 523-531, 534-560, 563-667, 689, 692-695, 698-728, 731-735, 764-765, 814-815, 818-823, 826-828, 831-839, 865-866, 893-894, 897-905, 908-914, 917-925, 928-935, 938-967, 975-977, 980-1046, 1053-1055, 1105-1106, 1109-1159, 1165-1225, 1228-1230\ntests/test_unicode.py                 7      4    43%   9-12\n---------------------------------------------------------------\nTOTAL                              2160   1652    24%\n284 tests collected in 2.65s\n",
+          "timed_out": false
+        },
+        "plan": {
+          "probe": {
+            "argv": [
+              "/opt/conda/bin/python",
+              "-m",
+              "pytest",
+              "--collect-only",
+              "-q",
+              "-p",
+              "no:cacheprovider"
+            ],
+            "config_evidence": [
+              {
+                "path": "pytest.ini",
+                "role": "pytest-config",
+                "sha256": "a5068ec1ead2f7ba9f9c1c4d7f9087aa693c95233e045027b80ff03049ddbd63"
+              }
+            ],
+            "kind": "pytest_collection",
+            "probe_id": "native:pytest-collection"
+          },
+          "reason": "project declares pytest configuration"
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v4-container-v1"
+      },
+      "v4_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "ade85cc38b93835a8495623b77a49b8c26ad3d6e9ef8077539325817a73f4ac9",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/scripts/bootstrap.sh",
+        "sha256": "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "fe19cf11da1abd7a8f7af3426de68ec1f7de8b92dfc6612cf3382fb7aa262f6c",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 4.98119537499997,
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "source": {
+        "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed",
+        "head": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v4": {
+        "decision": {
+          "passed": true,
+          "reason": "project-native collection or build passed"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "outcome": {
+          "duration_seconds": 0.7948683340000002,
+          "exit_code": 0,
+          "output_artifacts": [
+            {
+              "name": "rns-0.7.6-py3-none-any.whl",
+              "sha256": "456250579c774bbc289de731ac00c6b69370c423e13fc11491fc3824c77ef914"
+            }
+          ],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_tail": "",
+          "stdout_sha256": "318996e781be803e2589f3382dc065a1cbcc17e6e32e537013e252d15c16be73",
+          "stdout_tail": "Processing /data/project\n  Preparing metadata (setup.py): started\n  Preparing metadata (setup.py): finished with status 'done'\nBuilding wheels for collected packages: rns\n  Building wheel for rns (setup.py): started\n  Building wheel for rns (setup.py): finished with status 'done'\n  Created wheel for rns: filename=rns-0.7.6-py3-none-any.whl size=360555 sha256=456250579c774bbc289de731ac00c6b69370c423e13fc11491fc3824c77ef914\n  Stored in directory: /tmp/pip-ephem-wheel-cache-nz5d8qqy/wheels/67/02/e5/d3b8dd9336e11ff6c62a4e0d0c96ce40c89fb80c0d31272b48\nSuccessfully built rns\n",
+          "timed_out": false
+        },
+        "plan": {
+          "probe": {
+            "argv": [
+              "/opt/conda/bin/python",
+              "-m",
+              "pip",
+              "wheel",
+              "--no-deps",
+              "--no-build-isolation",
+              "--wheel-dir",
+              "/tmp/envsolve-v4-wheel-tfwjr93p",
+              "."
+            ],
+            "config_evidence": [
+              {
+                "path": "setup.py",
+                "role": "legacy-build-script",
+                "sha256": "97b3709fa45b6d45d9b141f9ac5a6c820220bf75c10913dde111799bb7ec22f8"
+              }
+            ],
+            "kind": "wheel_build",
+            "probe_id": "native:wheel-build"
+          },
+          "reason": "project declares Python build metadata"
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v4-container-v1"
+      },
+      "v4_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "955c33858380662eaf6da4b25f7b470074da2645b51caf7ac2550f29adf607c4",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/scripts/bootstrap.sh",
+        "sha256": "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "8521af923b9030e12d2f0738ea79f4b5700a5b59df8d8d219752208e923784d7",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 10.855686999999989,
+      "repository": "pytest-dev/pytest-xdist",
+      "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+      "source": {
+        "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52",
+        "head": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v4": {
+        "decision": {
+          "passed": true,
+          "reason": "project-native collection or build passed"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "outcome": {
+          "duration_seconds": 0.34626774999998133,
+          "exit_code": 0,
+          "output_artifacts": [],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_tail": "",
+          "stdout_sha256": "0063b79ece58fc4fb1b6de38a502f8a7451a4429f23004d70ca7bed09e36f37e",
+          "stdout_tail": "s\ntesting/test_looponfail.py::TestLooponFailing::test_looponfail_removed_test\ntesting/test_looponfail.py::TestLooponFailing::test_looponfail_multiple_errors\ntesting/test_looponfail.py::TestFunctional::test_fail_to_ok\ntesting/test_looponfail.py::TestFunctional::test_xfail_passes\ntesting/test_newhooks.py::TestHooks::test_runtest_logreport\ntesting/test_newhooks.py::TestHooks::test_node_collection_finished\ntesting/test_newhooks.py::TestCrashItem::test_handlecrashitem\ntesting/test_newhooks.py::TestCrashItem::test_handlecrashitem_one\ntesting/test_plugin.py::test_dist_incompatibility_messages\ntesting/test_plugin.py::test_dist_options\ntesting/test_plugin.py::test_auto_detect_cpus\ntesting/test_plugin.py::test_auto_detect_cpus_psutil\ntesting/test_plugin.py::test_auto_detect_cpus_os\ntesting/test_plugin.py::test_hook_auto_num_workers\ntesting/test_plugin.py::test_hook_auto_num_workers_arg\ntesting/test_plugin.py::test_hook_auto_num_workers_none\ntesting/test_plugin.py::test_envvar_auto_num_workers\ntesting/test_plugin.py::test_envvar_auto_num_workers_warn\ntesting/test_plugin.py::test_auto_num_workers_hook_overrides_envvar\ntesting/test_plugin.py::test_dsession_with_collect_only\ntesting/test_plugin.py::test_testrunuid_provided\ntesting/test_plugin.py::test_testrunuid_generated\ntesting/test_plugin.py::TestDistOptions::test_getxspecs\ntesting/test_plugin.py::TestDistOptions::test_xspecs_multiplied\ntesting/test_plugin.py::TestDistOptions::test_getrsyncdirs\ntesting/test_plugin.py::TestDistOptions::test_getrsyncignore\ntesting/test_plugin.py::TestDistOptions::test_getrsyncdirs_with_conftest\ntesting/test_remote.py::TestWorkerInteractor::test_basic_collect_and_runtests\ntesting/test_remote.py::TestWorkerInteractor::test_remote_collect_skip\ntesting/test_remote.py::TestWorkerInteractor::test_remote_collect_fail\ntesting/test_remote.py::TestWorkerInteractor::test_runtests_all\ntesting/test_remote.py::TestWorkerInteractor::test_happy_run_events_converted\ntesting/test_remote.py::TestWorkerInteractor::test_process_from_remote_error_handling\ntesting/test_remote.py::TestWorkerInteractor::test_steal_work\ntesting/test_remote.py::TestWorkerInteractor::test_steal_empty_queue\ntesting/test_remote.py::test_remote_env_vars\ntesting/test_remote.py::test_remote_inner_argv\ntesting/test_remote.py::test_remote_mainargv\ntesting/test_remote.py::test_remote_usage_prog\ntesting/test_remote.py::test_remote_sys_path\ntesting/test_workermanage.py::TestNodeManagerPopen::test_popen_no_default_chdir\ntesting/test_workermanage.py::TestNodeManagerPopen::test_default_chdir\ntesting/test_workermanage.py::TestNodeManagerPopen::test_popen_makegateway_events\ntesting/test_workermanage.py::TestNodeManagerPopen::test_popens_rsync\ntesting/test_workermanage.py::TestNodeManagerPopen::test_rsync_popen_with_path\ntesting/test_workermanage.py::TestNodeManagerPopen::test_rsync_same_popen_twice\ntesting/test_workermanage.py::TestHRSync::test_hrsync_filter\ntesting/test_workermanage.py::TestHRSync::test_hrsync_one_host\ntesting/test_workermanage.py::TestNodeManager::test_rsync_roots_no_roots\ntesting/test_workermanage.py::TestNodeManager::test_popen_rsync_subdir\ntesting/test_workermanage.py::TestNodeManager::test_rsync_report[-q-False]\ntesting/test_workermanage.py::TestNodeManager::test_rsync_report[-False]\ntesting/test_workermanage.py::TestNodeManager::test_rsync_report[-v-True]\ntesting/test_workermanage.py::TestNodeManager::test_init_rsync_roots\ntesting/test_workermanage.py::TestNodeManager::test_rsyncignore\ntesting/test_workermanage.py::TestNodeManager::test_optimise_popen\ntesting/test_workermanage.py::TestNodeManager::test_ssh_setup_nodes\ntesting/test_workermanage.py::test_unserialize_warning_msg[UserWarning]\ntesting/test_workermanage.py::test_unserialize_warning_msg[MyWarning]\ntesting/test_workermanage.py::test_unserialize_warning_msg[Imported]\ntesting/test_workermanage.py::test_unserialize_warning_msg[Nested]\ntesting/test_workermanage.py::test_warning_serialization_tweaked_module\n\n207 tests collected in 0.19s\n",
+          "timed_out": false
+        },
+        "plan": {
+          "probe": {
+            "argv": [
+              "/opt/conda/bin/python",
+              "-m",
+              "pytest",
+              "--collect-only",
+              "-q",
+              "-p",
+              "no:cacheprovider"
+            ],
+            "config_evidence": [
+              {
+                "path": "pyproject.toml",
+                "role": "pytest-config",
+                "sha256": "7d4af8eb793ccad3debd17c8a9b0a29184839e3d93efb41e42642f943f9be222"
+              }
+            ],
+            "kind": "pytest_collection",
+            "probe_id": "native:pytest-collection"
+          },
+          "reason": "project declares pytest configuration"
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v4-container-v1"
+      },
+      "v4_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "59ff91e7f8c0878fb00e94640985b68df993807a2ee595583dc3766e1b28eb88",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/scripts/bootstrap.sh",
+        "sha256": "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "897431fd59c7306a83690febc4153a6ef8e46dd88664dd82030429f3905c7685",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 95.72789012499999,
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "source": {
+        "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d",
+        "head": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v4": {
+        "decision": {
+          "passed": true,
+          "reason": "project-native collection or build passed"
+        },
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "outcome": {
+          "duration_seconds": 2.771636667999985,
+          "exit_code": 0,
+          "output_artifacts": [],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_tail": "",
+          "stdout_sha256": "e7fd944a058f523b5b815f4e5622b863d2957898f0fedd1f6c468779657af540",
+          "stdout_tail": "e_merges_same_source_type_and_no_source\ntests/puzzle/test_provider.py::test_complete_package_does_not_merge_different_source_type_and_name\ntests/puzzle/test_provider.py::test_complete_package_merges_same_source_and_no_source\ntests/puzzle/test_provider.py::test_search_for[dependency0-expected0]\ntests/puzzle/test_provider.py::test_search_for_direct_origin_and_extras[dependency2-direct_origin_dependency2-expected_before2-expected_after2]\ntests/puzzle/test_provider.py::test_search_for_vcs_read_setup_raises_error_if_no_version\ntests/puzzle/test_provider.py::test_search_for[dependency3-expected3]\ntests/puzzle/test_provider.py::test_search_for_directory_poetry_with_extras\ntests/puzzle/test_provider.py::test_search_for_direct_origin_and_extras[dependency1-direct_origin_dependency1-expected_before1-expected_after1]\ntests/puzzle/test_provider.py::test_complete_package_does_not_merge_different_subdirectories\ntests/puzzle/test_provider.py::test_search_for_directory_setup_with_base[non-canonical-name]\ntests/puzzle/test_provider.py::test_search_for_vcs_setup_egg_info_with_extras\ntests/puzzle/test_provider.py::test_complete_package_finds_locked_package_in_other_source\ntests/puzzle/test_provider.py::test_complete_package_with_extras_preserves_source_name[repo]\ntests/puzzle/test_provider.py::test_search_for[dependency4-expected4]\ntests/puzzle/test_provider.py::test_complete_package_with_extras_preserves_source_name[None]\ntests/puzzle/test_provider.py::test_search_for_directory_setup_read_setup\ntests/puzzle/test_provider.py::test_complete_package_does_not_merge_different_source_names\ntests/puzzle/test_provider.py::test_search_for_directory_setup_egg_info[non-canonical-name]\ntests/puzzle/test_provider.py::test_complete_package_does_not_merge_different_source_types\ntests/puzzle/test_provider.py::test_search_for_directory_setup_egg_info[demo]\ntests/puzzle/test_provider.py::test_search_for_directory_setup_read_setup_with_no_dependencies\ntests/puzzle/test_provider.py::test_complete_package_finds_locked_package_in_explicit_source\ntests/puzzle/test_provider.py::test_search_for_file_sdist\ntests/puzzle/test_provider.py::test_search_for[dependency2-expected2]\ntests/puzzle/test_provider.py::test_search_for_direct_origin_and_extras[dependency0-direct_origin_dependency0-expected_before0-expected_after0]\ntests/puzzle/test_provider.py::test_search_for_file_wheel_with_extras\ntests/puzzle/test_provider.py::test_explicit_source_dependency_is_not_satisfied_by_direct_origin\ntests/puzzle/test_provider.py::test_search_for_vcs_retains_develop_flag[True]\ntests/puzzle/test_provider.py::test_complete_package_raises_packagenotfound_if_locked_source_not_available\ntests/puzzle/test_provider.py::test_complete_package_fetches_optional_vcs_dependency_only_if_requested[False]\ntests/puzzle/test_provider.py::test_search_for_vcs_retains_develop_flag[False]\ntests/puzzle/test_provider.py::test_search_for[dependency1-expected1]\ntests/puzzle/test_provider.py::test_search_for_file_sdist_with_extras\ntests/puzzle/test_provider.py::test_source_dependency_is_satisfied_by_direct_origin\ntests/puzzle/test_provider.py::test_source_dependency_is_not_satisfied_by_incompatible_direct_origin\ntests/puzzle/test_provider.py::test_search_for_direct_origin_and_extras[dependency3-direct_origin_dependency3-expected_before3-expected_after3]\ntests/puzzle/test_provider.py::test_search_for_vcs_read_setup\ntests/puzzle/test_provider.py::test_search_for_file_wheel\ntests/puzzle/test_provider.py::test_complete_package_fetches_optional_vcs_dependency_only_if_requested[True]\ntests/puzzle/test_provider.py::test_search_for_directory_poetry\ntests/console/commands/env/test_list.py::test_in_project_venv_no_explicit_config\ntests/console/commands/env/test_list.py::test_none_activated\ntests/console/commands/env/test_list.py::test_in_project_venv_is_false\ntests/console/commands/env/test_list.py::test_activated\ntests/console/commands/env/test_list.py::test_in_project_venv\n\n1668/1695 tests collected (27 deselected) in 1.67s\n",
+          "timed_out": false
+        },
+        "plan": {
+          "probe": {
+            "argv": [
+              "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13/bin/python",
+              "-m",
+              "pytest",
+              "--collect-only",
+              "-q",
+              "-p",
+              "no:cacheprovider"
+            ],
+            "config_evidence": [
+              {
+                "path": "pyproject.toml",
+                "role": "pytest-config",
+                "sha256": "12b3ffba13a72466ec85216859ad37c7e167a76fc19969b34963968765964611"
+              }
+            ],
+            "kind": "pytest_collection",
+            "probe_id": "native:pytest-collection"
+          },
+          "reason": "project declares pytest configuration"
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13/bin/python",
+          "prefix": "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13"
+        },
+        "schema": "envsolve-p5-v4-container-v1"
+      },
+      "v4_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "image": {
+    "architecture": "arm64",
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "os": "linux",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "implementation": {
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v4_in_container.py",
+      "sha256": "4b20bcaeb9ef7c333ec3434110ee55c6059417fb04d63fbdf9145f821e4fce51"
+    },
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "ae2775e124cdc7ac8d4d1d3722120b7f10a80b71ce77f603b6809ccb564a3a11"
+    },
+    "native_project_policy": {
+      "path": "envsolve/verification/native_project.py",
+      "sha256": "6404568fe42dde91f476420b98b5ddf5c9d3a3015af7770825d685fb08c7073f"
+    },
+    "network_isolation_policy": {
+      "path": "envsolve/verification/network_isolation.py",
+      "sha256": "eca442099b7691a27133de0da26774384c8eb08f940db50addcb06acb9f03548"
+    }
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_score_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "probe_network_requests": 0,
+    "retained_worktree_mutations": 0
+  },
+  "preregistration": {
+    "path": "experiments/validations/p5_round14_v4_dev5_preregistration.json",
+    "sha256": "f15c7e7d49c6a92e848ba3cc3e2bd555934f3a025c0b4dba032bc8a1918b92f0"
+  },
+  "validation_id": "p5-v4-native-dev5-round14-v1"
+}

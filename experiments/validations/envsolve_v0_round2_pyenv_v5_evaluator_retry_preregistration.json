@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "envsolve-v0-round2-pyenv-v5-evaluator-retry-v1",
+  "registered_at": "2026-07-15T06:17:00Z",
+  "purpose": "Recover the official evaluator observations that were missing from the valid v5 counterfactual redistillation because the host uv cache path was not writable.",
+  "claim_scope": "Infrastructure retry of a development-informed counterfactual; no held-out or algorithm-effect claim.",
+  "source_attempt": {
+    "preregistration": {
+      "path": "experiments/validations/envsolve_v0_round2_pyenv_v5_counterfactual_preregistration.json",
+      "sha256": "802947236641c0c94525f70fa43a176f5501f884c7d5dea0521c063873d73cb6"
+    },
+    "results": {
+      "path": "experiments/validations/envsolve_v0_round2_pyenv_v5_counterfactual_results.json",
+      "sha256": "b2c24124be8092635b7079fd92d9f78692f75985747647d74df319308ffe6aff"
+    },
+    "batch_summary": {
+      "path": "runs/envsolve-v0-r2-pyenv-v5-counterfactual-v1/batch_summary.json",
+      "sha256": "819aec7a18150dfe8fb2657a9080d40ebbe128b3cc5cd7fed10af5e45b296058"
+    },
+    "observed_infrastructure_failure": "uv default cache initialization failed with Operation not permitted before EnvBench or Docker started"
+  },
+  "execution": {
+    "run_id": "envsolve-v0-r2-pyenv-v5-evalretry-v1",
+    "case_file": "experiments/cases/envsolve_v0_round2_pyenv_trigger4.jsonl",
+    "case_file_sha256": "47b55addb2d6ebfe9acefa5cf263a2cc17571de2856e6a8d37a05620f993914c",
+    "source_run": "runs/envsolve-v0-discovery5-r2-v0",
+    "runner": "envbench-recorded",
+    "method": "envsolve-v0-v5-recorded-counterfactual",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_workers": 1,
+    "overwrite": false,
+    "provider_requests_allowed": false,
+    "environment_delta": {
+      "UV_CACHE_DIR": "/tmp/anydeploy-uv-cache-v1"
+    }
+  },
+  "invariants": {
+    "harness_freeze_path": "experiments/protocols/harness_freeze_v3.json",
+    "harness_freeze_sha256": "0f32f10cab7c39f3350c7747705466bd7ef3a68f8a41fc2a2087f3d36be76465",
+    "typed_replay_ir_policy": "typed-replay-ir-v5",
+    "source_trajectory_hashes_unchanged": true,
+    "replay_grammar_unchanged": true,
+    "official_evaluator_unchanged": true,
+    "only_uv_cache_location_changed": true
+  },
+  "precommitted_expectations": {
+    "generation_completed": 2,
+    "generation_rejected_fail_closed": 2,
+    "evaluation_attempted": 2,
+    "official_outcomes": "Report without a minimum pass threshold."
+  },
+  "stop_rule": "Collect all four first attempts in the new run, audit every artifact, and do not retry an official environment failure as an infrastructure failure."
+}

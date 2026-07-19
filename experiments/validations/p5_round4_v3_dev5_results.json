@@ -1,0 +1,279 @@
+{
+  "aggregate": {
+    "bootstrap_pass": 3,
+    "cases": 5,
+    "v3_fail": 0,
+    "v3_pass": 1,
+    "v3_unknown": 4
+  },
+  "cases": [
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "dd17f32896e1ab9e9da528474aadc65402e40fa7ce84d34606f7b765d3057f7c",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/scripts/bootstrap.sh",
+        "sha256": "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "208914c73e84c3be82fb6c3cc2e9f9053b65534117d35c013c4e601f96d30e6c",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 97.45871187499999,
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "source": {
+        "archive_sha256": "6932b5c4a51566c52365db0b72b3a5e6f102e169a1dbcd7c72f6f7d459aa82c1",
+        "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc"
+      },
+      "v3": {
+        "decision": {
+          "observed_probe_ids": [],
+          "passed": null,
+          "reason": "no provenance-matched project distribution"
+        },
+        "distributions": [],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 2,
+        "log_sha256": "cb0f026f4f92fc1497de1b2c4ac7563d1e02556ed555022c6dafa66b4dcea8e3",
+        "path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh",
+        "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"
+      },
+      "container": {
+        "exit_code": 2,
+        "id": "46b283fd7dd8107330c15387ff7b924386039c6179b4bb65fc475bcc2d1ce224",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": []
+      },
+      "duration_seconds": 42.464697958,
+      "repository": "jaraco/inflect",
+      "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+      "source": {
+        "archive_sha256": "e47f3cfe0745a40f9e6865d833bc922129ff60f06a3ba340153a81817ee2578d",
+        "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68"
+      },
+      "v3": null,
+      "v3_log_sha256": null
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "ade85cc38b93835a8495623b77a49b8c26ad3d6e9ef8077539325817a73f4ac9",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/scripts/bootstrap.sh",
+        "sha256": "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "13d5fe4a1c60f104caf5b3341bc00930cd3ee5a364d36a59d93d881f627b03e1",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 13.652006665999977,
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "source": {
+        "archive_sha256": "248e8fab6068cf6ae68787f576842bac8ec13412aad0dacf6fe06d0779220027",
+        "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed"
+      },
+      "v3": {
+        "decision": {
+          "observed_probe_ids": [],
+          "passed": null,
+          "reason": "no provenance-matched project distribution"
+        },
+        "distributions": [],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 1,
+        "log_sha256": "4c3052dc5f7f960eb0489f01307e1e2067506988fb4a3c497c5b0232d0a3a73a",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/scripts/bootstrap.sh",
+        "sha256": "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b"
+      },
+      "container": {
+        "exit_code": 1,
+        "id": "da11e5532ebedef651a33074bbdaf8a5aecf5c6db93a6d75d760fd62d221277d",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": []
+      },
+      "duration_seconds": 35.74452291600002,
+      "repository": "pytest-dev/pytest-xdist",
+      "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+      "source": {
+        "archive_sha256": "d3484fb02d674705732760f038fdaae982ff27acfcbeeb153e54be4689a8d75d",
+        "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52"
+      },
+      "v3": null,
+      "v3_log_sha256": null
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "f3ccf3b19380255802ad8689ef19bffaf7231dbe7b01ff00dc87d7f383e7b22c",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/scripts/bootstrap.sh",
+        "sha256": "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "4c679fe45dd8c6a9ebc08ad3a8ba418eae264810cbf27b0233fc4da6b0391318",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 70.00785620899998,
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "source": {
+        "archive_sha256": "c5c59be7774c7ee70902c465d710d373b9834c0572c2294b33eb1589b2425fcb",
+        "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d"
+      },
+      "v3": {
+        "decision": {
+          "observed_probe_ids": [
+            "entry:poetry:cli",
+            "entry:poetry:import"
+          ],
+          "passed": true,
+          "reason": "all project distributions passed V3"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "observed_probe_ids": [
+                "entry:poetry:cli",
+                "entry:poetry:import"
+              ],
+              "passed": true,
+              "reason": "all metadata-derived probes passed"
+            },
+            "direct_url_sha256": "fb247f8b66a7a3c3f7e691b90faa9350d8bf35207ead004144a3b969e2252e7c",
+            "outcomes": [
+              {
+                "duration_seconds": 0.11428258299997651,
+                "exit_code": 0,
+                "probe_id": "entry:poetry:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.49549312499999587,
+                "exit_code": 0,
+                "probe_id": "entry:poetry:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "d53c82dc56c3139ad8de93222a6bc6ab2244071c44d98b80a8d491896a462529",
+                "timed_out": false
+              }
+            ],
+            "plan": {
+              "probes": [
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "poetry.console.application",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "37cb7587d2d6e2ac029cc0cba9d701196f929d7cc488a6ead2b6d96c8e0446f6",
+                  "probe_id": "entry:poetry:import"
+                },
+                {
+                  "argv": [
+                    "poetry",
+                    "--help"
+                  ],
+                  "kind": "cli_help",
+                  "metadata_sha256": "37cb7587d2d6e2ac029cc0cba9d701196f929d7cc488a6ead2b6d96c8e0446f6",
+                  "probe_id": "entry:poetry:cli"
+                }
+              ],
+              "rejections": []
+            },
+            "snapshot": {
+              "console_scripts": [
+                {
+                  "name": "poetry",
+                  "target": "poetry.console.application:main"
+                }
+              ],
+              "metadata_sha256": "37cb7587d2d6e2ac029cc0cba9d701196f929d7cc488a6ead2b6d96c8e0446f6",
+              "name": "poetry",
+              "top_level_modules": [],
+              "version": "1.9.0.dev0"
+            }
+          }
+        ],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13/bin/python",
+          "prefix": "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "image": {
+    "architecture": "arm64",
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "os": "linux",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_score_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "probe_network_requests": 0,
+    "retained_worktree_mutations": 0
+  },
+  "preregistration": {
+    "path": "experiments/validations/p5_round4_v3_dev5_preregistration.json",
+    "sha256": "6cd27a6976c63173d512587553cfe2f1b9b5c96441719384df2f1e79088846b8"
+  },
+  "validation_id": "p5-v3-clean-dev5-replay-round4-v1"
+}

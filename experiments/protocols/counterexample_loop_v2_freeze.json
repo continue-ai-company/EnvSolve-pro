@@ -1,0 +1,36 @@
+{
+  "freeze_id": "envsolve-counterexample-loop-v2-core-freeze",
+  "created_on": "2026-07-15",
+  "supersedes": "envsolve-counterexample-loop-v1-core-freeze",
+  "supersession_reason": "Pre-real-case synthetic audit required failed feedback to create an explicit conflict, not merely parseable constraints.",
+  "status": "synthetic-qualified-real-batch-not-started",
+  "preregistration": {
+    "path": "experiments/protocols/counterexample_loop_v2_preregistration.json",
+    "sha256": "1bd7715003a1518ee6e16318f27a77999ecf7c5c409a9202be0c098c707e21f8"
+  },
+  "source_files": {
+    "envsolve/constraints/engine.py": "8dc0aa9bf69c98150b5e36fe14b3f7ea9aa163a43862850b70e4a7e27af8d5f6",
+    "envsolve/solver/__init__.py": "d8bea9301c3d4e45023a0823db0565da3259fb17db0d7d739889a49ff1752d9f",
+    "envsolve/solver/counterexample.py": "ef092bc94a4504acb6d41d88f1cc5760c1b8126cf8898971fbc6fc7351c94d50",
+    "envsolve/solver/session.py": "628a24a1f576c41dffb371a5b62661217bf425a3d909e08aea6b915482033d37"
+  },
+  "test_files": {
+    "envsolve/tests/test_counterexample_loop.py": "d2dfe04d1e9c6acd235aab1deb9ae76c6dac867c39e8089c517b9142636c7262"
+  },
+  "documents": {
+    "research/COUNTEREXAMPLE_LOOP_V1.md": "bbc4ce8493194ccd04d69b0a5bb92d9b70b833c8fa01fb08a922f58c22b664e5",
+    "research/COUNTEREXAMPLE_LOOP_V1_ZH.md": "1c6d736cbd8218eae86e5e78b82354db728317e7ba1215a862f2eb92ba4f6024",
+    "research/COUNTEREXAMPLE_LOOP_V2_AMENDMENT.md": "d9ac3c2c24255fd27ea2f48de653af89a23dc9117aeecbdc70fafd06c7464234",
+    "research/COUNTEREXAMPLE_LOOP_V2_AMENDMENT_ZH.md": "472128d06ec6ae2eb460fe6087b81d3234602ed2d864b0d0178484ee9279fa96"
+  },
+  "qualification": {
+    "focused_tests": 9,
+    "full_suite_tests": 245,
+    "violated_constraint_required_for_feedback": true,
+    "noncontradictory_feedback_blocks": true,
+    "all_v1_fail_closed_invariants_retained": true,
+    "real_case_executions": 0,
+    "model_requests": 0
+  },
+  "change_policy": "Any state ordering, pass contract, freshness rule, counterexample admission rule, conflict gate, or candidate-loop behavior change requires a new freeze version before a real batch."
+}

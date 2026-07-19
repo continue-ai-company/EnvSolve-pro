@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "retry_id": "p0-post-freeze-dev3-retry1",
+  "registered_at": "2026-07-14T03:01:10Z",
+  "trigger": "Explicit user request after observing three online dependency bootstrap failures.",
+  "purpose": "Measure whether the observed bootstrap failures vary with external network state.",
+  "source_run_id": "p0-post-freeze-dev3-deterministic-v1",
+  "retry_run_id": "p0-post-freeze-dev3-deterministic-v2",
+  "case_file": {
+    "path": "experiments/validations/p0_post_freeze_dev3.jsonl",
+    "sha256": "3079e777a13e0c93ae90628413c5f7818acc08484ae04ca3aa9c6645d2269b4f"
+  },
+  "execution": {
+    "runner": "deterministic",
+    "max_workers": 1,
+    "attempts_per_case": 1,
+    "harness_freeze_sha256": "fbd34054798a2c661582c69b646f9836b66d102b5e4020524d29b6f21b810df8",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "config_sha256": "2a10d8206875741a1adbf1a0ee38174bd916b865f2a30d8de518c7c7b680f1ea"
+  },
+  "reporting": {
+    "preserve_source_run": true,
+    "replace_preregistered_first_attempt": false,
+    "include_in_official_pass_at_1": false,
+    "report_as_retry_reliability_evidence": true,
+    "no_rule_or_configuration_change": true
+  }
+}

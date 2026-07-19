@@ -1,0 +1,69 @@
+{
+  "validation_id": "p5-v3-legacy-editable-provenance-round5-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round5_legacy_editable_preregistration.json",
+    "sha256": "2327bce4ca1e7ad3ff312cb0ae623e36061d536c335df6b5e070d653e8132047"
+  },
+  "implementation": {
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "9e5a457ce3fdaa108414c32ec2ca714a2e449cd615168c28a76f4d103750b84c"
+    },
+    "synthetic_tests": {
+      "path": "envsolve/tests/test_v3_container_tool.py",
+      "sha256": "f27a55c3fcf68cc3f44b963d772e4a64d1c5534b6f8a9710df9be7d7329cf9e1"
+    },
+    "unchanged_smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    },
+    "unchanged_metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "0e19c92390d6091aeb995465ffc8a25ffad9715fefee00d05394490f4f346aa8"
+    }
+  },
+  "checks": {
+    "focused_tests": {
+      "command": "python3 -m unittest envsolve.tests.test_v3_container_tool -v",
+      "tests": 7,
+      "passed": true
+    },
+    "envsolve_tests": {
+      "command": "python3 -m unittest discover -s envsolve/tests -p 'test_*.py'",
+      "tests": 114,
+      "passed": true
+    },
+    "harness_tests": {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+      "tests": 44,
+      "passed": true
+    },
+    "compile": {
+      "command": "PYTHONPYCACHEPREFIX=/tmp/envsolve-p5-pyc python3 -m compileall -q envsolve envsolve_harness tests",
+      "passed": true
+    },
+    "diff_check": {
+      "command": "git diff --check -- envsolve experiments research tests",
+      "passed": true
+    }
+  },
+  "contract_observations": {
+    "pep610_preferred_over_legacy": true,
+    "project_path_match_required": true,
+    "project_owned_metadata_required": true,
+    "canonical_name_match_required": true,
+    "ambiguous_match_rejected": true,
+    "egg_link_content_addressed": true,
+    "import_name_guessing_added": false
+  },
+  "integrity": {
+    "model_requests": 0,
+    "real_repository_executions": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

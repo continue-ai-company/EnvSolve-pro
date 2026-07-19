@@ -1,0 +1,74 @@
+{
+  "validation_id": "p5-v1-metadata-resolver-contract-round7-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round7_v1_consistency_preregistration.json",
+    "sha256": "28c7bbe83c69cb88bfcba65b9d6e407e1d94424c94e398cd1c195d4e7d6002ca"
+  },
+  "implementation": {
+    "v1_policy": {
+      "path": "envsolve/verification/metadata_consistency.py",
+      "sha256": "011e1a945d4245a001161954c1f23a96a847c1e90127aebd3ee26003f7268a9e"
+    },
+    "v1_tests": {
+      "path": "envsolve/tests/test_metadata_consistency.py",
+      "sha256": "aa8ed6d9a388efe47a2417cc1c32ff441c9b3d6e029f3f05a8575709aeb506d3"
+    },
+    "unchanged_hierarchy_policy": {
+      "path": "envsolve/verification/hierarchy.py",
+      "sha256": "07c3435e92ca036953a55c07176dc3ea6499cb1404eb1b026f45cd6b18851211"
+    },
+    "packaging_dependency": {
+      "path": "envsolve/requirements.txt",
+      "sha256": "9e79e152b5ed2d41b66d7949b743d8caa32f82b305a309a9bc07e700b47c24c3"
+    }
+  },
+  "checks": {
+    "focused_tests": {
+      "command": "python3 -m unittest envsolve.tests.test_metadata_consistency -v",
+      "tests": 9,
+      "passed": true
+    },
+    "envsolve_tests": {
+      "command": "python3 -m unittest discover -s envsolve/tests -p 'test_*.py'",
+      "tests": 124,
+      "passed": true
+    },
+    "harness_tests": {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+      "tests": 44,
+      "passed": true
+    },
+    "compile": {
+      "command": "PYTHONPYCACHEPREFIX=/tmp/envsolve-p5-pyc python3 -m compileall -q envsolve envsolve_harness tests",
+      "passed": true
+    },
+    "diff_check": {
+      "command": "git diff --check -- envsolve experiments research tests",
+      "passed": true
+    }
+  },
+  "contract_observations": {
+    "three_valued_decision": true,
+    "explicit_marker_environment_required": true,
+    "explicit_extras_required": true,
+    "pep503_name_normalization": true,
+    "pep440_version_validation": true,
+    "direct_pip_check_argv_required": true,
+    "network_disabled_resolver_evidence_required": true,
+    "missing_evidence_fails_closed": true
+  },
+  "claims": {
+    "synthetic_contract_validated": true,
+    "real_v1_passes_claimed": 0
+  },
+  "integrity": {
+    "model_requests": 0,
+    "real_repository_executions": 0,
+    "new_benchmark_executions": 0,
+    "network_requests": 0,
+    "repository_mutations": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false
+  }
+}

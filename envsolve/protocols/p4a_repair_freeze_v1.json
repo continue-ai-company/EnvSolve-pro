@@ -1,0 +1,107 @@
+{
+  "change_policy": "Any repair schema, operator selection, transition preflight, probe parser, or verification-gated commit semantic change requires a new P4A policy and freeze version.",
+  "created_at": "2026-07-14T04:14:00.493458+00:00",
+  "policy_id": "envsolve-typed-repair-kernel-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "p0_scoring_changed": false,
+    "p2_semantics_changed": false,
+    "p3_semantics_changed": false,
+    "p4_complete": false,
+    "repository_specific_rules": false
+  },
+  "semantics": {
+    "commit_gate": "independent_probe_observes_proposed_fact",
+    "context_requires_evidence": true,
+    "operator_families": [
+      "runtime_selection",
+      "system_capability_install",
+      "python_module_install"
+    ],
+    "requirements_supersedable": false
+  },
+  "source_files": {
+    "envsolve/repairs/__init__.py": "e6003e6ba9f50c6226e942d7451a9e67e20e52ff36999cfca79151a77b3b7970",
+    "envsolve/repairs/engine.py": "bca2bcc844b7929f19fa792dfc08cdcf96cb616f8161744f6194fdb244d91189",
+    "envsolve/repairs/models.py": "55f7ec3266863acca86b95cdf0e6e007881ec409c366d7c724296f4336bf2c81",
+    "envsolve/repairs/operators.py": "393f06c4e1d0d3507308bc91b061adf712a87578c5ae400961401a49d67ead83",
+    "envsolve/repairs/policy.py": "0264d08383d42086246a30874b1ebed0941d2fcc091dd408c631edc8fa2e72ac",
+    "envsolve/tests/test_repairs.py": "ba1bc600615319b25c1fb461622dffe8d919f156747792115cbe41b12cf05448",
+    "envsolve/tools/audit_repair_coverage.py": "1b61a465847264cbd7e7e0ca92b8c6841d14290a92a910d73bc625052946e017",
+    "envsolve/tools/p4a_freeze.py": "38af0e99bc379b3c37e257db1faad2068bccc655b3f0176b28eb726e94522302",
+    "research/P4_TYPED_REPAIR_PROTOCOL.md": "df9bef27d7632e7fd9d2476d98daed1898c53f240190a90a0a37f938387553c0"
+  },
+  "validation": {
+    "compile_check": true,
+    "p0_regression_tests": 44,
+    "p2_regression_tests": 7,
+    "p3_regression_tests": 17,
+    "recorded_coverage": {
+      "aggregate": {
+        "audit_valid": true,
+        "cases": 2,
+        "conflicts": 2,
+        "conflicts_with_operator_family": 2,
+        "executable_plans": 0,
+        "model_requests": 0,
+        "new_benchmark_executions": 0
+      },
+      "cases": [
+        {
+          "artifact_root": "runs/p3-constraint-recorded-dev-v1/automl-neps-6a6c0c273f59",
+          "audit_valid": true,
+          "case_id": "recorded-result:automl/neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+          "conflicts": 1,
+          "coverage": [
+            {
+              "conflict_id": "conflict-931c163519d1d84f",
+              "domain": "runtime",
+              "missing_context": [
+                "available_python_versions",
+                "evidence_ids",
+                "runtime_manager:pyenv"
+              ],
+              "operator_kinds": [
+                "runtime_selection"
+              ],
+              "subject": "python"
+            }
+          ],
+          "executable_plans": 0,
+          "snapshot_hash": "3a0ee44ffe77caeb88342a4a5a5a9a2f709eb959ab668003f2dd7ebe1be6bc0b"
+        },
+        {
+          "artifact_root": "runs/p3-constraint-recorded-dev-v1/benadida-helios-server-c7ed0608e2cd",
+          "audit_valid": true,
+          "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+          "conflicts": 1,
+          "coverage": [
+            {
+              "conflict_id": "conflict-23f9b7c35b3ad522",
+              "domain": "capability",
+              "missing_context": [
+                "capability_packages:pg_config",
+                "evidence_ids",
+                "system_package_manager"
+              ],
+              "operator_kinds": [
+                "system_capability_install"
+              ],
+              "subject": "pg_config"
+            }
+          ],
+          "executable_plans": 0,
+          "snapshot_hash": "151ff03a526c4bc4b76a8ed5553fc611cb112fe4321ef44488804c32f1b59bfc"
+        }
+      ],
+      "path": "experiments/validations/p4a_recorded_coverage.json",
+      "sha256": "91a3c818ef79d6d879eb966a6d1a09f0f61190f76c6d9038b58379c6797f07b8"
+    },
+    "synthetic_tests": 13
+  }
+}

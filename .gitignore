@@ -1,0 +1,27 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local credentials must never enter experiment provenance.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local environments and build outputs are reproducible inputs, not source.
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Experiment outputs can be large and may contain model responses.
+runs/
+
+# Baselines are independent Git repositories and are pinned through manifests.
+/EnvBench/
+/Repo2Run/

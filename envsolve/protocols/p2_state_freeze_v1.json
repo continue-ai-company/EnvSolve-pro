@@ -1,0 +1,47 @@
+{
+  "change_policy": "Any event, reducer, session, loop, audit, or trace-bridge semantic change requires a new explicit-state policy and freeze version.",
+  "created_at": "2026-07-14T03:24:06.963730+00:00",
+  "policy_id": "envsolve-explicit-state-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "official_test100_inspected": false,
+    "p0_scoring_changed": false
+  },
+  "source_files": {
+    "envsolve/integrations/__init__.py": "a9a57c4734bf19b21fbfc00283f918f5b4a0778b7795e7ae169ae4feecec45b7",
+    "envsolve/integrations/shell_trace.py": "7f4cc5272f0d491a0b62c60b43f85a317146ecce4bc8864fbbb45e302db85f30",
+    "envsolve/solver/__init__.py": "42fd5c2fc69840f4948f6f832cd81b39065dacfc6a275932d18d323d79817c7e",
+    "envsolve/solver/loop.py": "35abb5c6518fadbfc1b848c98258f2562dbbfb4dedf1926b63e77dc5222f1720",
+    "envsolve/solver/session.py": "4281224eb34b0ca15f17ffc159aba278c962b8637aef47423d163f7d5aa0ff88",
+    "envsolve/state/__init__.py": "c9683f8aef3d65692e40325a32e0e2e984903f6c74d1152686db9e597cdb99b3",
+    "envsolve/state/audit.py": "bf3bbe1a8b82dad6741192437f5da66a5654398f2cfc1367596a41fc669d07b3",
+    "envsolve/state/events.py": "44a0315220a2d39febbdf8e8f5190f7f046e6ae2d5b7eb5523c6e5c32a01924c",
+    "envsolve/state/reducer.py": "1d829167bbaf98a1dbba58aa53dfa300b002c750be813ea943fbc36e11d17b4a",
+    "envsolve/state/store.py": "fd9970d6eb8306e8293df28a3071da7301864e11ca09c12cc3d034502da8ab52",
+    "envsolve/tests/test_session.py": "deccefbe0489444a90bef774ee3b6a75cb72db1988c237488c081b3616f8cc1b",
+    "envsolve/tools/audit_state.py": "147afe8047e407a2d7adfaf0af624803a7668147a021fabe535a50e931323e8e",
+    "envsolve/tools/import_shell_trace.py": "376c246b2b31b42d01092c901e9db6a8c08640d1767f239142c8f523c9ac4c22",
+    "envsolve/tools/p2_freeze.py": "534a396e60e735ec1e5d34d590770c699ace858f2faa753bb7130bfae0c94f58",
+    "research/P2_STATE_PROTOCOL.md": "0ef962b85c2d40cab1e75918d8b9e1c86390208630e53da1124ac8f5c0c184aa"
+  },
+  "validation": {
+    "compile_check": true,
+    "p0_regression_tests": 44,
+    "real_artifact": {
+      "action_result_evidence": 25,
+      "actions": 25,
+      "audit_valid": true,
+      "case_id": "envbench-python-scylladb__sphinx-scylladb-theme@4e3917945c5c194a7119cf10629f35664b451d61",
+      "event_count": 103,
+      "event_log_sha256": "474780c6056fe04c5bbfa78319a3b7d4e63e42f4f78ea7eccdf40f96c5eeaf5a",
+      "failures": 1,
+      "root": "runs/p2-state-recorded-ir-v4-v3/sphinx-scylladb-theme",
+      "snapshot_hash": "e961d43c18dae044ad60ca354e780ecb471022d59dc1db9c6621bc45a0f06706",
+      "snapshot_sha256": "2f98a48f5a7eb1cf1783c4ef5f88629fb5e6e7979caf9cde6ad7a497e1611ba9"
+    },
+    "synthetic_tests": 7
+  }
+}

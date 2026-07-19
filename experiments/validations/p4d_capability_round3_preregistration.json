@@ -1,0 +1,47 @@
+{
+  "created_at": "2026-07-14T06:43:02Z",
+  "development_only": true,
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "repository_mounted": false
+  },
+  "preregistration_id": "p4d-capability-round3-v1",
+  "protocol": "research/P4D_CAPABILITY_DISCOVERY_ROUND3_PROTOCOL.md",
+  "qualification": {
+    "candidate_order": "package-name",
+    "candidate_source": "frozen-round2-provider-response",
+    "max_candidates": 3,
+    "semantic_probe_template": "<capability> --version",
+    "semantic_stdout_required": true,
+    "separate_clean_containers": true
+  },
+  "round2": {
+    "freeze": {
+      "path": "envsolve/protocols/p4d_capability_round2_freeze_v1.json",
+      "sha256": "e6c5ab9561dc37125c995bc5da8a85863e0332b5a5044b84704e60abc1996b9b"
+    },
+    "result": {
+      "path": "experiments/validations/p4d_capability_round2_results.json",
+      "sha256": "514ccec7e1a9e3eb8439f5baa44d212f490e87955f218ca4543c48bb0028618b"
+    }
+  },
+  "target": {
+    "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "conflict_id": "conflict-23f9b7c35b3ad522",
+    "domain": "capability",
+    "repository": "benadida/helios-server",
+    "revision": "c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "subject": "pg_config"
+  }
+}

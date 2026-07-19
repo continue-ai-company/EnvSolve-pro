@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "p6-v3-q1-01-envsolve-runtime-only",
+  "schedule_position": 1,
+  "method": "envsolve-runtime-only",
+  "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+  "classification": "qualification-invalid-harness-diagnostic",
+  "audit_valid": true,
+  "official_evaluator_claims": 0,
+  "candidates_attempted": 1,
+  "model_requests": 1,
+  "total_tokens": 5740,
+  "estimated_cost_usd": 0.003138525,
+  "failure_category": "noncontradictory-verifier-failure",
+  "root_cause": "A generic internal-check failure marked deterministic_counterexample=false was nevertheless emitted on the counterexample channel. Its parsed version evidence remained provisional, while the loop required every counterexample failure to produce a hard conflict.",
+  "generic_correction": "Keep ambiguous fixed-check failures on the hypothesis channel. Reserve hard counterexamples for typed grounded verifier findings.",
+  "case_specific_rule_added": false,
+  "replacement_run_allowed": false,
+  "remaining_schedule_starts_at": 2,
+  "artifacts": {
+    "manifest_sha256": "b1b7810882f0859f45783fc6337171af28622670c5fc444cfbf561e8f46cc133",
+    "solver_result_sha256": "38df925d493c98cccd17360f1e0f8247f4b52627527c6170e9a328c1672fae6d",
+    "episode_log_sha256": "7bf574ef3136aaae700dcf4862d0907f38806a225eaf1b15b01e9c0be432e9b2"
+  },
+  "admissible_pair_count_after_exclusion": 4
+}

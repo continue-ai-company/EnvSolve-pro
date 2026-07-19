@@ -1,0 +1,30 @@
+{
+  "protocol_id": "envsolve-counterexample-loop-v2-design-preregistration",
+  "created_on": "2026-07-15",
+  "supersedes": "envsolve-counterexample-loop-v1-design-preregistration",
+  "development_only": true,
+  "real_case_outcomes_observed_before_freeze": 0,
+  "amendment_trigger": "Synthetic contract audit showed that normalized but mutually consistent requirement/observation evidence could otherwise authorize another candidate.",
+  "single_change": "A failed verifier result must produce at least one explicit constraint conflict before the next candidate is permitted.",
+  "unchanged_rules": [
+    "one fresh uniquely identified environment per candidate",
+    "counterexample evidence persists before the next proposal",
+    "unknown and infrastructure outcomes are not repair signals",
+    "malformed and unnormalizable outcomes fail closed",
+    "passing requires bootstrap success and no counterexamples",
+    "no repository identity rules or source modification",
+    "matched-budget unseen-batch admission against v0 and same-backbone FreeAgent"
+  ],
+  "synthetic_exit_criteria": {
+    "contradictory_typed_finding_reaches_next_policy_state": true,
+    "noncontradictory_typed_finding_blocks": true,
+    "structured_adapter_and_loop_integration_passes": true,
+    "full_test_suite_passes": true
+  },
+  "documents": [
+    "research/COUNTEREXAMPLE_LOOP_V1.md",
+    "research/COUNTEREXAMPLE_LOOP_V1_ZH.md",
+    "research/COUNTEREXAMPLE_LOOP_V2_AMENDMENT.md",
+    "research/COUNTEREXAMPLE_LOOP_V2_AMENDMENT_ZH.md"
+  ]
+}

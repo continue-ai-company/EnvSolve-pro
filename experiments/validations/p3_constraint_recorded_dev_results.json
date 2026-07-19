@@ -1,0 +1,104 @@
+{
+  "adapter": {
+    "capture": "last 16000 characters of container output",
+    "core_benchmark_specific": false,
+    "input": "recorded command-result JSON"
+  },
+  "aggregate": {
+    "audit_valid": true,
+    "cases": 2,
+    "conflicts": 2,
+    "constraints": 4,
+    "model_requests": 0,
+    "new_benchmark_executions": 0
+  },
+  "cases": [
+    {
+      "artifact_root": "runs/p3-constraint-recorded-dev-v1/automl-neps-6a6c0c273f59",
+      "audit_valid": true,
+      "constraints": 2,
+      "diagnostic_tail_sha256": "e2c616af508fc2c167925f1f511f86359fea89325b881da233074fc8e8c85a50",
+      "event_count": 6,
+      "event_log_sha256": "7f7664a2ce8a3cc07990a92f1f0c23359953431549e2b4761961281e5c635657",
+      "report": {
+        "conflicts": [
+          {
+            "conflict_id": "conflict-931c163519d1d84f",
+            "constraint_ids": [
+              "constraint-runtime-06d6189fa3d42d1f",
+              "constraint-runtime-0e500c0b8ce1c1f2"
+            ],
+            "domain": "runtime",
+            "evidence_ids": [
+              "evidence-0001"
+            ],
+            "message": "Observed python version 3.13.2 does not satisfy <3.12,>=3.8",
+            "subject": "python"
+          }
+        ],
+        "managed_constraints": 2,
+        "provisional_constraints": [],
+        "satisfiable": false,
+        "statuses": {
+          "constraint-runtime-06d6189fa3d42d1f": "violated",
+          "constraint-runtime-0e500c0b8ce1c1f2": "violated"
+        }
+      },
+      "repository": "automl/neps",
+      "revision": "6a6c0c273f59036b8605086c43a6a714ea02bd23",
+      "snapshot_hash": "3a0ee44ffe77caeb88342a4a5a5a9a2f709eb959ab668003f2dd7ebe1be6bc0b",
+      "snapshot_sha256": "c9fd7f3903d49c5cc249746b3a1aa90762642caeb6d08fa990d4323f69ccb00a",
+      "source": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-automl__neps__6a6c0c273f59036b8605086c43a6a714ea02bd23/evaluation/json/results/automl__neps.json",
+      "source_log_characters": 7183,
+      "source_sha256": "37a9a47252d1d564b7750f0d84115d49a5658c69e78bcbcb9fb623ea07bdff54"
+    },
+    {
+      "artifact_root": "runs/p3-constraint-recorded-dev-v1/benadida-helios-server-c7ed0608e2cd",
+      "audit_valid": true,
+      "constraints": 2,
+      "diagnostic_tail_sha256": "a580b9d59d80164847b1baf0b8d96f351cf4433a7f0484d784dfcd19f8f05402",
+      "event_count": 6,
+      "event_log_sha256": "45acaa8a2f5e8f510c00805a8b1f65fc2ba72dd4c29df47fd8f424ea3fd59e9e",
+      "report": {
+        "conflicts": [
+          {
+            "conflict_id": "conflict-23f9b7c35b3ad522",
+            "constraint_ids": [
+              "constraint-capability-7d7a75f5f64b44eb",
+              "constraint-capability-b902f3e32dd6a8e8"
+            ],
+            "domain": "capability",
+            "evidence_ids": [
+              "evidence-0001"
+            ],
+            "message": "Observed pg_config value does not satisfy its requirement",
+            "subject": "pg_config"
+          }
+        ],
+        "managed_constraints": 2,
+        "provisional_constraints": [],
+        "satisfiable": false,
+        "statuses": {
+          "constraint-capability-7d7a75f5f64b44eb": "violated",
+          "constraint-capability-b902f3e32dd6a8e8": "violated"
+        }
+      },
+      "repository": "benadida/helios-server",
+      "revision": "c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+      "snapshot_hash": "151ff03a526c4bc4b76a8ed5553fc611cb112fe4321ef44488804c32f1b59bfc",
+      "snapshot_sha256": "bb34feff7beb0933e09bf8c2f2860bf9cbb78477570dcb5381c8f25995e92fcf",
+      "source": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+      "source_log_characters": 6003,
+      "source_sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+    }
+  ],
+  "created_at": "2026-07-14T03:38:42.609771+00:00",
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "solver_case_specific_rules": false,
+    "split": "development-consumed"
+  },
+  "schema_version": "1.0.0",
+  "validation_id": "p3-recorded-development-v1"
+}

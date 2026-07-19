@@ -1,0 +1,204 @@
+{
+  "change_policy": "Round 2 source and V1 transition artifacts are immutable. A semantic capability verifier or candidate selector requires a new round.",
+  "created_at": "2026-07-14T06:42:39.549887+00:00",
+  "finding": {
+    "candidate_count": 2,
+    "candidate_order": "repair-id",
+    "disclosed_duplicate_summary_ids": true,
+    "provider_discovery_satisfied": true,
+    "selected_package": "postgresql-common",
+    "semantic_interface_status": "not-yet-tested",
+    "semantic_interface_verified": false,
+    "v1_presence_verified": true
+  },
+  "policy_id": "envsolve-p4d-capability-round2-v1",
+  "schema_version": "1.0.0",
+  "scope": {
+    "canary20_inspected": false,
+    "development_only": true,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "p4_complete": false,
+    "repository_specific_rules": false
+  },
+  "source_files": {
+    "envsolve/discovery/packages_policy.py": "356200b0b40c416e096a09aaf4fdbeb2ee7ba73fa54b018438c0590e496b07ee",
+    "envsolve/discovery/ubuntu_packages.py": "83f99fba190228e945d654f0e7558487f495846b4adb13a0f315ef96265dd5ad",
+    "envsolve/tests/test_ubuntu_packages_discovery.py": "e0bbcdede7afe5fe3c0bad1e807d13dfcb8c96798b91f7a96508ca3f001b0321",
+    "envsolve/tools/p4d_round2_freeze.py": "18a8d491829802accb77f94958f61bf96aefd5b125ded7569a0f771d816b6b04",
+    "envsolve/tools/run_p4d_capability_round2.py": "70f3f6c9358a7cd4ee5716560368c38e14f39e342381e82a3d7cff6a2da99fba",
+    "experiments/validations/p4d_capability_round2_preregistration.json": "ea51cd320af59f12babe3375133d15eb0e880e1746d558e03e04e3a384424d95",
+    "research/P4D_CAPABILITY_DISCOVERY_ROUND2_PROTOCOL.md": "099cf93197d25c54d1f021a8d576bc87942c27b1d26430c52e7e0cfb036ba3af"
+  },
+  "validation": {
+    "compile_check": true,
+    "synthetic_tests": 3,
+    "v1_presence_transition": {
+      "artifact": {
+        "audit_valid": true,
+        "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+        "event_count": 55,
+        "event_log_sha256": "7936976581275c953f1cdee4daad6c1ec430778b2bbc786dc42d17d6896ddda5",
+        "plan_sha256": "a398d64da0de30160bbf0c84fee70dac6a2771382614d7be4ace4ca95a7703ba",
+        "root": "runs/p4d-capability-round2-v1",
+        "snapshot_hash": "dc3912ae275ffc1afd1040894bc577401fdf425a8c07a8bc36309e461f41ebb3",
+        "snapshot_sha256": "62065a8ffb541f38a7b0769e245977c9d19170e2a7d295f99941fca8f6d87565"
+      },
+      "discovery": {
+        "actions_executed": 5,
+        "actions_failed": 0,
+        "actions_succeeded": 5,
+        "goal_status": "satisfied",
+        "snapshot_hash": "c56a6cfe909dabb5ad784eeff2af89dcf707440a7bf9a9772eb8f529c8561af4",
+        "stop_reason": "capability package discovery complete"
+      },
+      "image": {
+        "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "repo_digests": [
+          "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+        ]
+      },
+      "integrity": {
+        "canary20_inspected": false,
+        "model_requests": 0,
+        "new_benchmark_cases": 0,
+        "new_benchmark_executions": 0,
+        "official_test100_inspected": false,
+        "repository_mounted": false
+      },
+      "isolation": {
+        "mounts": [],
+        "network": "bridge",
+        "network_endpoints": [
+          "configured apt sources",
+          "packages.ubuntu.com"
+        ],
+        "official_evaluation": false,
+        "repository_mounted": false
+      },
+      "path": "experiments/validations/p4d_capability_round2_results.json",
+      "plans": [
+        {
+          "kind": "system_capability_install",
+          "mutation_action_id": "repair-system_capability_install-2db45e2d86e610b4-apply",
+          "mutation_action_type": "system_package_install",
+          "mutation_command": "apt-get install -y -- postgresql-common",
+          "prerequisite_constraint_ids": [],
+          "probe": {
+            "command": "command -v -- pg_config",
+            "expected_fact": {
+              "confidence": 1.0,
+              "domain": "capability",
+              "predicate": "present",
+              "subject": "pg_config",
+              "value": true
+            },
+            "kind": "capability_presence"
+          },
+          "proposed_fact": {
+            "confidence": 1.0,
+            "domain": "capability",
+            "predicate": "present",
+            "subject": "pg_config",
+            "value": true
+          },
+          "rationale": "Install context-provided package postgresql-common for capability pg_config",
+          "repair_id": "repair-system_capability_install-2db45e2d86e610b4",
+          "risk": "high",
+          "rollback_command": null,
+          "schema_version": "1.0.0",
+          "source_conflict_ids": [
+            "conflict-23f9b7c35b3ad522"
+          ],
+          "source_constraint_ids": [
+            "constraint-capability-7d7a75f5f64b44eb",
+            "constraint-capability-b902f3e32dd6a8e8"
+          ],
+          "supersede_constraint_ids": [
+            "constraint-capability-7d7a75f5f64b44eb"
+          ],
+          "supporting_evidence_ids": [
+            "evidence-packages-discovery-pg_config-capability-packages",
+            "evidence-transferred-evidence-context-runtime-pyenv-versions",
+            "evidence-transferred-evidence-context-system-manager-apt-get",
+            "evidence-transferred-evidence-context-tool-pyenv"
+          ],
+          "verification_action_id": "repair-system_capability_install-2db45e2d86e610b4-verify"
+        },
+        {
+          "kind": "system_capability_install",
+          "mutation_action_id": "repair-system_capability_install-991f1c4e755563f5-apply",
+          "mutation_action_type": "system_package_install",
+          "mutation_command": "apt-get install -y -- libpq-dev",
+          "prerequisite_constraint_ids": [],
+          "probe": {
+            "command": "command -v -- pg_config",
+            "expected_fact": {
+              "confidence": 1.0,
+              "domain": "capability",
+              "predicate": "present",
+              "subject": "pg_config",
+              "value": true
+            },
+            "kind": "capability_presence"
+          },
+          "proposed_fact": {
+            "confidence": 1.0,
+            "domain": "capability",
+            "predicate": "present",
+            "subject": "pg_config",
+            "value": true
+          },
+          "rationale": "Install context-provided package libpq-dev for capability pg_config",
+          "repair_id": "repair-system_capability_install-991f1c4e755563f5",
+          "risk": "high",
+          "rollback_command": null,
+          "schema_version": "1.0.0",
+          "source_conflict_ids": [
+            "conflict-23f9b7c35b3ad522"
+          ],
+          "source_constraint_ids": [
+            "constraint-capability-7d7a75f5f64b44eb",
+            "constraint-capability-b902f3e32dd6a8e8"
+          ],
+          "supersede_constraint_ids": [
+            "constraint-capability-7d7a75f5f64b44eb"
+          ],
+          "supporting_evidence_ids": [
+            "evidence-packages-discovery-pg_config-capability-packages",
+            "evidence-transferred-evidence-context-runtime-pyenv-versions",
+            "evidence-transferred-evidence-context-system-manager-apt-get",
+            "evidence-transferred-evidence-context-tool-pyenv"
+          ],
+          "verification_action_id": "repair-system_capability_install-991f1c4e755563f5-verify"
+        }
+      ],
+      "post_state": {
+        "conflicts": [],
+        "managed_constraints": 2,
+        "provisional_constraints": [],
+        "satisfiable": true,
+        "statuses": {
+          "constraint-capability-b902f3e32dd6a8e8": "satisfied",
+          "constraint-capability-ee4639c85977b06e": "satisfied"
+        }
+      },
+      "repair_results": [
+        {
+          "execution": {
+            "actions_executed": 2,
+            "actions_failed": 0,
+            "actions_succeeded": 2,
+            "goal_status": "satisfied",
+            "snapshot_hash": "dc3912ae275ffc1afd1040894bc577401fdf425a8c07a8bc36309e461f41ebb3",
+            "stop_reason": "typed repair verified"
+          },
+          "repair_id": "repair-system_capability_install-2db45e2d86e610b4"
+        }
+      ],
+      "sha256": "514ccec7e1a9e3eb8439f5baa44d212f490e87955f218ca4543c48bb0028618b"
+    }
+  }
+}

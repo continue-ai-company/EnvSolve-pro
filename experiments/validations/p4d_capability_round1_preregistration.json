@@ -1,0 +1,80 @@
+{
+  "created_at": "2026-07-14T05:54:12Z",
+  "development_only": true,
+  "discovery": {
+    "candidate_filter": "exact-basename-and-parent-in-observed-path-v1",
+    "manager": "apt-get",
+    "max_candidate_plans": 3,
+    "package_name_prior": false,
+    "provider": "apt-file",
+    "provider_bootstrap_is_repair": false,
+    "query_subject": "pg_config",
+    "repository_text_available_to_provider": false
+  },
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "repository_mounted": false
+  },
+  "preregistration_id": "p4d-capability-round1-v1",
+  "protocol": "research/P4D_CAPABILITY_DISCOVERY_PROTOCOL.md",
+  "schema_version": "1.0.0",
+  "sources": {
+    "original_audit": {
+      "path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/audit.json",
+      "sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2"
+    },
+    "original_manifest": {
+      "path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/manifest.json",
+      "sha256": "76010967232865341241ac7863673146f7f65e7f951f4d6ae8ef4a353b998e40"
+    },
+    "raw_result": {
+      "path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+      "sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+    },
+    "p3_state": {
+      "event_log_sha256": "45acaa8a2f5e8f510c00805a8b1f65fc2ba72dd4c29df47fd8f424ea3fd59e9e",
+      "root": "runs/p3-constraint-recorded-dev-v1/benadida-helios-server-c7ed0608e2cd",
+      "snapshot_hash": "151ff03a526c4bc4b76a8ed5553fc611cb112fe4321ef44488804c32f1b59bfc",
+      "snapshot_sha256": "bb34feff7beb0933e09bf8c2f2860bf9cbb78477570dcb5381c8f25995e92fcf"
+    },
+    "p3_summary": {
+      "path": "experiments/validations/p3_constraint_recorded_dev_results.json",
+      "sha256": "29175a003f51b0fd6e1732d4ef3454c1abdbdd6bb029861477c9bb4ff6e224cb"
+    },
+    "p4a_freeze": {
+      "path": "envsolve/protocols/p4a_repair_freeze_v1.json",
+      "sha256": "64c3b7cf53c8dda9208eef7ca4cdceb1c46eba9178f1a39bbd8c712cfe4859fd"
+    },
+    "p4b_context": {
+      "path": "experiments/validations/p4b_context_image_results.json",
+      "sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e"
+    },
+    "p4b_freeze": {
+      "path": "envsolve/protocols/p4b_context_freeze_v1.json",
+      "sha256": "adb3e0d61044d623d597e995cbb68bbe96f91413c003b50ee6fcfa8f2c46e3e4"
+    },
+    "p4c_freeze": {
+      "path": "envsolve/protocols/p4c_context_transfer_freeze_v1.json",
+      "sha256": "2e834849d41445f17a6ed63f6bd5e99a45b158b72aa6202adc7cdcfb78ed3f37"
+    }
+  },
+  "target": {
+    "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "conflict_id": "conflict-23f9b7c35b3ad522",
+    "domain": "capability",
+    "repository": "benadida/helios-server",
+    "revision": "c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "subject": "pg_config"
+  }
+}

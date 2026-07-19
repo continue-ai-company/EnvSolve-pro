@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-07-16",
+  "development_only": true,
+  "schedule_position": 3,
+  "source_run_id": "p6-v3-q1-02-envsolve-runtime-only",
+  "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+  "method": "envsolve-runtime-only",
+  "source_audit_valid": true,
+  "online_episode": {
+    "generation_completed": true,
+    "internal_pass": true,
+    "model_requests": 2,
+    "model_responses": 2,
+    "total_tokens": 8234,
+    "estimated_cost_usd": 0.004594267,
+    "candidates": 2,
+    "environments": 2
+  },
+  "terminal_measurement": {
+    "recorded_by_adapter_version": "0.5.0",
+    "recorded_evaluation_completed": true,
+    "recorded_official_pass": false,
+    "exit_code": 2,
+    "issues_count": 0,
+    "pyright_executed": false,
+    "infrastructure_signature": "read-timeout",
+    "infrastructure_evidence": "pip ReadTimeoutError from files.pythonhosted.org while downloading setuptools before Pyright execution",
+    "classification_under_v19": "infrastructure_unknown"
+  },
+  "immutable_hashes": {
+    "bootstrap_sha256": "19890fd0c6e64f7f5e6ae8b8743e22e0eeb77b822d7d6548827858802571cfce",
+    "evaluation_result_sha256": "d01271a34e7cce8b417178bc313ce009daf9463c8e6218879f6857ae99acc5bc",
+    "raw_result_sha256": "2fd46721b3375578670f141cecaf770f1af2369ba9dac1a616c41dae8e5279f8"
+  },
+  "retry_policy": {
+    "policy_id": "single-exact-script-infrastructure-retry-v1",
+    "admissible": true,
+    "run_id": "p6-v3-q1-02-envsolve-runtime-only-eval-retry1",
+    "method": "envsolve-runtime-only-evaluation-retry",
+    "max_retries": 1,
+    "exact_source_script_required": true,
+    "new_model_requests": 0,
+    "new_candidates": 0,
+    "source_artifact_mutation": false,
+    "eligibility": "nonzero bootstrap exit, Pyright absent, and a frozen explicit infrastructure signature",
+    "if_retry_is_censored": "retain Unknown and permit no further retry"
+  },
+  "scientific_use": {
+    "qualification_status_before_retry": "infrastructure_unknown",
+    "online_method_information_reused": false,
+    "official_feedback_enters_solver": false,
+    "case_specific_rule_added": false,
+    "confirmatory_claim": false
+  }
+}

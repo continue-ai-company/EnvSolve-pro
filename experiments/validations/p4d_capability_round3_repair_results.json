@@ -1,0 +1,217 @@
+{
+  "artifact": {
+    "audit_valid": true,
+    "case_id": "recorded-result:benadida/helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+    "event_count": 37,
+    "event_log_sha256": "43304f8ba2309fc3a62799ec517998fd3d9cbdf504b8c98108f526ef57bef164",
+    "plan_sha256": "7e2a63587d0ea5f9c52af80e32fba7e3b7124e51762925a50fa38ab384f80a84",
+    "root": "runs/p4d-capability-round3-repair-v1",
+    "snapshot_hash": "3d00bde31c7a082b7b20e3ff391c90cd8b1bc0d9a6a23636c7966121b40c5e78",
+    "snapshot_sha256": "fcb0339248df76b38acc44b0e1b0ac7fff139c9c0334a9ae30b9be4ede2b26f5"
+  },
+  "commands": [
+    "apt-get update",
+    "apt-get install -y -- libpq-dev",
+    "command -v -- pg_config",
+    "pg_config --version"
+  ],
+  "completed_at": "2026-07-14T07:06:55.614936+00:00",
+  "development_only": true,
+  "execution": {
+    "actions_executed": 3,
+    "actions_failed": 0,
+    "actions_succeeded": 3,
+    "goal_status": "satisfied",
+    "snapshot_hash": "3d00bde31c7a082b7b20e3ff391c90cd8b1bc0d9a6a23636c7966121b40c5e78",
+    "stop_reason": "semantic capability repair verified"
+  },
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false,
+    "repository_mounted": false
+  },
+  "isolation": {
+    "mounts": [],
+    "network": "bridge",
+    "repository_mounted": false
+  },
+  "lineage": {
+    "source_case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "source_event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+    "source_snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+    "source_summary_sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e",
+    "target_audit_sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2",
+    "target_manifest_sha256": "76010967232865341241ac7863673146f7f65e7f951f4d6ae8ef4a353b998e40",
+    "target_raw_result_path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+    "target_raw_result_sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+  },
+  "plan": {
+    "kind": "system_capability_install",
+    "mutation_action_id": "repair-system_capability_install-6aa3f9d9ee2ce711-apply",
+    "mutation_action_type": "system_package_install",
+    "mutation_command": "apt-get install -y -- libpq-dev",
+    "prerequisite_constraint_ids": [],
+    "probe": {
+      "command": "command -v -- pg_config",
+      "expected_fact": {
+        "confidence": 1.0,
+        "domain": "capability",
+        "predicate": "present",
+        "subject": "pg_config",
+        "value": true
+      },
+      "kind": "capability_presence"
+    },
+    "proposed_fact": {
+      "confidence": 1.0,
+      "domain": "capability",
+      "predicate": "present",
+      "subject": "pg_config",
+      "value": true
+    },
+    "rationale": "Install context-provided package libpq-dev for capability pg_config",
+    "repair_id": "repair-system_capability_install-6aa3f9d9ee2ce711",
+    "risk": "high",
+    "rollback_command": null,
+    "schema_version": "1.0.0",
+    "source_conflict_ids": [
+      "conflict-23f9b7c35b3ad522"
+    ],
+    "source_constraint_ids": [
+      "constraint-capability-7d7a75f5f64b44eb",
+      "constraint-capability-b902f3e32dd6a8e8"
+    ],
+    "supersede_constraint_ids": [
+      "constraint-capability-7d7a75f5f64b44eb"
+    ],
+    "supporting_evidence_ids": [
+      "evidence-p4d-v2-qualified-capability-package",
+      "evidence-transferred-evidence-context-runtime-pyenv-versions",
+      "evidence-transferred-evidence-context-system-manager-apt-get",
+      "evidence-transferred-evidence-context-tool-pyenv"
+    ],
+    "verification_action_id": "repair-system_capability_install-6aa3f9d9ee2ce711-verify"
+  },
+  "post_state": {
+    "conflicts": [],
+    "managed_constraints": 2,
+    "provisional_constraints": [],
+    "satisfiable": true,
+    "statuses": {
+      "constraint-capability-b902f3e32dd6a8e8": "satisfied",
+      "constraint-capability-ee4639c85977b06e": "satisfied"
+    }
+  },
+  "preflight": {
+    "allowed": true,
+    "current_report": {
+      "conflicts": [
+        {
+          "conflict_id": "conflict-23f9b7c35b3ad522",
+          "constraint_ids": [
+            "constraint-capability-7d7a75f5f64b44eb",
+            "constraint-capability-b902f3e32dd6a8e8"
+          ],
+          "domain": "capability",
+          "evidence_ids": [
+            "evidence-0001"
+          ],
+          "message": "Observed pg_config value does not satisfy its requirement",
+          "subject": "pg_config"
+        }
+      ],
+      "managed_constraints": 2,
+      "provisional_constraints": [],
+      "satisfiable": false,
+      "statuses": {
+        "constraint-capability-7d7a75f5f64b44eb": "violated",
+        "constraint-capability-b902f3e32dd6a8e8": "violated"
+      }
+    },
+    "projected_report": {
+      "conflicts": [],
+      "managed_constraints": 2,
+      "provisional_constraints": [],
+      "satisfiable": true,
+      "statuses": {
+        "constraint-capability-b902f3e32dd6a8e8": "satisfied",
+        "constraint-capability-ee4639c85977b06e": "satisfied"
+      }
+    },
+    "reasons": []
+  },
+  "preregistration_sha256": "3c139be010aa7d36eee21df3419fddefbc4d96a4c407f7671f64f39d687ea731",
+  "qualification_evidence_id": "evidence-p4d-v2-qualified-capability-package",
+  "repository": "benadida/helios-server",
+  "revision": "c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+  "schema_version": "1.0.0",
+  "selected_package": "libpq-dev",
+  "superseded_constraint_ids": [
+    "constraint-capability-7d7a75f5f64b44eb"
+  ],
+  "transfer": {
+    "appended_evidence": 3,
+    "image": {
+      "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+      "repo_digests": [
+        "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+      ]
+    },
+    "lineage": {
+      "source_case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "source_event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+      "source_snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+      "source_summary_sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e",
+      "target_audit_sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2",
+      "target_manifest_sha256": "76010967232865341241ac7863673146f7f65e7f951f4d6ae8ef4a353b998e40",
+      "target_raw_result_path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/evaluation/json/results/benadida__helios-server.json",
+      "target_raw_result_sha256": "502572e421385f6c9f40e74e5df1ff0560a3c7729cb082e3b20bd6289f909287"
+    },
+    "profile_appended": true,
+    "transferred_evidence_ids": [
+      "evidence-transferred-evidence-context-runtime-pyenv-versions",
+      "evidence-transferred-evidence-context-system-manager-apt-get",
+      "evidence-transferred-evidence-context-tool-pyenv"
+    ]
+  },
+  "validation_id": "p4d-capability-round3-repair-v1",
+  "verifications": [
+    {
+      "details": {
+        "post_state": {
+          "conflicts": [],
+          "managed_constraints": 2,
+          "provisional_constraints": [],
+          "satisfiable": true,
+          "statuses": {
+            "constraint-capability-b902f3e32dd6a8e8": "satisfied",
+            "constraint-capability-ee4639c85977b06e": "satisfied"
+          }
+        },
+        "repair_id": "repair-system_capability_install-6aa3f9d9ee2ce711",
+        "semantic_output": "PostgreSQL 14.23 (Ubuntu 14.23-0ubuntu0.22.04.1)"
+      },
+      "level": "V2",
+      "passed": true,
+      "state_metadata": {
+        "event_hash": "76e2dc0cf3b352dead8ac65bceff7a7afe5388df9fd6e889638ca165d3042d55",
+        "event_sequence": 35,
+        "recorded_at": "2026-07-14T07:06:55.439864+00:00",
+        "revision": 1
+      },
+      "verification_id": "verification-v2-repair-system_capability_install-6aa3f9d9ee2ce711",
+      "verifier": "semantic-capability-version-v1"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "preregistration_id": "p4e-repository-replay-round2-retry1-v1",
+  "created_at": "2026-07-14T08:31:00Z",
+  "development_only": true,
+  "reason": "Round 2 was infrastructure-blocked by an HTTPS read timeout while downloading a resolved wheel",
+  "source_result": {
+    "path": "experiments/validations/p4e_round2_results.json",
+    "sha256": "6113d806c22a3d7361c44ef8335c87b64091cc7b24a22ce9aa1696a03362a5f7"
+  },
+  "retry_contract": {
+    "same_case": true,
+    "same_revision": true,
+    "same_evaluator_image": true,
+    "same_bootstrap_sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d",
+    "same_repair_policy": true,
+    "semantic_changes_allowed": false,
+    "benchmark_executions": 1,
+    "model_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "application_source_edits": false,
+    "verifier_configuration_edits": false,
+    "import_stubs": false
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "audit_id": "p4e-dev5-scope-v1",
+  "development_only": true,
+  "inputs": {
+    "agent_summary": {
+      "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/summary.json",
+      "sha256": "97cc6e3c78d9574345d2d909654aa8ebfad068479bfcb4e2ccf49022040bb905"
+    },
+    "deterministic_summary": {
+      "path": "runs/dev5-deterministic-batch-v1/summary.json",
+      "sha256": "5aaa6d294968856e46100a4185ce4dcecbe7dce039bdb4e98ac15e4cab7c37e5"
+    },
+    "dev5": {
+      "path": "experiments/cases/dev5.jsonl",
+      "sha256": "81ffcd29cfede3fd0a4993aa84e58b96702660189fbba5c570a6bdbf635da981"
+    }
+  },
+  "metric_semantics": {
+    "issues_count": "count(reportMissingImports)",
+    "pyright_error_count_is_official_metric": false
+  },
+  "outcomes": [
+    {"repository": "convexengineering/gpkit", "bootstrap_exit_code": 0, "issues_count": 12, "terminal_class": "bootstrap_satisfied_verifier_open"},
+    {"repository": "jaraco/inflect", "bootstrap_exit_code": 1, "issues_count": 0, "terminal_class": "bootstrap_conflict_repairable"},
+    {"repository": "markqvist/reticulum", "bootstrap_exit_code": 0, "issues_count": 18, "terminal_class": "bootstrap_satisfied_verifier_open"},
+    {"repository": "pytest-dev/pytest-xdist", "bootstrap_exit_code": 0, "issues_count": 0, "terminal_class": "official_pass"},
+    {"repository": "python-poetry/poetry", "bootstrap_exit_code": 0, "issues_count": 15, "terminal_class": "bootstrap_satisfied_verifier_open"}
+  ]
+}
+

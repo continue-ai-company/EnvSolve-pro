@@ -1,0 +1,18 @@
+{
+  "protocol_id": "envsolve-structured-finding-adapter-v3-preregistration",
+  "created_on": "2026-07-15",
+  "supersedes": "envsolve-structured-finding-adapter-v2-freeze",
+  "development_only": true,
+  "new_real_case_executions": 0,
+  "recorded_development_cases_inspected": 1,
+  "amendment_trigger": "Read-only collector qualification showed that module-only evidence erased source context needed for grounded repair.",
+  "single_change": "Requirement and observation evidence retain finding_id and finding_provenance while normalized constraint semantics remain unchanged.",
+  "forbidden_changes": [
+    "repository identity rules",
+    "import-to-distribution guess maps",
+    "source modification",
+    "goal decision reinterpretation",
+    "held-out case inspection"
+  ],
+  "model_requests": 0
+}

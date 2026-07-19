@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "closure_id": "p6-v3-q1-closed-before-operation-v2",
+  "closed_at": "2026-07-17T00:00:00+08:00",
+  "reason": "The method implementation changed after the frozen V3 schedule. Continuing would mix method revisions inside one paired qualification.",
+  "schedule": {
+    "path": "experiments/validations/p6_v3_unseen_dev5_schedule.json",
+    "sha256": "85c5cd7a6b96bf858ed3f6d3a4bee454deb4d46b1c1fd3ae01787a83e144c4a2"
+  },
+  "completed_or_attempted_positions": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "unexecuted_positions": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "artifacts": {
+    "experiments/validations/p6_v3_q1_position1_harness_diagnostic.json": "9de52e48754ef985b181c3ddb1ddf3084e8e4e35caa0acc31b0e266a6bbaeee5",
+    "experiments/validations/p6_v3_q1_position2_infrastructure_diagnostic.json": "d86461122158dd8ea37f89eb558eb956d4ad5a5a6c9058b3b77703f43c7d54fa",
+    "experiments/validations/p6_v3_q1_position2_retry1_diagnostic.json": "84780590ff4f73a1b568d23ddea8259e0d445f462c2c84f194ab9a50bc3658d3",
+    "experiments/validations/p6_v3_q1_position3_evaluator_infrastructure_diagnostic.json": "e4cd3cc42e7190b299f5447835fd7b189ec165369321236a934d33afcbc9342f",
+    "experiments/validations/p6_v3_q1_position3_result.json": "cee378e4ccb142871300faa8d9b4d677e368d0c0590411e0b9b13d15acc9e4eb",
+    "experiments/validations/p6_v3_q1_position4_result_and_budget_diagnostic.json": "9026c4d3b74fbb5d7f44f3d6ffcc21e3958e0d9ee094c8bae757ac9b01477732",
+    "experiments/validations/p6_v3_q1_position5_infrastructure_diagnostic.json": "17f0e573b13b32ea3dda89fe2a87c126cca5fe728a8c7b04f17c5a21938351ef"
+  },
+  "scientific_use": "Development diagnostics and budget calibration only; no paired effectiveness estimate.",
+  "case_policy": "All five selected cases remain development-consumed and are excluded from future outcome-blind pools.",
+  "retry_policy": "No remaining schedule position or retry may be executed under this qualification identifier."
+}

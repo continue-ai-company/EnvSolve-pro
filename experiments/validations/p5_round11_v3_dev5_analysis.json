@@ -1,0 +1,92 @@
+{
+  "analysis_id": "p5-v3-fixture-network-replay-dev5-round11-analysis-v1",
+  "preregistration": {
+    "path": "experiments/validations/p5_round11_v3_dev5_preregistration.json",
+    "sha256": "6e0b6312377084f321d851f53e98206280690f81bbd28c021c85296bf22bd46e"
+  },
+  "result": {
+    "path": "experiments/validations/p5_round11_v3_dev5_results.json",
+    "sha256": "86a3dc27d153d465d36e8d9ce06c542cd0cc0d7128f45fd8bf680a2a420b3726"
+  },
+  "aggregate": {
+    "cases": 5,
+    "bootstrap_pass": 5,
+    "v3_pass": 5,
+    "v3_fail": 0,
+    "v3_unknown": 0,
+    "executed_probes": 24,
+    "failed_probes": 0,
+    "collection_errors": 0,
+    "duration_seconds": 206.26067487399993
+  },
+  "cases": [
+    {
+      "repository": "convexengineering/gpkit",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "distribution": "gpkit 1.1.1",
+      "provenance": "legacy-egg-link",
+      "probes": 1,
+      "classification": "Round 10 pass retained"
+    },
+    {
+      "repository": "jaraco/inflect",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "distribution": "inflect 0.0.0",
+      "provenance": "pep610-direct-url",
+      "probes": 1,
+      "classification": "declared-fixture recovery",
+      "evidence": "The generic collision-checked runner created the preregistered build_output directory before the unchanged frozen bootstrap. The bootstrap crossed its prior pre-install mv failure, installed successfully, and passed its isolated metadata-derived import probe after network disconnection."
+    },
+    {
+      "repository": "markqvist/reticulum",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "distribution": "rns 0.7.6",
+      "provenance": "legacy-egg-link",
+      "probes": 19,
+      "classification": "Round 10 pass retained"
+    },
+    {
+      "repository": "pytest-dev/pytest-xdist",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "distribution": "pytest-xdist 0.1.dev1+gc7b4f6114",
+      "provenance": "pep610-direct-url",
+      "probes": 1,
+      "classification": "Round 10 pass retained"
+    },
+    {
+      "repository": "python-poetry/poetry",
+      "bootstrap": "pass",
+      "v3": "pass",
+      "distribution": "poetry 1.9.0.dev0",
+      "provenance": "pep610-direct-url",
+      "probes": 2,
+      "classification": "infrastructure retry recovery",
+      "evidence": "After user confirmation of a WiFi change, the unchanged frozen bootstrap completed in one allowed attempt. Both metadata-derived probes passed after every Docker network was disconnected. This is consistent with, but does not by itself prove, the Round 10 timeout classification."
+    }
+  ],
+  "causal_checks": {
+    "round10_pass_non_regression": "Gpkit, Reticulum, and pytest-xdist retained V3 Pass under identical revised verifier policies.",
+    "inflect_fixture": "Observed the preregistered transition from a pre-install missing-directory failure to bootstrap and V3 Pass without repository-name branching or source changes.",
+    "poetry_network": "Observed recovery after the preregistered user-confirmed network transition; no verifier or bootstrap policy changed.",
+    "fail_closed_collection": "All five cases completed collection with zero errors; no partial-collection aggregation path was needed.",
+    "network_isolation": "All 24 probes executed only after Docker reported an empty connected-network set and the in-container default-route check was false."
+  },
+  "conclusions": [
+    "The revised benchmark-independent V3 contract has clean Dev-5 evidence across both legacy editable and PEP 610 project provenance.",
+    "Round 11 closes the revised V3 replay requirement but does not establish V1, V4, V6, Official Pass, held-out generalization, or leaderboard improvement.",
+    "The build_output value is an external experiment-fixture declaration; the runner mechanism is generic, collision checked, temporary, and contains no case-name dispatch."
+  ],
+  "integrity": {
+    "model_requests": 0,
+    "official_verifier_executions": 0,
+    "official_score_modified": false,
+    "retained_worktree_mutations": 0,
+    "probe_network_requests": 0,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

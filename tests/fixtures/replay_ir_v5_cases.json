@@ -1,0 +1,161 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "typed-replay-ir-v5",
+  "cases": [
+    {
+      "name": "plain_package_install",
+      "command": "python -m pip install -e .",
+      "expected": {
+        "status": "action",
+        "commands": ["python -m pip install -e ."],
+        "kinds": ["python_package_install"]
+      }
+    },
+    {
+      "name": "conditional_action_and_observations",
+      "command": "export PATH=/opt/runtime/bin:$PATH && python --version && pip --version",
+      "expected": {
+        "status": "action",
+        "commands": ["export PATH=/opt/runtime/bin:$PATH"],
+        "kinds": ["environment_export"]
+      }
+    },
+    {
+      "name": "pyenv_init_is_canonicalized_without_eval",
+      "command": "eval \"$(pyenv init -)\"",
+      "expected": {
+        "status": "action",
+        "commands": ["export PATH=\"$(pyenv root)/shims:$PATH\""],
+        "kinds": ["runtime_configure"]
+      }
+    },
+    {
+      "name": "pyenv_init_path_is_canonicalized_without_eval",
+      "command": "eval '$(pyenv init --path)'",
+      "expected": {
+        "status": "action",
+        "commands": ["export PATH=\"$(pyenv root)/shims:$PATH\""],
+        "kinds": ["runtime_configure"]
+      }
+    },
+    {
+      "name": "unknown_pyenv_init_mode_rejected",
+      "command": "eval \"$(pyenv init --unsafe)\"",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "arbitrary_eval_substitution_rejected",
+      "command": "eval \"$(other-tool init -)\"",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "observation_fallback",
+      "command": "cat optional.toml 2>/dev/null || echo \"not present\"",
+      "expected": {"status": "drop"}
+    },
+    {
+      "name": "read_only_find_pipeline",
+      "command": "find config -type f -name \"*.yaml\" | xargs cat",
+      "expected": {"status": "drop"}
+    },
+    {
+      "name": "absolute_runtime_probe",
+      "command": "which python && echo \"---\" && /opt/runtime/bin/python --version",
+      "expected": {"status": "drop"}
+    },
+    {
+      "name": "nested_observation_shell",
+      "command": "bash -lc 'python --version && python -c \"import package; print(package.__name__)\"'",
+      "expected": {"status": "drop"}
+    },
+    {
+      "name": "quoted_newline_is_not_top_level_control_flow",
+      "command": "python -c \"import package\nprint(package.__name__)\"",
+      "expected": {"status": "drop"}
+    },
+    {
+      "name": "persistent_export_is_canonicalized",
+      "command": "echo 'export PATH=/opt/runtime/bin:$PATH' >> ~/.bashrc && tail -5 ~/.bashrc",
+      "expected": {
+        "status": "action",
+        "commands": ["export PATH=/opt/runtime/bin:$PATH"],
+        "kinds": ["environment_export"]
+      }
+    },
+    {
+      "name": "mutation_in_fallback_rejected",
+      "command": "python -m pip install package || true",
+      "expected": {"status": "reject", "reason_contains": "fallback"}
+    },
+    {
+      "name": "mixed_fallback_rejected",
+      "command": "cat requirements.txt || python -m pip install package",
+      "expected": {"status": "reject", "reason_contains": "fallback"}
+    },
+    {
+      "name": "find_delete_rejected",
+      "command": "find . -name \"*.tmp\" -delete",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "find_exec_rejected",
+      "command": "find . -type f -exec chmod +x {} \\;",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "observation_output_write_rejected",
+      "command": "cat template.py > generated.py",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "xargs_mutation_rejected",
+      "command": "find . -name \"*.tmp\" | xargs rm -f",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "python_side_effect_rejected",
+      "command": "python -c \"from pathlib import Path; Path('x').write_text('x')\"",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "command_substitution_rejected",
+      "command": "echo $(touch marker)",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "nested_mutation_rejected",
+      "command": "bash -lc 'python -m pip install package'",
+      "expected": {"status": "reject", "reason_contains": "nested shell"}
+    },
+    {
+      "name": "dangerous_persistent_export_rejected",
+      "command": "echo 'export PYTHONPATH=.' >> ~/.bashrc",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "export_command_substitution_rejected",
+      "command": "export TOOL_HOME=$(touch marker)",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "package_argument_substitution_rejected",
+      "command": "python -m pip install $(cat requirements.txt)",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "mutation_output_redirection_rejected",
+      "command": "python -m pip install package > install.log",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "semicolon_observations_dropped",
+      "command": "python --version; pip --version",
+      "expected": {"status": "drop"}
+    },
+    {
+      "name": "semicolon_mutation_rejected",
+      "command": "python -m pip install package; pip list",
+      "expected": {"status": "reject", "reason_contains": "semicolon"}
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "freeze_id": "p6-constraint-operation-v3-shared-venv-ir",
+  "change_from_v2": "Represent bounded project virtual-environment creation in the shared Typed Replay IR used by both candidate validation and the operation guard.",
+  "files": {
+    "envsolve/operations/models.py": "45744bd9be24dee32e1e87bfa76915045ca6d7af548033123f732036be73b83d",
+    "envsolve/operations/planner.py": "938e70148f0926dd9c42bfa3929b033c26081f3263d6761a749743bedb336452",
+    "envsolve/runtime/policy.py": "94f331f8bc88b8643075fc2ae2205f117c4fd99ea9fa6002b4ca379e6c3d2f20",
+    "envsolve/solver/counterexample.py": "0189dc2f8ce56d5dd325be226c6d419087d8a5add48416d341d5cb6dab9778ec",
+    "envsolve/tests/test_operations.py": "6f9f96d1579a6fe83bcd006fd9587f080f6716d8dca62663542d22ef1b67c386",
+    "envsolve/tools/run_envsolve_episode.py": "4f4d0f2ca754dc8833bd8f59a1f2817810c54a020dc3b64c91f86a3f4ab6b790",
+    "envsolve_harness/runners/envsolve_p6.py": "da71bc2982013eae405a58bd05892e0c2ce59868c07b6d8a7f945e2651520e42",
+    "envsolve_harness/scripts/candidate_validation.py": "e80da219edae8a07162b323e7a2d8b1efac86d1e0c6557915c95babd86db1570",
+    "envsolve_harness/scripts/constraint_operations.py": "a419f8a7130fe03b04deaeaef9dd09b67736ef3b2a9d0bf2f4f6e1192f547738",
+    "envsolve_harness/scripts/replay_actions.py": "36cb572aa2c185862c28a61bad93321a00c81cc679704cc9294fb54caf101ebd",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/run_p6_operation_qualification_v2.py": "39df6dbdead46072bf98e8c5c9f55b64594e719d648592434eec67f1f808ea09",
+    "experiments/tools/build_p6_operation_schedule_v2.py": "76e72367080b26fbc5ecd007cc4d20bf3d6cd7ad36b828dab84a40260a5d3c6b",
+    "experiments/tools/select_p6_operation_qualification_v2.py": "e7407e7ef1f676b48323bd65a5b855b610d21d59b8282804978ffe58614dc40b",
+    "experiments/validations/p6_operation_q1_closure.json": "52ff1d8158a017fec6ee6f80e50438b9752a9f4b2bf121f64d09940ba15dfe7a",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2.md": "62015e5351bf3b1c07c20840313befc0ae8afc37e37e49496f2dd8519dcb7d1d",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V2_ZH.md": "aecda795fd267d60718a77e77aec7ced585e7c1322102fc0a69c115c35dfcd8a",
+    "tests/test_candidate_validation.py": "7e06fc0c6c9f635035715c2446e5c26aa855ad218201407ef026906dd9f6ef19",
+    "tests/test_constraint_operation_loop.py": "ea2eb1d9ccb3844b5676040331751980d193397874d74562d68156b739455ecd",
+    "tests/test_envsolve_runtime.py": "42891343d23825a2fe3565133ce59bf1321475fe087cba5f0f8331c6e109c2c5",
+    "tests/test_replay_ir.py": "b343839858ad8abd4f93e6aa65d6b386a3ce9260d988a94c7e538acd5dbf942c"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "new_repository_specific_rule": false,
+    "official_test100_inspected": false,
+    "q1_closed": true,
+    "q2_model_requests": 0,
+    "q2_official_evaluator_executions": 0,
+    "q2_repository_inspections": 0,
+    "q2_selection_executed": false
+  },
+  "semantic_boundary": {
+    "operation_treatment_changed": false,
+    "virtual_environment_create_can_satisfy_operation_requirement": false,
+    "virtual_environment_create_is_replayable": true
+  },
+  "verification": {
+    "compile": "passed",
+    "docker_integration": "1 passed",
+    "full_regression": "314 passed, 1 skipped",
+    "focused_tests": "22 passed"
+  }
+}

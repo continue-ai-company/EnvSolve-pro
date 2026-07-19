@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "p6-civet-v2-qualification-r5-v1",
+  "registered_at": "2026-07-16T05:33:26+00:00",
+  "purpose": "Third development-informed same-case qualification after R4 exposed network-feedback leakage and project-local import false positives. This run tests V2 constraint precision, fresh-environment loop timing, and infrastructure fail-closed behavior; it is not algorithm-effect evidence.",
+  "case": {
+    "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+    "split_role": "development-only-consumed",
+    "prior_attempts": [
+      "envsolve-p6-devext3-civet-r1",
+      "envsolve-p6-devext3-civet-r2",
+      "envsolve-p6-devext3-civet-r3",
+      "envsolve-p6-devext3-civet-r4"
+    ]
+  },
+  "implementation": {
+    "harness_freeze": "experiments/protocols/harness_freeze_v9.json",
+    "harness_freeze_sha256": "46290113876e5379ce89c57fd3e83d6fef338a6b30c64b8048da670a7f8cd68b",
+    "internal_verifier": "python-deployment-v2",
+    "online_feedback": "internal-execution-only",
+    "network_failure_policy": "infrastructure-unknown-and-stop",
+    "official_evaluator_access": "one atomic post-episode claim"
+  },
+  "condition": {
+    "runner": "envsolve",
+    "method": "envsolve-full",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 7,
+    "max_candidates": 5,
+    "automatic_retries": 0
+  },
+  "qualification_checks": [
+    "The independent run audit is valid and persisted model usage is nonzero.",
+    "Attributable network failure terminates as Unknown before another model proposal.",
+    "Exact repository-local modules do not become external module constraints.",
+    "Any second candidate is proposed only after prior internal V2 evidence and normalized constraints are persisted.",
+    "Post-episode official evidence is absent from every model request and online state transition."
+  ],
+  "reporting": {
+    "algorithm_claim_allowed": false,
+    "held_out_claim_allowed": false,
+    "retain_all_failures": true,
+    "network_retry": "Only one separately recorded retry after explicit user confirmation of a local network failure."
+  }
+}

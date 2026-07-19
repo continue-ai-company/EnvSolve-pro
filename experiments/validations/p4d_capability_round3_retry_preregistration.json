@@ -1,0 +1,16 @@
+{
+  "created_at": "2026-07-14T06:55:44Z",
+  "development_only": true,
+  "parent": {
+    "path": "experiments/validations/p4d_capability_round3_qualification.json",
+    "sha256": "f2db315ca35d0e432f050b03097d947f94dea0ccad3065467c2e9016ca3e95f9"
+  },
+  "policy": {
+    "eligible_status": "infrastructure-timeout-before-semantic-probe",
+    "fresh_container": true,
+    "max_retries": 1,
+    "timeout_seconds": 600
+  },
+  "preregistration_id": "p4d-capability-round3-retry1-v1",
+  "schema_version": "1.0.0"
+}

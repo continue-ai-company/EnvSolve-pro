@@ -1,0 +1,215 @@
+{
+  "artifact": {
+    "audit_valid": true,
+    "case_id": "recorded-result:automl/neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+    "event_count": 25,
+    "event_log_sha256": "4f902e1dfd6419d7e66bc44e702196f80b6a7db107bbe886e0df71987c834528",
+    "plan_sha256": "8773ccbadd9b9c62a9d5e6c934e3dd7c529951721329affbbfb069533929b3e0",
+    "root": "runs/p4c-neps-runtime-v1",
+    "snapshot_hash": "c3aa2fe483a071d566e2dd473c7f6ff88357588611f82f21d446ca3365e73064",
+    "snapshot_sha256": "d50cfc332cad45e676f38ad9facc2150e83260c9a46d716d5e534d75d9f1341c"
+  },
+  "commands": [
+    "pyenv local 3.11.7 && hash -r",
+    "python --version"
+  ],
+  "completed_at": "2026-07-14T05:30:42.653053+00:00",
+  "context": {
+    "available_python_versions": [
+      "3.8.18",
+      "3.9.18",
+      "3.10.13",
+      "3.11.7",
+      "3.12.0",
+      "3.13.1"
+    ],
+    "capability_packages": {},
+    "evidence_ids": [
+      "evidence-transferred-evidence-context-runtime-pyenv-versions",
+      "evidence-transferred-evidence-context-system-manager-apt-get",
+      "evidence-transferred-evidence-context-tool-pyenv"
+    ],
+    "module_distributions": {},
+    "runtime_manager": "pyenv",
+    "system_package_manager": "apt-get"
+  },
+  "development_only": true,
+  "execution": {
+    "actions_executed": 2,
+    "actions_failed": 0,
+    "actions_succeeded": 2,
+    "goal_status": "blocked",
+    "snapshot_hash": "c3aa2fe483a071d566e2dd473c7f6ff88357588611f82f21d446ca3365e73064",
+    "stop_reason": "Repair verification did not observe the proposed fact"
+  },
+  "image": {
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_cases": 0,
+    "new_benchmark_executions": 0,
+    "official_test100_inspected": false
+  },
+  "isolation": {
+    "mounts": [],
+    "network": "none",
+    "official_evaluation": false,
+    "repository_mounted": false
+  },
+  "lineage": {
+    "source_case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "source_event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+    "source_snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+    "source_summary_sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e",
+    "target_audit_sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2",
+    "target_manifest_sha256": "fb398d20ca53377b64fd074822e7860e309c8c26b9d7af4eaa9631935f4a1594",
+    "target_raw_result_path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-automl__neps__6a6c0c273f59036b8605086c43a6a714ea02bd23/evaluation/json/results/automl__neps.json",
+    "target_raw_result_sha256": "37a9a47252d1d564b7750f0d84115d49a5658c69e78bcbcb9fb623ea07bdff54"
+  },
+  "plan": {
+    "kind": "runtime_selection",
+    "mutation_action_id": "repair-runtime_selection-1c83713e442e6b28-apply",
+    "mutation_action_type": "runtime_configure",
+    "mutation_command": "pyenv local 3.11.7 && hash -r",
+    "prerequisite_constraint_ids": [],
+    "probe": {
+      "command": "python --version",
+      "expected_fact": {
+        "confidence": 1.0,
+        "domain": "runtime",
+        "predicate": "version",
+        "subject": "python",
+        "value": "3.11.7"
+      },
+      "kind": "runtime_version"
+    },
+    "proposed_fact": {
+      "confidence": 1.0,
+      "domain": "runtime",
+      "predicate": "version",
+      "subject": "python",
+      "value": "3.11.7"
+    },
+    "rationale": "Select observed compatible Python 3.11.7",
+    "repair_id": "repair-runtime_selection-1c83713e442e6b28",
+    "risk": "moderate",
+    "rollback_command": null,
+    "schema_version": "1.0.0",
+    "source_conflict_ids": [
+      "conflict-931c163519d1d84f"
+    ],
+    "source_constraint_ids": [
+      "constraint-runtime-06d6189fa3d42d1f",
+      "constraint-runtime-0e500c0b8ce1c1f2"
+    ],
+    "supersede_constraint_ids": [
+      "constraint-runtime-0e500c0b8ce1c1f2"
+    ],
+    "supporting_evidence_ids": [
+      "evidence-transferred-evidence-context-runtime-pyenv-versions",
+      "evidence-transferred-evidence-context-system-manager-apt-get",
+      "evidence-transferred-evidence-context-tool-pyenv"
+    ],
+    "verification_action_id": "repair-runtime_selection-1c83713e442e6b28-verify"
+  },
+  "post_state": {
+    "conflicts": [
+      {
+        "conflict_id": "conflict-931c163519d1d84f",
+        "constraint_ids": [
+          "constraint-runtime-06d6189fa3d42d1f",
+          "constraint-runtime-0e500c0b8ce1c1f2"
+        ],
+        "domain": "runtime",
+        "evidence_ids": [
+          "evidence-0001",
+          "evidence-repair-runtime_selection-1c83713e442e6b28-verification"
+        ],
+        "message": "Observed python version 3.13.2 does not satisfy <3.12,>=3.8",
+        "subject": "python"
+      }
+    ],
+    "managed_constraints": 2,
+    "provisional_constraints": [],
+    "satisfiable": false,
+    "statuses": {
+      "constraint-runtime-06d6189fa3d42d1f": "violated",
+      "constraint-runtime-0e500c0b8ce1c1f2": "violated"
+    }
+  },
+  "preflight": {
+    "allowed": true,
+    "current_report": {
+      "conflicts": [
+        {
+          "conflict_id": "conflict-931c163519d1d84f",
+          "constraint_ids": [
+            "constraint-runtime-06d6189fa3d42d1f",
+            "constraint-runtime-0e500c0b8ce1c1f2"
+          ],
+          "domain": "runtime",
+          "evidence_ids": [
+            "evidence-0001"
+          ],
+          "message": "Observed python version 3.13.2 does not satisfy <3.12,>=3.8",
+          "subject": "python"
+        }
+      ],
+      "managed_constraints": 2,
+      "provisional_constraints": [],
+      "satisfiable": false,
+      "statuses": {
+        "constraint-runtime-06d6189fa3d42d1f": "violated",
+        "constraint-runtime-0e500c0b8ce1c1f2": "violated"
+      }
+    },
+    "projected_report": {
+      "conflicts": [],
+      "managed_constraints": 2,
+      "provisional_constraints": [],
+      "satisfiable": true,
+      "statuses": {
+        "constraint-runtime-06d6189fa3d42d1f": "satisfied",
+        "constraint-runtime-5c1dbf41085db040": "satisfied"
+      }
+    },
+    "reasons": []
+  },
+  "repository": "automl/neps",
+  "revision": "6a6c0c273f59036b8605086c43a6a714ea02bd23",
+  "schema_version": "1.0.0",
+  "superseded_constraint_ids": [],
+  "transfer": {
+    "appended_evidence": 3,
+    "image": {
+      "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+      "repo_digests": [
+        "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+      ]
+    },
+    "lineage": {
+      "source_case_id": "case-free-context:sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "source_event_log_sha256": "ee1df39841f56083865fd397c1d7ba6bbf80e435645308d7a84a1f006cafc80a",
+      "source_snapshot_hash": "46a51185554b1037660ab3e6244a35bbc3722d98710c149d26f4bec013bcbd05",
+      "source_summary_sha256": "2695dbb9d32632822e20aadb9013668b2309ce87328ea94b3d557f3fe7b5377e",
+      "target_audit_sha256": "31026c62f0517b887b8798e167a5c2ade719152f0f72cac9206d3c8467add1d2",
+      "target_manifest_sha256": "fb398d20ca53377b64fd074822e7860e309c8c26b9d7af4eaa9631935f4a1594",
+      "target_raw_result_path": "runs/p0-post-freeze-dev3-deterministic-v2/envbench-python-automl__neps__6a6c0c273f59036b8605086c43a6a714ea02bd23/evaluation/json/results/automl__neps.json",
+      "target_raw_result_sha256": "37a9a47252d1d564b7750f0d84115d49a5658c69e78bcbcb9fb623ea07bdff54"
+    },
+    "profile_appended": true,
+    "transferred_evidence_ids": [
+      "evidence-transferred-evidence-context-runtime-pyenv-versions",
+      "evidence-transferred-evidence-context-system-manager-apt-get",
+      "evidence-transferred-evidence-context-tool-pyenv"
+    ]
+  },
+  "validation_id": "p4c-neps-runtime-transfer-v1"
+}

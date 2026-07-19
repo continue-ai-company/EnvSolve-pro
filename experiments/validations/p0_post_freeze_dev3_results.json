@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "validation_id": "p0-post-freeze-dev3-v1",
+  "completed_at": "2026-07-14T02:53:33Z",
+  "run_id": "p0-post-freeze-dev3-deterministic-v1",
+  "attempts_per_case": 1,
+  "aggregate": {
+    "cases": 3,
+    "generation_completed": 3,
+    "evaluation_completed": 3,
+    "artifact_audits_valid": 3,
+    "bootstrap_pass": 0,
+    "pyright_completed": 0,
+    "official_pass": 0,
+    "model_requests": 0,
+    "failed_case_processes": 0,
+    "interrupted": 0,
+    "not_started": 0
+  },
+  "cases": [
+    {
+      "repository": "dfki-ric/phobos",
+      "exit_code": 2,
+      "execution_time_seconds": 50.22104096412659,
+      "failure_stage": "bootstrap",
+      "cause": "PyPI read timeout while downloading numpy.",
+      "pyright_completed": false,
+      "official_pass": false,
+      "audit_valid": true
+    },
+    {
+      "repository": "automl/neps",
+      "exit_code": 1,
+      "execution_time_seconds": 27.72534704208374,
+      "failure_stage": "bootstrap",
+      "cause": "ConfigSpace isolated build environment could not resolve setuptools from the package index.",
+      "pyright_completed": false,
+      "official_pass": false,
+      "audit_valid": true
+    },
+    {
+      "repository": "benadida/helios-server",
+      "exit_code": 2,
+      "execution_time_seconds": 30.86902618408203,
+      "failure_stage": "bootstrap",
+      "cause": "PyPI read timeout while downloading psycopg2.",
+      "infrastructure_note": "Exact Git fetch exited 128; Hugging Face fallback supplied the repository and evaluation continued.",
+      "pyright_completed": false,
+      "official_pass": false,
+      "audit_valid": true
+    }
+  ],
+  "harness_finding": {
+    "discovered": "The non-scoring batch summarizer labeled completed bootstrap failures as verification failures.",
+    "official_result_affected": false,
+    "raw_artifact_affected": false,
+    "resolution": "Use bootstrap diagnostic evidence, with exit-code fallback for legacy artifacts, and add a six-transition synthetic test.",
+    "new_freeze": "experiments/protocols/harness_freeze_v2.json",
+    "new_freeze_sha256": "fbd34054798a2c661582c69b646f9836b66d102b5e4020524d29b6f21b810df8",
+    "superseded_freeze_sha256": "9ab8fad5e61144f1bb6258db2abbd7f63b47b0016dc71fab624b0559ebdf945a"
+  },
+  "artifacts": {
+    "batch_summary_sha256": "99e48309921816c6dbc24091b1a2b24014ead866927020803f347c45cd2c1dd5",
+    "corrected_summary_sha256": "f7133b9e23ff3d97344acade805b6f25ac29e6e9c64fa2b4aad41fa7531751cb"
+  },
+  "interpretation": {
+    "p0_execution_and_audit_validated": true,
+    "online_dependency_fetch_nondeterminism_observed": true,
+    "issues_count_zero_interpretable_as_verification_success": false,
+    "rerun_performed": false,
+    "official_or_replay_rule_changed": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

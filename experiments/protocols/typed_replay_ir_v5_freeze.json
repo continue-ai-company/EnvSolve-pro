@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "typed-replay-ir-v5",
+  "frozen_at": "2026-07-15T06:02:55Z",
+  "supersedes": {
+    "policy_id": "typed-replay-ir-v4",
+    "path": "experiments/protocols/typed_replay_ir_v4_freeze.json",
+    "reason": "Round2 discovery exposed a repeated semantic mismatch between conventional pyenv shell initialization and the typed replay representation."
+  },
+  "files": {
+    "research/TYPED_REPLAY_IR_V5.md": "9e856d79e4ac2e4e37f2ac878d62fa929e34db4e5c7ee0c28c1ffdd25a53baf0",
+    "research/TYPED_REPLAY_IR_V5_ZH.md": "5ab39cadd9df876e6f59575ddafda78cf21dc21b4b7f171d29692e33c760472b",
+    "tests/fixtures/replay_ir_v5_cases.json": "21b83bb359ec74e4ee25aa960aaf7fa54cab638233cfe98e812c81a6ec737a82",
+    "envsolve_harness/scripts/replay_actions.py": "c02e5a8e8ce1723a7d3f713db5f58ee78eee6c2c1a9b3a67cdc119b5b8a5f1f2",
+    "tests/test_replay_ir.py": "b416978078b9ec0116109b946211b63e9b75a8c62c77a9d5d11e34ca01754b24",
+    "envsolve_harness/runners/recorded_envbench.py": "510c2b52a7678e14c5eaf75c2f61f5020ef0fa7cc2ea6613b487fa0078fcb76d",
+    "tests/test_recorded_runner.py": "76034f43b513f3b8a17d0711c7c4c99b77a520090f908191e9310b87d94c65bb",
+    "tests/test_harness_core.py": "8162af4934949d4de2a14c9db8233b49e16ad9e614d742bda5097e237c0d176a"
+  },
+  "validation": {
+    "synthetic_cases": 27,
+    "focused_unit_tests": 4,
+    "full_unit_tests": 228,
+    "compile_check": true,
+    "safety_negative_controls": 10,
+    "recorded_envsolve_v0_redistillation_integration": true,
+    "round2_read_only_counterfactual": {
+      "audited_verified_sources": 4,
+      "fully_redistilled": 2,
+      "still_rejected": 2
+    }
+  },
+  "development_disclosure": {
+    "development_informed": true,
+    "trigger_batch": "envsolve-v0-discovery5-round2",
+    "trigger_evidence": "Four of five audited EnvSolve v0 failures shared exact pyenv initialization rejection after the fixed verifier passed.",
+    "case_specific_rules": false,
+    "source_results_mutated": false,
+    "confirmatory_claim": false,
+    "untouched_confirmatory_splits": [
+      "canary-20",
+      "official-test-100"
+    ]
+  },
+  "change_policy": "Any further accepted-language or safety change requires a new policy identifier, new hashes, and a new freeze record before benchmark replay."
+}

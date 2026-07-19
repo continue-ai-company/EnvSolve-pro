@@ -1,0 +1,41 @@
+{
+  "checkpoint_id": "p5-v3-dev5-checkpoint-v1",
+  "files": {
+    "envsolve/tests/test_hierarchical_verifier.py": "7771aca56061535df76e6287ff78ea2fa745c0139104a2903b714d3e3b7f6a62",
+    "envsolve/tests/test_import_verifier.py": "f053b9426c3ec9c25d2d41ca884114f03e2db95c0e00e1de07c90fab040b6bfb",
+    "envsolve/tests/test_installed_metadata.py": "01f642f70fe291032380ac1d28a1a03493f346972b5ef57e69da6171bd56aab1",
+    "envsolve/tests/test_smoke_verifier.py": "db79957091d225b5f917aae8df82404ddf0c5fa93de164595fd56cd2cf0e3636",
+    "envsolve/tests/test_v3_container_tool.py": "adb10a77eac174326ac5e320a6425a517ca9173edf0d376fbbf5b16486bcd79b",
+    "envsolve/tools/run_p5_v3_dev5.py": "f78da3417a57a3199c0d0c916b203030781c3d61a52d48d8fe4650b447d847e0",
+    "envsolve/tools/run_p5_v3_in_container.py": "5bd928f5a63c46524e05d63da8af8f4948e18578eb869973b989ce6cac373bb1",
+    "envsolve/verification/hierarchy.py": "07c3435e92ca036953a55c07176dc3ea6499cb1404eb1b026f45cd6b18851211",
+    "envsolve/verification/imports.py": "f6fd3888b4b7209a1badbb25e331c2c0b822bf1084ee2eb937e9ab61494dfe03",
+    "envsolve/verification/installed_metadata.py": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84",
+    "envsolve/verification/smoke.py": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0",
+    "experiments/validations/p5_round9_git_checkout_dev5_analysis.json": "3881f080833015fbaae1a1cd1db59109ecb161394fc5e51dfd9158ee037c151e",
+    "experiments/validations/p5_round9_git_checkout_dev5_preregistration.json": "ad14ae6539a0285f6f8e63d2ba98f997f2650981fe4234367c4b0c06f9b70693",
+    "experiments/validations/p5_round9_git_checkout_dev5_results.json": "ca90bcfc7a32d82f33fa0589d2c1e2d1a856b01951afa49a865780dead65ca99"
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_results_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0
+  },
+  "result": {
+    "bootstrap_pass": 5,
+    "cases": 5,
+    "metadata_sources": {
+      "METADATA": 3,
+      "PKG-INFO": 2
+    },
+    "probe_failures": 0,
+    "provenance": {
+      "legacy-egg-link": 2,
+      "pep610-direct-url": 3
+    },
+    "semantic_probes": 24,
+    "v3_pass": 5
+  },
+  "scope": "development-only V3 checkpoint; not P5 freeze or Robust Pass"
+}

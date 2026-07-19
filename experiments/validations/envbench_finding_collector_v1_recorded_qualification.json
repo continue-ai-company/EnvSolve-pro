@@ -1,0 +1,44 @@
+{
+  "validation_id": "envsolve-envbench-finding-collector-v1-recorded-qualification",
+  "created_on": "2026-07-15",
+  "mode": "read-only-recorded-development-artifact",
+  "new_benchmark_executions": 0,
+  "model_requests": 0,
+  "repository": "nakagami/pyfirebirdsql",
+  "revision": "44f155d50e1668cf3e3f08ec15693eb72d4f1b60",
+  "raw_result": {
+    "path": "runs/envsolve-v0-r2-pyenv-v5-unsandboxed-eval-v1/envbench-python-nakagami__pyfirebirdsql__44f155d50e1668cf3e3f08ec15693eb72d4f1b60/evaluation/json/results.jsonl",
+    "sha256": "961dbbb3e25bbfed91c4fc2879731c3bf5b81c02496ca5687ec26a4daca892e5"
+  },
+  "source_root": "runs/envsolve-v0-discovery5-r2-v0/envbench-python-nakagami__pyfirebirdsql__44f155d50e1668cf3e3f08ec15693eb72d4f1b60/generation/repos/nakagami__pyfirebirdsql@44f155d50e1668cf3e3f08ec15693eb72d4f1b60",
+  "source_files": {
+    "firebirdsql/aio/fbcore.py": "aa4dbf2f34d57903ad37de9d711230a0175ca5200c412cee7cbdc53b0db4bc41",
+    "firebirdsql/fbcore.py": "84644ca09659e364b92c79da8d807c75cb94c78f29bb7c8e2b0d8e82676a9551",
+    "firebirdsql/tests/test_event.py": "f31f73e1e731ed273573c48e8e67be6c9056d52ae087a2f3d14f2b80cde2afcb",
+    "firebirdsql/tz_utils.py": "5b46f3139f07cb3daf0c4ef6a26b1a4e0adbdf0296e41458990e6a3e9761b2d0",
+    "firebirdsql/utils.py": "c0f03be0ce55a4fd2c3f620b47b73755664ad40c3ede00f99d475919a485a6e9",
+    "firebirdsql/wireprotocol.py": "1092e616d8d9605b2bb38edc04833d6e7ffa6a37ed369a284750f4290dfed2cc",
+    "misc/fbproxy.py": "1dee6a84ed86f6867d65de18b1d5ec8f5c4b2e3b7b57007b24bf95c31af0b60e"
+  },
+  "result": {
+    "official_goal_passed": false,
+    "issues_count": 11,
+    "missing_import_diagnostics": 11,
+    "goal_active_findings": 11,
+    "unknown_findings": 0,
+    "p5_semantic_dispositions": {
+      "active_obligation": 5,
+      "guarded_optional": 6
+    },
+    "non_missing_import_errors_not_admitted": 690,
+    "diagnostic_count_matches": true,
+    "identity_matches": true
+  },
+  "claim_boundary": {
+    "collector_recorded_qualification": true,
+    "algorithm_effect_claim": false,
+    "unseen_generalization_claim": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  }
+}

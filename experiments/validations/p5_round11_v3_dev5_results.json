@@ -1,0 +1,1011 @@
+{
+  "aggregate": {
+    "bootstrap_pass": 5,
+    "cases": 5,
+    "v3_fail": 0,
+    "v3_pass": 5,
+    "v3_unknown": 0
+  },
+  "cases": [
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "7aed060df497d9a006f6316f01726a6c3191144930b517fe2cca15c658a62e93",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-convexengineering__gpkit__bea1234606649dd11a2e59b610b2ba8b8c8adfae/scripts/bootstrap.sh",
+        "sha256": "1ce21823a3442e1086ebfd42225523cb294ec54c01cd005c2b7b7b4146f2ff4a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "78b3a18a4e12371e4b70723f1686bf5252688f2f8691427c4a4fc83ce8517bbd",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 83.074011875,
+      "repository": "convexengineering/gpkit",
+      "revision": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+      "source": {
+        "git_tree": "0c9719b329a110c2541e785af39163a6a248a3cc",
+        "head": "bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v3": {
+        "collection_errors": [],
+        "decision": {
+          "observed_probe_ids": [
+            "package:gpkit"
+          ],
+          "passed": true,
+          "reason": "all project distributions passed V3"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "observed_probe_ids": [
+                "package:gpkit"
+              ],
+              "passed": true,
+              "reason": "all metadata-derived probes passed"
+            },
+            "metadata_source": "PKG-INFO",
+            "outcomes": [
+              {
+                "duration_seconds": 2.5256876259999927,
+                "exit_code": 0,
+                "probe_id": "package:gpkit",
+                "stderr_sha256": "7c5cd0cdce097503010a9d8d63d7d2fafb6f73bffea743d92148465ad31b7d60",
+                "stdout_sha256": "5e2093bf29275a85a73e75bac469ddaedd724e9ee711b8d5e71d8989939fcd5d",
+                "timed_out": false
+              }
+            ],
+            "plan": {
+              "probes": [
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys; importlib.import_module(sys.argv[1])",
+                    "gpkit"
+                  ],
+                  "kind": "package_import",
+                  "metadata_sha256": "5858be822b8d620163f70c3b6fb09489a3aea87a421e74a4e6923b58bed98ad9",
+                  "probe_id": "package:gpkit"
+                }
+              ],
+              "rejections": []
+            },
+            "provenance": {
+              "kind": "legacy-egg-link",
+              "sha256": "d862bdc2daf23535709bf45bc732c81d1a02c60afd93fa99f1106547dd5a65cc"
+            },
+            "snapshot": {
+              "console_scripts": [],
+              "metadata_sha256": "5858be822b8d620163f70c3b6fb09489a3aea87a421e74a4e6923b58bed98ad9",
+              "name": "gpkit",
+              "top_level_modules": [
+                "gpkit"
+              ],
+              "version": "1.1.1"
+            }
+          }
+        ],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "044712532ad912f82354acd284b2455b9af46e3f7ce396a308cc91506b6a9bcd",
+        "path": "runs/p4e-inflect-project-extra-round2-retry1-v1/envbench-python-jaraco__inflect__1f42293f30caacb0637f7eb30a483b44489f4812/scripts/bootstrap.sh",
+        "sha256": "bbcfe8f510d0524e5ee408707ca3e5fb679288ff1f18e9a876a91fc481981c9d"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "b0dab4fec93d9fcc43c9dc1876ae849b7efbf3af8d94c0828065cc15db9ba31f",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 59.063154125,
+      "repository": "jaraco/inflect",
+      "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+      "source": {
+        "git_tree": "dd987d1220ddfd0e6b2c83408252667c61b4ce68",
+        "head": "1f42293f30caacb0637f7eb30a483b44489f4812",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v3": {
+        "collection_errors": [],
+        "decision": {
+          "observed_probe_ids": [
+            "package:inflect"
+          ],
+          "passed": true,
+          "reason": "all project distributions passed V3"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "observed_probe_ids": [
+                "package:inflect"
+              ],
+              "passed": true,
+              "reason": "all metadata-derived probes passed"
+            },
+            "metadata_source": "METADATA",
+            "outcomes": [
+              {
+                "duration_seconds": 0.9554344169999922,
+                "exit_code": 0,
+                "probe_id": "package:inflect",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              }
+            ],
+            "plan": {
+              "probes": [
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys; importlib.import_module(sys.argv[1])",
+                    "inflect"
+                  ],
+                  "kind": "package_import",
+                  "metadata_sha256": "e2f381e42b8c77a036766559d862ef300153dd288b8b9fff2ec4253ce172cd82",
+                  "probe_id": "package:inflect"
+                }
+              ],
+              "rejections": []
+            },
+            "provenance": {
+              "kind": "pep610-direct-url",
+              "sha256": "fb247f8b66a7a3c3f7e691b90faa9350d8bf35207ead004144a3b969e2252e7c"
+            },
+            "snapshot": {
+              "console_scripts": [],
+              "metadata_sha256": "e2f381e42b8c77a036766559d862ef300153dd288b8b9fff2ec4253ce172cd82",
+              "name": "inflect",
+              "top_level_modules": [
+                "inflect"
+              ],
+              "version": "0.0.0"
+            }
+          }
+        ],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "ade85cc38b93835a8495623b77a49b8c26ad3d6e9ef8077539325817a73f4ac9",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-markqvist__reticulum__6ded42edd7ae203e5a565cb70138c2d7b4b58b5b/scripts/bootstrap.sh",
+        "sha256": "0820399ff01196f2bc99d0a278115f53fe4e4d19a68c95e11644f2bc2f11968a"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "5ce09a1ef3523d4806e1fb749f5b7071b5ca67262c6c7e5dcd38cb0383fa28bf",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 4.70059166599998,
+      "repository": "markqvist/reticulum",
+      "revision": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+      "source": {
+        "git_tree": "32721361515c01c893c7e64d7a7fe5d32eb1eeed",
+        "head": "6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v3": {
+        "collection_errors": [],
+        "decision": {
+          "observed_probe_ids": [
+            "entry:rncp:cli",
+            "entry:rncp:import",
+            "entry:rnid:cli",
+            "entry:rnid:import",
+            "entry:rnir:cli",
+            "entry:rnir:import",
+            "entry:rnodeconf:cli",
+            "entry:rnodeconf:import",
+            "entry:rnpath:cli",
+            "entry:rnpath:import",
+            "entry:rnprobe:cli",
+            "entry:rnprobe:import",
+            "entry:rnsd:cli",
+            "entry:rnsd:import",
+            "entry:rnstatus:cli",
+            "entry:rnstatus:import",
+            "entry:rnx:cli",
+            "entry:rnx:import",
+            "package:RNS"
+          ],
+          "passed": true,
+          "reason": "all project distributions passed V3"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "observed_probe_ids": [
+                "entry:rncp:cli",
+                "entry:rncp:import",
+                "entry:rnid:cli",
+                "entry:rnid:import",
+                "entry:rnir:cli",
+                "entry:rnir:import",
+                "entry:rnodeconf:cli",
+                "entry:rnodeconf:import",
+                "entry:rnpath:cli",
+                "entry:rnpath:import",
+                "entry:rnprobe:cli",
+                "entry:rnprobe:import",
+                "entry:rnsd:cli",
+                "entry:rnsd:import",
+                "entry:rnstatus:cli",
+                "entry:rnstatus:import",
+                "entry:rnx:cli",
+                "entry:rnx:import",
+                "package:RNS"
+              ],
+              "passed": true,
+              "reason": "all metadata-derived probes passed"
+            },
+            "metadata_source": "PKG-INFO",
+            "outcomes": [
+              {
+                "duration_seconds": 0.21184220899999673,
+                "exit_code": 0,
+                "probe_id": "package:RNS",
+                "stderr_sha256": "d8f20cdc58fd62da01f9c4fbddb6315890553cb5ed8eea08edd57a8c67a001d8",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.09152795800000035,
+                "exit_code": 0,
+                "probe_id": "entry:rncp:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.013034083000007968,
+                "exit_code": 0,
+                "probe_id": "entry:rncp:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.08514995900000599,
+                "exit_code": 0,
+                "probe_id": "entry:rnid:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.012584750000002032,
+                "exit_code": 0,
+                "probe_id": "entry:rnid:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.07989529100001391,
+                "exit_code": 0,
+                "probe_id": "entry:rnir:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.013914665999976705,
+                "exit_code": 0,
+                "probe_id": "entry:rnir:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.112861874999993,
+                "exit_code": 0,
+                "probe_id": "entry:rnodeconf:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.012971958000008499,
+                "exit_code": 0,
+                "probe_id": "entry:rnodeconf:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.08267037499999219,
+                "exit_code": 0,
+                "probe_id": "entry:rnpath:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.013221459000021696,
+                "exit_code": 0,
+                "probe_id": "entry:rnpath:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.08995275099999844,
+                "exit_code": 0,
+                "probe_id": "entry:rnprobe:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.012141500000012684,
+                "exit_code": 0,
+                "probe_id": "entry:rnprobe:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.08490812499999834,
+                "exit_code": 0,
+                "probe_id": "entry:rnsd:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.012261292000005142,
+                "exit_code": 0,
+                "probe_id": "entry:rnsd:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.08680754200000251,
+                "exit_code": 0,
+                "probe_id": "entry:rnstatus:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.013344499999988102,
+                "exit_code": 0,
+                "probe_id": "entry:rnstatus:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.08934883300000251,
+                "exit_code": 0,
+                "probe_id": "entry:rnx:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.012767208000013852,
+                "exit_code": 0,
+                "probe_id": "entry:rnx:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              }
+            ],
+            "plan": {
+              "probes": [
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys; importlib.import_module(sys.argv[1])",
+                    "RNS"
+                  ],
+                  "kind": "package_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "package:RNS"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rncp",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rncp:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rncp"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rncp:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnid",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnid:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnid"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnid:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnir",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnir:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnir"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnir:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnodeconf",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnodeconf:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnodeconf"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnodeconf:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnpath",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnpath:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnpath"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnpath:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnprobe",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnprobe:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnprobe"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnprobe:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnsd",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnsd:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnsd"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnsd:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnstatus",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnstatus:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnstatus"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnstatus:cli"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "RNS.Utilities.rnx",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnx:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "rnx"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+                  "probe_id": "entry:rnx:cli"
+                }
+              ],
+              "rejections": []
+            },
+            "provenance": {
+              "kind": "legacy-egg-link",
+              "sha256": "d862bdc2daf23535709bf45bc732c81d1a02c60afd93fa99f1106547dd5a65cc"
+            },
+            "snapshot": {
+              "console_scripts": [
+                {
+                  "name": "rncp",
+                  "target": "RNS.Utilities.rncp:main"
+                },
+                {
+                  "name": "rnid",
+                  "target": "RNS.Utilities.rnid:main"
+                },
+                {
+                  "name": "rnir",
+                  "target": "RNS.Utilities.rnir:main"
+                },
+                {
+                  "name": "rnodeconf",
+                  "target": "RNS.Utilities.rnodeconf:main"
+                },
+                {
+                  "name": "rnpath",
+                  "target": "RNS.Utilities.rnpath:main"
+                },
+                {
+                  "name": "rnprobe",
+                  "target": "RNS.Utilities.rnprobe:main"
+                },
+                {
+                  "name": "rnsd",
+                  "target": "RNS.Utilities.rnsd:main"
+                },
+                {
+                  "name": "rnstatus",
+                  "target": "RNS.Utilities.rnstatus:main"
+                },
+                {
+                  "name": "rnx",
+                  "target": "RNS.Utilities.rnx:main"
+                }
+              ],
+              "metadata_sha256": "c1c7c00a3fc58ad04beedfe8e9a4d7f224585a7e8464ae1f970bd370dfa9fe8a",
+              "name": "rns",
+              "top_level_modules": [
+                "RNS"
+              ],
+              "version": "0.7.6"
+            }
+          }
+        ],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "0883f2e2b5d3cadf5e729cc38813a2c2d22b9e9dab9cb051ca16caaf4f01ef9c",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-pytest-dev__pytest-xdist__c7b4f6114479d4053f0ef8411ed5e0a410b207f4/scripts/bootstrap.sh",
+        "sha256": "e9b9bb6746fcbb1efec7b5000e842673d2c77eb7683cd026e3938074fb47bb6b"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "127942e01004ec1ad44630b6ec6facc2e20df89a75a754182f215e5cdc6b280d",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 10.42296104099998,
+      "repository": "pytest-dev/pytest-xdist",
+      "revision": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+      "source": {
+        "git_tree": "6b314cc88f2cae7818cb9a272cec3f47f31dab52",
+        "head": "c7b4f6114479d4053f0ef8411ed5e0a410b207f4",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v3": {
+        "collection_errors": [],
+        "decision": {
+          "observed_probe_ids": [
+            "package:xdist"
+          ],
+          "passed": true,
+          "reason": "all project distributions passed V3"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "observed_probe_ids": [
+                "package:xdist"
+              ],
+              "passed": true,
+              "reason": "all metadata-derived probes passed"
+            },
+            "metadata_source": "METADATA",
+            "outcomes": [
+              {
+                "duration_seconds": 0.10577741699998455,
+                "exit_code": 0,
+                "probe_id": "package:xdist",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              }
+            ],
+            "plan": {
+              "probes": [
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys; importlib.import_module(sys.argv[1])",
+                    "xdist"
+                  ],
+                  "kind": "package_import",
+                  "metadata_sha256": "d790d01a56725d27780bf5b5bd09b99c105f4953275ce946c00f3202d5e61c42",
+                  "probe_id": "package:xdist"
+                }
+              ],
+              "rejections": []
+            },
+            "provenance": {
+              "kind": "pep610-direct-url",
+              "sha256": "fb247f8b66a7a3c3f7e691b90faa9350d8bf35207ead004144a3b969e2252e7c"
+            },
+            "snapshot": {
+              "console_scripts": [],
+              "metadata_sha256": "d790d01a56725d27780bf5b5bd09b99c105f4953275ce946c00f3202d5e61c42",
+              "name": "pytest-xdist",
+              "top_level_modules": [
+                "xdist"
+              ],
+              "version": "0.1.dev1+gc7b4f6114"
+            }
+          }
+        ],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/opt/conda/bin/python",
+          "prefix": "/opt/conda"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bootstrap": {
+        "exit_code": 0,
+        "log_sha256": "e6ad7872157c2acc99e53ff38167db737d8f23eabd3ca759da6aac47467da1bf",
+        "path": "runs/dev5-envbench-agent-deepseek-v4-pro-v2/envbench-python-python-poetry__poetry__5bab98c9500f1050c6bb6adfb55580a23173f18d/scripts/bootstrap.sh",
+        "sha256": "78af31e951cdd37b3d9f919332f8877760d2fc7ed8098d11aa968865fdbd5c2f"
+      },
+      "container": {
+        "exit_code": 0,
+        "id": "8a7ab1cda67c708a3fa20cee6fe4c95415a88ecb86e83207ff6ba8c38f1ae661",
+        "networks_after_disconnect": [],
+        "networks_before_disconnect": [
+          "bridge"
+        ]
+      },
+      "duration_seconds": 48.99995616699999,
+      "repository": "python-poetry/poetry",
+      "revision": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+      "source": {
+        "git_tree": "1d85182d1912d091b7cd23c64a751aabfee0f64d",
+        "head": "5bab98c9500f1050c6bb6adfb55580a23173f18d",
+        "pre_bootstrap_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "source_materialization": "detached_git_checkout"
+      },
+      "v3": {
+        "collection_errors": [],
+        "decision": {
+          "observed_probe_ids": [
+            "entry:poetry:cli",
+            "entry:poetry:import"
+          ],
+          "passed": true,
+          "reason": "all project distributions passed V3"
+        },
+        "distributions": [
+          {
+            "decision": {
+              "observed_probe_ids": [
+                "entry:poetry:cli",
+                "entry:poetry:import"
+              ],
+              "passed": true,
+              "reason": "all metadata-derived probes passed"
+            },
+            "metadata_source": "METADATA",
+            "outcomes": [
+              {
+                "duration_seconds": 0.1088312500000086,
+                "exit_code": 0,
+                "probe_id": "entry:poetry:import",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              },
+              {
+                "duration_seconds": 0.015919582999998738,
+                "exit_code": 0,
+                "probe_id": "entry:poetry:cli",
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "timed_out": false
+              }
+            ],
+            "plan": {
+              "probes": [
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import importlib,sys\nvalue = importlib.import_module(sys.argv[1])\nfor part in sys.argv[2].split('.'):\n    value = getattr(value, part)\n",
+                    "poetry.console.application",
+                    "main"
+                  ],
+                  "kind": "entry_point_import",
+                  "metadata_sha256": "37cb7587d2d6e2ac029cc0cba9d701196f929d7cc488a6ead2b6d96c8e0446f6",
+                  "probe_id": "entry:poetry:import"
+                },
+                {
+                  "argv": [
+                    "python",
+                    "-I",
+                    "-c",
+                    "import shutil,sys; raise SystemExit(0 if shutil.which(sys.argv[1]) else 1)",
+                    "poetry"
+                  ],
+                  "kind": "cli_resolution",
+                  "metadata_sha256": "37cb7587d2d6e2ac029cc0cba9d701196f929d7cc488a6ead2b6d96c8e0446f6",
+                  "probe_id": "entry:poetry:cli"
+                }
+              ],
+              "rejections": []
+            },
+            "provenance": {
+              "kind": "pep610-direct-url",
+              "sha256": "fb247f8b66a7a3c3f7e691b90faa9350d8bf35207ead004144a3b969e2252e7c"
+            },
+            "snapshot": {
+              "console_scripts": [
+                {
+                  "name": "poetry",
+                  "target": "poetry.console.application:main"
+                }
+              ],
+              "metadata_sha256": "37cb7587d2d6e2ac029cc0cba9d701196f929d7cc488a6ead2b6d96c8e0446f6",
+              "name": "poetry",
+              "top_level_modules": [],
+              "version": "1.9.0.dev0"
+            }
+          }
+        ],
+        "network": {
+          "default_route_present": false,
+          "host_disconnect_marker": true
+        },
+        "project_root": "/data/project",
+        "python": {
+          "executable": "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13/bin/python",
+          "prefix": "/root/.cache/pypoetry/virtualenvs/poetry-kxQaJaVI-py3.13"
+        },
+        "schema": "envsolve-p5-v3-container-v1"
+      },
+      "v3_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "image": {
+    "architecture": "arm64",
+    "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "os": "linux",
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digests": [
+      "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    ]
+  },
+  "implementation": {
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "39c1b649f3f27bd2e8f50d18b602fc492139cd38ecdc0c1a8783253af72e664f"
+    },
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "8bd566b5297960a797dd1ae559fab577928a14fa66659c4c3460ee8097881048"
+    },
+    "metadata_snapshot_policy": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "9f7c34b214f593220944823171fa80c3aa0c7cfb52207e0c6c30d024ecf301e1"
+    }
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_score_modified": false,
+    "official_test100_inspected": false,
+    "official_verifier_executions": 0,
+    "probe_network_requests": 0,
+    "retained_worktree_mutations": 0
+  },
+  "preregistration": {
+    "path": "experiments/validations/p5_round11_v3_dev5_preregistration.json",
+    "sha256": "6e0b6312377084f321d851f53e98206280690f81bbd28c021c85296bf22bd46e"
+  },
+  "validation_id": "p5-v3-fixture-network-replay-dev5-round11-v1"
+}

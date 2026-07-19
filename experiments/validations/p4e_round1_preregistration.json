@@ -1,0 +1,40 @@
+{
+  "preregistration_id": "p4e-repository-replay-round1-v1",
+  "created_at": "2026-07-14T08:00:00Z",
+  "development_only": true,
+  "protocols": {
+    "english": "research/P4E_REPOSITORY_REPLAY_PROTOCOL.md",
+    "chinese": "research/P4E_REPOSITORY_REPLAY_PROTOCOL_ZH.md"
+  },
+  "target": {
+    "case_id": "envbench-python-jaraco__inflect@1f42293f30caacb0637f7eb30a483b44489f4812",
+    "repository": "jaraco/inflect",
+    "revision": "1f42293f30caacb0637f7eb30a483b44489f4812",
+    "selection_rule": "only Dev-5 case with nonzero bootstrap exit in the frozen agent run"
+  },
+  "intervention": {
+    "conflict_type": "workspace_artifact_conflict",
+    "install_command": "python -m pip install --no-build-isolation -e .",
+    "owned_path": "build_output",
+    "operator": "temporarily_relocate_then_restore",
+    "postcondition": "bootstrap exits zero and verifier-owned path is restored before static verification"
+  },
+  "limits": {
+    "benchmark_executions": 1,
+    "model_requests": 0,
+    "repair_actions": 1
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "application_source_edits": false,
+    "verifier_configuration_edits": false,
+    "import_stubs": false
+  },
+  "frozen_inputs": {
+    "dev5": "81ffcd29cfede3fd0a4993aa84e58b96702660189fbba5c570a6bdbf635da981",
+    "evaluator_script": "1e7113d1b37cd1495234fe44b062859cb1378733cd7e0877e739af521f56b3e1",
+    "official_protocol": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "harness_freeze_v2": "fbd34054798a2c661582c69b646f9836b66d102b5e4020524d29b6f21b810df8"
+  }
+}

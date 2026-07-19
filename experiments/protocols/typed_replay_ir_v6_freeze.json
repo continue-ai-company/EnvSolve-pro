@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "typed-replay-ir-v6",
+  "frozen_at": "2026-07-16T09:01:39Z",
+  "supersedes": {
+    "policy_id": "typed-replay-ir-v5",
+    "path": "experiments/protocols/typed_replay_ir_v5_freeze.json",
+    "reason": "The preregistered position-2 development diagnostic exposed an inconsistency: project-local virtual-environment activation was allowed while direct bounded .venv/bin/pip and .venv/bin/python mutations were rejected."
+  },
+  "files": {
+    "research/TYPED_REPLAY_IR_V6.md": "e125c886a9ceaa5a2c2cd3e50fe5e78b18eab3200a627817dfb72ea3da69dacc",
+    "research/TYPED_REPLAY_IR_V6_ZH.md": "c386a486c469c878363de313c4760414c29f907f560c8b489452e3e0d5bd3875",
+    "tests/fixtures/replay_ir_v6_cases.json": "c9bab9ada991d2f1a48ae699274c3eb56874c4dd578842ca924267b5285219a6",
+    "envsolve_harness/scripts/replay_actions.py": "d19229b5068bb876e16e2d3191f9a91e5d98b49a30314c000f7511df2568bd91",
+    "tests/test_replay_ir.py": "b343839858ad8abd4f93e6aa65d6b386a3ce9260d988a94c7e538acd5dbf942c",
+    "envsolve_harness/runners/recorded_envbench.py": "510c2b52a7678e14c5eaf75c2f61f5020ef0fa7cc2ea6613b487fa0078fcb76d",
+    "tests/test_recorded_runner.py": "fe0d01f2eb30a15180557cd0cb03f5c3b23d4130d68a28eb87b00b7213c84c75",
+    "tests/test_harness_core.py": "a4799e9816632cf602c347f80904dab71365e109168ed9ef623aece2c2c4cab2"
+  },
+  "validation": {
+    "synthetic_cases": 32,
+    "focused_unit_tests": 32,
+    "full_unit_tests_passed": 300,
+    "full_unit_tests_skipped": 1,
+    "compile_check": true,
+    "real_docker_integration": true,
+    "safety_negative_controls": 12,
+    "recorded_envsolve_v0_redistillation_integration": true
+  },
+  "development_disclosure": {
+    "development_informed": true,
+    "trigger_batch": "p6-v3-q1-position2-retry1",
+    "trigger_evidence": "The first full-method candidate used a project-local virtual environment and was rejected solely because .venv/bin/pip install was outside V5.",
+    "case_specific_rules": false,
+    "source_results_mutated": false,
+    "replacement_evaluation_allowed": false,
+    "confirmatory_claim": false,
+    "untouched_confirmatory_splits": [
+      "canary-20",
+      "official-test-100"
+    ]
+  },
+  "change_policy": "Any further accepted-language or safety change requires a new policy identifier, new hashes, and a new freeze record before benchmark replay."
+}

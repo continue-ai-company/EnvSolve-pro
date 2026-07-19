@@ -1,0 +1,78 @@
+{
+  "preregistration_id": "p5-v3-git-checkout-dev5-round9-v1",
+  "created_at": "2026-07-14T17:00:00Z",
+  "development_only": true,
+  "objective": "Validate V3 from a clean detached Git checkout that preserves VCS metadata required by build backends, while exercising the frozen legacy metadata extension.",
+  "base_preregistration": {
+    "path": "experiments/validations/p5_round4_v3_dev5_preregistration.json",
+    "sha256": "6cd27a6976c63173d512587553cfe2f1b9b5c96441719384df2f1e79088846b8",
+    "inherit": ["environment", "targets"]
+  },
+  "frozen_observations": {
+    "round6_analysis": {
+      "path": "experiments/validations/p5_round6_v3_dev5_analysis.json",
+      "sha256": "40b2005ae08a84eb3a2398cd76cdb5f7cc6360b824f5a92ec2a739c4c223e581"
+    },
+    "round8_result": {
+      "path": "experiments/validations/p5_round8_legacy_metadata_results.json",
+      "sha256": "72aeb9570bc2739306b8696bb566836394f55c584d281a8482f890623fd87770"
+    },
+    "xdist_failure": "setuptools-scm rejected git-archive materialization because /data/project had no .git metadata.",
+    "legacy_failure": "gpkit and Reticulum matched egg-link provenance but required PKG-INFO snapshot support."
+  },
+  "frozen_policy_sources": {
+    "container_collector": {
+      "path": "envsolve/tools/run_p5_v3_in_container.py",
+      "sha256": "5bd928f5a63c46524e05d63da8af8f4948e18578eb869973b989ce6cac373bb1"
+    },
+    "metadata_collector": {
+      "path": "envsolve/verification/installed_metadata.py",
+      "sha256": "677c7aa5889fd85615d1a2f382efe17a9ad7f6a9ea55a26af5afcc2a188aac84"
+    },
+    "smoke_policy": {
+      "path": "envsolve/verification/smoke.py",
+      "sha256": "6524e70fe4267af684d1a5fa361447810998004e07a517e1ab490968c3aa4ca0"
+    }
+  },
+  "pre_intervention_source": {
+    "host_runner": {
+      "path": "envsolve/tools/run_p5_v3_dev5.py",
+      "sha256": "8c2eb6e9334f69f38fe8e5e948fc819edd59cfafe74ba2f3feda5aa3a2c95faf"
+    }
+  },
+  "runner_contract": {
+    "source": "Create a local, no-hardlinks, no-checkout clone from the retained Git object database; checkout the exact revision detached. Never copy retained worktree files and never fetch.",
+    "cleanliness_gate": "Before bootstrap, HEAD must equal the target revision, the tree hash must match the retained object database, and `git status --porcelain --untracked-files=all` must be empty.",
+    "container_git_gate": "Because a macOS bind mount may have a different owner inside Linux, add only /data/project to Git safe.directory before bootstrap; do not modify repository content.",
+    "mount": "Mount the temporary clean checkout at /data/project and EnvSolve policy code read-only.",
+    "bootstrap": "Source the exact inherited frozen script in one persistent shell after reproducing the verifier-owned build_output precondition.",
+    "network_transition": "Allow network only during bootstrap; disconnect every Docker network before metadata collection and probes.",
+    "project_distribution": "Use frozen PEP 610 or legacy egg-link plus project-owned metadata provenance.",
+    "probe_execution": "Use the unchanged Round 3 smoke policy from an empty directory with a 30-second timeout.",
+    "cleanup": "Always remove the container and temporary clone.",
+    "case_timeout_seconds": 1800,
+    "source_materialization": "detached_git_checkout"
+  },
+  "expected_causal_checks": {
+    "pytest-dev/pytest-xdist": "Must pass the previous setuptools-scm version-inference stage; any later failure is reported separately.",
+    "convexengineering/gpkit": "A known V3 result requires legacy-egg-link provenance, metadata_source=PKG-INFO, and content-addressed package probes.",
+    "markqvist/reticulum": "A known V3 result requires legacy-egg-link provenance, metadata_source=PKG-INFO, and content-addressed package or entry-point probes.",
+    "jaraco/inflect": "PEP 610 package-import behavior is a non-regression control.",
+    "python-poetry/poetry": "PEP 610 entry-point and CLI behavior is a non-regression control.",
+    "official_outcomes": "No official verifier runs and no official score changes."
+  },
+  "limits": {
+    "attempts_per_case": 1,
+    "model_requests": 0,
+    "new_benchmark_executions": 0,
+    "official_verifier_executions": 0,
+    "retained_worktree_mutations": 0,
+    "probe_network_requests": 0
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "official_score_modified": false,
+    "case_specific_policy": false
+  }
+}

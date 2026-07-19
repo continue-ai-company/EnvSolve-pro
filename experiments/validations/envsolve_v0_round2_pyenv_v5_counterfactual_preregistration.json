@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "envsolve-v0-round2-pyenv-v5-counterfactual-v1",
+  "registered_at": "2026-07-15T06:02:55Z",
+  "purpose": "Evaluate the minimal typed replay IR v5 pyenv semantic normalization on the four audited Round2 EnvSolve v0 trajectories that triggered the rule, without new model calls or source-run mutation.",
+  "claim_scope": "Development-informed mechanism qualification only; this experiment is not confirmatory and does not estimate held-out generalization.",
+  "source": {
+    "run_root": "runs/envsolve-v0-discovery5-r2-v0",
+    "round2_preregistration": {
+      "path": "experiments/validations/envsolve_v0_discovery5_round2_preregistration.json",
+      "sha256": "ae42199893de85c53c737f9c30080bbfd67f75cd4c7c064202afacfba3827a40"
+    },
+    "round2_results": {
+      "path": "experiments/validations/envsolve_v0_discovery5_round2_results.json",
+      "sha256": "7f76babdb72c0042a8545a168dfb4ca93c38a287d293ad660a4bf882ff70821b"
+    },
+    "round2_execution_summary": {
+      "path": "runs/envsolve-v0-discovery5-r2-paired/execution_summary.json",
+      "sha256": "902f5b787317b2d004e3957d52ab535c53d59e01219a2128dd0e8993ea5d3591"
+    },
+    "selection_rule": "Include every Round2 envsolve_v0 record with valid harness audit, passing v0 completion boundary, unsafe_or_unreplayable_action outcome, and exact pyenv init rejection. Exclude repository-integrity failures.",
+    "source_trajectories": {
+      "envbench-python-avaiga__taipy-core@62f0d8521cbb80ae13654c53620ddc856ba86d33": "8ad056d761c858a7ab21a860511ff8433e922fb018d83456dede3063a5530575",
+      "envbench-python-islandora__documentation@d9b18ffb2678dfcf2f5d20cd36de0de2aacef528": "f41db8ade8e24c0c4e8a8f9426e0a7bd687a87db1fa7bd39508759dceeed7cf1",
+      "envbench-python-nakagami__pyfirebirdsql@44f155d50e1668cf3e3f08ec15693eb72d4f1b60": "fe2a55288d1a51dd1d7599fa32825b4f823c1cd77bbd0e8b2e0026e45593eb1d",
+      "envbench-python-wireless-innovation-forum__spectrum-access-system@928c3150adf7b31e53a96b695bf1fbdd3284ecb2": "5baa4a8dedb65122b5e092628d46d9839dd7a4f97dc17f29d78aecd232df50f5"
+    }
+  },
+  "cases": {
+    "path": "experiments/cases/envsolve_v0_round2_pyenv_trigger4.jsonl",
+    "sha256": "47b55addb2d6ebfe9acefa5cf263a2cc17571de2856e6a8d37a05620f993914c",
+    "count": 4
+  },
+  "frozen_implementation": {
+    "harness_freeze": {
+      "path": "experiments/protocols/harness_freeze_v3.json",
+      "sha256": "0f32f10cab7c39f3350c7747705466bd7ef3a68f8a41fc2a2087f3d36be76465"
+    },
+    "typed_replay_ir": {
+      "policy": "typed-replay-ir-v5",
+      "path": "experiments/protocols/typed_replay_ir_v5_freeze.json",
+      "sha256": "f486ec9d9ba44ff13771fce8731c632693532a72494a157860fb1f9bc2f18624"
+    },
+    "files": {
+      "envsolve_harness/scripts/replay_actions.py": "c02e5a8e8ce1723a7d3f713db5f58ee78eee6c2c1a9b3a67cdc119b5b8a5f1f2",
+      "envsolve_harness/runners/recorded_envbench.py": "510c2b52a7678e14c5eaf75c2f61f5020ef0fa7cc2ea6613b487fa0078fcb76d",
+      "experiments/run_case.py": "c4254fad80b951366e4a1e0cf897429f6f5cda8855160c5c5b1534756ff0dec6",
+      "experiments/run_batch.py": "7e25db01fe92d26435646dbd3750b39675ea4877591579c68c66a083e0001a93",
+      "experiments/configs/local_mac.json": "2a10d8206875741a1adbf1a0ee38174bd916b865f2a30d8de518c7c7b680f1ea",
+      "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    }
+  },
+  "execution": {
+    "run_id": "envsolve-v0-r2-pyenv-v5-counterfactual-v1",
+    "runner": "envbench-recorded",
+    "method": "envsolve-v0-v5-recorded-counterfactual",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_workers": 1,
+    "overwrite": false,
+    "provider_requests_allowed": false,
+    "official_evaluator": true
+  },
+  "precommitted_expectations": {
+    "redistillation": "Exactly two of four trajectories should become fully replayable under the single v5 rule; the other two should remain fail-closed due to independently unsupported actions.",
+    "official_outcome": "Report official outcomes for every trajectory that reaches evaluation. No minimum pass count is precommitted because v5 repairs representation rather than environment solving.",
+    "interpretation": "An official pass would show that v4 hid a valid solved environment. An official failure would localize a remaining replay or verifier-equivalence gap. Neither outcome is held-out evidence for the future EnvSolve algorithm."
+  },
+  "validity_requirements": [
+    "All source case identities, trajectory hashes, source audits, repository integrity records, and passing v0 completion boundaries match the frozen source artifacts",
+    "No model or provider request occurs",
+    "Typed replay IR v5 and harness v3 hashes match before execution",
+    "All four source trajectories are attempted exactly once without overwrite",
+    "No replay grammar, integrity policy, evaluator, or case-specific rule changes during the batch"
+  ],
+  "stop_rule": "Collect all four first attempts, audit them, and publish both successful and rejected redistillations before any further mechanism change."
+}

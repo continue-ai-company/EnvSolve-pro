@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-v0-round1-agent-state-qualification-v1",
+  "registered_at": "2026-07-15T04:15:43Z",
+  "development_only": true,
+  "purpose": "Verify that the repaired EnvSolve v0 LangGraph transport reaches the model on one already consumed case before allocating another outcome-blind batch.",
+  "frozen_observation": {
+    "round1_preregistration": {
+      "path": "experiments/validations/envsolve_v0_discovery5_round1_preregistration.json",
+      "sha256": "69482648cef61e4f098e1e065bf8ff639493478a06e5945a6d1b71bb77264548"
+    },
+    "round1_results": {
+      "path": "experiments/validations/envsolve_v0_discovery5_round1_results.json",
+      "sha256": "7d3f4eab8805fbf457d992ecb7ac4f502a7e0e9d27925068e3719095df8e5eb1"
+    },
+    "cross_case_signature": "Four v0 attempts materialized a trajectory but stopped before the first model request with 'Must write to at least one of messages'; the fifth was repository-acquisition blocked.",
+    "model_requests_on_qualifying_original_attempt": 0,
+    "original_generation_error": "verifier was never called"
+  },
+  "target": {
+    "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+    "repository": "alteryx/featuretools",
+    "revision": "8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+    "selection_reason": "Already consumed in Round 1; its original v0 attempt produced a checkout and trajectory, so no new case outcome is exposed.",
+    "new_case_allocation": false
+  },
+  "allowed_change": {
+    "agent_initial_state": "Write the unchanged initial HumanMessage into the LangGraph messages channel instead of returning an empty state.",
+    "state_schema": "Declare the minimal standard LangGraph message, last-step, and remaining-step channels locally.",
+    "prompt_api": "Use the installed create_react_agent prompt parameter; move the unchanged HumanMessage from the prompt callback to initial state so its semantics are unchanged.",
+    "regression": "An offline fake model must be invoked exactly once by the compiled graph.",
+    "forbidden": "No tool, verifier, verifier command, system prompt text, action budget, model, image, timeout, replay policy, or case-specific behavior change."
+  },
+  "frozen_sources": {
+    "envsolve/v0/agent.py": "dd7bad0859eb6f6db7f979555276f0d21c6a21f76c952970c0c042897f7b7461",
+    "envsolve/tests/test_v0_inference_entrypoint.py": "94ee9dabcde724bb0c4bcd2ddb0ab3c162dbede9ead951596e2e5a45bf4730aa",
+    "envsolve/v0/verification.py": "5c31305b003a1de209ba4f22c9fcfa8ab938252691f609c19fecef955f509a0b",
+    "envsolve/v0/finalization.py": "68291a9bd942c1ab15490e5a14206d560b64c86cbf07878acb05ae6b8973eee1",
+    "envsolve/tools/run_v0_inference.py": "88594b57b1049fffb87bf3057d6ebb6694a5cd126d26373bff989497509280d9",
+    "envsolve_harness/runners/envsolve_v0.py": "5168eeb27e90a99cac950f98d4e33d35b18b3f0e81b3bf1d307bc2fb14e63cfa",
+    "envsolve_harness/runners/envbench_agent.py": "1daf7affefec15cde887194b16ca2499dc656dcbdc5630049ac8e652dc3ef6f3",
+    "experiments/configs/local_mac.json": "2a10d8206875741a1adbf1a0ee38174bd916b865f2a30d8de518c7c7b680f1ea",
+    "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "execution": {
+    "runner": "envsolve-v0",
+    "method": "envsolve-v0-agent-state-qualification",
+    "run_id": "envsolve-v0-round1-agent-state-qualification-v1",
+    "model": "deepseek/deepseek-v4-pro",
+    "provider_base_url": "https://openrouter.ai/api/v1",
+    "seed": 0,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "resource_limits": "Unchanged experiments/configs/local_mac.json"
+  },
+  "decision": {
+    "qualification_pass": "The online budget records at least one started and completed model request, the trajectory contains at least one agent update, and the prior messages-channel exception is absent.",
+    "qualification_fail": "The model is not reached, the messages-channel exception recurs, or the trajectory is absent for a non-infrastructure reason.",
+    "official_pass_relevance": "None; generation and official benchmark outcome are retained but are not the qualification criterion.",
+    "next_step_on_pass": "Freeze a new outcome-blind development batch under the repaired agent hash.",
+    "next_step_on_fail": "Repair only the newly observed generic transport failure and preregister another consumed-case qualification."
+  },
+  "integrity": {
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_case_consumed": false,
+    "case_specific_policy": false,
+    "round1_first_attempt_preserved": true
+  }
+}

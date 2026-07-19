@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "validation_id": "p0-post-freeze-dev3-v1",
+  "registered_at": "2026-07-14T02:47:00Z",
+  "purpose": "Post-freeze validation of harness execution, evidence channels, lifecycle recording, and independent audit; not solver optimization or confirmatory scoring.",
+  "source": {
+    "path": "experiments/cases/train_untouched201.jsonl",
+    "sha256": "076ef72dbab0bb5cdefa72b10b2a84d4391914716fb640c5ab5f579b46677bfe",
+    "cardinality": 201
+  },
+  "selection": {
+    "algorithm": "Sort all source cases by SHA256(salt|repository@revision) and take the first 3.",
+    "salt": "envsolve-p0-post-freeze-validation-v1-2026-07-14",
+    "size": 3,
+    "outcome_blind": true,
+    "selected_before_execution": true
+  },
+  "selected": [
+    {
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "rank_sha256": "02009a0b71e9740cebbe3e274d87caf93f1b44235e0a0eb1982f1ba780837c7a"
+    },
+    {
+      "case_id": "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+      "rank_sha256": "03a66c16dbdbb8bf15d865bad1d719ebfa2e0b06ea9190572465c6707555379a"
+    },
+    {
+      "case_id": "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+      "rank_sha256": "096afae3342ced43bc4fd21d089e0d6ea0f4887d4fdf6109d3433d44ae5b121e"
+    }
+  ],
+  "frozen_execution": {
+    "runner": "deterministic",
+    "run_id": "p0-post-freeze-dev3-deterministic-v1",
+    "max_workers": 1,
+    "attempts_per_case": 1,
+    "harness_freeze_path": "experiments/protocols/harness_freeze_v1.json",
+    "harness_freeze_sha256": "9ab8fad5e61144f1bb6258db2abbd7f63b47b0016dc71fab624b0559ebdf945a",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "config_sha256": "2a10d8206875741a1adbf1a0ee38174bd916b865f2a30d8de518c7c7b680f1ea"
+  },
+  "disclosure": {
+    "development_consumed": true,
+    "excluded_from_future_confirmatory_analysis": true,
+    "canary20_untouched": true,
+    "official_test100_untouched": true,
+    "no_rule_changes_from_results": true,
+    "preserve_all_first_attempts": true
+  }
+}

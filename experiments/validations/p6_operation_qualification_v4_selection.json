@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v4_preregistration.json",
+  "preregistration_sha256": "04169dda84214c5465e5bd50b20ef447217251ac850f6a1f84b04e05211016aa",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v4_176.jsonl",
+  "remaining_sha256": "38efbf84a3d6148dffd08f188b3e45b9818a3519248e35e5c4b3c635f617cc63",
+  "salt": "envsolve-p6-operation-qualification-v4-2026-07-17",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-karlicoss__hpi@35dd5d82a0e399f684fb3d09763bab44146927fc",
+    "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+    "envbench-python-mdolab__openaerostruct@0448bff067856093cdcec4bc8c271ecd4339a36d",
+    "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+    "envbench-python-cherrypy__cheroot@1ff20b18e98e424e0616654c28c92524deef348a"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v4_5.jsonl",
+  "selected_sha256": "60e430d9a10179711e523a2541d27e18ec837d3fa86e702bbbb22bbea44522f8",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v3_181.jsonl",
+  "source_sha256": "61c8175b5cdcc29d32c37e8ca5bb18b2e47ebb88e8bccd70820319c43dcf3db4"
+}
