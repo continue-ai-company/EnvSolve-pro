@@ -147,9 +147,14 @@ Verifier 输出三种结果之一：
 failure 保留为 hypothesis；格式错误、过期证据、复用环境和 forbidden feedback 一律 fail closed。
 
 首次动作前，一个有界、无执行的 observer 只接纳标准项目 metadata 中无条件的 package requirement；
-带 marker、格式错误、动态生成或 tool directive 的声明保持未接纳。随后 fresh verifier 观测已安装
-distribution 的 presence 与 version，使初始 requirement 只在 candidate-scoped evidence 满足或反驳
-它之前保持 unresolved。
+另一个断网、只读 probe 在精确 base-image digest 中观测 Python。标准 runtime requirement 只有能与
+该 fresh fact 比较时才接纳。带 marker、格式错误、动态生成或 tool directive 的声明保持未接纳。
+随后 fresh verifier 观测已安装 distribution 的 presence、version 与 runtime fact，使初始 requirement
+只在 candidate-scoped evidence 满足或反驳它之前保持 unresolved。
+
+Package manager 明确报告的 deterministic runtime incompatibility 会形成 hard requirement-fact
+矛盾；含义不唯一的 action failure 仍保持 hypothesis 或 provisional state。这样，仓库声明与执行
+反馈使用同一个带 provenance 的 runtime 表示。
 
 每个 admitted fact 都记录来源 candidate、environment、verifier 和 raw evidence。后续观测可以
 supersede 环境范围内的事实，但 fresh execution 只提供部分观测：后续 verifier 没有报告某变量，
@@ -168,10 +173,12 @@ finding 与完整 constraint record 继续保留供审计，但不会在模型�
 模型格式错误在固定次数内可恢复：系统对原始输出做哈希、记录并作为协议错误反馈，不创建容器。
 这样可以避免偶然格式问题终止部署搜索，同时保留其真实成本。
 
-当状态包含受支持的 hard conflict 或高置信 unresolved requirement 时，确定性 planner 将其投影为带 provenance 的
-`OperationPlan`。模型选择具体修复参数并重新生成完整程序；容器创建前的 operation guard
-验证每项义务是否对应一个允许的新 mutation。该机制把“缺什么或冲突在哪里”与“允许怎样改变
-环境”连接起来，同时不依赖仓库专属 package map。拒绝只消耗候选与模型预算。
+当状态包含受支持的 hard conflict、高置信 unresolved requirement，或依赖上一候选环境才成立的
+satisfaction 时，确定性 planner 将其投影为带 provenance 的 `OperationPlan`。最后一种情况很关键：
+下一候选从 fresh environment 开始，因此让上一环境满足约束的操作必须保留在完整程序中。模型选择
+具体修复参数，guard 检查当前候选是否覆盖每项操作义务，并阻止候选原样经过一个已经观测到会失败、
+且任何新修改尚未生效的执行前缀。该机制把“缺什么或冲突在哪里”与“允许怎样改变环境”连接起来，
+同时不依赖仓库专属 package map。拒绝只消耗候选与模型预算。
 
 ### 3.6 为什么它不只是另一个 Loop
 
@@ -261,6 +268,12 @@ eligible，但没有任何 run 进入 official evaluation。两个 pair 触发 p
 因此可以删除兼容 runtime 并退回已知无效的基础解释器。这个负结果说明仅接纳 package state 还不够：
 runtime compatibility 与 action feasibility 必须进入同一个持续约束状态。
 
+对应的 runtime-state revision 已经实现并冻结，但尚未在新的 development repository 上检验。它把
+fresh base-runtime fact 绑定到候选镜像，依据该 fact 接纳标准 runtime declaration，把确定性版本
+mismatch 变成 hard contradiction，并在 fresh attempt 之间保持由候选操作支撑的 satisfaction。
+合成 transition 测试和真实 Docker 边界验证了这些语义；这只是机制验证，不是部署成功率提升证据。
+下一批 outcome-blind development 实验仍待执行。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
@@ -295,9 +308,10 @@ index 故障会产生删失结果，尤其在本地开发机器上。EnvBench �
 EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态的证据，而不只是更多对话上下文时，
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
-可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。下一
-里程碑是最小 typed runtime-state 修订，再使用新冻结的 outcome-blind development qualification
-验证；机制通过资格验证前，held-out evaluation 保持锁定。
+可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
+Typed runtime-state 修订已经冻结；下一里程碑是新的 outcome-blind development qualification。
+机制通过资格验证前，held-out evaluation 保持锁定。
 
-主 loop 也已经实现最小的“约束到操作”边界：hard conflict 产生带 provenance 的操作义务，
-类型化 guard 要求 fresh execution 前出现允许的新 mutation。
+主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
+satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中
+覆盖这些义务。

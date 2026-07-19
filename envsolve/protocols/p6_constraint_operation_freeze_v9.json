@@ -1,0 +1,129 @@
+{
+  "freeze_id": "p6-constraint-operation-v9-runtime-state-preservation",
+  "frozen_at": "2026-07-19T14:32:25Z",
+  "source_revision": "b9f0c58ca321fb4badf994bdae5619f344608d10",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v8.json",
+    "sha256": "e92f4b8f5df1bf6a1f2015ee0dd2642decf4169c773b5ba28990546094caf2f4"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v23.json",
+    "sha256": "ffef5145afdad6a3f2398077c36b40f5f0362d01c15ea74aae835521e60a3e5a"
+  },
+  "change_from_v8": [
+    "Observe the Python runtime in a network-disabled, read-only container pinned to the inspected base-image digest before proposal 1.",
+    "Parse PEP 621 requires-python and setup.cfg python_requires, but admit them only together with an image-bound fresh runtime fact.",
+    "Admit deterministic package-manager Python mismatch output as a hard, provenance-bearing runtime requirement and fact.",
+    "Project candidate-scoped satisfaction into a preservation operation because every subsequent candidate starts from a fresh environment.",
+    "Require each candidate to cover current operation obligations rather than invent a new command for every obligation on every round.",
+    "Record the exact failed candidate prefix and reject only unchanged paths that necessarily reach the same failed action."
+  ],
+  "files": {
+    "envsolve/constraints/engine.py": "1c66c9d694d7a21047498c42e58192607c1b5c1cfc91a3bd2a4b5cac1198fee4",
+    "envsolve/constraints/evidence.py": "d43778e66ea1ce5b0a79066fbed096b758ef69dede66a00ea33b88f0fdcb8deb",
+    "envsolve/constraints/models.py": "97844adf39e4664940933510dce9eb06fc97de93cfea03ae8ec6e3a178c53e69",
+    "envsolve/constraints/normalization.py": "a8a9b0a68c0357c7a12edf511f84d0a1e318ca05f0e73ff1146ec9de5aa26caf",
+    "envsolve/operations/models.py": "cf5fb2b48178f9dcbe31d75cbcba765199d73430baf48507bef906fa7a3a5485",
+    "envsolve/operations/planner.py": "d6ddab1df3f67b87dac399d40ead99444507ac8c9d411ba7b2461d864d13be53",
+    "envsolve/runtime/__init__.py": "2ecf4258cd60f90f53daf9783c7c455cdff2736a9dbde77b04ebfbe9bbb1d657",
+    "envsolve/runtime/declarations.py": "37653da36d593629db617a54553beeea3ca74b901652aa468b936b0be0c45176",
+    "envsolve/runtime/docker.py": "8fa778d50a2a05b3fce7d5df599bbb1cbfc3344dd0a18f94130984aa4d28cf61",
+    "envsolve/runtime/import_probe.py": "97862b09c7d560a1f9fe342543b6d75a9e67161ead10c4cf8b280701f6f1d092",
+    "envsolve/runtime/policy.py": "a0379412a3f50190523c5e5daf4ff242971a704920f9e864a54b4646c3157c25",
+    "envsolve/runtime/verifier.py": "e41b74a69dcafc12a07ac157eba136f6324d267a2bc08489af3dc7ff41f5db6c",
+    "envsolve/solver/counterexample.py": "e72a1c1872245efede2e57a0559bc72053ba7b8bf2d79b1c62d47cd66f28d676",
+    "envsolve/solver/session.py": "57e0315162752aa0c41e5ecfd49ff5d9bab12c1822c4d9dd2bb2655dc5a3f6d8",
+    "envsolve/tests/test_constraints.py": "6fa2af8982ff7dd0b9534b1ff6732bf96825360cb34c57c8ca7925a82aadf2c7",
+    "envsolve/tests/test_operations.py": "c3b49be993d0d6d42513f14a1ab2c0de78439ac3135e4750dd3fbce4639dc633",
+    "envsolve/tests/test_p6_operation_freeze.py": "e79ce21360a21396cc7273e309efb6196246ac18f06db5a356a136c1bfb134ef",
+    "envsolve/tests/test_repository_declarations.py": "51a6746fa19ee66fc4a5cf5a9a7feb2360af079509328c214cf48d9ccf90dcb3",
+    "envsolve/tools/run_envsolve_episode.py": "7cdde437afeba976e621353248208cf577740de56ea32d481f27091d73ffac22",
+    "envsolve_harness/runners/envsolve.py": "7fdc79bfe74c1c5f12e9e085c400dff76d6aa0fe587f61c1fd2d4d81060fc90c",
+    "envsolve_harness/scripts/candidate_validation.py": "af47c735dd1454cfd291bfde1dd711f3ff0c49b88dc189deb3396c4deedfba37",
+    "envsolve_harness/scripts/constraint_operations.py": "be86d54a570a32b6af32ad76e12cf032304d9ebc1c83bd1aa7ef30e37888aa21",
+    "envsolve_harness/scripts/replay_actions.py": "2452354040321d1b816467abc734d8b1fd6c760ba78410ba0ef0f0392d3c2e8e",
+    "tests/test_constraint_operation_loop.py": "6a33dd4f69ea4aec6a2c5096c4ead0128fd2626580cf32b875c1e6452d6338d2",
+    "tests/test_envsolve_docker_integration.py": "e515f714e119fd490ac88ec07d4c066ddf5bdebbf36558034da1715bc2516602",
+    "tests/test_envsolve_runner.py": "7b4abe1d9e39e1ec3a36fe86ea897c79dca29fd915a5a9d5d1baf46cc2484022",
+    "tests/test_envsolve_runtime.py": "117bf74af249babf3cae239f1063cc89aec037c2a3e8c23fb67093a36ebb677d"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "runtime_admission_contract": {
+    "accepted_declarations": [
+      "PEP 621 project.requires-python",
+      "setup.cfg options.python_requires"
+    ],
+    "required_fact": "fresh runtime-observation whose source and value bind the same inspected image digest",
+    "observation_container": {
+      "network": "none",
+      "filesystem": "read-only",
+      "repository_mounted": false,
+      "image_execution": "inspected digest rather than mutable tag"
+    },
+    "candidate_image_identity": "must equal the observed digest",
+    "source_execution": false
+  },
+  "state_transition_contract": {
+    "deterministic_python_mismatch_confidence": 1.0,
+    "other_unconfirmed_action_result_confidence_max": 0.5,
+    "action_result_ingested_only_after_internal_candidate_failure": true,
+    "facts_scoped_to_candidate_environment": true,
+    "old_fact_superseded_only_by_same_variable_observation": true
+  },
+  "operation_contract": {
+    "triggers": [
+      "conflict",
+      "unresolved_requirement",
+      "preserve_satisfaction"
+    ],
+    "coverage": "the complete candidate contains a permitted operation for every current obligation",
+    "fresh_replay_preservation": "candidate-scoped satisfaction remains an operation obligation in the next fresh environment",
+    "novelty": "recorded for analysis but not required for already covered obligations",
+    "failed_prefix_rule": "reject an unchanged command prefix through an exactly observed failed candidate action",
+    "internal_check_fallback": "reject only an exact repeated candidate when no failed candidate action was localized"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "branch": "codex/envbench-evaluator-fixes",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_runtime_and_operation_tests": "60 passed",
+    "full_regression_before_freeze_tests": "363 passed, 1 skipped, 2 deselected",
+    "full_regression_after_freeze": "365 passed, 1 skipped",
+    "real_docker_integration": "1 passed including base-runtime observation",
+    "syntax_compile": "passed",
+    "harness_v23_verification": "valid=true"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_cases_reusable": false,
+    "q8_cases_selected": false,
+    "untouched_development_pool_size": 161,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "official_evaluator_feedback_used_online": false
+  }
+}

@@ -201,10 +201,18 @@ a hypothesis. Malformed output, stale evidence, reused environments, and forbidd
 feedback fail closed.
 
 Before the first action, a bounded non-executing observer admits only unconditional
-package requirements from standard project metadata. Marked, malformed, dynamic,
-or tool-directive declarations remain unadmitted. The fresh verifier then observes
-installed distribution presence and version, so an initial requirement remains
-unresolved only until candidate-scoped evidence satisfies or contradicts it.
+package requirements from standard project metadata. A separate network-disabled,
+read-only probe observes Python in the exact base-image digest. Standard runtime
+requirements are admitted only when they can be compared with that fresh fact.
+Marked, malformed, dynamic, or tool-directive declarations remain unadmitted. The
+fresh verifier then observes installed distribution presence, version, and runtime
+facts, so an initial requirement remains unresolved only until candidate-scoped
+evidence satisfies or contradicts it.
+
+Deterministic runtime incompatibility reported by a package manager becomes a hard
+requirement-fact contradiction. Ambiguous action failures remain hypotheses or
+provisional state. This gives repository declarations and execution feedback one
+shared, provenance-bearing runtime representation.
 
 Each admitted fact records its source candidate, environment, verifier, and raw
 evidence. Because each fresh execution is only a partial observation, absence from
@@ -230,14 +238,16 @@ recorded, and returned as a protocol error without creating a container. This
 protects the deployment search from incidental formatting failures while keeping
 their cost visible.
 
-When the state contains a supported hard conflict or a high-confidence unresolved
-requirement, a deterministic planner
-projects it into a provenance-bearing `OperationPlan`. The model selects concrete
-repair parameters and regenerates a complete program; before container creation,
-an operation guard checks that every obligation is addressed by a permitted new
-mutation. This connects what is missing or conflicting to how the environment may
-be changed without relying on a repository-specific package map. Rejection consumes
-candidate and model budget only.
+When the state contains a supported hard conflict, a high-confidence unresolved
+requirement, or a satisfaction that depended on a previous candidate environment,
+a deterministic planner projects it into a provenance-bearing `OperationPlan`.
+The last case matters because the next candidate starts fresh: an operation that
+made the previous environment valid must remain in the complete program. The model
+selects concrete repair parameters, while a guard checks that the current candidate
+covers every operation obligation. It also prevents replaying an execution prefix
+already observed to fail before any proposed change can take effect. This connects
+what is missing or conflicting to how the environment may be changed without a
+repository-specific package map. Rejection consumes candidate and model budget only.
 
 ### 3.6 Why this is not just another loop
 
@@ -359,6 +369,15 @@ regress to the known-invalid base interpreter. This negative result shows that
 package-state admission alone is insufficient: runtime compatibility and action
 feasibility must inhabit the same persistent constraint state.
 
+The resulting runtime-state revision is now implemented and frozen, but has not yet
+been tested on another development repository. It binds a fresh base-runtime fact
+to the candidate image, admits standard runtime declarations against that fact,
+turns deterministic version mismatch into a hard contradiction, and preserves
+candidate-supported satisfaction across fresh attempts. Synthetic transition tests
+and a real Docker boundary validate these semantics. This is mechanism validation,
+not evidence of improved deployment success; the next outcome-blind development
+batch remains pending.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
@@ -408,10 +427,11 @@ fresh environments, admits only grounded counterexamples, and keeps official
 evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
-derived rules. The next milestone is a minimal typed runtime-state revision followed
-by a newly frozen outcome-blind development qualification. Held-out evaluation
-remains blocked until the mechanism qualifies.
+derived rules. The typed runtime-state revision is frozen; the next milestone is a
+new outcome-blind development qualification. Held-out evaluation remains blocked
+until the mechanism qualifies.
 
-The main loop implements a minimal constraint-to-operation boundary: hard
-conflicts produce provenance-bearing, context-bounded operation obligations, and a typed guard
-requires a permitted new mutation before fresh execution.
+The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
+unresolved requirements, and candidate-supported satisfaction produce provenance-
+bearing operation obligations, and a typed guard requires the next complete program
+to cover them in its fresh execution.

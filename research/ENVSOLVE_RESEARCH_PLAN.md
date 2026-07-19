@@ -98,6 +98,11 @@ runtime, package, capability, module, platform, and unresolved-goal state from
 that evidence. Every derived fact retains provenance and the evidence that
 supports or contradicts it.
 
+Before proposal 1, EnvSolve also observes Python in a network-disabled,
+read-only instance of the exact base-image digest. Standard `requires-python`
+declarations become eligible for admission only together with this fresh fact;
+the candidate containers are pinned to the same digest.
+
 ### 3.3 Constraint admission
 
 Feedback is separated before it can affect the next candidate:
@@ -110,7 +115,10 @@ Feedback is separated before it can affect the next candidate:
   retained as candidate-cost evidence;
 - malformed, stale, environment-reused, or ungrounded feedback fails closed.
 
-Failed evidence must be committed before it can affect the next proposal. An
+Failed action evidence must be committed and normalized before it can affect the
+next proposal. A deterministic package-manager Python mismatch is admitted as a
+hard runtime requirement and fact; less identifying action failures remain
+hypotheses or provisional constraints. An
 admitted hard conflict or high-confidence unresolved requirement can create a
 mandatory operation obligation. A
 hypothesis-only failure may continue the search, but supplies a soft ranking
@@ -130,15 +138,18 @@ Fresh replay is part of the algorithm because it tests the deployment program
 without hidden mutations from an earlier candidate. It is not the official
 EnvBench evaluation.
 
-For every supported hard conflict or unresolved hard requirement, a deterministic planner emits a
-provenance-bearing `OperationPlan` that maps runtime, package, capability, and
-module conflicts to allowed mutation kinds such as runtime configuration,
-Python-package installation, or system-package installation. The model still
-chooses concrete parameters and proposes a complete program. Before a container
-is created, `constraint-operation-guard-v2` checks that the candidate introduces
-at least one permitted new mutation per obligation relative to the latest
-actually executed candidate. A rejected candidate consumes candidate and model
-budget, but no environment or command budget.
+For every supported hard conflict, unresolved hard requirement, or satisfaction
+that depended on a prior candidate environment, a deterministic planner emits a
+provenance-bearing `OperationPlan`. It maps runtime, package, capability, and
+module state to permitted mutation kinds. Because the next environment is fresh,
+candidate-scoped satisfaction remains a preservation obligation. The model still
+chooses concrete parameters and proposes a complete program.
+`constraint-operation-guard-v3` checks that the current complete candidate covers
+every obligation; novelty is measured but is not demanded merely to preserve a
+working operation. The guard also rejects an unchanged command prefix through an
+exactly observed failed action, while allowing a repair inserted before that
+failure. A rejected candidate consumes candidate and model budget, but no
+environment or command budget.
 
 ### 3.5 Evaluation separation
 
@@ -1017,3 +1028,14 @@ development batch; it never triggers tuning on the same held-out outcomes.
   base-runtime observation, conditional `requires-python` admission, hard runtime
   preservation, and runtime-acquisition feasibility. These are general typed-state
   changes; Q7 is closed and will not be rerun.
+- Runtime-state v9 is now implemented and frozen at source revision `b9f0c58` with
+  Harness v23 and algorithm freeze v9. A read-only, network-disabled probe binds the
+  base Python fact to the exact image digest; PEP 621 `requires-python` and
+  `setup.cfg` `python_requires` are admitted only with that fact. Deterministic
+  Python mismatch output now enters the constraint engine, candidate-scoped
+  satisfaction creates a fresh-replay preservation obligation, and the guard
+  separates obligation coverage from failed-prefix exploration. Focused runtime
+  and operation tests pass `60 passed`; the full suite passes `365 passed, 1
+  skipped`; the real Docker boundary passes with the base-runtime probe. No new
+  development case or official evaluator was run. The next admissible step is an
+  outcome-blind Q8 preregistration and selection from the 161 untouched cases.

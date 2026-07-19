@@ -73,6 +73,10 @@ stderr、exit code、耗时和项目原生检查结果构成不可变证据。En
 派生显式 runtime、package、capability、module、platform 与 unresolved-goal 状态。
 每个派生事实都保留支持或反驳它的 provenance。
 
+在 proposal 1 前，EnvSolve 还会在与候选相同的 base-image digest 上启动一个断网、只读
+容器，观测其中的 Python。只有拿到这份 fresh fact 后，标准 `requires-python` 声明才有
+资格进入约束状态；后续候选容器必须继续绑定同一 digest。
+
 ### 3.3 约束接纳
 
 反馈在影响下一候选前必须分类：
@@ -83,7 +87,9 @@ stderr、exit code、耗时和项目原生检查结果构成不可变证据。En
   execution timeout 保留为 candidate-cost evidence；
 - 格式错误、过期、复用环境或无依据反馈全部 fail closed。
 
-失败证据必须先持久化，才能影响下一次 proposal。已接纳的 hard conflict 或高置信度 unresolved
+失败 action evidence 必须先持久化并归一化，才能影响下一次 proposal。确定性的 package-manager
+Python mismatch 进入 hard runtime requirement 与 fact；不能唯一定位原因的 action failure 仍只作为
+hypothesis 或 provisional constraint。已接纳的 hard conflict 或高置信度 unresolved
 requirement 可以生成强制操作义务；仅有 hypothesis 的失败可以继续搜索，但只能提供软排序信号，
 不能排除候选。
 方法不加入 repository-name 分支、held-out package map 或源码修改修复路径。
@@ -98,11 +104,13 @@ requirement 可以生成强制操作义务；仅有 hypothesis 的失败可以�
 Fresh replay 属于算法，因为它检查部署程序是否依赖前一候选留下的隐藏状态；但它不是
 EnvBench 官方评测。
 
-对于每个受支持的 hard conflict 或 unresolved hard requirement，确定性 planner 生成带 provenance 的 `OperationPlan`，
-把 runtime、package、capability 和 module 冲突映射为允许的运行时配置、Python 包安装或
-系统包安装等操作类型。模型仍负责选择具体参数并重新提出完整程序；在创建容器前，
-`constraint-operation-guard-v2` 检查候选相对最近一次真实执行候选，是否为每项义务引入了
-至少一个允许的新 mutation。被拒候选只消耗候选与模型预算，不消耗环境或命令预算。
+对于每个受支持的 hard conflict、unresolved hard requirement，或依赖上一候选环境才成立的
+satisfaction，确定性 planner 生成带 provenance 的 `OperationPlan`，把 runtime、package、
+capability 和 module 状态映射为允许的操作类型。由于下一轮从 fresh environment 开始，
+candidate-scoped satisfaction 仍会形成“保持该操作”的义务。模型负责选择具体参数并重新提出完整
+程序；`constraint-operation-guard-v3` 检查当前完整候选是否覆盖每项义务。新颖性继续记录，但不会
+为了保持一个正确操作而强迫模型换命令。Guard 还会拒绝原样经过已精确定位失败 action 的命令前缀，
+同时允许在失败点之前插入修复。被拒候选只消耗候选与模型预算，不消耗环境或命令预算。
 
 ### 3.5 评测隔离
 
@@ -751,3 +759,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   成为 operation plan 的 hard constraint，最后一个 candidate 删除 pyenv，退回已知无效解释器。Q8
   必须加入 fresh base-runtime observation、条件化 `requires-python` admission、hard runtime preservation
   和 runtime-acquisition feasibility。这些是通用 typed-state 修改；Q7 已关闭且不得重跑。
+- Runtime-state v9 已在 source revision `b9f0c58` 上实现，并由 Harness v23 与 algorithm freeze v9
+  冻结。断网、只读 probe 把基础 Python fact 绑定到精确 image digest；PEP 621 `requires-python`
+  与 `setup.cfg` `python_requires` 只有拿到该 fact 后才接纳。确定性 Python mismatch 现在会进入
+  constraint engine；candidate-scoped satisfaction 会生成 fresh-replay preservation obligation；guard
+  也已把“覆盖现有义务”和“改变已失败路径”分开。聚焦 runtime/operation 测试为 `60 passed`，全量
+  回归为 `365 passed, 1 skipped`，含 base-runtime probe 的真实 Docker 边界通过。本轮没有运行新
+  development case 或 official evaluator。下一步只能从剩余 161 个 untouched case 中预注册并盲选 Q8。
