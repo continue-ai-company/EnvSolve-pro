@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v9_preregistration.json",
+  "preregistration_sha256": "fee5e29bd9c482e78f2b9a35b13e01d0eafe6889ed88d7695a5b0b853e9cae44",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v9_151.jsonl",
+  "remaining_sha256": "508082d490fb6e8d2060f7ed45a621570fdf77868769b482954ff8af57772f5c",
+  "salt": "envsolve-p6-operation-qualification-v9-2026-07-20",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031",
+    "envbench-python-quantumjot__btrack@5720808a3533a91b02cb521c787b8ac31d3df20d",
+    "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+    "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+    "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v9_5.jsonl",
+  "selected_sha256": "6e55368fdabc7e74433888863a2200ad09bc2fd5f1b01e630c7534d5801102fe",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v8_156.jsonl",
+  "source_sha256": "51eb1a16fa804c98fc2970eb2a32273962a113d4d68e930509b2882cb051ef48"
+}
