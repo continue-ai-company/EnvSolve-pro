@@ -1143,3 +1143,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   descriptive resources only. The next milestone is aggregate transition-level
   error analysis over the consumed Q10 trajectories to identify one dominant,
   cross-repository solver defect before any new algorithm freeze or unseen batch.
+- The deterministic Q10 transition analysis partitions all 50 candidates without
+  repository-specific log rules: 23 candidate-command failures, ten fixed-check
+  failures, eight unresolved structured-verifier outcomes, six shared validation
+  rejects, and three operation-guard rejects. A separately committed post-episode
+  calibration then evaluated the last actually verified candidate from each run
+  exactly once. All ten artifacts are audit-valid; nine evaluations completed, one
+  was infrastructure `Unknown`, and none passed. Six of nine completed scripts
+  failed bootstrap; the remaining three reached Pyright and failed with 824, 61,
+  and 61 errors. No completed internal-negative script was Official-positive, so
+  the frozen Boolean verifier gate is not relaxed. The next minimal revision targets
+  operation feasibility: deterministic failed actions must become first-class,
+  provenance-bearing operation outcomes with unresolved preconditions, defined by
+  generic synthetic counterexamples before another unseen development batch.

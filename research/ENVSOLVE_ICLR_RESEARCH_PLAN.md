@@ -483,12 +483,19 @@ diagnostic-admission failure and is closed. The next qualification exposed and
 repaired a phase-agnostic infrastructure-classification defect. A complete unseen
 development qualification of the repaired v11 produced ten scientifically eligible
 trajectories and no false infrastructure transition, but the preregistered target
-signature never occurred and no run reached official evaluation. The next milestone
-is therefore a cross-case error decomposition of the 50 consumed candidate
-transitions, followed by one minimal generic solver revision defined by synthetic
-counterexamples. Held-out evaluation remains blocked until a frozen development
-method reaches the terminal evaluator often enough to support an effectiveness
-comparison.
+signature never occurred and no run reached official evaluation. Cross-case
+decomposition attributes 23 of 50 terminal candidate stages to candidate-command
+failure. A preregistered post-episode calibration of ten deterministically selected
+terminal scripts produced nine completed Official failures, one infrastructure
+Unknown, and zero passes; only three scripts reached Pyright, where all failed.
+Thus terminal non-reach was not hiding a passing script in any completed calibration,
+and the Boolean internal gate remains fixed. The next minimal revision promotes a
+deterministic failed action from bounded conversational feedback to a provenance-
+bearing operation outcome with an unresolved precondition. Its state transition and
+causal retry rule must be defined by generic synthetic counterexamples before another
+unseen development batch. Held-out evaluation remains blocked until a frozen
+development method reaches the terminal evaluator often enough to support an
+effectiveness comparison.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

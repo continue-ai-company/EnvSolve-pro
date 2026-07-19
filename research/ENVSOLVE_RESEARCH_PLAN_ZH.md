@@ -838,3 +838,13 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   environment 与 5,174.2 秒；这些资源只能作描述性分析。下一里程碑是对 consumed Q10 trajectory
   做聚合的状态转移错误分析，在任何新算法 freeze 或 unseen batch 前找到一个跨 repository 的主要
   solver 缺陷。
+- 确定性的 Q10 状态转移分析在不使用 repository-specific 日志规则的前提下，对 50 个 candidate
+  做完备分解：23 个 candidate-command failure、10 个 fixed-check failure、8 个 structured verifier
+  未解、6 个共享 validation reject 和 3 个 operation-guard reject。随后，单独提交的 episode 后校准
+  对每条 run 最后一个真正接受 verification 的 candidate 严格评测一次。10 份 artifact 全部
+  audit-valid；9 次 evaluation completed，1 次为 infrastructure `Unknown`，0 次通过。9 次完成结果中
+  6 次 bootstrap failure，其余 3 次进入 Pyright 并分别产生 824、61、61 个 error。没有任何完成的
+  internal-negative script 成为 Official-positive，因此冻结的 Boolean verifier gate 不放松。下一项
+  最小 revision 转向 operation feasibility：确定性 failed action 必须成为一等、带 provenance 且
+  含 unresolved precondition 的 operation outcome，并在下一批 unseen development 前由通用合成
+  反例定义。

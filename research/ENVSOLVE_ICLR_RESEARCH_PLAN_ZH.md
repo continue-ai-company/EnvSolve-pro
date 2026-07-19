@@ -349,9 +349,14 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 下一次 qualification 暴露并修复了不感知 phase 的 infrastructure-classification 缺陷。修复后的
 v11 在完整 unseen development qualification 中产生 10 条 scientifically eligible trajectory，且
 没有错误的 infrastructure 转移，但预注册目标签名始终没有出现，也没有 run 进入 official
-evaluation。下一里程碑因此是对 50 个 consumed candidate transition 做跨 case 错误分解，再用合成
-反例定义一个最小的通用 solver revision。只有冻结的 development 方法能够以足够频率进入 terminal
-evaluator、从而支持效果比较后，held-out evaluation 才解锁。
+evaluation。跨 case 分解发现，50 个 candidate 终止阶段中有 23 个属于 candidate-command failure。
+随后预注册的 episode 后校准确定性选择 10 份 terminal script，得到 9 次 completed Official failure、
+1 次 infrastructure Unknown 和 0 次通过；只有 3 份脚本进入 Pyright，且全部失败。因此，在任何完成
+的校准中，terminal non-reach 都没有隐藏 passing script，Boolean internal gate 继续冻结。下一项最小
+revision 要把确定性 failed action 从有界对话反馈提升为带 provenance、含 unresolved precondition 的
+operation outcome；其状态转移和 causal retry rule 必须先由通用合成反例定义，再进入新的 unseen
+development batch。只有冻结的 development 方法能够以足够频率进入 terminal evaluator、从而支持
+效果比较后，held-out evaluation 才解锁。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中
