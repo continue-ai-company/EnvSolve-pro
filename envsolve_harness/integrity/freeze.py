@@ -22,10 +22,10 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v22"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v22.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v21"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v21.json")
+FREEZE_ID = "envsolve-harness-v23"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v23.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v22"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v22.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
@@ -69,6 +69,14 @@ DATASET_PATHS = (
     Path("experiments/validations/p6_operation_qualification_v6_selection.json"),
     Path("experiments/validations/p6_operation_qualification_v6_schedule.json"),
     Path("experiments/validations/p6_operation_q6_results.json"),
+    Path("experiments/cases/dev_operation_qualification_v7_5.jsonl"),
+    Path("experiments/cases/train_untouched_after_operation_qualification_v7_161.jsonl"),
+    Path("experiments/validations/p6_operation_qualification_v7_preregistration.json"),
+    Path("experiments/validations/p6_operation_qualification_v7_selection.json"),
+    Path("experiments/validations/p6_operation_qualification_v7_schedule.json"),
+    Path("experiments/validations/p6_operation_q7_audit.json"),
+    Path("experiments/validations/p6_operation_q7_results.json"),
+    Path("experiments/protocols/p6_operation_qualification_freeze_v7.json"),
 )
 OFFICIAL_CHANNEL_CONTRACT = {
     "scoring": True,
@@ -86,7 +94,7 @@ DEVELOPMENT_DISCLOSURE = {
         "dev-5",
         "dev-extension-3",
         "dev-v3-qualification-5",
-        "dev-operation-qualification-q1-q6",
+        "dev-operation-qualification-q1-q7",
     ],
     "untouched_confirmatory_splits": ["canary-20", "official-test-100"],
     "case_specific_rules": False,
@@ -234,7 +242,7 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "freeze_id": SUPERSEDED_FREEZE_ID,
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
-            "reason": "After Q6 showed that reactive operations were insufficient, freeze conservative pre-action declaration admission, positive fresh observations, package-state closure, timeout correction, documentation coverage, and the clean EnvBench evaluator revision before any new development case.",
+            "reason": "After Q7 exposed runtime-state regression, freeze fresh base-runtime observation, conditional requires-python admission, hard action-result constraints, cumulative operation preservation, and failed-prefix feasibility before any new development case.",
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,
         "harness_source": {

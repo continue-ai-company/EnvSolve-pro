@@ -14,6 +14,7 @@ from envsolve.constraints import (
     NormalizedConstraint,
 )
 from envsolve.runtime.docker import (
+    BaseRuntimeObservation,
     DockerEnvironmentHandle,
     DockerFreshEnvironmentProvider,
 )
@@ -74,6 +75,14 @@ class FakeDockerGit:
             return subprocess.CompletedProcess(command, 0, "", "")
         if command[:3] == ["docker", "image", "inspect"]:
             return subprocess.CompletedProcess(command, 0, "sha256:image\n", "")
+        if command[:2] == ["docker", "run"]:
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                'ENVSOLVE_BASE_RUNTIME_V1={"python_implementation": "CPython", '
+                '"python_version": "3.13.2"}\n',
+                "",
+            )
         if command[:2] == ["docker", "create"]:
             self.containers += 1
             return subprocess.CompletedProcess(
@@ -249,6 +258,85 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             provider.release(first)
             provider.release(second)
             self.assertFalse(first.handle.worktree.exists())
+
+    def test_provider_observes_base_runtime_without_network_or_repository_mount(self) -> None:
+        revision = "a" * 40
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source"
+            source.mkdir()
+            fake = FakeDockerGit(revision)
+            provider = DockerFreshEnvironmentProvider(
+                source_repository=source,
+                worktrees_root=root / "worktrees",
+                repository="owner/repo",
+                revision=revision,
+                image="test:image",
+                run_command=fake,
+            )
+
+            observation = provider.observe_base_runtime()
+
+            self.assertIsInstance(observation, BaseRuntimeObservation)
+            self.assertEqual(observation.python_version, "3.13.2")
+            self.assertEqual(observation.image_digest, "sha256:image")
+            evidence = observation.constraint_evidence()
+            self.assertEqual(evidence.kind, "runtime-observation")
+            docker_run = next(command for command in fake.commands if command[:2] == ["docker", "run"])
+            self.assertIn("--network", docker_run)
+            self.assertIn("none", docker_run)
+            self.assertIn("--read-only", docker_run)
+            self.assertFalse(any("mount" in item for item in docker_run))
+
+    def test_verifier_records_the_exact_failed_candidate_prefix(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def fail(command, **kwargs):
+                script = command[-1]
+                self.assertIn("ENVSOLVE_ACTION_INDEX=1", script)
+                return subprocess.CompletedProcess(
+                    command,
+                    1,
+                    "",
+                    "resolution failed\nENVSOLVE_FAILED_ACTION_V1=1:1\n",
+                )
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False, run_command=fail
+            ).verify(
+                DeploymentCandidate(
+                    "candidate-1",
+                    "python -m pip install prerequisite\npython -m pip install -e .",
+                    "test",
+                ),
+                environment,
+            )
+
+            self.assertFalse(result.passed)
+            self.assertEqual(
+                result.details["failed_candidate_action"],
+                {
+                    "action_index": 1,
+                    "command": "python -m pip install -e .",
+                    "prefix_commands": [
+                        "python -m pip install prerequisite",
+                        "python -m pip install -e .",
+                    ],
+                    "exit_code": 1,
+                },
+            )
 
     def test_internal_check_failure_remains_a_grounded_hypothesis(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

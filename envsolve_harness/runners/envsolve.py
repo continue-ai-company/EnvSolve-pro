@@ -70,7 +70,7 @@ class EnvSolveEpisodeRunner:
         write_json(artifacts.status, {"state": "generating", "updated_at": started_at})
         metadata: dict[str, Any] = {
             "runner": "envsolve-episode",
-            "runner_version": "0.2.0",
+            "runner_version": "0.3.0",
             "condition": self.condition,
             "started_at": started_at,
             "online_feedback_policy": "internal-execution-only",

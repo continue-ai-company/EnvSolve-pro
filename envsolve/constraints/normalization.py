@@ -197,7 +197,7 @@ class EvidenceNormalizer:
                         specifier,
                         ConstraintRole.REQUIREMENT,
                         (evidence_id,),
-                        derived_confidence,
+                        confidence,
                     ),
                     NormalizedConstraint(
                         ConstraintDomain.RUNTIME,
@@ -206,7 +206,7 @@ class EvidenceNormalizer:
                         version,
                         ConstraintRole.FACT,
                         (evidence_id,),
-                        derived_confidence,
+                        confidence,
                     ),
                 ]
             )

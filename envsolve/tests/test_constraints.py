@@ -206,7 +206,6 @@ class NormalizationAndPropagationTest(ConstraintTestCase):
                 "action-result",
                 {
                     "exit_code": 1,
-                    "deterministic_counterexample": True,
                     "stdout": "",
                     "stderr": (
                         "Package requires a different Python: 3.13.2 not in "
@@ -220,6 +219,7 @@ class NormalizationAndPropagationTest(ConstraintTestCase):
             self.assertEqual(len(report.conflicts), 1)
             self.assertEqual(report.conflicts[0].evidence_ids, (evidence_id,))
             self.assertEqual(set(report.statuses.values()), {"violated"})
+            self.assertFalse(report.provisional_constraints)
 
     def test_missing_executable_output_produces_capability_conflict(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

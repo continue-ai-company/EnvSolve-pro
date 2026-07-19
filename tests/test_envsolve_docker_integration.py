@@ -59,6 +59,7 @@ class EnvSolveDockerIntegrationTest(unittest.TestCase):
                 ),
                 "Install the synthetic project",
             )
+            base_runtime = provider.observe_base_runtime()
             environment = provider.provision(candidate)
             try:
                 result = PythonDeploymentVerifier(
@@ -67,6 +68,11 @@ class EnvSolveDockerIntegrationTest(unittest.TestCase):
             finally:
                 provider.release(environment)
 
+            self.assertTrue(base_runtime.python_version)
+            self.assertEqual(
+                base_runtime.image_digest,
+                environment.receipt.image_digest,
+            )
             self.assertTrue(result.passed, result.bootstrap.stderr)
             self.assertFalse(environment.handle.worktree.exists())
 

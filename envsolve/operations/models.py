@@ -7,7 +7,7 @@ import json
 from typing import Any
 
 
-OPERATION_PLAN_SCHEMA_VERSION = "2.0.0"
+OPERATION_PLAN_SCHEMA_VERSION = "3.0.0"
 
 
 class OperationKind(str, Enum):
@@ -19,6 +19,7 @@ class OperationKind(str, Enum):
 class OperationTrigger(str, Enum):
     CONFLICT = "conflict"
     UNRESOLVED_REQUIREMENT = "unresolved_requirement"
+    PRESERVE_SATISFACTION = "preserve_satisfaction"
 
 
 def _canonical_json(value: dict[str, Any]) -> str:
@@ -43,11 +44,8 @@ class OperationRequirement:
             raise ValueError("Operation requirement needs constraint provenance")
         if self.trigger is OperationTrigger.CONFLICT and not self.source_conflict_ids:
             raise ValueError("Conflict-triggered operations need conflict provenance")
-        if (
-            self.trigger is OperationTrigger.UNRESOLVED_REQUIREMENT
-            and self.source_conflict_ids
-        ):
-            raise ValueError("Unresolved requirements cannot claim conflict provenance")
+        if self.trigger is not OperationTrigger.CONFLICT and self.source_conflict_ids:
+            raise ValueError("Non-conflict operations cannot claim conflict provenance")
         object.__setattr__(
             self,
             "allowed_operation_kinds",

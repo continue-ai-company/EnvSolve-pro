@@ -371,10 +371,10 @@ class SolverStateSession:
         result: CommandResult,
         evidence_id: str | None = None,
         evidence_source: str = "recorded-action",
-    ) -> None:
+    ) -> str:
         """Complete an externally executed action that is already running."""
         self.finish_action(action_id, result)
-        self._record_action_evidence(
+        recorded_evidence_id = self._record_action_evidence(
             action_id,
             spec,
             result,
@@ -388,6 +388,7 @@ class SolverStateSession:
                 action_id=action_id,
                 details={"exit_code": result.exit_code},
             )
+        return recorded_evidence_id
 
     def execute_action(self, spec: ActionSpec, executor: ActionExecutor) -> CommandResult:
         action_id = self.propose_action(spec)

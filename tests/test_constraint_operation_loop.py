@@ -18,6 +18,7 @@ from envsolve_harness.scripts import (
     ConstraintOperationGuard,
     TypedReplayCandidateValidator,
 )
+from envsolve.state import EnvironmentState
 
 
 class RecordingBudget:
@@ -203,7 +204,159 @@ class HypothesisThenPassVerifier:
         )
 
 
+class RuntimeMismatchQueue:
+    def __init__(self) -> None:
+        self.index = 0
+        self.scripts = (
+            "python -m pip install -e .",
+            "pyenv install 3.10.15\n"
+            "pyenv global 3.10.15\n"
+            "python -m pip install -e .",
+        )
+
+    def propose(self, state):
+        script = self.scripts[self.index]
+        self.index += 1
+        return DeploymentCandidate(
+            f"runtime-candidate-{self.index}",
+            script,
+            "Repair the observed runtime mismatch",
+        )
+
+
+class RuntimeMismatchThenPassVerifier:
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def verify(self, candidate, environment):
+        self.calls += 1
+        if self.calls == 1:
+            return ExecutableVerification(
+                verifier="synthetic-verifier",
+                check_profile="synthetic-profile",
+                channel=FeedbackChannel.INTERNAL_EXECUTION,
+                passed=False,
+                bootstrap=CommandResult(
+                    1,
+                    stderr=(
+                        "Package 'demo' requires a different Python: "
+                        "3.13.2 not in '<3.13,>=3.10'"
+                    ),
+                ),
+                summary="base runtime is incompatible",
+                hypotheses=(
+                    HypothesisEvidence(
+                        "runtime-mismatch",
+                        "The base Python version is incompatible",
+                        {"exit_code": 1},
+                        1.0,
+                    ),
+                ),
+            )
+        return ExecutableVerification(
+            verifier="synthetic-verifier",
+            check_profile="synthetic-profile",
+            channel=FeedbackChannel.INTERNAL_EXECUTION,
+            passed=True,
+            bootstrap=CommandResult(0),
+            summary="deployment verified",
+        )
+
+
 class ConstraintOperationLoopTest(unittest.TestCase):
+    def test_runtime_mismatch_action_result_becomes_a_hard_operation_obligation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            session = SolverStateSession(
+                root / "events.jsonl",
+                root / "snapshot.json",
+                {
+                    "case_id": "runtime-action-result",
+                    "repository": "example/project",
+                    "revision": "a" * 40,
+                },
+            )
+            provider = RecordingProvider()
+            result = CounterexampleGuidedDeploymentLoop(
+                session,
+                max_candidates=2,
+                candidate_validator=TypedReplayCandidateValidator(),
+                operation_guard=ConstraintOperationGuard(),
+                budget=RecordingBudget(),
+            ).run(RuntimeMismatchQueue(), provider, RuntimeMismatchThenPassVerifier())
+
+            self.assertEqual(result.goal_status, "satisfied")
+            self.assertEqual(result.constraints_updated, 2)
+            self.assertEqual(
+                provider.provisioned,
+                ["runtime-candidate-1", "runtime-candidate-2"],
+            )
+            guard = session.reconstruct().actions["runtime-candidate-2"]["metadata"][
+                "operation_guard"
+            ]
+            self.assertTrue(guard["accepted"])
+            self.assertEqual(guard["plan"]["requirements"][0]["domain"], "runtime")
+            self.assertEqual(
+                guard["plan"]["requirements"][0]["allowed_operation_kinds"],
+                ["runtime_configure"],
+            )
+
+    def test_guard_rejects_failed_prefix_but_allows_a_change_before_failure(self) -> None:
+        state = EnvironmentState(
+            "failed-prefix",
+            case={
+                "case_id": "failed-prefix",
+                "repository": "example/project",
+                "revision": "a" * 40,
+            },
+        )
+        state.verifications.append(
+            {
+                "verification_id": "verification-candidate-1",
+                "passed": False,
+                "details": {
+                    "candidate_id": "candidate-1",
+                    "verifier_details": {
+                        "failed_candidate_action": {
+                            "prefix_commands": [
+                                "python -m pip install prerequisite",
+                                "python -m pip install -e .",
+                            ]
+                        }
+                    },
+                },
+            }
+        )
+        guard = ConstraintOperationGuard()
+
+        repeated = guard.validate(
+            DeploymentCandidate(
+                "candidate-2",
+                "python -m pip install prerequisite\n"
+                "python -m pip install -e .\n"
+                "python -m pip install repair-after-failure",
+                "append too late",
+            ),
+            state,
+        )
+        changed = guard.validate(
+            DeploymentCandidate(
+                "candidate-3",
+                "python -m pip install prerequisite\n"
+                "python -m pip install repair-before-failure\n"
+                "python -m pip install -e .",
+                "change before the failed command",
+            ),
+            state,
+        )
+
+        self.assertFalse(repeated.accepted)
+        self.assertEqual(
+            repeated.details["repeated_failed_attempts"],
+            [{"candidate_id": "candidate-1", "mode": "failed-prefix"}],
+        )
+        self.assertTrue(changed.accepted)
+
     def test_conflict_requires_a_new_permitted_operation_before_fresh_execution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

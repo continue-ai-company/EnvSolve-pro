@@ -39,10 +39,12 @@ BASE_SYSTEM_PROMPT = dedent(
 OPERATION_SYSTEM_PROMPT = dedent(
     """
     The state contains a machine-derived operation_plan. For every listed
-    requirement, introduce at least one new mutation whose kind is in
-    allowed_operation_kinds compared with the latest executed candidate, while
-    keeping the program complete and cumulative. The plan constrains the kind
-    of repair; it does not authorize inventing package-to-module mappings.
+    requirement, include at least one mutation whose kind is in
+    allowed_operation_kinds. Preserve operations that support previously satisfied
+    requirements because every candidate runs in a fresh environment. Use prior
+    failures to change the program before a command that already failed. The plan
+    constrains the kind of repair; it does not authorize inventing
+    package-to-module mappings.
     """
 ).strip()
 

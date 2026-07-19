@@ -867,7 +867,7 @@ class CounterexampleGuidedDeploymentLoop:
                     action_id=decision.candidate_id,
                 )
 
-            self.session.complete_recorded_action(
+            action_evidence_id = self.session.complete_recorded_action(
                 decision.candidate_id,
                 action_spec,
                 outcome.bootstrap,
@@ -946,6 +946,11 @@ class CounterexampleGuidedDeploymentLoop:
             prior_fact_ids = self.constraint_engine.fact_constraint_ids(
                 self.session.reconstruct()
             )
+            action_constraint_ids = self.constraint_engine.ingest_evidence(
+                self.session,
+                action_evidence_id,
+                fact_scope=decision.candidate_id,
+            )
             observation_ids = self._ingest_verifier_evidence(
                 decision,
                 environment,
@@ -960,7 +965,11 @@ class CounterexampleGuidedDeploymentLoop:
                 outcome.counterexamples,
                 identifier_prefix="counterexample",
             )
-            normalized_ids = (*observation_ids, *counterexample_ids)
+            normalized_ids = (
+                *action_constraint_ids,
+                *observation_ids,
+                *counterexample_ids,
+            )
             if not counterexample_ids:
                 replacement_fact_ids = self.constraint_engine.fact_constraint_ids(
                     self.session.reconstruct(),

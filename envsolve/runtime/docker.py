@@ -2,11 +2,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import hashlib
+import json
 from pathlib import Path
 import shutil
 import subprocess
-from typing import Any, Callable
+from typing import Callable
 import uuid
+
+from packaging.version import InvalidVersion, Version
+
+from envsolve.constraints import InitialConstraintEvidence
 
 from envsolve.solver import (
     DeploymentCandidate,
@@ -16,6 +22,68 @@ from envsolve.solver import (
 
 
 RunCommand = Callable[..., subprocess.CompletedProcess[str]]
+_BASE_RUNTIME_MARKER = "ENVSOLVE_BASE_RUNTIME_V1="
+
+
+@dataclass(frozen=True)
+class BaseRuntimeObservation:
+    """Fresh, read-only observation of the candidate image's Python runtime."""
+
+    image: str
+    image_digest: str
+    python_implementation: str
+    python_version: str
+
+    def __post_init__(self) -> None:
+        if not all(
+            isinstance(item, str) and item.strip()
+            for item in (
+                self.image,
+                self.image_digest,
+                self.python_implementation,
+                self.python_version,
+            )
+        ):
+            raise ValueError("Base runtime observation fields cannot be empty")
+        try:
+            normalized = str(Version(self.python_version))
+        except InvalidVersion as exc:
+            raise ValueError("Base runtime observation has an invalid version") from exc
+        object.__setattr__(self, "python_version", normalized)
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "schema": "envsolve-base-runtime-observation-v1",
+            "image": self.image,
+            "image_digest": self.image_digest,
+            "python_implementation": self.python_implementation,
+            "python_version": self.python_version,
+        }
+
+    def constraint_evidence(self) -> InitialConstraintEvidence:
+        value = {
+            "name": "python",
+            "version": self.python_version,
+            "implementation": self.python_implementation,
+            "image": self.image,
+            "image_digest": self.image_digest,
+        }
+        semantic = {
+            "kind": "runtime-observation",
+            "source": f"fresh-base-runtime:{self.image_digest}",
+            "value": value,
+        }
+        digest = hashlib.sha256(
+            json.dumps(
+                semantic, ensure_ascii=True, separators=(",", ":"), sort_keys=True
+            ).encode("utf-8")
+        ).hexdigest()
+        return InitialConstraintEvidence(
+            evidence_id=f"base-runtime-observation-{digest[:24]}",
+            kind=semantic["kind"],
+            source=semantic["source"],
+            value=value,
+        )
 
 
 @dataclass(frozen=True)
@@ -46,6 +114,7 @@ class DockerFreshEnvironmentProvider:
         self.image = image
         self.create_timeout = create_timeout
         self.run_command = run_command
+        self.base_image_digest: str | None = None
         if not self.source_repository.is_dir():
             raise ValueError("Fresh environment source repository is missing")
 
@@ -64,6 +133,60 @@ class DockerFreshEnvironmentProvider:
             detail = process.stderr.strip() or process.stdout.strip()
             raise RuntimeError(f"{label} failed: {detail}")
         return process.stdout.strip()
+
+    def observe_base_runtime(self) -> BaseRuntimeObservation:
+        """Observe Python in a fresh, network-disabled instance of the base image."""
+        image_digest = self._checked(
+            ["docker", "image", "inspect", "--format", "{{.Id}}", self.image],
+            "Docker image identity",
+        )
+        probe = (
+            "import json, platform; "
+            f"print({_BASE_RUNTIME_MARKER!r} + json.dumps({{"
+            "'python_implementation': platform.python_implementation(), "
+            "'python_version': platform.python_version()"
+            "}, sort_keys=True))"
+        )
+        process = self._run(
+            [
+                "docker",
+                "run",
+                "--rm",
+                "--network",
+                "none",
+                "--read-only",
+                "--entrypoint",
+                "python",
+                image_digest,
+                "-I",
+                "-c",
+                probe,
+            ]
+        )
+        if process.returncode != 0:
+            detail = process.stderr.strip() or process.stdout.strip()
+            raise RuntimeError(f"Base runtime observation failed: {detail}")
+        payloads = [
+            line[len(_BASE_RUNTIME_MARKER) :]
+            for line in process.stdout.splitlines()
+            if line.startswith(_BASE_RUNTIME_MARKER)
+        ]
+        if len(payloads) != 1:
+            raise RuntimeError("Base runtime observation produced an invalid report")
+        try:
+            payload = json.loads(payloads[0])
+            implementation = payload["python_implementation"]
+            version = payload["python_version"]
+        except (json.JSONDecodeError, KeyError, TypeError) as exc:
+            raise RuntimeError("Base runtime observation report is malformed") from exc
+        observation = BaseRuntimeObservation(
+            image=self.image,
+            image_digest=image_digest,
+            python_implementation=str(implementation),
+            python_version=str(version),
+        )
+        self.base_image_digest = image_digest
+        return observation
 
     def provision(self, candidate: DeploymentCandidate) -> ProvisionedEnvironment:
         nonce = uuid.uuid4().hex
@@ -96,6 +219,13 @@ class DockerFreshEnvironmentProvider:
                 ["docker", "image", "inspect", "--format", "{{.Id}}", self.image],
                 "Docker image identity",
             )
+            if (
+                self.base_image_digest is not None
+                and image_digest != self.base_image_digest
+            ):
+                raise RuntimeError(
+                    "Docker image identity changed after base-runtime observation"
+                )
             container_workdir = (
                 f"/data/project/{self.repository.replace('/', '__')}@{self.revision}"
             )
@@ -107,7 +237,7 @@ class DockerFreshEnvironmentProvider:
                     "/bin/bash",
                     "--mount",
                     f"type=bind,src={worktree},dst={container_workdir}",
-                    self.image,
+                    image_digest,
                     "-lc",
                     "while true; do sleep 1000; done",
                 ],

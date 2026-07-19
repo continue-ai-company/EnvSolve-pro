@@ -7,7 +7,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[2]
-FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v8.json"
+FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v9.json"
 
 
 def sha256(path: Path) -> str:
@@ -15,7 +15,7 @@ def sha256(path: Path) -> str:
 
 
 class P6OperationFreezeTests(unittest.TestCase):
-    def test_v8_source_and_parent_hashes_are_current(self) -> None:
+    def test_v9_source_and_parent_hashes_are_current(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
 
         for relative, expected in freeze["files"].items():
@@ -24,15 +24,19 @@ class P6OperationFreezeTests(unittest.TestCase):
             record = freeze[field]
             self.assertEqual(sha256(ROOT / record["path"]), record["sha256"])
 
-    def test_v8_treatment_boundary_is_explicit(self) -> None:
+    def test_v9_treatment_boundary_is_explicit(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
         boundary = freeze["semantic_boundary"]
 
         self.assertEqual(
             boundary["shared_repository_observer"],
-            "envsolve-repository-declarations-v1",
+            "envsolve-repository-declarations-v2",
         )
-        self.assertEqual(boundary["shared_verifier"], "python-deployment-v4")
+        self.assertEqual(boundary["shared_verifier"], "python-deployment-v5")
+        self.assertEqual(
+            boundary["shared_base_runtime_observer"],
+            "envsolve-base-runtime-observation-v1",
+        )
         self.assertEqual(
             boundary["treatment_components"],
             [

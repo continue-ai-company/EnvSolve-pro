@@ -90,7 +90,20 @@ def main() -> int:
         )
     )
     profile = profile_python_repository(source_repository)
+    provider = DockerFreshEnvironmentProvider(
+        source_repository=source_repository,
+        worktrees_root=args.worktrees,
+        repository=args.repository,
+        revision=args.revision,
+        image=args.image,
+        create_timeout=args.container_create_timeout,
+    )
+    base_runtime = provider.observe_base_runtime()
+    base_runtime_evidence = base_runtime.constraint_evidence()
     repository_constraints = collect_repository_constraints(source_repository)
+    admitted_evidence = repository_constraints.admissible_evidence(
+        base_runtime_evidence
+    )
     common_limits = {
         "budget_max_candidates": args.max_candidates,
         "budget_max_environments": args.max_candidates,
@@ -139,14 +152,6 @@ def main() -> int:
     budget = BudgetLedger(args.ledger, limits, pricing)
     case = Case(args.case_id, args.repository, args.revision)
     run_spec = RunSpec(args.run_id, args.method, args.model, args.seed)
-    provider = DockerFreshEnvironmentProvider(
-        source_repository=source_repository,
-        worktrees_root=args.worktrees,
-        repository=args.repository,
-        revision=args.revision,
-        image=args.image,
-        create_timeout=args.container_create_timeout,
-    )
     candidate_validator = TypedReplayCandidateValidator()
     result = EnvSolveEpisodeRunner(
         policy=StructuredModelDeploymentPolicy(
@@ -172,11 +177,15 @@ def main() -> int:
         condition=args.method,
         repository_profile=profile,
         initial_evidence=(
-            repository_constraints.evidence
+            admitted_evidence
             if args.operation_profile == "constraint-driven"
             else ()
         ),
-        initial_observation_summary=repository_constraints.summary(),
+        initial_observation_summary={
+            "repository": repository_constraints.summary(),
+            "base_runtime": base_runtime.to_dict(),
+            "conditional_runtime_admission": True,
+        },
     ).run(case, RunArtifacts(args.artifacts_root), run_spec)
     return 0 if result.generation_completed else 1
 

@@ -1,7 +1,12 @@
 from __future__ import annotations
 
 from envsolve.constraints import ConstraintEngine
-from envsolve.constraints.models import ConstraintRole
+from envsolve.constraints.models import (
+    ConstraintDomain,
+    ConstraintPredicate,
+    ConstraintRole,
+    NormalizedConstraint,
+)
 from envsolve.operations.models import (
     OperationKind,
     OperationPlan,
@@ -30,6 +35,7 @@ class ConstraintOperationPlanner:
 
     def plan(self, state: EnvironmentState) -> OperationPlan:
         report = self.constraint_engine.solve_state(state)
+        typed = self.constraint_engine.typed_constraints(state)
         requirements: list[OperationRequirement] = []
         unsupported: list[str] = []
         for conflict in report.conflicts:
@@ -52,7 +58,7 @@ class ConstraintOperationPlanner:
             for conflict in report.conflicts
             for constraint_id in conflict.constraint_ids
         }
-        for constraint in self.constraint_engine.typed_constraints(state):
+        for constraint in typed:
             if (
                 constraint.role is not ConstraintRole.REQUIREMENT
                 or constraint.constraint_id in conflict_constraint_ids
@@ -73,6 +79,49 @@ class ConstraintOperationPlanner:
                     allowed_operation_kinds=allowed,
                     source_conflict_ids=(),
                     source_constraint_ids=(constraint.constraint_id,),
+                )
+            )
+        facts_by_key: dict[
+            tuple[ConstraintDomain, str, ConstraintPredicate],
+            list[NormalizedConstraint],
+        ] = {}
+        for constraint in typed:
+            if (
+                constraint.role is ConstraintRole.FACT
+                and constraint.scope_id is not None
+                and constraint.confidence >= self.constraint_engine.hard_confidence
+            ):
+                facts_by_key.setdefault(
+                    (constraint.domain, constraint.subject, constraint.predicate), []
+                ).append(constraint)
+        for constraint in typed:
+            if (
+                constraint.role is not ConstraintRole.REQUIREMENT
+                or report.statuses.get(constraint.constraint_id) != "satisfied"
+                or constraint.confidence < self.constraint_engine.hard_confidence
+            ):
+                continue
+            supporting_facts = facts_by_key.get(
+                (constraint.domain, constraint.subject, constraint.predicate), []
+            )
+            if not supporting_facts:
+                continue
+            domain = constraint.domain.value
+            allowed = DOMAIN_OPERATIONS.get(domain)
+            if allowed is None:
+                unsupported.append(constraint.constraint_id)
+                continue
+            requirements.append(
+                OperationRequirement(
+                    domain=domain,
+                    subject=constraint.subject,
+                    trigger=OperationTrigger.PRESERVE_SATISFACTION,
+                    allowed_operation_kinds=allowed,
+                    source_conflict_ids=(),
+                    source_constraint_ids=(
+                        constraint.constraint_id,
+                        *(item.constraint_id for item in supporting_facts),
+                    ),
                 )
             )
         return OperationPlan(tuple(requirements), tuple(unsupported))

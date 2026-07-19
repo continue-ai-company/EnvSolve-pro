@@ -99,6 +99,48 @@ class ConstraintOperationPlannerTest(unittest.TestCase):
                 (next(iter(report.statuses)),),
             )
 
+    def test_candidate_scoped_satisfaction_requires_fresh_replay_preservation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            session = SolverStateSession(
+                root / "events.jsonl",
+                root / "snapshot.json",
+                {
+                    "case_id": "runtime-preservation",
+                    "repository": "example/project",
+                    "revision": "a" * 40,
+                },
+            )
+            requirement = session.record_evidence(
+                "runtime-requirement",
+                "repository-metadata",
+                {"name": "python", "specifier": ">=3.10,<3.13"},
+            )
+            observation = session.record_evidence(
+                "runtime-observation",
+                "fresh-verifier",
+                {"name": "python", "version": "3.11.9"},
+            )
+            engine = ConstraintEngine()
+            engine.ingest_evidence(session, requirement)
+            engine.ingest_evidence(session, observation, fact_scope="candidate-1")
+            report = engine.propagate_constraints(session)
+
+            plan = ConstraintOperationPlanner(engine).plan(session.reconstruct())
+
+            self.assertTrue(report.satisfiable)
+            self.assertEqual(len(plan.requirements), 1)
+            operation = plan.requirements[0]
+            self.assertEqual(
+                operation.trigger,
+                OperationTrigger.PRESERVE_SATISFACTION,
+            )
+            self.assertEqual(operation.domain, "runtime")
+            self.assertEqual(
+                operation.allowed_operation_kinds,
+                (OperationKind.RUNTIME_CONFIGURE,),
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

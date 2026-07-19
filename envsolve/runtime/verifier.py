@@ -46,6 +46,10 @@ from envsolve.verification.obligations import (
 
 RunCommand = Callable[..., subprocess.CompletedProcess[str]]
 _PROBE_MARKER = "ENVSOLVE_IMPORT_PROBE_V3="
+_FAILED_ACTION_MARKER = re.compile(
+    r"^ENVSOLVE_FAILED_ACTION_V1=(?P<index>[0-9]+|internal):(?P<exit_code>[0-9]+)$",
+    re.MULTILINE,
+)
 _NETWORK_FAILURES = tuple(
     (name, re.compile(pattern, re.IGNORECASE))
     for name, pattern in (
@@ -280,7 +284,7 @@ class _PackageRequirement:
 class PythonDeploymentVerifier:
     """Fixed internal Python checks with no benchmark evaluator dependency."""
 
-    check_profile = "python-deployment-v4"
+    check_profile = "python-deployment-v5"
 
     def __init__(
         self,
@@ -297,9 +301,9 @@ class PythonDeploymentVerifier:
         self.collect_tests = collect_tests
         self.obligation_profile = obligation_profile
         self.check_profile = (
-            "python-deployment-v4"
+            "python-deployment-v5"
             if obligation_profile == "two-layer"
-            else "python-deployment-v4-runtime-only-ablation"
+            else "python-deployment-v5-runtime-only-ablation"
         )
         parsed_requirements: list[_PackageRequirement] = []
         for item in package_requirements:
@@ -330,6 +334,64 @@ class PythonDeploymentVerifier:
             worktree.glob("test_*.py")
         )
 
+    @staticmethod
+    def _candidate_commands(script: str) -> tuple[str, ...]:
+        return tuple(
+            value
+            for line in script.splitlines()
+            if (value := line.strip())
+            and not value.startswith("#")
+            and not value.startswith("set ")
+        )
+
+    @classmethod
+    def _instrument_candidate(
+        cls, script: str
+    ) -> tuple[str, tuple[str, ...]]:
+        commands = cls._candidate_commands(script)
+        lines = [
+            "set -euo pipefail",
+            "trap 'rc=$?; printf \"ENVSOLVE_FAILED_ACTION_V1=%s:%s\\n\" "
+            '"${ENVSOLVE_ACTION_INDEX:-internal}" "$rc" >&2; exit "$rc"\' ERR',
+        ]
+        for index, command in enumerate(commands):
+            lines.extend((f"ENVSOLVE_ACTION_INDEX={index}", command))
+        lines.append("ENVSOLVE_ACTION_INDEX=internal")
+        return "\n".join(lines), commands
+
+    @staticmethod
+    def _failed_candidate_action(
+        stderr: str,
+        commands: tuple[str, ...],
+    ) -> dict[str, object] | None:
+        matches = tuple(_FAILED_ACTION_MARKER.finditer(stderr))
+        if not matches:
+            return None
+        match = matches[-1]
+        raw_index = match.group("index")
+        if raw_index == "internal":
+            return None
+        index = int(raw_index)
+        if index >= len(commands):
+            return None
+        return {
+            "action_index": index,
+            "command": commands[index],
+            "prefix_commands": list(commands[: index + 1]),
+            "exit_code": int(match.group("exit_code")),
+        }
+
+    @staticmethod
+    def _failure_details(
+        checks: list[str],
+        failed_action: dict[str, object] | None,
+        **extra: object,
+    ) -> dict[str, object]:
+        details: dict[str, object] = {"checks": checks, **extra}
+        if failed_action is not None:
+            details["failed_candidate_action"] = failed_action
+        return details
+
     def verify(
         self,
         candidate: DeploymentCandidate,
@@ -349,7 +411,10 @@ class PythonDeploymentVerifier:
                 json.dumps(sorted({item.name for item in self.package_requirements}))
             ),
         )
-        command = "\n".join([candidate.script.rstrip(), *checks, probe])
+        instrumented_candidate, candidate_commands = self._instrument_candidate(
+            candidate.script
+        )
+        command = "\n".join([instrumented_candidate, *checks, probe])
         started = time.monotonic()
         timed_out = False
         try:
@@ -385,6 +450,10 @@ class PythonDeploymentVerifier:
                 f"{stderr}\nInternal verification timed out".strip(),
                 time.monotonic() - started,
             )
+        failed_action = self._failed_candidate_action(
+            result.stderr,
+            candidate_commands,
+        )
         if result.exit_code == 0:
             return self._evaluate_import_probe(result, inventory, environment, checks)
         infrastructure_failure = self._infrastructure_failure(result)
@@ -407,11 +476,12 @@ class PythonDeploymentVerifier:
                         confidence=1.0,
                     ),
                 ),
-                details={
-                    "checks": checks,
-                    "infrastructure_error": "dependency_acquisition_failure",
-                    "infrastructure_signature": infrastructure_failure,
-                },
+                details=self._failure_details(
+                    checks,
+                    failed_action,
+                    infrastructure_error="dependency_acquisition_failure",
+                    infrastructure_signature=infrastructure_failure,
+                ),
             )
         if timed_out:
             return ExecutableVerification(
@@ -432,11 +502,12 @@ class PythonDeploymentVerifier:
                         confidence=1.0,
                     ),
                 ),
-                details={
-                    "checks": checks,
-                    "execution_timeout": True,
-                    "command_timeout_seconds": self.command_timeout,
-                },
+                details=self._failure_details(
+                    checks,
+                    failed_action,
+                    execution_timeout=True,
+                    command_timeout_seconds=self.command_timeout,
+                ),
             )
         value = {
             "exit_code": result.exit_code,
@@ -460,7 +531,7 @@ class PythonDeploymentVerifier:
                     confidence=0.6,
                 ),
             ),
-            details={"checks": checks},
+            details=self._failure_details(checks, failed_action),
         )
 
     @staticmethod

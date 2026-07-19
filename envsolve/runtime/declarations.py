@@ -9,6 +9,7 @@ import re
 from typing import Any, Callable
 
 from packaging.requirements import InvalidRequirement, Requirement
+from packaging.specifiers import InvalidSpecifier, SpecifierSet
 
 from envsolve.constraints import InitialConstraintEvidence
 
@@ -21,7 +22,7 @@ except ModuleNotFoundError:  # pragma: no cover - selected by the Python runtime
         from pip._vendor import tomli as tomllib  # type: ignore[no-redef]
 
 
-REPOSITORY_DECLARATION_SCHEMA = "envsolve-repository-declarations-v1"
+REPOSITORY_DECLARATION_SCHEMA = "envsolve-repository-declarations-v2"
 _INLINE_COMMENT = re.compile(r"\s+#.*$")
 
 
@@ -44,6 +45,7 @@ class DeclarationDiagnostic:
 @dataclass(frozen=True)
 class RepositoryConstraintInventory:
     evidence: tuple[InitialConstraintEvidence, ...] = ()
+    runtime_requirements: tuple[InitialConstraintEvidence, ...] = ()
     diagnostics: tuple[DeclarationDiagnostic, ...] = ()
     files_observed: tuple[str, ...] = ()
     source_bytes: int = 0
@@ -53,11 +55,33 @@ class RepositoryConstraintInventory:
         return {
             "schema": self.schema,
             "evidence_count": len(self.evidence),
+            "runtime_requirement_count": len(self.runtime_requirements),
             "diagnostic_count": len(self.diagnostics),
             "files_observed": list(self.files_observed),
             "source_bytes": self.source_bytes,
             "diagnostics": [item.to_dict() for item in self.diagnostics[:100]],
         }
+
+    def admissible_evidence(
+        self,
+        base_runtime: InitialConstraintEvidence | None,
+    ) -> tuple[InitialConstraintEvidence, ...]:
+        """Admit runtime declarations only against a fresh base-runtime fact."""
+        values = list(self.evidence)
+        if base_runtime is not None:
+            image_digest = base_runtime.value.get("image_digest")
+            if (
+                base_runtime.kind != "runtime-observation"
+                or not isinstance(image_digest, str)
+                or not image_digest.strip()
+                or base_runtime.source != f"fresh-base-runtime:{image_digest}"
+            ):
+                raise ValueError(
+                    "Runtime admission requires a fresh image-bound observation"
+                )
+            values.extend(self.runtime_requirements)
+            values.append(base_runtime)
+        return tuple(sorted(values, key=lambda item: item.evidence_id))
 
 
 class _Collector:
@@ -65,6 +89,7 @@ class _Collector:
         self.max_declarations = max_declarations
         self.max_diagnostics = max_diagnostics
         self.evidence: dict[str, InitialConstraintEvidence] = {}
+        self.runtime_requirements: dict[str, InitialConstraintEvidence] = {}
         self.diagnostics: list[DeclarationDiagnostic] = []
         self.bound_reported = False
         self.diagnostic_bound_reported = False
@@ -105,7 +130,7 @@ class _Collector:
         source_sha256: str,
         line: int | None = None,
     ) -> None:
-        if len(self.evidence) >= self.max_declarations:
+        if len(self.evidence) + len(self.runtime_requirements) >= self.max_declarations:
             if not self.bound_reported:
                 self.diagnostic(path, "declaration-bound-exceeded")
                 self.bound_reported = True
@@ -149,6 +174,51 @@ class _Collector:
             value=value,
         )
         self.evidence[evidence.evidence_id] = evidence
+
+    def runtime_requirement(
+        self,
+        raw: str,
+        *,
+        path: str,
+        source_sha256: str,
+    ) -> None:
+        if len(self.evidence) + len(self.runtime_requirements) >= self.max_declarations:
+            if not self.bound_reported:
+                self.diagnostic(path, "declaration-bound-exceeded")
+                self.bound_reported = True
+            return
+        if not raw or len(raw) > 4_096:
+            self.diagnostic(path, "invalid-requires-python", raw=raw)
+            return
+        try:
+            specifier = str(SpecifierSet(raw))
+        except InvalidSpecifier:
+            self.diagnostic(path, "invalid-requires-python", raw=raw)
+            return
+        value = {
+            "name": "python",
+            "specifier": specifier,
+            "declared_requirement": raw,
+            "source_path": path,
+            "source_sha256": source_sha256,
+        }
+        semantic = {
+            "kind": "runtime-requirement",
+            "source": f"repository-declaration:{path}",
+            "value": value,
+        }
+        digest = hashlib.sha256(
+            json.dumps(
+                semantic, ensure_ascii=True, separators=(",", ":"), sort_keys=True
+            ).encode("utf-8")
+        ).hexdigest()
+        evidence = InitialConstraintEvidence(
+            evidence_id=f"repository-runtime-requirement-{digest[:24]}",
+            kind=semantic["kind"],
+            source=semantic["source"],
+            value=value,
+        )
+        self.runtime_requirements[evidence.evidence_id] = evidence
 
 
 def collect_repository_constraints(
@@ -196,6 +266,10 @@ def collect_repository_constraints(
         collector.diagnostic(".", "file-bound-exceeded")
     return RepositoryConstraintInventory(
         evidence=tuple(collector.evidence[key] for key in sorted(collector.evidence)),
+        runtime_requirements=tuple(
+            collector.runtime_requirements[key]
+            for key in sorted(collector.runtime_requirements)
+        ),
         diagnostics=tuple(collector.diagnostics),
         files_observed=tuple(observed),
         source_bytes=total_bytes,
@@ -219,6 +293,16 @@ def _parse_pyproject(
     if not isinstance(project, dict):
         collector.diagnostic(path, "invalid-pep621-project-table")
         return
+    requires_python = project.get("requires-python")
+    if requires_python is not None:
+        if isinstance(requires_python, str):
+            collector.runtime_requirement(
+                requires_python.strip(),
+                path=path,
+                source_sha256=source_sha256,
+            )
+        else:
+            collector.diagnostic(path, "invalid-requires-python")
     dependencies = project.get("dependencies", [])
     if not isinstance(dependencies, list) or not all(
         isinstance(item, str) for item in dependencies
@@ -241,6 +325,12 @@ def _parse_setup_cfg(
     except ConfigError:
         collector.diagnostic(path, "invalid-setup-cfg")
         return
+    if parser.has_option("options", "python_requires"):
+        collector.runtime_requirement(
+            parser.get("options", "python_requires").strip(),
+            path=path,
+            source_sha256=source_sha256,
+        )
     if not parser.has_option("options", "install_requires"):
         return
     for raw in parser.get("options", "install_requires").splitlines():
