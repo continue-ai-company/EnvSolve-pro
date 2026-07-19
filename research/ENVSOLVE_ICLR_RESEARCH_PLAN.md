@@ -418,10 +418,16 @@ validate this boundary without naming the observed service or repository. The
 revision is frozen as v11. This again establishes internal semantics rather than
 deployment effectiveness.
 
-A new five-pair qualification of v11 is now preregistered and execution-bound. Five
-identities were selected by metadata hash from 151 untouched cases, leaving 146.
-The phase trigger, reverse network-safety invariant, schedule, and budgets were
-fixed before selection; no selected repository or model result has been observed.
+The five-pair v11 qualification then executed all ten frozen runs. Every artifact
+was valid and scientifically eligible, with no request error, suspension exclusion,
+image mismatch, or infrastructure-Unknown verifier result. However, the target
+network signature occurred zero times, so v11 is neither prospectively qualified
+nor contradicted. All ten runs exhausted the candidate budget before official
+evaluation, leaving all five effectiveness pairs censored. This shifts the immediate
+research question from a rare classifier trigger to the dominant solver failure:
+why typed state and guarded operations still fail to produce an evaluable deployment
+within five candidates. The next development step is aggregate transition-level
+error analysis over these consumed trajectories, not another replacement batch.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -473,12 +479,16 @@ evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
 derived rules. The first outcome-blind runtime-state qualification exposed a narrow
-diagnostic-admission failure and is closed. The minimal repair and new mechanism
-freeze are complete, but the next qualification closed on a phase-agnostic
-infrastructure-classification defect before v10 was exercised. The next milestone
-is a new untouched development qualification of the now-frozen phase-aware v11.
-That qualification is ready to execute. Held-out evaluation remains blocked until
-the mechanism qualifies.
+diagnostic-admission failure and is closed. The next qualification exposed and
+repaired a phase-agnostic infrastructure-classification defect. A complete unseen
+development qualification of the repaired v11 produced ten scientifically eligible
+trajectories and no false infrastructure transition, but the preregistered target
+signature never occurred and no run reached official evaluation. The next milestone
+is therefore a cross-case error decomposition of the 50 consumed candidate
+transitions, followed by one minimal generic solver revision defined by synthetic
+counterexamples. Held-out evaluation remains blocked until a frozen development
+method reaches the terminal evaluator often enough to support an effectiveness
+comparison.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

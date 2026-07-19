@@ -1128,13 +1128,18 @@ development batch; it never triggers tuning on the same held-out outcomes.
   RepoDigest; independent verification returns `valid=true`. This is another
   synthetic mechanism repair, not an effectiveness result. A new outcome-blind
   qualification must be preregistered from the remaining 151 identities.
-- Q10 is now preregistered, metadata-only selected, and execution-bound. Commit
-  `a38896d` fixes the phase trigger and reverse candidate-network safety invariant
-  before selection; `190f43f` selects five identities from 151 and leaves 146
-  untouched; execution binding `e48318f` hashes 15 inputs. The treatment comparison
-  and primitive budgets are unchanged. Phase-signature prescreening, repository
-  inspection, and prior-case reuse are forbidden. Preflight hash/pairing checks and
-  `33` focused tests pass, full regression remains `373 passed, 1 skipped`, the real
-  Docker boundary passes, and Harness v25 verifies with immutable image identity.
-  No selected repository, model request, or evaluator result has been used. Q10 is
-  ready to execute pairwise under the frozen exercise and closure rules.
+- Q10 was preregistered before metadata-only selection (`a38896d`, `190f43f`) and
+  execution-bound at `e48318f`; it then completed all ten frozen positions. All ten
+  runs are artifact-valid and scientifically eligible, all 41 environment receipts
+  match the immutable image identity, and there were zero request errors, suspension
+  exclusions, or infrastructure-Unknown verifier results. Across 50 candidates,
+  ten internal markers and eight later-proposal opportunities occurred, but the
+  frozen network signature occurred zero times. Q10 therefore closes as
+  `unexercised`: v11 is neither qualified nor contradicted, and no replacement or
+  rerun is allowed. Both methods ended all five runs at the candidate limit before
+  official evaluation, so the five pairs provide no effectiveness estimate. Full
+  used 26 requests, 251,162 tokens, 20 environments, and 3,686.9 seconds; ablation
+  used 27 requests, 244,553 tokens, 21 environments, and 5,174.2 seconds. These are
+  descriptive resources only. The next milestone is aggregate transition-level
+  error analysis over the consumed Q10 trajectories to identify one dominant,
+  cross-repository solver defect before any new algorithm freeze or unseen batch.

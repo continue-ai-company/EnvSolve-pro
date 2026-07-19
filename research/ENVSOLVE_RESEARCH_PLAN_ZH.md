@@ -827,10 +827,14 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   endpoint、package 或 repository rule。全量回归为 `373 passed, 1 skipped`，真实 Docker 边界通过。
   Harness v25 还会在缺少真实 image ID 与 RepoDigest 时拒绝 freeze，独立验证为 `valid=true`。这仍是
   合成机制修复，不是效果结果。下一步必须从剩余 151 个 identity 中预注册新的 outcome-blind 资格实验。
-- Q10 已完成预注册、metadata-only 选样和执行绑定。Commit `a38896d` 在选样前固定 phase trigger 与
-  反向 candidate-network 安全不变量；`190f43f` 从 151 个 identity 中选择 5 个，剩余 146 个保持
-  untouched；execution binding `e48318f` 哈希 15 项输入。Treatment comparison 与原始预算不变，
-  禁止 phase-signature 预筛、repository inspection 和 prior-case reuse。哈希/pairing preflight 与
-  `33` 项聚焦测试通过，全量仍为 `373 passed, 1 skipped`，真实 Docker 边界通过，Harness v25 以
-  不可变镜像身份验证有效。当前没有使用 selected repository、model request 或 evaluator result。
-  Q10 已可按照冻结的触发与关闭规则逐 pair 执行。
+- Q10 在 metadata-only 选样前完成预注册（`a38896d`、`190f43f`），并在 `e48318f` 绑定执行输入；
+  随后全部 10 个冻结位置执行完成。10 条 run 全部 artifact-valid 且 scientifically eligible，41 份
+  environment receipt 全部匹配不可变镜像身份，没有 request error、suspension 排除或
+  infrastructure-Unknown verifier result。50 个 candidate 中出现 10 个 internal marker 与 8 个后续
+  proposal 机会，但冻结 network signature 的出现次数为 0。因此 Q10 以 `unexercised` 关闭：v11
+  既没有通过资格验证，也没有被反驳，不允许补选或重跑。两种方法的 5 条 run 都在 official
+  evaluation 前耗尽 candidate limit，所以 5 组 pair 不提供效果估计。Full 使用 26 次请求、251,162
+  tokens、20 个 environment 与 3,686.9 秒；ablation 使用 27 次请求、244,553 tokens、21 个
+  environment 与 5,174.2 秒；这些资源只能作描述性分析。下一里程碑是对 consumed Q10 trajectory
+  做聚合的状态转移错误分析，在任何新算法 freeze 或 unseen batch 前找到一个跨 repository 的主要
+  solver 缺陷。

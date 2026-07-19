@@ -302,9 +302,13 @@ case 不执行，也没有 official result 或 effectiveness estimate。
 测试与 Q9 raw artifact 只读 replay 验证了这条边界，没有命名观测到的 service 或 repository。该
 revision 已冻结为 v11。这仍只建立内部语义，不代表部署效果。
 
-新的 5-pair v11 资格实验现已完成预注册与执行绑定。Metadata hash 从 151 个 untouched case 中选择
-5 个 identity，剩余 146 个。Phase trigger、反向 network-safety invariant、schedule 与预算都在选样
-前固定；当前没有查看 selected repository 或模型结果。
+随后 5-pair v11 资格实验执行了全部 10 条冻结 run。所有 artifact 均有效且 scientifically eligible，
+没有 request error、suspension 排除、镜像不匹配或 infrastructure-Unknown verifier result。但目标
+network signature 出现 0 次，因此 v11 既没有得到前瞻性资格验证，也没有被反驳。10 条 run 全部在
+official evaluation 前耗尽 candidate budget，5 组效果 pair 全部删失。当前科研问题因此从一个稀有
+classifier trigger 转向更主要的 solver failure：为什么 typed state 与 guarded operation 在 5 个
+candidate 内仍无法产生可评测部署。下一项 development 工作是对这些 consumed trajectory 做聚合的
+状态转移错误分析，而不是补选一批 case。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -341,11 +345,13 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
-首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。
-最小合成修复与新 mechanism freeze 已完成，但下一次资格实验在 v10 被触发前，因不感知 failure
-phase 的 infrastructure classifier 缺陷而关闭。Phase-aware v11 现已冻结，下一里程碑是使用新的
-untouched development identity 完成资格验证；该实验现已可执行。机制通过资格验证前，held-out
-evaluation 保持锁定。
+首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭；
+下一次 qualification 暴露并修复了不感知 phase 的 infrastructure-classification 缺陷。修复后的
+v11 在完整 unseen development qualification 中产生 10 条 scientifically eligible trajectory，且
+没有错误的 infrastructure 转移，但预注册目标签名始终没有出现，也没有 run 进入 official
+evaluation。下一里程碑因此是对 50 个 consumed candidate transition 做跨 case 错误分解，再用合成
+反例定义一个最小的通用 solver revision。只有冻结的 development 方法能够以足够频率进入 terminal
+evaluator、从而支持效果比较后，held-out evaluation 才解锁。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中
