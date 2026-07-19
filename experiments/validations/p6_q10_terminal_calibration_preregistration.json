@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-q10-terminal-verifier-calibration-v1",
+  "preregistered_at": "2026-07-20T03:48:53+08:00",
+  "status": "registered_before_official_calibration",
+  "purpose": "Development-only calibration of Q10 internal negative decisions against the unchanged terminal EnvBench evaluator.",
+  "source_experiment": {
+    "id": "p6-operation-qualification-v10-phase-aware-verifier",
+    "closure_path": "experiments/validations/p6_operation_qualification_v10_closure.json",
+    "closure_sha256": "ca2208aae38b1955a11ba04ac5046f651b6c9209b46598afa1373c6588b5e0e4",
+    "official_evaluator_executions": 0,
+    "generation_trajectories_reopened": false
+  },
+  "selection": {
+    "policy": "last-recorded-verification-v1",
+    "rule": "For each frozen Q10 run, select the candidate associated with the maximum event sequence among verification_recorded events.",
+    "official_outcome_access_before_selection": false,
+    "repository_specific_log_classification": false,
+    "replacement_selection": false,
+    "binding_path": "experiments/validations/p6_q10_terminal_calibration_bindings.json",
+    "binding_sha256": "438d175852ee1e4a13ca0f7be764e7f0e6255a010c4b10c25105ccfe47e75239",
+    "selected_scripts": 10,
+    "selected_cases": 5
+  },
+  "selection_implementation": {
+    "cli_path": "experiments/freeze_terminal_candidates.py",
+    "cli_sha256": "33a7b0d0819a45a423aacd289e03f62659c624a4feaa6a960cece1212901e801",
+    "library_path": "envsolve_harness/trajectory_binding.py",
+    "library_sha256": "f2c1694da914ef9725717983ef806a7b9c7d3c2d0c57504905c05a5e234a6149"
+  },
+  "frozen_inputs": {
+    "case_file": {
+      "path": "experiments/cases/dev_operation_qualification_v10_5.jsonl",
+      "sha256": "92e461e243ce895789e32797efcb784e54805b24c95cc634651629602285bb4e"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_p6_operation.json",
+      "sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "harness_freeze": {
+      "path": "experiments/protocols/harness_freeze_v25.json",
+      "sha256": "5f99b13a523328afffac75feeccb14073b853c1c8ad949b6024390f08556af59"
+    }
+  },
+  "evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false,
+    "evaluate_only_path": "experiments/evaluate_only.py",
+    "evaluate_only_sha256": "7d28a8c7b201a46c99e6ae68cde537b87229f824fd9fcd90a59eb2ce3cd84059",
+    "adapter_path": "envsolve_harness/adapters/envbench.py",
+    "adapter_sha256": "50cb4ae5625ab3c0f820b52d1e78d763c78b2927e5712bd3cea6f33318ec6824",
+    "image_reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+  },
+  "execution": {
+    "order": "ascending binding position",
+    "method": "p6-q10-terminal-calibration",
+    "fresh_environment_per_script": true,
+    "model_calls": 0,
+    "attempts_per_script": 1,
+    "overwrite": false,
+    "infrastructure_retry": false,
+    "replacement": false,
+    "evaluation_process_timeout_seconds": 1800,
+    "container_timeout_seconds": 900,
+    "create_container_timeout_seconds": 180,
+    "git_fetch_timeout_seconds": 300
+  },
+  "outcomes": {
+    "primary": [
+      "official evaluation completion versus infrastructure Unknown",
+      "official Boolean pass for every completed evaluation",
+      "count of internal-false and official-true verifier false negatives"
+    ],
+    "secondary": [
+      "official exit code, Pyright error count, warning count, and issue count",
+      "result identity match and immutable evaluator image identity",
+      "descriptive outcome by source method and internal terminal category"
+    ]
+  },
+  "decision_rule": {
+    "any_internal_false_official_true": "Internal verifier miscalibration is established for at least one terminal script; define a generic synthetic counterexample and the smallest scope correction before changing solver search.",
+    "all_completed_official_false": "No false-negative evidence is observed in this calibration set; prioritize candidate feasibility and search efficiency while retaining the frozen verifier until broader calibration.",
+    "infrastructure_unknown": "Report Unknown and make no calibration claim for that script; do not retry or replace it in this protocol."
+  },
+  "claim_scope": "development verifier calibration only",
+  "leaderboard_effectiveness_claim_allowed": false,
+  "paper_test_set_claim_allowed": false,
+  "protocols": [
+    "research/P6_Q10_TERMINAL_CALIBRATION.md",
+    "research/P6_Q10_TERMINAL_CALIBRATION_ZH.md"
+  ]
+}
