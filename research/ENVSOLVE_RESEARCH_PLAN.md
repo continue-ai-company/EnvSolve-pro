@@ -981,3 +981,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   `358 passed, 1 skipped`; compilation and the opt-in real Docker boundary pass.
   No new development case or official evaluator has been run. Q7 still requires a
   clean shareable EnvBench evaluator revision and a new mechanism freeze.
+- The external EnvBench patches are now isolated in clean branch
+  `codex/envbench-evaluator-fixes` at revision
+  `bf972d4d0404e6bfcc8241d9a820202cea76dade`. Targeted offline regression is
+  `5 passed`; target Ruff checks, `bash -n`, and diff checks pass. Four unrelated
+  pre-existing Markdown tests fail under the local dependency set and are disclosed
+  rather than repaired as part of this evaluator revision.
+- Harness freeze v22 binds that clean EnvBench revision, the evaluation image,
+  all Q6 consumed identities/results, current source, budgets, and datasets; its
+  independent verifier returns `valid=true`. Algorithm freeze v8 explicitly changes
+  the paired treatment boundary to pre-action admission plus operation-plan
+  visibility and guard admission. Its source/parent hashes are executable-tested.
+  Full regression is `360 passed, 1 skipped`. Q7 has not yet selected or inspected
+  any case.

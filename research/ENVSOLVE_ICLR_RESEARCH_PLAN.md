@@ -346,6 +346,12 @@ negative result narrows the method claim: typed reactive repair alone is
 insufficient; the next method revision must define conservative pre-action
 constraint admission.
 
+That revision now admits only unconditional standard package declarations before
+the first proposal and closes them with fresh installed-metadata observations.
+The mechanism and a clean committed EnvBench evaluator are frozen for the next
+outcome-blind batch, but no new case has been selected or executed. This is method
+readiness, not evidence of improved effectiveness.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations

@@ -726,3 +726,11 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   package fact。全量回归为 `358 passed, 1 skipped`，语法编译与 opt-in 真实 Docker boundary 均通过。
   本轮没有运行新 development case 或官方 evaluator；Q7 仍需先固化干净、可分享的 EnvBench
   evaluator revision，再建立新的 mechanism freeze。
+- EnvBench 外部补丁已隔离到干净分支 `codex/envbench-evaluator-fixes`，revision 为
+  `bf972d4d0404e6bfcc8241d9a820202cea76dade`。目标离线回归为 `5 passed`，目标 Ruff、`bash -n`
+  和 diff 检查通过。当前依赖环境下另有 4 个与补丁无关的既有 Markdown 测试失败；本轮如实披露，
+  不把它们混入 evaluator 修复。
+- Harness freeze v22 绑定该干净 EnvBench revision、evaluation image、全部 Q6 consumed identity/result、
+  当前源码、预算与数据集，独立验证返回 `valid=true`。Algorithm freeze v8 显式把 paired treatment
+  boundary 更新为 pre-action admission、operation-plan visibility 和 guard admission，并用可执行测试
+  校验 source/parent hash。全量回归为 `360 passed, 1 skipped`；Q7 尚未选择或查看任何 case。

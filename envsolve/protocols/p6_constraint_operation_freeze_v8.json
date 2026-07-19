@@ -1,0 +1,107 @@
+{
+  "freeze_id": "p6-constraint-operation-v8-pre-action-admission",
+  "frozen_at": "2026-07-19T10:21:07Z",
+  "source_revision": "9c36c2b690248655f4a8a199b96299cee1dd6355",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v7.json",
+    "sha256": "90b78d5ed0e378358c9ec04cb6f5470ea2019551d54846f86e316b5f8dca7621"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v22.json",
+    "sha256": "ecc5bb2b140b334d2ee831c66dbc4116166e37a98b8083fc4cecae2acb4dd035"
+  },
+  "change_from_v7": [
+    "Admit bounded, unconditional PEP 508 package declarations before proposal 1 in the constraint-driven condition.",
+    "Run the same repository declaration observer in both conditions without admitting typed initial constraints in the free-form condition.",
+    "Emit positive fresh-environment observations and supersede only prior facts for the same typed variable.",
+    "Verify declared distribution presence and versions with fixed importlib.metadata probes.",
+    "Scan documentation imports and treat unsigned command timeout as candidate feedback rather than infrastructure censoring.",
+    "Bind official evaluation to a clean committed EnvBench revision."
+  ],
+  "files": {
+    "envsolve/constraints/engine.py": "1c66c9d694d7a21047498c42e58192607c1b5c1cfc91a3bd2a4b5cac1198fee4",
+    "envsolve/constraints/evidence.py": "d43778e66ea1ce5b0a79066fbed096b758ef69dede66a00ea33b88f0fdcb8deb",
+    "envsolve/constraints/models.py": "97844adf39e4664940933510dce9eb06fc97de93cfea03ae8ec6e3a178c53e69",
+    "envsolve/constraints/normalization.py": "346e68480134a5558068c328356b75d6885f28e019986ddeb8ce24e6e37ae645",
+    "envsolve/operations/models.py": "c341e0356f59e92bed5d32d72ac98320c2f52179bd6be2c988b7107e421e9c3e",
+    "envsolve/operations/planner.py": "ed1e022382ff9cdfaad1ca1503a4d4210524f1f4a32b5b92bc62c5ca510f3565",
+    "envsolve/runtime/declarations.py": "34b7ecd0d2b670d538ee0c4d3cbdab58aad6b8bc6694e7bb5313c08a946cf52e",
+    "envsolve/runtime/import_probe.py": "97862b09c7d560a1f9fe342543b6d75a9e67161ead10c4cf8b280701f6f1d092",
+    "envsolve/runtime/policy.py": "fc9b2451bf94511f68986624d956faec5cece2feaa1a96084217474955b44ab5",
+    "envsolve/runtime/verifier.py": "cf5dd6e08639bc322b49edcef870adc8d7785c4a0c6089cf51691d9a968f6b13",
+    "envsolve/solver/counterexample.py": "281b3ba2650a24d0b8aec318f6077e3c4c1155e629594032b8db9ad21e681f69",
+    "envsolve/tests/test_counterexample_loop.py": "d924d1bcbe47a8bb32fd8827887546beab75e27e90bd39807f3d910244315c96",
+    "envsolve/tests/test_operations.py": "1bff50f680b63abdb7c8ccee4c2a17848b67ee2955ebe00d9b59b01da2459387",
+    "envsolve/tests/test_p6_operation_freeze.py": "4d124b7dd5c6a6276a8ba1748bf503272fb790d5185f45e8945d11cfea2fd541",
+    "envsolve/tests/test_repository_declarations.py": "923de4196445c7b73bdb8a11ac883272e560da9da3c54d5d99cd676293524bb1",
+    "envsolve/tests/test_structured_counterexamples.py": "a9d081566cd09f16b6bb97f21a8ed2c5a49d9fc40417e9bcdb9255b0a3775384",
+    "envsolve/tools/run_envsolve_episode.py": "089cc4e8b3c403b6107b743d5891294f1f5881152f6da933c8b6866df9c680d9",
+    "envsolve_harness/runners/envsolve.py": "f2e708cf8845b55b553eb15640e1421101fd62901f6d0b3fbf41be629dde938f",
+    "envsolve_harness/scripts/candidate_validation.py": "af47c735dd1454cfd291bfde1dd711f3ff0c49b88dc189deb3396c4deedfba37",
+    "envsolve_harness/scripts/constraint_operations.py": "db67ef3444fa5213778bfd8e7c4ca89867530088122a56d941b8f89729cbeb54",
+    "envsolve_harness/scripts/replay_actions.py": "2452354040321d1b816467abc734d8b1fd6c760ba78410ba0ef0f0392d3c2e8e",
+    "tests/test_constraint_operation_loop.py": "49924a8fd1fc7e28909f4fb4c763ed1227659ff351e90780bdf0bb25cd67c9c0",
+    "tests/test_envsolve_runner.py": "7b4abe1d9e39e1ec3a36fe86ea897c79dca29fd915a5a9d5d1baf46cc2484022",
+    "tests/test_envsolve_runtime.py": "22839e6adc9fb6532747be67d2a87d3eb0372001b481c2ebf843ed23b4d9ca30"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v1",
+    "shared_verifier": "python-deployment-v4",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional standard package declarations",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "admission_contract": {
+    "accepted": [
+      "unmarked PEP 621 project dependencies",
+      "unmarked setup.cfg install_requires",
+      "unmarked top-level requirements*.txt PEP 508 entries"
+    ],
+    "not_admitted": [
+      "environment-marked declarations without target marker facts",
+      "requirements directives and continuations",
+      "malformed or dynamic declarations",
+      "requires-python without a base-runtime fact",
+      "source-import package guesses"
+    ],
+    "max_files": 32,
+    "max_source_bytes": 2000000,
+    "max_declarations": 1000,
+    "source_execution": false
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "branch": "codex/envbench-evaluator-fixes",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "full_regression": "358 passed, 1 skipped",
+    "docker_integration": "1 passed",
+    "envbench_targeted_regression": "5 passed",
+    "envbench_static_checks": "ruff target checks, bash -n, and git diff --check passed",
+    "harness_v22_verification": "valid=true"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_cases_reusable": false,
+    "q7_cases_selected": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "official_evaluator_feedback_used_online": false
+  }
+}

@@ -252,6 +252,10 @@ classifier。两个通用机制 bug 已为未来 unseen development case 修正�
 这个负结果收窄了方法 claim：只有类型化的被动修复还不够，下一方法版本必须定义保守的 pre-action
 constraint admission。
 
+该版本现在只在首次 proposal 前接纳无条件的标准 package declaration，并通过 fresh installed-
+metadata observation 闭合这些约束。机制与干净、已提交的 EnvBench evaluator 已为下一批
+outcome-blind 实验冻结，但尚未选择或执行新 case；这只表示方法已具备实验条件，不是效果提升证据。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
