@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "p6-operation-qualification-v9",
+  "created_after_outcome_blind_selection": true,
+  "git_chain": {
+    "algorithm_freeze_commit": "a24276cd48e4ef0b6bc180c999e50c8a78a3551f",
+    "preregistration_commit": "c40a05ee14fde060d63b6827c29f43542f47295b",
+    "selection_commit": "d8b9758161f8d3bb8e7ae0d8ebfc252b25b58480"
+  },
+  "files": {
+    "envsolve/protocols/p6_constraint_operation_freeze_v10.json": "17fba7e28732dc4c5c3704115f7623fe5d5abfce9023f8a494454067ec588117",
+    "experiments/protocols/harness_freeze_v24.json": "aaee163fb0831190aaba30bc6a37b1bc4b83563862d3d003b84797185791ea72",
+    "experiments/cases/dev_operation_qualification_v9_5.jsonl": "6e55368fdabc7e74433888863a2200ad09bc2fd5f1b01e630c7534d5801102fe",
+    "experiments/cases/train_untouched_after_operation_qualification_v8_156.jsonl": "51eb1a16fa804c98fc2970eb2a32273962a113d4d68e930509b2882cb051ef48",
+    "experiments/cases/train_untouched_after_operation_qualification_v9_151.jsonl": "508082d490fb6e8d2060f7ed45a621570fdf77868769b482954ff8af57772f5c",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "experiments/run_case.py": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b",
+    "experiments/run_schedule.py": "edf5fe17328b3313beeba85869801723f16f2114334811263253200975e563f4",
+    "experiments/summarize_schedule.py": "1d9ffd026be68f3ba3601ab01d6399c5d52bb5c1843db5e77630896c6a39e619",
+    "experiments/validations/p6_operation_qualification_v9_image_attestation.json": "0299ae6d582346a97f9c8d24715353ac10b1cff5bd71ba71ee2e549153894edd",
+    "experiments/validations/p6_operation_qualification_v9_preregistration.json": "fee5e29bd9c482e78f2b9a35b13e01d0eafe6889ed88d7695a5b0b853e9cae44",
+    "experiments/validations/p6_operation_qualification_v9_schedule.json": "d864cd66a923c4c6c625727a8729d9bcf906da7138d6b0d1651fa78c81bbe09a",
+    "experiments/validations/p6_operation_qualification_v9_selection.json": "7daeb752440124d511ad21351d9252e221f442242801efcca144f3d7ac3e3180",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V9.md": "b749793067c229c7b0be86bffaebc3bba9980402160782e438e277535449a374",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V9_ZH.md": "615f4ac19f55d339b52033143f340b64a59bab8b6fa097c6f65b93b402388c72"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false,
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "identity_evidence": "experiments/validations/p6_operation_qualification_v9_image_attestation.json"
+  },
+  "schedule": {
+    "pairs": 5,
+    "episodes": 10,
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "treatment_boundary": {
+    "shared_repository_observer": true,
+    "shared_base_runtime_observer": true,
+    "shared_raw_repository_profile": true,
+    "shared_executed_candidate_feedback": true,
+    "ablation_initial_constraint_admission": false,
+    "ablation_operation_plan_visible": false,
+    "ablation_operation_guard": false,
+    "full_initial_constraint_admission": true,
+    "full_operation_plan_visible": true,
+    "full_operation_guard": true,
+    "official_evaluator_feedback_online": false
+  },
+  "mechanism_qualification": {
+    "minimum_subject_first_triggered_full_runs": 1,
+    "trigger_requires_later_proposal_opportunity": true,
+    "hard_conflict_required_before_next_proposal": true,
+    "runtime_configure_obligation_required_before_next_execution": true,
+    "semantic_near_miss_rejection_frozen_synthetically": true,
+    "zero_trigger_replacement_allowed": false,
+    "triggered_invariant_violation_closes_batch": true,
+    "primary_invariants_frozen_in_preregistration": true
+  },
+  "integrity": {
+    "selection_metadata_only": true,
+    "package_manager_stratification": false,
+    "runtime_trigger_prescreen": false,
+    "repository_inspections_after_selection": 0,
+    "model_requests_after_selection": 0,
+    "official_evaluator_executions_after_selection": 0,
+    "solver_or_protocol_mutations_after_selection": 0,
+    "q1_through_q8_case_reuse": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  },
+  "scientific_budget": {
+    "matching_basis": "primitive resource limits",
+    "usd_is_matching_variable": false,
+    "usd_is_scientific_outcome": false
+  },
+  "harness_image_caveat": {
+    "harness_v24_image_record_complete": false,
+    "cause": "Harness v24 was generated without Docker socket access and recorded inspect_error",
+    "execution_binding_remedy": "separate pre-execution image attestation binds the exact ID and RepoDigest and matches Q8",
+    "harness_v24_alone_authorizes_execution": false
+  },
+  "preflight": {
+    "algorithm_and_selection_tests": "4 passed",
+    "full_algorithm_regression": "369 passed, 1 skipped",
+    "real_docker_runtime_boundary": "1 passed",
+    "harness_v24_restricted_verification": "valid=true with disclosed incomplete image record",
+    "image_attestation": "current exact image ID and RepoDigest match Q8",
+    "case_pool_conservation": "156 = 5 selected + 151 untouched; selected and remaining are disjoint",
+    "schedule_pairing": "5 complete pairs and 10 unique positions"
+  },
+  "claim_scope": "development runtime-diagnostic mechanism qualification only"
+}
