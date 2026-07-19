@@ -272,7 +272,9 @@ runtime compatibility 与 action feasibility 必须进入同一个持续约束�
 fresh base-runtime fact 绑定到候选镜像，依据该 fact 接纳标准 runtime declaration，把确定性版本
 mismatch 变成 hard contradiction，并在 fresh attempt 之间保持由候选操作支撑的 satisfaction。
 合成 transition 测试和真实 Docker 边界验证了这些语义；这只是机制验证，不是部署成功率提升证据。
-下一批 outcome-blind development 实验仍待执行。
+新的 5-pair development qualification 已完成预注册、在不检查 repository 的前提下盲选并冻结执行
+入口。它以 runtime-state invariant 为主要检验，以 paired official outcome 为次要结果；batch 尚未
+开始，因此当前不贡献任何实验结果。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -309,7 +311,8 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
-Typed runtime-state 修订已经冻结；下一里程碑是新的 outcome-blind development qualification。
+Typed runtime-state 修订及其新的 outcome-blind development qualification 均已冻结；下一里程碑是
+在不改变 treatment 与分析规则的前提下执行该 batch。
 机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的

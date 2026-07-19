@@ -375,8 +375,10 @@ to the candidate image, admits standard runtime declarations against that fact,
 turns deterministic version mismatch into a hard contradiction, and preserves
 candidate-supported satisfaction across fresh attempts. Synthetic transition tests
 and a real Docker boundary validate these semantics. This is mechanism validation,
-not evidence of improved deployment success; the next outcome-blind development
-batch remains pending.
+not evidence of improved deployment success. A five-pair development qualification
+has now been preregistered, selected without repository inspection, and bound for
+execution. Its primary tests are runtime-state invariants, with paired official
+outcome secondary; the batch has not started and therefore contributes no result.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -427,8 +429,9 @@ fresh environments, admits only grounded counterexamples, and keeps official
 evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
-derived rules. The typed runtime-state revision is frozen; the next milestone is a
-new outcome-blind development qualification. Held-out evaluation remains blocked
+derived rules. The typed runtime-state revision and its new outcome-blind
+development qualification are frozen; the next milestone is executing that batch
+without changing its treatment or analysis. Held-out evaluation remains blocked
 until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,

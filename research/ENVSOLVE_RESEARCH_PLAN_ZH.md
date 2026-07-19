@@ -766,3 +766,12 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   也已把“覆盖现有义务”和“改变已失败路径”分开。聚焦 runtime/operation 测试为 `60 passed`，全量
   回归为 `365 passed, 1 skipped`，含 base-runtime probe 的真实 Docker 边界通过。本轮没有运行新
   development case 或 official evaluator。下一步只能从剩余 161 个 untouched case 中预注册并盲选 Q8。
+- Q8 现已完成 outcome-blind 冻结并可执行。预注册先提交为 `476a54e`，随后冻结的 metadata-only
+  规则在 commit `db2d5de` 中盲选 5 个新 identity，并保留 156 个 untouched case。10 个 episode 的
+  paired schedule 比较 runtime-state EnvSolve 与对应消融：两者共享 repository/base-runtime observer
+  和 candidate feedback，但消融不获得 typed admission、operation plan 或 guard。主要资格判据是
+  预注册的 runtime-state invariant，official paired outcome 仅为次要结果；零触发不得补选，任何
+  invariant violation 都会关闭 batch。Execution binding v8 已提交为 `4f7d357`；15 个绑定哈希、
+  pool 守恒、pairing、4 项 freeze/selection 测试、Harness v23 与 opt-in 真实 Docker boundary 均
+  通过验证。选样后 repository inspection、model request、evaluator execution 和 solver/protocol
+  mutation 都为零。Q8 尚未开始，因此当前没有结果，也不产生效果 claim。

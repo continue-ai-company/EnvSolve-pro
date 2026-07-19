@@ -1039,3 +1039,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   skipped`; the real Docker boundary passes with the base-runtime probe. No new
   development case or official evaluator was run. The next admissible step is an
   outcome-blind Q8 preregistration and selection from the 161 untouched cases.
+- Q8 is now outcome-blind and execution-ready. Preregistration was committed as
+  `476a54e` before selection; the frozen metadata-only rule then selected five new
+  identities and left 156 cases untouched in commit `db2d5de`. The ten-episode
+  paired schedule compares runtime-state EnvSolve with an ablation that shares the
+  repository/base-runtime observers and candidate feedback but receives no typed
+  admission, operation plan, or guard. Primary qualification is defined by frozen
+  runtime-state invariants; official paired outcome is secondary. Zero-trigger
+  batches receive no replacement, and any invariant violation closes the batch.
+  Execution binding v8 was committed as `4f7d357`; all 15 bound hashes, pool
+  conservation, pairing, four freeze/selection tests, Harness v23, and the opt-in
+  real Docker boundary verify. Since selection there have been zero repository
+  inspections, model requests, evaluator executions, or solver/protocol mutations.
+  Q8 has not started, so no result or effectiveness claim is available.
