@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v6-scientific-eligibility",
+  "preregistered_at": "2026-07-19T15:47:20+08:00",
+  "status": "registered_before_selection",
+  "purpose": "First outcome-blind paired operation-layer qualification under committed-source, heartbeat, primitive-budget, resumable-schedule, and deterministic-analysis scientific eligibility.",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v7.json",
+    "sha256": "90b78d5ed0e378358c9ec04cb6f5470ea2019551d54846f86e316b5f8dca7621"
+  },
+  "parent_harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v21.json",
+    "sha256": "c6e6fda98e7d8810a473a90b14f743507e9f0cbabaf124a1c6e5fa615d2ba002"
+  },
+  "selection_tool": {
+    "path": "experiments/tools/freeze_paired_qualification.py",
+    "sha256": "6d87c1aa277275447db986c4c0048514c4e751f7c5a6e8fe8cd05cf984b97701"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification_v5_171.jsonl",
+    "source_sha256": "e6c0e3b17fc91f335418c26d7eab63784e25fefc11b3d9dfc0c6bab9cc549693",
+    "source_count": 171,
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v6-2026-07-19",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "prior_qualification_case_reuse": false,
+    "selected_path": "experiments/cases/dev_operation_qualification_v6_5.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v6_166.jsonl",
+    "provenance_path": "experiments/validations/p6_operation_qualification_v6_selection.json",
+    "selected_split": "dev-operation-qualification-v6-5",
+    "remaining_split": "train-untouched-after-operation-qualification-v6-166"
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "schedule": {
+    "output_path": "experiments/validations/p6_operation_qualification_v6_schedule.json",
+    "run_prefix": "p6-operation-q6",
+    "methods": ["envsolve-operation-ablation", "envsolve-operation"],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "matched_primitive_limits": {
+    "max_candidates": 5,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000
+  },
+  "operational_circuit_breaker": {
+    "max_estimated_cost_usd": 5.0,
+    "scientific_matching_variable": false,
+    "expected_to_bind": false
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation.json",
+    "sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "scientific_eligibility": {
+    "artifact_integrity_valid": true,
+    "committed_clean_revision": true,
+    "schedule_identity_match": true,
+    "primitive_budget_compliance": true,
+    "runtime_heartbeat_complete": true,
+    "host_suspension_suspected": false
+  },
+  "pair_analysis": {
+    "requires_both_runs_scientifically_eligible": true,
+    "requires_both_official_results_boolean": true,
+    "otherwise": "infrastructure_or_protocol_censored_pair"
+  },
+  "adaptation_policy": {
+    "code_or_protocol_changes_after_selection": false,
+    "shared_mechanism_defect": "finish the current pair, close Q6, consume all five selected identities, and start a new frozen qualification",
+    "host_suspension": "stop the batch and classify affected or orphaned positions as scientifically ineligible; do not overwrite them",
+    "infrastructure_failure": "record Unknown and censor the pair; no automatic retry inside Q6"
+  },
+  "claim_scope": "development mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V6.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V6_ZH.md"
+  ]
+}
