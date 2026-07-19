@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v10",
+  "audit_id": "pair-4-interim",
+  "audited_at": "2026-07-20T02:46:10+08:00",
+  "disposition": "continue_frozen_schedule_at_position_9",
+  "pair": {
+    "pair_index": 4,
+    "executed_positions": [
+      7,
+      8
+    ],
+    "paired_official_outcome": "censored",
+    "full": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "c6ba85c5e2c06c935aade0992dbd29d23209974ccbf9d758db578dc0e240ef7c",
+      "resources": {
+        "model_requests": 6,
+        "total_tokens": 35128,
+        "candidates": 5,
+        "commands": 2,
+        "fresh_environments": 2,
+        "wall_clock_seconds": 348.168472
+      }
+    },
+    "ablation": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "c13ded3258a9480cebdae9510cdc902ef2a7283e52031883654d36b64ccc6862",
+      "resources": {
+        "model_requests": 5,
+        "total_tokens": 28959,
+        "candidates": 5,
+        "commands": 5,
+        "fresh_environments": 5,
+        "wall_clock_seconds": 1284.993918
+      }
+    }
+  },
+  "phase_mechanism": {
+    "raw_network_like_signatures": 0,
+    "internal_failed_action_markers": 5,
+    "internal_markers_with_later_proposals": 4,
+    "internal_phase_triggered_runs": 0,
+    "phase_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "inherited_runtime_mechanism": {
+    "subject_first_runtime_diagnostics": 0,
+    "runtime_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "shared_safety": {
+    "environment_receipts": 7,
+    "image_digest_matches": 7,
+    "request_errors": 0,
+    "official_evaluator_executions": 0,
+    "host_suspension_suspected": false
+  },
+  "descriptive_guard_effect": {
+    "full_candidates_rejected_before_execution": 3,
+    "ablation_candidates_rejected_before_execution": 0,
+    "claim_scope": "descriptive resource behavior only; neither method reached an official Boolean outcome"
+  },
+  "frozen_evidence": {
+    "execution_binding_commit": "e48318f",
+    "schedule_progress_sha256": "ad15e061c954f366baf9e53851d69b680063984555c7bc284a6a9ac9b5c3fd89",
+    "pair_summary_sha256": "882cdf7fe019080de972a1510c94645183c50c59811f3c332d2e15b8934dcdb1"
+  },
+  "continuation_rule": "zero trigger does not qualify or close v11; continue without replacement or protocol change"
+}
