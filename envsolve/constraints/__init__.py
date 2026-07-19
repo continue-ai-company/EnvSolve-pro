@@ -1,4 +1,5 @@
 from envsolve.constraints.engine import ConstraintEngine
+from envsolve.constraints.evidence import InitialConstraintEvidence
 from envsolve.constraints.models import (
     ConstraintConflict,
     ConstraintDomain,
@@ -24,6 +25,7 @@ __all__ = [
     "ConstraintPredicate",
     "ConstraintRole",
     "EvidenceNormalizer",
+    "InitialConstraintEvidence",
     "NormalizedConstraint",
     "PreflightDisposition",
     "PreflightResult",

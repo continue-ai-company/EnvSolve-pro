@@ -966,3 +966,18 @@ development batch; it never triggers tuning on the same held-out outcomes.
   (`351 passed, 1 skipped`), and the opt-in Docker fresh-environment integration
   pass. This is a prerequisite for pre-action admission, not an effectiveness
   result; no new development case has been run.
+- Conservative pre-action admission is now implemented for standard declarative
+  package requirements. The bounded, non-executing observer accepts only unmarked
+  PEP 621 dependencies, `setup.cfg` `install_requires`, and top-level
+  `requirements*.txt` PEP 508 entries; environment markers, directives, malformed
+  declarations, runtime requirements, and source-import guesses are not admitted.
+  Every item carries a source path and content hash. Constraint-driven EnvSolve
+  admits these requirements before proposal 1, while the free-form condition runs
+  the same observer but receives no typed initial constraints.
+- Python deployment verifier v4 closes the resulting state loop with fixed
+  `importlib.metadata` package observations. It distinguishes absent distributions,
+  incompatible versions, and satisfied presence/version requirements, and emits
+  positive facts that retire only matching stale package facts. Full regression is
+  `358 passed, 1 skipped`; compilation and the opt-in real Docker boundary pass.
+  No new development case or official evaluator has been run. Q7 still requires a
+  clean shareable EnvBench evaluator revision and a new mechanism freeze.

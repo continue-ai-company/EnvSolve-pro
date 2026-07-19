@@ -146,6 +146,11 @@ Verifier 输出三种结果之一：
 证据按强度接纳。确定性缺失 capability 可以进入 hard constraint；无法确定具体原因的 build
 failure 保留为 hypothesis；格式错误、过期证据、复用环境和 forbidden feedback 一律 fail closed。
 
+首次动作前，一个有界、无执行的 observer 只接纳标准项目 metadata 中无条件的 package requirement；
+带 marker、格式错误、动态生成或 tool directive 的声明保持未接纳。随后 fresh verifier 观测已安装
+distribution 的 presence 与 version，使初始 requirement 只在 candidate-scoped evidence 满足或反驳
+它之前保持 unresolved。
+
 每个 admitted fact 都记录来源 candidate、environment、verifier 和 raw evidence。后续观测可以
 supersede 环境范围内的事实，但 fresh execution 只提供部分观测：后续 verifier 没有报告某变量，
 不等于该变量已经满足。只有相同 `(domain, subject, predicate)` 获得新 fact 时，旧 fact 才退休；

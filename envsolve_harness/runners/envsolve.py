@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from envsolve.constraints import ConstraintEngine, InitialConstraintEvidence
 from envsolve.solver import (
     CandidateOperationGuard,
     CandidateValidator,
@@ -36,6 +37,8 @@ class EnvSolveEpisodeRunner:
         max_candidates: int,
         condition: str = "envsolve-full",
         repository_profile: dict[str, Any] | None = None,
+        initial_evidence: tuple[InitialConstraintEvidence, ...] = (),
+        initial_observation_summary: dict[str, Any] | None = None,
     ) -> None:
         if max_candidates <= 0:
             raise ValueError("EnvSolve episode candidate budget must be positive")
@@ -50,6 +53,8 @@ class EnvSolveEpisodeRunner:
         self.max_candidates = max_candidates
         self.condition = condition
         self.repository_profile = repository_profile
+        self.initial_evidence = initial_evidence
+        self.initial_observation_summary = initial_observation_summary
 
     @staticmethod
     def _now() -> str:
@@ -71,6 +76,8 @@ class EnvSolveEpisodeRunner:
             "online_feedback_policy": "internal-execution-only",
             "official_evaluator_access": "post-episode-only",
         }
+        if self.initial_observation_summary is not None:
+            metadata["initial_repository_observation"] = self.initial_observation_summary
         try:
             session = SolverStateSession(
                 artifacts.episode_event_log,
@@ -82,11 +89,45 @@ class EnvSolveEpisodeRunner:
             )
             if self.repository_profile is not None and not session.reconstruct().repository_profile:
                 session.profile_repository(self.repository_profile)
+            constraint_engine = ConstraintEngine()
+            admitted_constraints: list[str] = []
+            for item in self.initial_evidence:
+                state = session.reconstruct()
+                existing = state.evidence.get(item.evidence_id)
+                if existing is None:
+                    session.record_evidence(
+                        kind=item.kind,
+                        source=item.source,
+                        value=item.value,
+                        confidence=item.confidence,
+                        evidence_id=item.evidence_id,
+                    )
+                elif any(
+                    existing.get(key) != value
+                    for key, value in {
+                        "kind": item.kind,
+                        "source": item.source,
+                        "value": item.value,
+                        "confidence": item.confidence,
+                    }.items()
+                ):
+                    raise ValueError(
+                        f"Initial evidence identity mismatch: {item.evidence_id}"
+                    )
+                admitted_constraints.extend(
+                    constraint_engine.ingest_evidence(session, item.evidence_id)
+                )
+            constraint_engine.propagate_constraints(session)
+            metadata["initial_constraint_admission"] = {
+                "evidence_count": len(self.initial_evidence),
+                "constraint_count": len(set(admitted_constraints)),
+            }
             loop = CounterexampleGuidedDeploymentLoop(
                 session,
                 max_candidates=self.max_candidates,
                 candidate_validator=self.candidate_validator,
                 budget=self.budget,
+                constraint_engine=constraint_engine,
                 operation_guard=self.operation_guard,
             )
             loop_result = loop.run(

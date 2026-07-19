@@ -10,6 +10,7 @@ from envsolve.constraints import (
     ConstraintDomain,
     ConstraintPredicate,
     ConstraintRole,
+    InitialConstraintEvidence,
     NormalizedConstraint,
 )
 from envsolve.runtime.docker import (
@@ -723,7 +724,7 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             }
 
             def complete(command, **kwargs):
-                stdout = "ENVSOLVE_IMPORT_PROBE_V2=" + json.dumps(payload) + "\n"
+                stdout = "ENVSOLVE_IMPORT_PROBE_V3=" + json.dumps(payload) + "\n"
                 return subprocess.CompletedProcess(command, 0, stdout, "")
 
             result = PythonDeploymentVerifier(
@@ -750,6 +751,118 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 ["active"] * 5 + ["satisfied"],
             )
             self.assertFalse(result.hypotheses)
+
+    def test_package_probe_closes_initial_version_requirement(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+            requirement = InitialConstraintEvidence(
+                "repository-requirement-demo",
+                "package-requirement",
+                "repository-declaration:pyproject.toml",
+                {"name": "Demo_Package", "specifier": ">=2"},
+            )
+            payload = {
+                "facts": {
+                    "sys_platform": "linux",
+                    "python_major": 3,
+                    "platform_name": "Linux",
+                },
+                "runtime": {},
+                "static": {},
+                "packages": {
+                    "demo-package": {"status": "resolved", "version": "2.5"}
+                },
+            }
+
+            def complete(command, **kwargs):
+                stdout = "ENVSOLVE_IMPORT_PROBE_V3=" + json.dumps(payload) + "\n"
+                return subprocess.CompletedProcess(command, 0, stdout, "")
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                package_requirements=(requirement,),
+                run_command=complete,
+            ).verify(DeploymentCandidate("candidate-1", "true", "test"), environment)
+
+            self.assertTrue(result.passed)
+            self.assertFalse(result.counterexamples)
+            self.assertEqual(
+                [item.kind for item in result.observations],
+                ["package-observation", "package-observation"],
+            )
+            self.assertEqual(
+                {item.value.get("version") for item in result.observations},
+                {None, "2.5"},
+            )
+
+    def test_package_probe_distinguishes_missing_and_incompatible(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+            requirement = InitialConstraintEvidence(
+                "repository-requirement-demo",
+                "package-requirement",
+                "repository-declaration:requirements.txt",
+                {"name": "demo-package", "specifier": ">=2"},
+            )
+
+            def verify(package_observation):
+                payload = {
+                    "facts": {
+                        "sys_platform": "linux",
+                        "python_major": 3,
+                        "platform_name": "Linux",
+                    },
+                    "runtime": {},
+                    "static": {},
+                    "packages": {"demo-package": package_observation},
+                }
+
+                def complete(command, **kwargs):
+                    stdout = "ENVSOLVE_IMPORT_PROBE_V3=" + json.dumps(payload) + "\n"
+                    return subprocess.CompletedProcess(command, 0, stdout, "")
+
+                return PythonDeploymentVerifier(
+                    collect_tests=False,
+                    package_requirements=(requirement,),
+                    run_command=complete,
+                ).verify(
+                    DeploymentCandidate("candidate-1", "true", "test"), environment
+                )
+
+            missing = verify({"status": "missing"})
+            incompatible = verify({"status": "resolved", "version": "1.5"})
+
+            self.assertFalse(missing.passed)
+            self.assertEqual(len(missing.counterexamples), 2)
+            self.assertFalse(missing.counterexamples[1].value["present"])
+            self.assertFalse(incompatible.passed)
+            self.assertEqual(len(incompatible.observations), 1)
+            self.assertTrue(incompatible.observations[0].value["present"])
+            self.assertEqual(len(incompatible.counterexamples), 2)
+            self.assertEqual(incompatible.counterexamples[0].value["specifier"], ">=2")
+            self.assertEqual(incompatible.counterexamples[1].value["version"], "1.5")
 
     def test_registered_runner_constructs_without_envbench_coupling(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

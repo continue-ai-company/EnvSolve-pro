@@ -11,8 +11,10 @@ from envsolve.solver import (
     EnvironmentReceipt,
     ExecutableVerification,
     FeedbackChannel,
+    ObservationEvidence,
     ProvisionedEnvironment,
 )
+from envsolve.constraints import InitialConstraintEvidence
 from envsolve.state import EventStore, audit_state_artifacts
 from envsolve_harness.core.io import read_json
 from envsolve_harness.core.models import Case, RunSpec
@@ -142,6 +144,83 @@ class EnvSolveEpisodeRunnerTest(unittest.TestCase):
                     artifacts.episode_snapshot,
                     case.case_id,
                 ).valid
+            )
+
+    def test_initial_repository_evidence_is_admitted_before_first_proposal(self) -> None:
+        class StateRecordingPolicy(OneCandidatePolicy):
+            def __init__(self) -> None:
+                self.states = []
+
+            def propose(self, state):
+                self.states.append(state)
+                return super().propose(state)
+
+        class PackagePassingVerifier(PassingVerifier):
+            def verify(self, candidate, environment):
+                outcome = super().verify(candidate, environment)
+                return ExecutableVerification(
+                    verifier=outcome.verifier,
+                    check_profile=outcome.check_profile,
+                    channel=outcome.channel,
+                    passed=outcome.passed,
+                    bootstrap=outcome.bootstrap,
+                    summary=outcome.summary,
+                    observations=(
+                        ObservationEvidence(
+                            "package-observation",
+                            {"name": "demo-dependency", "version": "2.5"},
+                        ),
+                    ),
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            case = Case("owner/repo@initial", "owner/repo", "initial")
+            run_spec = RunSpec("envsolve-initial", "envsolve-full", "test-model", 7)
+            artifacts = RunArtifacts.create(
+                Path(directory), run_spec.run_id, case.case_id
+            )
+            policy = StateRecordingPolicy()
+            evidence = InitialConstraintEvidence(
+                evidence_id="repository-requirement-test",
+                kind="package-requirement",
+                source="repository-declaration:pyproject.toml",
+                value={
+                    "name": "demo-dependency",
+                    "specifier": ">=2",
+                    "source_path": "pyproject.toml",
+                    "source_sha256": "a" * 64,
+                },
+            )
+            runner = EnvSolveEpisodeRunner(
+                policy=policy,
+                environment_provider=FreshProvider(case),
+                verifier=PackagePassingVerifier(),
+                candidate_validator=AcceptingValidator(),
+                budget=RecordingBudget(),
+                max_candidates=1,
+                initial_evidence=(evidence,),
+                initial_observation_summary={"evidence_count": 1},
+            )
+
+            result = runner.run(case, artifacts, run_spec)
+
+            self.assertTrue(result.generation_completed)
+            self.assertEqual(len(policy.states), 1)
+            constraints = list(policy.states[0].constraints.values())
+            self.assertEqual(len(constraints), 1)
+            self.assertEqual(constraints[0]["status"], "active")
+            self.assertEqual(
+                result.metadata["initial_constraint_admission"],
+                {"evidence_count": 1, "constraint_count": 1},
+            )
+            self.assertEqual(
+                result.metadata["initial_repository_observation"],
+                {"evidence_count": 1},
+            )
+            final_snapshot = read_json(artifacts.episode_snapshot)
+            self.assertEqual(
+                {item["status"] for item in final_snapshot["constraints"].values()},
+                {"satisfied"},
             )
 
 

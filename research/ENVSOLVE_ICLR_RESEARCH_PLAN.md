@@ -200,6 +200,12 @@ can become a hard constraint. A plausible but non-identifying build failure rema
 a hypothesis. Malformed output, stale evidence, reused environments, and forbidden
 feedback fail closed.
 
+Before the first action, a bounded non-executing observer admits only unconditional
+package requirements from standard project metadata. Marked, malformed, dynamic,
+or tool-directive declarations remain unadmitted. The fresh verifier then observes
+installed distribution presence and version, so an initial requirement remains
+unresolved only until candidate-scoped evidence satisfies or contradicts it.
+
 Each admitted fact records its source candidate, environment, verifier, and raw
 evidence. Because each fresh execution is only a partial observation, absence from
 a later verifier result is not evidence of satisfaction. An environment-scoped fact

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 import hashlib
 import json
@@ -9,6 +10,11 @@ import subprocess
 import time
 from typing import Callable
 
+from packaging.specifiers import SpecifierSet
+from packaging.utils import canonicalize_name
+from packaging.version import InvalidVersion, Version
+
+from envsolve.constraints import InitialConstraintEvidence
 from envsolve.constraints.models import ConstraintDomain, ConstraintPredicate
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.import_probe import ImportInventory, collect_source_imports
@@ -39,7 +45,7 @@ from envsolve.verification.obligations import (
 
 
 RunCommand = Callable[..., subprocess.CompletedProcess[str]]
-_PROBE_MARKER = "ENVSOLVE_IMPORT_PROBE_V2="
+_PROBE_MARKER = "ENVSOLVE_IMPORT_PROBE_V3="
 _NETWORK_FAILURES = tuple(
     (name, re.compile(pattern, re.IGNORECASE))
     for name, pattern in (
@@ -65,12 +71,28 @@ _INFRASTRUCTURE_FAILURES = (
 _IMPORT_PROBE = """\
 import importlib
 import importlib.machinery
+from importlib import metadata
 import json
 import platform
 from pathlib import Path
 import sys
 
 modules = json.loads(sys.argv[1])
+package_names = json.loads(sys.argv[2]) if len(sys.argv) > 2 else []
+packages = {}
+for name in package_names:
+    try:
+        packages[name] = {
+            \"status\": \"resolved\",
+            \"version\": metadata.version(name),
+        }
+    except metadata.PackageNotFoundError:
+        packages[name] = {\"status\": \"missing\"}
+    except Exception as exc:
+        packages[name] = {
+            \"status\": \"unknown\",
+            \"error\": f\"{type(exc).__name__}: {exc}\"[:1000],
+        }
 runtime = {}
 for module in modules:
     try:
@@ -227,7 +249,7 @@ for module in modules:
             \"runtime_origin\": origin,
         }
 print(
-    \"ENVSOLVE_IMPORT_PROBE_V2=\"
+    \"ENVSOLVE_IMPORT_PROBE_V3=\"
     + json.dumps(
         {
             \"facts\": {
@@ -239,6 +261,7 @@ print(
             },
             \"runtime\": runtime,
             \"static\": static,
+            \"packages\": packages,
         },
         sort_keys=True,
     )
@@ -246,10 +269,18 @@ print(
 """
 
 
+@dataclass(frozen=True)
+class _PackageRequirement:
+    evidence_id: str
+    source: str
+    name: str
+    specifier: str | None
+
+
 class PythonDeploymentVerifier:
     """Fixed internal Python checks with no benchmark evaluator dependency."""
 
-    check_profile = "python-deployment-v3"
+    check_profile = "python-deployment-v4"
 
     def __init__(
         self,
@@ -257,6 +288,7 @@ class PythonDeploymentVerifier:
         command_timeout: int = 900,
         collect_tests: bool = True,
         obligation_profile: str = "two-layer",
+        package_requirements: tuple[InitialConstraintEvidence, ...] = (),
         run_command: RunCommand = subprocess.run,
     ) -> None:
         if obligation_profile not in {"two-layer", "runtime-only"}:
@@ -265,10 +297,29 @@ class PythonDeploymentVerifier:
         self.collect_tests = collect_tests
         self.obligation_profile = obligation_profile
         self.check_profile = (
-            "python-deployment-v3"
+            "python-deployment-v4"
             if obligation_profile == "two-layer"
-            else "python-deployment-v3-runtime-only-ablation"
+            else "python-deployment-v4-runtime-only-ablation"
         )
+        parsed_requirements: list[_PackageRequirement] = []
+        for item in package_requirements:
+            if item.kind != "package-requirement":
+                raise ValueError("Python verifier accepts only package requirements")
+            name = item.value.get("name")
+            if not isinstance(name, str) or not name.strip():
+                raise ValueError("Package requirement name cannot be empty")
+            specifier = item.value.get("specifier")
+            if specifier is not None:
+                specifier = str(SpecifierSet(str(specifier)))
+            parsed_requirements.append(
+                _PackageRequirement(
+                    item.evidence_id,
+                    item.source,
+                    canonicalize_name(name),
+                    specifier,
+                )
+            )
+        self.package_requirements = tuple(parsed_requirements)
         self.run_command = run_command
         self.import_analyzer = ImportContextAnalyzer()
         self.finding_adapter = StructuredFindingAdapter()
@@ -291,9 +342,12 @@ class PythonDeploymentVerifier:
         checks = ["python -m pip check", "python -m compileall -q ."]
         if self.collect_tests and self._has_tests(handle.worktree):
             checks.append("python -m pytest --collect-only -q")
-        probe = "python -I -c {code} {modules}".format(
+        probe = "python -I -c {code} {modules} {packages}".format(
             code=shlex.quote(_IMPORT_PROBE),
             modules=shlex.quote(json.dumps(inventory.modules)),
+            packages=shlex.quote(
+                json.dumps(sorted({item.name for item in self.package_requirements}))
+            ),
         )
         command = "\n".join([candidate.script.rstrip(), *checks, probe])
         started = time.monotonic()
@@ -450,10 +504,12 @@ class PythonDeploymentVerifier:
         facts_value = payload.get("facts")
         runtime = payload.get("runtime")
         static = payload.get("static")
+        packages_value = payload.get("packages", {})
         if (
             not isinstance(facts_value, dict)
             or not isinstance(runtime, dict)
             or not isinstance(static, dict)
+            or not isinstance(packages_value, dict)
         ):
             return ExecutableVerification(
                 verifier="envsolve-python-deployment-verifier",
@@ -516,7 +572,8 @@ class PythonDeploymentVerifier:
                 or static_statuses[module] is ResolutionStatus.RESOLVED
             )
         }
-        findings = [
+        findings = self._package_findings(packages_value, environment_facts)
+        findings.extend(
             StructuredVerifierFinding(
                 finding_id="resolved-import-"
                 + hashlib.sha256(module.encode()).hexdigest()[:20],
@@ -540,7 +597,7 @@ class PythonDeploymentVerifier:
                 },
             )
             for module in sorted(resolved_modules)
-        ]
+        )
         for occurrence in inventory.occurrences:
             runtime_observation = runtime.get(occurrence.module)
             static_observation = static.get(occurrence.module)
@@ -649,10 +706,100 @@ class PythonDeploymentVerifier:
                     if self.obligation_profile == "two-layer"
                     else "runtime-semantic-ablation-v1"
                 ),
+                "package_requirements": len(self.package_requirements),
+                "package_unresolved": sorted(
+                    {
+                        item.subject
+                        for item in findings
+                        if item.domain is ConstraintDomain.PACKAGE
+                        and item.disposition
+                        in {FindingDisposition.ACTIVE, FindingDisposition.UNKNOWN}
+                    }
+                ),
                 "environment_facts": environment_facts,
             },
         )
         return self.finding_adapter.adapt(report)
+
+    def _package_findings(
+        self,
+        packages: dict[str, object],
+        environment_facts: dict[str, object],
+    ) -> list[StructuredVerifierFinding]:
+        findings: list[StructuredVerifierFinding] = []
+        for requirement in self.package_requirements:
+            raw_observation = packages.get(requirement.name)
+            observation = (
+                raw_observation if isinstance(raw_observation, dict) else {}
+            )
+            status = self._resolution_status(observation)
+            provenance = {
+                "repository_evidence_id": requirement.evidence_id,
+                "repository_evidence_source": requirement.source,
+                "package_observation": observation,
+                "environment_facts": environment_facts,
+            }
+            presence_disposition = (
+                FindingDisposition.SATISFIED
+                if status is ResolutionStatus.RESOLVED
+                else FindingDisposition.ACTIVE
+                if status is ResolutionStatus.MISSING
+                else FindingDisposition.UNKNOWN
+            )
+            findings.append(
+                StructuredVerifierFinding(
+                    finding_id=f"{requirement.evidence_id}-presence",
+                    domain=ConstraintDomain.PACKAGE,
+                    subject=requirement.name,
+                    predicate=ConstraintPredicate.PRESENT,
+                    required=True,
+                    observed=(
+                        True
+                        if presence_disposition is FindingDisposition.SATISFIED
+                        else False
+                        if presence_disposition is FindingDisposition.ACTIVE
+                        else None
+                    ),
+                    disposition=presence_disposition,
+                    provenance=provenance,
+                )
+            )
+            if requirement.specifier is None or status is not ResolutionStatus.RESOLVED:
+                continue
+            version_value = observation.get("version")
+            try:
+                version = Version(str(version_value))
+            except InvalidVersion:
+                findings.append(
+                    StructuredVerifierFinding(
+                        finding_id=f"{requirement.evidence_id}-version",
+                        domain=ConstraintDomain.PACKAGE,
+                        subject=requirement.name,
+                        predicate=ConstraintPredicate.VERSION,
+                        required=requirement.specifier,
+                        observed=None,
+                        disposition=FindingDisposition.UNKNOWN,
+                        provenance=provenance,
+                    )
+                )
+                continue
+            findings.append(
+                StructuredVerifierFinding(
+                    finding_id=f"{requirement.evidence_id}-version",
+                    domain=ConstraintDomain.PACKAGE,
+                    subject=requirement.name,
+                    predicate=ConstraintPredicate.VERSION,
+                    required=requirement.specifier,
+                    observed=str(version),
+                    disposition=(
+                        FindingDisposition.SATISFIED
+                        if version in SpecifierSet(requirement.specifier)
+                        else FindingDisposition.ACTIVE
+                    ),
+                    provenance=provenance,
+                )
+            )
+        return findings
 
     @staticmethod
     def _resolution_status(value: object) -> ResolutionStatus:

@@ -716,3 +716,13 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   或不完整报告不接纳任何正事实。跨 candidate 合成测试、全量回归（`351 passed, 1 skipped`）和
   opt-in Docker fresh-environment integration 均通过。这只是 pre-action admission 的前置条件，
   不是效果结果；本轮没有运行任何新 development case。
+- 保守的 pre-action admission 已覆盖标准声明式 package requirement。有界、无执行的 observer 只接纳
+  无 marker 的 PEP 621 dependency、`setup.cfg` `install_requires` 和顶层 `requirements*.txt` 中的
+  PEP 508 条目；environment marker、directive、格式错误声明、runtime requirement 和源码 import
+  猜测都不接纳。每条 evidence 都携带源路径与内容哈希。Constraint-driven EnvSolve 在 proposal 1
+  前接纳这些 requirement；free-form condition 运行同一 observer，但不获得类型化初始约束。
+- Python deployment verifier v4 使用固定 `importlib.metadata` package observation 闭合状态循环，
+  区分 distribution 缺失、版本不兼容以及 presence/version 已满足，并用正事实只替换同变量的旧
+  package fact。全量回归为 `358 passed, 1 skipped`，语法编译与 opt-in 真实 Docker boundary 均通过。
+  本轮没有运行新 development case 或官方 evaluator；Q7 仍需先固化干净、可分享的 EnvBench
+  evaluator revision，再建立新的 mechanism freeze。

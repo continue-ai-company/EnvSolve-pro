@@ -17,6 +17,7 @@ from envsolve.runtime import (
     DockerFreshEnvironmentProvider,
     PythonDeploymentVerifier,
     StructuredModelDeploymentPolicy,
+    collect_repository_constraints,
     profile_python_repository,
 )
 from envsolve_harness.budget import BudgetLedger, BudgetLimits, TokenPricing
@@ -89,6 +90,7 @@ def main() -> int:
         )
     )
     profile = profile_python_repository(source_repository)
+    repository_constraints = collect_repository_constraints(source_repository)
     common_limits = {
         "budget_max_candidates": args.max_candidates,
         "budget_max_environments": args.max_candidates,
@@ -157,6 +159,7 @@ def main() -> int:
         verifier=PythonDeploymentVerifier(
             command_timeout=args.command_timeout,
             obligation_profile=args.obligation_profile,
+            package_requirements=repository_constraints.evidence,
         ),
         candidate_validator=candidate_validator,
         operation_guard=(
@@ -168,6 +171,12 @@ def main() -> int:
         max_candidates=args.max_candidates,
         condition=args.method,
         repository_profile=profile,
+        initial_evidence=(
+            repository_constraints.evidence
+            if args.operation_profile == "constraint-driven"
+            else ()
+        ),
+        initial_observation_summary=repository_constraints.summary(),
     ).run(case, RunArtifacts(args.artifacts_root), run_spec)
     return 0 if result.generation_completed else 1
 
