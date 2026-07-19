@@ -41,3 +41,12 @@ inside Q6.
 
 Q6 is development mechanism qualification only. It cannot support the paper's main
 effectiveness claim, choose the final budget, or alter Canary/Official-Test policy.
+
+## Completion note
+
+Q6 completed all ten scheduled episodes. All ten are artifact-valid and
+scientifically eligible, but only the `rebench` pair reached official evaluation;
+both conditions failed. The other four pairs are censored for paired official
+analysis. The current operation mechanism is therefore not qualified. Detailed
+outcomes and post-batch error analysis are frozen in
+`P6_CONSTRAINT_OPERATION_QUALIFICATION_V6_RESULTS.md`.

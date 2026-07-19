@@ -31,3 +31,10 @@ constraint-derived operation plan 和 operation guard；control 接收不含 ope
 
 Q6 只用于 development mechanism qualification，不能支持论文主效果 claim、选择最终预算，或改变
 Canary/Official-Test policy。
+
+## 完成说明
+
+Q6 完成了 schedule 中全部 10 个 episode。10 个 run 全部 artifact-valid 且 scientifically eligible，
+但只有 `rebench` 一组进入 official evaluation，并且两组 condition 都失败；另外四组在 official paired
+analysis 中被删失。因此当前 operation mechanism 尚未获得资格。详细结果与 batch 后错误分析冻结在
+`P6_CONSTRAINT_OPERATION_QUALIFICATION_V6_RESULTS_ZH.md`。

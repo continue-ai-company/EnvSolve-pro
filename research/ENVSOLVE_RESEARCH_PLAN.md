@@ -938,3 +938,21 @@ development batch; it never triggers tuning on the same held-out outcomes.
   scripts and publishing remain rejected. Read-only replay accepts both Q5 Giskard
   proposals that V6 rejected; this validates language coverage only. Full regression
   passes 343 tests with one opt-in skip, and the real Docker boundary passes.
+- Q6 is the first operation batch with ten artifact-valid and scientifically eligible
+  runs under the corrected contract. It produced zero official passes. Four pairs
+  were censored because generation never reached official evaluation; the only
+  official pair, `rebench`, was a both-fail pair. Full reduced `issues_count` from 28
+  to 1, but its internal verifier had excluded the remaining documentation import.
+  The three other non-timeout cases exhausted five candidates in both conditions,
+  and `datasets` exposed unsigned command timeouts being mislabeled as
+  infrastructure failure. Q6 therefore rejects the hypothesis that the current
+  reactive operation plan is already sufficient.
+- Two generic post-Q6 corrections are implemented without case or package rules.
+  Documentation joins runtime/test/build source in the bounded two-layer import
+  inventory. A command timeout is candidate feedback unless partial logs contain an
+  explicit infrastructure signature; hypothesis-only timeout feedback can drive the
+  next fresh candidate. Full regression passes `347 passed, 1 skipped`, and the
+  opt-in real Docker boundary passes. Q6 remains consumed and is not rerun. Before
+  Q7, the algorithm must define conservative initial observation-to-constraint
+  admission, and the patched EnvBench evaluator must be represented by a clean,
+  shareable revision.

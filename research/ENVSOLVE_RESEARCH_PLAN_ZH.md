@@ -697,3 +697,15 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   `.venv` basename 匹配；受限的 `pdm install/sync` mutation 被允许，而 PDM script 和发布仍被拒绝。
   对 Q5 Giskard 的只读回放表明，V6 拒绝的两个 proposal 现在都能进入语言；这只验证语言覆盖。
   全量回归为 `343 passed, 1 skipped`，真实 Docker boundary 通过。
+- Q6 是修正 scientific contract 后第一批 10 个 run 全部 artifact-valid 且 scientifically eligible
+  的 operation batch，但 official pass 为 0。四组 pair 因 generation 未进入 official evaluation
+  而被删失；唯一进入 official 的 `rebench` pair 为双方都失败。Full 将 `issues_count` 从 28 降到 1，
+  但内部 verifier 漏掉了最后一个 documentation import。其余三个非 timeout case 的两种 condition
+  都耗尽 5 个 candidate；`datasets` 还暴露出普通 command timeout 被误标为 infrastructure failure。
+  因而 Q6 否定了“当前被动式 operation plan 已经足够”的假设。
+- 两项通用修正在 Q6 后完成，均不含 case 或 package rule。Documentation 与 runtime/test/build source
+  一起进入有界两层 import inventory；command timeout 只有在 partial log 含明确 infrastructure
+  signature 时才删失，否则作为 candidate feedback，并可通过 hypothesis 驱动下一 fresh candidate。
+  全量回归为 `347 passed, 1 skipped`，显式真实 Docker boundary 通过。Q6 保持 consumed、永不重跑。
+  Q7 前必须定义保守的初始 observation-to-constraint admission，并把带补丁的 EnvBench evaluator
+  固化为干净、可分享的 revision。

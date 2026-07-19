@@ -235,6 +235,14 @@ baseline，因此五组 pair 全部不具备 scientific eligibility，只能用�
 同样被排除：host suspension 造成多次 wall-clock 超限，通用 DSL 缺口还错误拒绝了有效 PDM 安装。
 PDM install/sync 和项目 venv 语义绑定现在已有合成测试覆盖，两批 consumed case 都不会重跑。
 
+后续一批满足干净 contract 的开发实验产生 10 个 scientifically eligible run，但 official pass 为 0。
+五组 pair 中四组没有进入 official evaluation；唯一 official pair 中，完整 EnvSolve 将 missing-import
+issues 从 28 降到 1，但仍然失败。错误分析发现，当前 operation plan 在首次执行前为空，因此尚未把
+仓库观测转成初始约束；实验还发现一个 documentation source coverage 缺口和过度保守的 timeout
+classifier。两个通用机制 bug 已为未来 unseen development case 修正，失败 batch 仍保持 consumed。
+这个负结果收窄了方法 claim：只有类型化的被动修复还不够，下一方法版本必须定义保守的 pre-action
+constraint admission。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升

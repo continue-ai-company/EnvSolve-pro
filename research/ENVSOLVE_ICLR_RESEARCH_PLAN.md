@@ -323,6 +323,18 @@ multiple wall-clock overruns, and a generic DSL gap rejected valid PDM installs.
 install/sync and semantic project-venv binding are now covered by synthetic tests,
 without rerunning either consumed batch.
 
+A subsequent clean-contract development batch produced ten scientifically eligible
+runs but no official pass. Four of five pairs never reached official evaluation; in
+the only official pair, full EnvSolve reduced missing-import issues from 28 to one
+but still failed. Error analysis showed that the current operation plan is empty
+before the first execution, so it does not yet convert repository observations into
+initial constraints. It also found one documentation-source coverage gap and an
+over-conservative timeout classifier. The two generic mechanism bugs are corrected
+for future unseen development cases, while the failed batch remains consumed. This
+negative result narrows the method claim: typed reactive repair alone is
+insufficient; the next method revision must define conservative pre-action
+constraint admission.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
