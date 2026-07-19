@@ -348,9 +348,11 @@ constraint admission.
 
 That revision now admits only unconditional standard package declarations before
 the first proposal and closes them with fresh installed-metadata observations.
-The mechanism and a clean committed EnvBench evaluator are frozen for the next
-outcome-blind batch, but no new case has been selected or executed. This is method
-readiness, not evidence of improved effectiveness.
+The mechanism and a clean committed EnvBench evaluator were frozen before the next
+outcome-blind batch. Five new development identities were then selected by a
+preregistered metadata-only hash rule and bound to a ten-episode paired schedule.
+No selected repository has been inspected and no episode has been executed. This is
+experimental readiness, not evidence of improved effectiveness.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -402,7 +404,8 @@ evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
 derived rules. The next milestone is a new outcome-blind development qualification
-under a committed freeze, followed by the predeclared held-out evaluation.
+under its committed execution binding, followed by the predeclared held-out
+evaluation only if the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard
 conflicts produce provenance-bearing, context-bounded operation obligations, and a typed guard

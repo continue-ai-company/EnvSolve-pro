@@ -733,4 +733,11 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
 - Harness freeze v22 绑定该干净 EnvBench revision、evaluation image、全部 Q6 consumed identity/result、
   当前源码、预算与数据集，独立验证返回 `valid=true`。Algorithm freeze v8 显式把 paired treatment
   boundary 更新为 pre-action admission、operation-plan visibility 和 guard admission，并用可执行测试
-  校验 source/parent hash。全量回归为 `360 passed, 1 skipped`；Q7 尚未选择或查看任何 case。
+  校验 source/parent hash。全量回归为 `360 passed, 1 skipped`。
+- Q7 已在 commit `1dae924` 中先完成预注册，再进行 metadata-only 盲选。冻结哈希规则从 166 个 untouched
+  case 中选出 5 个新 identity，保留 161 个 untouched case，并生成 10 个 method order 由 salted hash
+  决定的 paired episode。选样记录提交为 `7de73cd`；execution binding v7 提交为 `54e3e13`，绑定算法、
+  harness、evaluator image/revision、case pool、schedule、runner、config 与 protocol 的哈希。Pool 守恒、
+  pairing 检查和 `4 passed` 算法/选样测试均通过，Harness v22 也独立验证通过。尚未检查任何 selected
+  repository，Q7 model request 与 official evaluator execution 均为零；Q7 仍只属于 development
+  qualification。

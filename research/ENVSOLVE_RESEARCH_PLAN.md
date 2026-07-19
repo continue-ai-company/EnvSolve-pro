@@ -992,5 +992,13 @@ development batch; it never triggers tuning on the same held-out outcomes.
   independent verifier returns `valid=true`. Algorithm freeze v8 explicitly changes
   the paired treatment boundary to pre-action admission plus operation-plan
   visibility and guard admission. Its source/parent hashes are executable-tested.
-  Full regression is `360 passed, 1 skipped`. Q7 has not yet selected or inspected
-  any case.
+  Full regression is `360 passed, 1 skipped`.
+- Q7 was preregistered in commit `1dae924` before metadata-only selection. The
+  frozen hash rule selected five new identities from the untouched 166-case pool,
+  leaving 161 untouched, and produced ten paired episodes with salted method order.
+  Selection was committed as `7de73cd`; execution binding v7 was committed as
+  `54e3e13` and hashes the algorithm, harness, evaluator image/revision, case pool,
+  schedule, runners, config, and protocol. Conservation and pairing checks pass,
+  algorithm/selection tests are `4 passed`, and Harness v22 independently verifies.
+  No selected repository has been inspected and no Q7 model request or official
+  evaluator execution has occurred. Q7 remains development qualification only.

@@ -253,8 +253,10 @@ classifier。两个通用机制 bug 已为未来 unseen development case 修正�
 constraint admission。
 
 该版本现在只在首次 proposal 前接纳无条件的标准 package declaration，并通过 fresh installed-
-metadata observation 闭合这些约束。机制与干净、已提交的 EnvBench evaluator 已为下一批
-outcome-blind 实验冻结，但尚未选择或执行新 case；这只表示方法已具备实验条件，不是效果提升证据。
+metadata observation 闭合这些约束。机制与干净、已提交的 EnvBench evaluator 已在下一批
+outcome-blind 实验前冻结。随后按照预注册、仅使用 metadata 的哈希规则选择 5 个新 development
+identity，并绑定为 10 个 episode 的 paired schedule。尚未检查 selected repository，也未执行任何
+episode；这只表示实验已具备执行条件，不是效果提升证据。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -291,8 +293,8 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。下一
-里程碑是在已提交 freeze 下执行新的 outcome-blind development qualification，之后再进入预声明的
-held-out evaluation。
+里程碑是在已提交 execution binding 下执行新的 outcome-blind development qualification；只有机制
+通过资格验证后，才进入预声明的 held-out evaluation。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict 产生带 provenance 的操作义务，
 类型化 guard 要求 fresh execution 前出现允许的新 mutation。
