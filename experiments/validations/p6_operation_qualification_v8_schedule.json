@@ -1,0 +1,106 @@
+{
+  "algorithm": {
+    "case_order": "ascending SHA256(salt + NUL + case-order + NUL + case_id)",
+    "method_order": "two methods, reversed by salted method-order hash parity"
+  },
+  "case_file": "experiments/cases/dev_operation_qualification_v8_5.jsonl",
+  "case_file_sha256": "b35a26a7644599898eeb2739481a233fb2bc0b49f191ba79b681e2b1f61f0fb8",
+  "episode_timeout_seconds": 9600,
+  "episodes": [
+    {
+      "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+      "method": "envsolve-operation-ablation",
+      "method_index": 1,
+      "pair_index": 1,
+      "position": 1,
+      "run_id": "p6-operation-q8-01-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+      "method": "envsolve-operation",
+      "method_index": 2,
+      "pair_index": 1,
+      "position": 2,
+      "run_id": "p6-operation-q8-01-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+      "method": "envsolve-operation-ablation",
+      "method_index": 1,
+      "pair_index": 2,
+      "position": 3,
+      "run_id": "p6-operation-q8-02-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+      "method": "envsolve-operation",
+      "method_index": 2,
+      "pair_index": 2,
+      "position": 4,
+      "run_id": "p6-operation-q8-02-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-rcmdnk__homebrew-file@d8d6be39755166e696dbbc4f16eb2e20dd2ee97c",
+      "method": "envsolve-operation",
+      "method_index": 1,
+      "pair_index": 3,
+      "position": 5,
+      "run_id": "p6-operation-q8-03-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-rcmdnk__homebrew-file@d8d6be39755166e696dbbc4f16eb2e20dd2ee97c",
+      "method": "envsolve-operation-ablation",
+      "method_index": 2,
+      "pair_index": 3,
+      "position": 6,
+      "run_id": "p6-operation-q8-03-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "method": "envsolve-operation-ablation",
+      "method_index": 1,
+      "pair_index": 4,
+      "position": 7,
+      "run_id": "p6-operation-q8-04-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "method": "envsolve-operation",
+      "method_index": 2,
+      "pair_index": 4,
+      "position": 8,
+      "run_id": "p6-operation-q8-04-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+      "method": "envsolve-operation",
+      "method_index": 1,
+      "pair_index": 5,
+      "position": 9,
+      "run_id": "p6-operation-q8-05-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "case_id": "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+      "method": "envsolve-operation-ablation",
+      "method_index": 2,
+      "pair_index": 5,
+      "position": 10,
+      "run_id": "p6-operation-q8-05-envsolve-operation-ablation",
+      "seed": 0
+    }
+  ],
+  "model": "deepseek/deepseek-v4-pro",
+  "salt": "envsolve-p6-operation-qualification-v8-2026-07-19",
+  "schema_version": "1.0.0",
+  "selection_provenance": "experiments/validations/p6_operation_qualification_v8_selection.json",
+  "selection_provenance_sha256": "a3d2e83d975998b8d305b61173f4b7d89c89502bd29128b1b8762b3e4234fb0c"
+}

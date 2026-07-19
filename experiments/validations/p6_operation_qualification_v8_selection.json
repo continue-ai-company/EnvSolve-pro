@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v8_preregistration.json",
+  "preregistration_sha256": "65203e81a91e44a541bb749fd0481261d91309d2061ed0820c3762a367358b8f",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v8_156.jsonl",
+  "remaining_sha256": "51eb1a16fa804c98fc2970eb2a32273962a113d4d68e930509b2882cb051ef48",
+  "salt": "envsolve-p6-operation-qualification-v8-2026-07-19",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+    "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+    "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+    "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+    "envbench-python-rcmdnk__homebrew-file@d8d6be39755166e696dbbc4f16eb2e20dd2ee97c"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v8_5.jsonl",
+  "selected_sha256": "b35a26a7644599898eeb2739481a233fb2bc0b49f191ba79b681e2b1f61f0fb8",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v7_161.jsonl",
+  "source_sha256": "53d8892dfc344f6188d0cc31d04a88601c670cafa90736772da2692fb05c8917"
+}
