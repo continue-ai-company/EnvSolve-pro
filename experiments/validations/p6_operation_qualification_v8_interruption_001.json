@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v8",
+  "event_id": "q8-position-001-operator-interruption",
+  "recorded_before_resumption": true,
+  "event": {
+    "position": 1,
+    "run_id": "p6-operation-q8-01-envsolve-operation-ablation",
+    "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+    "method": "envsolve-operation-ablation",
+    "state": "interrupted",
+    "reason": "coordinator interrupted at operator request",
+    "started_at": "2026-07-19T14:45:23.489814+00:00",
+    "finished_at": "2026-07-19T14:46:11.292586+00:00",
+    "duration_seconds": 46.509115292000004,
+    "process_exit_code": -15
+  },
+  "observed_usage": {
+    "model_requests_started": 1,
+    "model_responses_completed": 1,
+    "request_errors": 0,
+    "input_tokens": 4243,
+    "output_tokens": 112,
+    "total_tokens": 4355,
+    "candidates": 1,
+    "commands": 1,
+    "fresh_environments": 1,
+    "verifications_completed": 0,
+    "official_evaluator_executions": 0
+  },
+  "cleanup": {
+    "artifact_interruption_recorded": true,
+    "containers_cleaned": 1
+  },
+  "scientific_disposition": {
+    "event_class": "unforeseen operator interruption",
+    "scientifically_eligible": false,
+    "official_outcome": "Unknown",
+    "pair": 1,
+    "paired_official_outcome": "censored",
+    "position_retry_allowed": false,
+    "identity_consumed": true,
+    "shared_mechanism_defect": false,
+    "runtime_invariant_result": "not observed",
+    "disposition_basis": "conservatively apply the frozen no-overwrite and no-automatic-retry treatment used for censored execution failures"
+  },
+  "resumption": {
+    "schedule_mutated": false,
+    "next_position": 2,
+    "do_not_rerun_positions": [
+      1
+    ],
+    "counterpart_scope": "position 2 may test preregistered full-run runtime invariants and resource outcomes, but pair 1 remains censored regardless of its result",
+    "clarification_scope": "administrative handling of an unforeseen interruption only; treatment, code, prompt, verifier, evaluator, budget, and analysis remain frozen"
+  },
+  "frozen_inputs": {
+    "execution_binding_commit": "4f7d357",
+    "schedule_path": "experiments/validations/p6_operation_qualification_v8_schedule.json",
+    "schedule_sha256": "f5f84a6992aa4d028d2984c4a5865eed852f3541ccc7fc51770a192d561e02d6",
+    "progress_path": "experiments/runs/p6_operation_qualification_v8_schedule-progress.json",
+    "progress_sha256": "50974bce59180db9e9c64ec11e04b28366e89d6e32deb9624c44ec53ded288c7"
+  },
+  "local_artifacts": {
+    "retention": "ignored local artifacts; hashes are tracked without repository content or model output",
+    "status_sha256": "66d089307b19ba0f7a09c6e82acd6e1bcb8ba889674c4176cb99168abb37eb4b",
+    "manifest_sha256": "4340faf82b52984e3a256361be668e23fae5e0e2c16c49077b25ff49179f0ebc",
+    "budget_ledger_sha256": "66d8cfcd69029fa5cac66ecf40ac3e384f0ecc724dec1e095ce3964efac27ad6",
+    "episode_log_sha256": "b73f0467951c4784f473ab06110b64f91584f13367f092d67130476c12f36c40",
+    "episode_snapshot_sha256": "cba703aad232b4ccef3fca4d6f1515c493874637e0a001aefa84be6460d5f5f0"
+  },
+  "confidentiality": {
+    "contains_api_key": false,
+    "contains_repository_content": false,
+    "contains_model_prompt_or_response": false
+  }
+}
