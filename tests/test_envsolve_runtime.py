@@ -450,6 +450,86 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 result.details["infrastructure_signature"], "upstream-http-5xx"
             )
 
+    def test_internal_check_connection_error_is_candidate_feedback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def fail(command, **kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    2,
+                    "elastic_transport.ConnectionError: localhost connection refused",
+                    "ENVSOLVE_FAILED_ACTION_V1=internal:2",
+                )
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False, run_command=fail
+            ).verify(
+                DeploymentCandidate("candidate-1", "python -m pip install -e .", "test"),
+                environment,
+            )
+
+            self.assertFalse(result.passed)
+            self.assertEqual(
+                result.summary,
+                "Complete candidate failed fixed internal Python checks",
+            )
+            self.assertNotIn("infrastructure_signature", result.details)
+
+    def test_candidate_connection_error_remains_infrastructure_unknown(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def fail(command, **kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    1,
+                    "",
+                    (
+                        "requests.ConnectionError: dependency index unavailable\n"
+                        "ENVSOLVE_FAILED_ACTION_V1=0:1"
+                    ),
+                )
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False, run_command=fail
+            ).verify(
+                DeploymentCandidate("candidate-1", "python -m pip install -e .", "test"),
+                environment,
+            )
+
+            self.assertIsNone(result.passed)
+            self.assertEqual(
+                result.details["infrastructure_signature"],
+                "connection-error",
+            )
+            self.assertEqual(
+                result.details["failed_candidate_action"]["action_index"],
+                0,
+            )
+
     def test_internal_verifier_stops_on_artifact_hash_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             worktree = Path(directory)

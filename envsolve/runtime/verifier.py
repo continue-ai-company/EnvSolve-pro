@@ -382,6 +382,11 @@ class PythonDeploymentVerifier:
         }
 
     @staticmethod
+    def _failed_during_internal_checks(stderr: str) -> bool:
+        matches = tuple(_FAILED_ACTION_MARKER.finditer(stderr))
+        return bool(matches and matches[-1].group("index") == "internal")
+
+    @staticmethod
     def _failure_details(
         checks: list[str],
         failed_action: dict[str, object] | None,
@@ -454,9 +459,16 @@ class PythonDeploymentVerifier:
             result.stderr,
             candidate_commands,
         )
+        failed_during_internal_checks = self._failed_during_internal_checks(
+            result.stderr
+        )
         if result.exit_code == 0:
             return self._evaluate_import_probe(result, inventory, environment, checks)
-        infrastructure_failure = self._infrastructure_failure(result)
+        infrastructure_failure = (
+            None
+            if failed_during_internal_checks
+            else self._infrastructure_failure(result)
+        )
         if infrastructure_failure is not None:
             return ExecutableVerification(
                 verifier="envsolve-python-deployment-verifier",
