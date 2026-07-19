@@ -773,5 +773,11 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   预注册的 runtime-state invariant，official paired outcome 仅为次要结果；零触发不得补选，任何
   invariant violation 都会关闭 batch。Execution binding v8 已提交为 `4f7d357`；15 个绑定哈希、
   pool 守恒、pairing、4 项 freeze/selection 测试、Harness v23 与 opt-in 真实 Docker boundary 均
-  通过验证。选样后 repository inspection、model request、evaluator execution 和 solver/protocol
-  mutation 都为零。Q8 尚未开始，因此当前没有结果，也不产生效果 claim。
+  通过验证。在 execution binding 时，repository inspection、model request、evaluator execution 和
+  solver/protocol mutation 都为零。
+- Q8 position 1 随后启动，并在 46.5 秒时按 operator 要求停止。该 ablation 已完成 1 次模型响应
+  （4,355 tokens）、生成 1 个 candidate、使用 1 条命令和 1 个 fresh environment，但尚未完成
+  verification，也没有进入 official evaluator；coordinator 已记录中断并清理容器。Post-start audit
+  `a7e48d3` 将其判为 scientifically ineligible/Unknown，永久禁止重跑，并删失 pair 1。这不是机制
+  缺陷或效果结果。冻结 schedule 可以从 position 2 恢复；该 full run 仍可检验预注册 runtime
+  invariant，但无论结果如何都不能恢复 pair 1 的 paired official outcome。

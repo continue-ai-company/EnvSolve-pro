@@ -273,8 +273,10 @@ fresh base-runtime fact 绑定到候选镜像，依据该 fact 接纳标准 runt
 mismatch 变成 hard contradiction，并在 fresh attempt 之间保持由候选操作支撑的 satisfaction。
 合成 transition 测试和真实 Docker 边界验证了这些语义；这只是机制验证，不是部署成功率提升证据。
 新的 5-pair development qualification 已完成预注册、在不检查 repository 的前提下盲选并冻结执行
-入口。它以 runtime-state invariant 为主要检验，以 paired official outcome 为次要结果；batch 尚未
-开始，因此当前不贡献任何实验结果。
+入口。它以 runtime-state invariant 为主要检验，以 paired official outcome 为次要结果。Batch 启动后，
+首个 ablation episode 在 verification 前被人工中断，并以 ineligible/Unknown 保留且不得
+重跑，因此该 pair 被删失。这个行政中断不产生方法结论；冻结的 full counterpart 仍可检验预注册
+runtime invariant。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -312,7 +314,7 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
 Typed runtime-state 修订及其新的 outcome-blind development qualification 均已冻结；下一里程碑是
-在不改变 treatment 与分析规则的前提下执行该 batch。
+从下一个未重复 position 恢复，并保持 treatment 与分析规则不变。
 机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的

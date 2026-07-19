@@ -1049,6 +1049,14 @@ development batch; it never triggers tuning on the same held-out outcomes.
   batches receive no replacement, and any invariant violation closes the batch.
   Execution binding v8 was committed as `4f7d357`; all 15 bound hashes, pool
   conservation, pairing, four freeze/selection tests, Harness v23, and the opt-in
-  real Docker boundary verify. Since selection there have been zero repository
+  real Docker boundary verify. At execution binding there had been zero repository
   inspections, model requests, evaluator executions, or solver/protocol mutations.
-  Q8 has not started, so no result or effectiveness claim is available.
+- Q8 position 1 subsequently started and was stopped at operator request after
+  46.5 seconds. The ablation produced one completed model response (4,355 tokens),
+  one candidate, one command, and one fresh environment, but no verification or
+  official evaluation. The coordinator recorded the interruption and cleaned its
+  container. Post-start audit `a7e48d3` classifies the episode as scientifically
+  ineligible/Unknown, permanently forbids a retry, and censors pair 1. This is not a
+  mechanism defect or effect result. The unchanged schedule may resume at position
+  2: its full run can still test preregistered runtime invariants, but cannot restore
+  a paired official outcome for pair 1.

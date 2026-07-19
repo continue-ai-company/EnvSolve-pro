@@ -378,7 +378,10 @@ and a real Docker boundary validate these semantics. This is mechanism validatio
 not evidence of improved deployment success. A five-pair development qualification
 has now been preregistered, selected without repository inspection, and bound for
 execution. Its primary tests are runtime-state invariants, with paired official
-outcome secondary; the batch has not started and therefore contributes no result.
+outcome secondary. Its first ablation episode was later interrupted by an operator
+before verification and is retained as ineligible/Unknown without retry, censoring
+that pair. This administrative interruption provides no method result; the frozen
+full counterpart may still test the preregistered runtime invariants.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -431,7 +434,8 @@ held-out comparison remains pending. The corrected execution language, dual audi
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
 derived rules. The typed runtime-state revision and its new outcome-blind
 development qualification are frozen; the next milestone is executing that batch
-without changing its treatment or analysis. Held-out evaluation remains blocked
+from the next unrepeated position without changing its treatment or analysis.
+Held-out evaluation remains blocked
 until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
