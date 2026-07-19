@@ -105,12 +105,14 @@ Feedback is separated before it can affect the next candidate:
 - reproducible deterministic contradictions become hard constraints;
 - ambiguous but grounded observations remain hypotheses and may rank candidates
   but cannot eliminate them;
-- infrastructure outcomes such as network timeouts remain Unknown and do not
-  become environment constraints;
+- timeouts with explicit network or infrastructure signatures remain Unknown and do
+  not become environment constraints; an unsigned fixed-budget execution timeout is
+  retained as candidate-cost evidence;
 - malformed, stale, environment-reused, or ungrounded feedback fails closed.
 
-Failed evidence must be committed before it can affect the next proposal. Only
-an admitted hard conflict creates a mandatory operation obligation. A
+Failed evidence must be committed before it can affect the next proposal. An
+admitted hard conflict or high-confidence unresolved requirement can create a
+mandatory operation obligation. A
 hypothesis-only failure may continue the search, but supplies a soft ranking
 signal and cannot eliminate candidates. The method adds no repository-name
 branch, held-out package map, or source-edit repair path.
@@ -128,12 +130,12 @@ Fresh replay is part of the algorithm because it tests the deployment program
 without hidden mutations from an earlier candidate. It is not the official
 EnvBench evaluation.
 
-For every supported hard conflict, a deterministic planner emits a
+For every supported hard conflict or unresolved hard requirement, a deterministic planner emits a
 provenance-bearing `OperationPlan` that maps runtime, package, capability, and
 module conflicts to allowed mutation kinds such as runtime configuration,
 Python-package installation, or system-package installation. The model still
 chooses concrete parameters and proposes a complete program. Before a container
-is created, `constraint-operation-guard-v1` checks that the candidate introduces
+is created, `constraint-operation-guard-v2` checks that the candidate introduces
 at least one permitted new mutation per obligation relative to the latest
 actually executed candidate. A rejected candidate consumes candidate and model
 budget, but no environment or command budget.

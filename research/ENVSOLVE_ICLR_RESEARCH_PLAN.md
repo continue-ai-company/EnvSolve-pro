@@ -25,8 +25,9 @@ observable, stateful constraint solving. At each round, EnvSolve proposes a
 complete deployment program, executes it in a fresh
 environment, and converts grounded observations into explicit facts, hypotheses,
 and constraints. Deterministic contradictions may guide the next proposal;
-ambiguous evidence remains a hypothesis; censored outcomes such as network and
-execution timeouts remain Unknown. The official benchmark evaluator is used only
+ambiguous evidence remains a hypothesis; timeouts carrying explicit infrastructure
+signatures remain Unknown, while unsigned fixed-budget timeouts become candidate-cost
+evidence. The official benchmark evaluator is used only
 once, after the online episode, and never supplies repair feedback.
 
 We evaluate EnvSolve on EnvBench using resource-matched, same-backbone controls that
@@ -187,9 +188,10 @@ The verifier returns one of three outcomes:
 - **Fail:** reproducible evidence contradicts the current deployment assumptions;
 - **Unknown:** the observation is censored or cannot be attributed to the candidate.
 
-A timeout is Unknown, not evidence that a different package or command is needed.
-This distinction prevents infrastructure conditions from becoming false project
-constraints.
+A timeout with an explicit network or infrastructure signature is Unknown, not
+evidence that a different package or command is needed. An unsigned fixed-budget
+timeout records that the candidate exceeded the execution limit and may guide a
+lower-cost next candidate without asserting a package-level cause.
 
 ### 3.4 Evidence admission and state update
 
@@ -220,7 +222,8 @@ recorded, and returned as a protocol error without creating a container. This
 protects the deployment search from incidental formatting failures while keeping
 their cost visible.
 
-When the state contains a supported hard conflict, a deterministic planner
+When the state contains a supported hard conflict or a high-confidence unresolved
+requirement, a deterministic planner
 projects it into a provenance-bearing `OperationPlan`. The model selects concrete
 repair parameters and regenerates a complete program; before container creation,
 an operation guard checks that every obligation is addressed by a permitted new

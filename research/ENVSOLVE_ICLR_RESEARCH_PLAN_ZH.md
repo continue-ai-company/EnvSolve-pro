@@ -17,8 +17,9 @@ build failure 可能对应多种原因，网络故障和 timeout 还会让观测
 
 我们提出 **EnvSolve**，将仓库部署形式化为部分可观测的状态化约束求解
 问题。每一轮中，EnvSolve 提出完整部署程序，在全新环境中执行，并把有依据的观测转化为显式
-事实、假设和约束。确定性矛盾可以指导下一候选；含义不明确的证据保留为假设；网络和执行超时
-等删失结果保持 Unknown。官方 benchmark evaluator 仅在在线 episode 结束后调用一次，绝不
+事实、假设和约束。确定性矛盾可以指导下一候选；含义不明确的证据保留为假设；带明确基础设施
+签名的 timeout 保持 Unknown，没有此类签名的固定预算 timeout 则成为 candidate-cost evidence。
+官方 benchmark evaluator 仅在在线 episode 结束后调用一次，绝不
 提供修复反馈。
 
 我们在 EnvBench 上，将 EnvSolve 与原始资源上限匹配、使用相同 backbone 的 raw-history 和自然语言
@@ -136,8 +137,9 @@ Verifier 输出三种结果之一：
 - **Fail：** 可复现证据与当前部署假设矛盾；
 - **Unknown：** 观测被删失，或无法归因于候选。
 
-Timeout 是 Unknown，而不是“需要换包或换命令”的证据。这个区分防止基础设施条件变成错误的
-项目约束。
+带明确网络或基础设施签名的 timeout 是 Unknown，而不是“需要换包或换命令”的证据。没有此类
+签名的固定预算 timeout 只证明该 candidate 超出执行上限，可指导更低成本的下一候选，但不能断言
+具体 package 原因。
 
 ### 3.4 证据接纳与状态更新
 
@@ -159,7 +161,7 @@ finding 与完整 constraint record 继续保留供审计，但不会在模型�
 模型格式错误在固定次数内可恢复：系统对原始输出做哈希、记录并作为协议错误反馈，不创建容器。
 这样可以避免偶然格式问题终止部署搜索，同时保留其真实成本。
 
-当状态包含受支持的 hard conflict 时，确定性 planner 将其投影为带 provenance 的
+当状态包含受支持的 hard conflict 或高置信 unresolved requirement 时，确定性 planner 将其投影为带 provenance 的
 `OperationPlan`。模型选择具体修复参数并重新生成完整程序；容器创建前的 operation guard
 验证每项义务是否对应一个允许的新 mutation。该机制把“缺什么或冲突在哪里”与“允许怎样改变
 环境”连接起来，同时不依赖仓库专属 package map。拒绝只消耗候选与模型预算。

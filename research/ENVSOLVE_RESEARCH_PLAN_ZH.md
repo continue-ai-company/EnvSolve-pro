@@ -79,11 +79,13 @@ stderr、exit code、耗时和项目原生检查结果构成不可变证据。En
 
 - 可复现的确定性矛盾进入 hard constraint；
 - 有证据但含义模糊的观测只作为 hypothesis 参与排序，不能排除候选；
-- 网络超时等基础设施结果保持 Unknown，不转化为环境约束；
+- 带明确网络或基础设施签名的 timeout 保持 Unknown，不转化为环境约束；没有此类签名的固定预算
+  execution timeout 保留为 candidate-cost evidence；
 - 格式错误、过期、复用环境或无依据反馈全部 fail closed。
 
-失败证据必须先持久化，才能影响下一次 proposal。只有已接纳的 hard conflict 会生成
-强制操作义务；仅有 hypothesis 的失败可以继续搜索，但只能提供软排序信号，不能排除候选。
+失败证据必须先持久化，才能影响下一次 proposal。已接纳的 hard conflict 或高置信度 unresolved
+requirement 可以生成强制操作义务；仅有 hypothesis 的失败可以继续搜索，但只能提供软排序信号，
+不能排除候选。
 方法不加入 repository-name 分支、held-out package map 或源码修改修复路径。
 
 ### 3.4 反例驱动的候选更新
@@ -96,10 +98,10 @@ stderr、exit code、耗时和项目原生检查结果构成不可变证据。En
 Fresh replay 属于算法，因为它检查部署程序是否依赖前一候选留下的隐藏状态；但它不是
 EnvBench 官方评测。
 
-对于每个受支持的 hard conflict，确定性 planner 生成带 provenance 的 `OperationPlan`，
+对于每个受支持的 hard conflict 或 unresolved hard requirement，确定性 planner 生成带 provenance 的 `OperationPlan`，
 把 runtime、package、capability 和 module 冲突映射为允许的运行时配置、Python 包安装或
 系统包安装等操作类型。模型仍负责选择具体参数并重新提出完整程序；在创建容器前，
-`constraint-operation-guard-v1` 检查候选相对最近一次真实执行候选，是否为每项义务引入了
+`constraint-operation-guard-v2` 检查候选相对最近一次真实执行候选，是否为每项义务引入了
 至少一个允许的新 mutation。被拒候选只消耗候选与模型预算，不消耗环境或命令预算。
 
 ### 3.5 评测隔离
