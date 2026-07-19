@@ -800,3 +800,12 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   Harness v24 验证 `valid=true`。这只是合成机制修复，不是 development qualification，也不是部署
   成功率提升证据。Q8 保持关闭且不得重跑。下一项合规实验是先预注册 outcome-blind Q9，再从剩余
   156 个 untouched development identity 中仅依据 metadata 盲选。
+- Q9 已完成预注册、outcome-blind 选样与执行绑定，且尚未检查任何 selected repository。预注册
+  commit `c40a05e` 把精确 subject-first diagnostic 固定为必须触发的机制，并规定未触发时不得补选；
+  selection commit `d8b9758` 按冻结 metadata hash 选择 5 个 identity，剩余 151 个保持 untouched。
+  Execution binding `e818a1e` 哈希绑定 16 项算法、Harness、数据、调度、runner、协议和文档输入。
+  Harness v24 因生成时无法访问 Docker socket，镜像记录不完整；binding 已显式披露这一点并增加
+  pre-execution attestation，实际 image ID 与 RepoDigest 和 Q8 完全一致。哈希与 pairing 审计通过，
+  聚焦 preflight 为 `36 passed`，全量仍为 `369 passed, 1 skipped`，真实 Docker 边界通过。
+  Repository inspection、model request 与 official evaluator execution 仍全为零。Q9 已可按照冻结的
+  close、censor 与窄重试规则执行。

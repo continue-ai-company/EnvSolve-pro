@@ -288,6 +288,11 @@ diagnostic，用 PEP 440 校验 version 与 range，并且只有 reported versio
 它已经冻结为 mechanism v10 与 Harness v24。这只建立内部语义，使用新 untouched development
 identity 的资格验证仍未完成。
 
+该资格实验现已完成预注册与执行绑定。Metadata-only hash 从 156 个 untouched development case 中
+选择 5 个新 identity，剩余 151 个；在检查任何 selected repository 前，exact evaluator image 已完成
+attestation。触发条件、停止规则、预算、调度和受限基础设施重试都已冻结。Q9 尚未产生任何模型请求或
+evaluator execution。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
@@ -325,7 +330,7 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
 首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。
 最小合成修复与新 mechanism freeze 已完成；下一里程碑是在新的 untouched development identity
-上完成资格验证。机制通过资格验证前，held-out evaluation 保持锁定。
+上完成资格验证，且实验现已可执行。机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

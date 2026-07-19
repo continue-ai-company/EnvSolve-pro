@@ -398,6 +398,12 @@ tool, or version-specific rule and does not alter Poetry command coverage. It is
 frozen as mechanism v10 with Harness v24. This establishes internal semantics only;
 qualification on new untouched development identities remains pending.
 
+That qualification is now preregistered and execution-bound. A metadata-only hash
+selected five new identities from 156 untouched development cases, leaving 151;
+the exact evaluator image was attested before any selected repository was inspected.
+The trigger, stopping rule, budgets, schedule, and restricted infrastructure retries
+are frozen. No Q9 model request or evaluator execution has occurred.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
@@ -450,7 +456,8 @@ scheduler, and analysis pipeline are implemented without case-specific or evalua
 derived rules. The first outcome-blind runtime-state qualification exposed a narrow
 diagnostic-admission failure and is closed. The minimal repair and new mechanism
 freeze are complete; qualification on new untouched development identities is the
-next milestone. Held-out evaluation remains blocked until the mechanism qualifies.
+next milestone and is ready to execute. Held-out evaluation remains blocked until
+the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

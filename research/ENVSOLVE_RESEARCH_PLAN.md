@@ -1088,3 +1088,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   or evidence of improved deployment success. Q8 remains closed and is not rerun.
   The next admissible experiment is an outcome-blind Q9 preregistration followed by
   metadata-only selection from the 156 untouched development identities.
+- Q9 is now preregistered, outcome-blind selected, and execution-bound without any
+  selected-repository inspection. Preregistration commit `c40a05e` fixes the exact
+  subject-first diagnostic as the required trigger and forbids replacement when it
+  is not exercised. Selection commit `d8b9758` chose five identities by the frozen
+  metadata hash and left 151 untouched. Execution binding `e818a1e` hashes 16
+  algorithm, harness, data, schedule, runner, protocol, and documentation inputs.
+  Because Harness v24 was generated without Docker-socket access, the binding
+  explicitly discloses its incomplete image record and adds a pre-execution
+  attestation; the observed image ID and RepoDigest exactly match Q8. Hash and
+  pairing checks pass, focused preflight is `36 passed`, full regression remains
+  `369 passed, 1 skipped`, and the real Docker boundary passes. Repository
+  inspections, model requests, and official evaluator executions remain zero. Q9
+  is ready to execute under its frozen close, censoring, and narrow retry rules.
