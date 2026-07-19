@@ -136,6 +136,7 @@ def outcome(
     counterexamples: tuple[CounterexampleEvidence, ...] = (),
     stderr: str = "",
     channel: FeedbackChannel = FeedbackChannel.INTERNAL_EXECUTION,
+    hypotheses: tuple[HypothesisEvidence, ...] = (),
 ) -> ExecutableVerification:
     return ExecutableVerification(
         verifier="synthetic-goal-verifier",
@@ -145,6 +146,7 @@ def outcome(
         bootstrap=CommandResult(exit_code, stderr=stderr),
         summary=f"synthetic outcome {index}",
         counterexamples=counterexamples,
+        hypotheses=hypotheses,
     )
 
 
@@ -274,6 +276,42 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                 item["category"] for item in session.reconstruct().failures.values()
             }
             self.assertIn("executable-verifier-unknown", categories)
+
+    def test_hypothesis_only_failure_can_drive_a_fresh_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            policy = RecordingPolicy([candidate(1), candidate(2)])
+            timeout_hypothesis = HypothesisEvidence(
+                "hypothesis-candidate-1-execution-timeout",
+                "The candidate must reduce installation or verification cost",
+                {"command_timeout_seconds": 900, "exit_code": 124},
+                1.0,
+            )
+
+            result = self.loop(session, 2).run(
+                policy,
+                QueueEnvironmentProvider(),
+                QueueVerifier(
+                    [
+                        outcome(
+                            1,
+                            False,
+                            exit_code=124,
+                            hypotheses=(timeout_hypothesis,),
+                        ),
+                        outcome(2, True),
+                    ]
+                ),
+            )
+
+            self.assertEqual(result.goal_status, "satisfied")
+            self.assertEqual(result.candidates_attempted, 2)
+            self.assertEqual(result.verifier_failures, 1)
+            self.assertFalse(session.reconstruct().constraints)
+            self.assertIn(
+                timeout_hypothesis.hypothesis_id,
+                policy.observed_states[1].hypotheses,
+            )
 
     def test_unnormalizable_failure_blocks_before_another_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

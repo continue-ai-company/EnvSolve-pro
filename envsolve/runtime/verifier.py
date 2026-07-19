@@ -333,9 +333,7 @@ class PythonDeploymentVerifier:
             )
         if result.exit_code == 0:
             return self._evaluate_import_probe(result, inventory, environment, checks)
-        infrastructure_failure = (
-            "execution-timeout" if timed_out else self._infrastructure_failure(result)
-        )
+        infrastructure_failure = self._infrastructure_failure(result)
         if infrastructure_failure is not None:
             return ExecutableVerification(
                 verifier="envsolve-python-deployment-verifier",
@@ -347,11 +345,7 @@ class PythonDeploymentVerifier:
                 hypotheses=(
                     HypothesisEvidence(
                         hypothesis_id=f"hypothesis-{candidate.candidate_id}-infrastructure",
-                        statement=(
-                            "Candidate execution exceeded the harness time limit"
-                            if infrastructure_failure == "execution-timeout"
-                            else "Dependency acquisition encountered infrastructure failure"
-                        ),
+                        statement="Dependency acquisition encountered infrastructure failure",
                         value={
                             "signature": infrastructure_failure,
                             "exit_code": result.exit_code,
@@ -361,12 +355,33 @@ class PythonDeploymentVerifier:
                 ),
                 details={
                     "checks": checks,
-                    "infrastructure_error": (
-                        "execution_timeout"
-                        if infrastructure_failure == "execution-timeout"
-                        else "dependency_acquisition_failure"
-                    ),
+                    "infrastructure_error": "dependency_acquisition_failure",
                     "infrastructure_signature": infrastructure_failure,
+                },
+            )
+        if timed_out:
+            return ExecutableVerification(
+                verifier="envsolve-python-deployment-verifier",
+                check_profile=self.check_profile,
+                channel=FeedbackChannel.INTERNAL_EXECUTION,
+                passed=False,
+                bootstrap=result,
+                summary="Candidate exceeded the fixed execution time limit",
+                hypotheses=(
+                    HypothesisEvidence(
+                        hypothesis_id=f"hypothesis-{candidate.candidate_id}-execution-timeout",
+                        statement="The candidate must reduce installation or verification cost",
+                        value={
+                            "command_timeout_seconds": self.command_timeout,
+                            "exit_code": result.exit_code,
+                        },
+                        confidence=1.0,
+                    ),
+                ),
+                details={
+                    "checks": checks,
+                    "execution_timeout": True,
+                    "command_timeout_seconds": self.command_timeout,
                 },
             )
         value = {

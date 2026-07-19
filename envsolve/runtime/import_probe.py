@@ -10,6 +10,7 @@ from envsolve.verification.imports import SourceRole, source_role
 SCANNED_SOURCE_ROLES = {
     SourceRole.RUNTIME,
     SourceRole.TEST,
+    SourceRole.DOCUMENTATION,
     SourceRole.BUILD,
 }
 PRUNED_DIRECTORIES = {

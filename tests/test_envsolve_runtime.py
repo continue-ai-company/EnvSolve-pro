@@ -396,7 +396,7 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 "artifact-hash-mismatch",
             )
 
-    def test_internal_verifier_treats_harness_timeout_as_unknown(self) -> None:
+    def test_internal_verifier_treats_unsigned_timeout_as_candidate_failure(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             worktree = Path(directory)
             environment = ProvisionedEnvironment(
@@ -428,13 +428,54 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 environment,
             )
 
-            self.assertIsNone(result.passed)
+            self.assertFalse(result.passed)
             self.assertFalse(result.counterexamples)
             self.assertEqual(result.bootstrap.exit_code, 124)
-            self.assertEqual(
-                result.details["infrastructure_signature"], "execution-timeout"
+            self.assertTrue(result.details["execution_timeout"])
+            self.assertEqual(result.details["command_timeout_seconds"], 1)
+            self.assertNotIn("infrastructure_error", result.details)
+            self.assertEqual(len(result.hypotheses), 1)
+
+    def test_internal_verifier_keeps_network_signed_timeout_unknown(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
             )
-            self.assertEqual(result.details["infrastructure_error"], "execution_timeout")
+
+            def timeout(command, **kwargs):
+                raise subprocess.TimeoutExpired(
+                    command,
+                    timeout=kwargs["timeout"],
+                    output="retrying dependency download",
+                    stderr="Could not resolve host: pypi.org",
+                )
+
+            result = PythonDeploymentVerifier(
+                command_timeout=1,
+                collect_tests=False,
+                run_command=timeout,
+            ).verify(
+                DeploymentCandidate("candidate-1", "python -m pip install -e .", "test"),
+                environment,
+            )
+
+            self.assertIsNone(result.passed)
+            self.assertEqual(
+                result.details["infrastructure_signature"], "dns-resolution-failure"
+            )
+            self.assertEqual(
+                result.details["infrastructure_error"],
+                "dependency_acquisition_failure",
+            )
 
     def test_model_feedback_truncation_preserves_terminal_error(self) -> None:
         value = "begin" + "x" * 100 + "terminal-error"
@@ -601,6 +642,7 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 (
                     "absent_legacy_dependency",
                     "absent_modern_dependency",
+                    "documentation_dependency",
                     "legacy_dependency",
                     "missing_dependency",
                     "modern_dependency",
@@ -609,7 +651,7 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                     "outside_dependency",
                 ),
             )
-            self.assertEqual(inventory.excluded_occurrences, 1)
+            self.assertEqual(inventory.excluded_occurrences, 0)
             legacy = next(
                 item
                 for item in inventory.occurrences
