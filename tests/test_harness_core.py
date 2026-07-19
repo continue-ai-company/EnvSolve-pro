@@ -595,7 +595,7 @@ class CoreIoTest(unittest.TestCase):
             self.assertEqual(result.metadata["token_usage"]["total_tokens"], 12)
             self.assertEqual(
                 result.metadata["distillation"]["policy"],
-                "envsolve-v0-typed-replay-ir-v6",
+                "envsolve-v0-typed-replay-ir-v7",
             )
             audit = audit_run(artifacts.root)
             self.assertTrue(audit.checks["repository_integrity"])

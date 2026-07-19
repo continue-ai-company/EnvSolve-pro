@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "typed-replay-ir-v7",
+  "supersedes": "typed-replay-ir-v6",
+  "cases": [
+    {
+      "name": "pdm_install_all_groups",
+      "command": "pdm install -G :all",
+      "expected": {
+        "status": "action",
+        "commands": ["pdm install -G :all"],
+        "kinds": ["python_package_install"]
+      }
+    },
+    {
+      "name": "python_module_pdm_install",
+      "command": "python3 -m pdm install",
+      "expected": {
+        "status": "action",
+        "commands": ["python3 -m pdm install"],
+        "kinds": ["python_package_install"]
+      }
+    },
+    {
+      "name": "pdm_sync",
+      "command": "pdm sync --clean",
+      "expected": {
+        "status": "action",
+        "commands": ["pdm sync --clean"],
+        "kinds": ["python_package_install"]
+      }
+    },
+    {
+      "name": "pdm_run_is_not_a_dependency_mutation",
+      "command": "pdm run test",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "pdm_publish_is_rejected",
+      "command": "pdm publish",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    },
+    {
+      "name": "pdm_dry_run_is_not_an_environment_mutation",
+      "command": "pdm install --dry-run",
+      "expected": {"status": "reject", "reason_contains": "unknown"}
+    }
+  ]
+}

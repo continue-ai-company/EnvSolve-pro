@@ -11,23 +11,23 @@ from envsolve_harness.scripts.replay_actions import (
 
 
 _VENV_CREATE_PATTERN = re.compile(
-    r"(?:^|&&\s*)(?:\S*/)?python\d*(?:\.\d+)?\s+-m\s+venv\s+(?P<path>\.venv|venv)$"
+    r"^(?:\S*/)?python\d*(?:\.\d+)?\s+-m\s+venv\s+(?P<path>\.venv|venv)$"
 )
 _VENV_ACTIVATE_PATTERN = re.compile(
-    r"(?:^|&&\s*)(?:source|\.)\s+(?:\$\{PROJECT_ROOT\}/)?"
+    r"^(?:source|\.)\s+(?:\$\{PROJECT_ROOT\}/)?"
     r"(?P<path>\.venv|venv)/bin/activate$"
 )
 
 
 def _venv_path(command: str, pattern: re.Pattern[str]) -> str | None:
-    match = pattern.search(command.strip())
+    match = pattern.fullmatch(command.strip())
     return match.group("path") if match else None
 
 
 class TypedReplayCandidateValidator:
     """Validate and canonicalize complete deployment programs with frozen replay IR."""
 
-    policy_id = f"complete-candidate-v3+{REPLAY_IR_POLICY}"
+    policy_id = f"complete-candidate-v4+{REPLAY_IR_POLICY}"
     prompt_contract = """\
 Write one replayable environment mutation per line. Blank lines, comments, and
 an optional shell shebang are ignored. Do not use shell control flow, semicolons,
@@ -36,7 +36,7 @@ wrappers; every candidate runs in a fresh checkout and container.
 
 Supported mutations are package-index update/install commands for apt, apt-get,
 apk, brew, dnf, or yum; Python package install/sync commands using pip,
-`python -m pip`, uv, poetry, conda, mamba, or micromamba; pyenv runtime setup;
+`python -m pip`, uv, poetry, PDM, conda, mamba, or micromamba; pyenv runtime setup;
 safe environment exports; and `.venv` or `venv` activation. A virtual environment
 may be created only as `python -m venv .venv`, `python -m venv venv`, or the same
 form with a versioned Python executable. Every virtual environment created by the
@@ -82,12 +82,24 @@ LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, or DYLD_LIBRARY_PATH.
                 action_count += 1
                 if action.kind == ReplayActionKind.VIRTUAL_ENVIRONMENT_CREATE.value:
                     path = _venv_path(action.command, _VENV_CREATE_PATTERN)
-                    if path is not None:
-                        created_venvs[path] = action_index
+                    if path is None:
+                        return CandidateValidation(
+                            False,
+                            self.policy_id,
+                            reason="virtual environment must be created at the project root",
+                            details={"command": action.command},
+                        )
+                    created_venvs[path] = action_index
                 elif action.kind == ReplayActionKind.ENVIRONMENT_ACTIVATE.value:
                     path = _venv_path(action.command, _VENV_ACTIVATE_PATTERN)
-                    if path is not None:
-                        activated_venvs.setdefault(path, []).append(action_index)
+                    if path is None:
+                        return CandidateValidation(
+                            False,
+                            self.policy_id,
+                            reason="virtual environment activation must resolve from the project root",
+                            details={"command": action.command},
+                        )
+                    activated_venvs.setdefault(path, []).append(action_index)
         if not action_count:
             return CandidateValidation(
                 False,

@@ -69,6 +69,38 @@ class CompleteCandidateValidationTest(unittest.TestCase):
                 "Activate before creating the environment",
             )
         )
+        cwd_mismatch = validator.validate(
+            DeploymentCandidate(
+                "candidate-9",
+                (
+                    "cd tools && python -m venv .venv\n"
+                    "source ${PROJECT_ROOT}/.venv/bin/activate\n"
+                ),
+                "Create and activate different effective paths",
+            )
+        )
+        cwd_activation = validator.validate(
+            DeploymentCandidate(
+                "candidate-10",
+                (
+                    "python -m venv .venv\n"
+                    "cd tools && source .venv/bin/activate\n"
+                ),
+                "Activate a nested environment",
+            )
+        )
+        pdm = validator.validate(
+            DeploymentCandidate(
+                "candidate-11",
+                (
+                    "python -m venv .venv\n"
+                    "source .venv/bin/activate\n"
+                    "python -m pip install pdm\n"
+                    "pdm install -G :all\n"
+                ),
+                "Install a PDM project in the bound environment",
+            )
+        )
 
         self.assertTrue(accepted.accepted)
         self.assertEqual(
@@ -94,6 +126,17 @@ class CompleteCandidateValidationTest(unittest.TestCase):
         )
         self.assertFalse(mismatched_activation.accepted)
         self.assertFalse(activation_before_creation.accepted)
+        self.assertFalse(cwd_mismatch.accepted)
+        self.assertEqual(
+            cwd_mismatch.reason,
+            "virtual environment must be created at the project root",
+        )
+        self.assertFalse(cwd_activation.accepted)
+        self.assertEqual(
+            cwd_activation.reason,
+            "virtual environment activation must resolve from the project root",
+        )
+        self.assertTrue(pdm.accepted)
 
 
 if __name__ == "__main__":

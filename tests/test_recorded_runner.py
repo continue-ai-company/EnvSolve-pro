@@ -100,7 +100,7 @@ class RecordedTrajectoryRunnerTest(unittest.TestCase):
             self.assertTrue(result.metadata["source_distillation_only_failure"])
             self.assertEqual(
                 result.metadata["distillation"]["policy"],
-                "envbench-typed-replay-ir-v6",
+                "envbench-typed-replay-ir-v7",
             )
             generation_audit = audit_run(target.root)
             self.assertTrue(generation_audit.checks["repository_integrity"])

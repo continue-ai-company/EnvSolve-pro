@@ -8,7 +8,7 @@ import shlex
 from typing import Any
 
 
-REPLAY_IR_POLICY = "typed-replay-ir-v6"
+REPLAY_IR_POLICY = "typed-replay-ir-v7"
 
 
 class ReplayActionKind(str, Enum):
@@ -361,6 +361,21 @@ def _classify_mutation(command: str) -> ReplayActionKind | None:
     if PYTHON_PATTERN.fullmatch(executable) and tokens[1:4] == ["-m", "pip", "install"]:
         if "--dry-run" not in tokens:
             return ReplayActionKind.PYTHON_PACKAGE_INSTALL
+    if (
+        PYTHON_PATTERN.fullmatch(executable)
+        and len(tokens) > 3
+        and tokens[1:3] == ["-m", "pdm"]
+        and tokens[3] in {"install", "sync"}
+        and "--dry-run" not in tokens
+    ):
+        return ReplayActionKind.PYTHON_PACKAGE_INSTALL
+    if (
+        executable == "pdm"
+        and len(tokens) > 1
+        and tokens[1] in {"install", "sync"}
+        and "--dry-run" not in tokens
+    ):
+        return ReplayActionKind.PYTHON_PACKAGE_INSTALL
     if executable == "uv" and len(tokens) > 1:
         subcommand = tokens[1:3]
         if tokens[1] in {"add", "install", "sync"} or subcommand in (["pip", "install"], ["pip", "sync"]):
