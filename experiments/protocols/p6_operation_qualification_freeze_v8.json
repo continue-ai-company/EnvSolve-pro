@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "p6-operation-qualification-v8",
+  "created_after_outcome_blind_selection": true,
+  "git_chain": {
+    "algorithm_freeze_commit": "af241e676632dded79db125082e06ced44ae93e6",
+    "preregistration_commit": "476a54e78ccddffe2e1e0133dd2f9daa2bcad8e7",
+    "selection_commit": "db2d5de3b8f783bfcac8b8de29ea2f8c5cc83886"
+  },
+  "files": {
+    "envsolve/protocols/p6_constraint_operation_freeze_v9.json": "110e2e570870a934f6a44238cf306443d79c3cf2555045b15c6bdf0209310fa2",
+    "experiments/protocols/harness_freeze_v23.json": "ffef5145afdad6a3f2398077c36b40f5f0362d01c15ea74aae835521e60a3e5a",
+    "experiments/cases/dev_operation_qualification_v8_5.jsonl": "b35a26a7644599898eeb2739481a233fb2bc0b49f191ba79b681e2b1f61f0fb8",
+    "experiments/cases/train_untouched_after_operation_qualification_v7_161.jsonl": "53d8892dfc344f6188d0cc31d04a88601c670cafa90736772da2692fb05c8917",
+    "experiments/cases/train_untouched_after_operation_qualification_v8_156.jsonl": "51eb1a16fa804c98fc2970eb2a32273962a113d4d68e930509b2882cb051ef48",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "experiments/run_case.py": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b",
+    "experiments/run_schedule.py": "edf5fe17328b3313beeba85869801723f16f2114334811263253200975e563f4",
+    "experiments/summarize_schedule.py": "1d9ffd026be68f3ba3601ab01d6399c5d52bb5c1843db5e77630896c6a39e619",
+    "experiments/validations/p6_operation_qualification_v8_preregistration.json": "65203e81a91e44a541bb749fd0481261d91309d2061ed0820c3762a367358b8f",
+    "experiments/validations/p6_operation_qualification_v8_schedule.json": "f5f84a6992aa4d028d2984c4a5865eed852f3541ccc7fc51770a192d561e02d6",
+    "experiments/validations/p6_operation_qualification_v8_selection.json": "a3d2e83d975998b8d305b61173f4b7d89c89502bd29128b1b8762b3e4234fb0c",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V8.md": "2a5a6b1c17f8c18e215721e09564d32522bf52c13728638ae6ab879d747ebe14",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V8_ZH.md": "c3b3015ceaeb0441fd3d959e8ac77a46d820a8a612a0a63b8b9c8df9f1419967"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false,
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+  },
+  "schedule": {
+    "pairs": 5,
+    "episodes": 10,
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "treatment_boundary": {
+    "shared_repository_observer": true,
+    "shared_base_runtime_observer": true,
+    "shared_raw_repository_profile": true,
+    "shared_executed_candidate_feedback": true,
+    "ablation_initial_constraint_admission": false,
+    "ablation_operation_plan_visible": false,
+    "ablation_operation_guard": false,
+    "full_initial_constraint_admission": true,
+    "full_operation_plan_visible": true,
+    "full_operation_guard": true,
+    "official_evaluator_feedback_online": false
+  },
+  "mechanism_qualification": {
+    "minimum_triggered_full_runs": 1,
+    "zero_trigger_replacement_allowed": false,
+    "runtime_invariant_violation_closes_batch": true,
+    "primary_invariants_frozen_in_preregistration": true
+  },
+  "integrity": {
+    "selection_metadata_only": true,
+    "runtime_trigger_prescreen": false,
+    "repository_inspections_after_selection": 0,
+    "model_requests_after_selection": 0,
+    "official_evaluator_executions_after_selection": 0,
+    "solver_or_protocol_mutations_after_selection": 0,
+    "q1_through_q7_case_reuse": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  },
+  "scientific_budget": {
+    "matching_basis": "primitive resource limits",
+    "usd_is_matching_variable": false,
+    "usd_is_scientific_outcome": false
+  },
+  "preflight": {
+    "algorithm_and_selection_tests": "4 passed",
+    "full_algorithm_regression": "365 passed, 1 skipped",
+    "real_docker_runtime_boundary": "1 passed",
+    "harness_freeze_verification": "valid",
+    "case_pool_conservation": "161 = 5 selected + 156 untouched; selected and remaining are disjoint",
+    "schedule_pairing": "5 complete pairs and 10 unique positions"
+  },
+  "claim_scope": "development runtime-state mechanism qualification only"
+}
