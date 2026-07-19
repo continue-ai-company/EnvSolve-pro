@@ -3,6 +3,9 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from packaging.specifiers import InvalidSpecifier, SpecifierSet
+from packaging.version import InvalidVersion, Version
+
 from envsolve.constraints.models import (
     ConstraintDomain,
     ConstraintPredicate,
@@ -17,9 +20,20 @@ PYTHON_REQUIREMENT_KINDS = {
     "runtime-requirement",
 }
 PYTHON_OBSERVATION_KINDS = {"python-observation", "runtime-observation"}
-PYTHON_MISMATCH = re.compile(
-    r"requires a different Python:\s*([0-9]+(?:\.[0-9]+)*)\s+not in\s+['\"]([^'\"]+)['\"]",
-    re.IGNORECASE,
+PYTHON_MISMATCH_PATTERNS = (
+    re.compile(
+        r"requires a different Python:\s*"
+        r"(?P<version>[0-9]+(?:\.[0-9]+)*)\s+not in\s+"
+        r"['\"](?P<specifier>[^'\"]+)['\"]",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"^\s*Current Python version \("
+        r"(?P<version>[0-9]+(?:\.[0-9]+)*)\) "
+        r"is not allowed by the project \("
+        r"(?P<specifier>[^()\r\n]+)\)\.?\s*$",
+        re.IGNORECASE | re.MULTILINE,
+    ),
 )
 EXECUTABLE_NOT_FOUND = re.compile(
     r"(?:Error:\s*)?([A-Za-z0-9_.+-]+) executable not found",
@@ -35,6 +49,22 @@ def _mapping(value: Any, label: str) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"{label} evidence value must be an object")
     return value
+
+
+def _python_mismatches(text: str) -> tuple[tuple[str, str], ...]:
+    mismatches: set[tuple[str, str]] = set()
+    for pattern in PYTHON_MISMATCH_PATTERNS:
+        for match in pattern.finditer(text):
+            version = match.group("version").strip()
+            specifier = match.group("specifier").strip()
+            try:
+                observed = Version(version)
+                allowed = SpecifierSet(specifier)
+            except (InvalidVersion, InvalidSpecifier):
+                continue
+            if observed not in allowed:
+                mismatches.add((version, specifier))
+    return tuple(sorted(mismatches))
 
 
 class EvidenceNormalizer:
@@ -186,8 +216,7 @@ class EvidenceNormalizer:
         )
         text = f"{data.get('stdout', '')}\n{data.get('stderr', '')}"
         constraints: list[NormalizedConstraint] = []
-        for match in PYTHON_MISMATCH.finditer(text):
-            version, specifier = match.groups()
+        for version, specifier in _python_mismatches(text):
             constraints.extend(
                 [
                     NormalizedConstraint(

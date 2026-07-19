@@ -221,6 +221,75 @@ class NormalizationAndPropagationTest(ConstraintTestCase):
             self.assertEqual(set(report.statuses.values()), {"violated"})
             self.assertFalse(report.provisional_constraints)
 
+    def test_subject_first_python_mismatch_produces_traced_conflict(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            evidence_id = self.evidence(
+                session,
+                "action-result",
+                {
+                    "exit_code": 1,
+                    "stdout": "",
+                    "stderr": (
+                        "Current Python version (3.13.2) is not allowed by the "
+                        "project (>=3.8,<3.11).\nPlease change python executable."
+                    ),
+                },
+            )
+            report = ConstraintEngine().propagate(session)
+
+            self.assertFalse(report.satisfiable)
+            self.assertEqual(len(report.conflicts), 1)
+            self.assertEqual(report.conflicts[0].evidence_ids, (evidence_id,))
+            self.assertEqual(report.conflicts[0].domain, "runtime")
+            self.assertFalse(report.provisional_constraints)
+
+    def test_subject_first_python_diagnostic_requires_a_real_mismatch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            self.evidence(
+                session,
+                "action-result",
+                {
+                    "exit_code": 1,
+                    "stdout": "",
+                    "stderr": (
+                        "Current Python version (3.10.14) is not allowed by the "
+                        "project (>=3.8,<3.11)."
+                    ),
+                },
+            )
+            report = ConstraintEngine().propagate(session)
+
+            self.assertTrue(report.satisfiable)
+            self.assertEqual(report.statuses, {})
+
+    def test_subject_first_python_diagnostic_rejects_near_misses(self) -> None:
+        diagnostics = (
+            "Current Python version (3.13.2) is not allowed by the project.",
+            (
+                "The current Python version (3.13.2) might not be allowed by "
+                "the project (>=3.8,<3.11)."
+            ),
+            (
+                "Current Python version (3.13.2) is not allowed by the project "
+                "(not-a-specifier)."
+            ),
+        )
+        for diagnostic in diagnostics:
+            with self.subTest(diagnostic=diagnostic):
+                with tempfile.TemporaryDirectory() as directory:
+                    session = self.session(Path(directory))
+                    self.evidence(
+                        session,
+                        "action-result",
+                        {"exit_code": 1, "stdout": "", "stderr": diagnostic},
+                    )
+                    report = ConstraintEngine().propagate(session)
+
+                    self.assertTrue(report.satisfiable)
+                    self.assertEqual(report.statuses, {})
+
     def test_missing_executable_output_produces_capability_conflict(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             session = self.session(Path(directory))

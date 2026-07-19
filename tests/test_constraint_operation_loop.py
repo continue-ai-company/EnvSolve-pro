@@ -225,6 +225,11 @@ class RuntimeMismatchQueue:
 
 
 class RuntimeMismatchThenPassVerifier:
+    diagnostic = (
+        "Package 'demo' requires a different Python: "
+        "3.13.2 not in '<3.13,>=3.10'"
+    )
+
     def __init__(self) -> None:
         self.calls = 0
 
@@ -238,10 +243,7 @@ class RuntimeMismatchThenPassVerifier:
                 passed=False,
                 bootstrap=CommandResult(
                     1,
-                    stderr=(
-                        "Package 'demo' requires a different Python: "
-                        "3.13.2 not in '<3.13,>=3.10'"
-                    ),
+                    stderr=self.diagnostic,
                 ),
                 summary="base runtime is incompatible",
                 hypotheses=(
@@ -261,6 +263,13 @@ class RuntimeMismatchThenPassVerifier:
             bootstrap=CommandResult(0),
             summary="deployment verified",
         )
+
+
+class SubjectFirstRuntimeMismatchThenPassVerifier(RuntimeMismatchThenPassVerifier):
+    diagnostic = (
+        "Current Python version (3.13.2) is not allowed by the "
+        "project (>=3.8,<3.11)."
+    )
 
 
 class ConstraintOperationLoopTest(unittest.TestCase):
@@ -296,6 +305,42 @@ class ConstraintOperationLoopTest(unittest.TestCase):
             ]
             self.assertTrue(guard["accepted"])
             self.assertEqual(guard["plan"]["requirements"][0]["domain"], "runtime")
+            self.assertEqual(
+                guard["plan"]["requirements"][0]["allowed_operation_kinds"],
+                ["runtime_configure"],
+            )
+
+    def test_subject_first_runtime_mismatch_drives_runtime_operation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            session = SolverStateSession(
+                root / "events.jsonl",
+                root / "snapshot.json",
+                {
+                    "case_id": "subject-first-runtime-action-result",
+                    "repository": "example/project",
+                    "revision": "a" * 40,
+                },
+            )
+            provider = RecordingProvider()
+            result = CounterexampleGuidedDeploymentLoop(
+                session,
+                max_candidates=2,
+                candidate_validator=TypedReplayCandidateValidator(),
+                operation_guard=ConstraintOperationGuard(),
+                budget=RecordingBudget(),
+            ).run(
+                RuntimeMismatchQueue(),
+                provider,
+                SubjectFirstRuntimeMismatchThenPassVerifier(),
+            )
+
+            self.assertEqual(result.goal_status, "satisfied")
+            self.assertEqual(result.constraints_updated, 2)
+            guard = session.reconstruct().actions["runtime-candidate-2"]["metadata"][
+                "operation_guard"
+            ]
+            self.assertTrue(guard["accepted"])
             self.assertEqual(
                 guard["plan"]["requirements"][0]["allowed_operation_kinds"],
                 ["runtime_configure"],
