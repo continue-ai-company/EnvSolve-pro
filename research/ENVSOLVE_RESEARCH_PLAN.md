@@ -1101,3 +1101,17 @@ development batch; it never triggers tuning on the same held-out outcomes.
   `369 passed, 1 skipped`, and the real Docker boundary passes. Repository
   inspections, model requests, and official evaluator executions remain zero. Q9
   is ready to execute under its frozen close, censoring, and narrow retry rules.
+- Q9 executed pair 1 and closed under the frozen shared-defect rule (`7b6ffad`).
+  Both runs are artifact-valid and scientifically eligible, but neither reached the
+  official evaluator. Full used 2 requests, 12,805 tokens, and 2 fresh candidates;
+  ablation used 1 request, 6,169 tokens, and 1 candidate. The target subject-first
+  runtime diagnostic did not occur, so v10 remains unexercised rather than failed.
+  Both runs instead reached internal pytest collection, where a repository-local
+  Elasticsearch connection to `localhost:9200` was refused. The verifier's bare
+  `ConnectionError` scan ignored failure phase, mislabeled this candidate feedback
+  as dependency-acquisition infrastructure, and terminated both loops as Unknown.
+  This online control-flow defect cannot be repaired by offline relabeling; pair 1
+  is censored, positions 3--10 remain unexecuted, no retry is admissible, and all
+  five Q9 identities are consumed. The next mechanism revision must make
+  infrastructure classification phase-aware using generic synthetic
+  counterexamples before another unseen batch.

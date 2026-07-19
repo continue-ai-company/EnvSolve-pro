@@ -809,3 +809,13 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   聚焦 preflight 为 `36 passed`，全量仍为 `369 passed, 1 skipped`，真实 Docker 边界通过。
   Repository inspection、model request 与 official evaluator execution 仍全为零。Q9 已可按照冻结的
   close、censor 与窄重试规则执行。
+- Q9 执行 pair 1 后，按照冻结 shared-defect 规则关闭（`7b6ffad`）。两条 run 都 artifact-valid 且
+  scientifically eligible，但都没有进入 official evaluator。Full 使用 2 次请求、12,805 tokens 和
+  2 个 fresh candidate；ablation 使用 1 次请求、6,169 tokens 和 1 个 candidate。目标 subject-first
+  runtime diagnostic 没有出现，因此 v10 是未触发，而不是不变量失败。两条 run 都进入 internal pytest
+  collection，其中 repository-local Elasticsearch 对 `localhost:9200` 的连接被拒绝。Verifier 对裸
+  `ConnectionError` 的扫描忽略了 failure phase，把这项 candidate feedback 错标成 dependency-
+  acquisition infrastructure，并把两条 loop 都以 Unknown 提前终止。这个在线控制流缺陷不能靠离线
+  重标修复；pair 1 被删失，positions 3--10 不执行，没有重试资格，Q9 的 5 个 identity 全部 consumed。
+  下一 mechanism revision 必须先用通用合成反例使 infrastructure classification 感知失败阶段，再进入
+  新的 unseen batch。

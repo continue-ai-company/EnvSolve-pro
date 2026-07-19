@@ -402,7 +402,13 @@ That qualification is now preregistered and execution-bound. A metadata-only has
 selected five new identities from 156 untouched development cases, leaving 151;
 the exact evaluator image was attested before any selected repository was inspected.
 The trigger, stopping rule, budgets, schedule, and restricted infrastructure retries
-are frozen. No Q9 model request or evaluator execution has occurred.
+were frozen. Pair 1 then closed the batch on a shared verifier defect. Both eligible
+runs reached internal test collection, where a repository-local service refused a
+localhost connection. A phase-agnostic `ConnectionError` signature mislabeled this
+candidate failure as dependency-acquisition infrastructure and terminated both
+loops before another proposal. The target v10 diagnostic did not occur, so v10
+remains unexercised rather than contradicted. The pair is censored, the remaining
+cases were not run, and no official result or effectiveness estimate is available.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -455,9 +461,10 @@ held-out comparison remains pending. The corrected execution language, dual audi
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
 derived rules. The first outcome-blind runtime-state qualification exposed a narrow
 diagnostic-admission failure and is closed. The minimal repair and new mechanism
-freeze are complete; qualification on new untouched development identities is the
-next milestone and is ready to execute. Held-out evaluation remains blocked until
-the mechanism qualifies.
+freeze are complete, but the next qualification closed on a phase-agnostic
+infrastructure-classification defect before v10 was exercised. The next milestone
+is a minimal phase-aware verifier repair and a new untouched development
+qualification. Held-out evaluation remains blocked until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
