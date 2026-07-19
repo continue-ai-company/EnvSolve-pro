@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v10",
+  "audit_id": "pair-2-interim",
+  "audited_at": "2026-07-20T02:02:18+08:00",
+  "disposition": "continue_frozen_schedule_at_position_5",
+  "pair": {
+    "pair_index": 2,
+    "executed_positions": [
+      3,
+      4
+    ],
+    "paired_official_outcome": "censored",
+    "full": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "cd724a4defe51080f85162d8d850f174eac9e77facbf7074e483e8f74f6b646b",
+      "resources": {
+        "model_requests": 5,
+        "total_tokens": 48861,
+        "candidates": 5,
+        "commands": 5,
+        "fresh_environments": 5,
+        "wall_clock_seconds": 608.585812
+      }
+    },
+    "ablation": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "98d4430b7daf3ae2ccfdcebb3d10c6ee2a95ea6e6ab69c2015b70008904eb385",
+      "resources": {
+        "model_requests": 6,
+        "total_tokens": 80610,
+        "candidates": 5,
+        "commands": 5,
+        "fresh_environments": 5,
+        "wall_clock_seconds": 849.017295
+      }
+    }
+  },
+  "phase_mechanism": {
+    "raw_network_like_signatures": 0,
+    "internal_failed_action_markers": 1,
+    "internal_markers_with_later_proposals": 1,
+    "internal_phase_triggered_runs": 0,
+    "phase_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "inherited_runtime_mechanism": {
+    "subject_first_runtime_diagnostics": 0,
+    "runtime_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "shared_safety": {
+    "environment_receipts": 10,
+    "image_digest_matches": 10,
+    "request_errors": 0,
+    "official_evaluator_executions": 0,
+    "host_suspension_suspected": false
+  },
+  "frozen_evidence": {
+    "execution_binding_commit": "e48318f",
+    "schedule_progress_sha256": "2f9dd5605234702b51524716a5037463e4a10c1e7f0907a3827c77a2b03e0d05",
+    "pair_summary_sha256": "a2cffa71b3752c764ad4d12d598014c0d0a0815a7488ddecb66e588f623c156a"
+  },
+  "continuation_rule": "zero trigger does not qualify or close v11; continue without replacement or protocol change"
+}
