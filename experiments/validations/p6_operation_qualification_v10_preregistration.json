@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v10-phase-aware-verifier",
+  "preregistered_at": "2026-07-20T00:38:37+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Outcome-blind paired development qualification of phase-aware infrastructure classification and feedback continuation.",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v11.json",
+    "sha256": "fffc9c92577ddf037d9e972099336ad073f16a235161bc7b18bb686bc252fc94"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v25.json",
+    "sha256": "5f99b13a523328afffac75feeccb14073b853c1c8ad949b6024390f08556af59"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "selection_tool": {
+    "path": "experiments/tools/freeze_paired_qualification.py",
+    "sha256": "6d87c1aa277275447db986c4c0048514c4e751f7c5a6e8fe8cd05cf984b97701"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification_v9_151.jsonl",
+    "source_sha256": "508082d490fb6e8d2060f7ed45a621570fdf77868769b482954ff8af57772f5c",
+    "source_count": 151,
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v10-2026-07-20",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "failure_signature_prescreen": false,
+    "package_manager_stratification": false,
+    "prior_qualification_case_reuse": false,
+    "selected_path": "experiments/cases/dev_operation_qualification_v10_5.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v10_146.jsonl",
+    "provenance_path": "experiments/validations/p6_operation_qualification_v10_selection.json",
+    "selected_split": "dev-operation-qualification-v10-5",
+    "remaining_split": "train-untouched-after-operation-qualification-v10-146"
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "repository_observer": true,
+      "base_runtime_observer": true,
+      "initial_constraint_admission": false,
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "repository_observer": true,
+      "base_runtime_observer": true,
+      "initial_constraint_admission": true,
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "shared_observation_contract": {
+    "repository_observer": "envsolve-repository-declarations-v2",
+    "base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "fresh_verifier": "python-deployment-v5-phase-aware-v11",
+    "official_evaluator_access": "post-episode-only"
+  },
+  "schedule": {
+    "output_path": "experiments/validations/p6_operation_qualification_v10_schedule.json",
+    "run_prefix": "p6-operation-q10",
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "matched_primitive_limits": {
+    "max_candidates": 5,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation.json",
+    "sha256": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "primary_phase_outcomes": {
+    "internal_phase_network_token_is_candidate_feedback": true,
+    "internal_phase_feedback_reaches_later_proposal": true,
+    "candidate_phase_grounded_network_failure_remains_unknown": true
+  },
+  "inherited_runtime_outcomes": {
+    "subject_first_runtime_mismatch_to_hard_conflict": true,
+    "runtime_conflict_to_runtime_configure_obligation": true,
+    "absence_does_not_qualify_v10": true
+  },
+  "mechanism_exercise_rule": {
+    "minimum_triggered_runs": 1,
+    "trigger": "scientifically eligible run with an internal failed-action marker, a frozen network-like signature in raw output, and at least one later proposal opportunity",
+    "zero_trigger_result": "unexercised; v11 cannot qualify and no replacement case is selected",
+    "invariant_violation_result": "shared mechanism defect"
+  },
+  "secondary_outcomes": [
+    "paired official Boolean outcome when both sides are eligible and Boolean",
+    "internal-pass and official-evaluator reach rate",
+    "candidate, environment, command, model request, token, and wall-clock resources",
+    "candidate failure, infrastructure Unknown, and later-proposal counts",
+    "runtime diagnostic trigger and operation-obligation counts"
+  ],
+  "scientific_eligibility": {
+    "artifact_integrity_valid": true,
+    "committed_clean_revision": true,
+    "schedule_identity_match": true,
+    "primitive_budget_compliance": true,
+    "runtime_heartbeat_complete": true,
+    "host_suspension_suspected": false
+  },
+  "adaptation_policy": {
+    "code_or_protocol_changes_after_selection": false,
+    "shared_mechanism_defect": "finish the current pair, close Q10, consume all five selected identities, and start a new frozen qualification",
+    "zero_phase_trigger": "complete and report the batch as unexercised without replacement identities",
+    "host_suspension": "stop and classify affected or orphaned positions as scientifically ineligible without overwrite",
+    "pre_episode_acquisition_failure": "one audited same-identity retry only with zero model, candidate, environment, evaluator, and method information",
+    "terminal_evaluator_infrastructure_failure": "one evaluator-only retry of the identical script with zero new model calls",
+    "other_infrastructure_failure": "record Unknown and censor the pair without retry"
+  },
+  "claim_scope": "development phase-aware verifier mechanism qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "protocols": [
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V10.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V10_ZH.md"
+  ]
+}
