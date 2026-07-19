@@ -255,8 +255,11 @@ constraint admission。
 该版本现在只在首次 proposal 前接纳无条件的标准 package declaration，并通过 fresh installed-
 metadata observation 闭合这些约束。机制与干净、已提交的 EnvBench evaluator 已在下一批
 outcome-blind 实验前冻结。随后按照预注册、仅使用 metadata 的哈希规则选择 5 个新 development
-identity，并绑定为 10 个 episode 的 paired schedule。尚未检查 selected repository，也未执行任何
-episode；这只表示实验已具备执行条件，不是效果提升证据。
+identity。该 batch 按照预注册 shared-defect rule 在执行 3 个 pair 后关闭；6 个 run 均 scientifically
+eligible，但没有任何 run 进入 official evaluation。两个 pair 触发 pre-action package admission，
+然而一个确定性的 Python version mismatch 始终没有成为 hard runtime constraint，后续 candidate
+因此可以删除兼容 runtime 并退回已知无效的基础解释器。这个负结果说明仅接纳 package state 还不够：
+runtime compatibility 与 action feasibility 必须进入同一个持续约束状态。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -293,8 +296,8 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。下一
-里程碑是在已提交 execution binding 下执行新的 outcome-blind development qualification；只有机制
-通过资格验证后，才进入预声明的 held-out evaluation。
+里程碑是最小 typed runtime-state 修订，再使用新冻结的 outcome-blind development qualification
+验证；机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict 产生带 provenance 的操作义务，
 类型化 guard 要求 fresh execution 前出现允许的新 mutation。

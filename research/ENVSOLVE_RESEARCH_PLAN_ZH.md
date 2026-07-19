@@ -741,3 +741,13 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   pairing 检查和 `4 passed` 算法/选样测试均通过，Harness v22 也独立验证通过。尚未检查任何 selected
   repository，Q7 model request 与 official evaluator execution 均为零；Q7 仍只属于 development
   qualification。
+- Q7 实际执行 3 个 pair 后，按照预注册的 shared-defect rule 关闭。6 个 run 全部 artifact-valid 且
+  scientifically eligible，但都没有进入 official evaluator，因此 3 个 pair 全部删失，不产生 paired
+  effectiveness estimate。剩余 2 个 selected pair 不再执行，5 个 selected identity 全部保持 consumed。
+  两个 pair 触发 pre-action admission，分别产生 13 和 20 个初始 package constraint；但没有 candidate
+  完成 bootstrap，所以没有初始 requirement 被正 metadata observation 关闭。
+- Pair 3 定位了下一主要矛盾。项目与执行反馈已确定基础 Python 3.13 违反 `requires-python <3.13`；full
+  EnvSolve 找到兼容 pyenv runtime 并继续暴露 package version conflict，但 runtime incompatibility 没有
+  成为 operation plan 的 hard constraint，最后一个 candidate 删除 pyenv，退回已知无效解释器。Q8
+  必须加入 fresh base-runtime observation、条件化 `requires-python` admission、hard runtime preservation
+  和 runtime-acquisition feasibility。这些是通用 typed-state 修改；Q7 已关闭且不得重跑。

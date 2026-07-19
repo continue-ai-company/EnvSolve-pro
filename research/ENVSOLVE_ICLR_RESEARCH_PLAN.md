@@ -350,9 +350,14 @@ That revision now admits only unconditional standard package declarations before
 the first proposal and closes them with fresh installed-metadata observations.
 The mechanism and a clean committed EnvBench evaluator were frozen before the next
 outcome-blind batch. Five new development identities were then selected by a
-preregistered metadata-only hash rule and bound to a ten-episode paired schedule.
-No selected repository has been inspected and no episode has been executed. This is
-experimental readiness, not evidence of improved effectiveness.
+preregistered metadata-only hash rule. The batch closed after three pairs under its
+preregistered shared-defect rule; all six runs were scientifically eligible, but no
+run reached official evaluation. Pre-action package admission triggered on two
+pairs, yet a deterministic Python-version mismatch never became a hard runtime
+constraint. A later candidate could therefore discard a compatible runtime and
+regress to the known-invalid base interpreter. This negative result shows that
+package-state admission alone is insufficient: runtime compatibility and action
+feasibility must inhabit the same persistent constraint state.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -403,9 +408,9 @@ fresh environments, admits only grounded counterexamples, and keeps official
 evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
-derived rules. The next milestone is a new outcome-blind development qualification
-under its committed execution binding, followed by the predeclared held-out
-evaluation only if the mechanism qualifies.
+derived rules. The next milestone is a minimal typed runtime-state revision followed
+by a newly frozen outcome-blind development qualification. Held-out evaluation
+remains blocked until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard
 conflicts produce provenance-bearing, context-bounded operation obligations, and a typed guard

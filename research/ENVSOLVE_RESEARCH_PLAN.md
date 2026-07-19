@@ -1002,3 +1002,18 @@ development batch; it never triggers tuning on the same held-out outcomes.
   algorithm/selection tests are `4 passed`, and Harness v22 independently verifies.
   No selected repository has been inspected and no Q7 model request or official
   evaluator execution has occurred. Q7 remains development qualification only.
+- Q7 executed three pairs before closing under its preregistered shared-defect
+  rule. All six runs are artifact-valid and scientifically eligible; none reached
+  the official evaluator, so all three pairs are censored and provide no paired
+  effectiveness estimate. The remaining two selected pairs were not run and all
+  five selected identities remain consumed. Pre-action admission triggered on two
+  pairs, producing 13 and 20 initial package constraints, but no candidate completed
+  bootstrap and therefore no initial requirement was closed by positive metadata.
+- Pair 3 isolated the next main contradiction. The project and execution feedback
+  established that base Python 3.13 violated `requires-python <3.13`; full EnvSolve
+  found a compatible pyenv runtime and a later package-version conflict, but runtime
+  incompatibility never became a hard operation constraint. Its final candidate
+  removed pyenv and regressed to the known-invalid interpreter. Q8 must add a fresh
+  base-runtime observation, conditional `requires-python` admission, hard runtime
+  preservation, and runtime-acquisition feasibility. These are general typed-state
+  changes; Q7 is closed and will not be rerun.
