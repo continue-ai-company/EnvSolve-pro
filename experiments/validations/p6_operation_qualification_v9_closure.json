@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v9",
+  "closed_at": "2026-07-20T00:23:09+08:00",
+  "status": "closed_shared_harness_defect",
+  "closed_after_pair": 1,
+  "closure_rule": "a shared online Harness defect changed both methods' control flow; close after the current pair",
+  "schedule_disposition": {
+    "executed_positions": [
+      1,
+      2
+    ],
+    "unexecuted_positions": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "rerun_allowed": false,
+    "all_selected_identities_consumed": true,
+    "schedule_mutated": false
+  },
+  "pair_1": {
+    "paired_official_outcome": "censored",
+    "effectiveness_contribution": "none",
+    "full": {
+      "position": 1,
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "terminal": "infrastructure_unknown",
+      "official_outcome": "Unknown",
+      "official_evaluator_executions": 0,
+      "artifact_bundle_sha256": "06c00cb1740279cca46d6701a0eca5febd3bceb668d2dee1c8be7fff5d71e0e0",
+      "resources": {
+        "model_requests": 2,
+        "input_tokens": 10037,
+        "output_tokens": 2768,
+        "cache_read_tokens": 0,
+        "total_tokens": 12805,
+        "candidates": 2,
+        "commands": 2,
+        "fresh_environments": 2,
+        "wall_clock_seconds": 133.434976
+      }
+    },
+    "ablation": {
+      "position": 2,
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "terminal": "infrastructure_unknown",
+      "official_outcome": "Unknown",
+      "official_evaluator_executions": 0,
+      "artifact_bundle_sha256": "0972921f419c1075ac2ae5260bc36cd27e55cb0c16aab5921cbd1843c80d1100",
+      "resources": {
+        "model_requests": 1,
+        "input_tokens": 4131,
+        "output_tokens": 2038,
+        "cache_read_tokens": 0,
+        "total_tokens": 6169,
+        "candidates": 1,
+        "commands": 1,
+        "fresh_environments": 1,
+        "wall_clock_seconds": 269.90366
+      }
+    }
+  },
+  "mechanism_exercise": {
+    "subject_first_runtime_mismatch_observed": false,
+    "triggered_full_runs": 0,
+    "runtime_diagnostic_v10_qualified": false,
+    "runtime_diagnostic_v10_invariant_failed": false,
+    "result": "unexercised before shared Harness closure"
+  },
+  "shared_defect": {
+    "defect_id": "internal-check-connection-error-misclassified-as-acquisition-infrastructure",
+    "component": "envsolve.runtime.verifier.PythonDeploymentVerifier",
+    "observation": "both conditions reached internal pytest collection, which failed while connecting to localhost:9200",
+    "incorrect_transition": "the bare ConnectionError signature was scanned across all combined output before distinguishing candidate acquisition from fixed internal checks",
+    "effect": "a repository-local service dependency was labeled dependency_acquisition_failure, producing Unknown and terminating each loop before another proposal",
+    "cross_condition": true,
+    "case_specific_rule_allowed": false,
+    "q9_fix_allowed": false,
+    "required_next_step": "derive phase-aware synthetic counterexamples, repair and freeze a new generic verifier version, then qualify on new unseen development identities"
+  },
+  "retry_audit": {
+    "pre_episode_acquisition_retry_allowed": false,
+    "reason": "both runs had completed model responses and executed candidates/environments",
+    "evaluator_only_retry_allowed": false,
+    "evaluator_reason": "neither run reached the official evaluator"
+  },
+  "scientific_claims": {
+    "paired_effectiveness_estimate_available": false,
+    "paper_effectiveness_claim_allowed": false,
+    "official_or_canary_evidence_used": false,
+    "v10_mechanism_qualification_claim_allowed": false
+  },
+  "frozen_inputs": {
+    "execution_binding_commit": "e818a1e",
+    "execution_binding_sha256": "16381498be23bc3ed463e1a9b2f181d9f4706161544ee68792d343a5f1739a3a",
+    "schedule_sha256": "d864cd66a923c4c6c625727a8729d9bcf906da7138d6b0d1651fa78c81bbe09a",
+    "progress_sha256": "547d2565a40450cf0c07910f72752d136d1b8acf34b0fc67c0a5872a944c760a",
+    "summary_sha256": "ee36f19d610014e02b2f3dbd2ada9a6db5a20c243b99009c29d0372b66f90f0f"
+  },
+  "diagnostic_evidence": {
+    "full_candidate_2_stdout_sha256": "ed94d548e14ee81798087391d8b03db3d8fc76d01d101537823e2f77af52b591",
+    "full_local_service_lines": [
+      299,
+      300,
+      337,
+      417
+    ],
+    "ablation_candidate_1_stdout_sha256": "2dda7e2b40f06ef0c25c7f91ff582822e1e0aade02cc6a54f46fa70658d910e2",
+    "ablation_local_service_lines": [
+      509,
+      510,
+      547,
+      635
+    ],
+    "endpoint": "localhost:9200",
+    "failure": "connection refused during pytest collection"
+  }
+}
