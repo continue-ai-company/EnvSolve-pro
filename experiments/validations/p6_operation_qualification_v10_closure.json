@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v10",
+  "closed_at": "2026-07-20T03:28:13+08:00",
+  "status": "closed_unexercised_zero_trigger",
+  "closed_after_pair": 5,
+  "closure_rule": "the complete frozen batch has zero qualifying phase triggers; v11 is neither qualified nor contradicted, and no replacement identity is allowed",
+  "schedule_disposition": {
+    "executed_positions": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "unexecuted_positions": [],
+    "rerun_allowed": false,
+    "replacement_allowed": false,
+    "all_selected_identities_consumed": true,
+    "remaining_untouched_identities": 146,
+    "schedule_mutated": false
+  },
+  "batch": {
+    "runs": 10,
+    "artifact_valid_runs": 10,
+    "scientifically_eligible_runs": 10,
+    "candidate_limit_runs": 10,
+    "official_evaluator_executions": 0,
+    "official_boolean_outcomes": 0,
+    "paired_effectiveness_pairs": 0,
+    "censored_pairs": 5,
+    "candidate_fail_verifications": 41,
+    "infrastructure_unknown_verifications": 0
+  },
+  "mechanism_exercise": {
+    "candidate_actions": 50,
+    "raw_network_like_signatures": 0,
+    "internal_failed_action_markers": 10,
+    "internal_markers_with_later_proposals": 8,
+    "triggered_runs": 0,
+    "phase_invariant_violations": 0,
+    "reverse_network_safety_triggers": 0,
+    "phase_aware_verifier_v11_qualified": false,
+    "phase_aware_verifier_v11_invariant_failed": false,
+    "result": "unexercised"
+  },
+  "inherited_runtime_mechanism": {
+    "subject_first_runtime_diagnostics_total": 2,
+    "subject_first_runtime_diagnostics_full": 0,
+    "subject_first_runtime_diagnostics_ablation": 2,
+    "triggered_full_runs": 0,
+    "runtime_invariant_violations": 0,
+    "runtime_diagnostic_v10_qualified": false,
+    "runtime_diagnostic_v10_invariant_failed": false,
+    "result": "unexercised_in_full_condition"
+  },
+  "resources": {
+    "combined": {
+      "model_requests": 53,
+      "total_tokens": 495715,
+      "candidates": 50,
+      "commands": 41,
+      "fresh_environments": 41,
+      "wall_clock_seconds": 8861.077396
+    },
+    "full": {
+      "model_requests": 26,
+      "total_tokens": 251162,
+      "candidates": 25,
+      "commands": 20,
+      "fresh_environments": 20,
+      "wall_clock_seconds": 3686.923287
+    },
+    "ablation": {
+      "model_requests": 27,
+      "total_tokens": 244553,
+      "candidates": 25,
+      "commands": 21,
+      "fresh_environments": 21,
+      "wall_clock_seconds": 5174.154109
+    }
+  },
+  "shared_safety": {
+    "environment_receipts": 41,
+    "image_identity_matches": 41,
+    "request_errors": 0,
+    "host_suspension_suspected_runs": 0,
+    "official_or_canary_evidence_used": false
+  },
+  "scientific_claims": {
+    "paired_effectiveness_estimate_available": false,
+    "paper_effectiveness_claim_allowed": false,
+    "phase_aware_v11_qualification_claim_allowed": false,
+    "phase_aware_v11_contradiction_claim_allowed": false,
+    "supported_claim": "the frozen Harness produced ten valid eligible trajectories without repeating the Q9 false infrastructure transition, but the preregistered target signature did not occur"
+  },
+  "frozen_inputs": {
+    "preregistration_sha256": "6eaa7bfb24a43924cc3be25b59bc3783fe423a7b1df62c6a7b29962b642edded",
+    "selection_sha256": "07d0596a9b049fd4f604bf682d2d78fb204ce81249fa83c0757c187196663c14",
+    "schedule_sha256": "70ab2d753ec828522bc33b99080893a08a9e6fbe93135053d1baf65f942e9afa",
+    "execution_binding_commit": "e48318f",
+    "execution_binding_sha256": "8c47a349f90c4b74a242d90059ea99f577263fa44f6929240bca6d77ae2aabc0",
+    "progress_sha256": "bef7d16696f8b3f8e8e25be93456f47a8eff5eac09aef77bfb6b9c6eee0a27d9",
+    "summary_sha256": "645b7446d1e55fe23d3180155589d6166e4f8d54abe19423a185099680f85d79",
+    "pair_audit_sha256": [
+      "09824c8332bbe7fad24c38a57d5ccd248f9333bc5cba28b78dd1b975c5b76f36",
+      "cef2230daa7b3ea96cabc0a94af77b2947626a5629d1e380b842ee1df7a497ff",
+      "2cb6372fc193b8d6e661cfaaf4e4e6be416402b437d9bfb3561c9955ccc7a15a",
+      "65f00dffb1fbaf86b7521298c9f8f164f83cd21a7d8188996ca6573977dfd835",
+      "f4a9d200d5bf60ab305a3673638c5079c21882a40006d4ef383846757ec084c5"
+    ]
+  },
+  "next_step": {
+    "action": "perform aggregate error analysis over the consumed Q10 development trajectories before changing the algorithm or selecting another unseen batch",
+    "forbidden": [
+      "case-specific rules",
+      "Q10 reruns or replacement identities",
+      "Official-Test or Canary inspection",
+      "an effectiveness or v11-qualification claim from this batch"
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v10",
+  "audit_id": "pair-5-final",
+  "audited_at": "2026-07-20T03:28:13+08:00",
+  "disposition": "close_frozen_batch_unexercised",
+  "pair": {
+    "pair_index": 5,
+    "executed_positions": [
+      9,
+      10
+    ],
+    "paired_official_outcome": "censored",
+    "full": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "a2274aa92a91ae84fbbc5d4f5b60c5465f3f9d9964318deaae890da37b15a225",
+      "resources": {
+        "model_requests": 5,
+        "total_tokens": 61136,
+        "candidates": 5,
+        "commands": 4,
+        "fresh_environments": 4,
+        "wall_clock_seconds": 1148.410922
+      }
+    },
+    "ablation": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "d032e3dcbc0900b235c996ca4bc2e1994e6a20b1be3e757c3c29b5a103706097",
+      "resources": {
+        "model_requests": 5,
+        "total_tokens": 42633,
+        "candidates": 5,
+        "commands": 3,
+        "fresh_environments": 3,
+        "wall_clock_seconds": 1157.562267
+      }
+    }
+  },
+  "phase_mechanism": {
+    "raw_network_like_signatures": 0,
+    "internal_failed_action_markers": 0,
+    "internal_markers_with_later_proposals": 0,
+    "internal_phase_triggered_runs": 0,
+    "phase_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "inherited_runtime_mechanism": {
+    "subject_first_runtime_diagnostics": 0,
+    "runtime_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "shared_safety": {
+    "environment_receipts": 7,
+    "image_digest_matches": 7,
+    "request_errors": 0,
+    "official_evaluator_executions": 0,
+    "host_suspension_suspected": false
+  },
+  "frozen_evidence": {
+    "execution_binding_commit": "e48318f",
+    "schedule_progress_sha256": "bef7d16696f8b3f8e8e25be93456f47a8eff5eac09aef77bfb6b9c6eee0a27d9",
+    "batch_summary_sha256": "645b7446d1e55fe23d3180155589d6166e4f8d54abe19423a185099680f85d79"
+  },
+  "closure_rule": "the complete frozen batch has zero qualifying phase triggers; close as unexercised without replacement identities"
+}
