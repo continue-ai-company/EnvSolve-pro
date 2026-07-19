@@ -1115,3 +1115,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   five Q9 identities are consumed. The next mechanism revision must make
   infrastructure classification phase-aware using generic synthetic
   counterexamples before another unseen batch.
+- Phase-aware verifier v11 is now implemented at source revision `c4028cf` and
+  frozen with Harness v25. The production change reuses the existing failed-action
+  marker: a grounded network signature may yield infrastructure Unknown only for a
+  candidate-command or unknown failure phase, while fixed internal-check failures
+  remain candidate feedback. Synthetic counterexamples preserve true candidate-
+  phase `ConnectionError` classification and reject same-token internal false
+  positives. Read-only replay of both Q9 raw outputs removes the false Unknown
+  transition without adding an Elasticsearch, endpoint, package, or repository
+  rule. Full regression passes `373 passed, 1 skipped`, and the real Docker boundary
+  passes. Harness v25 additionally refuses to freeze without a real image ID and
+  RepoDigest; independent verification returns `valid=true`. This is another
+  synthetic mechanism repair, not an effectiveness result. A new outcome-blind
+  qualification must be preregistered from the remaining 151 identities.

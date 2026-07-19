@@ -297,6 +297,11 @@ test collection，其中 repository-local service 拒绝 localhost 连接；不�
 两条 loop。目标 v10 diagnostic 没有出现，因此 v10 是未触发，而不是被反驳。该 pair 被删失，其余
 case 不执行，也没有 official result 或 effectiveness estimate。
 
+最小修复使用已经记录的 failed-action phase。现在只有 candidate command 或 unknown phase 中的网络
+签名可以删失 episode；固定 internal check 产生的异常必须保留为 candidate feedback。相反方向的合成
+测试与 Q9 raw artifact 只读 replay 验证了这条边界，没有命名观测到的 service 或 repository。该
+revision 已冻结为 v11。这仍只建立内部语义，不代表部署效果。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
@@ -334,8 +339,8 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
 首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。
 最小合成修复与新 mechanism freeze 已完成，但下一次资格实验在 v10 被触发前，因不感知 failure
-phase 的 infrastructure classifier 缺陷而关闭。下一里程碑是最小 phase-aware verifier 修复与新的
-untouched development qualification。机制通过资格验证前，held-out evaluation 保持锁定。
+phase 的 infrastructure classifier 缺陷而关闭。Phase-aware v11 现已冻结，下一里程碑是使用新的
+untouched development identity 完成资格验证。机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

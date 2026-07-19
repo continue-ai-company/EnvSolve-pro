@@ -819,3 +819,11 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   重标修复；pair 1 被删失，positions 3--10 不执行，没有重试资格，Q9 的 5 个 identity 全部 consumed。
   下一 mechanism revision 必须先用通用合成反例使 infrastructure classification 感知失败阶段，再进入
   新的 unseen batch。
+- Phase-aware verifier v11 已在 source revision `c4028cf` 实现，并与 Harness v25 一起冻结。生产
+  代码复用已有 failed-action marker：只有 candidate-command 或 unknown failure phase 中有依据的
+  网络签名可以产生 infrastructure Unknown；固定 internal-check 失败必须保留为 candidate feedback。
+  合成反例同时保证真实 candidate-phase `ConnectionError` 仍被识别，并拒绝同 token 的 internal
+  假阳性。对 Q9 两份 raw output 的只读 replay 消除了错误 Unknown 转移，没有加入 Elasticsearch、
+  endpoint、package 或 repository rule。全量回归为 `373 passed, 1 skipped`，真实 Docker 边界通过。
+  Harness v25 还会在缺少真实 image ID 与 RepoDigest 时拒绝 freeze，独立验证为 `valid=true`。这仍是
+  合成机制修复，不是效果结果。下一步必须从剩余 151 个 identity 中预注册新的 outcome-blind 资格实验。

@@ -410,6 +410,14 @@ loops before another proposal. The target v10 diagnostic did not occur, so v10
 remains unexercised rather than contradicted. The pair is censored, the remaining
 cases were not run, and no official result or effectiveness estimate is available.
 
+The minimal correction uses the already-recorded failed-action phase. Network
+signatures can now censor an episode only when failure occurs in a candidate command
+or an unknown phase; exceptions emitted by fixed internal checks remain candidate
+feedback. Opposed synthetic tests and read-only replay of the Q9 raw artifacts
+validate this boundary without naming the observed service or repository. The
+revision is frozen as v11. This again establishes internal semantics rather than
+deployment effectiveness.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
@@ -463,8 +471,8 @@ derived rules. The first outcome-blind runtime-state qualification exposed a nar
 diagnostic-admission failure and is closed. The minimal repair and new mechanism
 freeze are complete, but the next qualification closed on a phase-agnostic
 infrastructure-classification defect before v10 was exercised. The next milestone
-is a minimal phase-aware verifier repair and a new untouched development
-qualification. Held-out evaluation remains blocked until the mechanism qualifies.
+is a new untouched development qualification of the now-frozen phase-aware v11.
+Held-out evaluation remains blocked until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
