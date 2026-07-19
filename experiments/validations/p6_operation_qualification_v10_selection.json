@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v10_preregistration.json",
+  "preregistration_sha256": "6eaa7bfb24a43924cc3be25b59bc3783fe423a7b1df62c6a7b29962b642edded",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v10_146.jsonl",
+  "remaining_sha256": "ff2e1dc63b6f925de96cc54bcf6091470982c07b5cf2dd81e7faa6f5447c6632",
+  "salt": "envsolve-p6-operation-qualification-v10-2026-07-20",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+    "envbench-python-terminusdb__terminusdb-client-python@30fe3957a2ccd4fe4c15b3d36fc5419bcf166a85",
+    "envbench-python-googlefonts__gftools@e70cbae529bf512339dd55f63d7516dba5a22a85",
+    "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+    "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v10_5.jsonl",
+  "selected_sha256": "92e461e243ce895789e32797efcb784e54805b24c95cc634651629602285bb4e",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v9_151.jsonl",
+  "source_sha256": "508082d490fb6e8d2060f7ed45a621570fdf77868769b482954ff8af57772f5c"
+}
