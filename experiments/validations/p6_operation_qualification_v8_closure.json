@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v8",
+  "status": "closed_shared_mechanism_defect",
+  "closed_after_pair": 1,
+  "closure_rule": "a triggered primary runtime-state invariant failed; close after the current pair",
+  "schedule_disposition": {
+    "executed_positions": [
+      1,
+      2
+    ],
+    "unexecuted_positions": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "rerun_allowed": false,
+    "all_selected_identities_consumed": true,
+    "schedule_mutated": false
+  },
+  "pair_1": {
+    "paired_official_outcome": "censored",
+    "effectiveness_contribution": "none",
+    "ablation": {
+      "position": 1,
+      "scientifically_eligible": false,
+      "official_outcome": "Unknown",
+      "disposition": "operator interruption; no retry",
+      "audit_commit": "a7e48d3",
+      "audit_path": "experiments/validations/p6_operation_qualification_v8_interruption_001.json",
+      "audit_sha256": "a467ba6bf360248c2d42d4421b79a240915bdd449b82b6b5e85d4f431a014dc8",
+      "artifact_bundle_sha256": "fd0bf2aabd8caf98de87b03597cac5f761b0513156b9642b9efef7e18acd1fc4"
+    },
+    "full": {
+      "position": 2,
+      "scientifically_eligible": true,
+      "terminal": "candidate_limit",
+      "official_outcome": "Unknown",
+      "official_evaluator_executions": 0,
+      "artifact_bundle_sha256": "39a7697642c3e5a9d84305605a3627a9e7c36dd9dbec730db451dbf13569ea70",
+      "resources": {
+        "model_requests": 5,
+        "input_tokens": 33940,
+        "output_tokens": 3875,
+        "cache_read_tokens": 128,
+        "total_tokens": 37815,
+        "candidates": 5,
+        "commands": 3,
+        "fresh_environments": 3,
+        "wall_clock_seconds": 410.504803
+      }
+    }
+  },
+  "mechanism_exercise": {
+    "triggered_full_runs": 1,
+    "trigger_position": 2,
+    "deterministic_runtime_mismatch_observed": true,
+    "mismatch_diagnostic_family": "Current Python version (...) is not allowed by the project (...)",
+    "later_proposal_opportunities": 4,
+    "base_runtime_version": "3.13.2",
+    "base_runtime_image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "repository_runtime_requirements_admitted": 0,
+    "constraint_updates_after_initialization": 0,
+    "hard_runtime_conflict_created": false,
+    "runtime_configure_obligation_created": false
+  },
+  "primary_invariants": {
+    "base_runtime_image_identity_match": "pass: all three executed candidate environments used the observed image digest",
+    "runtime_mismatch_to_hard_conflict": "fail: a deterministic mismatch was observed but no hard runtime conflict was created before the next execution",
+    "runtime_conflict_to_runtime_configure_obligation": "fail_downstream: no runtime conflict existed from which to plan the required operation",
+    "candidate_scoped_satisfaction_preserved_on_fresh_replay": "not_exercised: no successful fresh runtime observation satisfied an admitted runtime requirement",
+    "localized_failed_prefix_not_repeated": "not_violated: executed candidates changed the localized failing action; later identical proposals were rejected before execution",
+    "covering_candidate_not_rejected_for_missing_novelty": "not_exercised: no runtime operation obligation was admitted"
+  },
+  "shared_defect": {
+    "defect_id": "runtime-mismatch-diagnostic-not-admitted",
+    "scope": "generic package-manager runtime diagnostic family",
+    "effect": "the model may choose a compatible runtime, but typed state cannot require or preserve that repair",
+    "case_specific_rule_allowed": false,
+    "q8_fix_allowed": false,
+    "required_next_step": "derive a generic synthetic counterexample, repair and freeze a new mechanism version, then qualify on new unseen development cases"
+  },
+  "scientific_claims": {
+    "runtime_state_v9_qualified": false,
+    "paired_effectiveness_estimate_available": false,
+    "paper_effectiveness_claim_allowed": false,
+    "official_or_canary_evidence_used": false
+  },
+  "frozen_inputs": {
+    "execution_binding_commit": "4f7d357",
+    "schedule_sha256": "f5f84a6992aa4d028d2984c4a5865eed852f3541ccc7fc51770a192d561e02d6",
+    "progress_sha256": "023895e7059b12ef14501992ede5ec0c06a3923cd3e980cec7c6dd88f3733f62"
+  },
+  "full_run_local_artifacts": {
+    "status_sha256": "e99a33fa4e473187054894b28763057be9fced0b476991b86e06fdd4c3e55ca3",
+    "manifest_sha256": "d5a50bfe00955a11617955ce494c4c42da153a5fb7659d862c511138fcfa0932",
+    "result_sha256": "3299213d6ab03c9665704dbb1b688944a7aae84d8e6992509079d3c061c79653",
+    "budget_ledger_sha256": "d8ba26135067086301ebf540167e53216b08d8873788d92396df45ea0579e424",
+    "episode_log_sha256": "a2a2741c0b9e0d572bf1980e63041af0cb924d84050a817925271ac19215c7cd",
+    "episode_snapshot_sha256": "b6c6a2b1c92029ba2bca81ba3a3e8f50bd1fcf4c33f04843a473e1b84a42a0f7",
+    "heartbeat_sha256": "aef4dc11d73360c37e7f8755f96a88d4be688576b999f2ee393894fc04c5ce55"
+  }
+}
