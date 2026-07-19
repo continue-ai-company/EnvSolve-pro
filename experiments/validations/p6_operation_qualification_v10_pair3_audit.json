@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "p6-operation-qualification-v10",
+  "audit_id": "pair-3-interim",
+  "audited_at": "2026-07-20T02:16:37+08:00",
+  "disposition": "continue_frozen_schedule_at_position_7",
+  "pair": {
+    "pair_index": 3,
+    "executed_positions": [
+      5,
+      6
+    ],
+    "paired_official_outcome": "censored",
+    "full": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "5e7fe7a82500f72a6f4676d10dc0bbde7e12c31e6472960d794b3826aab19735",
+      "resources": {
+        "model_requests": 5,
+        "total_tokens": 48615,
+        "candidates": 5,
+        "commands": 4,
+        "fresh_environments": 4,
+        "wall_clock_seconds": 401.648114
+      }
+    },
+    "ablation": {
+      "terminal": "candidate_limit",
+      "artifact_valid": true,
+      "scientifically_eligible": true,
+      "official_outcome": "Unknown",
+      "artifact_bundle_sha256": "7dd7bcdf0fd45d5d1502d8cdac633ce2229a847688f670a23c2b9f83926aeb6b",
+      "resources": {
+        "model_requests": 6,
+        "total_tokens": 38857,
+        "candidates": 5,
+        "commands": 3,
+        "fresh_environments": 3,
+        "wall_clock_seconds": 320.991344
+      }
+    }
+  },
+  "phase_mechanism": {
+    "raw_network_like_signatures": 0,
+    "internal_failed_action_markers": 1,
+    "internal_markers_with_later_proposals": 0,
+    "internal_phase_triggered_runs": 0,
+    "phase_invariant_violations": 0,
+    "result": "unexercised"
+  },
+  "inherited_runtime_mechanism": {
+    "subject_first_runtime_diagnostics_total": 2,
+    "subject_first_runtime_diagnostics_full": 0,
+    "subject_first_runtime_diagnostics_ablation": 2,
+    "runtime_invariant_violations": 0,
+    "result": "unexercised_in_full_condition"
+  },
+  "shared_safety": {
+    "environment_receipts": 7,
+    "image_digest_matches": 7,
+    "request_errors": 0,
+    "official_evaluator_executions": 0,
+    "host_suspension_suspected": false
+  },
+  "frozen_evidence": {
+    "execution_binding_commit": "e48318f",
+    "schedule_progress_sha256": "ffd071afed7b2cdd4ef30dffefea0e62d1c3aa77ba7f56e084e7197dce7a43eb",
+    "pair_summary_sha256": "22d56f940cb19a858612b54322fe9ac8a51bc5271dc502ca77b6482bb24b0b51"
+  },
+  "continuation_rule": "zero phase trigger and no full-condition runtime trigger do not qualify or close v11; continue without replacement or protocol change"
+}
