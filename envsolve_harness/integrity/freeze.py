@@ -22,10 +22,10 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v24"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v24.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v23"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v23.json")
+FREEZE_ID = "envsolve-harness-v25"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v25.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v24"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v24.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
@@ -85,6 +85,14 @@ DATASET_PATHS = (
     Path("experiments/validations/p6_operation_qualification_v8_interruption_001.json"),
     Path("experiments/validations/p6_operation_qualification_v8_closure.json"),
     Path("experiments/protocols/p6_operation_qualification_freeze_v8.json"),
+    Path("experiments/cases/dev_operation_qualification_v9_5.jsonl"),
+    Path("experiments/cases/train_untouched_after_operation_qualification_v9_151.jsonl"),
+    Path("experiments/validations/p6_operation_qualification_v9_preregistration.json"),
+    Path("experiments/validations/p6_operation_qualification_v9_selection.json"),
+    Path("experiments/validations/p6_operation_qualification_v9_schedule.json"),
+    Path("experiments/validations/p6_operation_qualification_v9_image_attestation.json"),
+    Path("experiments/validations/p6_operation_qualification_v9_closure.json"),
+    Path("experiments/protocols/p6_operation_qualification_freeze_v9.json"),
 )
 OFFICIAL_CHANNEL_CONTRACT = {
     "scoring": True,
@@ -102,7 +110,7 @@ DEVELOPMENT_DISCLOSURE = {
         "dev-5",
         "dev-extension-3",
         "dev-v3-qualification-5",
-        "dev-operation-qualification-q1-q8",
+        "dev-operation-qualification-q1-q9",
     ],
     "untouched_confirmatory_splits": ["canary-20", "official-test-100"],
     "case_specific_rules": False,
@@ -216,6 +224,21 @@ def _component(root: Path, files: dict[str, str]) -> dict[str, object]:
     }
 
 
+def _verified_image_provenance(reference: str) -> dict[str, Any]:
+    record = docker_image_provenance(reference)
+    image_id = record.get("id")
+    repo_digests = record.get("repo_digests")
+    if (
+        not isinstance(image_id, str)
+        or not image_id.startswith("sha256:")
+        or not isinstance(repo_digests, list)
+        or not repo_digests
+    ):
+        detail = record.get("inspect_error", "missing immutable image identity")
+        raise RuntimeError(f"Cannot freeze evaluation image {reference}: {detail}")
+    return record
+
+
 def _pricing_snapshot(config: HarnessConfig) -> dict[str, dict[str, Any]]:
     return {
         model: asdict(pricing)
@@ -251,9 +274,9 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
             "reason": (
-                "After Q8 exposed a generic unadmitted Python mismatch diagnostic, "
-                "freeze exact diagnostic grammar with PEP 440 counterexample "
-                "validation before any new development case."
+                "After Q9 exposed phase-agnostic infrastructure classification, "
+                "freeze phase-aware verifier outcomes and fail-closed Docker image "
+                "identity before any new development case."
             ),
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,
@@ -288,7 +311,7 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
         "external_components": {
             "envbench": _component(benchmark.root, envbench_files),
             "repo2run": _component(repo2run_root, repo2run_files),
-            "evaluation_image": docker_image_provenance(image),
+            "evaluation_image": _verified_image_provenance(image),
         },
         "development_disclosure": DEVELOPMENT_DISCLOSURE,
     }
@@ -464,7 +487,11 @@ def verify_harness_freeze(
     expected_image_reference = str(config.benchmark(protocol.benchmark).settings["image"])
     if image_reference != expected_image_reference:
         errors.append("evaluation image reference changed")
-    current_image = docker_image_provenance(str(image_reference))
-    if current_image != image_record:
-        errors.append("evaluation image identity changed")
+    try:
+        current_image = _verified_image_provenance(str(image_reference))
+    except RuntimeError as exc:
+        errors.append(str(exc))
+    else:
+        if current_image != image_record:
+            errors.append("evaluation image identity changed")
     return FreezeVerification(not errors, tuple(errors))
