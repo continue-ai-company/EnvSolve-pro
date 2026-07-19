@@ -369,8 +369,8 @@ regress to the known-invalid base interpreter. This negative result shows that
 package-state admission alone is insufficient: runtime compatibility and action
 feasibility must inhabit the same persistent constraint state.
 
-The resulting runtime-state revision is now implemented and frozen, but has not yet
-been tested on another development repository. It binds a fresh base-runtime fact
+The resulting runtime-state revision was implemented and frozen before another
+development repository was inspected. It binds a fresh base-runtime fact
 to the candidate image, admits standard runtime declarations against that fact,
 turns deterministic version mismatch into a hard contradiction, and preserves
 candidate-supported satisfaction across fresh attempts. Synthetic transition tests
@@ -380,8 +380,12 @@ has now been preregistered, selected without repository inspection, and bound fo
 execution. Its primary tests are runtime-state invariants, with paired official
 outcome secondary. Its first ablation episode was later interrupted by an operator
 before verification and is retained as ineligible/Unknown without retry, censoring
-that pair. This administrative interruption provides no method result; the frozen
-full counterpart may still test the preregistered runtime invariants.
+that pair. The eligible full counterpart then exercised the mechanism: an explicit
+runtime mismatch had later proposal opportunities, while the base-image identity
+remained correct. However, the mismatch remained text rather than becoming a hard
+constraint and runtime operation obligation. This primary invariant failure closed
+the batch after pair 1. It is a negative mechanism result, not an effectiveness
+estimate; the remaining scheduled cases were not run.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -432,10 +436,10 @@ fresh environments, admits only grounded counterexamples, and keeps official
 evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
-derived rules. The typed runtime-state revision and its new outcome-blind
-development qualification are frozen; the next milestone is executing that batch
-from the next unrepeated position without changing its treatment or analysis.
-Held-out evaluation remains blocked
+derived rules. The first outcome-blind runtime-state qualification exposed a narrow
+diagnostic-admission failure and is closed. The next milestone is a minimal
+synthetic repair, a new mechanism freeze, and qualification on new untouched
+development identities. Held-out evaluation remains blocked
 until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,

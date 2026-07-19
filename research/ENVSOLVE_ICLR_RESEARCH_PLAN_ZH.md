@@ -268,15 +268,17 @@ eligible，但没有任何 run 进入 official evaluation。两个 pair 触发 p
 因此可以删除兼容 runtime 并退回已知无效的基础解释器。这个负结果说明仅接纳 package state 还不够：
 runtime compatibility 与 action feasibility 必须进入同一个持续约束状态。
 
-对应的 runtime-state revision 已经实现并冻结，但尚未在新的 development repository 上检验。它把
+对应的 runtime-state revision 在检查新的 development repository 前已经实现并冻结。它把
 fresh base-runtime fact 绑定到候选镜像，依据该 fact 接纳标准 runtime declaration，把确定性版本
 mismatch 变成 hard contradiction，并在 fresh attempt 之间保持由候选操作支撑的 satisfaction。
 合成 transition 测试和真实 Docker 边界验证了这些语义；这只是机制验证，不是部署成功率提升证据。
 新的 5-pair development qualification 已完成预注册、在不检查 repository 的前提下盲选并冻结执行
 入口。它以 runtime-state invariant 为主要检验，以 paired official outcome 为次要结果。Batch 启动后，
 首个 ablation episode 在 verification 前被人工中断，并以 ineligible/Unknown 保留且不得
-重跑，因此该 pair 被删失。这个行政中断不产生方法结论；冻结的 full counterpart 仍可检验预注册
-runtime invariant。
+重跑，因此该 pair 被删失。随后 eligible full counterpart 真实触发机制：base-image identity 保持
+正确，显式 runtime mismatch 后也存在后续 proposal 机会；但 mismatch 仍停留在文本，没有形成 hard
+constraint 与 runtime operation obligation。这个主要不变量失败使 batch 在 pair 1 后关闭。它是负面
+机制结果，不是 effectiveness estimate；其余 schedule case 不再执行。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -313,8 +315,8 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
-Typed runtime-state 修订及其新的 outcome-blind development qualification 均已冻结；下一里程碑是
-从下一个未重复 position 恢复，并保持 treatment 与分析规则不变。
+首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。下一
+里程碑是最小合成修复、建立新 mechanism freeze，并在新的 untouched development identity 上验证。
 机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的

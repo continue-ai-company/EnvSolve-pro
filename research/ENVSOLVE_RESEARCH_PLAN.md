@@ -1060,3 +1060,18 @@ development batch; it never triggers tuning on the same held-out outcomes.
   mechanism defect or effect result. The unchanged schedule may resume at position
   2: its full run can still test preregistered runtime invariants, but cannot restore
   a paired official outcome for pair 1.
+- Position 2 completed artifact-valid and scientifically eligible, then closed Q8
+  under the frozen invariant rule (`6e2272f`). All three executed environments
+  matched the probed image digest. Candidate 1 produced an explicit deterministic
+  Python mismatch and four later proposal opportunities, so v9 was exercised; yet
+  the run admitted zero repository runtime requirements, recorded zero subsequent
+  constraint updates, and created neither a hard runtime conflict nor a
+  `runtime_configure` obligation. The primary mismatch-to-conflict invariant failed.
+  Full ended at the five-candidate limit after 5 model requests, 37,815 tokens, 3
+  commands/environments, and 410.5 seconds, without official evaluation. Pair 1 is
+  censored; positions 3--10 are unexecuted; all selected identities remain consumed.
+  The main defect is a generic package-manager runtime diagnostic that remained
+  ordinary text instead of typed state. Q9 must first repair that narrow admission
+  grammar with synthetic positive/negative cases, freeze a new version, and use new
+  untouched identities. Poetry declaration coverage and candidate-policy command
+  coverage remain separate hypotheses rather than bundled fixes.

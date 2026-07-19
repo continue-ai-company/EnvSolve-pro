@@ -781,3 +781,13 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   `a7e48d3` 将其判为 scientifically ineligible/Unknown，永久禁止重跑，并删失 pair 1。这不是机制
   缺陷或效果结果。冻结 schedule 可以从 position 2 恢复；该 full run 仍可检验预注册 runtime
   invariant，但无论结果如何都不能恢复 pair 1 的 paired official outcome。
+- Position 2 完成后 artifact-valid 且 scientifically eligible，并按照冻结 invariant rule 关闭 Q8
+  （`6e2272f`）。3 个 executed environment 全部匹配 probe 的 image digest。Candidate 1 产生显式、
+  确定性的 Python mismatch，后面还有 4 次 proposal 机会，因此 v9 已被真实触发；但该 run 接纳的
+  repository runtime requirement 为 0，后续 constraint update 为 0，也没有创建 hard runtime conflict
+  或 `runtime_configure` obligation，主要 mismatch-to-conflict invariant 失败。Full 在 5 candidate
+  上限结束，使用 5 次模型请求、37,815 tokens、3 条 command/environment 和 410.5 秒，没有进入
+  official evaluator。Pair 1 保持删失，positions 3--10 不执行，全部 selected identity 保持 consumed。
+  主要缺陷是通用 package-manager runtime diagnostic 仍停留在普通文本，没有进入 typed state。Q9
+  必须先用合成正/负例修复这项窄 admission grammar，冻结新版本，再使用新的 untouched identity。
+  Poetry declaration coverage 与 candidate-policy command coverage 保持为独立假设，不捆绑修复。
