@@ -1,0 +1,655 @@
+{
+  "aggregate": {
+    "candidates": 50,
+    "categories": {
+      "candidate_command_failure": 23,
+      "candidate_validation_reject": 6,
+      "fixed_internal_check_failure": 10,
+      "operation_guard_reject": 3,
+      "structured_obligations_active": 8
+    },
+    "executed_candidates": 41,
+    "later_proposal_candidates": 40,
+    "runs": 10
+  },
+  "methods": {
+    "envsolve-operation": {
+      "candidates": 25,
+      "categories": {
+        "candidate_command_failure": 10,
+        "candidate_validation_reject": 2,
+        "fixed_internal_check_failure": 5,
+        "operation_guard_reject": 3,
+        "structured_obligations_active": 5
+      },
+      "executed_candidates": 20,
+      "later_proposal_candidates": 20,
+      "runs": 5
+    },
+    "envsolve-operation-ablation": {
+      "candidates": 25,
+      "categories": {
+        "candidate_command_failure": 13,
+        "candidate_validation_reject": 4,
+        "fixed_internal_check_failure": 5,
+        "structured_obligations_active": 3
+      },
+      "executed_candidates": 21,
+      "later_proposal_candidates": 20,
+      "runs": 5
+    }
+  },
+  "runs": [
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 37,
+          "later_proposal": true,
+          "proposed_sequence": 35
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 46,
+          "later_proposal": true,
+          "proposed_sequence": 44
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 55,
+          "later_proposal": true,
+          "proposed_sequence": 53
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 1008,
+          "later_proposal": true,
+          "proposed_sequence": 1006
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 1017,
+          "later_proposal": false,
+          "proposed_sequence": 1015
+        }
+      ],
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 2,
+          "fixed_internal_check_failure": 2,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "07081365446e57705e7297529f365c6fbbad6dc27ed148def918d8def90fbb8e",
+      "method": "envsolve-operation",
+      "pair_index": 1,
+      "position": 1,
+      "run_id": "p6-operation-q10-01-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 954,
+          "later_proposal": true,
+          "proposed_sequence": 952
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 963,
+          "later_proposal": true,
+          "proposed_sequence": 961
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 972,
+          "later_proposal": false,
+          "proposed_sequence": 970
+        }
+      ],
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 3,
+          "fixed_internal_check_failure": 1,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "7dc61d0cdbdae21e3f16f57c5861401b499738004caa168af24bce0f6a0c1518",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 1,
+      "position": 2,
+      "run_id": "p6-operation-q10-01-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 170,
+          "later_proposal": true,
+          "proposed_sequence": 168
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 382,
+          "later_proposal": true,
+          "proposed_sequence": 380
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 392,
+          "later_proposal": true,
+          "proposed_sequence": 390
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 401,
+          "later_proposal": false,
+          "proposed_sequence": 399
+        }
+      ],
+      "case_id": "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 3,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "482c94d8e8c965d30487c48d6ac2d7f34aa93b1fc45c4d4520c3f8b7556a95e5",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 2,
+      "position": 3,
+      "run_id": "p6-operation-q10-02-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 15,
+          "later_proposal": true,
+          "proposed_sequence": 13
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 24,
+          "later_proposal": true,
+          "proposed_sequence": 22
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 191,
+          "later_proposal": true,
+          "proposed_sequence": 189
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 200,
+          "later_proposal": true,
+          "proposed_sequence": 198
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 412,
+          "later_proposal": false,
+          "proposed_sequence": 410
+        }
+      ],
+      "case_id": "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 2,
+          "fixed_internal_check_failure": 1,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "b4015eac6d267524201550f24afac5d6be5a398c673c642aae83898716acafc1",
+      "method": "envsolve-operation",
+      "pair_index": 2,
+      "position": 4,
+      "run_id": "p6-operation-q10-02-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 6,
+          "later_proposal": true,
+          "proposed_sequence": 4
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 19,
+          "later_proposal": true,
+          "proposed_sequence": 17
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 25,
+          "later_proposal": true,
+          "proposed_sequence": 23
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 31,
+          "later_proposal": true,
+          "proposed_sequence": 29
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 44,
+          "later_proposal": false,
+          "proposed_sequence": 42
+        }
+      ],
+      "case_id": "envbench-python-terminusdb__terminusdb-client-python@30fe3957a2ccd4fe4c15b3d36fc5419bcf166a85",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 2,
+          "candidate_validation_reject": 2,
+          "fixed_internal_check_failure": 1
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "a6f7e2bf27e5a5bf6771eaf626efcb8b4c0a687f2a837963ba1625536a5ca103",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 3,
+      "position": 5,
+      "run_id": "p6-operation-q10-03-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 8,
+          "later_proposal": true,
+          "proposed_sequence": 6
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 186,
+          "later_proposal": true,
+          "proposed_sequence": 184
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "operation_guard_reject",
+          "exit_code": 251,
+          "finished_sequence": 200,
+          "later_proposal": true,
+          "proposed_sequence": 198
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 206,
+          "later_proposal": true,
+          "proposed_sequence": 204
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 219,
+          "later_proposal": false,
+          "proposed_sequence": 217
+        }
+      ],
+      "case_id": "envbench-python-terminusdb__terminusdb-client-python@30fe3957a2ccd4fe4c15b3d36fc5419bcf166a85",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 2,
+          "operation_guard_reject": 1,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 4,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "79468eeeb1139f06b8426a25029b584968a4dd56de19cb333b0c43b781705bf4",
+      "method": "envsolve-operation",
+      "pair_index": 3,
+      "position": 6,
+      "run_id": "p6-operation-q10-03-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 23,
+          "later_proposal": true,
+          "proposed_sequence": 21
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 32,
+          "later_proposal": true,
+          "proposed_sequence": 30
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 41,
+          "later_proposal": false,
+          "proposed_sequence": 39
+        }
+      ],
+      "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 2,
+          "fixed_internal_check_failure": 3
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "f4dac30880e4d16e1700c366ded2d347fc0b4cc3853175b641f1e11322195358",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 4,
+      "position": 7,
+      "run_id": "p6-operation-q10-04-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 26,
+          "later_proposal": true,
+          "proposed_sequence": 24
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 32,
+          "later_proposal": true,
+          "proposed_sequence": 30
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 42,
+          "later_proposal": true,
+          "proposed_sequence": 40
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "operation_guard_reject",
+          "exit_code": 251,
+          "finished_sequence": 51,
+          "later_proposal": true,
+          "proposed_sequence": 49
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "operation_guard_reject",
+          "exit_code": 251,
+          "finished_sequence": 57,
+          "later_proposal": false,
+          "proposed_sequence": 55
+        }
+      ],
+      "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_validation_reject": 1,
+          "fixed_internal_check_failure": 2,
+          "operation_guard_reject": 2
+        },
+        "executed_candidates": 2,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "ee190443c2daea57a9b123491e1148f1b12ea39dbb1b57449b1d448baf7f920a",
+      "method": "envsolve-operation",
+      "pair_index": 4,
+      "position": 8,
+      "run_id": "p6-operation-q10-04-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 84,
+          "later_proposal": true,
+          "proposed_sequence": 82
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 93,
+          "later_proposal": true,
+          "proposed_sequence": 91
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 102,
+          "later_proposal": true,
+          "proposed_sequence": 100
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 111,
+          "later_proposal": true,
+          "proposed_sequence": 109
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 120,
+          "later_proposal": false,
+          "proposed_sequence": 118
+        }
+      ],
+      "case_id": "envbench-python-googlefonts__gftools@e70cbae529bf512339dd55f63d7516dba5a22a85",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 4,
+          "candidate_validation_reject": 1
+        },
+        "executed_candidates": 4,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "b2739103532ab710dce71fa5de0c0d2e87c88b1cdc9a91f07b18b575c9fc31c6",
+      "method": "envsolve-operation",
+      "pair_index": 5,
+      "position": 9,
+      "run_id": "p6-operation-q10-05-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 11,
+          "later_proposal": true,
+          "proposed_sequence": 9
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 20,
+          "later_proposal": true,
+          "proposed_sequence": 18
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 29,
+          "later_proposal": true,
+          "proposed_sequence": 27
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 38,
+          "later_proposal": false,
+          "proposed_sequence": 36
+        }
+      ],
+      "case_id": "envbench-python-googlefonts__gftools@e70cbae529bf512339dd55f63d7516dba5a22a85",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 3,
+          "candidate_validation_reject": 2
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "de02424639ddd91ca2197f99bafc1a3c7c772a0ca0bb47a17162bba927b3cf18",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 5,
+      "position": 10,
+      "run_id": "p6-operation-q10-05-envsolve-operation-ablation",
+      "seed": 0
+    }
+  ],
+  "schedule": {
+    "path": "p6_operation_qualification_v10_schedule.json",
+    "sha256": "70ab2d753ec828522bc33b99080893a08a9e6fbe93135053d1baf65f942e9afa"
+  },
+  "schema_version": "1.0.0"
+}
