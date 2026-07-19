@@ -11,9 +11,9 @@ from envsolve_harness.scripts.replay_actions import analyze_successful_command
 
 
 class ConstraintOperationGuard:
-    """Require a candidate to act on every currently supported hard conflict."""
+    """Require a candidate to act on every supported operation obligation."""
 
-    policy_id = "constraint-operation-guard-v1"
+    policy_id = "constraint-operation-guard-v2"
 
     def __init__(self, planner: ConstraintOperationPlanner | None = None) -> None:
         self.planner = planner or ConstraintOperationPlanner()

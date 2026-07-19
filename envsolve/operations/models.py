@@ -7,13 +7,18 @@ import json
 from typing import Any
 
 
-OPERATION_PLAN_SCHEMA_VERSION = "1.0.0"
+OPERATION_PLAN_SCHEMA_VERSION = "2.0.0"
 
 
 class OperationKind(str, Enum):
     PYTHON_PACKAGE_INSTALL = "python_package_install"
     SYSTEM_PACKAGE_INSTALL = "system_package_install"
     RUNTIME_CONFIGURE = "runtime_configure"
+
+
+class OperationTrigger(str, Enum):
+    CONFLICT = "conflict"
+    UNRESOLVED_REQUIREMENT = "unresolved_requirement"
 
 
 def _canonical_json(value: dict[str, Any]) -> str:
@@ -24,6 +29,7 @@ def _canonical_json(value: dict[str, Any]) -> str:
 class OperationRequirement:
     domain: str
     subject: str
+    trigger: OperationTrigger
     allowed_operation_kinds: tuple[OperationKind, ...]
     source_conflict_ids: tuple[str, ...]
     source_constraint_ids: tuple[str, ...]
@@ -33,8 +39,15 @@ class OperationRequirement:
             raise ValueError("Operation requirement domain and subject cannot be empty")
         if not self.allowed_operation_kinds:
             raise ValueError("Operation requirement needs at least one operation kind")
-        if not self.source_conflict_ids or not self.source_constraint_ids:
-            raise ValueError("Operation requirement needs conflict and constraint provenance")
+        if not self.source_constraint_ids:
+            raise ValueError("Operation requirement needs constraint provenance")
+        if self.trigger is OperationTrigger.CONFLICT and not self.source_conflict_ids:
+            raise ValueError("Conflict-triggered operations need conflict provenance")
+        if (
+            self.trigger is OperationTrigger.UNRESOLVED_REQUIREMENT
+            and self.source_conflict_ids
+        ):
+            raise ValueError("Unresolved requirements cannot claim conflict provenance")
         object.__setattr__(
             self,
             "allowed_operation_kinds",
@@ -56,6 +69,7 @@ class OperationRequirement:
         return {
             "domain": self.domain,
             "subject": self.subject,
+            "trigger": self.trigger.value,
             "allowed_operation_kinds": [
                 item.value for item in self.allowed_operation_kinds
             ],

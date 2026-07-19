@@ -4,6 +4,7 @@ from envsolve.operations.models import (
     OperationKind,
     OperationPlan,
     OperationRequirement,
+    OperationTrigger,
 )
 
 __all__ = [
@@ -12,4 +13,5 @@ __all__ = [
     "OperationKind",
     "OperationPlan",
     "OperationRequirement",
+    "OperationTrigger",
 ]

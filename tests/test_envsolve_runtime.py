@@ -155,6 +155,7 @@ class EnvSolveRuntimeTest(unittest.TestCase):
 
         self.assertIn('"active_module_requirements": ["demo.runtime"]', model.messages[1][1])
         self.assertIn('"operation_plan"', model.messages[1][1])
+        self.assertIn('"trigger": "conflict"', model.messages[1][1])
         self.assertIn('"allowed_operation_kinds"', model.messages[1][1])
         self.assertIn('"python_package_install"', model.messages[1][1])
 

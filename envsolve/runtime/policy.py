@@ -144,10 +144,12 @@ class StructuredModelDeploymentPolicy:
 
     def _operation_prompt_view(self, state: EnvironmentState) -> dict[str, Any]:
         plan = self.operation_planner.plan(state)
-        groups: dict[tuple[str, tuple[str, ...]], list[str]] = {}
+        groups: dict[tuple[str, str, tuple[str, ...]], list[str]] = {}
         for requirement in plan.requirements:
             kinds = tuple(item.value for item in requirement.allowed_operation_kinds)
-            groups.setdefault((requirement.domain, kinds), []).append(
+            groups.setdefault(
+                (requirement.trigger.value, requirement.domain, kinds), []
+            ).append(
                 requirement.subject
             )
         return {
@@ -155,11 +157,12 @@ class StructuredModelDeploymentPolicy:
             "requirement_count": len(plan.requirements),
             "groups": [
                 {
+                    "trigger": trigger,
                     "domain": domain,
                     "allowed_operation_kinds": list(kinds),
                     "subjects": sorted(set(subjects)),
                 }
-                for (domain, kinds), subjects in sorted(groups.items())
+                for (trigger, domain, kinds), subjects in sorted(groups.items())
             ],
             "unsupported_conflict_count": len(plan.unsupported_conflict_ids),
         }
