@@ -387,6 +387,17 @@ constraint and runtime operation obligation. This primary invariant failure clos
 the batch after pair 1. It is a negative mechanism result, not an effectiveness
 estimate; the remaining scheduled cases were not run.
 
+A minimal revision now closes only that observed state-transition gap. It accepts
+the exact subject-first Python mismatch diagnostic, validates the version and range
+under PEP 440, and creates a hard contradiction only when the reported version is
+actually outside the allowed range. Synthetic positive, compatible-range,
+malformed, incomplete, and hedged counterexamples test the admission boundary; an
+end-to-end loop test shows that admitted evidence creates a `runtime_configure`
+obligation before the next proposal. The change contains no repository, package,
+tool, or version-specific rule and does not alter Poetry command coverage. It is
+frozen as mechanism v10 with Harness v24. This establishes internal semantics only;
+qualification on new untouched development identities remains pending.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
@@ -437,10 +448,9 @@ evaluation terminal. The protocol and core loop are implemented; the decisive
 held-out comparison remains pending. The corrected execution language, dual audit,
 scheduler, and analysis pipeline are implemented without case-specific or evaluator-
 derived rules. The first outcome-blind runtime-state qualification exposed a narrow
-diagnostic-admission failure and is closed. The next milestone is a minimal
-synthetic repair, a new mechanism freeze, and qualification on new untouched
-development identities. Held-out evaluation remains blocked
-until the mechanism qualifies.
+diagnostic-admission failure and is closed. The minimal repair and new mechanism
+freeze are complete; qualification on new untouched development identities is the
+next milestone. Held-out evaluation remains blocked until the mechanism qualifies.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

@@ -280,6 +280,14 @@ mismatch 变成 hard contradiction，并在 fresh attempt 之间保持由候选�
 constraint 与 runtime operation obligation。这个主要不变量失败使 batch 在 pair 1 后关闭。它是负面
 机制结果，不是 effectiveness estimate；其余 schedule case 不再执行。
 
+当前最小 revision 只修复这条已观测到的状态转移缺口。它接纳精确的 subject-first Python mismatch
+diagnostic，用 PEP 440 校验 version 与 range，并且只有 reported version 确实落在允许范围之外时才
+创建 hard contradiction。合成正例、范围兼容、格式错误、信息不完整和模糊措辞反例共同约束 admission
+边界；端到端 loop 测试证明被接纳的证据会在下一次 proposal 前生成 `runtime_configure` obligation。
+该修改不包含 repository、package、tool 或具体 version 规则，也不改变 Poetry command coverage。
+它已经冻结为 mechanism v10 与 Harness v24。这只建立内部语义，使用新 untouched development
+identity 的资格验证仍未完成。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
@@ -315,9 +323,9 @@ EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态�
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
 保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
 可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
-首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。下一
-里程碑是最小合成修复、建立新 mechanism freeze，并在新的 untouched development identity 上验证。
-机制通过资格验证前，held-out evaluation 保持锁定。
+首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭。
+最小合成修复与新 mechanism freeze 已完成；下一里程碑是在新的 untouched development identity
+上完成资格验证。机制通过资格验证前，held-out evaluation 保持锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

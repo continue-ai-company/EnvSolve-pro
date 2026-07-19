@@ -1075,3 +1075,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   grammar with synthetic positive/negative cases, freeze a new version, and use new
   untouched identities. Poetry declaration coverage and candidate-policy command
   coverage remain separate hypotheses rather than bundled fixes.
+- Runtime-diagnostic admission v10 is now implemented at source revision `fe1eaa3`
+  and bound by algorithm freeze v10 plus Harness v24. The production change adds
+  one exact, subject-first Python mismatch grammar and applies the same PEP 440
+  semantic gate to both accepted grammars: the version and range must parse, and
+  the observed version must fall outside the range. Compatible, malformed,
+  incomplete, and hedged near-misses create no typed constraints. Synthetic tests
+  prove the mismatch-to-hard-conflict transition and the resulting
+  `runtime_configure` obligation before the next proposal. Focused tests pass
+  `32 passed`; the full suite passes `369 passed, 1 skipped`; Harness v24 verifies
+  `valid=true`. This is a synthetic mechanism repair, not development qualification
+  or evidence of improved deployment success. Q8 remains closed and is not rerun.
+  The next admissible experiment is an outcome-blind Q9 preregistration followed by
+  metadata-only selection from the 156 untouched development identities.

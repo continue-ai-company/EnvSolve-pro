@@ -791,3 +791,12 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   主要缺陷是通用 package-manager runtime diagnostic 仍停留在普通文本，没有进入 typed state。Q9
   必须先用合成正/负例修复这项窄 admission grammar，冻结新版本，再使用新的 untouched identity。
   Poetry declaration coverage 与 candidate-policy command coverage 保持为独立假设，不捆绑修复。
+- Runtime-diagnostic admission v10 已在 source revision `fe1eaa3` 实现，并由 algorithm freeze v10
+  与 Harness v24 绑定。生产代码只增加一种精确的 subject-first Python mismatch 语法，并对两种
+  可接纳语法使用相同的 PEP 440 语义门：version 与 range 必须可解析，且 observed version 必须
+  确实落在 range 之外。范围兼容、格式错误、信息不完整或带模糊措辞的近似文本都不创建 typed
+  constraint。合成测试已经证明 mismatch 到 hard conflict 的状态转移，以及下一次 proposal 前
+  生成 `runtime_configure` obligation。聚焦测试为 `32 passed`，全量为 `369 passed, 1 skipped`，
+  Harness v24 验证 `valid=true`。这只是合成机制修复，不是 development qualification，也不是部署
+  成功率提升证据。Q8 保持关闭且不得重跑。下一项合规实验是先预注册 outcome-blind Q9，再从剩余
+  156 个 untouched development identity 中仅依据 metadata 盲选。
