@@ -22,10 +22,10 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v25"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v25.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v24"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v24.json")
+FREEZE_ID = "envsolve-harness-v26"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v26.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v25"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v25.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
@@ -110,7 +110,7 @@ DEVELOPMENT_DISCLOSURE = {
         "dev-5",
         "dev-extension-3",
         "dev-v3-qualification-5",
-        "dev-operation-qualification-q1-q9",
+        "dev-operation-qualification-q1-q10",
     ],
     "untouched_confirmatory_splits": ["canary-20", "official-test-100"],
     "case_specific_rules": False,
@@ -274,9 +274,9 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
             "reason": (
-                "After Q9 exposed phase-agnostic infrastructure classification, "
-                "freeze phase-aware verifier outcomes and fail-closed Docker image "
-                "identity before any new development case."
+                "After Q10 exposed candidate, environment, and command budget "
+                "coupling, freeze independent primitive limits before the "
+                "consumed-case budget calibration."
             ),
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,

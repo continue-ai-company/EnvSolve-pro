@@ -1,0 +1,86 @@
+{
+  "freeze_id": "p6-constraint-operation-v12-independent-primitive-budgets",
+  "frozen_at": "2026-07-19T20:49:49Z",
+  "source_revision": "e0ddc2f90154d23cf9f96fa3233a708ab9136439",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v11.json",
+    "sha256": "fffc9c92577ddf037d9e972099336ad073f16a235161bc7b18bb686bc252fc94"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v26.json",
+    "sha256": "3f09bd469e5679a0db9efca5ad29d2db5beeba244c022ce6a422cf32786707a0"
+  },
+  "change_from_v11": [
+    "Represent model requests, candidate proposals, fresh environments, and verifier commands as independently configurable primitive limits.",
+    "Preserve legacy configuration semantics by defaulting environment and command limits to the candidate limit when omitted.",
+    "Do not change the solver policy, constraint state, operation planner, guard, verifier, or official evaluator."
+  ],
+  "files": {
+    "envsolve/tools/run_envsolve_episode.py": "4f3a1b0ced4a70327a64f0d261b7fa40e481a40292d41349d63387e26197a9b9",
+    "envsolve_harness/audit.py": "08a459a47566612f1d9d54b48075be51f651781bcaa2cc151c15ace4151d895b",
+    "envsolve_harness/core/config.py": "80d2394771279dd0924f7029a4f4a9c8c8b2b80ca8ef52f2ae621927e344ff14",
+    "envsolve_harness/core/models.py": "ba3ac6d3c1bd989d10f05cc85848f308c8d1cd21f2da835bb1385d0cea13c217",
+    "envsolve_harness/runners/envsolve_p6.py": "89a97be4f1ec4cc97563aebcf1c4ed7a36a55726bcf6fc81631335ea215bbf84",
+    "envsolve_harness/runners/registry.py": "3601d4603353c628bc394071c8dfb2295868fb05f80c89e316e27c3ae2c00d01",
+    "envsolve/tests/test_p6_operation_freeze.py": "21aa7cf4f1ae6c56af9d28535f38dee368712f0080de1d2245aec78bea179b88",
+    "tests/test_envsolve_runtime.py": "8b9de61e21d3030d27e5859ea82efa2a7fcc50e81bb5f36be01a370eaf9f85fd",
+    "tests/test_harness_core.py": "9fde554c70d75843a7584880a9d68d8447070151e375627920e3ecb5241e516d"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "primitive_budget_contract": {
+    "model_requests": "all attempted model API requests, including malformed output retries",
+    "candidates": "all parsed deployment candidate proposals, including candidate-validation and operation-guard rejects",
+    "environments": "fresh case-matched environment leases reserved only after candidate and guard acceptance",
+    "commands": "internal verifier executions reserved only after fresh environment provisioning",
+    "legacy_fallback": "when max_environments or max_commands is omitted, each equals max_candidates",
+    "comparison_rule": "all compared methods receive the same complete primitive-limit vector",
+    "cost_proxy": false,
+    "currency_budget_definition": false
+  },
+  "operation_contract": {
+    "inherited_from": "p6-constraint-operation-v11-phase-aware-verifier",
+    "changed": false
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_budget_and_runtime_tests": "62 passed",
+    "full_regression_before_freeze": "378 passed, 1 skipped, 1 expected stale-freeze failure",
+    "legacy_q10_audit": "valid=true",
+    "harness_v26_verification": "valid=true with immutable image ID and RepoDigest",
+    "full_regression_after_freeze": "379 passed, 1 skipped"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_q9_q10_cases_reusable_for_effectiveness": false,
+    "consumed_q10_budget_calibration_allowed": true,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "solver_semantics_changed": false,
+    "official_evaluator_feedback_used_online": false
+  }
+}
