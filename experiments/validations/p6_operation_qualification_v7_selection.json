@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v7_preregistration.json",
+  "preregistration_sha256": "f9b08d8d670d759e35c198dbe13d45e10e97ec95752a6922e9e9803aae33edad",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v7_161.jsonl",
+  "remaining_sha256": "53d8892dfc344f6188d0cc31d04a88601c670cafa90736772da2692fb05c8917",
+  "salt": "envsolve-p6-operation-qualification-v7-2026-07-19",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-librephotos__librephotos@0a9e63377333dc4947767fbac81055a07ccf5341",
+    "envbench-python-de7vid__klingon-assistant-data@2a8945f261748cde5e84363ac5145ac74b7c5e61",
+    "envbench-python-emdgroup__baybe@8afb0ff99655d34176fa7dc52ec488e3773103d3",
+    "envbench-python-democracyclub__everyelection@74e6fabf58668d8b96713d05f877b6e4f0353166",
+    "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v7_5.jsonl",
+  "selected_sha256": "44b7c95e26a64e3961953084f123af23c576f4bb73cea2beaeb4e77aec854382",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v6_166.jsonl",
+  "source_sha256": "acd46a8bfcd5d0494e6ca503228c750213afc09a44f4a28d532f8c0a16b17e98"
+}
