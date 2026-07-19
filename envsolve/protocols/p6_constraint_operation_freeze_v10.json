@@ -1,0 +1,134 @@
+{
+  "freeze_id": "p6-constraint-operation-v10-runtime-diagnostic-admission",
+  "frozen_at": "2026-07-19T15:55:07Z",
+  "source_revision": "fe1eaa35454927eab2490631a8a7d0314a9a7d43",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v9.json",
+    "sha256": "110e2e570870a934f6a44238cf306443d79c3cf2555045b15c6bdf0209310fa2"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v24.json",
+    "sha256": "aaee163fb0831190aaba30bc6a37b1bc4b83563862d3d003b84797185791ea72"
+  },
+  "change_from_v9": [
+    "Admit the exact subject-first diagnostic 'Current Python version (...) is not allowed by the project (...)' in addition to the existing package-first diagnostic.",
+    "Validate both the observed version and allowed range with PEP 440 and admit a hard conflict only when the observed version is outside that range.",
+    "Reject malformed, incomplete, hedged, or semantically compatible near-miss text without creating constraints."
+  ],
+  "files": {
+    "envsolve/constraints/engine.py": "1c66c9d694d7a21047498c42e58192607c1b5c1cfc91a3bd2a4b5cac1198fee4",
+    "envsolve/constraints/evidence.py": "d43778e66ea1ce5b0a79066fbed096b758ef69dede66a00ea33b88f0fdcb8deb",
+    "envsolve/constraints/models.py": "97844adf39e4664940933510dce9eb06fc97de93cfea03ae8ec6e3a178c53e69",
+    "envsolve/constraints/normalization.py": "86c2069d716d76e22b1d4b45356978b0ae123bc1f33429ac215d7a7615a49391",
+    "envsolve/operations/models.py": "cf5fb2b48178f9dcbe31d75cbcba765199d73430baf48507bef906fa7a3a5485",
+    "envsolve/operations/planner.py": "d6ddab1df3f67b87dac399d40ead99444507ac8c9d411ba7b2461d864d13be53",
+    "envsolve/runtime/__init__.py": "2ecf4258cd60f90f53daf9783c7c455cdff2736a9dbde77b04ebfbe9bbb1d657",
+    "envsolve/runtime/declarations.py": "37653da36d593629db617a54553beeea3ca74b901652aa468b936b0be0c45176",
+    "envsolve/runtime/docker.py": "8fa778d50a2a05b3fce7d5df599bbb1cbfc3344dd0a18f94130984aa4d28cf61",
+    "envsolve/runtime/import_probe.py": "97862b09c7d560a1f9fe342543b6d75a9e67161ead10c4cf8b280701f6f1d092",
+    "envsolve/runtime/policy.py": "a0379412a3f50190523c5e5daf4ff242971a704920f9e864a54b4646c3157c25",
+    "envsolve/runtime/verifier.py": "e41b74a69dcafc12a07ac157eba136f6324d267a2bc08489af3dc7ff41f5db6c",
+    "envsolve/solver/counterexample.py": "e72a1c1872245efede2e57a0559bc72053ba7b8bf2d79b1c62d47cd66f28d676",
+    "envsolve/solver/session.py": "57e0315162752aa0c41e5ecfd49ff5d9bab12c1822c4d9dd2bb2655dc5a3f6d8",
+    "envsolve/tests/test_constraints.py": "4b97c32b948125129fcebc0b156515f95a6940db7bb92e4dff961ea12eafd4f4",
+    "envsolve/tests/test_operations.py": "c3b49be993d0d6d42513f14a1ab2c0de78439ac3135e4750dd3fbce4639dc633",
+    "envsolve/tests/test_p6_operation_freeze.py": "3679d162daa518f53c971db6f663b2d6a57fd25a19d166dbe99f735f0e04d3f9",
+    "envsolve/tests/test_repository_declarations.py": "51a6746fa19ee66fc4a5cf5a9a7feb2360af079509328c214cf48d9ccf90dcb3",
+    "envsolve/tools/run_envsolve_episode.py": "7cdde437afeba976e621353248208cf577740de56ea32d481f27091d73ffac22",
+    "envsolve_harness/runners/envsolve.py": "7fdc79bfe74c1c5f12e9e085c400dff76d6aa0fe587f61c1fd2d4d81060fc90c",
+    "envsolve_harness/scripts/candidate_validation.py": "af47c735dd1454cfd291bfde1dd711f3ff0c49b88dc189deb3396c4deedfba37",
+    "envsolve_harness/scripts/constraint_operations.py": "be86d54a570a32b6af32ad76e12cf032304d9ebc1c83bd1aa7ef30e37888aa21",
+    "envsolve_harness/scripts/replay_actions.py": "2452354040321d1b816467abc734d8b1fd6c760ba78410ba0ef0f0392d3c2e8e",
+    "tests/test_constraint_operation_loop.py": "b59fa2878fe7a171a7b5e8a0a889dcb773d437fc3da79ec2245a787394e7df26",
+    "tests/test_envsolve_docker_integration.py": "e515f714e119fd490ac88ec07d4c066ddf5bdebbf36558034da1715bc2516602",
+    "tests/test_envsolve_runner.py": "7b4abe1d9e39e1ec3a36fe86ea897c79dca29fd915a5a9d5d1baf46cc2484022",
+    "tests/test_envsolve_runtime.py": "117bf74af249babf3cae239f1063cc89aec037c2a3e8c23fb67093a36ebb677d"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "runtime_admission_contract": {
+    "accepted_declarations": [
+      "PEP 621 project.requires-python",
+      "setup.cfg options.python_requires"
+    ],
+    "required_fact": "fresh runtime-observation whose source and value bind the same inspected image digest",
+    "observation_container": {
+      "network": "none",
+      "filesystem": "read-only",
+      "repository_mounted": false,
+      "image_execution": "inspected digest rather than mutable tag"
+    },
+    "candidate_image_identity": "must equal the observed digest",
+    "source_execution": false
+  },
+  "state_transition_contract": {
+    "deterministic_python_mismatch_confidence": 1.0,
+    "accepted_python_mismatch_grammars": [
+      "requires a different Python: <version> not in '<specifier>'",
+      "Current Python version (<version>) is not allowed by the project (<specifier>)"
+    ],
+    "python_mismatch_semantic_gate": "PEP 440 version and specifier must parse, and the observed version must not satisfy the specifier",
+    "python_mismatch_near_miss_policy": "reject without typed constraints",
+    "other_unconfirmed_action_result_confidence_max": 0.5,
+    "action_result_ingested_only_after_internal_candidate_failure": true,
+    "facts_scoped_to_candidate_environment": true,
+    "old_fact_superseded_only_by_same_variable_observation": true
+  },
+  "operation_contract": {
+    "triggers": [
+      "conflict",
+      "unresolved_requirement",
+      "preserve_satisfaction"
+    ],
+    "coverage": "the complete candidate contains a permitted operation for every current obligation",
+    "fresh_replay_preservation": "candidate-scoped satisfaction remains an operation obligation in the next fresh environment",
+    "novelty": "recorded for analysis but not required for already covered obligations",
+    "failed_prefix_rule": "reject an unchanged command prefix through an exactly observed failed candidate action",
+    "internal_check_fallback": "reject only an exact repeated candidate when no failed candidate action was localized"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "branch": "codex/envbench-evaluator-fixes",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_runtime_diagnostic_and_operation_tests": "32 passed",
+    "full_regression_before_freeze": "368 passed, 1 skipped, 1 expected stale-freeze failure",
+    "full_regression_after_freeze": "369 passed, 1 skipped",
+    "real_docker_integration": "not rerun; no execution-boundary change from v9",
+    "syntax_compile": "passed with PYTHONPYCACHEPREFIX under /tmp",
+    "harness_v24_verification": "valid=true"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_cases_reusable": false,
+    "q9_cases_selected": false,
+    "untouched_development_pool_size": 156,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "new_generic_diagnostic_grammar": true,
+    "q8_used_only_for_generic_defect_localization": true,
+    "official_evaluator_feedback_used_online": false
+  }
+}
