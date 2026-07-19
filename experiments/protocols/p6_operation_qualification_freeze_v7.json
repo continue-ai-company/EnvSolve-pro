@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "p6-operation-qualification-v7",
+  "created_after_outcome_blind_selection": true,
+  "git_chain": {
+    "algorithm_freeze_commit": "15e426156ca3660ef653edbeee2d1c48b8e21942",
+    "preregistration_commit": "1dae924f5c7e97762b933b8f43f99da758dcb5a8",
+    "selection_commit": "7de73cddca74d3f48a1e8ea85689910f9a9e9dc6"
+  },
+  "files": {
+    "envsolve/protocols/p6_constraint_operation_freeze_v8.json": "e92f4b8f5df1bf6a1f2015ee0dd2642decf4169c773b5ba28990546094caf2f4",
+    "experiments/protocols/harness_freeze_v22.json": "ecc5bb2b140b334d2ee831c66dbc4116166e37a98b8083fc4cecae2acb4dd035",
+    "experiments/cases/dev_operation_qualification_v7_5.jsonl": "44b7c95e26a64e3961953084f123af23c576f4bb73cea2beaeb4e77aec854382",
+    "experiments/cases/train_untouched_after_operation_qualification_v6_166.jsonl": "acd46a8bfcd5d0494e6ca503228c750213afc09a44f4a28d532f8c0a16b17e98",
+    "experiments/cases/train_untouched_after_operation_qualification_v7_161.jsonl": "53d8892dfc344f6188d0cc31d04a88601c670cafa90736772da2692fb05c8917",
+    "experiments/configs/local_mac_p6_operation.json": "f7af4f4b394b1a79a1a7312e4d9b93b5cf18a33d692fc02325f0b678fe624b9f",
+    "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "experiments/run_case.py": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b",
+    "experiments/run_schedule.py": "edf5fe17328b3313beeba85869801723f16f2114334811263253200975e563f4",
+    "experiments/validations/p6_operation_qualification_v7_preregistration.json": "f9b08d8d670d759e35c198dbe13d45e10e97ec95752a6922e9e9803aae33edad",
+    "experiments/validations/p6_operation_qualification_v7_schedule.json": "bd1ad3b01a86218428d68db255d20ffcfac2683555e0702585a217cda6e7d229",
+    "experiments/validations/p6_operation_qualification_v7_selection.json": "f76a96de795f7358c47bf196b455718d464c409535d1413cda5a94d601cf296b",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V7.md": "4bcec19240266dd3f32e85399a7c7f20bcd1e1479c52ba2a94af323de765ab5c",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V7_ZH.md": "60fb357ed39f636e19403f0776fb7ef369ff0742505787fb08bead951b6ca382"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false,
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+  },
+  "schedule": {
+    "pairs": 5,
+    "episodes": 10,
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0
+  },
+  "treatment_boundary": {
+    "shared_repository_observer": true,
+    "ablation_initial_constraint_admission": false,
+    "ablation_operation_plan_visible": false,
+    "ablation_operation_guard": false,
+    "full_initial_constraint_admission": true,
+    "full_operation_plan_visible": true,
+    "full_operation_guard": true,
+    "official_evaluator_feedback_online": false
+  },
+  "integrity": {
+    "selection_metadata_only": true,
+    "repository_inspections_after_selection": 0,
+    "model_requests_after_selection": 0,
+    "official_evaluator_executions_after_selection": 0,
+    "solver_or_protocol_mutations_after_selection": 0,
+    "q1_through_q6_case_reuse": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  },
+  "scientific_budget": {
+    "matching_basis": "primitive resource limits",
+    "usd_is_matching_variable": false,
+    "usd_is_scientific_outcome": false
+  },
+  "preflight": {
+    "algorithm_and_selection_tests": "4 passed",
+    "harness_freeze_verification": "valid",
+    "case_pool_conservation": "166 = 5 selected + 161 untouched; selected and remaining are disjoint",
+    "schedule_pairing": "5 complete pairs and 10 unique positions"
+  },
+  "claim_scope": "development mechanism qualification only"
+}
