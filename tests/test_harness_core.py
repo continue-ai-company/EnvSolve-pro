@@ -117,6 +117,9 @@ class CoreIoTest(unittest.TestCase):
                             "model_max_retries": 0,
                             "model_max_output_tokens": 1234,
                             "max_iterations": 7,
+                            "envsolve_max_candidates": 9,
+                            "envsolve_max_environments": 4,
+                            "envsolve_max_commands": 3,
                             "bash_timeout": 13,
                         },
                         "evaluation": {
@@ -131,9 +134,36 @@ class CoreIoTest(unittest.TestCase):
             )
             config = load_harness_config(config_path, workspace)
             self.assertEqual(config.resource_budget()["agent_max_iterations"], 7)
+            self.assertEqual(config.resource_budget()["envsolve_max_candidates"], 9)
+            self.assertEqual(config.resource_budget()["envsolve_max_environments"], 4)
+            self.assertEqual(config.resource_budget()["envsolve_max_commands"], 3)
             self.assertEqual(config.resource_budget()["git_fetch_timeout_seconds"], 29)
             with self.assertRaises(ValueError):
                 make_config(workspace, model_request_timeout=0)
+
+    def test_legacy_candidate_budget_remains_the_execution_budget_default(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            config_path = workspace / "config.json"
+            config_path.write_text(
+                json.dumps(
+                    {
+                        "paths": {"runs": "runs"},
+                        "generation": {"envsolve_max_candidates": 7},
+                        "evaluation": {
+                            "create_container_timeout": 17,
+                            "container_timeout": 19,
+                            "max_workers": 1,
+                        },
+                    }
+                )
+            )
+
+            config = load_harness_config(config_path, workspace)
+
+            self.assertEqual(config.envsolve_max_candidates, 7)
+            self.assertEqual(config.envsolve_max_environments, 7)
+            self.assertEqual(config.envsolve_max_commands, 7)
 
     def test_case_round_trip(self) -> None:
         case = Case(

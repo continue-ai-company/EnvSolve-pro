@@ -1045,6 +1045,9 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 },
                 solver_roots={"envbench-agent": root / "EnvBench"},
                 model_pricing={"test/model": ModelPricing("test/model", 1, 2)},
+                envsolve_max_candidates=8,
+                envsolve_max_environments=4,
+                envsolve_max_commands=3,
             )
             protocol = ExperimentProtocol(
                 "test", "1", "synthetic", "python", (SuccessCriteria("x", "eq", 1),), ()
@@ -1063,6 +1066,9 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 runner.source_cache_root,
                 config.runs_root / "_source_cache/envbench-python",
             )
+            self.assertEqual(runner.max_candidates, 8)
+            self.assertEqual(runner.max_environments, 4)
+            self.assertEqual(runner.max_commands, 3)
 
     def test_runner_classifies_repository_download_timeout_as_infrastructure(self) -> None:
         log = (

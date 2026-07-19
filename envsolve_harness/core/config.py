@@ -32,6 +32,7 @@ def load_harness_config(path: Path, workspace_root: Path) -> HarnessConfig:
     }
     generation = value.get("generation", {})
     evaluation = value["evaluation"]
+    envsolve_max_candidates = int(generation.get("envsolve_max_candidates", 5))
     return HarnessConfig(
         workspace_root=workspace_root,
         runs_root=_resolve(workspace_root, value["paths"]["runs"]).resolve(),
@@ -51,7 +52,13 @@ def load_harness_config(path: Path, workspace_root: Path) -> HarnessConfig:
             generation.get("model_max_estimated_cost_usd", 5.0)
         ),
         agent_max_iterations=int(generation.get("max_iterations", 30)),
-        envsolve_max_candidates=int(generation.get("envsolve_max_candidates", 5)),
+        envsolve_max_candidates=envsolve_max_candidates,
+        envsolve_max_environments=int(
+            generation.get("envsolve_max_environments", envsolve_max_candidates)
+        ),
+        envsolve_max_commands=int(
+            generation.get("envsolve_max_commands", envsolve_max_candidates)
+        ),
         bash_timeout=int(generation.get("bash_timeout", 900)),
         evaluation_process_timeout=int(evaluation.get("process_timeout", 1800)),
         git_fetch_timeout=int(evaluation.get("git_fetch_timeout", 300)),

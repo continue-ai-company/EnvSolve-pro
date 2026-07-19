@@ -32,6 +32,8 @@ class EnvSolveP6Runner:
         pricing: ModelPricing | None,
         timeout: int,
         max_candidates: int,
+        max_environments: int,
+        max_commands: int,
         command_timeout: int,
         container_create_timeout: int,
         model_request_timeout: int,
@@ -48,6 +50,8 @@ class EnvSolveP6Runner:
         self.pricing = pricing
         self.timeout = timeout
         self.max_candidates = max_candidates
+        self.max_environments = max_environments
+        self.max_commands = max_commands
         self.command_timeout = command_timeout
         self.container_create_timeout = container_create_timeout
         self.model_request_timeout = model_request_timeout
@@ -117,6 +121,8 @@ class EnvSolveP6Runner:
             "audit_requirements": {"online_budget": True},
             "official_evaluator_access": "post-episode-only",
             "max_candidates": self.max_candidates,
+            "max_environments": self.max_environments,
+            "max_commands": self.max_commands,
             "started_at": self._now(),
             "obligation_profile": obligation_profile,
             "operation_profile": operation_profile,
@@ -161,6 +167,8 @@ class EnvSolveP6Runner:
             "--worktrees", str(artifacts.generation_dir / "worktrees"),
             "--ledger", str(artifacts.budget_ledger),
             "--max-candidates", str(self.max_candidates),
+            "--max-environments", str(self.max_environments),
+            "--max-commands", str(self.max_commands),
             "--wall-clock-timeout", str(self.timeout),
             "--container-create-timeout", str(self.container_create_timeout),
             "--command-timeout", str(self.command_timeout),

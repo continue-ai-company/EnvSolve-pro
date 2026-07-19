@@ -162,6 +162,8 @@ def _load_builtin_runners() -> None:
             pricing=pricing,
             timeout=config.generation_timeout,
             max_candidates=config.envsolve_max_candidates,
+            max_environments=config.envsolve_max_environments,
+            max_commands=config.envsolve_max_commands,
             command_timeout=config.bash_timeout,
             container_create_timeout=config.create_container_timeout,
             model_request_timeout=config.model_request_timeout,

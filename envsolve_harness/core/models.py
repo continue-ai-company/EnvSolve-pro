@@ -76,6 +76,8 @@ class HarnessConfig:
     model_max_estimated_cost_usd: float = 5.0
     agent_max_iterations: int = 30
     envsolve_max_candidates: int = 5
+    envsolve_max_environments: int = 5
+    envsolve_max_commands: int = 5
     bash_timeout: int = 900
     evaluation_process_timeout: int = 1800
     git_fetch_timeout: int = 300
@@ -110,6 +112,8 @@ class HarnessConfig:
             "model_max_total_tokens": self.model_max_total_tokens,
             "agent_max_iterations": self.agent_max_iterations,
             "envsolve_max_candidates": self.envsolve_max_candidates,
+            "envsolve_max_environments": self.envsolve_max_environments,
+            "envsolve_max_commands": self.envsolve_max_commands,
             "bash_timeout": self.bash_timeout,
             "evaluation_process_timeout": self.evaluation_process_timeout,
             "git_fetch_timeout": self.git_fetch_timeout,
@@ -133,6 +137,8 @@ class HarnessConfig:
             "model_max_estimated_cost_usd": self.model_max_estimated_cost_usd,
             "agent_max_iterations": self.agent_max_iterations,
             "envsolve_max_candidates": self.envsolve_max_candidates,
+            "envsolve_max_environments": self.envsolve_max_environments,
+            "envsolve_max_commands": self.envsolve_max_commands,
             "bash_command_timeout_seconds": self.bash_timeout,
             "evaluation_process_timeout_seconds": self.evaluation_process_timeout,
             "container_create_timeout_seconds": self.create_container_timeout,

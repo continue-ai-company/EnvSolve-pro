@@ -45,6 +45,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--worktrees", type=Path, required=True)
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--max-candidates", type=int, required=True)
+    parser.add_argument("--max-environments", type=int)
+    parser.add_argument("--max-commands", type=int)
     parser.add_argument("--wall-clock-timeout", type=int, required=True)
     parser.add_argument("--container-create-timeout", type=int, required=True)
     parser.add_argument("--command-timeout", type=int, required=True)
@@ -75,6 +77,14 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    max_environments = (
+        args.max_environments
+        if args.max_environments is not None
+        else args.max_candidates
+    )
+    max_commands = (
+        args.max_commands if args.max_commands is not None else args.max_candidates
+    )
     args.source_cache.mkdir(parents=True, exist_ok=True)
     downloader = RepoDownloader(
         hf_name="JetBrains-Research/EnvBench",
@@ -106,8 +116,8 @@ def main() -> int:
     )
     common_limits = {
         "budget_max_candidates": args.max_candidates,
-        "budget_max_environments": args.max_candidates,
-        "budget_max_commands": args.max_candidates,
+        "budget_max_environments": max_environments,
+        "budget_max_commands": max_commands,
         "budget_max_wall_clock_seconds": args.wall_clock_timeout,
     }
     model_kwargs = {
@@ -137,8 +147,8 @@ def main() -> int:
         args.max_total_tokens,
         args.max_cost_usd,
         max_candidates=args.max_candidates,
-        max_environments=args.max_candidates,
-        max_commands=args.max_candidates,
+        max_environments=max_environments,
+        max_commands=max_commands,
         max_wall_clock_seconds=args.wall_clock_timeout,
     )
     pricing = TokenPricing(

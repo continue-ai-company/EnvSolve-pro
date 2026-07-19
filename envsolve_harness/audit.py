@@ -180,8 +180,14 @@ def audit_run(run_root: Path) -> AuditReport:
                 }
                 optional_limits = {
                     "max_candidates": manifest_budget.get("envsolve_max_candidates"),
-                    "max_environments": manifest_budget.get("envsolve_max_candidates"),
-                    "max_commands": manifest_budget.get("envsolve_max_candidates"),
+                    "max_environments": manifest_budget.get(
+                        "envsolve_max_environments",
+                        manifest_budget.get("envsolve_max_candidates"),
+                    ),
+                    "max_commands": manifest_budget.get(
+                        "envsolve_max_commands",
+                        manifest_budget.get("envsolve_max_candidates"),
+                    ),
                     "max_wall_clock_seconds": manifest_budget.get(
                         "generation_wall_clock_seconds"
                     ),
