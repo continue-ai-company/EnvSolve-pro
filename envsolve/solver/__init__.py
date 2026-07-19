@@ -14,6 +14,7 @@ from envsolve.solver.counterexample import (
     FeedbackChannel,
     FreshEnvironmentProvider,
     HypothesisEvidence,
+    ObservationEvidence,
     ProvisionedEnvironment,
     RecoverablePolicyError,
 )
@@ -52,6 +53,7 @@ __all__ = [
     "HypothesisEvidence",
     "ImmutableArtifact",
     "ImmutableArtifactStore",
+    "ObservationEvidence",
     "ProvisionedEnvironment",
     "RecoverablePolicyError",
     "SolverLoopResult",

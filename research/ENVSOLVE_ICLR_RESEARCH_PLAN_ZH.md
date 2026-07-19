@@ -150,6 +150,8 @@ failure 保留为 hypothesis；格式错误、过期证据、复用环境和 for
 supersede 环境范围内的事实，但 fresh execution 只提供部分观测：后续 verifier 没有报告某变量，
 不等于该变量已经满足。只有相同 `(domain, subject, predicate)` 获得新 fact 时，旧 fact 才退休；
 hypothesis-only 或无关观测必须保留未解决 obligation。底层 event 始终不可变。
+一份完整 verifier report 可以同时包含已修复变量的正观测和仍被违反变量的反例；不完整或 Unknown
+报告中的观测不进入 hard state。
 
 ### 3.5 反例驱动修复
 

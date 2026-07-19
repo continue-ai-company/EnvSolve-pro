@@ -12,12 +12,14 @@ from envsolve.solver import (
     ExecutableVerification,
     FeedbackChannel,
     HypothesisEvidence,
+    ObservationEvidence,
 )
 
 
 class FindingDisposition(str, Enum):
     ACTIVE = "active"
     INACTIVE = "inactive"
+    SATISFIED = "satisfied"
     UNKNOWN = "unknown"
 
 
@@ -43,8 +45,11 @@ class StructuredVerifierFinding:
             raise ValueError("Structured finding predicate must be typed")
         if not isinstance(self.disposition, FindingDisposition):
             raise ValueError("Structured finding disposition must be typed")
-        if self.disposition is FindingDisposition.ACTIVE and self.observed is None:
-            raise ValueError("Active verifier findings require an observed value")
+        if self.disposition in {
+            FindingDisposition.ACTIVE,
+            FindingDisposition.SATISFIED,
+        } and self.observed is None:
+            raise ValueError("Active and satisfied findings require an observed value")
         if not isinstance(self.provenance, dict):
             raise ValueError("Structured finding provenance must be an object")
         try:
@@ -177,6 +182,19 @@ class StructuredFindingAdapter:
             )
         return tuple(evidence)
 
+    def _observations(
+        self, findings: tuple[StructuredVerifierFinding, ...]
+    ) -> tuple[ObservationEvidence, ...]:
+        return tuple(
+            ObservationEvidence(
+                self._evidence_kind(finding.domain, "observation"),
+                self._evidence_value(finding, finding.observed, "observation"),
+            )
+            for finding in findings
+            if finding.disposition is FindingDisposition.SATISFIED
+            and finding.observed is not None
+        )
+
     @staticmethod
     def _hypotheses(
         findings: tuple[StructuredVerifierFinding, ...]
@@ -212,9 +230,15 @@ class StructuredFindingAdapter:
         inactive_count = sum(
             item.disposition is FindingDisposition.INACTIVE for item in report.findings
         )
+        satisfied = tuple(
+            item
+            for item in report.findings
+            if item.disposition is FindingDisposition.SATISFIED
+        )
         summary = (
             f"structured verifier: goal={report.goal_passed}, active={len(active)}, "
-            f"unknown={len(unknown)}, inactive={inactive_count}, "
+            f"satisfied={len(satisfied)}, unknown={len(unknown)}, "
+            f"inactive={inactive_count}, "
             f"bootstrap={report.bootstrap.exit_code}"
         )
         infrastructure_unknown = (
@@ -224,9 +248,11 @@ class StructuredFindingAdapter:
         )
         if infrastructure_unknown or (report.goal_passed is True and unknown):
             passed: bool | None = None
+            observations: tuple[ObservationEvidence, ...] = ()
             counterexamples: tuple[CounterexampleEvidence, ...] = ()
         else:
             passed = report.goal_passed
+            observations = self._observations(satisfied)
             counterexamples = self._counterexamples(active)
         return ExecutableVerification(
             verifier=report.verifier,
@@ -235,6 +261,7 @@ class StructuredFindingAdapter:
             passed=passed,
             bootstrap=report.bootstrap,
             summary=summary,
+            observations=observations,
             counterexamples=counterexamples,
             hypotheses=self._hypotheses(unknown),
             details={

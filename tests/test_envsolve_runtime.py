@@ -735,6 +735,9 @@ class EnvSolveRuntimeTest(unittest.TestCase):
 
             self.assertFalse(result.passed)
             self.assertEqual(len(result.counterexamples), 10)
+            self.assertEqual(len(result.observations), 1)
+            self.assertEqual(result.observations[0].value["name"], "modern_dependency")
+            self.assertTrue(result.observations[0].value["present"])
             self.assertTrue(
                 all(
                     item.kind in {"module-requirement", "module-observation"}
@@ -742,7 +745,10 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 )
             )
             dispositions = result.details["finding_dispositions"]
-            self.assertEqual(sorted(dispositions.values()), ["active"] * 5)
+            self.assertEqual(
+                sorted(dispositions.values()),
+                ["active"] * 5 + ["satisfied"],
+            )
             self.assertFalse(result.hypotheses)
 
     def test_registered_runner_constructs_without_envbench_coupling(self) -> None:

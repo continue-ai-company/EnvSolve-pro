@@ -51,6 +51,27 @@ class CounterexampleEvidence:
             raise ValueError("Counterexample evidence must be JSON serializable") from exc
 
 
+@dataclass(frozen=True)
+class ObservationEvidence:
+    kind: str
+    value: Any
+    confidence: float = 1.0
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.kind, str) or not self.kind.strip():
+            raise ValueError("Observation evidence kind cannot be empty")
+        if (
+            isinstance(self.confidence, bool)
+            or not isinstance(self.confidence, (int, float))
+            or not 0 <= self.confidence <= 1
+        ):
+            raise ValueError("Observation confidence must be in [0, 1]")
+        try:
+            json.dumps(self.value, ensure_ascii=True)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("Observation evidence must be JSON serializable") from exc
+
+
 class FeedbackChannel(str, Enum):
     INTERNAL_EXECUTION = "internal_execution"
     POST_EPISODE_EVALUATION = "post_episode_evaluation"
@@ -204,6 +225,7 @@ class ExecutableVerification:
     counterexamples: tuple[CounterexampleEvidence, ...] = ()
     hypotheses: tuple[HypothesisEvidence, ...] = ()
     details: dict[str, Any] = field(default_factory=dict)
+    observations: tuple[ObservationEvidence, ...] = ()
 
     def __post_init__(self) -> None:
         if not isinstance(self.verifier, str) or not self.verifier.strip():
@@ -218,6 +240,10 @@ class ExecutableVerification:
             raise ValueError("Executable verification bootstrap must be a CommandResult")
         if not isinstance(self.summary, str) or not self.summary.strip():
             raise ValueError("Executable verification summary cannot be empty")
+        if not isinstance(self.observations, tuple) or not all(
+            isinstance(item, ObservationEvidence) for item in self.observations
+        ):
+            raise ValueError("Executable verifier observations must be typed evidence")
         if not isinstance(self.counterexamples, tuple) or not all(
             isinstance(item, CounterexampleEvidence) for item in self.counterexamples
         ):
@@ -386,6 +412,7 @@ class CounterexampleGuidedDeploymentLoop:
                 "reported_passed": outcome.passed,
                 "bootstrap_exit_code": outcome.bootstrap.exit_code,
                 "summary": outcome.summary,
+                "observation_count": len(outcome.observations),
                 "counterexample_count": len(outcome.counterexamples),
             },
             verification_id=f"verification-{candidate.candidate_id}",
@@ -420,6 +447,38 @@ class CounterexampleGuidedDeploymentLoop:
                 hypothesis.confidence,
                 (evidence_id,),
             )
+
+    def _ingest_verifier_evidence(
+        self,
+        candidate: DeploymentCandidate,
+        environment: ProvisionedEnvironment,
+        outcome: ExecutableVerification,
+        evidence: tuple[ObservationEvidence | CounterexampleEvidence, ...],
+        *,
+        identifier_prefix: str,
+    ) -> tuple[str, ...]:
+        normalized_ids: list[str] = []
+        for index, item in enumerate(evidence, start=1):
+            evidence_id = self.session.record_evidence(
+                kind=item.kind,
+                source=f"executable-verifier:{outcome.verifier}",
+                value=item.value,
+                confidence=item.confidence,
+                evidence_id=(
+                    f"{identifier_prefix}-{candidate.candidate_id}-{index:04d}"
+                ),
+                candidate_id=candidate.candidate_id,
+                parent_candidate_id=candidate.parent_candidate_id,
+                environment_id=environment.receipt.environment_id,
+            )
+            normalized_ids.extend(
+                self.constraint_engine.ingest_evidence(
+                    self.session,
+                    evidence_id,
+                    fact_scope=candidate.candidate_id,
+                )
+            )
+        return tuple(normalized_ids)
 
     def run(
         self,
@@ -851,7 +910,18 @@ class CounterexampleGuidedDeploymentLoop:
                         constraints_updated,
                         action_id=decision.candidate_id,
                     )
-                self.constraint_engine.supersede_active_facts(self.session)
+                prior_fact_ids = self.constraint_engine.fact_constraint_ids(
+                    self.session.reconstruct()
+                )
+                observation_ids = self._ingest_verifier_evidence(
+                    decision,
+                    environment,
+                    outcome,
+                    outcome.observations,
+                    identifier_prefix="observation",
+                )
+                self.constraint_engine.supersede_facts(self.session, prior_fact_ids)
+                constraints_updated += len(set(observation_ids))
                 self.constraint_engine.propagate_constraints(self.session)
                 self._record_verification(decision, environment, outcome, True)
                 return self._finish(
@@ -873,31 +943,36 @@ class CounterexampleGuidedDeploymentLoop:
                 action_id=decision.candidate_id,
                 details=outcome.details,
             )
-            normalized_ids: list[str] = []
             prior_fact_ids = self.constraint_engine.fact_constraint_ids(
                 self.session.reconstruct()
             )
-            for index, counterexample in enumerate(outcome.counterexamples, start=1):
-                evidence_id = self.session.record_evidence(
-                    kind=counterexample.kind,
-                    source=f"executable-verifier:{outcome.verifier}",
-                    value=counterexample.value,
-                    confidence=counterexample.confidence,
-                    evidence_id=(
-                        f"counterexample-{decision.candidate_id}-{index:04d}"
-                    ),
-                    candidate_id=decision.candidate_id,
-                    parent_candidate_id=decision.parent_candidate_id,
-                    environment_id=receipt.environment_id,
+            observation_ids = self._ingest_verifier_evidence(
+                decision,
+                environment,
+                outcome,
+                outcome.observations,
+                identifier_prefix="observation",
+            )
+            counterexample_ids = self._ingest_verifier_evidence(
+                decision,
+                environment,
+                outcome,
+                outcome.counterexamples,
+                identifier_prefix="counterexample",
+            )
+            normalized_ids = (*observation_ids, *counterexample_ids)
+            if not counterexample_ids:
+                replacement_fact_ids = self.constraint_engine.fact_constraint_ids(
+                    self.session.reconstruct(),
+                    normalized_ids,
                 )
-                normalized_ids.extend(
-                    self.constraint_engine.ingest_evidence(
-                        self.session,
-                        evidence_id,
-                        fact_scope=decision.candidate_id,
-                    )
+                self.constraint_engine.supersede_replaced_facts(
+                    self.session,
+                    prior_fact_ids,
+                    replacement_fact_ids,
                 )
-            if not normalized_ids:
+                constraints_updated += len(set(normalized_ids))
+                self.constraint_engine.propagate_constraints(self.session)
                 if outcome.hypotheses:
                     continue
                 return self._block(

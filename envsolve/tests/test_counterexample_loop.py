@@ -15,6 +15,7 @@ from envsolve.solver import (
     ExecutableVerification,
     FeedbackChannel,
     HypothesisEvidence,
+    ObservationEvidence,
     ProvisionedEnvironment,
     RecoverablePolicyError,
     SolverStateSession,
@@ -133,6 +134,7 @@ def outcome(
     passed: bool | None,
     *,
     exit_code: int = 0,
+    observations: tuple[ObservationEvidence, ...] = (),
     counterexamples: tuple[CounterexampleEvidence, ...] = (),
     stderr: str = "",
     channel: FeedbackChannel = FeedbackChannel.INTERNAL_EXECUTION,
@@ -145,6 +147,7 @@ def outcome(
         passed=passed,
         bootstrap=CommandResult(exit_code, stderr=stderr),
         summary=f"synthetic outcome {index}",
+        observations=observations,
         counterexamples=counterexamples,
         hypotheses=hypotheses,
     )
@@ -663,6 +666,75 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                 "violated",
                 {item["status"] for item in session.reconstruct().constraints.values()},
             )
+
+    def test_positive_observation_replaces_same_variable_from_prior_candidate(self) -> None:
+        first_failure = (
+            CounterexampleEvidence(
+                "module-requirement", {"name": "dependency_a", "present": True}
+            ),
+            CounterexampleEvidence(
+                "module-observation", {"name": "dependency_a", "present": False}
+            ),
+        )
+        second_failure = (
+            CounterexampleEvidence(
+                "module-requirement", {"name": "dependency_b", "present": True}
+            ),
+            CounterexampleEvidence(
+                "module-observation", {"name": "dependency_b", "present": False}
+            ),
+        )
+        resolved_a = (
+            ObservationEvidence(
+                "module-observation", {"name": "dependency_a", "present": True}
+            ),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            policy = RecordingPolicy([candidate(1), candidate(2), candidate(3)])
+            result = self.loop(session, 3).run(
+                policy,
+                QueueEnvironmentProvider(),
+                QueueVerifier(
+                    [
+                        outcome(1, False, counterexamples=first_failure),
+                        outcome(
+                            2,
+                            False,
+                            observations=resolved_a,
+                            counterexamples=second_failure,
+                        ),
+                        outcome(3, True),
+                    ]
+                ),
+            )
+
+            third_state = policy.observed_states[2]
+            active_facts = [
+                json.loads(item["expression"])
+                for item in third_state.constraints.values()
+                if item["status"] != "superseded"
+                and json.loads(item["expression"])["role"] == "fact"
+            ]
+            self.assertEqual(
+                {
+                    (item["subject"], item["value"], item["scope_id"])
+                    for item in active_facts
+                },
+                {
+                    ("dependency_a", True, "candidate-2"),
+                    ("dependency_b", False, "candidate-2"),
+                },
+            )
+            old_a = [
+                json.loads(item["expression"])
+                for item in third_state.constraints.values()
+                if item["status"] == "superseded"
+                and json.loads(item["expression"])["subject"] == "dependency_a"
+            ]
+            self.assertEqual(len(old_a), 1)
+            self.assertFalse(old_a[0]["value"])
+            self.assertEqual(result.goal_status, "satisfied")
 
     def test_grounded_hypothesis_can_rank_the_next_candidate_without_hard_rejection(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -205,7 +205,9 @@ evidence. Because each fresh execution is only a partial observation, absence fr
 a later verifier result is not evidence of satisfaction. An environment-scoped fact
 is superseded only by a later fact about the same domain, subject, and predicate;
 hypothesis-only and unrelated observations preserve unresolved obligations. The
-underlying event remains immutable.
+underlying event remains immutable. A complete verifier report may contain both
+positive observations for repaired variables and counterexamples for variables that
+remain violated; incomplete or Unknown reports admit neither as hard state.
 
 ### 3.5 Counterexample-guided repair
 

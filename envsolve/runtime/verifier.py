@@ -500,16 +500,53 @@ class PythonDeploymentVerifier:
             module: self._resolution_status(static.get(module))
             for module in inventory.modules
         }
-        findings = []
+        occurrence_counts = {module: 0 for module in inventory.modules}
+        occurrence_paths: dict[str, set[str]] = {
+            module: set() for module in inventory.modules
+        }
+        for occurrence in inventory.occurrences:
+            occurrence_counts[occurrence.module] += 1
+            occurrence_paths[occurrence.module].add(occurrence.path)
+        resolved_modules = {
+            module
+            for module in inventory.modules
+            if runtime_statuses[module] is ResolutionStatus.RESOLVED
+            and (
+                self.obligation_profile != "two-layer"
+                or static_statuses[module] is ResolutionStatus.RESOLVED
+            )
+        }
+        findings = [
+            StructuredVerifierFinding(
+                finding_id="resolved-import-"
+                + hashlib.sha256(module.encode()).hexdigest()[:20],
+                domain=ConstraintDomain.MODULE,
+                subject=module,
+                predicate=ConstraintPredicate.PRESENT,
+                required=True,
+                observed=True,
+                disposition=FindingDisposition.SATISFIED,
+                provenance={
+                    "occurrence_count": occurrence_counts[module],
+                    "paths": sorted(occurrence_paths[module])[:20],
+                    "runtime_observation": runtime.get(module),
+                    "static_observation": static.get(module),
+                    "environment_facts": environment_facts,
+                    "required_layers": (
+                        ["runtime_semantic", "static_source"]
+                        if self.obligation_profile == "two-layer"
+                        else ["runtime_semantic"]
+                    ),
+                },
+            )
+            for module in sorted(resolved_modules)
+        ]
         for occurrence in inventory.occurrences:
             runtime_observation = runtime.get(occurrence.module)
             static_observation = static.get(occurrence.module)
             runtime_status = runtime_statuses[occurrence.module]
             static_status = static_statuses[occurrence.module]
-            if (
-                runtime_status is ResolutionStatus.RESOLVED
-                and static_status is ResolutionStatus.RESOLVED
-            ):
+            if occurrence.module in resolved_modules:
                 continue
             runtime_value = (
                 runtime_observation if isinstance(runtime_observation, dict) else {}

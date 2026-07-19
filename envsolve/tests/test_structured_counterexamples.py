@@ -27,6 +27,7 @@ def finding(
     disposition: FindingDisposition,
     *,
     identifier: str = "finding-1",
+    observed: bool = False,
 ) -> StructuredVerifierFinding:
     return StructuredVerifierFinding(
         finding_id=identifier,
@@ -34,7 +35,7 @@ def finding(
         subject="example_dependency",
         predicate=ConstraintPredicate.PRESENT,
         required=True,
-        observed=False,
+        observed=observed,
         disposition=disposition,
         provenance={"collector": "synthetic"},
     )
@@ -90,6 +91,32 @@ class StructuredFindingAdapterTests(unittest.TestCase):
 
         self.assertTrue(outcome.passed)
         self.assertFalse(outcome.counterexamples)
+
+    def test_satisfied_finding_becomes_positive_observation_only(self) -> None:
+        outcome = self.adapter.adapt(
+            report(
+                finding(FindingDisposition.SATISFIED, observed=True),
+                goal_passed=True,
+            )
+        )
+
+        self.assertTrue(outcome.passed)
+        self.assertFalse(outcome.counterexamples)
+        self.assertEqual(len(outcome.observations), 1)
+        self.assertEqual(outcome.observations[0].kind, "module-observation")
+        self.assertTrue(outcome.observations[0].value["present"])
+
+    def test_unknown_report_does_not_admit_partial_positive_observations(self) -> None:
+        outcome = self.adapter.adapt(
+            report(
+                finding(FindingDisposition.SATISFIED, observed=True),
+                finding(FindingDisposition.UNKNOWN, identifier="finding-2"),
+                goal_passed=True,
+            )
+        )
+
+        self.assertIsNone(outcome.passed)
+        self.assertFalse(outcome.observations)
 
     def test_inactive_findings_do_not_override_a_goal_failure(self) -> None:
         outcome = self.adapter.adapt(

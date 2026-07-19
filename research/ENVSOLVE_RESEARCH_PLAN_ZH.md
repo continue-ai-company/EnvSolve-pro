@@ -711,3 +711,8 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   全量回归为 `347 passed, 1 skipped`，显式真实 Docker boundary 通过。Q6 保持 consumed、永不重跑。
   Q7 前必须定义保守的初始 observation-to-constraint admission，并把带补丁的 EnvBench evaluator
   固化为干净、可分享的 revision。
+- Fresh verification 的状态合约现在具有显式正观测通道。一份完整报告可以同时说明一个变量已经满足、
+  另一个变量仍被违反；只有 domain、subject、predicate 相同的新 fact 才会替换旧环境 fact。Unknown
+  或不完整报告不接纳任何正事实。跨 candidate 合成测试、全量回归（`351 passed, 1 skipped`）和
+  opt-in Docker fresh-environment integration 均通过。这只是 pre-action admission 的前置条件，
+  不是效果结果；本轮没有运行任何新 development case。

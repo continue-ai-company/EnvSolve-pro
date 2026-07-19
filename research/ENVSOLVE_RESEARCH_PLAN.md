@@ -958,3 +958,11 @@ development batch; it never triggers tuning on the same held-out outcomes.
   Q7, the algorithm must define conservative initial observation-to-constraint
   admission, and the patched EnvBench evaluator must be represented by a clean,
   shareable revision.
+- The fresh-verification state contract now has an explicit positive-observation
+  channel. A complete report may simultaneously state that one variable is
+  satisfied and another is violated; only a new fact with the same domain, subject,
+  and predicate supersedes the prior environment fact. Unknown or incomplete
+  reports admit no positive facts. Synthetic cross-candidate tests, full regression
+  (`351 passed, 1 skipped`), and the opt-in Docker fresh-environment integration
+  pass. This is a prerequisite for pre-action admission, not an effectiveness
+  result; no new development case has been run.
