@@ -1,0 +1,143 @@
+{
+  "freeze_id": "p6-constraint-operation-v11-phase-aware-verifier",
+  "frozen_at": "2026-07-19T16:33:53Z",
+  "source_revision": "c4028cfe9a53676ab31841f50b444c0d13c00667",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v10.json",
+    "sha256": "17fba7e28732dc4c5c3704115f7623fe5d5abfce9023f8a494454067ec588117"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v25.json",
+    "sha256": "5f99b13a523328afffac75feeccb14073b853c1c8ad949b6024390f08556af59"
+  },
+  "change_from_v10": [
+    "Use the existing failed-action marker to distinguish candidate-command failures from fixed internal verification failures.",
+    "Allow network signatures to produce infrastructure Unknown only outside a known internal-check failure phase.",
+    "Preserve candidate-command ConnectionError classification while treating same-token internal-check failures as candidate feedback."
+  ],
+  "files": {
+    "envsolve/constraints/engine.py": "1c66c9d694d7a21047498c42e58192607c1b5c1cfc91a3bd2a4b5cac1198fee4",
+    "envsolve/constraints/evidence.py": "d43778e66ea1ce5b0a79066fbed096b758ef69dede66a00ea33b88f0fdcb8deb",
+    "envsolve/constraints/models.py": "97844adf39e4664940933510dce9eb06fc97de93cfea03ae8ec6e3a178c53e69",
+    "envsolve/constraints/normalization.py": "86c2069d716d76e22b1d4b45356978b0ae123bc1f33429ac215d7a7615a49391",
+    "envsolve/operations/models.py": "cf5fb2b48178f9dcbe31d75cbcba765199d73430baf48507bef906fa7a3a5485",
+    "envsolve/operations/planner.py": "d6ddab1df3f67b87dac399d40ead99444507ac8c9d411ba7b2461d864d13be53",
+    "envsolve/runtime/__init__.py": "2ecf4258cd60f90f53daf9783c7c455cdff2736a9dbde77b04ebfbe9bbb1d657",
+    "envsolve/runtime/declarations.py": "37653da36d593629db617a54553beeea3ca74b901652aa468b936b0be0c45176",
+    "envsolve/runtime/docker.py": "8fa778d50a2a05b3fce7d5df599bbb1cbfc3344dd0a18f94130984aa4d28cf61",
+    "envsolve/runtime/import_probe.py": "97862b09c7d560a1f9fe342543b6d75a9e67161ead10c4cf8b280701f6f1d092",
+    "envsolve/runtime/policy.py": "a0379412a3f50190523c5e5daf4ff242971a704920f9e864a54b4646c3157c25",
+    "envsolve/runtime/verifier.py": "c875e8c7a060f1658472861e66c148c789718613f703842e3b7810aa3c4adaa1",
+    "envsolve/solver/counterexample.py": "e72a1c1872245efede2e57a0559bc72053ba7b8bf2d79b1c62d47cd66f28d676",
+    "envsolve/solver/session.py": "57e0315162752aa0c41e5ecfd49ff5d9bab12c1822c4d9dd2bb2655dc5a3f6d8",
+    "envsolve/tests/test_constraints.py": "4b97c32b948125129fcebc0b156515f95a6940db7bb92e4dff961ea12eafd4f4",
+    "envsolve/tests/test_operations.py": "c3b49be993d0d6d42513f14a1ab2c0de78439ac3135e4750dd3fbce4639dc633",
+    "envsolve/tests/test_p6_operation_freeze.py": "950076c3db2e9ccdac85dfe553d7b876d1a612b7be6ade791568524851990d08",
+    "envsolve/tests/test_repository_declarations.py": "51a6746fa19ee66fc4a5cf5a9a7feb2360af079509328c214cf48d9ccf90dcb3",
+    "envsolve/tools/run_envsolve_episode.py": "7cdde437afeba976e621353248208cf577740de56ea32d481f27091d73ffac22",
+    "envsolve_harness/runners/envsolve.py": "7fdc79bfe74c1c5f12e9e085c400dff76d6aa0fe587f61c1fd2d4d81060fc90c",
+    "envsolve_harness/scripts/candidate_validation.py": "af47c735dd1454cfd291bfde1dd711f3ff0c49b88dc189deb3396c4deedfba37",
+    "envsolve_harness/scripts/constraint_operations.py": "be86d54a570a32b6af32ad76e12cf032304d9ebc1c83bd1aa7ef30e37888aa21",
+    "envsolve_harness/scripts/replay_actions.py": "2452354040321d1b816467abc734d8b1fd6c760ba78410ba0ef0f0392d3c2e8e",
+    "tests/test_constraint_operation_loop.py": "b59fa2878fe7a171a7b5e8a0a889dcb773d437fc3da79ec2245a787394e7df26",
+    "tests/test_envsolve_docker_integration.py": "e515f714e119fd490ac88ec07d4c066ddf5bdebbf36558034da1715bc2516602",
+    "tests/test_envsolve_runner.py": "7b4abe1d9e39e1ec3a36fe86ea897c79dca29fd915a5a9d5d1baf46cc2484022",
+    "tests/test_envsolve_runtime.py": "94ae752ad8862a8b87e3c72f8fc0fe2c8c26a0d829fb6c21e58d00b27f8c6246"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "runtime_admission_contract": {
+    "accepted_declarations": [
+      "PEP 621 project.requires-python",
+      "setup.cfg options.python_requires"
+    ],
+    "required_fact": "fresh runtime-observation whose source and value bind the same inspected image digest",
+    "observation_container": {
+      "network": "none",
+      "filesystem": "read-only",
+      "repository_mounted": false,
+      "image_execution": "inspected digest rather than mutable tag"
+    },
+    "candidate_image_identity": "must equal the observed digest",
+    "source_execution": false
+  },
+  "state_transition_contract": {
+    "deterministic_python_mismatch_confidence": 1.0,
+    "accepted_python_mismatch_grammars": [
+      "requires a different Python: <version> not in '<specifier>'",
+      "Current Python version (<version>) is not allowed by the project (<specifier>)"
+    ],
+    "python_mismatch_semantic_gate": "PEP 440 version and specifier must parse, and the observed version must not satisfy the specifier",
+    "python_mismatch_near_miss_policy": "reject without typed constraints",
+    "other_unconfirmed_action_result_confidence_max": 0.5,
+    "action_result_ingested_only_after_internal_candidate_failure": true,
+    "facts_scoped_to_candidate_environment": true,
+    "old_fact_superseded_only_by_same_variable_observation": true
+  },
+  "failure_phase_contract": {
+    "phase_source": "ENVSOLVE_FAILED_ACTION_V1 marker emitted by the instrumented complete candidate",
+    "candidate_or_unknown_phase": "grounded network signatures may produce infrastructure Unknown",
+    "internal_check_phase": "network-like exception names remain candidate feedback and cannot produce dependency-acquisition Unknown",
+    "repository_service_mapping": false,
+    "case_specific_signature": false
+  },
+  "operation_contract": {
+    "triggers": [
+      "conflict",
+      "unresolved_requirement",
+      "preserve_satisfaction"
+    ],
+    "coverage": "the complete candidate contains a permitted operation for every current obligation",
+    "fresh_replay_preservation": "candidate-scoped satisfaction remains an operation obligation in the next fresh environment",
+    "novelty": "recorded for analysis but not required for already covered obligations",
+    "failed_prefix_rule": "reject an unchanged command prefix through an exactly observed failed candidate action",
+    "internal_check_fallback": "reject only an exact repeated candidate when no failed candidate action was localized"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "branch": "codex/envbench-evaluator-fixes",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_runtime_and_phase_tests": "59 passed",
+    "focused_harness_freeze_tests": "31 passed",
+    "q9_raw_artifact_phase_replay": "both localhost ConnectionError episodes become candidate feedback",
+    "full_regression_before_freeze": "370 passed, 1 skipped, 1 expected stale-freeze failure",
+    "full_regression_after_freeze": "373 passed, 1 skipped",
+    "real_docker_integration": "1 passed",
+    "syntax_compile": "passed with PYTHONPYCACHEPREFIX under /tmp",
+    "harness_v25_verification": "valid=true with immutable image ID and RepoDigest"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_q9_cases_reusable": false,
+    "q10_cases_selected": false,
+    "untouched_development_pool_size": 151,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "new_generic_failure_phase_gate": true,
+    "q9_used_only_for_generic_defect_localization": true,
+    "official_evaluator_feedback_used_online": false
+  }
+}
