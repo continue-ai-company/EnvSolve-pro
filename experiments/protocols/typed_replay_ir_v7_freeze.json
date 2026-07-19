@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "typed-replay-ir-v7",
+  "candidate_policy_id": "complete-candidate-v4+typed-replay-ir-v7",
+  "frozen_at": "2026-07-19T07:25:27Z",
+  "supersedes": {
+    "policy_id": "typed-replay-ir-v6",
+    "path": "experiments/protocols/typed_replay_ir_v6_freeze.json",
+    "sha256": "3a8f4af6150dd34f351a9ee32bf9ccbe483e046fc6ae4e62d07bd6157a2b3a59",
+    "reason": "Close generic PDM command coverage and effective-path virtual-environment binding defects before any new development case."
+  },
+  "files": {
+    "research/TYPED_REPLAY_IR_V7.md": "9828be8f582044179da7d38bec8082a16107f0f7482b7b7b3d0da4665af7f38e",
+    "research/TYPED_REPLAY_IR_V7_ZH.md": "0ac8501c1c74510e1e1effe23b41534f9952ab76be87ab48ca82e5ff4e133c3a",
+    "tests/fixtures/replay_ir_v6_cases.json": "c9bab9ada991d2f1a48ae699274c3eb56874c4dd578842ca924267b5285219a6",
+    "tests/fixtures/replay_ir_v7_delta_cases.json": "55bbc8c95437936798e3dfc2f48bc66cc5391a44630fbc13b9ab481fdd788644",
+    "envsolve_harness/scripts/replay_actions.py": "2452354040321d1b816467abc734d8b1fd6c760ba78410ba0ef0f0392d3c2e8e",
+    "envsolve_harness/scripts/candidate_validation.py": "af47c735dd1454cfd291bfde1dd711f3ff0c49b88dc189deb3396c4deedfba37",
+    "tests/test_replay_ir.py": "68f1da74f897f59b1ba8bce762184794fc42798f3a1806bbdade9223fe0c3ea4",
+    "tests/test_candidate_validation.py": "7114c405022645852d3f0f19cdf5758b24b46c0cb779096c49eb1cfa94d05403"
+  },
+  "validation": {
+    "inherited_v6_cases": 32,
+    "v7_delta_cases": 6,
+    "full_unit_tests_passed": 343,
+    "full_unit_tests_skipped": 1,
+    "real_docker_integration": true,
+    "historical_pdm_candidates_read_only_accepted": 2
+  },
+  "development_disclosure": {
+    "development_informed": true,
+    "trigger_batches": ["p6-operation-q4", "p6-operation-q5"],
+    "case_specific_rules": false,
+    "source_results_mutated": false,
+    "replacement_evaluation_allowed": false,
+    "confirmatory_claim": false,
+    "untouched_confirmatory_splits": ["canary-20", "official-test-100"]
+  },
+  "change_policy": "Any accepted-language or runtime-binding change requires a new policy identifier, tests, hashes, and freeze before benchmark execution."
+}

@@ -237,3 +237,20 @@ separately from solver and verifier outcomes.
 P0 v2 is frozen. Future changes to a frozen behavioral surface require a new
 manifest version and disclosure; ordinary solver work proceeds above this
 unchanged evaluation layer.
+
+## 2026-07-19 Scientific-Eligibility Hardening
+
+- Git baseline `b979c13` establishes source provenance before any further case.
+- Artifact integrity and scientific eligibility are separate reports. Eligibility
+  requires a committed clean revision, primitive-budget compliance, and a complete
+  heartbeat without suspected host suspension.
+- One schedule coordinator owns hard process-group timeouts, atomic progress,
+  identity-preserving resume, and orphan censoring.
+- Complete Candidate v4 binds project virtual environments by effective root path;
+  Typed Replay IR v7 admits bounded PDM install/sync actions.
+- Schedule summaries are deterministic, pair-aware, and hash-chain every core run
+  artifact. Descriptive observations cannot enter scientific aggregates unless both
+  run and pair eligibility hold.
+- Full regression: `343 passed, 1 skipped`. Opt-in real Docker integration: `1 passed`.
+- Historical Q4 and Q5 remain consumed diagnostics. Both are 10/10 artifact-valid
+  and 0/10 scientifically eligible under the corrected contract.

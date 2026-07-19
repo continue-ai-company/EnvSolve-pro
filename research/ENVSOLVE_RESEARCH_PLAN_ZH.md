@@ -684,3 +684,16 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   runtime。Candidate policy v3 现在要求每个被创建的 `.venv` 或 `venv` 都必须随后在匹配路径上激活。
   合成顺序与路径测试、全量回归（`330 passed, 1 skipped`）、语法编译和真实 Docker integration 均通过。
   Q5 已在 metadata-only 选样前预注册，从剩余 176-case pool 中冻结 5 个新 case，仍有 171 个未触碰。
+- 随后的全仓库 hardening review 把 evidence preservation 与 scientific admissibility 分开。原审计
+  保留为 artifact-integrity check；新的 eligibility 层拒绝未提交源码、原始预算超限、不完整 heartbeat、
+  host suspension 嫌疑和 schedule identity 错配。Q4 仍是 10/10 artifact-valid，但由于早于 Git
+  baseline，0/10 具备 scientific eligibility。Q5 同样被排除，其中四个 episode 还在主机休眠后超过
+  冻结 generation wall-clock。两批都不能估计 treatment effect，也不能在机制改变后重跑。
+- 一个通用 schedule coordinator 取代了五份复制的 qualification driver。它执行进程组硬截止、原子
+  记录不可变 position 转移、续跑时保留旧结果、删失 orphaned position，并拒绝变化后的 schedule、
+  config 或 protocol hash。确定性 summarizer 执行双层审计、校验 schedule identity、哈希全部核心
+  evidence artifact，并把描述性观察与科学估计分开报告。
+- Complete Candidate v4 与 Typed Replay IR v7 关闭两个执行语言缺口。项目根虚拟环境按有效路径而不是
+  `.venv` basename 匹配；受限的 `pdm install/sync` mutation 被允许，而 PDM script 和发布仍被拒绝。
+  对 Q5 Giskard 的只读回放表明，V6 拒绝的两个 proposal 现在都能进入语言；这只验证语言覆盖。
+  全量回归为 `343 passed, 1 skipped`，真实 Docker boundary 通过。

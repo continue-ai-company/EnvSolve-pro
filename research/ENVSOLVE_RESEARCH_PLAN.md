@@ -918,3 +918,23 @@ development batch; it never triggers tuning on the same held-out outcomes.
   order and path tests, full regression (`330 passed, 1 skipped`), compilation, and
   real Docker integration pass. Q5 was preregistered before metadata-only selection;
   five new cases are frozen from the remaining 176-case pool, leaving 171 untouched.
+- A repository-wide hardening review then separated evidence preservation from
+  scientific admissibility. The original audit remains an artifact-integrity check;
+  a new eligibility layer rejects uncommitted source, primitive-budget overruns,
+  incomplete heartbeats, suspected host suspension, and schedule identity mismatch.
+  Q4 remains 10/10 artifact-valid but 0/10 scientifically eligible because it
+  predates the Git baseline. Q5 is likewise excluded; four episodes additionally
+  exceed the frozen generation wall-clock limit after host suspension. Neither batch
+  may estimate treatment effect or be rerun after the mechanism revision.
+- One generic schedule coordinator now replaces five copied qualification drivers.
+  It enforces process-group hard deadlines, atomically records immutable position
+  transitions, preserves prior outcomes on resume, censors orphaned positions, and
+  rejects changed schedule/config/protocol hashes. A deterministic summarizer runs
+  both audits, validates schedule identity, hashes every core evidence artifact, and
+  reports descriptive observations separately from scientific estimates.
+- Complete Candidate v4 and Typed Replay IR v7 close two execution-language defects.
+  Project-root virtual environments are matched by effective path rather than the
+  `.venv` basename, and bounded `pdm install/sync` mutations are admitted while PDM
+  scripts and publishing remain rejected. Read-only replay accepts both Q5 Giskard
+  proposals that V6 rejected; this validates language coverage only. Full regression
+  passes 343 tests with one opt-in skip, and the real Docker boundary passes.

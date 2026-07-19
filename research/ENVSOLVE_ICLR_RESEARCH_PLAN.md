@@ -290,10 +290,13 @@ and vary candidate and token limits to measure success-resource curves.
 
 ### 5.1 Protocol validation
 
-The experimental infrastructure now enforces fresh candidate environments, a
-shared online budget, immutable event trajectories, post-episode-only official
-evaluation, independent run audit, and fail-closed handling of network, artifact,
-and execution-timeout outcomes. These properties establish experiment validity;
+The experimental infrastructure now separates artifact integrity from scientific
+eligibility. Integrity audit checks identities, hashes, ledgers, trajectories, and
+official claims. Eligibility additionally requires a committed clean source revision,
+frozen primitive budgets, a complete runtime heartbeat without suspected host
+suspension, and schedule-consistent execution. A single resumable coordinator owns
+hard process-group deadlines, while a deterministic summarizer derives every table
+entry from hash-chained run evidence. These properties establish experiment validity;
 they do not establish EnvSolve's effectiveness.
 
 ### 5.2 Development diagnosis
@@ -310,11 +313,15 @@ Fourth, creating a virtual environment without binding it to subsequent verifica
 can make an installed dependency appear missing; complete candidates must now
 activate every environment they create before verification.
 
-The first audit-valid five-pair operation qualification produced one full-only pass,
-one both-pass pair, two both-fail pairs, and one infrastructure-censored pair. In the
-both-pass pair, the full method used two candidates while the free-form control used
-five. This is evidence that typed obligations can change repair behavior, but the
-development sample is too small for an effectiveness claim.
+The first artifact-valid five-pair operation qualification descriptively produced
+one full-only pass, one both-pass pair, two both-fail pairs, and one infrastructure-
+censored pair. In the both-pass pair, the full method used two candidates while the
+free-form control used five. A later provenance review found that these runs predated
+the first Git baseline, so all five pairs are scientifically ineligible and support
+error analysis only. The next five-pair batch is also excluded: host suspension caused
+multiple wall-clock overruns, and a generic DSL gap rejected valid PDM installs. PDM
+install/sync and semantic project-venv binding are now covered by synthetic tests,
+without rerunning either consumed batch.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -363,10 +370,10 @@ feedback is treated as evidence for an explicit constraint state rather than as
 more conversation context. The method proposes complete programs, tests them in
 fresh environments, admits only grounded counterexamples, and keeps official
 evaluation terminal. The protocol and core loop are implemented; the decisive
-held-out comparison remains pending. The generic two-layer import verifier is now
-implemented and frozen without case-specific or evaluator-derived rules; the next
-milestone is unseen-development qualification followed by the predeclared held-out
-evaluation.
+held-out comparison remains pending. The corrected execution language, dual audit,
+scheduler, and analysis pipeline are implemented without case-specific or evaluator-
+derived rules. The next milestone is a new outcome-blind development qualification
+under a committed freeze, followed by the predeclared held-out evaluation.
 
 The main loop implements a minimal constraint-to-operation boundary: hard
 conflicts produce provenance-bearing, context-bounded operation obligations, and a typed guard

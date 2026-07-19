@@ -212,9 +212,11 @@ replay 成功率、token、模型请求、命令、环境和 wall time。美元�
 
 ### 5.1 协议有效性
 
-实验基础设施已经实现 fresh candidate environment、共享在线预算、不可变 event trajectory、仅
-post-episode 官方评测、独立 run audit，以及对网络、artifact 和 execution timeout 的 fail-closed
-处理。这些性质保证实验有效，但不能证明 EnvSolve 有效。
+实验基础设施现在把 artifact integrity 与 scientific eligibility 分开。完整性审计检查 identity、
+hash、ledger、trajectory 和 official claim；科学有效性还要求已提交且干净的源码 revision、冻结的
+原始资源预算、完整且没有 host suspension 嫌疑的 runtime heartbeat，以及与 schedule 一致的执行。
+唯一的可恢复 coordinator 负责进程组硬截止时间，确定性 summarizer 从 hash-chained run evidence
+生成全部表格项。这些性质保证实验有效，但不能证明 EnvSolve 有效。
 
 ### 5.2 开发诊断
 
@@ -226,10 +228,12 @@ fresh-verifier 输出当作完整快照会错误清除未解决冲突；当前�
 budget 约束。第四，创建虚拟环境却不将其绑定到后续验证，会让已安装依赖看起来仍然缺失；
 完整候选现在必须在验证前激活它创建的每个环境。
 
-首个 audit-valid 的五组 operation qualification 产生一组 full-only pass、一组 both-pass、两组
-both-fail 和一组 infrastructure-censored pair。在 both-pass pair 中，full 使用 2 个 candidate，
-free-form control 使用 5 个。这说明 typed obligation 可以改变修复行为，但 development 样本过小，
-不足以支持 effectiveness claim。
+首个 artifact-valid 的五组 operation qualification 在描述性结果中产生一组 full-only pass、一组
+both-pass、两组 both-fail 和一组 infrastructure-censored pair。在 both-pass pair 中，full 使用
+2 个 candidate，free-form control 使用 5 个。后续 provenance review 发现这些 run 早于首个 Git
+baseline，因此五组 pair 全部不具备 scientific eligibility，只能用于错误分析。下一批五组 pair
+同样被排除：host suspension 造成多次 wall-clock 超限，通用 DSL 缺口还错误拒绝了有效 PDM 安装。
+PDM install/sync 和项目 venv 语义绑定现在已有合成测试覆盖，两批 consumed case 都不会重跑。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -264,9 +268,10 @@ index 故障会产生删失结果，尤其在本地开发机器上。EnvBench �
 
 EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态的证据，而不只是更多对话上下文时，
 仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
-保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。下一里程碑
-是用 unseen-development case 资格验证已经冻结、且不使用 case-specific 或 evaluator-derived rule
-的两层 import verifier，之后再进入预声明的 held-out evaluation。
+保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
+可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。下一
+里程碑是在已提交 freeze 下执行新的 outcome-blind development qualification，之后再进入预声明的
+held-out evaluation。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict 产生带 provenance 的操作义务，
 类型化 guard 要求 fresh execution 前出现允许的新 mutation。

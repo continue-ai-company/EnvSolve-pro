@@ -22,14 +22,14 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v20"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v20.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v19"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v19.json")
+FREEZE_ID = "envsolve-harness-v21"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v21.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v20"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v20.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
-    "experiments/protocols/typed_replay_ir_v6_freeze.json"
+    "experiments/protocols/typed_replay_ir_v7_freeze.json"
 )
 DATASET_PATHS = (
     Path("experiments/cases/split_manifest.json"),
@@ -53,6 +53,16 @@ DATASET_PATHS = (
     Path("experiments/validations/p6_v3_q1_position2_retry1_diagnostic.json"),
     Path("experiments/validations/p6_v3_q1_position3_evaluator_infrastructure_diagnostic.json"),
     Path("experiments/validations/p6_v3_q1_position4_result_and_budget_diagnostic.json"),
+    Path("experiments/cases/dev_operation_qualification_v4_5.jsonl"),
+    Path("experiments/cases/dev_operation_qualification_v5_5.jsonl"),
+    Path("experiments/cases/train_untouched_after_operation_qualification_v5_171.jsonl"),
+    Path("experiments/validations/p6_operation_qualification_v4_preregistration.json"),
+    Path("experiments/validations/p6_operation_qualification_v4_selection.json"),
+    Path("experiments/validations/p6_operation_qualification_v4_schedule.json"),
+    Path("experiments/validations/p6_operation_q4_results.json"),
+    Path("experiments/validations/p6_operation_qualification_v5_preregistration.json"),
+    Path("experiments/validations/p6_operation_qualification_v5_selection.json"),
+    Path("experiments/validations/p6_operation_qualification_v5_schedule.json"),
 )
 OFFICIAL_CHANNEL_CONTRACT = {
     "scoring": True,
@@ -70,6 +80,7 @@ DEVELOPMENT_DISCLOSURE = {
         "dev-5",
         "dev-extension-3",
         "dev-v3-qualification-5",
+        "dev-operation-qualification-q1-q5",
     ],
     "untouched_confirmatory_splits": ["canary-20", "official-test-100"],
     "case_specific_rules": False,
@@ -217,7 +228,7 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "freeze_id": SUPERSEDED_FREEZE_ID,
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
-            "reason": "After the audit-valid position-2 retry remained infrastructure-blocked, admit bounded project-local venv pip/python mutations and classify explicit upstream HTTP 5xx plus apt connection failures as infrastructure Unknown before they can consume repair turns.",
+            "reason": "After Q5 and a repository-wide review exposed provenance, host-suspension, batch-recovery, project-venv identity, PDM coverage, and manual-analysis gaps, freeze the minimal generic corrections before any new development case.",
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,
         "harness_source": {
