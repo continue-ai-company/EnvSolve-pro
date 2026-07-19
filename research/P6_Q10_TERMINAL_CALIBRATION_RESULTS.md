@@ -59,6 +59,14 @@ names. Synthetic counterexamples must show that a subsequent complete program
 changes a relevant precondition before repeating the failed operation. Only after
 this mechanism is frozen should a new outcome-blind development batch be selected.
 
+Subsequent code review found a simpler competing explanation that must be tested
+first. The Q10 candidate, environment, and command limits were coupled at five; nine
+of 50 proposals were rejected before environment creation, leaving nine permitted
+fresh executions unused while the model-request cap remained 15. The operation-
+outcome revision is therefore deferred. A consumed-Q10 budget-only calibration will
+change only the candidate-proposal limit from 5 to 15 while keeping environments,
+commands, model requests, tokens, and time fixed at their prior limits.
+
 ## Claim Boundary
 
 This calibration uses consumed Q10 development identities. It does not reopen Q10,

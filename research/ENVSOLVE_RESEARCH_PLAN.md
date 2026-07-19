@@ -1152,7 +1152,10 @@ development batch; it never triggers tuning on the same held-out outcomes.
   was infrastructure `Unknown`, and none passed. Six of nine completed scripts
   failed bootstrap; the remaining three reached Pyright and failed with 824, 61,
   and 61 errors. No completed internal-negative script was Official-positive, so
-  the frozen Boolean verifier gate is not relaxed. The next minimal revision targets
-  operation feasibility: deterministic failed actions must become first-class,
-  provenance-bearing operation outcomes with unresolved preconditions, defined by
-  generic synthetic counterexamples before another unseen development batch.
+  the frozen Boolean verifier gate is not relaxed. Code review then exposed a
+  simpler harness confound: nine pre-environment rejects consumed the same five-unit
+  cap as fresh executions, leaving only 41/50 environment slots used despite a
+  15-request model limit. Primitive limits are now independently configurable and
+  frozen as algorithm v12 / Harness v26 with legacy fallback. Before any new solver
+  mechanism, a preregistered consumed-Q10 diagnostic changes only proposals from 5
+  to 15 while holding environments, commands, requests, tokens, and time fixed.

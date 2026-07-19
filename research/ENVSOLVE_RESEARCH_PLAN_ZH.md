@@ -844,7 +844,9 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   对每条 run 最后一个真正接受 verification 的 candidate 严格评测一次。10 份 artifact 全部
   audit-valid；9 次 evaluation completed，1 次为 infrastructure `Unknown`，0 次通过。9 次完成结果中
   6 次 bootstrap failure，其余 3 次进入 Pyright 并分别产生 824、61、61 个 error。没有任何完成的
-  internal-negative script 成为 Official-positive，因此冻结的 Boolean verifier gate 不放松。下一项
-  最小 revision 转向 operation feasibility：确定性 failed action 必须成为一等、带 provenance 且
-  含 unresolved precondition 的 operation outcome，并在下一批 unseen development 前由通用合成
-  反例定义。
+  internal-negative script 成为 Official-positive，因此冻结的 Boolean verifier gate 不放松。代码审查
+  随后发现了更简单的 harness confound：9 个 pre-environment reject 与 fresh execution 消耗同一个
+  5-unit cap，所以在 model limit 为 15 的情况下只使用了 41/50 个 environment slot。原始预算现已
+  独立配置，并以 algorithm v12 / Harness v26 冻结，同时保留旧配置 fallback。在增加任何 solver
+  机制前，预注册的 consumed-Q10 诊断只把 proposal 从 5 改为 15，environment、command、request、
+  token 和 time 均固定不变。

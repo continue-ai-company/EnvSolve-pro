@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-q10-independent-primitive-budget-calibration-v1",
+  "preregistered_at": "2026-07-20T04:53:40+08:00",
+  "status": "registered_before_execution",
+  "purpose": "Determine whether coupled candidate and environment limits, rather than missing solver machinery, caused Q10 terminal non-reach.",
+  "claim_scope": "consumed-development budget calibration only",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v12.json",
+    "sha256": "c74a5c1c711bf5ca81cb80c3379975388d3ee0e5f50ab15a29e0f05716a5b463",
+    "solver_semantics_changed_from_v11": false
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v26.json",
+    "sha256": "3f09bd469e5679a0db9efca5ad29d2db5beeba244c022ce6a422cf32786707a0"
+  },
+  "source_evidence": {
+    "q10_closure_path": "experiments/validations/p6_operation_qualification_v10_closure.json",
+    "q10_closure_sha256": "ca2208aae38b1955a11ba04ac5046f651b6c9209b46598afa1373c6588b5e0e4",
+    "terminal_calibration_path": "experiments/validations/p6_q10_terminal_calibration_results.json",
+    "terminal_calibration_sha256": "2469d080397af75360ed2be20df3fffd7067453022858029379abea1eb241140",
+    "observed_q10_proposals": 50,
+    "observed_q10_environments": 41,
+    "pre_environment_rejects": 9,
+    "official_passes_in_terminal_calibration": 0
+  },
+  "identities": {
+    "status": "consumed Q10 development identities",
+    "new_selection": false,
+    "replacement": false,
+    "case_file": "experiments/cases/dev_operation_qualification_v10_5.jsonl",
+    "case_file_sha256": "92e461e243ce895789e32797efcb784e54805b24c95cc634651629602285bb4e",
+    "count": 5,
+    "held_out_use": false
+  },
+  "schedule": {
+    "path": "experiments/validations/p6_q10_budget_calibration_v1_schedule.json",
+    "sha256": "963e449f4b6f78d0eee9db97ce8b2e197ebbd83f733c1e07d68fc8aec578efc6",
+    "positions": 10,
+    "order": "identical case and method order to closed Q10",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "methods": [
+    "envsolve-operation",
+    "envsolve-operation-ablation"
+  ],
+  "budget_intervention": {
+    "old": {
+      "max_candidates": 5,
+      "max_environments": 5,
+      "max_commands": 5,
+      "max_model_requests": 15
+    },
+    "new": {
+      "max_candidates": 15,
+      "max_environments": 5,
+      "max_commands": 5,
+      "max_model_requests": 15
+    },
+    "changed_primitive": "candidate proposals only",
+    "fresh_environment_limit_increased": false,
+    "verifier_command_limit_increased": false,
+    "model_request_limit_increased": false,
+    "token_limit_increased": false,
+    "wall_clock_limit_increased": false
+  },
+  "matched_limits": {
+    "max_total_tokens": 1000000,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation_budget_calibration.json",
+    "sha256": "e529e81858f35d7739eea5eea9ed7d4e5a5be9f81c9243f11688675c6735fee5"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "access": "post-episode only after an internal pass"
+  },
+  "primary_outcomes": [
+    "runs that use more than five candidate proposals",
+    "fresh environments recovered after pre-environment rejects",
+    "internal pass and natural Official evaluator reach",
+    "terminal reason under the independently frozen primitive vector"
+  ],
+  "secondary_outcomes": [
+    "model requests, tokens, candidates, environments, commands, and wall-clock usage",
+    "candidate-validation and operation-guard reject counts",
+    "candidate-command, fixed-check, and structured-verifier terminal stages"
+  ],
+  "decision_rule": {
+    "terminal_reach_after_proposal_five": "The coupled cap was a material harness bottleneck; retain independent primitive limits and do not add a new solver mechanism yet.",
+    "additional_environments_without_terminal_reach": "Budget coupling was mechanically harmful but not sufficient; use the new trajectories to define one minimal operation-state revision with synthetic counterexamples.",
+    "no_additional_proposals": "The calibration is uninformative about the coupled cap; inspect the earlier terminating primitive without changing solver semantics."
+  },
+  "adaptation_policy": {
+    "code_or_protocol_change_during_schedule": false,
+    "case_replacement": false,
+    "run_overwrite": false,
+    "official_feedback_online": false,
+    "pre_episode_acquisition_failure": "one audited same-identity retry only when model, candidate, environment, command, and evaluator usage are all zero",
+    "other_infrastructure_failure": "record Unknown without replacement or method adaptation"
+  },
+  "limitations": {
+    "historical_q10_control_is_stochastic": true,
+    "causal_effectiveness_estimate_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "paper_test_set_claim_allowed": false
+  },
+  "protocols": [
+    "research/P6_Q10_BUDGET_CALIBRATION_V1.md",
+    "research/P6_Q10_BUDGET_CALIBRATION_V1_ZH.md"
+  ]
+}

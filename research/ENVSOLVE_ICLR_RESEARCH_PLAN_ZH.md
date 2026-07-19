@@ -352,11 +352,12 @@ v11 在完整 unseen development qualification 中产生 10 条 scientifically e
 evaluation。跨 case 分解发现，50 个 candidate 终止阶段中有 23 个属于 candidate-command failure。
 随后预注册的 episode 后校准确定性选择 10 份 terminal script，得到 9 次 completed Official failure、
 1 次 infrastructure Unknown 和 0 次通过；只有 3 份脚本进入 Pyright，且全部失败。因此，在任何完成
-的校准中，terminal non-reach 都没有隐藏 passing script，Boolean internal gate 继续冻结。下一项最小
-revision 要把确定性 failed action 从有界对话反馈提升为带 provenance、含 unresolved precondition 的
-operation outcome；其状态转移和 causal retry rule 必须先由通用合成反例定义，再进入新的 unseen
-development batch。只有冻结的 development 方法能够以足够频率进入 terminal evaluator、从而支持
-效果比较后，held-out evaluation 才解锁。
+的校准中，terminal non-reach 都没有隐藏 passing script，Boolean internal gate 继续冻结。后续实现
+审计发现，9 个 pre-environment reject 与 fresh execution 消耗同一个 5-unit cap，因此在 model-request
+limit 为 15 时仍浪费了 9 个 environment slot。我们暂缓 operation-state 扩展，先运行预注册的
+consumed-Q10 calibration：只把 proposal cap 提高到 15，fresh environment 和 verifier command 仍为
+5。这在不增加昂贵执行资源的前提下检验更简单的 harness 解释。只有冻结的 development 方法能够以
+足够频率进入 terminal evaluator、从而支持效果比较后，held-out evaluation 才解锁。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

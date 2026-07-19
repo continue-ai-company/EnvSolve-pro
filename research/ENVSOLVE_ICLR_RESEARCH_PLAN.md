@@ -489,13 +489,15 @@ failure. A preregistered post-episode calibration of ten deterministically selec
 terminal scripts produced nine completed Official failures, one infrastructure
 Unknown, and zero passes; only three scripts reached Pyright, where all failed.
 Thus terminal non-reach was not hiding a passing script in any completed calibration,
-and the Boolean internal gate remains fixed. The next minimal revision promotes a
-deterministic failed action from bounded conversational feedback to a provenance-
-bearing operation outcome with an unresolved precondition. Its state transition and
-causal retry rule must be defined by generic synthetic counterexamples before another
-unseen development batch. Held-out evaluation remains blocked until a frozen
-development method reaches the terminal evaluator often enough to support an
-effectiveness comparison.
+and the Boolean internal gate remains fixed. A subsequent implementation audit found
+that nine pre-environment rejects consumed the same five-unit cap as fresh executions,
+leaving nine environment slots unused under a 15-request model limit. We therefore
+defer the proposed operation-state expansion and first run a preregistered consumed-
+Q10 calibration that raises only the proposal cap to 15 while retaining five fresh
+environments and five verifier commands. This tests the simpler harness explanation
+without increasing expensive execution resources. Held-out evaluation remains
+blocked until a frozen development method reaches the terminal evaluator often
+enough to support an effectiveness comparison.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

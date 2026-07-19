@@ -50,6 +50,12 @@ prefix 被记录，尚未成为 constraint state 中一等、带 provenance 的 
 名称。合成反例必须证明：下一份 complete program 在重复失败 operation 前改变了相关 precondition。
 只有该机制冻结后，才能选择新的 outcome-blind development batch。
 
+后续代码审查发现了一个必须优先检验的更简单竞争解释。Q10 的 candidate、environment 和 command
+limit 被耦合为 5；50 个 proposal 中有 9 个在创建 environment 前被拒绝，导致 9 个允许的 fresh
+execution 未使用，而 model-request cap 仍为 15。因此 operation-outcome revision 暂缓。下一项使用
+consumed Q10 identity 的 budget-only calibration 只把 candidate-proposal limit 从 5 改为 15，
+environment、command、model request、token 和 time 都保持原上限。
+
 ## 声明边界
 
 本校准使用已经消耗的 Q10 development identity，不重开 Q10、不估计榜单性能，也不解锁 held-out
