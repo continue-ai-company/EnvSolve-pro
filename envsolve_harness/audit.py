@@ -72,6 +72,31 @@ def audit_run(run_root: Path) -> AuditReport:
     if not report.checks["case_matches_manifest"]:
         report.error("inputs/case.json does not match manifest case")
 
+    runtime_monitor = manifest.get("runtime_monitor")
+    if isinstance(runtime_monitor, dict) and runtime_monitor.get("state") == "completed":
+        relative_heartbeat = Path(str(runtime_monitor.get("path", "")))
+        heartbeat_path = root / relative_heartbeat
+        heartbeat_portable = (
+            bool(relative_heartbeat.parts)
+            and not relative_heartbeat.is_absolute()
+            and _inside(root, heartbeat_path)
+        )
+        report.checks["runtime_heartbeat_portable"] = heartbeat_portable
+        heartbeat_exists = heartbeat_portable and heartbeat_path.is_file()
+        report.checks["runtime_heartbeat_exists"] = heartbeat_exists
+        heartbeat_hash = (
+            heartbeat_exists
+            and isinstance(runtime_monitor.get("sha256"), str)
+            and sha256_file(heartbeat_path) == runtime_monitor.get("sha256")
+        )
+        report.checks["runtime_heartbeat_hash"] = bool(heartbeat_hash)
+        if not heartbeat_portable:
+            report.error("Runtime heartbeat path is absolute or escapes the run directory")
+        elif not heartbeat_exists:
+            report.error("Completed runtime monitor heartbeat is missing")
+        elif not heartbeat_hash:
+            report.error("Runtime heartbeat SHA256 does not match manifest")
+
     solver = manifest.get("solver")
     solver_metadata = solver.get("metadata", {}) if isinstance(solver, dict) else {}
     audit_requirements = solver_metadata.get("audit_requirements", {})

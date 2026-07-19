@@ -27,7 +27,7 @@ class RunArtifacts:
             if not overwrite:
                 raise FileExistsError(f"Run artifacts already exist: {root}. Pass --overwrite to replace them.")
             shutil.rmtree(root)
-        for child in ("inputs", "scripts", "generation", "evaluation", "logs"):
+        for child in ("inputs", "scripts", "generation", "evaluation", "logs", "runtime"):
             (root / child).mkdir(parents=True, exist_ok=True)
         return cls(root=root)
 
@@ -110,3 +110,7 @@ class RunArtifacts:
     @property
     def status(self) -> Path:
         return self.root / "status.json"
+
+    @property
+    def runtime_heartbeat(self) -> Path:
+        return self.root / "runtime" / "heartbeat.jsonl"

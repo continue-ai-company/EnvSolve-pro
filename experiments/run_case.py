@@ -14,6 +14,7 @@ from envsolve_harness.core.config import load_harness_config
 from envsolve_harness.core.io import load_case
 from envsolve_harness.core.models import RunSpec
 from envsolve_harness.core.protocol import load_protocol
+from envsolve_harness.execution.heartbeat import RunHeartbeat
 from envsolve_harness.runners.registry import (
     RunnerOptions,
     create_solver_runner,
@@ -21,7 +22,8 @@ from envsolve_harness.runners.registry import (
     registered_solver_runners,
 )
 from envsolve_harness.storage.artifacts import RunArtifacts
-from envsolve_harness.storage.manifest import initialize_manifest
+from envsolve_harness.storage.manifest import initialize_manifest, update_manifest
+from envsolve_harness.utils.provenance import sha256_file
 
 
 def parse_args() -> argparse.Namespace:
@@ -66,31 +68,47 @@ def main() -> int:
         print(str(exc), file=sys.stderr)
         return 2
 
-    initialize_manifest(artifacts, config, case, run_spec, protocol)
-    runner = create_solver_runner(
-        args.runner,
-        config,
-        protocol,
-        run_spec,
-        RunnerOptions(args.source_run.resolve() if args.source_run else None),
+    manifest = initialize_manifest(artifacts, config, case, run_spec, protocol)
+    monitor = manifest["runtime_monitor"]
+    monitor["state"] = "running"
+    update_manifest(artifacts, runtime_monitor=monitor)
+    heartbeat = RunHeartbeat(
+        artifacts.runtime_heartbeat,
+        interval_seconds=float(monitor["interval_seconds"]),
+        suspend_gap_seconds=float(monitor["suspend_gap_seconds"]),
     )
-    solver_result = runner.run(case, artifacts, run_spec)
-    if not solver_result.generation_completed or solver_result.script_path is None:
-        print(f"generation_completed=false\nerror={solver_result.error}")
-        print(f"artifacts={artifacts.root}")
-        return 1
-
-    generated_script = artifacts.root / solver_result.script_path
-    result = create_benchmark_adapter(config, protocol).evaluate(
-        case, generated_script, artifacts, run_spec
-    )
-    print(f"artifacts={artifacts.root}")
-    print("generation_completed=true")
-    print(f"evaluation_completed={str(result.evaluation_completed).lower()}")
-    print(f"official_pass={str(result.official_pass).lower()}")
-    print(f"benchmark={result.benchmark}")
-    print(f"raw_metrics={result.raw_metrics}")
-    return 0 if result.evaluation_completed else 1
+    try:
+        with heartbeat:
+            runner = create_solver_runner(
+                args.runner,
+                config,
+                protocol,
+                run_spec,
+                RunnerOptions(args.source_run.resolve() if args.source_run else None),
+            )
+            solver_result = runner.run(case, artifacts, run_spec)
+            if not solver_result.generation_completed or solver_result.script_path is None:
+                print(f"generation_completed=false\nerror={solver_result.error}")
+                print(f"artifacts={artifacts.root}")
+                exit_code = 1
+            else:
+                generated_script = artifacts.root / solver_result.script_path
+                result = create_benchmark_adapter(config, protocol).evaluate(
+                    case, generated_script, artifacts, run_spec
+                )
+                print(f"artifacts={artifacts.root}")
+                print("generation_completed=true")
+                print(f"evaluation_completed={str(result.evaluation_completed).lower()}")
+                print(f"official_pass={str(result.official_pass).lower()}")
+                print(f"benchmark={result.benchmark}")
+                print(f"raw_metrics={result.raw_metrics}")
+                exit_code = 0 if result.evaluation_completed else 1
+    finally:
+        if artifacts.runtime_heartbeat.is_file():
+            monitor["state"] = "completed"
+            monitor["sha256"] = sha256_file(artifacts.runtime_heartbeat)
+            update_manifest(artifacts, runtime_monitor=monitor)
+    return exit_code
 
 
 if __name__ == "__main__":
