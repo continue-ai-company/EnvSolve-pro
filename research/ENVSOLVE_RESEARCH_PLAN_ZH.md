@@ -904,3 +904,7 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   请求也在 0 retry/error 下透传。Timing-aware analysis 测试保留冻结 v2 结果，并修正未来裁决。Freeze
   前全量回归为 `396 passed, 1 skipped` 加唯一预期 stale-freeze failure。冻结该边界后，下一项允许步骤
   是新的 outcome-blind development qualification，而不是再次 replay consumed case。
+- Algorithm v15 与 Harness v29 已冻结 provider acquisition boundary。最终全量回归为
+  `397 passed, 1 skipped`，不可变 Docker 验证有效。Constraint、operation、verifier、output
+  allocation、聚合预算和 Official-access 语义均继承 v14，不发生变化。合成 acquisition 证据已经
+  完成；下一实验必须先预注册，再从剩余 untouched development pool 中仅按 metadata 选样。

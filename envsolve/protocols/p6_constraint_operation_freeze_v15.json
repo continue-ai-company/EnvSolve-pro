@@ -1,0 +1,138 @@
+{
+  "freeze_id": "p6-constraint-operation-v15-provider-acquisition-boundary",
+  "frozen_at": "2026-07-20T03:01:38Z",
+  "source_revision": "66197891549d48e7249a984251780d87758f0862",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v14.json",
+    "sha256": "65928c8061db835f8489ff127e9ed3d019b13b6a93dd05a191aaac9830df3d5e"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v29.json",
+    "sha256": "c3e6b30ae5de9517c68857e32ca4b7a8e6c273872f58d91e32e350567f83e197"
+  },
+  "change_from_v14": [
+    "Retry only provider/client JSONDecodeError at response acquisition, reusing the existing model_max_retries=2 limit for at most three attempts.",
+    "Charge every acquisition attempt to the online request budget and expose response_parse_retries and response_parse_recoveries in the immutable ledger.",
+    "Represent exhausted acquisition as solver-owned provider-acquisition-failure rather than candidate-policy-exception.",
+    "Make output-boundary analysis distinguish provider failure before versus after the five-response trigger and identify fully accounted recoveries."
+  ],
+  "files": {
+    "envsolve/runtime/policy.py": "3acfd9fe02ba478a98dc34320d37bee5eced08ee02d152a6aad1aba64055b7ee",
+    "envsolve/solver/__init__.py": "ac48758fd2a39570c3870c228ed502c6b5d725eaca653c49a8f0c94ef28e41fa",
+    "envsolve/solver/counterexample.py": "58b4b1c3962450534a62f47aa3e65db09b004b76e9b4547a1797119a61b5b103",
+    "envsolve/tools/run_envsolve_episode.py": "0e54deb1c7ce295301ec7f206b5922477ad668715d95268648c604d3129f0c11",
+    "envsolve_harness/budget/langchain.py": "0b93664c347e87a6be99238aac3f66aa92a89fc7d29436b47f0230aa3c257ca5",
+    "envsolve_harness/budget/ledger.py": "8b7be648610ded6d7fffff9a378be5e42d345fc29ef7f6a2f7f13dae7f381ddd",
+    "envsolve_harness/output_contract_analysis.py": "6b54e12bf9c872166f413d6e3d3e803c4a48eaf3753b2dd30a37983bfadffdc6",
+    "envsolve_harness/core/config.py": "0f7efa938894121e62c925c07e82f1f62d03da7a00c839000344fee6cf428465",
+    "envsolve_harness/core/models.py": "30b73edd444203721d5803434d6cc7f0aa26d8481390c3aa49c69d9ce532f01a",
+    "envsolve_harness/runners/envsolve_p6.py": "25efaf4c287d3e7bb572e821487ebcbae3c7f0dfa5019598b1ecc61fd0f67723",
+    "envsolve_harness/runners/registry.py": "46049ca8c00e29c8d6e4e442b76585b19d5cefb4c0b2c47d9ff9825e623a673e",
+    "envsolve/tests/test_counterexample_loop.py": "89f155a537d8f3595d8270a4a41f0bf53b7f308dfe4b71fbc20fa8a05680d696",
+    "envsolve/tests/test_p6_operation_freeze.py": "8f5392fca1b3d344d0c1196f99591c50790730b040a8efa37533f976e611abaf",
+    "tests/test_budget.py": "62dd7bd9cbc3fc299823c04b17ba3c64e73a6ffe81ab9fe7da353753f7ee46e2",
+    "tests/test_budget_langchain.py": "3c56e8bef3afdf8ea9c18d1f013391d7e9b454c347bd0bf863f7a44086d3b71f",
+    "tests/test_envsolve_runtime.py": "b8a3dacea4c8dde03b24542fb2f536f3364cbe69600a1a058de2548566f0ad2c",
+    "tests/test_harness_core.py": "7831440cde98fc1ba9f3adc4b0a794fca97b1899683ab6030cc1d9c5e2a051dc",
+    "tests/test_output_contract_analysis.py": "ef7d55a425f1a527c01a0dbf5390546376a30e4ca559e2d62d3c4ace5e94e46f",
+    "tests/test_provider_recovery_probe.py": "d8344121e09b032908af355a501367254521020e08a30f4e2959f6b48065dd47",
+    "experiments/configs/local_mac_p6_operation_output_contract_v2.json": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a",
+    "experiments/probe_model_output_contract.py": "328071a157c21da33f211ae224b2aa8ce7d3c86d5f5396f8dd3c450f516366e1",
+    "experiments/probe_provider_recovery.py": "4f2b1e00da38c0cef35891b9146d546d7c67d133363f467bdf20e4e14fd99cf7",
+    "experiments/validations/p6_output_contract_replay_v2_results.json": "c10c60a1a2978359e29c494751b1e886e2744293b295a6be206bc54804f07fe1",
+    "experiments/validations/p6_output_contract_replay_v2_closure.json": "2bd9d8d93ed6f066204f0afb6c1727ea4237833b4c0e716cc6084c667cc85cab",
+    "experiments/validations/p6_provider_response_recovery_probe_v1.json": "31c21852ea5db12e9bf416659555bf2a15236403e378ca9d8dafdbf3af55f6af",
+    "experiments/validations/p6_provider_recovery_passthrough_probe_v1.json": "8a57e5ab58124b518fc46d580108b470910940f46473ba3cc0cae4183a2c943a",
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V2_RESULTS.md": "12af43e15e1019c4dabdcf98f177990f0d7431b535e9a8961fecfce353e5396c",
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V2_RESULTS_ZH.md": "5c31c72f9c1cd94af6a61949118c40a97e23ca172f3873d2c5f90335704a5808",
+    "research/P6_PROVIDER_ACQUISITION_BOUNDARY_V1.md": "5703218b5b78f395d196cfc5e3e067a4997dae813cda3535fe0b83361ab071ea",
+    "research/P6_PROVIDER_ACQUISITION_BOUNDARY_V1_ZH.md": "03a840c6535b1464938d4b3910c0ea0bc7034965ea72fcfd1caa1e6925057c32"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "provider_acquisition_contract": {
+    "retry_exception": "json.JSONDecodeError",
+    "max_retries": 2,
+    "max_attempts": 3,
+    "attempt_budgeting": "every attempt increments requests_started; each failed decode increments request_errors",
+    "retry_usage_fields": [
+      "response_parse_retries",
+      "response_parse_recoveries"
+    ],
+    "terminal_category": "provider-acquisition-failure",
+    "terminal_details": [
+      "attempts"
+    ],
+    "other_exception_retry": false,
+    "fault_probe_path": "experiments/validations/p6_provider_response_recovery_probe_v1.json",
+    "fault_probe": "one-error recovery and three-attempt exhaustion qualified",
+    "online_passthrough_probe_path": "experiments/validations/p6_provider_recovery_passthrough_probe_v1.json",
+    "online_passthrough_probe": "1/1 parsed candidate; finish_reason=stop; zero retry/error"
+  },
+  "model_output_contract": {
+    "inherited_from": "p6-constraint-operation-v14-model-length-boundary",
+    "reasoning_effort": "high",
+    "response_format": "json_object",
+    "max_output_tokens_per_request": 32768,
+    "reasoning_content_persisted": false
+  },
+  "primitive_budget_contract": {
+    "inherited_from": "p6-constraint-operation-v14-model-length-boundary",
+    "aggregate_limits_changed": false,
+    "model_max_requests": 15,
+    "model_max_total_tokens": 1000000,
+    "envsolve_max_candidates": 15,
+    "envsolve_max_environments": 5,
+    "envsolve_max_commands": 5,
+    "generation_wall_clock_seconds": 7200,
+    "retry_attempts_consume_model_request_budget": true,
+    "budget_exhaustion_terminal_category": "episode-budget-exhausted"
+  },
+  "operation_contract": {
+    "inherited_from": "p6-constraint-operation-v14-model-length-boundary",
+    "changed": false
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_provider_boundary_tests": "66 passed",
+    "full_regression_before_freeze": "396 passed, 1 skipped, 1 expected stale-freeze failure",
+    "full_regression_after_freeze": "397 passed, 1 skipped",
+    "synthetic_fault_probe": "qualified=true",
+    "online_passthrough_probe": "qualified=true",
+    "harness_v29_verification": "valid=true with immutable image ID and RepoDigest"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_q9_q10_cases_reusable_for_effectiveness": false,
+    "output_contract_replay_identity_reusable_for_effectiveness": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "constraint_or_operation_semantics_changed": false,
+    "official_evaluator_feedback_used_online": false,
+    "effectiveness_claim_allowed": false
+  }
+}

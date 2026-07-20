@@ -390,6 +390,8 @@ revision 因此只处理可审计的 provider-boundary bounded recovery；unseen
 该 acquisition confound 现已被隔离为只针对 provider-response decoding 的 bounded、完整记账 retry。
 确定性 fault injection 验证 recovery 与 terminal exhaustion，在线合成请求验证正常路径不变。这项修正
 不增加 deployment heuristic；冻结后，证据必须回到 outcome-blind unseen development batch。
+该边界已冻结为 v15/v29，全量回归通过且不可变镜像验证有效。下一项证据因此是 outcome-blind unseen
+development qualification，并且只能在预注册后选样。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

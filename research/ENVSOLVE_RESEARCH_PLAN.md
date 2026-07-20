@@ -1239,3 +1239,9 @@ development batch; it never triggers tuning on the same held-out outcomes.
   regression is `396 passed, 1 skipped` plus the expected stale-freeze failure. After
   freezing this boundary, the next admissible step is a new outcome-blind development
   qualification, not another consumed replay.
+- Algorithm v15 and Harness v29 now freeze the provider acquisition boundary. The
+  final regression is `397 passed, 1 skipped`, and immutable Docker verification is
+  valid. Constraint, operation, verifier, output allocation, aggregate budget, and
+  Official-access semantics are unchanged from v14. Synthetic acquisition evidence
+  is complete; the next experiment must be preregistered before metadata-only
+  selection from the remaining untouched development pool.

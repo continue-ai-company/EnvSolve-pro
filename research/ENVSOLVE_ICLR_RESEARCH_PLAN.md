@@ -542,6 +542,9 @@ provider-response decoding only. Deterministic fault injection verifies both rec
 and terminal exhaustion, while a live synthetic request verifies unchanged normal
 behavior. This correction adds no deployment heuristic; after freezing it, evidence
 must return to an outcome-blind unseen development batch.
+The boundary is frozen as v15/v29 with a clean full regression and immutable image
+verification. The next evidence is therefore an outcome-blind unseen development
+qualification, selected only after preregistration.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
