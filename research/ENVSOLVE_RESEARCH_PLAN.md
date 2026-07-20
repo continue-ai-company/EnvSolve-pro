@@ -1199,3 +1199,14 @@ development batch; it never triggers tuning on the same held-out outcomes.
   policy exception. The next revision is limited to generic usage accounting and
   recoverable output-failure classification, followed by a repository-free allocation
   probe and one preregistered same-identity replay.
+- The generic length boundary is now corrected and synthetically qualified. Provider
+  usage attached to a length-finished response is counted as a completed response,
+  while the solver receives a recoverable output failure. Public model metadata shows
+  that the frozen DeepSeek model supports only `high/xhigh`, so v2 retains `high` and
+  changes only the per-request completion ceiling from 16,384 to 32,768; aggregate
+  episode limits are unchanged. A five-request repository-free stress probe through
+  the production structured policy produced five parsed candidates, five `stop`
+  finishes, zero request/policy errors, and no persisted candidate or reasoning
+  content (10,403 input / 13,788 output tokens, 304.3 seconds). This qualifies only
+  the provider/client boundary. The next admissible experiment is one preregistered
+  same-identity consumed replay under a new freeze.

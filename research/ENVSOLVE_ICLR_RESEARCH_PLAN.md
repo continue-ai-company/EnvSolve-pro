@@ -523,6 +523,12 @@ allowance before producing parseable final content, so the preregistered five-re
 boundary was unexercised. This identifies an inference-boundary accounting and
 classification defect, not deployment evidence; the next revision changes only that
 boundary before any new unseen development sample.
+That boundary is now minimally corrected: usage-bearing length responses are counted
+and become recoverable output counterexamples. Because the frozen model exposes no
+reasoning level below `high`, only the per-request completion ceiling is doubled while
+aggregate budgets remain fixed. Five repository-free production-path probes all
+returned parsed JSON with normal stops; a same-identity consumed replay remains the
+last gate before unseen development qualification.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

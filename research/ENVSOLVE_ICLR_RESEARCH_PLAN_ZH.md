@@ -377,6 +377,10 @@ replay。
 该 replay 通过 artifact audit，但第 4 次请求在产生可解析 final content 前耗尽全部 completion
 allowance，所以预注册的 5-response 边界未被触发。这暴露的是 inference boundary 的记账与分类缺陷，
 不是部署效果证据；在选择任何新 unseen development sample 前，下一 revision 只修改这一边界。
+该边界现已做最小修正：带 usage 的 length response 被正确计数，并成为 recoverable output
+counterexample。冻结模型没有低于 `high` 的 reasoning level，因此只把单次 completion ceiling 扩大
+一倍，聚合预算保持不变。5 次 repository-free 生产路径探针都以正常 stop 返回 parsed JSON；进入新
+unseen development qualification 前，最后一道门仍是同 identity consumed replay。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

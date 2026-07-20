@@ -877,3 +877,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   的 length-finished response 错记为 request error，solver 则把它误标为意外 policy exception。下一
   revision 仅修正通用 usage 记账和 recoverable output-failure 分类，随后做 repository-free allocation
   probe，并只预注册一次同 identity replay。
+- 通用 length boundary 已修复并完成合成资格验证。带 usage 的 length-finished response 现在计为
+  completed response，solver 则得到 recoverable output failure。公开模型元数据显示冻结 DeepSeek
+  只支持 `high/xhigh`，所以 v2 保留 `high`，仅把单次 completion ceiling 从 16,384 调整为 32,768，
+  所有 episode 聚合上限不变。5 次 repository-free 压力探针通过生产 structured policy，得到 5 个
+  parsed candidate、5 个 `stop` finish、0 request/policy error，且不持久化 candidate 或 reasoning
+  content（10,403 input / 13,788 output tokens，304.3 秒）。这只验证 provider/client boundary。
+  下一项允许的实验是在新 freeze 下预注册一次同 identity consumed replay。

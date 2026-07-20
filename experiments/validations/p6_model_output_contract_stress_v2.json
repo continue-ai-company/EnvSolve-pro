@@ -1,0 +1,121 @@
+{
+  "claim_scope": "synthetic model-protocol compatibility only",
+  "interpretation": "A pass qualifies only the provider/client output boundary under synthetic pressure; it is not repository-deployment evidence.",
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "p6-model-output-contract-stress-v2",
+  "purpose": "Stress the production structured policy boundary without repository or evaluator input.",
+  "request": {
+    "evaluator_context": false,
+    "max_output_tokens": 32768,
+    "model": "deepseek/deepseek-v4-pro",
+    "reasoning_effort": "high",
+    "repository_context": false,
+    "requests": 5,
+    "response_format": "json_object",
+    "seed": 0,
+    "temperature": 0
+  },
+  "result": {
+    "candidates": [
+      {
+        "candidate_id": "candidate-0001",
+        "rationale_chars": 574,
+        "rationale_sha256": "9769b8dd56a05500ed1ba0610ca6589c0e7d7176a7432d942a9182508089b8b8",
+        "script_chars": 14,
+        "script_sha256": "a01bab26f08ba87b86736368b0684f0849a365ab4c5ec546d973ca87c815f682"
+      },
+      {
+        "candidate_id": "candidate-0002",
+        "rationale_chars": 546,
+        "rationale_sha256": "8914fb9cad0edcd5aba0df159476aba2eaabb1bd3b107bf9e667268fccb80fc7",
+        "script_chars": 26,
+        "script_sha256": "29845d986c9d802a5694464194c33d3f14b85b20e9565d2b312709fa00b664e0"
+      },
+      {
+        "candidate_id": "candidate-0003",
+        "rationale_chars": 422,
+        "rationale_sha256": "ce747c5787df6ee27bc2bfdb5efe44256f3051dc820486c15ab847cea7f4bbee",
+        "script_chars": 16,
+        "script_sha256": "378c31f61988a6ee42b5ab2e8a48f1f8fab602a4c6afd85c732b06632b87b133"
+      },
+      {
+        "candidate_id": "candidate-0004",
+        "rationale_chars": 422,
+        "rationale_sha256": "8b90c57091ae5b378f1fa096255016f24e9fc713ca432ee2b27f6e21cc792ed2",
+        "script_chars": 60,
+        "script_sha256": "8d6a308ca406796c0bbef111525bf507db6afbced5c22496283792491bc2e435"
+      },
+      {
+        "candidate_id": "candidate-0005",
+        "rationale_chars": 484,
+        "rationale_sha256": "88e6315b9e0c8b5a49bf6b9da92c7b3eea1dc6253969a4eb49f2a120f408cf8d",
+        "script_chars": 79,
+        "script_sha256": "3870db6b26b66110a4eba5c62b3041bc8f02ff40df9eab11120cd94ff906a5e5"
+      }
+    ],
+    "parsed_candidates": 5,
+    "policy_errors": [],
+    "qualified": true,
+    "responses": [
+      {
+        "finish_reason": "stop",
+        "input_tokens": 2072,
+        "output_tokens": 5453,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 5332,
+        "status": "completed"
+      },
+      {
+        "finish_reason": "stop",
+        "input_tokens": 2072,
+        "output_tokens": 119,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 118,
+        "status": "completed"
+      },
+      {
+        "finish_reason": "stop",
+        "input_tokens": 2072,
+        "output_tokens": 1810,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 1716,
+        "status": "completed"
+      },
+      {
+        "finish_reason": "stop",
+        "input_tokens": 2095,
+        "output_tokens": 1574,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 1473,
+        "status": "completed"
+      },
+      {
+        "finish_reason": "stop",
+        "input_tokens": 2092,
+        "output_tokens": 4832,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 4705,
+        "status": "completed"
+      }
+    ],
+    "usage": {
+      "cache_read_tokens": 0,
+      "candidates": 0,
+      "commands": 0,
+      "elapsed_wall_clock_seconds": 304.266907,
+      "environments": 0,
+      "estimated_cost_usd": 0.016520865,
+      "input_tokens": 10403,
+      "output_tokens": 13788,
+      "request_errors": 0,
+      "requests_started": 5,
+      "responses_completed": 5,
+      "total_tokens": 24191
+    }
+  },
+  "schema_version": "1.0.0"
+}
