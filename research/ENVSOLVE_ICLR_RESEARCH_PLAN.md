@@ -518,6 +518,11 @@ evaluator often enough to support an effectiveness comparison.
 That boundary revision is now implemented and synthetically qualified as v13; its
 next admissible evidence is a preregistered consumed-development replay.
 That one-run trigger replay is now frozen and awaiting execution.
+The replay passed artifact audit but its fourth request spent the entire completion
+allowance before producing parseable final content, so the preregistered five-response
+boundary was unexercised. This identifies an inference-boundary accounting and
+classification defect, not deployment evidence; the next revision changes only that
+boundary before any new unseen development sample.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

@@ -870,3 +870,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   任何自然预算终止必须按准确 scope 记录为 `episode-budget-exhausted`，不能出现
   budget-as-policy-exception 转移。更早的 Pass 或 infrastructure/provider failure 只记 `unexercised`，
   不 replacement。该单条 replay 不能支持效果 claim。
+- 该 consumed replay 已完成并通过 audit，但以 `unexercised_model_length_exception` 关闭。前三次
+  completed response 都形成 parsed candidate 且没有 empty final；第 4 次在 structured parsing 前把
+  16,384-token completion allowance 耗尽于 reasoning，因此没有达到 5-response 触发条件。轨迹没有
+  持久化 reasoning content，也没有进入 Official evaluation。该 run 同时证明 callback 把带真实 usage
+  的 length-finished response 错记为 request error，solver 则把它误标为意外 policy exception。下一
+  revision 仅修正通用 usage 记账和 recoverable output-failure 分类，随后做 repository-free allocation
+  probe，并只预注册一次同 identity replay。

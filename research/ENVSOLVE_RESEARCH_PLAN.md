@@ -1189,3 +1189,13 @@ development batch; it never triggers tuning on the same held-out outcomes.
   budget-as-policy-exception transition. Earlier Pass or infrastructure/provider
   failure is `unexercised` without replacement. The one-run replay cannot support an
   effectiveness claim.
+- The consumed replay completed with a valid audit but closed as
+  `unexercised_model_length_exception`. Three completed responses produced parsed
+  candidates without empty final content; the fourth exhausted its 16,384-token
+  completion allowance in reasoning before structured parsing, so the five-response
+  trigger was not reached. No reasoning content persisted and no Official evaluation
+  occurred. The run also showed that the callback miscounts a length-finished response
+  with real usage as a request error, while the solver mislabels it as an unexpected
+  policy exception. The next revision is limited to generic usage accounting and
+  recoverable output-failure classification, followed by a repository-free allocation
+  probe and one preregistered same-identity replay.

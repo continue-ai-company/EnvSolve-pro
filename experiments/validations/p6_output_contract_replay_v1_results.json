@@ -1,0 +1,68 @@
+{
+  "analysis": "p6-output-contract-replay-v1",
+  "claim_scope": "consumed-development mechanism replay only",
+  "decision": "unexercised_model_length_exception",
+  "inputs": {
+    "preregistration": "/Users/admin/Documents/AnyDeploy/experiments/validations/p6_output_contract_replay_v1_preregistration.json",
+    "preregistration_sha256": "cfe025c07a1f1091da2168e72113f88d7664914674a8a709a7283f2434cc8bf4",
+    "schedule": "/Users/admin/Documents/AnyDeploy/experiments/validations/p6_output_contract_replay_v1_schedule.json",
+    "schedule_sha256": "7f7a171227d14051b586876be6462ef60ffcfd3f0591c58cf50f3b144ed35d31"
+  },
+  "limitations": {
+    "causal_effectiveness_estimate_allowed": false,
+    "consumed_development_identity": true,
+    "leaderboard_claim_allowed": false,
+    "paper_test_set_claim_allowed": false
+  },
+  "qualification": {
+    "budget_terminal_qualified": null,
+    "practical_output_qualified": false,
+    "reasoning_content_absent": true
+  },
+  "run": {
+    "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/p6-output-contract-replay-v1-envsolve-operation/envbench-python-fillll__reddit2telegram__9899113b47d24c3eaebaf566718903990794e07c",
+    "audit_valid": true,
+    "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+    "counts": {
+      "budget_as_policy_exception": 0,
+      "empty_final_failures": 0,
+      "episode_budget_exhaustions": 0,
+      "failure_categories": {
+        "candidate-policy-exception": 1,
+        "candidate-validation-reject": 2,
+        "command-exit": 3,
+        "executable-verifier-counterexample": 1
+      },
+      "internal_passes": 0,
+      "length_finish_exceptions": 1,
+      "policy_exceptions": 1,
+      "policy_output_failures": 0,
+      "proposals": 3,
+      "verifications": 1
+    },
+    "episode_sha256": "3a5cb63aa0f69f941b27ff717ad00436b0ff58835e2e3bfac6710f206f66d06c",
+    "error": "LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=16384, prompt_tokens=2878, total_tokens=19262, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=16386, rejected_prediction_tokens=None, image_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0), cost=0.040315626, is_byok=False, cost_details={'upstream_inference_cost': 0.040315626, 'upstream_inference_prompt_cost': 0.003255018, 'upstream_inference_completions_cost': 0.037060608})",
+    "generation_completed": false,
+    "ledger_sha256": "c27c241e233057eca76b2219896c0bb4c530e4db9204c16a5e39a1684fa38286",
+    "method": "envsolve-operation",
+    "official_evaluator_reached": false,
+    "persisted_reasoning_paths": [],
+    "position": 1,
+    "result_sha256": "13ed000828592ccd4bc73d4c01da3db531a702b1faeee5ca1fd72046eb50c276",
+    "run_id": "p6-output-contract-replay-v1-envsolve-operation",
+    "seed": 0,
+    "usage": {
+      "candidates": 3,
+      "commands": 1,
+      "elapsed_wall_clock_seconds": 905.42733,
+      "environments": 1,
+      "input_tokens": 8571,
+      "output_tokens": 10217,
+      "request_errors": 1,
+      "requests_started": 4,
+      "responses_completed": 3,
+      "total_tokens": 18788
+    }
+  },
+  "schema_version": "1.0.0"
+}
