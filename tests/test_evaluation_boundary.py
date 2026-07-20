@@ -6,7 +6,10 @@ import tempfile
 import unittest
 from unittest import mock
 
-from envsolve_harness.adapters.envbench import EnvBenchEvaluator
+from envsolve_harness.adapters.envbench import (
+    EnvBenchEvaluator,
+    _run_envbench_process,
+)
 from envsolve_harness.audit import audit_run
 from envsolve_harness.core.models import BenchmarkConfig, Case, HarnessConfig, RunSpec
 from envsolve_harness.core.protocol import ExperimentProtocol, SuccessCriteria
@@ -15,6 +18,34 @@ from envsolve_harness.storage.manifest import initialize_manifest
 
 
 class OfficialEvaluationBoundaryTest(unittest.TestCase):
+    @mock.patch("envsolve_harness.adapters.envbench.subprocess.run")
+    def test_missing_path_uv_falls_back_to_envbench_venv(
+        self,
+        run: mock.Mock,
+    ) -> None:
+        missing = FileNotFoundError(2, "No such file or directory", "uv")
+        completed = subprocess.CompletedProcess(["uv"], 0, "ok", "")
+        run.side_effect = [missing, completed]
+        with tempfile.TemporaryDirectory() as directory:
+            envbench = Path(directory)
+            local_uv = envbench / ".venv/bin/uv"
+            local_uv.parent.mkdir(parents=True)
+            local_uv.write_text("fixture\n", encoding="utf-8")
+            command = ["uv", "run", "python", "evaluation/main.py"]
+
+            result = _run_envbench_process(
+                command,
+                cwd=envbench,
+                timeout=10,
+                env={},
+            )
+
+        self.assertIs(result, completed)
+        self.assertEqual(command[0], str(local_uv))
+        self.assertEqual(run.call_count, 2)
+        self.assertEqual(run.call_args_list[0].args[0][0], "uv")
+        self.assertEqual(run.call_args_list[1].args[0][0], str(local_uv))
+
     @mock.patch(
         "envsolve_harness.adapters.envbench.docker_image_provenance",
         return_value={"reference": "test:image"},

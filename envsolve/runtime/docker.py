@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -270,9 +271,31 @@ class DockerFreshEnvironmentProvider:
         handle = environment.handle
         if not isinstance(handle, DockerEnvironmentHandle):
             raise ValueError("Docker environment lease has an invalid handle")
+        ownership = self._run(
+            [
+                "docker",
+                "exec",
+                "--user",
+                "0:0",
+                handle.container_id,
+                "chown",
+                "-R",
+                f"{os.getuid()}:{os.getgid()}",
+                handle.container_workdir,
+            ]
+        )
         process = self._run(["docker", "rm", "-f", handle.container_id])
         if handle.worktree.exists():
-            shutil.rmtree(handle.worktree)
+            try:
+                shutil.rmtree(handle.worktree)
+            except OSError as exc:
+                ownership_detail = ownership.stderr.strip() or ownership.stdout.strip()
+                if ownership.returncode != 0 and ownership_detail:
+                    raise RuntimeError(
+                        "Docker worktree cleanup failed after ownership restoration "
+                        f"failed: {ownership_detail}"
+                    ) from exc
+                raise RuntimeError(f"Docker worktree cleanup failed: {exc}") from exc
         if process.returncode != 0:
             detail = process.stderr.strip() or process.stdout.strip()
             raise RuntimeError(f"Docker container release failed: {detail}")

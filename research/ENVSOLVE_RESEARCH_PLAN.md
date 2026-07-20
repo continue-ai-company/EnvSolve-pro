@@ -1259,3 +1259,38 @@ development batch; it never triggers tuning on the same held-out outcomes.
   protocol, runners, Git chain, and immutable Docker image identity. Selection/freeze
   tests pass 4/4, the real Docker boundary passes, and model/evaluator usage remains
   zero. Q11 is ready to execute from frozen position 1.
+- Q11 local execution was stopped by explicit operator request after positions 1--9
+  had finished and position 10 was active. The coordinator exited 130, recorded the
+  active process as terminated, and left the position-10 artifact audit-valid with an
+  `interrupted` state. Positions 1--7 and 9 are audit-valid model-backed failures;
+  position 8 ended before its first response with an OpenRouter connection error and
+  is invalid under the generic model-usage audit. The operator confirmed local
+  network fluctuation. The original position is preserved and may only use the
+  preregistered same-identity pre-episode acquisition retry after formal adjudication;
+  it may not be overwritten or replaced. No solver or protocol code changed during
+  selected execution. Q11 cannot support a paired effectiveness estimate in its
+  current interrupted state.
+- The bilingual ICLR manuscript has been rewritten around the intended three-layer
+  architecture: observation, constraint, and operation. Per-round development
+  history, commit chronology, and harness repair details now remain in this detailed
+  plan rather than the paper body. The manuscript keeps exactly three contributions,
+  three research questions, a terminal-only evaluation boundary, and an explicit
+  statement that confirmatory effectiveness evidence is pending.
+- Native-Linux portability is now qualified on an NVIDIA DGX Spark (`aarch64`,
+  Ubuntu 24.04, Python 3.12) against the exact ARM64 EnvBench image identity
+  `sha256:7bcf2ab3...287c3d4` and RepoDigest `sha256:84ce9883...490f0`.
+  Two harness-only defects were corrected: root-created bind-mount artifacts are
+  returned to the host UID/GID before container deletion, and the EnvBench adapter
+  falls back to `EnvBench/.venv/bin/uv` when a service PATH cannot resolve `uv`.
+  Observation, constraint, operation, budget, model, and verifier semantics are
+  unchanged. Harness v30 freezes this portability boundary for future runs; it does
+  not retroactively alter Q11's v29 execution identity.
+- Qualification passes on both hosts: the final Mac regression is `398 passed,
+  1 skipped`, the DGX regression is `398 passed, 1 skipped`, the real Docker boundary
+  passes on both, and Harness v30 independently verifies as `valid=true` on both.
+  With the DGX VPN active and no Mac proxy, a fresh `dgx-portability-smoke-v4` run
+  downloaded the repository from GitHub, exercised the adapter's local-`uv` fallback,
+  executed the ARM64 evaluator container, ran Pyright, persisted one official result,
+  and passed independent artifact audit. Its fixed manual script is Official-negative
+  (`exit_code=0`, `error_count=1295`), so this run is portability evidence only and
+  cannot support an EnvSolve effectiveness claim.

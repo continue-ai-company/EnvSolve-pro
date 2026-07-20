@@ -22,10 +22,10 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v29"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v29.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v28"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v28.json")
+FREEZE_ID = "envsolve-harness-v30"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v30.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v29"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v29.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
@@ -274,9 +274,12 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
             "reason": (
-                "After replay v2 exposed a transient provider response decode "
-                "failure, freeze bounded acquisition recovery, per-attempt "
-                "accounting, terminal classification, and timing-aware analysis."
+                "Restore host ownership of bind-mounted worktrees before Docker "
+                "container release so root-created installation artifacts can be "
+                "cleaned reliably on native Linux hosts, and fall back to the "
+                "EnvBench-local uv executable when a non-activated service PATH "
+                "cannot resolve uv. Solver, observation, constraint, operation, "
+                "budget, and verifier semantics are unchanged."
             ),
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,

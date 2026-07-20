@@ -1,404 +1,292 @@
-# EnvSolve：部分可观测的仓库部署状态化约束求解
+# EnvSolve：部分可观测仓库部署的状态化约束求解
 
 > 持续更新的 ICLR 论文稿。英文版：
 > [`ENVSOLVE_ICLR_RESEARCH_PLAN.md`](ENVSOLVE_ICLR_RESEARCH_PLAN.md)。
-> 只有得到冻结实验支持后，本文档中的 claim 才会升级。
+> 工程演进与逐轮实验账本保留在详细研究计划中，不进入本文正文。
 
 ## 摘要
 
-仓库部署既没有完整规格，也没有廉价 oracle。兼容的 runtime、ABI、语言与系统依赖、构建工具和
-平台条件共同构成一个隐藏的真实环境状态。Agent 只能通过执行候选间接观察它：同一个 import 或
-build failure 可能对应多种原因，网络故障和 timeout 还会让观测完全删失。因此仓库部署本质上是
-部分可观测的状态化约束求解，而不只是 shell 命令生成。
+部署一个陌生仓库，本质上是在恢复一组隐藏的运行时、依赖、构建和平台条件。这些条件无法被直接
+观测：执行只能暴露不完整且可能有歧义的症状，网络和基础设施故障甚至可能完全无法说明候选环境
+是否正确。因此，相比自由生成 shell 命令，仓库部署更适合被建模为部分可观测的状态化约束求解。
 
-现有语言模型 Agent 通常在失败后把终端输出追加到对话，再继续尝试。它们拥有 loop，却没有原则性
-回答两个核心问题：本次执行究竟证明了什么？证据是否足以约束下一次尝试？因此真实项目约束、
-含义不明确的失败和基础设施噪声很容易被混为一谈。
+本文提出 **EnvSolve**，一个三层部署 Agent。**观测层**将仓库声明和 fresh execution 转换为带来源
+的证据；**约束层**只把依据充分的证据接纳到由事实、冲突、假设和未解决义务组成的持久状态中；
+**操作层**把该状态转换为能够解除冲突的完整部署程序。每个候选都在 fresh environment 中执行，
+只有内部执行反馈可以更新状态；官方 evaluator 仅在终局调用，绝不提供修复反馈。
 
-我们提出 **EnvSolve**，将仓库部署形式化为部分可观测的状态化约束求解
-问题。每一轮中，EnvSolve 提出完整部署程序，在全新环境中执行，并把有依据的观测转化为显式
-事实、假设和约束。确定性矛盾可以指导下一候选；含义不明确的证据保留为假设；带明确基础设施
-签名的 timeout 保持 Unknown，没有此类签名的固定预算 timeout 则成为 candidate-cost evidence。
-官方 benchmark evaluator 仅在在线 episode 结束后调用一次，绝不
-提供修复反馈。
-
-我们在 EnvBench 上，将 EnvSolve 与原始资源上限匹配、使用相同 backbone 的 raw-history 和自然语言
-reflection 对照比较，测量最终部署成功率、修复效率、重复失败和 clean-replay 可靠性。开发分析
-暴露了 runtime import 检查和 static missing-import 评测之间的校准缺口，由此产生了一个预注册的
-两层 import-obligation verifier，将 runtime 语义与 static source 解析保留为独立证据。Held-out
-结果尚未产生，因此本文当前不作性能提升 claim。
+我们在 EnvBench 上将 EnvSolve 与 Repo2Run、原生 Agent，以及使用同一 backbone 的 raw-history 和
+reflection loop 比较。实验匹配模型访问、在线信息、官方 evaluator 权限和原始资源上限，测量最终
+部署成功率、terminal reach、修复效率、失败重复率和 clean replay。确认性的 held-out 实验尚未完成，
+因此本文当前不作效果或榜单声明。
 
 ## 1. 引言
 
-运行一个陌生仓库，是一个看似简单、实际复杂的推理问题。一次 import 失败可能意味着缺少包、
-Python 版本错误、平台分支不匹配、可选功能未启用，或者项目本地模块没有被正确安装。一次安装
-失败也可能来自 package mirror、构建工具不兼容或临时超时。这些观测并不支持同一种修复。
+从源码运行仓库是测试、程序分析、迁移、安全审计和大规模项目复现的前提，但部署常常在这些任务
+开始前就失败。一个 missing import 可能来自缺失 distribution、不兼容的语言版本、平台分支，或者
+错误的项目安装方式；一个失败的包管理命令也可能来自 ABI 冲突、缺失构建工具或临时 package-index
+故障。相似日志可能对应不同原因，同一个原因也可能产生不同日志。
 
-困难来自真实环境与 Agent 观测之间的关系。仓库具有一组未知的兼容性和依赖要求，但不存在一条命令
-可以直接读出完整要求。执行只能给出投影：missing module 能指出某项要求未满足，却未必指出正确的
-distribution；runtime import 成功不能证明 static source closure；timeout 几乎不提供候选本身的
-信息。不同隐藏原因可能产生同一日志，同一隐藏原因也可能因基础设施变化产生不同日志。这就是部署
-任务的**部分可观测性**。
+这使仓库部署成为对隐藏环境状态的推理问题。仓库并不提供完整、可执行的有效环境规格。Agent 可以
+读取 metadata 和源码，但只有执行部署程序后才能知道它是否可行；即便如此，观测仍然不完整：安装
+成功不代表所有源码可见 import 都能解析，带网络签名的 timeout 也不能证明候选环境本身有错。
 
-观测同时具有真实成本。一条有用反例可能需要 clean checkout、新容器、package-index 流量、编译、
-测试发现和下一次模型 proposal。这不定义任务本身，但要求受控评测：允许无限重试会把计算量伪装成智能，
-也让方法比较失去意义。因此我们在模型调用与 token、candidate environment、命令和 wall-clock time
-等原始资源上设置匹配上限。
+多数基于语言模型的部署 Agent 使用对话式 loop：生成命令、执行、把日志追加到上下文，再让模型
+重试。这个 loop 有用，但状态是隐式的。原始历史不会说明哪些观测是事实、哪些假设已被反驳、哪些
+失败仍有歧义，也不会说明下一次从干净环境开始时必须保留哪些历史操作。自然语言 reflection 能压缩
+历史，却仍把证据接纳和状态一致性交给自由文本生成。
 
-它的意义也超出 benchmark 分数。大规模仓库的可靠部署是测试、代码理解、迁移与漏洞分析的入口。
-一个不能区分环境证据与基础设施事故的引擎，无法以足够可靠的方式
-复现项目并支撑这些下游系统。
+EnvSolve 将部署推理解耦为三个显式层次：
 
-多数 LLM 部署 Agent 使用对话式 loop：执行命令、观察输出，再让模型决定下一步。Loop 本身有用，
-但状态是隐式的。Agent 容易重复失败命令，对网络错误反应过度，忘记哪些假设已被推翻，或者生成
-一份只有依赖前一轮容器残留状态才能工作的脚本。
+1. **观测层：**发生了什么，执行暴露了什么证据？
+2. **约束层：**现在知道什么，冲突在哪里，还有什么未解决？
+3. **操作层：**怎样改变环境才能解除这些约束？
 
-EnvSolve 从一个简单观点出发：**执行反馈只有先被解释为证据，才能约束下一次部署。** 因而方法
-把通常混在一起的四个操作分开：
+三层形成闭环。系统根据当前约束状态生成完整部署程序，在 fresh environment 中执行，再把结果转成
+新证据。只有通过确定性接纳规则的证据才能改变 hard state。这样既保留强编码 Agent 构造具体方案的
+能力，也防止有歧义或被基础设施删失的反馈悄悄变成部署规则。
 
-1. 提出完整部署候选；
-2. 在独立环境中执行候选；
-3. 判断本次执行究竟证明了什么；
-4. 根据得到的约束状态生成下一候选。
+本文有三项贡献：
 
-这种分离不仅希望提高部署成功率，也让科学分析成为可能：在模型、反馈、评测权限和原始资源上限固定
-时，我们可以直接比较结构化状态与 raw history。
+1. **问题定义。** 将仓库部署建模为部分可观测的状态化约束求解，区分隐藏环境状态、可执行观测和
+   终局任务评测。
+2. **三层算法。** 提出 EnvSolve，通过观测层、约束层和操作层实现带 provenance 的证据接纳，以及
+   反例驱动的完整、可复现部署程序生成。
+3. **受控实证研究。** 设计防泄漏的 EnvBench 实验，在信息和原始资源匹配的条件下比较 EnvSolve、
+   原生 baseline 与同 backbone loop，并分别分析成功率、terminal reach、效率和 clean replay。
 
-本文形成三项贡献：
-
-1. **问题定义。** 我们将仓库部署建模为部分可观测的状态化约束求解；执行结果只有进入显式、
-   带 provenance 的状态后，才成为可用证据。
-2. **方法。** 我们提出 EnvSolve：它生成完整部署程序，在 fresh environment 中验证，并对有依据的
-   Fail、未决 hypothesis 和基础设施 Unknown 采用不同的 evidence-admission 规则。
-3. **实证评测。** 我们在信息和原始资源上限匹配的条件下，将 EnvSolve 与相同 backbone 的 raw-history、
-   reflection loop 做受控 EnvBench 对比，测量最终成功、修复行为、资源使用与 clean-replay 可靠性。
-
-EnvBench 是主要试验场，而不是方法定义。Harness 隔离、artifact 日志和 fresh container 是有效
-实验的必要条件，但不作为独立算法创新。
+EnvBench 是检验方法的 testbed，不是 EnvSolve 的定义。Fresh container、artifact audit 和冻结 schedule
+是实验控制，用于保证测量有效，不作为独立算法贡献包装。
 
 ## 2. 问题定义
 
-设 `R` 为固定 revision 的仓库，其潜在部署状态 `Z_R` 包含有效环境所需的 runtime、ABI、package、
-build 与平台条件；`Z_R` 不能被直接观察。部署程序 `P` 是一串可重放环境动作，例如选择运行时、安装系统包、安装
-语言依赖和设置安全环境变量。
+给定固定 revision 的仓库 `R`，令 `Z_R` 表示其隐藏的有效部署条件，包括语言 runtime、ABI、package、
+构建工具、系统库、平台谓词和环境变量。部署程序 `P` 是一段可重放的环境操作序列。它可以配置 runtime
+和安装依赖，但不能修改应用源码、伪造缺失模块或削弱 evaluator。
 
-在第 `t` 轮，Agent 提出 `P_t`。程序在 fresh environment `E_t` 中执行，内部 verifier `V`
-返回观测 `O_t = V(P_t, E_t; Z_R, xi_t)`，其中 `xi_t` 表示网络可用性、package-index 状态等
-干扰条件。该观测不能唯一确定隐藏状态：多个潜在状态可能解释同一失败，删失也可能不揭示任何候选
-属性。因此 EnvSolve 不把 `O_t` 当作事实，而是更新显式约束状态：
+在第 `t` 轮，solver 在 fresh environment `E_t` 中执行候选 `P_t`，并得到观测
 
-`S_t = (F_t, C_t, H_t, X_t)`，
+`O_t = V(R, P_t, E_t; Z_R, xi_t)`，
 
-其中 `F_t` 是有依据的事实，`C_t` 是已接纳约束，`H_t` 是未决假设，`X_t` 是不可变执行证据。
-下一候选来自 `G(R, S_t)`。实验记录每次 proposal 和 execution 消耗的原始资源，并在对比方法共享的
-预注册资源上限到达时停止。
+其中 `V` 是内部可执行 verifier，`xi_t` 表示网络可用性和 package-index 状态等干扰因素。`O_t` 通常
+无法唯一确定原因：多个隐藏状态可以解释同一失败，基础设施问题也可能完全删失候选结果。
 
-未修改的官方 evaluator `Q` 只对最终程序评分。每个 method、case、seed 至多调用一次，并且必须
-发生在在线 episode 终止后；其输出不能进入 `S_t`。研究目标是在匹配实验条件下提高最终官方成功率，
-而不是最大化尝试次数。
+因此，solver 维护显式状态
 
-有效方案只能修改环境，不得修改应用源码掩盖失败、创建伪模块、削弱 evaluator，或使用从 held-out
-结果中得到的 case-specific rule。
+`S_t = (F_t, C_t, H_t, U_t, X_t)`，
+
+其中 `F_t` 是有依据的事实，`C_t` 是 hard constraint 与 contradiction，`H_t` 是未解决假设，`U_t`
+是操作义务，`X_t` 是带 provenance 的不可变原始证据。状态转移为
+
+`S_{t+1} = Update(S_t, Admit(O_t))`。
+
+它刻意不等价于把 `O_t` 追加到 prompt。`Admit` 决定一个观测能否修改 hard state、只能保持 provisional，
+还是应被标记为 Unknown。
+
+不变的官方 evaluator `Q` 只评测最终部署程序。其输出在在线 episode 中不可见，也不能进入 `S_t`。
+研究目标是提高终局部署成功率。资源上限属于实验设置，而不是任务定义：被比较方法获得匹配的模型
+请求与 token、候选环境、可执行命令和 wall-clock 上限。
+
+### 2.1 为什么部分可观测很重要
+
+部分可观测来自三个方面。第一，仓库声明可能不完整、带条件或已经过时；第二，执行暴露的是症状，
+不是隐藏原因；第三，基础设施可能删失观测。把每条日志都当作 hard fact 会让 solver 过拟合偶然故障；
+完全不保留反馈又会反复付出代价去重新发现同一冲突。EnvSolve 正是围绕这一矛盾设计。
 
 ## 3. EnvSolve
 
-### 3.1 完整部署候选
+### 3.1 总览
 
-每个 proposal 都是一份必须从 clean checkout 独立工作的完整程序，而不是叠加在上一轮之上的
-补丁。这样每个候选都能直接 replay，也避免成功依赖隐藏的容器历史。
+EnvSolve 执行如下闭环：
 
-Typed replay validator 接受环境 mutation，拒绝源码修改、纯观察命令、不安全路径注入和不支持的
-shell 控制流。被拒程序会作为证据保留并消耗 candidate budget，但不消耗 environment 或 command
-budget。
+```text
+S0 <- ObserveRepositoryAndBaseRuntime(R)
+while 尚未 internal Pass 且资源未耗尽:
+    U_t <- PlanOperations(S_t)
+    P_t <- ProposeCompleteProgram(R, S_t, U_t)
+    if not Validate(P_t, U_t):
+        S_t <- UpdateWithPolicyCounterexample(S_t, P_t)
+        continue
+    O_t <- ExecuteAndVerifyFresh(R, P_t)
+    S_t <- Update(S_t, Admit(O_t))
+return 找到的 internal-pass program
+```
 
-### 3.2 Fresh execution
+模型负责提出具体程序，确定性模块则控制什么能够进入状态、候选必须覆盖哪些义务，以及一次执行是否
+足以支持下一步修复。
 
-每个被接受的候选都获得新的 checkout 与 container identity。EnvSolve 记录完整命令、stdout、
-stderr、exit code、耗时、image digest、仓库 revision 和 environment identity。候选环境之间不
-共享可写状态。
+### 3.2 观测层：发生了什么？
 
-Fresh execution 属于算法，因为它检查候选程序是否自包含；但它与终局 benchmark evaluation 不同。
+观测层把异构的仓库与执行 artifact 转换成统一证据结构。首次 proposal 前，受限的只读 observer 提取
+标准项目声明，并观测精确 base runtime。Episode 中，每个通过前置验证的候选都在新的 checkout 和
+container 中运行。系统记录候选、环境 identity、image digest、命令、退出状态、时长、verifier check
+和有界 terminal evidence。
 
-### 3.3 可执行验证
+观测被分为：
 
-内部 verifier 检查不依赖官方 evaluator 反馈的普通项目属性，包括安装成功、package consistency、
-项目编译、runtime facts，以及从项目源码和 metadata 中得到的依赖 obligation。
+- **Pass：**预先声明的内部义务已满足；
+- **Fail：**可复现证据反驳了候选假设；
+- **Unknown：**结果被删失，或无法归因于候选。
 
-对于 Python import，EnvSolve 区分两层 obligation。**Runtime-semantic** 层判断当前候选平台和源码
-控制流下 import 是否必须执行；**static-source** 层判断源码中可见的名称是否存在可发现的 module、
-package、extension、namespace package 或 type stub。Guarded optional 与兼容 fallback 可以在
-runtime 层不活跃，但仍属于 static obligation；`TYPE_CHECKING` import 只属于 static 层；对目标
-平台可证明不活跃的分支豁免两层。无副作用 resolver 只检查候选解释器与物理源码路径，不调用官方
-evaluator，不运行 Pyright，不查询 package index，也不使用仓库特定 module mapping。
+例如，确定性的 runtime version mismatch 是有依据的 Fail；一般 build error 可能只能支持 hypothesis；
+带明确网络或 provider 签名的 timeout 是 Unknown；没有基础设施签名的命令 timeout 可以说明候选在固定
+上限下代价过高，但不能推出具体 package 原因。
 
-Verifier 输出三种结果之一：
+观测层绝不读取在线官方 evaluator 反馈，从而避免 test leakage，并保证最终评测是真正的 terminal
+operation。
 
-- **Pass：** 预注册内部 obligation 均满足；
-- **Fail：** 可复现证据与当前部署假设矛盾；
-- **Unknown：** 观测被删失，或无法归因于候选。
+### 3.3 约束层：缺什么，冲突在哪里？
 
-带明确网络或基础设施签名的 timeout 是 Unknown，而不是“需要换包或换命令”的证据。没有此类
-签名的固定预算 timeout 只证明该 candidate 超出执行上限，可指导更低成本的下一候选，但不能断言
-具体 package 原因。
+约束层是持久化推理状态。它根据证据强度和 provenance 接纳观测，而不是根据文本是否“听起来合理”。
 
-### 3.4 证据接纳与状态更新
+有依据的正向观测成为 fact，确定性不兼容成为 hard contradiction，有歧义的解释保留为 hypothesis，
+Unknown 不会成为候选约束。每个状态项都指向支持它的 candidate、environment、verifier 与原始证据。
 
-证据按强度接纳。确定性缺失 capability 可以进入 hard constraint；无法确定具体原因的 build
-failure 保留为 hypothesis；格式错误、过期证据、复用环境和 forbidden feedback 一律 fail closed。
+状态更新满足三个不变量：
 
-首次动作前，一个有界、无执行的 observer 只接纳标准项目 metadata 中无条件的 package requirement；
-另一个断网、只读 probe 在精确 base-image digest 中观测 Python。标准 runtime requirement 只有能与
-该 fresh fact 比较时才接纳。带 marker、格式错误、动态生成或 tool directive 的声明保持未接纳。
-随后 fresh verifier 观测已安装 distribution 的 presence、version 与 runtime fact，使初始 requirement
-只在 candidate-scoped evidence 满足或反驳它之前保持 unresolved。
+1. **不无依据地硬化。** 没有新 grounded evidence，hypothesis 不能升级为 hard constraint。
+2. **不意外遗忘。** 后续没有重新观测某个变量，不代表未解决义务已经满足。
+3. **同域替换。** 只有关于同一 domain、subject 和 predicate 的更新证据才能 supersede 旧 fact。
 
-Package manager 明确报告的 deterministic runtime incompatibility 会形成 hard requirement-fact
-矛盾；含义不唯一的 action failure 仍保持 hypothesis 或 provisional state。这样，仓库声明与执行
-反馈使用同一个带 provenance 的 runtime 表示。
+这些不变量把执行历史变成紧凑的状态转移系统。模型看到的是未解决 conflict、相关 fact、近期候选结果
+和有界证据，而不是无限增长的 transcript。
 
-每个 admitted fact 都记录来源 candidate、environment、verifier 和 raw evidence。后续观测可以
-supersede 环境范围内的事实，但 fresh execution 只提供部分观测：后续 verifier 没有报告某变量，
-不等于该变量已经满足。只有相同 `(domain, subject, predicate)` 获得新 fact 时，旧 fact 才退休；
-hypothesis-only 或无关观测必须保留未解决 obligation。底层 event 始终不可变。
-一份完整 verifier report 可以同时包含已修复变量的正观测和仍被违反变量的反例；不完整或 Unknown
-报告中的观测不进入 hard state。
+Python 依赖检查说明了结构化状态的必要性。Runtime semantics 询问某个 import 在当前平台是否执行；
+static source resolution 询问源码可见模块能否被解析。两者相关但不等价，EnvSolve 分开记录它们，
+而不是压缩成一个 import-success bit。
 
-### 3.5 反例驱动修复
+### 3.4 操作层：怎样改变环境？
 
-候选失败后，下一次模型调用接收仓库上下文、未解决 conflict、近期候选结果、verifier 摘要和有界
-terminal evidence，并必须重新提出完整程序。该投影是受 aggregate budget 约束的充分统计量：raw
-finding 与完整 constraint record 继续保留供审计，但不会在模型上下文中重复展开。当内部 Pass、
-预算耗尽、policy 明确 blocked，或 Unknown 使修复失去依据时，loop 终止。
+操作层将未解决约束映射为环境动作。确定性 planner 把有支持的状态投影为类型化 `OperationPlan`，例如
+配置兼容 runtime、安装已声明依赖、选择项目安装方式，或保留在上一 fresh environment 中支撑某个
+fact 的操作。
 
-模型格式错误在固定次数内可恢复：系统对原始输出做哈希、记录并作为协议错误反馈，不创建容器。
-这样可以避免偶然格式问题终止部署搜索，同时保留其真实成本。
+语言模型把计划实例化为完整部署程序。执行前，类型化 validator 检查三件事：
 
-当状态包含受支持的 hard conflict、高置信 unresolved requirement，或依赖上一候选环境才成立的
-satisfaction 时，确定性 planner 将其投影为带 provenance 的 `OperationPlan`。最后一种情况很关键：
-下一候选从 fresh environment 开始，因此让上一环境满足约束的操作必须保留在完整程序中。模型选择
-具体修复参数，guard 检查当前候选是否覆盖每项操作义务，并阻止候选原样经过一个已经观测到会失败、
-且任何新修改尚未生效的执行前缀。该机制把“缺什么或冲突在哪里”与“允许怎样改变环境”连接起来，
-同时不依赖仓库专属 package map。拒绝只消耗候选与模型预算。
+- 程序只改变环境；
+- 程序覆盖所有有依据的 operation obligation；
+- 程序不会在任何修复生效前，原样重放一个已知失败前缀。
 
-### 3.6 为什么它不只是另一个 Loop
+被拒绝的程序返回 policy counterexample，但不消耗 container。通过验证的程序始终从干净状态运行。
+因此，操作层不是简单推荐下一条 shell 命令，而是在说明当前约束将如何被解除后，构造一份自包含候选。
 
-Raw-history、reflection 和 EnvSolve 都可以执行多轮候选。区别在于反馈的表示与接纳方式：raw-history
-保留日志，reflection 让模型总结日志，EnvSolve 使用类型化状态，并且只有有依据的证据才能约束
-后续动作。主实验将在共享总预算下隔离这一差异。
+### 3.5 闭环 Solver
 
-## 4. 评测
+三层职责分离，但通过可执行反馈形成闭环：
 
-评测检验三个假设：EnvSolve 在总预算匹配时提高最终部署成功率；提升来自结构化约束状态与 evidence
-admission，而不是更多尝试；最终部署程序在 clean environment 中具有更高 replay 可靠性。
+`观测 -> 约束更新 -> 操作计划 -> Fresh execution -> 新观测`。
 
-### 4.1 Benchmark 与数据划分
+这才是 EnvSolve 与普通 ReAct 部署的算法差异。Raw-history 和 reflection baseline 可以使用同样多的
+轮次、看到同样的原始反馈；EnvSolve 的区别在于哪些反馈能够持久化、contradiction 如何跨 fresh
+environment 保留，以及持久状态怎样约束下一份完整程序。
 
-主要 benchmark 是 EnvBench 的 329 个 Python 仓库。开发仅限官方 train partition 中已声明的 case。
-每次新机制决策必须在单独冻结的 development batch 上资格验证。算法冻结后 Canary-20 只运行一次；
-方法与分析决策冻结前，Official-Test-100 保持 untouched。
+## 4. 实验设计
 
-EnConda-Bench 不属于本文。评测期间，EnvSolve 不进行跨 case 更新，也不检索其他 case 的
-自然语言经验、总结或轨迹。
+### 4.1 研究问题
 
-### 4.2 Baseline 与对照
+- **RQ1：效果。** 在信息和原始资源匹配时，EnvSolve 能否提高 Official Pass@1？
+- **RQ2：机制。** 效果是否来自显式约束状态、证据接纳和 constraint-to-operation planning？
+- **RQ3：效率与鲁棒性。** EnvSolve 能否减少重复失败、提高 clean replay，同时不依赖更多尝试或
+  evaluator 反馈？
 
-我们比较固定 native baselines、Repo2Run 和 same-backbone controls。核心因果对比包括：
+### 4.2 Benchmark 与划分
 
-- 原生部署 Agent；
-- 使用 fresh candidate 的 raw-history loop；
-- 自然语言 reflection loop；
-- 不持久化 constraint 的 EnvSolve v0；
+主要 testbed 是 EnvBench 的 329 个 Python 仓库。开发只使用官方 train partition 中已声明的 case。
+机制决策在分别冻结、outcome-blind 的 development batch 上资格验证。算法冻结后 Canary-20 只使用
+一次；方法、预算、baseline 和分析冻结前，Official-Test-100 保持 untouched。EnConda-Bench 不属于
+本文。
+
+本研究中的 EnvSolve 不进行跨 case 学习或经验检索。第一篇论文只研究单 case 内的状态化求解，并
+保留轨迹供后续工作使用，不加入未经验证的 memory claim。
+
+### 4.3 Baseline 与公平性
+
+我们比较：
+
+- EnvBench 固定原生 baseline；
+- Repo2Run；
+- 同 backbone 的 raw-history loop；
+- 同 backbone 的自然语言 reflection loop；
+- 移除持久 typed state 的 EnvSolve；
 - 完整 EnvSolve。
 
-所有 feedback-loop 方法获得相同模型、case、seed、image、raw online information、官方 evaluator
-调用次数和全局资源预算。方法可以提前停止，但不会为每个候选重新获得预算。
+核心因果比较匹配模型与 seed、仓库 revision、base image、raw online observation、官方 evaluator
+权限和全局原始资源上限。所有 loop baseline 的每个候选都从 fresh environment 开始。官方 evaluator
+只在产生内部 terminal candidate 后调用，且不向任何方法返回修复反馈。
 
-### 4.3 指标
+预算报告模型请求与 token、候选环境、命令和 wall-clock。美元成本只是带日期的附属换算，不是科学
+匹配变量。
 
-主指标是 EnvBench Official Pass@1。次指标包括固定资源上限内成功率、失败后修复概率、重复失败率、clean-
-replay 成功率、token、模型请求、命令、环境和 wall time。美元成本如果报告，只是按带日期的 provider 价格快照
-得到的附属换算，不是匹配变量或主指标。确认性比较报告 paired effect size 与 confidence interval。
+### 4.4 指标
 
-### 4.4 消融
+主指标是 EnvBench Official Pass@1。次指标包括：
 
-我们分别移除 typed constraint state、evidence admission、provenance 和 fresh replay；同时用自然
-语言摘要替换显式状态，并改变 candidate 与 token 上限以测量 success-resource curve。
+- 自然到达 terminal official evaluation 的 run 比例；
+- 首次候选失败后的修复成功率；
+- 重复失败率和 constraint-resolution rate；
+- 在新环境中的 clean-replay 成功率；
+- 模型、环境、命令、token 和 wall-clock 消耗；
+- 被删失的 Unknown，且与 candidate Fail 分开报告。
 
-## 5. 结果
+确认性比较使用 paired outcome 与 confidence interval。只有两种方法都产生可审计 Boolean official
+outcome 时，该 pair 才有效。如果 terminal reach 不足，batch 只能支持 failure decomposition，不能
+估计方法效果。
 
-### 5.1 协议有效性
+### 4.5 消融
 
-实验基础设施现在把 artifact integrity 与 scientific eligibility 分开。完整性审计检查 identity、
-hash、ledger、trajectory 和 official claim；科学有效性还要求已提交且干净的源码 revision、冻结的
-原始资源预算、完整且没有 host suspension 嫌疑的 runtime heartbeat，以及与 schedule 一致的执行。
-唯一的可恢复 coordinator 负责进程组硬截止时间，确定性 summarizer 从 hash-chained run evidence
-生成全部表格项。这些性质保证实验有效，但不能证明 EnvSolve 有效。
+核心消融每次移除一个机制：
 
-### 5.2 开发诊断
+- 类型化持久约束状态；
+- evidence admission 与 Unknown censoring；
+- provenance-aware state replacement；
+- constraint-to-operation planning 与 guard；
+- 完整候选的 fresh replay。
 
-已消费的 development trajectory 暴露出四类通用 calibration failure。第一，runtime import
-成功并不足以代理 static deployment objective，因此需要两层 obligation verifier。第二，把每次
-fresh-verifier 输出当作完整快照会错误清除未解决冲突；当前状态转移会保留旧 fact，直到同一变量
-被再次观测。第三，对日志叶子逐项截断不能保证结构化 prompt 有界；EnvSolve 现在把事件历史投影为
-紧凑 conflict、候选结果、verifier 摘要和分组 operation obligation，并统一受 aggregate context
-budget 约束。第四，创建虚拟环境却不将其绑定到后续验证，会让已安装依赖看起来仍然缺失；
-完整候选现在必须在验证前激活它创建的每个环境。
+我们还会比较 typed state 与自然语言 reflection，并在多个预注册资源上限下报告 success-resource
+curve。
 
-首个 artifact-valid 的五组 operation qualification 在描述性结果中产生一组 full-only pass、一组
-both-pass、两组 both-fail 和一组 infrastructure-censored pair。在 both-pass pair 中，full 使用
-2 个 candidate，free-form control 使用 5 个。后续 provenance review 发现这些 run 早于首个 Git
-baseline，因此五组 pair 全部不具备 scientific eligibility，只能用于错误分析。下一批五组 pair
-同样被排除：host suspension 造成多次 wall-clock 超限，通用 DSL 缺口还错误拒绝了有效 PDM 安装。
-PDM install/sync 和项目 venv 语义绑定现在已有合成测试覆盖，两批 consumed case 都不会重跑。
+## 5. 当前证据与剩余实验
 
-后续一批满足干净 contract 的开发实验产生 10 个 scientifically eligible run，但 official pass 为 0。
-五组 pair 中四组没有进入 official evaluation；唯一 official pair 中，完整 EnvSolve 将 missing-import
-issues 从 28 降到 1，但仍然失败。错误分析发现，当前 operation plan 在首次执行前为空，因此尚未把
-仓库观测转成初始约束；实验还发现一个 documentation source coverage 缺口和过度保守的 timeout
-classifier。两个通用机制 bug 已为未来 unseen development case 修正，失败 batch 仍保持 consumed。
-这个负结果收窄了方法 claim：只有类型化的被动修复还不够，下一方法版本必须定义保守的 pre-action
-constraint admission。
+当前实现、审计路径和三层 loop 已足以进入冻结的 development qualification。聚合开发证据支持三点。
+第一，候选生成并非唯一瓶颈：失败可以来自观测校准、状态转移，以及约束到操作的映射。第二，基础
+设施与 provider 故障必须被删失，不能转化为修复约束。第三，到达 terminal evaluator 本身就是必要
+的诊断结果；如果 terminal reach 不足，paired deployment effectiveness 就不可识别。
 
-该版本现在只在首次 proposal 前接纳无条件的标准 package declaration，并通过 fresh installed-
-metadata observation 闭合这些约束。机制与干净、已提交的 EnvBench evaluator 已在下一批
-outcome-blind 实验前冻结。随后按照预注册、仅使用 metadata 的哈希规则选择 5 个新 development
-identity。该 batch 按照预注册 shared-defect rule 在执行 3 个 pair 后关闭；6 个 run 均 scientifically
-eligible，但没有任何 run 进入 official evaluation。两个 pair 触发 pre-action package admission，
-然而一个确定性的 Python version mismatch 始终没有成为 hard runtime constraint，后续 candidate
-因此可以删除兼容 runtime 并退回已知无效的基础解释器。这个负结果说明仅接纳 package state 还不够：
-runtime compatibility 与 action feasibility 必须进入同一个持续约束状态。
+当前 development batch 没有产生足够多完整 Boolean official pair，且有一条 run 被操作者中断。这些
+轨迹只保留用于错误分解。下一步科学工作是从 consumed evidence 中识别跨 case 的主要失败转移，只做
+一个最小通用 revision，在新的 outcome-blind development batch 上资格验证，然后在 Canary-20 和
+Official-Test-100 前冻结。
 
-对应的 runtime-state revision 在检查新的 development repository 前已经实现并冻结。它把
-fresh base-runtime fact 绑定到候选镜像，依据该 fact 接纳标准 runtime declaration，把确定性版本
-mismatch 变成 hard contradiction，并在 fresh attempt 之间保持由候选操作支撑的 satisfaction。
-合成 transition 测试和真实 Docker 边界验证了这些语义；这只是机制验证，不是部署成功率提升证据。
-新的 5-pair development qualification 已完成预注册、在不检查 repository 的前提下盲选并冻结执行
-入口。它以 runtime-state invariant 为主要检验，以 paired official outcome 为次要结果。Batch 启动后，
-首个 ablation episode 在 verification 前被人工中断，并以 ineligible/Unknown 保留且不得
-重跑，因此该 pair 被删失。随后 eligible full counterpart 真实触发机制：base-image identity 保持
-正确，显式 runtime mismatch 后也存在后续 proposal 机会；但 mismatch 仍停留在文本，没有形成 hard
-constraint 与 runtime operation obligation。这个主要不变量失败使 batch 在 pair 1 后关闭。它是负面
-机制结果，不是 effectiveness estimate；其余 schedule case 不再执行。
+最终论文包含三张核心结果表：
 
-当前最小 revision 只修复这条已观测到的状态转移缺口。它接纳精确的 subject-first Python mismatch
-diagnostic，用 PEP 440 校验 version 与 range，并且只有 reported version 确实落在允许范围之外时才
-创建 hard contradiction。合成正例、范围兼容、格式错误、信息不完整和模糊措辞反例共同约束 admission
-边界；端到端 loop 测试证明被接纳的证据会在下一次 proposal 前生成 `runtime_configure` obligation。
-该修改不包含 repository、package、tool 或具体 version 规则，也不改变 Poetry command coverage。
-它已经冻结为 mechanism v10 与 Harness v24。这只建立内部语义，使用新 untouched development
-identity 的资格验证仍未完成。
+1. 所有 baseline 的 Official Pass@1 与 paired effect estimate；
+2. 组件消融与 terminal-reach failure decomposition；
+3. success-resource 与 clean-replay 分析。
 
-该资格实验现已完成预注册与执行绑定。Metadata-only hash 从 156 个 untouched development case 中
-选择 5 个新 identity，剩余 151 个；在检查任何 selected repository 前，exact evaluator image 已完成
-attestation。触发条件、停止规则、预算、调度和受限基础设施重试都在执行前冻结。随后 pair 1 因共享
-verifier 缺陷关闭 batch。两条 eligible run 都进入 internal
-test collection，其中 repository-local service 拒绝 localhost 连接；不感知阶段的 `ConnectionError`
-签名把该 candidate failure 错标为 dependency-acquisition infrastructure，并在下一次 proposal 前终止
-两条 loop。目标 v10 diagnostic 没有出现，因此 v10 是未触发，而不是被反驳。该 pair 被删失，其余
-case 不执行，也没有 official result 或 effectiveness estimate。
-
-最小修复使用已经记录的 failed-action phase。现在只有 candidate command 或 unknown phase 中的网络
-签名可以删失 episode；固定 internal check 产生的异常必须保留为 candidate feedback。相反方向的合成
-测试与 Q9 raw artifact 只读 replay 验证了这条边界，没有命名观测到的 service 或 repository。该
-revision 已冻结为 v11。这仍只建立内部语义，不代表部署效果。
-
-随后 5-pair v11 资格实验执行了全部 10 条冻结 run。所有 artifact 均有效且 scientifically eligible，
-没有 request error、suspension 排除、镜像不匹配或 infrastructure-Unknown verifier result。但目标
-network signature 出现 0 次，因此 v11 既没有得到前瞻性资格验证，也没有被反驳。10 条 run 全部在
-official evaluation 前耗尽 candidate budget，5 组效果 pair 全部删失。当前科研问题因此从一个稀有
-classifier trigger 转向更主要的 solver failure：为什么 typed state 与 guarded operation 在 5 个
-candidate 内仍无法产生可评测部署。下一项 development 工作是对这些 consumed trajectory 做聚合的
-状态转移错误分析，而不是补选一批 case。
-
-该分析首先发现了一个更简单的预算混杂：在创建 environment 前被拒绝的 proposal 与昂贵的 fresh
-execution 消耗同一个 cap。我们拆分原始预算，并预注册 consumed-Q10 校准，只把 proposal cap 从 5
-改为 15。10 条 run 的审计全部有效；3 条 run 越过旧上限，在第 5 个 proposal 之后恢复 5 次执行，
-但没有 run 通过 internal verifier 或进入 Official evaluator。因此拆分提高了搜索预算利用率，却不足以
-带来部署成功。新 trajectory 把问题进一步收窄到接口边界：空 final content 会耗尽重试，正常预算耗尽
-又会被误标为 policy exception。增加下一项 solver 机制前，我们先修复并资格验证这两个边界。
-修复现已冻结为 v13：output mode 与 reasoning effort 显式化；空响应只保留有界 metadata，不保存
-reasoning 内容；budget exhaustion 使用独立 terminal type。无 repository 在线探针只建立 API 兼容性，
-因此不产生效果 claim。Replay 现已在唯一的 consumed Q10 触发 run 上预注册：必须得到 5 次无输出失败的
-parsed response，
-并正确类型化预算 terminal；不 replacement，也不产生性能 claim。
-
-每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
-永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
-不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
-claim。
-
-### 5.3 主对比与消融
-
-表 1 比较所有资源匹配对照的 Official Pass@1，表 2 报告组件消融；配套分析给出 success-resource
-curve、重复失败率与 internal-verifier calibration。预注册确认性运行完成前，这些结果位置保持
-为空。所有 Fail 与 Unknown 都保留在分母中。
+确认性实验完成前，所有效果单元格保持为空，本文不作榜单声明。
 
 ## 6. 相关工作
 
-EnvSolve 连接四类研究：面向软件工程的 LLM Agent、自动化软件环境构建、execution-guided program
-synthesis，以及工具型 Agent 的 reflection 或 memory。预期区别不在于“存在执行 loop”，而在于
-terminal-only evaluator 下使用类型化、带 provenance 的 constraint state 和显式 evidence admission。
+EnvSolve 连接面向软件工程的语言模型 Agent、自动环境构建、execution-guided synthesis，以及 Agent
+reflection 或 memory。它的区别不是“存在执行 loop”，而是在 terminal-only evaluator 下显式分离
+观测、约束接纳和环境操作。
 
-与自由格式 reflection 和 memory 相比，EnvSolve 通过 evidence admission 限制状态更新；与
-counterexample-guided synthesis 相比，它面对的是有噪声、被删失的软件执行，而不是完整符号规格；
-与现有 deployment Agent 相比，它在预算匹配下隔离 state representation 的作用。本工作稿暂不加入
-引用，待 related-work audit 完成后统一补齐。
+与自由格式 reflection 相比，EnvSolve 限制哪些证据可以改变持久状态；与经典 counterexample-guided
+synthesis 相比，它面对的是带噪声、部分可观测且可能被删失的执行，而不是完整符号反例；与现有
+deployment Agent 相比，它在 backbone、信息和资源固定时隔离状态表示与转移规则的作用。引用将在
+related-work audit 后统一补齐。
 
 ## 7. 局限性
 
-EnvSolve 不能在不违反环境任务边界的情况下修复应用缺陷。内部验证必然只是 terminal deployability
-的近似，可能不完整。Fresh environment 提高因果清晰度，但增加时间与计算成本。网络和 package
-index 故障会产生删失结果，尤其在本地开发机器上。EnvBench 只覆盖仓库部署问题的一部分，更广泛
-语言和平台 claim 需要单独证据。
+EnvSolve 不能在不违反 environment-only 任务边界的前提下修复应用缺陷。内部 verifier 只是 terminal
+deployability 的近似，可能不完整。Fresh environment 提高因果清晰度，但增加时间与计算。网络和
+package-index 故障会产生删失结果。当前研究只覆盖 EnvBench 的 Python 仓库；其他语言、操作系统和
+跨 case adaptation 需要独立证据。
 
 ## 8. 结论
 
-EnvSolve 研究这样一个问题：当执行反馈被视为显式约束状态的证据，而不只是更多对话上下文时，
-仓库部署是否会更可靠。方法提出完整程序，在 fresh environment 中测试，只接纳有依据的反例，并
-保持官方评测为终局操作。实验协议和核心 loop 已实现，但决定性的 held-out 对比仍待完成。修正后的
-可执行语言、双层审计、调度器和分析流水线均不使用 case-specific 或 evaluator-derived rule。
-首次 outcome-blind runtime-state qualification 已暴露窄 diagnostic-admission failure 并关闭；
-下一次 qualification 暴露并修复了不感知 phase 的 infrastructure-classification 缺陷。修复后的
-v11 在完整 unseen development qualification 中产生 10 条 scientifically eligible trajectory，且
-没有错误的 infrastructure 转移，但预注册目标签名始终没有出现，也没有 run 进入 official
-evaluation。跨 case 分解发现，50 个 candidate 终止阶段中有 23 个属于 candidate-command failure。
-随后预注册的 episode 后校准确定性选择 10 份 terminal script，得到 9 次 completed Official failure、
-1 次 infrastructure Unknown 和 0 次通过；只有 3 份脚本进入 Pyright，且全部失败。因此，在任何完成
-的校准中，terminal non-reach 都没有隐藏 passing script，Boolean internal gate 继续冻结。后续实现
-审计发现，9 个 pre-environment reject 与 fresh execution 消耗同一个 5-unit cap。随后 consumed-Q10
-calibration 只把 proposal cap 提高到 15，fresh environment 和 verifier command 仍为 5；3 条 run
-使用了解放出的容量并恢复 5 次旧上限之后的执行，但没有 run 达到 internal 或 Official Pass。更简单的
-harness 解释成立但不充分；下一项最小 revision 处理 output completion 和 budget-terminal 语义。只有
-冻结的 development 方法能够以足够频率进入 terminal evaluator、从而支持效果比较后，held-out
-evaluation 才解锁。
-该边界 revision 已实现并以 v13 完成合成资格验证；下一项允许的证据是预注册 consumed-development
-replay。
-这条单 run 触发 replay 已冻结，等待执行。
-该 replay 通过 artifact audit，但第 4 次请求在产生可解析 final content 前耗尽全部 completion
-allowance，所以预注册的 5-response 边界未被触发。这暴露的是 inference boundary 的记账与分类缺陷，
-不是部署效果证据；在选择任何新 unseen development sample 前，下一 revision 只修改这一边界。
-该边界现已做最小修正：带 usage 的 length response 被正确计数，并成为 recoverable output
-counterexample。冻结模型没有低于 `high` 的 reasoning level，因此只把单次 completion ceiling 扩大
-一倍，聚合预算保持不变。5 次 repository-free 生产路径探针都以正常 stop 返回 parsed JSON；进入新
-unseen development qualification 前，最后一道门仍是同 identity consumed replay。
-修正后的边界已冻结为 v14/v28，并通过全量回归。同 identity replay 已预注册，是当前唯一允许的实证
-步骤；它不能支持效果 claim，也不能授权 replacement case。
-该 replay 随后连续产生 7 个 parsed response，第 8 次则发生 provider-response JSON decode failure。
-按照预注册的 no-request-error 规则，这一结果是 inconclusive，既不是方法通过，也不是反例。下一
-revision 因此只处理可审计的 provider-boundary bounded recovery；unseen development selection 继续
-锁定。
-该 acquisition confound 现已被隔离为只针对 provider-response decoding 的 bounded、完整记账 retry。
-确定性 fault injection 验证 recovery 与 terminal exhaustion，在线合成请求验证正常路径不变。这项修正
-不增加 deployment heuristic；冻结后，证据必须回到 outcome-blind unseen development batch。
-该边界已冻结为 v15/v29，全量回归通过且不可变镜像验证有效。下一项证据因此是 outcome-blind unseen
-development qualification，并且只能在预注册后选样。
-该 qualification 现已预注册为 5 个 outcome-blind paired development identity。当前科学问题刻意保持
-简单：冻结方法能否到达足够多的 terminal evaluator outcome，使 matched constraint-operation 对比有
-意义？少于 2 个完整 Boolean pair 时只做诊断。
-Selection 与 execution binding 已在不检查 repository 的条件下完成 5 个新 identity。Pool 守恒、
-pairing、不可变镜像 identity 和真实 Docker boundary 均通过 preflight；现在可以在不再修改方法的条件
-下开始执行。
-
-主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
-satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中
-覆盖这些义务。
+仓库部署困难，是因为有效环境隐藏在仓库背后，而每次执行只提供部分且带噪声的证据。EnvSolve 以
+三层架构处理这一问题：观测执行、维护显式约束状态，再生成能够解除剩余冲突的完整环境操作。这个
+设计把自由试错变成可审计的状态化求解，同时保留强模型构造具体程序的能力。最终需要回答的实证问题
+非常明确：在公平、资源匹配的条件下，这种结构能否提高终局部署成功率；冻结的 held-out 实验将专门
+回答这个问题。

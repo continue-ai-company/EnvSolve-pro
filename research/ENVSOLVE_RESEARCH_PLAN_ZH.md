@@ -918,3 +918,25 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   按 salt 决定。Execution freeze 绑定 v15、Harness v29、selected/remaining pool、config、Official
   protocol、runner、Git chain 和不可变 Docker image identity。Selection/freeze 测试 4/4 通过，真实
   Docker boundary 通过，model/evaluator usage 仍为 0。Q11 可从冻结 position 1 开始执行。
+- Q11 本地执行在 position 1--9 已结束、position 10 仍活跃时，按操作者明确要求受控停止。Coordinator
+  以 130 退出，活跃子进程被终止，position 10 artifact 以 `interrupted` 状态保持 audit-valid。
+  Position 1--7 与 9 是 audit-valid 的 model-backed failure；position 8 在首个 response 前发生
+  OpenRouter connection error，因缺少可审计 model usage 而不能通过通用 audit。操作者确认当时存在
+  本地网络波动。原始 position 必须保留，只有在正式裁决后才能使用预注册的同 identity、pre-episode
+  acquisition retry，不能 overwrite 或 replacement。Selected execution 期间没有修改 solver 或
+  protocol。当前中断状态下，Q11 不能支持 paired effectiveness estimate。
+- 中英文 ICLR 稿已按既定三层架构重写：观测层、约束层、操作层。逐轮开发历史、commit 时间线和
+  harness 修复细节继续保留在本详细计划中，不再进入论文正文。论文保持恰好三项贡献、三个研究问题、
+  terminal-only evaluation boundary，并明确说明确认性效果证据仍待完成。
+- 原生 Linux 可移植性现已在 NVIDIA DGX Spark（`aarch64`、Ubuntu 24.04、Python 3.12）上完成
+  资格验证，并绑定准确的 ARM64 EnvBench 镜像身份 `sha256:7bcf2ab3...287c3d4` 与 RepoDigest
+  `sha256:84ce9883...490f0`。本轮只修复两个 harness 缺陷：容器删除前把 bind mount 中由 root
+  创建的文件恢复为宿主 UID/GID；当服务进程的 PATH 找不到 `uv` 时，EnvBench adapter 回退到
+  `EnvBench/.venv/bin/uv`。Observation、constraint、operation、budget、model 与 verifier 语义均
+  未变化。Harness v30 只冻结后续运行的可移植性边界，不追溯改变 Q11 的 v29 execution identity。
+- 两端资格结果一致：Mac 全量回归为 `398 passed, 1 skipped`，DGX 为 `398 passed, 1 skipped`；
+  真实 Docker boundary 在两端通过，Harness v30 在两端独立验证均为 `valid=true`。DGX VPN 生效
+  后，在不使用 Mac 代理的条件下，全新的 `dgx-portability-smoke-v4` 成功从 GitHub 下载仓库，
+  触发 adapter 的本地 `uv` 回退，执行 ARM64 evaluator 容器、运行 Pyright、持久化唯一 Official
+  结果，并通过独立 artifact audit。固定手工脚本的结果为 Official-negative（`exit_code=0`、
+  `error_count=1295`），因此该 run 只能作为可移植性证据，不能支持 EnvSolve 效果 claim。

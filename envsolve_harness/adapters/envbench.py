@@ -38,6 +38,39 @@ def _timeout_output(value: str | bytes | None) -> str:
     return value.decode(errors="replace") if isinstance(value, bytes) else value
 
 
+def _run_envbench_process(
+    command: list[str],
+    *,
+    cwd: Path,
+    timeout: int,
+    env: dict[str, str],
+) -> subprocess.CompletedProcess[str]:
+    try:
+        return subprocess.run(
+            list(command),
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=timeout,
+            env=env,
+        )
+    except FileNotFoundError as exc:
+        local_uv = cwd / ".venv/bin/uv"
+        if exc.filename != "uv" or not local_uv.is_file():
+            raise
+        command[0] = str(local_uv)
+        return subprocess.run(
+            list(command),
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=timeout,
+            env=env,
+        )
+
+
 class EnvBenchEvaluator:
     def __init__(self, config: HarnessConfig, protocol: ExperimentProtocol) -> None:
         self.config = config
@@ -141,12 +174,9 @@ class EnvBenchEvaluator:
             process_env["ENVBENCH_GIT_FETCH_TIMEOUT_SECONDS"] = str(
                 self.config.git_fetch_timeout
             )
-            process = subprocess.run(
+            process = _run_envbench_process(
                 command,
                 cwd=self.benchmark.root,
-                capture_output=True,
-                text=True,
-                check=False,
                 timeout=self.config.evaluation_process_timeout,
                 env=process_env,
             )
