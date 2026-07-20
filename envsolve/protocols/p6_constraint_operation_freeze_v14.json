@@ -1,7 +1,7 @@
 {
   "freeze_id": "p6-constraint-operation-v14-model-length-boundary",
   "frozen_at": "2026-07-20T02:16:41Z",
-  "source_revision": "b2b769e6486d56e3eecd9d0e735ab5ac2450cb07",
+  "source_revision": "9df839b2b2583b354d8f4b513cd65668704fd716",
   "parent_freeze": {
     "path": "envsolve/protocols/p6_constraint_operation_freeze_v13.json",
     "sha256": "b5a57483d01c1f9236544d26e829d06e56198b889bc817b5b3712f2851244c9c"
@@ -35,7 +35,7 @@
     "experiments/configs/local_mac_p6_operation_output_contract_v2.json": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a",
     "experiments/probe_model_output_contract.py": "328071a157c21da33f211ae224b2aa8ce7d3c86d5f5396f8dd3c450f516366e1",
     "experiments/validations/p6_output_contract_replay_v1_results.json": "a685a5f4a8422208ea94a4e5be10e2106d09aae6d073e484cf2cdf8335459101",
-    "experiments/validations/p6_deepseek_v4_pro_capability_snapshot_20260720.json": "2fcc3907728aede332caac8d75c12661df3a42ef0ca907da5603455f63fea2a5",
+    "experiments/validations/p6_deepseek_v4_pro_capability_snapshot_20260720.json": "cb41d031d9eec038293228640b61127d87df9d5a3c5a57fd771f2b3a4bcb5878",
     "experiments/validations/p6_model_output_contract_stress_v2.json": "18a41e80f824fee4bc80d501fd1f2a8a150e32a6d7e3177dd456c84610f1360a",
     "research/P6_OUTPUT_CONTRACT_REPLAY_V1_RESULTS.md": "58eb2956419f3dd09fc583db2a36b25356b8d4ff7b6305089b2ffce7e90e3c4a",
     "research/P6_OUTPUT_CONTRACT_REPLAY_V1_RESULTS_ZH.md": "4c803f088b6d7fde097cd9b8396fb9e48d037bc84666cbf42373bf658c4c3ee7",
