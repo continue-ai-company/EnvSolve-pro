@@ -1,0 +1,23 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_pilot_v1_preregistration.json",
+  "preregistration_sha256": "03e334294c769171c1accc8011fd1611840f200d35bf2536e03597614342c3e0",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_pilot_v1_133.jsonl",
+  "remaining_sha256": "ea5fc309f2bd224162977eede854fdc5d49b04aa1717904e340f4c8d62c86f66",
+  "salt": "envsolve-p6-operation-pilot-v1-2026-07-20",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-facebookresearch__hydra@2e682d84e789d82dd11ab1f329f2dd1966fa6b54",
+    "envbench-python-scikit-rf__scikit-rf@cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+    "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+    "envbench-python-wind-python__windpowerlib@191d8ca894d6d830997630fa3599f048d6e8c7b4",
+    "envbench-python-ansible__molecule@fd3ed55b11bf896aa1892ee75a6f32761eed3032",
+    "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+    "envbench-python-llm-random__llm-random@80c89d079aa004051fc14f5ffa6a6a62f22ea7da",
+    "envbench-python-vespa-engine__pyvespa@32edd3699cc00c9bd7ad933fd74155acb59a4747"
+  ],
+  "selected_path": "experiments/cases/dev_operation_pilot_v1_8.jsonl",
+  "selected_sha256": "e753d44a93e7082398d1a5ee6a0202cef951bd1d5fb1accaf3d176e48d1a043c",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v11_141.jsonl",
+  "source_sha256": "4282badca5bf9cf5870816f0d8077eb39f47230a92f1e733520d11dfb2c0f356"
+}
