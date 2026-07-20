@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-qualification-v11-terminal-reach",
+  "preregistered_at": "2026-07-20T11:06:00+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Outcome-blind paired development qualification of the frozen v15 system, constraint-driven operation treatment, and terminal evaluator reach under corrected output and provider acquisition boundaries.",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v15.json",
+    "sha256": "bfb3324cfdfac615618645675bb861faeca2c8f0ab8412a9269861b6ef1d0fab"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v29.json",
+    "sha256": "c3e6b30ae5de9517c68857e32ca4b7a8e6c273872f58d91e32e350567f83e197"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "selection_tool": {
+    "path": "experiments/tools/freeze_paired_qualification.py",
+    "sha256": "6d87c1aa277275447db986c4c0048514c4e751f7c5a6e8fe8cd05cf984b97701"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification_v10_146.jsonl",
+    "source_sha256": "ff2e1dc63b6f925de96cc54bcf6091470982c07b5cf2dd81e7faa6f5447c6632",
+    "source_count": 146,
+    "count": 5,
+    "salt": "envsolve-p6-operation-qualification-v11-2026-07-20",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "failure_signature_prescreen": false,
+    "package_manager_stratification": false,
+    "prior_qualification_case_reuse": false,
+    "selected_path": "experiments/cases/dev_operation_qualification_v11_5.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v11_141.jsonl",
+    "provenance_path": "experiments/validations/p6_operation_qualification_v11_selection.json",
+    "selected_split": "dev-operation-qualification-v11-5",
+    "remaining_split": "train-untouched-after-operation-qualification-v11-141"
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "free-form",
+      "repository_observer": true,
+      "base_runtime_observer": true,
+      "initial_constraint_admission": false,
+      "operation_plan_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "obligation_profile": "two-layer",
+      "operation_profile": "constraint-driven",
+      "repository_observer": true,
+      "base_runtime_observer": true,
+      "initial_constraint_admission": true,
+      "operation_plan_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "shared_boundary": {
+    "repository_observer": "envsolve-repository-declarations-v2",
+    "base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "fresh_verifier": "python-deployment-v5-phase-aware-v11",
+    "model_output": "high reasoning, json_object, 32768 completion ceiling",
+    "provider_acquisition": "two bounded JSONDecodeError retries with per-attempt accounting",
+    "official_evaluator_access": "post-episode-only after internal pass"
+  },
+  "schedule": {
+    "output_path": "experiments/validations/p6_operation_qualification_v11_schedule.json",
+    "run_prefix": "p6-operation-q11",
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "matched_primitive_limits": {
+    "max_candidates": 15,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "model_max_output_tokens_per_request": 32768,
+    "model_max_retries": 2,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000,
+    "matching_basis": "primitive limits; USD is neither a matching variable nor a scientific outcome"
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation_output_contract_v2.json",
+    "sha256": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "primary_outcomes": [
+    "scientifically eligible paired runs and paired Official Boolean outcomes",
+    "internal-pass and natural Official-evaluator reach by method",
+    "paired Official success difference when both sides are eligible and Boolean",
+    "output completion and provider acquisition boundary invariants"
+  ],
+  "boundary_invariants": {
+    "length_finish": "usage-bearing length response is completed usage and candidate-policy-output, never request error or policy exception",
+    "provider_recovery": "each parse retry consumes a request; a successful recovery has matching retry/error accounting; exhaustion is provider-acquisition-failure",
+    "budget_terminal": "online budget exhaustion is episode-budget-exhausted with exact scope",
+    "privacy": "reasoning content is never persisted"
+  },
+  "qualification_rule": {
+    "complete_batch": "Run all five frozen pairs unless a shared boundary invariant fails or the operator interrupts execution.",
+    "minimum_paired_official_results_for_comparison": 2,
+    "insufficient_terminal_reach": "Report the batch as terminal-reach insufficient and use only failure decomposition; do not estimate method effectiveness.",
+    "paired_comparison": "Use only pairs where both runs are scientifically eligible and return Boolean Official outcomes.",
+    "shared_boundary_failure": "Finish the active pair, close Q11, consume all selected identities, and repair only with synthetic or consumed evidence.",
+    "provider_acquisition_exhaustion": "Record infrastructure Unknown, censor the pair, continue the frozen schedule, and do not retry or replace the case."
+  },
+  "scientific_eligibility": {
+    "artifact_integrity_valid": true,
+    "committed_clean_revision": true,
+    "schedule_identity_match": true,
+    "primitive_budget_compliance": true,
+    "runtime_heartbeat_complete": true,
+    "host_suspension_suspected": false
+  },
+  "adaptation_policy": {
+    "code_or_protocol_changes_after_selection": false,
+    "case_replacement": false,
+    "run_overwrite": false,
+    "pre_episode_acquisition_failure": "one audited same-identity retry only when model, candidate, environment, command, evaluator, and method information are all zero",
+    "terminal_evaluator_infrastructure_failure": "one evaluator-only retry of the identical script with zero new model calls",
+    "host_suspension": "stop and classify affected or orphaned positions as scientifically ineligible without overwrite",
+    "other_infrastructure_failure": "record Unknown and censor the pair without retry"
+  },
+  "claim_scope": "development terminal-reach and paired method qualification only",
+  "paper_effectiveness_claim_allowed": false,
+  "leaderboard_claim_allowed": false,
+  "protocols": [
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V11.md",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V11_ZH.md"
+  ]
+}

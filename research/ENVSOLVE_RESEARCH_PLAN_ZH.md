@@ -908,3 +908,8 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   `397 passed, 1 skipped`，不可变 Docker 验证有效。Constraint、operation、verifier、output
   allocation、聚合预算和 Official-access 语义均继承 v14，不发生变化。合成 acquisition 证据已经
   完成；下一实验必须先预注册，再从剩余 untouched development pool 中仅按 metadata 选样。
+- Q11 已在选样前预注册为 5 个 pair 的 outcome-blind terminal-reach qualification。它在完全相同的
+  v15/v29 inference、verifier、image 和原始预算下，对比冻结 constraint-driven operation 与 matched
+  free-form ablation。5 个 identity 将从 146 条 untouched pool 中按 salted case-id hash 选择，保留
+  141 条 untouched。即使只是 development paired comparison，也至少需要 2 个 pair 的两侧都 eligible
+  且具有 Boolean Official outcome；否则 Q11 只作为 terminal-reach 与 failure-decomposition 研究。

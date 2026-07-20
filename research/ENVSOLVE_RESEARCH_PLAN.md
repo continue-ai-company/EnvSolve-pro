@@ -1245,3 +1245,10 @@ development batch; it never triggers tuning on the same held-out outcomes.
   Official-access semantics are unchanged from v14. Synthetic acquisition evidence
   is complete; the next experiment must be preregistered before metadata-only
   selection from the remaining untouched development pool.
+- Q11 is preregistered before selection as a five-pair outcome-blind terminal-reach
+  qualification. It compares the frozen constraint-driven operation method with its
+  matched free-form ablation under identical v15/v29 inference, verifier, image, and
+  primitive limits. Five identities will be selected by salted case-id hash from the
+  146-entry untouched pool, leaving 141 untouched. At least two fully eligible pairs
+  with Boolean Official outcomes are required even for a development paired
+  comparison; otherwise Q11 is only a terminal-reach and failure-decomposition study.

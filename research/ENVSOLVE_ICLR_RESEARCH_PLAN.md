@@ -545,6 +545,10 @@ must return to an outcome-blind unseen development batch.
 The boundary is frozen as v15/v29 with a clean full regression and immutable image
 verification. The next evidence is therefore an outcome-blind unseen development
 qualification, selected only after preregistration.
+That qualification is now preregistered as five outcome-blind paired development
+identities. Its immediate scientific question is deliberately simple: can the frozen
+method reach enough terminal evaluator outcomes to make a matched constraint-operation
+comparison meaningful? Fewer than two complete Boolean pairs yields diagnosis only.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
