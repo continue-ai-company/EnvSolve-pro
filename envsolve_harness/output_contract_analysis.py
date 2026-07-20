@@ -102,6 +102,9 @@ def analyze_output_contract_replay(
     schedule_path = schedule_path.resolve()
     preregistration_path = preregistration_path.resolve()
     preregistration = read_json(preregistration_path)
+    preregistration_id = preregistration.get("preregistration_id")
+    if not isinstance(preregistration_id, str) or not preregistration_id:
+        raise ValueError("Output-contract preregistration requires an identifier")
     expected_schedule_sha256 = (preregistration.get("schedule") or {}).get("sha256")
     if sha256_file(schedule_path) != expected_schedule_sha256:
         raise ValueError("Schedule does not match output-contract preregistration")
@@ -166,7 +169,7 @@ def analyze_output_contract_replay(
 
     return {
         "schema_version": "1.0.0",
-        "analysis": "p6-output-contract-replay-v1",
+        "analysis": preregistration_id,
         "claim_scope": "consumed-development mechanism replay only",
         "inputs": {
             "schedule": str(schedule_path),
