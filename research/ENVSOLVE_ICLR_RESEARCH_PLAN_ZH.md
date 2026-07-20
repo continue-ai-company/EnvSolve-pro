@@ -395,6 +395,9 @@ development qualification，并且只能在预注册后选样。
 该 qualification 现已预注册为 5 个 outcome-blind paired development identity。当前科学问题刻意保持
 简单：冻结方法能否到达足够多的 terminal evaluator outcome，使 matched constraint-operation 对比有
 意义？少于 2 个完整 Boolean pair 时只做诊断。
+Selection 与 execution binding 已在不检查 repository 的条件下完成 5 个新 identity。Pool 守恒、
+pairing、不可变镜像 identity 和真实 Docker boundary 均通过 preflight；现在可以在不再修改方法的条件
+下开始执行。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

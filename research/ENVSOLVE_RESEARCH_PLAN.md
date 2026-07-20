@@ -1252,3 +1252,10 @@ development batch; it never triggers tuning on the same held-out outcomes.
   146-entry untouched pool, leaving 141 untouched. At least two fully eligible pairs
   with Boolean Official outcomes are required even for a development paired
   comparison; otherwise Q11 is only a terminal-reach and failure-decomposition study.
+- Q11 selection and execution binding are complete without repository inspection.
+  Pool conservation is `146 = 5 selected + 141 untouched`; the schedule contains five
+  complete pairs and ten unique positions with salted method order. The execution
+  freeze binds v15, Harness v29, the selected and remaining pools, config, Official
+  protocol, runners, Git chain, and immutable Docker image identity. Selection/freeze
+  tests pass 4/4, the real Docker boundary passes, and model/evaluator usage remains
+  zero. Q11 is ready to execute from frozen position 1.

@@ -549,6 +549,10 @@ That qualification is now preregistered as five outcome-blind paired development
 identities. Its immediate scientific question is deliberately simple: can the frozen
 method reach enough terminal evaluator outcomes to make a matched constraint-operation
 comparison meaningful? Fewer than two complete Boolean pairs yields diagnosis only.
+Selection and execution binding are complete with five new identities and no
+repository inspection. Pool conservation, pairing, immutable image identity, and the
+real Docker boundary pass preflight; execution can now begin without further method
+changes.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

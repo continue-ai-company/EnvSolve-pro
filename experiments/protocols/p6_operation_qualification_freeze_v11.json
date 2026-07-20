@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "p6-operation-qualification-v11",
+  "created_after_outcome_blind_selection": true,
+  "git_chain": {
+    "algorithm_freeze_commit": "548eca2781492b9f8ef214e05e554c5df6bdcebb",
+    "preregistration_commit": "8a802e42855fcb42b74c09336c1c669281c8cd54",
+    "selection_commit": "0863d697f645fb3b1054969807e226c5b78eb187"
+  },
+  "files": {
+    "envsolve/protocols/p6_constraint_operation_freeze_v15.json": "bfb3324cfdfac615618645675bb861faeca2c8f0ab8412a9269861b6ef1d0fab",
+    "experiments/protocols/harness_freeze_v29.json": "c3e6b30ae5de9517c68857e32ca4b7a8e6c273872f58d91e32e350567f83e197",
+    "experiments/cases/dev_operation_qualification_v11_5.jsonl": "150311c24d76eef111896298603af9b1f9c038161be9f40d02663dd5fb5b010a",
+    "experiments/cases/train_untouched_after_operation_qualification_v10_146.jsonl": "ff2e1dc63b6f925de96cc54bcf6091470982c07b5cf2dd81e7faa6f5447c6632",
+    "experiments/cases/train_untouched_after_operation_qualification_v11_141.jsonl": "4282badca5bf9cf5870816f0d8077eb39f47230a92f1e733520d11dfb2c0f356",
+    "experiments/configs/local_mac_p6_operation_output_contract_v2.json": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a",
+    "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "experiments/run_case.py": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b",
+    "experiments/run_schedule.py": "edf5fe17328b3313beeba85869801723f16f2114334811263253200975e563f4",
+    "experiments/summarize_schedule.py": "1d9ffd026be68f3ba3601ab01d6399c5d52bb5c1843db5e77630896c6a39e619",
+    "experiments/validations/p6_operation_qualification_v11_preregistration.json": "9410d0977a6976510054df712574204af1e9cdc9d59d44bc3d6bbc84331d0461",
+    "experiments/validations/p6_operation_qualification_v11_schedule.json": "05e155d9cc79dc7c6e605198427a13d1fbd43cc43b8ae507ae710cfa8a1fa212",
+    "experiments/validations/p6_operation_qualification_v11_selection.json": "0c16cf2f664362e01d72a034fd07ab2c614397a397e3406afc2b2531bd778cb6",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V11.md": "7f674ed2ba6cc6249678bd287fa9e609d8f6767a7fbc735e463086940c06855e",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V11_ZH.md": "9f1b1b4b5b4fbcad835f51dbd914f5f4141049ef35cf364102d5579c7acc5387"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false,
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "identity_evidence": "experiments/protocols/harness_freeze_v29.json"
+  },
+  "schedule": {
+    "pairs": 5,
+    "episodes": 10,
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "treatment_boundary": {
+    "shared_repository_observer": true,
+    "shared_base_runtime_observer": true,
+    "shared_raw_repository_profile": true,
+    "shared_executed_candidate_feedback": true,
+    "shared_phase_aware_verifier": true,
+    "shared_output_contract": true,
+    "shared_provider_acquisition_recovery": true,
+    "ablation_initial_constraint_admission": false,
+    "ablation_operation_plan_visible": false,
+    "ablation_operation_guard": false,
+    "full_initial_constraint_admission": true,
+    "full_operation_plan_visible": true,
+    "full_operation_guard": true,
+    "official_evaluator_feedback_online": false
+  },
+  "inference_boundary": {
+    "reasoning_effort": "high",
+    "response_format": "json_object",
+    "max_output_tokens_per_request": 32768,
+    "max_model_requests": 15,
+    "provider_response_max_retries": 2,
+    "retry_attempts_consume_request_budget": true,
+    "provider_terminal_category": "provider-acquisition-failure",
+    "reasoning_content_persisted": false
+  },
+  "qualification": {
+    "minimum_paired_official_results_for_comparison": 2,
+    "insufficient_terminal_reach": "failure decomposition only; no method effectiveness estimate",
+    "paired_comparison": "both runs scientifically eligible with Boolean Official outcomes",
+    "no_selected_identity_replacement": true,
+    "shared_boundary_failure_closes_batch_after_active_pair": true
+  },
+  "integrity": {
+    "selection_metadata_only": true,
+    "failure_signature_prescreen": false,
+    "package_manager_stratification": false,
+    "repository_inspections_after_selection": 0,
+    "model_requests_after_selection": 0,
+    "official_evaluator_executions_after_selection": 0,
+    "solver_or_protocol_mutations_after_selection": 0,
+    "q1_through_q10_case_reuse": false,
+    "output_contract_replay_identity_reuse": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  },
+  "scientific_budget": {
+    "matching_basis": "primitive resource limits",
+    "usd_is_matching_variable": false,
+    "usd_is_scientific_outcome": false
+  },
+  "preflight": {
+    "algorithm_regression": "397 passed, 1 skipped",
+    "selection_and_freeze_tests": "4 passed",
+    "real_docker_runtime_boundary": "1 passed",
+    "harness_freeze_verification": "valid=true with immutable image ID and RepoDigest",
+    "case_pool_conservation": "146 = 5 selected + 141 untouched; selected and remaining are disjoint",
+    "schedule_pairing": "5 complete pairs and 10 unique positions"
+  },
+  "claim_scope": "development terminal-reach and paired method qualification only"
+}

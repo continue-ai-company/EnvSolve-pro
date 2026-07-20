@@ -913,3 +913,8 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   free-form ablation。5 个 identity 将从 146 条 untouched pool 中按 salted case-id hash 选择，保留
   141 条 untouched。即使只是 development paired comparison，也至少需要 2 个 pair 的两侧都 eligible
   且具有 Boolean Official outcome；否则 Q11 只作为 terminal-reach 与 failure-decomposition 研究。
+- Q11 selection 与 execution binding 已完成，未检查 repository。Pool 守恒为
+  `146 = 5 selected + 141 untouched`；schedule 含 5 个完整 pair 和 10 个唯一 position，method 顺序
+  按 salt 决定。Execution freeze 绑定 v15、Harness v29、selected/remaining pool、config、Official
+  protocol、runner、Git chain 和不可变 Docker image identity。Selection/freeze 测试 4/4 通过，真实
+  Docker boundary 通过，model/evaluator usage 仍为 0。Q11 可从冻结 position 1 开始执行。
