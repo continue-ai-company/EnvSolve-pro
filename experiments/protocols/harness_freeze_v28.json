@@ -33,7 +33,7 @@
     },
     "sha256": "e6a8534f71cc3790595cc5ccc0e896557a2e94ef94b970894163ceb52caf5228"
   },
-  "created_at": "2026-07-20T02:16:14.190184+00:00",
+  "created_at": "2026-07-20T02:23:42.692892+00:00",
   "datasets": {
     "files": {
       "experiments/cases/canary20.jsonl": "efaa56b0087776003432fa51ed585aa46729310ab014634352819ae622da709c",
@@ -458,7 +458,7 @@
       "envsolve_harness/integrity/__init__.py": "d5afbc15ef679d18f81334fe36efd5edcd7d1273d23aa1328c6beefc277efe2e",
       "envsolve_harness/integrity/freeze.py": "bb7933d4faa38f56e3168b2027aa12501567b8e99b765d1af38a3c92b4e0cea6",
       "envsolve_harness/integrity/repository.py": "0ff0b99bc2339cc4cc605edfc4568ab4a255181213d33f0acf23b7237a1699a6",
-      "envsolve_harness/output_contract_analysis.py": "e973c80f5792973f09afb52caa0af5484d29f2a19ccb3722d19d3170c6a99fd5",
+      "envsolve_harness/output_contract_analysis.py": "5bc58f68f99a689f2843b6f1979664f797bd076379d9afd3953e4a8acad86acc",
       "envsolve_harness/results.py": "19cb5016642a817d46befde820e2db8fe22485dbc84b95fa8788a29c7d981eb6",
       "envsolve_harness/runners/__init__.py": "d4c754832e289423f550f40d01d5ffc8de6c5f176f48423489408cd24838fab9",
       "envsolve_harness/runners/base.py": "2e856e94df40e4a448b42967ff3ca2b343d563415bf14187117876d09de43c5f",
@@ -573,7 +573,7 @@
       "tests/test_summarize.py": "cba06ca585ea06fd8238621a26c8bfd797af53cfbd7f8cd4b82aa289d747a37a",
       "tests/test_trajectory_binding.py": "ae77f4ce8e45597810af1331e175b04a30ffbd9d946cad8e81fa82221c7a778f"
     },
-    "source_sha256": "eaa460bd8be7367e6b19d89dbf95084c25194ff803db9fc44bf85f3b5ed85fa9"
+    "source_sha256": "73fff229d4a95b677d17de02e05a476fa80f1703451c86da3b2718cb2b728695"
   },
   "manifest_schema_version": "0.6.0",
   "protocol": {

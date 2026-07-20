@@ -1,14 +1,14 @@
 {
   "freeze_id": "p6-constraint-operation-v14-model-length-boundary",
   "frozen_at": "2026-07-20T02:16:41Z",
-  "source_revision": "9df839b2b2583b354d8f4b513cd65668704fd716",
+  "source_revision": "50a1d051b8b72b6b6376da4ab3dcc1ad10b8505a",
   "parent_freeze": {
     "path": "envsolve/protocols/p6_constraint_operation_freeze_v13.json",
     "sha256": "b5a57483d01c1f9236544d26e829d06e56198b889bc817b5b3712f2851244c9c"
   },
   "harness_freeze": {
     "path": "experiments/protocols/harness_freeze_v28.json",
-    "sha256": "db4e8c7858cfc388c03d4760c3015b2b6be09f63799ba5265b5939a1d5980268"
+    "sha256": "caaab40df9d9c7fe04b02651f656c24d6db286a10951c5821749daae3f7671d6"
   },
   "change_from_v13": [
     "Count a length-finished model response with provider usage as a completed token-consuming response rather than a transport request error.",
@@ -22,6 +22,7 @@
     "envsolve/tools/run_envsolve_episode.py": "0e54deb1c7ce295301ec7f206b5922477ad668715d95268648c604d3129f0c11",
     "envsolve_harness/budget/langchain.py": "777cf9e9c1b8559bf695f87009891dad24ddf574db43f5abe990ccb6d3c02a12",
     "envsolve_harness/budget/ledger.py": "3844c1c14debe13514077a18a840b7924fcff30d449d3757d620a879f5a35626",
+    "envsolve_harness/output_contract_analysis.py": "5bc58f68f99a689f2843b6f1979664f797bd076379d9afd3953e4a8acad86acc",
     "envsolve_harness/core/config.py": "0f7efa938894121e62c925c07e82f1f62d03da7a00c839000344fee6cf428465",
     "envsolve_harness/core/models.py": "30b73edd444203721d5803434d6cc7f0aa26d8481390c3aa49c69d9ce532f01a",
     "envsolve_harness/runners/envsolve_p6.py": "25efaf4c287d3e7bb572e821487ebcbae3c7f0dfa5019598b1ecc61fd0f67723",
