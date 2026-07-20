@@ -11,6 +11,39 @@ from langchain_openai import ChatOpenAI
 from envsolve_harness.budget.ledger import BudgetLedger, BudgetLimits, TokenPricing, UsageDelta
 
 
+def _field(value: Any, name: str, default: Any = None) -> Any:
+    if isinstance(value, dict):
+        return value.get(name, default)
+    return getattr(value, name, default)
+
+
+def _usage_from_completion(completion: Any) -> UsageDelta | None:
+    usage = _field(completion, "usage")
+    if usage is None:
+        return None
+    input_tokens = int(
+        _field(usage, "prompt_tokens", _field(usage, "input_tokens", 0)) or 0
+    )
+    output_tokens = int(
+        _field(usage, "completion_tokens", _field(usage, "output_tokens", 0)) or 0
+    )
+    details = _field(
+        usage,
+        "prompt_tokens_details",
+        _field(usage, "input_token_details"),
+    )
+    cache_read = int(
+        _field(details, "cached_tokens", _field(details, "cache_read", 0)) or 0
+    )
+    if not input_tokens and not output_tokens:
+        return None
+    return UsageDelta(input_tokens, output_tokens, min(cache_read, input_tokens))
+
+
+def _usage_from_error(error: BaseException) -> UsageDelta | None:
+    return _usage_from_completion(getattr(error, "completion", None))
+
+
 def _usage_from_result(result: LLMResult) -> UsageDelta:
     llm_output = result.llm_output if isinstance(result.llm_output, dict) else {}
     token_usage = llm_output.get("token_usage")
@@ -107,7 +140,11 @@ class OnlineBudgetCallback(BaseCallbackHandler):
         self.ledger.record_response(_usage_from_result(response))
 
     def on_llm_error(self, error: BaseException, *, run_id: UUID, **kwargs: Any) -> None:
-        self.ledger.record_error()
+        usage = _usage_from_error(error)
+        if usage is None:
+            self.ledger.record_error()
+            return
+        self.ledger.record_response(usage)
 
 
 def create_budgeted_chat_model(

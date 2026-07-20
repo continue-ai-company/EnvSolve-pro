@@ -51,6 +51,12 @@ OPERATION_SYSTEM_PROMPT = dedent(
 OPERATION_PROFILES = {"constraint-driven", "free-form"}
 
 
+def _field(value: Any, name: str, default: Any = None) -> Any:
+    if isinstance(value, dict):
+        return value.get(name, default)
+    return getattr(value, name, default)
+
+
 def _response_text(response: Any) -> str:
     content = getattr(response, "content", response)
     if isinstance(content, str):
@@ -330,16 +336,25 @@ class StructuredModelDeploymentPolicy:
             system_prompt += "\n\n" + OPERATION_SYSTEM_PROMPT
         if self.candidate_language.strip():
             system_prompt += "\n\nCandidate language contract:\n" + self.candidate_language.strip()
-        response = self.model.invoke(
-            [
-                ("system", system_prompt),
-                (
-                    "user",
-                    "Produce the next complete candidate from this JSON state:\n"
-                    + json.dumps(projection, ensure_ascii=True, sort_keys=True),
-                ),
-            ]
-        )
+        try:
+            response = self.model.invoke(
+                [
+                    ("system", system_prompt),
+                    (
+                        "user",
+                        "Produce the next complete candidate from this JSON state:\n"
+                        + json.dumps(projection, ensure_ascii=True, sort_keys=True),
+                    ),
+                ]
+            )
+        except Exception as exc:
+            details = self._length_finish_details(exc)
+            if details is None:
+                raise
+            raise RecoverablePolicyError(
+                "Model candidate reached the output token limit before parsing",
+                details=details,
+            ) from exc
         text = _response_text(response).strip()
         if not text:
             raise RecoverablePolicyError(
@@ -398,4 +413,40 @@ class StructuredModelDeploymentPolicy:
             "output_tokens": usage.get("output_tokens"),
             "reasoning_tokens": output_details.get("reasoning"),
             "reasoning_content_present": bool(reasoning),
+        }
+
+    @classmethod
+    def _length_finish_details(cls, error: BaseException) -> dict[str, Any] | None:
+        if type(error).__name__ != "LengthFinishReasonError":
+            return None
+        completion = getattr(error, "completion", None)
+        choices = _field(completion, "choices", ()) or ()
+        choice = choices[0] if choices else None
+        finish_reason = _field(choice, "finish_reason")
+        if finish_reason not in {None, "length"}:
+            return None
+        message = _field(choice, "message")
+        text = _field(message, "content", "") or ""
+        usage = _field(completion, "usage")
+        output_details = _field(usage, "completion_tokens_details")
+        reasoning_tokens = _field(
+            output_details,
+            "reasoning_tokens",
+            _field(output_details, "reasoning"),
+        )
+        return {
+            "response_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+            "response_excerpt": cls._bounded_value(text, 2_000),
+            "final_content_empty": not bool(text),
+            "finish_reason": finish_reason or "length",
+            "output_tokens": _field(
+                usage,
+                "completion_tokens",
+                _field(usage, "output_tokens"),
+            ),
+            "reasoning_tokens": reasoning_tokens,
+            "reasoning_content_present": bool(
+                _field(message, "reasoning")
+                or _field(message, "reasoning_content")
+            ),
         }

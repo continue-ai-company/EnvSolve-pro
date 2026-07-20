@@ -5,6 +5,7 @@ import json
 import subprocess
 import tempfile
 import unittest
+from types import SimpleNamespace
 
 from envsolve.constraints import (
     ConstraintDomain,
@@ -73,6 +74,31 @@ class DiagnosticModel(RecordingModel):
     def invoke(self, messages):
         self.messages = messages
         return DiagnosticResponse(self.response)
+
+
+class LengthFinishReasonError(Exception):
+    def __init__(self) -> None:
+        self.completion = SimpleNamespace(
+            choices=[
+                SimpleNamespace(
+                    finish_reason="length",
+                    message=SimpleNamespace(
+                        content="",
+                        reasoning_content="not persisted",
+                    ),
+                )
+            ],
+            usage=SimpleNamespace(
+                completion_tokens=16384,
+                completion_tokens_details=SimpleNamespace(reasoning_tokens=16384),
+            ),
+        )
+        super().__init__("output limit")
+
+
+class LengthErrorModel:
+    def invoke(self, messages):
+        raise LengthFinishReasonError()
 
 
 class FakeDockerGit:
@@ -249,6 +275,24 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         details = raised.exception.details
         self.assertEqual(str(raised.exception), "Model candidate has no final content")
         self.assertTrue(details["final_content_empty"])
+        self.assertEqual(details["finish_reason"], "length")
+        self.assertEqual(details["output_tokens"], 16384)
+        self.assertEqual(details["reasoning_tokens"], 16384)
+        self.assertTrue(details["reasoning_content_present"])
+        self.assertNotIn("not persisted", json.dumps(details))
+
+    def test_model_policy_treats_length_finish_as_recoverable_output_failure(self) -> None:
+        policy = StructuredModelDeploymentPolicy(LengthErrorModel(), {"files": []})
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+
+        with self.assertRaises(RecoverablePolicyError) as raised:
+            policy.propose(state)
+
+        details = raised.exception.details
+        self.assertEqual(raised.exception.category, "candidate-policy-output")
         self.assertEqual(details["finish_reason"], "length")
         self.assertEqual(details["output_tokens"], 16384)
         self.assertEqual(details["reasoning_tokens"], 16384)
