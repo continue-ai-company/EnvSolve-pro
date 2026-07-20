@@ -1228,3 +1228,14 @@ development batch; it never triggers tuning on the same held-out outcomes.
   corrected by an explicit closure adjudication. Unseen selection remains blocked.
   The next minimal boundary is bounded provider-response recovery with per-attempt
   accounting and timing-aware analysis, qualified without a new repository identity.
+- The provider acquisition boundary is now minimally corrected without another case.
+  Only provider/client `JSONDecodeError` is retried, using the existing two-retry
+  setting; every attempt consumes request budget, and retry/recovery counts are
+  explicit. Exhaustion is a solver-owned `provider-acquisition-failure`, not a policy
+  exception. A deterministic repository-free probe qualified one-error recovery and
+  three-attempt exhaustion with exact ledger counts; a live repository-free normal
+  request passed through with no retry or error. Timing-aware analysis tests also
+  preserve the frozen v2 result while correcting future decisions. Pre-freeze full
+  regression is `396 passed, 1 skipped` plus the expected stale-freeze failure. After
+  freezing this boundary, the next admissible step is a new outcome-blind development
+  qualification, not another consumed replay.

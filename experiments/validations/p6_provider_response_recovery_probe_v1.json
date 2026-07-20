@@ -1,0 +1,62 @@
+{
+  "claim_scope": "synthetic acquisition-boundary compatibility only",
+  "configuration": {
+    "max_retries": 2,
+    "maximum_attempts": 3,
+    "retry_exception": "JSONDecodeError"
+  },
+  "interpretation": "A pass qualifies only retry accounting and terminal classification; it is not deployment evidence.",
+  "privacy": {
+    "api_key_used": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "p6-provider-response-recovery-v1",
+  "purpose": "Qualify bounded provider-response recovery without repository, evaluator, or network input.",
+  "result": {
+    "exhausted": {
+      "terminal": {
+        "attempts": 3,
+        "exception_type": "EpisodeProviderAcquisitionFailed"
+      },
+      "usage": {
+        "cache_read_tokens": 0,
+        "candidates": 0,
+        "commands": 0,
+        "elapsed_wall_clock_seconds": 0.003139,
+        "environments": 0,
+        "estimated_cost_usd": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "request_errors": 3,
+        "requests_started": 3,
+        "response_parse_recoveries": 0,
+        "response_parse_retries": 2,
+        "responses_completed": 0,
+        "total_tokens": 0
+      }
+    },
+    "qualified": true,
+    "recovered": {
+      "candidate_id": "candidate-0001",
+      "candidate_script_sha256": "29845d986c9d802a5694464194c33d3f14b85b20e9565d2b312709fa00b664e0",
+      "usage": {
+        "cache_read_tokens": 0,
+        "candidates": 0,
+        "commands": 0,
+        "elapsed_wall_clock_seconds": 0.003786,
+        "environments": 0,
+        "estimated_cost_usd": 0.0002,
+        "input_tokens": 100,
+        "output_tokens": 50,
+        "request_errors": 1,
+        "requests_started": 2,
+        "response_parse_recoveries": 1,
+        "response_parse_retries": 1,
+        "responses_completed": 1,
+        "total_tokens": 150
+      }
+    }
+  },
+  "schema_version": "1.0.0"
+}

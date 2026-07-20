@@ -897,3 +897,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   `unexercised_provider_exception` 标签保留原样，由显式 closure 裁决纠正。Unseen selection 继续阻止。
   下一项最小边界是带逐 attempt 记账的 bounded provider-response recovery 和 timing-aware analysis，
   且不使用新 repository identity 完成资格验证。
+- Provider acquisition boundary 已在不使用另一个 case 的条件下完成最小修复。只有 provider/client
+  `JSONDecodeError` 会复用已有的 2 次 retry；每个 attempt 都消耗 request budget，retry/recovery 计数
+  显式可见。耗尽后产生 solver-owned `provider-acquisition-failure`，不是 policy exception。确定性的
+  repository-free probe 以准确 ledger 计数验证了单次错误恢复和三次耗尽；一次在线 repository-free 正常
+  请求也在 0 retry/error 下透传。Timing-aware analysis 测试保留冻结 v2 结果，并修正未来裁决。Freeze
+  前全量回归为 `396 passed, 1 skipped` 加唯一预期 stale-freeze failure。冻结该边界后，下一项允许步骤
+  是新的 outcome-blind development qualification，而不是再次 replay consumed case。

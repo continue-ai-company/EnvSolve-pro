@@ -537,6 +537,11 @@ provider-response JSON decode failure. Under the preregistered no-request-error 
 this is inconclusive, not a method qualification or contradiction. The next revision
 is therefore limited to audited bounded recovery at the provider boundary; unseen
 development selection remains locked.
+That acquisition confound is now isolated with a bounded, fully accounted retry for
+provider-response decoding only. Deterministic fault injection verifies both recovery
+and terminal exhaustion, while a live synthetic request verifies unchanged normal
+behavior. This correction adds no deployment heuristic; after freezing it, evidence
+must return to an outcome-blind unseen development batch.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
