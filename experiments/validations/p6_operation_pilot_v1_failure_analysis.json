@@ -1,0 +1,934 @@
+{
+  "aggregate": {
+    "candidates": 70,
+    "categories": {
+      "candidate_command_failure": 23,
+      "candidate_validation_reject": 8,
+      "fixed_internal_check_failure": 15,
+      "structured_obligations_active": 23,
+      "verification_failure_other": 1
+    },
+    "executed_candidates": 62,
+    "later_proposal_candidates": 54,
+    "runs": 16
+  },
+  "methods": {
+    "envsolve-operation": {
+      "candidates": 34,
+      "categories": {
+        "candidate_command_failure": 11,
+        "candidate_validation_reject": 3,
+        "fixed_internal_check_failure": 8,
+        "structured_obligations_active": 12
+      },
+      "executed_candidates": 31,
+      "later_proposal_candidates": 26,
+      "runs": 8
+    },
+    "envsolve-operation-ablation": {
+      "candidates": 36,
+      "categories": {
+        "candidate_command_failure": 12,
+        "candidate_validation_reject": 5,
+        "fixed_internal_check_failure": 7,
+        "structured_obligations_active": 11,
+        "verification_failure_other": 1
+      },
+      "executed_candidates": 31,
+      "later_proposal_candidates": 28,
+      "runs": 8
+    }
+  },
+  "runs": [
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 2,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 25,
+          "later_proposal": true,
+          "proposed_sequence": 23
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 603,
+          "later_proposal": true,
+          "proposed_sequence": 601
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 609,
+          "later_proposal": true,
+          "proposed_sequence": 607
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 615,
+          "later_proposal": true,
+          "proposed_sequence": 613
+        },
+        {
+          "candidate_id": "candidate-0007",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 621,
+          "later_proposal": true,
+          "proposed_sequence": 619
+        },
+        {
+          "candidate_id": "candidate-0008",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 630,
+          "later_proposal": false,
+          "proposed_sequence": 628
+        }
+      ],
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "counts": {
+        "candidates": 8,
+        "categories": {
+          "candidate_command_failure": 2,
+          "candidate_validation_reject": 3,
+          "fixed_internal_check_failure": 2,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 7
+      },
+      "episode_sha256": "2452965be6b7b8e7d8ceb40a05e682d2680c70a11af413173f861ab0d848ecf7",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 1,
+      "position": 1,
+      "run_id": "p6-operation-pilot-v1-01-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 8,
+          "later_proposal": true,
+          "proposed_sequence": 6
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 2,
+          "finished_sequence": 23,
+          "later_proposal": true,
+          "proposed_sequence": 21
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 34,
+          "later_proposal": true,
+          "proposed_sequence": 32
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 612,
+          "later_proposal": true,
+          "proposed_sequence": 610
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 1185,
+          "later_proposal": true,
+          "proposed_sequence": 1183
+        },
+        {
+          "candidate_id": "candidate-0007",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 1191,
+          "later_proposal": false,
+          "proposed_sequence": 1189
+        }
+      ],
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "counts": {
+        "candidates": 7,
+        "categories": {
+          "candidate_command_failure": 1,
+          "candidate_validation_reject": 2,
+          "fixed_internal_check_failure": 2,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 6
+      },
+      "episode_sha256": "6a9f46d64eeb595ab45efa943efdc5a4f1720f4a7df5645fa829eebf4cbc8d93",
+      "method": "envsolve-operation",
+      "pair_index": 1,
+      "position": 2,
+      "run_id": "p6-operation-pilot-v1-01-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 14,
+          "later_proposal": false,
+          "proposed_sequence": 12
+        }
+      ],
+      "case_id": "envbench-python-ansible__molecule@fd3ed55b11bf896aa1892ee75a6f32761eed3032",
+      "counts": {
+        "candidates": 2,
+        "categories": {
+          "fixed_internal_check_failure": 1,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 2,
+        "later_proposal_candidates": 1
+      },
+      "episode_sha256": "592eaee77f1edbaf2c2371c4ffae51a7fced20043fc67b5e39f02c0ff4b51f27",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 2,
+      "position": 3,
+      "run_id": "p6-operation-pilot-v1-02-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 11,
+          "later_proposal": true,
+          "proposed_sequence": 9
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 4,
+          "finished_sequence": 20,
+          "later_proposal": true,
+          "proposed_sequence": 18
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 31,
+          "later_proposal": false,
+          "proposed_sequence": 29
+        }
+      ],
+      "case_id": "envbench-python-ansible__molecule@fd3ed55b11bf896aa1892ee75a6f32761eed3032",
+      "counts": {
+        "candidates": 3,
+        "categories": {
+          "fixed_internal_check_failure": 2,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 2
+      },
+      "episode_sha256": "f065f885fc51866d9f34e9e26aa43d854226917e46b0c1589c090fd6c5651d93",
+      "method": "envsolve-operation",
+      "pair_index": 2,
+      "position": 4,
+      "run_id": "p6-operation-pilot-v1-02-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 27,
+          "later_proposal": true,
+          "proposed_sequence": 25
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 36,
+          "later_proposal": true,
+          "proposed_sequence": 34
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 266,
+          "later_proposal": false,
+          "proposed_sequence": 264
+        }
+      ],
+      "case_id": "envbench-python-vespa-engine__pyvespa@32edd3699cc00c9bd7ad933fd74155acb59a4747",
+      "counts": {
+        "candidates": 3,
+        "categories": {
+          "fixed_internal_check_failure": 1,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 2
+      },
+      "episode_sha256": "7ca9fb84bbc74e4c86752312a7c58a5ecafb3704e0434e9ff71246703beb5e02",
+      "method": "envsolve-operation",
+      "pair_index": 3,
+      "position": 5,
+      "run_id": "p6-operation-pilot-v1-03-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 236,
+          "later_proposal": false,
+          "proposed_sequence": 234
+        }
+      ],
+      "case_id": "envbench-python-vespa-engine__pyvespa@32edd3699cc00c9bd7ad933fd74155acb59a4747",
+      "counts": {
+        "candidates": 3,
+        "categories": {
+          "fixed_internal_check_failure": 1,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 2
+      },
+      "episode_sha256": "781f8f905447fa56e4f1c6c2937dff49f86cc44cf8742ba92bb42f7f4b193ed0",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 3,
+      "position": 6,
+      "run_id": "p6-operation-pilot-v1-03-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 2,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 27,
+          "later_proposal": true,
+          "proposed_sequence": 25
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 95,
+          "later_proposal": false,
+          "proposed_sequence": 93
+        }
+      ],
+      "case_id": "envbench-python-wind-python__windpowerlib@191d8ca894d6d830997630fa3599f048d6e8c7b4",
+      "counts": {
+        "candidates": 4,
+        "categories": {
+          "fixed_internal_check_failure": 2,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 4,
+        "later_proposal_candidates": 3
+      },
+      "episode_sha256": "313fde1212281d6f820b16e0997cecb066358c30d220791f7d89fef6d2f654a0",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 4,
+      "position": 7,
+      "run_id": "p6-operation-pilot-v1-04-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 8,
+          "later_proposal": true,
+          "proposed_sequence": 6
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 17,
+          "later_proposal": true,
+          "proposed_sequence": 15
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 83,
+          "later_proposal": false,
+          "proposed_sequence": 81
+        }
+      ],
+      "case_id": "envbench-python-wind-python__windpowerlib@191d8ca894d6d830997630fa3599f048d6e8c7b4",
+      "counts": {
+        "candidates": 3,
+        "categories": {
+          "fixed_internal_check_failure": 1,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 2
+      },
+      "episode_sha256": "53e6b2487f35a501325a3f4d83d2be35b3ce06dcf3b83adf4a9141bc1273f083",
+      "method": "envsolve-operation",
+      "pair_index": 4,
+      "position": 8,
+      "run_id": "p6-operation-pilot-v1-04-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 16,
+          "later_proposal": true,
+          "proposed_sequence": 14
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 28,
+          "later_proposal": true,
+          "proposed_sequence": 26
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 40,
+          "later_proposal": true,
+          "proposed_sequence": 38
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 49,
+          "later_proposal": false,
+          "proposed_sequence": 47
+        }
+      ],
+      "case_id": "envbench-python-facebookresearch__hydra@2e682d84e789d82dd11ab1f329f2dd1966fa6b54",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 4,
+          "fixed_internal_check_failure": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "251dd3adcccdcfc029bd7cda72b688eb674e4725a4587d859bf41c5bebfee15c",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 5,
+      "position": 9,
+      "run_id": "p6-operation-pilot-v1-05-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 8,
+          "later_proposal": true,
+          "proposed_sequence": 6
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 19,
+          "later_proposal": true,
+          "proposed_sequence": 17
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 28,
+          "later_proposal": true,
+          "proposed_sequence": 26
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 37,
+          "later_proposal": true,
+          "proposed_sequence": 35
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "fixed_internal_check_failure",
+          "exit_code": 1,
+          "finished_sequence": 49,
+          "later_proposal": false,
+          "proposed_sequence": 47
+        }
+      ],
+      "case_id": "envbench-python-facebookresearch__hydra@2e682d84e789d82dd11ab1f329f2dd1966fa6b54",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 3,
+          "fixed_internal_check_failure": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "039c17d0d87868125237502cb3d987c2516564e3c9af98ee1aeecf7e877bdd4f",
+      "method": "envsolve-operation",
+      "pair_index": 5,
+      "position": 10,
+      "run_id": "p6-operation-pilot-v1-05-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 22,
+          "later_proposal": true,
+          "proposed_sequence": 20
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 334,
+          "later_proposal": true,
+          "proposed_sequence": 332
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 346,
+          "later_proposal": true,
+          "proposed_sequence": 344
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 358,
+          "later_proposal": true,
+          "proposed_sequence": 356
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 688,
+          "later_proposal": false,
+          "proposed_sequence": 686
+        }
+      ],
+      "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 2,
+          "structured_obligations_active": 3
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "25e8a9f847145de4d65c031e15336292b1d278b2dc46a31b3f76ba7ddc2f5363",
+      "method": "envsolve-operation",
+      "pair_index": 6,
+      "position": 11,
+      "run_id": "p6-operation-pilot-v1-06-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 310,
+          "later_proposal": true,
+          "proposed_sequence": 308
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 322,
+          "later_proposal": true,
+          "proposed_sequence": 320
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 328,
+          "later_proposal": true,
+          "proposed_sequence": 326
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 340,
+          "later_proposal": true,
+          "proposed_sequence": 338
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 655,
+          "later_proposal": false,
+          "proposed_sequence": 653
+        }
+      ],
+      "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+      "counts": {
+        "candidates": 6,
+        "categories": {
+          "candidate_command_failure": 3,
+          "candidate_validation_reject": 1,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 5
+      },
+      "episode_sha256": "74620910b2a20b4614bb617498141a7a7f4e8b309b51382124b01cf405e9f6b5",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 6,
+      "position": 12,
+      "run_id": "p6-operation-pilot-v1-06-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 17,
+          "later_proposal": true,
+          "proposed_sequence": 15
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 364,
+          "later_proposal": false,
+          "proposed_sequence": 362
+        }
+      ],
+      "case_id": "envbench-python-scikit-rf__scikit-rf@cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+      "counts": {
+        "candidates": 2,
+        "categories": {
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 2,
+        "later_proposal_candidates": 1
+      },
+      "episode_sha256": "091127a34e1341423ce80ddbe0336f1df39e2496edd446e3c49a73febb35640f",
+      "method": "envsolve-operation",
+      "pair_index": 7,
+      "position": 13,
+      "run_id": "p6-operation-pilot-v1-07-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 209,
+          "later_proposal": false,
+          "proposed_sequence": 207
+        }
+      ],
+      "case_id": "envbench-python-scikit-rf__scikit-rf@cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+      "counts": {
+        "candidates": 2,
+        "categories": {
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 2,
+        "later_proposal_candidates": 1
+      },
+      "episode_sha256": "d9a802a80cea6ea358f3e9295545218af19551e3b742aab57267710d25655982",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 7,
+      "position": 14,
+      "run_id": "p6-operation-pilot-v1-07-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 17,
+          "later_proposal": true,
+          "proposed_sequence": 15
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 26,
+          "later_proposal": true,
+          "proposed_sequence": 24
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 32,
+          "later_proposal": true,
+          "proposed_sequence": 30
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "verification_failure_other",
+          "exit_code": 124,
+          "finished_sequence": 44,
+          "later_proposal": true,
+          "proposed_sequence": 42
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 53,
+          "later_proposal": false,
+          "proposed_sequence": 51
+        }
+      ],
+      "case_id": "envbench-python-llm-random__llm-random@80c89d079aa004051fc14f5ffa6a6a62f22ea7da",
+      "counts": {
+        "candidates": 6,
+        "categories": {
+          "candidate_command_failure": 3,
+          "candidate_validation_reject": 1,
+          "structured_obligations_active": 1,
+          "verification_failure_other": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 5
+      },
+      "episode_sha256": "acea695d9a1b0627ee72162762817b2e215aedf5305ad47273502fa532d74f1a",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 8,
+      "position": 15,
+      "run_id": "p6-operation-pilot-v1-08-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 56,
+          "later_proposal": true,
+          "proposed_sequence": 54
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 2,
+          "finished_sequence": 68,
+          "later_proposal": true,
+          "proposed_sequence": 66
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 79,
+          "later_proposal": true,
+          "proposed_sequence": 77
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 88,
+          "later_proposal": true,
+          "proposed_sequence": 86
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 99,
+          "later_proposal": true,
+          "proposed_sequence": 97
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 105,
+          "later_proposal": false,
+          "proposed_sequence": 103
+        }
+      ],
+      "case_id": "envbench-python-llm-random__llm-random@80c89d079aa004051fc14f5ffa6a6a62f22ea7da",
+      "counts": {
+        "candidates": 6,
+        "categories": {
+          "candidate_command_failure": 5,
+          "candidate_validation_reject": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 5
+      },
+      "episode_sha256": "b86f0f87c01f8457bc9cc246268276f4fccdd16525d70b81c98227af8c19d552",
+      "method": "envsolve-operation",
+      "pair_index": 8,
+      "position": 16,
+      "run_id": "p6-operation-pilot-v1-08-envsolve-operation",
+      "seed": 0
+    }
+  ],
+  "schedule": {
+    "path": "p6_operation_pilot_v1_schedule.json",
+    "sha256": "0b805c0c4260157485499f1cf43b1960d5d4991f3129a8022604c2ee19ece56b"
+  },
+  "schema_version": "1.0.0"
+}

@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-replication-v1",
+  "preregistered_at": "2026-07-21T04:26:00+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Replicate the unchanged v17/v32 paired contrast on ten fresh development identities before either adapting the algorithm to consumed pilot trajectories or spending the larger Spark budget.",
+  "prior_evidence": {
+    "pilot_closure": "experiments/validations/p6_operation_pilot_v1_closure.json",
+    "pilot_closure_sha256": "7ac97ee75d535377717507db584b492199b8ed8c8afec706dacbb5fad63ca192",
+    "pilot_result": "four Boolean Official reaches and two passes per method across eight pairs; zero discordant Official pairs",
+    "use_rule": "The consumed pilot may motivate measurements but does not change code, selection, or repository-specific behavior in this replication."
+  },
+  "frozen_code_parent_revision": "824c177bc1b690083353bb6f6e076b6ba6846f7b",
+  "execution_revision_rule": "Use a clean descendant containing only pilot analysis, this preregistration, metadata-only selection, and execution binding; solver, verifier, model policy, harness semantics, evaluator, and configuration hashes must remain unchanged.",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v17.json",
+    "sha256": "0f6aef699afe6d6df6914509ae18415894b7b792cc632003638d2189a66b62fb"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v32.json",
+    "sha256": "2cba57997f93fe21c368e0c93edc7a3d66ad703edbe5397afa08db87830217f4"
+  },
+  "host_admission": {
+    "target": "local Mac development host",
+    "basis": "Immediate continuation on the same host, image, evaluator, provider, and source boundary that completed all 16 pilot runs without infrastructure exclusion or request error.",
+    "pilot_execution_freeze": "experiments/protocols/p6_operation_pilot_freeze_v1.json",
+    "pilot_execution_freeze_sha256": "51cb1763c94d92342585f1455661ffbbbe25201895c6134c4f92523e2727bfe6",
+    "pilot_artifact_integrity_valid": 16,
+    "pilot_scientifically_eligible": 16,
+    "pilot_request_errors": 0,
+    "readmission_required_if": "host, network, provider model, evaluator revision or image identity changes, or any frozen source/configuration hash changes before selection"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "selection_tool": {
+    "path": "experiments/tools/freeze_paired_qualification.py",
+    "sha256": "6d87c1aa277275447db986c4c0048514c4e751f7c5a6e8fe8cd05cf984b97701"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_pilot_v1_133.jsonl",
+    "source_sha256": "ea5fc309f2bd224162977eede854fdc5d49b04aa1717904e340f4c8d62c86f66",
+    "source_count": 133,
+    "count": 10,
+    "salt": "envsolve-p6-operation-replication-v1-2026-07-21",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "failure_signature_prescreen": false,
+    "package_manager_stratification": false,
+    "prior_case_reuse": false,
+    "selected_path": "experiments/cases/dev_operation_replication_v1_10.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_operation_replication_v1_123.jsonl",
+    "provenance_path": "experiments/validations/p6_operation_replication_v1_selection.json",
+    "selected_split": "dev-operation-replication-v1-10",
+    "remaining_split": "train-untouched-after-operation-replication-v1-123"
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "operation_profile": "free-form",
+      "same_backbone": true,
+      "raw_feedback": true,
+      "operation_plan_visible": false,
+      "negative_operation_state_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "operation_profile": "constraint-driven",
+      "same_backbone": true,
+      "raw_feedback": true,
+      "operation_plan_visible": true,
+      "negative_operation_state_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "shared_boundary": {
+    "repository_observer": "envsolve-repository-declarations-v2",
+    "base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "fresh_verifier": "python-deployment-v7",
+    "candidate_validator": "complete-candidate-v4+typed-replay-ir-v8",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "raw_execution_feedback": "identical",
+    "official_evaluator_access": "post-episode-only after internal pass",
+    "cross_case_memory": false
+  },
+  "schedule": {
+    "output_path": "experiments/validations/p6_operation_replication_v1_schedule.json",
+    "run_prefix": "p6-operation-replication-v1",
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "matched_primitive_limits": {
+    "max_candidates": 15,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "model_max_output_tokens_per_request": 32768,
+    "model_max_retries": 2,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000,
+    "matching_basis": "primitive limits; USD is operational metadata only"
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation_output_contract_v2.json",
+    "sha256": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "outcomes": [
+    "scientifically eligible run and pair counts",
+    "paired Boolean Official reach and pass",
+    "negative-operation admissions, subsequent exposure, and guard rejections",
+    "operation-plan requirement load",
+    "candidate failure decomposition by observation, constraint, and operation layer",
+    "model requests, tokens, fresh environments, commands, and wall-clock time"
+  ],
+  "predeclared_decision": {
+    "complete_unchanged_replication": "Run all ten pairs unless a shared boundary invariant fails or the operator interrupts execution.",
+    "support_larger_unchanged_batch": "At least one EnvSolve-only Boolean Official pass or reach, no baseline-only pass, no unexplained paired terminal regression, and at least six eligible Boolean Official pairs in the replication.",
+    "pause_for_algorithm_review": "No positive Official discordance across the ten replication pairs, or continued zero guard rejection despite grounded negative-operation facts, triggers aggregate consumed-trajectory review before larger execution.",
+    "halt_for_regression": "Any baseline-only Official pass or unexplained baseline-only terminal reach pauses execution planning for paired error analysis.",
+    "insufficient_terminal_reach": "Fewer than six eligible Boolean Official pairs supports mechanism and failure decomposition only, not an effectiveness estimate.",
+    "no_post_selection_code_change": true
+  },
+  "execution_rule": {
+    "case_replacement": false,
+    "run_overwrite": false,
+    "zero_information_pre_episode_failure": "One audited same-identity retry only when model, candidate, environment, command, evaluator, and method information are all zero.",
+    "partial_process_interruption": "Mark the position scientifically ineligible without overwrite or rerun.",
+    "terminal_evaluator_infrastructure_failure": "One evaluator-only retry of the identical script with zero new model calls.",
+    "other_infrastructure_failure": "Record Unknown and censor the pair without replacement."
+  },
+  "integrity": {
+    "development_replication_only": true,
+    "paper_effectiveness_claim_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "canary20_inspection_allowed": false,
+    "official_test100_inspection_allowed": false,
+    "repository_specific_rules_allowed": false,
+    "official_evaluator_feedback_online": false
+  },
+  "protocols": [
+    "research/P6_OPERATION_REPLICATION_V1.md",
+    "research/P6_OPERATION_REPLICATION_V1_ZH.md"
+  ]
+}

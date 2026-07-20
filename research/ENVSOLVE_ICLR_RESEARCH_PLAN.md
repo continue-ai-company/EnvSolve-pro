@@ -326,23 +326,22 @@ converted into repair constraints. Third, reaching the terminal evaluator is its
 a necessary diagnostic outcome; without sufficient terminal reach, paired deployment
 effectiveness is not identifiable.
 
-The current development batch does not provide enough complete Boolean official
-pairs for a method-effect estimate, and one run was interrupted by the operator.
-These trajectories are retained for error decomposition only. Their dominant
-transition is candidate-command failure: deterministic operation failures are
-observed, but many never become persistent negative operation state. A minimal
-revision now admits infeasibility only from a verified failed command prefix, binds
-it to the relevant provider context, and keeps network or infrastructure censoring
-Unknown. Repository-free counterexamples establish evidence admission, persistence,
-context-sensitive rejection, and alternative-operation preservation. Its effect on
-deployment remains unknown and must be measured on a new outcome-blind development
-qualification before the method is frozen for Canary-20 and Official-Test-100.
+Repository-free counterexamples establish that verified failed operations can enter
+persistent state, reject an exact context-matched retry, and preserve alternative
+operations. A frozen eight-pair development pilot then tested the broad system against
+its same-backbone raw-history ablation. All 16 runs were auditable. Both methods
+reached Official on four cases and passed two, with no discordant pair. Negative
+operation facts appeared in three EnvSolve runs, but the exact-command guard rejected
+no later proposal. Thus the pilot establishes execution feasibility and exposes a
+mechanism-utilization gap; it does not show an effectiveness advantage.
 
-That qualification begins with a preregistered eight-pair broad system pilot on the
-local development host, before larger ARM64 Linux execution. Cases are selected by
-metadata-only hashing after host admission; all pairs are completed before an
-algorithm decision. The pilot reports negative-operation utilization separately and
-does not treat the broad contrast as a single-component causal ablation.
+We next replicate the unchanged system on a new outcome-blind development sample.
+This separates sampling uncertainty from code adaptation and prevents the consumed
+pilot trajectories from serving as both diagnosis and validation. Only after this
+replication will we decide whether the frozen system is ready for larger ARM64 Linux
+execution or whether a new operation-layer hypothesis requires repository-free
+counterexamples and another development freeze. Canary-20 and Official-Test-100
+remain untouched.
 
 The final paper will contain three result tables:
 

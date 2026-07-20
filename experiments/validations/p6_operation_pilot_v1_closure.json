@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "pilot_id": "p6-operation-pilot-v1",
+  "closed_at": "2026-07-21T04:20:35+08:00",
+  "status": "closed_gate_passed_no_observed_advantage",
+  "schedule_disposition": {
+    "scheduled_positions": 16,
+    "completed_positions": 16,
+    "artifact_integrity_valid": 16,
+    "scientifically_eligible": 16,
+    "interrupted_positions": 0,
+    "infrastructure_exclusions": 0,
+    "all_selected_identities_consumed": true,
+    "rerun_allowed": false
+  },
+  "paired_outcomes": {
+    "pairs": 8,
+    "eligible_boolean_official_pairs": 4,
+    "censored_pairs": 4,
+    "both_pass": 2,
+    "neither_pass": 2,
+    "envsolve_only_pass": 0,
+    "baseline_only_pass": 0,
+    "paired_regressions": 0
+  },
+  "method_outcomes": {
+    "envsolve-operation": {
+      "official_reached": 4,
+      "official_passed": 2,
+      "official_failed": 2,
+      "budget_exhausted_before_official": 4,
+      "candidates": 34,
+      "fresh_environments": 31,
+      "commands": 31,
+      "model_requests": 34,
+      "total_tokens": 351825,
+      "wall_clock_seconds": 7310.877375
+    },
+    "envsolve-operation-ablation": {
+      "official_reached": 4,
+      "official_passed": 2,
+      "official_failed": 2,
+      "budget_exhausted_before_official": 4,
+      "candidates": 36,
+      "fresh_environments": 31,
+      "commands": 31,
+      "model_requests": 36,
+      "total_tokens": 341122,
+      "wall_clock_seconds": 9253.757262
+    }
+  },
+  "three_layer_analysis": {
+    "observation": {
+      "verified_negative_feasibility_events": 8,
+      "unique_negative_feasibility_facts": 4,
+      "runs_with_negative_feasibility_facts": 3,
+      "interpretation": "The verifier grounded exact provider-target-unavailable failures without converting network or infrastructure failures into operation constraints."
+    },
+    "constraint": {
+      "guarded_later_proposals": 31,
+      "proposals_with_nonempty_operation_plan": 18,
+      "operation_requirements_presented": 316,
+      "maximum_requirements_in_one_plan": 25,
+      "guard_contradictions": 0,
+      "repeated_failed_attempt_matches": 0,
+      "interpretation": "Persistent state was present, but exact-command matching produced no guard rejection. Large plans sometimes mixed distributable dependencies with standard-library or repository-internal modules; this is a cross-case hypothesis, not a validated defect correction."
+    },
+    "operation": {
+      "envsolve_candidate_command_failures": 11,
+      "baseline_candidate_command_failures": 12,
+      "envsolve_validation_rejections": 3,
+      "baseline_validation_rejections": 5,
+      "envsolve_executed_candidates": 31,
+      "baseline_executed_candidates": 31,
+      "interpretation": "EnvSolve proposed two fewer candidates and one fewer failed command, but did not improve terminal reach or Official pass on this sample."
+    }
+  },
+  "decision_gate": {
+    "minimum_envsolve_boolean_official_results": 2,
+    "observed_envsolve_boolean_official_results": 4,
+    "shared_boundary_invariant_failure": false,
+    "unexplained_paired_regression": false,
+    "proceed_to_bulk_gate": true,
+    "scientific_decision": "Run an unchanged fresh replication before spending the larger Spark budget because the pilot passed the operational gate but observed zero paired effectiveness difference."
+  },
+  "claims": {
+    "development_calibration_only": true,
+    "effectiveness_advantage_observed": false,
+    "paper_effectiveness_claim_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "canary20_inspected": false,
+    "official_test100_inspected": false
+  },
+  "frozen_inputs": {
+    "execution_revision": "824c177bc1b690083353bb6f6e076b6ba6846f7b",
+    "execution_freeze_sha256": "51cb1763c94d92342585f1455661ffbbbe25201895c6134c4f92523e2727bfe6",
+    "algorithm_sha256": "0f6aef699afe6d6df6914509ae18415894b7b792cc632003638d2189a66b62fb",
+    "harness_sha256": "2cba57997f93fe21c368e0c93edc7a3d66ad703edbe5397afa08db87830217f4",
+    "summary_sha256": "719eacfd285ae6cfa0460d25fac1e8abf77b98616ce401b7425ce4126718f003",
+    "failure_analysis_sha256": "12e2f05226c7160e75d1bfbcf8b63f78c7146d45c5042e9b0e3d0c87d8ef7456"
+  }
+}

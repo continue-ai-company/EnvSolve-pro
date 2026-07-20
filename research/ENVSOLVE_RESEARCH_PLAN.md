@@ -1348,3 +1348,16 @@ development batch; it never triggers tuning on the same held-out outcomes.
   EnvSolve runs naturally reach Boolean Official outcomes and no unexplained paired
   regression appears. The pilot is development calibration only and cannot support
   an effectiveness or leaderboard claim.
+- The pilot completed all 16 positions with valid, scientifically eligible artifacts.
+  Each method naturally reached Official on 4/8 cases, passed 2/8, failed 2/8, and
+  exhausted its online execution budget before Official on 4/8. There were no
+  discordant pairs: the operational bulk gate passed, but the observed effectiveness
+  difference was exactly zero. EnvSolve used 34 requests, 31 environments, 351,825
+  tokens, and 7,310.9 seconds; the matched ablation used 36, 31, 341,122, and 9,253.8.
+  Four unique verified negative-operation facts were admitted across three treatment
+  runs, yet 31 guard checks produced no rejection. Nonempty operation plans appeared
+  in 18/31 later proposals and presented up to 25 requirements, motivating a broad
+  hypothesis that obligation projection may be noisy. These consumed trajectories
+  may generate that hypothesis but cannot validate a change. Before either changing
+  v17 or committing the larger Spark budget, the same frozen system will receive one
+  outcome-blind ten-pair replication from the 133 untouched identities.

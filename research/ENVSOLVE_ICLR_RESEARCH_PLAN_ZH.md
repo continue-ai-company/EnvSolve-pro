@@ -252,17 +252,17 @@ curve。
 设施与 provider 故障必须被删失，不能转化为修复约束。第三，到达 terminal evaluator 本身就是必要
 的诊断结果；如果 terminal reach 不足，paired deployment effectiveness 就不可识别。
 
-当前 development batch 没有产生足够多完整 Boolean official pair，且有一条 run 被操作者中断。这些
-轨迹只保留用于错误分解。占主导的失败转移是 candidate-command failure：系统观测到了确定性操作
-失败，但其中许多没有进入持久的负操作状态。一个最小 revision 现已只从经过验证的失败命令前缀接纳
-operation infeasibility，把它绑定到相关 provider context，并让 network 或 infrastructure 删失保持
-Unknown。Repository-free 合成反例已经验证证据接纳、持久化、context-sensitive rejection 和替代
-operation 保留；它对真实部署的效果仍未知，必须先经过新的 outcome-blind development qualification，
-之后才允许为 Canary-20 与 Official-Test-100 冻结。
+Repository-free 合成反例证明：经过验证的失败 operation 可以进入持久状态，在 context 匹配时拒绝
+精确重试，同时保留替代 operation。随后，冻结的 8-pair development pilot 将完整系统与同 backbone
+raw-history ablation 比较。16 条 run 全部可审计；两种方法都在 4 个 case 到达 Official，并通过其中
+2 个，没有 discordant pair。3 条 EnvSolve run 产生了 negative-operation fact，但精确命令 guard 没有
+拒绝任何后续 proposal。因此 pilot 证明了执行可行性并暴露 mechanism-utilization gap，却没有证明
+效果优势。
 
-该 qualification 首先在本地 development host 上进行预注册的 8-pair 整体系统 pilot，再决定是否进入
-更大的 ARM64 Linux 执行。Case 只在 host admission 后按 metadata-only hash 选择；所有 pair 完成前
-不作算法决策。实验会单独报告 negative-operation utilization，不把整体对比解释为单组件因果消融。
+下一步在新的 outcome-blind development 样本上复现完全不变的系统。这把抽样不确定性与代码适配
+分开，避免 consumed pilot trajectory 同时承担诊断与验证。Replication 完成后，才决定冻结系统是否
+进入更大的 ARM64 Linux 执行，或者某个新的操作层假设是否需要 repository-free 反例与新的 development
+freeze。Canary-20 与 Official-Test-100 继续保持 untouched。
 
 最终论文包含三张核心结果表：
 

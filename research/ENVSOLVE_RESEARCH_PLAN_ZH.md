@@ -975,3 +975,12 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   ablation。无论结果如何，8 个 identity 全部 consumed；所有 pair 完成前不允许修改算法。只有至少
   2 条 eligible EnvSolve run 自然到达 Boolean Official outcome，且不存在无法解释的 paired regression，
   才允许继续 Spark bulk execution。该 pilot 只用于 development calibration，不能支持效果或榜单 claim。
+- Pilot 的 16 个 position 已全部完成，artifact 均有效且 scientifically eligible。两种方法都在 4/8
+  case 自然到达 Official，2/8 Pass、2/8 Fail，并在其余 4/8 于 Official 前耗尽 online execution
+  budget。没有 discordant pair：操作层面的 bulk gate 通过，但观察到的效果差异恰好为零。EnvSolve
+  使用 34 次请求、31 个 environment、351,825 tokens 和 7,310.9 秒；matched ablation 分别为 36、31、
+  341,122 和 9,253.8。Treatment 的 3 条 run 共接纳 4 个唯一 verified negative-operation fact，但 31 次
+  guard 检查没有产生拒绝；31 个后续 proposal 中有 18 个非空 operation plan，单次最多展示 25 个
+  requirement，由此产生“obligation projection 可能过于嘈杂”的跨 repository 假设。这些 consumed
+  trajectory 只能生成假设，不能验证改动。在修改 v17 或投入更大 Spark 预算前，保持冻结系统不变，
+  从剩余 133 个 untouched identity 中进行一次 outcome-blind 的 10-pair replication。
