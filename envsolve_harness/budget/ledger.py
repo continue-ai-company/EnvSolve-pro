@@ -8,6 +8,7 @@ from pathlib import Path
 import threading
 from typing import Any
 
+from envsolve.solver import EpisodeBudgetExhausted
 from envsolve_harness.core.io import write_json
 
 
@@ -71,11 +72,10 @@ class UsageDelta:
         return self.input_tokens + self.output_tokens
 
 
-class BudgetExceeded(RuntimeError):
+class BudgetExceeded(EpisodeBudgetExhausted):
     def __init__(self, scope: str, snapshot: dict[str, Any]) -> None:
-        self.scope = scope
         self.snapshot = snapshot
-        super().__init__(f"Online model budget exhausted: {scope}")
+        super().__init__(scope, f"Online model budget exhausted: {scope}")
 
 
 class BudgetLedger:

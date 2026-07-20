@@ -341,24 +341,29 @@ class StructuredModelDeploymentPolicy:
             ]
         )
         text = _response_text(response).strip()
+        if not text:
+            raise RecoverablePolicyError(
+                "Model candidate has no final content",
+                details=self._invalid_response_details(text, response),
+            )
         try:
             value = json.loads(text)
         except json.JSONDecodeError as exc:
             raise RecoverablePolicyError(
                 "Model candidate is not exact JSON",
-                details=self._invalid_response_details(text),
+                details=self._invalid_response_details(text, response),
             ) from exc
         if not isinstance(value, dict) or set(value) != {"script", "rationale"}:
             raise RecoverablePolicyError(
                 "Model candidate must contain only script and rationale",
-                details=self._invalid_response_details(text),
+                details=self._invalid_response_details(text, response),
             )
         script = value.get("script")
         rationale = value.get("rationale")
         if not isinstance(script, str) or not isinstance(rationale, str):
             raise RecoverablePolicyError(
                 "Model candidate fields must be strings",
-                details=self._invalid_response_details(text),
+                details=self._invalid_response_details(text, response),
             )
         candidate = DeploymentCandidate(
             candidate_id=f"candidate-{self._next_candidate:04d}",
@@ -373,8 +378,24 @@ class StructuredModelDeploymentPolicy:
         return candidate
 
     @classmethod
-    def _invalid_response_details(cls, text: str) -> dict[str, Any]:
+    def _invalid_response_details(
+        cls, text: str, response: Any | None = None
+    ) -> dict[str, Any]:
+        metadata = getattr(response, "response_metadata", None)
+        metadata = metadata if isinstance(metadata, dict) else {}
+        usage = getattr(response, "usage_metadata", None)
+        usage = usage if isinstance(usage, dict) else {}
+        output_details = usage.get("output_token_details")
+        output_details = output_details if isinstance(output_details, dict) else {}
+        additional = getattr(response, "additional_kwargs", None)
+        additional = additional if isinstance(additional, dict) else {}
+        reasoning = additional.get("reasoning") or additional.get("reasoning_content")
         return {
             "response_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
             "response_excerpt": cls._bounded_value(text, 2_000),
+            "final_content_empty": not bool(text),
+            "finish_reason": metadata.get("finish_reason"),
+            "output_tokens": usage.get("output_tokens"),
+            "reasoning_tokens": output_details.get("reasoning"),
+            "reasoning_content_present": bool(reasoning),
         }

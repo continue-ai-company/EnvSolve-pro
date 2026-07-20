@@ -63,6 +63,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--request-timeout", type=int, required=True)
     parser.add_argument("--max-retries", type=int, required=True)
     parser.add_argument("--max-output-tokens", type=int, required=True)
+    parser.add_argument(
+        "--reasoning-effort",
+        choices=("none", "minimal", "low", "medium", "high", "xhigh", "max"),
+    )
+    parser.add_argument(
+        "--response-format",
+        choices=("text", "json_object"),
+        default="text",
+    )
     parser.add_argument("--max-model-requests", type=int, required=True)
     parser.add_argument("--max-total-tokens", type=int, required=True)
     parser.add_argument("--max-cost-usd", type=float, required=True)
@@ -128,6 +137,12 @@ def main() -> int:
     }
     if args.seed is not None:
         model_kwargs["seed"] = args.seed
+    if args.reasoning_effort is not None:
+        model_kwargs["reasoning_effort"] = args.reasoning_effort
+    if args.response_format == "json_object":
+        model_kwargs["model_kwargs"] = {
+            "response_format": {"type": "json_object"}
+        }
     model = create_budgeted_chat_model(
         model=args.model,
         budget_ledger_path=str(args.ledger),

@@ -12,11 +12,20 @@ from envsolve_harness.budget import (
     UsageDelta,
     budget_ledger_from_environment,
 )
+from envsolve.solver import EpisodeBudgetExhausted
 from envsolve_harness.core.io import read_json
 from unittest import mock
 
 
 class BudgetLedgerTest(unittest.TestCase):
+    def test_budget_exceeded_implements_solver_terminal_protocol(self) -> None:
+        error = BudgetExceeded("environments", {"usage": {}})
+
+        self.assertIsInstance(error, EpisodeBudgetExhausted)
+        self.assertEqual(error.scope, "environments")
+        self.assertEqual(error.snapshot, {"usage": {}})
+        self.assertEqual(str(error), "Online model budget exhausted: environments")
+
     def make_ledger(
         self,
         root: Path,

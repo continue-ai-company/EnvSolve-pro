@@ -48,6 +48,17 @@ class Response:
         self.content = content
 
 
+class DiagnosticResponse(Response):
+    def __init__(self, content: str) -> None:
+        super().__init__(content)
+        self.response_metadata = {"finish_reason": "length"}
+        self.usage_metadata = {
+            "output_tokens": 16384,
+            "output_token_details": {"reasoning": 16384},
+        }
+        self.additional_kwargs = {"reasoning_content": "not persisted"}
+
+
 class RecordingModel:
     def __init__(self, response: str) -> None:
         self.response = response
@@ -56,6 +67,12 @@ class RecordingModel:
     def invoke(self, messages):
         self.messages = messages
         return Response(self.response)
+
+
+class DiagnosticModel(RecordingModel):
+    def invoke(self, messages):
+        self.messages = messages
+        return DiagnosticResponse(self.response)
 
 
 class FakeDockerGit:
@@ -215,6 +232,28 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertEqual(raised.exception.category, "candidate-policy-output")
         self.assertEqual(raised.exception.details["response_excerpt"], "not-json")
         self.assertEqual(len(raised.exception.details["response_sha256"]), 64)
+
+    def test_model_policy_empty_final_content_records_only_diagnostics(self) -> None:
+        policy = StructuredModelDeploymentPolicy(
+            DiagnosticModel(""),
+            {"files": []},
+        )
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+
+        with self.assertRaises(RecoverablePolicyError) as raised:
+            policy.propose(state)
+
+        details = raised.exception.details
+        self.assertEqual(str(raised.exception), "Model candidate has no final content")
+        self.assertTrue(details["final_content_empty"])
+        self.assertEqual(details["finish_reason"], "length")
+        self.assertEqual(details["output_tokens"], 16384)
+        self.assertEqual(details["reasoning_tokens"], 16384)
+        self.assertTrue(details["reasoning_content_present"])
+        self.assertNotIn("not persisted", json.dumps(details))
 
     def test_repository_profile_is_bounded_and_read_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -1048,6 +1087,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 envsolve_max_candidates=8,
                 envsolve_max_environments=4,
                 envsolve_max_commands=3,
+                model_reasoning_effort="high",
+                model_response_format="json_object",
             )
             protocol = ExperimentProtocol(
                 "test", "1", "synthetic", "python", (SuccessCriteria("x", "eq", 1),), ()
@@ -1069,6 +1110,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             self.assertEqual(runner.max_candidates, 8)
             self.assertEqual(runner.max_environments, 4)
             self.assertEqual(runner.max_commands, 3)
+            self.assertEqual(runner.model_reasoning_effort, "high")
+            self.assertEqual(runner.model_response_format, "json_object")
 
     def test_runner_classifies_repository_download_timeout_as_infrastructure(self) -> None:
         log = (

@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "probe_id": "p6-model-output-contract-v1",
+  "executed_at": "2026-07-20T08:43:45+08:00",
+  "purpose": "Qualify the provider and client boundary without repository or evaluator input.",
+  "claim_scope": "synthetic model-protocol compatibility only",
+  "provider": {
+    "base_url": "https://openrouter.ai/api/v1",
+    "model": "deepseek/deepseek-v4-pro"
+  },
+  "request": {
+    "repository_context": false,
+    "evaluator_context": false,
+    "temperature": 0,
+    "max_output_tokens": 4096,
+    "reasoning_effort": "high",
+    "response_format": {
+      "type": "json_object"
+    },
+    "required_fields": [
+      "script",
+      "rationale"
+    ]
+  },
+  "result": {
+    "request_completed": true,
+    "finish_reason": "stop",
+    "valid_exact_json_object": true,
+    "exact_required_fields": true,
+    "script": "echo ok",
+    "input_tokens": 27,
+    "output_tokens": 150,
+    "reasoning_tokens": 124,
+    "total_tokens": 177
+  },
+  "privacy": {
+    "reasoning_content_persisted": false,
+    "api_key_persisted": false
+  },
+  "interpretation": "The current OpenRouter and LangChain boundary accepts explicit high reasoning effort plus JSON mode and returns final JSON content within a bounded completion. This does not establish repository-deployment effectiveness."
+}

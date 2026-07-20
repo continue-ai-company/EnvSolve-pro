@@ -46,6 +46,12 @@ def load_harness_config(path: Path, workspace_root: Path) -> HarnessConfig:
         model_request_timeout=int(generation.get("model_request_timeout", 180)),
         model_max_retries=int(generation.get("model_max_retries", 2)),
         model_max_output_tokens=int(generation.get("model_max_output_tokens", 16384)),
+        model_reasoning_effort=(
+            str(generation["model_reasoning_effort"])
+            if generation.get("model_reasoning_effort") is not None
+            else None
+        ),
+        model_response_format=str(generation.get("model_response_format", "text")),
         model_max_requests=int(generation.get("model_max_requests", 30)),
         model_max_total_tokens=int(generation.get("model_max_total_tokens", 1_000_000)),
         model_max_estimated_cost_usd=float(

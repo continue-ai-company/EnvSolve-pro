@@ -169,6 +169,8 @@ def _load_builtin_runners() -> None:
             model_request_timeout=config.model_request_timeout,
             model_max_retries=config.model_max_retries,
             model_max_output_tokens=config.model_max_output_tokens,
+            model_reasoning_effort=config.model_reasoning_effort,
+            model_response_format=config.model_response_format,
             max_model_requests=config.model_max_requests,
             max_total_tokens=config.model_max_total_tokens,
             max_estimated_cost_usd=config.model_max_estimated_cost_usd,

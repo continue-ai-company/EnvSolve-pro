@@ -71,6 +71,8 @@ class HarnessConfig:
     model_request_timeout: int = 180
     model_max_retries: int = 2
     model_max_output_tokens: int = 16384
+    model_reasoning_effort: str | None = None
+    model_response_format: str = "text"
     model_max_requests: int = 30
     model_max_total_tokens: int = 1_000_000
     model_max_estimated_cost_usd: float = 5.0
@@ -125,6 +127,19 @@ class HarnessConfig:
             raise ValueError("model_max_retries must be non-negative")
         if self.model_max_estimated_cost_usd <= 0:
             raise ValueError("model_max_estimated_cost_usd must be positive")
+        if self.model_reasoning_effort not in {
+            None,
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+        }:
+            raise ValueError("model_reasoning_effort is unsupported")
+        if self.model_response_format not in {"text", "json_object"}:
+            raise ValueError("model_response_format must be text or json_object")
 
     def resource_budget(self) -> dict[str, Any]:
         return {
@@ -132,6 +147,8 @@ class HarnessConfig:
             "model_request_timeout_seconds": self.model_request_timeout,
             "model_max_retries": self.model_max_retries,
             "model_max_output_tokens_per_request": self.model_max_output_tokens,
+            "model_reasoning_effort": self.model_reasoning_effort,
+            "model_response_format": self.model_response_format,
             "model_max_requests": self.model_max_requests,
             "model_max_total_tokens": self.model_max_total_tokens,
             "model_max_estimated_cost_usd": self.model_max_estimated_cost_usd,

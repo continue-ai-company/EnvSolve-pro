@@ -116,6 +116,8 @@ class CoreIoTest(unittest.TestCase):
                             "model_request_timeout": 11,
                             "model_max_retries": 0,
                             "model_max_output_tokens": 1234,
+                            "model_reasoning_effort": "high",
+                            "model_response_format": "json_object",
                             "max_iterations": 7,
                             "envsolve_max_candidates": 9,
                             "envsolve_max_environments": 4,
@@ -134,12 +136,24 @@ class CoreIoTest(unittest.TestCase):
             )
             config = load_harness_config(config_path, workspace)
             self.assertEqual(config.resource_budget()["agent_max_iterations"], 7)
+            self.assertEqual(config.model_reasoning_effort, "high")
+            self.assertEqual(config.model_response_format, "json_object")
+            self.assertEqual(
+                config.resource_budget()["model_reasoning_effort"], "high"
+            )
+            self.assertEqual(
+                config.resource_budget()["model_response_format"], "json_object"
+            )
             self.assertEqual(config.resource_budget()["envsolve_max_candidates"], 9)
             self.assertEqual(config.resource_budget()["envsolve_max_environments"], 4)
             self.assertEqual(config.resource_budget()["envsolve_max_commands"], 3)
             self.assertEqual(config.resource_budget()["git_fetch_timeout_seconds"], 29)
             with self.assertRaises(ValueError):
                 make_config(workspace, model_request_timeout=0)
+            with self.assertRaises(ValueError):
+                make_config(workspace, model_reasoning_effort="ultra")
+            with self.assertRaises(ValueError):
+                make_config(workspace, model_response_format="yaml")
 
     def test_legacy_candidate_budget_remains_the_execution_budget_default(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -39,6 +39,8 @@ class EnvSolveP6Runner:
         model_request_timeout: int,
         model_max_retries: int,
         model_max_output_tokens: int,
+        model_reasoning_effort: str | None,
+        model_response_format: str,
         max_model_requests: int,
         max_total_tokens: int,
         max_estimated_cost_usd: float,
@@ -57,6 +59,8 @@ class EnvSolveP6Runner:
         self.model_request_timeout = model_request_timeout
         self.model_max_retries = model_max_retries
         self.model_max_output_tokens = model_max_output_tokens
+        self.model_reasoning_effort = model_reasoning_effort
+        self.model_response_format = model_response_format
         self.max_model_requests = max_model_requests
         self.max_total_tokens = max_total_tokens
         self.max_estimated_cost_usd = max_estimated_cost_usd
@@ -126,6 +130,8 @@ class EnvSolveP6Runner:
             "started_at": self._now(),
             "obligation_profile": obligation_profile,
             "operation_profile": operation_profile,
+            "model_reasoning_effort": self.model_reasoning_effort,
+            "model_response_format": self.model_response_format,
         }
         if obligation_profile is None:
             return self._failure(
@@ -177,6 +183,7 @@ class EnvSolveP6Runner:
             "--request-timeout", str(self.model_request_timeout),
             "--max-retries", str(self.model_max_retries),
             "--max-output-tokens", str(self.model_max_output_tokens),
+            "--response-format", self.model_response_format,
             "--max-model-requests", str(self.max_model_requests),
             "--max-total-tokens", str(self.max_total_tokens),
             "--max-cost-usd", str(self.max_estimated_cost_usd),
@@ -188,6 +195,8 @@ class EnvSolveP6Runner:
                 else self.pricing.input_cost_per_million
             ),
         ]
+        if self.model_reasoning_effort is not None:
+            command.extend(["--reasoning-effort", self.model_reasoning_effort])
         if self.pricing.source_url:
             command.extend(["--pricing-source-url", self.pricing.source_url])
         if self.pricing.snapshot_date:

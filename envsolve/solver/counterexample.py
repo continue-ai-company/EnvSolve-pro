@@ -30,6 +30,16 @@ class RecoverablePolicyError(ValueError):
         self.details = details or {}
 
 
+class EpisodeBudgetExhausted(RuntimeError):
+    """A terminal online-budget signal raised across a policy boundary."""
+
+    def __init__(self, scope: str, message: str | None = None) -> None:
+        if not isinstance(scope, str) or not scope.strip():
+            raise ValueError("Budget exhaustion scope cannot be empty")
+        self.scope = scope
+        super().__init__(message or f"Online episode budget exhausted: {scope}")
+
+
 @dataclass(frozen=True)
 class CounterexampleEvidence:
     kind: str
@@ -501,6 +511,15 @@ class CounterexampleGuidedDeploymentLoop:
         while attempted < self.max_candidates:
             try:
                 decision = policy.propose(self.session.reconstruct())
+            except EpisodeBudgetExhausted as exc:
+                return self._block(
+                    "episode-budget-exhausted",
+                    str(exc),
+                    attempted,
+                    verifier_failures,
+                    constraints_updated,
+                    details={"scope": exc.scope},
+                )
             except RecoverablePolicyError as exc:
                 consecutive_policy_failures += 1
                 self.session.record_failure(

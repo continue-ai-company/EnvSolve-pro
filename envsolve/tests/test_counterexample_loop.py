@@ -12,6 +12,7 @@ from envsolve.solver import (
     CounterexampleGuidedDeploymentLoop,
     DeploymentCandidate,
     EnvironmentReceipt,
+    EpisodeBudgetExhausted,
     ExecutableVerification,
     FeedbackChannel,
     HypothesisEvidence,
@@ -55,6 +56,11 @@ class RecoveringPolicy:
                 details={"response_sha256": "a" * 64},
             )
         return candidate(1)
+
+
+class ExhaustedPolicy:
+    def propose(self, state: EnvironmentState) -> DeploymentCandidate:
+        raise EpisodeBudgetExhausted("environments")
 
 
 class QueueVerifier:
@@ -573,6 +579,26 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                     for item in policy.observed_states[1].failures.values()
                 },
             )
+
+    def test_budget_exhaustion_is_a_terminal_not_a_policy_exception(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+
+            result = self.loop(session, 1).run(
+                ExhaustedPolicy(),
+                QueueEnvironmentProvider(),
+                QueueVerifier([]),
+            )
+
+            self.assertEqual(result.goal_status, "blocked")
+            self.assertEqual(result.candidates_attempted, 0)
+            self.assertEqual(
+                result.stop_reason,
+                "Online episode budget exhausted: environments",
+            )
+            failures = list(session.reconstruct().failures.values())
+            self.assertEqual(failures[-1]["category"], "episode-budget-exhausted")
+            self.assertEqual(failures[-1]["details"], {"scope": "environments"})
 
     def test_rejected_candidate_can_be_repaired_within_candidate_budget(self) -> None:
         class RejectFirstValidator:
