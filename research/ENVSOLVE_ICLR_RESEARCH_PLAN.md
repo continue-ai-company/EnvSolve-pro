@@ -532,6 +532,11 @@ last gate before unseen development qualification.
 The corrected boundary is frozen as v14/v28 with a clean full regression. The
 same-identity replay is preregistered and is the only active empirical step; it cannot
 support an effectiveness claim or authorize case replacement.
+The replay then produced seven consecutive parsed responses before an eighth
+provider-response JSON decode failure. Under the preregistered no-request-error rule
+this is inconclusive, not a method qualification or contradiction. The next revision
+is therefore limited to audited bounded recovery at the provider boundary; unseen
+development selection remains locked.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

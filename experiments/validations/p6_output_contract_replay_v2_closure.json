@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "closure_id": "p6-output-contract-replay-v2-closure",
+  "status": "closed_without_retry_or_replacement",
+  "claim_scope": "consumed-development mechanism replay only",
+  "inputs": {
+    "preregistration_path": "experiments/validations/p6_output_contract_replay_v2_preregistration.json",
+    "preregistration_sha256": "b2643e9c1ffd3b844e424e6f53047197db84dc2d43b9d00447e04b20075449a1",
+    "schedule_path": "experiments/validations/p6_output_contract_replay_v2_schedule.json",
+    "schedule_sha256": "47ddf85f4431804e9be8a9041ea3986a0d98961ce5a81fb076cfe03d4b60fe24",
+    "analysis_path": "experiments/validations/p6_output_contract_replay_v2_results.json",
+    "analysis_sha256": "c10c60a1a2978359e29c494751b1e886e2744293b295a6be206bc54804f07fe1"
+  },
+  "observed": {
+    "artifact_audit_valid": true,
+    "responses_completed": 7,
+    "parsed_candidates": 7,
+    "requests_started": 8,
+    "request_errors": 1,
+    "policy_output_failures": 0,
+    "empty_final_failures": 0,
+    "length_finish_failures": 0,
+    "policy_exceptions": 1,
+    "terminal_exception": "JSONDecodeError: Expecting value: line 803 column 1 (char 4411)",
+    "fresh_environments": 4,
+    "verifications": 4,
+    "internal_passes": 0,
+    "official_evaluator_reached": false,
+    "input_tokens": 26659,
+    "output_tokens": 34618,
+    "total_tokens": 61277,
+    "elapsed_wall_clock_seconds": 1060.556935,
+    "reasoning_content_persisted": false
+  },
+  "automated_analysis": {
+    "decision": "unexercised_provider_exception",
+    "practical_output_qualified": false,
+    "note": "The frozen generic analyzer did not condition provider-exception unexercised status on whether five parsed responses had already completed."
+  },
+  "preregistered_rule_adjudication": {
+    "practical_output_qualification": false,
+    "practical_output_failure_reason": "The run contains one request error, despite seven earlier parsed responses.",
+    "length_accounting_qualification": null,
+    "length_accounting_reason": "No length-finished response occurred.",
+    "budget_terminal_qualification": null,
+    "budget_terminal_reason": "No online budget terminal occurred.",
+    "contradicted": false,
+    "contradicted_reason": "There was no empty final, length-accounting violation, persisted reasoning content, or budget-as-policy-exception transition.",
+    "unexercised_clause_satisfied": false,
+    "unexercised_reason": "The provider exception occurred after seven parsed responses, not before the preregistered five-response trigger.",
+    "decision": "inconclusive_provider_exception_after_practical_trigger"
+  },
+  "scientific_interpretation": {
+    "descriptive_boundary_evidence": "Seven consecutive production-path responses parsed without length or empty-final failure under the expanded ceiling.",
+    "formal_qualification": false,
+    "effectiveness_claim_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "paper_test_set_claim_allowed": false,
+    "unseen_qualification_unlocked": false
+  },
+  "adaptation": {
+    "same_identity_retry": false,
+    "replacement": false,
+    "code_change_during_run": false,
+    "official_feedback_online": false
+  },
+  "next_boundary": "Separate transient provider-response acquisition failures from policy output, apply bounded request-level recovery with complete attempt accounting, and correct future analysis timing before any new unseen batch."
+}

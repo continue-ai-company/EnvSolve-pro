@@ -1217,3 +1217,14 @@ development batch; it never triggers tuning on the same held-out outcomes.
   prove correct usage accounting and recoverable classification. Early Pass,
   infrastructure, or provider failure is unexercised without replacement. No new
   development identity may be selected until this replay closes.
+- Replay v2 is audit-valid and closed without retry or replacement. Seven consecutive
+  responses parsed into candidates with no length, empty-final, or policy-output
+  failure, but the eighth request ended inside the provider/client boundary with a
+  JSON decode exception. Because the preregistered practical rule prohibited any
+  request error, v14 is not formally qualified; because the exception occurred after
+  the five-response trigger and no specified contradiction occurred, the strict
+  decision is `inconclusive_provider_exception_after_practical_trigger`. The frozen
+  generic analyzer's broader `unexercised_provider_exception` label is retained and
+  corrected by an explicit closure adjudication. Unseen selection remains blocked.
+  The next minimal boundary is bounded provider-response recovery with per-attempt
+  accounting and timing-aware analysis, qualified without a new repository identity.

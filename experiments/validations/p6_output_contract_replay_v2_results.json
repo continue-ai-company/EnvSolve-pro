@@ -1,0 +1,69 @@
+{
+  "analysis": "p6-output-contract-replay-v2",
+  "claim_scope": "consumed-development mechanism replay only",
+  "decision": "unexercised_provider_exception",
+  "inputs": {
+    "preregistration": "/Users/admin/Documents/AnyDeploy/experiments/validations/p6_output_contract_replay_v2_preregistration.json",
+    "preregistration_sha256": "b2643e9c1ffd3b844e424e6f53047197db84dc2d43b9d00447e04b20075449a1",
+    "schedule": "/Users/admin/Documents/AnyDeploy/experiments/validations/p6_output_contract_replay_v2_schedule.json",
+    "schedule_sha256": "47ddf85f4431804e9be8a9041ea3986a0d98961ce5a81fb076cfe03d4b60fe24"
+  },
+  "limitations": {
+    "causal_effectiveness_estimate_allowed": false,
+    "consumed_development_identity": true,
+    "leaderboard_claim_allowed": false,
+    "paper_test_set_claim_allowed": false
+  },
+  "qualification": {
+    "budget_terminal_qualified": null,
+    "practical_output_qualified": false,
+    "reasoning_content_absent": true
+  },
+  "run": {
+    "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/p6-output-contract-replay-v2-envsolve-operation/envbench-python-fillll__reddit2telegram__9899113b47d24c3eaebaf566718903990794e07c",
+    "audit_valid": true,
+    "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+    "counts": {
+      "budget_as_policy_exception": 0,
+      "empty_final_failures": 0,
+      "episode_budget_exhaustions": 0,
+      "failure_categories": {
+        "candidate-operation-reject": 1,
+        "candidate-policy-exception": 1,
+        "candidate-validation-reject": 2,
+        "command-exit": 7,
+        "executable-verifier-counterexample": 4
+      },
+      "internal_passes": 0,
+      "length_finish_exceptions": 0,
+      "policy_exceptions": 1,
+      "policy_output_failures": 0,
+      "proposals": 7,
+      "verifications": 4
+    },
+    "episode_sha256": "4b1d0434f6c816641330feb39c3947dd874bd493f19692a248f6addf648f0a5d",
+    "error": "JSONDecodeError: Expecting value: line 803 column 1 (char 4411)",
+    "generation_completed": false,
+    "ledger_sha256": "306f8abe4f78ab49efa75b30405d0ce159484b4dde244100c8f056ececeebd6a",
+    "method": "envsolve-operation",
+    "official_evaluator_reached": false,
+    "persisted_reasoning_paths": [],
+    "position": 1,
+    "result_sha256": "0e510ec9a48b0b36512e73d21978ba9de0e185dc7030fe1f4419a9409fb3fa33",
+    "run_id": "p6-output-contract-replay-v2-envsolve-operation",
+    "seed": 0,
+    "usage": {
+      "candidates": 7,
+      "commands": 4,
+      "elapsed_wall_clock_seconds": 1060.556935,
+      "environments": 4,
+      "input_tokens": 26659,
+      "output_tokens": 34618,
+      "request_errors": 1,
+      "requests_started": 8,
+      "responses_completed": 7,
+      "total_tokens": 61277
+    }
+  },
+  "schema_version": "1.0.0"
+}

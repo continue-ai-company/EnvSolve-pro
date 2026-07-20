@@ -383,6 +383,10 @@ counterexample。冻结模型没有低于 `high` 的 reasoning level，因此只
 unseen development qualification 前，最后一道门仍是同 identity consumed replay。
 修正后的边界已冻结为 v14/v28，并通过全量回归。同 identity replay 已预注册，是当前唯一允许的实证
 步骤；它不能支持效果 claim，也不能授权 replacement case。
+该 replay 随后连续产生 7 个 parsed response，第 8 次则发生 provider-response JSON decode failure。
+按照预注册的 no-request-error 规则，这一结果是 inconclusive，既不是方法通过，也不是反例。下一
+revision 因此只处理可审计的 provider-boundary bounded recovery；unseen development selection 继续
+锁定。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

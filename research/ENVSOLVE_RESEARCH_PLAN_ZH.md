@@ -889,3 +889,11 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   它要求 5 次 completed response 都形成 parsed candidate，且没有 output/request failure；若出现 length
   finish，仍必须证明 usage 记账和 recoverable 分类正确。更早的 Pass、infrastructure 或 provider failure
   记为 unexercised，不得 replacement。该 replay 关闭前不能选择新的 development identity。
+- Replay v2 已通过 artifact audit，并在不重跑、不 replacement 的条件下关闭。连续 7 次响应都解析为
+  candidate，没有 length、empty-final 或 policy-output failure；第 8 次请求在 provider/client 边界内
+  因 JSON decode exception 结束。预注册规则禁止整条 run 出现任何 request error，所以 v14 没有 formal
+  qualification；异常发生在 5-response trigger 之后，且没有指定 contradiction，因此严格结论是
+  `inconclusive_provider_exception_after_practical_trigger`。冻结通用分析器较宽的
+  `unexercised_provider_exception` 标签保留原样，由显式 closure 裁决纠正。Unseen selection 继续阻止。
+  下一项最小边界是带逐 attempt 记账的 bounded provider-response recovery 和 timing-aware analysis，
+  且不使用新 repository identity 完成资格验证。
