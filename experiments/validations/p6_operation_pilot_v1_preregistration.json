@@ -2,8 +2,53 @@
   "schema_version": "1.0.0",
   "preregistration_id": "p6-operation-pilot-v1-prebulk-calibration",
   "preregistered_at": "2026-07-20T22:28:35+08:00",
-  "status": "registered_before_host_probe_and_selection",
+  "status": "registered_before_selection",
   "purpose": "Small outcome-blind paired pilot to estimate terminal reach and expose major failure modes before committing compute and tokens to a larger Spark batch.",
+  "host_admission": {
+    "admitted_at": "2026-07-20T22:44:21+08:00",
+    "target": "local Mac development host",
+    "result": "passed",
+    "original_preregistration": {
+      "revision": "cf52839c947bc4eb23e6b21cc278620f47a5b47b",
+      "status": "registered_before_host_probe_and_selection",
+      "sha256": "bd3a28ee510dea9b31415f75ec2e547bf64ac1fba66eca2434fde9ab5b775672"
+    },
+    "case_free_provider_diagnostics": [
+      {
+        "path": "experiments/validations/p6_operation_pilot_v1_provider_probe_diagnostic_failed.json",
+        "sha256": "ea3df34b4d2a5f473dcf70d60dbe2733a7fbecd78f08da9f91f6f58c8f083dfc",
+        "qualified": false,
+        "parsed_candidates": 0,
+        "policy_errors": 1,
+        "request_errors": 0,
+        "interpretation": "The provider completed with finish_reason=stop but the response violated the exact candidate output contract."
+      },
+      {
+        "persisted": false,
+        "qualified": true,
+        "parsed_candidates": 1,
+        "policy_errors": 0,
+        "request_errors": 0,
+        "interpretation": "A read-only diagnostic rerun passed before the formal admission probe."
+      }
+    ],
+    "checks": {
+      "algorithm_and_harness_hashes_match": true,
+      "harness_freeze_valid": true,
+      "full_regression": "413 passed, 1 skipped, 69 subtests passed",
+      "real_docker_integration": "1 passed",
+      "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+      "envbench_dirty": false,
+      "provider_probe": {
+        "path": "experiments/validations/p6_operation_pilot_v1_provider_probe.json",
+        "sha256": "bb30cea4d51c75c9af2e97027ce43ae8a5e8b8f6ea0825fe794c7534e922487e",
+        "model": "deepseek/deepseek-v4-pro",
+        "qualified": true,
+        "parsed_candidates": 1,
+        "request_errors": 0
+      }
+    }
+  },
   "supersedes_for_execution": {
     "path": "experiments/validations/p6_operation_qualification_v12_preregistration.json",
     "sha256": "50c535676826cba24fb3864f1f777fe1ef886ba728ccc7852e24ff853e6fe2f8",

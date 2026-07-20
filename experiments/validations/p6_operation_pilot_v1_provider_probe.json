@@ -1,0 +1,63 @@
+{
+  "claim_scope": "synthetic model-protocol compatibility only",
+  "interpretation": "A pass qualifies only the provider/client output boundary under synthetic pressure; it is not repository-deployment evidence.",
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "p6-model-output-contract-stress-v2",
+  "purpose": "Stress the production structured policy boundary without repository or evaluator input.",
+  "request": {
+    "evaluator_context": false,
+    "max_output_tokens": 32768,
+    "model": "deepseek/deepseek-v4-pro",
+    "reasoning_effort": "high",
+    "repository_context": false,
+    "requests": 1,
+    "response_format": "json_object",
+    "seed": 0,
+    "temperature": 0
+  },
+  "result": {
+    "candidates": [
+      {
+        "candidate_id": "candidate-0001",
+        "rationale_chars": 450,
+        "rationale_sha256": "169ba9e353847237cc527a8144079ce3e359536f06641dcdd858898a39a3c4a4",
+        "script_chars": 79,
+        "script_sha256": "3870db6b26b66110a4eba5c62b3041bc8f02ff40df9eab11120cd94ff906a5e5"
+      }
+    ],
+    "parsed_candidates": 1,
+    "policy_errors": [],
+    "qualified": true,
+    "responses": [
+      {
+        "finish_reason": "stop",
+        "input_tokens": 2117,
+        "output_tokens": 116,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 0,
+        "status": "completed"
+      }
+    ],
+    "usage": {
+      "cache_read_tokens": 0,
+      "candidates": 0,
+      "commands": 0,
+      "elapsed_wall_clock_seconds": 7.288026,
+      "environments": 0,
+      "estimated_cost_usd": 0.001021815,
+      "input_tokens": 2117,
+      "output_tokens": 116,
+      "request_errors": 0,
+      "requests_started": 1,
+      "response_parse_recoveries": 0,
+      "response_parse_retries": 0,
+      "responses_completed": 1,
+      "total_tokens": 2233
+    }
+  },
+  "schema_version": "1.0.0"
+}
