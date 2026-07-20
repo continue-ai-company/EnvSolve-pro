@@ -1,0 +1,1166 @@
+{
+  "aggregate": {
+    "audit_valid": 10,
+    "budget_preflight_exceptions": 7,
+    "empty_policy_responses": 3,
+    "executed": 41,
+    "executions_after_old_cap": 5,
+    "failure_categories": {
+      "candidate-operation-reject": 3,
+      "candidate-policy-exception": 8,
+      "candidate-policy-output": 3,
+      "candidate-validation-reject": 6,
+      "command-exit": 44,
+      "executable-verifier-counterexample": 40,
+      "executable-verifier-unknown": 1
+    },
+    "generation_completed": 0,
+    "internal_passes": 0,
+    "official_evaluator_reached": 0,
+    "policy_exceptions": 8,
+    "policy_output_failures": 3,
+    "pre_environment_rejects": 9,
+    "proposals": 50,
+    "proposals_after_old_cap": 7,
+    "resources": {
+      "candidates": 50,
+      "commands": 41,
+      "elapsed_wall_clock_seconds": 12239.069458999998,
+      "environments": 41,
+      "input_tokens": 354504,
+      "output_tokens": 210713,
+      "request_errors": 1,
+      "requests_started": 54,
+      "responses_completed": 53,
+      "total_tokens": 565217
+    },
+    "runs": 10,
+    "runs_over_old_candidate_cap": 3,
+    "runs_with_executions_after_old_cap": 3,
+    "terminal_reasons": {
+      "BudgetExceeded: Online model budget exhausted: environments": 7,
+      "Candidate execution was blocked by infrastructure failure": 1,
+      "JSONDecodeError: Expecting value: line 5485 column 1 (char 30162)": 1,
+      "policy output failure budget exhausted": 1
+    },
+    "unexpected_policy_exceptions": 1
+  },
+  "claim_scope": "consumed-development budget calibration only",
+  "decision": "additional_environments_without_terminal_reach",
+  "historical_q10": {
+    "descriptive_only": true,
+    "path": "p6_operation_qualification_v10_closure.json",
+    "resources": {
+      "candidates": 50,
+      "commands": 41,
+      "fresh_environments": 41,
+      "model_requests": 53,
+      "total_tokens": 495715,
+      "wall_clock_seconds": 8861.077396
+    },
+    "sha256": "ca2208aae38b1955a11ba04ac5046f651b6c9209b46598afa1373c6588b5e0e4"
+  },
+  "methods": {
+    "envsolve-operation": {
+      "audit_valid": 5,
+      "budget_preflight_exceptions": 4,
+      "empty_policy_responses": 3,
+      "executed": 22,
+      "executions_after_old_cap": 4,
+      "failure_categories": {
+        "candidate-operation-reject": 3,
+        "candidate-policy-exception": 4,
+        "candidate-policy-output": 3,
+        "candidate-validation-reject": 4,
+        "command-exit": 25,
+        "executable-verifier-counterexample": 22
+      },
+      "generation_completed": 0,
+      "internal_passes": 0,
+      "official_evaluator_reached": 0,
+      "policy_exceptions": 4,
+      "policy_output_failures": 3,
+      "pre_environment_rejects": 7,
+      "proposals": 29,
+      "proposals_after_old_cap": 6,
+      "resources": {
+        "candidates": 29,
+        "commands": 22,
+        "elapsed_wall_clock_seconds": 6327.4921699999995,
+        "environments": 22,
+        "input_tokens": 223486,
+        "output_tokens": 134081,
+        "request_errors": 0,
+        "requests_started": 32,
+        "responses_completed": 32,
+        "total_tokens": 357567
+      },
+      "runs": 5,
+      "runs_over_old_candidate_cap": 2,
+      "runs_with_executions_after_old_cap": 2,
+      "terminal_reasons": {
+        "BudgetExceeded: Online model budget exhausted: environments": 4,
+        "policy output failure budget exhausted": 1
+      },
+      "unexpected_policy_exceptions": 0
+    },
+    "envsolve-operation-ablation": {
+      "audit_valid": 5,
+      "budget_preflight_exceptions": 3,
+      "empty_policy_responses": 0,
+      "executed": 19,
+      "executions_after_old_cap": 1,
+      "failure_categories": {
+        "candidate-policy-exception": 4,
+        "candidate-validation-reject": 2,
+        "command-exit": 19,
+        "executable-verifier-counterexample": 18,
+        "executable-verifier-unknown": 1
+      },
+      "generation_completed": 0,
+      "internal_passes": 0,
+      "official_evaluator_reached": 0,
+      "policy_exceptions": 4,
+      "policy_output_failures": 0,
+      "pre_environment_rejects": 2,
+      "proposals": 21,
+      "proposals_after_old_cap": 1,
+      "resources": {
+        "candidates": 21,
+        "commands": 19,
+        "elapsed_wall_clock_seconds": 5911.577289000001,
+        "environments": 19,
+        "input_tokens": 131018,
+        "output_tokens": 76632,
+        "request_errors": 1,
+        "requests_started": 22,
+        "responses_completed": 21,
+        "total_tokens": 207650
+      },
+      "runs": 5,
+      "runs_over_old_candidate_cap": 1,
+      "runs_with_executions_after_old_cap": 1,
+      "terminal_reasons": {
+        "BudgetExceeded: Online model budget exhausted: environments": 3,
+        "Candidate execution was blocked by infrastructure failure": 1,
+        "JSONDecodeError: Expecting value: line 5485 column 1 (char 30162)": 1
+      },
+      "unexpected_policy_exceptions": 1
+    }
+  },
+  "old_candidate_cap": 5,
+  "preregistration": {
+    "path": "p6_q10_budget_calibration_v1_preregistration.json",
+    "sha256": "712e5b9a452f1f1fa80ebd68e5ba961cdf776c63b5f53ac2f06e102a846b29fc"
+  },
+  "runs": [
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 0,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 5
+        }
+      ],
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-policy-exception": 1,
+          "command-exit": 4,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 0,
+        "proposals": 5,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "6cc117c6df174a920a8c1e25a7bf6b8f6c9b53667955bf2ae5a7ea8a861089f0",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "acd823a75b8683e796c4ce0f2b1dfd9679bd1f85850cbc9ee5c4d5f25037c708",
+      "method": "envsolve-operation",
+      "official_evaluator_reached": false,
+      "pair_index": 1,
+      "position": 1,
+      "result_sha256": "2b4a17ecee61b9b0e6ae9c599a6d5f1b39458e8585f571d8a5f993f1a5a4bd6f",
+      "run_id": "p6-q10-budget-calibration-v1-01-envsolve-operation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 5,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 2025.677021,
+          "environments": 5,
+          "estimated_cost_usd": 0.03427713,
+          "input_tokens": 48930,
+          "output_tokens": 14934,
+          "request_errors": 0,
+          "requests_started": 5,
+          "responses_completed": 5,
+          "total_tokens": 63864
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-19T21:31:11.494693+00:00"
+      },
+      "usage": {
+        "candidates": 5,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 2025.877364,
+        "environments": 5,
+        "input_tokens": 48930,
+        "output_tokens": 14934,
+        "request_errors": 0,
+        "requests_started": 5,
+        "responses_completed": 5,
+        "total_tokens": 63864
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 2,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 2,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": true,
+          "exit_code": 2,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": true,
+          "exit_code": 0,
+          "proposal_index": 5
+        }
+      ],
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-policy-exception": 1,
+          "command-exit": 4,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 0,
+        "proposals": 5,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "b0465dfc3d564dba8edebd420b15daccd634182d65b0d2fdff88ca7050c7cdbe",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "57e58376634dd16ef9fba01269cef87a6a09f839c0324b78713e5674fc81a149",
+      "method": "envsolve-operation-ablation",
+      "official_evaluator_reached": false,
+      "pair_index": 1,
+      "position": 2,
+      "result_sha256": "ba7fdc22b68e0e99747a5b905d2d652a791e79f1cc4763fcaff52c79ace81bce",
+      "run_id": "p6-q10-budget-calibration-v1-01-envsolve-operation-ablation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 5,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 1666.544445,
+          "environments": 5,
+          "estimated_cost_usd": 0.04135197,
+          "input_tokens": 37118,
+          "output_tokens": 28972,
+          "request_errors": 0,
+          "requests_started": 5,
+          "responses_completed": 5,
+          "total_tokens": 66090
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-19T21:59:00.727612+00:00"
+      },
+      "usage": {
+        "candidates": 5,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 1666.707914,
+        "environments": 5,
+        "input_tokens": 37118,
+        "output_tokens": 28972,
+        "request_errors": 0,
+        "requests_started": 5,
+        "responses_completed": 5,
+        "total_tokens": 66090
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 0,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 3
+        }
+      ],
+      "case_id": "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+      "counts": {
+        "budget_preflight_exceptions": 0,
+        "empty_policy_responses": 0,
+        "executed": 3,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-policy-exception": 1,
+          "command-exit": 2,
+          "executable-verifier-counterexample": 3
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 0,
+        "proposals": 3,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 1
+      },
+      "episode_sha256": "86299ac1677f8044025d187801084fc173be05c88901c5d78d2cac227462f824",
+      "exhausted_limits": [],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "84112fd649687fc7584d85998a381f19d202f043a4c83cd39f026f0373317bb5",
+      "method": "envsolve-operation-ablation",
+      "official_evaluator_reached": false,
+      "pair_index": 2,
+      "position": 3,
+      "result_sha256": "d815db24c30c13feae12f9b82c0c13b5371805603bba0aa0643efc552764f825",
+      "run_id": "p6-q10-budget-calibration-v1-02-envsolve-operation-ablation",
+      "seed": 0,
+      "terminal_reason": "JSONDecodeError: Expecting value: line 5485 column 1 (char 30162)",
+      "termination": null,
+      "usage": {
+        "candidates": 3,
+        "commands": 3,
+        "elapsed_wall_clock_seconds": 1329.448136,
+        "environments": 3,
+        "input_tokens": 16676,
+        "output_tokens": 6850,
+        "request_errors": 1,
+        "requests_started": 4,
+        "responses_completed": 3,
+        "total_tokens": 23526
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 0,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": true,
+          "exit_code": 100,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 5
+        }
+      ],
+      "case_id": "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-policy-exception": 1,
+          "command-exit": 4,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 0,
+        "proposals": 5,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "34494cb9b31af224f90e0f2fa6463b268d34c4168b1d022ad6a995a29c2934cc",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "5337820d3c4376b4e76968c88a3cf06f46b194a565c2e3c8016553b6ea2b35db",
+      "method": "envsolve-operation",
+      "official_evaluator_reached": false,
+      "pair_index": 2,
+      "position": 4,
+      "result_sha256": "b5eec44b1f1fe8e82fcf1a2e58ba5b274ac8e82d38b14b08d66332fa7a7a8f69",
+      "run_id": "p6-q10-budget-calibration-v1-02-envsolve-operation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 5,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 642.730038,
+          "environments": 5,
+          "estimated_cost_usd": 0.031219515,
+          "input_tokens": 33553,
+          "output_tokens": 19108,
+          "request_errors": 0,
+          "requests_started": 5,
+          "responses_completed": 5,
+          "total_tokens": 52661
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-19T22:33:11.546196+00:00"
+      },
+      "usage": {
+        "candidates": 5,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 642.772977,
+        "environments": 5,
+        "input_tokens": 33553,
+        "output_tokens": 19108,
+        "request_errors": 0,
+        "requests_started": 5,
+        "responses_completed": 5,
+        "total_tokens": 52661
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": false,
+          "exit_code": 252,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 2
+        }
+      ],
+      "case_id": "envbench-python-terminusdb__terminusdb-client-python@30fe3957a2ccd4fe4c15b3d36fc5419bcf166a85",
+      "counts": {
+        "budget_preflight_exceptions": 0,
+        "empty_policy_responses": 0,
+        "executed": 1,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-validation-reject": 1,
+          "command-exit": 2,
+          "executable-verifier-unknown": 1
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 0,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 1,
+        "proposals": 2,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "444bd7a91f1befcf35f23856de51f5c871d787cda1f0bcb80a1fd66e774872b2",
+      "exhausted_limits": [],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "5cbe9547328904542fb984cf4f6d1a6df914e9a15f6824b86153028a90bf64ab",
+      "method": "envsolve-operation-ablation",
+      "official_evaluator_reached": false,
+      "pair_index": 3,
+      "position": 5,
+      "result_sha256": "5d5f902aff6bd048d8e22588d8d9109304d49d1569db6935909fe0969c150ea8",
+      "run_id": "p6-q10-budget-calibration-v1-03-envsolve-operation-ablation",
+      "seed": 0,
+      "terminal_reason": "Candidate execution was blocked by infrastructure failure",
+      "termination": null,
+      "usage": {
+        "candidates": 2,
+        "commands": 1,
+        "elapsed_wall_clock_seconds": 160.674757,
+        "environments": 1,
+        "input_tokens": 8944,
+        "output_tokens": 6200,
+        "request_errors": 0,
+        "requests_started": 2,
+        "responses_completed": 2,
+        "total_tokens": 15144
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": false,
+          "exit_code": 252,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": false,
+          "exit_code": 251,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": false,
+          "exit_code": 252,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 5
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0006",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 6
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0007",
+          "executed": true,
+          "exit_code": 0,
+          "proposal_index": 7
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0008",
+          "executed": true,
+          "exit_code": 0,
+          "proposal_index": 8
+        }
+      ],
+      "case_id": "envbench-python-terminusdb__terminusdb-client-python@30fe3957a2ccd4fe4c15b3d36fc5419bcf166a85",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 3,
+        "failure_categories": {
+          "candidate-operation-reject": 1,
+          "candidate-policy-exception": 1,
+          "candidate-validation-reject": 2,
+          "command-exit": 6,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 3,
+        "proposals": 8,
+        "proposals_after_old_cap": 3,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "430c44aff116087504f5a88250cb7ee9b932f4542d6d9b821503455affce68ec",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "e88e589c249ba934a5cc30244085653a9436071c4c7b2b26b510d9844f4efadb",
+      "method": "envsolve-operation",
+      "official_evaluator_reached": false,
+      "pair_index": 3,
+      "position": 6,
+      "result_sha256": "826612d86ef8a3ffca5e1eaf7a087a79f3da1dae3060b31098910711a00df93e",
+      "run_id": "p6-q10-budget-calibration-v1-03-envsolve-operation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 8,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 764.405362,
+          "environments": 5,
+          "estimated_cost_usd": 0.039625455,
+          "input_tokens": 54513,
+          "output_tokens": 18290,
+          "request_errors": 0,
+          "requests_started": 8,
+          "responses_completed": 8,
+          "total_tokens": 72803
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-19T22:50:34.821116+00:00"
+      },
+      "usage": {
+        "candidates": 8,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 764.466149,
+        "environments": 5,
+        "input_tokens": 54513,
+        "output_tokens": 18290,
+        "request_errors": 0,
+        "requests_started": 8,
+        "responses_completed": 8,
+        "total_tokens": 72803
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 5
+        }
+      ],
+      "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-policy-exception": 1,
+          "command-exit": 5,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 0,
+        "proposals": 5,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "da2b454e6309f2a13d47ffa37c767cd3f710d3ef96384efbe5a4a3e294c9ed95",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "8c1dfc1711c11e035ee3519467beafbf33ff96d6459325228f5d588293ffd12d",
+      "method": "envsolve-operation-ablation",
+      "official_evaluator_reached": false,
+      "pair_index": 4,
+      "position": 7,
+      "result_sha256": "24c04d263c8ede042b46e0ce9931d037f404985e555418595f08fef1807a6dfc",
+      "run_id": "p6-q10-budget-calibration-v1-04-envsolve-operation-ablation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 5,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 510.711742,
+          "environments": 5,
+          "estimated_cost_usd": 0.023139825,
+          "input_tokens": 20141,
+          "output_tokens": 16527,
+          "request_errors": 0,
+          "requests_started": 5,
+          "responses_completed": 5,
+          "total_tokens": 36668
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-19T22:59:30.131534+00:00"
+      },
+      "usage": {
+        "candidates": 5,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 510.724617,
+        "environments": 5,
+        "input_tokens": 20141,
+        "output_tokens": 16527,
+        "request_errors": 0,
+        "requests_started": 5,
+        "responses_completed": 5,
+        "total_tokens": 36668
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": false,
+          "exit_code": 252,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 3
+        }
+      ],
+      "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+      "counts": {
+        "budget_preflight_exceptions": 0,
+        "empty_policy_responses": 3,
+        "executed": 2,
+        "executions_after_old_cap": 0,
+        "failure_categories": {
+          "candidate-policy-output": 3,
+          "candidate-validation-reject": 1,
+          "command-exit": 3,
+          "executable-verifier-counterexample": 2
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 0,
+        "policy_output_failures": 3,
+        "pre_environment_rejects": 1,
+        "proposals": 3,
+        "proposals_after_old_cap": 0,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "cdf6ebb998aed3f7f70993bb8c5f31dafb8d7dfb98d85c224088f64e0bae887c",
+      "exhausted_limits": [],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "a1ffd457e2d7e1acfdad48f30457f1fe26bb6a0106bb32ac17e7e24e8ede77ac",
+      "method": "envsolve-operation",
+      "official_evaluator_reached": false,
+      "pair_index": 4,
+      "position": 8,
+      "result_sha256": "bc3e8ebaff71fb8c094ff3fec168cb79daad61352efb72954a07798e511fe748",
+      "run_id": "p6-q10-budget-calibration-v1-04-envsolve-operation",
+      "seed": 0,
+      "terminal_reason": "policy output failure budget exhausted",
+      "termination": null,
+      "usage": {
+        "candidates": 3,
+        "commands": 2,
+        "elapsed_wall_clock_seconds": 1399.864677,
+        "environments": 2,
+        "input_tokens": 22271,
+        "output_tokens": 61576,
+        "request_errors": 0,
+        "requests_started": 6,
+        "responses_completed": 6,
+        "total_tokens": 83847
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 100,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": false,
+          "exit_code": 252,
+          "proposal_index": 5
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0006",
+          "executed": false,
+          "exit_code": 251,
+          "proposal_index": 6
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0007",
+          "executed": false,
+          "exit_code": 251,
+          "proposal_index": 7
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0008",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 8
+        }
+      ],
+      "case_id": "envbench-python-googlefonts__gftools@e70cbae529bf512339dd55f63d7516dba5a22a85",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 1,
+        "failure_categories": {
+          "candidate-operation-reject": 2,
+          "candidate-policy-exception": 1,
+          "candidate-validation-reject": 1,
+          "command-exit": 8,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 3,
+        "proposals": 8,
+        "proposals_after_old_cap": 3,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "afe298ffbb3a8c3f21903ac245569ffa2727f4ee20cc8602cac63adb492be6bb",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "ddc4bfd2b22a3b6ee80a9aced3c72cba148aade850cec5ce954a9c2041ace04a",
+      "method": "envsolve-operation",
+      "official_evaluator_reached": false,
+      "pair_index": 5,
+      "position": 9,
+      "result_sha256": "8f86adcdd6cae62a3a388e43fe6460bba0390626d77a8db664ab3939663c96f6",
+      "run_id": "p6-q10-budget-calibration-v1-05-envsolve-operation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 8,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 1494.385998,
+          "environments": 5,
+          "estimated_cost_usd": 0.045485775,
+          "input_tokens": 64219,
+          "output_tokens": 20173,
+          "request_errors": 0,
+          "requests_started": 8,
+          "responses_completed": 8,
+          "total_tokens": 84392
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-19T23:48:27.173578+00:00"
+      },
+      "usage": {
+        "candidates": 8,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 1494.511003,
+        "environments": 5,
+        "input_tokens": 64219,
+        "output_tokens": 20173,
+        "request_errors": 0,
+        "requests_started": 8,
+        "responses_completed": 8,
+        "total_tokens": 84392
+      }
+    },
+    {
+      "audit_valid": true,
+      "candidates": [
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0001",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 1
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0002",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 2
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0003",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 3
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0004",
+          "executed": true,
+          "exit_code": 100,
+          "proposal_index": 4
+        },
+        {
+          "after_old_candidate_cap": false,
+          "candidate_id": "candidate-0005",
+          "executed": false,
+          "exit_code": 252,
+          "proposal_index": 5
+        },
+        {
+          "after_old_candidate_cap": true,
+          "candidate_id": "candidate-0006",
+          "executed": true,
+          "exit_code": 1,
+          "proposal_index": 6
+        }
+      ],
+      "case_id": "envbench-python-googlefonts__gftools@e70cbae529bf512339dd55f63d7516dba5a22a85",
+      "counts": {
+        "budget_preflight_exceptions": 1,
+        "empty_policy_responses": 0,
+        "executed": 5,
+        "executions_after_old_cap": 1,
+        "failure_categories": {
+          "candidate-policy-exception": 1,
+          "candidate-validation-reject": 1,
+          "command-exit": 6,
+          "executable-verifier-counterexample": 5
+        },
+        "internal_passes": 0,
+        "policy_exceptions": 1,
+        "policy_output_failures": 0,
+        "pre_environment_rejects": 1,
+        "proposals": 6,
+        "proposals_after_old_cap": 1,
+        "unexpected_policy_exceptions": 0
+      },
+      "episode_sha256": "f027ebbc8a22cdcb1114e543b10dc444714c0723b7805d67deb32abad05eff2f",
+      "exhausted_limits": [
+        "environments",
+        "commands"
+      ],
+      "generation_completed": false,
+      "goal_status": "blocked",
+      "ledger_sha256": "a3cd12c14d40e2fdbdd18caeb7f11e10ed19c81fab4e8d1fb0bb2a1e022d9fbe",
+      "method": "envsolve-operation-ablation",
+      "official_evaluator_reached": false,
+      "pair_index": 5,
+      "position": 10,
+      "result_sha256": "37c8093d4fd20a370dd07e6bf576d82e728b512852ee63f3f178e75f0d991951",
+      "run_id": "p6-q10-budget-calibration-v1-05-envsolve-operation-ablation",
+      "seed": 0,
+      "terminal_reason": "BudgetExceeded: Online model budget exhausted: environments",
+      "termination": {
+        "kind": "budget_exhausted",
+        "observed_before_request": {
+          "cache_read_tokens": 0,
+          "candidates": 6,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 2244.002991,
+          "environments": 5,
+          "estimated_cost_usd": 0.036672675,
+          "input_tokens": 48139,
+          "output_tokens": 18083,
+          "request_errors": 0,
+          "requests_started": 6,
+          "responses_completed": 6,
+          "total_tokens": 66222
+        },
+        "scope": "environments",
+        "timestamp": "2026-07-20T00:25:53.609157+00:00"
+      },
+      "usage": {
+        "candidates": 6,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 2244.021865,
+        "environments": 5,
+        "input_tokens": 48139,
+        "output_tokens": 18083,
+        "request_errors": 0,
+        "requests_started": 6,
+        "responses_completed": 6,
+        "total_tokens": 66222
+      }
+    }
+  ],
+  "schedule": {
+    "path": "p6_q10_budget_calibration_v1_schedule.json",
+    "sha256": "963e449f4b6f78d0eee9db97ce8b2e197ebbd83f733c1e07d68fc8aec578efc6"
+  },
+  "schema_version": "1.0.0"
+}

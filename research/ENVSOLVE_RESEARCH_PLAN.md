@@ -1159,3 +1159,14 @@ development batch; it never triggers tuning on the same held-out outcomes.
   frozen as algorithm v12 / Harness v26 with legacy fallback. Before any new solver
   mechanism, a preregistered consumed-Q10 diagnostic changes only proposals from 5
   to 15 while holding environments, commands, requests, tokens, and time fixed.
+- The independent-budget diagnostic completed all ten runs with valid audits. Three
+  runs crossed the old proposal cap, yielding seven later proposals and five later
+  fresh executions, but there were zero internal passes and zero Official reaches.
+  It therefore takes the preregistered
+  `additional_environments_without_terminal_reach` branch: budget coupling was a real
+  utilization defect but not the dominant remaining effectiveness bottleneck. The
+  batch also exposed three empty-final model responses in one run, one provider JSON
+  exception, and seven normal environment-budget terminals mislabeled as policy
+  exceptions. The next minimal work is to normalize budget termination and qualify a
+  bounded structured-output/reasoning contract before changing operation state or
+  selecting another unseen batch.

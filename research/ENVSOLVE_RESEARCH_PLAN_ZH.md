@@ -850,3 +850,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   独立配置，并以 algorithm v12 / Harness v26 冻结，同时保留旧配置 fallback。在增加任何 solver
   机制前，预注册的 consumed-Q10 诊断只把 proposal 从 5 改为 15，environment、command、request、
   token 和 time 均固定不变。
+- 独立预算诊断的 10 条 run 全部完成且审计有效。3 条 run 越过旧 proposal 上限，产生 7 个后续
+  proposal 和 5 次后续 fresh execution，但 internal pass 与 Official reach 都是 0。因此实验进入预注册
+  的 `additional_environments_without_terminal_reach` 分支：预算耦合是实际的利用率缺陷，但不是当前
+  剩余效果瓶颈的主要部分。本批还发现一条 run 中 3 次 final content 为空、一次 provider JSON 异常，
+  以及 7 次正常 environment-budget 终止被误标为 policy exception。下一项最小工作是在改动 operation
+  state 或选择新 unseen batch 前，规范 budget terminal，并资格验证有界 structured-output/reasoning
+  contract。

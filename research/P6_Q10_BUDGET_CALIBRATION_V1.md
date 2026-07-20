@@ -1,7 +1,8 @@
 # P6 Q10 Independent Primitive Budget Calibration
 
-Status: preregistered before execution. This is a consumed-development diagnostic,
-not an effectiveness experiment.
+Status: closed after all ten preregistered runs. This is a consumed-development
+diagnostic, not an effectiveness experiment. Results are reported in
+`P6_Q10_BUDGET_CALIBRATION_V1_RESULTS.md`.
 
 ## Motivation
 
@@ -50,3 +51,11 @@ consume the recovered environments but still fail, budget coupling mattered but 
 not sufficient; only then may the new trajectories define one minimal generic
 operation-state revision. No result from this experiment can support a leaderboard
 or held-out claim.
+
+## Closed Outcome
+
+Three runs crossed the old proposal cap and recovered five fresh executions after
+proposal five, but no run passed internally or reached the Official evaluator. The
+registered decision branch is `additional_environments_without_terminal_reach`:
+independent primitive budgets are retained, while further operation-state expansion
+is deferred behind the newly observed output and terminal-state boundary defects.

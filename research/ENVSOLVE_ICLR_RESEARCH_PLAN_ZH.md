@@ -310,6 +310,13 @@ classifier trigger 转向更主要的 solver failure：为什么 typed state 与
 candidate 内仍无法产生可评测部署。下一项 development 工作是对这些 consumed trajectory 做聚合的
 状态转移错误分析，而不是补选一批 case。
 
+该分析首先发现了一个更简单的预算混杂：在创建 environment 前被拒绝的 proposal 与昂贵的 fresh
+execution 消耗同一个 cap。我们拆分原始预算，并预注册 consumed-Q10 校准，只把 proposal cap 从 5
+改为 15。10 条 run 的审计全部有效；3 条 run 越过旧上限，在第 5 个 proposal 之后恢复 5 次执行，
+但没有 run 通过 internal verifier 或进入 Official evaluator。因此拆分提高了搜索预算利用率，却不足以
+带来部署成功。新 trajectory 把问题进一步收窄到接口边界：空 final content 会耗尽重试，正常预算耗尽
+又会被误标为 policy exception。增加下一项 solver 机制前，我们先修复并资格验证这两个边界。
+
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
 不能证明 held-out effectiveness。当前没有使用 Official-Test 或 Canary 结果，论文也不作性能提升
@@ -353,11 +360,12 @@ evaluation。跨 case 分解发现，50 个 candidate 终止阶段中有 23 个�
 随后预注册的 episode 后校准确定性选择 10 份 terminal script，得到 9 次 completed Official failure、
 1 次 infrastructure Unknown 和 0 次通过；只有 3 份脚本进入 Pyright，且全部失败。因此，在任何完成
 的校准中，terminal non-reach 都没有隐藏 passing script，Boolean internal gate 继续冻结。后续实现
-审计发现，9 个 pre-environment reject 与 fresh execution 消耗同一个 5-unit cap，因此在 model-request
-limit 为 15 时仍浪费了 9 个 environment slot。我们暂缓 operation-state 扩展，先运行预注册的
-consumed-Q10 calibration：只把 proposal cap 提高到 15，fresh environment 和 verifier command 仍为
-5。这在不增加昂贵执行资源的前提下检验更简单的 harness 解释。只有冻结的 development 方法能够以
-足够频率进入 terminal evaluator、从而支持效果比较后，held-out evaluation 才解锁。
+审计发现，9 个 pre-environment reject 与 fresh execution 消耗同一个 5-unit cap。随后 consumed-Q10
+calibration 只把 proposal cap 提高到 15，fresh environment 和 verifier command 仍为 5；3 条 run
+使用了解放出的容量并恢复 5 次旧上限之后的执行，但没有 run 达到 internal 或 Official Pass。更简单的
+harness 解释成立但不充分；下一项最小 revision 处理 output completion 和 budget-terminal 语义。只有
+冻结的 development 方法能够以足够频率进入 terminal evaluator、从而支持效果比较后，held-out
+evaluation 才解锁。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

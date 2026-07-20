@@ -429,6 +429,17 @@ why typed state and guarded operations still fail to produce an evaluable deploy
 within five candidates. The next development step is aggregate transition-level
 error analysis over these consumed trajectories, not another replacement batch.
 
+That analysis first found a simpler budget confound: proposals rejected before
+environment creation consumed the same cap as expensive fresh executions. We split
+the primitive limits and preregistered a consumed-Q10 calibration that changed only
+the proposal cap from five to fifteen. All ten audits were valid. Three runs crossed
+the old cap and recovered five executions after proposal five, but no run passed
+internally or reached the Official evaluator. Thus the split improves search-budget
+utilization but is not sufficient for deployment success. The trajectories instead
+identify a narrower interface problem: empty final model content can exhaust retries,
+and normal budget exhaustion is mislabeled as a policy exception. We will correct and
+qualify these boundaries before adding another solver mechanism.
+
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
 diagnostics and are never resumed after a mechanism change. These observations
@@ -490,14 +501,14 @@ terminal scripts produced nine completed Official failures, one infrastructure
 Unknown, and zero passes; only three scripts reached Pyright, where all failed.
 Thus terminal non-reach was not hiding a passing script in any completed calibration,
 and the Boolean internal gate remains fixed. A subsequent implementation audit found
-that nine pre-environment rejects consumed the same five-unit cap as fresh executions,
-leaving nine environment slots unused under a 15-request model limit. We therefore
-defer the proposed operation-state expansion and first run a preregistered consumed-
-Q10 calibration that raises only the proposal cap to 15 while retaining five fresh
-environments and five verifier commands. This tests the simpler harness explanation
-without increasing expensive execution resources. Held-out evaluation remains
-blocked until a frozen development method reaches the terminal evaluator often
-enough to support an effectiveness comparison.
+that nine pre-environment rejects consumed the same five-unit cap as fresh executions.
+The consumed-Q10 calibration therefore raised only the proposal cap to 15 while
+retaining five fresh environments and five verifier commands. Three runs used the
+released capacity and recovered five post-cap executions, but no run reached internal
+or Official Pass. The simpler harness explanation is real but insufficient; the next
+minimal revision targets output completion and budget-terminal semantics. Held-out
+evaluation remains blocked until a frozen development method reaches the terminal
+evaluator often enough to support an effectiveness comparison.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
