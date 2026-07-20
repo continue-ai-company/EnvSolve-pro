@@ -441,8 +441,10 @@ and normal budget exhaustion is mislabeled as a policy exception. These boundari
 are now corrected and frozen as v13: output mode and reasoning effort are explicit,
 empty responses retain bounded metadata without reasoning content, and budget
 exhaustion has a separate terminal type. A repository-free online probe establishes
-API compatibility; consumed-development replay remains pending and no effectiveness
-claim follows.
+API compatibility, so no effectiveness claim follows. A replay is now preregistered
+on the single consumed Q10 trigger run; it requires
+five parsed responses without output failure and a correctly typed budget terminal,
+with no replacement or performance claim.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -515,6 +517,7 @@ evaluation remains blocked until a frozen development method reaches the termina
 evaluator often enough to support an effectiveness comparison.
 That boundary revision is now implemented and synthetically qualified as v13; its
 next admissible evidence is a preregistered consumed-development replay.
+That one-run trigger replay is now frozen and awaiting execution.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

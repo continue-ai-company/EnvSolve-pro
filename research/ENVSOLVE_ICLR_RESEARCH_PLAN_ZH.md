@@ -318,7 +318,9 @@ execution 消耗同一个 cap。我们拆分原始预算，并预注册 consumed
 又会被误标为 policy exception。增加下一项 solver 机制前，我们先修复并资格验证这两个边界。
 修复现已冻结为 v13：output mode 与 reasoning effort 显式化；空响应只保留有界 metadata，不保存
 reasoning 内容；budget exhaustion 使用独立 terminal type。无 repository 在线探针只建立 API 兼容性，
-consumed-development replay 仍待预注册，因此不产生效果 claim。
+因此不产生效果 claim。Replay 现已在唯一的 consumed Q10 触发 run 上预注册：必须得到 5 次无输出失败的
+parsed response，
+并正确类型化预算 terminal；不 replacement，也不产生性能 claim。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -371,6 +373,7 @@ harness 解释成立但不充分；下一项最小 revision 处理 output comple
 evaluation 才解锁。
 该边界 revision 已实现并以 v13 完成合成资格验证；下一项允许的证据是预注册 consumed-development
 replay。
+这条单 run 触发 replay 已冻结，等待执行。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

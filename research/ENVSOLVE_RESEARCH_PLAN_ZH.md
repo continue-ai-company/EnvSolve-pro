@@ -864,3 +864,9 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   模型上验证了 `high + json_object`（严格 JSON，27 input / 150 output / 124 reasoning token），全量回归为
   `385 passed, 1 skipped`。这只证明协议兼容，不是部署证据。下一实验必须是预注册的 consumed-development
   output-boundary replay，之后才允许新的 unseen qualification。
+- 该 replay 现已在唯一一条曾连续产生 3 次空 final response 的 consumed Q10 run 上预注册。v13/v27
+  代码、identity、method、seed、5-environment limit 与 terminal-only Official access 全部固定。实际输出
+  资格要求至少 5 次 completed response 都形成 parsed candidate，且没有 empty/output/request failure；
+  任何自然预算终止必须按准确 scope 记录为 `episode-budget-exhausted`，不能出现
+  budget-as-policy-exception 转移。更早的 Pass 或 infrastructure/provider failure 只记 `unexercised`，
+  不 replacement。该单条 replay 不能支持效果 claim。

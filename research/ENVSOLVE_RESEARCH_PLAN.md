@@ -1180,3 +1180,12 @@ development batch; it never triggers tuning on the same held-out outcomes.
   full regression passes `385 passed, 1 skipped`. This is protocol compatibility, not
   deployment evidence. The next experiment is a preregistered consumed-development
   output-boundary replay before any unseen qualification.
+- That replay is now preregistered on the unique consumed Q10 run that previously
+  produced three consecutive empty final responses. It keeps the v13/v27 code,
+  identity, method, seed, five-environment limit, and terminal-only Official access
+  fixed. Practical output qualification requires at least five completed responses
+  to become parsed candidates with no empty/output/request failure. Any natural
+  budget terminal must be `episode-budget-exhausted` with the exact scope and no
+  budget-as-policy-exception transition. Earlier Pass or infrastructure/provider
+  failure is `unexercised` without replacement. The one-run replay cannot support an
+  effectiveness claim.

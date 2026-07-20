@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-output-terminal-boundary-replay-v1",
+  "preregistered_at": "2026-07-20T08:54:10+08:00",
+  "status": "registered_before_execution",
+  "purpose": "Test the frozen v13 output and budget-terminal boundaries on the consumed Q10 trajectory that previously ended after three empty final responses.",
+  "claim_scope": "consumed-development mechanism replay only",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v13.json",
+    "sha256": "b5a57483d01c1f9236544d26e829d06e56198b889bc817b5b3712f2851244c9c",
+    "source_revision": "9f3f840896a95ccc4fccc7a4f1e8f5eaeb7ee8cf"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v27.json",
+    "sha256": "231836c167adc1164623e8eae1d25afcbcc5c43c983576bed20ae57bbac853af"
+  },
+  "implementation_commit": "11cb6d63f5e3161caeadaf9ec7d06f70ac0c4703",
+  "trigger_evidence": {
+    "path": "experiments/validations/p6_q10_budget_calibration_v1_results.json",
+    "sha256": "027325014bbe396dd9f9aa934187f419b3f24090e5de404feff65a4f512af9cc",
+    "source_position": 8,
+    "source_run_id": "p6-q10-budget-calibration-v1-04-envsolve-operation",
+    "empty_final_responses": 3,
+    "terminal_reason": "policy output failure budget exhausted",
+    "selection_rule": "Reuse the unique Q10 calibration run with consecutive empty-final policy failures; do not inspect or select a new identity."
+  },
+  "synthetic_probe": {
+    "path": "experiments/validations/p6_model_output_contract_probe_v1.json",
+    "sha256": "f54794b93ca12cfc6f1ed0f2e4e043c445e947b325c052880f8c58b8747cc05d"
+  },
+  "identity": {
+    "status": "consumed Q10 development identity",
+    "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+    "method": "envsolve-operation",
+    "new_selection": false,
+    "replacement": false,
+    "held_out_use": false
+  },
+  "schedule": {
+    "path": "experiments/validations/p6_output_contract_replay_v1_schedule.json",
+    "sha256": "7f7a171227d14051b586876be6462ef60ffcfd3f0591c58cf50f3b144ed35d31",
+    "positions": 1,
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation_output_contract.json",
+    "sha256": "85a4d71b524e2ab1ec7374826a859936c1a5f7167e10b92142ca0b48619fe703",
+    "reasoning_effort": "high",
+    "response_format": "json_object"
+  },
+  "primitive_limits": {
+    "max_candidates": 15,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "generation_wall_clock_seconds": 7200,
+    "command_timeout_seconds": 900,
+    "model_request_timeout_seconds": 180
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "access": "post-episode only after an internal pass"
+  },
+  "primary_outcomes": [
+    "artifact audit validity",
+    "candidate-policy-output failures and empty-final diagnostics",
+    "completed responses, parsed candidates, fresh executions, and token usage",
+    "episode-budget-exhausted versus candidate-policy-exception terminal classification",
+    "absence of persisted reasoning content"
+  ],
+  "secondary_outcomes": [
+    "internal pass and natural Official evaluator reach",
+    "wall-clock and primitive resource usage",
+    "candidate-validation and operation-guard reject counts"
+  ],
+  "decision_rule": {
+    "practical_output_qualification": "At least five completed responses produce parsed candidates without candidate-policy-output failure, empty-final diagnostic, or request error.",
+    "budget_terminal_qualification": "If the online budget terminates the run, the terminal failure is episode-budget-exhausted with its exact scope and no budget message is classified as candidate-policy-exception.",
+    "contradicted": "Any empty-final policy failure under the frozen contract, persisted reasoning content, or budget exhaustion classified as a policy exception blocks unseen qualification.",
+    "unexercised": "An earlier internal Pass, infrastructure Unknown, or provider exception prevents the relevant boundary from being observed; report without replacement."
+  },
+  "adaptation_policy": {
+    "code_or_protocol_change_during_run": false,
+    "case_replacement": false,
+    "run_overwrite": false,
+    "official_feedback_online": false,
+    "pre_episode_acquisition_failure": "one audited same-identity retry only when model, candidate, environment, command, and evaluator usage are all zero",
+    "other_failure": "record the observed outcome without retry or adaptation"
+  },
+  "limitations": {
+    "stochastic_replay": true,
+    "causal_effectiveness_estimate_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "paper_test_set_claim_allowed": false
+  },
+  "protocols": [
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V1.md",
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V1_ZH.md"
+  ]
+}
