@@ -7,7 +7,11 @@ import hashlib
 import json
 
 from envsolve.operations.planner import ConstraintOperationPlanner
-from envsolve.solver import DeploymentCandidate, RecoverablePolicyError
+from envsolve.solver import (
+    DeploymentCandidate,
+    EpisodeProviderAcquisitionFailed,
+    RecoverablePolicyError,
+)
 from envsolve.state import EnvironmentState
 
 
@@ -349,12 +353,15 @@ class StructuredModelDeploymentPolicy:
             )
         except Exception as exc:
             details = self._length_finish_details(exc)
-            if details is None:
-                raise
-            raise RecoverablePolicyError(
-                "Model candidate reached the output token limit before parsing",
-                details=details,
-            ) from exc
+            if details is not None:
+                raise RecoverablePolicyError(
+                    "Model candidate reached the output token limit before parsing",
+                    details=details,
+                ) from exc
+            if isinstance(exc, json.JSONDecodeError):
+                attempts = int(getattr(exc, "provider_attempts", 1))
+                raise EpisodeProviderAcquisitionFailed(attempts) from exc
+            raise
         text = _response_text(response).strip()
         if not text:
             raise RecoverablePolicyError(

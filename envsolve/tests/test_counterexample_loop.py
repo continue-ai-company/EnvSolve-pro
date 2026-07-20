@@ -13,6 +13,7 @@ from envsolve.solver import (
     DeploymentCandidate,
     EnvironmentReceipt,
     EpisodeBudgetExhausted,
+    EpisodeProviderAcquisitionFailed,
     ExecutableVerification,
     FeedbackChannel,
     HypothesisEvidence,
@@ -61,6 +62,11 @@ class RecoveringPolicy:
 class ExhaustedPolicy:
     def propose(self, state: EnvironmentState) -> DeploymentCandidate:
         raise EpisodeBudgetExhausted("environments")
+
+
+class ProviderFailurePolicy:
+    def propose(self, state: EnvironmentState) -> DeploymentCandidate:
+        raise EpisodeProviderAcquisitionFailed(3)
 
 
 class QueueVerifier:
@@ -599,6 +605,25 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
             failures = list(session.reconstruct().failures.values())
             self.assertEqual(failures[-1]["category"], "episode-budget-exhausted")
             self.assertEqual(failures[-1]["details"], {"scope": "environments"})
+
+    def test_provider_acquisition_failure_is_not_a_policy_exception(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+
+            result = self.loop(session, 1).run(
+                ProviderFailurePolicy(),
+                QueueEnvironmentProvider(),
+                QueueVerifier([]),
+            )
+
+            self.assertEqual(result.goal_status, "blocked")
+            self.assertEqual(result.candidates_attempted, 0)
+            failures = list(session.reconstruct().failures.values())
+            self.assertEqual(
+                failures[-1]["category"],
+                "provider-acquisition-failure",
+            )
+            self.assertEqual(failures[-1]["details"], {"attempts": 3})
 
     def test_rejected_candidate_can_be_repaired_within_candidate_budget(self) -> None:
         class RejectFirstValidator:

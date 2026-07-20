@@ -88,9 +88,65 @@ def summarize_output_contract_trajectory(
             "episode_budget_exhaustions": failure_categories[
                 "episode-budget-exhausted"
             ],
+            "provider_acquisition_failures": failure_categories[
+                "provider-acquisition-failure"
+            ],
             "budget_as_policy_exception": budget_as_policy_exception,
             "failure_categories": dict(sorted(failure_categories.items())),
         }
+    }
+
+
+def adjudicate_output_contract(
+    counts: dict[str, Any],
+    usage: dict[str, Any],
+    persisted_reasoning_paths: list[str],
+) -> dict[str, Any]:
+    request_errors = int(usage.get("request_errors", 0))
+    parse_retries = int(usage.get("response_parse_retries", 0))
+    parse_recoveries = int(usage.get("response_parse_recoveries", 0))
+    contradicted = bool(
+        counts["empty_final_failures"]
+        or counts["budget_as_policy_exception"]
+        or persisted_reasoning_paths
+    )
+    practical_output_qualified = bool(
+        int(usage.get("responses_completed", 0)) >= 5
+        and counts["policy_output_failures"] == 0
+        and counts["empty_final_failures"] == 0
+        and request_errors == 0
+    )
+    provider_recovery_qualified = bool(
+        int(usage.get("responses_completed", 0)) >= 5
+        and request_errors > 0
+        and request_errors == parse_retries
+        and parse_recoveries > 0
+        and counts["provider_acquisition_failures"] == 0
+        and counts["policy_output_failures"] == 0
+    )
+    if contradicted:
+        decision = "contradicted"
+    elif practical_output_qualified:
+        decision = "practical_output_qualified"
+    elif provider_recovery_qualified:
+        decision = "practical_output_qualified_with_provider_recovery"
+    elif counts["length_finish_exceptions"]:
+        decision = "unexercised_model_length_exception"
+    elif request_errors or counts["provider_acquisition_failures"]:
+        decision = (
+            "inconclusive_provider_exception_after_practical_trigger"
+            if int(counts["proposals"]) >= 5
+            else "unexercised_provider_exception"
+        )
+    elif counts["internal_passes"]:
+        decision = "unexercised_early_internal_pass"
+    else:
+        decision = "unexercised_boundary_not_reached"
+    return {
+        "contradicted": contradicted,
+        "practical_output_qualified": practical_output_qualified,
+        "provider_recovery_qualified": provider_recovery_qualified,
+        "decision": decision,
     }
 
 
@@ -143,29 +199,11 @@ def analyze_output_contract_replay(
             f"{name}:{path}" for path in _forbidden_reasoning_paths(value)
         )
 
-    contradicted = bool(
-        counts["empty_final_failures"]
-        or counts["budget_as_policy_exception"]
-        or persisted_reasoning_paths
+    adjudication = adjudicate_output_contract(
+        counts,
+        usage,
+        persisted_reasoning_paths,
     )
-    practical_output_qualified = bool(
-        int(usage.get("responses_completed", 0)) >= 5
-        and counts["policy_output_failures"] == 0
-        and counts["empty_final_failures"] == 0
-        and int(usage.get("request_errors", 0)) == 0
-    )
-    if contradicted:
-        decision = "contradicted"
-    elif practical_output_qualified:
-        decision = "practical_output_qualified"
-    elif counts["length_finish_exceptions"]:
-        decision = "unexercised_model_length_exception"
-    elif int(usage.get("request_errors", 0)):
-        decision = "unexercised_provider_exception"
-    elif counts["internal_passes"]:
-        decision = "unexercised_early_internal_pass"
-    else:
-        decision = "unexercised_boundary_not_reached"
 
     return {
         "schema_version": "1.0.0",
@@ -197,6 +235,8 @@ def analyze_output_contract_replay(
                     "requests_started",
                     "responses_completed",
                     "request_errors",
+                    "response_parse_retries",
+                    "response_parse_recoveries",
                     "input_tokens",
                     "output_tokens",
                     "total_tokens",
@@ -209,7 +249,12 @@ def analyze_output_contract_replay(
             "persisted_reasoning_paths": persisted_reasoning_paths,
         },
         "qualification": {
-            "practical_output_qualified": practical_output_qualified,
+            "practical_output_qualified": adjudication[
+                "practical_output_qualified"
+            ],
+            "provider_recovery_qualified": adjudication[
+                "provider_recovery_qualified"
+            ],
             "budget_terminal_qualified": (
                 counts["budget_as_policy_exception"] == 0
                 if counts["episode_budget_exhaustions"]
@@ -217,7 +262,7 @@ def analyze_output_contract_replay(
             ),
             "reasoning_content_absent": not persisted_reasoning_paths,
         },
-        "decision": decision,
+        "decision": adjudication["decision"],
         "limitations": {
             "consumed_development_identity": True,
             "causal_effectiveness_estimate_allowed": False,

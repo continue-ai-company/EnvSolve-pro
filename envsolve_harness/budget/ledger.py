@@ -87,6 +87,8 @@ class BudgetLedger:
         self._requests_started = 0
         self._responses_completed = 0
         self._request_errors = 0
+        self._response_parse_retries = 0
+        self._response_parse_recoveries = 0
         self._input_tokens = 0
         self._output_tokens = 0
         self._cache_read_tokens = 0
@@ -166,6 +168,8 @@ class BudgetLedger:
                 "requests_started": self._requests_started,
                 "responses_completed": self._responses_completed,
                 "request_errors": self._request_errors,
+                "response_parse_retries": self._response_parse_retries,
+                "response_parse_recoveries": self._response_parse_recoveries,
                 "input_tokens": self._input_tokens,
                 "output_tokens": self._output_tokens,
                 "cache_read_tokens": self._cache_read_tokens,
@@ -198,6 +202,12 @@ class BudgetLedger:
         self._requests_started = int(usage.get("requests_started", 0))
         self._responses_completed = int(usage.get("responses_completed", 0))
         self._request_errors = int(usage.get("request_errors", 0))
+        self._response_parse_retries = int(
+            usage.get("response_parse_retries", 0)
+        )
+        self._response_parse_recoveries = int(
+            usage.get("response_parse_recoveries", 0)
+        )
         self._input_tokens = int(usage.get("input_tokens", 0))
         self._output_tokens = int(usage.get("output_tokens", 0))
         self._cache_read_tokens = int(usage.get("cache_read_tokens", 0))
@@ -267,6 +277,22 @@ class BudgetLedger:
                 self._resume_locked()
             self._require_open_locked()
             self._request_errors += 1
+            return self._write_locked()
+
+    def record_response_parse_retry(self) -> dict[str, Any]:
+        with self._lock:
+            if self.path.is_file():
+                self._resume_locked()
+            self._require_open_locked()
+            self._response_parse_retries += 1
+            return self._write_locked()
+
+    def record_response_parse_recovery(self) -> dict[str, Any]:
+        with self._lock:
+            if self.path.is_file():
+                self._resume_locked()
+            self._require_open_locked()
+            self._response_parse_recoveries += 1
             return self._write_locked()
 
     def _reserve_execution(self, scope: str, candidate_id: str) -> None:

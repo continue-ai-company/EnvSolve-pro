@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 from uuid import UUID
@@ -147,6 +148,33 @@ class OnlineBudgetCallback(BaseCallbackHandler):
         self.ledger.record_response(usage)
 
 
+class JSONResponseRetryModel:
+    """Retry only provider responses that fail before model-message decoding."""
+
+    def __init__(self, model: Any, ledger: BudgetLedger, max_retries: int) -> None:
+        if max_retries < 0:
+            raise ValueError("Provider response retries cannot be negative")
+        self.model = model
+        self.ledger = ledger
+        self.max_retries = max_retries
+
+    def invoke(self, input: Any, **kwargs: Any) -> Any:
+        parse_failures = 0
+        while True:
+            try:
+                response = self.model.invoke(input, **kwargs)
+            except json.JSONDecodeError as exc:
+                parse_failures += 1
+                setattr(exc, "provider_attempts", parse_failures)
+                if parse_failures > self.max_retries:
+                    raise
+                self.ledger.record_response_parse_retry()
+                continue
+            if parse_failures:
+                self.ledger.record_response_parse_recovery()
+            return response
+
+
 def create_budgeted_chat_model(
     *,
     model: str,
@@ -165,7 +193,7 @@ def create_budgeted_chat_model(
     budget_max_wall_clock_seconds: int | None = None,
     callbacks: list[Any] | None = None,
     **model_kwargs: Any,
-) -> ChatOpenAI:
+) -> JSONResponseRetryModel:
     callback = OnlineBudgetCallback(
         ledger_path=budget_ledger_path,
         max_model_requests=budget_max_model_requests,
@@ -182,4 +210,13 @@ def create_budgeted_chat_model(
         max_commands=budget_max_commands,
         max_wall_clock_seconds=budget_max_wall_clock_seconds,
     )
-    return ChatOpenAI(model=model, callbacks=[*(callbacks or []), callback], **model_kwargs)
+    chat_model = ChatOpenAI(
+        model=model,
+        callbacks=[*(callbacks or []), callback],
+        **model_kwargs,
+    )
+    return JSONResponseRetryModel(
+        chat_model,
+        callback.ledger,
+        int(model_kwargs.get("max_retries", 0) or 0),
+    )

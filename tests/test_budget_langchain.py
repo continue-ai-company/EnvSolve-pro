@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
 import tempfile
 import unittest
 
-from envsolve_harness.budget.langchain import OnlineBudgetCallback
+from envsolve_harness.budget.langchain import (
+    JSONResponseRetryModel,
+    OnlineBudgetCallback,
+)
 from envsolve_harness.core.io import read_json
 
 
@@ -59,6 +63,52 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             usage = read_json(ledger)["usage"]
             self.assertEqual(usage["responses_completed"], 0)
             self.assertEqual(usage["request_errors"], 1)
+
+    def test_json_response_retry_is_bounded_and_audited(self) -> None:
+        class FlakyModel:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            def invoke(self, input, **kwargs):
+                self.calls += 1
+                if self.calls == 1:
+                    raise json.JSONDecodeError("bad provider body", "x", 0)
+                return "ok"
+
+        with tempfile.TemporaryDirectory() as directory:
+            callback = self._callback(Path(directory) / "ledger.json")
+            model = FlakyModel()
+            retrying = JSONResponseRetryModel(model, callback.ledger, max_retries=2)
+
+            self.assertEqual(retrying.invoke("input"), "ok")
+
+            usage = callback.ledger.snapshot()["usage"]
+            self.assertEqual(model.calls, 2)
+            self.assertEqual(usage["response_parse_retries"], 1)
+            self.assertEqual(usage["response_parse_recoveries"], 1)
+
+    def test_json_response_retry_reports_attempts_when_exhausted(self) -> None:
+        class BrokenModel:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            def invoke(self, input, **kwargs):
+                self.calls += 1
+                raise json.JSONDecodeError("bad provider body", "x", 0)
+
+        with tempfile.TemporaryDirectory() as directory:
+            callback = self._callback(Path(directory) / "ledger.json")
+            model = BrokenModel()
+            retrying = JSONResponseRetryModel(model, callback.ledger, max_retries=2)
+
+            with self.assertRaises(json.JSONDecodeError) as raised:
+                retrying.invoke("input")
+
+            usage = callback.ledger.snapshot()["usage"]
+            self.assertEqual(model.calls, 3)
+            self.assertEqual(raised.exception.provider_attempts, 3)
+            self.assertEqual(usage["response_parse_retries"], 2)
+            self.assertEqual(usage["response_parse_recoveries"], 0)
 
 
 if __name__ == "__main__":

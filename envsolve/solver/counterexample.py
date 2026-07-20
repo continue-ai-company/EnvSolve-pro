@@ -40,6 +40,18 @@ class EpisodeBudgetExhausted(RuntimeError):
         super().__init__(message or f"Online episode budget exhausted: {scope}")
 
 
+class EpisodeProviderAcquisitionFailed(RuntimeError):
+    """A terminal provider-response failure after bounded acquisition attempts."""
+
+    def __init__(self, attempts: int) -> None:
+        if attempts < 1:
+            raise ValueError("Provider acquisition attempts must be positive")
+        self.attempts = attempts
+        super().__init__(
+            f"Provider response acquisition failed after {attempts} attempts"
+        )
+
+
 @dataclass(frozen=True)
 class CounterexampleEvidence:
     kind: str
@@ -519,6 +531,15 @@ class CounterexampleGuidedDeploymentLoop:
                     verifier_failures,
                     constraints_updated,
                     details={"scope": exc.scope},
+                )
+            except EpisodeProviderAcquisitionFailed as exc:
+                return self._block(
+                    "provider-acquisition-failure",
+                    str(exc),
+                    attempted,
+                    verifier_failures,
+                    constraints_updated,
+                    details={"attempts": exc.attempts},
                 )
             except RecoverablePolicyError as exc:
                 consecutive_policy_failures += 1

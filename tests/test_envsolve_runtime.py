@@ -26,6 +26,7 @@ from envsolve.runtime.verifier import PythonDeploymentVerifier
 from envsolve.solver import (
     DeploymentCandidate,
     EnvironmentReceipt,
+    EpisodeProviderAcquisitionFailed,
     ProvisionedEnvironment,
     RecoverablePolicyError,
 )
@@ -99,6 +100,13 @@ class LengthFinishReasonError(Exception):
 class LengthErrorModel:
     def invoke(self, messages):
         raise LengthFinishReasonError()
+
+
+class ProviderJSONErrorModel:
+    def invoke(self, messages):
+        error = json.JSONDecodeError("bad provider body", "x", 0)
+        error.provider_attempts = 3
+        raise error
 
 
 class FakeDockerGit:
@@ -298,6 +306,21 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertEqual(details["reasoning_tokens"], 16384)
         self.assertTrue(details["reasoning_content_present"])
         self.assertNotIn("not persisted", json.dumps(details))
+
+    def test_model_policy_separates_provider_json_acquisition_failure(self) -> None:
+        policy = StructuredModelDeploymentPolicy(
+            ProviderJSONErrorModel(),
+            {"files": []},
+        )
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+
+        with self.assertRaises(EpisodeProviderAcquisitionFailed) as raised:
+            policy.propose(state)
+
+        self.assertEqual(raised.exception.attempts, 3)
 
     def test_repository_profile_is_bounded_and_read_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
