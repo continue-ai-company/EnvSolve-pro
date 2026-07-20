@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_qualification_v11_preregistration.json",
+  "preregistration_sha256": "9410d0977a6976510054df712574204af1e9cdc9d59d44bc3d6bbc84331d0461",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_qualification_v11_141.jsonl",
+  "remaining_sha256": "4282badca5bf9cf5870816f0d8077eb39f47230a92f1e733520d11dfb2c0f356",
+  "salt": "envsolve-p6-operation-qualification-v11-2026-07-20",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+    "envbench-python-lagolunatic__wwrando@35bc2a746713c1a380b6486809a3d87c5ba9fa85",
+    "envbench-python-nakagami__pyfirebirdsql@44f155d50e1668cf3e3f08ec15693eb72d4f1b60",
+    "envbench-python-jonlabelle__sublimejsprettier@59831ef0e3ac4653974948ad1698d31a61172212",
+    "envbench-python-project-improv__improv@5682eeb82b9a8acd3cd5a9960e5cef308efc7f3e"
+  ],
+  "selected_path": "experiments/cases/dev_operation_qualification_v11_5.jsonl",
+  "selected_sha256": "150311c24d76eef111896298603af9b1f9c038161be9f40d02663dd5fb5b010a",
+  "source": "experiments/cases/train_untouched_after_operation_qualification_v10_146.jsonl",
+  "source_sha256": "ff2e1dc63b6f925de96cc54bcf6091470982c07b5cf2dd81e7faa6f5447c6632"
+}
