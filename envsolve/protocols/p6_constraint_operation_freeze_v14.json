@@ -1,0 +1,120 @@
+{
+  "freeze_id": "p6-constraint-operation-v14-model-length-boundary",
+  "frozen_at": "2026-07-20T02:16:41Z",
+  "source_revision": "b2b769e6486d56e3eecd9d0e735ab5ac2450cb07",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v13.json",
+    "sha256": "b5a57483d01c1f9236544d26e829d06e56198b889bc817b5b3712f2851244c9c"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v28.json",
+    "sha256": "db4e8c7858cfc388c03d4760c3015b2b6be09f63799ba5265b5939a1d5980268"
+  },
+  "change_from_v13": [
+    "Count a length-finished model response with provider usage as a completed token-consuming response rather than a transport request error.",
+    "Translate LengthFinishReasonError into a recoverable candidate-policy-output failure with bounded final-output diagnostics and no persisted reasoning content.",
+    "Retain the model's lowest supported reasoning effort, high, and raise only the per-request completion ceiling from 16384 to 32768 after a five-request repository-free stress qualification."
+  ],
+  "files": {
+    "envsolve/runtime/policy.py": "a89c16f4669762be03b9587585ec2ac7f945f90490c86950ef11cc915e618a65",
+    "envsolve/solver/__init__.py": "9696984a94b21cbac45c8bbabc90eb8ecdf26205b4408de4b716581cf5db5cbf",
+    "envsolve/solver/counterexample.py": "f437ca4bcd3e3c255ae1b46fec79569c54d02d8efaec129b2abe172deb948876",
+    "envsolve/tools/run_envsolve_episode.py": "0e54deb1c7ce295301ec7f206b5922477ad668715d95268648c604d3129f0c11",
+    "envsolve_harness/budget/langchain.py": "777cf9e9c1b8559bf695f87009891dad24ddf574db43f5abe990ccb6d3c02a12",
+    "envsolve_harness/budget/ledger.py": "3844c1c14debe13514077a18a840b7924fcff30d449d3757d620a879f5a35626",
+    "envsolve_harness/core/config.py": "0f7efa938894121e62c925c07e82f1f62d03da7a00c839000344fee6cf428465",
+    "envsolve_harness/core/models.py": "30b73edd444203721d5803434d6cc7f0aa26d8481390c3aa49c69d9ce532f01a",
+    "envsolve_harness/runners/envsolve_p6.py": "25efaf4c287d3e7bb572e821487ebcbae3c7f0dfa5019598b1ecc61fd0f67723",
+    "envsolve_harness/runners/registry.py": "46049ca8c00e29c8d6e4e442b76585b19d5cefb4c0b2c47d9ff9825e623a673e",
+    "envsolve/tests/test_counterexample_loop.py": "573168ea97dcfc9fdc61bdf2b23b41de7dfc0862209a3d3f1e2dbc286160cb14",
+    "envsolve/tests/test_p6_operation_freeze.py": "0a58705a86f734930b987f4632c7f4b92e1301a164126002f4b7571f944a1244",
+    "tests/test_budget.py": "62dd7bd9cbc3fc299823c04b17ba3c64e73a6ffe81ab9fe7da353753f7ee46e2",
+    "tests/test_budget_langchain.py": "2b7bd0530cbaa1385614ea489537d7be5e813c7fb056d5742069daf43105119e",
+    "tests/test_envsolve_runtime.py": "8a2e661449fd0d0ed9066be95d0acd0ee42c134ef83aa2f7602eef66ebc85233",
+    "tests/test_harness_core.py": "7831440cde98fc1ba9f3adc4b0a794fca97b1899683ab6030cc1d9c5e2a051dc",
+    "experiments/configs/local_mac_p6_operation_output_contract_v2.json": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a",
+    "experiments/probe_model_output_contract.py": "328071a157c21da33f211ae224b2aa8ce7d3c86d5f5396f8dd3c450f516366e1",
+    "experiments/validations/p6_output_contract_replay_v1_results.json": "a685a5f4a8422208ea94a4e5be10e2106d09aae6d073e484cf2cdf8335459101",
+    "experiments/validations/p6_deepseek_v4_pro_capability_snapshot_20260720.json": "2fcc3907728aede332caac8d75c12661df3a42ef0ca907da5603455f63fea2a5",
+    "experiments/validations/p6_model_output_contract_stress_v2.json": "18a41e80f824fee4bc80d501fd1f2a8a150e32a6d7e3177dd456c84610f1360a",
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V1_RESULTS.md": "58eb2956419f3dd09fc583db2a36b25356b8d4ff7b6305089b2ffce7e90e3c4a",
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V1_RESULTS_ZH.md": "4c803f088b6d7fde097cd9b8396fb9e48d037bc84666cbf42373bf658c4c3ee7",
+    "research/P6_MODEL_OUTPUT_CONTRACT_V2.md": "1281f1522e339fba54e114f7b2e5000b35ceb5b2df7978c4ac4418673f0bdf6b",
+    "research/P6_MODEL_OUTPUT_CONTRACT_V2_ZH.md": "43b231a7fe16d7bbec15d3a7835faf01ac43b9686cfbb8981efa018b532393f1"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "model_output_contract": {
+    "provider": "openrouter",
+    "model": "deepseek/deepseek-v4-pro",
+    "reasoning_effort": "high",
+    "response_format": "json_object",
+    "old_max_output_tokens_per_request": 16384,
+    "qualified_max_output_tokens_per_request": 32768,
+    "model_reported_max_completion_tokens": 384000,
+    "capability_snapshot_path": "experiments/validations/p6_deepseek_v4_pro_capability_snapshot_20260720.json",
+    "synthetic_stress_probe_path": "experiments/validations/p6_model_output_contract_stress_v2.json",
+    "synthetic_stress_probe": "5/5 parsed candidates; 5/5 finish_reason=stop; 0 request errors; 0 policy errors; 10403 input / 13788 output tokens; 304.3 seconds",
+    "length_finish_accounting": "usage-bearing response_completed",
+    "length_finish_solver_category": "candidate-policy-output",
+    "reasoning_content_persisted": false,
+    "candidate_content_persisted_by_probe": false
+  },
+  "primitive_budget_contract": {
+    "inherited_from": "p6-constraint-operation-v13-output-terminal-boundaries",
+    "aggregate_limits_changed": false,
+    "model_max_requests": 15,
+    "model_max_total_tokens": 1000000,
+    "envsolve_max_candidates": 15,
+    "envsolve_max_environments": 5,
+    "envsolve_max_commands": 5,
+    "generation_wall_clock_seconds": 7200,
+    "budget_exhaustion_terminal_category": "episode-budget-exhausted"
+  },
+  "operation_contract": {
+    "inherited_from": "p6-constraint-operation-v13-output-terminal-boundaries",
+    "changed": false
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_output_boundary_tests": "33 passed",
+    "full_regression_before_freeze": "389 passed, 1 skipped, 1 expected stale-freeze failure",
+    "full_regression_after_freeze": "390 passed, 1 skipped",
+    "synthetic_online_stress_probe": "qualified=true",
+    "harness_v28_verification": "valid=true with immutable image ID and RepoDigest"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_q9_q10_cases_reusable_for_effectiveness": false,
+    "consumed_development_replay_allowed": true,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "constraint_or_operation_semantics_changed": false,
+    "official_evaluator_feedback_used_online": false,
+    "effectiveness_claim_allowed": false
+  }
+}

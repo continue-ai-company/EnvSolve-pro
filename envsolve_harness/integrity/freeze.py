@@ -22,10 +22,10 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v27"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v27.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v26"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v26.json")
+FREEZE_ID = "envsolve-harness-v28"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v28.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v27"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v27.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
@@ -274,9 +274,9 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
             "reason": (
-                "After the consumed-Q10 budget calibration exposed empty final "
-                "model content and misclassified budget terminals, freeze the "
-                "explicit output contract and terminal boundary."
+                "After the consumed output-contract replay exposed a usage-bearing "
+                "length finish, freeze response accounting, recoverable output "
+                "classification, and the qualified completion allocation."
             ),
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,
