@@ -884,3 +884,8 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   parsed candidate、5 个 `stop` finish、0 request/policy error，且不持久化 candidate 或 reasoning
   content（10,403 input / 13,788 output tokens，304.3 秒）。这只验证 provider/client boundary。
   下一项允许的实验是在新 freeze 下预注册一次同 identity consumed replay。
+- Algorithm v14 与 Harness v28 已冻结该边界，全量回归为 `390 passed, 1 skipped`，不可变 Docker
+  镜像 attestation 有效。Replay v2 已在与 v1 完全相同的 consumed identity、method 和 seed 上预注册。
+  它要求 5 次 completed response 都形成 parsed candidate，且没有 output/request failure；若出现 length
+  finish，仍必须证明 usage 记账和 recoverable 分类正确。更早的 Pass、infrastructure 或 provider failure
+  记为 unexercised，不得 replacement。该 replay 关闭前不能选择新的 development identity。

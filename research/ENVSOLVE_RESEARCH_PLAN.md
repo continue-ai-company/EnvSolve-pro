@@ -1210,3 +1210,10 @@ development batch; it never triggers tuning on the same held-out outcomes.
   content (10,403 input / 13,788 output tokens, 304.3 seconds). This qualifies only
   the provider/client boundary. The next admissible experiment is one preregistered
   same-identity consumed replay under a new freeze.
+- Algorithm v14 and Harness v28 now freeze that boundary with `390 passed, 1 skipped`
+  and a valid immutable Docker image attestation. Replay v2 is preregistered on the
+  exact same consumed identity, method, and seed as v1. It requires five parsed
+  completed responses with no output/request failure; any length finish must still
+  prove correct usage accounting and recoverable classification. Early Pass,
+  infrastructure, or provider failure is unexercised without replacement. No new
+  development identity may be selected until this replay closes.

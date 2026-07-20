@@ -381,6 +381,8 @@ allowance，所以预注册的 5-response 边界未被触发。这暴露的是 i
 counterexample。冻结模型没有低于 `high` 的 reasoning level，因此只把单次 completion ceiling 扩大
 一倍，聚合预算保持不变。5 次 repository-free 生产路径探针都以正常 stop 返回 parsed JSON；进入新
 unseen development qualification 前，最后一道门仍是同 identity consumed replay。
+修正后的边界已冻结为 v14/v28，并通过全量回归。同 identity replay 已预注册，是当前唯一允许的实证
+步骤；它不能支持效果 claim，也不能授权 replacement case。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

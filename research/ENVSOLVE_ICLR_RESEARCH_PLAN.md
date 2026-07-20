@@ -529,6 +529,9 @@ reasoning level below `high`, only the per-request completion ceiling is doubled
 aggregate budgets remain fixed. Five repository-free production-path probes all
 returned parsed JSON with normal stops; a same-identity consumed replay remains the
 last gate before unseen development qualification.
+The corrected boundary is frozen as v14/v28 with a clean full regression. The
+same-identity replay is preregistered and is the only active empirical step; it cannot
+support an effectiveness claim or authorize case replacement.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-

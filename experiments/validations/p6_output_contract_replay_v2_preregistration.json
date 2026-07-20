@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-output-contract-replay-v2",
+  "preregistered_at": "2026-07-20T10:25:31+08:00",
+  "status": "registered_before_execution",
+  "purpose": "Test the frozen v14 model-length accounting, recoverable output classification, and expanded completion allocation on the same consumed Q10 identity used by replay v1.",
+  "claim_scope": "consumed-development mechanism replay only",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v14.json",
+    "sha256": "65928c8061db835f8489ff127e9ed3d019b13b6a93dd05a191aaac9830df3d5e",
+    "source_revision": "50a1d051b8b72b6b6376da4ab3dcc1ad10b8505a"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v28.json",
+    "sha256": "caaab40df9d9c7fe04b02651f656c24d6db286a10951c5821749daae3f7671d6"
+  },
+  "implementation_commit": "0474e61e2699cc309d0659805c1568ca511d341b",
+  "trigger_evidence": {
+    "replay_v1_result_path": "experiments/validations/p6_output_contract_replay_v1_results.json",
+    "replay_v1_result_sha256": "a685a5f4a8422208ea94a4e5be10e2106d09aae6d073e484cf2cdf8335459101",
+    "replay_v1_decision": "unexercised_model_length_exception",
+    "synthetic_stress_probe_path": "experiments/validations/p6_model_output_contract_stress_v2.json",
+    "synthetic_stress_probe_sha256": "18a41e80f824fee4bc80d501fd1f2a8a150e32a6d7e3177dd456c84610f1360a",
+    "synthetic_stress_probe_result": "5/5 parsed candidates with stop finish; zero request or policy errors"
+  },
+  "identity": {
+    "status": "consumed Q10 development identity",
+    "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+    "method": "envsolve-operation",
+    "seed": 0,
+    "same_as_replay_v1": true,
+    "new_selection": false,
+    "replacement": false,
+    "held_out_use": false
+  },
+  "schedule": {
+    "path": "experiments/validations/p6_output_contract_replay_v2_schedule.json",
+    "sha256": "47ddf85f4431804e9be8a9041ea3986a0d98961ce5a81fb076cfe03d4b60fe24",
+    "positions": 1,
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation_output_contract_v2.json",
+    "sha256": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a",
+    "max_output_tokens_per_request": 32768,
+    "reasoning_effort": "high",
+    "response_format": "json_object"
+  },
+  "aggregate_limits": {
+    "max_candidates": 15,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "generation_wall_clock_seconds": 7200,
+    "command_timeout_seconds": 900,
+    "model_request_timeout_seconds": 180,
+    "changed_from_replay_v1": false
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "access": "post-episode only after an internal pass"
+  },
+  "primary_outcomes": [
+    "artifact audit validity",
+    "completed responses, parsed candidates, request errors, and token usage",
+    "candidate-policy-output length failures versus candidate-policy-exception",
+    "episode-budget-exhausted versus candidate-policy-exception terminal classification",
+    "absence of persisted reasoning content"
+  ],
+  "secondary_outcomes": [
+    "internal pass and natural Official evaluator reach",
+    "wall-clock and primitive resource usage",
+    "candidate-validation and operation-guard reject counts"
+  ],
+  "decision_rule": {
+    "practical_output_qualification": "At least five completed responses produce parsed candidates, and the run contains no candidate-policy-output failure, empty-final diagnostic, or request error.",
+    "length_accounting_qualification": "If a length-finished provider response occurs, it increments responses_completed and token usage, is recorded as candidate-policy-output with finish_reason=length, and is never a request error or candidate-policy-exception.",
+    "budget_terminal_qualification": "If the online budget terminates the run, the terminal failure is episode-budget-exhausted with its exact scope and no budget message is classified as candidate-policy-exception.",
+    "contradicted": "Any empty-final policy failure under the frozen contract, usage-bearing length finish counted as request error or policy exception, persisted reasoning content, or budget exhaustion classified as a policy exception blocks unseen qualification.",
+    "unexercised": "An earlier internal Pass, infrastructure Unknown, or provider exception before five parsed responses prevents the practical boundary from being observed; report without replacement."
+  },
+  "adaptation_policy": {
+    "code_or_protocol_change_during_run": false,
+    "case_replacement": false,
+    "run_overwrite": false,
+    "official_feedback_online": false,
+    "pre_episode_acquisition_failure": "one audited same-identity retry only when model, candidate, environment, command, and evaluator usage are all zero",
+    "other_failure": "record the observed outcome without retry or adaptation"
+  },
+  "limitations": {
+    "stochastic_replay": true,
+    "causal_effectiveness_estimate_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "paper_test_set_claim_allowed": false
+  },
+  "protocols": [
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V2.md",
+    "research/P6_OUTPUT_CONTRACT_REPLAY_V2_ZH.md"
+  ]
+}
