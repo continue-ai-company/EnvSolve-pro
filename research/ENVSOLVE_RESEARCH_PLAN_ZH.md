@@ -857,3 +857,10 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   以及 7 次正常 environment-budget 终止被误标为 policy exception。下一项最小工作是在改动 operation
   state 或选择新 unseen batch 前，规范 budget terminal，并资格验证有界 structured-output/reasoning
   contract。
+- 两项接口修复已实现，并冻结为 algorithm v13 / Harness v27。Solver-owned
+  `EpisodeBudgetExhausted` 现在把正常 preflight exhaustion 记录为 `episode-budget-exhausted`；模型
+  reasoning effort 与 response format 成为显式配置，同时保留 legacy 默认。空 final response 只保留
+  finish/token 诊断，绝不保存 reasoning 内容。一个不含 repository 的 OpenRouter 探针在冻结 DeepSeek
+  模型上验证了 `high + json_object`（严格 JSON，27 input / 150 output / 124 reasoning token），全量回归为
+  `385 passed, 1 skipped`。这只证明协议兼容，不是部署证据。下一实验必须是预注册的 consumed-development
+  output-boundary replay，之后才允许新的 unseen qualification。

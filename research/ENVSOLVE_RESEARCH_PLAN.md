@@ -1170,3 +1170,13 @@ development batch; it never triggers tuning on the same held-out outcomes.
   exceptions. The next minimal work is to normalize budget termination and qualify a
   bounded structured-output/reasoning contract before changing operation state or
   selecting another unseen batch.
+- The two interface corrections are implemented and frozen as algorithm v13 with
+  Harness v27. A solver-owned `EpisodeBudgetExhausted` signal now records normal
+  preflight exhaustion as `episode-budget-exhausted`; model reasoning effort and
+  response format are explicit configuration with legacy defaults. Empty final
+  responses retain only finish/token diagnostics, never reasoning content. A
+  repository-free OpenRouter probe qualified `high` plus `json_object` for the frozen
+  DeepSeek model (valid exact JSON, 27 input / 150 output / 124 reasoning tokens), and
+  full regression passes `385 passed, 1 skipped`. This is protocol compatibility, not
+  deployment evidence. The next experiment is a preregistered consumed-development
+  output-boundary replay before any unseen qualification.

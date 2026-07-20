@@ -1,0 +1,100 @@
+{
+  "freeze_id": "p6-constraint-operation-v13-output-terminal-boundaries",
+  "frozen_at": "2026-07-20T00:47:39Z",
+  "source_revision": "9f3f840896a95ccc4fccc7a4f1e8f5eaeb7ee8cf",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v12.json",
+    "sha256": "c74a5c1c711bf5ca81cb80c3379975388d3ee0e5f50ab15a29e0f05716a5b463"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v27.json",
+    "sha256": "231836c167adc1164623e8eae1d25afcbcc5c43c983576bed20ae57bbac853af"
+  },
+  "change_from_v12": [
+    "Represent model-request budget exhaustion through a solver-owned terminal exception protocol instead of the generic policy-exception channel.",
+    "Make reasoning effort and response format explicit frozen configuration with historical text and provider-default behavior preserved when omitted.",
+    "Record empty final content, finish reason, token counts, and reasoning presence without persisting reasoning content."
+  ],
+  "files": {
+    "envsolve/runtime/policy.py": "5115006f4a916ab6cccb4f0d70b99a3dc2a983cdf155a011850f6dceba732e83",
+    "envsolve/solver/__init__.py": "9696984a94b21cbac45c8bbabc90eb8ecdf26205b4408de4b716581cf5db5cbf",
+    "envsolve/solver/counterexample.py": "f437ca4bcd3e3c255ae1b46fec79569c54d02d8efaec129b2abe172deb948876",
+    "envsolve/tools/run_envsolve_episode.py": "0e54deb1c7ce295301ec7f206b5922477ad668715d95268648c604d3129f0c11",
+    "envsolve_harness/budget/ledger.py": "3844c1c14debe13514077a18a840b7924fcff30d449d3757d620a879f5a35626",
+    "envsolve_harness/core/config.py": "0f7efa938894121e62c925c07e82f1f62d03da7a00c839000344fee6cf428465",
+    "envsolve_harness/core/models.py": "30b73edd444203721d5803434d6cc7f0aa26d8481390c3aa49c69d9ce532f01a",
+    "envsolve_harness/runners/envsolve_p6.py": "25efaf4c287d3e7bb572e821487ebcbae3c7f0dfa5019598b1ecc61fd0f67723",
+    "envsolve_harness/runners/registry.py": "46049ca8c00e29c8d6e4e442b76585b19d5cefb4c0b2c47d9ff9825e623a673e",
+    "envsolve/tests/test_counterexample_loop.py": "573168ea97dcfc9fdc61bdf2b23b41de7dfc0862209a3d3f1e2dbc286160cb14",
+    "envsolve/tests/test_p6_operation_freeze.py": "6437212589dffad5b4463ff52cb1bc0547c1aaa2cc76df7931ca5ca81f5693a3",
+    "tests/test_budget.py": "62dd7bd9cbc3fc299823c04b17ba3c64e73a6ffe81ab9fe7da353753f7ee46e2",
+    "tests/test_envsolve_runtime.py": "b73d928f1e6a87397e0f27f393372dce6cf8c3fc88d4ff8f896cdd0b513676ee",
+    "tests/test_harness_core.py": "7831440cde98fc1ba9f3adc4b0a794fca97b1899683ab6030cc1d9c5e2a051dc",
+    "experiments/configs/local_mac_p6_operation_output_contract.json": "85a4d71b524e2ab1ec7374826a859936c1a5f7167e10b92142ca0b48619fe703",
+    "experiments/validations/p6_model_output_contract_probe_v1.json": "f54794b93ca12cfc6f1ed0f2e4e043c445e947b325c052880f8c58b8747cc05d",
+    "research/P6_MODEL_OUTPUT_CONTRACT_V1.md": "dee5ad841e3b92eadc0d44023fe61b646dbb5d5541d8f1fa4631d2e6a6c9bd21",
+    "research/P6_MODEL_OUTPUT_CONTRACT_V1_ZH.md": "dde992063db3f074df6f5f08954d57b7aa54bbc51168510fb00ddf5ae27a6da8"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v5",
+    "shared_obligation_profile": "two-layer",
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard"
+    ],
+    "candidate_validator_policy": "complete-candidate-v4+typed-replay-ir-v7",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "model_output_contract": {
+    "historical_default_reasoning_effort": null,
+    "historical_default_response_format": "text",
+    "qualified_reasoning_effort": "high",
+    "qualified_response_format": "json_object",
+    "configuration_path": "experiments/configs/local_mac_p6_operation_output_contract.json",
+    "synthetic_probe_path": "experiments/validations/p6_model_output_contract_probe_v1.json",
+    "provider_portability": "configuration is explicit; support must be qualified for each frozen model/provider boundary",
+    "reasoning_content_persisted": false
+  },
+  "primitive_budget_contract": {
+    "inherited_from": "p6-constraint-operation-v12-independent-primitive-budgets",
+    "changed": false,
+    "budget_exhaustion_terminal_category": "episode-budget-exhausted"
+  },
+  "operation_contract": {
+    "inherited_from": "p6-constraint-operation-v12-independent-primitive-budgets",
+    "changed": false
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "verification": {
+    "focused_output_budget_runtime_tests": "83 passed",
+    "full_regression_before_freeze": "384 passed, 1 skipped, 1 expected stale-freeze failure",
+    "full_regression_after_freeze": "385 passed, 1 skipped",
+    "synthetic_online_protocol_probe": "valid exact JSON; finish_reason=stop; 27 input, 150 output, 124 reasoning tokens",
+    "harness_v27_verification": "valid=true with immutable image ID and RepoDigest"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_q9_q10_cases_reusable_for_effectiveness": false,
+    "consumed_development_replay_allowed": true,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "constraint_or_operation_semantics_changed": false,
+    "official_evaluator_feedback_used_online": false
+  }
+}

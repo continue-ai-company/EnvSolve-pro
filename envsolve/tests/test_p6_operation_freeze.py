@@ -7,7 +7,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[2]
-FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v12.json"
+FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v13.json"
 
 
 def sha256(path: Path) -> str:
@@ -15,7 +15,7 @@ def sha256(path: Path) -> str:
 
 
 class P6OperationFreezeTests(unittest.TestCase):
-    def test_v12_source_and_parent_hashes_are_current(self) -> None:
+    def test_v13_source_and_parent_hashes_are_current(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
 
         for relative, expected in freeze["files"].items():
@@ -24,7 +24,7 @@ class P6OperationFreezeTests(unittest.TestCase):
             record = freeze[field]
             self.assertEqual(sha256(ROOT / record["path"]), record["sha256"])
 
-    def test_v12_treatment_boundary_is_explicit(self) -> None:
+    def test_v13_treatment_boundary_is_explicit(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
         boundary = freeze["semantic_boundary"]
 

@@ -316,6 +316,9 @@ execution 消耗同一个 cap。我们拆分原始预算，并预注册 consumed
 但没有 run 通过 internal verifier 或进入 Official evaluator。因此拆分提高了搜索预算利用率，却不足以
 带来部署成功。新 trajectory 把问题进一步收窄到接口边界：空 final content 会耗尽重试，正常预算耗尽
 又会被误标为 policy exception。增加下一项 solver 机制前，我们先修复并资格验证这两个边界。
+修复现已冻结为 v13：output mode 与 reasoning effort 显式化；空响应只保留有界 metadata，不保存
+reasoning 内容；budget exhaustion 使用独立 terminal type。无 repository 在线探针只建立 API 兼容性，
+consumed-development replay 仍待预注册，因此不产生效果 claim。
 
 每项修正都先使用合成反例定义，再进入新的 outcome-blind development batch。触发问题的 batch
 永久保留为 consumed diagnostic，机制变化后不得恢复执行。这些结果只能验证问题结构和协议行为，
@@ -366,6 +369,8 @@ calibration 只把 proposal cap 提高到 15，fresh environment 和 verifier co
 harness 解释成立但不充分；下一项最小 revision 处理 output completion 和 budget-terminal 语义。只有
 冻结的 development 方法能够以足够频率进入 terminal evaluator、从而支持效果比较后，held-out
 evaluation 才解锁。
+该边界 revision 已实现并以 v13 完成合成资格验证；下一项允许的证据是预注册 consumed-development
+replay。
 
 主 loop 也已经实现最小的“约束到操作”边界：hard conflict、unresolved requirement 和由候选支撑的
 satisfaction 产生带 provenance 的操作义务，类型化 guard 要求下一份完整程序在 fresh execution 中

@@ -437,8 +437,12 @@ the old cap and recovered five executions after proposal five, but no run passed
 internally or reached the Official evaluator. Thus the split improves search-budget
 utilization but is not sufficient for deployment success. The trajectories instead
 identify a narrower interface problem: empty final model content can exhaust retries,
-and normal budget exhaustion is mislabeled as a policy exception. We will correct and
-qualify these boundaries before adding another solver mechanism.
+and normal budget exhaustion is mislabeled as a policy exception. These boundaries
+are now corrected and frozen as v13: output mode and reasoning effort are explicit,
+empty responses retain bounded metadata without reasoning content, and budget
+exhaustion has a separate terminal type. A repository-free online probe establishes
+API compatibility; consumed-development replay remains pending and no effectiveness
+claim follows.
 
 Each correction was specified with synthetic counterexamples before another
 outcome-blind development batch. Triggering batches are retained as consumed
@@ -509,6 +513,8 @@ or Official Pass. The simpler harness explanation is real but insufficient; the 
 minimal revision targets output completion and budget-terminal semantics. Held-out
 evaluation remains blocked until a frozen development method reaches the terminal
 evaluator often enough to support an effectiveness comparison.
+That boundary revision is now implemented and synthetically qualified as v13; its
+next admissible evidence is a preregistered consumed-development replay.
 
 The main loop implements a minimal constraint-to-operation boundary: hard conflicts,
 unresolved requirements, and candidate-supported satisfaction produce provenance-
