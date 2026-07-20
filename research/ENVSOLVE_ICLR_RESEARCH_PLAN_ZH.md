@@ -253,9 +253,12 @@ curve。
 的诊断结果；如果 terminal reach 不足，paired deployment effectiveness 就不可识别。
 
 当前 development batch 没有产生足够多完整 Boolean official pair，且有一条 run 被操作者中断。这些
-轨迹只保留用于错误分解。下一步科学工作是从 consumed evidence 中识别跨 case 的主要失败转移，只做
-一个最小通用 revision，在新的 outcome-blind development batch 上资格验证，然后在 Canary-20 和
-Official-Test-100 前冻结。
+轨迹只保留用于错误分解。占主导的失败转移是 candidate-command failure：系统观测到了确定性操作
+失败，但其中许多没有进入持久的负操作状态。一个最小 revision 现已只接纳有充分依据、带上下文的
+operation infeasibility，同时让基础设施结果保持 Unknown。Repository-free 合成反例已经验证证据
+接纳、持久化、context-sensitive rejection 和替代 operation 保留；它对真实部署的效果仍未知，必须
+先经过新的 outcome-blind development qualification，之后才允许为 Canary-20 与 Official-Test-100
+冻结。
 
 最终论文包含三张核心结果表：
 

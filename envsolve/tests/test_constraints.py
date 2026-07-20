@@ -22,6 +22,7 @@ from envsolve.solver import (
     StatefulSolverLoop,
     StopDecision,
 )
+from envsolve.operations import OperationFailureClass, parse_operation_feasibility_subject
 
 
 CASE = {
@@ -76,6 +77,96 @@ class ConstraintTestCase(unittest.TestCase):
 
 
 class NormalizationAndPropagationTest(ConstraintTestCase):
+    def test_deterministic_operation_failure_becomes_scoped_negative_fact(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            evidence_id = self.evidence(
+                session,
+                "operation-observation",
+                {
+                    "command": "python -m pip install unavailable-target",
+                    "failure_class": (
+                        OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE.value
+                    ),
+                    "feasible": False,
+                },
+            )
+            engine = ConstraintEngine()
+            constraint_ids = engine.ingest_evidence(
+                session,
+                evidence_id,
+                fact_scope="candidate-1",
+            )
+            engine.propagate_constraints(session)
+
+            self.assertEqual(len(constraint_ids), 1)
+            fact = NormalizedConstraint.from_state_record(
+                session.reconstruct().constraints[constraint_ids[0]]
+            )
+            self.assertEqual(fact.domain, ConstraintDomain.OPERATION)
+            self.assertEqual(fact.predicate, ConstraintPredicate.FEASIBLE)
+            self.assertFalse(fact.value)
+            self.assertEqual(fact.scope_id, "candidate-1")
+            parsed = parse_operation_feasibility_subject(fact.subject)
+            self.assertEqual(
+                parsed,
+                {
+                    "command": "python -m pip install unavailable-target",
+                    "failure_class": (
+                        OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE.value
+                    ),
+                },
+            )
+
+    def test_negative_operation_facts_accumulate_across_candidate_contexts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            engine = ConstraintEngine()
+            first_evidence = self.evidence(
+                session,
+                "operation-observation",
+                {
+                    "command": "python -m pip install unavailable-target",
+                    "failure_class": (
+                        OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE.value
+                    ),
+                    "feasible": False,
+                },
+            )
+            first_ids = engine.ingest_evidence(
+                session,
+                first_evidence,
+                fact_scope="candidate-1",
+            )
+            prior_fact_ids = engine.fact_constraint_ids(session.reconstruct())
+            second_evidence = self.evidence(
+                session,
+                "operation-observation",
+                {
+                    "command": "python -m pip install unavailable-target",
+                    "failure_class": (
+                        OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE.value
+                    ),
+                    "feasible": False,
+                },
+            )
+            second_ids = engine.ingest_evidence(
+                session,
+                second_evidence,
+                fact_scope="candidate-2",
+            )
+
+            superseded = engine.supersede_replaced_facts(
+                session,
+                prior_fact_ids,
+                engine.fact_constraint_ids(session.reconstruct(), second_ids),
+            )
+
+            self.assertEqual(superseded, ())
+            state = session.reconstruct()
+            self.assertEqual(state.constraints[first_ids[0]]["status"], "active")
+            self.assertEqual(state.constraints[second_ids[0]]["status"], "active")
+
     def test_new_observation_supersedes_only_the_same_scoped_fact(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             session = self.session(Path(directory))

@@ -9,6 +9,7 @@ from packaging.version import Version
 
 from envsolve.constraints.models import (
     ConstraintConflict,
+    ConstraintDomain,
     ConstraintPredicate,
     ConstraintRole,
     NormalizedConstraint,
@@ -227,7 +228,10 @@ class ConstraintEngine:
             if record is None:
                 continue
             item = NormalizedConstraint.from_state_record(record)
-            if item.role == ConstraintRole.FACT:
+            if (
+                item.role == ConstraintRole.FACT
+                and item.domain is not ConstraintDomain.OPERATION
+            ):
                 replacement_keys.add((item.domain, item.subject, item.predicate))
 
         replaced: list[str] = []
@@ -238,6 +242,7 @@ class ConstraintEngine:
             item = NormalizedConstraint.from_state_record(record)
             if (
                 item.role == ConstraintRole.FACT
+                and item.domain is not ConstraintDomain.OPERATION
                 and constraint_id not in replacement_ids
                 and (item.domain, item.subject, item.predicate) in replacement_keys
             ):

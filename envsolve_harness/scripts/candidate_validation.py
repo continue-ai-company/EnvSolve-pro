@@ -49,6 +49,7 @@ LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, or DYLD_LIBRARY_PATH.
 
     def validate(self, candidate: DeploymentCandidate) -> CandidateValidation:
         commands: list[str] = []
+        replay_actions: dict[str, str] = {}
         action_count = 0
         created_venvs: dict[str, int] = {}
         activated_venvs: dict[str, list[int]] = {}
@@ -79,6 +80,7 @@ LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, or DYLD_LIBRARY_PATH.
             for action in analysis.actions:
                 action_index = action_count
                 commands.append(action.command)
+                replay_actions.setdefault(action.command, action.kind)
                 action_count += 1
                 if action.kind == ReplayActionKind.VIRTUAL_ENVIRONMENT_CREATE.value:
                     path = _venv_path(action.command, _VENV_CREATE_PATTERN)
@@ -125,5 +127,11 @@ LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, or DYLD_LIBRARY_PATH.
             True,
             self.policy_id,
             normalized_script=normalized,
-            details={"action_count": action_count},
+            details={
+                "action_count": action_count,
+                "actions": [
+                    {"command": command, "kind": kind}
+                    for command, kind in replay_actions.items()
+                ],
+            },
         )

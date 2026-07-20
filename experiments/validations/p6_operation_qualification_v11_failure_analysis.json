@@ -1,0 +1,548 @@
+{
+  "aggregate": {
+    "candidates": 43,
+    "categories": {
+      "candidate_command_failure": 31,
+      "candidate_validation_reject": 5,
+      "structured_obligations_active": 7
+    },
+    "executed_candidates": 38,
+    "later_proposal_candidates": 35,
+    "runs": 8
+  },
+  "methods": {
+    "envsolve-operation": {
+      "candidates": 19,
+      "categories": {
+        "candidate_command_failure": 15,
+        "candidate_validation_reject": 1,
+        "structured_obligations_active": 3
+      },
+      "executed_candidates": 18,
+      "later_proposal_candidates": 15,
+      "runs": 4
+    },
+    "envsolve-operation-ablation": {
+      "candidates": 24,
+      "categories": {
+        "candidate_command_failure": 16,
+        "candidate_validation_reject": 4,
+        "structured_obligations_active": 4
+      },
+      "executed_candidates": 20,
+      "later_proposal_candidates": 20,
+      "runs": 4
+    }
+  },
+  "runs": [
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 16,
+          "later_proposal": true,
+          "proposed_sequence": 14
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 94,
+          "later_proposal": true,
+          "proposed_sequence": 92
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 103,
+          "later_proposal": true,
+          "proposed_sequence": 101
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 112,
+          "later_proposal": true,
+          "proposed_sequence": 110
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 121,
+          "later_proposal": false,
+          "proposed_sequence": 119
+        }
+      ],
+      "case_id": "envbench-python-jonlabelle__sublimejsprettier@59831ef0e3ac4653974948ad1698d31a61172212",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 4,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "2537251d17b1172b0fcc80b9f4284f27c32023b474dae2ef95faf54a4a2231f1",
+      "method": "envsolve-operation",
+      "pair_index": 1,
+      "position": 1,
+      "run_id": "p6-operation-q11-01-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 7,
+          "later_proposal": true,
+          "proposed_sequence": 5
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 81,
+          "later_proposal": true,
+          "proposed_sequence": 79
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 91,
+          "later_proposal": true,
+          "proposed_sequence": 89
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 100,
+          "later_proposal": true,
+          "proposed_sequence": 98
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 190,
+          "later_proposal": false,
+          "proposed_sequence": 188
+        }
+      ],
+      "case_id": "envbench-python-jonlabelle__sublimejsprettier@59831ef0e3ac4653974948ad1698d31a61172212",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 3,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "70de5e75744cd02f79a225c2ff7a323a42b37b21ce08ffd8adb0215f70a67725",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 1,
+      "position": 2,
+      "run_id": "p6-operation-q11-01-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 20,
+          "later_proposal": true,
+          "proposed_sequence": 18
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 232,
+          "later_proposal": true,
+          "proposed_sequence": 230
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 241,
+          "later_proposal": true,
+          "proposed_sequence": 239
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 250,
+          "later_proposal": true,
+          "proposed_sequence": 248
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 260,
+          "later_proposal": false,
+          "proposed_sequence": 258
+        }
+      ],
+      "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 4,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "d1ea9c546baead7ec27dc08978ed04f8bc1cbfa3e37a1b2dd2858b08aa284a40",
+      "method": "envsolve-operation",
+      "pair_index": 2,
+      "position": 3,
+      "run_id": "p6-operation-q11-02-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 210,
+          "later_proposal": true,
+          "proposed_sequence": 208
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 219,
+          "later_proposal": true,
+          "proposed_sequence": 217
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 228,
+          "later_proposal": true,
+          "proposed_sequence": 226
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 466,
+          "later_proposal": false,
+          "proposed_sequence": 464
+        }
+      ],
+      "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 3,
+          "structured_obligations_active": 2
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "1e6f1b71ed949a77c94df6e06cbb9597a9bffa32502b4eae827a1404f3731e56",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 2,
+      "position": 4,
+      "run_id": "p6-operation-q11-02-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 20,
+          "later_proposal": true,
+          "proposed_sequence": 18
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 29,
+          "later_proposal": true,
+          "proposed_sequence": 27
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 38,
+          "later_proposal": true,
+          "proposed_sequence": 36
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 44,
+          "later_proposal": true,
+          "proposed_sequence": 42
+        },
+        {
+          "candidate_id": "candidate-0007",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 50,
+          "later_proposal": true,
+          "proposed_sequence": 48
+        },
+        {
+          "candidate_id": "candidate-0008",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 59,
+          "later_proposal": false,
+          "proposed_sequence": 57
+        }
+      ],
+      "case_id": "envbench-python-project-improv__improv@5682eeb82b9a8acd3cd5a9960e5cef308efc7f3e",
+      "counts": {
+        "candidates": 8,
+        "categories": {
+          "candidate_command_failure": 5,
+          "candidate_validation_reject": 3
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 7
+      },
+      "episode_sha256": "ea0b6414e1422e29d01c92c33d8250d676fbd25e2bc4227edc7e1a93f34f96f2",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 3,
+      "position": 5,
+      "run_id": "p6-operation-q11-03-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 33,
+          "later_proposal": true,
+          "proposed_sequence": 31
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 44,
+          "later_proposal": true,
+          "proposed_sequence": 42
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 56,
+          "later_proposal": true,
+          "proposed_sequence": 54
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 2,
+          "finished_sequence": 62,
+          "later_proposal": false,
+          "proposed_sequence": 60
+        }
+      ],
+      "case_id": "envbench-python-project-improv__improv@5682eeb82b9a8acd3cd5a9960e5cef308efc7f3e",
+      "counts": {
+        "candidates": 4,
+        "categories": {
+          "candidate_command_failure": 3,
+          "candidate_validation_reject": 1
+        },
+        "executed_candidates": 3,
+        "later_proposal_candidates": 3
+      },
+      "episode_sha256": "d75fd30fea834cc451b8a56a2041481f7752571dd01a4a0b513acd0a9a801008",
+      "method": "envsolve-operation",
+      "pair_index": 3,
+      "position": 6,
+      "run_id": "p6-operation-q11-03-envsolve-operation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 5,
+          "later_proposal": true,
+          "proposed_sequence": 3
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 14,
+          "later_proposal": true,
+          "proposed_sequence": 12
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 23,
+          "later_proposal": true,
+          "proposed_sequence": 21
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_validation_reject",
+          "exit_code": 252,
+          "finished_sequence": 32,
+          "later_proposal": true,
+          "proposed_sequence": 30
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 38,
+          "later_proposal": true,
+          "proposed_sequence": 36
+        },
+        {
+          "candidate_id": "candidate-0006",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 47,
+          "later_proposal": false,
+          "proposed_sequence": 45
+        }
+      ],
+      "case_id": "envbench-python-lagolunatic__wwrando@35bc2a746713c1a380b6486809a3d87c5ba9fa85",
+      "counts": {
+        "candidates": 6,
+        "categories": {
+          "candidate_command_failure": 5,
+          "candidate_validation_reject": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 5
+      },
+      "episode_sha256": "195952e57e1802f5ead745ae80072d66ef389003dae264ef1e7f4f5f55c77882",
+      "method": "envsolve-operation-ablation",
+      "pair_index": 4,
+      "position": 7,
+      "run_id": "p6-operation-q11-04-envsolve-operation-ablation",
+      "seed": 0
+    },
+    {
+      "candidates": [
+        {
+          "candidate_id": "candidate-0001",
+          "category": "structured_obligations_active",
+          "exit_code": 0,
+          "finished_sequence": 8,
+          "later_proposal": true,
+          "proposed_sequence": 6
+        },
+        {
+          "candidate_id": "candidate-0002",
+          "category": "candidate_command_failure",
+          "exit_code": 100,
+          "finished_sequence": 150,
+          "later_proposal": true,
+          "proposed_sequence": 148
+        },
+        {
+          "candidate_id": "candidate-0003",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 159,
+          "later_proposal": true,
+          "proposed_sequence": 157
+        },
+        {
+          "candidate_id": "candidate-0004",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 168,
+          "later_proposal": true,
+          "proposed_sequence": 166
+        },
+        {
+          "candidate_id": "candidate-0005",
+          "category": "candidate_command_failure",
+          "exit_code": 1,
+          "finished_sequence": 177,
+          "later_proposal": false,
+          "proposed_sequence": 175
+        }
+      ],
+      "case_id": "envbench-python-nakagami__pyfirebirdsql@44f155d50e1668cf3e3f08ec15693eb72d4f1b60",
+      "counts": {
+        "candidates": 5,
+        "categories": {
+          "candidate_command_failure": 4,
+          "structured_obligations_active": 1
+        },
+        "executed_candidates": 5,
+        "later_proposal_candidates": 4
+      },
+      "episode_sha256": "d76160adb83f9444c52e91b6214ae6900e881d679a04c6ca3a78d3556d9f8a8b",
+      "method": "envsolve-operation",
+      "pair_index": 5,
+      "position": 9,
+      "run_id": "p6-operation-q11-05-envsolve-operation",
+      "seed": 0
+    }
+  ],
+  "schedule": {
+    "path": "p6_operation_qualification_v11_eligible_analysis_schedule.json",
+    "sha256": "7dbacb20f23139c1417e799ee83b5a961ab24139eb4b63f26c1099f08d1a61f2"
+  },
+  "schema_version": "1.0.0"
+}

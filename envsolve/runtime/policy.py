@@ -7,6 +7,12 @@ import hashlib
 import json
 
 from envsolve.operations.planner import ConstraintOperationPlanner
+from envsolve.constraints.models import (
+    ConstraintDomain,
+    ConstraintPredicate,
+    ConstraintRole,
+)
+from envsolve.operations import parse_operation_feasibility_subject
 from envsolve.solver import (
     DeploymentCandidate,
     EpisodeProviderAcquisitionFailed,
@@ -177,7 +183,46 @@ class StructuredModelDeploymentPolicy:
                 for (trigger, domain, kinds), subjects in sorted(groups.items())
             ],
             "unsupported_conflict_count": len(plan.unsupported_conflict_ids),
+            "infeasible_operations": self._infeasible_operation_view(state),
         }
+
+    def _infeasible_operation_view(
+        self,
+        state: EnvironmentState,
+    ) -> list[dict[str, str]]:
+        failures: list[dict[str, str]] = []
+        for constraint in self.operation_planner.constraint_engine.typed_constraints(
+            state
+        ):
+            if (
+                constraint.domain is not ConstraintDomain.OPERATION
+                or constraint.role is not ConstraintRole.FACT
+                or constraint.predicate is not ConstraintPredicate.FEASIBLE
+                or constraint.value is not False
+                or constraint.confidence
+                < self.operation_planner.constraint_engine.hard_confidence
+            ):
+                continue
+            try:
+                parsed = parse_operation_feasibility_subject(constraint.subject)
+            except ValueError:
+                continue
+            failures.append(
+                {
+                    "command": parsed["command"],
+                    "constraint_id": constraint.constraint_id,
+                    "failure_class": parsed["failure_class"],
+                    "source_candidate_id": constraint.scope_id or "unknown",
+                }
+            )
+        return sorted(
+            failures,
+            key=lambda item: (
+                item["failure_class"],
+                item["command"],
+                item["constraint_id"],
+            ),
+        )
 
     @classmethod
     def _candidate_view(cls, item: dict[str, Any]) -> dict[str, Any]:

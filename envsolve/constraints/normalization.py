@@ -12,6 +12,7 @@ from envsolve.constraints.models import (
     ConstraintRole,
     NormalizedConstraint,
 )
+from envsolve.operations import operation_feasibility_subject
 
 
 PYTHON_REQUIREMENT_KINDS = {
@@ -168,6 +169,31 @@ class EvidenceNormalizer:
                     ConstraintPredicate.EQUALS,
                     str(data["value"]),
                     role,
+                    (evidence_id,),
+                    confidence,
+                ),
+            )
+        if kind == "operation-observation":
+            data = _mapping(value, kind)
+            feasible = data.get("feasible")
+            command = data.get("command")
+            failure_class = data.get("failure_class")
+            if feasible is not False:
+                raise ValueError("Operation failure observations require feasible=false")
+            if not isinstance(command, str) or not command.strip():
+                raise ValueError("Operation observations require a command")
+            if not isinstance(failure_class, str) or not failure_class.strip():
+                raise ValueError("Operation observations require a failure class")
+            return (
+                NormalizedConstraint(
+                    ConstraintDomain.OPERATION,
+                    operation_feasibility_subject(
+                        command,
+                        failure_class,
+                    ),
+                    ConstraintPredicate.FEASIBLE,
+                    feasible,
+                    ConstraintRole.FACT,
                     (evidence_id,),
                     confidence,
                 ),

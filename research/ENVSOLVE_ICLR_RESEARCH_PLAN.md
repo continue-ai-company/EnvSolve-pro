@@ -328,10 +328,15 @@ effectiveness is not identifiable.
 
 The current development batch does not provide enough complete Boolean official
 pairs for a method-effect estimate, and one run was interrupted by the operator.
-These trajectories are retained for error decomposition only. The next scientific
-step is to identify the dominant cross-case failure transition from consumed evidence,
-make one minimal generic revision, qualify it on a new outcome-blind development
-batch, and freeze before Canary-20 and Official-Test-100.
+These trajectories are retained for error decomposition only. Their dominant
+transition is candidate-command failure: deterministic operation failures are
+observed, but many never become persistent negative operation state. A minimal
+revision now admits grounded, context-scoped operation infeasibility while keeping
+infrastructure outcomes Unknown. Repository-free counterexamples establish evidence
+admission, persistence, context-sensitive rejection, and alternative-operation
+preservation. Its effect on deployment remains unknown and must be measured on a new
+outcome-blind development qualification before the method is frozen for Canary-20
+and Official-Test-100.
 
 The final paper will contain three result tables:
 

@@ -1294,3 +1294,30 @@ development batch; it never triggers tuning on the same held-out outcomes.
   and passed independent artifact audit. Its fixed manual script is Official-negative
   (`exit_code=0`, `error_count=1295`), so this run is portability evidence only and
   cannot support an EnvSolve effectiveness claim.
+- Q11 is now formally closed without retry or replacement. Nine artifacts are valid,
+  eight runs are scientifically eligible, zero runs reached a Boolean Official
+  outcome, and all five pairs are censored. The position-8 zero-information provider
+  failure is not retried because its paired control has no Official result, so retry
+  cannot restore an eligible pair; position 10 has no preregistered interruption
+  retry. Failure decomposition over the eight eligible consumed trajectories finds
+  31 candidate-command failures among 38 fresh executions, compared descriptively
+  with 23/41 in Q10. The dominant next hypothesis is therefore narrow: deterministic
+  failed operation targets should become persistent, context-scoped negative
+  feasibility state. This development evidence only generates the hypothesis; it
+  cannot validate the revision. Repository-free counterexamples must precede any
+  semantic change, new freeze, or new outcome-blind batch.
+- Negative operation feasibility v1 is now synthetically qualified and frozen as
+  Algorithm v16 with Harness v31. The verifier admits `operation/feasible=false`
+  only when the exact failed command, Typed Replay IR v8 action kind, and an exact
+  provider-target-unavailable signature agree; infrastructure and timeout outcomes
+  remain unadmitted. These facts accumulate across candidate contexts, remain
+  separate from the underlying repository obligation, and are visible only to the
+  constraint-driven treatment. Guard v4 rejects the exact command before fresh
+  execution only when the relevant typed provider context is unchanged. Synthetic
+  controls prove that runtime changes and alternative operations remain admissible,
+  wrong-kind text is ignored, and a repeated candidate is rejected without allocating
+  an environment. Focused tests pass `107` with 44 subtests, full regression passes
+  `410 passed, 1 skipped` with 61 subtests, the real Docker boundary passes, and
+  Harness v31 verifies `valid=true`. This is mechanism evidence only: semantic alias
+  matching is explicitly absent, Q11 is not rerun, and a new preregistered
+  outcome-blind development batch is required for effectiveness evidence.

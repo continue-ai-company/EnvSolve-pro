@@ -1,12 +1,23 @@
 from __future__ import annotations
 
+from pathlib import Path
 import unittest
 from unittest import mock
 
-from envsolve_harness.integrity.freeze import _verified_image_provenance
+from envsolve_harness.integrity.freeze import (
+    _verified_image_provenance,
+    harness_source_files,
+)
 
 
 class HarnessFreezeImageIdentityTest(unittest.TestCase):
+    def test_operation_layer_is_inside_the_harness_source_boundary(self) -> None:
+        source = harness_source_files(
+            Path(__file__).resolve().parents[1]
+        )
+
+        self.assertIn("envsolve/operations/models.py", source)
+
     @mock.patch("envsolve_harness.integrity.freeze.docker_image_provenance")
     def test_requires_immutable_image_identity(self, provenance) -> None:
         provenance.return_value = {

@@ -13,6 +13,7 @@ from envsolve_harness.scripts.replay_actions import (
 FIXTURES = (
     Path(__file__).parent / "fixtures/replay_ir_v6_cases.json",
     Path(__file__).parent / "fixtures/replay_ir_v7_delta_cases.json",
+    Path(__file__).parent / "fixtures/replay_ir_v8_delta_cases.json",
 )
 
 

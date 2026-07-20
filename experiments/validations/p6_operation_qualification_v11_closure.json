@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "closure_id": "p6-operation-qualification-v11-terminal-reach-closure",
+  "closed_at": "2026-07-20T20:42:45+08:00",
+  "status": "closed_terminal_reach_insufficient",
+  "preregistration": {
+    "path": "p6_operation_qualification_v11_preregistration.json",
+    "id": "p6-operation-qualification-v11-terminal-reach"
+  },
+  "frozen_identity": {
+    "algorithm": "v15",
+    "harness": "v29",
+    "pairs": 5,
+    "positions": 10
+  },
+  "results": {
+    "artifact_integrity_valid_runs": 9,
+    "scientifically_eligible_runs": 8,
+    "eligible_boolean_official_pairs": 0,
+    "censored_pairs": 5,
+    "official_pass": 0,
+    "official_fail": 0,
+    "effectiveness_estimate_allowed": false
+  },
+  "adjudications": [
+    {
+      "position": 8,
+      "classification": "pre_episode_provider_acquisition_failure",
+      "artifact_integrity_valid": false,
+      "scientifically_eligible": false,
+      "observed_information": {
+        "model_usage": 0,
+        "candidates": 0,
+        "environments": 0,
+        "commands": 0,
+        "official_evaluations": 0
+      },
+      "retry": false,
+      "reason": "Although the zero-information failure meets the narrow same-identity retry precondition, the paired control already has no Boolean Official outcome. A retry cannot restore an eligible Q11 pair or the minimum paired comparison, so it would consume API resources without changing the scientific conclusion."
+    },
+    {
+      "position": 10,
+      "classification": "operator_interrupted",
+      "artifact_integrity_valid": true,
+      "scientifically_eligible": false,
+      "retry": false,
+      "reason": "The preregistration grants no retry after operator interruption. The original artifact is preserved and the position is permanently censored."
+    }
+  ],
+  "failure_decomposition": {
+    "scope": "eight scientifically eligible consumed development trajectories",
+    "runs": 8,
+    "candidates": 43,
+    "executed_candidates": 38,
+    "later_proposal_candidates": 35,
+    "categories": {
+      "candidate_command_failure": 31,
+      "candidate_validation_reject": 5,
+      "structured_obligations_active": 7
+    },
+    "by_method": {
+      "envsolve-operation": {
+        "runs": 4,
+        "candidates": 19,
+        "executed_candidates": 18,
+        "candidate_command_failure": 15,
+        "candidate_validation_reject": 1,
+        "structured_obligations_active": 3
+      },
+      "envsolve-operation-ablation": {
+        "runs": 4,
+        "candidates": 24,
+        "executed_candidates": 20,
+        "candidate_command_failure": 16,
+        "candidate_validation_reject": 4,
+        "structured_obligations_active": 4
+      }
+    },
+    "interpretation": "Candidate-command failure is the dominant observed transition in both methods. Method counts are descriptive and are not a paired effectiveness comparison."
+  },
+  "next_falsifiable_hypothesis": {
+    "statement": "Persisting deterministic failed operation targets as typed, context-scoped negative feasibility state will reduce exact failed-operation recurrence without converting infrastructure failures into hard constraints or deactivating the underlying repository requirement.",
+    "development_evidence_role": "hypothesis generation only",
+    "qualification_order": [
+      "repository-free synthetic counterexamples",
+      "new algorithm and harness freeze",
+      "new outcome-blind development qualification"
+    ]
+  },
+  "data_governance": {
+    "selected_identities_consumed": 5,
+    "selected_identity_retry_allowed": false,
+    "case_replacement_allowed": false,
+    "untouched_development_identities_remaining": 141,
+    "paper_effectiveness_claim_allowed": false,
+    "leaderboard_claim_allowed": false
+  },
+  "artifacts": {
+    "summary": {
+      "path": "p6_operation_qualification_v11_summary.json",
+      "sha256": "57de39222a7be3a7d5302b4d9f438f16989670a75da3d1a24f42eef04db50f5a"
+    },
+    "eligible_analysis_schedule": {
+      "path": "p6_operation_qualification_v11_eligible_analysis_schedule.json",
+      "sha256": "7dbacb20f23139c1417e799ee83b5a961ab24139eb4b63f26c1099f08d1a61f2"
+    },
+    "failure_analysis": {
+      "path": "p6_operation_qualification_v11_failure_analysis.json",
+      "sha256": "b545f5eff7933daf6a3f245667502c57446f76849b0df182050321570799b832"
+    }
+  }
+}

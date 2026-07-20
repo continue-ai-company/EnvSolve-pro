@@ -107,6 +107,15 @@ class CompleteCandidateValidationTest(unittest.TestCase):
             accepted.normalized_script,
             "set -euo pipefail\npython -m pip install -e .\n",
         )
+        self.assertEqual(
+            accepted.details["actions"],
+            [
+                {
+                    "command": "python -m pip install -e .",
+                    "kind": "python_package_install",
+                }
+            ],
+        )
         self.assertFalse(source_edit.accepted)
         self.assertFalse(observation.accepted)
         self.assertTrue(venv.accepted)

@@ -16,6 +16,7 @@ from packaging.version import InvalidVersion, Version
 
 from envsolve.constraints import InitialConstraintEvidence
 from envsolve.constraints.models import ConstraintDomain, ConstraintPredicate
+from envsolve.operations import OperationFailureClass, OperationKind
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.import_probe import ImportInventory, collect_source_imports
 from envsolve.solver import (
@@ -24,6 +25,7 @@ from envsolve.solver import (
     ExecutableVerification,
     FeedbackChannel,
     HypothesisEvidence,
+    ObservationEvidence,
     ProvisionedEnvironment,
 )
 from envsolve.verification.counterexamples import (
@@ -71,6 +73,23 @@ _INFRASTRUCTURE_FAILURES = (
         "artifact-hash-mismatch",
         re.compile(r"PACKAGES DO NOT MATCH THE HASHES", re.IGNORECASE),
     ),
+)
+_OPERATION_FAILURES = tuple(
+    (failure_class, operation_kind, re.compile(pattern, re.IGNORECASE | re.MULTILINE))
+    for failure_class, operation_kind, pattern in (
+        (
+            OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE,
+            OperationKind.PYTHON_PACKAGE_INSTALL,
+            r"^(?:ERROR:\s*)?(?:Could not find a version that satisfies the "
+            r"requirement|No matching distribution found for)\s+\S+",
+        ),
+        (
+            OperationFailureClass.SYSTEM_PROVIDER_TARGET_UNAVAILABLE,
+            OperationKind.SYSTEM_PACKAGE_INSTALL,
+            r"^(?:E:\s*)?(?:Unable to locate package\s+\S+|Package\s+\S+\s+has "
+            r"no installation candidate)$",
+        ),
+    )
 )
 _IMPORT_PROBE = """\
 import importlib
@@ -284,7 +303,7 @@ class _PackageRequirement:
 class PythonDeploymentVerifier:
     """Fixed internal Python checks with no benchmark evaluator dependency."""
 
-    check_profile = "python-deployment-v5"
+    check_profile = "python-deployment-v6"
 
     def __init__(
         self,
@@ -301,9 +320,9 @@ class PythonDeploymentVerifier:
         self.collect_tests = collect_tests
         self.obligation_profile = obligation_profile
         self.check_profile = (
-            "python-deployment-v5"
+            "python-deployment-v6"
             if obligation_profile == "two-layer"
-            else "python-deployment-v5-runtime-only-ablation"
+            else "python-deployment-v6-runtime-only-ablation"
         )
         parsed_requirements: list[_PackageRequirement] = []
         for item in package_requirements:
@@ -382,6 +401,28 @@ class PythonDeploymentVerifier:
         }
 
     @staticmethod
+    def _validated_operation_kind(
+        candidate: DeploymentCandidate,
+        failed_action: dict[str, object] | None,
+    ) -> str | None:
+        if failed_action is None:
+            return None
+        command = failed_action.get("command")
+        validation = candidate.metadata.get("candidate_validation")
+        details = validation.get("details") if isinstance(validation, dict) else None
+        actions = details.get("actions") if isinstance(details, dict) else None
+        if not isinstance(actions, list):
+            return None
+        matches = [
+            item.get("kind")
+            for item in actions
+            if isinstance(item, dict) and item.get("command") == command
+        ]
+        if len(matches) != 1 or not isinstance(matches[0], str):
+            return None
+        return matches[0]
+
+    @staticmethod
     def _failed_during_internal_checks(stderr: str) -> bool:
         matches = tuple(_FAILED_ACTION_MARKER.finditer(stderr))
         return bool(matches and matches[-1].group("index") == "internal")
@@ -396,6 +437,40 @@ class PythonDeploymentVerifier:
         if failed_action is not None:
             details["failed_candidate_action"] = failed_action
         return details
+
+    @staticmethod
+    def _operation_failure_observations(
+        result: CommandResult,
+        failed_action: dict[str, object] | None,
+    ) -> tuple[ObservationEvidence, ...]:
+        if failed_action is None:
+            return ()
+        command = failed_action.get("command")
+        operation_kind = failed_action.get("operation_kind")
+        if not isinstance(command, str) or not command.strip():
+            return ()
+        logs = f"{result.stdout}\n{result.stderr}"
+        failure_class = next(
+            (
+                item
+                for item, expected_kind, pattern in _OPERATION_FAILURES
+                if operation_kind == expected_kind.value and pattern.search(logs)
+            ),
+            None,
+        )
+        if failure_class is None:
+            return ()
+        return (
+            ObservationEvidence(
+                "operation-observation",
+                {
+                    "command": command,
+                    "failure_class": failure_class.value,
+                    "feasible": False,
+                },
+                1.0,
+            ),
+        )
 
     def verify(
         self,
@@ -459,6 +534,9 @@ class PythonDeploymentVerifier:
             result.stderr,
             candidate_commands,
         )
+        operation_kind = self._validated_operation_kind(candidate, failed_action)
+        if failed_action is not None and operation_kind is not None:
+            failed_action = {**failed_action, "operation_kind": operation_kind}
         failed_during_internal_checks = self._failed_during_internal_checks(
             result.stderr
         )
@@ -544,6 +622,10 @@ class PythonDeploymentVerifier:
                 ),
             ),
             details=self._failure_details(checks, failed_action),
+            observations=self._operation_failure_observations(
+                result,
+                failed_action,
+            ),
         )
 
     @staticmethod

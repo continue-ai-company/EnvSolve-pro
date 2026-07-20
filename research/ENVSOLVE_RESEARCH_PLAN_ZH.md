@@ -940,3 +940,21 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   触发 adapter 的本地 `uv` 回退，执行 ARM64 evaluator 容器、运行 Pyright、持久化唯一 Official
   结果，并通过独立 artifact audit。固定手工脚本的结果为 Official-negative（`exit_code=0`、
   `error_count=1295`），因此该 run 只能作为可移植性证据，不能支持 EnvSolve 效果 claim。
+- Q11 现已在不重试、不 replacement 的条件下正式关闭。9 份 artifact 有效，8 条 run scientifically
+  eligible，没有任何 run 得到 Boolean Official outcome，5 个 pair 全部删失。Position 8 的零信息
+  provider failure 不重试，因为 paired control 本身没有 Official 结果，重试无法恢复 eligible pair；
+  position 10 也没有预注册的中断重试权限。对 8 条 eligible consumed trajectory 的失败分解发现，
+  38 次 fresh execution 中有 31 次 candidate-command failure；Q10 的对应描述统计为 23/41。下一条
+  主要假设因此保持很窄：确定性失败的 operation target 应转化为持久、带上下文的 negative
+  feasibility state。这批 development evidence 只用于生成假设，不能验证由它启发的 revision；任何
+  语义改动、新 freeze 或新 outcome-blind batch 前，都必须先通过 repository-free 合成反例。
+- Negative operation feasibility v1 已完成合成资格验证，并冻结为 Algorithm v16 与 Harness v31。
+  Verifier 只有在准确失败命令、Typed Replay IR v8 action kind 和精确 provider-target-unavailable
+  签名三者一致时，才接纳 `operation/feasible=false`；基础设施与 timeout 结果仍不接纳。负操作事实
+  在 candidate context 间累积，与底层 repository obligation 分开，并且只对 constraint-driven
+  treatment 可见。Guard v4 只在相关 typed provider context 未变化时，于 fresh execution 前拒绝同一
+  命令。合成负例证明 runtime 变化和替代 operation 仍允许、错误 action kind 上的相似文本被忽略，
+  重复 candidate 不会分配 environment。聚焦测试为 `107 passed` 加 44 个 subtest，全量为
+  `410 passed, 1 skipped` 加 61 个 subtest，真实 Docker boundary 通过，Harness v31 验证为
+  `valid=true`。这仍只是机制证据：semantic alias matching 被明确排除，Q11 不重跑，效果必须由
+  新预注册、outcome-blind 的 development batch 检验。

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "typed-replay-ir-v8",
+  "candidate_policy_id": "complete-candidate-v4+typed-replay-ir-v8",
+  "frozen_at": "2026-07-20T13:13:21Z",
+  "supersedes": {
+    "policy_id": "typed-replay-ir-v7",
+    "path": "experiments/protocols/typed_replay_ir_v7_freeze.json",
+    "sha256": "c0516037096f944c0b06cd3eda7e09a7a1c32a86f477a88d663cf25dc204440b",
+    "reason": "Add canonical command and typed action-kind provenance to accepted candidate metadata so verifier evidence admission can require agreement between operation type and provider failure signature. Accepted commands, canonicalization, and runtime binding are unchanged."
+  },
+  "files": {
+    "research/TYPED_REPLAY_IR_V8.md": "6b7ea2a3afa5a41b399476ed3bf5094746da2c82e7cf876c71f516496d757574",
+    "research/TYPED_REPLAY_IR_V8_ZH.md": "c928628be1ce3b4a54158d3013230e1d07a56847f16693f77bcf6d4d87f42c5d",
+    "tests/fixtures/replay_ir_v6_cases.json": "c9bab9ada991d2f1a48ae699274c3eb56874c4dd578842ca924267b5285219a6",
+    "tests/fixtures/replay_ir_v7_delta_cases.json": "55bbc8c95437936798e3dfc2f48bc66cc5391a44630fbc13b9ab481fdd788644",
+    "tests/fixtures/replay_ir_v8_delta_cases.json": "eb32d490735dc831e3954c274b3ec1a9cde9f4ddd86ad3dc6e83dc1be9f7dc7a",
+    "envsolve_harness/scripts/replay_actions.py": "f9487a0b178ac9971c8cd47ef1c5d3f677dfc2f63ad456599cfb99cd106c4c9e",
+    "envsolve_harness/scripts/candidate_validation.py": "7369e8539bc542653ecd6fa6587902414cc985739dbc39ea162b9d603ae218d9",
+    "tests/test_replay_ir.py": "82ed4f63e3e34f61d216e6ad4d82a8734be3b4f3aed45c415ce9858f76517fc6",
+    "tests/test_candidate_validation.py": "ad840a720a40b8ca4a7ceb5ddfefe6ad2d26a9b87fe69da4d54c053976705624"
+  },
+  "validation": {
+    "inherited_v6_cases": 32,
+    "inherited_v7_cases": 6,
+    "v8_action_kind_cases": 3,
+    "focused_replay_candidate_tests_passed": 2,
+    "focused_replay_candidate_subtests_passed": 41,
+    "negative_operation_focused_tests_passed": 106,
+    "negative_operation_focused_subtests_passed": 44,
+    "manifest_independent_tests_passed_before_freeze": 407,
+    "manifest_independent_tests_skipped": 1,
+    "deferred_algorithm_freeze_tests": 2,
+    "real_docker_integration": true
+  },
+  "development_disclosure": {
+    "development_informed": true,
+    "trigger_batches": ["p6-operation-q11-consumed-failure-analysis"],
+    "case_specific_rules": false,
+    "accepted_candidate_language_changed": false,
+    "source_results_mutated": false,
+    "replacement_evaluation_allowed": false,
+    "confirmatory_claim": false,
+    "untouched_confirmatory_splits": ["canary-20", "official-test-100"]
+  },
+  "change_policy": "Any accepted-language, runtime-binding, or typed action-provenance change requires a new policy identifier, tests, hashes, and freeze before benchmark execution."
+}

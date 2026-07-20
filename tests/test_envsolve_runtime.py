@@ -23,6 +23,10 @@ from envsolve.runtime.import_probe import collect_source_imports
 from envsolve.runtime.policy import StructuredModelDeploymentPolicy
 from envsolve.runtime.profile import profile_python_repository
 from envsolve.runtime.verifier import PythonDeploymentVerifier
+from envsolve.operations import (
+    OperationFailureClass,
+    operation_feasibility_subject,
+)
 from envsolve.solver import (
     DeploymentCandidate,
     EnvironmentReceipt,
@@ -143,6 +147,85 @@ class FakeDockerGit:
 
 
 class EnvSolveRuntimeTest(unittest.TestCase):
+    def test_constraint_driven_projection_persists_infeasible_operations(self) -> None:
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        infeasible = NormalizedConstraint(
+            ConstraintDomain.OPERATION,
+            operation_feasibility_subject(
+                "python -m pip install unavailable-target",
+                OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE,
+            ),
+            ConstraintPredicate.FEASIBLE,
+            False,
+            ConstraintRole.FACT,
+            ("operation-observation",),
+            scope_id="candidate-1",
+        )
+        state.constraints[infeasible.constraint_id] = infeasible.to_state_fields(
+            "satisfied"
+        )
+        repository_profile = {
+            "schema": "envsolve-python-repository-profile-v1",
+            "files": [],
+        }
+
+        full = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            repository_profile,
+            operation_profile="constraint-driven",
+        )._state_projection(state)
+        ablation = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            repository_profile,
+            operation_profile="free-form",
+        )._state_projection(state)
+
+        self.assertEqual(
+            full["operation_plan"]["infeasible_operations"],
+            [
+                {
+                    "command": "python -m pip install unavailable-target",
+                    "constraint_id": infeasible.constraint_id,
+                    "failure_class": "python_provider_target_unavailable",
+                    "source_candidate_id": "candidate-1",
+                }
+            ],
+        )
+        self.assertNotIn("operation_plan", ablation)
+
+    def test_constraint_driven_projection_hides_provisional_operation_failure(self) -> None:
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        provisional = NormalizedConstraint(
+            ConstraintDomain.OPERATION,
+            operation_feasibility_subject(
+                "python -m pip install uncertain-target",
+                OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE,
+            ),
+            ConstraintPredicate.FEASIBLE,
+            False,
+            ConstraintRole.FACT,
+            ("operation-observation",),
+            confidence=0.5,
+            scope_id="candidate-1",
+        )
+        state.constraints[provisional.constraint_id] = provisional.to_state_fields(
+            "active"
+        )
+
+        projection = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            {"schema": "envsolve-python-repository-profile-v1", "files": []},
+            operation_profile="constraint-driven",
+        )._state_projection(state)
+
+        self.assertFalse(projection["operation_plan"]["infeasible_operations"])
+
     def test_model_policy_emits_strict_complete_candidate(self) -> None:
         model = RecordingModel(
             json.dumps(
@@ -634,6 +717,190 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             self.assertEqual(
                 result.details["failed_candidate_action"]["action_index"],
                 0,
+            )
+            self.assertFalse(result.observations)
+
+    def test_unavailable_distribution_is_a_typed_operation_observation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def fail(command, **kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    1,
+                    "",
+                    (
+                        "ERROR: Could not find a version that satisfies the requirement "
+                        "unavailable-target\n"
+                        "ERROR: No matching distribution found for unavailable-target\n"
+                        "ENVSOLVE_FAILED_ACTION_V1=0:1"
+                    ),
+                )
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                run_command=fail,
+            ).verify(
+                DeploymentCandidate(
+                    "candidate-1",
+                    "python -m pip install unavailable-target",
+                    "test",
+                    metadata={
+                        "candidate_validation": {
+                            "details": {
+                                "actions": [
+                                    {
+                                        "command": (
+                                            "python -m pip install unavailable-target"
+                                        ),
+                                        "kind": "python_package_install",
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                ),
+                environment,
+            )
+
+            self.assertFalse(result.passed)
+            self.assertEqual(len(result.observations), 1)
+            observation = result.observations[0]
+            self.assertEqual(observation.kind, "operation-observation")
+            self.assertEqual(
+                observation.value,
+                {
+                    "command": "python -m pip install unavailable-target",
+                    "failure_class": "python_provider_target_unavailable",
+                    "feasible": False,
+                },
+            )
+
+    def test_provider_error_text_on_other_operation_is_not_admitted(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def fail(command, **kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    1,
+                    "",
+                    (
+                        "No matching distribution found for quoted-noise\n"
+                        "ENVSOLVE_FAILED_ACTION_V1=0:1"
+                    ),
+                )
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                run_command=fail,
+            ).verify(
+                DeploymentCandidate(
+                    "candidate-1",
+                    "pyenv install 3.12.1",
+                    "test",
+                    metadata={
+                        "candidate_validation": {
+                            "details": {
+                                "actions": [
+                                    {
+                                        "command": "pyenv install 3.12.1",
+                                        "kind": "runtime_configure",
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                ),
+                environment,
+            )
+
+            self.assertFalse(result.passed)
+            self.assertFalse(result.observations)
+
+    def test_unavailable_system_package_is_a_typed_operation_observation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def fail(command, **kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    100,
+                    "",
+                    (
+                        "E: Unable to locate package unavailable-system-target\n"
+                        "ENVSOLVE_FAILED_ACTION_V1=0:100"
+                    ),
+                )
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                run_command=fail,
+            ).verify(
+                DeploymentCandidate(
+                    "candidate-1",
+                    "apt-get install -y unavailable-system-target",
+                    "test",
+                    metadata={
+                        "candidate_validation": {
+                            "details": {
+                                "actions": [
+                                    {
+                                        "command": (
+                                            "apt-get install -y "
+                                            "unavailable-system-target"
+                                        ),
+                                        "kind": "system_package_install",
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                ),
+                environment,
+            )
+
+            self.assertFalse(result.passed)
+            self.assertEqual(
+                result.observations[0].value,
+                {
+                    "command": "apt-get install -y unavailable-system-target",
+                    "failure_class": "system_provider_target_unavailable",
+                    "feasible": False,
+                },
             )
 
     def test_internal_verifier_stops_on_artifact_hash_mismatch(self) -> None:

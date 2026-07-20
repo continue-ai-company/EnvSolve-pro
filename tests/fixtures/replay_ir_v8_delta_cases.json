@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "typed-replay-ir-v8",
+  "cases": [
+    {
+      "name": "python-provider-operation-kind",
+      "command": "python -m pip install demo-package",
+      "expected": {
+        "status": "accept",
+        "commands": ["python -m pip install demo-package"],
+        "kinds": ["python_package_install"]
+      }
+    },
+    {
+      "name": "system-provider-operation-kind",
+      "command": "apt-get install -y demo-system-package",
+      "expected": {
+        "status": "accept",
+        "commands": ["apt-get install -y demo-system-package"],
+        "kinds": ["system_package_install"]
+      }
+    },
+    {
+      "name": "runtime-operation-kind",
+      "command": "pyenv install 3.12.1",
+      "expected": {
+        "status": "accept",
+        "commands": ["pyenv install 3.12.1"],
+        "kinds": ["runtime_configure"]
+      }
+    }
+  ]
+}

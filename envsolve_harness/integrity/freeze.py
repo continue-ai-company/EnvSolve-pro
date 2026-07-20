@@ -22,14 +22,14 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v30"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v30.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v29"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v29.json")
+FREEZE_ID = "envsolve-harness-v31"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v31.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v30"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v30.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
-    "experiments/protocols/typed_replay_ir_v7_freeze.json"
+    "experiments/protocols/typed_replay_ir_v8_freeze.json"
 )
 DATASET_PATHS = (
     Path("experiments/cases/split_manifest.json"),
@@ -110,7 +110,7 @@ DEVELOPMENT_DISCLOSURE = {
         "dev-5",
         "dev-extension-3",
         "dev-v3-qualification-5",
-        "dev-operation-qualification-q1-q10",
+        "dev-operation-qualification-q1-q11",
     ],
     "untouched_confirmatory_splits": ["canary-20", "official-test-100"],
     "case_specific_rules": False,
@@ -148,6 +148,7 @@ def harness_source_files(root: Path) -> dict[str, str]:
             "envsolve/solver/**/*.py",
             "envsolve/runtime/**/*.py",
             "envsolve/constraints/**/*.py",
+            "envsolve/operations/**/*.py",
             "envsolve/verification/**/*.py",
             "envsolve/integrations/envbench_findings.py",
             "envsolve/v0/**/*.py",
@@ -274,12 +275,12 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
             "reason": (
-                "Restore host ownership of bind-mounted worktrees before Docker "
-                "container release so root-created installation artifacts can be "
-                "cleaned reliably on native Linux hosts, and fall back to the "
-                "EnvBench-local uv executable when a non-activated service PATH "
-                "cannot resolve uv. Solver, observation, constraint, operation, "
-                "budget, and verifier semantics are unchanged."
+                "Add typed, candidate-scoped negative operation feasibility for "
+                "deterministic provider-target rejection; expose it only to the "
+                "constraint-driven treatment; and reject the same operation before "
+                "fresh execution only when its provider context is unchanged. "
+                "Infrastructure outcomes remain Unknown, and the accepted candidate "
+                "language is unchanged under typed replay IR v8."
             ),
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,

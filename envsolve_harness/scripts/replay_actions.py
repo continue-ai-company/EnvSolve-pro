@@ -8,7 +8,7 @@ import shlex
 from typing import Any
 
 
-REPLAY_IR_POLICY = "typed-replay-ir-v7"
+REPLAY_IR_POLICY = "typed-replay-ir-v8"
 
 
 class ReplayActionKind(str, Enum):

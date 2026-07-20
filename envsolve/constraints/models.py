@@ -20,6 +20,7 @@ class ConstraintDomain(str, Enum):
     CAPABILITY = "capability"
     MODULE = "module"
     PLATFORM = "platform"
+    OPERATION = "operation"
 
 
 class ConstraintRole(str, Enum):
@@ -31,6 +32,7 @@ class ConstraintPredicate(str, Enum):
     VERSION = "version"
     PRESENT = "present"
     EQUALS = "equals"
+    FEASIBLE = "feasible"
 
 
 def canonical_subject(domain: ConstraintDomain, subject: str) -> str:
@@ -79,9 +81,12 @@ class NormalizedConstraint:
             except (InvalidSpecifier, InvalidVersion) as exc:
                 raise ValueError(f"Invalid version constraint: {self.value!r}") from exc
             object.__setattr__(self, "value", normalized_version)
-        elif self.predicate == ConstraintPredicate.PRESENT:
+        elif self.predicate in {
+            ConstraintPredicate.PRESENT,
+            ConstraintPredicate.FEASIBLE,
+        }:
             if not isinstance(self.value, bool):
-                raise ValueError("Presence constraints require a boolean value")
+                raise ValueError("Boolean constraints require a boolean value")
         elif not isinstance(self.value, str):
             raise ValueError("Equality constraints require a string value")
 

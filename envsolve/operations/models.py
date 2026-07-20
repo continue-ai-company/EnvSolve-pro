@@ -8,12 +8,18 @@ from typing import Any
 
 
 OPERATION_PLAN_SCHEMA_VERSION = "3.0.0"
+OPERATION_FEASIBILITY_SCHEMA_VERSION = "1.0.0"
 
 
 class OperationKind(str, Enum):
     PYTHON_PACKAGE_INSTALL = "python_package_install"
     SYSTEM_PACKAGE_INSTALL = "system_package_install"
     RUNTIME_CONFIGURE = "runtime_configure"
+
+
+class OperationFailureClass(str, Enum):
+    PYTHON_PROVIDER_TARGET_UNAVAILABLE = "python_provider_target_unavailable"
+    SYSTEM_PROVIDER_TARGET_UNAVAILABLE = "system_provider_target_unavailable"
 
 
 class OperationTrigger(str, Enum):
@@ -24,6 +30,43 @@ class OperationTrigger(str, Enum):
 
 def _canonical_json(value: dict[str, Any]) -> str:
     return json.dumps(value, ensure_ascii=True, separators=(",", ":"), sort_keys=True)
+
+
+def operation_feasibility_subject(
+    command: str,
+    failure_class: OperationFailureClass | str,
+) -> str:
+    normalized_command = command.strip()
+    if not normalized_command:
+        raise ValueError("Operation feasibility command cannot be empty")
+    normalized_class = OperationFailureClass(failure_class).value
+    return _canonical_json(
+        {
+            "schema_version": OPERATION_FEASIBILITY_SCHEMA_VERSION,
+            "command": normalized_command,
+            "failure_class": normalized_class,
+        }
+    )
+
+
+def parse_operation_feasibility_subject(subject: str) -> dict[str, str]:
+    try:
+        value = json.loads(subject)
+    except (TypeError, ValueError, json.JSONDecodeError) as exc:
+        raise ValueError("Malformed operation feasibility subject") from exc
+    if not isinstance(value, dict) or set(value) != {
+        "schema_version",
+        "command",
+        "failure_class",
+    }:
+        raise ValueError("Malformed operation feasibility subject")
+    if value.get("schema_version") != OPERATION_FEASIBILITY_SCHEMA_VERSION:
+        raise ValueError("Unsupported operation feasibility schema")
+    command = value.get("command")
+    if not isinstance(command, str) or not command.strip():
+        raise ValueError("Operation feasibility command cannot be empty")
+    failure_class = OperationFailureClass(value.get("failure_class")).value
+    return {"command": command.strip(), "failure_class": failure_class}
 
 
 @dataclass(frozen=True)
