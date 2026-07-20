@@ -260,6 +260,9 @@ operation infeasibility，同时让基础设施结果保持 Unknown。Repository
 先经过新的 outcome-blind development qualification，之后才允许为 Canary-20 与 Official-Test-100
 冻结。
 
+下一批已预注册为 5 个 pair 的整体系统对比，并要求在选 case 前由 ARM64 Linux 宿主独立复现冻结
+stack。实验会单独报告 negative-operation utilization，不把整体对比解释为单组件因果消融。
+
 最终论文包含三张核心结果表：
 
 1. 所有 baseline 的 Official Pass@1 与 paired effect estimate；

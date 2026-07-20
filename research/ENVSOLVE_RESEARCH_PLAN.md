@@ -1321,3 +1321,11 @@ development batch; it never triggers tuning on the same held-out outcomes.
   Harness v31 verifies `valid=true`. This is mechanism evidence only: semantic alias
   matching is explicitly absent, Q11 is not rerun, and a new preregistered
   outcome-blind development batch is required for effectiveness evidence.
+- Q12 is registered before both Spark host admission and case selection. The host
+  must reproduce the v16/v31 hash chain, full regression, real Docker boundary,
+  evaluator revision, and a case-free provider probe before five identities are
+  selected by salted metadata-only hashing from the 141-entry untouched pool. The
+  paired contrast remains full EnvSolve versus the matched free-form operation
+  ablation. Negative-operation admissions and pre-environment guard rejections are
+  mechanism-utilization outcomes, not a single-component causal estimate; zero
+  triggers are reported as unexercised without replacement.

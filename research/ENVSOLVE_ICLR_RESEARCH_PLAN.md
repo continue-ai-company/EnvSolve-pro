@@ -338,6 +338,11 @@ preservation. Its effect on deployment remains unknown and must be measured on a
 outcome-blind development qualification before the method is frozen for Canary-20
 and Official-Test-100.
 
+That next qualification is preregistered as a five-pair broad system contrast, gated
+by independent reproduction of the frozen stack on an ARM64 Linux host before case
+selection. It reports negative-operation utilization separately and does not treat
+the broad contrast as a single-component causal ablation.
+
 The final paper will contain three result tables:
 
 1. Official Pass@1 and paired effect estimates for all baselines;

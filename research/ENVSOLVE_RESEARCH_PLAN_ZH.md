@@ -958,3 +958,8 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   `410 passed, 1 skipped` 加 61 个 subtest，真实 Docker boundary 通过，Harness v31 验证为
   `valid=true`。这仍只是机制证据：semantic alias matching 被明确排除，Q11 不重跑，效果必须由
   新预注册、outcome-blind 的 development batch 检验。
+- Q12 已在 Spark host admission 与选 case 前预注册。Spark 必须先复现 v16/v31 哈希链、全量回归、
+  真实 Docker boundary、evaluator revision 与不接触 case 的 provider probe；之后才从 141 条
+  untouched pool 中按 salted metadata-only hash 选择 5 个 identity。配对对比仍是完整 EnvSolve
+  与 matched free-form operation ablation。Negative-operation admission 和 environment 分配前的
+  guard rejection 只作为机制利用率，不冒充单组件因果估计；零触发记为 unexercised，不 replacement。
