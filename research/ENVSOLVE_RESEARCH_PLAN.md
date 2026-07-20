@@ -1361,3 +1361,9 @@ development batch; it never triggers tuning on the same held-out outcomes.
   may generate that hypothesis but cannot validate a change. Before either changing
   v17 or committing the larger Spark budget, the same frozen system will receive one
   outcome-blind ten-pair replication from the 133 untouched identities.
+- Replication v1 is now outcome-blind selected with pool conservation `133 = 10 +
+  123`. The schedule contains 20 unique positions, ten complete pairs, and salted
+  method order. Selection used only case identity metadata; no repository was
+  inspected, stratified, replaced, or prescreened. Algorithm v17 and Harness v32
+  remain unchanged, and execution is blocked until a separate freeze binds the
+  selection, schedule, Git chain, evaluator image, and runner hashes.

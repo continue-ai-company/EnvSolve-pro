@@ -1,0 +1,25 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/p6_operation_replication_v1_preregistration.json",
+  "preregistration_sha256": "efe10d6b029c1dad1a6725afaf3e710ed5ab4d4a299f6e0407395a9194b0d362",
+  "remaining_path": "experiments/cases/train_untouched_after_operation_replication_v1_123.jsonl",
+  "remaining_sha256": "3e8b12972cf135d5f029756e336c259de1bd5795a20f8494984be9c7d00e21f7",
+  "salt": "envsolve-p6-operation-replication-v1-2026-07-21",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-scitools__iris-grib@e6e3d5ac1d90b8851b9625a2b3df2af1a14f168f",
+    "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+    "envbench-python-jaraco__keyring@afe0abd3165da8fd68d2812f483ba429008442d5",
+    "envbench-python-islandora__documentation@d9b18ffb2678dfcf2f5d20cd36de0de2aacef528",
+    "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+    "envbench-python-spec-first__connexion@a930303faa9e10603cdd820c497303b2e52d8253",
+    "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f",
+    "envbench-python-transientskp__tkp@8a19cd23c7141c66c1ee8e42295957bbcf809531",
+    "envbench-python-meltano__sdk@e4881b182b96f4f8c14bff059320dcf04715f65c",
+    "envbench-python-tommadness__kh2randomizer@9f2c43caa4cf29d05cc73f11590410f766cfce5c"
+  ],
+  "selected_path": "experiments/cases/dev_operation_replication_v1_10.jsonl",
+  "selected_sha256": "8d41a38cf5c0fb8dc91f99fc3e3eaeb9b020381432dabfe56bb6f025c95faf49",
+  "source": "experiments/cases/train_untouched_after_operation_pilot_v1_133.jsonl",
+  "source_sha256": "ea5fc309f2bd224162977eede854fdc5d49b04aa1717904e340f4c8d62c86f66"
+}

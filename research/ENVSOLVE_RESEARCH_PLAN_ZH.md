@@ -984,3 +984,7 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   requirement，由此产生“obligation projection 可能过于嘈杂”的跨 repository 假设。这些 consumed
   trajectory 只能生成假设，不能验证改动。在修改 v17 或投入更大 Spark 预算前，保持冻结系统不变，
   从剩余 133 个 untouched identity 中进行一次 outcome-blind 的 10-pair replication。
+- Replication v1 已完成 outcome-blind 选样，pool 守恒为 `133 = 10 + 123`。Schedule 含 20 个唯一
+  position、10 个完整 pair，并按 salt 确定 method 顺序。选样只使用 case identity metadata；没有检查、
+  分层、替换或按失败特征预筛 repository。Algorithm v17 与 Harness v32 保持不变；在独立 execution
+  freeze 绑定 selection、schedule、Git chain、evaluator image 与 runner hash 前，不允许启动执行。
