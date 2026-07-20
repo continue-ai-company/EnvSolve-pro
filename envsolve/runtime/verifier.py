@@ -56,8 +56,18 @@ _NETWORK_FAILURES = tuple(
     (name, re.compile(pattern, re.IGNORECASE))
     for name, pattern in (
         ("read-timeout", r"ReadTimeout(?:Error)?"),
+        ("connect-timeout", r"ConnectTimeout(?:Error)?"),
         ("connection-error", r"ConnectionError"),
-        ("dns-temporary-failure", r"Temporary failure in name resolution"),
+        ("connection-reset", r"ConnectionResetError|connection reset by peer"),
+        ("max-retry-error", r"MaxRetryError"),
+        ("proxy-error", r"ProxyError"),
+        ("remote-disconnected", r"RemoteDisconnected|remote end closed connection"),
+        ("tls-error", r"(?:SSLError|certificate verify failed)"),
+        ("dns-resolution-error", r"NameResolutionError"),
+        (
+            "dns-temporary-failure",
+            r"Temporary failure (?:in name resolution|resolving)",
+        ),
         ("dns-resolution-failure", r"Could not resolve host"),
         ("tls-timeout", r"TLSV?\s+handshake.*timed out"),
         ("network-unreachable", r"network is unreachable"),
@@ -303,7 +313,7 @@ class _PackageRequirement:
 class PythonDeploymentVerifier:
     """Fixed internal Python checks with no benchmark evaluator dependency."""
 
-    check_profile = "python-deployment-v6"
+    check_profile = "python-deployment-v7"
 
     def __init__(
         self,
@@ -320,9 +330,9 @@ class PythonDeploymentVerifier:
         self.collect_tests = collect_tests
         self.obligation_profile = obligation_profile
         self.check_profile = (
-            "python-deployment-v6"
+            "python-deployment-v7"
             if obligation_profile == "two-layer"
-            else "python-deployment-v6-runtime-only-ablation"
+            else "python-deployment-v7-runtime-only-ablation"
         )
         parsed_requirements: list[_PackageRequirement] = []
         for item in package_requirements:

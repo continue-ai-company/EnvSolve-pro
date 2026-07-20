@@ -22,10 +22,10 @@ from envsolve_harness.utils.provenance import (
 
 
 FREEZE_SCHEMA_VERSION = "1.0.0"
-FREEZE_ID = "envsolve-harness-v31"
-FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v31.json")
-SUPERSEDED_FREEZE_ID = "envsolve-harness-v30"
-SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v30.json")
+FREEZE_ID = "envsolve-harness-v32"
+FREEZE_MANIFEST_PATH = Path("experiments/protocols/harness_freeze_v32.json")
+SUPERSEDED_FREEZE_ID = "envsolve-harness-v31"
+SUPERSEDED_FREEZE_PATH = Path("experiments/protocols/harness_freeze_v31.json")
 CONFIG_PATH = Path("experiments/configs/local_mac.json")
 PROTOCOL_PATH = Path("experiments/protocols/envbench_python_official_v1.json")
 TYPED_IR_FREEZE_PATH = Path(
@@ -275,12 +275,13 @@ def build_harness_freeze(workspace_root: Path, created_at: str) -> dict[str, obj
             "path": str(SUPERSEDED_FREEZE_PATH),
             "sha256": sha256_file(root / SUPERSEDED_FREEZE_PATH),
             "reason": (
-                "Add typed, candidate-scoped negative operation feasibility for "
-                "deterministic provider-target rejection; expose it only to the "
-                "constraint-driven treatment; and reject the same operation before "
-                "fresh execution only when its provider context is unchanged. "
-                "Infrastructure outcomes remain Unknown, and the accepted candidate "
-                "language is unchanged under typed replay IR v8."
+                "Ground the treatment's persistent negative-operation view and Guard "
+                "in the same verifier-recorded failed prefix, preserving changed-"
+                "context and alternative-command retries; classify common dependency "
+                "proxy, TLS, timeout, DNS, retry, reset, and disconnect signatures as "
+                "infrastructure Unknown before target-unavailability admission. The "
+                "accepted candidate language remains unchanged under typed replay IR "
+                "v8."
             ),
         },
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,

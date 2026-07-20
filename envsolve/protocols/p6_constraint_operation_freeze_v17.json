@@ -1,0 +1,164 @@
+{
+  "freeze_id": "p6-constraint-operation-v17-grounded-negative-operation-context",
+  "frozen_at": "2026-07-20T14:22:19Z",
+  "source_revision": "5427fb964bf3272314c5a5522d1d94603cab8008",
+  "source_revision_semantics": "Development parent revision; the file hashes below define the frozen implementation.",
+  "parent_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v16.json",
+    "sha256": "8e797d8dcb81ef4b5145a386c0530ab184571b89b93698991b43d7af355ac4dc"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v32.json",
+    "sha256": "2cba57997f93fe21c368e0c93edc7a3d66ad703edbe5397afa08db87830217f4"
+  },
+  "change_from_v16": [
+    "Use one strict verifier-prefix provenance function for both treatment model visibility and Guard hardening.",
+    "Expose the grounded failed prefix and exact context-scoped retry rule in the treatment operation view after the source candidate leaves recent history.",
+    "Hide malformed or unpositioned negative-operation evidence from both the model and Guard.",
+    "Classify common dependency proxy, TLS, connect-timeout, DNS, retry-exhaustion, disconnect, and reset signatures as infrastructure Unknown before provider-target-unavailable admission.",
+    "Bump the shared verifier profile to python-deployment-v7 without changing operation fact identity, accepted candidate language, primitive limits, or Official access."
+  ],
+  "files": {
+    "envsolve/constraints/engine.py": "c4c4f853196d11c63613310708dd5a880fe09a2b806134bfcc7a6894c12dfb06",
+    "envsolve/constraints/models.py": "a3205344f3eb2e77cca9e438759effb69c14f1b9866d0effce7670f840c70e08",
+    "envsolve/constraints/normalization.py": "d88c0b5f07efdcf1716918a9d51a16500275b91ae30f9e9f4bad83ac2d90eace",
+    "envsolve/operations/__init__.py": "9b14c9c5dd5ee967628ea68f44a96f1b0637afa3558c57b9ddd051567641d9f2",
+    "envsolve/operations/feasibility.py": "ccabc13ced8c44fcae28bf08e8c0ebd720c9f2e6401a2092998d7a16dbc7cdd9",
+    "envsolve/operations/models.py": "bf45795650c7ea27a21ce9e3ee721672cd4a227189f21027934292bcd6769979",
+    "envsolve/operations/planner.py": "d6ddab1df3f67b87dac399d40ead99444507ac8c9d411ba7b2461d864d13be53",
+    "envsolve/runtime/policy.py": "4c8847df0f7f535100a8711786ad9f130d655c4e607dbaf19fcee2df8a7acb08",
+    "envsolve/runtime/verifier.py": "861db3b122abf61af4018d1dbcb0005744009855110090767bd83ac422cc0f87",
+    "envsolve/solver/counterexample.py": "58b4b1c3962450534a62f47aa3e65db09b004b76e9b4547a1797119a61b5b103",
+    "envsolve_harness/scripts/candidate_validation.py": "7369e8539bc542653ecd6fa6587902414cc985739dbc39ea162b9d603ae218d9",
+    "envsolve_harness/scripts/constraint_operations.py": "4593d5c851341a427b582efedeba6becc405afbab606cf45d0d291780fc996cd",
+    "envsolve_harness/scripts/replay_actions.py": "f9487a0b178ac9971c8cd47ef1c5d3f677dfc2f63ad456599cfb99cd106c4c9e",
+    "envsolve/tests/test_constraints.py": "1a713be84c224366958e850743b4f591964da7b4ecdb9737b67c59fd8b1248b2",
+    "envsolve/tests/test_p6_operation_freeze.py": "0174d6b789d32bd6e6f4ffbbb42a47f0295ef22a92c7057a3b9422d54cad0dc1",
+    "tests/test_candidate_validation.py": "ad840a720a40b8ca4a7ceb5ddfefe6ad2d26a9b87fe69da4d54c053976705624",
+    "tests/test_constraint_operation_loop.py": "701bd5aff316e7080902440e712db5620797481044f3a904ff78cdd774d1821b",
+    "tests/test_envsolve_runtime.py": "0a592ee141b7df8c787e1b2f55686a671b5198ea04d1a16d00d3e5342e7b56ab",
+    "tests/test_harness_freeze.py": "511d9ce17a2816ba44f8caa2f578ee5eaae70c91c5cb00016e8cadc9f59615f1",
+    "tests/test_replay_ir.py": "82ed4f63e3e34f61d216e6ad4d82a8734be3b4f3aed45c415ce9858f76517fc6",
+    "tests/test_envsolve_docker_integration.py": "e515f714e119fd490ac88ec07d4c066ddf5bdebbf36558034da1715bc2516602",
+    "tests/fixtures/replay_ir_v8_delta_cases.json": "eb32d490735dc831e3954c274b3ec1a9cde9f4ddd86ad3dc6e83dc1be9f7dc7a",
+    "experiments/protocols/typed_replay_ir_v8_freeze.json": "78f30ea08634edd22586b74f9912125b4e5b5dbcaf3e4424d9f05d42bf93c718",
+    "experiments/validations/p6_operation_qualification_v11_closure.json": "fdffa407146f715712537ae6c0f0d3a2f71a757ba2b18d9f8679545f99d34645",
+    "experiments/validations/p6_operation_qualification_v11_failure_analysis.json": "b545f5eff7933daf6a3f245667502c57446f76849b0df182050321570799b832",
+    "experiments/validations/p6_operation_qualification_v11_summary.json": "57de39222a7be3a7d5302b4d9f438f16989670a75da3d1a24f42eef04db50f5a",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V11_RESULTS.md": "42711f8314fae404f84834ffec2272336ea0b40fe4c53d707031469368683780",
+    "research/P6_CONSTRAINT_OPERATION_QUALIFICATION_V11_RESULTS_ZH.md": "9d2483ccd717bfa5feb5500e448ccae6e624cf3826090a92c690b56e90085d38",
+    "research/P6_NEGATIVE_OPERATION_FEASIBILITY_V1.md": "d6695f8f65b17d0af458ce305f19b591e3c3c52e08938d88d5d30e2ea82ff677",
+    "research/P6_NEGATIVE_OPERATION_FEASIBILITY_V1_ZH.md": "a5fe0fbd8fe79040fb01731098d8979712c75296b8369c176caf3ab32a18f5c5",
+    "research/P6_NEGATIVE_OPERATION_FEASIBILITY_V2.md": "169c68a95bdfc973230363c023bded1876072a11e7376b7f2b71ffa9b5dcb0eb",
+    "research/P6_NEGATIVE_OPERATION_FEASIBILITY_V2_ZH.md": "948fc39d06e586e2f3ff87db1fa530893db0935cba74a3407af6c43aa0f84e69",
+    "research/TYPED_REPLAY_IR_V8.md": "6b7ea2a3afa5a41b399476ed3bf5094746da2c82e7cf876c71f516496d757574",
+    "research/TYPED_REPLAY_IR_V8_ZH.md": "c928628be1ce3b4a54158d3013230e1d07a56847f16693f77bcf6d4d87f42c5d"
+  },
+  "semantic_boundary": {
+    "methods": [
+      "envsolve-operation",
+      "envsolve-operation-ablation"
+    ],
+    "shared_repository_observer": "envsolve-repository-declarations-v2",
+    "shared_base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "shared_verifier": "python-deployment-v7",
+    "shared_obligation_profile": "two-layer",
+    "shared_candidate_validator": "complete-candidate-v4+typed-replay-ir-v8",
+    "shared_action_kind_provenance": true,
+    "full_initial_admission": "unconditional package declarations plus image-bound runtime requirements and base facts",
+    "ablation_initial_admission": "none",
+    "treatment_components": [
+      "pre_action_constraint_admission",
+      "constraint_operation_plan_visibility",
+      "constraint_operation_guard",
+      "negative_operation_state_visibility",
+      "grounded_negative_operation_context_visibility",
+      "context_scoped_negative_operation_guard"
+    ],
+    "ablation_operation_profile": "free-form with no operation-plan or negative-operation-state visibility and no operation guard",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "case_specific_rules": false
+  },
+  "negative_operation_contract": {
+    "constraint": {
+      "domain": "operation",
+      "predicate": "feasible",
+      "value": false,
+      "role": "fact",
+      "scope": "source candidate with candidate and environment evidence provenance",
+      "accumulation": "not superseded by later candidate-scoped operation facts"
+    },
+    "admission_conjunction": [
+      "instrumented failed-action marker identifies the exact command",
+      "typed replay IR v8 identifies the command as the matching provider operation kind",
+      "output matches an exact provider-target-unavailable grammar",
+      "the verifier has not classified the result as infrastructure Unknown or timeout"
+    ],
+    "shared_prefix_provenance": true,
+    "prefix_grounding_conjunction": [
+      "verification passed is false",
+      "verification candidate identity matches fact scope",
+      "action_index is a non-boolean integer pointing to the final prefix entry",
+      "failed command and indexed prefix entry both equal the typed operation command"
+    ],
+    "model_projection": {
+      "treatment_only": true,
+      "failed_prefix_visible": true,
+      "retry_scope_visible": "exact_command_and_relevant_provider_context",
+      "different_command_allowed": true,
+      "changed_runtime_or_provider_prefix_allowed": true
+    },
+    "ungrounded_evidence": "not visible to the model and not hardened by the guard",
+    "admitted_failure_classes": [
+      "python_provider_target_unavailable",
+      "system_provider_target_unavailable"
+    ],
+    "infrastructure_unknown_before_admission": [
+      "proxy errors",
+      "TLS and certificate verification errors",
+      "connect and read timeouts",
+      "DNS resolution errors",
+      "retry exhaustion",
+      "remote disconnects",
+      "connection resets",
+      "network unreachable and upstream HTTP failures",
+      "artifact hash mismatch"
+    ],
+    "guard_match": "exact failed command plus exact relevant typed prefix context",
+    "duplicate_command_disambiguation": "source context comes from the verifier-recorded failed prefix and every matching occurrence in a new candidate is compared",
+    "semantic_alias_matching": false,
+    "different_command_allowed": true,
+    "changed_context_allowed": true,
+    "underlying_requirement_deactivated": false,
+    "infrastructure_hardening": false
+  },
+  "inherited_contracts": {
+    "provider_acquisition": "p6-constraint-operation-v15-provider-acquisition-boundary",
+    "model_output": "p6-constraint-operation-v14-model-length-boundary",
+    "phase_aware_verification": "p6-constraint-operation-v11-phase-aware-verifier",
+    "typed_replay_ir": "typed-replay-ir-v8",
+    "primitive_budget_limits_changed": false,
+    "official_evaluator_access_changed": false,
+    "accepted_candidate_language_changed": false
+  },
+  "verification": {
+    "focused_negative_operation_tests": "110 passed, 52 subtests passed",
+    "manifest_independent_regression_before_freeze": "411 passed, 1 skipped, 69 subtests passed",
+    "real_docker_integration": "1 passed with ENVSOLVE_DOCKER_TEST=1",
+    "harness_v32_verification": "valid=true",
+    "full_regression_after_freeze": "413 passed, 1 skipped, 69 subtests passed"
+  },
+  "integrity": {
+    "q1_q2_q3_q4_q5_q6_q7_q8_q9_q10_q11_cases_reusable_for_effectiveness": false,
+    "q12_cases_selected_before_v17": 0,
+    "q12_v1_preregistration_must_be_superseded_before_selection": true,
+    "canary20_inspected": false,
+    "official_test100_inspected": false,
+    "new_repository_specific_rule": false,
+    "new_package_or_module_mapping": false,
+    "constraint_or_operation_fact_identity_changed": false,
+    "official_evaluator_feedback_used_online": false,
+    "effectiveness_claim_allowed": false
+  }
+}

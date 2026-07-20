@@ -167,6 +167,28 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         state.constraints[infeasible.constraint_id] = infeasible.to_state_fields(
             "satisfied"
         )
+        state.verifications.append(
+            {
+                "verification_id": "verification-candidate-1",
+                "passed": False,
+                "details": {
+                    "candidate_id": "candidate-1",
+                    "verifier_details": {
+                        "failed_candidate_action": {
+                            "action_index": 2,
+                            "command": (
+                                "python -m pip install unavailable-target"
+                            ),
+                            "prefix_commands": [
+                                "pyenv install 3.12.1",
+                                "pyenv global 3.12.1",
+                                "python -m pip install unavailable-target",
+                            ],
+                        }
+                    },
+                },
+            }
+        )
         repository_profile = {
             "schema": "envsolve-python-repository-profile-v1",
             "files": [],
@@ -189,7 +211,12 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 {
                     "command": "python -m pip install unavailable-target",
                     "constraint_id": infeasible.constraint_id,
+                    "failed_prefix_commands": [
+                        "pyenv install 3.12.1",
+                        "pyenv global 3.12.1",
+                    ],
                     "failure_class": "python_provider_target_unavailable",
+                    "retry_scope": "exact_command_and_relevant_provider_context",
                     "source_candidate_id": "candidate-1",
                 }
             ],
@@ -216,6 +243,51 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         )
         state.constraints[provisional.constraint_id] = provisional.to_state_fields(
             "active"
+        )
+
+        projection = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            {"schema": "envsolve-python-repository-profile-v1", "files": []},
+            operation_profile="constraint-driven",
+        )._state_projection(state)
+
+        self.assertFalse(projection["operation_plan"]["infeasible_operations"])
+
+    def test_constraint_driven_projection_hides_unpositioned_operation_failure(self) -> None:
+        command = "python -m pip install ungrounded-target"
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        infeasible = NormalizedConstraint(
+            ConstraintDomain.OPERATION,
+            operation_feasibility_subject(
+                command,
+                OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE,
+            ),
+            ConstraintPredicate.FEASIBLE,
+            False,
+            ConstraintRole.FACT,
+            ("operation-observation",),
+            scope_id="candidate-1",
+        )
+        state.constraints[infeasible.constraint_id] = infeasible.to_state_fields(
+            "satisfied"
+        )
+        state.verifications.append(
+            {
+                "verification_id": "verification-candidate-1",
+                "passed": False,
+                "details": {
+                    "candidate_id": "candidate-1",
+                    "verifier_details": {
+                        "failed_candidate_action": {
+                            "command": command,
+                            "prefix_commands": [command],
+                        }
+                    },
+                },
+            }
         )
 
         projection = StructuredModelDeploymentPolicy(
@@ -719,6 +791,83 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 0,
             )
             self.assertFalse(result.observations)
+
+    def test_transient_dependency_network_signatures_cannot_harden_a_target(self) -> None:
+        signatures = (
+            ("ProxyError: Cannot connect to proxy", "proxy-error"),
+            ("SSLError: certificate verify failed", "tls-error"),
+            ("ConnectTimeoutError: connection timed out", "connect-timeout"),
+            ("NameResolutionError: failed to resolve host", "dns-resolution-error"),
+            ("MaxRetryError: retry budget exhausted", "max-retry-error"),
+            (
+                "RemoteDisconnected: remote end closed connection",
+                "remote-disconnected",
+            ),
+            ("ConnectionResetError: connection reset by peer", "connection-reset"),
+            (
+                "Temporary failure resolving 'deb.debian.org'",
+                "dns-temporary-failure",
+            ),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+            candidate = DeploymentCandidate(
+                "candidate-1",
+                "python -m pip install unavailable-target",
+                "test",
+                metadata={
+                    "candidate_validation": {
+                        "details": {
+                            "actions": [
+                                {
+                                    "command": (
+                                        "python -m pip install unavailable-target"
+                                    ),
+                                    "kind": "python_package_install",
+                                }
+                            ]
+                        }
+                    }
+                },
+            )
+
+            for signature, expected in signatures:
+                with self.subTest(signature=signature):
+                    def fail(command, **kwargs):
+                        return subprocess.CompletedProcess(
+                            command,
+                            1,
+                            "",
+                            (
+                                f"{signature}\n"
+                                "ERROR: No matching distribution found for "
+                                "unavailable-target\n"
+                                "ENVSOLVE_FAILED_ACTION_V1=0:1"
+                            ),
+                        )
+
+                    result = PythonDeploymentVerifier(
+                        collect_tests=False,
+                        run_command=fail,
+                    ).verify(candidate, environment)
+
+                    self.assertIsNone(result.passed)
+                    self.assertEqual(
+                        result.details["infrastructure_signature"],
+                        expected,
+                    )
+                    self.assertFalse(result.observations)
 
     def test_unavailable_distribution_is_a_typed_operation_observation(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

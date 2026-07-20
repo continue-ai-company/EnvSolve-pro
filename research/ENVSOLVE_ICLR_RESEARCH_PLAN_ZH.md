@@ -254,14 +254,15 @@ curve。
 
 当前 development batch 没有产生足够多完整 Boolean official pair，且有一条 run 被操作者中断。这些
 轨迹只保留用于错误分解。占主导的失败转移是 candidate-command failure：系统观测到了确定性操作
-失败，但其中许多没有进入持久的负操作状态。一个最小 revision 现已只接纳有充分依据、带上下文的
-operation infeasibility，同时让基础设施结果保持 Unknown。Repository-free 合成反例已经验证证据
-接纳、持久化、context-sensitive rejection 和替代 operation 保留；它对真实部署的效果仍未知，必须
-先经过新的 outcome-blind development qualification，之后才允许为 Canary-20 与 Official-Test-100
-冻结。
+失败，但其中许多没有进入持久的负操作状态。一个最小 revision 现已只从经过验证的失败命令前缀接纳
+operation infeasibility，把它绑定到相关 provider context，并让 network 或 infrastructure 删失保持
+Unknown。Repository-free 合成反例已经验证证据接纳、持久化、context-sensitive rejection 和替代
+operation 保留；它对真实部署的效果仍未知，必须先经过新的 outcome-blind development qualification，
+之后才允许为 Canary-20 与 Official-Test-100 冻结。
 
-下一批已预注册为 5 个 pair 的整体系统对比，并要求在选 case 前由 ARM64 Linux 宿主独立复现冻结
-stack。实验会单独报告 negative-operation utilization，不把整体对比解释为单组件因果消融。
+该 qualification 首先在本地 development host 上进行预注册的 8-pair 整体系统 pilot，再决定是否进入
+更大的 ARM64 Linux 执行。Case 只在 host admission 后按 metadata-only hash 选择；所有 pair 完成前
+不作算法决策。实验会单独报告 negative-operation utilization，不把整体对比解释为单组件因果消融。
 
 最终论文包含三张核心结果表：
 

@@ -7,7 +7,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[2]
-FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v16.json"
+FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v17.json"
 
 
 def sha256(path: Path) -> str:
@@ -15,7 +15,7 @@ def sha256(path: Path) -> str:
 
 
 class P6OperationFreezeTests(unittest.TestCase):
-    def test_v16_source_and_parent_hashes_are_current(self) -> None:
+    def test_v17_source_and_parent_hashes_are_current(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
 
         for relative, expected in freeze["files"].items():
@@ -24,7 +24,7 @@ class P6OperationFreezeTests(unittest.TestCase):
             record = freeze[field]
             self.assertEqual(sha256(ROOT / record["path"]), record["sha256"])
 
-    def test_v16_treatment_boundary_is_explicit(self) -> None:
+    def test_v17_treatment_boundary_is_explicit(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
         boundary = freeze["semantic_boundary"]
 
@@ -32,7 +32,7 @@ class P6OperationFreezeTests(unittest.TestCase):
             boundary["shared_repository_observer"],
             "envsolve-repository-declarations-v2",
         )
-        self.assertEqual(boundary["shared_verifier"], "python-deployment-v6")
+        self.assertEqual(boundary["shared_verifier"], "python-deployment-v7")
         self.assertEqual(
             boundary["shared_base_runtime_observer"],
             "envsolve-base-runtime-observation-v1",
@@ -44,8 +44,16 @@ class P6OperationFreezeTests(unittest.TestCase):
                 "constraint_operation_plan_visibility",
                 "constraint_operation_guard",
                 "negative_operation_state_visibility",
+                "grounded_negative_operation_context_visibility",
                 "context_scoped_negative_operation_guard",
             ],
+        )
+        contract = freeze["negative_operation_contract"]
+        self.assertTrue(contract["model_projection"]["failed_prefix_visible"])
+        self.assertTrue(contract["shared_prefix_provenance"])
+        self.assertEqual(
+            contract["ungrounded_evidence"],
+            "not visible to the model and not hardened by the guard",
         )
         self.assertFalse(boundary["cross_case_memory"])
         self.assertFalse(boundary["case_specific_rules"])

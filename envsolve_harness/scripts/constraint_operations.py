@@ -12,6 +12,7 @@ from envsolve.operations import (
     OperationFailureClass,
     OperationGuardDecision,
     parse_operation_feasibility_subject,
+    verified_failed_operation_prefix,
 )
 from envsolve.operations.planner import ConstraintOperationPlanner
 from envsolve.solver import DeploymentCandidate
@@ -140,42 +141,6 @@ class ConstraintOperationGuard:
             is not None
         )
 
-    @staticmethod
-    def _failed_operation_prefix(
-        state: EnvironmentState,
-        candidate_id: str,
-        command: str,
-    ) -> tuple[str, ...] | None:
-        for verification in reversed(state.verifications):
-            details = verification.get("details")
-            if (
-                not isinstance(details, dict)
-                or details.get("candidate_id") != candidate_id
-            ):
-                continue
-            verifier_details = details.get("verifier_details")
-            failed_action = (
-                verifier_details.get("failed_candidate_action")
-                if isinstance(verifier_details, dict)
-                else None
-            )
-            prefix = (
-                failed_action.get("prefix_commands")
-                if isinstance(failed_action, dict)
-                else None
-            )
-            if (
-                failed_action is None
-                or failed_action.get("command") != command
-                or not isinstance(prefix, list)
-                or not prefix
-                or prefix[-1] != command
-                or not all(isinstance(item, str) for item in prefix)
-            ):
-                continue
-            return tuple(prefix)
-        return None
-
     def _infeasible_operations(
         self,
         state: EnvironmentState,
@@ -196,8 +161,8 @@ class ConstraintOperationGuard:
                 parsed = parse_operation_feasibility_subject(constraint.subject)
             except ValueError:
                 continue
-            source_prefix = self._failed_operation_prefix(
-                state,
+            source_prefix = verified_failed_operation_prefix(
+                state.verifications,
                 constraint.scope_id,
                 parsed["command"],
             )

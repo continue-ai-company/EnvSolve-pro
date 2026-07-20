@@ -17,6 +17,7 @@ class HarnessFreezeImageIdentityTest(unittest.TestCase):
         )
 
         self.assertIn("envsolve/operations/models.py", source)
+        self.assertIn("envsolve/operations/feasibility.py", source)
 
     @mock.patch("envsolve_harness.integrity.freeze.docker_image_provenance")
     def test_requires_immutable_image_identity(self, provenance) -> None:

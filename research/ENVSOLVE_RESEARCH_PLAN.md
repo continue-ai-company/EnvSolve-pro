@@ -1329,3 +1329,22 @@ development batch; it never triggers tuning on the same held-out outcomes.
   ablation. Negative-operation admissions and pre-environment guard rejections are
   mechanism-utilization outcomes, not a single-component causal estimate; zero
   triggers are reported as unexercised without replacement.
+- Q12 selected zero identities and is retained as a historical preregistration. A
+  repository-free post-freeze audit exposed two generic counterexamples before any
+  case selection: the treatment projection could omit the context that scoped a
+  persistent failed operation, and a dependency-network failure followed by a
+  misleading package-resolution tail could be hardened as target unavailability.
+  The minimal correction shares one exact failed-prefix predicate between projection
+  and Guard v4, exposes the relevant provider context to the treatment, and expands
+  verifier Unknown signatures without adding repository-specific rules. Algorithm
+  v17 and Harness v32 freeze this boundary. Focused tests pass `110` with 52
+  subtests, full regression passes `413 passed, 1 skipped` with 69 subtests, the real
+  Docker boundary passes, and Harness v32 verifies `valid=true`.
+- An eight-pair Mac pilot is preregistered before host probing and metadata-only
+  selection from all 141 identities untouched after Q11. It compares v17 with the
+  same-backbone free-form operation ablation under matched primitive limits. All
+  eight identities become consumed regardless of outcome, and all pairs run before
+  any algorithm change. Bulk Spark execution is paused unless at least two eligible
+  EnvSolve runs naturally reach Boolean Official outcomes and no unexplained paired
+  regression appears. The pilot is development calibration only and cannot support
+  an effectiveness or leaderboard claim.

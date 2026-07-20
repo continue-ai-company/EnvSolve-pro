@@ -963,3 +963,15 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   untouched pool 中按 salted metadata-only hash 选择 5 个 identity。配对对比仍是完整 EnvSolve
   与 matched free-form operation ablation。Negative-operation admission 和 environment 分配前的
   guard rejection 只作为机制利用率，不冒充单组件因果估计；零触发记为 unexercised，不 replacement。
+- Q12 没有选择任何 identity，作为历史预注册保留。选 case 前的 repository-free freeze 后审计发现两个
+  通用反例：treatment projection 可能遗漏持久失败 operation 的作用上下文；dependency network failure
+  后若出现误导性的 package-resolution 尾部，可能被错误硬化为 target unavailable。最小修正让
+  projection 与 Guard v4 共享同一个精确 failed-prefix 判据，向 treatment 显示相关 provider context，
+  并扩充 verifier 的 Unknown 签名，没有增加 repository-specific rule。该边界冻结为 Algorithm v17
+  与 Harness v32。聚焦测试为 `110 passed` 加 52 个 subtest，全量为 `413 passed, 1 skipped` 加
+  69 个 subtest，真实 Docker boundary 通过，Harness v32 验证为 `valid=true`。
+- 一个 8-pair Mac pilot 已在 host probe 与 metadata-only 选样前预注册，从 Q11 后全部 141 条 untouched
+  identity 中选样。它在 matched primitive limits 下比较 v17 与同 backbone free-form operation
+  ablation。无论结果如何，8 个 identity 全部 consumed；所有 pair 完成前不允许修改算法。只有至少
+  2 条 eligible EnvSolve run 自然到达 Boolean Official outcome，且不存在无法解释的 paired regression，
+  才允许继续 Spark bulk execution。该 pilot 只用于 development calibration，不能支持效果或榜单 claim。

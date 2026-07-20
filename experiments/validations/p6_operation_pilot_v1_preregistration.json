@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "p6-operation-pilot-v1-prebulk-calibration",
+  "preregistered_at": "2026-07-20T22:28:35+08:00",
+  "status": "registered_before_host_probe_and_selection",
+  "purpose": "Small outcome-blind paired pilot to estimate terminal reach and expose major failure modes before committing compute and tokens to a larger Spark batch.",
+  "supersedes_for_execution": {
+    "path": "experiments/validations/p6_operation_qualification_v12_preregistration.json",
+    "sha256": "50c535676826cba24fb3864f1f777fe1ef886ba728ccc7852e24ff853e6fe2f8",
+    "reason": "Post-freeze repository-free counterexamples required Algorithm v17 and Harness v32, and an eight-pair calibration pilot is inserted before any bulk qualification. Q12 selected zero cases and remains a historical preregistration."
+  },
+  "frozen_code_parent_revision": "5427fb964bf3272314c5a5522d1d94603cab8008",
+  "execution_revision_rule": "Use a clean descendant containing the v17/v32 freeze, this preregistration, and later frozen pilot selection or schedule metadata; every bound hash below must match.",
+  "algorithm_freeze": {
+    "path": "envsolve/protocols/p6_constraint_operation_freeze_v17.json",
+    "sha256": "0f6aef699afe6d6df6914509ae18415894b7b792cc632003638d2189a66b62fb"
+  },
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v32.json",
+    "sha256": "2cba57997f93fe21c368e0c93edc7a3d66ad703edbe5397afa08db87830217f4"
+  },
+  "external_evaluator": {
+    "repository": "JetBrains-Research/EnvBench",
+    "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "dirty": false
+  },
+  "host_admission_gate": {
+    "target": "local Mac development host",
+    "must_pass_before_selection": true,
+    "checks": [
+      "clean execution revision satisfying execution_revision_rule",
+      "Algorithm v17 and Harness v32 hashes match this preregistration",
+      "Harness v32 verification returns valid=true",
+      "full regression returns 413 passed, 1 skipped, and 69 subtests passed",
+      "real Docker integration passes with ENVSOLVE_DOCKER_TEST=1",
+      "EnvBench revision is clean and matches the frozen evaluator revision",
+      "a case-free OpenRouter probe succeeds with deepseek/deepseek-v4-pro"
+    ],
+    "failure_policy": "Do not select pilot cases; repair and issue a superseding preregistration if any frozen file changes."
+  },
+  "selection_tool": {
+    "path": "experiments/tools/freeze_paired_qualification.py",
+    "sha256": "6d87c1aa277275447db986c4c0048514c4e751f7c5a6e8fe8cd05cf984b97701"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_qualification_v11_141.jsonl",
+    "source_sha256": "4282badca5bf9cf5870816f0d8077eb39f47230a92f1e733520d11dfb2c0f356",
+    "source_count": 141,
+    "count": 8,
+    "salt": "envsolve-p6-operation-pilot-v1-2026-07-20",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "failure_signature_prescreen": false,
+    "package_manager_stratification": false,
+    "prior_qualification_case_reuse": false,
+    "selected_path": "experiments/cases/dev_operation_pilot_v1_8.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_operation_pilot_v1_133.jsonl",
+    "provenance_path": "experiments/validations/p6_operation_pilot_v1_selection.json",
+    "selected_split": "dev-operation-pilot-v1-8",
+    "remaining_split": "train-untouched-after-operation-pilot-v1-133"
+  },
+  "methods": [
+    {
+      "method": "envsolve-operation-ablation",
+      "operation_profile": "free-form",
+      "same_backbone": true,
+      "raw_feedback": true,
+      "operation_plan_visible": false,
+      "negative_operation_state_visible": false,
+      "operation_guard": false
+    },
+    {
+      "method": "envsolve-operation",
+      "operation_profile": "constraint-driven",
+      "same_backbone": true,
+      "raw_feedback": true,
+      "operation_plan_visible": true,
+      "negative_operation_state_visible": true,
+      "operation_guard": true
+    }
+  ],
+  "shared_boundary": {
+    "repository_observer": "envsolve-repository-declarations-v2",
+    "base_runtime_observer": "envsolve-base-runtime-observation-v1",
+    "fresh_verifier": "python-deployment-v7",
+    "candidate_validator": "complete-candidate-v4+typed-replay-ir-v8",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "raw_execution_feedback": "identical",
+    "official_evaluator_access": "post-episode-only after internal pass",
+    "cross_case_memory": false
+  },
+  "schedule": {
+    "output_path": "experiments/validations/p6_operation_pilot_v1_schedule.json",
+    "run_prefix": "p6-operation-pilot-v1",
+    "methods": [
+      "envsolve-operation-ablation",
+      "envsolve-operation"
+    ],
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "episode_timeout_seconds": 9600
+  },
+  "matched_primitive_limits": {
+    "max_candidates": 15,
+    "max_environments": 5,
+    "max_commands": 5,
+    "max_model_requests": 15,
+    "max_total_tokens": 1000000,
+    "model_max_output_tokens_per_request": 32768,
+    "model_max_retries": 2,
+    "generation_wall_clock_seconds": 7200,
+    "evaluation_process_timeout_seconds": 1800,
+    "command_timeout_seconds": 900,
+    "container_create_timeout_seconds": 180,
+    "model_request_timeout_seconds": 180,
+    "max_feedback_chars": 64000,
+    "matching_basis": "primitive limits; USD is operational metadata only"
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_p6_operation_output_contract_v2.json",
+    "sha256": "766316d12851f2bf4fd96a2c40ee61bb843f28b82ee55f20fa27ac48fd7c320a"
+  },
+  "official_protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "pilot_outcomes": [
+    "scientifically eligible run count",
+    "internal pass and natural Boolean Official reach by method",
+    "paired descriptive Official outcome without inferential effect estimate",
+    "candidate command failure and validation rejection decomposition",
+    "repeated failed path and negative-operation guard utilization",
+    "model, token, environment, command, and wall-clock use"
+  ],
+  "predeclared_decision_gate": {
+    "proceed_to_bulk": "At least two scientifically eligible EnvSolve runs naturally reach Boolean Official outcomes, no shared boundary invariant fails, and EnvSolve has no unexplained paired regression against the free-form baseline.",
+    "halt_zero_terminal_reach": "If fewer than two EnvSolve runs naturally reach Boolean Official outcomes, do not start the bulk Spark batch; perform consumed-trajectory failure analysis first.",
+    "halt_paired_regression": "If the baseline reaches or passes Official while EnvSolve on the same case does not, pause bulk execution for paired error analysis before any algorithm decision.",
+    "encouraging_not_confirmatory": "EnvSolve-only success is a development signal, not an effectiveness or leaderboard claim.",
+    "algorithm_change_after_pilot": "Consume all eight identities, refreeze, and preregister a new bulk batch from the 133 remaining identities."
+  },
+  "execution_rule": {
+    "complete_batch": "Run all eight frozen pairs unless a shared boundary invariant fails or the operator interrupts execution.",
+    "case_replacement": false,
+    "run_overwrite": false,
+    "zero_information_pre_episode_failure": "One audited same-identity retry only when model, candidate, environment, command, evaluator, and method information are all zero.",
+    "partial_process_interruption": "Mark the position scientifically ineligible without overwrite or rerun.",
+    "terminal_evaluator_infrastructure_failure": "One evaluator-only retry of the identical script with zero new model calls.",
+    "other_infrastructure_failure": "Record Unknown and censor the pair without replacement."
+  },
+  "integrity": {
+    "development_calibration_only": true,
+    "paper_effectiveness_claim_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "canary20_inspection_allowed": false,
+    "official_test100_inspection_allowed": false,
+    "repository_specific_rules_allowed": false,
+    "official_evaluator_feedback_online": false
+  },
+  "protocols": [
+    "research/P6_OPERATION_PILOT_V1.md",
+    "research/P6_OPERATION_PILOT_V1_ZH.md"
+  ]
+}

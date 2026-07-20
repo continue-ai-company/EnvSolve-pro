@@ -403,6 +403,60 @@ class ConstraintOperationLoopTest(unittest.TestCase):
 
         self.assertTrue(decision.accepted)
         self.assertFalse(decision.details["contradicted_operations"])
+
+    def test_guard_does_not_harden_unpositioned_operation_evidence(self) -> None:
+        command = "python -m pip install ungrounded-target"
+        state = EnvironmentState(
+            "unpositioned-operation",
+            case={
+                "case_id": "unpositioned-operation",
+                "repository": "example/project",
+                "revision": "a" * 40,
+            },
+        )
+        infeasible = NormalizedConstraint(
+            ConstraintDomain.OPERATION,
+            operation_feasibility_subject(
+                command,
+                OperationFailureClass.PYTHON_PROVIDER_TARGET_UNAVAILABLE,
+            ),
+            ConstraintPredicate.FEASIBLE,
+            False,
+            ConstraintRole.FACT,
+            ("operation-observation",),
+            scope_id="candidate-1",
+        )
+        state.constraints[infeasible.constraint_id] = infeasible.to_state_fields(
+            "satisfied"
+        )
+        state.verifications.append(
+            {
+                "verification_id": "verification-candidate-1",
+                "passed": False,
+                "details": {
+                    "candidate_id": "candidate-1",
+                    "verifier_details": {
+                        "failed_candidate_action": {
+                            "command": command,
+                            "prefix_commands": [command],
+                        }
+                    },
+                },
+            }
+        )
+
+        decision = ConstraintOperationGuard().validate(
+            DeploymentCandidate(
+                "candidate-2",
+                "apt-get install -y build-essential\n" + command,
+                "Do not harden unpositioned evidence",
+            ),
+            state,
+        )
+
+        self.assertTrue(decision.accepted)
+        self.assertFalse(decision.details["contradicted_operations"])
+
     def test_loop_rejects_grounded_operation_before_allocating_an_environment(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -500,6 +554,7 @@ class ConstraintOperationLoopTest(unittest.TestCase):
                     "candidate_id": "candidate-1",
                     "verifier_details": {
                         "failed_candidate_action": {
+                            "action_index": 0,
                             "command": "python -m pip install unavailable-target",
                             "prefix_commands": [
                                 "python -m pip install unavailable-target"

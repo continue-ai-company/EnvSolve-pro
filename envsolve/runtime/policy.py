@@ -12,7 +12,10 @@ from envsolve.constraints.models import (
     ConstraintPredicate,
     ConstraintRole,
 )
-from envsolve.operations import parse_operation_feasibility_subject
+from envsolve.operations import (
+    parse_operation_feasibility_subject,
+    verified_failed_operation_prefix,
+)
 from envsolve.solver import (
     DeploymentCandidate,
     EpisodeProviderAcquisitionFailed,
@@ -52,8 +55,10 @@ OPERATION_SYSTEM_PROMPT = dedent(
     requirement, include at least one mutation whose kind is in
     allowed_operation_kinds. Preserve operations that support previously satisfied
     requirements because every candidate runs in a fresh environment. Use prior
-    failures to change the program before a command that already failed. The plan
-    constrains the kind of repair; it does not authorize inventing
+    failures to change the program before a command that already failed. Entries in
+    infeasible_operations apply only to the exact command in its recorded provider
+    prefix context. A different command or a changed runtime/provider prefix remains
+    allowed. The plan constrains the kind of repair; it does not authorize inventing
     package-to-module mappings.
     """
 ).strip()
@@ -189,8 +194,8 @@ class StructuredModelDeploymentPolicy:
     def _infeasible_operation_view(
         self,
         state: EnvironmentState,
-    ) -> list[dict[str, str]]:
-        failures: list[dict[str, str]] = []
+    ) -> list[dict[str, Any]]:
+        failures: list[dict[str, Any]] = []
         for constraint in self.operation_planner.constraint_engine.typed_constraints(
             state
         ):
@@ -207,12 +212,26 @@ class StructuredModelDeploymentPolicy:
                 parsed = parse_operation_feasibility_subject(constraint.subject)
             except ValueError:
                 continue
+            source_candidate_id = constraint.scope_id
+            if source_candidate_id is None:
+                continue
+            prefix = verified_failed_operation_prefix(
+                state.verifications,
+                source_candidate_id,
+                parsed["command"],
+            )
+            if prefix is None:
+                continue
             failures.append(
                 {
                     "command": parsed["command"],
                     "constraint_id": constraint.constraint_id,
+                    "failed_prefix_commands": list(prefix[:-1]),
                     "failure_class": parsed["failure_class"],
-                    "source_candidate_id": constraint.scope_id or "unknown",
+                    "retry_scope": (
+                        "exact_command_and_relevant_provider_context"
+                    ),
+                    "source_candidate_id": source_candidate_id,
                 }
             )
         return sorted(

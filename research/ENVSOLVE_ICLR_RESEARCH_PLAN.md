@@ -331,17 +331,18 @@ pairs for a method-effect estimate, and one run was interrupted by the operator.
 These trajectories are retained for error decomposition only. Their dominant
 transition is candidate-command failure: deterministic operation failures are
 observed, but many never become persistent negative operation state. A minimal
-revision now admits grounded, context-scoped operation infeasibility while keeping
-infrastructure outcomes Unknown. Repository-free counterexamples establish evidence
-admission, persistence, context-sensitive rejection, and alternative-operation
-preservation. Its effect on deployment remains unknown and must be measured on a new
-outcome-blind development qualification before the method is frozen for Canary-20
-and Official-Test-100.
+revision now admits infeasibility only from a verified failed command prefix, binds
+it to the relevant provider context, and keeps network or infrastructure censoring
+Unknown. Repository-free counterexamples establish evidence admission, persistence,
+context-sensitive rejection, and alternative-operation preservation. Its effect on
+deployment remains unknown and must be measured on a new outcome-blind development
+qualification before the method is frozen for Canary-20 and Official-Test-100.
 
-That next qualification is preregistered as a five-pair broad system contrast, gated
-by independent reproduction of the frozen stack on an ARM64 Linux host before case
-selection. It reports negative-operation utilization separately and does not treat
-the broad contrast as a single-component causal ablation.
+That qualification begins with a preregistered eight-pair broad system pilot on the
+local development host, before larger ARM64 Linux execution. Cases are selected by
+metadata-only hashing after host admission; all pairs are completed before an
+algorithm decision. The pilot reports negative-operation utilization separately and
+does not treat the broad contrast as a single-component causal ablation.
 
 The final paper will contain three result tables:
 
