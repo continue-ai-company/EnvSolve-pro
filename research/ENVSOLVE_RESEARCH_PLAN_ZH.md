@@ -988,3 +988,7 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   position、10 个完整 pair，并按 salt 确定 method 顺序。选样只使用 case identity metadata；没有检查、
   分层、替换或按失败特征预筛 repository。Algorithm v17 与 Harness v32 保持不变；在独立 execution
   freeze 绑定 selection、schedule、Git chain、evaluator image 与 runner hash 前，不允许启动执行。
+- Replication v1 已在选样后完成 execution freeze。Binding 固定 v17/v32、Mac v2 配置、verifier v7、
+  20-position schedule、selected/remaining pool、runner/analyzer hash、EnvBench revision 与不可变 ARM64
+  image identity。Harness 复验仍为 `valid=true`；pilot 后没有改变 solver、harness、evaluator、model 或
+  budget 语义。Schedule 已可从 position 1 启动。

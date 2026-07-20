@@ -1367,3 +1367,8 @@ development batch; it never triggers tuning on the same held-out outcomes.
   inspected, stratified, replaced, or prescreened. Algorithm v17 and Harness v32
   remain unchanged, and execution is blocked until a separate freeze binds the
   selection, schedule, Git chain, evaluator image, and runner hashes.
+- Replication v1 execution is frozen after selection. The binding preserves v17/v32,
+  the v2 Mac configuration, verifier v7, 20-position schedule, selection and remaining
+  pools, runner/analyzer hashes, EnvBench revision, and immutable ARM64 image identity.
+  Harness verification remains `valid=true`; no solver, harness, evaluator, model, or
+  budget semantics changed after the pilot. The schedule is ready at position 1.
