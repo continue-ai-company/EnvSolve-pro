@@ -108,6 +108,13 @@ P1 已完成。6 条冻结 Raw ReAct/Repo2Run 轨迹全部可编译，没有 uns
 中失败。因此 P1 按冻结预测解决了 P0 的测量矛盾，没有加入仓库特定 solver rule。详细证据单独保存在
 `PRO_P1_FAIR_INTERFACE_RESULTS_V1_ZH.md`；这些已消费 case 不能再支撑下一阶段效果声明。
 
+### 4.3 P2 冻结诊断设计
+
+P2 从剩余 118 个 untouched Dev 中仅按元数据抽取 6 个 case，执行 24 个 salted position：Codex native、
+Repo2Run、raw ReAct 和 P1 EnvSolve-pro scaffold。主分析单位是最早决定性修复机会，归因到 Observation、
+Constraint、Operation 或 unresolved。只有同一可干预矛盾出现在至少 3 个仓库和 2 种方法中，才允许提出
+新机制；抽样后整批 immutable，禁止修改 solver 或 wrapper。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -131,7 +138,5 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-先把已通过资格验证的 P1 接口冻结到 Git，再从剩余 118 个 untouched Dev case 中进行可复现的 salted
-sampling，进入 P2。使用冻结外部 baseline 和开放接口 EnvSolve scaffold 完整运行，期间不根据结果改代码；
-随后按 Observation、Constraint、Operation 三层拆解轨迹，只选择一个跨仓库占主导的真实矛盾，驱动第一
-个新算法机制。
+先提交 P2 预注册，再运行 metadata-only selector 与 schedule builder，绑定 Mac 主机并启动冻结的 24 个
+position。原始产物保存后再分析完整轨迹；整批得到满足门槛的主导矛盾或明确未通过门槛之前，不改 solver。

@@ -124,6 +124,15 @@ solver rule. Detailed evidence is separated into
 `PRO_P1_FAIR_INTERFACE_RESULTS_V1.md`; these consumed cases cannot support the next
 effectiveness claim.
 
+### 4.3 P2 Frozen Diagnostic Design
+
+P2 draws six metadata-only cases from the remaining 118 untouched Dev pool and executes
+24 salted positions: Codex native, Repo2Run, raw ReAct, and the P1 EnvSolve-pro scaffold.
+The primary analysis unit is the earliest decisive repair opportunity, attributed to
+Observation, Constraint, Operation, or unresolved. A new mechanism requires the same
+actionable contradiction in at least three repositories and two methods. The complete
+batch is immutable; no solver or wrapper change is allowed after selection.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -143,8 +152,7 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Freeze the qualified P1 interface in Git, then start P2 with a reproducible salted sample
-from the remaining 118 untouched Dev cases. Run the frozen external baselines and the
-open-interface EnvSolve scaffold without outcome-driven code changes. Decompose complete
-trajectories by Observation, Constraint, and Operation failures, and select one dominant
-cross-repository contradiction before designing the first new algorithmic mechanism.
+Commit the P2 preregistration before selection, execute its metadata-only selector and
+schedule builder, then bind the Mac host and start the frozen 24-position batch. Analyze
+complete trajectories only after preserving raw artifacts; do not change the solver until
+the batch either identifies a preregistered dominant contradiction or fails the gate.

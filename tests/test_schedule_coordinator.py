@@ -9,9 +9,46 @@ from envsolve_harness.execution.schedule import (
     ScheduleProgress,
     run_scheduled_process,
 )
+from experiments.run_schedule import _episode_identity
 
 
 class ScheduleProgressTest(unittest.TestCase):
+    def test_mixed_schedule_episode_overrides_runner_model_and_allows_null_seed(self) -> None:
+        identity = _episode_identity(
+            {
+                "position": 3,
+                "case_id": "owner/repo@abc",
+                "run_id": "mixed-run",
+                "runner": "repo2run",
+                "method": "repo2run",
+                "model": "provider/model",
+                "seed": None,
+            },
+            {},
+            "envsolve",
+        )
+
+        self.assertEqual(identity["runner"], "repo2run")
+        self.assertEqual(identity["model"], "provider/model")
+        self.assertIsNone(identity["seed"])
+
+    def test_legacy_schedule_uses_top_level_model_and_default_runner(self) -> None:
+        identity = _episode_identity(
+            {
+                "position": 1,
+                "case_id": "owner/repo@abc",
+                "run_id": "legacy-run",
+                "method": "envsolve-pro",
+                "seed": 7,
+            },
+            {"model": "provider/model"},
+            "envsolve",
+        )
+
+        self.assertEqual(identity["runner"], "envsolve")
+        self.assertEqual(identity["model"], "provider/model")
+        self.assertEqual(identity["seed"], 7)
+
     def test_resume_preserves_completed_positions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

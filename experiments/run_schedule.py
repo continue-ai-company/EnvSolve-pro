@@ -61,6 +61,29 @@ def _validate_schedule(schedule_path: Path, schedule: dict[str, object]) -> None
         raise ValueError(f"Schedule case file hash mismatch: {schedule_path}")
 
 
+def _episode_identity(
+    episode: dict[str, object],
+    schedule: dict[str, object],
+    default_runner: str,
+) -> dict[str, object]:
+    runner = str(episode.get("runner", default_runner)).strip()
+    model = str(episode.get("model", schedule.get("model", ""))).strip()
+    if not runner:
+        raise ValueError("Schedule episode runner cannot be empty")
+    if not model:
+        raise ValueError("Schedule episode model cannot be empty")
+    raw_seed = episode.get("seed")
+    return {
+        "position": int(episode["position"]),
+        "case_id": str(episode["case_id"]),
+        "run_id": str(episode["run_id"]),
+        "runner": runner,
+        "method": str(episode["method"]),
+        "model": model,
+        "seed": int(raw_seed) if raw_seed is not None else None,
+    }
+
+
 def main(
     argv: Sequence[str] | None = None,
     *,
@@ -99,6 +122,9 @@ def main(
         sha256_file(schedule_path),
         execution={
             "runner": args.runner,
+            "episode_runner_override": any(
+                "runner" in episode for episode in schedule["episodes"]
+            ),
             "config": str(args.config.resolve()),
             "config_sha256": sha256_file(args.config.resolve()),
             "protocol": str(args.protocol.resolve()),
@@ -122,13 +148,7 @@ def main(
         if progress.contains(position):
             print(f"position={position} state=already-recorded", flush=True)
             continue
-        identity = {
-            "position": position,
-            "case_id": str(episode["case_id"]),
-            "run_id": str(episode["run_id"]),
-            "method": str(episode["method"]),
-            "seed": int(episode["seed"]),
-        }
+        identity = _episode_identity(episode, schedule, args.runner)
         progress.begin(identity)
         command = [
             sys.executable,
@@ -136,15 +156,17 @@ def main(
             "--case-file", str(case_file),
             "--case-id", identity["case_id"],
             "--run-id", identity["run_id"],
-            "--runner", args.runner,
+            "--runner", str(identity["runner"]),
             "--method", identity["method"],
-            "--model", str(schedule["model"]),
-            "--seed", str(identity["seed"]),
+            "--model", str(identity["model"]),
             "--config", str(args.config.resolve()),
             "--protocol", str(args.protocol.resolve()),
         ]
+        if identity["seed"] is not None:
+            command.extend(["--seed", str(identity["seed"])])
         print(
-            f"position={position} case={identity['case_id']} method={identity['method']}",
+            f"position={position} case={identity['case_id']} "
+            f"runner={identity['runner']} method={identity['method']}",
             flush=True,
         )
         previous_sigterm = signal.getsignal(signal.SIGTERM)

@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-pro-p2-dominant-contradiction-v1",
+  "preregistered_at": "2026-07-21T13:32:43+00:00",
+  "status": "registered-before-selection",
+  "purpose": "Identify one frequent, actionable, non-interface deployment contradiction before adding an EnvSolve-pro algorithm mechanism.",
+  "p1_freeze": {
+    "revision": "38dae3be1f575f61297e7cbbe48229abeb8866db",
+    "protocol": "research/PRO_P1_FAIR_INTERFACE_PROTOCOL_V1.md",
+    "protocol_sha256": "01969b038869183ac9333d4f28fddf9085182779866abe2fe722ec1daddf8096",
+    "results": "research/PRO_P1_FAIR_INTERFACE_RESULTS_V1.md",
+    "results_sha256": "967f9da8375ead7401063e243b15f84c099606bbcdbd8dd0abf5aca763f4389e",
+    "evaluation_summary": "experiments/validations/pro_p1_evaluation_v1/evaluation_summary.json",
+    "evaluation_summary_sha256": "d80624a6d47b290d2188cf9c8a9a15223295f84226e0d83aef258d67fdcd7312"
+  },
+  "protocol": {
+    "en": "research/PRO_P2_DOMINANT_CONTRADICTION_PROTOCOL_V1.md",
+    "en_sha256": "cce48290b74a673e176a949e004a8f990064e464f77b33ffabc264a13ab7127e",
+    "zh": "research/PRO_P2_DOMINANT_CONTRADICTION_PROTOCOL_V1_ZH.md",
+    "zh_sha256": "738a65a318ae065e8a61996b3e6298c9569d4ff4076d93cc0eb63241114a48a3"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_pro_p0_external_baselines_v1_118.jsonl",
+    "source_sha256": "e89d291408930c6fc2aae082785c8453c9ab1cfe4d521e5916a811ff267e51c4",
+    "source_count": 118,
+    "sample_size": 6,
+    "salt": "envsolve-pro-p2-dominant-contradiction-v1-2026-07-21",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection": false,
+    "failure_prescreen": false,
+    "replacement": false,
+    "selector": "experiments/tools/select_pro_p2_dominant_contradiction_v1.py",
+    "selector_sha256": "e74ec00c10709fc1ff6c84d3a0cba25c026c24f9baeb9889cb704962b8741b12"
+  },
+  "methods": [
+    {
+      "method_id": "codex-cli-native",
+      "runner": "codex-cli",
+      "model": "gpt-5.5",
+      "role": "strong-native-capability-reference"
+    },
+    {
+      "method_id": "repo2run-reproduced-open",
+      "runner": "repo2run",
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "external-structured-baseline"
+    },
+    {
+      "method_id": "envbench-raw-react-open",
+      "runner": "envbench-agent",
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "same-backbone-unstructured-control"
+    },
+    {
+      "method_id": "envsolve-pro-p1-scaffold",
+      "runner": "envsolve",
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "pre-mechanism-three-layer-scaffold"
+    }
+  ],
+  "frozen_implementation": {
+    "experiments/run_schedule.py": "84e0aa75c796b405361580feef6f4b96c5d7e2208ccd092dee6ec41f856500dc",
+    "experiments/configs/local_mac_pro_p2.json": "ac99152661d9a398b31dc82dd7d1d4dcceda3c47c0a77f7cb9a037b6c9eec459",
+    "experiments/tools/build_pro_p2_dominant_contradiction_v1_schedule.py": "e44d57e61ee805e146331208f5bc96023563760e801beb3e0804ba913c054e5f",
+    "envsolve_harness/runners/codex_cli.py": "55d01c192438b7668397addec69c3b0513210ed74245ca3f335ca8b8f13c4fc2",
+    "envsolve_harness/runners/repo2run.py": "c8391cc146e92ea38095a282b6c303b593915994e37dedb5ebb310b0a33aabf8",
+    "envsolve_harness/runners/envbench_agent.py": "51b685d368f4db03e539c7f744fe61f346c8c2727235362b0631343afba49a6a",
+    "envsolve_harness/runners/envsolve_p6.py": "854a5a8952dfc1fd2267512384008ff8518a80903374346d19b994301cf642f8",
+    "envsolve_harness/scripts/open_program.py": "57e7fe8ec6ec0d873e3cf96b5aadffc778e049ed2757fd020bc254a1e862a415",
+    "envsolve_harness/scripts/envbench_trajectory.py": "68ffa3514ced077eedc6f4e18c605b640c159101271c3d271782defd8259d1f3",
+    "envsolve_harness/scripts/repo2run.py": "563fe2aa6d709ddd62693685b2c570d9395886884f493ff66b1aa912d28fae28",
+    "envsolve/runtime/verifier.py": "bf3590abb75949835697e6546816596e2e494cfb31bbd47799a33dcd0774c16b",
+    "envsolve_harness/integrity/repository.py": "0f16fa0dd5bcdb897fb539d4defb1985dc553bd3f95ad43994ded5882dc1e1ad"
+  },
+  "official_evaluation": {
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "online_access": false
+  },
+  "analysis": {
+    "primary_unit": "earliest-decisive-repair-opportunity",
+    "primary_layers": [
+      "observation",
+      "constraint",
+      "operation",
+      "unresolved"
+    ],
+    "infrastructure_is_unknown": true,
+    "dominance_minimum_repositories": 3,
+    "dominance_minimum_methods": 2,
+    "terminal_error_count_alone_is_insufficient": true,
+    "repository_independent_intervention_required": true
+  },
+  "resource_policy": {
+    "primary_objective": "terminal-deployment-success",
+    "tokens_are_success_threshold": false,
+    "dollar_cost_is_primary_variable": false,
+    "reported": [
+      "tokens",
+      "model_requests",
+      "commands",
+      "candidate_environments",
+      "wall_clock_time"
+    ],
+    "operational_circuit_breakers": "broad safety limits only"
+  },
+  "execution_rule": {
+    "positions": 24,
+    "solver_change_during_batch": false,
+    "wrapper_change_during_batch": false,
+    "cross_case_memory": false,
+    "case_replacement": false,
+    "run_overwrite": false,
+    "network_retry": "Only before any valid model response and environment command; otherwise mark Unknown.",
+    "effectiveness_claim_allowed": false,
+    "canary_or_official_test_access": false
+  }
+}
