@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "pro-p3-candidate-retention-qualification-v1",
+  "claim_scope": "consumed-case mechanism qualification only",
+  "preregistration": "experiments/validations/pro_p3_candidate_retention_qualification_v1_preregistration.json",
+  "preregistration_sha256": "0dd8d8f2980736f5116182f116183f31215e4fc55c20a7ce6096101048c89f7e",
+  "case_file": "experiments/cases/dev_pro_p3_candidate_retention_diagnostic3.jsonl",
+  "case_file_sha256": "7e368ca5af7bff66b34f6964702d947b7754f0d40031d2d88004cfafefbe2cb4",
+  "checkout": "85e942a",
+  "shared": {
+    "runner": "envsolve",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_candidates": 5,
+    "candidate_interface": "open-program",
+    "internal_verifier": "python-deployment-v8"
+  },
+  "ordering": "case-file order; paired condition order alternates AB/BA/AB",
+  "episodes": [
+    {
+      "position": 1,
+      "pair": 1,
+      "case_id": "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+      "run_id": "pro-p3-retention-v1-c01-no-retention",
+      "method": "envsolve-pro-no-retention",
+      "candidate_retention": "disabled"
+    },
+    {
+      "position": 2,
+      "pair": 1,
+      "case_id": "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+      "run_id": "pro-p3-retention-v1-c01-retention",
+      "method": "envsolve-pro",
+      "candidate_retention": "best-admissible"
+    },
+    {
+      "position": 3,
+      "pair": 2,
+      "case_id": "envbench-python-sphinx-contrib__spelling@51debaa98520145f6debce8f5a6c6d220359f54c",
+      "run_id": "pro-p3-retention-v1-c02-retention",
+      "method": "envsolve-pro",
+      "candidate_retention": "best-admissible"
+    },
+    {
+      "position": 4,
+      "pair": 2,
+      "case_id": "envbench-python-sphinx-contrib__spelling@51debaa98520145f6debce8f5a6c6d220359f54c",
+      "run_id": "pro-p3-retention-v1-c02-no-retention",
+      "method": "envsolve-pro-no-retention",
+      "candidate_retention": "disabled"
+    },
+    {
+      "position": 5,
+      "pair": 3,
+      "case_id": "envbench-python-roboflow__supervision@d5cebd4fd2b75b160feb9d22b3558f3247b27f28",
+      "run_id": "pro-p3-retention-v1-c03-no-retention",
+      "method": "envsolve-pro-no-retention",
+      "candidate_retention": "disabled"
+    },
+    {
+      "position": 6,
+      "pair": 3,
+      "case_id": "envbench-python-roboflow__supervision@d5cebd4fd2b75b160feb9d22b3558f3247b27f28",
+      "run_id": "pro-p3-retention-v1-c03-retention",
+      "method": "envsolve-pro",
+      "candidate_retention": "best-admissible"
+    }
+  ]
+}

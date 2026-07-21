@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "pro-p3-candidate-retention-qualification-v1-mac-2026-07-22",
+  "status": "bound_before_execution",
+  "bound_at": "2026-07-21T22:02:37Z",
+  "preregistration": {
+    "path": "experiments/validations/pro_p3_candidate_retention_qualification_v1_preregistration.json",
+    "sha256": "0dd8d8f2980736f5116182f116183f31215e4fc55c20a7ce6096101048c89f7e",
+    "commit": "85e942aed66738677aaa9b374908902826178561"
+  },
+  "schedule": {
+    "path": "experiments/validations/pro_p3_candidate_retention_qualification_v1_schedule.json",
+    "sha256": "98ddd1de33bbdf065dc03161757e01b0cb6ab9ba9dbe49fcae02a0cd4f3646b7",
+    "positions": 6,
+    "pairs": 3
+  },
+  "implementation": {
+    "freeze_revision": "85e942aed66738677aaa9b374908902826178561",
+    "single_change": "best-admissible candidate retention enabled versus disabled",
+    "execution_rule": "Run from a clean descendant that adds only schedule, binding, and result records; do not change solver, prompt, verifier, adapter, or evaluator during the batch."
+  },
+  "host": {
+    "hostname": "mac-for-Leo.local",
+    "os": "macOS 26.5.2 (25F84)",
+    "architecture": "arm64",
+    "network": "home network",
+    "max_concurrent_positions": 1,
+    "network_retry_policy": "Retry only before any valid model response and environment command; otherwise record Unknown."
+  },
+  "runtime": {
+    "config": "experiments/configs/local_mac_pro_p2.json",
+    "config_sha256": "ac99152661d9a398b31dc82dd7d1d4dcceda3c47c0a77f7cb9a037b6c9eec459",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "envbench_dirty": false,
+    "image_reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_repo_digest": "sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+  },
+  "scientific_scope": {
+    "consumed_diagnostic_cases": true,
+    "effectiveness_claim_allowed": false,
+    "cross_case_memory": false,
+    "official_evaluator_online_feedback": false,
+    "post_result_algorithm_change_allowed": false
+  }
+}
