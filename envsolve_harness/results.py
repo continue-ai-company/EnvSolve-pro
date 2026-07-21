@@ -206,6 +206,16 @@ def _paired_aggregate(
     return counts
 
 
+def _normalize_schedule_episode(
+    episode: dict[str, Any],
+    shared: dict[str, Any],
+) -> dict[str, Any]:
+    normalized = {**shared, **episode}
+    if "pair_index" not in normalized and isinstance(normalized.get("pair"), int):
+        normalized["pair_index"] = normalized["pair"]
+    return normalized
+
+
 def summarize_schedule(
     schedule_path: Path,
     runs_root: Path,
@@ -218,7 +228,16 @@ def summarize_schedule(
     episodes = schedule.get("episodes")
     if not isinstance(episodes, list):
         raise ValueError("Schedule must contain an episode list")
-    runs = [_summarize_episode(dict(episode), runs_root.resolve()) for episode in episodes]
+    shared = schedule.get("shared") or {}
+    if not isinstance(shared, dict):
+        raise ValueError("Schedule shared settings must be an object")
+    runs = [
+        _summarize_episode(
+            _normalize_schedule_episode(dict(episode), shared),
+            runs_root.resolve(),
+        )
+        for episode in episodes
+    ]
     summary: dict[str, Any] = {
         "schema_version": "1.0.0",
         "schedule": {

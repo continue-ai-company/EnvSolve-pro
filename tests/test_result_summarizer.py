@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import tempfile
 from pathlib import Path
 import unittest
@@ -126,6 +127,38 @@ class ResultSummarizerTest(unittest.TestCase):
         self.assertEqual(summary["descriptive"]["official_pass"], 1)
         self.assertEqual(summary["scientific"]["eligible_runs"], 0)
         self.assertEqual(summary["paired_scientific"]["censored_pairs"], 1)
+
+    @mock.patch(
+        "envsolve_harness.results.assess_scientific_eligibility",
+        return_value=EligibilityReport(eligible=True),
+    )
+    @mock.patch(
+        "envsolve_harness.results.audit_run",
+        return_value=AuditReport(valid=True),
+    )
+    def test_normalizes_shared_seed_and_pair_alias(
+        self,
+        _audit: mock.Mock,
+        _eligibility: mock.Mock,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schedule, runs = self._fixture(directory)
+            value = json.loads(schedule.read_text(encoding="utf-8"))
+            value["shared"] = {"seed": 0}
+            for episode in value["episodes"]:
+                episode["pair"] = episode.pop("pair_index")
+                episode.pop("seed")
+            write_json(schedule, value)
+
+            summary = summarize_schedule(
+                schedule,
+                runs,
+                treatment_method="full",
+                control_method="ablation",
+            )
+
+        self.assertEqual(summary["scientific"]["eligible_runs"], 2)
+        self.assertEqual(summary["paired_scientific"]["eligible_pairs"], 1)
 
 
 if __name__ == "__main__":
