@@ -21,7 +21,10 @@ hard guards are limited to task safety and behavior directly contradicted by exe
 We will compare EnvSolve-pro with Repo2Run, a native strong agent, same-backbone ReAct,
 and frozen EnvSolve v1 on EnvBench. Official Pass@1 is primary; tokens, calls,
 environments, and time are reported as efficiency measures. The study is currently in
-the baseline-trajectory audit stage and makes no effectiveness claim yet.
+the fair-interface qualification stage and makes no effectiveness claim yet. An initial
+five-case trajectory audit found that native successes can be erased by closed post-hoc
+command parsing or non-equivalent verification workspaces, motivating an execution- and
+effect-based candidate boundary before algorithm comparison.
 
 ## 1. Problem
 
@@ -52,7 +55,9 @@ may challenge soft beliefs.
 The **Operation layer** lets a strong model generate self-contained deployment programs.
 The system enforces only environment-modification and safety boundaries plus exact
 prohibitions grounded by execution counterexamples; other operation plans are advisory.
-Fresh execution returns evidence to the Observation layer and closes the loop.
+Candidates remain open programs rather than members of a closed command vocabulary.
+Fresh isolated execution and audited effects determine validity, return evidence to the
+Observation layer, and close the loop.
 
 ## 3. Contributions
 
@@ -88,3 +93,8 @@ repair, clean replay, repeated failures, and Unknown rate. Tokens, requests, can
 environments, commands, and wall-clock time support efficiency and Pareto analysis only.
 All methods share a terminal-only Official evaluator boundary. Canary and Official Test
 remain untouched until the method is frozen.
+
+The completed P0 audit is diagnostic only. It establishes that wrapper preservation and
+verification-precondition parity are prerequisites for a fair comparison; it does not
+support an effectiveness ranking. P1 will qualify these interfaces on synthetic fixtures
+and consumed trajectories before drawing a new outcome-blind Dev batch.

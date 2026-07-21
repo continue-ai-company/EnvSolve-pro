@@ -85,6 +85,29 @@ P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A
 parser, constraint, or guard requires multiple independent trajectories or a deterministic
 invariant of the task definition.
 
+### 4.1 P0 Audit Decision
+
+The five-case P0 batch is complete. Across 20 scheduled method positions, no official
+pass was observed, but the batch is not an effectiveness estimate: four Codex positions
+became Unknown after executable drift, and wrapper behavior independently censored
+native trajectories. Repo2Run and raw ReAct each solved two cases in their native
+environment; frozen EnvSolve internally accepted two fresh-container plans. Three of
+those native successes did not reach an equivalent official execution because replay
+lost a successful operation or its ambient runtime. Both EnvSolve acceptances also
+exposed an internal-versus-terminal contract mismatch.
+
+The dominant P0 contradiction is therefore methodological: a strong native solver can
+construct a working environment while a closed post-hoc command parser or mismatched
+verification workspace erases that success. P1 must repair this interface before P2
+attributes remaining failures to the deployment algorithm.
+
+P1 follows a minimal principle: treat the model's complete candidate program as open,
+execute it in an isolated fresh environment, and judge safety and correctness from
+audited effects and executable postconditions. Command schemas remain useful for state
+summarization and causal replay, but an absent schema entry is not itself proof that a
+candidate is invalid. Benchmark adapters must declare workspace preconditions so that
+internal and terminal executions begin from equivalent non-outcome state.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -104,7 +127,9 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Pause expansion of the v1 internal ablation. Freeze a small untouched Dev batch and run
-real Repo2Run, a native strong agent, raw ReAct, and frozen EnvSolve v1. Inspect every
-trajectory. P0 should output an evidence-backed dominant contradiction and the smallest
-P3 algorithm hypothesis, not another collection of rules.
+Freeze a P1 fair-interface protocol before opening another repository. Implement open
+candidate execution, effect-based repository and safety audit, causal capture of ambient
+runtime state, and adapter-declared verification preconditions. Qualify the interface on
+repository-neutral fixtures and the already consumed P0 trajectories. Only after the
+wrapper preserves native successes may a new salted sample be drawn from the remaining
+118 untouched Dev cases for outcome-blind validation.

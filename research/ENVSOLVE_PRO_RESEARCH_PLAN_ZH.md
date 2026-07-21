@@ -80,6 +80,23 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
 多个独立轨迹，或者来自任务定义本身的确定性不变量。
 
+### 4.1 P0 审计结论
+
+五个 case 的 P0 batch 已完成。20 个计划方法位置没有出现 official pass，但这不是 effectiveness 估计：
+Codex 有 4 个位置因 executable drift 变成 Unknown，wrapper 也独立删失了原生轨迹。Repo2Run 与 raw
+ReAct 各自在原生环境解决 2 个 case，冻结 EnvSolve 在 fresh container 中内部接受 2 个方案。其中 3 个
+原生成功没有进入等价的官方执行，原因是 replay 丢失成功操作或其 ambient runtime；EnvSolve 的两次内部
+接受也都暴露了 internal-versus-terminal contract mismatch。
+
+因此 P0 的主要矛盾首先是方法学问题：强 native solver 可以构造工作环境，但封闭的 post-hoc command
+parser 或不等价的 verification workspace 会抹掉成功。在 P2 把剩余失败归因给部署算法前，P1 必须先修复
+这个接口。
+
+P1 遵循一个最小原则：把模型的完整 candidate program 视为开放程序，在隔离的 fresh environment 中执行，
+再根据可审计 effect 与 executable postcondition 判断安全性和正确性。command schema 仍可用于状态摘要与
+causal replay，但 schema 未覆盖本身不能证明 candidate 无效。benchmark adapter 必须声明 workspace
+precondition，使内部执行和 terminal execution 从等价的非 outcome 状态开始。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -103,6 +120,7 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-暂停扩大 EnvSolve v1 内部消融。先从未消费的 Dev pool 冻结一个小批次，分别运行真实 Repo2Run、原生
-强 Agent、raw ReAct 和 EnvSolve v1，逐条审阅完整轨迹。P0 的输出不是新规则，而是经证据支持的主要
-矛盾和 P3 的最小算法假设。
+在打开新仓库前冻结 P1 fair-interface protocol。实现 open candidate execution、effect-based repository
+与 safety audit、ambient runtime 的 causal capture，以及 adapter-declared verification precondition。先在
+repository-neutral fixture 与已消费 P0 轨迹上完成资格验证。只有 wrapper 能保留 native success 后，才从
+剩余 118 个 untouched Dev case 中重新 salted sampling，进行 outcome-blind 验证。
