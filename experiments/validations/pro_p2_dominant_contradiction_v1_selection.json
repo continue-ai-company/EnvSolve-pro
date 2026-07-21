@@ -1,0 +1,21 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/pro_p2_dominant_contradiction_v1_preregistration.json",
+  "preregistration_sha256": "d21da1ece8ea934cfd3cb83edff1d65857fe6e0c1202c46a1b4d2c78e38ff371",
+  "remaining_path": "experiments/cases/train_untouched_after_pro_p2_dominant_contradiction_v1_112.jsonl",
+  "remaining_sha256": "13d7710cf5331161f7fa6e3bf814c86d578b43a5cbc0dddb06cfc717f7ebf491",
+  "salt": "envsolve-pro-p2-dominant-contradiction-v1-2026-07-21",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+    "envbench-python-ansible__ansible-zuul-jobs@33dd767b8609db931003583faa1eb47ac9fabfc1",
+    "envbench-python-lichess4545__heltour@1d5fd89ae12e2e27cfa278c5cbaf0aa47325f030",
+    "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+    "envbench-python-sphinx-contrib__spelling@51debaa98520145f6debce8f5a6c6d220359f54c",
+    "envbench-python-roboflow__supervision@d5cebd4fd2b75b160feb9d22b3558f3247b27f28"
+  ],
+  "selected_path": "experiments/cases/dev_pro_p2_dominant_contradiction_v1_6.jsonl",
+  "selected_sha256": "1c2f2413eff043dec264d2e4fddfdcf82fc26beb7546a34faad6a64bf253819e",
+  "source": "experiments/cases/train_untouched_after_pro_p0_external_baselines_v1_118.jsonl",
+  "source_sha256": "e89d291408930c6fc2aae082785c8453c9ab1cfe4d521e5916a811ff267e51c4"
+}

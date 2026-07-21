@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-p2-dominant-contradiction-v1-mac-2026-07-21",
+  "bound_at": "2026-07-21T13:38:45+00:00",
+  "preregistration": {
+    "path": "experiments/validations/pro_p2_dominant_contradiction_v1_preregistration.json",
+    "sha256": "d21da1ece8ea934cfd3cb83edff1d65857fe6e0c1202c46a1b4d2c78e38ff371",
+    "commit": "fc9ffefe781b23275ca6debfa4f0ea5e2ef6a622"
+  },
+  "selection": {
+    "path": "experiments/validations/pro_p2_dominant_contradiction_v1_selection.json",
+    "sha256": "b98de1af0f62aba2f30a829dcfb3d26fdb87e7b0e78a95a05db3e938387bf20b",
+    "case_file": "experiments/cases/dev_pro_p2_dominant_contradiction_v1_6.jsonl",
+    "case_file_sha256": "1c2f2413eff043dec264d2e4fddfdcf82fc26beb7546a34faad6a64bf253819e",
+    "remaining_count": 112
+  },
+  "schedule": {
+    "path": "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json",
+    "sha256": "a4f8e3f639bedb6049cb573ede5e25cff0bc33110c47721754444b0becd7cdbc",
+    "case_count": 6,
+    "method_count": 4,
+    "positions": 24
+  },
+  "implementation": {
+    "p1_freeze_revision": "38dae3be1f575f61297e7cbbe48229abeb8866db",
+    "preregistration_revision": "fc9ffefe781b23275ca6debfa4f0ea5e2ef6a622",
+    "execution_rule": "Run from the clean descendant that adds selection, schedule, and this binding; do not change solver, wrapper, prompt, verifier, adapter, or evaluator during the batch."
+  },
+  "host": {
+    "hostname": "mac-for-Leo.local",
+    "os": "macOS 26.5.2 (25F84)",
+    "architecture": "arm64",
+    "network": "home network; exact transport not asserted",
+    "network_retry_policy": "Retry only before any valid model response and environment command; otherwise mark the episode Unknown."
+  },
+  "external_boundaries": {
+    "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "envbench_dirty": false,
+    "envbench_image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "repo2run_upstream_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
+    "repo2run_claim": "reproduced-minimally-repaired-v1",
+    "repo2run_compatibility_manifest": "experiments/validations/pro_p0_repo2run_compatibility_v1.json",
+    "repo2run_compatibility_manifest_sha256": "aa159222ecc10780dc0d7392087fa2f830437f5a594da0a6e6a50a9c99d1833e",
+    "codex_cli_version": "codex-cli 0.145.0-alpha.27",
+    "codex_cli_executable_sha256": "463957f969f1399d4993830722fdd3970a33500d0fbf2f57b917082363f022a9"
+  },
+  "runtime_inputs": {
+    "config": "experiments/configs/local_mac_pro_p2.json",
+    "config_sha256": "ac99152661d9a398b31dc82dd7d1d4dcceda3c47c0a77f7cb9a037b6c9eec459",
+    "official_protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "official_protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "progress": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro_p2_dominant_contradiction_v1_progress.json"
+  },
+  "scientific_scope": {
+    "development_diagnosis_only": true,
+    "effectiveness_claim_allowed": false,
+    "algorithm_change_during_batch": false,
+    "cross_case_memory": false,
+    "official_evaluator_online_feedback": false
+  }
+}
