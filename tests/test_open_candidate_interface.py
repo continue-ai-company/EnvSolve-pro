@@ -127,12 +127,24 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
                     ),
                     "returncode": 0,
                     "dir": "/",
+                },
+                {
+                    "command": (
+                        "python /home/tools/pip_download.py "
+                        "-p ansible-core==2.17.14"
+                    ),
+                    "returncode": 0,
+                    "dir": "/",
                 }
             ]
         )
 
         self.assertEqual(result.unsupported_commands, ())
         self.assertIn("python -m pip install pytest==8.1.1", result.script)
+        self.assertIn(
+            "python -m pip install ansible-core==2.17.14",
+            result.script,
+        )
         self.assertNotIn("/home/tools", result.script)
         self.assertEqual(result.actions[-1].kind, "python_package_install")
 

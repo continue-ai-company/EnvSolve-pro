@@ -68,20 +68,23 @@ def _portable_pip_download(command: str) -> str | None:
     prefix = ["python", "/home/tools/pip_download.py", "-p"]
     if parts[:3] != prefix or len(parts) not in {4, 6}:
         return None
-    package = parts[3]
-    if not re.fullmatch(
+    name_match = re.match(
         r"[A-Za-z0-9][A-Za-z0-9._-]*(?:\[[A-Za-z0-9_,.-]+\])?",
-        package,
-    ):
+        parts[3],
+    )
+    if name_match is None:
         return None
-    specifier = ""
+    package = name_match.group(0)
+    specifier = parts[3][len(package) :]
     if len(parts) == 6:
-        if parts[4] != "-v" or not re.fullmatch(
-            r"[A-Za-z0-9*+!._,<>=~ -]+",
-            parts[5],
-        ):
+        if specifier or parts[4] != "-v":
             return None
         specifier = parts[5]
+    if specifier and not re.fullmatch(
+        r"[A-Za-z0-9*+!._,<>=~ -]+",
+        specifier,
+    ):
+        return None
     return f"python -m pip install {shlex.quote(package + specifier)}"
 
 
