@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "envsolve-pro-p0-baseline-qualification-v1",
+  "qualified_at": "2026-07-21T12:15:00+08:00",
+  "case_id": "envbench-python-reticulum-6ded42e",
+  "case_use": "consumed diagnostic only; no effectiveness evidence",
+  "methods": [
+    {
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "source_run_id": "pro-p0-qual-codex-smoke-v4",
+      "valid_run_id": "pro-p0-qual-codex-smoke-v4-refinalized",
+      "source_identity_valid": true,
+      "audit_valid": true,
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_issues": 18,
+      "official_errors": 1306,
+      "successful_container_commands": 20,
+      "input_tokens": 197295,
+      "cached_input_tokens": 163840,
+      "output_tokens": 3022,
+      "reasoning_output_tokens": 955
+    },
+    {
+      "method_id": "repo2run-reproduced",
+      "model": "deepseek/deepseek-v4-pro",
+      "valid_run_id": "pro-p0-qual-repo2run-smoke-v2",
+      "audit_valid": true,
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_issues": 18,
+      "official_errors": 1295,
+      "model_requests": 4,
+      "total_tokens": 27118,
+      "replay_actions": 1
+    },
+    {
+      "method_id": "envbench-raw-react",
+      "model": "deepseek/deepseek-v4-pro",
+      "source_run_id": "pro-p0-qual-react-smoke-v2",
+      "valid_run_id": "pro-p0-qual-react-smoke-v2-refinalized",
+      "source_identity_valid": true,
+      "audit_valid": true,
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_issues": 18,
+      "official_errors": 1295,
+      "model_requests": 16,
+      "total_tokens": 173537,
+      "replay_actions": 1
+    },
+    {
+      "method_id": "envsolve-v1-frozen",
+      "model": "deepseek/deepseek-v4-pro",
+      "valid_run_id": "pro-p0-qual-envsolve-v1-smoke-v1",
+      "checkout_revision": "07a208f9b2390a36ad64f0c0d7cedf00423a889e",
+      "checkout_dirty": false,
+      "audit_valid": true,
+      "generation_completed": false,
+      "native_terminal_error": "candidate budget exhausted",
+      "model_requests": 5,
+      "total_tokens": 61480,
+      "candidate_environments": 5,
+      "last_candidate_bootstrap_exit_code": 0,
+      "last_candidate_active_constraints": 13
+    }
+  ],
+  "excluded_wrapper_attempts": [
+    {
+      "run_ids": [
+        "pro-p0-qual-codex-smoke-v1",
+        "pro-p0-qual-codex-smoke-v2",
+        "pro-p0-qual-codex-smoke-v3"
+      ],
+      "reason": "No valid native tool episode before prompt transport and MCP approval fixes"
+    },
+    {
+      "run_id": "pro-p0-qual-repo2run-smoke-v1",
+      "reason": "Zero-request helper-image build failure caused by unpinned dependency drift"
+    },
+    {
+      "run_id": "pro-p0-qual-react-smoke-v1",
+      "reason": "Zero-request budget wrapper omitted LangGraph tool binding"
+    }
+  ],
+  "gate": {
+    "operationally_qualified": true,
+    "untouched_case_selection_allowed": true,
+    "effectiveness_claim_allowed": false,
+    "fairness_claim_allowed": false,
+    "required_next_action": "Freeze wrappers and preregister five-case metadata-only selection"
+  }
+}

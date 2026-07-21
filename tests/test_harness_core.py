@@ -244,6 +244,13 @@ class CoreIoTest(unittest.TestCase):
             (generated / "legitimate.pth").write_text("fixture\n")
             self.assertTrue(inspect_repository(repo, head).valid)
 
+            runtime = repo / "runtime-output"
+            runtime.mkdir()
+            (runtime / "logfile").write_text("ordinary test output\n")
+            runtime_report = inspect_repository(repo, head)
+            self.assertTrue(runtime_report.valid)
+            self.assertIn("runtime-output/logfile", runtime_report.allowed_generated_paths)
+
             (repo / "fake_module.py").write_text("# fake\n")
             (repo / "ignored_fake.py").write_text("# hidden fake\n")
             (repo / "pyrightconfig.json").write_text("{}\n")
@@ -500,6 +507,23 @@ class CoreIoTest(unittest.TestCase):
         self.assertEqual(result.script, "pip install -e .\n")
         self.assertFalse(result.unknown_commands)
 
+    def test_envbench_distillation_drops_test_module_filter_pipelines(self) -> None:
+        commands = [
+            "python -m tests.all 2>&1 | tail -30",
+            "python -m tests.unit 2>&1 | head -50",
+            'python -m test.runner 2>&1 | grep -E "ERROR|FAIL|OK|Ran"',
+            "python -m pytest.main -q | tail -20",
+            "python -m unittest.mock -h | head -10",
+        ]
+
+        result = distill_envbench_commands(
+            [{"command": command, "exit_code": 0} for command in commands]
+        )
+
+        self.assertEqual(result.script, "")
+        self.assertEqual(result.dropped_commands, tuple(commands))
+        self.assertFalse(result.unknown_commands)
+
     def test_envbench_agent_missing_key_is_recorded_without_secret(self) -> None:
         with tempfile.TemporaryDirectory() as directory, mock.patch.dict(
             "os.environ", {"OPENAI_API_KEY": ""}, clear=False
@@ -519,6 +543,63 @@ class CoreIoTest(unittest.TestCase):
             self.assertNotIn("sk-", artifacts.manifest.read_text())
             self.assertTrue(audit_run(artifacts.root).valid)
 
+    @mock.patch("envsolve_harness.runners.envbench_agent.cleanup_case_containers")
+    @mock.patch("envsolve_harness.runners.envbench_agent.subprocess.run")
+    def test_envbench_agent_classifies_empty_trajectory_as_initialization_failure(
+        self, run: mock.Mock, cleanup: mock.Mock
+    ) -> None:
+        revision = "c" * 40
+
+        def run_command(
+            command: list[str], *args: object, **kwargs: object
+        ) -> subprocess.CompletedProcess:
+            if len(command) < 2 or "inference/main.py" not in command[1]:
+                return REAL_SUBPROCESS_RUN(command, *args, **kwargs)
+            logging_dir = Path(
+                next(
+                    item.split("=", 1)[1]
+                    for item in command
+                    if item.startswith("logging_dir=")
+                )
+            )
+            logging_dir.mkdir(parents=True)
+            (logging_dir / f"owner__repo@{revision}.jsonl").touch()
+            return subprocess.CompletedProcess(command, 0, "internal error\n", "")
+
+        run.side_effect = run_command
+        cleanup.return_value = ("failed-owned-container",)
+        with tempfile.TemporaryDirectory() as directory, mock.patch.dict(
+            "os.environ", {"OPENAI_API_KEY": "test-key"}, clear=False
+        ):
+            workspace = Path(directory)
+            envbench = workspace / "EnvBench"
+            envbench.mkdir()
+            artifacts = RunArtifacts.create(
+                workspace / "runs", "agent-empty", f"owner/repo@{revision}"
+            )
+            config = make_config(workspace, envbench)
+            case = Case(f"owner/repo@{revision}", "owner/repo", revision)
+            run_spec = RunSpec(
+                "agent-empty", "envbench-react-freeagent", "test-model"
+            )
+            initialize_manifest(
+                artifacts, config, case, run_spec, make_protocol()
+            )
+
+            result = EnvBenchAgentRunner(
+                envbench, pricing=config.pricing_for("test-model")
+            ).run(case, artifacts, run_spec)
+
+            self.assertFalse(result.generation_completed)
+            self.assertEqual(
+                result.error,
+                "EnvBench agent exited with 0; trajectory exists=True; bytes=0",
+            )
+            self.assertEqual(
+                result.metadata["cleaned_container_ids"],
+                ["failed-owned-container"],
+            )
+
     def test_envsolve_v0_is_registered_with_explicit_identity(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             workspace = Path(directory)
@@ -532,10 +613,12 @@ class CoreIoTest(unittest.TestCase):
             self.assertIsInstance(runner, EnvSolveV0Runner)
             self.assertEqual(runner.image, "envbench:test")
 
+    @mock.patch("envsolve_harness.runners.envbench_agent.cleanup_case_containers")
     @mock.patch("envsolve_harness.runners.envbench_agent.subprocess.run")
     def test_envsolve_v0_requires_verified_boundary_before_distillation(
-        self, run: mock.Mock
+        self, run: mock.Mock, cleanup: mock.Mock
     ) -> None:
+        cleanup.return_value = ("v0-owned-container",)
         revision = "b" * 40
 
         def argument(command: list[str], name: str) -> str:
@@ -638,8 +721,11 @@ class CoreIoTest(unittest.TestCase):
             self.assertNotIn("pip check", artifacts.generated_script.read_text())
             self.assertEqual(result.metadata["token_usage"]["total_tokens"], 12)
             self.assertEqual(
+                result.metadata["cleaned_container_ids"], ["v0-owned-container"]
+            )
+            self.assertEqual(
                 result.metadata["distillation"]["policy"],
-                "envsolve-v0-typed-replay-ir-v8",
+                "envsolve-v0-typed-replay-ir-v9",
             )
             audit = audit_run(artifacts.root)
             self.assertTrue(audit.checks["repository_integrity"])
@@ -691,8 +777,12 @@ class CoreIoTest(unittest.TestCase):
             )
             self.assertTrue(audit_run(artifacts.root).valid)
 
+    @mock.patch("envsolve_harness.runners.envbench_agent.cleanup_case_containers")
     @mock.patch("envsolve_harness.runners.envbench_agent.subprocess.run")
-    def test_envbench_agent_success_is_replayable_and_redacts_logs(self, run: mock.Mock) -> None:
+    def test_envbench_agent_success_is_replayable_and_redacts_logs(
+        self, run: mock.Mock, cleanup: mock.Mock
+    ) -> None:
+        cleanup.return_value = ("agent-owned-container",)
         secret = "sk-" + "test-secret-value-1234567890"
         revision = "a" * 40
 
@@ -789,6 +879,9 @@ class CoreIoTest(unittest.TestCase):
                 inference_command,
             )
             self.assertEqual(result.metadata["online_budget"]["usage"]["total_tokens"], 12)
+            self.assertEqual(
+                result.metadata["cleaned_container_ids"], ["agent-owned-container"]
+            )
             integrity_audit = audit_run(artifacts.root)
             self.assertTrue(integrity_audit.checks["repository_integrity"])
             self.assertTrue(integrity_audit.checks["online_budget_matches_solver"])

@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "typed-replay-ir-v9",
+  "cases": [
+    {
+      "name": "dotted-tests-module-with-tail-is-observation",
+      "command": "python -m tests.all 2>&1 | tail -30",
+      "expected": {
+        "status": "drop"
+      }
+    },
+    {
+      "name": "dotted-test-module-with-grep-is-observation",
+      "command": "python -m test.runner 2>&1 | grep -E 'ERROR|FAIL|OK|Ran'",
+      "expected": {
+        "status": "drop"
+      }
+    },
+    {
+      "name": "dotted-pytest-module-is-observation",
+      "command": "python -m pytest.main -q | head -20",
+      "expected": {
+        "status": "drop"
+      }
+    },
+    {
+      "name": "test-module-piped-to-shell-remains-rejected",
+      "command": "python -m tests.all | bash",
+      "expected": {
+        "status": "reject",
+        "reason_contains": "unknown successful shell segment"
+      }
+    },
+    {
+      "name": "test-module-file-write-remains-rejected",
+      "command": "python -m tests.all > report.txt",
+      "expected": {
+        "status": "reject",
+        "reason_contains": "unknown successful shell segment"
+      }
+    },
+    {
+      "name": "arbitrary-dotted-module-remains-rejected",
+      "command": "python -m project.tests",
+      "expected": {
+        "status": "reject",
+        "reason_contains": "unknown successful shell segment"
+      }
+    }
+  ]
+}

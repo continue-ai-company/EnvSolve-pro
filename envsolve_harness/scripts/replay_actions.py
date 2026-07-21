@@ -8,7 +8,7 @@ import shlex
 from typing import Any
 
 
-REPLAY_IR_POLICY = "typed-replay-ir-v8"
+REPLAY_IR_POLICY = "typed-replay-ir-v9"
 
 
 class ReplayActionKind(str, Enum):
@@ -294,9 +294,12 @@ def _is_observation_words(tokens: list[str]) -> bool:
             return True
         if len(tokens) > 2 and tokens[1] == "-c":
             return _safe_python_probe(tokens[2])
-        return len(tokens) > 2 and tokens[1] == "-m" and tokens[2] in {
-            "pytest", "tests", "test", "unittest"
-        }
+        if len(tokens) > 2 and tokens[1] == "-m":
+            module = tokens[2]
+            return module in {"pytest", "tests", "test", "unittest"} or module.startswith(
+                ("pytest.", "tests.", "test.", "unittest.")
+            )
+        return False
     if executable == "poetry":
         return "--version" in tokens or tokens[1:3] == ["env", "info"]
     if executable == "pyenv":

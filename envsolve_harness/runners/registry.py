@@ -45,11 +45,38 @@ def _load_builtin_runners() -> None:
     if _BUILTINS_LOADED:
         return
     from envsolve_harness.runners.deterministic import DeterministicScriptRunner
+    from envsolve_harness.runners.codex_cli import CodexCliRunner
     from envsolve_harness.runners.envbench_agent import EnvBenchAgentRunner
     from envsolve_harness.runners.envsolve_v0 import EnvSolveV0Runner
     from envsolve_harness.runners.envsolve_p6 import EnvSolveP6Runner
     from envsolve_harness.runners.recorded_envbench import RecordedEnvBenchTrajectoryRunner
+    from envsolve_harness.runners.recorded_codex import RecordedCodexCliRunner
     from envsolve_harness.runners.repo2run import Repo2RunRunner
+
+    def codex_cli(
+        config: HarnessConfig,
+        protocol: ExperimentProtocol,
+        run_spec: RunSpec,
+        options: RunnerOptions,
+    ) -> SolverRunner:
+        benchmark = config.benchmark(protocol.benchmark)
+        image = benchmark.settings.get("image")
+        if not isinstance(image, str) or not image:
+            raise ValueError("Codex CLI requires a benchmark execution image")
+        configured = config.solver_roots.get("codex-cli")
+        executable = configured or Path("/Applications/ChatGPT.app/Contents/Resources/codex")
+        if executable.is_dir():
+            executable = executable / "codex"
+        return CodexCliRunner(
+            codex_executable=executable,
+            harness_root=config.workspace_root,
+            image=image,
+            timeout=config.generation_timeout,
+            command_timeout=config.bash_timeout,
+            container_create_timeout=config.create_container_timeout,
+            git_fetch_timeout=config.git_fetch_timeout,
+            reasoning_effort=config.model_reasoning_effort,
+        )
 
     def deterministic(
         config: HarnessConfig,
@@ -105,6 +132,16 @@ def _load_builtin_runners() -> None:
             pricing=pricing,
             harness_root=config.workspace_root,
         )
+
+    def recorded_codex(
+        config: HarnessConfig,
+        protocol: ExperimentProtocol,
+        run_spec: RunSpec,
+        options: RunnerOptions,
+    ) -> SolverRunner:
+        if options.source_run is None:
+            raise ValueError("source_run is required for the recorded Codex runner")
+        return RecordedCodexCliRunner(options.source_run)
 
     def recorded_envbench(
         config: HarnessConfig,
@@ -177,6 +214,8 @@ def _load_builtin_runners() -> None:
         )
 
     register_solver_runner("deterministic", "benchmark-deterministic", deterministic)
+    register_solver_runner("codex-cli", "codex-cli-native", codex_cli)
+    register_solver_runner("codex-recorded", "codex-cli-native-recorded", recorded_codex)
     register_solver_runner("repo2run", "repo2run", repo2run)
     register_solver_runner("envbench-agent", "envbench-react-freeagent", envbench_agent)
     register_solver_runner("envsolve-v0", "envsolve-v0", envsolve_v0)

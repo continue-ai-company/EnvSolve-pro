@@ -61,7 +61,7 @@ class RepositoryIntegrityReport:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "policy": "clean-tree-generated-artifacts-v1",
+            "policy": "clean-tracked-tree-and-no-untracked-injection-v2",
             "valid": self.valid,
             "expected_revision": self.expected_revision,
             "checked_out_revision": self.checked_out_revision,
@@ -96,7 +96,18 @@ def _is_allowed_generated(path: str) -> bool:
     )
 
 
-def _untracked_violation(repo_path: Path, path: str) -> IntegrityViolation:
+def _generated_root(path: str) -> str | None:
+    pure = PurePosixPath(path)
+    for index, part in enumerate(pure.parts):
+        if part in ALLOWED_GENERATED_DIRECTORIES or part.endswith(".egg-info"):
+            return "/".join(pure.parts[: index + 1]) + "/"
+    return path if pure.name in ALLOWED_GENERATED_FILES else None
+
+
+def _untracked_violation(
+    repo_path: Path,
+    path: str,
+) -> IntegrityViolation | None:
     candidate = repo_path / path
     pure = PurePosixPath(path)
     if candidate.is_symlink():
@@ -113,11 +124,7 @@ def _untracked_violation(repo_path: Path, path: str) -> IntegrityViolation:
             path,
             "untracked build, dependency, or verifier configuration is prohibited",
         )
-    return IntegrityViolation(
-        "untracked_repository_output",
-        path,
-        "untracked files outside generated-artifact directories are prohibited",
-    )
+    return None
 
 
 def inspect_repository(repo_path: Path, expected_revision: str) -> RepositoryIntegrityReport:
@@ -164,9 +171,24 @@ def inspect_repository(repo_path: Path, expected_revision: str) -> RepositoryInt
                 f"untracked files: {untracked_process.stderr.strip()} {ignored_process.stderr.strip()}",
             )
         )
-    allowed = tuple(path for path in untracked if _is_allowed_generated(path))
-    disallowed = tuple(path for path in untracked if not _is_allowed_generated(path))
-    violations.extend(_untracked_violation(repo_path, path) for path in disallowed)
+    untracked_violations = {
+        path: violation
+        for path in untracked
+        if not _is_allowed_generated(path)
+        for violation in [_untracked_violation(repo_path, path)]
+        if violation is not None
+    }
+    allowed = tuple(
+        sorted(
+            {
+                _generated_root(path) or path
+                for path in untracked
+                if path not in untracked_violations
+            }
+        )
+    )
+    disallowed = tuple(path for path in untracked if path in untracked_violations)
+    violations.extend(untracked_violations[path] for path in disallowed)
 
     return RepositoryIntegrityReport(
         expected_revision=expected_revision,

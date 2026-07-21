@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "typed-replay-ir-v9",
+  "candidate_policy_id": "complete-candidate-v4+typed-replay-ir-v9",
+  "frozen_at": "2026-07-21T04:20:00Z",
+  "supersedes": {
+    "policy_id": "typed-replay-ir-v8",
+    "path": "experiments/protocols/typed_replay_ir_v8_freeze.json",
+    "sha256": "78f30ea08634edd22586b74f9912125b4e5b5dbcaf3e4424d9f05d42bf93c718",
+    "reason": "Treat standard dotted Python test modules and read-only output filters as observations so external-agent trajectories are not rejected after a valid model episode. Mutation authority is unchanged."
+  },
+  "files": {
+    "research/TYPED_REPLAY_IR_V9.md": "f69e21df8c023e6fbd1f5187c1d803e98137e96959a58fab4284e0d29cef24c8",
+    "research/TYPED_REPLAY_IR_V9_ZH.md": "2d1a6196556506de5d6fe4d6e1ac51f1763839fb4211c68006e4fc10b9a1fef6",
+    "tests/fixtures/replay_ir_v6_cases.json": "c9bab9ada991d2f1a48ae699274c3eb56874c4dd578842ca924267b5285219a6",
+    "tests/fixtures/replay_ir_v7_delta_cases.json": "55bbc8c95437936798e3dfc2f48bc66cc5391a44630fbc13b9ab481fdd788644",
+    "tests/fixtures/replay_ir_v8_delta_cases.json": "eb32d490735dc831e3954c274b3ec1a9cde9f4ddd86ad3dc6e83dc1be9f7dc7a",
+    "tests/fixtures/replay_ir_v9_delta_cases.json": "9a837cb8cbb0f28c608cac032150cacb4d8649e4e3a4fd7a5f4e5b75446683c8",
+    "envsolve_harness/scripts/replay_actions.py": "3248a50eda87724422d049b84491406e744ebbdedfdfe290c82d2b8290a06167",
+    "envsolve_harness/scripts/candidate_validation.py": "7369e8539bc542653ecd6fa6587902414cc985739dbc39ea162b9d603ae218d9",
+    "tests/test_replay_ir.py": "365bbe34a34d88c9f0f488bcf5751046b9d3d52f9f881c27ca6e82e6f30dbed4",
+    "tests/test_candidate_validation.py": "ad840a720a40b8ca4a7ceb5ddfefe6ad2d26a9b87fe69da4d54c053976705624"
+  },
+  "validation": {
+    "inherited_v6_cases": 32,
+    "inherited_v7_cases": 6,
+    "inherited_v8_cases": 3,
+    "v9_delta_cases": 6,
+    "full_unittest_count": 176,
+    "full_unittest_skipped": 2,
+    "real_docker_mcp_integration_previously_passed": true
+  },
+  "development_disclosure": {
+    "development_informed": true,
+    "trigger_batch": "pro-p0-consumed-baseline-qualification",
+    "trigger_class": "external-agent finalization rejected read-only dotted test-module pipelines",
+    "case_specific_rules": false,
+    "accepted_mutation_language_changed": false,
+    "accepted_observation_language_changed": true,
+    "source_model_trajectory_mutated": false,
+    "recorded_refinalization_allowed": true,
+    "confirmatory_claim": false,
+    "untouched_confirmatory_splits": [
+      "canary-20",
+      "official-test-100"
+    ]
+  },
+  "change_policy": "Any accepted mutation, observation, canonicalization, runtime-binding, or typed action-provenance change requires a new policy identifier, repository-free tests, hashes, and freeze before benchmark execution."
+}

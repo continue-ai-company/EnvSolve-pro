@@ -7,6 +7,7 @@ from uuid import UUID
 
 from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.outputs import LLMResult
+from langchain_core.runnables import Runnable, RunnableConfig
 from langchain_openai import ChatOpenAI
 
 from envsolve_harness.budget.ledger import BudgetLedger, BudgetLimits, TokenPricing, UsageDelta
@@ -148,7 +149,7 @@ class OnlineBudgetCallback(BaseCallbackHandler):
         self.ledger.record_response(usage)
 
 
-class JSONResponseRetryModel:
+class JSONResponseRetryModel(Runnable[Any, Any]):
     """Retry only provider responses that fail before model-message decoding."""
 
     def __init__(self, model: Any, ledger: BudgetLedger, max_retries: int) -> None:
@@ -158,11 +159,16 @@ class JSONResponseRetryModel:
         self.ledger = ledger
         self.max_retries = max_retries
 
-    def invoke(self, input: Any, **kwargs: Any) -> Any:
+    def invoke(
+        self,
+        input: Any,
+        config: RunnableConfig | None = None,
+        **kwargs: Any,
+    ) -> Any:
         parse_failures = 0
         while True:
             try:
-                response = self.model.invoke(input, **kwargs)
+                response = self.model.invoke(input, config=config, **kwargs)
             except json.JSONDecodeError as exc:
                 parse_failures += 1
                 setattr(exc, "provider_attempts", parse_failures)
@@ -173,6 +179,34 @@ class JSONResponseRetryModel:
             if parse_failures:
                 self.ledger.record_response_parse_recovery()
             return response
+
+    async def ainvoke(
+        self,
+        input: Any,
+        config: RunnableConfig | None = None,
+        **kwargs: Any,
+    ) -> Any:
+        parse_failures = 0
+        while True:
+            try:
+                response = await self.model.ainvoke(input, config=config, **kwargs)
+            except json.JSONDecodeError as exc:
+                parse_failures += 1
+                setattr(exc, "provider_attempts", parse_failures)
+                if parse_failures > self.max_retries:
+                    raise
+                self.ledger.record_response_parse_retry()
+                continue
+            if parse_failures:
+                self.ledger.record_response_parse_recovery()
+            return response
+
+    def bind_tools(self, tools: Any, **kwargs: Any) -> "JSONResponseRetryModel":
+        return JSONResponseRetryModel(
+            self.model.bind_tools(tools, **kwargs),
+            self.ledger,
+            self.max_retries,
+        )
 
 
 def create_budgeted_chat_model(

@@ -294,10 +294,18 @@ class EnvBenchAgentRunner:
             "process_exit_code": process.returncode,
             "finished_at": datetime.now(timezone.utc).isoformat(),
         }
-        if process.returncode != 0 or not trajectory_source.is_file():
+        metadata["cleaned_container_ids"] = list(
+            cleanup_case_containers(artifacts.root)
+        )
+        trajectory_exists = trajectory_source.is_file()
+        trajectory_size_bytes = (
+            trajectory_source.stat().st_size if trajectory_exists else None
+        )
+        metadata["trajectory_size_bytes"] = trajectory_size_bytes
+        if process.returncode != 0 or not trajectory_exists or trajectory_size_bytes == 0:
             error = (
                 f"{self.agent_label} exited with {process.returncode}; "
-                f"trajectory exists={trajectory_source.is_file()}"
+                f"trajectory exists={trajectory_exists}; bytes={trajectory_size_bytes}"
             )
             return self._finish(
                 artifacts, SolverResult(False, run_spec.method, error=error, metadata=metadata), log

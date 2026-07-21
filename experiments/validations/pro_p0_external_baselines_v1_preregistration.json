@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-pro-p0-external-baselines-v1",
+  "preregistered_at": "2026-07-21T12:21:41+08:00",
+  "status": "registered_before_selection",
+  "purpose": "Observe five untouched development cases with four operationally qualified native methods before changing the EnvSolve-pro algorithm, then identify a cross-method dominant contradiction rather than optimizing on consumed outcomes.",
+  "frozen_code_parent_revision": "7e96d8ea1e2dc27e03292f7641d5ea02426e62ac",
+  "execution_revision_rule": "Use a clean descendant containing the qualified baseline interfaces, Replay IR v9, this preregistration, metadata-only selection, and execution binding. No solver, prompt, model policy, verifier, evaluator, replay semantics, or integrity rule may change after selection.",
+  "qualification_gate": {
+    "path": "experiments/validations/pro_p0_baseline_qualification_v1.json",
+    "sha256": "ba4491f0b3534029dd47f5af70cd1249be53cf8c56b1ccbe6b1f2a8cfa3649e5",
+    "operationally_qualified_methods": 4,
+    "qualification_case_consumed": true,
+    "effectiveness_claim": false
+  },
+  "protocols": {
+    "typed_replay_ir": {
+      "path": "experiments/protocols/typed_replay_ir_v9_freeze.json",
+      "sha256": "ab39eeb52b34fdde9517b0bd442018286f341fe31b7aefd7159de4e559d94b82"
+    },
+    "official_evaluation": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "qualification_report_en": {
+      "path": "research/PRO_P0_BASELINE_QUALIFICATION_V1.md",
+      "sha256": "18d695403a6c3551bab7878d141296438f8bb5dffacec9c2ac5678024c9292b2"
+    },
+    "qualification_report_zh": {
+      "path": "research/PRO_P0_BASELINE_QUALIFICATION_V1_ZH.md",
+      "sha256": "c19d172a32d2ac5f15039f44ca5ae4a07753231116f8d5d205e2aef3f0ef7d7e"
+    }
+  },
+  "external_boundaries": {
+    "envbench": {
+      "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+      "dirty": false,
+      "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+    },
+    "repo2run": {
+      "upstream_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
+      "compatibility_manifest": "experiments/validations/pro_p0_repo2run_compatibility_v1.json",
+      "compatibility_manifest_sha256": "aa159222ecc10780dc0d7392087fa2f830437f5a594da0a6e6a50a9c99d1833e",
+      "claim": "reproduced and minimally repaired, not untouched upstream"
+    },
+    "envsolve_v1": {
+      "revision": "07a208f9b2390a36ad64f0c0d7cedf00423a889e",
+      "tag": "envsolve-v1-baseline-freeze-2026-07-21",
+      "required_dirty": false,
+      "execution_checkout": "/Users/admin/Documents/AnyDeploy"
+    },
+    "codex_cli": {
+      "version": "codex-cli 0.145.0-alpha.18",
+      "executable_sha256": "f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9",
+      "authentication": "local ChatGPT session; no API key passed to the runner container"
+    }
+  },
+  "wrapper_freeze": {
+    "envsolve_harness/codex/__init__.py": "67a7f97ac04b4fb74da0372de805221cdb611aa093c02796cc808dc2873c98e9",
+    "envsolve_harness/codex/container_mcp.py": "83bb56a6dc3e85999b9acd21d75fd85601290874d29e8e85a2772fd34d15e8b5",
+    "envsolve_harness/runners/codex_cli.py": "55d01c192438b7668397addec69c3b0513210ed74245ca3f335ca8b8f13c4fc2",
+    "envsolve_harness/runners/recorded_codex.py": "7c4833275b0aab66aac1b25749feccdcc46497771d637b8790fa37791565d2ad",
+    "envsolve_harness/runners/envbench_agent.py": "06a02f1b4f3f797670897c143ed04d71903537b74e4eb6ab39e08874ee20ae18",
+    "envsolve_harness/runners/recorded_envbench.py": "510c2b52a7678e14c5eaf75c2f61f5020ef0fa7cc2ea6613b487fa0078fcb76d",
+    "envsolve_harness/runners/repo2run.py": "33b774ff5aca49446a9d4ce340db87c03749155ed07b48fb135b125e8e1f0f75",
+    "envsolve_harness/runners/registry.py": "ff1d704287432faa0d64b4f1b8f96f7fbbc2f5d640a16478e76ff17d563dd2ad",
+    "envsolve_harness/integrity/repository.py": "bd2bebc8b4811fd24dbcb61b79de76cd9828a7f16e5ac35cbde972da3e5db6e8",
+    "envsolve_harness/budget/langchain.py": "67e342745cd2ebc0b406afc6ce9092e053b08618485f57094dc4eff3604e0a53",
+    "experiments/configs/local_mac_pro_p0.json": "83b6a9cf362cdb3c3611ec6b7f5123e44c29339aa4e4988681894c40e7d3cf44"
+  },
+  "selection": {
+    "source": "experiments/cases/train_untouched_after_operation_replication_v1_123.jsonl",
+    "source_sha256": "3e8b12972cf135d5f029756e336c259de1bd5795a20f8494984be9c7d00e21f7",
+    "source_count": 123,
+    "count": 5,
+    "salt": "envsolve-pro-p0-external-baselines-v1-2026-07-21",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_only": true,
+    "repository_inspection_before_selection": false,
+    "failure_signature_prescreen": false,
+    "package_manager_stratification": false,
+    "prior_case_reuse": false,
+    "selected_path": "experiments/cases/dev_pro_p0_external_baselines_v1_5.jsonl",
+    "remaining_path": "experiments/cases/train_untouched_after_pro_p0_external_baselines_v1_118.jsonl",
+    "provenance_path": "experiments/validations/pro_p0_external_baselines_v1_selection.json",
+    "selected_split": "dev-pro-p0-external-baselines-v1-5",
+    "remaining_split": "train-untouched-after-pro-p0-external-baselines-v1-118",
+    "selector": "experiments/tools/select_pro_p0_external_baselines_v1.py",
+    "selector_sha256": "ff9d4730eb608fa422351c8566a9e49e5d30de3ca80a28786f942d28f23de6ab"
+  },
+  "methods": [
+    {
+      "method_id": "codex-cli-native",
+      "runner": "codex-cli",
+      "model": "gpt-5.5",
+      "native_loop_preserved": true,
+      "official_evaluator_online_feedback": false
+    },
+    {
+      "method_id": "repo2run-reproduced",
+      "runner": "repo2run",
+      "model": "deepseek/deepseek-v4-pro",
+      "native_loop_preserved": true,
+      "official_evaluator_online_feedback": false
+    },
+    {
+      "method_id": "envbench-raw-react",
+      "runner": "envbench-agent",
+      "model": "deepseek/deepseek-v4-pro",
+      "native_loop_preserved": true,
+      "official_evaluator_online_feedback": false
+    },
+    {
+      "method_id": "envsolve-v1-frozen",
+      "runner": "envsolve",
+      "model": "deepseek/deepseek-v4-pro",
+      "native_loop_preserved": true,
+      "official_evaluator_online_feedback": false
+    }
+  ],
+  "schedule": {
+    "builder": "experiments/tools/build_pro_p0_external_baselines_v1_schedule.py",
+    "builder_sha256": "3698e7c3993a15087e8ddf660f7a003ced5d0bbe9944080f33af9e16342a1786",
+    "output": "experiments/validations/pro_p0_external_baselines_v1_schedule.json",
+    "episode_count": 20,
+    "case_order": "salted deterministic",
+    "method_order_within_case": "salted deterministic",
+    "host_binding": "recorded at execution; Mac and DGX Spark are both allowed development hosts",
+    "same_case_host_preference": "Use one host for all methods on a case when available; Codex CLI remains on the qualified Mac if unavailable on Spark. P0 makes no paired host-controlled effectiveness claim."
+  },
+  "resource_policy": {
+    "primary_objective": "successful terminal deployment",
+    "tokens_are_hard_success_threshold": false,
+    "dollar_cost_is_primary_scientific_variable": false,
+    "reported_metrics": [
+      "input, cached-input, output, and reasoning tokens when exposed",
+      "model requests",
+      "commands and fresh environments",
+      "generation and evaluation wall-clock time"
+    ],
+    "runaway_limits": "Method-native stopping plus broad 10800-second generation safety boundary; configured token and dollar ceilings are operational circuit breakers only."
+  },
+  "analysis_plan": {
+    "primary_output": "Cross-method trajectory decomposition into Observation, Constraint, and Operation failures",
+    "terminal_metrics": [
+      "generation completed",
+      "official evaluation reached",
+      "Official Pass@1"
+    ],
+    "mechanism_metrics": [
+      "first failed operation and whether it was repaired",
+      "repeated-failure count",
+      "terminal-relevant constraint discovered",
+      "constraint discovered but not acted upon",
+      "clean replay"
+    ],
+    "resource_metrics_secondary": true,
+    "effectiveness_claim_allowed": false,
+    "fairness_claim_allowed": false,
+    "algorithm_change_allowed_during_batch": false
+  },
+  "execution_rule": {
+    "case_replacement": false,
+    "run_overwrite": false,
+    "network_retry": "One audited same-identity episode restart is allowed only when no valid model response and no environment command were produced. A partial episode with model or environment information is marked Unknown and is not rerun.",
+    "wifi_change": "Changing to the operator hotspot is an infrastructure recovery action and must be recorded; it does not authorize a partial-episode rerun.",
+    "terminal_evaluator_infrastructure_failure": "One evaluator-only replay of the identical script with zero new model calls is allowed.",
+    "post_selection_wrapper_failure": "Pause execution and mark affected positions Unknown; do not change the frozen wrapper on selected cases. A new qualified protocol must draw from the remaining untouched pool.",
+    "operator_interruption": "Record interruption and resume only when the exact process/container can continue without a fresh stochastic episode; otherwise mark Unknown."
+  },
+  "integrity": {
+    "development_observation_only": true,
+    "paper_effectiveness_claim_allowed": false,
+    "leaderboard_claim_allowed": false,
+    "canary20_inspection_allowed": false,
+    "official_test100_inspection_allowed": false,
+    "repository_specific_rules_allowed": false,
+    "cross_case_memory": false,
+    "official_evaluator_feedback_online": false,
+    "no_post_selection_code_change": true
+  }
+}
