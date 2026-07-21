@@ -330,3 +330,100 @@ group 与 compatibility 变化必须来自声明和执行证据，并在使用�
 - 冻结 EnvSolve 重试用量：5 次响应/候选、56,916 total token、478 秒、0 个 request error
 - 冻结 EnvSolve 结果：candidate budget exhausted；5 次 verifier failure
 - 计划 Codex 结果：Unknown，精确预注册 executable 不可获得
+
+## Case P0-004：`strinking/futaba@2e4d787`
+
+**状态：** 所有可运行的计划方法均已终止。冻结 EnvSolve 生成了内部接受的部署方案，但未满足官方静态分析
+标准。Repo2Run reproduced 在原生 Python 3.10 容器中成功，却只重放了依赖 ambient state 的安装命令，
+在官方 Python 3.13 环境中 bootstrap 失败。raw ReAct 原生解决了部署，但成功轨迹被 replay compiler 拒绝。
+计划中的 Codex 因精确预注册 executable 仍不可获得而记为 Unknown。
+
+### 为什么这个 case 有价值
+
+这个 case 把旧 Poetry lock 与无法在 benchmark image 的 Python 3.13 下构建的 native extension 结合在一起。
+成功部署必须选择兼容 runtime、确保 package manager 的环境确实使用该 runtime、安装静态分析所需的 dev
+dependency，并在 fresh-container replay 中保留这些因果选择。仅仅能 import 不是官方成功标准。
+
+### 冻结 EnvSolve 观察
+
+冻结 EnvSolve 完成 3 次模型响应和 3 个 fresh-container candidate，使用 28,582 total token 与 501 秒，
+没有请求错误。候选 1 在默认 Python 下使用 Poetry，编译 `frozenlist==1.4.0` 失败。候选 2 安装 Python
+3.10，却没有把 Poetry 绑定到它，`poetry install` 仍创建 Python 3.13 环境并重复失败。候选 3 显式创建
+Python 3.10 venv，并使用 `pip install .`；54 个内部 import obligation、`pip check`、compileall 与 source
+import closure 全部通过。
+
+官方 bootstrap 也完成了，但 EnvBench 在 119 个文件中报告 746 个 Pyright error，最终判败。只有 2 个是
+missing import，其余 744 个是 argument、attribute、optional-member 等类型错误。这是真实的 EnvSolve 失败：
+内部 verifier 接受了 import 完整的 runtime，但它没有满足声明的静态分析目标。
+
+### Repo2Run 观察
+
+Repo2Run 完成 5 次响应，使用 32,055 total token 与 111 秒，没有请求错误。原生轨迹运行在 Python 3.10
+容器中，`poetry install` 成功。replay distiller 只保留该安装命令，完整性审计没有违规。官方 fresh
+container 中，同一命令继承 Python 3.13，编译 `frozenlist==1.4.0` 失败，Pyright 没有运行。因此官方结果是
+bootstrap exit 1，不是静态分析分数。
+
+这个命令在语法上可重放，在语义上却不完整。它的成功效果依赖原生容器中可见、却没有进入 compiled plan 的
+ambient runtime。
+
+### Raw ReAct 观察
+
+raw ReAct 完成 13 次响应，使用 96,776 total token 与 95 秒，没有请求错误。它检查 Poetry 声明，诊断
+Python 3.13 extension failure，通过 pyenv 选择 Python 3.10.13，重建 `.venv`，执行
+`poetry install --with dev`，并验证项目、主要 runtime 与 development import。原生轨迹成功完成。
+
+replay compiler 保留了 runtime configuration 与 environment activation，却拒绝包含 `rm -rf .venv` 的
+复合命令；它还拒绝了最后一个 probe 使用 `|| true` 的观察命令。由于 package install 与第一个复合命令共享，
+generation 被标记为不可重放，官方 evaluator 没有运行。repository integrity 有效，tracked change 与
+disallowed untracked path 都是 0。这是 wrapper-induced Unknown，不是原生 Agent 失败。
+
+### 初步三层诊断
+
+**观测层：** 同一 locked extension 在 Python 3.13 下失败、在 Python 3.10 下安装成功，是直接的
+runtime-package compatibility evidence。成功命令还携带 active interpreter 与 package-manager environment
+等因果 ambient fact。官方失败说明 import closure 与 static-analysis closure 是两种不同观察。
+
+**约束层：** 可重放方案必须 causally closed：runtime choice、environment ownership、dependency group 与
+verifier obligation 都不能隐含在 source container 中。内部 acceptance 必须覆盖声明的任务 contract，不能
+只依赖 importability 这类更弱 proxy。
+
+**操作层：** runtime installation、package-manager interpreter binding、project-scoped environment
+replacement、dependency installation 与 static checking 是不同 typed operation。对已知 generated
+environment root 的有界 reset 不等同于任意 destructive shell。复合命令应按 effect 分解，不能因为一个不支持的
+观察就抹掉独立成功的 install effect。
+
+### 候选通用假设
+
+- **H14：verifier-contract closure。** 从声明的 task contract 推导内部 obligation，并运行同一语义家族的独立
+  local checker，应能减少内部误接受，同时不向 solver 暴露 post-episode evaluator 结果。
+- **H15：causal replay closure。** 记录让成功动作成立的 runtime、environment owner 与其他 ambient
+  precondition，应能避免语法重放在 fresh base container 中改变语义。
+- **H16：typed environment replacement。** 提供 project-scoped operation，用 selected runtime 替换并绑定
+  已识别 generated environment，应能保留强 Agent 的恢复行为，同时拒绝任意删除。
+- **H17：effect-level compound decomposition。** 按独立成功 effect 蒸馏复合 shell expression，应能在相邻
+  cleanup 或 observation 不受支持时保留有效部署动作。
+
+### 防过拟合 Gate
+
+任何修复都不能提及 `futaba`、`frozenlist`、Poetry 特定 package 名或本次版本号。runtime constraint 必须来自
+声明与执行证据。environment replacement 必须限制在经过 path-scope 验证的 typed generated root。verifier
+变化必须在打开下一个 untouched case 前声明，并在能区分 import success 与 static-analysis failure 的
+repository-neutral fixture 上评估。
+
+### 证据锚点
+
+- 冻结 EnvSolve run ID：`pro-p0-v1-c04-envsolve-v1-frozen`
+- 冻结 EnvSolve 用量：3 次响应/候选、28,582 total token、501 秒
+- 冻结 EnvSolve 内部结果：候选 3 接受；54 个 obligation satisfied
+- 冻结 EnvSolve 官方结果：bootstrap 0、746 个 Pyright error、失败
+- Repo2Run run ID：`pro-p0-v1-c04-repo2run-reproduced`
+- Repo2Run 用量：5 次响应、32,055 total token、111 秒
+- Repo2Run 官方结果：bootstrap 1；`frozenlist==1.4.0` 在 Python 3.13 下失败
+- Repo2Run trajectory SHA-256：
+  `071f085f73813c8acbc091700aa0484758d0ca572fd4d4fc6f4889f0d59ea903`
+- Raw ReAct run ID：`pro-p0-v1-c04-envbench-raw-react`
+- Raw ReAct 用量：13 次响应、96,776 total token、95 秒
+- Raw ReAct 原生轨迹 SHA-256：
+  `a0dbe3f26f2d6802670126f3626099c54458782a6a99eceeff6792f03a54968c`
+- Raw ReAct integrity：有效；0 个 tracked change，0 个 disallowed untracked path
+- 计划 Codex 结果：Unknown，精确预注册 executable 不可获得

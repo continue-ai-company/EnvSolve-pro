@@ -428,3 +428,130 @@ synthetic repositories with different names.
   478 seconds, 0 request errors
 - Frozen EnvSolve outcome: candidate budget exhausted; 5 verifier failures
 - Scheduled Codex outcome: Unknown, exact preregistered executable unavailable
+
+## Case P0-004: `strinking/futaba@2e4d787`
+
+**Status:** all runnable scheduled methods have terminated. Frozen EnvSolve produced
+an internally accepted deployment but failed the official static-analysis criterion.
+Repo2Run reproduced succeeded in its native Python 3.10 container but replayed only
+an ambient-state-dependent install command, which failed official bootstrap under
+Python 3.13. Raw ReAct solved the native deployment but its successful trajectory was
+rejected by the replay compiler. The scheduled Codex result is Unknown because the
+exact preregistered executable remains unavailable.
+
+### Why This Case Is Valuable
+
+This case couples an old Poetry lock with a native extension that cannot build under
+the benchmark image's Python 3.13. A successful deployment must select a compatible
+runtime, ensure that the package manager actually owns an environment using that
+runtime, install development dependencies needed by static analysis, and preserve
+those causal choices in a fresh-container replay. Importability alone is not the
+official success condition.
+
+### Frozen EnvSolve Observation
+
+Frozen EnvSolve used three model responses and fresh-container candidates, 28,582
+total tokens, and 501 seconds without request errors. Candidate 1 used Poetry under
+the default Python and failed while compiling `frozenlist==1.4.0`. Candidate 2
+installed Python 3.10 but did not bind Poetry to it, so `poetry install` still created
+a Python 3.13 environment and repeated the failure. Candidate 3 created a Python 3.10
+venv explicitly and used `pip install .`; all 54 internal import obligations,
+`pip check`, compileall, and source import closure passed.
+
+The official bootstrap also completed, but EnvBench reported 746 Pyright errors over
+119 files and failed the run. Only two were missing-import diagnostics; the other 744
+were argument, attribute, optional-member, and related type errors. This is a genuine
+EnvSolve failure: its internal verifier accepted an import-complete runtime that did
+not satisfy the declared static-analysis objective.
+
+### Repo2Run Observation
+
+Repo2Run used five responses, 32,055 total tokens, and 111 seconds without request
+errors. Its native trajectory ran in a Python 3.10 container, where `poetry install`
+succeeded. The replay distiller retained only that install command and reported no
+integrity violation. In the official fresh container, the same command inherited
+Python 3.13 and failed compiling `frozenlist==1.4.0`; Pyright never ran. The official
+result was therefore bootstrap exit 1, not a static-analysis score.
+
+The command was syntactically replayable but semantically incomplete. Its successful
+effect depended on an ambient runtime that was visible in the native container and
+absent from the compiled plan.
+
+### Raw ReAct Observation
+
+Raw ReAct used 13 responses, 96,776 total tokens, and 95 seconds with no request
+errors. It inspected the Poetry declarations, diagnosed the Python 3.13 extension
+failure, selected Python 3.10.13 through pyenv, recreated `.venv`, ran
+`poetry install --with dev`, and verified the project plus its primary runtime and
+development imports. The native trajectory completed successfully.
+
+The replay compiler retained runtime configuration and environment activation but
+rejected the compound command containing `rm -rf .venv`; it also rejected a later
+observational command whose final probe used `|| true`. Because the package install
+shared the first compound command, generation was marked non-replayable and no
+official evaluator ran. Repository integrity remained valid with zero tracked changes
+and no disallowed untracked paths. This is a wrapper-induced Unknown, not a native
+agent failure.
+
+### Initial Three-Layer Diagnosis
+
+**Observation layer:** the same locked extension failing on Python 3.13 and installing
+on Python 3.10 is direct runtime-package compatibility evidence. A successful command
+also carries causal ambient facts, including the active interpreter and package-
+manager environment. Official failure shows that import closure and static-analysis
+closure are distinct observations.
+
+**Constraint layer:** a replayable solution must be causally closed: runtime choice,
+environment ownership, dependency groups, and verifier obligations cannot remain
+implicit in the source container. Internal acceptance must cover the declared task
+contract, not merely a weaker proxy such as importability.
+
+**Operation layer:** runtime installation, package-manager interpreter binding,
+project-scoped environment replacement, dependency installation, and static checking
+are separate typed operations. A bounded reset of a known generated environment root
+is not equivalent to arbitrary destructive shell access. Compound commands should be
+decomposed so that one unsupported observation does not erase an independent
+successful install effect.
+
+### Candidate General Hypotheses
+
+- **H14: verifier-contract closure.** Deriving internal obligations from the declared
+  task contract and running an independent local checker of the same semantic family
+  should reduce false internal acceptance without exposing post-episode evaluator
+  results to the solver.
+- **H15: causal replay closure.** Recording the runtime, environment owner, and other
+  ambient preconditions that made a successful action work should prevent syntactic
+  replay from changing semantics in a fresh base container.
+- **H16: typed environment replacement.** A project-scoped operation that replaces a
+  recognized generated environment and binds it to a selected runtime should preserve
+  strong-agent recovery behavior while rejecting arbitrary deletion.
+- **H17: effect-level compound decomposition.** Distilling independently successful
+  effects from compound shell expressions should keep a valid deployment action when
+  an adjacent cleanup or observation is unsupported.
+
+### Anti-Overfitting Gate
+
+No repair may mention `futaba`, `frozenlist`, Poetry-specific package names, or the
+observed version numbers. Runtime constraints must arise from declarations and
+execution evidence. Environment replacement must be limited to typed generated roots
+with path-scope validation. Verifier changes must be declared before the next
+untouched case and evaluated on repository-neutral fixtures that separate import
+success from static-analysis failure.
+
+### Evidence Anchors
+
+- Frozen EnvSolve run ID: `pro-p0-v1-c04-envsolve-v1-frozen`
+- Frozen EnvSolve usage: 3 responses/candidates, 28,582 total tokens, 501 seconds
+- Frozen EnvSolve internal outcome: candidate 3 accepted; 54 obligations satisfied
+- Frozen EnvSolve official outcome: bootstrap 0, 746 Pyright errors, failed
+- Repo2Run run ID: `pro-p0-v1-c04-repo2run-reproduced`
+- Repo2Run usage: 5 responses, 32,055 total tokens, 111 seconds
+- Repo2Run official outcome: bootstrap 1; `frozenlist==1.4.0` failed under Python 3.13
+- Repo2Run trajectory SHA-256:
+  `071f085f73813c8acbc091700aa0484758d0ca572fd4d4fc6f4889f0d59ea903`
+- Raw ReAct run ID: `pro-p0-v1-c04-envbench-raw-react`
+- Raw ReAct usage: 13 responses, 96,776 total tokens, 95 seconds
+- Raw ReAct native trajectory SHA-256:
+  `a0dbe3f26f2d6802670126f3626099c54458782a6a99eceeff6792f03a54968c`
+- Raw ReAct integrity: valid; zero tracked changes and zero disallowed untracked paths
+- Scheduled Codex outcome: Unknown, exact preregistered executable unavailable
