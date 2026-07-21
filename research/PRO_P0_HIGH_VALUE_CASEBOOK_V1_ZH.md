@@ -223,3 +223,110 @@ fixture；并在打开下一个 untouched case 前冻结。
   `cbf6771459347acd61c09bce056c56c8940cb679ef2c956c8b7435ea029dedd8`
 - runtime 偏差记录：
   `experiments/validations/pro_p0_external_baselines_v1_runtime_deviations.json`
+
+## Case P0-003：`marimo-team/marimo@537b230`
+
+**状态：** 所有可运行的计划方法均已终止。Repo2Run 的原生 verifier 通过，但 replay wrapper 拒绝轨迹；
+raw ReAct 原生未完成，随后又被不区分 artifact 的完整性审计拒绝；冻结 EnvSolve 沿错误的 optional
+dependency 分支搜索，5 个候选耗尽。计划中的 Codex 因无法恢复精确预注册二进制而记为 Unknown。没有运行
+官方 evaluator。
+
+### 为什么这条部分轨迹有价值
+
+这个 case 把包安装与简单的文件系统后置条件分开。项目声明的 test extra 能提供 Python 依赖，但 test
+collection 还要求一个生成式前端 asset 目录存在。因此，即使 package graph 一致，缺少必要的空目录仍可能让
+测试在执行前失败。
+
+### Repo2Run 观察
+
+Repo2Run 完成 8 次模型响应，使用 77,503 total token 和 377 秒，没有请求错误。它读取
+`pyproject.toml`，安装仓库声明的 `.[testcore]` extra，观察到 collection 因
+`marimo/_static/assets` 不存在而失败，创建该目录后重新运行原生 `runtest`。最终原生 verifier 返回 0，并
+收集 1,085 个测试。
+
+冻结 Repo2Run replay 层只保留了包安装动作，拒绝成功执行的
+`mkdir -p /repo/marimo/_static/assets` 操作。因此 generation 被标记为不可重放，官方 EnvBench evaluator
+没有运行。本结果应记为“Repo2Run 自身 verifier 下原生成功 + wrapper 导致官方结果 Unknown”，不能写成
+EnvBench success。
+
+### Raw ReAct 观察
+
+Raw ReAct 完成 20 次模型响应，使用 344,440 total token 和 561 秒，没有 provider 错误。它沿着仓库的
+完整 source-build 路径推进：安装 pnpm、执行 `make fe`、按文档提高 Node heap 后重新构建 frontend，随后
+执行 `make py`。Python 安装在 base Python 3.13 下遇到 `pyarrow` 构建问题。Agent 选择 Python 3.12 并
+修正 `PATH`，但还没有重新安装或运行测试，就以空的 terminal response 结束。因此原生轨迹未完成。
+
+wrapper 随后报告 7,865 个 repository-integrity violation，但 tracked change 与 changed source file 都是
+0：其中 7,854 个 symlink、10 个 Python 文件和 1 个 requirements 文件全部位于 package-manager 生成的
+`node_modules` 树中。审计没有考虑 generated-root provenance，把依赖安装产物归类为 source injection，
+因此又叠加了一次独立的 wrapper failure。该 episode 不重跑。
+
+### 冻结 EnvSolve 观察
+
+第一次冻结 EnvSolve episode 在候选 3 遭遇已分类的 TLS dependency-acquisition failure 后停止。随后严格按
+预注册 infrastructure-retry 规则重跑一次，冻结代码、模型、协议和 case 均未变化。有效重试完成 5 次模型
+响应和 5 个 fresh-container candidate，使用 56,916 total token 与 478 秒，没有模型请求错误。
+
+候选 1 安装项目，暴露 verifier 缺少 `pytest`。候选 2 增补 `pytest`，collection 到达 893 个测试后，
+`starlette.testclient` 又要求 HTTP 测试依赖。候选 3 选择较宽的 `testoptional` extra，间接在 base Python
+3.13 下拉入旧版 `pyarrow`，并在 wheel preparation 阶段失败。候选 4、5 继续沿该分支增加构建工具并固定
+`pyarrow==15.0.2`，仍无法安装不兼容的 source build。episode 最终耗尽 5 个候选。
+
+这是算法失败，不是基础设施或 evaluator 结果。初始仓库观察从 `pyproject.toml` 接纳了 14 个 runtime
+requirement，却没有暴露 optional dependency group 的语义。因此 solver 虽有足够操作自由，却缺少结构化
+证据去优先选择 Repo2Run 通过阅读声明找到的较窄 `testcore` group。重复的 `pyarrow` 构建失败也一直停留在
+package-install failure，没有提升为能够重定向搜索的 runtime compatibility conflict。
+
+### 初步三层诊断
+
+**观测层：** 即使不需要生成任何文件内容，缺失路径本身也可以是部署观察。test collection 提供了比 package
+graph 更强的证据。build artifact、dependency tree 与 source edit 也必须被观察为不同 path class，不能
+只根据文件扩展名推断。optional dependency group 及其与 verifier 的相关性也是 repository evidence；只
+展开 base requirement 会丢失决定性的选择边界。
+
+**约束层：** 环境状态还包含 `directory_exists(project-relative-path)` 这类 typed filesystem
+postcondition，不只有 runtime、package、import 与环境变量。在声明 runtime 下重复发生的 native-build
+failure，还应能从局部命令错误提升为 runtime-package compatibility conflict。
+
+**操作层：** 创建 project-relative 空目录是边界明确且效果可验证的操作。把所有文件系统变化都当成无法表示的
+shell escape，会不必要地抹掉强 Agent 已成功完成的轨迹。反过来，宽泛的 repository integrity scan 必须
+理解 operation 产生的 artifact root，否则标准 package-manager 语义会变成虚假的 tampering evidence。
+
+### 候选通用假设
+
+- **H10：typed filesystem postcondition。** 在明确 path scope 并验证效果的条件下表示 project-relative
+  目录创建，应能减少 wrapper-induced Unknown，同时不允许任意 source edit。
+- **H11：provenance-scoped integrity。** 根据产生 untracked path 的 typed operation 与 generated root
+  分类，应能在保护 tracked source 的同时，避免标准 package-manager layout 触发误报。
+- **H12：verifier-conditioned optional dependencies。** 把具名 optional dependency group 保留为结构化
+  repository evidence，再根据 active verifier 缺失的 import 排序，应能在不硬编码 package 或 repo 名的
+  前提下避免选择过宽 extra。
+- **H13：compatibility-conflict promotion。** 按 package、runtime 与 failure phase 聚合重复 build failure，
+  应能让约束层关闭无效安装分支，改为提出兼容 runtime 或更窄 dependency set。
+
+### 防过拟合 Gate
+
+任何修复都不能特判 `marimo`、frontend asset、`_static` 或本次路径，也不能硬编码 `testcore`、
+`testoptional`、`pyarrow` 或 Python 版本。操作变化必须使用通用 filesystem intent，拒绝路径穿越与
+protected path，验证执行效果，通过与仓库无关的 fixture，并在打开 untouched case 前冻结。dependency
+group 与 compatibility 变化必须来自声明和执行证据，并在使用不同名称的 synthetic repo 上验证。
+
+### 证据锚点
+
+- Repo2Run run ID：`pro-p0-v1-c03-repo2run-reproduced`
+- 原生用量：8 次响应、77,503 total token、377 秒
+- 原生 verifier：返回码 0，收集 1,085 个测试
+- 已保存原生命令轨迹：`generation/repo2run_raw/inner_commands.json`
+- 原生命令轨迹 SHA-256：
+  `a825ca90f8b4a38b24a6ccc762e50afc71ee3ede47dd64c63960a7a6b9ee6d71`
+- Raw ReAct run ID：`pro-p0-v1-c03-envbench-raw-react`
+- Raw ReAct 用量：20 次响应、344,440 total token、561 秒
+- Raw ReAct 完整性审计：0 tracked change、7,865 个 generated-path violation
+- Raw ReAct 原生轨迹 SHA-256：
+  `78af4405d3115f97c99cefba57cb93821e7d93230e75ec8131a7d6e48047f7f7`
+- 冻结 EnvSolve 首次 run ID：`pro-p0-v1-c03-envsolve-v1-frozen`
+- 冻结 EnvSolve infrastructure retry run ID：
+  `pro-p0-v1-c03-envsolve-v1-frozen-network-retry3`
+- 冻结 EnvSolve 重试用量：5 次响应/候选、56,916 total token、478 秒、0 个 request error
+- 冻结 EnvSolve 结果：candidate budget exhausted；5 次 verifier failure
+- 计划 Codex 结果：Unknown，精确预注册 executable 不可获得

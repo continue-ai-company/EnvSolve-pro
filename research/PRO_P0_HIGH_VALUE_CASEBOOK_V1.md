@@ -286,3 +286,145 @@ fixtures; and be frozen before the next untouched case is opened.
   `cbf6771459347acd61c09bce056c56c8940cb679ef2c956c8b7435ea029dedd8`
 - Runtime deviation record:
   `experiments/validations/pro_p0_external_baselines_v1_runtime_deviations.json`
+
+## Case P0-003: `marimo-team/marimo@537b230`
+
+**Status:** all runnable scheduled methods have terminated. Repo2Run's native
+verifier passed but its replay wrapper rejected the trajectory. Raw ReAct stopped
+incomplete and then failed an artifact-insensitive integrity audit. Frozen EnvSolve
+exhausted five candidates after following the wrong optional-dependency branch. The
+scheduled Codex result is Unknown because the exact preregistered binary could not be
+recovered. No official evaluator ran.
+
+### Why This Partial Trace Is Valuable
+
+This case separates package installation from a simple filesystem postcondition.
+The project declares a test extra that supplies the Python dependencies, while test
+collection also expects a generated frontend asset directory to exist. A deployment
+can therefore have a consistent package graph and still fail before tests because a
+required empty directory is absent.
+
+### Repo2Run Observation
+
+Repo2Run used eight model responses, 77,503 total tokens, and 377 seconds with no
+request errors. It read `pyproject.toml`, installed the repository-declared
+`.[testcore]` extra, observed collection failure caused by the absent
+`marimo/_static/assets` path, created that directory, and reran its native `runtest`.
+The final native verifier returned 0 and collected 1,085 tests.
+
+The frozen Repo2Run replay layer retained only the package-install action and rejected
+the successful `mkdir -p /repo/marimo/_static/assets` operation. Generation was
+therefore marked non-replayable and the official EnvBench evaluator did not run. This
+is recorded as native-baseline success under Repo2Run's verifier plus a
+wrapper-induced Unknown official outcome, not as an EnvBench success.
+
+### Raw ReAct Observation
+
+Raw ReAct completed 20 model responses, used 344,440 total tokens and 561 seconds,
+and had no provider errors. It followed the repository's full source-build path:
+installed pnpm, attempted `make fe`, repeated the frontend build with the documented
+larger Node heap, and then ran `make py`. The Python install encountered a `pyarrow`
+build problem under base Python 3.13. The agent selected Python 3.12 and corrected
+`PATH`, but then emitted an empty terminal response before reinstalling or running a
+test. The native trajectory is therefore incomplete.
+
+The wrapper subsequently reported 7,865 repository-integrity violations despite
+zero tracked changes and zero changed source files: 7,854 symlinks, 10 Python files,
+and one requirements file, all generated inside package-manager `node_modules`
+trees. Dependency installation artifacts were classified as source injection without
+considering their generated-root provenance, so integrity enforcement added a
+separate wrapper failure. The episode is not retried.
+
+### Frozen EnvSolve Observation
+
+The first frozen EnvSolve episode was stopped after candidate 3 by a classified TLS
+dependency-acquisition failure. The same frozen code, model, protocol, and case were
+then rerun once under the preregistered infrastructure-retry rule. The valid retry
+completed five model responses and fresh-container candidates, used 56,916 total
+tokens and 478 seconds, and had no model request errors.
+
+Candidate 1 installed the project and exposed the missing `pytest` verifier
+dependency. Candidate 2 added `pytest`; collection then reached 893 tests before
+`starlette.testclient` required an additional HTTP test dependency. Candidate 3
+selected the broad `testoptional` extra, which pulled an old `pyarrow` into base
+Python 3.13 and failed during wheel preparation. Candidates 4 and 5 stayed on that
+branch, adding build tools and pinning `pyarrow==15.0.2`, but could not make the
+incompatible source build installable. The episode stopped at the five-candidate
+limit.
+
+This is an algorithmic failure, not an infrastructure or evaluator result. The
+initial repository observation admitted 14 runtime requirements from `pyproject.toml`
+but did not expose the semantics of its optional dependency groups. Consequently,
+the solver had enough freedom to act but insufficient structured evidence to prefer
+the narrow `testcore` group that Repo2Run found by reading the declaration. Repeated
+`pyarrow` build failures also remained package-install failures instead of becoming
+a runtime compatibility conflict that would redirect search.
+
+### Initial Three-Layer Diagnosis
+
+**Observation layer:** a missing path can be a deployment observation even when no
+file content must be generated. Test collection supplied stronger evidence than the
+package graph alone. Build artifacts, dependency trees, and source edits must also
+be observed as distinct path classes rather than inferred from file extensions.
+Optional dependency groups and their verifier relevance are part of repository
+evidence; flattening only base requirements loses a decisive choice boundary.
+
+**Constraint layer:** environment state includes typed filesystem postconditions such
+as `directory_exists(project-relative-path)`, not only runtimes, packages, imports,
+and environment variables. Repeated native-build failures under a declared runtime
+must be promotable from local command errors to a runtime-package compatibility
+conflict.
+
+**Operation layer:** creating a project-relative empty directory is a bounded,
+effect-verifiable operation. Treating every filesystem mutation as an unrepresentable
+shell escape unnecessarily censors successful strong-agent trajectories. Conversely,
+a broad repository integrity scan must understand operation-produced artifact roots;
+otherwise valid package-manager semantics become false tampering evidence.
+
+### Candidate General Hypothesis
+
+- **H10: typed filesystem postconditions.** Representing bounded project-relative
+  directory creation with explicit path scope and effect verification should reduce
+  wrapper-induced Unknown outcomes without permitting arbitrary source edits.
+- **H11: provenance-scoped integrity.** Classifying untracked paths by the typed
+  operation and generated root that produced them should preserve tracked-source
+  protection while avoiding false positives from standard package-manager layouts.
+- **H12: verifier-conditioned optional dependencies.** Preserving named optional
+  dependency groups as structured repository evidence, then ranking them against the
+  active verifier's missing imports, should avoid broad extras without hard-coding
+  package or repository names.
+- **H13: compatibility-conflict promotion.** Aggregating repeated build failures by
+  package, runtime, and failure phase should let the constraint layer close an
+  unproductive install branch and propose a compatible runtime or narrower
+  dependency set.
+
+### Anti-Overfitting Gate
+
+No repair may special-case `marimo`, frontend assets, `_static`, or the observed path.
+No repair may hard-code `testcore`, `testoptional`, `pyarrow`, or a Python version.
+Any operation change must use a general filesystem intent, reject traversal and
+protected paths, verify the resulting effect, pass repository-neutral fixtures, and
+be frozen before an untouched case is opened. Dependency-group and compatibility
+changes must be derived from declarations and execution evidence and validated on
+synthetic repositories with different names.
+
+### Evidence Anchors
+
+- Repo2Run run ID: `pro-p0-v1-c03-repo2run-reproduced`
+- Native usage: 8 responses, 77,503 total tokens, 377 seconds
+- Native verifier: return code 0, 1,085 tests collected
+- Preserved raw command trace: `generation/repo2run_raw/inner_commands.json`
+- Raw command trace SHA-256:
+  `a825ca90f8b4a38b24a6ccc762e50afc71ee3ede47dd64c63960a7a6b9ee6d71`
+- Raw ReAct run ID: `pro-p0-v1-c03-envbench-raw-react`
+- Raw ReAct usage: 20 responses, 344,440 total tokens, 561 seconds
+- Raw ReAct integrity audit: 0 tracked changes, 7,865 generated-path violations
+- Raw ReAct native trajectory SHA-256:
+  `78af4405d3115f97c99cefba57cb93821e7d93230e75ec8131a7d6e48047f7f7`
+- Frozen EnvSolve primary run ID: `pro-p0-v1-c03-envsolve-v1-frozen`
+- Frozen EnvSolve infrastructure retry run ID:
+  `pro-p0-v1-c03-envsolve-v1-frozen-network-retry3`
+- Frozen EnvSolve retry usage: 5 responses/candidates, 56,916 total tokens,
+  478 seconds, 0 request errors
+- Frozen EnvSolve outcome: candidate budget exhausted; 5 verifier failures
+- Scheduled Codex outcome: Unknown, exact preregistered executable unavailable

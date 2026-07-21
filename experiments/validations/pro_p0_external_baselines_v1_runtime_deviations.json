@@ -36,6 +36,32 @@
       "environment_commands": 0,
       "retry_eligible": false,
       "reason": "Automatic external-tool update changed the preregistered executable boundary before launch; same-version substitutes had different hashes."
+    },
+    {
+      "recorded_at": "2026-07-21T11:11:07Z",
+      "schedule_position": 11,
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "run_id": "pro-p0-v1-c03-codex-cli-native",
+      "method": "codex-cli-native",
+      "boundary": "codex_cli_executable",
+      "expected": {
+        "version": "codex-cli 0.145.0-alpha.18",
+        "sha256": "f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9"
+      },
+      "observed": {
+        "version": "codex-cli 0.145.0-alpha.27",
+        "sha256": "463957f969f1399d4993830722fdd3970a33500d0fbf2f57b917082363f022a9"
+      },
+      "recovery_audit_ref": {
+        "schedule_position": 7,
+        "exact_hash_recovered": false
+      },
+      "action": "not_launched",
+      "outcome": "Unknown",
+      "model_responses": 0,
+      "environment_commands": 0,
+      "retry_eligible": false,
+      "reason": "The previously audited external-tool version drift remained unresolved; launching would violate the preregistered executable hash."
     }
   ]
 }
