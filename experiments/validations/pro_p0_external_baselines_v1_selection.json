@@ -1,0 +1,20 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/pro_p0_external_baselines_v1_preregistration.json",
+  "preregistration_sha256": "2b1974c1751300c2e2539884cf42139c5db60e880d0ceaf05a4250e329266bfa",
+  "remaining_path": "experiments/cases/train_untouched_after_pro_p0_external_baselines_v1_118.jsonl",
+  "remaining_sha256": "e89d291408930c6fc2aae082785c8453c9ab1cfe4d521e5916a811ff267e51c4",
+  "salt": "envsolve-pro-p0-external-baselines-v1-2026-07-21",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+    "envbench-python-columnflow__columnflow@ad04770a757f5031229ea1b47314cef6de5c9edf",
+    "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+    "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+    "envbench-python-strinking__futaba@2e4d7874f0b99176f7595f776dfebf2eac26afbb"
+  ],
+  "selected_path": "experiments/cases/dev_pro_p0_external_baselines_v1_5.jsonl",
+  "selected_sha256": "cb8ff50a38a895db058344ca926af99038b114c4d70a2997845cbf69b4391ecd",
+  "source": "experiments/cases/train_untouched_after_operation_replication_v1_123.jsonl",
+  "source_sha256": "3e8b12972cf135d5f029756e336c259de1bd5795a20f8494984be9c7d00e21f7"
+}
