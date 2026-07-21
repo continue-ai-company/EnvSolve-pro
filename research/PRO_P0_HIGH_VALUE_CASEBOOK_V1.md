@@ -428,7 +428,6 @@ synthetic repositories with different names.
   478 seconds, 0 request errors
 - Frozen EnvSolve outcome: candidate budget exhausted; 5 verifier failures
 - Scheduled Codex outcome: Unknown, exact preregistered executable unavailable
-
 ## Case P0-004: `strinking/futaba@2e4d787`
 
 **Status:** all runnable scheduled methods have terminated. Frozen EnvSolve produced
@@ -553,5 +552,120 @@ success from static-analysis failure.
 - Raw ReAct usage: 13 responses, 96,776 total tokens, 95 seconds
 - Raw ReAct native trajectory SHA-256:
   `a0dbe3f26f2d6802670126f3626099c54458782a6a99eceeff6792f03a54968c`
+- Raw ReAct integrity: valid; zero tracked changes and zero disallowed untracked paths
+- Scheduled Codex outcome: Unknown, exact preregistered executable unavailable
+
+
+## Case P0-005: `python/importlib_metadata@f390168`
+
+**Status:** all runnable scheduled methods have terminated. Frozen EnvSolve converged
+to an internally accepted deployment in three fresh candidates, but official
+bootstrap failed because the evaluator added a top-level artifact directory before
+the editable install. Repo2Run installed the test extra but failed its native
+verifier. Raw ReAct passed the native tests and Mypy, after which the replay compiler
+rejected unrelated observational commands. The scheduled Codex result is Unknown
+because the exact preregistered executable remains unavailable.
+
+### Why This Case Is Valuable
+
+This case is a compact test of feedback precision and workspace-state equivalence.
+The base declaration exposes only one runtime dependency, while test collection
+reveals an additional import obligation. Separately, a verifier-owned output
+directory changes setuptools flat-layout package discovery even though the repository
+revision and deployment script are unchanged.
+
+### Frozen EnvSolve Observation
+
+Frozen EnvSolve used three model responses and fresh-container candidates, 19,607
+total tokens, and 257 seconds with no request errors. Candidate 1 installed only the
+observed `zipp` requirement and failed because pytest was absent. Candidate 2 installed
+the repository's `.[test]` extra; fixed checks completed, and the structured verifier
+reduced the remaining state to one unresolved module, `importlib_resources`.
+Candidate 3 preserved the test extra, added that package, and satisfied all 38 active
+obligations. This is a clean positive example of executable feedback becoming a
+specific constraint and improving the next complete plan in a fresh container.
+
+The official bootstrap nevertheless failed before Pyright. EnvBench created
+`build_output/` at repository root before running the generated script. During
+`pip install -e ".[test]"`, setuptools automatic flat-layout discovery then saw both
+`build_output` and `importlib_metadata` as top-level packages and refused to build.
+The internal verifier had run against a clean checkout without this verifier-owned
+precondition, so its acceptance environment was not equivalent to official execution.
+
+### Repo2Run Observation
+
+Repo2Run used six responses, 46,068 total tokens, and 350 seconds without request
+errors. Its only deployment action was `pip install -q -e ".[test]"`, which succeeded
+after 235 seconds. The subsequent native `runtest` returned 2, as it had before the
+install, and Repo2Run terminated with process exit 1. It did not convert that second
+collection failure into a new dependency constraint, so generation never reached
+replay or official evaluation.
+
+### Raw ReAct Observation
+
+Raw ReAct used 16 responses, 129,602 total tokens, and 186 seconds without request
+errors. It installed the project and its test extra, then ran the suite: 139 tests
+passed, one was skipped, coverage reached 96 percent, and Mypy reported no issues.
+The native deployment was successful.
+
+The replay compiler correctly retained the two package-install actions but rejected
+three parent-directory exploration commands and two successful `python -c`
+observations. Those observations were not causal prerequisites for the retained
+install effects, yet their presence made the entire generation non-replayable. No
+official evaluator ran. Repository integrity remained valid with zero tracked
+changes and no disallowed untracked paths. This independently reproduces P0-004's
+effect-level decomposition problem.
+
+### Initial Three-Layer Diagnosis
+
+**Observation layer:** verifier-owned workspace artifacts are part of execution state
+when they can affect build-system discovery. A collection failure can also expose a
+single missing module after declared dependency installation, providing a much
+smaller counterexample than the raw test log.
+
+**Constraint layer:** internal acceptance is meaningful only when its initial
+workspace state is equivalent to the eventual verification state, excluding the
+verifier result itself. Non-causal unsupported observations must not invalidate an
+otherwise closed deployment plan.
+
+**Operation layer:** the benchmark adapter should reproduce declared verifier
+preconditions before internal execution, or arrange evaluator artifacts after
+bootstrap when the benchmark permits it. The replay compiler should preserve typed
+install effects independently from read-only exploration and executable probes.
+
+### Candidate General Hypothesis
+
+- **H18: verifier-precondition parity.** Materializing verifier-owned paths and other
+  declared workspace preconditions in internal fresh environments should reduce
+  false acceptance caused by clean-checkout versus evaluation-workspace differences,
+  without exposing post-episode evaluator outcomes.
+
+P0-005 also provides independent support for H17: successful deployment effects
+should survive unsupported, non-causal observations elsewhere in the trajectory.
+
+### Anti-Overfitting Gate
+
+No repair may mention `importlib_metadata`, `build_output`, setuptools flat-layout,
+or the observed missing module. Verifier preconditions must come from a benchmark
+adapter contract and be tested with synthetic artifact names and multiple build
+backends. Replay changes must prove causal independence before dropping unsupported
+commands and must still reject unsupported commands whose effects feed deployment.
+
+### Evidence Anchors
+
+- Frozen EnvSolve run ID: `pro-p0-v1-c05-envsolve-v1-frozen`
+- Frozen EnvSolve usage: 3 responses/candidates, 19,607 total tokens, 257 seconds
+- Frozen EnvSolve internal outcome: candidate 3 accepted; 38 obligations satisfied
+- Frozen EnvSolve official outcome: bootstrap 1; Pyright not run
+- Repo2Run run ID: `pro-p0-v1-c05-repo2run-reproduced`
+- Repo2Run usage: 6 responses, 46,068 total tokens, 350 seconds
+- Preserved Repo2Run commands: `generation/repo2run_raw/inner_commands.json`
+- Repo2Run command trace SHA-256:
+  `540962a7383fbc1208606456e361063611998c9a211491bd21df10c9d59499a8`
+- Raw ReAct run ID: `pro-p0-v1-c05-envbench-raw-react`
+- Raw ReAct usage: 16 responses, 129,602 total tokens, 186 seconds
+- Raw ReAct native result: 139 passed, 1 skipped, 96 percent coverage, Mypy clean
+- Raw ReAct trajectory SHA-256:
+  `e7daafbe3af9b06348eea6a9ac666ccd506deed05e001402579a7b61fd70bf6a`
 - Raw ReAct integrity: valid; zero tracked changes and zero disallowed untracked paths
 - Scheduled Codex outcome: Unknown, exact preregistered executable unavailable

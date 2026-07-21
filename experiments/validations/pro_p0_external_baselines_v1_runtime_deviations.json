@@ -88,6 +88,32 @@
       "environment_commands": 0,
       "retry_eligible": false,
       "reason": "The previously audited external-tool version drift remained unresolved; launching would violate the preregistered executable hash."
+    },
+    {
+      "recorded_at": "2026-07-21T12:19:31Z",
+      "schedule_position": 18,
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "run_id": "pro-p0-v1-c05-codex-cli-native",
+      "method": "codex-cli-native",
+      "boundary": "codex_cli_executable",
+      "expected": {
+        "version": "codex-cli 0.145.0-alpha.18",
+        "sha256": "f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9"
+      },
+      "observed": {
+        "version": "codex-cli 0.145.0-alpha.27",
+        "sha256": "463957f969f1399d4993830722fdd3970a33500d0fbf2f57b917082363f022a9"
+      },
+      "recovery_audit_ref": {
+        "schedule_position": 7,
+        "exact_hash_recovered": false
+      },
+      "action": "not_launched",
+      "outcome": "Unknown",
+      "model_responses": 0,
+      "environment_commands": 0,
+      "retry_eligible": false,
+      "reason": "The previously audited external-tool version drift remained unresolved; launching would violate the preregistered executable hash."
     }
   ]
 }

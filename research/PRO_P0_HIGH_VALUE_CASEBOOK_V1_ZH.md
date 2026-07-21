@@ -330,7 +330,6 @@ group 与 compatibility 变化必须来自声明和执行证据，并在使用�
 - 冻结 EnvSolve 重试用量：5 次响应/候选、56,916 total token、478 秒、0 个 request error
 - 冻结 EnvSolve 结果：candidate budget exhausted；5 次 verifier failure
 - 计划 Codex 结果：Unknown，精确预注册 executable 不可获得
-
 ## Case P0-004：`strinking/futaba@2e4d787`
 
 **状态：** 所有可运行的计划方法均已终止。冻结 EnvSolve 生成了内部接受的部署方案，但未满足官方静态分析
@@ -425,5 +424,97 @@ repository-neutral fixture 上评估。
 - Raw ReAct 用量：13 次响应、96,776 total token、95 秒
 - Raw ReAct 原生轨迹 SHA-256：
   `a0dbe3f26f2d6802670126f3626099c54458782a6a99eceeff6792f03a54968c`
+- Raw ReAct integrity：有效；0 个 tracked change，0 个 disallowed untracked path
+- 计划 Codex 结果：Unknown，精确预注册 executable 不可获得
+
+
+## Case P0-005：`python/importlib_metadata@f390168`
+
+**状态：** 所有可运行的计划方法均已终止。冻结 EnvSolve 在 3 个 fresh candidate 内收敛到内部接受的部署，
+但官方 bootstrap 因 evaluator 在 editable install 前加入顶层 artifact 目录而失败。Repo2Run 安装 test extra
+后仍未通过原生 verifier。raw ReAct 通过原生测试与 Mypy，随后 replay compiler 因无关观察命令拒绝轨迹。
+计划中的 Codex 因精确预注册 executable 仍不可获得而记为 Unknown。
+
+### 为什么这个 case 有价值
+
+这个 case 紧凑地检验 feedback precision 与 workspace-state equivalence。基础声明只暴露一个 runtime
+dependency，test collection 又揭示一个额外 import obligation。另一方面，即使 repository revision 与部署
+脚本不变，verifier-owned output directory 也会改变 setuptools flat-layout package discovery。
+
+### 冻结 EnvSolve 观察
+
+冻结 EnvSolve 完成 3 次模型响应和 3 个 fresh-container candidate，使用 19,607 total token 与 257 秒，
+没有请求错误。候选 1 只安装观察到的 `zipp` requirement，因缺少 pytest 失败。候选 2 安装仓库的 `.[test]`
+extra；固定检查完成后，结构化 verifier 把剩余状态压缩为唯一 unresolved module：`importlib_resources`。候选 3
+保留 test extra 并加入该 package，全部 38 个 active obligation 满足。这是 executable feedback 转成明确
+constraint、并在下一个 fresh container 完整方案中生效的干净正例。
+
+官方 bootstrap 仍在 Pyright 前失败。EnvBench 在运行生成脚本前，先在 repository root 创建
+`build_output/`。执行 `pip install -e ".[test]"` 时，setuptools automatic flat-layout discovery 同时看到
+`build_output` 与 `importlib_metadata` 两个 top-level package，因而拒绝构建。内部 verifier 使用没有该
+verifier-owned precondition 的 clean checkout，所以 acceptance environment 与官方执行不等价。
+
+### Repo2Run 观察
+
+Repo2Run 完成 6 次响应，使用 46,068 total token 与 350 秒，没有请求错误。唯一部署动作是
+`pip install -q -e ".[test]"`，235 秒后安装成功。随后的原生 `runtest` 再次返回 2，Repo2Run 以 process
+exit 1 结束。它没有把第二次 collection failure 转成新 dependency constraint，因此 generation 没有进入
+replay 或官方评估。
+
+### Raw ReAct 观察
+
+raw ReAct 完成 16 次响应，使用 129,602 total token 与 186 秒，没有请求错误。它安装项目与 test extra，
+随后运行测试：139 passed、1 skipped、coverage 96%，Mypy 无问题。原生部署成功。
+
+replay compiler 正确保留两个 package-install action，却拒绝 3 个 parent-directory exploration command 与
+2 个成功的 `python -c` observation。这些观察不是 retained install effect 的因果前提，但它们的存在让整个
+generation 不可重放。官方 evaluator 没有运行。repository integrity 有效，tracked change 与 disallowed
+untracked path 都是 0。这独立复现了 P0-004 的 effect-level decomposition 问题。
+
+### 初步三层诊断
+
+**观测层：** 当 verifier-owned workspace artifact 能影响 build-system discovery 时，它就是执行状态的一部分。
+安装声明依赖后，collection failure 还可以暴露唯一 missing module，形成比 raw test log 小得多的
+counterexample。
+
+**约束层：** 只有内部环境的初始 workspace state 与最终 verification state 等价时，内部 acceptance 才有意义，
+但不包括 verifier result 本身。非因果的 unsupported observation 不能让其他已闭合部署方案失效。
+
+**操作层：** benchmark adapter 应在内部执行前复现声明的 verifier precondition；若 benchmark 允许，也可把
+evaluator artifact 安排到 bootstrap 之后。replay compiler 应把 typed install effect 与 read-only exploration、
+executable probe 独立处理。
+
+### 候选通用假设
+
+- **H18：verifier-precondition parity。** 在内部 fresh environment 中物化 verifier-owned path 与其他声明的
+  workspace precondition，应能减少 clean checkout 与 evaluation workspace 差异造成的 false acceptance，
+  同时不暴露 post-episode evaluator outcome。
+
+P0-005 也为 H17 提供独立支持：成功部署 effect 不应因轨迹其他位置存在 unsupported、non-causal observation
+而丢失。
+
+### 防过拟合 Gate
+
+任何修复都不能提及 `importlib_metadata`、`build_output`、setuptools flat-layout 或本次 missing module。
+verifier precondition 必须来自 benchmark adapter contract，并使用 synthetic artifact 名与多种 build backend
+测试。replay 变化必须在丢弃 unsupported command 前证明 causal independence，同时仍拒绝其 effect 会进入部署
+方案的 unsupported command。
+
+### 证据锚点
+
+- 冻结 EnvSolve run ID：`pro-p0-v1-c05-envsolve-v1-frozen`
+- 冻结 EnvSolve 用量：3 次响应/候选、19,607 total token、257 秒
+- 冻结 EnvSolve 内部结果：候选 3 接受；38 个 obligation satisfied
+- 冻结 EnvSolve 官方结果：bootstrap 1；Pyright 未运行
+- Repo2Run run ID：`pro-p0-v1-c05-repo2run-reproduced`
+- Repo2Run 用量：6 次响应、46,068 total token、350 秒
+- 已保存 Repo2Run 命令：`generation/repo2run_raw/inner_commands.json`
+- Repo2Run command trace SHA-256：
+  `540962a7383fbc1208606456e361063611998c9a211491bd21df10c9d59499a8`
+- Raw ReAct run ID：`pro-p0-v1-c05-envbench-raw-react`
+- Raw ReAct 用量：16 次响应、129,602 total token、186 秒
+- Raw ReAct 原生结果：139 passed、1 skipped、coverage 96%、Mypy clean
+- Raw ReAct trajectory SHA-256：
+  `e7daafbe3af9b06348eea6a9ac666ccd506deed05e001402579a7b61fd70bf6a`
 - Raw ReAct integrity：有效；0 个 tracked change，0 个 disallowed untracked path
 - 计划 Codex 结果：Unknown，精确预注册 executable 不可获得
