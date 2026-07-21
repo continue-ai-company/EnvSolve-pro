@@ -138,8 +138,10 @@ the next untouched development cases are opened.
 
 ## Case P0-002: `columnflow/columnflow@ad04770`
 
-**Status:** Repo2Run reproduced has terminated. The other three methods remain
-unexecuted, so no cross-method effectiveness conclusion is allowed yet.
+**Status:** Repo2Run reproduced, frozen EnvSolve v1, and raw ReAct have terminated
+with native generation failures. Codex CLI was not launched because its frozen
+executable was replaced by an automatic App update, so that position is Unknown.
+No cross-method effectiveness conclusion is allowed.
 
 ### Why This Partial Trace Is Valuable
 
@@ -163,19 +165,86 @@ The upstream process then indexed an absent final agent response and raised a
 evaluation. This is a valid native baseline failure, not an infrastructure retry:
 model responses and 118 inner command records were both present.
 
+### Frozen EnvSolve v1 Observation
+
+Frozen EnvSolve exhausted five fresh candidates without reaching the official
+evaluator. It completed five model responses with no request errors, used 44,916
+total tokens and 543 seconds, and ended at the candidate, command, and environment
+limits simultaneously.
+
+The repository profiler passed `setup.py` and a truncated README to the model, but
+the structured declaration observer admitted no repository evidence: zero files,
+zero runtime requirements, and zero source bytes. The initial constraint state
+therefore contained only the base Python 3.13.2 runtime fact. The candidate sequence
+then exposed one compatibility frontier per fresh environment:
+
+| Candidate | New operation or inference | Terminal observation |
+|---|---|---|
+| 1 | Created a venv with base Python 3.13.2 and installed the project editable. | Rejected by `python_requires >=3.7, <=3.11`. |
+| 2 | Acquired Python 3.11.11 through `pyenv`. | Rejected because the PEP 440 bound `<=3.11` does not include `3.11.11`. |
+| 3 | Correctly moved to Python 3.10.11. | Project installation and `pip check` passed; the internal verifier lacked `pytest`. |
+| 4 | Added `pytest`. | Test collection exposed the undeclared-at-install-time `law` module. |
+| 5 | Added `law` and `pytest`. | Collection advanced to unresolved setup variables; `law.cfg` parsed `$CF_WLCG_USE_CACHE` as a literal non-boolean. |
+
+The trajectory shows real progress, but each fresh candidate repeats runtime
+acquisition and can discharge only the next newly visible obligation. This is not
+evidence that fresh isolation is wrong; it is evidence that observations learned in
+one environment must be summarized into a sufficiently complete compatibility
+frontier before spending the next environment.
+
+### Codex CLI Infrastructure Deviation
+
+The preregistered executable was `codex-cli 0.145.0-alpha.18` with SHA-256
+`f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9`. Before this
+position began, the desktop App automatically replaced it with
+`0.145.0-alpha.27`. The official OpenAI release and the nearest official historical
+desktop package both supplied `0.145.0-alpha.18`, but with different executable
+hashes. Version equality is not byte-level boundary equality, so no substitute was
+silently introduced and no Codex model or container command was run. The scheduled
+position is recorded as Unknown rather than selectively rerun under a changed
+external boundary.
+
+### Raw ReAct Observation
+
+Raw ReAct reached its native 30-iteration limit after 31 budget-ledger responses,
+719,190 total tokens, 270 seconds, and no provider errors. It inspected `setup.py`,
+`setup.sh`, all named sandbox requirement files, and the submodule declarations;
+selected Python 3.10.13; installed the project and development requirements; and
+initialized and installed the repository-pinned `law` and `order` submodules. Its
+last semantic check reached the same unresolved `$CF_WLCG_USE_CACHE` configuration
+frontier as frozen EnvSolve, then reported `Sorry, need more steps to process this
+request.`
+
+Replay IR v9 preserved 11 typed actions but rejected the successful
+`git submodule update --init --recursive` command as unknown. The official evaluator
+therefore did not run. This episode has two distinct terminal facts: the native agent
+did not finish within its iteration setting, and the wrapper could not represent a
+repository-declared source acquisition that the agent had already executed
+successfully.
+
 ### Three-Layer Diagnosis
 
 **Observation layer:** package declarations are conditional and distributed across
 named environment files. Import success is weak evidence when a project intentionally
 substitutes missing modules with mocks; the first semantic call is more informative.
+The structured observer also failed to admit declarations that were already visible
+in the repository profile, forcing runtime and setup obligations to be rediscovered
+through failed executions.
 
 **Constraint layer:** the solver needs to connect the selected test surface to the
 environment-specific declaration that satisfies it. A flat union of every optional
 environment would over-install, while using only `install_requires` is incomplete.
+New execution feedback must update a compact frontier that distinguishes runtime
+compatibility, verifier prerequisites, project extras, and configuration obligations;
+otherwise a fixed candidate count becomes a fixed number of serial discoveries.
 
 **Operation layer:** after a mock-module failure, the useful operation is not an
 unbounded package guess. It is a provenance-backed activation or installation of the
-smallest declared optional environment whose dependency provides that module.
+smallest declared optional environment whose dependency provides that module. Fresh
+containers should replay a revised complete plan, while deterministic runtime
+acquisition can be cached without sharing mutable candidate state. Repository-pinned
+submodule initialization is a typed source-acquisition operation, not an arbitrary
+shell escape.
 
 ### Candidate General Hypothesis
 
@@ -184,6 +253,22 @@ smallest declared optional environment whose dependency provides that module.
   missing optional dependencies and indiscriminate installation. This hypothesis
   must be tested on repository-neutral fixtures before any EnvSolve change and then
   evaluated on untouched cases.
+- **H7: observation-state completeness.** Admitting compatible declarations already
+  present in profiled files should reduce serial rediscovery without adding
+  repository-specific rules.
+- **H8: frontier-preserving replanning.** Updating one typed compatibility frontier
+  from each verifier failure should solve more obligations per fresh candidate than
+  appending the latest error alone.
+- **H9: provenance-backed source expansion.** Representing repository-declared
+  submodule acquisition as a typed operation should reduce wrapper-induced Unknown
+  outcomes without opening unrestricted source mutation.
+
+### Anti-Overfitting Gate
+
+No repair may special-case `columnflow`, `law`, `order`, `awkward`, WLCG, or any
+`CF_*` variable. Observation and operation changes must target general declaration,
+optional-environment, submodule, or configuration types; pass repository-neutral
+fixtures; and be frozen before the next untouched case is opened.
 
 ### Evidence Anchors
 
@@ -191,3 +276,13 @@ smallest declared optional environment whose dependency provides that module.
 - Native usage: 20 responses, 286,631 total tokens, 552 seconds
 - Preserved raw trace: `generation/repo2run_raw/inner_commands.json`
 - Raw trace SHA-256: `fc4325962623cac1e3a567394ffba462857f710d9e6a1a96e7956a6807c26ae8`
+- Frozen EnvSolve run ID: `pro-p0-v1-c02-envsolve-v1-frozen`
+- Frozen EnvSolve usage: 5 responses, 44,916 total tokens, 543 seconds
+- Codex scheduled run ID: `pro-p0-v1-c02-codex-cli-native` (not launched; Unknown)
+- Raw ReAct run ID: `pro-p0-v1-c02-envbench-raw-react`
+- Raw ReAct usage: 31 ledger responses, 719,190 total tokens, 270 seconds
+- Raw ReAct distillation: 11 kept actions, 1 unsupported successful command
+- Raw ReAct native trajectory SHA-256:
+  `cbf6771459347acd61c09bce056c56c8940cb679ef2c956c8b7435ea029dedd8`
+- Runtime deviation record:
+  `experiments/validations/pro_p0_external_baselines_v1_runtime_deviations.json`

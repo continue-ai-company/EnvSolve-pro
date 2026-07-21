@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "batch_id": "envsolve-pro-p0-external-baselines-v1",
+  "deviations": [
+    {
+      "recorded_at": "2026-07-21T10:41:47Z",
+      "schedule_position": 7,
+      "case_id": "envbench-python-columnflow__columnflow@ad04770a757f5031229ea1b47314cef6de5c9edf",
+      "run_id": "pro-p0-v1-c02-codex-cli-native",
+      "method": "codex-cli-native",
+      "boundary": "codex_cli_executable",
+      "expected": {
+        "version": "codex-cli 0.145.0-alpha.18",
+        "sha256": "f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9"
+      },
+      "observed": {
+        "version": "codex-cli 0.145.0-alpha.27",
+        "sha256": "463957f969f1399d4993830722fdd3970a33500d0fbf2f57b917082363f022a9"
+      },
+      "recovery_audit": {
+        "official_cli_release": {
+          "version": "codex-cli 0.145.0-alpha.18",
+          "sha256": "497432c84eeb269a716224d2690a1897e64e6e3da2a08186fccaa874e223bc01"
+        },
+        "official_desktop_build": {
+          "version": "codex-cli 0.145.0-alpha.18",
+          "app_version": "26.715.21425",
+          "app_build": "5488",
+          "sha256": "a2bc3f63b0d7ce5c065ae070e16d964fa71192bf6ceb8da82d2315227d55a6bf"
+        },
+        "exact_hash_recovered": false
+      },
+      "action": "not_launched",
+      "outcome": "Unknown",
+      "model_responses": 0,
+      "environment_commands": 0,
+      "retry_eligible": false,
+      "reason": "Automatic external-tool update changed the preregistered executable boundary before launch; same-version substitutes had different hashes."
+    }
+  ]
+}

@@ -115,7 +115,8 @@ runtime、requirement、provider、conflict 或 acquisition 类型；通过不�
 
 ## Case P0-002：`columnflow/columnflow@ad04770`
 
-**状态：** Repo2Run reproduced 已终止，其余三种方法尚未执行，因此当前不能得出跨方法效果结论。
+**状态：** Repo2Run reproduced、冻结 EnvSolve v1 与 raw ReAct 均已原生 generation 失败。Codex CLI
+因冻结二进制被 App 自动更新替换而没有启动，该位置记为 Unknown。当前不能得出跨方法效果结论。
 
 ### 为什么这条部分轨迹有价值
 
@@ -134,22 +135,77 @@ Python 3.10 容器，以 editable 方式安装项目，随后补装 `law` 和 `o
 也没有进入官方 evaluator。这是有效的原生 baseline 失败，不属于基础设施重试：模型响应与 118 条 inner
 command 记录都存在。
 
+### 冻结 EnvSolve v1 观察
+
+冻结 EnvSolve 在五个全新候选上耗尽预算，没有进入官方 evaluator。它完成 5 次模型响应，没有请求错误，
+使用 44,916 total token 和 543 秒，并同时触及 candidate、command 与 environment 上限。
+
+repository profiler 把 `setup.py` 和截断后的 README 交给了模型，但结构化 declaration observer 没有接纳
+任何仓库证据：0 个文件、0 条 runtime requirement、0 source byte。因此初始约束状态只有 base Python
+3.13.2 事实。随后每个新环境只暴露一层 compatibility frontier：
+
+| 候选 | 新操作或推断 | 终局观察 |
+|---|---|---|
+| 1 | 用 base Python 3.13.2 创建 venv，并 editable 安装项目。 | 被 `python_requires >=3.7, <=3.11` 拒绝。 |
+| 2 | 通过 `pyenv` 获取 Python 3.11.11。 | PEP 440 的 `<=3.11` 不包含 `3.11.11`，再次被拒绝。 |
+| 3 | 正确切换到 Python 3.10.11。 | 项目安装和 `pip check` 通过，但内部 verifier 缺少 `pytest`。 |
+| 4 | 增加 `pytest`。 | test collection 暴露安装时未包含的 `law` 模块。 |
+| 5 | 增加 `law` 和 `pytest`。 | collection 推进到 setup 变量未解析；`law.cfg` 把 `$CF_WLCG_USE_CACHE` 当成非布尔字面量。 |
+
+这条轨迹持续取得真实进展，但每个新候选都会重复 runtime 获取，并且只能解除刚刚显露的下一项 obligation。
+这并不说明 fresh isolation 是错的，而是说明：在消耗下一个环境前，上一环境学到的观察必须被归纳为足够
+完整的 compatibility frontier。
+
+### Codex CLI 基础设施偏差
+
+预注册二进制是 `codex-cli 0.145.0-alpha.18`，SHA-256 为
+`f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9`。该位置开始前，桌面 App 自动把它
+替换为 `0.145.0-alpha.27`。OpenAI 官方 Release 和最接近的官方历史桌面包都能提供
+`0.145.0-alpha.18`，但二进制哈希均不同。版本号相同不等于字节级边界相同，因此没有悄悄替换，也没有执行
+任何 Codex 模型调用或容器命令。该计划位置记为 Unknown，不在改变外部边界后选择性重跑。
+
+### Raw ReAct 观察
+
+Raw ReAct 达到原生 30 轮上限后停止。在线 ledger 记录 31 次响应、719,190 total token、270 秒，且没有
+provider 错误。它检查了 `setup.py`、`setup.sh`、所有具名 sandbox requirement 文件和 submodule 声明；选择
+Python 3.10.13；安装项目与开发依赖；初始化并安装仓库固定的 `law`、`order` 子模块。最后一次语义检查到达
+与冻结 EnvSolve 相同的 `$CF_WLCG_USE_CACHE` 配置 frontier，随后以“还需要更多步骤”结束。
+
+Replay IR v9 保留了 11 个 typed action，但把已成功执行的
+`git submodule update --init --recursive` 判为 unknown，因此官方 evaluator 没有运行。这条 episode 有两个
+应分开记录的终局事实：原生 Agent 没有在迭代设置内完成；wrapper 又无法表示 Agent 已成功执行的、由仓库声明
+的 source acquisition。
+
 ### 三层诊断
 
 **观测层：** 包声明带条件并分散在具名环境文件中。若项目会用 mock 替代缺失模块，import 成功只是弱证据，
-第一次语义调用的失败更有信息量。
+第一次语义调用的失败更有信息量。结构化 observer 还遗漏了 repository profile 已经可见的声明，导致 runtime
+与 setup obligation 只能通过失败执行被逐项重新发现。
 
 **约束层：** solver 需要把当前测试面与能满足它的环境专属声明连接起来。平铺安装全部可选环境会过度安装，
-只使用 `install_requires` 又会遗漏必要约束。
+只使用 `install_requires` 又会遗漏必要约束。新的执行反馈应更新一个紧凑 frontier，区分 runtime 兼容性、
+verifier 前置依赖、项目 extra 与配置 obligation；否则固定 candidate 数就等价于固定的串行发现次数。
 
 **操作层：** mock-module 失败后，有效操作不应是无边界猜包，而应根据 provenance 激活或安装能够提供该模块的
-最小已声明可选环境。
+最小已声明可选环境。fresh container 应重放修订后的完整计划；确定性的 runtime 获取可以缓存，但不能共享
+候选的可变状态。仓库固定的 submodule 初始化属于 typed source-acquisition operation，不是任意 shell escape。
 
 ### 候选通用假设
 
 - **H6：测试条件化的声明可达性。** 把观测到的 test/import obligation 与仓库声明的可选环境关联，应能同时
   减少可选依赖缺失和无差别安装。任何 EnvSolve 改动前，必须先在与该仓库无关的 fixture 上检验该假设，
   再用 untouched case 评估。
+- **H7：观测状态完整性。** 接纳 profile 文件中已存在的兼容声明，应能减少串行重发现，同时不引入仓库特判。
+- **H8：frontier 保真的重规划。** 相比只追加最新错误，用每次 verifier 失败更新同一个 typed compatibility
+  frontier，应能让每个 fresh candidate 一次解决更多 obligation。
+- **H9：provenance 支持的来源扩展。** 把仓库声明的 submodule 获取表示为 typed operation，应能减少
+  wrapper-induced Unknown，同时不开放无限制的 source mutation。
+
+### 防过拟合 Gate
+
+任何修复都不能特判 `columnflow`、`law`、`order`、`awkward`、WLCG 或任何 `CF_*` 变量。观测与操作改动
+必须作用于通用的 declaration、optional-environment、submodule 或 configuration 类型；通过与仓库无关的
+fixture；并在打开下一个 untouched case 前冻结。
 
 ### 证据锚点
 
@@ -157,3 +213,13 @@ command 记录都存在。
 - 原生用量：20 次响应、286,631 total token、552 秒
 - 已保存原始轨迹：`generation/repo2run_raw/inner_commands.json`
 - 原始轨迹 SHA-256：`fc4325962623cac1e3a567394ffba462857f710d9e6a1a96e7956a6807c26ae8`
+- 冻结 EnvSolve run ID：`pro-p0-v1-c02-envsolve-v1-frozen`
+- 冻结 EnvSolve 用量：5 次响应、44,916 total token、543 秒
+- Codex 计划 run ID：`pro-p0-v1-c02-codex-cli-native`（未启动；Unknown）
+- Raw ReAct run ID：`pro-p0-v1-c02-envbench-raw-react`
+- Raw ReAct 用量：31 次 ledger 响应、719,190 total token、270 秒
+- Raw ReAct distillation：保留 11 个 action，1 条成功命令不受支持
+- Raw ReAct 原生轨迹 SHA-256：
+  `cbf6771459347acd61c09bce056c56c8940cb679ef2c956c8b7435ea029dedd8`
+- runtime 偏差记录：
+  `experiments/validations/pro_p0_external_baselines_v1_runtime_deviations.json`
