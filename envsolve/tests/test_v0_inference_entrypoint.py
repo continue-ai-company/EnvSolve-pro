@@ -84,7 +84,7 @@ class V0InferenceEntrypointTests(unittest.TestCase):
         )
         self.assertEqual(process.returncode, 0, process.stderr)
 
-    def test_direct_file_help_loads_envbench_runtime(self) -> None:
+    def test_direct_file_help_does_not_require_envbench_checkout(self) -> None:
         process = subprocess.run(
             [
                 sys.executable,

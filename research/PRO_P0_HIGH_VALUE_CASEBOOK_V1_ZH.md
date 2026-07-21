@@ -112,3 +112,48 @@ runtime、requirement、provider、conflict 或 acquisition 类型；通过不�
 - Codex run ID：`pro-p0-v1-c01-codex-cli-native`
 - Repo2Run run ID：`pro-p0-v1-c01-repo2run-reproduced`
 - Raw ReAct run ID：`pro-p0-v1-c01-envbench-raw-react`
+
+## Case P0-002：`columnflow/columnflow@ad04770`
+
+**状态：** Repo2Run reproduced 已终止，其余三种方法尚未执行，因此当前不能得出跨方法效果结论。
+
+### 为什么这条部分轨迹有价值
+
+该仓库把核心安装与可选执行环境分开。`setup.py` 只安装 `sandboxes/cf.txt`，而本 case 的测试还需要
+`sandboxes/columnar.txt` 中声明的包。项目会把缺失的可选模块表示为可调用的 mock 对象，因此 import
+表面上可以成功，直到测试真正调用模块时才暴露环境在语义上不完整。
+
+### Repo2Run 观察
+
+Repo2Run 完成 20 次模型响应，没有 provider 或网络错误，共使用 286,631 total token 和 552 秒。它进入
+Python 3.10 容器，以 editable 方式安装项目，随后补装 `law` 和 `order`，并反复设置项目环境变量。测试
+收集仍失败，因为 `awkward` 还是 mock module。仓库在 agent 已读取的 `sandboxes/columnar.txt` 中明确声明了
+`awkward==2.4.6`，但 agent 没有执行该安装。
+
+上游进程随后索引一个不存在的最终 agent 响应并触发 `TypeError`，因此 generation 没有产生可重放候选，
+也没有进入官方 evaluator。这是有效的原生 baseline 失败，不属于基础设施重试：模型响应与 118 条 inner
+command 记录都存在。
+
+### 三层诊断
+
+**观测层：** 包声明带条件并分散在具名环境文件中。若项目会用 mock 替代缺失模块，import 成功只是弱证据，
+第一次语义调用的失败更有信息量。
+
+**约束层：** solver 需要把当前测试面与能满足它的环境专属声明连接起来。平铺安装全部可选环境会过度安装，
+只使用 `install_requires` 又会遗漏必要约束。
+
+**操作层：** mock-module 失败后，有效操作不应是无边界猜包，而应根据 provenance 激活或安装能够提供该模块的
+最小已声明可选环境。
+
+### 候选通用假设
+
+- **H6：测试条件化的声明可达性。** 把观测到的 test/import obligation 与仓库声明的可选环境关联，应能同时
+  减少可选依赖缺失和无差别安装。任何 EnvSolve 改动前，必须先在与该仓库无关的 fixture 上检验该假设，
+  再用 untouched case 评估。
+
+### 证据锚点
+
+- Repo2Run run ID：`pro-p0-v1-c02-repo2run-reproduced-r2`
+- 原生用量：20 次响应、286,631 total token、552 秒
+- 已保存原始轨迹：`generation/repo2run_raw/inner_commands.json`
+- 原始轨迹 SHA-256：`fc4325962623cac1e3a567394ffba462857f710d9e6a1a96e7956a6807c26ae8`

@@ -24,6 +24,11 @@ The portable core, excluding those three test modules, completed with 417 passes
 
 The tests now use the active test interpreter, audit P5 from committed evidence, and audit P6 against its immutable freeze revision rather than current source. `requirements-test.txt` records the dependency set used for cross-host reproduction. These changes do not alter the observation, constraint, operation, verifier, or model policies.
 
+After pinning those dependencies and deferring EnvBench-only imports until an actual
+V0 episode starts, the complete suite passed identically on both hosts: 424 passed,
+2 skipped, and 75 subtests passed. The skips are pre-existing optional tests rather
+than architecture-specific failures.
+
 ## Remaining Boundary
 
 This establishes source, Python, Docker, ARM64, and GPU-container compatibility. A live Spark episode remains necessary to validate end-to-end model access, repository acquisition, candidate execution, and official evaluation under the same frozen P0 protocol.

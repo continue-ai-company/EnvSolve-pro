@@ -135,3 +135,59 @@ the next untouched development cases are opened.
 - Codex run ID: `pro-p0-v1-c01-codex-cli-native`
 - Repo2Run run ID: `pro-p0-v1-c01-repo2run-reproduced`
 - Raw ReAct run ID: `pro-p0-v1-c01-envbench-raw-react`
+
+## Case P0-002: `columnflow/columnflow@ad04770`
+
+**Status:** Repo2Run reproduced has terminated. The other three methods remain
+unexecuted, so no cross-method effectiveness conclusion is allowed yet.
+
+### Why This Partial Trace Is Valuable
+
+The repository separates core installation from optional execution environments.
+`setup.py` installs only `sandboxes/cf.txt`, while the tests exercised by the case
+also require packages declared in `sandboxes/columnar.txt`. Missing optional modules
+are deliberately represented by callable mock objects, so an import can appear to
+succeed before tests reveal that the environment is semantically incomplete.
+
+### Repo2Run Observation
+
+Repo2Run completed 20 model responses with no provider or network errors. It used
+286,631 total tokens and 552 seconds, entered a Python 3.10 container, installed the
+project editable, then added `law` and `order` and repeatedly set project environment
+variables. Test collection still failed because `awkward` remained a mock module.
+The exact repository declaration was `awkward==2.4.6` in
+`sandboxes/columnar.txt`, which the agent had read but did not install.
+
+The upstream process then indexed an absent final agent response and raised a
+`TypeError`. Generation therefore ended without a replayable candidate or official
+evaluation. This is a valid native baseline failure, not an infrastructure retry:
+model responses and 118 inner command records were both present.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** package declarations are conditional and distributed across
+named environment files. Import success is weak evidence when a project intentionally
+substitutes missing modules with mocks; the first semantic call is more informative.
+
+**Constraint layer:** the solver needs to connect the selected test surface to the
+environment-specific declaration that satisfies it. A flat union of every optional
+environment would over-install, while using only `install_requires` is incomplete.
+
+**Operation layer:** after a mock-module failure, the useful operation is not an
+unbounded package guess. It is a provenance-backed activation or installation of the
+smallest declared optional environment whose dependency provides that module.
+
+### Candidate General Hypothesis
+
+- **H6: test-conditioned declaration reachability.** Relating observed test/import
+  obligations to repository-declared optional environments should reduce both
+  missing optional dependencies and indiscriminate installation. This hypothesis
+  must be tested on repository-neutral fixtures before any EnvSolve change and then
+  evaluated on untouched cases.
+
+### Evidence Anchors
+
+- Repo2Run run ID: `pro-p0-v1-c02-repo2run-reproduced-r2`
+- Native usage: 20 responses, 286,631 total tokens, 552 seconds
+- Preserved raw trace: `generation/repo2run_raw/inner_commands.json`
+- Raw trace SHA-256: `fc4325962623cac1e3a567394ffba462857f710d9e6a1a96e7956a6807c26ae8`

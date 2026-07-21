@@ -15,9 +15,6 @@ for path in (ROOT, ENVBENCH):
 
 from envsolve.v0.agent import VerifierGatedPythonAgent
 from envsolve_harness.budget.langchain import create_budgeted_chat_model
-from inference.src.async_bash_executor import AsyncBashExecutor
-from inference.src.env_setup_runner import EnvSetupRunner
-from inference.src.toolkits.bash_terminal_py import PythonBashTerminalToolkit
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,6 +44,10 @@ def parse_args() -> argparse.Namespace:
 
 
 async def run_case(args: argparse.Namespace) -> None:
+    from inference.src.async_bash_executor import AsyncBashExecutor
+    from inference.src.env_setup_runner import EnvSetupRunner
+    from inference.src.toolkits.bash_terminal_py import PythonBashTerminalToolkit
+
     args.trajectory_dir.mkdir(parents=True, exist_ok=True)
     args.repos_dir.mkdir(parents=True, exist_ok=True)
     model_kwargs = {
