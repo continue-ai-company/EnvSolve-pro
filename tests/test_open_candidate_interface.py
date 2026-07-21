@@ -117,6 +117,34 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
             "native-verifier-context:poetry-run",
         )
 
+    def test_repo2run_open_compiler_translates_private_download_helper(self) -> None:
+        result = compile_repo2run_open_program(
+            [
+                {
+                    "command": (
+                        "python /home/tools/pip_download.py "
+                        "-p pytest -v '==8.1.1'"
+                    ),
+                    "returncode": 0,
+                    "dir": "/",
+                }
+            ]
+        )
+
+        self.assertEqual(result.unsupported_commands, ())
+        self.assertIn("python -m pip install pytest==8.1.1", result.script)
+        self.assertNotIn("/home/tools", result.script)
+        self.assertEqual(result.actions[-1].kind, "python_package_install")
+
+    def test_repo2run_open_compiler_rejects_malformed_download_helper(self) -> None:
+        command = "python /home/tools/pip_download.py -p 'bad;name'"
+        result = compile_repo2run_open_program(
+            [{"command": command, "returncode": 0, "dir": "/"}]
+        )
+
+        self.assertEqual(result.unsupported_commands, (command,))
+        self.assertNotIn("bad;name", result.script)
+
     def test_repository_effect_audit_requires_adapter_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)

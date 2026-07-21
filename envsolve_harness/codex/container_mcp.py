@@ -254,7 +254,7 @@ class PersistentContainerShell:
 
 class ContainerMcpServer:
     protocol_version = "2025-06-18"
-    tool_name = "container_exec"
+    tool_name = "envbench_shell"
 
     def __init__(self, executor: CommandExecutor, trace_path: Path) -> None:
         self.executor = executor
@@ -301,7 +301,7 @@ class ContainerMcpServer:
                         "version": "1.0.0",
                     },
                     "instructions": (
-                        "Use container_exec for every repository inspection, environment "
+                        "Use envbench_shell for every repository inspection, environment "
                         "change, and verification. The shell and container persist between "
                         "calls, and every call starts from the shell's current directory."
                     ),

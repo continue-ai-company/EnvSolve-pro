@@ -71,8 +71,8 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 |---|---|---|---|
 | P0 | 亲自观察外部 baseline | Repo2Run、Codex/native、raw ReAct 的统一轨迹与错误分类 | 至少 5 个新 Dev case，每种方法均有可审计 run |
 | P1（完成） | 建立公平比较接口 | 开放程序、fresh execution、effect audit、adapter precondition | 6 条已消费轨迹均无表示层拒绝 |
-| P2 | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
-| P3 | 设计最小三层算法 | Observation/Constraint/Operation 可插拔接口和机制消融 | 新机制有反例、测试和预注册预测 |
+| P2（完成） | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
+| P3（进行中） | 设计最小三层算法 | certified/admissible 候选状态及消融 | 新机制有反例、测试和预注册预测 |
 | P4 | 小规模成对验证 | 至少 5 个未见 Dev case 的 paired pilot | 出现成功率或 terminal repair 的正向信号 |
 | P5 | 扩大 Dev 验证 | 多模型、多 case、Mac/Spark 一致性 | 效果跨 case 和模型保持，失败可解释 |
 | P6 | 冻结与确认实验 | Canary、Official Test、论文主表 | 代码、prompt、baseline、指标全部冻结 |
@@ -115,6 +115,21 @@ Repo2Run、raw ReAct 和 P1 EnvSolve-pro scaffold。主分析单位是最早决�
 Constraint、Operation 或 unresolved。只有同一可干预矛盾出现在至少 3 个仓库和 2 种方法中，才允许提出
 新机制；抽样后整批 immutable，禁止修改 solver 或 wrapper。
 
+### 4.4 P2 审计结论
+
+24 个位置已全部完成。由于多数 Codex、Repo2Run 位置以及两个 raw ReAct 位置受到 baseline adapter 或
+完整性审计删失，本批不能作为效果对比。EnvSolve-pro 与 raw ReAct 分别在不同仓库获得一次 Official
+Pass，把它们写成可比较的 1/6 会违反实验有效性。
+
+三个仓库出现了同一个确定性主矛盾：完整性有效的候选以零退出码完成内部执行，但任何残余内部约束
+都会让 EnvSolve 丢弃候选，不进入终局评测。部分内部证据被当成了精确 terminal oracle。因此 P3 只
+引入一个最小区分：`certified` 候选满足内部目标；`admissible` 候选完成安全重放，但仍有未解决内部
+约束。系统保留最佳 admissible 候选，并可用 `uncertified` 状态输出；内部目标仍为 blocked，Official
+evaluator 仍然 terminal-only。
+
+第二个跨仓库模式是 runtime、dependency lock 与 platform compatibility。它被冻结为次级假设；在更小的
+候选保留机制得到资格验证前，P3 不实现这套更大的结构。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -138,5 +153,6 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-先提交 P2 预注册，再运行 metadata-only selector 与 schedule builder，绑定 Mac 主机并启动冻结的 24 个
-position。原始产物保存后再分析完整轨迹；整批得到满足门槛的主导矛盾或明确未通过门槛之前，不改 solver。
+先在已消费 case 上完成 certified/admissible 区分的重放资格验证，并修复无效的外部 baseline adapter，
+但不改变 baseline 求解策略。随后冻结 P3 消融，抽取至少 5 个新的 outcome-blind Dev pair，对比开启与
+关闭候选保留时的终局成功。该最小机制得到或未得到预测信号之前，不增加 runtime closure 机制。

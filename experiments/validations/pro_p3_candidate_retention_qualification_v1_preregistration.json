@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "pro-p3-candidate-retention-qualification-v1",
+  "status": "preregistered_before_execution",
+  "claim_scope": "consumed-case mechanism qualification only",
+  "source_diagnosis": "pro-p2-dominant-contradiction-v1",
+  "cases_file": "experiments/cases/dev_pro_p3_candidate_retention_diagnostic3.jsonl",
+  "cases": [
+    "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+    "envbench-python-sphinx-contrib__spelling@51debaa98520145f6debce8f5a6c6d220359f54c",
+    "envbench-python-roboflow__supervision@d5cebd4fd2b75b160feb9d22b3558f3247b27f28"
+  ],
+  "shared_condition": {
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_candidates": 5,
+    "candidate_interface": "open-program",
+    "internal_verifier": "python-deployment-v8",
+    "official_feedback": "terminal-only"
+  },
+  "paired_conditions": [
+    {
+      "method": "envsolve-pro",
+      "candidate_retention": "best-admissible"
+    },
+    {
+      "method": "envsolve-pro-no-retention",
+      "candidate_retention": "disabled"
+    }
+  ],
+  "single_change": "On the same code path, retain and emit the best admissible candidate at candidate-budget exhaustion, or disable that behavior.",
+  "prediction": {
+    "primary": "The retention condition emits a terminally evaluable script in at least two of three cases after all three emitted no script in frozen P2.",
+    "paired": "The retention condition reaches terminal evaluation on at least one more case than the no-retention condition.",
+    "mechanism_trace": "Any retained script is labeled uncertified, preserves internal goal_status=blocked, and includes a typed candidate assessment.",
+    "official_pass": "not predicted"
+  },
+  "qualification_gate": {
+    "paired_positions_complete": 6,
+    "retention_terminal_reach_minimum": 2,
+    "terminal_reach_difference_minimum": 1,
+    "repository_integrity_required": true,
+    "candidate_assessment_required": true,
+    "online_evaluator_feedback_forbidden": true,
+    "full_regression_required": true,
+    "docker_boundary_required": true
+  },
+  "non_claims": [
+    "The three cases are consumed diagnostic data.",
+    "Official outcomes cannot establish effectiveness.",
+    "No per-repository rule may be added after execution."
+  ]
+}

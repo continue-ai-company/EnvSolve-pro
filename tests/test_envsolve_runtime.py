@@ -44,7 +44,12 @@ from envsolve_harness.core.models import (
 from envsolve_harness.audit import audit_run
 from envsolve_harness.core.io import read_json, write_json
 from envsolve_harness.core.protocol import ExperimentProtocol, SuccessCriteria
-from envsolve_harness.runners.envsolve_p6 import METHOD_PROFILES, EnvSolveP6Runner
+from envsolve_harness.runners.envsolve_p6 import (
+    METHOD_CANDIDATE_INTERFACES,
+    METHOD_CANDIDATE_RETENTION,
+    METHOD_PROFILES,
+    EnvSolveP6Runner,
+)
 from envsolve_harness.runners.registry import create_solver_runner, registered_solver_runners
 from envsolve_harness.scripts import TypedReplayCandidateValidator
 
@@ -403,6 +408,21 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertEqual(
             METHOD_PROFILES["envsolve-operation-ablation"],
             ("two-layer", "free-form"),
+        )
+
+    def test_candidate_retention_ablation_changes_only_retention(self) -> None:
+        methods = ("envsolve-pro", "envsolve-pro-no-retention")
+        self.assertEqual(
+            {METHOD_PROFILES[item] for item in methods},
+            {("two-layer", "free-form")},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_INTERFACES[item] for item in methods},
+            {"open-program"},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_RETENTION[item] for item in methods},
+            {"best-admissible", "disabled"},
         )
 
     def test_model_policy_malformed_output_is_recoverable_and_auditable(self) -> None:

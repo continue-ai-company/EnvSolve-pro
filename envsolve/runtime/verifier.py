@@ -122,6 +122,9 @@ import sys
 
 modules = json.loads(sys.argv[1])
 package_names = json.loads(sys.argv[2]) if len(sys.argv) > 2 else []
+project_root = str(Path.cwd().resolve())
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 packages = {}
 for name in package_names:
     try:
@@ -323,7 +326,7 @@ class _PackageRequirement:
 class PythonDeploymentVerifier:
     """Fixed internal Python checks with no benchmark evaluator dependency."""
 
-    check_profile = "python-deployment-v7"
+    check_profile = "python-deployment-v8"
 
     def __init__(
         self,
@@ -341,9 +344,9 @@ class PythonDeploymentVerifier:
         self.collect_tests = collect_tests
         self.obligation_profile = obligation_profile
         self.check_profile = (
-            "python-deployment-v7"
+            "python-deployment-v8"
             if obligation_profile == "two-layer"
-            else "python-deployment-v7-runtime-only-ablation"
+            else "python-deployment-v8-runtime-only-ablation"
         )
         parsed_requirements: list[_PackageRequirement] = []
         for item in package_requirements:

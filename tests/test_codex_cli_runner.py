@@ -77,7 +77,7 @@ class CodexCliRunnerTest(unittest.TestCase):
                 rendered,
             )
             self.assertIn(
-                "mcp_servers.envsolve_container.tools.container_exec.approval_mode=\"approve\"",
+                "mcp_servers.envsolve_container.tools.envbench_shell.approval_mode=\"approve\"",
                 rendered,
             )
             self.assertIn("gpt-5.5", command)

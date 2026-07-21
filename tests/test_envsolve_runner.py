@@ -5,8 +5,10 @@ import tempfile
 import unittest
 
 from envsolve.solver import (
+    CandidateAssessment,
     CandidateValidation,
     CommandResult,
+    CounterexampleEvidence,
     DeploymentCandidate,
     EnvironmentReceipt,
     ExecutableVerification,
@@ -86,6 +88,35 @@ class PassingVerifier:
         )
 
 
+class UncertifiedVerifier:
+    def verify(self, candidate, environment):
+        return ExecutableVerification(
+            verifier="test-internal-verifier",
+            check_profile="test-goal-check-v1",
+            channel=FeedbackChannel.INTERNAL_EXECUTION,
+            passed=False,
+            bootstrap=CommandResult(0, stdout="partially ready\n"),
+            summary="One internal constraint remains unresolved",
+            counterexamples=(
+                CounterexampleEvidence(
+                    "module-requirement",
+                    {"name": "optional_demo", "present": True},
+                ),
+                CounterexampleEvidence(
+                    "module-observation",
+                    {"name": "optional_demo", "present": False},
+                ),
+            ),
+            candidate_assessment=CandidateAssessment(
+                True,
+                1,
+                9,
+                0,
+                "complete replay with one unresolved internal constraint",
+            ),
+        )
+
+
 class EnvSolveEpisodeRunnerTest(unittest.TestCase):
     def test_writes_replayable_script_and_immutable_episode_lineage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -144,6 +175,72 @@ class EnvSolveEpisodeRunnerTest(unittest.TestCase):
                     artifacts.episode_snapshot,
                     case.case_id,
                 ).valid
+            )
+
+    def test_writes_uncertified_best_candidate_for_terminal_evaluation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            case = Case("owner/repo@abc", "owner/repo", "abc")
+            run_spec = RunSpec("envsolve-uncertified", "envsolve-full", "test-model")
+            artifacts = RunArtifacts.create(
+                Path(directory), run_spec.run_id, case.case_id
+            )
+            runner = EnvSolveEpisodeRunner(
+                policy=OneCandidatePolicy(),
+                environment_provider=FreshProvider(case),
+                verifier=UncertifiedVerifier(),
+                candidate_validator=AcceptingValidator(),
+                budget=RecordingBudget(),
+                max_candidates=1,
+            )
+
+            result = runner.run(case, artifacts, run_spec)
+
+            self.assertTrue(result.generation_completed)
+            self.assertTrue(artifacts.generated_script.is_file())
+            self.assertEqual(
+                result.metadata["candidate_output"]["certification"],
+                "uncertified",
+            )
+            self.assertEqual(
+                result.metadata["candidate_output"]["internal_goal_status"],
+                "blocked",
+            )
+            self.assertEqual(
+                result.metadata["candidate_output"]["assessment"][
+                    "unresolved_constraints"
+                ],
+                1,
+            )
+
+    def test_candidate_retention_ablation_preserves_blocked_result(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            case = Case("owner/repo@abc", "owner/repo", "abc")
+            run_spec = RunSpec(
+                "envsolve-no-retention",
+                "envsolve-pro-no-retention",
+                "test-model",
+            )
+            artifacts = RunArtifacts.create(
+                Path(directory), run_spec.run_id, case.case_id
+            )
+            runner = EnvSolveEpisodeRunner(
+                policy=OneCandidatePolicy(),
+                environment_provider=FreshProvider(case),
+                verifier=UncertifiedVerifier(),
+                candidate_validator=AcceptingValidator(),
+                budget=RecordingBudget(),
+                max_candidates=1,
+                retain_admissible_candidate=False,
+            )
+
+            result = runner.run(case, artifacts, run_spec)
+
+            self.assertFalse(result.generation_completed)
+            self.assertFalse(artifacts.generated_script.exists())
+            self.assertEqual(result.metadata["candidate_retention"], "disabled")
+            self.assertEqual(
+                result.metadata["episode"]["goal_status"],
+                "blocked",
             )
 
     def test_initial_repository_evidence_is_admitted_before_first_proposal(self) -> None:

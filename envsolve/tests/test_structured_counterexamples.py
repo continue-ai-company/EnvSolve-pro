@@ -6,6 +6,7 @@ import unittest
 
 from envsolve.constraints import ConstraintDomain, ConstraintPredicate
 from envsolve.solver import (
+    CandidateAssessment,
     CandidateValidation,
     CommandResult,
     CounterexampleGuidedDeploymentLoop,
@@ -83,6 +84,12 @@ class StructuredFindingAdapterTests(unittest.TestCase):
             outcome.counterexamples[0].value["finding_provenance"],
             {"collector": "synthetic"},
         )
+        self.assertTrue(outcome.candidate_assessment.admissible)
+        self.assertEqual(outcome.candidate_assessment.unresolved_constraints, 1)
+
+    def test_admissible_assessment_requires_residual_constraints(self) -> None:
+        with self.assertRaisesRegex(ValueError, "residual constraint"):
+            CandidateAssessment(True, 0, 3, 0, "invalid admissible candidate")
 
     def test_inactive_findings_do_not_block_a_completed_bootstrap(self) -> None:
         outcome = self.adapter.adapt(
@@ -117,6 +124,8 @@ class StructuredFindingAdapterTests(unittest.TestCase):
 
         self.assertIsNone(outcome.passed)
         self.assertFalse(outcome.observations)
+        self.assertFalse(outcome.candidate_assessment.admissible)
+        self.assertEqual(outcome.candidate_assessment.unknown_constraints, 1)
 
     def test_inactive_findings_do_not_override_a_goal_failure(self) -> None:
         outcome = self.adapter.adapt(
@@ -125,6 +134,7 @@ class StructuredFindingAdapterTests(unittest.TestCase):
 
         self.assertFalse(outcome.passed)
         self.assertFalse(outcome.counterexamples)
+        self.assertFalse(outcome.candidate_assessment.admissible)
 
     def test_unknown_finding_becomes_hypothesis_without_hiding_active_failure(self) -> None:
         outcome = self.adapter.adapt(

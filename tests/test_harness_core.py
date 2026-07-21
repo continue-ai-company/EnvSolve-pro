@@ -421,6 +421,27 @@ class CoreIoTest(unittest.TestCase):
             self.assertNotIn("sk-", artifacts.manifest.read_text())
             self.assertTrue(audit_run(artifacts.root).valid)
 
+    def test_repo2run_removes_prior_case_output_before_generation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo2run = Path(directory) / "Repo2Run"
+            stale = repo2run / "output" / "owner" / "repo"
+            stale.mkdir(parents=True)
+            (stale / "inner_commands.json").write_text("stale")
+            runner = Repo2RunRunner(repo2run)
+
+            output_root, removed = runner._prepare_output_root("owner/repo")
+
+            self.assertTrue(removed)
+            self.assertEqual(output_root, stale.resolve())
+            self.assertFalse(output_root.exists())
+
+    def test_repo2run_output_isolation_rejects_path_escape(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = Repo2RunRunner(Path(directory) / "Repo2Run")
+
+            with self.assertRaisesRegex(ValueError, "escaped the output root"):
+                runner._prepare_output_root("../outside")
+
     def test_envbench_trajectory_distillation_and_usage(self) -> None:
         records = [
             {

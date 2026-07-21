@@ -16,13 +16,20 @@ from envsolve.runtime.workspace import WorkspacePrecondition
 
 METHOD_PROFILES = {
     "envsolve-pro": ("two-layer", "free-form"),
+    "envsolve-pro-no-retention": ("two-layer", "free-form"),
     "envsolve-full": ("two-layer", "constraint-driven"),
     "envsolve-runtime-only": ("runtime-only", "constraint-driven"),
     "envsolve-operation": ("two-layer", "constraint-driven"),
     "envsolve-operation-ablation": ("two-layer", "free-form"),
 }
 METHOD_CANDIDATE_INTERFACES = {
-    method: "open-program" if method == "envsolve-pro" else "typed-replay"
+    method: "open-program" if method.startswith("envsolve-pro") else "typed-replay"
+    for method in METHOD_PROFILES
+}
+METHOD_CANDIDATE_RETENTION = {
+    method: (
+        "disabled" if method == "envsolve-pro-no-retention" else "best-admissible"
+    )
     for method in METHOD_PROFILES
 }
 
@@ -128,6 +135,7 @@ class EnvSolveP6Runner:
         obligation_profile = profiles[0] if profiles else None
         operation_profile = profiles[1] if profiles else None
         candidate_interface = METHOD_CANDIDATE_INTERFACES.get(run_spec.method)
+        candidate_retention = METHOD_CANDIDATE_RETENTION.get(run_spec.method)
         metadata = {
             "runner": "envsolve-p6",
             "runner_version": "0.2.0",
@@ -140,6 +148,7 @@ class EnvSolveP6Runner:
             "obligation_profile": obligation_profile,
             "operation_profile": operation_profile,
             "candidate_interface": candidate_interface,
+            "candidate_retention": candidate_retention,
             "workspace_preconditions": [
                 item.to_dict() for item in self.workspace_preconditions
             ],
@@ -194,6 +203,7 @@ class EnvSolveP6Runner:
             "--obligation-profile", obligation_profile,
             "--operation-profile", operation_profile,
             "--candidate-interface", candidate_interface,
+            "--candidate-retention", candidate_retention,
             "--request-timeout", str(self.model_request_timeout),
             "--max-retries", str(self.model_max_retries),
             "--max-output-tokens", str(self.model_max_output_tokens),

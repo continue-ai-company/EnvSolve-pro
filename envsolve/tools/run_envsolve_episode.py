@@ -69,6 +69,11 @@ def parse_args() -> argparse.Namespace:
         default="typed-replay",
     )
     parser.add_argument(
+        "--candidate-retention",
+        choices=("best-admissible", "disabled"),
+        default="best-admissible",
+    )
+    parser.add_argument(
         "--pre-bootstrap-directory",
         action="append",
         default=[],
@@ -229,6 +234,9 @@ def main() -> int:
         ),
         budget=budget,
         max_candidates=args.max_candidates,
+        retain_admissible_candidate=(
+            args.candidate_retention == "best-admissible"
+        ),
         condition=args.method,
         repository_profile=profile,
         initial_evidence=(

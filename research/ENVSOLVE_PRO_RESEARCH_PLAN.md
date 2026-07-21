@@ -75,8 +75,8 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 |---|---|---|---|
 | P0 | Observe external baselines | Unified Repo2Run, Codex/native, and raw-ReAct trajectories | At least five new audited Dev cases per method |
 | P1 (complete) | Establish fair interfaces | Open programs, fresh execution, effect audit, and adapter preconditions | Six consumed trajectories compile without representation rejection |
-| P2 | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
-| P3 | Design the minimal three-layer method | Pluggable layer interfaces and ablations | Counterexample, tests, and preregistered prediction |
+| P2 (complete) | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
+| P3 (in progress) | Design the minimal three-layer method | Certified/admissible candidate state and ablation | Counterexample, tests, and preregistered prediction |
 | P4 | Small paired validation | At least five unseen Dev pairs | Positive success or terminal-repair signal |
 | P5 | Broader Dev validation | Multi-case, multi-model, Mac/Spark evidence | Effect persists across cases and models |
 | P6 | Freeze and confirm | Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
@@ -133,6 +133,27 @@ Observation, Constraint, Operation, or unresolved. A new mechanism requires the 
 actionable contradiction in at least three repositories and two methods. The complete
 batch is immutable; no solver or wrapper change is allowed after selection.
 
+### 4.4 P2 Audit Decision
+
+All 24 positions completed. The batch is not an effectiveness comparison because most
+Codex and Repo2Run positions, plus two raw-ReAct positions, were censored by baseline
+adapter or integrity failures. EnvSolve-pro and raw ReAct each produced one official
+pass on different repositories; reporting these as comparable 1/6 rates would be invalid.
+
+The dominant deterministic contradiction occurred in three repositories: an
+integrity-valid candidate completed internal execution with exit code zero, yet any
+residual internal constraint caused EnvSolve to discard it without terminal evaluation.
+Partial internal evidence had become an exact terminal oracle. P3 therefore introduces
+one minimal distinction: **certified** candidates satisfy the internal goal, while
+**admissible** candidates completed a safe replay but retain unresolved internal
+constraints. The solver keeps the best admissible candidate and may emit it as
+`uncertified`; the official evaluator remains terminal-only and the internal goal remains
+blocked.
+
+A second cross-repository pattern concerns runtime, dependency-lock, and platform
+compatibility. It remains a preregistered secondary hypothesis. P3 does not implement it
+until the smaller candidate-retention mechanism is qualified.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -152,7 +173,8 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Commit the P2 preregistration before selection, execute its metadata-only selector and
-schedule builder, then bind the Mac host and start the frozen 24-position batch. Analyze
-complete trajectories only after preserving raw artifacts; do not change the solver until
-the batch either identifies a preregistered dominant contradiction or fails the gate.
+Complete consumed-case replay qualification for the certified/admissible distinction and
+repair invalid external-baseline adapters without changing their solving policies. Then
+freeze the P3 ablation, select at least five new outcome-blind Dev pairs, and compare
+terminal success with candidate retention enabled versus disabled. Do not add runtime
+closure machinery before this smaller mechanism receives or fails its predicted signal.

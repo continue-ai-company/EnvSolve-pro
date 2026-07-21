@@ -234,7 +234,7 @@ Python development environment for `{case.repository}` at exact revision
 `{case.revision}`.
 
 The repository is mounted at `/data/project` in a persistent EnvBench Docker
-container. Use `envsolve_container.container_exec` for every inspection,
+container. Use `envsolve_container.envbench_shell` for every inspection,
 installation, and verification step. The Bash shell, current directory,
 exported variables, installed packages, and filesystem persist across calls.
 You have no access to the official EnvBench evaluator or any evaluator result.
@@ -296,10 +296,10 @@ or configuration. `summary` should briefly state what was installed.
             "mcp_servers.envsolve_container.args": server_args,
             "mcp_servers.envsolve_container.cwd": str(self.harness_root),
             "mcp_servers.envsolve_container.required": True,
-            "mcp_servers.envsolve_container.enabled_tools": ["container_exec"],
+            "mcp_servers.envsolve_container.enabled_tools": ["envbench_shell"],
             "mcp_servers.envsolve_container.tool_timeout_sec": self.command_timeout + 30,
             "mcp_servers.envsolve_container.default_tools_approval_mode": "approve",
-            "mcp_servers.envsolve_container.tools.container_exec.approval_mode": "approve",
+            "mcp_servers.envsolve_container.tools.envbench_shell.approval_mode": "approve",
         }
         command = [
             str(self.codex_executable),

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import re
+import shlex
 from typing import Any
 
 from envsolve_harness.scripts.replay_actions import ReplayAction, analyze_successful_command
@@ -57,6 +58,33 @@ def _map_repo_path_open(value: str) -> str:
     )
 
 
+def _portable_pip_download(command: str) -> str | None:
+    """Translate Repo2Run's private download helper into its pip effect."""
+
+    try:
+        parts = shlex.split(command)
+    except ValueError:
+        return None
+    prefix = ["python", "/home/tools/pip_download.py", "-p"]
+    if parts[:3] != prefix or len(parts) not in {4, 6}:
+        return None
+    package = parts[3]
+    if not re.fullmatch(
+        r"[A-Za-z0-9][A-Za-z0-9._-]*(?:\[[A-Za-z0-9_,.-]+\])?",
+        package,
+    ):
+        return None
+    specifier = ""
+    if len(parts) == 6:
+        if parts[4] != "-v" or not re.fullmatch(
+            r"[A-Za-z0-9*+!._,<>=~ -]+",
+            parts[5],
+        ):
+            return None
+        specifier = parts[5]
+    return f"python -m pip install {shlex.quote(package + specifier)}"
+
+
 def compile_repo2run_open_program(
     records: list[dict[str, Any]],
 ) -> DistillationResult:
@@ -108,6 +136,18 @@ def compile_repo2run_open_program(
             continue
         if command in INTERNAL_COMMANDS or action == "pipdeptree":
             dropped.append(command)
+            continue
+
+        if command.startswith("python /home/tools/pip_download.py"):
+            mapped_download = _portable_pip_download(command)
+            if mapped_download is None:
+                unsupported.append(command)
+                continue
+            replay.append(mapped_download)
+            kept.append(command)
+            actions.append(
+                ReplayAction("python_package_install", mapped_download, command)
+            )
             continue
 
         mapped = _map_repo_path_open(command)

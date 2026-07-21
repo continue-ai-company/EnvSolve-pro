@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "pro-p2-dominant-contradiction-v1",
+  "status": "diagnostic_complete",
+  "claim_scope": "mechanism hypothesis only; no effectiveness estimate",
+  "frozen_commit": "ffdba95",
+  "schedule_sha256": "a4f8e3f639bedb6049cb573ede5e25cff0bc33110c47721754444b0becd7cdbc",
+  "positions": 24,
+  "cases": 6,
+  "methods": {
+    "codex-cli-native": {
+      "official_evaluations": 0,
+      "official_passes": 0,
+      "valid_for_effectiveness": false,
+      "censoring": "one repository-integrity false positive and five reserved MCP tool-name failures"
+    },
+    "repo2run-reproduced-open": {
+      "official_evaluations": 2,
+      "official_passes": 0,
+      "valid_for_effectiveness": false,
+      "censoring": "four adapter crashes could observe stale inner_commands output"
+    },
+    "envbench-raw-react-open": {
+      "official_evaluations": 4,
+      "official_passes": 1,
+      "valid_for_effectiveness": false,
+      "censoring": "two repository-integrity false positives"
+    },
+    "envsolve-pro-p1-scaffold": {
+      "official_evaluations": 1,
+      "official_passes": 1,
+      "valid_for_effectiveness": false,
+      "censoring": "five episodes emitted no terminal candidate"
+    }
+  },
+  "official_passes": [
+    {
+      "case": "ansible/ansible-zuul-jobs",
+      "method": "envsolve-pro-p1-scaffold",
+      "issues_count": 0,
+      "error_count": 42
+    },
+    {
+      "case": "lichess4545/heltour",
+      "method": "envbench-raw-react-open",
+      "issues_count": 0,
+      "error_count": 519
+    }
+  ],
+  "dominant_contradiction": {
+    "id": "internal-feedback-overhardening",
+    "primary_layer": "constraint",
+    "secondary_layer": "operation-finalization",
+    "statement": "A complete, integrity-valid candidate is discarded when partial internal verification leaves any residual constraint, so internal feedback acts as an exact terminal oracle.",
+    "repositories": [
+      {
+        "repository": "democracyclub/uk-polling-stations",
+        "candidate": "candidate-0005",
+        "bootstrap_exit_code": 0,
+        "active_constraints": 693,
+        "satisfied_constraints": 42
+      },
+      {
+        "repository": "sphinx-contrib/spelling",
+        "candidate": "candidate-0005",
+        "bootstrap_exit_code": 0,
+        "active_constraints": 2,
+        "satisfied_constraints": 36
+      },
+      {
+        "repository": "roboflow/supervision",
+        "candidate": "candidate-0003",
+        "bootstrap_exit_code": 0,
+        "active_constraints": 29,
+        "satisfied_constraints": 44
+      }
+    ],
+    "dominance_gate": {
+      "three_repositories": true,
+      "direct_trajectory_evidence": true,
+      "method_specific_deterministic_cause": true,
+      "repository_independent_intervention": true,
+      "not_official_evaluator_or_network_artifact": true
+    },
+    "minimal_intervention": "Retain a ranked best-so-far admissible candidate; emit it as uncertified at candidate-budget exhaustion while preserving internal blocked status and terminal-only official evaluation."
+  },
+  "secondary_hypothesis": {
+    "id": "runtime-dependency-platform-closure",
+    "repositories": [
+      "theislab/cellrank",
+      "lichess4545/heltour",
+      "roboflow/supervision"
+    ],
+    "decision": "record but do not implement before qualifying the simpler dominant intervention"
+  },
+  "post_batch_validity_repairs": [
+    "rename the Codex MCP tool to avoid the gpt-5.5 reserved name",
+    "delete Repo2Run per-case output before every run and reject empty model content",
+    "resolve project-root namespace directories in isolated Python verification"
+  ]
+}

@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from envsolve.solver import (
+    CandidateAssessment,
     CandidateValidation,
     CommandResult,
     CounterexampleEvidence,
@@ -151,6 +152,7 @@ def outcome(
     stderr: str = "",
     channel: FeedbackChannel = FeedbackChannel.INTERNAL_EXECUTION,
     hypotheses: tuple[HypothesisEvidence, ...] = (),
+    candidate_assessment: CandidateAssessment | None = None,
 ) -> ExecutableVerification:
     return ExecutableVerification(
         verifier="synthetic-goal-verifier",
@@ -162,6 +164,7 @@ def outcome(
         observations=observations,
         counterexamples=counterexamples,
         hypotheses=hypotheses,
+        candidate_assessment=candidate_assessment,
     )
 
 
@@ -271,6 +274,110 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                     root / "state.jsonl", root / "snapshot.json", CASE["case_id"]
                 ).valid
             )
+
+    def test_budget_exhaustion_returns_best_admissible_candidate_uncertified(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            counterexample = (
+                CounterexampleEvidence(
+                    "module-requirement",
+                    {"name": "example_dependency", "present": True},
+                ),
+                CounterexampleEvidence(
+                    "module-observation",
+                    {"name": "example_dependency", "present": False},
+                ),
+            )
+            verifier = QueueVerifier(
+                [
+                    outcome(
+                        1,
+                        False,
+                        counterexamples=counterexample,
+                        candidate_assessment=CandidateAssessment(
+                            True, 5, 10, 0, "complete replay with five conflicts"
+                        ),
+                    ),
+                    outcome(
+                        2,
+                        False,
+                        counterexamples=counterexample,
+                        candidate_assessment=CandidateAssessment(
+                            True, 2, 13, 0, "complete replay with two conflicts"
+                        ),
+                    ),
+                ]
+            )
+
+            result = self.loop(session, 2).run(
+                RecordingPolicy([candidate(1), candidate(2)]),
+                QueueEnvironmentProvider(),
+                verifier,
+            )
+
+            self.assertEqual(result.goal_status, "blocked")
+            self.assertEqual(result.candidate_certification, "uncertified")
+            self.assertEqual(result.accepted_candidate.candidate_id, "candidate-2")
+            self.assertEqual(result.accepted_environment.environment_id, "fresh-env-2")
+            self.assertEqual(result.candidate_assessment.unresolved_constraints, 2)
+            self.assertIn("best admissible candidate", result.stop_reason)
+            failures = session.reconstruct().failures.values()
+            budget_failure = next(
+                item for item in failures if item["category"] == "candidate-budget"
+            )
+            self.assertEqual(
+                budget_failure["details"]["best_admissible_candidate_id"],
+                "candidate-2",
+            )
+
+    def test_retention_ablation_emits_no_admissible_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            verifier = QueueVerifier(
+                [
+                    outcome(
+                        1,
+                        False,
+                        counterexamples=(
+                            CounterexampleEvidence(
+                                "module-requirement",
+                                {"name": "example_dependency", "present": True},
+                            ),
+                            CounterexampleEvidence(
+                                "module-observation",
+                                {"name": "example_dependency", "present": False},
+                            ),
+                        ),
+                        candidate_assessment=CandidateAssessment(
+                            True, 1, 9, 0, "complete replay with one conflict"
+                        ),
+                    )
+                ]
+            )
+            loop = CounterexampleGuidedDeploymentLoop(
+                session,
+                max_candidates=1,
+                candidate_validator=AcceptingValidator(),
+                budget=RecordingBudget(),
+                retain_admissible_candidate=False,
+            )
+
+            result = loop.run(
+                RecordingPolicy([candidate(1)]),
+                QueueEnvironmentProvider(),
+                verifier,
+            )
+
+            self.assertEqual(result.goal_status, "blocked")
+            self.assertIsNone(result.accepted_candidate)
+            self.assertIsNone(result.candidate_certification)
+            self.assertEqual(result.stop_reason, "candidate budget exhausted")
+            budget_failure = next(
+                item
+                for item in session.reconstruct().failures.values()
+                if item["category"] == "candidate-budget"
+            )
+            self.assertNotIn("details", budget_failure)
 
     def test_unknown_blocks_without_creating_a_constraint(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

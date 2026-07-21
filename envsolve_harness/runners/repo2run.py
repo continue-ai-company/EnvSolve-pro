@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 
 from envsolve_harness.core.io import read_json, write_json, write_text_atomic
@@ -64,6 +65,16 @@ class Repo2RunRunner:
             },
         )
         return result
+
+    def _prepare_output_root(self, repository: str) -> tuple[Path, bool]:
+        output_base = (self.repo2run_root / "output").resolve()
+        output_root = (output_base / repository).resolve()
+        if output_base not in output_root.parents:
+            raise ValueError("Repo2Run repository escaped the output root")
+        existed = output_root.exists()
+        if existed:
+            shutil.rmtree(output_root)
+        return output_root, existed
 
     def run(self, case: Case, artifacts: RunArtifacts, run_spec: RunSpec) -> SolverResult:
         started_at = datetime.now(timezone.utc).isoformat()
@@ -143,6 +154,27 @@ class Repo2RunRunner:
             "snapshot_date": self.pricing.snapshot_date,
         }
 
+        try:
+            output_root, removed_prior_output = self._prepare_output_root(
+                case.repository
+            )
+        except (OSError, ValueError) as exc:
+            return self._finish(
+                artifacts,
+                SolverResult(
+                    False,
+                    run_spec.method,
+                    error=f"Repo2Run output isolation failed: {type(exc).__name__}: {exc}",
+                    metadata=base_metadata,
+                ),
+                f"Repo2Run output isolation failed: {type(exc).__name__}: {exc}\n",
+            )
+        base_metadata["output_isolation"] = {
+            "policy": "fresh-per-case-output-v1",
+            "removed_prior_output": removed_prior_output,
+            "relative_path": f"output/{case.repository}",
+        }
+
         command = [
             str(self.repo2run_root / ".venv/bin/python"),
             "main.py",
@@ -201,7 +233,6 @@ class Repo2RunRunner:
                 f"{type(exc).__name__}: {exc}\n",
             )
 
-        output_root = self.repo2run_root / "output" / case.repository
         commands_path = output_root / "inner_commands.json"
         repo_path = self.repo2run_root / "utils/repo" / case.repository / "repo"
         metadata = {

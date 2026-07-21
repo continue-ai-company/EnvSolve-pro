@@ -17,6 +17,10 @@ obligations; and its Operation layer lets a strong language model generate compl
 deployment programs whose executions update state. Structured state is an external
 cognitive tool rather than a closed action language: raw evidence remains available, and
 hard guards are limited to task safety and behavior directly contradicted by execution.
+Because internal checks are themselves partial observations, EnvSolve distinguishes a
+candidate certified by its internal goal from an admissible candidate that completed safe
+execution but retains unresolved constraints. It preserves the best admissible candidate
+rather than treating the internal verifier as a terminal oracle.
 
 We will compare EnvSolve-pro with Repo2Run, a native strong agent, same-backbone ReAct,
 and frozen EnvSolve v1 on EnvBench. Official Pass@1 is primary; tokens, calls,
@@ -24,8 +28,10 @@ environments, and time are efficiency measures. A diagnostic qualification on co
 trajectories found that closed command parsing censored executable baseline behavior and
 non-equivalent workspaces hid deployment conflicts. Replacing that interface with open
 programs, fresh execution, audited effects, and benchmark-declared preconditions removed
-representation rejection while exposing the underlying failures. This validates the
-measurement interface; effectiveness remains to be tested on untouched cases.
+representation rejection while exposing the underlying failures. A subsequent diagnostic
+batch identified over-hardening of internal feedback as a three-repository failure mode.
+These studies motivate the method but do not estimate effectiveness, which remains to be
+tested on untouched cases.
 
 ## 1. Problem
 
@@ -51,7 +57,8 @@ Pass, Fail, and Unknown distinct.
 The **Constraint layer** maintains what is currently known. Deterministic evidence may
 form hard facts; ambiguous explanations remain provenance-linked hypotheses; Unknown is
 not hardened. The model can inspect both structured state and relevant raw evidence and
-may challenge soft beliefs.
+may challenge soft beliefs. Internal verification narrows uncertainty but does not define
+terminal correctness.
 
 The **Operation layer** lets a strong model generate self-contained deployment programs.
 The system enforces only environment-modification and safety boundaries plus exact
@@ -61,6 +68,13 @@ Fresh isolated execution and audited effects determine validity, return evidence
 Observation layer, and close the loop. A benchmark adapter declares non-outcome state
 that must exist before both internal and terminal execution, preventing the solver from
 being evaluated under easier hidden preconditions.
+
+Across rounds, EnvSolve retains a small candidate frontier. A **certified** candidate
+satisfies the internal goal and terminates early. An **admissible** candidate has completed
+safe, integrity-valid execution with no unknown verification state but retains residual
+constraints. If search ends without certification, the best admissible candidate remains
+eligible for terminal evaluation and is explicitly labeled uncertified. This preserves
+the distinction between solver belief and benchmark outcome.
 
 ## 3. Contributions
 
@@ -97,11 +111,13 @@ environments, commands, and wall-clock time support efficiency and Pareto analys
 All methods share a terminal-only Official evaluator boundary. Canary and Official Test
 remain untouched until the method is frozen.
 
-The completed P0-P1 audit is diagnostic only. Synthetic tests established the effect
+The completed P0-P2 audit is diagnostic only. Synthetic tests established the effect
 boundary; all six consumed external trajectories were representable, and five final
 replays reached terminal evaluation without representation rejection. None passed
 officially. State parity also overturned one old internal EnvSolve acceptance by exposing
-the evaluator's `build_output/` conflict. These results qualify the measurement interface
-but do not support an effectiveness ranking. The next experiment uses a newly sampled,
-outcome-blind Dev batch to identify the dominant deployment contradiction before adding
-an algorithmic mechanism.
+the evaluator's `build_output/` conflict. P2 then found three repositories where complete,
+safe candidates were censored solely by residual internal constraints. These results
+qualify the measurement interface and motivate candidate retention, but do not support an
+effectiveness ranking. A consumed-case paired replay first qualifies the mechanism; the
+next effectiveness experiment is a preregistered, outcome-blind Dev ablation of this
+single change.

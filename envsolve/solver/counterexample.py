@@ -237,6 +237,42 @@ class DeploymentCandidate:
 
 
 @dataclass(frozen=True)
+class CandidateAssessment:
+    admissible: bool
+    unresolved_constraints: int
+    satisfied_constraints: int
+    unknown_constraints: int
+    reason: str
+
+    def __post_init__(self) -> None:
+        counts = (
+            self.unresolved_constraints,
+            self.satisfied_constraints,
+            self.unknown_constraints,
+        )
+        if any(
+            isinstance(value, bool) or not isinstance(value, int) or value < 0
+            for value in counts
+        ):
+            raise ValueError("Candidate assessment counts must be non-negative integers")
+        if not isinstance(self.admissible, bool):
+            raise ValueError("Candidate assessment admissible must be boolean")
+        if not isinstance(self.reason, str) or not self.reason.strip():
+            raise ValueError("Candidate assessment reason cannot be empty")
+        if self.admissible and self.unknown_constraints:
+            raise ValueError("Admissible candidates cannot contain unknown constraints")
+        if self.admissible and self.unresolved_constraints == 0:
+            raise ValueError("Admissible uncertified candidates require a residual constraint")
+
+    @property
+    def rank(self) -> tuple[int, int]:
+        return (self.unresolved_constraints, -self.satisfied_constraints)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class ExecutableVerification:
     verifier: str
     check_profile: str
@@ -248,6 +284,7 @@ class ExecutableVerification:
     hypotheses: tuple[HypothesisEvidence, ...] = ()
     details: dict[str, Any] = field(default_factory=dict)
     observations: tuple[ObservationEvidence, ...] = ()
+    candidate_assessment: CandidateAssessment | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.verifier, str) or not self.verifier.strip():
@@ -276,6 +313,18 @@ class ExecutableVerification:
             raise ValueError("Executable verifier hypotheses must be typed evidence")
         if not isinstance(self.details, dict):
             raise ValueError("Executable verifier details must be an object")
+        if self.candidate_assessment is not None and not isinstance(
+            self.candidate_assessment, CandidateAssessment
+        ):
+            raise ValueError("Executable verifier candidate assessment must be typed")
+        if (
+            self.candidate_assessment is not None
+            and self.candidate_assessment.admissible
+            and (self.passed is not False or self.bootstrap.exit_code != 0)
+        ):
+            raise ValueError(
+                "Admissible uncertified candidates require a complete failing verification"
+            )
         try:
             json.dumps(self.details, ensure_ascii=True)
         except (TypeError, ValueError) as exc:
@@ -306,6 +355,35 @@ class CounterexampleLoopResult:
     snapshot_hash: str
     accepted_candidate: DeploymentCandidate | None = None
     accepted_environment: EnvironmentReceipt | None = None
+    candidate_certification: str | None = None
+    candidate_assessment: CandidateAssessment | None = None
+
+    def __post_init__(self) -> None:
+        if self.candidate_certification not in {None, "certified", "uncertified"}:
+            raise ValueError("Candidate certification is invalid")
+        if self.accepted_candidate is None:
+            if any(
+                value is not None
+                for value in (
+                    self.accepted_environment,
+                    self.candidate_certification,
+                    self.candidate_assessment,
+                )
+            ):
+                raise ValueError("Candidate output metadata requires an accepted candidate")
+            return
+        if self.accepted_environment is None or self.candidate_certification is None:
+            raise ValueError("Accepted candidates require an environment and certification")
+        if self.candidate_certification == "certified" and self.goal_status != "satisfied":
+            raise ValueError("Certified candidates require a satisfied internal goal")
+        if self.candidate_certification == "uncertified" and (
+            self.goal_status != "blocked"
+            or self.candidate_assessment is None
+            or not self.candidate_assessment.admissible
+        ):
+            raise ValueError(
+                "Uncertified candidates require a blocked goal and admissible assessment"
+            )
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
@@ -328,6 +406,7 @@ class CounterexampleGuidedDeploymentLoop:
         constraint_engine: ConstraintEngine | None = None,
         operation_guard: CandidateOperationGuard | None = None,
         max_policy_failures: int = 3,
+        retain_admissible_candidate: bool = True,
         goal_id: str = "environment-ready",
         goal_description: str = "Construct an executable project environment",
     ) -> None:
@@ -346,6 +425,7 @@ class CounterexampleGuidedDeploymentLoop:
         self.constraint_engine = constraint_engine
         self.operation_guard = operation_guard
         self.max_policy_failures = max_policy_failures
+        self.retain_admissible_candidate = retain_admissible_candidate
         self.goal_id = goal_id
         self.goal_description = goal_description
 
@@ -358,6 +438,8 @@ class CounterexampleGuidedDeploymentLoop:
         constraints_updated: int,
         accepted_candidate: DeploymentCandidate | None = None,
         accepted_environment: EnvironmentReceipt | None = None,
+        candidate_certification: str | None = None,
+        candidate_assessment: CandidateAssessment | None = None,
     ) -> CounterexampleLoopResult:
         self.session.upsert_goal(
             self.goal_id,
@@ -374,6 +456,8 @@ class CounterexampleGuidedDeploymentLoop:
             snapshot_hash=str(snapshot["snapshot_hash"]),
             accepted_candidate=accepted_candidate,
             accepted_environment=accepted_environment,
+            candidate_certification=candidate_certification,
+            candidate_assessment=candidate_assessment,
         )
 
     def _block(
@@ -436,6 +520,11 @@ class CounterexampleGuidedDeploymentLoop:
                 "summary": outcome.summary,
                 "observation_count": len(outcome.observations),
                 "counterexample_count": len(outcome.counterexamples),
+                "candidate_assessment": (
+                    outcome.candidate_assessment.to_dict()
+                    if outcome.candidate_assessment is not None
+                    else None
+                ),
             },
             verification_id=f"verification-{candidate.candidate_id}",
         )
@@ -519,6 +608,10 @@ class CounterexampleGuidedDeploymentLoop:
         attempted = verifier_failures = constraints_updated = 0
         consecutive_policy_failures = 0
         previous_candidate_id: str | None = None
+        best_candidate: DeploymentCandidate | None = None
+        best_environment: EnvironmentReceipt | None = None
+        best_assessment: CandidateAssessment | None = None
+        best_attempt: int | None = None
         environment_ids = self._known_environment_ids(self.session.reconstruct())
         while attempted < self.max_candidates:
             try:
@@ -972,11 +1065,30 @@ class CounterexampleGuidedDeploymentLoop:
                     constraints_updated,
                     accepted_candidate=decision,
                     accepted_environment=receipt,
+                    candidate_certification="certified",
+                    candidate_assessment=outcome.candidate_assessment,
                 )
 
             verifier_failures += 1
             self._record_hypotheses(decision, environment, outcome)
             self._record_verification(decision, environment, outcome, False)
+            assessment = outcome.candidate_assessment
+            if (
+                self.retain_admissible_candidate
+                and assessment is not None
+                and assessment.admissible
+            ):
+                candidate_rank = (*assessment.rank, attempted)
+                best_rank = (
+                    (*best_assessment.rank, int(best_attempt))
+                    if best_assessment is not None and best_attempt is not None
+                    else None
+                )
+                if best_rank is None or candidate_rank < best_rank:
+                    best_candidate = decision
+                    best_environment = receipt
+                    best_assessment = assessment
+                    best_attempt = attempted
             self.session.record_failure(
                 category="executable-verifier-counterexample",
                 message=outcome.summary,
@@ -1058,11 +1170,29 @@ class CounterexampleGuidedDeploymentLoop:
         self.session.record_failure(
             "candidate-budget",
             f"Counterexample loop exhausted {self.max_candidates} candidates",
+            details=(
+                {
+                    "best_admissible_candidate_id": best_candidate.candidate_id,
+                    "candidate_assessment": best_assessment.to_dict(),
+                }
+                if best_candidate is not None and best_assessment is not None
+                else None
+            ),
         )
         return self._finish(
-            "candidate budget exhausted",
+            (
+                "candidate budget exhausted; returning best admissible candidate"
+                if best_candidate is not None
+                else "candidate budget exhausted"
+            ),
             "blocked",
             attempted,
             verifier_failures,
             constraints_updated,
+            accepted_candidate=best_candidate,
+            accepted_environment=best_environment,
+            candidate_certification=(
+                "uncertified" if best_candidate is not None else None
+            ),
+            candidate_assessment=best_assessment,
         )

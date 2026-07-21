@@ -35,6 +35,7 @@ class EnvSolveEpisodeRunner:
         operation_guard: CandidateOperationGuard | None = None,
         budget: EpisodeBudget,
         max_candidates: int,
+        retain_admissible_candidate: bool = True,
         condition: str = "envsolve-full",
         repository_profile: dict[str, Any] | None = None,
         initial_evidence: tuple[InitialConstraintEvidence, ...] = (),
@@ -51,6 +52,7 @@ class EnvSolveEpisodeRunner:
         self.operation_guard = operation_guard
         self.budget = budget
         self.max_candidates = max_candidates
+        self.retain_admissible_candidate = retain_admissible_candidate
         self.condition = condition
         self.repository_profile = repository_profile
         self.initial_evidence = initial_evidence
@@ -75,6 +77,11 @@ class EnvSolveEpisodeRunner:
             "started_at": started_at,
             "online_feedback_policy": "internal-execution-only",
             "official_evaluator_access": "post-episode-only",
+            "candidate_retention": (
+                "best-admissible"
+                if self.retain_admissible_candidate
+                else "disabled"
+            ),
         }
         if self.initial_observation_summary is not None:
             metadata["initial_repository_observation"] = self.initial_observation_summary
@@ -129,6 +136,7 @@ class EnvSolveEpisodeRunner:
                 budget=self.budget,
                 constraint_engine=constraint_engine,
                 operation_guard=self.operation_guard,
+                retain_admissible_candidate=self.retain_admissible_candidate,
             )
             loop_result = loop.run(
                 self.policy,
@@ -136,7 +144,7 @@ class EnvSolveEpisodeRunner:
                 self.verifier,
             )
             metadata["episode"] = loop_result.to_dict()
-            if loop_result.accepted_candidate is None or loop_result.goal_status != "satisfied":
+            if loop_result.accepted_candidate is None:
                 result = SolverResult(
                     generation_completed=False,
                     method=run_spec.method,
@@ -151,6 +159,15 @@ class EnvSolveEpisodeRunner:
                     artifacts.generated_script,
                     loop_result.accepted_candidate.script,
                 )
+                metadata["candidate_output"] = {
+                    "certification": loop_result.candidate_certification,
+                    "internal_goal_status": loop_result.goal_status,
+                    "assessment": (
+                        loop_result.candidate_assessment.to_dict()
+                        if loop_result.candidate_assessment is not None
+                        else None
+                    ),
+                }
                 result = SolverResult(
                     generation_completed=True,
                     method=run_spec.method,

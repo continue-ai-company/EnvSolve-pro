@@ -285,3 +285,27 @@ class TwoLayerImportObligationTests(unittest.TestCase):
                 payload["static"]["mapped_dependency"]["kind"],
                 "mapped_physical_origin",
             )
+
+    def test_isolated_probe_resolves_project_namespace_directories(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tests = root / "tests"
+            tests.mkdir()
+            (tests / "helpers.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, "-I", "-c", _IMPORT_PROBE, '["tests"]'],
+                cwd=root,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=30,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            marker = next(
+                line for line in result.stdout.splitlines() if line.startswith(_PROBE_MARKER)
+            )
+            payload = json.loads(marker[len(_PROBE_MARKER) :])
+            self.assertEqual(payload["runtime"]["tests"]["status"], "resolved")
+            self.assertEqual(payload["static"]["tests"]["status"], "resolved")

@@ -7,6 +7,7 @@ from typing import Any
 
 from envsolve.constraints.models import ConstraintDomain, ConstraintPredicate
 from envsolve.solver import (
+    CandidateAssessment,
     CommandResult,
     CounterexampleEvidence,
     ExecutableVerification,
@@ -275,4 +276,25 @@ class StructuredFindingAdapter:
                 },
                 "report_details": report.details,
             },
+            candidate_assessment=CandidateAssessment(
+                admissible=(
+                    report.completed
+                    and report.infrastructure_error is None
+                    and report.bootstrap.exit_code == 0
+                    and report.goal_passed is False
+                    and bool(active)
+                    and not unknown
+                ),
+                unresolved_constraints=len(active),
+                satisfied_constraints=len(satisfied),
+                unknown_constraints=len(unknown),
+                reason=(
+                    "complete replay with unresolved internal constraints"
+                    if report.completed
+                    and report.infrastructure_error is None
+                    and report.bootstrap.exit_code == 0
+                    and report.goal_passed is False
+                    else "candidate replay is certified, incomplete, or failed execution"
+                ),
+            ),
         )

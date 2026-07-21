@@ -11,12 +11,15 @@
 的执行证据；约束层维护可修正的事实、假设、冲突与未解决义务；操作层让强语言模型生成完整部署程序，
 并用可执行反馈更新状态。结构化状态作为模型的外部认知工具，而不是封闭的动作语言：原始证据始终
 可见，只有任务安全边界和执行直接反驳的行为构成 hard guard。
+由于内部检查本身也只是部分观测，EnvSolve 区分满足内部目标的 `certified` 候选与已经安全执行、但仍有
+未解决约束的 `admissible` 候选。系统保留最佳 admissible 候选，而不把内部 verifier 当成 terminal oracle。
 
 我们将在 EnvBench 上与 Repo2Run、原生强 Agent、同 backbone ReAct 和冻结的 EnvSolve v1 比较。主指标
 是 Official Pass@1；token、调用、环境数与时间是效率指标。对已消费轨迹的诊断性资格验证发现，封闭
 command parsing 会删失 baseline 的可执行行为，不等价 workspace 会隐藏真实部署冲突。改用开放程序、
 fresh execution、audited effect 和 benchmark 声明的前置条件后，表示层拒绝被消除，底层失败被暴露。
-这只验证了测量接口；算法效果仍需在 untouched case 上检验。
+后续诊断 batch 又发现内部反馈过度硬化是一个跨三个仓库的失败模式。这些研究用于提出方法，不估计
+效果；真正效果仍需在 untouched case 上检验。
 
 ## 1. 问题
 
@@ -36,12 +39,18 @@ EnvSolve-pro 维护状态 `S_t=(X_t,F_t,H_t,C_t,U_t)`：原始证据、事实、
 
 **约束层**回答“现在知道什么”。确定性证据可形成 hard fact；歧义解释保留为带置信度和 provenance
 的 hypothesis；Unknown 不被硬化。模型可以查看结构化状态及相关原始证据，并质疑 soft belief。
+内部验证用于缩小不确定性，但不定义终局正确性。
 
 **操作层**回答“怎样改变环境”。强模型自由生成自包含部署程序。系统只强制环境修改边界、安全边界和
 有直接执行反例的精确禁忌，其余 operation plan 是建议。candidate 是开放程序，不属于封闭 command
 vocabulary。系统通过 fresh isolated execution 与 audited effect 判断有效性，再把反馈送回观测层形成闭环。
 Benchmark adapter 声明 internal 与 terminal execution 之前都必须存在的非结果状态，避免 solver 在更容易的
 隐藏前提下被验证。
+
+跨轮次，EnvSolve 维护一个很小的候选前沿。`certified` 候选满足内部目标并提前停止；`admissible` 候选
+已经完成安全、完整性有效的执行，且没有未知验证状态，但仍有残余约束。若搜索结束仍未完全认证，最佳
+admissible 候选仍可进入终局评测，并被明确标记为 `uncertified`。由此保持 solver belief 与 benchmark
+outcome 的区别。
 
 ## 3. 三项贡献
 
@@ -68,8 +77,9 @@ DGX Spark 可并行运行，但每个 paired comparison 记录并控制执行平
 率与 Unknown 比例。Token、请求、候选环境、命令和 wall-clock 只用于效率与 Pareto 分析。所有方法共享
 terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻结前保持 untouched。
 
-已完成的 P0-P1 audit 仅用于诊断。Synthetic test 建立了 effect boundary；6 条已消费外部轨迹全部可表示，
+已完成的 P0-P2 audit 仅用于诊断。Synthetic test 建立了 effect boundary；6 条已消费外部轨迹全部可表示，
 5 次最终重放均在没有 representation rejection 的情况下到达 terminal evaluation，但没有 Official Pass。
 状态对齐还通过暴露 evaluator 的 `build_output/` 冲突，推翻了旧 EnvSolve 的一次内部接受。这些结果完成了
-测量接口资格验证，但不支持 effectiveness ranking。下一阶段将抽取新的 outcome-blind Dev batch，在增加
-算法机制前先找出占主导的部署矛盾。
+测量接口资格验证。P2 又发现三个仓库中的完整安全候选仅因残余内部约束而被删失。这支持候选保留机制，
+但不支持 effectiveness ranking。先在已消费 case 上成对验证机制行为，再在新 outcome-blind Dev 上预注册
+并消融这一个变化。

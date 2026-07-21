@@ -50,7 +50,7 @@ class ContainerMcpServerTest(unittest.TestCase):
                     "id": 3,
                     "method": "tools/call",
                     "params": {
-                        "name": "container_exec",
+                        "name": "envbench_shell",
                         "arguments": {"command": "false", "timeout_seconds": 9},
                     },
                 },
@@ -63,7 +63,7 @@ class ContainerMcpServerTest(unittest.TestCase):
             responses = [json.loads(line) for line in target.getvalue().splitlines()]
             self.assertEqual([item["id"] for item in responses], [1, 2, 3])
             self.assertEqual(
-                responses[1]["result"]["tools"][0]["name"], "container_exec"
+                responses[1]["result"]["tools"][0]["name"], "envbench_shell"
             )
             tool_result = responses[2]["result"]
             self.assertFalse(tool_result["isError"])
@@ -85,7 +85,7 @@ class ContainerMcpServerTest(unittest.TestCase):
                     "id": 1,
                     "method": "tools/call",
                     "params": {
-                        "name": "container_exec",
+                        "name": "envbench_shell",
                         "arguments": {"command": "pwd", "timeout_seconds": True},
                     },
                 }
