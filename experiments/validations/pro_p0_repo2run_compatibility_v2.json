@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_id": "repo2run-reproduced-minimally-repaired-v2",
+  "parent_manifest": "experiments/validations/pro_p0_repo2run_compatibility_v1.json",
+  "upstream_repository": "bytedance/Repo2Run",
+  "upstream_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
+  "claim": "Reproduced upstream with audited compatibility repairs; not an untouched-upstream claim.",
+  "tracked_binary_diff_sha256": "753b9ded8e134a0fd87888ff843ff1f9858adc6217ddb484fd6fabee94012616",
+  "compatibility_scope": [
+    "all v1 compatibility repairs",
+    "retry null, empty, list-valued, and malformed provider content instead of crashing",
+    "isolate per-case generated output before every invocation",
+    "translate Repo2Run's private pip_download helper into equivalent portable pip effects"
+  ],
+  "algorithm_behavior_changed": false,
+  "changed_file_sha256": {
+    "build_agent/agents/configuration.py": "a209db90ce77cc9c787c55725338b26394a23cfbcaead5aa3981d6bb02c76d6d",
+    "build_agent/docker/Dockerfile": "cf69b40c47b03cb10c04fc5023877476a2bd369ac6a5c8a821fbaf819e108047",
+    "build_agent/main.py": "55cdfe0e5b4af58376b96e2fa5a53c0b47769791eb5e524f4dd4381ff492ff33",
+    "build_agent/tools/generate_diff.py": "bc2d2299ed8d44369c167ad4608dff4119fc6b234fc20069e354d4723d7fd6f6",
+    "build_agent/utils/agent_util.py": "5fed423701ef86463149c4a211e8b32c1f8d602408a98a7bd34a08b0074825f0",
+    "build_agent/utils/errorformat_list.py": "32d76d56c4adbe565cdc3d99d13ee06697ce1fc61617b2aa65b024ff621c2ffb",
+    "build_agent/utils/integrate_dockerfile.py": "d94356de9d44c8cf6fa687519036327ee7d9766430d77c7c438f4afac8a8cadf",
+    "build_agent/utils/llm_client.py": "d126c1f75aad679977f87b9e0e507592cc90d6fe70dde11db699a58119c86eaa",
+    "build_agent/utils/repo_parser/__init__.py": "eb473e057a3efd12831776d863a901559bbb3309cd16977b5c38e64f41a45457",
+    "build_agent/utils/repo_parser/parse_command.py": "bc8ace41ada5ee97ac1f657f20c7427bcc68ed4e1784c89d2dc9fc9cee68e278",
+    "build_agent/utils/repo_parser/parse_dialogue.py": "68c343909c1319750b3a04d2021cd023dfb240a558033a545258c446e7012986",
+    "build_agent/utils/repo_parser/parse_requirements.py": "17d31b664d08998beb7e57920dbdd48772fed14f67f28bdd3c5677664560a693",
+    "build_agent/utils/sandbox.py": "d96b0adea2b1ec408a6d300bf66f64d1d9e84598a28cedb4bc5d11a3d43f1e7a",
+    "build_agent/utils/waiting_list.py": "58d4444a91344e5c70a6c2eae6eec5193bb60cad3c5a2251491964c694fa1e27",
+    "requirements.txt": "27b5a552918900ac13bce6bda0bfb88051ccb4dd60bc5a07343706fd8e6b21c6"
+  },
+  "harness_adapter_commits": [
+    "85e942aed66738677aaa9b374908902826178561",
+    "8510e0c45a6c1e1efc758687bc18a743d4889fb8"
+  ],
+  "qualification": {
+    "case_id": "envbench-python-ansible__ansible-zuul-jobs@33dd767b8609db931003583faa1eb47ac9fabfc1",
+    "run_id": "pro-p2-repo2run-output-smoke-v3",
+    "generation_completed": true,
+    "repository_integrity_valid": true,
+    "unsupported_commands": 0,
+    "translated_package_actions": 10,
+    "evaluation_completed": true,
+    "bootstrap_exit_code": 0,
+    "official_pass": false,
+    "error_count": 12
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "pro-p2-baseline-adapter-repairs-v1",
+  "status": "consumed-case-smoke-qualified",
+  "claim_scope": "adapter validity only; no baseline effectiveness claim",
+  "case_id": "envbench-python-ansible__ansible-zuul-jobs@33dd767b8609db931003583faa1eb47ac9fabfc1",
+  "repairs": {
+    "codex-cli-native": {
+      "intervention": "rename the reserved MCP tool and preserve the same persistent container shell semantics",
+      "run_id": "pro-p2-codex-mcp-smoke-v1",
+      "generation_completed": true,
+      "container_calls": 13,
+      "successful_container_calls": 12,
+      "repository_integrity_valid": true,
+      "evaluation_completed": true,
+      "bootstrap_exit_code": 0,
+      "official_pass": false,
+      "error_count": 49
+    },
+    "repo2run-reproduced-open": {
+      "intervention": "reject invalid provider content, isolate generated output, and translate private helper effects into portable pip commands",
+      "compatibility_manifest": "experiments/validations/pro_p0_repo2run_compatibility_v2.json",
+      "run_id": "pro-p2-repo2run-output-smoke-v3",
+      "generation_completed": true,
+      "translated_package_actions": 10,
+      "repository_integrity_valid": true,
+      "evaluation_completed": true,
+      "bootstrap_exit_code": 0,
+      "official_pass": false,
+      "error_count": 12
+    }
+  },
+  "interpretation": "Both external baselines now produce auditable terminal outcomes on the smoke case. Their Official Fail outcomes are algorithmic observations, but this consumed single-case smoke cannot repair censoring in frozen P2 or estimate comparative effectiveness."
+}

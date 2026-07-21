@@ -96,6 +96,8 @@
   "post_batch_validity_repairs": [
     "rename the Codex MCP tool to avoid the gpt-5.5 reserved name",
     "delete Repo2Run per-case output before every run and reject empty model content",
+    "translate Repo2Run private package-install helpers into portable pip effects",
     "resolve project-root namespace directories in isolated Python verification"
-  ]
+  ],
+  "post_batch_repair_qualification": "experiments/validations/pro_p2_baseline_adapter_repairs_v1.json"
 }

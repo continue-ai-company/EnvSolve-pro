@@ -53,8 +53,10 @@ Runtime-closure state remains a frozen secondary hypothesis.
 - Legitimate generated files censored raw ReAct on two repositories.
 
 Post-batch repairs rename the Codex tool, isolate Repo2Run output per run, reject empty
-provider content, and fix project-root namespace resolution. None of these repairs changes
-the frozen P2 outcomes. New baseline runs are required before comparative claims.
+provider content, translate private helper effects, and fix project-root namespace
+resolution. Consumed-case smoke runs now give both baselines complete, integrity-valid
+Official evaluations. Neither passed. This qualifies adapter validity but does not change
+the frozen P2 outcomes or support comparative claims.
 
 ## Next Gate
 

@@ -41,8 +41,9 @@ Official Pass 共两次：EnvSolve-pro 通过 `ansible-zuul-jobs`，raw ReAct �
 - 4 个 Repo2Run 位置在空响应后崩溃；旧的 `inner_commands.json` 还可能让崩溃看起来像产生了候选。
 - 两个 raw ReAct 位置被合法生成文件的完整性误报删失。
 
-批次结束后已修复 Codex 工具名、Repo2Run 单次输出隔离、空模型内容重试，以及项目根命名空间解析。
-这些修复不追溯改变冻结 P2 结果；任何比较结论都必须来自新的有效 baseline run。
+批次结束后已修复 Codex 工具名、Repo2Run 单次输出隔离、空模型内容重试、私有 helper effect 翻译，
+以及项目根命名空间解析。两个 baseline 都已在消耗 case 的 smoke 中完成完整性有效的 Official 评估，
+但均未通过。这只验证 adapter 有效性，不追溯改变冻结 P2 结果，也不支持比较结论。
 
 ## 下一道门槛
 
