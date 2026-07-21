@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-p0-external-baselines-v1-mac-2026-07-21",
+  "bound_at": "2026-07-21T12:29:33+08:00",
+  "preregistration": {
+    "path": "experiments/validations/pro_p0_external_baselines_v1_preregistration.json",
+    "sha256": "2b1974c1751300c2e2539884cf42139c5db60e880d0ceaf05a4250e329266bfa"
+  },
+  "selection": {
+    "path": "experiments/validations/pro_p0_external_baselines_v1_selection.json",
+    "sha256": "4df6851dabdf7297a9e12466404a6154b5e0420bad27a6943c769baa29526b71",
+    "case_file": "experiments/cases/dev_pro_p0_external_baselines_v1_5.jsonl",
+    "case_file_sha256": "cb8ff50a38a895db058344ca926af99038b114c4d70a2997845cbf69b4391ecd"
+  },
+  "schedule": {
+    "path": "experiments/validations/pro_p0_external_baselines_v1_schedule.json",
+    "sha256": "6e12101e1c5923de7befd437197dcca337a965e771ff5192207e8ffd96f7a43e",
+    "episodes": 20
+  },
+  "implementation": {
+    "algorithm_and_wrapper_freeze_revision": "cec094c898748afec3bb57a918a62201027a62c7",
+    "selection_metadata_revision": "864d41de6e1130f4f73f2d234a7e971633823aad",
+    "execution_rule": "Run from the clean commit that introduces this binding; no solver or protocol code changed after selection."
+  },
+  "host": {
+    "binding": "mac-for-Leo.local",
+    "computer_name": "mac for Leo",
+    "os": "macOS 26.5.2 (25F84)",
+    "kernel": "Darwin 25.5.0 arm64",
+    "network": "operator-confirmed personal hotspot",
+    "network_retry_policy": "Retry the same episode identity only when no valid model response and no environment command were produced; otherwise preserve the partial episode as Unknown."
+  },
+  "external_boundaries": {
+    "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "envbench_dirty": false,
+    "repo2run_upstream_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
+    "repo2run_compatibility_diff_sha256": "37d3e100c876ec5dcfe3425dd84f9471df9fbce027ba6d7bb9748209a5c215f8",
+    "envsolve_v1_revision": "07a208f9b2390a36ad64f0c0d7cedf00423a889e",
+    "envsolve_v1_dirty": false,
+    "codex_cli_version": "codex-cli 0.145.0-alpha.18",
+    "codex_cli_executable_sha256": "f0b214b476e04175bee104fe441caea874baeef3efc3828bfb79e972266156a9"
+  },
+  "runtime_inputs": {
+    "config": "experiments/configs/local_mac_pro_p0.json",
+    "config_sha256": "83b6a9cf362cdb3c3611ec6b7f5123e44c29339aa4e4988681894c40e7d3cf44",
+    "official_protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "official_protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "scientific_scope": {
+    "development_observation_only": true,
+    "effectiveness_claim_allowed": false,
+    "algorithm_change_during_batch": false
+  }
+}
