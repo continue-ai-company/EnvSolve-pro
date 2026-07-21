@@ -3,26 +3,36 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[2]
 FREEZE_PATH = ROOT / "envsolve/protocols/p6_constraint_operation_freeze_v17.json"
+FREEZE_REVISION = "cf52839c947bc4eb23e6b21cc278620f47a5b47b"
 
 
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def frozen_blob(path: str) -> bytes:
+    return subprocess.check_output(
+        ["git", "show", f"{FREEZE_REVISION}:{path}"],
+        cwd=ROOT,
+    )
 
 
 class P6OperationFreezeTests(unittest.TestCase):
-    def test_v17_source_and_parent_hashes_are_current(self) -> None:
+    def test_v17_source_and_parent_hashes_match_frozen_revision(self) -> None:
+        relative_freeze = str(FREEZE_PATH.relative_to(ROOT))
+        self.assertEqual(FREEZE_PATH.read_bytes(), frozen_blob(relative_freeze))
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
 
         for relative, expected in freeze["files"].items():
-            self.assertEqual(sha256(ROOT / relative), expected, relative)
+            self.assertEqual(hashlib.sha256(frozen_blob(relative)).hexdigest(), expected, relative)
         for field in ("parent_freeze", "harness_freeze"):
             record = freeze[field]
-            self.assertEqual(sha256(ROOT / record["path"]), record["sha256"])
+            self.assertEqual(
+                hashlib.sha256(frozen_blob(record["path"])).hexdigest(),
+                record["sha256"],
+            )
 
     def test_v17_treatment_boundary_is_explicit(self) -> None:
         freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))

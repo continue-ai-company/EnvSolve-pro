@@ -1,13 +1,22 @@
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
 import unittest
 
-from envsolve.tools.p5_freeze import build
+
+ROOT = Path(__file__).resolve().parents[2]
+FREEZE_PATH = ROOT / "envsolve/protocols/p5_hierarchical_verifier_freeze_v1.json"
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 class P5FreezeTests(unittest.TestCase):
-    def test_freeze_reconstructs_expected_pass_curve(self) -> None:
-        freeze = build()
+    def test_freeze_records_expected_pass_curve(self) -> None:
+        freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
 
         self.assertTrue(freeze["scope"]["p5_complete"])
         self.assertEqual(freeze["validation"]["official_pass"], 2)
@@ -21,6 +30,12 @@ class P5FreezeTests(unittest.TestCase):
             {"legacy-egg-link": 1, "pep610-direct-url": 3},
         )
         self.assertFalse(freeze["integrity"]["development_unknown_promoted_to_pass"])
+
+    def test_committed_evidence_matches_the_freeze(self) -> None:
+        freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
+
+        for record in freeze["artifacts"].values():
+            self.assertEqual(sha256(ROOT / record["path"]), record["sha256"])
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import subprocess
+import sys
 from textwrap import dedent
 import unittest
 
@@ -13,7 +14,7 @@ class V0InferenceEntrypointTests(unittest.TestCase):
     def test_agent_initial_state_writes_the_message_channel(self) -> None:
         process = subprocess.run(
             [
-                str(ROOT / "EnvBench/.venv/bin/python"),
+                sys.executable,
                 "-c",
                 (
                     "from unittest.mock import Mock; "
@@ -35,7 +36,7 @@ class V0InferenceEntrypointTests(unittest.TestCase):
     def test_agent_graph_reaches_the_model_offline(self) -> None:
         process = subprocess.run(
             [
-                str(ROOT / "EnvBench/.venv/bin/python"),
+                sys.executable,
                 "-c",
                 dedent(
                     """
@@ -86,7 +87,7 @@ class V0InferenceEntrypointTests(unittest.TestCase):
     def test_direct_file_help_loads_envbench_runtime(self) -> None:
         process = subprocess.run(
             [
-                str(ROOT / "EnvBench/.venv/bin/python"),
+                sys.executable,
                 str(ROOT / "envsolve/tools/run_v0_inference.py"),
                 "--help",
             ],

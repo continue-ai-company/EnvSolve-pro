@@ -1,0 +1,11 @@
+-r envsolve/requirements.txt
+
+langchain-core==0.3.44
+langchain-openai==0.3.8
+langgraph==0.3.8
+langgraph-checkpoint==2.0.19
+langgraph-prebuilt==0.1.2
+langgraph-sdk==0.1.56
+openai==1.66.3
+pydantic==2.10.6
+pytest==9.1.1
