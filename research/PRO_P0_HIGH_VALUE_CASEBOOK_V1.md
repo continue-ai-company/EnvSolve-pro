@@ -10,8 +10,9 @@ on untouched cases.
 
 ## Case P0-001: `wpi-lnl/lnldb@6384c05`
 
-**Status:** Repo2Run, Codex CLI, and frozen EnvSolve v1 have terminated. The raw ReAct
-episode remains pending, so cross-method findings are provisional.
+**Status:** all four native methods have terminated. Only Codex reached the official
+evaluator, so this case supports failure analysis but not a complete effectiveness
+comparison.
 
 ### Why This Case Is Valuable
 
@@ -39,6 +40,7 @@ separates four capabilities that are easy to conflate:
 | Repo2Run reproduced | Native generation failed after 16 successful model responses; no official evaluator. The built environment retained a modern Django and the upstream agent crashed while indexing an absent agent result. | A long command loop can still miss a decisive version constraint; baseline robustness must be separated from environment correctness. |
 | Codex CLI | Built a Python 3.8 environment, installed `requirements_debug.txt`, and ran Django checks/tests. Official evaluation completed but failed with 1,629 errors; the two missing-import findings were `django.conf.settings` and `django.core.urlresolvers`. | A strong free-form agent adapted to a network timeout and chose a plausible legacy runtime, but local checks and the official target were not aligned. |
 | Frozen EnvSolve v1 | Native failure after exhausting five candidates; no official evaluator. It used five successful model responses, four executed environments, 68,063 total tokens, and 2,316 seconds. | The trajectory directly tests whether structured state helps or constrains a strong model. |
+| EnvBench raw ReAct | Reached its 30-iteration native limit and did not finish. The final ledger records 31 responses, 806,340 tokens, and 1,447 seconds. Replay IR then rejected three successful shell forms, so no official evaluator ran. | Free-form reasoning recovered key evidence and several failures, but context growth, iteration use, and post-hoc trajectory parsing censored the terminal result. |
 
 ### Frozen EnvSolve v1 Candidate Trace
 
@@ -49,6 +51,25 @@ separates four capabilities that are easy to conflate:
 | 3 | Reintroduced many exact package versions, including Django 2.2.28. | The aggregate resolver reported no version for `boto3==1.14.47`; candidate 5 later showed that isolated installation succeeds. | The loop treated a resolver symptom as a single-package fact instead of preserving the compound conflict context. |
 | 4 | Correctly inferred that the modern Python runtime was causal and proposed installing Python 3.8.13 through `pyenv`. | Rejected before execution with exit 252 because the operation guard did not recognize `git clone` for acquiring `pyenv`. | A closed textual action vocabulary blocked a directionally correct strong-model repair. |
 | 5 | Split the failed aggregate install into several commands while retaining the default runtime. | Isolated `boto3==1.14.47` succeeded, later installs restored Django 6.0.7, and the run failed on `natural-duration==0.1.0`; the repository actually declares that dependency through Git. | Splitting can isolate resolver conflicts, but lost VCS provenance and missing whole-environment postconditions still prevent convergence. |
+
+### Raw ReAct Trace
+
+The raw agent read `runtime.txt`, all recursive requirements, the README, and Travis
+configuration before installing. It then:
+
+1. recovered from a Conda HTTP failure by switching providers;
+2. installed and activated the declared Python 3.7.7 through `pyenv`;
+3. recovered from a pip read timeout by increasing the timeout;
+4. constrained `python-bidi`, added `libpq-dev`, isolated a `docutils`/`botocore`
+   conflict, and replaced the incompatible `psycopg2` build; and
+5. reached Django application initialization, where an outbound Microsoft OpenID
+   request failed with an SSL connection error.
+
+At the iteration boundary the model reported that it needed more steps. The frozen
+Replay IR then rejected a read-only `pyenv` pipeline, creation of a temporary
+constraints file, and `pip uninstall`. This episode is therefore recorded as a native
+incomplete trajectory with a wrapper-induced Unknown official outcome. It is not
+selectively rerun.
 
 ### Three-Layer Diagnosis
 
@@ -79,6 +100,8 @@ separates four capabilities that are easy to conflate:
   runtime or provider that the fixed catalog did not anticipate.
 - Safety should be based on typed intent, provenance, preconditions, and verified
   effects rather than an exhaustive shell-text whitelist.
+- Replayable operations should be recorded as typed events when tools execute. A
+  post-hoc shell parser should not be able to erase an otherwise valid trajectory.
 - Fresh candidate environments preserve causal auditability. Deterministic base
   layers may be cached to avoid repeating system downloads without sharing mutable
   candidate state.
@@ -94,6 +117,8 @@ separates four capabilities that are easy to conflate:
   execution.
 - **H4: Constraint prioritization.** A compact compatibility frontier produces
   better candidates than exposing every low-level fact at equal salience.
+- **H5: Effect-preserving traces.** Execution-time typed action capture reduces
+  wrapper-induced Unknown outcomes compared with post-hoc shell distillation.
 
 ### Anti-Overfitting Gate
 
@@ -109,3 +134,4 @@ the next untouched development cases are opened.
 - Frozen EnvSolve run ID: `pro-p0-v1-c01-envsolve-v1-frozen`
 - Codex run ID: `pro-p0-v1-c01-codex-cli-native`
 - Repo2Run run ID: `pro-p0-v1-c01-repo2run-reproduced`
+- Raw ReAct run ID: `pro-p0-v1-c01-envbench-raw-react`
