@@ -20,6 +20,7 @@ from envsolve.solver import (
     EnvironmentReceipt,
     ProvisionedEnvironment,
 )
+from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 RunCommand = Callable[..., subprocess.CompletedProcess[str]]
@@ -105,6 +106,7 @@ class DockerFreshEnvironmentProvider:
         repository: str,
         revision: str,
         image: str,
+        workspace_preconditions: tuple[WorkspacePrecondition, ...] = (),
         create_timeout: int = 180,
         run_command: RunCommand = subprocess.run,
     ) -> None:
@@ -113,6 +115,7 @@ class DockerFreshEnvironmentProvider:
         self.repository = repository
         self.revision = revision
         self.image = image
+        self.workspace_preconditions = workspace_preconditions
         self.create_timeout = create_timeout
         self.run_command = run_command
         self.base_image_digest: str | None = None
@@ -216,6 +219,8 @@ class DockerFreshEnvironmentProvider:
             )
             if observed_revision != self.revision:
                 raise RuntimeError("Clean checkout does not match the requested revision")
+            for precondition in self.workspace_preconditions:
+                precondition.materialize(worktree)
             image_digest = self._checked(
                 ["docker", "image", "inspect", "--format", "{{.Id}}", self.image],
                 "Docker image identity",

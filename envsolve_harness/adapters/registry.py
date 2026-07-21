@@ -5,6 +5,7 @@ from collections.abc import Callable
 from envsolve_harness.adapters.base import BenchmarkAdapter
 from envsolve_harness.core.models import HarnessConfig
 from envsolve_harness.core.protocol import ExperimentProtocol
+from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 AdapterFactory = Callable[[HarnessConfig, ExperimentProtocol], BenchmarkAdapter]
@@ -40,3 +41,18 @@ def create_benchmark_adapter(
     except KeyError as exc:
         raise ValueError(f"Unknown benchmark adapter: {benchmark.adapter!r}") from exc
     return factory(config, protocol)
+
+
+def workspace_preconditions_for(
+    config: HarnessConfig,
+    protocol: ExperimentProtocol,
+) -> tuple[WorkspacePrecondition, ...]:
+    """Return adapter-owned setup state; unknown test adapters have no declaration."""
+
+    _load_builtin_adapters()
+    benchmark = config.benchmark(protocol.benchmark)
+    factory = _FACTORIES.get(benchmark.adapter)
+    if factory is None:
+        return ()
+    adapter = factory(config, protocol)
+    return tuple(getattr(adapter, "workspace_preconditions", ()))

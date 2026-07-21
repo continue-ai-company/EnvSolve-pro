@@ -6,6 +6,7 @@ import json
 from typing import Any
 
 from envsolve_harness.scripts.replay_actions import ReplayAction, analyze_successful_command
+from envsolve_harness.scripts.open_program import OPEN_PROGRAM_POLICY
 
 
 @dataclass(frozen=True)
@@ -15,6 +16,54 @@ class TrajectoryDistillationResult:
     dropped_commands: tuple[str, ...]
     unknown_commands: tuple[str, ...]
     actions: tuple[ReplayAction, ...] = ()
+
+
+def _relocate_project_root(command: str, project_directory: str | None) -> tuple[str, bool]:
+    if not project_directory:
+        return command, False
+    source = f"/data/project/{project_directory}"
+    if source not in command:
+        return command, False
+    # The source path may already occur inside shell quotes.
+    return command.replace(source, "${PROJECT_ROOT}"), True
+
+
+def compile_envbench_open_program(
+    commands: list[dict[str, Any]],
+    project_directory: str | None = None,
+) -> TrajectoryDistillationResult:
+    """Preserve the upstream successful-command trace without a closed grammar."""
+
+    replay: list[str] = []
+    kept: list[str] = []
+    dropped: list[str] = []
+    mapped_any = False
+    for record in commands:
+        command = str(record.get("command", "")).strip()
+        if not command:
+            continue
+        if "\x00" in command:
+            return TrajectoryDistillationResult(
+                script="",
+                kept_commands=tuple(kept),
+                dropped_commands=tuple(dropped),
+                unknown_commands=(f"NUL byte in command under {OPEN_PROGRAM_POLICY}",),
+            )
+        if record.get("exit_code") != 0:
+            dropped.append(command)
+            continue
+        mapped, changed = _relocate_project_root(command, project_directory)
+        replay.append(mapped)
+        kept.append(command)
+        mapped_any = mapped_any or changed
+    if mapped_any:
+        replay.insert(0, 'PROJECT_ROOT="$(pwd)"')
+    return TrajectoryDistillationResult(
+        script="\n".join(replay) + ("\n" if replay else ""),
+        kept_commands=tuple(kept),
+        dropped_commands=tuple(dropped),
+        unknown_commands=(),
+    )
 
 
 def distill_envbench_commands(

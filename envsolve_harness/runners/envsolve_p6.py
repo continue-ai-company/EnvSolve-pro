@@ -11,13 +11,19 @@ from envsolve_harness.core.models import Case, ModelPricing, RunSpec, SolverResu
 from envsolve_harness.execution.batch import cleanup_case_containers
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import update_manifest
+from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 METHOD_PROFILES = {
+    "envsolve-pro": ("two-layer", "free-form"),
     "envsolve-full": ("two-layer", "constraint-driven"),
     "envsolve-runtime-only": ("runtime-only", "constraint-driven"),
     "envsolve-operation": ("two-layer", "constraint-driven"),
     "envsolve-operation-ablation": ("two-layer", "free-form"),
+}
+METHOD_CANDIDATE_INTERFACES = {
+    method: "open-program" if method == "envsolve-pro" else "typed-replay"
+    for method in METHOD_PROFILES
 }
 
 
@@ -44,6 +50,7 @@ class EnvSolveP6Runner:
         max_model_requests: int,
         max_total_tokens: int,
         max_estimated_cost_usd: float,
+        workspace_preconditions: tuple[WorkspacePrecondition, ...] = (),
     ) -> None:
         self.envbench_root = envbench_root
         self.harness_root = harness_root
@@ -64,6 +71,7 @@ class EnvSolveP6Runner:
         self.max_model_requests = max_model_requests
         self.max_total_tokens = max_total_tokens
         self.max_estimated_cost_usd = max_estimated_cost_usd
+        self.workspace_preconditions = workspace_preconditions
 
     @staticmethod
     def _now() -> str:
@@ -119,9 +127,10 @@ class EnvSolveP6Runner:
         profiles = METHOD_PROFILES.get(run_spec.method)
         obligation_profile = profiles[0] if profiles else None
         operation_profile = profiles[1] if profiles else None
+        candidate_interface = METHOD_CANDIDATE_INTERFACES.get(run_spec.method)
         metadata = {
             "runner": "envsolve-p6",
-            "runner_version": "0.1.0",
+            "runner_version": "0.2.0",
             "audit_requirements": {"online_budget": True},
             "official_evaluator_access": "post-episode-only",
             "max_candidates": self.max_candidates,
@@ -130,6 +139,10 @@ class EnvSolveP6Runner:
             "started_at": self._now(),
             "obligation_profile": obligation_profile,
             "operation_profile": operation_profile,
+            "candidate_interface": candidate_interface,
+            "workspace_preconditions": [
+                item.to_dict() for item in self.workspace_preconditions
+            ],
             "model_reasoning_effort": self.model_reasoning_effort,
             "model_response_format": self.model_response_format,
         }
@@ -180,6 +193,7 @@ class EnvSolveP6Runner:
             "--command-timeout", str(self.command_timeout),
             "--obligation-profile", obligation_profile,
             "--operation-profile", operation_profile,
+            "--candidate-interface", candidate_interface,
             "--request-timeout", str(self.model_request_timeout),
             "--max-retries", str(self.model_max_retries),
             "--max-output-tokens", str(self.model_max_output_tokens),
@@ -195,6 +209,9 @@ class EnvSolveP6Runner:
                 else self.pricing.input_cost_per_million
             ),
         ]
+        for precondition in self.workspace_preconditions:
+            if precondition.kind == "directory":
+                command.extend(["--pre-bootstrap-directory", precondition.path])
         if self.model_reasoning_effort is not None:
             command.extend(["--reasoning-effort", self.model_reasoning_effort])
         if self.pricing.source_url:

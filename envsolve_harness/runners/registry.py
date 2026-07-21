@@ -109,6 +109,7 @@ def _load_builtin_runners() -> None:
             max_estimated_cost_usd=config.model_max_estimated_cost_usd,
             pricing=pricing,
             harness_root=config.workspace_root,
+            candidate_interface="open-program",
         )
 
     def envbench_agent(
@@ -131,6 +132,7 @@ def _load_builtin_runners() -> None:
             max_estimated_cost_usd=config.model_max_estimated_cost_usd,
             pricing=pricing,
             harness_root=config.workspace_root,
+            candidate_interface="open-program",
         )
 
     def recorded_codex(
@@ -191,6 +193,9 @@ def _load_builtin_runners() -> None:
         if not isinstance(image, str) or not image:
             raise ValueError("EnvSolve requires a benchmark execution image")
         pricing = config.model_pricing.get(run_spec.model) if run_spec.model else None
+        from envsolve_harness.adapters.registry import workspace_preconditions_for
+
+        workspace_preconditions = workspace_preconditions_for(config, protocol)
         return EnvSolveP6Runner(
             envbench_root=config.solver_root("envbench-agent"),
             harness_root=config.workspace_root,
@@ -211,6 +216,7 @@ def _load_builtin_runners() -> None:
             max_model_requests=config.model_max_requests,
             max_total_tokens=config.model_max_total_tokens,
             max_estimated_cost_usd=config.model_max_estimated_cost_usd,
+            workspace_preconditions=workspace_preconditions,
         )
 
     register_solver_runner("deterministic", "benchmark-deterministic", deterministic)
@@ -219,7 +225,7 @@ def _load_builtin_runners() -> None:
     register_solver_runner("repo2run", "repo2run", repo2run)
     register_solver_runner("envbench-agent", "envbench-react-freeagent", envbench_agent)
     register_solver_runner("envsolve-v0", "envsolve-v0", envsolve_v0)
-    register_solver_runner("envsolve", "envsolve-full", envsolve_p6)
+    register_solver_runner("envsolve", "envsolve-pro", envsolve_p6)
     register_solver_runner(
         "envbench-recorded",
         "envbench-react-freeagent",

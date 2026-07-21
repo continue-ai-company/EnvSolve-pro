@@ -70,7 +70,7 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 | 阶段 | 目标 | 主要产物 | 进入下一阶段的条件 |
 |---|---|---|---|
 | P0 | 亲自观察外部 baseline | Repo2Run、Codex/native、raw ReAct 的统一轨迹与错误分类 | 至少 5 个新 Dev case，每种方法均有可审计 run |
-| P1 | 建立公平比较接口 | 统一 case、evaluator 权限、原始观测和资源报告 | baseline 行为未被 wrapper 改写 |
+| P1（完成） | 建立公平比较接口 | 开放程序、fresh execution、effect audit、adapter precondition | 6 条已消费轨迹均无表示层拒绝 |
 | P2 | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
 | P3 | 设计最小三层算法 | Observation/Constraint/Operation 可插拔接口和机制消融 | 新机制有反例、测试和预注册预测 |
 | P4 | 小规模成对验证 | 至少 5 个未见 Dev case 的 paired pilot | 出现成功率或 terminal repair 的正向信号 |
@@ -97,6 +97,17 @@ P1 遵循一个最小原则：把模型的完整 candidate program 视为开放�
 causal replay，但 schema 未覆盖本身不能证明 candidate 无效。benchmark adapter 必须声明 workspace
 precondition，使内部执行和 terminal execution 从等价的非 outcome 状态开始。
 
+### 4.2 P1 审计结论
+
+P1 已完成。6 条冻结 Raw ReAct/Repo2Run 轨迹全部可编译，没有 unsupported operation；5 次最终官方重放
+全部到达 terminal evaluation，没有 representation rejection，但也没有 Official Pass。这个负向效果结果
+是有信息量的：公平接口暴露出真实残余 Pyright 失败、原生测试与榜单目标不一致，以及 `build_output/`
+引发的 package-discovery 冲突，而不是用 Unknown 把它们遮住。
+
+冻结 EnvSolve 的 `importlib_metadata` 候选在 materialize adapter 声明的 `build_output/` 后，也在内部验证
+中失败。因此 P1 按冻结预测解决了 P0 的测量矛盾，没有加入仓库特定 solver rule。详细证据单独保存在
+`PRO_P1_FAIR_INTERFACE_RESULTS_V1_ZH.md`；这些已消费 case 不能再支撑下一阶段效果声明。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -120,7 +131,7 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-在打开新仓库前冻结 P1 fair-interface protocol。实现 open candidate execution、effect-based repository
-与 safety audit、ambient runtime 的 causal capture，以及 adapter-declared verification precondition。先在
-repository-neutral fixture 与已消费 P0 轨迹上完成资格验证。只有 wrapper 能保留 native success 后，才从
-剩余 118 个 untouched Dev case 中重新 salted sampling，进行 outcome-blind 验证。
+先把已通过资格验证的 P1 接口冻结到 Git，再从剩余 118 个 untouched Dev case 中进行可复现的 salted
+sampling，进入 P2。使用冻结外部 baseline 和开放接口 EnvSolve scaffold 完整运行，期间不根据结果改代码；
+随后按 Observation、Constraint、Operation 三层拆解轨迹，只选择一个跨仓库占主导的真实矛盾，驱动第一
+个新算法机制。

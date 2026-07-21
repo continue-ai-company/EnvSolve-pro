@@ -5,6 +5,7 @@ import re
 from typing import Any
 
 from envsolve_harness.scripts.replay_actions import ReplayAction, analyze_successful_command
+from envsolve_harness.scripts.open_program import OPEN_PROGRAM_POLICY
 
 OBSERVATION_COMMANDS = {
     "cd", "ls", "cat", "pwd", "whoami", "date", "df", "du", "free", "uname",
@@ -46,6 +47,103 @@ def _python_switch(version: str) -> list[str]:
 
 def _map_repo_path(value: str) -> str:
     return value.replace("/repo", '"${PROJECT_ROOT}"')
+
+
+def _map_repo_path_open(value: str) -> str:
+    return re.sub(
+        r"(?<![A-Za-z0-9_])/repo(?=/|$)",
+        "${PROJECT_ROOT}",
+        value,
+    )
+
+
+def compile_repo2run_open_program(
+    records: list[dict[str, Any]],
+) -> DistillationResult:
+    """Compile Repo2Run sandbox effects while preserving successful shell syntax."""
+
+    replay: list[str] = ['PROJECT_ROOT="$(pwd)"', *_python_switch("3.10")]
+    kept: list[str] = []
+    dropped: list[str] = []
+    unsupported: list[str] = []
+    actions: list[ReplayAction] = [
+        ReplayAction(
+            "runtime_configure",
+            "\n".join(_python_switch("3.10")),
+            "ambient-runtime:python:3.10",
+        )
+    ]
+    poetry_environment_created = False
+    for record in records:
+        command = str(record.get("command", "")).strip()
+        if not command:
+            continue
+        if "\x00" in command:
+            unsupported.append(f"NUL byte under {OPEN_PROGRAM_POLICY}")
+            continue
+        if str(record.get("returncode")) != "0":
+            dropped.append(command)
+            continue
+        action = command.split(maxsplit=1)[0]
+        if action == "change_python_version":
+            parts = command.split()
+            if len(parts) != 2 or not re.fullmatch(r"\d+\.\d+(?:\.\d+)?", parts[1]):
+                unsupported.append(command)
+                continue
+            switch = _python_switch(parts[1])
+            replay = ['PROJECT_ROOT="$(pwd)"', *switch]
+            kept = [command]
+            actions = [ReplayAction("runtime_configure", "\n".join(switch), command)]
+            poetry_environment_created = False
+            continue
+        if command == "clear_configuration":
+            switch = _python_switch("3.10")
+            replay = ['PROJECT_ROOT="$(pwd)"', *switch]
+            kept = [command]
+            actions = [ReplayAction("runtime_configure", "\n".join(switch), command)]
+            poetry_environment_created = False
+            continue
+        if action == "change_base_image":
+            unsupported.append(command)
+            continue
+        if command in INTERNAL_COMMANDS or action == "pipdeptree":
+            dropped.append(command)
+            continue
+
+        mapped = _map_repo_path_open(command)
+        working_dir = str(record.get("dir", "/"))
+        if working_dir.startswith("/repo/"):
+            relative_dir = working_dir[len("/repo/") :]
+            if ".." in relative_dir.split("/"):
+                unsupported.append(f"cwd={working_dir}: {command}")
+                continue
+            mapped = f'cd "${{PROJECT_ROOT}}/{relative_dir}" && {mapped}'
+        elif working_dir not in {"/", "/repo"}:
+            unsupported.append(f"cwd={working_dir}: {command}")
+            continue
+        replay.append(mapped)
+        kept.append(command)
+        if re.search(r"(?:^|&&)\s*poetry\s+install(?:\s|$)", mapped):
+            poetry_environment_created = True
+
+    if poetry_environment_created:
+        activation = 'source "$(poetry env info --path)/bin/activate"'
+        replay.append(activation)
+        actions.append(
+            ReplayAction(
+                "environment_activate",
+                activation,
+                "native-verifier-context:poetry-run",
+            )
+        )
+
+    return DistillationResult(
+        script="\n".join(replay) + "\n",
+        kept_commands=tuple(kept),
+        dropped_commands=tuple(dropped),
+        unsupported_commands=tuple(unsupported),
+        actions=tuple(actions),
+    )
 
 
 def distill_repo2run_commands(records: list[dict[str, Any]]) -> DistillationResult:

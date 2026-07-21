@@ -17,6 +17,7 @@ from envsolve.runtime import (
     DockerFreshEnvironmentProvider,
     PythonDeploymentVerifier,
     StructuredModelDeploymentPolicy,
+    WorkspacePrecondition,
     collect_repository_constraints,
     profile_python_repository,
 )
@@ -26,8 +27,10 @@ from envsolve_harness.core.models import Case, RunSpec
 from envsolve_harness.runners.envsolve import EnvSolveEpisodeRunner
 from envsolve_harness.scripts import (
     ConstraintOperationGuard,
+    OpenCandidateProgramValidator,
     TypedReplayCandidateValidator,
 )
+from envsolve_harness.integrity.repository import inspect_repository
 from envsolve_harness.storage.artifacts import RunArtifacts
 
 
@@ -59,6 +62,16 @@ def parse_args() -> argparse.Namespace:
         "--operation-profile",
         choices=("constraint-driven", "free-form"),
         default="constraint-driven",
+    )
+    parser.add_argument(
+        "--candidate-interface",
+        choices=("typed-replay", "open-program"),
+        default="typed-replay",
+    )
+    parser.add_argument(
+        "--pre-bootstrap-directory",
+        action="append",
+        default=[],
     )
     parser.add_argument("--request-timeout", type=int, required=True)
     parser.add_argument("--max-retries", type=int, required=True)
@@ -109,12 +122,20 @@ def main() -> int:
         )
     )
     profile = profile_python_repository(source_repository)
+    workspace_preconditions = tuple(
+        WorkspacePrecondition(
+            path,
+            producer="benchmark-adapter",
+        )
+        for path in args.pre_bootstrap_directory
+    )
     provider = DockerFreshEnvironmentProvider(
         source_repository=source_repository,
         worktrees_root=args.worktrees,
         repository=args.repository,
         revision=args.revision,
         image=args.image,
+        workspace_preconditions=workspace_preconditions,
         create_timeout=args.container_create_timeout,
     )
     base_runtime = provider.observe_base_runtime()
@@ -177,7 +198,11 @@ def main() -> int:
     budget = BudgetLedger(args.ledger, limits, pricing)
     case = Case(args.case_id, args.repository, args.revision)
     run_spec = RunSpec(args.run_id, args.method, args.model, args.seed)
-    candidate_validator = TypedReplayCandidateValidator()
+    candidate_validator = (
+        OpenCandidateProgramValidator()
+        if args.candidate_interface == "open-program"
+        else TypedReplayCandidateValidator()
+    )
     result = EnvSolveEpisodeRunner(
         policy=StructuredModelDeploymentPolicy(
             model,
@@ -190,6 +215,11 @@ def main() -> int:
             command_timeout=args.command_timeout,
             obligation_profile=args.obligation_profile,
             package_requirements=repository_constraints.evidence,
+            effect_auditor=lambda worktree: inspect_repository(
+                worktree,
+                args.revision,
+                required_preconditions=workspace_preconditions,
+            ),
         ),
         candidate_validator=candidate_validator,
         operation_guard=(
@@ -204,12 +234,16 @@ def main() -> int:
         initial_evidence=(
             admitted_evidence
             if args.operation_profile == "constraint-driven"
+            or args.candidate_interface == "open-program"
             else ()
         ),
         initial_observation_summary={
             "repository": repository_constraints.summary(),
             "base_runtime": base_runtime.to_dict(),
             "conditional_runtime_admission": True,
+            "workspace_preconditions": [
+                item.to_dict() for item in workspace_preconditions
+            ],
         },
     ).run(case, RunArtifacts(args.artifacts_root), run_spec)
     return 0 if result.generation_completed else 1

@@ -74,7 +74,7 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | Phase | Goal | Main artifact | Gate |
 |---|---|---|---|
 | P0 | Observe external baselines | Unified Repo2Run, Codex/native, and raw-ReAct trajectories | At least five new audited Dev cases per method |
-| P1 | Establish fair interfaces | Shared cases, evaluator access, observations, and resource reporting | Wrappers preserve native baseline behavior |
+| P1 (complete) | Establish fair interfaces | Open programs, fresh execution, effect audit, and adapter preconditions | Six consumed trajectories compile without representation rejection |
 | P2 | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
 | P3 | Design the minimal three-layer method | Pluggable layer interfaces and ablations | Counterexample, tests, and preregistered prediction |
 | P4 | Small paired validation | At least five unseen Dev pairs | Positive success or terminal-repair signal |
@@ -108,6 +108,22 @@ summarization and causal replay, but an absent schema entry is not itself proof 
 candidate is invalid. Benchmark adapters must declare workspace preconditions so that
 internal and terminal executions begin from equivalent non-outcome state.
 
+### 4.2 P1 Audit Decision
+
+P1 is complete. All six frozen Raw ReAct and Repo2Run trajectories compiled without an
+unsupported operation. Five final official replays reached terminal evaluation with no
+representation rejection; none passed officially. This negative effectiveness result is
+informative: the fair interface exposes genuine residual Pyright failures, a mismatch
+between native tests and the benchmark target, and a `build_output/` package-discovery
+conflict instead of hiding them behind Unknown.
+
+The frozen EnvSolve `importlib_metadata` candidate also failed internally once the
+adapter-declared `build_output/` precondition was materialized. Therefore P1 resolves
+the measurement contradiction predicted from P0 without adding a repository-specific
+solver rule. Detailed evidence is separated into
+`PRO_P1_FAIR_INTERFACE_RESULTS_V1.md`; these consumed cases cannot support the next
+effectiveness claim.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -127,9 +143,8 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Freeze a P1 fair-interface protocol before opening another repository. Implement open
-candidate execution, effect-based repository and safety audit, causal capture of ambient
-runtime state, and adapter-declared verification preconditions. Qualify the interface on
-repository-neutral fixtures and the already consumed P0 trajectories. Only after the
-wrapper preserves native successes may a new salted sample be drawn from the remaining
-118 untouched Dev cases for outcome-blind validation.
+Freeze the qualified P1 interface in Git, then start P2 with a reproducible salted sample
+from the remaining 118 untouched Dev cases. Run the frozen external baselines and the
+open-interface EnvSolve scaffold without outcome-driven code changes. Decompose complete
+trajectories by Observation, Constraint, and Operation failures, and select one dominant
+cross-repository contradiction before designing the first new algorithmic mechanism.

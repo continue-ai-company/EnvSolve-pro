@@ -1,0 +1,7 @@
+Obtaining file:///data/project/python__importlib_metadata%40f3901686abc47853523f3b211873fc2b9e0c5ab5
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'error'

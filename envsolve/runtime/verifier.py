@@ -8,7 +8,7 @@ import re
 import shlex
 import subprocess
 import time
-from typing import Callable
+from typing import Any, Callable, Protocol
 
 from packaging.specifiers import SpecifierSet
 from packaging.utils import canonicalize_name
@@ -47,6 +47,16 @@ from envsolve.verification.obligations import (
 
 
 RunCommand = Callable[..., subprocess.CompletedProcess[str]]
+
+
+class EffectAuditReport(Protocol):
+    @property
+    def valid(self) -> bool: ...
+
+    def to_dict(self) -> dict[str, Any]: ...
+
+
+EffectAuditor = Callable[[Path], EffectAuditReport]
 _PROBE_MARKER = "ENVSOLVE_IMPORT_PROBE_V3="
 _FAILED_ACTION_MARKER = re.compile(
     r"^ENVSOLVE_FAILED_ACTION_V1=(?P<index>[0-9]+|internal):(?P<exit_code>[0-9]+)$",
@@ -322,6 +332,7 @@ class PythonDeploymentVerifier:
         collect_tests: bool = True,
         obligation_profile: str = "two-layer",
         package_requirements: tuple[InitialConstraintEvidence, ...] = (),
+        effect_auditor: EffectAuditor | None = None,
         run_command: RunCommand = subprocess.run,
     ) -> None:
         if obligation_profile not in {"two-layer", "runtime-only"}:
@@ -353,6 +364,7 @@ class PythonDeploymentVerifier:
                 )
             )
         self.package_requirements = tuple(parsed_requirements)
+        self.effect_auditor = effect_auditor
         self.run_command = run_command
         self.import_analyzer = ImportContextAnalyzer()
         self.finding_adapter = StructuredFindingAdapter()
@@ -387,6 +399,31 @@ class PythonDeploymentVerifier:
             lines.extend((f"ENVSOLVE_ACTION_INDEX={index}", command))
         lines.append("ENVSOLVE_ACTION_INDEX=internal")
         return "\n".join(lines), commands
+
+    @staticmethod
+    def _is_open_candidate(candidate: DeploymentCandidate) -> bool:
+        validation = candidate.metadata.get("candidate_validation")
+        policy_id = validation.get("policy_id") if isinstance(validation, dict) else None
+        return isinstance(policy_id, str) and policy_id.startswith(
+            "open-candidate-program-"
+        )
+
+    @classmethod
+    def _instrument_open_candidate(
+        cls,
+        script: str,
+    ) -> tuple[str, tuple[str, ...]]:
+        # Treat the complete program as one action so instrumentation cannot split
+        # multiline shell syntax. A missing postcondition marker cannot be accepted.
+        lines = [
+            "set -e",
+            "trap 'rc=$?; printf \"ENVSOLVE_FAILED_ACTION_V1=%s:%s\\n\" "
+            '"${ENVSOLVE_ACTION_INDEX:-internal}" "$rc" >&2; exit "$rc"\' ERR',
+            "ENVSOLVE_ACTION_INDEX=0",
+            script.rstrip(),
+            "ENVSOLVE_ACTION_INDEX=internal",
+        ]
+        return "\n".join(lines), (script.rstrip(),)
 
     @staticmethod
     def _failed_candidate_action(
@@ -501,8 +538,10 @@ class PythonDeploymentVerifier:
                 json.dumps(sorted({item.name for item in self.package_requirements}))
             ),
         )
-        instrumented_candidate, candidate_commands = self._instrument_candidate(
-            candidate.script
+        instrumented_candidate, candidate_commands = (
+            self._instrument_open_candidate(candidate.script)
+            if self._is_open_candidate(candidate)
+            else self._instrument_candidate(candidate.script)
         )
         command = "\n".join([instrumented_candidate, *checks, probe])
         started = time.monotonic()
@@ -540,6 +579,50 @@ class PythonDeploymentVerifier:
                 f"{stderr}\nInternal verification timed out".strip(),
                 time.monotonic() - started,
             )
+        effect_audit: dict[str, Any] | None = None
+        if self.effect_auditor is not None:
+            try:
+                audit_report = self.effect_auditor(handle.worktree)
+                effect_audit = audit_report.to_dict()
+            except Exception as exc:
+                return ExecutableVerification(
+                    verifier="envsolve-python-deployment-verifier",
+                    check_profile=self.check_profile,
+                    channel=FeedbackChannel.INTERNAL_EXECUTION,
+                    passed=None,
+                    bootstrap=result,
+                    summary="Candidate effect audit did not complete",
+                    hypotheses=(
+                        HypothesisEvidence(
+                            hypothesis_id=f"hypothesis-{candidate.candidate_id}-effect-audit",
+                            statement="The isolated candidate effect audit was unavailable",
+                            value={"error": f"{type(exc).__name__}: {exc}"},
+                            confidence=1.0,
+                        ),
+                    ),
+                    details={"checks": checks, "effect_audit_error": type(exc).__name__},
+                )
+            if not audit_report.valid:
+                return ExecutableVerification(
+                    verifier="envsolve-python-deployment-verifier",
+                    check_profile=self.check_profile,
+                    channel=FeedbackChannel.INTERNAL_EXECUTION,
+                    passed=False,
+                    bootstrap=result,
+                    summary="Candidate violated repository or workspace effect boundaries",
+                    hypotheses=(
+                        HypothesisEvidence(
+                            hypothesis_id=f"hypothesis-{candidate.candidate_id}-inadmissible-effect",
+                            statement="The candidate must preserve repository and adapter-owned state",
+                            value={"repository_effect_audit": effect_audit},
+                            confidence=1.0,
+                        ),
+                    ),
+                    details={
+                        "checks": checks,
+                        "repository_effect_audit": effect_audit,
+                    },
+                )
         failed_action = self._failed_candidate_action(
             result.stderr,
             candidate_commands,
@@ -551,7 +634,13 @@ class PythonDeploymentVerifier:
             result.stderr
         )
         if result.exit_code == 0:
-            return self._evaluate_import_probe(result, inventory, environment, checks)
+            return self._evaluate_import_probe(
+                result,
+                inventory,
+                environment,
+                checks,
+                effect_audit=effect_audit,
+            )
         infrastructure_failure = (
             None
             if failed_during_internal_checks
@@ -579,6 +668,7 @@ class PythonDeploymentVerifier:
                 details=self._failure_details(
                     checks,
                     failed_action,
+                    repository_effect_audit=effect_audit,
                     infrastructure_error="dependency_acquisition_failure",
                     infrastructure_signature=infrastructure_failure,
                 ),
@@ -605,6 +695,7 @@ class PythonDeploymentVerifier:
                 details=self._failure_details(
                     checks,
                     failed_action,
+                    repository_effect_audit=effect_audit,
                     execution_timeout=True,
                     command_timeout_seconds=self.command_timeout,
                 ),
@@ -631,7 +722,11 @@ class PythonDeploymentVerifier:
                     confidence=0.6,
                 ),
             ),
-            details=self._failure_details(checks, failed_action),
+            details=self._failure_details(
+                checks,
+                failed_action,
+                repository_effect_audit=effect_audit,
+            ),
             observations=self._operation_failure_observations(
                 result,
                 failed_action,
@@ -656,6 +751,8 @@ class PythonDeploymentVerifier:
         inventory: ImportInventory,
         environment: ProvisionedEnvironment,
         checks: list[str],
+        *,
+        effect_audit: dict[str, Any] | None = None,
     ) -> ExecutableVerification:
         payload = self._probe_payload(result.stdout)
         if payload is None:
@@ -674,7 +771,11 @@ class PythonDeploymentVerifier:
                         confidence=1.0,
                     ),
                 ),
-                details={"checks": checks, "import_inventory": self._inventory_details(inventory)},
+                details={
+                    "checks": checks,
+                    "import_inventory": self._inventory_details(inventory),
+                    "repository_effect_audit": effect_audit,
+                },
             )
         facts_value = payload.get("facts")
         runtime = payload.get("runtime")
@@ -693,7 +794,11 @@ class PythonDeploymentVerifier:
                 passed=None,
                 bootstrap=result,
                 summary="Internal import probe report has an invalid schema",
-                details={"checks": checks, "import_inventory": self._inventory_details(inventory)},
+                details={
+                    "checks": checks,
+                    "import_inventory": self._inventory_details(inventory),
+                    "repository_effect_audit": effect_audit,
+                },
             )
         try:
             facts = EnvironmentFacts(
@@ -709,7 +814,11 @@ class PythonDeploymentVerifier:
                 passed=None,
                 bootstrap=result,
                 summary="Internal import probe facts are invalid",
-                details={"checks": checks, "import_inventory": self._inventory_details(inventory)},
+                details={
+                    "checks": checks,
+                    "import_inventory": self._inventory_details(inventory),
+                    "repository_effect_audit": effect_audit,
+                },
             )
         environment_facts = {
             key: facts_value[key]
@@ -865,6 +974,7 @@ class PythonDeploymentVerifier:
             findings=tuple(findings),
             details={
                 "checks": [*checks, "project-source-import-closure"],
+                "repository_effect_audit": effect_audit,
                 "import_inventory": self._inventory_details(inventory),
                 "runtime_unresolved_modules": sorted(
                     module

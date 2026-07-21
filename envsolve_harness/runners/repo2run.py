@@ -9,8 +9,12 @@ import subprocess
 from envsolve_harness.core.io import read_json, write_json, write_text_atomic
 from envsolve_harness.core.models import Case, ModelPricing, RunSpec, SolverResult
 from envsolve_harness.integrity.repository import inspect_repository
-from envsolve_harness.scripts.repo2run import distill_repo2run_commands
+from envsolve_harness.scripts.repo2run import (
+    compile_repo2run_open_program,
+    distill_repo2run_commands,
+)
 from envsolve_harness.scripts.replay_actions import REPLAY_IR_POLICY
+from envsolve_harness.scripts.open_program import OPEN_PROGRAM_POLICY
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import update_manifest
 from envsolve_harness.utils.provenance import git_provenance, sha256_file
@@ -28,6 +32,7 @@ class Repo2RunRunner:
         max_estimated_cost_usd: float = 5.0,
         pricing: ModelPricing | None = None,
         harness_root: Path | None = None,
+        candidate_interface: str = "typed-replay",
     ) -> None:
         self.repo2run_root = repo2run_root
         self.timeout = timeout
@@ -38,6 +43,9 @@ class Repo2RunRunner:
         self.max_estimated_cost_usd = max_estimated_cost_usd
         self.pricing = pricing
         self.harness_root = harness_root or Path(__file__).resolve().parents[2]
+        if candidate_interface not in {"typed-replay", "open-program"}:
+            raise ValueError("Unknown Repo2Run candidate interface")
+        self.candidate_interface = candidate_interface
 
     def _finish(self, artifacts: RunArtifacts, result: SolverResult, log: str) -> SolverResult:
         if artifacts.budget_ledger.is_file():
@@ -69,7 +77,8 @@ class Repo2RunRunner:
             budget_bridge["sha256"] = sha256_file(budget_bridge_path)
         base_metadata = {
             "runner": "repo2run",
-            "runner_version": "0.2.0",
+            "runner_version": "0.3.0",
+            "candidate_interface": self.candidate_interface,
             "audit_requirements": {
                 "repository_integrity": True,
                 "online_budget": True,
@@ -222,9 +231,17 @@ class Repo2RunRunner:
             )
 
         records = json.loads(commands_path.read_text(encoding="utf-8"))
-        distilled = distill_repo2run_commands(records)
+        distilled = (
+            compile_repo2run_open_program(records)
+            if self.candidate_interface == "open-program"
+            else distill_repo2run_commands(records)
+        )
         metadata["distillation"] = {
-            "policy": f"repo2run-{REPLAY_IR_POLICY}",
+            "policy": (
+                f"repo2run-{OPEN_PROGRAM_POLICY}"
+                if self.candidate_interface == "open-program"
+                else f"repo2run-{REPLAY_IR_POLICY}"
+            ),
             "kept_count": len(distilled.kept_commands),
             "dropped_count": len(distilled.dropped_commands),
             "action_count": len(distilled.actions),

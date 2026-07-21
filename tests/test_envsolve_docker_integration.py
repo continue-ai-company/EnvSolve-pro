@@ -6,8 +6,13 @@ import subprocess
 import tempfile
 import unittest
 
-from envsolve.runtime import DockerFreshEnvironmentProvider, PythonDeploymentVerifier
+from envsolve.runtime import (
+    DockerFreshEnvironmentProvider,
+    PythonDeploymentVerifier,
+    WorkspacePrecondition,
+)
 from envsolve.solver import DeploymentCandidate
+from envsolve_harness.integrity.repository import inspect_repository
 
 
 @unittest.skipUnless(
@@ -50,20 +55,39 @@ class EnvSolveDockerIntegrationTest(unittest.TestCase):
                 repository="envsolve/smoke",
                 revision=revision,
                 image="ghcr.io/jetbrains-research/envbench-python:latest",
+                workspace_preconditions=(
+                    WorkspacePrecondition(
+                        "build_output",
+                        producer="docker-integration-fixture",
+                    ),
+                ),
             )
             candidate = DeploymentCandidate(
                 "candidate-1",
                 (
-                    "set -euo pipefail\n"
-                    "python -m pip install --no-deps --no-build-isolation -e .\n"
+                    "if ! python -c 'import envsolve_smoke' 2>/dev/null; then\n"
+                    "  python -m pip install --no-deps --no-build-isolation -e .\n"
+                    "fi\n"
                 ),
                 "Install the synthetic project",
+                metadata={
+                    "candidate_validation": {
+                        "policy_id": "open-candidate-program-v1",
+                        "details": {},
+                    }
+                },
             )
             base_runtime = provider.observe_base_runtime()
             environment = provider.provision(candidate)
             try:
                 result = PythonDeploymentVerifier(
-                    command_timeout=180, collect_tests=False
+                    command_timeout=180,
+                    collect_tests=False,
+                    effect_auditor=lambda worktree: inspect_repository(
+                        worktree,
+                        revision,
+                        required_preconditions=provider.workspace_preconditions,
+                    ),
                 ).verify(candidate, environment)
             finally:
                 provider.release(environment)
@@ -74,7 +98,32 @@ class EnvSolveDockerIntegrationTest(unittest.TestCase):
                 environment.receipt.image_digest,
             )
             self.assertTrue(result.passed, result.bootstrap.stderr)
+            self.assertTrue(
+                result.details["report_details"]["repository_effect_audit"]["valid"]
+            )
             self.assertFalse(environment.handle.worktree.exists())
+
+            source_edit = DeploymentCandidate(
+                "candidate-2",
+                "printf '\\n# modified\\n' >> setup.py\n",
+                "Attempt to change tracked project state",
+                metadata=candidate.metadata,
+            )
+            edited_environment = provider.provision(source_edit)
+            try:
+                edited = PythonDeploymentVerifier(
+                    command_timeout=180,
+                    collect_tests=False,
+                    effect_auditor=lambda worktree: inspect_repository(
+                        worktree,
+                        revision,
+                        required_preconditions=provider.workspace_preconditions,
+                    ),
+                ).verify(source_edit, edited_environment)
+            finally:
+                provider.release(edited_environment)
+            self.assertFalse(edited.passed)
+            self.assertIn("effect boundaries", edited.summary)
 
 
 if __name__ == "__main__":

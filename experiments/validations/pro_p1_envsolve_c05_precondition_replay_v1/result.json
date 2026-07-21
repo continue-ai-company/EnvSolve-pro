@@ -1,0 +1,87 @@
+{
+  "base_runtime": {
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "python_implementation": "CPython",
+    "python_version": "3.13.2",
+    "schema": "envsolve-base-runtime-observation-v1"
+  },
+  "created_at": "2026-07-21T13:13:02.787249+00:00",
+  "environment_receipt": {
+    "created_at": "2026-07-21T13:12:57.719238+00:00",
+    "environment_id": "d7186ff532238c8f7b26ed7a2720f21e3d89e153cb73a6e7a1ec1c51928eb1d1",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "provider_id": "docker-fresh-checkout-v1",
+    "repository": "python/importlib_metadata",
+    "revision": "f3901686abc47853523f3b211873fc2b9e0c5ab5"
+  },
+  "model_requests": 0,
+  "repository": "python/importlib_metadata",
+  "revision": "f3901686abc47853523f3b211873fc2b9e0c5ab5",
+  "schema": "envsolve-pro-p1-frozen-candidate-verification-v1",
+  "source_repository_head": "f3901686abc47853523f3b211873fc2b9e0c5ab5",
+  "source_script": "experiments/validations/pro_p1_consumed_sources/c05_importlib_metadata_envsolve_v1_accepted.sh",
+  "source_script_sha256": "1e816c8b38b48eded9fe85fe930e7c2e9a51a1b99e678859cd564fcfa48cf1c2",
+  "verification": {
+    "bootstrap": {
+      "duration_seconds": 4.988677834000555,
+      "exit_code": 1,
+      "stderr_path": "bootstrap.stderr",
+      "stdout_path": "bootstrap.stdout"
+    },
+    "channel": "internal_execution",
+    "check_profile": "python-deployment-v7",
+    "counterexamples": [],
+    "details": {
+      "checks": [
+        "python -m pip check",
+        "python -m compileall -q .",
+        "python -m pytest --collect-only -q"
+      ],
+      "failed_candidate_action": {
+        "action_index": 0,
+        "command": "set -euo pipefail\npython -m pip install -e \".[test]\"\npython -m pip install importlib_resources",
+        "exit_code": 1,
+        "prefix_commands": [
+          "set -euo pipefail\npython -m pip install -e \".[test]\"\npython -m pip install importlib_resources"
+        ]
+      },
+      "repository_effect_audit": {
+        "allowed_generated_path_count": 0,
+        "allowed_generated_paths": [],
+        "allowed_generated_paths_truncated": false,
+        "checked_out_revision": "f3901686abc47853523f3b211873fc2b9e0c5ab5",
+        "disallowed_untracked_paths": [],
+        "expected_revision": "f3901686abc47853523f3b211873fc2b9e0c5ab5",
+        "policy": "clean-tracked-tree-and-no-untracked-injection-v3",
+        "tracked_changes": [],
+        "valid": true,
+        "violations": []
+      }
+    },
+    "hypotheses": [
+      {
+        "confidence": 0.6,
+        "hypothesis_id": "hypothesis-frozen-candidate-internal-check",
+        "statement": "The complete deployment candidate failed an internal check",
+        "value": {
+          "check_profile": "python-deployment-v7",
+          "deterministic_counterexample": false,
+          "exit_code": 1,
+          "stderr": "  error: subprocess-exited-with-error\n  \n  \u00d7 Getting requirements to build editable did not run successfully.\n  \u2502 exit code: 1\n  \u2570\u2500> [42 lines of output]\n      /tmp/pip-build-env-ct8_kal7/overlay/lib/python3.13/site-packages/vcs_versioning/_backends/_git.py:426: UserWarning: \"/data/project/python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5\" is shallow and may cause errors\n        pre_parse(wd)\n      /tmp/pip-build-env-ct8_kal7/overlay/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.\n      !!\n      \n              ********************************************************************************\n              Please consider removing the following classifiers in favor of a SPDX license expression:\n      \n              License :: OSI Approved :: Apache Software License\n      \n              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.\n              ********************************************************************************\n      \n      !!\n        dist._finalize_license_expression()\n      /tmp/pip-build-env-ct8_kal7/overlay/lib/python3.13/site-packages/setuptools/dist.py:765: SetuptoolsDeprecationWarning: License classifiers are deprecated.\n      !!\n      \n              ********************************************************************************\n              Please consider removing the following classifiers in favor of a SPDX license expression:\n      \n              License :: OSI Approved :: Apache Software License\n      \n              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.\n              ********************************************************************************\n      \n      !!\n        self._finalize_license_expression()\n      error: Multiple top-level packages discovered in a flat-layout: ['build_output', 'importlib_metadata'].\n      \n      To avoid accidental inclusion of unwanted files or directories,\n      setuptools will not proceed with this build.\n      \n      If you are trying to create a single distribution with multiple packages\n      on purpose, you should not rely on automatic discovery.\n      Instead, consider the following options:\n      \n      1. set up custom discovery (`find` directive with `include` or `exclude`)\n      2. use a `src-layout`\n      3. explicitly set `py_modules` or `packages` with a list of names\n      \n      To find more information, look for \"package discovery\" on setuptools docs.\n      [end of output]\n  \n  note: This error originates from a subprocess, and is likely not a problem with pip.\nerror: subprocess-exited-with-error\n\n\u00d7 Getting requirements to build editable did not run successfully.\n\u2502 exit code: 1\n\u2570\u2500> See above for output.\n\nnote: This error originates from a subprocess, and is likely not a problem with pip.\nENVSOLVE_FAILED_ACTION_V1=0:1\n",
+          "stdout": "Obtaining file:///data/project/python__importlib_metadata%40f3901686abc47853523f3b211873fc2b9e0c5ab5\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Getting requirements to build editable: started\n  Getting requirements to build editable: finished with status 'error'\n"
+        }
+      }
+    ],
+    "passed": false,
+    "summary": "Complete candidate failed fixed internal Python checks",
+    "verifier": "envsolve-python-deployment-verifier"
+  },
+  "workspace_preconditions": [
+    {
+      "kind": "directory",
+      "path": "build_output",
+      "producer": "benchmark-adapter"
+    }
+  ]
+}

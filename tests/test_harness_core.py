@@ -30,7 +30,10 @@ from envsolve_harness.execution.batch import (
     container_ids_for_case,
     mark_case_interrupted,
 )
-from envsolve_harness.integrity.repository import inspect_repository
+from envsolve_harness.integrity.repository import (
+    ALLOWED_GENERATED_PATH_SAMPLE_LIMIT,
+    inspect_repository,
+)
 from envsolve_harness.runners.deterministic import DeterministicScriptRunner
 from envsolve_harness.runners.envbench_agent import EnvBenchAgentRunner
 from envsolve_harness.runners.envsolve_v0 import EnvSolveV0Runner
@@ -250,6 +253,22 @@ class CoreIoTest(unittest.TestCase):
             runtime_report = inspect_repository(repo, head)
             self.assertTrue(runtime_report.valid)
             self.assertIn("runtime-output/logfile", runtime_report.allowed_generated_paths)
+
+            for index in range(ALLOWED_GENERATED_PATH_SAMPLE_LIMIT + 10):
+                (runtime / f"artifact-{index:04d}.txt").write_text("generated\n")
+            bounded_report = inspect_repository(repo, head)
+            self.assertTrue(bounded_report.valid)
+            self.assertEqual(
+                bounded_report.allowed_generated_path_count,
+                ALLOWED_GENERATED_PATH_SAMPLE_LIMIT + 12,
+            )
+            self.assertEqual(
+                len(bounded_report.allowed_generated_paths),
+                ALLOWED_GENERATED_PATH_SAMPLE_LIMIT,
+            )
+            self.assertTrue(
+                bounded_report.to_dict()["allowed_generated_paths_truncated"]
+            )
 
             (repo / "fake_module.py").write_text("# fake\n")
             (repo / "ignored_fake.py").write_text("# hidden fake\n")

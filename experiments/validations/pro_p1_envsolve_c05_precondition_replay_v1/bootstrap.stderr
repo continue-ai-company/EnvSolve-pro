@@ -1,0 +1,58 @@
+  error: subprocess-exited-with-error
+
+  × Getting requirements to build editable did not run successfully.
+  │ exit code: 1
+  ╰─> [42 lines of output]
+      /tmp/pip-build-env-ct8_kal7/overlay/lib/python3.13/site-packages/vcs_versioning/_backends/_git.py:426: UserWarning: "/data/project/python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5" is shallow and may cause errors
+        pre_parse(wd)
+      /tmp/pip-build-env-ct8_kal7/overlay/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+
+              License :: OSI Approved :: Apache Software License
+
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+
+      !!
+        dist._finalize_license_expression()
+      /tmp/pip-build-env-ct8_kal7/overlay/lib/python3.13/site-packages/setuptools/dist.py:765: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+
+              License :: OSI Approved :: Apache Software License
+
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+
+      !!
+        self._finalize_license_expression()
+      error: Multiple top-level packages discovered in a flat-layout: ['build_output', 'importlib_metadata'].
+
+      To avoid accidental inclusion of unwanted files or directories,
+      setuptools will not proceed with this build.
+
+      If you are trying to create a single distribution with multiple packages
+      on purpose, you should not rely on automatic discovery.
+      Instead, consider the following options:
+
+      1. set up custom discovery (`find` directive with `include` or `exclude`)
+      2. use a `src-layout`
+      3. explicitly set `py_modules` or `packages` with a list of names
+
+      To find more information, look for "package discovery" on setuptools docs.
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× Getting requirements to build editable did not run successfully.
+│ exit code: 1
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+ENVSOLVE_FAILED_ACTION_V1=0:1

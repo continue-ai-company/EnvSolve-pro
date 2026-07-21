@@ -30,6 +30,7 @@ from envsolve_harness.utils.provenance import (
     git_provenance,
     sha256_file,
 )
+from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 def _timeout_output(value: str | bytes | None) -> str:
@@ -88,6 +89,15 @@ class EnvBenchEvaluator:
     @property
     def benchmark_id(self) -> str:
         return self.benchmark.benchmark_id
+
+    @property
+    def workspace_preconditions(self) -> tuple[WorkspacePrecondition, ...]:
+        return (
+            WorkspacePrecondition(
+                "build_output",
+                producer="envbench-python-build-v1",
+            ),
+        )
 
     def evaluate(
         self,

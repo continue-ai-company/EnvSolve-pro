@@ -20,11 +20,12 @@ hard guards are limited to task safety and behavior directly contradicted by exe
 
 We will compare EnvSolve-pro with Repo2Run, a native strong agent, same-backbone ReAct,
 and frozen EnvSolve v1 on EnvBench. Official Pass@1 is primary; tokens, calls,
-environments, and time are reported as efficiency measures. The study is currently in
-the fair-interface qualification stage and makes no effectiveness claim yet. An initial
-five-case trajectory audit found that native successes can be erased by closed post-hoc
-command parsing or non-equivalent verification workspaces, motivating an execution- and
-effect-based candidate boundary before algorithm comparison.
+environments, and time are efficiency measures. A diagnostic qualification on consumed
+trajectories found that closed command parsing censored executable baseline behavior and
+non-equivalent workspaces hid deployment conflicts. Replacing that interface with open
+programs, fresh execution, audited effects, and benchmark-declared preconditions removed
+representation rejection while exposing the underlying failures. This validates the
+measurement interface; effectiveness remains to be tested on untouched cases.
 
 ## 1. Problem
 
@@ -57,7 +58,9 @@ The system enforces only environment-modification and safety boundaries plus exa
 prohibitions grounded by execution counterexamples; other operation plans are advisory.
 Candidates remain open programs rather than members of a closed command vocabulary.
 Fresh isolated execution and audited effects determine validity, return evidence to the
-Observation layer, and close the loop.
+Observation layer, and close the loop. A benchmark adapter declares non-outcome state
+that must exist before both internal and terminal execution, preventing the solver from
+being evaluated under easier hidden preconditions.
 
 ## 3. Contributions
 
@@ -94,7 +97,11 @@ environments, commands, and wall-clock time support efficiency and Pareto analys
 All methods share a terminal-only Official evaluator boundary. Canary and Official Test
 remain untouched until the method is frozen.
 
-The completed P0 audit is diagnostic only. It establishes that wrapper preservation and
-verification-precondition parity are prerequisites for a fair comparison; it does not
-support an effectiveness ranking. P1 will qualify these interfaces on synthetic fixtures
-and consumed trajectories before drawing a new outcome-blind Dev batch.
+The completed P0-P1 audit is diagnostic only. Synthetic tests established the effect
+boundary; all six consumed external trajectories were representable, and five final
+replays reached terminal evaluation without representation rejection. None passed
+officially. State parity also overturned one old internal EnvSolve acceptance by exposing
+the evaluator's `build_output/` conflict. These results qualify the measurement interface
+but do not support an effectiveness ranking. The next experiment uses a newly sampled,
+outcome-blind Dev batch to identify the dominant deployment contradiction before adding
+an algorithmic mechanism.

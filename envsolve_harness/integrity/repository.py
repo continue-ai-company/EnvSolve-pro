@@ -5,20 +5,26 @@ from pathlib import Path, PurePosixPath
 import subprocess
 from typing import Any
 
+from envsolve.runtime.workspace import WorkspacePrecondition
+
 
 ALLOWED_GENERATED_DIRECTORIES = {
     ".mypy_cache",
     ".nox",
+    ".pnpm-store",
     ".pytest_cache",
     ".ruff_cache",
     ".tox",
+    ".turbo",
     ".venv",
     "__pycache__",
     "build",
     "dist",
     "htmlcov",
+    "node_modules",
     "venv",
 }
+ALLOWED_GENERATED_PATH_SAMPLE_LIMIT = 256
 ALLOWED_GENERATED_FILES = {".coverage", "coverage.xml"}
 CONFIGURATION_NAMES = {
     "Pipfile",
@@ -52,6 +58,7 @@ class RepositoryIntegrityReport:
     checked_out_revision: str | None
     tracked_changes: tuple[str, ...]
     allowed_generated_paths: tuple[str, ...]
+    allowed_generated_path_count: int
     disallowed_untracked_paths: tuple[str, ...]
     violations: tuple[IntegrityViolation, ...]
 
@@ -61,12 +68,16 @@ class RepositoryIntegrityReport:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "policy": "clean-tracked-tree-and-no-untracked-injection-v2",
+            "policy": "clean-tracked-tree-and-no-untracked-injection-v3",
             "valid": self.valid,
             "expected_revision": self.expected_revision,
             "checked_out_revision": self.checked_out_revision,
             "tracked_changes": list(self.tracked_changes),
             "allowed_generated_paths": list(self.allowed_generated_paths),
+            "allowed_generated_path_count": self.allowed_generated_path_count,
+            "allowed_generated_paths_truncated": (
+                self.allowed_generated_path_count > len(self.allowed_generated_paths)
+            ),
             "disallowed_untracked_paths": list(self.disallowed_untracked_paths),
             "violations": [violation.to_dict() for violation in self.violations],
         }
@@ -127,7 +138,11 @@ def _untracked_violation(
     return None
 
 
-def inspect_repository(repo_path: Path, expected_revision: str) -> RepositoryIntegrityReport:
+def inspect_repository(
+    repo_path: Path,
+    expected_revision: str,
+    required_preconditions: tuple[WorkspacePrecondition, ...] = (),
+) -> RepositoryIntegrityReport:
     violations: list[IntegrityViolation] = []
     head = _git(repo_path, "rev-parse", "HEAD")
     checked_out_revision = head.stdout.strip() if head.returncode == 0 else None
@@ -187,14 +202,28 @@ def inspect_repository(repo_path: Path, expected_revision: str) -> RepositoryInt
             }
         )
     )
+    allowed_sample = allowed[:ALLOWED_GENERATED_PATH_SAMPLE_LIMIT]
     disallowed = tuple(path for path in untracked if path in untracked_violations)
     violations.extend(untracked_violations[path] for path in disallowed)
+    violations.extend(
+        IntegrityViolation(
+            "workspace_precondition_missing",
+            precondition.path,
+            (
+                f"{precondition.kind} owned by {precondition.producer} must remain "
+                "present after candidate execution"
+            ),
+        )
+        for precondition in required_preconditions
+        if not precondition.satisfied_by(repo_path)
+    )
 
     return RepositoryIntegrityReport(
         expected_revision=expected_revision,
         checked_out_revision=checked_out_revision,
         tracked_changes=tracked_changes,
-        allowed_generated_paths=allowed,
+        allowed_generated_paths=allowed_sample,
+        allowed_generated_path_count=len(allowed),
         disallowed_untracked_paths=disallowed,
         violations=tuple(violations),
     )

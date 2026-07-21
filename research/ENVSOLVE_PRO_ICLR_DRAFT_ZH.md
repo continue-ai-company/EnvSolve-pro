@@ -13,9 +13,10 @@
 可见，只有任务安全边界和执行直接反驳的行为构成 hard guard。
 
 我们将在 EnvBench 上与 Repo2Run、原生强 Agent、同 backbone ReAct 和冻结的 EnvSolve v1 比较。主指标
-是 Official Pass@1；token、调用、环境数与时间作为效率指标报告。当前处于 fair-interface 资格验证阶段，
-尚不作效果声明。初始五 case 轨迹审计发现，封闭的 post-hoc command parsing 或不等价 verification
-workspace 会抹掉 native success，因此算法比较前必须先建立 execution- and effect-based candidate boundary。
+是 Official Pass@1；token、调用、环境数与时间是效率指标。对已消费轨迹的诊断性资格验证发现，封闭
+command parsing 会删失 baseline 的可执行行为，不等价 workspace 会隐藏真实部署冲突。改用开放程序、
+fresh execution、audited effect 和 benchmark 声明的前置条件后，表示层拒绝被消除，底层失败被暴露。
+这只验证了测量接口；算法效果仍需在 untouched case 上检验。
 
 ## 1. 问题
 
@@ -39,6 +40,8 @@ EnvSolve-pro 维护状态 `S_t=(X_t,F_t,H_t,C_t,U_t)`：原始证据、事实、
 **操作层**回答“怎样改变环境”。强模型自由生成自包含部署程序。系统只强制环境修改边界、安全边界和
 有直接执行反例的精确禁忌，其余 operation plan 是建议。candidate 是开放程序，不属于封闭 command
 vocabulary。系统通过 fresh isolated execution 与 audited effect 判断有效性，再把反馈送回观测层形成闭环。
+Benchmark adapter 声明 internal 与 terminal execution 之前都必须存在的非结果状态，避免 solver 在更容易的
+隐藏前提下被验证。
 
 ## 3. 三项贡献
 
@@ -65,6 +68,8 @@ DGX Spark 可并行运行，但每个 paired comparison 记录并控制执行平
 率与 Unknown 比例。Token、请求、候选环境、命令和 wall-clock 只用于效率与 Pareto 分析。所有方法共享
 terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻结前保持 untouched。
 
-已完成的 P0 audit 仅用于诊断。它说明 wrapper preservation 与 verification-precondition parity 是公平比较的
-前提，不支持 effectiveness ranking。P1 将先在 synthetic fixture 和已消费轨迹上完成接口资格验证，再抽取
-新的 outcome-blind Dev batch。
+已完成的 P0-P1 audit 仅用于诊断。Synthetic test 建立了 effect boundary；6 条已消费外部轨迹全部可表示，
+5 次最终重放均在没有 representation rejection 的情况下到达 terminal evaluation，但没有 Official Pass。
+状态对齐还通过暴露 evaluator 的 `build_output/` 冲突，推翻了旧 EnvSolve 的一次内部接受。这些结果完成了
+测量接口资格验证，但不支持 effectiveness ranking。下一阶段将抽取新的 outcome-blind Dev batch，在增加
+算法机制前先找出占主导的部署矛盾。

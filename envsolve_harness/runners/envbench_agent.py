@@ -14,10 +14,12 @@ from envsolve_harness.integrity.repository import inspect_repository
 from envsolve_harness.scripts.envbench_trajectory import (
     TrajectoryDistillationResult,
     aggregate_token_usage,
+    compile_envbench_open_program,
     commands_from_trajectory,
     distill_envbench_commands,
 )
 from envsolve_harness.scripts.replay_actions import REPLAY_IR_POLICY
+from envsolve_harness.scripts.open_program import OPEN_PROGRAM_POLICY
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import update_manifest
 from envsolve_harness.utils.provenance import git_provenance, sha256_file
@@ -38,6 +40,7 @@ class EnvBenchAgentRunner:
         max_estimated_cost_usd: float = 5.0,
         pricing: ModelPricing | None = None,
         harness_root: Path | None = None,
+        candidate_interface: str = "typed-replay",
     ) -> None:
         self.envbench_root = envbench_root
         self.timeout = timeout
@@ -51,6 +54,9 @@ class EnvBenchAgentRunner:
         self.max_estimated_cost_usd = max_estimated_cost_usd
         self.pricing = pricing
         self.harness_root = harness_root or Path(__file__).resolve().parents[2]
+        if candidate_interface not in {"typed-replay", "open-program"}:
+            raise ValueError("Unknown EnvBench trajectory candidate interface")
+        self.candidate_interface = candidate_interface
 
     @property
     def runner_id(self) -> str:
@@ -58,7 +64,7 @@ class EnvBenchAgentRunner:
 
     @property
     def runner_version(self) -> str:
-        return "0.3.0"
+        return "0.4.0"
 
     @property
     def agent_label(self) -> str:
@@ -126,9 +132,16 @@ class EnvBenchAgentRunner:
         project_directory: str,
     ) -> tuple[TrajectoryDistillationResult | None, str | None, dict]:
         commands = commands_from_trajectory(records)
-        distilled = distill_envbench_commands(
-            commands,
-            project_directory=project_directory,
+        distilled = (
+            compile_envbench_open_program(
+                commands,
+                project_directory=project_directory,
+            )
+            if self.candidate_interface == "open-program"
+            else distill_envbench_commands(
+                commands,
+                project_directory=project_directory,
+            )
         )
         if distilled.unknown_commands:
             return (
@@ -137,7 +150,7 @@ class EnvBenchAgentRunner:
                 {},
             )
         if not distilled.kept_commands:
-            return distilled, "trajectory contains no replayable environment changes", {}
+            return distilled, "trajectory contains no successful commands", {}
         return distilled, None, {}
 
     @staticmethod
@@ -201,6 +214,7 @@ class EnvBenchAgentRunner:
                 "bash_command_timeout_seconds": self.bash_timeout,
             },
             "started_at": started_at,
+            "candidate_interface": self.candidate_interface,
             "credential_environment": {
                 "OPENAI_API_KEY": bool(os.environ.get("OPENAI_API_KEY")),
                 "OPENAI_BASE_URL": bool(os.environ.get("OPENAI_BASE_URL")),
@@ -352,7 +366,11 @@ class EnvBenchAgentRunner:
                 artifacts, SolverResult(False, run_spec.method, error=error, metadata=metadata), log
             )
         metadata["distillation"] = {
-            "policy": self.distillation_policy,
+            "policy": (
+                OPEN_PROGRAM_POLICY
+                if self.candidate_interface == "open-program"
+                else self.distillation_policy
+            ),
             "kept_count": len(distilled.kept_commands),
             "dropped_count": len(distilled.dropped_commands),
             "action_count": len(distilled.actions),
