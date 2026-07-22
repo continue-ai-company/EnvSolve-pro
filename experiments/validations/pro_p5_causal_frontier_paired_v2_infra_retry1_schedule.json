@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-paired-v2",
+  "binding_id": "infra-retry1",
+  "bound_at": "2026-07-22T07:37:59Z",
+  "claim_scope": "consumed-case mechanism qualification only",
+  "source_schedule": "experiments/validations/pro_p5_causal_frontier_paired_v2_schedule.json",
+  "source_schedule_sha256": "22304dfba9aa09932b131014202db7b7d18505d3758f55d2d48983fa1ed147a7",
+  "preregistration": "experiments/validations/pro_p5_causal_frontier_paired_v2_preregistration.json",
+  "preregistration_sha256": "ff0d6d5e15fbbc23642ce6db4f7f0662012bd3dd53a23918301e2f755a1af3bf",
+  "implementation_freeze": "d250549dd29745887fe7fd1db4026b4d37aca384",
+  "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
+  "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",
+  "model": "deepseek/deepseek-v4-pro",
+  "episode_timeout_seconds": 21600,
+  "retry_policy": "Replace only infrastructure-censored source attempts with fresh full-episode run identifiers; preserve the frozen implementation, model, seed, condition, case identity, config, protocol, and original artifacts.",
+  "execution": {
+    "config": "experiments/configs/local_spark_pro_p5.json",
+    "config_sha256": "bf702aca08ef90594ef2373895cf9e6ef1c3f044256704c7ff233c03ebfb8440",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "positions_to_execute": [1, 2, 3, 4, 5],
+    "retained_source_positions": [6]
+  },
+  "source_censoring": [
+    {
+      "position": 1,
+      "source_run_id": "pro-p5-causal-frontier-v2-langgraph-flat",
+      "retry_run_id": "pro-p5-causal-frontier-v2-infra-retry1-langgraph-flat",
+      "signature": "read-timeout"
+    },
+    {
+      "position": 2,
+      "source_run_id": "pro-p5-causal-frontier-v2-langgraph-causal",
+      "retry_run_id": "pro-p5-causal-frontier-v2-infra-retry1-langgraph-causal",
+      "signature": "read-timeout"
+    },
+    {
+      "position": 3,
+      "source_run_id": "pro-p5-causal-frontier-v2-nonebot2-causal",
+      "retry_run_id": "pro-p5-causal-frontier-v2-infra-retry1-nonebot2-causal",
+      "signature": "read-timeout"
+    },
+    {
+      "position": 4,
+      "source_run_id": "pro-p5-causal-frontier-v2-nonebot2-flat",
+      "retry_run_id": "pro-p5-causal-frontier-v2-infra-retry1-nonebot2-flat",
+      "signature": "read-timeout"
+    },
+    {
+      "position": 5,
+      "source_run_id": "pro-p5-causal-frontier-v2-conan-flat",
+      "retry_run_id": "pro-p5-causal-frontier-v2-infra-retry1-conan-flat",
+      "signature": "read-timeout"
+    }
+  ],
+  "retained_source_attempts": [
+    {
+      "position": 6,
+      "run_id": "pro-p5-causal-frontier-v2-conan-causal",
+      "reason": "The source attempt completed generation and identity-matched terminal official evaluation without infrastructure censoring."
+    }
+  ],
+  "parallel_lanes": [
+    {
+      "lane": 1,
+      "positions": [1, 2],
+      "condition_order": "AB"
+    },
+    {
+      "lane": 2,
+      "positions": [3, 4],
+      "condition_order": "BA"
+    },
+    {
+      "lane": 3,
+      "positions": [5],
+      "condition_order": "source AB order retained; retry only censored A"
+    }
+  ],
+  "episodes": [
+    {
+      "position": 1,
+      "lane": 1,
+      "pair": 1,
+      "condition": "flat",
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "run_id": "pro-p5-causal-frontier-v2-infra-retry1-langgraph-flat",
+      "source_run_id": "pro-p5-causal-frontier-v2-langgraph-flat",
+      "attempt_role": "infrastructure-retry",
+      "method": "envsolve-pro",
+      "seed": 0
+    },
+    {
+      "position": 2,
+      "lane": 1,
+      "pair": 1,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "run_id": "pro-p5-causal-frontier-v2-infra-retry1-langgraph-causal",
+      "source_run_id": "pro-p5-causal-frontier-v2-langgraph-causal",
+      "attempt_role": "infrastructure-retry",
+      "method": "envsolve-pro-causal",
+      "seed": 0
+    },
+    {
+      "position": 3,
+      "lane": 2,
+      "pair": 2,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "run_id": "pro-p5-causal-frontier-v2-infra-retry1-nonebot2-causal",
+      "source_run_id": "pro-p5-causal-frontier-v2-nonebot2-causal",
+      "attempt_role": "infrastructure-retry",
+      "method": "envsolve-pro-causal",
+      "seed": 0
+    },
+    {
+      "position": 4,
+      "lane": 2,
+      "pair": 2,
+      "condition": "flat",
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "run_id": "pro-p5-causal-frontier-v2-infra-retry1-nonebot2-flat",
+      "source_run_id": "pro-p5-causal-frontier-v2-nonebot2-flat",
+      "attempt_role": "infrastructure-retry",
+      "method": "envsolve-pro",
+      "seed": 0
+    },
+    {
+      "position": 5,
+      "lane": 3,
+      "pair": 3,
+      "condition": "flat",
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "run_id": "pro-p5-causal-frontier-v2-infra-retry1-conan-flat",
+      "source_run_id": "pro-p5-causal-frontier-v2-conan-flat",
+      "attempt_role": "infrastructure-retry",
+      "method": "envsolve-pro",
+      "seed": 0
+    },
+    {
+      "position": 6,
+      "lane": 3,
+      "pair": 3,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "run_id": "pro-p5-causal-frontier-v2-conan-causal",
+      "attempt_role": "retained-source",
+      "method": "envsolve-pro-causal",
+      "seed": 0
+    }
+  ]
+}
