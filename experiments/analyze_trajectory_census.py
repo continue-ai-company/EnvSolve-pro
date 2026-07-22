@@ -35,6 +35,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--study-id", required=True)
+    parser.add_argument(
+        "--replacement-run-root",
+        type=Path,
+        action="append",
+        default=[],
+        help="Run root containing fresh replacements for infrastructure-censored cases",
+    )
     return parser.parse_args()
 
 
@@ -248,6 +255,52 @@ def analyze_case(case_id: str, run_root: Path) -> dict[str, Any]:
     }
 
 
+def select_case_attempt(attempts: list[dict[str, Any]]) -> dict[str, Any]:
+    if not attempts:
+        raise ValueError("At least one case attempt is required")
+    source = attempts[0]
+    if source["scientifically_complete"] or not source["infrastructure_censored"]:
+        return source
+    return next(
+        (attempt for attempt in attempts[1:] if attempt["scientifically_complete"]),
+        attempts[-1],
+    )
+
+
+def resolve_case(
+    case_id: str,
+    source_run_root: Path,
+    replacement_run_roots: Iterable[Path],
+) -> dict[str, Any]:
+    attempts = [analyze_case(case_id, source_run_root)]
+    if attempts[0]["infrastructure_censored"]:
+        for run_root in replacement_run_roots:
+            if not (run_root / safe_name(case_id)).is_dir():
+                continue
+            attempt = analyze_case(case_id, run_root)
+            attempts.append(attempt)
+            if attempt["scientifically_complete"]:
+                break
+    selected_attempt = select_case_attempt(attempts)
+    selected = dict(selected_attempt)
+    selected_index = attempts.index(selected_attempt)
+    selected["attempt_resolution"] = {
+        "selected_attempt": selected_index,
+        "selected_role": "source" if selected_index == 0 else "infrastructure_replacement",
+        "attempts": [
+            {
+                "artifact_root": attempt["artifact_root"],
+                "scientifically_complete": attempt["scientifically_complete"],
+                "infrastructure_censored": attempt["infrastructure_censored"],
+                "infrastructure_signatures": attempt["infrastructure_signatures"],
+                "category": attempt["category"],
+            }
+            for attempt in attempts
+        ],
+    }
+    return selected
+
+
 def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
     classified = [case for case in cases if case["scientifically_complete"]]
     counts = Counter(case["category"] for case in classified)
@@ -275,6 +328,16 @@ def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
         "infrastructure_censored_cases": sum(
             case.get("infrastructure_censored") is True for case in cases
         ),
+        "infrastructure_replacement_cases": sum(
+            case.get("attempt_resolution", {}).get("selected_role")
+            == "infrastructure_replacement"
+            for case in cases
+        ),
+        "infrastructure_censored_attempts": sum(
+            attempt.get("infrastructure_censored") is True
+            for case in cases
+            for attempt in case.get("attempt_resolution", {}).get("attempts", [])
+        ),
         "category_counts": category_counts,
         "category_shares": shares,
         "dominant_contradiction": dominant,
@@ -301,13 +364,19 @@ def main() -> int:
     args = parse_args()
     cases = read_jsonl(args.case_file.resolve())
     case_ids = [str(case["case_id"]) for case in cases]
-    per_case = [analyze_case(case_id, args.run_root.resolve()) for case_id in case_ids]
+    source_run_root = args.run_root.resolve()
+    replacement_run_roots = [path.resolve() for path in args.replacement_run_root]
+    per_case = [
+        resolve_case(case_id, source_run_root, replacement_run_roots)
+        for case_id in case_ids
+    ]
     payload = {
         "schema_version": "1.0.0",
         "study_id": args.study_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "case_file": str(args.case_file.resolve()),
-        "run_root": str(args.run_root.resolve()),
+        "run_root": str(source_run_root),
+        "replacement_run_roots": [str(path) for path in replacement_run_roots],
         "aggregate": aggregate(per_case),
         "cases": per_case,
     }

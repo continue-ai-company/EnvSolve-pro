@@ -89,6 +89,11 @@ EnvSolve-RL 与 Auto-EnvSolve 的职责不能混淆：前者学习在一个冻�
 改进和 policy 训练，但在正式 held-out episode 中两者都保持冻结。当前 EnvSolve-Pro 实验应持续积累
 这种可复用数据，而不是只保留最终 pass/fail。
 
+P4 还给出新的数据要求：transition 不能只保存平铺 module constraint，而要保存 root-cause edge、scope、
+trust level、platform identity 和 surface-to-root amplification；effect-audit 误杀、verifier 被绕过和网络删失
+必须是不同标签。Reward 以最终成功为词典序第一目标，token、候选数和时间只作为同成功条件下的次级
+信号；不能把当前会删失搜索的 5-candidate 上限学习成“正确停止”。
+
 ## English Version
 
 ### 1. Core question
@@ -130,3 +135,10 @@ Auto-EnvSolve governs evidence-based harness version changes. A future self-evol
 alignment system may alternate these two processes, while freezing both during
 held-out evaluation. EnvSolve-Pro should therefore retain reusable transitions, not
 only terminal pass/fail labels.
+
+P4 adds concrete schema requirements: transitions must preserve root-cause edges,
+scope, trust level, platform identity, and surface-to-root amplification rather than a
+flat module list. Effect-audit false positives, verifier manipulation, and network
+censoring require distinct labels. Reward is lexicographic with final success first;
+tokens, candidates, and time are secondary among equally successful outcomes, and a
+binding candidate cap must not be learned as a correct stopping signal.

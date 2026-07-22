@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "study_family": "envsolve-pro-trajectory-census-v1",
+  "frozen_at": "2026-07-22T05:20:00Z",
+  "claim_scope": "Consumed development diagnostics only; no effectiveness claim.",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "primary_census": {
+    "study_id": "envsolve-pro-trajectory-census-v1",
+    "scientifically_complete_cases": 8,
+    "category_counts": {
+      "success": 1,
+      "evaluator_gap": 1,
+      "observability_gap": 0,
+      "closure_gap": 4,
+      "operation_nonviability": 2
+    },
+    "dominant_contradiction": "closure_gap",
+    "operation_or_closure_strict_majority": true,
+    "analysis_sha256": "a2be802725f6415ac760a392b7d6735bdf4c415bed2085d28aa64821bdd5c19f",
+    "batch_summary_sha256": "6fc701053fd5601a2c4b8bd3eaba6f38a1ca986bf726083460370d6b7c3d0816"
+  },
+  "independent_replication": {
+    "study_id": "envsolve-pro-trajectory-census-replication-v1",
+    "scientifically_complete_cases": 8,
+    "infrastructure_censored_attempts": 2,
+    "infrastructure_replacement_cases": 2,
+    "category_counts": {
+      "success": 3,
+      "evaluator_gap": 0,
+      "observability_gap": 0,
+      "closure_gap": 1,
+      "operation_nonviability": 4
+    },
+    "dominant_contradiction": "operation_nonviability",
+    "operation_or_closure_strict_majority": true,
+    "replication_success": false,
+    "replication_failure_reason": "The primary leader was closure_gap, while the unique replication leader was operation_nonviability.",
+    "analysis_sha256": "abd49784495217977da7bc434683fdfb17a898738e5b2b7dcb1325dd776ab866",
+    "source_batch_summary_sha256": "e2d24cc172bdd975c0dbf7be4ddcb70822dbd30c85be08c3dd1d76d9c4e6b109",
+    "retry_analysis_sha256": "79cfb51b58c9ba01cf9e094949fafc79d7a26c8f95e421f5a9bccab281b4d2d9",
+    "retry_batch_summary_sha256": "02e4f6e9d62361444d30b5c8ad40cca2d029dfef04ddc73fb07c646b399dbb1a"
+  },
+  "secondary_pooled_analysis": {
+    "cases": 16,
+    "category_counts": {
+      "success": 4,
+      "evaluator_gap": 1,
+      "observability_gap": 0,
+      "closure_gap": 5,
+      "operation_nonviability": 6
+    },
+    "operation_or_closure_cases": 11,
+    "operation_or_closure_share": 0.6875,
+    "dominant_contradiction": "operation_nonviability",
+    "interpretation": "The stable signal is the constraint-closure-to-operation interface; the individual blocking layer is sample-sensitive."
+  },
+  "integrity_sensitivity": {
+    "affected_case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+    "primary_category_retained": "closure_gap",
+    "sensitivity_category": "operation_nonviability",
+    "reason": "The candidate created a fake pytest-coverage distribution and a compileall shim; the raw evaluator emitted exit_code=0 and issues_count=0 with pyright=null after Pyright failed to run.",
+    "primary_census_sensitivity_counts": {
+      "success": 1,
+      "evaluator_gap": 1,
+      "observability_gap": 0,
+      "closure_gap": 3,
+      "operation_nonviability": 3
+    },
+    "primary_census_sensitivity_leader": null,
+    "pooled_sensitivity_counts": {
+      "success": 4,
+      "evaluator_gap": 1,
+      "observability_gap": 0,
+      "closure_gap": 4,
+      "operation_nonviability": 7
+    }
+  },
+  "cross_case_mechanisms": [
+    {
+      "mechanism": "missing_or_uninduced_runtime_platform_frontier",
+      "examples": [
+        "langchain-ai/langgraph",
+        "mirageoscience/geoapps",
+        "rlberry-py/rlberry"
+      ]
+    },
+    {
+      "mechanism": "flat_obligation_amplification_without_scope_or_causality",
+      "examples": [
+        "conan-io/conan-package-tools",
+        "theislab/scvelo",
+        "vacanza/python-holidays",
+        "spotify/luigi"
+      ]
+    },
+    {
+      "mechanism": "incorrect_or_spoofable_trust_boundary",
+      "examples": [
+        "astropy/extension-helpers",
+        "rollbar/pyrollbar",
+        "sphinx-gallery/sphinx-gallery"
+      ]
+    }
+  ],
+  "budget_diagnostic": {
+    "cases_reaching_five_candidates": 12,
+    "total_cases": 16,
+    "conclusion": "The five-candidate cap was binding and cannot be used as the main success-first protocol."
+  },
+  "platform_diagnostic": {
+    "host_architecture": "aarch64",
+    "architecture_sensitive_cases": [
+      "mirageoscience/geoapps",
+      "rlberry-py/rlberry"
+    ],
+    "conclusion": "Platform identity must be observed explicitly and paired comparisons must control architecture."
+  },
+  "decision": "Do not optimize closure_gap alone. Repair measurement trust boundaries, then test one benchmark-independent causal constraint-frontier intervention that links root evidence to scoped obligations and viable operations while preserving raw evidence for the model."
+}

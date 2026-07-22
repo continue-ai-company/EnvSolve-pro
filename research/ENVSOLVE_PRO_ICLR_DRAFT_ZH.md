@@ -18,8 +18,9 @@
 是 Official Pass@1；token、调用、环境数与时间是效率指标。对已消费轨迹的诊断性资格验证发现，封闭
 command parsing 会删失 baseline 的可执行行为，不等价 workspace 会隐藏真实部署冲突。改用开放程序、
 fresh execution、audited effect 和 benchmark 声明的前置条件后，表示层拒绝被消除，底层失败被暴露。
-后续诊断 batch 又发现内部反馈过度硬化是一个跨三个仓库的失败模式。这些研究用于提出方法，不估计
-效果；真正效果仍需在 untouched case 上检验。
+后续诊断又发现内部反馈过度硬化是跨仓库失败模式。两组独立盲选的 8-case 普查没有复现同一个主导
+失败标签，但都把大多数失败定位在约束闭包与可执行操作的接口。这些研究用于提出方法，不估计效果；
+真正效果仍需在 untouched case 上检验。
 
 ## 1. 问题
 
@@ -77,11 +78,8 @@ DGX Spark 可并行运行，但每个 paired comparison 记录并控制执行平
 率与 Unknown 比例。Token、请求、候选环境、命令和 wall-clock 只用于效率与 Pareto 分析。所有方法共享
 terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻结前保持 untouched。
 
-已完成的 P0-P2 audit 仅用于诊断。Synthetic test 建立了 effect boundary；6 条已消费外部轨迹全部可表示，
-5 次最终重放均在没有 representation rejection 的情况下到达 terminal evaluation，但没有 Official Pass。
-状态对齐还通过暴露 evaluator 的 `build_output/` 冲突，推翻了旧 EnvSolve 的一次内部接受。这些结果完成了
-测量接口资格验证。P2 又发现三个仓库中的完整安全候选仅因残余内部约束而被删失。在 3 对已消费 case 的
-资格实验中，候选保留把 terminal evaluation 覆盖从 `1/3` 提高到 `2/3`，但两组 Official Pass 都是
-`1/3`。因此它只被验证为 terminal censoring 修复，尚未证明成功率提升。下一次算法干预前，先用 8 个
-outcome-blind Dev case 判断剩余主导阻塞来自操作可行性、观测、约束闭包，还是内部 verifier 与官方条件的
-覆盖差异。
+诊断实验只验证测量与机制假设，不承担效果结论。开放程序和状态等价前置条件消除了 representation
+censoring；已消费配对实验表明，保留安全但未认证的候选提高了 terminal reach，却没有提高 Official
+Pass。两组独立轨迹普查对 closure 与 operation 谁是最大单类给出了不同结论，但 `11/16` 个 case 都落在
+这两个相邻类别。共同根因是 runtime/platform 前沿缺失、表面义务没有因果 scope，以及错误的信任边界。
+这些证据用于提出带 provenance 的因果约束前沿；只有在方法与评测边界冻结后，才会检验其真实效果。

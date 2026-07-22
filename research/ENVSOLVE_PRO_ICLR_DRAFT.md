@@ -29,9 +29,11 @@ trajectories found that closed command parsing censored executable baseline beha
 non-equivalent workspaces hid deployment conflicts. Replacing that interface with open
 programs, fresh execution, audited effects, and benchmark-declared preconditions removed
 representation rejection while exposing the underlying failures. A subsequent diagnostic
-batch identified over-hardening of internal feedback as a three-repository failure mode.
-These studies motivate the method but do not estimate effectiveness, which remains to be
-tested on untouched cases.
+identified over-hardening of internal feedback as a cross-repository failure mode. Two
+independently selected eight-case censuses did not replicate one dominant blocking label,
+but both located most failures at the interface between constraint closure and viable
+operations. These studies motivate the method but do not estimate effectiveness, which
+remains to be tested on untouched cases.
 
 ## 1. Problem
 
@@ -111,15 +113,12 @@ environments, commands, and wall-clock time support efficiency and Pareto analys
 All methods share a terminal-only Official evaluator boundary. Canary and Official Test
 remain untouched until the method is frozen.
 
-The completed P0-P2 audit is diagnostic only. Synthetic tests established the effect
-boundary; all six consumed external trajectories were representable, and five final
-replays reached terminal evaluation without representation rejection. None passed
-officially. State parity also overturned one old internal EnvSolve acceptance by exposing
-the evaluator's `build_output/` conflict. P2 then found three repositories where complete,
-safe candidates were censored solely by residual internal constraints. In a consumed
-three-pair qualification, retention increased terminal evaluation coverage from `1/3` to
-`2/3`, while Official Pass remained `1/3` in both conditions. This qualifies the mechanism
-as a repair for terminal censoring, not as a success-rate improvement. Before another
-intervention, an outcome-blind eight-case Dev census estimates whether the remaining
-dominant blocker is operation viability, observability, constraint closure, or
-internal-to-official verifier coverage.
+Diagnostic studies establish the measurement and mechanism assumptions without making
+an effectiveness claim. Open programs and state-parity preconditions removed
+representation censoring; a consumed paired test showed that retaining safe uncertified
+candidates improved terminal reach but not Official Pass. Two independent trajectory
+censuses then disagreed on whether closure or operation was the largest single category,
+yet placed `11/16` cases in those two adjacent categories. Their shared causes were
+missing runtime/platform frontiers, flat obligations without causal scope, and incorrect
+trust boundaries. This evidence motivates a provenance-linked causal constraint frontier;
+its effectiveness will be tested only after the method and evaluation boundary are frozen.

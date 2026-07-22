@@ -4,6 +4,7 @@ from experiments.analyze_trajectory_census import (
     aggregate,
     best_complete_candidate,
     classify_case,
+    select_case_attempt,
 )
 
 
@@ -86,6 +87,26 @@ def test_infrastructure_failure_is_censored_before_failure_classification() -> N
     )
     assert category is None
     assert "read-timeout" in reason
+
+
+def test_case_attempt_selection_only_replaces_infrastructure_censoring() -> None:
+    infrastructure = {
+        "scientifically_complete": False,
+        "infrastructure_censored": True,
+        "artifact_root": "source",
+    }
+    replacement = {
+        "scientifically_complete": True,
+        "infrastructure_censored": False,
+        "artifact_root": "replacement",
+    }
+    ordinary_failure = {
+        "scientifically_complete": True,
+        "infrastructure_censored": False,
+        "artifact_root": "ordinary",
+    }
+    assert select_case_attempt([infrastructure, replacement]) is replacement
+    assert select_case_attempt([ordinary_failure, replacement]) is ordinary_failure
 
 
 def test_best_candidate_prefers_observed_closure_then_residual_count() -> None:

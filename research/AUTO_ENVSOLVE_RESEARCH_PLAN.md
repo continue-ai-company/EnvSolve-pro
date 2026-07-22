@@ -104,6 +104,12 @@ frozen trajectory census
 接口兼容和置信门槛；操作是带测试和迁移说明的 harness patch。EnvSolve-Pro 当前生成的 typed event、
 candidate lineage、constraint delta、effect audit 和 terminal evaluation 将作为这一闭环的初始数据契约。
 
+P4 的两组独立普查表明，单一 blocking category 的 leader 会随样本从 closure 变成 operation，但两组共享
+的机制仍集中在 runtime/platform 前沿、义务因果压缩和信任边界。因此 Auto-EnvSolve 的触发单位应是
+跨仓库机制簇，而不是表层类别票数。外层还必须监控 constraint amplification ratio、等价失败重复率、
+verifier-integrity incident、基础设施删失率和过早预算停止率；任何自动 patch 都要在独立样本上复现
+机制，而不是只让原类别计数下降。
+
 ## English Version
 
 ### 1. Core question
@@ -148,3 +154,11 @@ version is promoted. In this sense, the outer system is itself a stateful constr
 solver whose observations are versioned failure distributions, whose constraints
 encode generality and leakage boundaries, and whose actions are tested harness
 patches.
+
+The P4 independent censuses show why surface categories are insufficient: the unique
+leader changed from closure to operation, while the same underlying mechanism families
+persisted. Auto-EnvSolve should therefore trigger on replicated cross-repository
+mechanism clusters and track constraint amplification, repeated-equivalent failures,
+verifier-integrity incidents, infrastructure censoring, and premature stopping. A patch
+must reproduce and repair the mechanism on an independent sample, not merely reduce one
+category count.

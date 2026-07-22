@@ -77,8 +77,8 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | P1 (complete) | Establish fair interfaces | Open programs, fresh execution, effect audit, and adapter preconditions | Six consumed trajectories compile without representation rejection |
 | P2 (complete) | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
 | P3 (complete) | Qualify candidate retention | Certified/admissible state and paired consumed replay | Terminal reach `2/3` vs `1/3`; no Official Pass gain |
-| P4 (in progress) | Quantify the remaining contradiction | Eight outcome-blind Dev trajectories on Spark | One unique dominant blocking layer, or declare unresolved |
-| P5 | Design one minimal intervention | Fresh paired Dev validation | Positive Official Pass or preregistered mechanism signal |
+| P4 (complete) | Quantify the remaining contradiction | Two independent eight-case Dev censuses on Spark | Single-layer replication failed; interface-level signal frozen |
+| P5 (in progress) | Design one minimal intervention | Fresh paired Dev validation | Positive Official Pass or preregistered mechanism signal |
 | P6 | Broaden, freeze, and confirm | Multi-model Dev, Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
 
 P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A new
@@ -167,6 +167,23 @@ fresh Dev cases and classifies complete trajectories as operation nonviability,
 observability gap, closure gap, evaluator gap, or success. No algorithm change is allowed
 until the aggregate is frozen.
 
+### 4.6 P4 Census Decision
+
+The primary census was led by closure gaps (`4/8`), while an independently selected
+replication was led by operation nonviability (`4/8`). The preregistered single-category
+replication criterion therefore failed. The stable result is one level higher: operation
+and closure jointly account for `6/8` and `5/8` cases, or `11/16` pooled. Mechanism audit
+attributes these labels to three recurring causes: missing runtime/platform frontiers,
+flat surface obligations without scope or causal parentage, and an effect/evaluator trust
+boundary that is both over-strict and spoofable. Twelve cases reached the five-candidate
+cap, confirming that it was a binding diagnostic limit rather than a suitable main
+protocol.
+
+P5 first repairs the measurement trust boundary without claiming algorithmic gain. It
+then tests one minimal causal constraint-frontier mechanism that keeps raw evidence
+available, promotes only grounded root conditions, attaches scoped symptoms to their
+causes, and leaves the strong model's action space open.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -186,7 +203,8 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Complete the preregistered eight-case trajectory census on Spark and freeze the aggregate
-blocking-layer distribution. If one category is uniquely dominant, design one minimal,
-benchmark-independent intervention and test it on a new paired Dev sample. If the census
-is tied, expand diagnosis rather than combining several speculative mechanisms.
+Finish protected-evaluator and virtual-environment effect-audit repairs, then freeze a
+preregistered mechanism test for the causal constraint frontier. Qualify it first on
+synthetic and consumed counterexamples, and only then run an outcome-blind paired Dev
+sample. Candidate and token caps must be generous enough to remain nonbinding; shared
+wall-clock and container resources define the comparison boundary.

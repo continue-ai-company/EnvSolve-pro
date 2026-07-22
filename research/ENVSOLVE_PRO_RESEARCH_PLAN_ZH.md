@@ -73,8 +73,8 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 | P1（完成） | 建立公平比较接口 | 开放程序、fresh execution、effect audit、adapter precondition | 6 条已消费轨迹均无表示层拒绝 |
 | P2（完成） | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
 | P3（完成） | 验证候选保留机制 | certified/admissible 状态及已消费配对重放 | terminal reach 为 `2/3` 对 `1/3`，Official Pass 无增益 |
-| P4（进行中） | 量化剩余主要矛盾 | Spark 上 8 条 outcome-blind Dev 轨迹 | 找到唯一主导阻塞层，否则声明未收敛 |
-| P5 | 设计一个最小干预 | 新的 paired Dev 验证 | Official Pass 或预注册机制指标出现正向信号 |
+| P4（完成） | 量化剩余主要矛盾 | Spark 上两组独立的 8-case Dev 普查 | 单层复现失败，接口级信号已冻结 |
+| P5（进行中） | 设计一个最小干预 | 新的 paired Dev 验证 | Official Pass 或预注册机制指标出现正向信号 |
 | P6 | 扩大、冻结与确认 | 多模型 Dev、Canary、Official Test 和论文主表 | 代码、prompt、baseline、指标全部冻结 |
 
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
@@ -140,6 +140,17 @@ blocked，并因 22 个残余 issues 未通过官方评测。因此它只被验�
 在实现 runtime closure 或其他机制前，P4 从未见 Dev 池盲选 8 个 case，将完整轨迹归类为操作不可行、
 观测缺口、闭包缺口、evaluator gap 或成功。聚合结果冻结前禁止修改算法。
 
+### 4.6 P4 普查结论
+
+第一组由 closure gap 领先（`4/8`），独立复现组则由 operation nonviability 领先（`4/8`），因此预注册的
+单类别复现标准没有通过。稳定结论位于更高一层：operation 与 closure 合计分别占 `6/8` 和 `5/8`，
+合并为 `11/16`。机制审计把这些标签归结为三个反复出现的原因：runtime/platform 前沿缺失；表面义务
+缺少 scope 与因果父节点；effect/evaluator 信任边界既过硬又可被绕过。12 个 case 达到 5-candidate
+上限，证明它是会删失搜索的诊断限制，不适合作为主协议。
+
+P5 先修复测量信任边界，不把它写成算法增益；随后只验证一个最小的因果约束前沿机制：原始证据始终
+可见，只提升有执行依据的根条件，把有 scope 的表面症状连接到根因，同时保持强模型动作空间开放。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -163,6 +174,6 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-完成 Spark 上预注册的 8-case 轨迹普查并冻结阻塞层分布。如果出现唯一主导类别，只针对它设计一个最小、
-benchmark-independent 干预，并在新的 paired Dev 样本上验证；如果分布并列，则扩大诊断，不把多个推测
-机制拼在一起。
+完成受保护 evaluator 与任意命名虚拟环境的 effect-audit 修复，然后冻结因果约束前沿的机制实验。
+先用 synthetic 与已消费反例做资格验证，再运行 outcome-blind paired Dev。候选数与 token 上限必须足够
+宽松而不构成实际停止条件；公平比较由共享 wall-clock 与容器资源边界定义。
