@@ -2,7 +2,12 @@ from pathlib import Path
 import hashlib
 import json
 
-from experiments.analyze_causal_frontier_pairs import aggregate, target_metrics
+from experiments.analyze_causal_frontier_pairs import (
+    TARGETS,
+    _matches,
+    aggregate,
+    target_metrics,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +15,19 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_runtime_targets_match_the_causal_frontier_schema() -> None:
+    root = {
+        "root_kind": "runtime_compatibility_frontier",
+        "provider": "pyo3",
+        "subject": "python",
+        "observed_version": "3.13",
+        "maximum_supported_version": "3.12",
+    }
+
+    assert _matches(root, TARGETS["langchain-ai/langgraph"])
+    assert _matches(root, TARGETS["nonebot/nonebot2"])
 
 
 def test_target_metrics_requires_later_absence_for_closure() -> None:
@@ -94,12 +112,16 @@ def test_v2_schedule_is_bound_to_the_frozen_consumed_pairing() -> None:
     schedule = json.loads(schedule_path.read_text(encoding="utf-8"))
     preregistration = ROOT / schedule["preregistration"]
     case_file = ROOT / schedule["case_file"]
+    preregistered = json.loads(preregistration.read_text(encoding="utf-8"))
 
     assert schedule["implementation_freeze"] == (
         "d250549dd29745887fe7fd1db4026b4d37aca384"
     )
     assert schedule["preregistration_sha256"] == _sha256(preregistration)
     assert schedule["case_file_sha256"] == _sha256(case_file)
+    assert preregistered["analysis"]["script_sha256"] == _sha256(
+        ROOT / preregistered["analysis"]["script"]
+    )
     assert len(schedule["episodes"]) == 6
     assert len({item["run_id"] for item in schedule["episodes"]}) == 6
     assert sorted(item["position"] for item in schedule["episodes"]) == list(

@@ -3,7 +3,7 @@
   "study_id": "envsolve-pro-p5-causal-frontier-paired-v2",
   "claim_scope": "consumed-case mechanism qualification only",
   "preregistration": "experiments/validations/pro_p5_causal_frontier_paired_v2_preregistration.json",
-  "preregistration_sha256": "979b3cd2b0f7e65a56e217d1202878e12843497a64f2d36c084b222b8c03679f",
+  "preregistration_sha256": "ff0d6d5e15fbbc23642ce6db4f7f0662012bd3dd53a23918301e2f755a1af3bf",
   "implementation_freeze": "d250549dd29745887fe7fd1db4026b4d37aca384",
   "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
   "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",

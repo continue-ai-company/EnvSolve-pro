@@ -84,6 +84,12 @@
     "candidate index of target causal-root closure",
     "whether the eight-candidate cap binds"
   ],
+  "analysis": {
+    "script": "experiments/analyze_causal_frontier_pairs.py",
+    "script_sha256": "3a0a422eee19b71b68615387dd38aea55f41bc21df762557a94cc3fb668271b0",
+    "target_matching": "Exact root_kind plus provider and subject for runtime frontiers; exact root_kind plus subject for missing-dependency roots.",
+    "causal_trace_source": "Persisted model-visible projection and canonical digest for treatment decisions; offline reconstruction is diagnostic only."
+  },
   "measurement_integrity_gate": [
     "all causal decision states contain the exact persisted model projection with a valid digest",
     "no eligible episode terminates because candidate control flow bypassed fixed postconditions",

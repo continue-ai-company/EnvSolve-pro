@@ -27,12 +27,12 @@ TARGETS = {
     "langchain-ai/langgraph": {
         "root_kind": "runtime_compatibility_frontier",
         "provider": "pyo3",
-        "runtime": "python",
+        "subject": "python",
     },
     "nonebot/nonebot2": {
         "root_kind": "runtime_compatibility_frontier",
         "provider": "pyo3",
-        "runtime": "python",
+        "subject": "python",
     },
     "conan-io/conan-package-tools": {
         "root_kind": "runtime_missing_dependency",
