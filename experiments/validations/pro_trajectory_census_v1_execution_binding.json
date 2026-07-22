@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-trajectory-census-v1",
+  "bound_at": "2026-07-22T03:10:31Z",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "orchestration_commit": "560c2a5cd0a321832ec22ba375c6f671eb5d9088",
+  "host": {
+    "hostname": "spark-f21c",
+    "architecture": "aarch64",
+    "gpu": "NVIDIA GB10",
+    "docker_server_version": "28.5.1"
+  },
+  "envbench": {
+    "root": "/home/avdpro/EnvSolve/EnvBench",
+    "commit": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "worktree_clean": true
+  },
+  "container_image": {
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "architecture": "arm64",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "repo_digest": "sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+  },
+  "case_file": {
+    "path": "experiments/cases/dev_pro_trajectory_census_v1_8.jsonl",
+    "sha256": "bb273c400b37ef9e1a2f2ce0e2b1285498ec3aa5d3733f290d6dd91766b593f1"
+  },
+  "config": {
+    "path": "experiments/configs/local_spark_pro_p3.json",
+    "sha256": "18eeb0cc44900cf121251f89ab06cf08e43c3d82f83c4e4e540121cdf80f37c9"
+  },
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "run": {
+    "run_id": "pro-trajectory-census-v1-spark",
+    "runner": "envsolve",
+    "method": "envsolve-pro",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_workers": 3,
+    "credential_source": "ephemeral process environment",
+    "official_evaluator_access": "post-episode-only"
+  }
+}
