@@ -77,6 +77,18 @@ Raw event 永远不可修改。Reward、advantage、failure cluster 和训练样
 数量的跨仓库有效 transition；数据泄漏审计通过；固定 policy baseline 已经建立。否则只收集数据，
 不提前声称 RL 是有效方向。
 
+### 7. 版本化轨迹契约与最终系统
+
+每个 transition 必须额外绑定 `harness_version`、`policy_version`、前后状态哈希、candidate lineage、
+constraint delta、effect-audit 结果和 termination provenance。Official evaluator 只形成 episode 结束后的
+独立标签，不能混入在线 state。这样同一条 raw trajectory 可以派生 imitation、offline RL、reward model
+和 failure-census view，而不重写原始事实。
+
+EnvSolve-RL 与 Auto-EnvSolve 的职责不能混淆：前者学习在一个冻结 harness 内如何从约束状态选择操作；
+后者决定何时以及如何发布新的 harness 版本。最终的自进化环境对齐系统可以交替进行版本化 harness
+改进和 policy 训练，但在正式 held-out episode 中两者都保持冻结。当前 EnvSolve-Pro 实验应持续积累
+这种可复用数据，而不是只保留最终 pass/fail。
+
 ## English Version
 
 ### 1. Core question
@@ -108,3 +120,13 @@ Formal work starts only after EnvSolve and its trajectory schema are stable, eno
 cross-repository transitions exist, leakage audits pass, and a fixed-policy baseline
 is available.
 
+### 5. Versioned trajectory contract and final system
+
+Every transition additionally binds the harness and policy versions, before/after
+state hashes, candidate lineage, constraint deltas, effect-audit outcomes, and
+termination provenance. Official evaluation is a separate post-episode label and
+never part of the online state. EnvSolve-RL learns actions within a frozen harness;
+Auto-EnvSolve governs evidence-based harness version changes. A future self-evolving
+alignment system may alternate these two processes, while freezing both during
+held-out evaluation. EnvSolve-Pro should therefore retain reusable transitions, not
+only terminal pass/fail labels.

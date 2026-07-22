@@ -85,6 +85,25 @@ new version manifest
 正式研究需要多个稳定 EnvSolve 版本、足够大的失败语料、可信的回归测试库，以及真正独立的
 qualification reserve。在此之前，只维护机器可读的失败分类和版本 provenance，不自动修改内层算法。
 
+### 8. 统计驱动的外层闭环
+
+外层不能因单个 case 失败就生成代码补丁。一次合法的改进周期必须先冻结一个跨仓库批次，将轨迹按
+observation、constraint、operation 和 evaluator gap 聚合，只有某个机制缺口在预先定义的统计规则下
+成为主要矛盾，才允许生成一个最小 harness proposal。proposal 随后依次经过：
+
+```text
+frozen trajectory census
+-> dominant-gap decision
+-> one minimal generic proposal
+-> synthetic counterexamples and regression tests
+-> repository-disjoint shadow qualification
+-> promote, reject, or roll back a version
+```
+
+因此外层自身也是状态化约束求解器：观测是版本化的失败分布和回归证据；约束包括通用性、数据隔离、
+接口兼容和置信门槛；操作是带测试和迁移说明的 harness patch。EnvSolve-Pro 当前生成的 typed event、
+candidate lineage、constraint delta、effect audit 和 terminal evaluation 将作为这一闭环的初始数据契约。
+
 ## English Version
 
 ### 1. Core question
@@ -117,3 +136,15 @@ admission protocol. Formal work starts only when stable EnvSolve versions, a lar
 failure corpus, strong regression coverage, and an independent qualification
 reserve exist.
 
+### 5. Statistically triggered outer loop
+
+The outer system may not patch the harness in response to one salient failure. A
+valid improvement cycle first freezes a repository-diverse trajectory census,
+aggregates failures by observation, constraint, operation, and evaluator gaps, and
+admits one minimal generic proposal only when a preregistered rule identifies a
+dominant mechanism gap. The proposal must then pass synthetic counterexamples,
+regression tests, and repository-disjoint shadow qualification before a new inner
+version is promoted. In this sense, the outer system is itself a stateful constraint
+solver whose observations are versioned failure distributions, whose constraints
+encode generality and leakage boundaries, and whose actions are tested harness
+patches.
