@@ -76,10 +76,10 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | P0 | Observe external baselines | Unified Repo2Run, Codex/native, and raw-ReAct trajectories | At least five new audited Dev cases per method |
 | P1 (complete) | Establish fair interfaces | Open programs, fresh execution, effect audit, and adapter preconditions | Six consumed trajectories compile without representation rejection |
 | P2 (complete) | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
-| P3 (in progress) | Design the minimal three-layer method | Certified/admissible candidate state and ablation | Counterexample, tests, and preregistered prediction |
-| P4 | Small paired validation | At least five unseen Dev pairs | Positive success or terminal-repair signal |
-| P5 | Broader Dev validation | Multi-case, multi-model, Mac/Spark evidence | Effect persists across cases and models |
-| P6 | Freeze and confirm | Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
+| P3 (complete) | Qualify candidate retention | Certified/admissible state and paired consumed replay | Terminal reach `2/3` vs `1/3`; no Official Pass gain |
+| P4 (in progress) | Quantify the remaining contradiction | Eight outcome-blind Dev trajectories on Spark | One unique dominant blocking layer, or declare unresolved |
+| P5 | Design one minimal intervention | Fresh paired Dev validation | Positive Official Pass or preregistered mechanism signal |
+| P6 | Broaden, freeze, and confirm | Multi-model Dev, Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
 
 P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A new
 parser, constraint, or guard requires multiple independent trajectories or a deterministic
@@ -154,6 +154,19 @@ A second cross-repository pattern concerns runtime, dependency-lock, and platfor
 compatibility. It remains a preregistered secondary hypothesis. P3 does not implement it
 until the smaller candidate-retention mechanism is qualified.
 
+### 4.5 P3 Qualification Decision
+
+Candidate retention passed its consumed-case qualification: the treatment reached
+terminal evaluation on `2/3` cases versus `1/3` without retention. Official Pass remained
+`1/3` in both conditions. The only retained-candidate release was explicitly uncertified,
+kept the internal goal blocked, and failed officially with 22 remaining issues. This
+qualifies retention as a terminal-censoring repair, not as an effectiveness result.
+
+Before implementing runtime closure or another mechanism, P4 blindly samples eight
+fresh Dev cases and classifies complete trajectories as operation nonviability,
+observability gap, closure gap, evaluator gap, or success. No algorithm change is allowed
+until the aggregate is frozen.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -173,8 +186,7 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Complete consumed-case replay qualification for the certified/admissible distinction and
-repair invalid external-baseline adapters without changing their solving policies. Then
-freeze the P3 ablation, select at least five new outcome-blind Dev pairs, and compare
-terminal success with candidate retention enabled versus disabled. Do not add runtime
-closure machinery before this smaller mechanism receives or fails its predicted signal.
+Complete the preregistered eight-case trajectory census on Spark and freeze the aggregate
+blocking-layer distribution. If one category is uniquely dominant, design one minimal,
+benchmark-independent intervention and test it on a new paired Dev sample. If the census
+is tied, expand diagnosis rather than combining several speculative mechanisms.

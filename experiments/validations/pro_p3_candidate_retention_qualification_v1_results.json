@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p3-candidate-retention-qualification-v1",
+  "completed_at": "2026-07-22T03:44:28Z",
+  "claim_scope": "Consumed development qualification only; no held-out effectiveness claim.",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "schedule": {
+    "path": "experiments/validations/pro_p3_candidate_retention_qualification_v1_schedule.json",
+    "sha256": "98ddd1de33bbdf065dc03161757e01b0cb6ab9ba9dbe49fcae02a0cd4f3646b7"
+  },
+  "schedule_summary": {
+    "path": "experiments/validations/pro_p3_candidate_retention_qualification_v1_schedule_summary.json",
+    "sha256": "f9a6f9fb2f430b77407463d6183b00ebf7614cc0240bf1c213e8a282dc384541"
+  },
+  "audit": {
+    "runs": 6,
+    "artifact_integrity_valid": 6,
+    "scientifically_eligible": 6,
+    "excluded_runs": 0,
+    "host_suspension_absent": 6,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "preregistered_gates": {
+    "retention_terminal_evaluations": {
+      "threshold": 2,
+      "observed": 2,
+      "denominator": 3,
+      "passed": true
+    },
+    "terminal_evaluation_delta_over_no_retention": {
+      "threshold": 1,
+      "observed": 1,
+      "passed": true
+    }
+  },
+  "descriptive_outcomes": {
+    "candidate_retention": {
+      "cases": 3,
+      "terminal_evaluations": 2,
+      "official_passes": 1,
+      "official_failures": 1,
+      "candidate_limit_without_evaluation": 1
+    },
+    "no_retention": {
+      "cases": 3,
+      "terminal_evaluations": 1,
+      "official_passes": 1,
+      "official_failures": 0,
+      "candidate_limit_without_evaluation": 2
+    },
+    "deltas": {
+      "terminal_evaluations": 1,
+      "official_passes": 0
+    }
+  },
+  "paired_outcomes": [
+    {
+      "pair": 1,
+      "repository": "democracyclub/uk-polling-stations",
+      "candidate_retention_terminal": false,
+      "no_retention_terminal": false,
+      "candidate_retention_official_pass": null,
+      "no_retention_official_pass": null
+    },
+    {
+      "pair": 2,
+      "repository": "sphinx-contrib/spelling",
+      "candidate_retention_terminal": true,
+      "no_retention_terminal": true,
+      "candidate_retention_official_pass": true,
+      "no_retention_official_pass": true
+    },
+    {
+      "pair": 3,
+      "repository": "roboflow/supervision",
+      "candidate_retention_terminal": true,
+      "no_retention_terminal": false,
+      "candidate_retention_official_pass": false,
+      "no_retention_official_pass": null
+    }
+  ],
+  "mechanism_audit": {
+    "retained_candidate_releases": 1,
+    "retained_candidate_official_passes": 0,
+    "case_id": "envbench-python-roboflow__supervision@d5cebd4fd2b75b160feb9d22b3558f3247b27f28",
+    "candidate_id": "candidate-0002",
+    "candidate_certification": "uncertified",
+    "goal_status": "blocked",
+    "assessment": {
+      "admissible": true,
+      "bootstrap_exit_code": 0,
+      "effect_audit_valid": true,
+      "unknown_constraints": 0,
+      "unresolved_constraints": 22,
+      "satisfied_constraints": 46
+    },
+    "official_evaluation": {
+      "completed": true,
+      "passed": false,
+      "bootstrap_exit_code": 0,
+      "issues_count": 22,
+      "missing_import_modules": 8
+    }
+  },
+  "position_6_recovery": {
+    "valid_attempt": 5,
+    "valid_progress_sha256": "b6b56eed58b8318ed1c530aa674792abbed165ad76607e288f91e2dfa38a5d2a",
+    "excluded_attempts": [
+      {
+        "attempt": 1,
+        "state": "interrupted",
+        "reason": "operator-requested host relocation",
+        "progress_sha256": "57312248d17cc39ea22c1f46924a8ff61337e0de20443acd1a570bbfff807611"
+      },
+      {
+        "attempt": 2,
+        "state": "preflight_failed_missing_api_key",
+        "progress_sha256": "d325871858b811e078eb635a5b82941ef8a7522f16ae976a2264aacc8aba1b10"
+      },
+      {
+        "attempt": 3,
+        "state": "preflight_failed_wrong_api_base",
+        "progress_sha256": "8d8c6b29906227a058f37f7bebc8fa7409c96226b6d8fa89fe81df34563bf203"
+      },
+      {
+        "attempt": 4,
+        "state": "infrastructure_failed_docker_mount",
+        "progress_sha256": "ece5be69ef8534fa1219951694868df2e1ec91e43e02ede9dbd8547fbe73d97c"
+      }
+    ],
+    "fresh_valid_run": true,
+    "prior_attempt_feedback_used_by_algorithm": false
+  },
+  "decision": {
+    "candidate_retention_qualified_for_unseen_evaluation": true,
+    "official_success_improvement_demonstrated": false,
+    "retain_mechanism_without_case_specific_changes": true,
+    "rationale": "Both preregistered terminal-reach gates passed, while Official Pass remained unchanged."
+  },
+  "limitations": [
+    "Only three consumed development pairs were used.",
+    "The shared model is not perfectly deterministic even with seed zero.",
+    "The mechanism expanded terminal evaluation coverage but did not improve Official Pass in this qualification.",
+    "The recovered position followed an operator interruption and excluded three launcher or infrastructure failures before the valid fresh run."
+  ]
+}

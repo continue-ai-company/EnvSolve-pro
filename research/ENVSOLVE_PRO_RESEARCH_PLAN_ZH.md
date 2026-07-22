@@ -72,10 +72,10 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 | P0 | 亲自观察外部 baseline | Repo2Run、Codex/native、raw ReAct 的统一轨迹与错误分类 | 至少 5 个新 Dev case，每种方法均有可审计 run |
 | P1（完成） | 建立公平比较接口 | 开放程序、fresh execution、effect audit、adapter precondition | 6 条已消费轨迹均无表示层拒绝 |
 | P2（完成） | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
-| P3（进行中） | 设计最小三层算法 | certified/admissible 候选状态及消融 | 新机制有反例、测试和预注册预测 |
-| P4 | 小规模成对验证 | 至少 5 个未见 Dev case 的 paired pilot | 出现成功率或 terminal repair 的正向信号 |
-| P5 | 扩大 Dev 验证 | 多模型、多 case、Mac/Spark 一致性 | 效果跨 case 和模型保持，失败可解释 |
-| P6 | 冻结与确认实验 | Canary、Official Test、论文主表 | 代码、prompt、baseline、指标全部冻结 |
+| P3（完成） | 验证候选保留机制 | certified/admissible 状态及已消费配对重放 | terminal reach 为 `2/3` 对 `1/3`，Official Pass 无增益 |
+| P4（进行中） | 量化剩余主要矛盾 | Spark 上 8 条 outcome-blind Dev 轨迹 | 找到唯一主导阻塞层，否则声明未收敛 |
+| P5 | 设计一个最小干预 | 新的 paired Dev 验证 | Official Pass 或预注册机制指标出现正向信号 |
+| P6 | 扩大、冻结与确认 | 多模型 Dev、Canary、Official Test 和论文主表 | 代码、prompt、baseline、指标全部冻结 |
 
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
 多个独立轨迹，或者来自任务定义本身的确定性不变量。
@@ -130,6 +130,16 @@ evaluator 仍然 terminal-only。
 第二个跨仓库模式是 runtime、dependency lock 与 platform compatibility。它被冻结为次级假设；在更小的
 候选保留机制得到资格验证前，P3 不实现这套更大的结构。
 
+### 4.5 P3 资格实验结论
+
+候选保留通过了已消费 case 上的资格门：处理组 `2/3` 进入官方终态，无保留对照为 `1/3`；两组
+Official Pass 都是 `1/3`。唯一一次 retained-candidate release 明确标记为 uncertified，内部 goal 仍为
+blocked，并因 22 个残余 issues 未通过官方评测。因此它只被验证为 terminal censoring 修复，不能写成
+效果提升。
+
+在实现 runtime closure 或其他机制前，P4 从未见 Dev 池盲选 8 个 case，将完整轨迹归类为操作不可行、
+观测缺口、闭包缺口、evaluator gap 或成功。聚合结果冻结前禁止修改算法。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -153,6 +163,6 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-先在已消费 case 上完成 certified/admissible 区分的重放资格验证，并修复无效的外部 baseline adapter，
-但不改变 baseline 求解策略。随后冻结 P3 消融，抽取至少 5 个新的 outcome-blind Dev pair，对比开启与
-关闭候选保留时的终局成功。该最小机制得到或未得到预测信号之前，不增加 runtime closure 机制。
+完成 Spark 上预注册的 8-case 轨迹普查并冻结阻塞层分布。如果出现唯一主导类别，只针对它设计一个最小、
+benchmark-independent 干预，并在新的 paired Dev 样本上验证；如果分布并列，则扩大诊断，不把多个推测
+机制拼在一起。

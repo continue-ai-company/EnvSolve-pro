@@ -116,8 +116,10 @@ boundary; all six consumed external trajectories were representable, and five fi
 replays reached terminal evaluation without representation rejection. None passed
 officially. State parity also overturned one old internal EnvSolve acceptance by exposing
 the evaluator's `build_output/` conflict. P2 then found three repositories where complete,
-safe candidates were censored solely by residual internal constraints. These results
-qualify the measurement interface and motivate candidate retention, but do not support an
-effectiveness ranking. A consumed-case paired replay first qualifies the mechanism; the
-next effectiveness experiment is a preregistered, outcome-blind Dev ablation of this
-single change.
+safe candidates were censored solely by residual internal constraints. In a consumed
+three-pair qualification, retention increased terminal evaluation coverage from `1/3` to
+`2/3`, while Official Pass remained `1/3` in both conditions. This qualifies the mechanism
+as a repair for terminal censoring, not as a success-rate improvement. Before another
+intervention, an outcome-blind eight-case Dev census estimates whether the remaining
+dominant blocker is operation viability, observability, constraint closure, or
+internal-to-official verifier coverage.

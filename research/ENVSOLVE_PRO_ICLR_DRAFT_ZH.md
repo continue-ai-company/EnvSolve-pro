@@ -80,6 +80,8 @@ terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻�
 已完成的 P0-P2 audit 仅用于诊断。Synthetic test 建立了 effect boundary；6 条已消费外部轨迹全部可表示，
 5 次最终重放均在没有 representation rejection 的情况下到达 terminal evaluation，但没有 Official Pass。
 状态对齐还通过暴露 evaluator 的 `build_output/` 冲突，推翻了旧 EnvSolve 的一次内部接受。这些结果完成了
-测量接口资格验证。P2 又发现三个仓库中的完整安全候选仅因残余内部约束而被删失。这支持候选保留机制，
-但不支持 effectiveness ranking。先在已消费 case 上成对验证机制行为，再在新 outcome-blind Dev 上预注册
-并消融这一个变化。
+测量接口资格验证。P2 又发现三个仓库中的完整安全候选仅因残余内部约束而被删失。在 3 对已消费 case 的
+资格实验中，候选保留把 terminal evaluation 覆盖从 `1/3` 提高到 `2/3`，但两组 Official Pass 都是
+`1/3`。因此它只被验证为 terminal censoring 修复，尚未证明成功率提升。下一次算法干预前，先用 8 个
+outcome-blind Dev case 判断剩余主导阻塞来自操作可行性、观测、约束闭包，还是内部 verifier 与官方条件的
+覆盖差异。
