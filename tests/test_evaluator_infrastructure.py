@@ -149,6 +149,103 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
             )
             self.assertTrue(audit_run(artifacts.root).valid)
 
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.docker_image_provenance",
+        return_value={"reference": "test:image"},
+    )
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.git_provenance",
+        return_value={"commit": "test"},
+    )
+    @mock.patch("envsolve_harness.adapters.envbench.subprocess.run")
+    def test_adapter_rejects_zero_issue_result_without_pyright(
+        self,
+        run: mock.Mock,
+        git: mock.Mock,
+        image: mock.Mock,
+    ) -> None:
+        del git, image
+
+        def run_command(
+            command: list[str], *args: object, **kwargs: object
+        ) -> subprocess.CompletedProcess:
+            if not command or command[0] != "uv":
+                return REAL_SUBPROCESS_RUN(command, *args, **kwargs)
+            output_argument = next(
+                item for item in command if item.startswith("operation.dirs.json_results=")
+            )
+            output_dir = Path(output_argument.split("=", 1)[1])
+            write_jsonl(
+                output_dir / "results.jsonl",
+                [
+                    {
+                        "repo_name": "owner/repo",
+                        "commit_sha": "abc",
+                        "exit_code": 0,
+                        "issues_count": 0,
+                        "container_logs": "python: No module named pyright",
+                        "pyright": None,
+                    }
+                ],
+            )
+            return subprocess.CompletedProcess(command, 0, "", "")
+
+        run.side_effect = run_command
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            envbench = workspace / "EnvBench"
+            (envbench / "evaluation/scripts").mkdir(parents=True)
+            (envbench / "env_setup_utils").mkdir(parents=True)
+            for relative in (
+                "evaluation/main.py",
+                "evaluation/scripts/python_build.sh",
+                "env_setup_utils/repo_downloader.py",
+            ):
+                (envbench / relative).write_text("# fixture\n", encoding="utf-8")
+            config = HarnessConfig(
+                workspace_root=workspace,
+                runs_root=workspace / "runs",
+                benchmarks={
+                    "envbench": BenchmarkConfig(
+                        "envbench", "envbench", envbench, {"image": "test:image"}
+                    )
+                },
+            )
+            protocol = ExperimentProtocol(
+                "test",
+                "1",
+                "envbench",
+                "python",
+                (
+                    SuccessCriteria("exit_code", "eq", 0),
+                    SuccessCriteria("issues_count", "eq", 0),
+                ),
+                (),
+            )
+            case = Case("owner/repo@abc", "owner/repo", "abc")
+            run_spec = RunSpec("missing-pyright", "test-method")
+            artifacts = RunArtifacts.create(config.runs_root, run_spec.run_id, case.case_id)
+            initialize_manifest(artifacts, config, case, run_spec, protocol)
+            script = workspace / "bootstrap.sh"
+            script.write_text("python -m pip install -e .\n", encoding="utf-8")
+
+            result = EnvBenchEvaluator(config, protocol).evaluate(
+                case, script, artifacts, run_spec
+            )
+
+            self.assertFalse(result.evaluation_completed)
+            self.assertFalse(result.official_pass)
+            self.assertIsNone(result.evidence[0].passed)
+            self.assertEqual(
+                result.metadata["termination"],
+                {
+                    "kind": "measurement_integrity_unknown",
+                    "scope": "evaluator_diagnostics",
+                    "signature": "missing-pyright-summary",
+                },
+            )
+            self.assertTrue(audit_run(artifacts.root).valid)
+
 
 if __name__ == "__main__":
     unittest.main()

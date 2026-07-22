@@ -223,7 +223,10 @@ class EnvBenchEvaluator:
             if len(records) == 1:
                 raw = records[0]
 
-        summary = raw.get("pyright", {}).get("summary", {})
+        pyright = raw.get("pyright")
+        summary = pyright.get("summary") if isinstance(pyright, dict) else None
+        if not isinstance(summary, dict):
+            summary = {}
         exit_code = raw.get("exit_code")
         issues_count = raw.get("issues_count")
         identity_matches = (
@@ -244,11 +247,31 @@ class EnvBenchEvaluator:
                 "scope": "evaluator_bootstrap",
                 "signature": infrastructure_signature,
             }
+        diagnostic_integrity_valid = not (
+            exit_code == 0
+            and not isinstance(summary.get("errorCount"), int)
+        )
+        if (
+            process_returncode == 0
+            and bool(raw)
+            and identity_matches
+            and infrastructure_signature is None
+            and not diagnostic_integrity_valid
+        ):
+            adapter_error = (
+                "EnvBench returned a successful bootstrap without valid Pyright diagnostics"
+            )
+            termination = {
+                "kind": "measurement_integrity_unknown",
+                "scope": "evaluator_diagnostics",
+                "signature": "missing-pyright-summary",
+            }
         completed = (
             process_returncode == 0
             and bool(raw)
             and identity_matches
             and infrastructure_signature is None
+            and diagnostic_integrity_valid
         )
         raw_metrics = {
             "exit_code": exit_code,
@@ -270,8 +293,8 @@ class EnvBenchEvaluator:
                 "EnvBench official criteria satisfied"
                 if official_pass
                 else (
-                    "EnvBench official evaluation incomplete due to infrastructure"
-                    if infrastructure_signature is not None
+                    "EnvBench official evaluation incomplete"
+                    if not completed
                     else "EnvBench official criteria not satisfied"
                 )
             ),
@@ -294,7 +317,7 @@ class EnvBenchEvaluator:
             raw_result_path=str(result_path.relative_to(artifacts.root)) if result_path.exists() else None,
             metadata={
                 "adapter": "envbench",
-                "adapter_version": "0.6.0",
+                "adapter_version": "0.7.0",
                 "harness_process_exit_code": process_returncode,
                 "identity_matches": identity_matches,
                 "adapter_error": adapter_error,

@@ -83,6 +83,16 @@ def _descriptive_terminal(manifest: dict[str, Any]) -> tuple[str, bool | None]:
     if isinstance(result, dict) and result.get("evaluation_completed") is True:
         passed = result.get("official_pass") is True
         return ("official_pass" if passed else "official_fail", passed)
+    if isinstance(result, dict):
+        result_metadata = result.get("metadata") or {}
+        result_termination = result_metadata.get("termination") or {}
+        result_kind = result_termination.get("kind")
+        if result_kind in {
+            "infrastructure_unknown",
+            "measurement_integrity_unknown",
+            "budget_exhausted",
+        }:
+            return str(result_kind), None
     solver = manifest.get("solver") or {}
     metadata = solver.get("metadata") or {}
     error = str(solver.get("error") or "").lower()

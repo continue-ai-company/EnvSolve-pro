@@ -97,8 +97,56 @@ def _nul_paths(value: str) -> tuple[str, ...]:
     return tuple(sorted(path for path in value.split("\0") if path))
 
 
-def _is_allowed_generated(path: str) -> bool:
+def _is_virtual_environment(root: Path) -> bool:
+    configuration = root / "pyvenv.cfg"
+    activate = root / "bin/activate"
+    python = root / "bin/python"
+    if (
+        not configuration.is_file()
+        or configuration.is_symlink()
+        or not activate.is_file()
+        or activate.is_symlink()
+        or not (python.is_file() or python.is_symlink())
+    ):
+        return False
+    try:
+        fields = {
+            key.strip().lower(): value.strip()
+            for line in configuration.read_text(encoding="utf-8").splitlines()
+            if "=" in line
+            for key, value in [line.split("=", 1)]
+        }
+    except (OSError, UnicodeError):
+        return False
+    return "home" in fields and "include-system-site-packages" in fields
+
+
+def _virtual_environment_roots(
+    repo_path: Path,
+    paths: tuple[str, ...],
+) -> tuple[PurePosixPath, ...]:
+    candidates = {
+        PurePosixPath(path).parent
+        for path in paths
+        if PurePosixPath(path).name == "pyvenv.cfg"
+        and len(PurePosixPath(path).parts) > 1
+    }
+    return tuple(
+        sorted(root for root in candidates if _is_virtual_environment(repo_path / root))
+    )
+
+
+def _inside_root(path: PurePosixPath, root: PurePosixPath) -> bool:
+    return path == root or root in path.parents
+
+
+def _is_allowed_generated(
+    path: str,
+    virtual_environment_roots: tuple[PurePosixPath, ...] = (),
+) -> bool:
     pure = PurePosixPath(path)
+    if any(_inside_root(pure, root) for root in virtual_environment_roots):
+        return True
     if pure.name in ALLOWED_GENERATED_FILES:
         return True
     return any(
@@ -107,8 +155,14 @@ def _is_allowed_generated(path: str) -> bool:
     )
 
 
-def _generated_root(path: str) -> str | None:
+def _generated_root(
+    path: str,
+    virtual_environment_roots: tuple[PurePosixPath, ...] = (),
+) -> str | None:
     pure = PurePosixPath(path)
+    for root in virtual_environment_roots:
+        if _inside_root(pure, root):
+            return str(root) + "/"
     for index, part in enumerate(pure.parts):
         if part in ALLOWED_GENERATED_DIRECTORIES or part.endswith(".egg-info"):
             return "/".join(pure.parts[: index + 1]) + "/"
@@ -178,6 +232,7 @@ def inspect_repository(
         "-z",
     )
     untracked = _nul_paths(untracked_process.stdout + ignored_process.stdout)
+    virtual_environment_roots = _virtual_environment_roots(repo_path, untracked)
     if untracked_process.returncode != 0 or ignored_process.returncode != 0:
         violations.append(
             IntegrityViolation(
@@ -189,14 +244,14 @@ def inspect_repository(
     untracked_violations = {
         path: violation
         for path in untracked
-        if not _is_allowed_generated(path)
+        if not _is_allowed_generated(path, virtual_environment_roots)
         for violation in [_untracked_violation(repo_path, path)]
         if violation is not None
     }
     allowed = tuple(
         sorted(
             {
-                _generated_root(path) or path
+                _generated_root(path, virtual_environment_roots) or path
                 for path in untracked
                 if path not in untracked_violations
             }

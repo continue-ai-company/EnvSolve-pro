@@ -284,6 +284,48 @@ class CoreIoTest(unittest.TestCase):
             self.assertIn("untracked_symlink", kinds)
             self.assertIn("ignored_fake.py", report.disallowed_untracked_paths)
 
+    def test_repository_integrity_recognizes_a_real_venv_with_any_name(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"], cwd=repo, check=True
+            )
+            REAL_SUBPROCESS_RUN(["git", "config", "user.name", "Test"], cwd=repo, check=True)
+            (repo / "README.md").write_text("clean\n")
+            REAL_SUBPROCESS_RUN(["git", "add", "README.md"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            environment = repo / "env"
+            (environment / "bin").mkdir(parents=True)
+            (environment / "bin/activate").write_text("# activation\n")
+            (environment / "bin/python").symlink_to("/usr/bin/python3")
+            (environment / "pyvenv.cfg").write_text(
+                "home = /usr/bin\ninclude-system-site-packages = false\n"
+            )
+            site_packages = environment / "lib/python3/site-packages"
+            site_packages.mkdir(parents=True)
+            (site_packages / "installed_dependency.py").write_text("VALUE = 1\n")
+
+            report = inspect_repository(repo, head)
+            self.assertTrue(report.valid, report.violations)
+            self.assertIn("env/", report.allowed_generated_paths)
+
+            fake = repo / "fake-env"
+            fake.mkdir()
+            (fake / "pyvenv.cfg").write_text("home = /usr/bin\n")
+            (fake / "injected.py").write_text("VALUE = 1\n")
+            rejected = inspect_repository(repo, head)
+            self.assertFalse(rejected.valid)
+            self.assertIn("fake-env/injected.py", rejected.disallowed_untracked_paths)
+
     def test_protocol_computes_official_pass(self) -> None:
         protocol = make_protocol()
         self.assertTrue(protocol.is_official_pass({"exit_code": 0, "issues_count": 0}))

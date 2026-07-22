@@ -160,6 +160,48 @@ class ResultSummarizerTest(unittest.TestCase):
         self.assertEqual(summary["scientific"]["eligible_runs"], 2)
         self.assertEqual(summary["paired_scientific"]["eligible_pairs"], 1)
 
+    @mock.patch(
+        "envsolve_harness.results.assess_scientific_eligibility",
+        return_value=EligibilityReport(eligible=True),
+    )
+    @mock.patch(
+        "envsolve_harness.results.audit_run",
+        return_value=AuditReport(valid=True),
+    )
+    def test_preserves_incomplete_evaluator_termination_kind(
+        self,
+        _audit: mock.Mock,
+        _eligibility: mock.Mock,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schedule, runs = self._fixture(directory)
+            run = runs / safe_name("run-full") / safe_name("owner/repo@abc")
+            manifest = json.loads((run / "manifest.json").read_text(encoding="utf-8"))
+            manifest["result"] = {
+                "evaluation_completed": False,
+                "official_pass": False,
+                "metadata": {
+                    "termination": {
+                        "kind": "measurement_integrity_unknown",
+                        "scope": "evaluator_diagnostics",
+                    }
+                },
+            }
+            write_json(run / "manifest.json", manifest)
+            write_json(run / "evaluation" / "result.json", manifest["result"])
+
+            summary = summarize_schedule(
+                schedule,
+                runs,
+                treatment_method="full",
+                control_method="ablation",
+            )
+
+        full = next(run for run in summary["runs"] if run["method"] == "full")
+        self.assertEqual(full["descriptive_terminal"], "measurement_integrity_unknown")
+        self.assertIsNone(full["official_pass"])
+        self.assertEqual(summary["paired_scientific"]["censored_pairs"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()
