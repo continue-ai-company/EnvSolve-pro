@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-paired-v1",
+  "created_at": "2026-07-22T06:49:04Z",
+  "claim_scope": "consumed-case diagnostic only",
+  "implementation_freeze": "8e79eabbd70c8898ff22a1705e029c76517877ee",
+  "schedule_sha256": "17c1c4c8bda314fe250543518979d18bdc2674fa20f71f40620829c8ccec10fa",
+  "analysis": {
+    "status": "posthoc_diagnostic",
+    "script": "experiments/analyze_causal_frontier_pairs.py",
+    "script_sha256": "3a0a422eee19b71b68615387dd38aea55f41bc21df762557a94cc3fb668271b0",
+    "limitation": "V1 causal actions did not persist the exact model-visible frontier, so all causal frontier timelines are offline reconstructions and fail trace-integrity qualification."
+  },
+  "decision": {
+    "measurement_integrity_ok": false,
+    "preregistered_proceed_rule_satisfied": false,
+    "effect_identifiable": false,
+    "eligible_official_pairs": 0,
+    "disposition": "Do not pool, score, or use V1 as an effectiveness estimate. Retain it only as diagnostic evidence for the frozen V2 repairs."
+  },
+  "terminal_censoring": {
+    "network_infrastructure": 3,
+    "effect_audit_exception": 2,
+    "candidate_control_flow_bypass": 1
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "repository": "langchain-ai/langgraph",
+      "condition": "flat",
+      "candidates": 7,
+      "total_tokens": 82020,
+      "terminal_class": "network_infrastructure",
+      "target_first_observed_after_candidate": 1,
+      "target_closed_by_candidate": 5,
+      "trajectory_sha256": "820ed1f762ad9e2aa69eeaa66b55eeedc14614a1561a7c948454497030049e74"
+    },
+    {
+      "position": 2,
+      "repository": "langchain-ai/langgraph",
+      "condition": "causal-frontier",
+      "candidates": 4,
+      "total_tokens": 42023,
+      "terminal_class": "effect_audit_exception",
+      "target_first_observed_after_candidate": 1,
+      "frontier_trace_integrity_ok": false,
+      "trajectory_sha256": "ad16cf7f7f72f0828a96b86c1d2403b1a6a1faac26c3e9ff8cd35790f5209f4d"
+    },
+    {
+      "position": 3,
+      "repository": "nonebot/nonebot2",
+      "condition": "causal-frontier",
+      "candidates": 5,
+      "total_tokens": 63723,
+      "terminal_class": "network_infrastructure",
+      "target_first_observed_after_candidate": 1,
+      "frontier_trace_integrity_ok": false,
+      "trajectory_sha256": "042a828d12b8189828f17c2f413a1d50098f4672e9f2f5b19aee22554bd671d1"
+    },
+    {
+      "position": 4,
+      "repository": "nonebot/nonebot2",
+      "condition": "flat",
+      "candidates": 1,
+      "total_tokens": 7990,
+      "terminal_class": "network_infrastructure",
+      "target_first_observed_after_candidate": null,
+      "trajectory_sha256": "1500e42c43d5e33d816d0956f6e709aad0cedc9214a26f150b47afb3b8cd2075"
+    },
+    {
+      "position": 5,
+      "repository": "conan-io/conan-package-tools",
+      "condition": "flat",
+      "candidates": 4,
+      "total_tokens": 42341,
+      "terminal_class": "effect_audit_exception",
+      "target_first_observed_after_candidate": 1,
+      "target_recurrence_decisions": 3,
+      "trajectory_sha256": "0fa23a33627db4f0f458bdef1ff57da090b5c309b39b8b7f47cc8cf000d0fa62"
+    },
+    {
+      "position": 6,
+      "repository": "conan-io/conan-package-tools",
+      "condition": "causal-frontier",
+      "candidates": 1,
+      "total_tokens": 5131,
+      "terminal_class": "candidate_control_flow_bypass",
+      "target_first_observed_after_candidate": null,
+      "frontier_trace_integrity_ok": false,
+      "trajectory_sha256": "d9eb20d64855e885dc56e44ec583fb2304eb97f1def9b7d90170b8cfa0c30a04"
+    }
+  ],
+  "mechanism_observations": [
+    {
+      "repository": "langchain-ai/langgraph",
+      "observation": "The flat condition first tried Rust and maturin repairs and did not reach a verified compatible Python runtime until candidate 5.",
+      "treatment_response": "After candidate 1 exposed the PyO3 frontier, causal candidate 2 explicitly attributed the failure to Python 3.13 exceeding the 3.12 maximum and selected Python 3.12.",
+      "allowed_interpretation": "Evidence that the strong model can consume the representation; not evidence of paired success or closure improvement."
+    },
+    {
+      "repository": "nonebot/nonebot2",
+      "observation": "After candidate 1 exposed the same PyO3 frontier in a second repository, causal candidate 2 selected a Python 3.12 conda environment and retained that runtime direction in later candidates.",
+      "allowed_interpretation": "Cross-repository representation-consumption evidence; not an effectiveness estimate because the episode was network-censored."
+    }
+  ],
+  "v2_repairs": [
+    "Retain a runtime root until newer fresh verifier facts prove its resolution.",
+    "Require an unguessable candidate-completion sentinel before accepting fixed postconditions as reached.",
+    "Recognize container interpreter symlinks without following inaccessible host targets.",
+    "Persist the exact frontier shown to every causal action with a canonical digest."
+  ]
+}
