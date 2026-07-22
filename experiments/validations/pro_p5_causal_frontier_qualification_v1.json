@@ -1,0 +1,2042 @@
+{
+  "aggregate": {
+    "case_count": 16,
+    "cases_with_surface_amplification": 4,
+    "causal_root_count": 37,
+    "causally_grouped_surface_constraint_count": 93,
+    "grouped_surface_constraints_per_module_root": 2.5135135135135136,
+    "historical_raw_runtime_compatibility_findings": 7,
+    "maximum_surface_amplification": 25,
+    "module_causal_root_count": 37,
+    "surface_module_obligation_count": 94
+  },
+  "cases": [
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "frontier": {
+        "causal_roots": [
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 2,
+            "evidence_ids": [
+              "counterexample-candidate-0005-0001",
+              "counterexample-candidate-0005-0003"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 2,
+            "root_id": "frontier-039973ef45aaabecc9e7",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0005",
+            "source_paths": [
+              "extension_helpers/tests/test_setup_helpers.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "test": 2
+            },
+            "subject": "helpers_test_package",
+            "surface_constraint_count": 2,
+            "surface_subject_count": 2,
+            "surface_subjects": [
+              "helpers_test_package",
+              "helpers_test_package.compiler_version"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          }
+        ],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": "candidate-0005",
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 1,
+          "causally_grouped_surface_constraint_count": 2,
+          "maximum_surface_amplification": 2,
+          "surface_module_obligation_count": 2,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "astropy/extension-helpers",
+      "revision": "e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "trajectory_sha256": "c4ebf3e5551a3e5902583c1e3745dc3a2e7490dce8e4c582c4f56c105d1c4c84"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420",
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0002",
+        "latest_module_observation_scope": "candidate-0002",
+        "observed_environment_facts": [],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "benthayer/git-gud",
+      "revision": "d00a0405c88f212cf448cad6729a7cfda369f420",
+      "trajectory_sha256": "04fda56adb0cc55aeb6676940520ca38c4c8e62fcbc022eb8b850fd702a28386"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-calliope-project__calliope__4079fbd595d0e25504e977df0b22883507b2492e",
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": null,
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "calliope-project/calliope",
+      "revision": "4079fbd595d0e25504e977df0b22883507b2492e",
+      "trajectory_sha256": "62966604e61995f5ad5e18bb42c4f585c89f208b9c0bd72e7454faf05deed86c"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc",
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0001",
+        "latest_module_observation_scope": "candidate-0001",
+        "observed_environment_facts": [],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "censys/censys-python",
+      "revision": "d5533d17175561528757245784b79c41b0578dfc",
+      "trajectory_sha256": "bca621e5d01f72cd44f68ba024a4f982867e2f80f04620b3442ef35d85dfd842"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-conan-io__conan-package-tools__decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "frontier": {
+        "causal_roots": [
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0065"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-544179f62a556c3b8dd9",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "cpt/packager.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "conans.client.loader_parse",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "conans.client.loader_parse"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 61,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0001",
+              "counterexample-candidate-0004-0003",
+              "counterexample-candidate-0004-0005",
+              "counterexample-candidate-0004-0007",
+              "counterexample-candidate-0004-0009",
+              "counterexample-candidate-0004-0011",
+              "counterexample-candidate-0004-0013",
+              "counterexample-candidate-0004-0015",
+              "counterexample-candidate-0004-0017",
+              "counterexample-candidate-0004-0019",
+              "counterexample-candidate-0004-0021",
+              "counterexample-candidate-0004-0023",
+              "counterexample-candidate-0004-0025",
+              "counterexample-candidate-0004-0027",
+              "counterexample-candidate-0004-0029",
+              "counterexample-candidate-0004-0031",
+              "counterexample-candidate-0004-0033",
+              "counterexample-candidate-0004-0035",
+              "counterexample-candidate-0004-0037",
+              "counterexample-candidate-0004-0039"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 61,
+            "root_id": "frontier-d9eace5beb44b33c2ad7",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "cpt/__init__.py",
+              "cpt/config.py",
+              "cpt/packager.py",
+              "cpt/profiles.py",
+              "cpt/run_in_docker.py",
+              "cpt/runner.py",
+              "cpt/test/integration/base.py",
+              "cpt/test/integration/basic_test.py",
+              "cpt/test/integration/docker_test.py",
+              "cpt/test/integration/profile_test.py",
+              "cpt/test/integration/update_deps_test.py",
+              "cpt/test/integration/update_some_deps_test.py",
+              "cpt/test/test_client/config_install_test.py",
+              "cpt/test/test_client/global_conf_test.py",
+              "cpt/test/test_client/invalid_config_checks_test.py",
+              "cpt/test/test_client/tools.py",
+              "cpt/test/test_client/upload_checks_test.py",
+              "cpt/test/test_client/visual_toolsets_test.py",
+              "cpt/test/unit/auth_test.py",
+              "cpt/test/unit/ci_manager_test.py"
+            ],
+            "source_paths_truncated": true,
+            "source_roles": {
+              "runtime": 11,
+              "test": 50
+            },
+            "subject": "six.moves",
+            "surface_constraint_count": 25,
+            "surface_subject_count": 25,
+            "surface_subjects": [
+              "conans",
+              "conans.cli.cli",
+              "conans.client.api.conan_api",
+              "conans.client.cache.cache",
+              "conans.client.cache.remote_registry",
+              "conans.client.cmd.uploader",
+              "conans.client.command",
+              "conans.client.conan_api",
+              "conans.client.profile_loader",
+              "conans.client.runner",
+              "conans.client.tools",
+              "conans.client.userio",
+              "conans.model.manifest",
+              "conans.model.profile",
+              "conans.paths",
+              "conans.server.conf",
+              "conans.server.crypto.jwt.jwt_credentials_manager",
+              "conans.server.crypto.jwt.jwt_updown_manager",
+              "conans.server.migrate",
+              "conans.server.rest.server"
+            ],
+            "surface_subjects_truncated": true,
+            "trust_level": "fresh_execution"
+          }
+        ],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": "candidate-0004",
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 2,
+          "causally_grouped_surface_constraint_count": 26,
+          "maximum_surface_amplification": 25,
+          "surface_module_obligation_count": 26,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "conan-io/conan-package-tools",
+      "revision": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "trajectory_sha256": "c2f15f65a3cf376a1557a2eeffcc202cad0f72adcd0364130f45fa911bfa40bc"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-spark/envbench-python-jaraco__irc__5282a3d1471d091da24f77adc75018dbc94cc912",
+      "case_id": "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0002",
+        "latest_module_observation_scope": "candidate-0002",
+        "observed_environment_facts": [],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "jaraco/irc",
+      "revision": "5282a3d1471d091da24f77adc75018dbc94cc912",
+      "trajectory_sha256": "215b0b9cf6d809d8fde35c6de0d5ffafa99afa1338fb4b3956d2b98006c190ea"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-langchain-ai__langgraph__070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": null,
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [
+        {
+          "artifact_path": "generation/raw-artifacts/4c/4cd0e3de12a34788a93524fc1dedebc43c71aae8a5a97c174d7e4090dd28efd2.txt",
+          "artifact_sha256": "4cd0e3de12a34788a93524fc1dedebc43c71aae8a5a97c174d7e4090dd28efd2",
+          "candidate_id": "candidate-0001",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        },
+        {
+          "artifact_path": "generation/raw-artifacts/86/8648ae556ee9dcb7707727f878a8c6b5accd294549a0bf1d0ecbcf7a595b5b12.txt",
+          "artifact_sha256": "8648ae556ee9dcb7707727f878a8c6b5accd294549a0bf1d0ecbcf7a595b5b12",
+          "candidate_id": "candidate-0002",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        },
+        {
+          "artifact_path": "generation/raw-artifacts/f7/f72e362001baa64008f041955a34b398281aa5731bb5c66071fa55d38dca6443.txt",
+          "artifact_sha256": "f72e362001baa64008f041955a34b398281aa5731bb5c66071fa55d38dca6443",
+          "candidate_id": "candidate-0003",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        },
+        {
+          "artifact_path": "generation/raw-artifacts/d2/d203f7f8aeb00136728bf19e87bcf09e83e0b020b3b5c2ccad0efc7cdfde1821.txt",
+          "artifact_sha256": "d203f7f8aeb00136728bf19e87bcf09e83e0b020b3b5c2ccad0efc7cdfde1821",
+          "candidate_id": "candidate-0004",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        },
+        {
+          "artifact_path": "generation/raw-artifacts/d2/d263ba9768d369894f1e2eb037abbc3c6f55d008e8b1ab0c948ad23ad67b3d6a.txt",
+          "artifact_sha256": "d263ba9768d369894f1e2eb037abbc3c6f55d008e8b1ab0c948ad23ad67b3d6a",
+          "candidate_id": "candidate-0005",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        }
+      ],
+      "repository": "langchain-ai/langgraph",
+      "revision": "070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "trajectory_sha256": "0535ff02b5c111e6bc2a908dcf860b3c8b9867c6992d7f8639d28646895b731a"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-spark/envbench-python-mirageoscience__geoapps__9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": null,
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "mirageoscience/geoapps",
+      "revision": "9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "trajectory_sha256": "956e6b35f90db75c0d5f1fff5ca61c9795f7c6a02c98f549073c61d3f5524f65"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-nonebot__nonebot2__7b724925badfe7133979c3d4d90a15054cdebabd",
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "frontier": {
+        "causal_roots": [
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0005-0001"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-e6feb4b2cb0f0bbfabe8",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0005",
+            "source_paths": [
+              "nonebot/plugin/load.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "tomli",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "tomli"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          }
+        ],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": "candidate-0005",
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 1,
+          "causally_grouped_surface_constraint_count": 1,
+          "maximum_surface_amplification": 1,
+          "surface_module_obligation_count": 1,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [
+        {
+          "artifact_path": "generation/raw-artifacts/79/7988920b33044af0a58a0e481982585d230e7afb93f40a436245c536573b8f60.txt",
+          "artifact_sha256": "7988920b33044af0a58a0e481982585d230e7afb93f40a436245c536573b8f60",
+          "candidate_id": "candidate-0002",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        },
+        {
+          "artifact_path": "generation/raw-artifacts/51/5199a9e1afbe11d05fe55809a8a255a21a2fbd2a6c53109f9681fe8a29da17ff.txt",
+          "artifact_sha256": "5199a9e1afbe11d05fe55809a8a255a21a2fbd2a6c53109f9681fe8a29da17ff",
+          "candidate_id": "candidate-0003",
+          "channel": "stdout",
+          "finding": {
+            "maximum_supported_version": "3.12",
+            "observed_version": "3.13",
+            "provider": "pyo3",
+            "runtime": "python",
+            "signature": "pyo3-maximum-python"
+          }
+        }
+      ],
+      "repository": "nonebot/nonebot2",
+      "revision": "7b724925badfe7133979c3d4d90a15054cdebabd",
+      "trajectory_sha256": "622c0c7b8a2de39471fc1298ed8871dfa80dc59aa6a9dd275eddae1dd8a9c499"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-spark/envbench-python-r-anime__holo__7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0002",
+        "latest_module_observation_scope": "candidate-0002",
+        "observed_environment_facts": [],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "r-anime/holo",
+      "revision": "7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "trajectory_sha256": "87a9babf0d6b3ffabeaa3c29f58c56bfff4de0e489f64a7242ea23e93c9190af"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-spark/envbench-python-rlberry-py__rlberry__81413717d8526a4890b5af05d1a27c747088b31d",
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": null,
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "rlberry-py/rlberry",
+      "revision": "81413717d8526a4890b5af05d1a27c747088b31d",
+      "trajectory_sha256": "68aec0e30df5b2fb55e36e282ccaa7dc7dfc82d3b1c78926bb01acdc99cb63ef"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-spark/envbench-python-rollbar__pyrollbar__8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": null,
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "rollbar/pyrollbar",
+      "revision": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "trajectory_sha256": "3c6b73e4c1ca62e7c78cda8fd236edf94e6690c2a79f5335ff71612c44be357d"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-sphinx-gallery__sphinx-gallery__0d7823073f9307cfeaad370ad41207354dfe9713",
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "frontier": {
+        "causal_roots": [
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 47,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0253",
+              "counterexample-candidate-0004-0255",
+              "counterexample-candidate-0004-0257",
+              "counterexample-candidate-0004-0259",
+              "counterexample-candidate-0004-0261",
+              "counterexample-candidate-0004-0263",
+              "counterexample-candidate-0004-0265",
+              "counterexample-candidate-0004-0267",
+              "counterexample-candidate-0004-0269",
+              "counterexample-candidate-0004-0271",
+              "counterexample-candidate-0004-0273",
+              "counterexample-candidate-0004-0275",
+              "counterexample-candidate-0004-0277",
+              "counterexample-candidate-0004-0279",
+              "counterexample-candidate-0004-0281",
+              "counterexample-candidate-0004-0283",
+              "counterexample-candidate-0004-0285",
+              "counterexample-candidate-0004-0287",
+              "counterexample-candidate-0004-0289",
+              "counterexample-candidate-0004-0291"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 47,
+            "root_id": "frontier-0e106ab05f602e0e5d07",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/backreferences.py",
+              "sphinx_gallery/block_parser.py",
+              "sphinx_gallery/directives.py",
+              "sphinx_gallery/docs_resolv.py",
+              "sphinx_gallery/gen_gallery.py",
+              "sphinx_gallery/gen_rst.py",
+              "sphinx_gallery/interactive_example.py",
+              "sphinx_gallery/notebook.py",
+              "sphinx_gallery/py_source_parser.py",
+              "sphinx_gallery/scrapers.py",
+              "sphinx_gallery/sorting.py",
+              "sphinx_gallery/tests/conftest.py",
+              "sphinx_gallery/tests/test_backreferences.py",
+              "sphinx_gallery/tests/test_docs_resolv.py",
+              "sphinx_gallery/tests/test_full.py",
+              "sphinx_gallery/tests/test_full_noexec.py",
+              "sphinx_gallery/tests/test_gen_gallery.py",
+              "sphinx_gallery/tests/test_gen_rst.py",
+              "sphinx_gallery/tests/test_interactive_example.py",
+              "sphinx_gallery/tests/test_notebook.py"
+            ],
+            "source_paths_truncated": true,
+            "source_roles": {
+              "runtime": 26,
+              "test": 21
+            },
+            "subject": "sphinx",
+            "surface_constraint_count": 10,
+            "surface_subject_count": 10,
+            "surface_subjects": [
+              "sphinx",
+              "sphinx.application",
+              "sphinx.config",
+              "sphinx.errors",
+              "sphinx.search",
+              "sphinx.util",
+              "sphinx.util.console",
+              "sphinx.util.display",
+              "sphinx.util.docutils",
+              "sphinx.util.logging"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 6,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0239",
+              "counterexample-candidate-0004-0241",
+              "counterexample-candidate-0004-0243",
+              "counterexample-candidate-0004-0245",
+              "counterexample-candidate-0004-0247",
+              "counterexample-candidate-0004-0249"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 6,
+            "root_id": "frontier-1bd0d399484795b63f73",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "pyvista_examples/plot_collisions.py",
+              "pyvista_examples/plot_glyphs.py",
+              "pyvista_examples/plot_lighting.py",
+              "pyvista_examples/plot_ray_trace.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 6
+            },
+            "subject": "pyvista",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "pyvista"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0007"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-26cac3f8618759926695",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/utils.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "PIL",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "PIL"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0021"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-26d391949fecb0d2b215",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/tests/tinybuild/examples/plot_pickle.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "test": 1
+            },
+            "subject": "joblib",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "joblib"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 2,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0205",
+              "counterexample-candidate-0004-0207"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 2,
+            "root_id": "frontier-32390c576dfb348f3769",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/notebook.py",
+              "sphinx_gallery/utils.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 2
+            },
+            "subject": "pypandoc",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "pypandoc"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 2,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0201",
+              "counterexample-candidate-0004-0203"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 2,
+            "root_id": "frontier-41f903b1765edf49ec33",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/block_parser.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 2
+            },
+            "subject": "pygments",
+            "surface_constraint_count": 2,
+            "surface_subject_count": 2,
+            "surface_subjects": [
+              "pygments.lexers",
+              "pygments.token"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0347"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-42963248052a53aa0f52",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "examples/plot_3_capture_repr.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "statsmodels",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "statsmodels.iolib.table"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0251"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-4faa1ad6083d952265f3",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "examples/plot_2_seaborn.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "seaborn",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "seaborn"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0191"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-5fab63314781f447b7fc",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "examples/plot_3_capture_repr.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "pandas",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "pandas"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 4,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0119",
+              "counterexample-candidate-0004-0121",
+              "counterexample-candidate-0004-0123",
+              "counterexample-candidate-0004-0125"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 4,
+            "root_id": "frontier-5fb456ff06a023867e98",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/gen_rst.py",
+              "sphinx_gallery/tests/test_full.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 3,
+              "test": 1
+            },
+            "subject": "memory_profiler",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "memory_profiler"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0023"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-70e902a8a968a9f539bc",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/tests/test_full.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "test": 1
+            },
+            "subject": "lxml",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "lxml.html"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 47,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0025",
+              "counterexample-candidate-0004-0027",
+              "counterexample-candidate-0004-0029",
+              "counterexample-candidate-0004-0031",
+              "counterexample-candidate-0004-0033",
+              "counterexample-candidate-0004-0035",
+              "counterexample-candidate-0004-0037",
+              "counterexample-candidate-0004-0039",
+              "counterexample-candidate-0004-0041",
+              "counterexample-candidate-0004-0043",
+              "counterexample-candidate-0004-0045",
+              "counterexample-candidate-0004-0047",
+              "counterexample-candidate-0004-0049",
+              "counterexample-candidate-0004-0051",
+              "counterexample-candidate-0004-0053",
+              "counterexample-candidate-0004-0055",
+              "counterexample-candidate-0004-0057",
+              "counterexample-candidate-0004-0059",
+              "counterexample-candidate-0004-0061",
+              "counterexample-candidate-0004-0063"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 47,
+            "root_id": "frontier-7806fcf970528b7a935f",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "examples/no_output/plot_raise.py",
+              "examples/plot_0_sin.py",
+              "examples/plot_1_exp.py",
+              "examples/plot_2_seaborn.py",
+              "examples/plot_3_capture_repr.py",
+              "examples/plot_4_choose_thumbnail.py",
+              "examples/plot_4b_provide_thumbnail.py",
+              "examples/plot_5_unicode_everywhere.py",
+              "examples/plot_6_function_identifier.py",
+              "examples/plot_8_animations.py",
+              "sphinx_gallery/scrapers.py",
+              "sphinx_gallery/tests/conftest.py",
+              "sphinx_gallery/tests/test_gen_rst.py",
+              "sphinx_gallery/tests/test_scrapers.py",
+              "sphinx_gallery/tests/tinybuild/examples/future/plot_future_imports.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_animation.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_command_line_args.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_defer_figures.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_matplotlib_alt.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_matplotlib_backend.py"
+            ],
+            "source_paths_truncated": true,
+            "source_roles": {
+              "runtime": 19,
+              "test": 28
+            },
+            "subject": "matplotlib",
+            "surface_constraint_count": 5,
+            "surface_subject_count": 5,
+            "surface_subjects": [
+              "matplotlib",
+              "matplotlib.animation",
+              "matplotlib.colors",
+              "matplotlib.figure",
+              "matplotlib.pyplot"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 4,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0193",
+              "counterexample-candidate-0004-0195",
+              "counterexample-candidate-0004-0197",
+              "counterexample-candidate-0004-0199"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 4,
+            "root_id": "frontier-9070d93883a04b4d60bc",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "doc/conf.py",
+              "plotly_examples/plot_0_plotly.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "documentation": 1,
+              "runtime": 3
+            },
+            "subject": "plotly",
+            "surface_constraint_count": 4,
+            "surface_subject_count": 4,
+            "surface_subjects": [
+              "plotly.express",
+              "plotly.graph_objects",
+              "plotly.io",
+              "plotly.subplots"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 4,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0009",
+              "counterexample-candidate-0004-0011",
+              "counterexample-candidate-0004-0013",
+              "counterexample-candidate-0004-0015"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 4,
+            "root_id": "frontier-a30133ef09063bc3afbc",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/directives.py",
+              "sphinx_gallery/gen_gallery.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 4
+            },
+            "subject": "docutils",
+            "surface_constraint_count": 3,
+            "surface_subject_count": 3,
+            "surface_subjects": [
+              "docutils",
+              "docutils.parsers.rst",
+              "docutils.parsers.rst.directives"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0005"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-c42fe418a92b5c97e5bb",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/utils.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "Image",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "Image"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 32,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0127",
+              "counterexample-candidate-0004-0129",
+              "counterexample-candidate-0004-0131",
+              "counterexample-candidate-0004-0133",
+              "counterexample-candidate-0004-0135",
+              "counterexample-candidate-0004-0137",
+              "counterexample-candidate-0004-0139",
+              "counterexample-candidate-0004-0141",
+              "counterexample-candidate-0004-0143",
+              "counterexample-candidate-0004-0145",
+              "counterexample-candidate-0004-0147",
+              "counterexample-candidate-0004-0149",
+              "counterexample-candidate-0004-0151",
+              "counterexample-candidate-0004-0153",
+              "counterexample-candidate-0004-0155",
+              "counterexample-candidate-0004-0157",
+              "counterexample-candidate-0004-0159",
+              "counterexample-candidate-0004-0161",
+              "counterexample-candidate-0004-0163",
+              "counterexample-candidate-0004-0165"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 32,
+            "root_id": "frontier-eaadd27ae6b4de3cffd9",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "examples/no_output/plot_raise.py",
+              "examples/plot_0_sin.py",
+              "examples/plot_1_exp.py",
+              "examples/plot_2_seaborn.py",
+              "examples/plot_3_capture_repr.py",
+              "examples/plot_4_choose_thumbnail.py",
+              "examples/plot_4b_provide_thumbnail.py",
+              "examples/plot_5_unicode_everywhere.py",
+              "examples/plot_8_animations.py",
+              "plotly_examples/plot_0_plotly.py",
+              "pyvista_examples/plot_collisions.py",
+              "pyvista_examples/plot_glyphs.py",
+              "sphinx_gallery/gen_gallery.py",
+              "sphinx_gallery/recommender.py",
+              "sphinx_gallery/tests/test_full.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_animation.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_command_line_args.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_numpy_matplotlib.py",
+              "sphinx_gallery/tests/tinybuild/examples/plot_svg.py",
+              "sphinx_gallery/tests/tinybuild/examples_README_header/plot_exp.py"
+            ],
+            "source_paths_truncated": true,
+            "source_roles": {
+              "runtime": 18,
+              "test": 14
+            },
+            "subject": "numpy",
+            "surface_constraint_count": 2,
+            "surface_subject_count": 2,
+            "surface_subjects": [
+              "numpy",
+              "numpy.testing"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 15,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0209",
+              "counterexample-candidate-0004-0211",
+              "counterexample-candidate-0004-0213",
+              "counterexample-candidate-0004-0215",
+              "counterexample-candidate-0004-0217",
+              "counterexample-candidate-0004-0219",
+              "counterexample-candidate-0004-0221",
+              "counterexample-candidate-0004-0223",
+              "counterexample-candidate-0004-0225",
+              "counterexample-candidate-0004-0227",
+              "counterexample-candidate-0004-0229",
+              "counterexample-candidate-0004-0231",
+              "counterexample-candidate-0004-0233",
+              "counterexample-candidate-0004-0235",
+              "counterexample-candidate-0004-0237"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 15,
+            "root_id": "frontier-f6af51ebe1b5abec6392",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/tests/conftest.py",
+              "sphinx_gallery/tests/test_backreferences.py",
+              "sphinx_gallery/tests/test_block_parser.py",
+              "sphinx_gallery/tests/test_docs_resolv.py",
+              "sphinx_gallery/tests/test_full.py",
+              "sphinx_gallery/tests/test_full_noexec.py",
+              "sphinx_gallery/tests/test_gen_gallery.py",
+              "sphinx_gallery/tests/test_gen_rst.py",
+              "sphinx_gallery/tests/test_interactive_example.py",
+              "sphinx_gallery/tests/test_load_style.py",
+              "sphinx_gallery/tests/test_notebook.py",
+              "sphinx_gallery/tests/test_py_source_parser.py",
+              "sphinx_gallery/tests/test_recommender.py",
+              "sphinx_gallery/tests/test_scrapers.py",
+              "sphinx_gallery/tests/test_sorting.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "test": 15
+            },
+            "subject": "pytest",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "pytest"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 2,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0017",
+              "counterexample-candidate-0004-0019"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 2,
+            "root_id": "frontier-f9c4ca94b01312efcc98",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "sphinx_gallery/gen_gallery.py",
+              "sphinx_gallery/utils.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 2
+            },
+            "subject": "graphviz",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "graphviz"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          }
+        ],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": "candidate-0004",
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 18,
+          "causally_grouped_surface_constraint_count": 38,
+          "maximum_surface_amplification": 10,
+          "surface_module_obligation_count": 38,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "sphinx-gallery/sphinx-gallery",
+      "revision": "0d7823073f9307cfeaad370ad41207354dfe9713",
+      "trajectory_sha256": "f50f8017bd4f58a43ddb9e1b405ccea07abfa98e97363adecc37c07b978e6844"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-spark/envbench-python-spotify__luigi__3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "frontier": {
+        "causal_roots": [],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": null,
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 0,
+          "causally_grouped_surface_constraint_count": 0,
+          "maximum_surface_amplification": 0,
+          "surface_module_obligation_count": 0,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "spotify/luigi",
+      "revision": "3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "trajectory_sha256": "d3349669e0c330f2c8774ee9ac18fad94bea2edc37dbaf5efd88d74dc3c68758"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-v1-spark/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "frontier": {
+        "causal_roots": [
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0009"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-042e01f5fdc5adfc6bea",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/preprocessing/neighbors.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "hnswlib",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "hnswlib"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0019"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-36813828c4806331fbe6",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/plotting/utils.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "numpy._core._exceptions",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "numpy._core._exceptions"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0017"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-3844dd06577ab2dd1e30",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/settings.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "matplotlib_inline",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "matplotlib_inline.backend_inline"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 10,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0027",
+              "counterexample-candidate-0004-0029",
+              "counterexample-candidate-0004-0031",
+              "counterexample-candidate-0004-0033",
+              "counterexample-candidate-0004-0035",
+              "counterexample-candidate-0004-0037",
+              "counterexample-candidate-0004-0039",
+              "counterexample-candidate-0004-0041",
+              "counterexample-candidate-0004-0043",
+              "counterexample-candidate-0004-0045"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 10,
+            "root_id": "frontier-533e6d1aea389f136bf4",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/tools/_vi_model.py",
+              "scvelo/tools/_vi_module.py",
+              "tests/tools/test_vi_model.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 9,
+              "test": 1
+            },
+            "subject": "scvi",
+            "surface_constraint_count": 9,
+            "surface_subject_count": 9,
+            "surface_subjects": [
+              "scvi.data",
+              "scvi.data._constants",
+              "scvi.data.fields",
+              "scvi.dataloaders",
+              "scvi.model.base",
+              "scvi.module.base",
+              "scvi.nn",
+              "scvi.train",
+              "scvi.utils._docstrings"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0047"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-68e4f724c18f2254e7b4",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/__init__.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "setuptools_scm",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "setuptools_scm"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0003"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-6e16792eade5d5831a5c",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/plotting/utils.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "adjustText",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "adjustText"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0015"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-7350b2f72e69fd32807d",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/core/_parallelize.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "ipywidgets",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "ipywidgets"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 2,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0021",
+              "counterexample-candidate-0004-0023"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 2,
+            "root_id": "frontier-83a7db390c384f6f3e2a",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/tools/velocity_pseudotime.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 2
+            },
+            "subject": "rpy2",
+            "surface_constraint_count": 2,
+            "surface_subject_count": 2,
+            "surface_subjects": [
+              "rpy2",
+              "rpy2.robjects.packages"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 8,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0049",
+              "counterexample-candidate-0004-0051",
+              "counterexample-candidate-0004-0053",
+              "counterexample-candidate-0004-0055",
+              "counterexample-candidate-0004-0057",
+              "counterexample-candidate-0004-0059",
+              "counterexample-candidate-0004-0061",
+              "counterexample-candidate-0004-0063"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 8,
+            "root_id": "frontier-8614223106b9633a587a",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/tools/_vi_model.py",
+              "scvelo/tools/_vi_module.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 8
+            },
+            "subject": "torch",
+            "surface_constraint_count": 3,
+            "surface_subject_count": 3,
+            "surface_subjects": [
+              "torch",
+              "torch.distributions",
+              "torch.nn.functional"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0001"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-97598cdfdd775fac1f27",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/settings.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "IPython",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "IPython"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0007"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-a3c9f7d16089bb4d8619",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/plotting/paga.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "fa2",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "fa2"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 2,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0011",
+              "counterexample-candidate-0004-0013"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 2,
+            "root_id": "frontier-c55fc2259b38fc0cea16",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/tools/paga.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 2
+            },
+            "subject": "igraph",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "igraph"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0065"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-e46bd80fcdc0682b6d07",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/tools/run.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "velocyto",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "velocyto"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          },
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0004-0005"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-f2f56f842a171036e3da",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0004",
+            "source_paths": [
+              "scvelo/read_load.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "biothings_client",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "biothings_client"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          }
+        ],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": "candidate-0004",
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 14,
+          "causally_grouped_surface_constraint_count": 25,
+          "maximum_surface_amplification": 9,
+          "surface_module_obligation_count": 26,
+          "ungrouped_surface_constraint_count": 1,
+          "ungrouped_surface_subjects": [
+            "scanpy.pp"
+          ],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "theislab/scvelo",
+      "revision": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "trajectory_sha256": "d11ace7a694a71e0536d3b6d648cd25ebfacef8e555940bbf28e3cd18d50ecb4"
+    },
+    {
+      "artifact_root": "/private/tmp/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-vacanza__python-holidays__472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "frontier": {
+        "causal_roots": [
+          {
+            "causal_relation": "surface_import_failed_on_runtime_missing_name",
+            "domain": "module",
+            "evidence_count": 1,
+            "evidence_ids": [
+              "counterexample-candidate-0005-0001"
+            ],
+            "hard_constraint": false,
+            "occurrence_count": 1,
+            "root_id": "frontier-592d0ff9fda959117c6c",
+            "root_kind": "runtime_missing_dependency",
+            "scope_id": "candidate-0005",
+            "source_paths": [
+              "scripts/l10n/generate_po_files.py"
+            ],
+            "source_paths_truncated": false,
+            "source_roles": {
+              "runtime": 1
+            },
+            "subject": "lingva",
+            "surface_constraint_count": 1,
+            "surface_subject_count": 1,
+            "surface_subjects": [
+              "lingva.extract"
+            ],
+            "surface_subjects_truncated": false,
+            "trust_level": "fresh_execution"
+          }
+        ],
+        "hard_state_mutated": false,
+        "latest_execution_scope": "candidate-0005",
+        "latest_module_observation_scope": "candidate-0005",
+        "observed_environment_facts": [
+          {
+            "constraint_id": "constraint-runtime-0e500c0b8ce1c1f2",
+            "domain": "runtime",
+            "evidence_ids": [
+              "base-runtime-observation-34139a697ad724396b1a35f8"
+            ],
+            "observed": "3.13.2",
+            "predicate": "version",
+            "scope_id": null,
+            "subject": "python",
+            "trust_levels": [
+              "fresh_environment"
+            ]
+          }
+        ],
+        "raw_evidence_retained": true,
+        "schema_version": "1.0.0",
+        "summary": {
+          "causal_root_count": 1,
+          "causally_grouped_surface_constraint_count": 1,
+          "maximum_surface_amplification": 1,
+          "surface_module_obligation_count": 1,
+          "ungrouped_surface_constraint_count": 0,
+          "ungrouped_surface_subjects": [],
+          "ungrouped_surface_subjects_truncated": false
+        }
+      },
+      "historical_raw_runtime_compatibility_findings": [],
+      "repository": "vacanza/python-holidays",
+      "revision": "472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "trajectory_sha256": "c1f580331082b95c4f37a8f18f1db482e3a05d4a5390fbb3d7725fe0fbdce1a4"
+    }
+  ],
+  "claim_scope": "Consumed trajectory mechanism qualification only.",
+  "created_at": "2026-07-22T05:44:17.668311+00:00",
+  "run_roots": [
+    "/private/tmp/pro-trajectory-census-v1-spark",
+    "/private/tmp/pro-trajectory-census-replication-v1-spark",
+    "/private/tmp/pro-trajectory-census-replication-v1-infra-retry1-spark"
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-qualification-v1"
+}

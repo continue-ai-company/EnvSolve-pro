@@ -18,6 +18,7 @@ from envsolve.constraints import InitialConstraintEvidence
 from envsolve.constraints.models import ConstraintDomain, ConstraintPredicate
 from envsolve.operations import OperationFailureClass, OperationKind
 from envsolve.runtime.docker import DockerEnvironmentHandle
+from envsolve.analysis.runtime_compatibility import parse_runtime_compatibility
 from envsolve.runtime.import_probe import ImportInventory, collect_source_imports
 from envsolve.solver import (
     CommandResult,
@@ -304,6 +305,7 @@ print(
                 \"python_version\": platform.python_version(),
                 \"python_implementation\": platform.python_implementation(),
                 \"platform_name\": platform.system(),
+                \"machine\": platform.machine(),
             },
             \"runtime\": runtime,
             \"static\": static,
@@ -522,6 +524,22 @@ class PythonDeploymentVerifier:
             ),
         )
 
+    @staticmethod
+    def _runtime_compatibility_observations(
+        result: CommandResult,
+    ) -> tuple[ObservationEvidence, ...]:
+        findings = parse_runtime_compatibility(
+            f"{result.stdout}\n{result.stderr}"
+        )
+        return tuple(
+            ObservationEvidence(
+                "runtime-compatibility-observation",
+                finding.to_dict(),
+                1.0,
+            )
+            for finding in findings
+        )
+
     def verify(
         self,
         candidate: DeploymentCandidate,
@@ -730,9 +748,9 @@ class PythonDeploymentVerifier:
                 failed_action,
                 repository_effect_audit=effect_audit,
             ),
-            observations=self._operation_failure_observations(
-                result,
-                failed_action,
+            observations=(
+                *self._operation_failure_observations(result, failed_action),
+                *self._runtime_compatibility_observations(result),
             ),
         )
 
@@ -831,6 +849,7 @@ class PythonDeploymentVerifier:
                 "python_version",
                 "python_implementation",
                 "platform_name",
+                "machine",
             )
             if key in facts_value
         }

@@ -47,6 +47,7 @@ from envsolve_harness.core.protocol import ExperimentProtocol, SuccessCriteria
 from envsolve_harness.runners.envsolve_p6 import (
     METHOD_CANDIDATE_INTERFACES,
     METHOD_CANDIDATE_RETENTION,
+    METHOD_CONSTRAINT_PROFILES,
     METHOD_PROFILES,
     EnvSolveP6Runner,
 )
@@ -139,8 +140,9 @@ class FakeDockerGit:
             return subprocess.CompletedProcess(
                 command,
                 0,
-                'ENVSOLVE_BASE_RUNTIME_V1={"python_implementation": "CPython", '
-                '"python_version": "3.13.2"}\n',
+                'ENVSOLVE_BASE_RUNTIME_V2={"python_implementation": "CPython", '
+                '"python_version": "3.13.2", "sys_platform": "linux", '
+                '"platform_name": "Linux", "machine": "aarch64"}\n',
                 "",
             )
         if command[:2] == ["docker", "create"]:
@@ -425,6 +427,26 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             {"best-admissible", "disabled"},
         )
 
+    def test_causal_method_changes_only_the_constraint_projection(self) -> None:
+        methods = ("envsolve-pro", "envsolve-pro-causal")
+        self.assertEqual(
+            {METHOD_PROFILES[item] for item in methods},
+            {("two-layer", "free-form")},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_INTERFACES[item] for item in methods},
+            {"open-program"},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_RETENTION[item] for item in methods},
+            {"best-admissible"},
+        )
+        self.assertEqual(METHOD_CONSTRAINT_PROFILES["envsolve-pro"], "flat")
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES["envsolve-pro-causal"],
+            "causal-frontier",
+        )
+
     def test_model_policy_malformed_output_is_recoverable_and_auditable(self) -> None:
         policy = StructuredModelDeploymentPolicy(
             RecordingModel("not-json"),
@@ -560,9 +582,21 @@ class EnvSolveRuntimeTest(unittest.TestCase):
 
             self.assertIsInstance(observation, BaseRuntimeObservation)
             self.assertEqual(observation.python_version, "3.13.2")
+            self.assertEqual(observation.machine, "aarch64")
+            self.assertEqual(observation.sys_platform, "linux")
             self.assertEqual(observation.image_digest, "sha256:image")
             evidence = observation.constraint_evidence()
             self.assertEqual(evidence.kind, "runtime-observation")
+            platform_evidence = observation.platform_constraint_evidence()
+            self.assertEqual(len(platform_evidence), 3)
+            self.assertEqual(
+                {item.value["name"]: item.value["value"] for item in platform_evidence},
+                {
+                    "machine": "aarch64",
+                    "platform_name": "Linux",
+                    "sys_platform": "linux",
+                },
+            )
             docker_run = next(command for command in fake.commands if command[:2] == ["docker", "run"])
             self.assertIn("--network", docker_run)
             self.assertIn("none", docker_run)
@@ -1288,10 +1322,19 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             max_feedback_chars=4_096,
             operation_profile="constraint-driven",
         )._state_projection(state)
+        causal = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            common,
+            max_feedback_chars=4_096,
+            operation_profile="free-form",
+            constraint_profile="causal-frontier",
+        )._state_projection(state)
 
         self.assertLessEqual(len(json.dumps(full, sort_keys=True)), 64_000)
         self.assertLessEqual(len(json.dumps(ablation, sort_keys=True)), 64_000)
         self.assertLessEqual(len(json.dumps(minimum_budget, sort_keys=True)), 4_096)
+        self.assertLessEqual(len(json.dumps(causal, sort_keys=True)), 4_096)
+        self.assertIn("constraint_frontier", causal)
         self.assertIn("operation_plan", full)
         self.assertNotIn("operation_plan", ablation)
         self.assertEqual(

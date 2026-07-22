@@ -6,6 +6,7 @@ from typing import Any
 import hashlib
 import json
 
+from envsolve.constraints.frontier import build_causal_constraint_frontier
 from envsolve.operations.planner import ConstraintOperationPlanner
 from envsolve.constraints.models import (
     ConstraintDomain,
@@ -63,7 +64,22 @@ OPERATION_SYSTEM_PROMPT = dedent(
     """
 ).strip()
 
+CAUSAL_FRONTIER_SYSTEM_PROMPT = dedent(
+    """
+    The state contains a derived constraint_frontier. It preserves raw evidence
+    but prioritizes executable root causes. A runtime_missing_dependency root
+    groups surface imports by the actual missing_name that caused them to fail;
+    surface counts measure amplification and are not independent package names.
+    Repair or avoid a grounded root before enumerating its surface symptoms.
+    Runtime compatibility roots and observed platform facts are evidence, not a
+    closed action list. You may use any valid complete deployment program, and
+    should consult the raw candidate and verifier feedback when the frontier is
+    incomplete or ambiguous.
+    """
+).strip()
+
 OPERATION_PROFILES = {"constraint-driven", "free-form"}
+CONSTRAINT_PROFILES = {"flat", "causal-frontier"}
 
 
 def _field(value: Any, name: str, default: Any = None) -> Any:
@@ -93,6 +109,7 @@ class StructuredModelDeploymentPolicy:
     max_feedback_chars: int = 64_000
     candidate_language: str = ""
     operation_profile: str = "constraint-driven"
+    constraint_profile: str = "flat"
     operation_planner: ConstraintOperationPlanner = field(
         default_factory=ConstraintOperationPlanner
     )
@@ -106,6 +123,8 @@ class StructuredModelDeploymentPolicy:
             raise ValueError(
                 "Operation profile must be constraint-driven or free-form"
             )
+        if self.constraint_profile not in CONSTRAINT_PROFILES:
+            raise ValueError("Constraint profile must be flat or causal-frontier")
         self._next_candidate = 1
 
     @staticmethod
@@ -140,10 +159,19 @@ class StructuredModelDeploymentPolicy:
     def _field_limit(self, weight: float) -> int:
         return max(128, int((self.max_feedback_chars - 2_048) * weight))
 
-    def _constraint_view(self, state: EnvironmentState) -> dict[str, Any]:
+    def _constraint_view(
+        self,
+        state: EnvironmentState,
+        *,
+        compact_module_surfaces: bool = False,
+    ) -> dict[str, Any]:
         report = self.operation_planner.constraint_engine.solve_state(state)
         groups: dict[str, list[dict[str, str]]] = {}
+        module_surface_conflicts = 0
         for conflict in report.conflicts:
+            if compact_module_surfaces and conflict.domain == "module":
+                module_surface_conflicts += 1
+                continue
             groups.setdefault(conflict.domain, []).append(
                 {
                     "subject": conflict.subject,
@@ -162,6 +190,7 @@ class StructuredModelDeploymentPolicy:
                 }
                 for domain, conflicts in sorted(groups.items())
             ],
+            "module_surface_conflict_count": module_surface_conflicts,
             "provisional_constraint_count": len(report.provisional_constraints),
         }
 
@@ -281,6 +310,19 @@ class StructuredModelDeploymentPolicy:
         }
 
     def _state_projection(self, state: EnvironmentState) -> dict[str, Any]:
+        causal = self.constraint_profile == "causal-frontier"
+        weights = {
+            "case": 0.03,
+            "repository": 0.17,
+            "candidates": 0.22,
+            "conflicts": 0.08 if causal else 0.20,
+            "module_requirements": 0.04,
+            "frontier": 0.16,
+            "policy_failures": 0.04,
+            "verification": 0.10,
+            "hypotheses": 0.08,
+            "operation": 0.12,
+        }
         actions = sorted(
             state.actions.values(),
             key=lambda item: int(item.get("state_metadata", {}).get("event_sequence", 0)),
@@ -313,22 +355,23 @@ class StructuredModelDeploymentPolicy:
             key=lambda item: int(item.get("state_metadata", {}).get("event_sequence", 0)),
         )[-2:]
         projection = {
-            "case": self._bounded_json_value(state.case, self._field_limit(0.03)),
+            "case": self._bounded_json_value(
+                state.case, self._field_limit(weights["case"])
+            ),
             "repository_profile": self._bounded_json_value(
                 self.repository_profile,
-                self._field_limit(0.17),
+                self._field_limit(weights["repository"]),
             ),
             "prior_candidates": self._bounded_json_value(
                 [self._candidate_view(item) for item in actions],
-                self._field_limit(0.22),
+                self._field_limit(weights["candidates"]),
             ),
             "constraint_conflicts": self._bounded_json_value(
-                self._constraint_view(state),
-                self._field_limit(0.20),
-            ),
-            "active_module_requirements": self._bounded_json_value(
-                sorted(set(active_module_requirements)),
-                self._field_limit(0.04),
+                self._constraint_view(
+                    state,
+                    compact_module_surfaces=causal,
+                ),
+                self._field_limit(weights["conflicts"]),
             ),
             "recent_policy_failures": self._bounded_json_value(
                 [
@@ -341,11 +384,11 @@ class StructuredModelDeploymentPolicy:
                     }
                     for item in recent_policy_failures
                 ],
-                self._field_limit(0.04),
+                self._field_limit(weights["policy_failures"]),
             ),
             "verification_feedback": self._bounded_json_value(
                 [self._verification_view(item) for item in state.verifications[-2:]],
-                self._field_limit(0.10),
+                self._field_limit(weights["verification"]),
             ),
             "active_hypotheses": self._bounded_json_value(
                 [
@@ -364,13 +407,26 @@ class StructuredModelDeploymentPolicy:
                     for item in state.hypotheses.values()
                     if item.get("status") == "active"
                 ],
-                self._field_limit(0.08),
+                self._field_limit(weights["hypotheses"]),
             ),
         }
+        if causal:
+            projection["constraint_frontier"] = self._bounded_json_value(
+                build_causal_constraint_frontier(
+                    state,
+                    self.operation_planner.constraint_engine,
+                ),
+                self._field_limit(weights["frontier"]),
+            )
+        else:
+            projection["active_module_requirements"] = self._bounded_json_value(
+                sorted(set(active_module_requirements)),
+                self._field_limit(weights["module_requirements"]),
+            )
         if self.operation_profile == "constraint-driven":
             projection["operation_plan"] = self._bounded_json_value(
                 self._operation_prompt_view(state),
-                self._field_limit(0.12),
+                self._field_limit(weights["operation"]),
             )
         encoded = json.dumps(projection, ensure_ascii=True, sort_keys=True)
         if len(encoded) > self.max_feedback_chars:
@@ -400,6 +456,8 @@ class StructuredModelDeploymentPolicy:
     def propose(self, state: EnvironmentState) -> DeploymentCandidate:
         projection = self._state_projection(state)
         system_prompt = BASE_SYSTEM_PROMPT
+        if self.constraint_profile == "causal-frontier":
+            system_prompt += "\n\n" + CAUSAL_FRONTIER_SYSTEM_PROMPT
         if self.operation_profile == "constraint-driven":
             system_prompt += "\n\n" + OPERATION_SYSTEM_PROMPT
         if self.candidate_language.strip():
@@ -458,6 +516,7 @@ class StructuredModelDeploymentPolicy:
             metadata={
                 "generator": "structured-model-policy-v1",
                 "operation_profile": self.operation_profile,
+                "constraint_profile": self.constraint_profile,
             },
         )
         self._next_candidate += 1

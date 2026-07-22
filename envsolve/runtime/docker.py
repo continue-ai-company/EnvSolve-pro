@@ -24,17 +24,20 @@ from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 RunCommand = Callable[..., subprocess.CompletedProcess[str]]
-_BASE_RUNTIME_MARKER = "ENVSOLVE_BASE_RUNTIME_V1="
+_BASE_RUNTIME_MARKER = "ENVSOLVE_BASE_RUNTIME_V2="
 
 
 @dataclass(frozen=True)
 class BaseRuntimeObservation:
-    """Fresh, read-only observation of the candidate image's Python runtime."""
+    """Fresh, read-only observation of the candidate image's runtime and platform."""
 
     image: str
     image_digest: str
     python_implementation: str
     python_version: str
+    sys_platform: str
+    platform_name: str
+    machine: str
 
     def __post_init__(self) -> None:
         if not all(
@@ -44,6 +47,9 @@ class BaseRuntimeObservation:
                 self.image_digest,
                 self.python_implementation,
                 self.python_version,
+                self.sys_platform,
+                self.platform_name,
+                self.machine,
             )
         ):
             raise ValueError("Base runtime observation fields cannot be empty")
@@ -55,11 +61,14 @@ class BaseRuntimeObservation:
 
     def to_dict(self) -> dict[str, str]:
         return {
-            "schema": "envsolve-base-runtime-observation-v1",
+            "schema": "envsolve-base-runtime-observation-v2",
             "image": self.image,
             "image_digest": self.image_digest,
             "python_implementation": self.python_implementation,
             "python_version": self.python_version,
+            "sys_platform": self.sys_platform,
+            "platform_name": self.platform_name,
+            "machine": self.machine,
         }
 
     def constraint_evidence(self) -> InitialConstraintEvidence:
@@ -67,6 +76,9 @@ class BaseRuntimeObservation:
             "name": "python",
             "version": self.python_version,
             "implementation": self.python_implementation,
+            "sys_platform": self.sys_platform,
+            "platform_name": self.platform_name,
+            "machine": self.machine,
             "image": self.image,
             "image_digest": self.image_digest,
         }
@@ -86,6 +98,42 @@ class BaseRuntimeObservation:
             source=semantic["source"],
             value=value,
         )
+
+    def platform_constraint_evidence(self) -> tuple[InitialConstraintEvidence, ...]:
+        values = {
+            "sys_platform": self.sys_platform,
+            "platform_name": self.platform_name,
+            "machine": self.machine,
+        }
+        evidence: list[InitialConstraintEvidence] = []
+        for name, value in sorted(values.items()):
+            semantic = {
+                "kind": "platform-observation",
+                "source": f"fresh-base-runtime:{self.image_digest}",
+                "value": {
+                    "name": name,
+                    "value": value,
+                    "image": self.image,
+                    "image_digest": self.image_digest,
+                },
+            }
+            digest = hashlib.sha256(
+                json.dumps(
+                    semantic,
+                    ensure_ascii=True,
+                    separators=(",", ":"),
+                    sort_keys=True,
+                ).encode("utf-8")
+            ).hexdigest()
+            evidence.append(
+                InitialConstraintEvidence(
+                    evidence_id=f"base-platform-observation-{digest[:24]}",
+                    kind=str(semantic["kind"]),
+                    source=str(semantic["source"]),
+                    value=dict(semantic["value"]),
+                )
+            )
+        return tuple(evidence)
 
 
 @dataclass(frozen=True)
@@ -145,10 +193,13 @@ class DockerFreshEnvironmentProvider:
             "Docker image identity",
         )
         probe = (
-            "import json, platform; "
+            "import json, platform, sys; "
             f"print({_BASE_RUNTIME_MARKER!r} + json.dumps({{"
             "'python_implementation': platform.python_implementation(), "
-            "'python_version': platform.python_version()"
+            "'python_version': platform.python_version(), "
+            "'sys_platform': sys.platform, "
+            "'platform_name': platform.system(), "
+            "'machine': platform.machine()"
             "}, sort_keys=True))"
         )
         process = self._run(
@@ -181,6 +232,9 @@ class DockerFreshEnvironmentProvider:
             payload = json.loads(payloads[0])
             implementation = payload["python_implementation"]
             version = payload["python_version"]
+            sys_platform = payload["sys_platform"]
+            platform_name = payload["platform_name"]
+            machine = payload["machine"]
         except (json.JSONDecodeError, KeyError, TypeError) as exc:
             raise RuntimeError("Base runtime observation report is malformed") from exc
         observation = BaseRuntimeObservation(
@@ -188,6 +242,9 @@ class DockerFreshEnvironmentProvider:
             image_digest=image_digest,
             python_implementation=str(implementation),
             python_version=str(version),
+            sys_platform=str(sys_platform),
+            platform_name=str(platform_name),
+            machine=str(machine),
         )
         self.base_image_digest = image_digest
         return observation

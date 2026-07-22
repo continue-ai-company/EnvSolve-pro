@@ -64,6 +64,11 @@ def parse_args() -> argparse.Namespace:
         default="constraint-driven",
     )
     parser.add_argument(
+        "--constraint-profile",
+        choices=("flat", "causal-frontier"),
+        default="flat",
+    )
+    parser.add_argument(
         "--candidate-interface",
         choices=("typed-replay", "open-program"),
         default="typed-replay",
@@ -145,10 +150,18 @@ def main() -> int:
     )
     base_runtime = provider.observe_base_runtime()
     base_runtime_evidence = base_runtime.constraint_evidence()
+    base_platform_evidence = base_runtime.platform_constraint_evidence()
     repository_constraints = collect_repository_constraints(source_repository)
     admitted_evidence = repository_constraints.admissible_evidence(
         base_runtime_evidence
     )
+    if args.constraint_profile == "causal-frontier":
+        admitted_evidence = tuple(
+            sorted(
+                (*admitted_evidence, *base_platform_evidence),
+                key=lambda item: item.evidence_id,
+            )
+        )
     common_limits = {
         "budget_max_candidates": args.max_candidates,
         "budget_max_environments": max_environments,
@@ -214,6 +227,7 @@ def main() -> int:
             profile,
             candidate_language=candidate_validator.prompt_contract,
             operation_profile=args.operation_profile,
+            constraint_profile=args.constraint_profile,
         ),
         environment_provider=provider,
         verifier=PythonDeploymentVerifier(
@@ -249,6 +263,7 @@ def main() -> int:
             "repository": repository_constraints.summary(),
             "base_runtime": base_runtime.to_dict(),
             "conditional_runtime_admission": True,
+            "constraint_profile": args.constraint_profile,
             "workspace_preconditions": [
                 item.to_dict() for item in workspace_preconditions
             ],
