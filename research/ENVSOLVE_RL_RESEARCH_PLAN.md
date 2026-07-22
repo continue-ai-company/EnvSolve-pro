@@ -94,6 +94,12 @@ trust level、platform identity 和 surface-to-root amplification；effect-audit
 必须是不同标签。Reward 以最终成功为词典序第一目标，token、候选数和时间只作为同成功条件下的次级
 信号；不能把当前会删失搜索的 5-candidate 上限学习成“正确停止”。
 
+P5 将这份要求落成可执行 transition view：每个 action 保存操作前后的 causal frontier、各观测通道的
+scope、根因首次出现、复发与闭合，以及完整 raw evidence 的哈希引用。Policy 输入可以使用前沿，但动作
+仍是开放部署程序；因此后续可以比较 raw-history policy、flat-state policy 和 frontier-conditioned policy，
+而不会把收益混同为更小的动作空间。训练标签必须区分“根因被后续同通道观测证明闭合”和“后续候选
+未运行到该探针”；后者是删失，不是正 reward。
+
 ## English Version
 
 ### 1. Core question
@@ -142,3 +148,11 @@ flat module list. Effect-audit false positives, verifier manipulation, and netwo
 censoring require distinct labels. Reward is lexicographic with final success first;
 tokens, candidates, and time are secondary among equally successful outcomes, and a
 binding candidate cap must not be learned as a correct stopping signal.
+
+P5 makes this requirement executable: every action transition stores the causal frontier
+before and after the action, observation-channel scopes, first appearance, recurrence,
+closure, and hashes of the complete raw evidence. The policy may condition on the
+frontier, but still emits an open deployment program, allowing raw-history, flat-state,
+and frontier-conditioned policies to be compared without an action-space confound. A
+root is a positive closure label only when a newer observation from the same channel
+retires it; failure to reach that probe is censoring, not reward.

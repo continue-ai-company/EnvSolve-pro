@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-paired-v2",
+  "created_at": "2026-07-22T06:31:58Z",
+  "purpose": "Repeat the consumed-case mechanism qualification after repairing three measurement semantics falsified by V1 trajectories: persistent root state, mandatory verifier control-flow return, and host-safe virtual-environment auditing.",
+  "claim_scope": "Consumed development-case mechanism qualification only; no held-out, generalization, significance, or leaderboard claim.",
+  "implementation_freeze": "d250549dd29745887fe7fd1db4026b4d37aca384",
+  "v1_status": {
+    "decision": "diagnostic_only",
+    "reason": "V1 exposed infrastructure censoring and measurement-integrity defects, so its preregistered effectiveness gate cannot be evaluated.",
+    "admissible_use": "Use V1 only to motivate the smallest generic measurement repairs; do not pool V1 and V2 outcomes."
+  },
+  "mechanism_qualification": {
+    "source": "The same three already-consumed P4 mechanism cases are reused so no fresh development outcome is consumed while the representation is still changing.",
+    "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
+    "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",
+    "cases": [
+      {
+        "repository": "langchain-ai/langgraph",
+        "target_mechanism": "explicit PyO3/Python compatibility frontier"
+      },
+      {
+        "repository": "nonebot/nonebot2",
+        "target_mechanism": "cross-repository replication of the PyO3/Python compatibility frontier"
+      },
+      {
+        "repository": "conan-io/conan-package-tools",
+        "target_mechanism": "many surface import obligations amplified by one executable missing dependency"
+      }
+    ]
+  },
+  "paired_conditions": {
+    "control": {
+      "method": "envsolve-pro",
+      "constraint_profile": "flat"
+    },
+    "treatment": {
+      "method": "envsolve-pro-causal",
+      "constraint_profile": "causal-frontier"
+    },
+    "held_constant": [
+      "deepseek/deepseek-v4-pro model",
+      "two-layer internal verifier",
+      "free-form operation policy",
+      "open-program candidate interface",
+      "best-admissible candidate retention",
+      "fresh container per candidate",
+      "post-episode-only official evaluator access",
+      "candidate, environment, command, wall-clock, and provider safety limits"
+    ],
+    "treatment_does_not": [
+      "restrict the model to a closed operation vocabulary",
+      "block a candidate because it disagrees with the frontier",
+      "discard raw execution or verifier evidence",
+      "use official evaluator feedback inside the episode"
+    ]
+  },
+  "v2_measurement_contract": {
+    "root_retirement": "A runtime root persists until a newer fresh verifier fact proves the runtime is within the supported frontier; absence of a repeated error is not resolution.",
+    "candidate_completion": "A randomized post-candidate sentinel must be observed before fixed checks can be accepted as reached; missing return is an actionable internal counterexample, not Unknown or success.",
+    "effect_audit": "Container-created interpreter symlinks are identified without following inaccessible host targets, and any remaining audit exception is retained verbatim.",
+    "model_projection": "Every causal action stores the exact bounded frontier shown to the model and a canonical SHA-256 digest.",
+    "hard_state_mutated": false
+  },
+  "execution": {
+    "host": "spark-f21c",
+    "config": "experiments/configs/local_spark_pro_p5.json",
+    "config_sha256": "bf702aca08ef90594ef2373895cf9e6ef1c3f044256704c7ff233c03ebfb8440",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_candidates_per_case": 8,
+    "max_concurrent_cases": 3,
+    "parallelization": "Three independent case lanes run concurrently; the two conditions within each case run sequentially.",
+    "condition_order": "AB for LangGraph, BA for Nonebot2, AB for Conan",
+    "token_policy": "Token count and estimated price are reported outcomes. The configured 100M-token and USD 1000 limits are emergency guards, not intended experimental stopping thresholds.",
+    "official_evaluator_access": "post-episode-only"
+  },
+  "primary_outcomes": [
+    "official evaluator pass for each paired episode",
+    "internal certification for each paired episode",
+    "target causal-root recurrence across successive candidate decision states",
+    "candidate index of target causal-root closure",
+    "whether the eight-candidate cap binds"
+  ],
+  "measurement_integrity_gate": [
+    "all causal decision states contain the exact persisted model projection with a valid digest",
+    "no eligible episode terminates because candidate control flow bypassed fixed postconditions",
+    "no eligible episode terminates because the repository effect audit raised an exception",
+    "all eligible episodes complete terminal official evaluation with matching case identity",
+    "infrastructure-censored attempts are archived and excluded rather than scored as algorithmic outcomes"
+  ],
+  "mechanism_success_rule": "Proceed to a fresh frozen Dev qualification only if the measurement-integrity gate passes, treatment improves target-root closure or Official Pass on at least one pair, and treatment worsens Official Pass on no pair.",
+  "failure_rule": "If the gate fails or the frontier is present but stale, misleading, ignored, or associated with worse outcomes, inspect the trajectories and revise or remove only the smallest replicated mechanism before consuming fresh cases.",
+  "infrastructure_policy": "Archive and exclude attempts that fail because of host, credential, network, provider, repository-acquisition, or container infrastructure. A rerun must use a new run identifier, preserve the censored artifact, and retain the same frozen implementation and condition.",
+  "prediction": "The causal profile will preserve explicit roots until executable disconfirmation, close the target earlier on at least one pair, and avoid the V1 measurement-integrity failures without reducing paired official success."
+}

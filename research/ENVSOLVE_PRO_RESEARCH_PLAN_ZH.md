@@ -74,7 +74,7 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 | P2（完成） | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
 | P3（完成） | 验证候选保留机制 | certified/admissible 状态及已消费配对重放 | terminal reach 为 `2/3` 对 `1/3`，Official Pass 无增益 |
 | P4（完成） | 量化剩余主要矛盾 | Spark 上两组独立的 8-case Dev 普查 | 单层复现失败，接口级信号已冻结 |
-| P5（进行中） | 设计一个最小干预 | 新的 paired Dev 验证 | Official Pass 或预注册机制指标出现正向信号 |
+| P5（进行中） | 验证因果约束前沿 | 已消费机制配对，再到新 Dev 配对 | 前沿被正确消费且不降低 paired Official Pass |
 | P6 | 扩大、冻结与确认 | 多模型 Dev、Canary、Official Test 和论文主表 | 代码、prompt、baseline、指标全部冻结 |
 
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
@@ -151,6 +151,32 @@ blocked，并因 22 个残余 issues 未通过官方评测。因此它只被验�
 P5 先修复测量信任边界，不把它写成算法增益；随后只验证一个最小的因果约束前沿机制：原始证据始终
 可见，只提升有执行依据的根条件，把有 scope 的表面症状连接到根因，同时保持强模型动作空间开放。
 
+### 4.7 P5 因果约束前沿
+
+P5 不增加封闭 planner 或 case-specific rule。它把约束层从平铺义务改成一个只读 derived view：
+
+```text
+带 provenance 的原始观测
+-> 按观测通道更新的当前 scope
+-> 有可执行证据的根条件与 surface-to-root 边
+-> 强模型自由生成下一份完整部署程序
+```
+
+不同观测通道不能被同一个全局时间戳粗暴清空。若新候选在模块探针前失败，上一轮模块根因仍处于
+部分可观测状态；若新的模块探针证明根因消失，旧根因退出当前前沿。前沿不修改 hard constraint，不
+丢弃历史 raw event，也不限制操作空间。
+
+在两组已消费 P4 轨迹上的离线资格分析中，`94` 个表面模块义务中 `93` 个可归入 `37` 个可执行根因；
+最大症状放大为 `25:1`。另外两个不同仓库的原始 artifact 中出现 `7` 次精确 PyO3/Python 兼容性边界，
+但旧的有界状态没有稳定保留它。该结果只证明表示问题跨仓库存在，不证明成功率提升。
+
+V1 实现 `8e79eab` 暴露的是三类测量问题，而不是可用的效果估计：根因会因后续沉默被错误移除，shell
+控制流可绕过后置验证，宿主 effect audit 会跟随只在容器内有效的解释器链接。V1 artifact 只保留为诊断，
+不与后续结果合并。V2 在 `d250549dd29745887fe7fd1db4026b4d37aca384` 冻结最小通用修复，并按照
+`pro_p5_causal_frontier_paired_v2_preregistration.json` 重跑相同已消费配对。模型、verifier 目标、开放
+程序接口、候选保留和 evaluator 边界不变；仍然只比较 flat 与 causal state。只有完整性与机制门槛都
+通过后，才抽取新的 outcome-blind Dev batch。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -174,6 +200,6 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-完成受保护 evaluator 与任意命名虚拟环境的 effect-audit 修复，然后冻结因果约束前沿的机制实验。
-先用 synthetic 与已消费反例做资格验证，再运行 outcome-blind paired Dev。候选数与 token 上限必须足够
-宽松而不构成实际停止条件；公平比较由共享 wall-clock 与容器资源边界定义。
+完成并封存 V1 诊断，运行冻结的 V2 已消费配对，并按每个决策时模型实际看到的状态重建根因出现、复发
+与闭合。若 V2 门槛通过，冻结新的 outcome-blind paired Dev；否则只修改被跨仓库轨迹支持的最小机制。
+Token 与价格继续作为结果报告；候选和 wall-clock 只提供统一、可复现且尽量不绑定的执行边界。

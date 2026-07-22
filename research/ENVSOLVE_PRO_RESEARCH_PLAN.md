@@ -78,7 +78,7 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | P2 (complete) | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
 | P3 (complete) | Qualify candidate retention | Certified/admissible state and paired consumed replay | Terminal reach `2/3` vs `1/3`; no Official Pass gain |
 | P4 (complete) | Quantify the remaining contradiction | Two independent eight-case Dev censuses on Spark | Single-layer replication failed; interface-level signal frozen |
-| P5 (in progress) | Design one minimal intervention | Fresh paired Dev validation | Positive Official Pass or preregistered mechanism signal |
+| P5 (in progress) | Qualify a causal constraint frontier | Consumed mechanism pairs, then fresh Dev pairs | Correct frontier consumption with no paired Official Pass regression |
 | P6 | Broaden, freeze, and confirm | Multi-model Dev, Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
 
 P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A new
@@ -184,6 +184,39 @@ then tests one minimal causal constraint-frontier mechanism that keeps raw evide
 available, promotes only grounded root conditions, attaches scoped symptoms to their
 causes, and leaves the strong model's action space open.
 
+### 4.7 P5 Causal Constraint Frontier
+
+P5 adds neither a closed planner nor case-specific rules. It replaces the flat
+obligation projection with a read-only derived view:
+
+```text
+provenance-linked raw observations
+-> current scope updated per observation channel
+-> executable root conditions and surface-to-root edges
+-> an unrestricted next deployment program from the strong model
+```
+
+Observation channels do not share a destructive global timestamp. If a new candidate
+fails before the module probe, the last observed module root remains partially observed;
+if a newer module probe shows that the root disappeared, it leaves the current frontier.
+The frontier does not mutate hard constraints, discard raw events, or restrict actions.
+
+Offline qualification on the two consumed P4 batches groups `93/94` surface module
+obligations into `37` executable roots, with a maximum `25:1` surface amplification.
+Full raw artifacts also contain seven exact PyO3/Python compatibility observations in
+two repositories that the old bounded state did not retain reliably. This establishes a
+cross-repository representation mechanism, not an effectiveness result.
+
+The V1 implementation at `8e79eab` exposed three measurement failures rather than a
+valid effect estimate: roots were retired by silence, shell control flow could bypass
+postconditions, and host effect auditing could follow container-only interpreter links.
+These artifacts remain diagnostic and are not pooled with later outcomes. V2 freezes the
+smallest generic repairs at `d250549dd29745887fe7fd1db4026b4d37aca384` and repeats the
+same consumed pairing under `pro_p5_causal_frontier_paired_v2_preregistration.json`.
+The model, verifier goal, open-program interface, candidate retention, and evaluator
+boundary remain fixed; only flat versus causal state differs. Fresh outcome-blind Dev
+cases are consumed only after the preregistered integrity and mechanism gate passes.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -203,8 +236,9 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Finish protected-evaluator and virtual-environment effect-audit repairs, then freeze a
-preregistered mechanism test for the causal constraint frontier. Qualify it first on
-synthetic and consumed counterexamples, and only then run an outcome-blind paired Dev
-sample. Candidate and token caps must be generous enough to remain nonbinding; shared
-wall-clock and container resources define the comparison boundary.
+Finish and archive V1 as diagnostic evidence, run the frozen V2 consumed pairing, and
+reconstruct exact model-visible root appearance, recurrence, and closure at each decision.
+If the V2 gate passes, freeze a fresh outcome-blind paired Dev sample. Otherwise revise
+only the smallest replicated mechanism. Tokens and price remain reported outcomes;
+candidate and wall-clock limits provide a shared, reproducible, intentionally generous
+execution boundary.

@@ -110,6 +110,13 @@ P4 的两组独立普查表明，单一 blocking category 的 leader 会随样�
 verifier-integrity incident、基础设施删失率和过早预算停止率；任何自动 patch 都要在独立样本上复现
 机制，而不是只让原类别计数下降。
 
+P5 提供第一个适合外层消费的 derived-state 契约：不可变 raw event 之外，版本化记录
+`latest_execution_scope`、`latest_module_observation_scope`、surface-to-root edge、trust 和 amplification。
+外层应监控三类缺口：可执行失败没有进入任何 root、多个 root 错误合并、已经被同通道新观测反驳的
+root 仍然存活。它可以提出通用 parser 或 scope-transition 修改，但必须保持
+`hard_state_mutated=false`，并在跨仓库反例和新的 shadow batch 上验证，不能学习 Conan 或 PyO3 名称
+本身作为 case rule。
+
 ## English Version
 
 ### 1. Core question
@@ -162,3 +169,12 @@ mechanism clusters and track constraint amplification, repeated-equivalent failu
 verifier-integrity incidents, infrastructure censoring, and premature stopping. A patch
 must reproduce and repair the mechanism on an independent sample, not merely reduce one
 category count.
+
+P5 supplies the first derived-state contract suitable for the outer loop. Alongside
+immutable raw events, each version records execution and observation-channel scopes,
+surface-to-root edges, trust, and amplification. Auto-EnvSolve should detect executable
+failures with no root, incorrect root merges, and roots that survive a contradicting
+same-channel observation. It may propose generic parser or scope-transition changes only
+when `hard_state_mutated=false` remains true and cross-repository counterexamples plus a
+fresh shadow batch pass. Repository or provider names are evidence instances, never
+admissible case rules.

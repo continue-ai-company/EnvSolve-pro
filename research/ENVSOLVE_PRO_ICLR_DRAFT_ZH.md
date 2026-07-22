@@ -8,19 +8,18 @@
 删失。
 
 我们提出 EnvSolve-pro，将部署建模为部分可观测的状态化约束求解。系统由三层组成：观测层保留带来源
-的执行证据；约束层维护可修正的事实、假设、冲突与未解决义务；操作层让强语言模型生成完整部署程序，
-并用可执行反馈更新状态。结构化状态作为模型的外部认知工具，而不是封闭的动作语言：原始证据始终
-可见，只有任务安全边界和执行直接反驳的行为构成 hard guard。
+的执行证据；约束层将表面症状组织为可修正的因果约束前沿；操作层让强语言模型生成完整部署程序，并
+用可执行反馈更新状态。前沿按观测通道维护当前 scope，连接表面失败与有执行依据的根条件，同时保留
+未知与原始证据。它是模型的外部认知工具，而不是封闭动作语言：模型仍可提出 schema 外方案，只有
+任务安全边界和被执行直接反驳的行为构成 hard guard。
 由于内部检查本身也只是部分观测，EnvSolve 区分满足内部目标的 `certified` 候选与已经安全执行、但仍有
 未解决约束的 `admissible` 候选。系统保留最佳 admissible 候选，而不把内部 verifier 当成 terminal oracle。
 
 我们将在 EnvBench 上与 Repo2Run、原生强 Agent、同 backbone ReAct 和冻结的 EnvSolve v1 比较。主指标
-是 Official Pass@1；token、调用、环境数与时间是效率指标。对已消费轨迹的诊断性资格验证发现，封闭
-command parsing 会删失 baseline 的可执行行为，不等价 workspace 会隐藏真实部署冲突。改用开放程序、
-fresh execution、audited effect 和 benchmark 声明的前置条件后，表示层拒绝被消除，底层失败被暴露。
-后续诊断又发现内部反馈过度硬化是跨仓库失败模式。两组独立盲选的 8-case 普查没有复现同一个主导
-失败标签，但都把大多数失败定位在约束闭包与可执行操作的接口。这些研究用于提出方法，不估计效果；
-真正效果仍需在 untouched case 上检验。
+是 Official Pass@1；token、调用、环境数与时间是效率指标。两组独立开发轨迹普查把 `11/16` 个失败
+定位在约束闭包与可执行操作的接口。已消费轨迹上的离线机制分析进一步将 `93/94` 个表面模块义务归入
+`37` 个可执行根因，最大症状放大为 `25:1`。这些结果只用于提出和资格验证方法；成功率结论将在方法
+冻结后由新的 untouched case 给出。
 
 ## 1. 问题
 
@@ -38,9 +37,11 @@ EnvSolve-pro 维护状态 `S_t=(X_t,F_t,H_t,C_t,U_t)`：原始证据、事实、
 **观测层**回答“发生了什么”。它记录仓库声明、环境 identity、完整候选、命令结果、verifier 输出和
 基础设施信号，并保留 Pass、Fail 与 Unknown 的区别。
 
-**约束层**回答“现在知道什么”。确定性证据可形成 hard fact；歧义解释保留为带置信度和 provenance
-的 hypothesis；Unknown 不被硬化。模型可以查看结构化状态及相关原始证据，并质疑 soft belief。
-内部验证用于缩小不确定性，但不定义终局正确性。
+**约束层**回答“现在缺什么、冲突在哪里”。它构造一个可修正的因果前沿：根据 fresh execution 的
+`missing_name`、显式 runtime compatibility 和环境 identity，把多个表面失败连接到同一根条件；每条边
+保留 scope、source role、path 与 trust。不同观测通道独立推进状态，因此“本轮未观测”不等于“已经
+解决”；新的同类观测可以确认或移除旧根因。确定性证据可形成 hard fact，歧义解释保留为 hypothesis，
+Unknown 不被硬化。模型同时看到有界原始证据，并可质疑任何 soft belief。
 
 **操作层**回答“怎样改变环境”。强模型自由生成自包含部署程序。系统只强制环境修改边界、安全边界和
 有直接执行反例的精确禁忌，其余 operation plan 是建议。candidate 是开放程序，不属于封闭 command
@@ -56,8 +57,8 @@ outcome 的区别。
 ## 3. 三项贡献
 
 1. 将真实仓库部署形式化为部分可观测的状态化约束求解，明确区分隐藏环境、在线执行反馈与终局评测。
-2. 提出兼容强模型的三层算法，把 provenance-aware 状态作为可修正的推理支架，同时保留模型发现
-   schema 外解决方案的能力。
+2. 提出兼容强模型的三层算法，用按观测通道更新的因果约束前沿压缩重复症状，同时保留 provenance、
+   Unknown 和 schema 外操作能力。
 3. 建立真实外部 baseline 驱动的受控评测，联合检验最终成功率、强模型下的机制增益、失败恢复与
    success-resource trade-off。
 
@@ -78,8 +79,7 @@ DGX Spark 可并行运行，但每个 paired comparison 记录并控制执行平
 率与 Unknown 比例。Token、请求、候选环境、命令和 wall-clock 只用于效率与 Pareto 分析。所有方法共享
 terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻结前保持 untouched。
 
-诊断实验只验证测量与机制假设，不承担效果结论。开放程序和状态等价前置条件消除了 representation
-censoring；已消费配对实验表明，保留安全但未认证的候选提高了 terminal reach，却没有提高 Official
-Pass。两组独立轨迹普查对 closure 与 operation 谁是最大单类给出了不同结论，但 `11/16` 个 case 都落在
-这两个相邻类别。共同根因是 runtime/platform 前沿缺失、表面义务没有因果 scope，以及错误的信任边界。
-这些证据用于提出带 provenance 的因果约束前沿；只有在方法与评测边界冻结后，才会检验其真实效果。
+诊断实验只验证测量与机制假设，不承担效果结论。开放程序、状态等价前置条件和候选保留先移除了
+representation 与 terminal censoring。P5 随后在三个已消费机制 case 上配对比较 flat state 与 causal
+frontier，测量根因出现、复发和闭合；只有预注册门槛通过后才消耗新的 outcome-blind Dev batch。最终
+确认实验冻结代码、prompt、分析规则和 evaluator 边界，并按 repository identity 隔离开发与测试。

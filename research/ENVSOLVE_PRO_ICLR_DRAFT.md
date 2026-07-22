@@ -12,11 +12,13 @@ distinguish.
 
 We propose EnvSolve-pro, which formulates deployment as partially observable stateful
 constraint solving. Its Observation layer preserves provenance-linked execution evidence;
-its Constraint layer maintains revisable facts, hypotheses, contradictions, and unresolved
-obligations; and its Operation layer lets a strong language model generate complete
-deployment programs whose executions update state. Structured state is an external
-cognitive tool rather than a closed action language: raw evidence remains available, and
-hard guards are limited to task safety and behavior directly contradicted by execution.
+its Constraint layer organizes surface symptoms into a revisable causal constraint
+frontier; and its Operation layer lets a strong language model generate complete
+deployment programs whose executions update state. The frontier advances scope per
+observation channel, links surface failures to executable root conditions, and preserves
+both Unknown and raw evidence. It is an external cognitive tool rather than a closed
+action language: the model may act outside the current schema, while hard guards are
+limited to task safety and behavior directly contradicted by execution.
 Because internal checks are themselves partial observations, EnvSolve distinguishes a
 candidate certified by its internal goal from an admissible candidate that completed safe
 execution but retains unresolved constraints. It preserves the best admissible candidate
@@ -24,16 +26,12 @@ rather than treating the internal verifier as a terminal oracle.
 
 We will compare EnvSolve-pro with Repo2Run, a native strong agent, same-backbone ReAct,
 and frozen EnvSolve v1 on EnvBench. Official Pass@1 is primary; tokens, calls,
-environments, and time are efficiency measures. A diagnostic qualification on consumed
-trajectories found that closed command parsing censored executable baseline behavior and
-non-equivalent workspaces hid deployment conflicts. Replacing that interface with open
-programs, fresh execution, audited effects, and benchmark-declared preconditions removed
-representation rejection while exposing the underlying failures. A subsequent diagnostic
-identified over-hardening of internal feedback as a cross-repository failure mode. Two
-independently selected eight-case censuses did not replicate one dominant blocking label,
-but both located most failures at the interface between constraint closure and viable
-operations. These studies motivate the method but do not estimate effectiveness, which
-remains to be tested on untouched cases.
+environments, and time are efficiency measures. Two independent development censuses
+place `11/16` failures at the interface between constraint closure and viable operations.
+An offline mechanism analysis on consumed trajectories groups `93/94` surface module
+obligations into `37` executable roots, with maximum `25:1` symptom amplification. These
+results motivate and qualify the representation; success claims are reserved for new
+untouched cases after method freeze.
 
 ## 1. Problem
 
@@ -56,11 +54,14 @@ The **Observation layer** records repository declarations, environment identity,
 candidates, command outcomes, verifier results, and infrastructure signals while keeping
 Pass, Fail, and Unknown distinct.
 
-The **Constraint layer** maintains what is currently known. Deterministic evidence may
-form hard facts; ambiguous explanations remain provenance-linked hypotheses; Unknown is
-not hardened. The model can inspect both structured state and relevant raw evidence and
-may challenge soft beliefs. Internal verification narrows uncertainty but does not define
-terminal correctness.
+The **Constraint layer** represents what is currently missing or conflicting as a
+revisable causal frontier. Fresh-execution `missing_name` observations, explicit runtime
+compatibility statements, and environment identity connect many surface failures to a
+shared root while preserving scope, source role, path, and trust. Observation channels
+advance independently, so absence of a new observation is not evidence of resolution;
+a newer observation of the same channel may confirm or retire an old root. Deterministic
+evidence may form hard facts, ambiguous explanations remain hypotheses, and Unknown is
+not hardened. The model also retains bounded raw evidence and may challenge soft beliefs.
 
 The **Operation layer** lets a strong model generate self-contained deployment programs.
 The system enforces only environment-modification and safety boundaries plus exact
@@ -83,9 +84,9 @@ the distinction between solver belief and benchmark outcome.
 1. We formulate real repository deployment as partially observable stateful constraint
    solving, separating hidden environment conditions, online execution feedback, and
    terminal evaluation.
-2. We introduce a strong-model-compatible three-layer algorithm whose provenance-aware
-   state remains revisable and whose model can discover solutions outside the current
-   schema.
+2. We introduce a strong-model-compatible three-layer algorithm whose channel-scoped
+   causal frontier compresses repeated symptoms while preserving provenance, Unknown,
+   and actions outside the current schema.
 3. We establish an external-baseline-driven evaluation of final success, mechanism value
    under stronger models, failure recovery, and success-resource trade-offs.
 
@@ -113,12 +114,10 @@ environments, commands, and wall-clock time support efficiency and Pareto analys
 All methods share a terminal-only Official evaluator boundary. Canary and Official Test
 remain untouched until the method is frozen.
 
-Diagnostic studies establish the measurement and mechanism assumptions without making
-an effectiveness claim. Open programs and state-parity preconditions removed
-representation censoring; a consumed paired test showed that retaining safe uncertified
-candidates improved terminal reach but not Official Pass. Two independent trajectory
-censuses then disagreed on whether closure or operation was the largest single category,
-yet placed `11/16` cases in those two adjacent categories. Their shared causes were
-missing runtime/platform frontiers, flat obligations without causal scope, and incorrect
-trust boundaries. This evidence motivates a provenance-linked causal constraint frontier;
-its effectiveness will be tested only after the method and evaluation boundary are frozen.
+Diagnostic studies establish measurement and mechanism assumptions without making an
+effectiveness claim. Open programs, state-parity preconditions, and candidate retention
+first remove representation and terminal censoring. P5 then pairs flat state with the
+causal frontier on three consumed mechanism cases and measures root appearance,
+recurrence, and closure. Only a preregistered mechanism gate permits consumption of a new
+outcome-blind Dev batch. Final confirmation freezes code, prompts, analysis, and evaluator
+access and separates development and test by repository identity.

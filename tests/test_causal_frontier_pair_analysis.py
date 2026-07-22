@@ -1,4 +1,15 @@
+from pathlib import Path
+import hashlib
+import json
+
 from experiments.analyze_causal_frontier_pairs import aggregate, target_metrics
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def test_target_metrics_requires_later_absence_for_closure() -> None:
@@ -73,3 +84,31 @@ def test_aggregate_applies_preregistered_proceed_rule() -> None:
     assert result["mechanism_improvement_observed"] is True
     assert result["no_paired_official_success_regression"] is True
     assert result["preregistered_proceed_rule_satisfied"] is True
+
+
+def test_v2_schedule_is_bound_to_the_frozen_consumed_pairing() -> None:
+    schedule_path = (
+        ROOT
+        / "experiments/validations/pro_p5_causal_frontier_paired_v2_schedule.json"
+    )
+    schedule = json.loads(schedule_path.read_text(encoding="utf-8"))
+    preregistration = ROOT / schedule["preregistration"]
+    case_file = ROOT / schedule["case_file"]
+
+    assert schedule["implementation_freeze"] == (
+        "d250549dd29745887fe7fd1db4026b4d37aca384"
+    )
+    assert schedule["preregistration_sha256"] == _sha256(preregistration)
+    assert schedule["case_file_sha256"] == _sha256(case_file)
+    assert len(schedule["episodes"]) == 6
+    assert len({item["run_id"] for item in schedule["episodes"]}) == 6
+    assert sorted(item["position"] for item in schedule["episodes"]) == list(
+        range(1, 7)
+    )
+    for pair in range(1, 4):
+        conditions = {
+            item["condition"]
+            for item in schedule["episodes"]
+            if item["pair"] == pair
+        }
+        assert conditions == {"flat", "causal-frontier"}
