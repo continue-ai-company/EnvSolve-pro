@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-trajectory-census-replication-v1",
+  "bound_at": "2026-07-22T04:19:04Z",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "orchestration_commit": "fcf3c69e42529119a6ba65b010923c0d1ca3bd78",
+  "host": {
+    "hostname": "spark-f21c",
+    "architecture": "aarch64",
+    "gpu": "NVIDIA GB10",
+    "docker_server_version": "28.5.1"
+  },
+  "envbench": {
+    "root": "/home/avdpro/EnvSolve/EnvBench",
+    "commit": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "worktree_clean": true
+  },
+  "container_image": {
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "architecture": "arm64",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "repo_digest": "sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+  },
+  "case_file": {
+    "path": "experiments/cases/dev_pro_trajectory_census_replication_v1_8.jsonl",
+    "sha256": "4bd7dc2cfaa2c8904f82733b6d9d2b9c4ebe7aec684b74f1b59d52f7e42d412c"
+  },
+  "config": {
+    "path": "experiments/configs/local_spark_pro_p3.json",
+    "sha256": "18eeb0cc44900cf121251f89ab06cf08e43c3d82f83c4e4e540121cdf80f37c9"
+  },
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "run": {
+    "run_id": "pro-trajectory-census-replication-v1-spark",
+    "runner": "envsolve",
+    "method": "envsolve-pro",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_workers": 6,
+    "credential_source": "ephemeral process environment",
+    "official_evaluator_access": "post-episode-only"
+  }
+}
