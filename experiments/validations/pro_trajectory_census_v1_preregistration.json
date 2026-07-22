@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-trajectory-census-v1",
+  "created_at": "2026-07-22T03:00:00Z",
+  "purpose": "Estimate the dominant blocking layer of the frozen EnvSolve-pro algorithm before designing the next intervention.",
+  "claim_scope": "Consumed development diagnostics only; no held-out effectiveness claim.",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "source_pool": {
+    "path": "experiments/cases/train_untouched_after_pro_p2_dominant_contradiction_v1_112.jsonl",
+    "sha256": "13d7710cf5331161f7fa6e3bf814c86d578b43a5cbc0dddb06cfc717f7ebf491",
+    "expected_cases": 112
+  },
+  "selection": {
+    "sample_size": 8,
+    "salt": "envsolve-pro-trajectory-census-v1-2026-07-22",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_blind": true,
+    "selected_cases_become_consumed": true
+  },
+  "execution": {
+    "host": "spark-f21c",
+    "max_concurrent_cases": 3,
+    "method": "envsolve-pro",
+    "candidate_retention": "best-admissible",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_candidates_per_case": 5,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "case_classification": {
+    "unit": "one completed case trajectory",
+    "categories": [
+      "success",
+      "evaluator_gap",
+      "observability_gap",
+      "closure_gap",
+      "operation_nonviability"
+    ],
+    "decision_order": [
+      "success when the official evaluator passes",
+      "evaluator_gap when an internally certified candidate reaches an official evaluation that fails",
+      "observability_gap when the best complete zero-exit effect-valid candidate retains unknown constraints",
+      "closure_gap when the best complete zero-exit effect-valid candidate has zero unknowns but residual active constraints",
+      "operation_nonviability when no complete zero-exit effect-valid candidate exists"
+    ]
+  },
+  "candidate_statistics": [
+    "proposed_candidates",
+    "execution_exit_code_counts",
+    "execution_timeouts",
+    "effect_audit_failures",
+    "complete_zero_exit_effect_valid_candidates",
+    "unknown_constraint_counts",
+    "residual_active_constraint_counts",
+    "internal_certifications",
+    "terminal_evaluations",
+    "official_passes"
+  ],
+  "primary_analysis": {
+    "statistic": "case count and share in each blocking category",
+    "dominant_contradiction": "the unique category with the largest case count",
+    "tie_policy": "declare the census unresolved",
+    "minimum_completed_cases": 8
+  },
+  "decision_rule": "Freeze the aggregate census before changing the algorithm. Design at most one next intervention against the dominant category; do not add repository-specific rules.",
+  "infrastructure_policy": "Archive and exclude attempts that fail before candidate execution because of host, credential, network, or container infrastructure; reruns retain provenance.",
+  "prediction": "operation_nonviability or closure_gap will account for a strict majority of the eight cases."
+}

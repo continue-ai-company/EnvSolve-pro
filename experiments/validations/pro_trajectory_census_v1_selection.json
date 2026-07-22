@@ -1,0 +1,23 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/pro_trajectory_census_v1_preregistration.json",
+  "preregistration_sha256": "11d017636c0c954be558214847e1f78c0121b92491d34fe5850162d62a89383f",
+  "remaining_path": "experiments/cases/train_untouched_after_pro_trajectory_census_v1_104.jsonl",
+  "remaining_sha256": "2dcce49501dd9b5a4e2d274fd7a5fc8cf4d89b7cf38f4c85de590a6579c21ec5",
+  "salt": "envsolve-pro-trajectory-census-v1-2026-07-22",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+    "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+    "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+    "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+    "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+    "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+    "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+    "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac"
+  ],
+  "selected_path": "experiments/cases/dev_pro_trajectory_census_v1_8.jsonl",
+  "selected_sha256": "bb273c400b37ef9e1a2f2ce0e2b1285498ec3aa5d3733f290d6dd91766b593f1",
+  "source": "experiments/cases/train_untouched_after_pro_p2_dominant_contradiction_v1_112.jsonl",
+  "source_sha256": "13d7710cf5331161f7fa6e3bf814c86d578b43a5cbc0dddb06cfc717f7ebf491"
+}
