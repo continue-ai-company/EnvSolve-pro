@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-paired-v1",
+  "created_at": "2026-07-22T08:00:00Z",
+  "purpose": "Test whether a strong deployment model consumes a stateful causal constraint frontier more effectively than the frozen flat constraint projection.",
+  "claim_scope": "Consumed development-case mechanism qualification only; no held-out, generalization, significance, or leaderboard claim.",
+  "implementation_freeze": "8e79eabbd70c8898ff22a1705e029c76517877ee",
+  "mechanism_qualification": {
+    "source": "Cases were selected post hoc from the frozen P4 trajectory census because they instantiate two replicated failure mechanisms.",
+    "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
+    "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",
+    "cases": [
+      {
+        "repository": "langchain-ai/langgraph",
+        "target_mechanism": "explicit PyO3/Python compatibility frontier"
+      },
+      {
+        "repository": "nonebot/nonebot2",
+        "target_mechanism": "cross-repository replication of the PyO3/Python compatibility frontier"
+      },
+      {
+        "repository": "conan-io/conan-package-tools",
+        "target_mechanism": "many surface import obligations amplified by one executable missing dependency"
+      }
+    ]
+  },
+  "paired_conditions": {
+    "control": {
+      "method": "envsolve-pro",
+      "constraint_profile": "flat"
+    },
+    "treatment": {
+      "method": "envsolve-pro-causal",
+      "constraint_profile": "causal-frontier"
+    },
+    "held_constant": [
+      "deepseek/deepseek-v4-pro model",
+      "two-layer internal verifier",
+      "free-form operation policy",
+      "open-program candidate interface",
+      "best-admissible candidate retention",
+      "fresh container per candidate",
+      "post-episode-only official evaluator access",
+      "candidate, environment, command, wall-clock, and provider safety limits"
+    ],
+    "treatment_does_not": [
+      "restrict the model to a closed operation vocabulary",
+      "block a candidate because it disagrees with the frontier",
+      "discard raw execution or verifier evidence",
+      "use official evaluator feedback inside the episode"
+    ]
+  },
+  "execution": {
+    "host": "spark-f21c",
+    "config": "experiments/configs/local_spark_pro_p5.json",
+    "config_sha256": "bf702aca08ef90594ef2373895cf9e6ef1c3f044256704c7ff233c03ebfb8440",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_candidates_per_case": 8,
+    "max_concurrent_cases": 3,
+    "parallelization": "Three independent case lanes run concurrently; the two conditions within each case run sequentially.",
+    "condition_order": "AB for LangGraph, BA for Nonebot2, AB for Conan",
+    "token_policy": "Token count and estimated price are reported outcomes. The configured 100M-token and USD 1000 limits are emergency guards, not intended experimental stopping thresholds.",
+    "official_evaluator_access": "post-episode-only"
+  },
+  "primary_outcomes": [
+    "official evaluator pass for each paired episode",
+    "internal certification for each paired episode",
+    "target causal-root recurrence across successive candidate decision states",
+    "candidate index of target causal-root closure",
+    "whether the eight-candidate cap binds"
+  ],
+  "secondary_outcomes": [
+    "candidate count",
+    "wall-clock duration",
+    "input, output, cache-read, and total tokens",
+    "estimated price under the frozen accounting snapshot",
+    "terminal failure category"
+  ],
+  "mechanism_success_rule": "Proceed to a fresh frozen Dev qualification only if the treatment improves target-root closure or official success on at least one pair, worsens official success on no pair, and introduces no new measurement-integrity or candidate-interface failure.",
+  "failure_rule": "If the frontier is present but ignored, stale, misleading, or associated with worse paired outcomes, inspect the trajectories and revise or remove the smallest responsible mechanism before consuming fresh cases.",
+  "infrastructure_policy": "Archive and exclude attempts that fail before candidate execution because of host, credential, network, provider, repository-acquisition, or container infrastructure. Reruns retain provenance and do not replace algorithmic failures.",
+  "prediction": "The causal profile will close the explicit runtime frontier earlier on at least one of the two PyO3 cases and will reduce repeated surface-symptom handling on Conan without reducing paired official success."
+}
