@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-trajectory-census-replication-v1",
+  "retry_id": "infra-retry1",
+  "bound_at": "2026-07-22T05:00:00Z",
+  "reason": "Two source attempts were censored by candidate dependency-acquisition read timeouts before scientific classification.",
+  "retry_policy": "Fresh full-case rerun allowed by the preregistered infrastructure policy; algorithm, model, seed, config, protocol, and case identity remain unchanged.",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "orchestration_commit": "7afc5a55e6b609e8367b50f67afb794fcf485574",
+  "source_run_id": "pro-trajectory-census-replication-v1-spark",
+  "source_censoring": [
+    {
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "signature": "read-timeout"
+    },
+    {
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "signature": "read-timeout"
+    }
+  ],
+  "case_file": {
+    "path": "experiments/cases/dev_pro_trajectory_census_replication_v1_infra_retry1_2.jsonl",
+    "sha256": "a0c361fa187cd52dc492c03329ccd9c9720b4003d7e288b1d28e6f719b32d5af"
+  },
+  "config": {
+    "path": "experiments/configs/local_spark_pro_p3.json",
+    "sha256": "18eeb0cc44900cf121251f89ab06cf08e43c3d82f83c4e4e540121cdf80f37c9"
+  },
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "run": {
+    "run_id": "pro-trajectory-census-replication-v1-infra-retry1-spark",
+    "runner": "envsolve",
+    "method": "envsolve-pro",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_workers": 2,
+    "credential_source": "ephemeral process environment",
+    "official_evaluator_access": "post-episode-only"
+  }
+}

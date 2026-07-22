@@ -16,6 +16,7 @@ def candidate(
     unknown: int = 0,
     unresolved: int = 0,
     satisfied: int = 1,
+    infrastructure_signature: str | None = None,
 ) -> dict[str, object]:
     return {
         "candidate_id": f"candidate-{index:04d}",
@@ -23,6 +24,10 @@ def candidate(
         "bootstrap_exit_code": exit_code,
         "completed": completed,
         "effect_valid": effect_valid,
+        "infrastructure_error": (
+            "dependency_acquisition_failure" if infrastructure_signature else None
+        ),
+        "infrastructure_signature": infrastructure_signature,
         "reported_passed": unresolved == 0 and unknown == 0 and exit_code == 0,
         "admissible": exit_code == 0 and completed and effect_valid and unknown == 0,
         "satisfied_constraints": satisfied,
@@ -65,6 +70,24 @@ def test_classification_follows_preregistered_layer_order() -> None:
     )[0] == "operation_nonviability"
 
 
+def test_infrastructure_failure_is_censored_before_failure_classification() -> None:
+    category, reason = classify_case(
+        generation={"error": "Candidate execution was blocked by infrastructure failure"},
+        evaluation=None,
+        candidates=[
+            candidate(
+                1,
+                exit_code=2,
+                completed=False,
+                effect_valid=False,
+                infrastructure_signature="read-timeout",
+            )
+        ],
+    )
+    assert category is None
+    assert "read-timeout" in reason
+
+
 def test_best_candidate_prefers_observed_closure_then_residual_count() -> None:
     best = best_complete_candidate(
         [
@@ -83,6 +106,7 @@ def test_aggregate_requires_complete_unique_leader() -> None:
         {
             "scientifically_complete": True,
             "category": "closure_gap",
+            "infrastructure_censored": False,
             "candidate_statistics": {
                 "verified_candidates": 2,
                 "execution_timeouts": 0,
@@ -94,6 +118,7 @@ def test_aggregate_requires_complete_unique_leader() -> None:
         {
             "scientifically_complete": True,
             "category": "closure_gap",
+            "infrastructure_censored": False,
             "candidate_statistics": {
                 "verified_candidates": 1,
                 "execution_timeouts": 0,
@@ -105,6 +130,7 @@ def test_aggregate_requires_complete_unique_leader() -> None:
         {
             "scientifically_complete": True,
             "category": "operation_nonviability",
+            "infrastructure_censored": False,
             "candidate_statistics": {
                 "verified_candidates": 3,
                 "execution_timeouts": 1,

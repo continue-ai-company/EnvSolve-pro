@@ -34,6 +34,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--case-file", type=Path, required=True)
     parser.add_argument("--run-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--study-id", required=True)
     return parser.parse_args()
 
 
@@ -86,6 +87,10 @@ def candidate_verifications(events: Iterable[dict[str, Any]]) -> list[dict[str, 
                 "bootstrap_exit_code": details.get("bootstrap_exit_code"),
                 "completed": verifier_details.get("completed") is True,
                 "effect_valid": effect_audit.get("valid") is True,
+                "infrastructure_error": verifier_details.get("infrastructure_error"),
+                "infrastructure_signature": verifier_details.get(
+                    "infrastructure_signature"
+                ),
                 "reported_passed": details.get("reported_passed") is True,
                 "admissible": assessment.get("admissible") is True,
                 "satisfied_constraints": int(
@@ -134,6 +139,15 @@ def classify_case(
     if evaluation is not None and evaluation.get("official_pass") is True:
         return "success", "official evaluator passed"
 
+    infrastructure_signatures = {
+        candidate["infrastructure_signature"]
+        for candidate in candidates
+        if candidate.get("infrastructure_signature")
+    }
+    if infrastructure_signatures:
+        signatures = ", ".join(sorted(infrastructure_signatures))
+        return None, f"candidate execution censored by infrastructure: {signatures}"
+
     episode = (
         generation.get("metadata", {}).get("episode", {})
         if generation is not None
@@ -180,6 +194,13 @@ def analyze_case(case_id: str, run_root: Path) -> dict[str, Any]:
         str(candidate["bootstrap_exit_code"]) for candidate in candidates
     )
     best = best_complete_candidate(candidates)
+    infrastructure_signatures = sorted(
+        {
+            str(candidate["infrastructure_signature"])
+            for candidate in candidates
+            if candidate.get("infrastructure_signature")
+        }
+    )
     episode = (
         generation.get("metadata", {}).get("episode", {})
         if generation is not None
@@ -191,6 +212,8 @@ def analyze_case(case_id: str, run_root: Path) -> dict[str, Any]:
         "scientifically_complete": category is not None,
         "category": category,
         "classification_reason": reason,
+        "infrastructure_censored": bool(infrastructure_signatures),
+        "infrastructure_signatures": infrastructure_signatures,
         "generation_finished": generation is not None,
         "evaluation_finished": evaluation is not None,
         "official_pass": evaluation.get("official_pass") if evaluation else None,
@@ -249,6 +272,9 @@ def aggregate(cases: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "expected_cases": len(cases),
         "scientifically_complete_cases": denominator,
+        "infrastructure_censored_cases": sum(
+            case.get("infrastructure_censored") is True for case in cases
+        ),
         "category_counts": category_counts,
         "category_shares": shares,
         "dominant_contradiction": dominant,
@@ -278,7 +304,7 @@ def main() -> int:
     per_case = [analyze_case(case_id, args.run_root.resolve()) for case_id in case_ids]
     payload = {
         "schema_version": "1.0.0",
-        "study_id": "envsolve-pro-trajectory-census-v1",
+        "study_id": args.study_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "case_file": str(args.case_file.resolve()),
         "run_root": str(args.run_root.resolve()),
