@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-trajectory-census-replication-v1",
+  "created_at": "2026-07-22T04:15:00Z",
+  "purpose": "Measure whether the blocking-layer distribution replicates in an independently selected development sample while increasing Spark utilization.",
+  "claim_scope": "Consumed development diagnostics only; analyzed separately from the first census before any pooled analysis.",
+  "implementation_freeze": "85e942aed66738677aaa9b374908902826178561",
+  "source_pool": {
+    "path": "experiments/cases/train_untouched_after_pro_trajectory_census_v1_104.jsonl",
+    "sha256": "2dcce49501dd9b5a4e2d274fd7a5fc8cf4d89b7cf38f4c85de590a6579c21ec5",
+    "expected_cases": 104
+  },
+  "selection": {
+    "sample_size": 8,
+    "salt": "envsolve-pro-trajectory-census-replication-v1-2026-07-22",
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "metadata_blind": true,
+    "selected_cases_become_consumed": true
+  },
+  "execution": {
+    "host": "spark-f21c",
+    "max_concurrent_cases": 6,
+    "method": "envsolve-pro",
+    "candidate_retention": "best-admissible",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 0,
+    "max_candidates_per_case": 5,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "classification_contract": "experiments/validations/pro_trajectory_census_v1_preregistration.json",
+  "primary_analysis": {
+    "statistic": "case count and share in each preregistered blocking category",
+    "replication_success": "the first census dominant category, if resolved, is also the unique replication leader",
+    "tie_policy": "declare replication unresolved",
+    "minimum_completed_cases": 8
+  },
+  "pooling_policy": "Report the two eight-case samples separately first. A pooled sixteen-case distribution is secondary and cannot replace a failed replication.",
+  "decision_rule": "No algorithm change is allowed until both batches are frozen. If the distributions disagree, expand diagnosis rather than combining multiple interventions.",
+  "infrastructure_policy": "Archive and exclude pre-candidate host, credential, network, or container failures; provenance-preserving fresh reruns are allowed.",
+  "directional_prediction": null
+}

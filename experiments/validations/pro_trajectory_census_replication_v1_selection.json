@@ -1,0 +1,23 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + case_id)",
+  "preregistration": "experiments/validations/pro_trajectory_census_replication_v1_preregistration.json",
+  "preregistration_sha256": "4e30f18ac85a3dd9fe7318969f366fd2ffd221c50dd2ad2f8a847f234234295e",
+  "remaining_path": "experiments/cases/train_untouched_after_pro_trajectory_census_replication_v1_96.jsonl",
+  "remaining_sha256": "8c00f9012821eb67b1035807fef2cb2274d580da954c55f258f72eb7642d8240",
+  "salt": "envsolve-pro-trajectory-census-replication-v1-2026-07-22",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+    "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+    "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+    "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+    "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+    "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+    "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+    "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912"
+  ],
+  "selected_path": "experiments/cases/dev_pro_trajectory_census_replication_v1_8.jsonl",
+  "selected_sha256": "4bd7dc2cfaa2c8904f82733b6d9d2b9c4ebe7aec684b74f1b59d52f7e42d412c",
+  "source": "experiments/cases/train_untouched_after_pro_trajectory_census_v1_104.jsonl",
+  "source_sha256": "2dcce49501dd9b5a4e2d274fd7a5fc8cf4d89b7cf38f4c85de590a6579c21ec5"
+}
