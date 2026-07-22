@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 
 from envsolve.constraints import (
@@ -133,7 +134,7 @@ def test_newer_resolved_module_observation_retires_older_missing_root() -> None:
     assert frontier["summary"]["causally_grouped_surface_constraint_count"] == 0
 
 
-def test_extracts_only_exact_executable_runtime_compatibility_frontier() -> None:
+def test_runtime_frontier_persists_until_fresh_verifier_proves_resolution() -> None:
     state = EnvironmentState(
         "case",
         case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
@@ -174,7 +175,28 @@ def test_extracts_only_exact_executable_runtime_compatibility_frontier() -> None
 
     roots = build_causal_constraint_frontier(state)["causal_roots"]
 
-    assert roots == []
+    assert len(roots) == 1
+    assert roots[0]["root_kind"] == "runtime_compatibility_frontier"
+    assert roots[0]["observed_version"] == "3.13"
+    assert roots[0]["maximum_supported_version"] == "3.12"
+    assert roots[0]["trust_levels"] == ["fresh_execution"]
+
+    state.verifications.append(
+        {
+            "verification_id": "verification-candidate-0002",
+            "details": {
+                "candidate_id": "candidate-0002",
+                "verifier_details": {
+                    "report_details": {
+                        "environment_facts": {"python_version": "3.12.13"}
+                    }
+                },
+            },
+            "state_metadata": {"event_sequence": 30},
+        }
+    )
+
+    assert build_causal_constraint_frontier(state)["causal_roots"] == []
 
 
 def test_runtime_frontier_merges_typed_and_raw_evidence_for_latest_candidate() -> None:
@@ -227,6 +249,18 @@ def test_runtime_frontier_merges_typed_and_raw_evidence_for_latest_candidate() -
     assert root["evidence_ids"] == ["raw", "typed"]
     assert root["evidence_count"] == 2
     assert root["trust_levels"] == ["fresh_execution"]
+
+    state.evidence["typed-later"] = {
+        **state.evidence["typed"],
+        "evidence_id": "typed-later",
+        "candidate_id": "candidate-0003",
+        "state_metadata": {"event_sequence": 30},
+    }
+    later_root = build_causal_constraint_frontier(state)["causal_roots"][0]
+
+    assert later_root["root_id"] == root["root_id"]
+    assert later_root["scope_id"] == "candidate-0003"
+    assert later_root["observed_scopes"] == ["candidate-0002", "candidate-0003"]
 
 
 def test_verifier_emits_typed_runtime_compatibility_observation() -> None:
@@ -284,3 +318,43 @@ def test_causal_policy_replaces_flat_surface_list_with_frontier() -> None:
     } == {
         key: flat_projection[key] for key in shared_keys
     }
+
+
+class _CandidateModel:
+    def invoke(self, messages):
+        return type(
+            "Response",
+            (),
+            {
+                "content": json.dumps(
+                    {
+                        "script": "python -m pip install -e .",
+                        "rationale": "install the project",
+                    }
+                )
+            },
+        )()
+
+
+def test_causal_candidate_persists_the_exact_frontier_projection() -> None:
+    state = _state_with_amplified_imports()
+    policy = StructuredModelDeploymentPolicy(
+        _CandidateModel(),
+        {"files": []},
+        operation_profile="free-form",
+        constraint_profile="causal-frontier",
+    )
+
+    candidate = policy.propose(state)
+
+    snapshot = candidate.metadata["constraint_frontier_snapshot"]
+    encoded = json.dumps(
+        snapshot,
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    assert snapshot["schema_version"] == "1.1.0"
+    assert candidate.metadata["constraint_frontier_sha256"] == hashlib.sha256(
+        encoded.encode("utf-8")
+    ).hexdigest()

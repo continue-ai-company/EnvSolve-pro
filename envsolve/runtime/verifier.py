@@ -9,6 +9,7 @@ import shlex
 import subprocess
 import time
 from typing import Any, Callable, Protocol
+import uuid
 
 from packaging.specifiers import SpecifierSet
 from packaging.utils import canonicalize_name
@@ -63,6 +64,7 @@ _FAILED_ACTION_MARKER = re.compile(
     r"^ENVSOLVE_FAILED_ACTION_V1=(?P<index>[0-9]+|internal):(?P<exit_code>[0-9]+)$",
     re.MULTILINE,
 )
+_CANDIDATE_COMPLETION_MARKER = "ENVSOLVE_CANDIDATE_COMPLETED_V1="
 _NETWORK_FAILURES = tuple(
     (name, re.compile(pattern, re.IGNORECASE))
     for name, pattern in (
@@ -392,7 +394,9 @@ class PythonDeploymentVerifier:
 
     @classmethod
     def _instrument_candidate(
-        cls, script: str
+        cls,
+        script: str,
+        completion_marker: str,
     ) -> tuple[str, tuple[str, ...]]:
         commands = cls._candidate_commands(script)
         lines = [
@@ -402,6 +406,7 @@ class PythonDeploymentVerifier:
         ]
         for index, command in enumerate(commands):
             lines.extend((f"ENVSOLVE_ACTION_INDEX={index}", command))
+        lines.append(f"printf '%s\\n' {shlex.quote(completion_marker)}")
         lines.append("ENVSOLVE_ACTION_INDEX=internal")
         return "\n".join(lines), commands
 
@@ -417,6 +422,7 @@ class PythonDeploymentVerifier:
     def _instrument_open_candidate(
         cls,
         script: str,
+        completion_marker: str,
     ) -> tuple[str, tuple[str, ...]]:
         # Treat the complete program as one action so instrumentation cannot split
         # multiline shell syntax. A missing postcondition marker cannot be accepted.
@@ -426,6 +432,7 @@ class PythonDeploymentVerifier:
             '"${ENVSOLVE_ACTION_INDEX:-internal}" "$rc" >&2; exit "$rc"\' ERR',
             "ENVSOLVE_ACTION_INDEX=0",
             script.rstrip(),
+            f"printf '%s\\n' {shlex.quote(completion_marker)}",
             "ENVSOLVE_ACTION_INDEX=internal",
         ]
         return "\n".join(lines), (script.rstrip(),)
@@ -559,10 +566,11 @@ class PythonDeploymentVerifier:
                 json.dumps(sorted({item.name for item in self.package_requirements}))
             ),
         )
+        completion_marker = f"{_CANDIDATE_COMPLETION_MARKER}{uuid.uuid4().hex}"
         instrumented_candidate, candidate_commands = (
-            self._instrument_open_candidate(candidate.script)
+            self._instrument_open_candidate(candidate.script, completion_marker)
             if self._is_open_candidate(candidate)
-            else self._instrument_candidate(candidate.script)
+            else self._instrument_candidate(candidate.script, completion_marker)
         )
         command = "\n".join([instrumented_candidate, *checks, probe])
         started = time.monotonic()
@@ -606,6 +614,7 @@ class PythonDeploymentVerifier:
                 audit_report = self.effect_auditor(handle.worktree)
                 effect_audit = audit_report.to_dict()
             except Exception as exc:
+                effect_audit_error = f"{type(exc).__name__}: {exc}"
                 return ExecutableVerification(
                     verifier="envsolve-python-deployment-verifier",
                     check_profile=self.check_profile,
@@ -617,11 +626,11 @@ class PythonDeploymentVerifier:
                         HypothesisEvidence(
                             hypothesis_id=f"hypothesis-{candidate.candidate_id}-effect-audit",
                             statement="The isolated candidate effect audit was unavailable",
-                            value={"error": f"{type(exc).__name__}: {exc}"},
+                            value={"error": effect_audit_error},
                             confidence=1.0,
                         ),
                     ),
-                    details={"checks": checks, "effect_audit_error": type(exc).__name__},
+                    details={"checks": checks, "effect_audit_error": effect_audit_error},
                 )
             if not audit_report.valid:
                 return ExecutableVerification(
@@ -655,6 +664,51 @@ class PythonDeploymentVerifier:
             result.stderr
         )
         if result.exit_code == 0:
+            if completion_marker not in result.stdout:
+                return ExecutableVerification(
+                    verifier="envsolve-python-deployment-verifier",
+                    check_profile=self.check_profile,
+                    channel=FeedbackChannel.INTERNAL_EXECUTION,
+                    passed=False,
+                    bootstrap=result,
+                    summary=(
+                        "Candidate terminated shell control flow before mandatory "
+                        "verification postconditions"
+                    ),
+                    hypotheses=(
+                        HypothesisEvidence(
+                            hypothesis_id=(
+                                f"hypothesis-{candidate.candidate_id}-control-flow"
+                            ),
+                            statement=(
+                                "The deployment program must return control so fixed "
+                                "verification can execute"
+                            ),
+                            value={
+                                "candidate_completed": False,
+                                "required_postcondition": (
+                                    "return control to the verifier shell"
+                                ),
+                            },
+                            confidence=1.0,
+                        ),
+                    ),
+                    observations=(
+                        ObservationEvidence(
+                            "candidate-control-flow-observation",
+                            {
+                                "candidate_completed": False,
+                                "verification_reached": False,
+                            },
+                            1.0,
+                        ),
+                    ),
+                    details={
+                        "checks": checks,
+                        "candidate_completion_marker_observed": False,
+                        "repository_effect_audit": effect_audit,
+                    },
+                )
             return self._evaluate_import_probe(
                 result,
                 inventory,

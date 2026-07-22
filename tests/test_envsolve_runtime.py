@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
+import re
 import subprocess
 import tempfile
 import unittest
@@ -688,6 +689,76 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             self.assertFalse(result.counterexamples)
             self.assertEqual(len(result.hypotheses), 1)
             self.assertIn("missing_dep", result.hypotheses[0].value["stderr"])
+
+    def test_zero_exit_without_candidate_completion_marker_is_actionable(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def terminate_before_postconditions(command, **kwargs):
+                self.assertIn("ENVSOLVE_CANDIDATE_COMPLETED_V1=", command[-1])
+                return subprocess.CompletedProcess(command, 0, "", "")
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                run_command=terminate_before_postconditions,
+            ).verify(
+                DeploymentCandidate("candidate-1", "exec bash", "test"),
+                environment,
+            )
+
+            self.assertFalse(result.passed)
+            self.assertIn("terminated shell control flow", result.summary)
+            self.assertEqual(len(result.hypotheses), 1)
+            self.assertEqual(
+                result.observations[0].kind,
+                "candidate-control-flow-observation",
+            )
+
+    def test_effect_audit_failure_retains_the_actionable_error(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "test-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-16T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle("container-1", worktree, "/data/project/repo"),
+            )
+
+            def audit_failure(_: Path):
+                raise PermissionError("container-only interpreter target")
+
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                effect_auditor=audit_failure,
+                run_command=lambda command, **kwargs: subprocess.CompletedProcess(
+                    command, 1, "", "candidate failed"
+                ),
+            ).verify(
+                DeploymentCandidate("candidate-1", "python -m pip install -e .", "test"),
+                environment,
+            )
+
+            self.assertIsNone(result.passed)
+            self.assertEqual(
+                result.details["effect_audit_error"],
+                "PermissionError: container-only interpreter target",
+            )
 
     def test_internal_verifier_stops_on_network_infrastructure_failure(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -1477,7 +1548,16 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             }
 
             def complete(command, **kwargs):
-                stdout = "ENVSOLVE_IMPORT_PROBE_V3=" + json.dumps(payload) + "\n"
+                marker = re.search(
+                    r"ENVSOLVE_CANDIDATE_COMPLETED_V1=[0-9a-f]+",
+                    command[-1],
+                ).group(0)
+                stdout = (
+                    marker
+                    + "\nENVSOLVE_IMPORT_PROBE_V3="
+                    + json.dumps(payload)
+                    + "\n"
+                )
                 return subprocess.CompletedProcess(command, 0, stdout, "")
 
             result = PythonDeploymentVerifier(
@@ -1539,7 +1619,16 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             }
 
             def complete(command, **kwargs):
-                stdout = "ENVSOLVE_IMPORT_PROBE_V3=" + json.dumps(payload) + "\n"
+                marker = re.search(
+                    r"ENVSOLVE_CANDIDATE_COMPLETED_V1=[0-9a-f]+",
+                    command[-1],
+                ).group(0)
+                stdout = (
+                    marker
+                    + "\nENVSOLVE_IMPORT_PROBE_V3="
+                    + json.dumps(payload)
+                    + "\n"
+                )
                 return subprocess.CompletedProcess(command, 0, stdout, "")
 
             result = PythonDeploymentVerifier(
@@ -1593,7 +1682,16 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 }
 
                 def complete(command, **kwargs):
-                    stdout = "ENVSOLVE_IMPORT_PROBE_V3=" + json.dumps(payload) + "\n"
+                    marker = re.search(
+                        r"ENVSOLVE_CANDIDATE_COMPLETED_V1=[0-9a-f]+",
+                        command[-1],
+                    ).group(0)
+                    stdout = (
+                        marker
+                        + "\nENVSOLVE_IMPORT_PROBE_V3="
+                        + json.dumps(payload)
+                        + "\n"
+                    )
                     return subprocess.CompletedProcess(command, 0, stdout, "")
 
                 return PythonDeploymentVerifier(

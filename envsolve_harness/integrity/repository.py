@@ -101,13 +101,19 @@ def _is_virtual_environment(root: Path) -> bool:
     configuration = root / "pyvenv.cfg"
     activate = root / "bin/activate"
     python = root / "bin/python"
-    if (
-        not configuration.is_file()
-        or configuration.is_symlink()
-        or not activate.is_file()
-        or activate.is_symlink()
-        or not (python.is_file() or python.is_symlink())
-    ):
+    try:
+        valid_layout = (
+            configuration.is_file()
+            and not configuration.is_symlink()
+            and activate.is_file()
+            and not activate.is_symlink()
+            # Container-created environments can use absolute links whose targets
+            # are inaccessible or absent on the host running the effect audit.
+            and (python.is_symlink() or python.is_file())
+        )
+    except OSError:
+        return False
+    if not valid_layout:
         return False
     try:
         fields = {

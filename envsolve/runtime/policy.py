@@ -509,15 +509,28 @@ class StructuredModelDeploymentPolicy:
                 "Model candidate fields must be strings",
                 details=self._invalid_response_details(text, response),
             )
+        metadata: dict[str, Any] = {
+            "generator": "structured-model-policy-v1",
+            "operation_profile": self.operation_profile,
+            "constraint_profile": self.constraint_profile,
+        }
+        if self.constraint_profile == "causal-frontier":
+            frontier_snapshot = projection["constraint_frontier"]
+            encoded_frontier = json.dumps(
+                frontier_snapshot,
+                ensure_ascii=True,
+                separators=(",", ":"),
+                sort_keys=True,
+            )
+            metadata["constraint_frontier_snapshot"] = frontier_snapshot
+            metadata["constraint_frontier_sha256"] = hashlib.sha256(
+                encoded_frontier.encode("utf-8")
+            ).hexdigest()
         candidate = DeploymentCandidate(
             candidate_id=f"candidate-{self._next_candidate:04d}",
             script=script,
             rationale=rationale,
-            metadata={
-                "generator": "structured-model-policy-v1",
-                "operation_profile": self.operation_profile,
-                "constraint_profile": self.constraint_profile,
-            },
+            metadata=metadata,
         )
         self._next_candidate += 1
         return candidate

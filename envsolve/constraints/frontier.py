@@ -5,6 +5,8 @@ import hashlib
 import json
 from typing import Any, Iterable
 
+from packaging.version import InvalidVersion, Version
+
 from envsolve.analysis.runtime_compatibility import parse_runtime_compatibility
 from envsolve.constraints.engine import ConstraintEngine
 from envsolve.constraints.models import (
@@ -16,7 +18,7 @@ from envsolve.constraints.models import (
 from envsolve.state import EnvironmentState
 
 
-FRONTIER_SCHEMA_VERSION = "1.0.0"
+FRONTIER_SCHEMA_VERSION = "1.1.0"
 
 
 def _canonical_json(value: dict[str, Any]) -> str:
@@ -196,7 +198,6 @@ def _module_roots(
             "root_kind": "runtime_missing_dependency",
             "domain": "module",
             "subject": missing_name,
-            "scope_id": scope_id,
         }
         subjects = sorted(group["surface_subjects"])
         evidence_ids = sorted(group["evidence_ids"])
@@ -205,6 +206,7 @@ def _module_roots(
             {
                 "root_id": _node_id(semantic),
                 **semantic,
+                "scope_id": scope_id,
                 "causal_relation": "surface_import_failed_on_runtime_missing_name",
                 "trust_level": "fresh_execution",
                 "hard_constraint": False,
@@ -228,15 +230,50 @@ def _module_roots(
     return roots, grouped_constraint_ids, len(obligations), ungrouped, current_scope
 
 
-def _runtime_roots(
+def _verified_runtime_facts(
     state: EnvironmentState,
-    latest_execution_scope: str | None,
-) -> list[dict[str, Any]]:
+) -> list[tuple[int, dict[str, Any]]]:
+    values: list[tuple[int, dict[str, Any]]] = []
+    for verification in state.verifications:
+        details = verification.get("details")
+        verifier_details = (
+            details.get("verifier_details") if isinstance(details, dict) else None
+        )
+        report_details = (
+            verifier_details.get("report_details")
+            if isinstance(verifier_details, dict)
+            else None
+        )
+        facts = (
+            report_details.get("environment_facts")
+            if isinstance(report_details, dict)
+            else None
+        )
+        if not isinstance(facts, dict):
+            continue
+        values.append(
+            (
+                _event_sequence(verification),
+                facts,
+            )
+        )
+    return values
+
+
+def _runtime_version_within_maximum(observed: str, maximum: str) -> bool:
+    try:
+        observed_release = Version(observed).release
+        maximum_release = Version(maximum).release
+    except InvalidVersion:
+        return False
+    width = len(maximum_release)
+    return observed_release[:width] <= maximum_release
+
+
+def _runtime_roots(state: EnvironmentState) -> list[dict[str, Any]]:
     roots: dict[str, dict[str, Any]] = {}
     for evidence_id, record in sorted(state.evidence.items()):
         scope_id = _record_scope_id(record)
-        if latest_execution_scope is not None and scope_id != latest_execution_scope:
-            continue
         value = record.get("value")
         findings = ()
         if record.get("kind") == "runtime-compatibility-observation" and isinstance(
@@ -270,7 +307,6 @@ def _runtime_roots(
                 "maximum_supported_version": finding[
                     "maximum_supported_version"
                 ],
-                "scope_id": scope_id,
             }
             node_id = _node_id(semantic)
             root = roots.setdefault(
@@ -283,16 +319,43 @@ def _runtime_roots(
                     "trust_levels": set(),
                     "hard_constraint": False,
                     "evidence_ids": [],
+                    "observed_scopes": set(),
+                    "last_observed_sequence": -1,
+                    "last_observed_scope": None,
                 },
             )
             root["trust_levels"].add(_trust_level(record))
             root["evidence_ids"].append(evidence_id)
+            if scope_id is not None:
+                root["observed_scopes"].add(scope_id)
+            sequence = _event_sequence(record)
+            if sequence >= int(root["last_observed_sequence"]):
+                root["last_observed_sequence"] = sequence
+                root["last_observed_scope"] = scope_id
+    verified_facts = _verified_runtime_facts(state)
     values: list[dict[str, Any]] = []
     for key in sorted(roots):
         root = roots[key]
+        resolved = any(
+            sequence > int(root["last_observed_sequence"])
+            and root["subject"] == "python"
+            and isinstance(facts.get("python_version"), str)
+            and _runtime_version_within_maximum(
+                str(facts["python_version"]),
+                str(root["maximum_supported_version"]),
+            )
+            for sequence, facts in verified_facts
+        )
+        if resolved:
+            continue
         root["trust_levels"] = sorted(root["trust_levels"])
         root["evidence_ids"] = sorted(set(root["evidence_ids"]))
         root["evidence_count"] = len(root["evidence_ids"])
+        root["observed_scopes"] = sorted(root["observed_scopes"])
+        root["scope_id"] = root.pop("last_observed_scope")
+        root["resolution_requirement"] = (
+            "newer fresh verifier observation within the supported runtime frontier"
+        )
         values.append(root)
     return values
 
@@ -359,7 +422,7 @@ def build_causal_constraint_frontier(
         constraint_engine.hard_confidence,
     )
     roots = sorted(
-        [*module_roots, *_runtime_roots(state, latest_execution_scope)],
+        [*module_roots, *_runtime_roots(state)],
         key=lambda item: str(item["root_id"]),
     )
     return {

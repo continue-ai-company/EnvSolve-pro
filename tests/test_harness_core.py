@@ -326,6 +326,47 @@ class CoreIoTest(unittest.TestCase):
             self.assertFalse(rejected.valid)
             self.assertIn("fake-env/injected.py", rejected.disallowed_untracked_paths)
 
+    def test_repository_integrity_does_not_follow_venv_python_symlink(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"], cwd=repo, check=True
+            )
+            REAL_SUBPROCESS_RUN(["git", "config", "user.name", "Test"], cwd=repo, check=True)
+            (repo / "README.md").write_text("clean\n")
+            REAL_SUBPROCESS_RUN(["git", "add", "README.md"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            environment = repo / "container-env"
+            (environment / "bin").mkdir(parents=True)
+            (environment / "bin/activate").write_text("# activation\n")
+            python = environment / "bin/python"
+            python.symlink_to("/container-only/python3.9")
+            (environment / "pyvenv.cfg").write_text(
+                "home = /usr/bin\ninclude-system-site-packages = false\n"
+            )
+
+            real_is_file = Path.is_file
+
+            def guarded_is_file(path: Path) -> bool:
+                if path == python:
+                    raise PermissionError("host must not follow the container link")
+                return real_is_file(path)
+
+            with mock.patch.object(Path, "is_file", autospec=True, side_effect=guarded_is_file):
+                report = inspect_repository(repo, head)
+
+            self.assertTrue(report.valid, report.violations)
+            self.assertIn("container-env/", report.allowed_generated_paths)
+
     def test_protocol_computes_official_pass(self) -> None:
         protocol = make_protocol()
         self.assertTrue(protocol.is_official_pass({"exit_code": 0, "issues_count": 0}))
