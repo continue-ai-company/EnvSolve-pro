@@ -134,3 +134,42 @@ def test_v2_schedule_is_bound_to_the_frozen_consumed_pairing() -> None:
             if item["pair"] == pair
         }
         assert conditions == {"flat", "causal-frontier"}
+
+
+def test_v2_retry3_replaces_only_retry2_infrastructure_censoring() -> None:
+    retry2_path = (
+        ROOT
+        / "experiments/validations/"
+        "pro_p5_causal_frontier_paired_v2_infra_retry2_schedule.json"
+    )
+    retry3_path = (
+        ROOT
+        / "experiments/validations/"
+        "pro_p5_causal_frontier_paired_v2_infra_retry3_schedule.json"
+    )
+    retry2 = json.loads(retry2_path.read_text(encoding="utf-8"))
+    retry3 = json.loads(retry3_path.read_text(encoding="utf-8"))
+
+    assert retry3["source_schedule_sha256"] == _sha256(retry2_path)
+    assert retry3["implementation_freeze"] == retry2["implementation_freeze"]
+    assert retry3["execution"]["positions_to_execute"] == [1, 4]
+    assert retry3["execution"]["execution_order"] == [1, 4]
+    assert retry3["execution"]["execution_mode"] == "single sequential lane"
+    assert retry3["execution"]["retained_source_positions"] == [2, 3, 5, 6]
+
+    retry_positions = {
+        item["position"]: item for item in retry3["source_censoring"]
+    }
+    assert set(retry_positions) == {1, 4}
+    assert all(
+        item["terminal_class"] == "dependency-acquisition-infrastructure"
+        and item["signature"] == "read-timeout"
+        for item in retry_positions.values()
+    )
+    assert [item["position"] for item in retry3["episodes"]] == list(range(1, 7))
+    assert len({item["run_id"] for item in retry3["episodes"]}) == 6
+    assert {
+        item["position"]
+        for item in retry3["episodes"]
+        if item["attempt_role"] == "infrastructure-retry"
+    } == {1, 4}
