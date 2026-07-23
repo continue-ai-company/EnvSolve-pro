@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-v3-integrity",
+  "created_at": "2026-07-23T04:54:09Z",
+  "purpose": "Qualify the compact model-visible causal frontier before any new development case or paired effectiveness claim.",
+  "claim_scope": "Consumed-case measurement and mechanism integrity only; no effectiveness, held-out, generalization, significance, or leaderboard claim.",
+  "algorithm_freeze": "f2193509c856da892c64bd50e1b7e33a88ed01ea",
+  "changes_since_v2": [
+    "Project the full internal frontier into a budgeted structure that always retains causal_roots and summary fields instead of truncating the entire object.",
+    "Prioritize causal roots over descriptive environment facts inside the projection budget.",
+    "Evaluate tuple comparisons against sys.version_info so inactive compatibility imports do not become false obligations."
+  ],
+  "non_changes": [
+    "No closed operation vocabulary or action blocking was added.",
+    "Raw evidence, the full internal frontier, verifier hierarchy, candidate retention, and official evaluator boundary are unchanged.",
+    "The Python guard correction is shared solver infrastructure and will apply to both conditions in the later paired experiment."
+  ],
+  "cases": {
+    "source": "The same three already-consumed P5 V2 mechanism cases; no fresh Dev case is consumed.",
+    "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
+    "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",
+    "repositories": [
+      "nonebot/nonebot2",
+      "langchain-ai/langgraph",
+      "conan-io/conan-package-tools"
+    ]
+  },
+  "condition": {
+    "method": "envsolve-pro-causal",
+    "constraint_profile": "causal-frontier",
+    "operation_profile": "free-form",
+    "candidate_interface": "open-program"
+  },
+  "execution": {
+    "host": "spark-f21c",
+    "config": "experiments/configs/local_spark_pro_p5.json",
+    "config_sha256": "bf702aca08ef90594ef2373895cf9e6ef1c3f044256704c7ff233c03ebfb8440",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 1,
+    "max_candidates_per_case": 8,
+    "execution_mode": "single sequential lane to avoid the dependency-download contention observed in V2",
+    "token_policy": "Token and price are reported outcomes; configured limits are emergency guards rather than research stopping thresholds.",
+    "official_evaluator_access": "post-episode-only; official outcomes are diagnostic and are not part of this integrity gate"
+  },
+  "analysis": {
+    "script": "experiments/audit_causal_frontier_projection.py",
+    "script_sha256": "f977d7c14ea98aeab9a6aac94fc05c9cc7333c5e38074720690cf58177322a40",
+    "arguments": [
+      "--required-model-projection-schema=1.0.0",
+      "--require-complete-roots"
+    ]
+  },
+  "measurement_integrity_gate": [
+    "Every proposed action persists the exact model-visible frontier with a valid canonical digest.",
+    "Every persisted frontier is an object containing causal_roots as a list and summary as an object.",
+    "Every persisted frontier declares model_projection_schema_version 1.0.0.",
+    "No decision omits a causal root because of the projection budget.",
+    "Every episode reaches an identity-matched terminal official evaluation or is archived as infrastructure-censored."
+  ],
+  "diagnostics_not_used_for_the_gate": [
+    "Official Pass",
+    "internal certification",
+    "which target roots arise under stochastic model actions",
+    "target-root closure",
+    "token count, elapsed time, and reported price"
+  ],
+  "proceed_rule": "Freeze a paired multi-block V3 effectiveness experiment on the same consumed cases only if all non-infrastructure-censored episodes pass the projection gate; do not consume a fresh Dev case at this stage.",
+  "failure_rule": "Archive failures and perform measurement-only diagnosis. Do not reinterpret V2 outcomes or tune against fresh Dev or official evaluator feedback."
+}

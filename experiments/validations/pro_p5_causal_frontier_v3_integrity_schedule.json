@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-v3-integrity",
+  "bound_at": "2026-07-23T04:56:00Z",
+  "claim_scope": "consumed-case measurement and mechanism integrity only",
+  "preregistration": "experiments/validations/pro_p5_causal_frontier_v3_integrity_preregistration.json",
+  "preregistration_sha256": "d3d4da9097275495c8d0779275c7794a75bc61f389f827edefb0ec078461753b",
+  "implementation_freeze": "f2193509c856da892c64bd50e1b7e33a88ed01ea",
+  "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
+  "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",
+  "model": "deepseek/deepseek-v4-pro",
+  "episode_timeout_seconds": 21600,
+  "execution": {
+    "config": "experiments/configs/local_spark_pro_p5.json",
+    "config_sha256": "bf702aca08ef90594ef2373895cf9e6ef1c3f044256704c7ff233c03ebfb8440",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "execution_order": [1, 2, 3],
+    "execution_mode": "single sequential lane"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "pair": 1,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "run_id": "pro-p5-causal-frontier-v3-integrity-nonebot2-causal-seed1",
+      "method": "envsolve-pro-causal",
+      "seed": 1
+    },
+    {
+      "position": 2,
+      "pair": 2,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "run_id": "pro-p5-causal-frontier-v3-integrity-langgraph-causal-seed1",
+      "method": "envsolve-pro-causal",
+      "seed": 1
+    },
+    {
+      "position": 3,
+      "pair": 3,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "run_id": "pro-p5-causal-frontier-v3-integrity-conan-causal-seed1",
+      "method": "envsolve-pro-causal",
+      "seed": 1
+    }
+  ]
+}
