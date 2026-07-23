@@ -17,6 +17,17 @@ SCHEDULES = (
     VALIDATIONS / "pro_cross_method_census_v1_repo2run_lane1_schedule.json",
     VALIDATIONS / "pro_cross_method_census_v1_repo2run_lane2_schedule.json",
 )
+FINAL_REPO2RUN_SCHEDULES = (
+    VALIDATIONS
+    / "pro_cross_method_census_v1_repo2run_final_lane1_schedule.json",
+    VALIDATIONS
+    / "pro_cross_method_census_v1_repo2run_final_lane2_schedule.json",
+)
+FINAL_ADAPTER_COMMIT = "ab2c3b24ed82ecffd4e7479af2d78dbb3c32e174"
+FINAL_ADAPTER_FREEZE = (
+    VALIDATIONS
+    / "pro_cross_method_census_v1_repo2run_final_adapter_freeze.json"
+)
 
 
 def test_cross_method_schedules_cover_three_methods_and_sixteen_cases() -> None:
@@ -98,3 +109,56 @@ def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
     assert 'return os.path.join("/tmp/patch"' in patch_mount_isolation
     assert "envbench-" not in patch
     assert "prompt" not in patch.lower()
+
+
+def test_final_repo2run_schedules_preserve_cases_and_freeze_adapter() -> None:
+    selection = json.loads(
+        (VALIDATIONS / "pro_cross_method_census_v1_selection.json").read_text()
+    )
+    expected_cases = set(selection["case_ids"])
+    observed_cases: set[str] = set()
+    observed_runs: set[str] = set()
+
+    for path in FINAL_REPO2RUN_SCHEDULES:
+        schedule = json.loads(path.read_text())
+        _validate_schedule(path, schedule)
+        assert schedule["implementation_commit"] == FINAL_ADAPTER_COMMIT
+        assert schedule["adapter_freeze"]["algorithm_behavior_changed"] is False
+        for episode in schedule["episodes"]:
+            assert episode["checkout"] == FINAL_ADAPTER_COMMIT
+            assert episode["run_id"].endswith("-final-adapter-v1")
+            observed_cases.add(episode["case_id"])
+            assert episode["run_id"] not in observed_runs
+            observed_runs.add(episode["run_id"])
+
+    assert observed_cases == expected_cases
+    assert len(observed_runs) == 16
+
+
+def test_final_repo2run_adapter_freeze_binds_only_eligible_runs() -> None:
+    freeze = json.loads(FINAL_ADAPTER_FREEZE.read_text())
+    assert freeze["adapter_boundary"] == {
+        "algorithm_behavior_changed": False,
+        "case_data_changed": False,
+        "command_parser_changed": False,
+        "evaluator_changed": False,
+        "model_changed": False,
+        "model_loop_changed": False,
+        "prompt_changed": False,
+        "scope": "Repository-independent execution compatibility only",
+    }
+    assert freeze["qualification"]["result"] == "qualified"
+    assert freeze["qualification"]["retry1"]["evaluation_completed"] is True
+    assert freeze["qualification"]["retry1"]["exit_code"] == 0
+    assert freeze["qualification"]["retry1"]["issues_count"] == 57
+    assert (
+        freeze["result_eligibility"]["qualification_used_for_method_comparison"]
+        is False
+    )
+
+    frozen_schedules = freeze["final_execution"]["schedules"]
+    assert set(frozen_schedules) == {
+        str(path.relative_to(ROOT)) for path in FINAL_REPO2RUN_SCHEDULES
+    }
+    for path in FINAL_REPO2RUN_SCHEDULES:
+        assert frozen_schedules[str(path.relative_to(ROOT))] == sha256_file(path)

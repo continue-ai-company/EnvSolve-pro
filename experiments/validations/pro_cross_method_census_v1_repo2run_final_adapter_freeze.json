@@ -1,0 +1,73 @@
+{
+  "adapter_boundary": {
+    "algorithm_behavior_changed": false,
+    "case_data_changed": false,
+    "command_parser_changed": false,
+    "evaluator_changed": false,
+    "model_changed": false,
+    "model_loop_changed": false,
+    "prompt_changed": false,
+    "scope": "Repository-independent execution compatibility only"
+  },
+  "baseline": {
+    "external_diff_sha256": "9c68d20845dc2d0d71c3b46ff1f4f03006471352a615ec4bbb53c47b877a1f1f",
+    "upstream_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692"
+  },
+  "claim_scope": "Consumed development trajectory diagnostics only; no held-out effectiveness or leaderboard claim.",
+  "final_execution": {
+    "implementation_commit": "ab2c3b24ed82ecffd4e7479af2d78dbb3c32e174",
+    "required_run_id_suffix": "-final-adapter-v1",
+    "schedules": {
+      "experiments/validations/pro_cross_method_census_v1_repo2run_final_lane1_schedule.json": "cbd379a157f97ecbfa4be76808eea6e1e875b503d78a653b56e39b34d4c39369",
+      "experiments/validations/pro_cross_method_census_v1_repo2run_final_lane2_schedule.json": "a03ec4e243013dc0129e7bcafc7caaa913d618dc4279af58c947842e8bf3e760"
+    }
+  },
+  "harness_adapter": {
+    "path": "envsolve_harness/scripts/repo2run.py",
+    "sha256": "4de53b370a9ac06fce67c5c64299a5f40d0a0f73f0ef9c17f07aaef45fafcbe1"
+  },
+  "original_selection": {
+    "case_count": 16,
+    "case_file": "experiments/cases/dev_pro_cross_method_census_v1_16.jsonl",
+    "case_file_sha256": "c91ce950a8eee91e71ccb8d8d0b360985c0e986194ffb12e4c4f4c8c96647a42",
+    "schedules": {
+      "experiments/validations/pro_cross_method_census_v1_repo2run_lane1_schedule.json": "1fa07a27649713d9d32ac73570baf806117cc8a681a18d961e3192cd20c4dfb1",
+      "experiments/validations/pro_cross_method_census_v1_repo2run_lane2_schedule.json": "352e4f971dbc8f3a264c72b3ff98cb833ad2ad88742d5ee7302c272beb7a71ec"
+    },
+    "selection": "experiments/validations/pro_cross_method_census_v1_selection.json"
+  },
+  "patches": {
+    "experiments/baseline_patches/repo2run_expand_completion_window.patch": "a1ab0673ae73509d61316b5b6c1df083a930856d05d1106037b7ab0b84c143e4",
+    "experiments/baseline_patches/repo2run_isolate_addfile_export.patch": "706d4819d5db3930e8be4e75771ad3c5919eccfe53992e645c6c2346474b2108",
+    "experiments/baseline_patches/repo2run_isolate_patch_mount.patch": "23882fe4eb4c1d8bd0391643e61c61ca38796dc295ce18455378f8d86575470a",
+    "experiments/baseline_patches/repo2run_pin_pipdeptree_2_28_0.patch": "3a11afadd5ea24d6bd1d3f6b7aff27eb54a9bf4e69c2b6cc005b1b0cde05b447",
+    "experiments/baseline_patches/repo2run_remove_host_chown.patch": "29937f67d46b1d4ab5cdc32a901792024f962fd334bd0269639a622c9a4e9255"
+  },
+  "qualification": {
+    "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+    "generated_script_sha256": "c9207d8f838d5443afe3a95744fe28843d546743b45dc3fb29d79ddaa4b3626b",
+    "initial_attempt": {
+      "classification": "infrastructure_unknown",
+      "evaluation_result_sha256": "6dc10c79a57b899bd41fc9275549f1f9c6cf139a9355ef2ae8d64fc171d4de1b",
+      "failure": "files.pythonhosted.org read timeout",
+      "run_id": "pro-cross-method-v1-repo2run-final-adapter-luigi-qualification"
+    },
+    "retry1": {
+      "evaluation_completed": true,
+      "evaluation_result_sha256": "65c37af5fd7288913b9be6b2d4ddc5c36f3be51ccc2822a484532d033b267462",
+      "exit_code": 0,
+      "issues_count": 57,
+      "official_pass": false,
+      "run_id": "pro-cross-method-v1-repo2run-final-adapter-luigi-qualification-infra-retry1"
+    },
+    "result": "qualified"
+  },
+  "result_eligibility": {
+    "eligible_rule": "Only the 16 episodes in final_execution.schedules whose run_id ends with required_run_id_suffix are eligible for method comparison.",
+    "pre_final_repo2run_outputs": "qualification evidence only",
+    "qualification_outputs": "adapter evidence only",
+    "qualification_used_for_method_comparison": false
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-cross-method-census-v1"
+}
