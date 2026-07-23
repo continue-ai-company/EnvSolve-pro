@@ -65,8 +65,8 @@ def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
     ).read_text()
 
     assert amendment["claim_scope"] == "Baseline execution compatibility only"
-    assert amendment["effective_attempt_suffix"] == "infra-retry2"
-    assert len(amendment["invalid_for_method_comparison"]) == 2
-    assert "+RUN pip install pipdeptree==2.28.0" in patch
+    assert amendment["effective_attempt_suffix"] == "infra-retry3"
+    assert len(amendment["invalid_for_method_comparison"]) == 3
+    assert patch.count("pipdeptree==2.28.0") == 4
     assert "envbench-" not in patch
     assert "prompt" not in patch.lower()
