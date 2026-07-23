@@ -19,11 +19,21 @@
       "classification": "infrastructure",
       "failure": "Repo2Run entered its agent loop but a hard-coded sudo chown for the original developer account stopped the background process on the host TTY",
       "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry3"
+    },
+    {
+      "classification": "baseline_integration",
+      "failure": "Repo2Run completed its agent loop but waitinglist addfile exported dependency files into the source checkout, causing the external integrity gate to reject a tool side effect",
+      "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry4"
+    },
+    {
+      "classification": "baseline_integration",
+      "failure": "Repo2Run's original 1024-token completion window was exhausted by the reasoning model, which returned a successful response with null message content and crashed the unmodified baseline",
+      "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry5"
     }
   ],
   "baseline_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
   "claim_scope": "Baseline execution compatibility only",
-  "effective_attempt_suffix": "infra-retry4",
+  "effective_attempt_suffix": "infra-retry6",
   "host_environment": {
     "architecture": "aarch64",
     "host_python": "3.12.3",
@@ -33,15 +43,19 @@
     "pro-cross-method-v1-c01-repo2run-reproduced-open",
     "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry1",
     "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry2",
-    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry3"
+    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry3",
+    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry4",
+    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry5"
   ],
   "patch": {
     "additional_path": "experiments/baseline_patches/repo2run_remove_host_chown.patch",
+    "addfile_isolation_path": "experiments/baseline_patches/repo2run_isolate_addfile_export.patch",
+    "completion_window_path": "experiments/baseline_patches/repo2run_expand_completion_window.patch",
     "path": "experiments/baseline_patches/repo2run_pin_pipdeptree_2_28_0.patch",
-    "repair": "Pin pipdeptree==2.28.0 in every image-construction path and remove a host-account-specific sudo chown",
-    "scope_guard": "No prompt, model loop, command generation, evaluator, case data, or solver decision logic changes"
+    "repair": "Pin pipdeptree==2.28.0 in every image-construction path, remove a host-account-specific sudo chown, isolate addfile exports, and raise the per-response completion window from 1024 to 8192 tokens for reasoning-model compatibility",
+    "scope_guard": "No prompt, model loop, command parser, evaluator, case data, or solver decision logic changes"
   },
-  "reason": "No Repo2Run episode reached its native agent before this amendment, so the scored Repo2Run census begins only after the repository-independent compatibility repair.",
+  "reason": "Only attempts that fail before producing a usable baseline program because of repository-independent host or model-adapter incompatibility are replaced. Completed episodes that never exhaust the old completion window remain valid.",
   "schema_version": "1.0.0",
   "study_id": "envsolve-pro-cross-method-census-v1"
 }

@@ -66,14 +66,24 @@ def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
     ownership_patch = (
         BASELINE_PATCHES / "repo2run_remove_host_chown.patch"
     ).read_text()
+    addfile_patch = (
+        BASELINE_PATCHES / "repo2run_isolate_addfile_export.patch"
+    ).read_text()
+    completion_patch = (
+        BASELINE_PATCHES / "repo2run_expand_completion_window.patch"
+    ).read_text()
 
     assert amendment["claim_scope"] == "Baseline execution compatibility only"
-    assert amendment["effective_attempt_suffix"] == "infra-retry4"
-    assert len(amendment["invalid_for_method_comparison"]) == 4
+    assert amendment["effective_attempt_suffix"] == "infra-retry6"
+    assert len(amendment["invalid_for_method_comparison"]) == 6
     assert patch.count("pipdeptree==2.28.0") == 4
+    assert "TemporaryDirectory" in addfile_patch
+    assert "max_tokens=8192" in completion_patch
     added_lines = [
         line
-        for line in (patch + ownership_patch).splitlines()
+        for line in (
+            patch + ownership_patch + addfile_patch + completion_patch
+        ).splitlines()
         if line.startswith("+") and not line.startswith("+++")
     ]
     assert all("sudo" not in line for line in added_lines)

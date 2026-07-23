@@ -1,0 +1,45 @@
+diff --git a/build_agent/utils/sandbox.py b/build_agent/utils/sandbox.py
+--- a/build_agent/utils/sandbox.py
++++ b/build_agent/utils/sandbox.py
+@@ -17,6 +17,7 @@ import pexpect
+ import time 
+ import subprocess
+ import os 
++import tempfile
+ import glob
+ import re
+ import sys
+@@ -450,19 +451,20 @@ class Session:
+                         return truncate_msg(result_message, command), 'unknown'
+                     elif match_waitinglist_addfile(command) != -1:
+                         file_path = match_waitinglist_addfile(command)['file_path']
+-                        current_file_path = os.path.abspath(__file__)
+-                        current_directory = os.path.dirname(current_file_path)
+-                        project_directory = os.path.dirname(current_directory)
+-                        result = subprocess.run(f'docker cp {self.sandbox.container.name}:{file_path} {project_directory}/utils/repo/{self.sandbox.full_name}/repo', shell=True, capture_output=True)
+-                        if result.returncode != 0:
+-                            msg = f'\nRunning `{command}`...\n'
+-                            msg += f'The file {file_path} does not exist. Please ensure you have entered the correct absolute path, not a relative path! If you are unsure, you can use commands like `ls` to verify.'
+-                            return msg, 1
+-                        # docker cp output is already readable; avoid host-specific ownership changes.
+-                        with OutputCollector() as collector:
+-                            waiting_list.addfile(f'{project_directory}/utils/repo/{self.sandbox.full_name}/repo/{file_path.split("/")[-1]}', conflict_list)
+-                        result_message = f'Running `{command}`...\n' + collector.get_output() + '\n'
+-                        return truncate_msg(result_message, command), 'unknown'
++                        with tempfile.TemporaryDirectory(prefix='repo2run-addfile-') as temp_dir:
++                            result = subprocess.run(
++                                ['docker', 'cp', f'{self.sandbox.container.name}:{file_path}', temp_dir],
++                                capture_output=True,
++                            )
++                            if result.returncode != 0:
++                                msg = f'\nRunning `{command}`...\n'
++                                msg += f'The file {file_path} does not exist. Please ensure you have entered the correct absolute path, not a relative path! If you are unsure, you can use commands like `ls` to verify.'
++                                return msg, 1
++                            copied_path = os.path.join(temp_dir, os.path.basename(file_path))
++                            with OutputCollector() as collector:
++                                waiting_list.addfile(copied_path, conflict_list)
++                            result_message = f'Running `{command}`...\n' + collector.get_output() + '\n'
++                            return truncate_msg(result_message, command), 'unknown'
+                     elif match_waitinglist_clear(command):
+                         with OutputCollector() as collector:
+                             waiting_list.clear()

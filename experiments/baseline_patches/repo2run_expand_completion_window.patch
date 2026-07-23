@@ -1,0 +1,11 @@
+diff --git a/build_agent/utils/llm_client.py b/build_agent/utils/llm_client.py
+--- a/build_agent/utils/llm_client.py
++++ b/build_agent/utils/llm_client.py
+@@ -23,6 +23,6 @@ _BUDGET_LEDGER = budget_ledger_from_environment()
+ 
+ 
+-def get_llm_response(model: str, messages, temperature=0.0, n=1, max_tokens=1024):
++def get_llm_response(model: str, messages, temperature=0.0, n=1, max_tokens=8192):
+     base_url = os.environ.get("OPENAI_BASE_URL", None)
+     api_key = os.environ.get("OPENAI_API_KEY", None)
+     client = openai.OpenAI(
