@@ -876,12 +876,19 @@ class PythonDeploymentVerifier:
                 },
             )
         try:
+            python_version = facts_value.get("python_version")
+            python_release = (
+                tuple(Version(str(python_version)).release)
+                if python_version is not None
+                else None
+            )
             facts = EnvironmentFacts(
                 sys_platform=str(facts_value["sys_platform"]),
                 python_major=int(facts_value["python_major"]),
                 platform_name=str(facts_value["platform_name"]),
+                python_version=python_release,
             )
-        except (KeyError, TypeError, ValueError):
+        except (InvalidVersion, KeyError, TypeError, ValueError):
             return ExecutableVerification(
                 verifier="envsolve-python-deployment-verifier",
                 check_profile=self.check_profile,

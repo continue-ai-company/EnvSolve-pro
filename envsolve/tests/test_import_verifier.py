@@ -104,6 +104,28 @@ class ImportContextAnalyzerTests(unittest.TestCase):
         )
         self.assertEqual(assessment.disposition, ImportDisposition.INACTIVE_PLATFORM)
 
+    def test_python_version_tuple_guard_is_evaluated(self) -> None:
+        source = (
+            "import sys\n"
+            "if sys.version_info < (3, 11):\n"
+            "    import tomli\n"
+        )
+        finding = self.finding("tomli", "src/compat.py", 2)
+
+        inactive = self.analyzer.assess(
+            finding,
+            source,
+            EnvironmentFacts("linux", 3, "linux", (3, 13, 2)),
+        )
+        active = self.analyzer.assess(
+            finding,
+            source,
+            EnvironmentFacts("linux", 3, "linux", (3, 10, 14)),
+        )
+
+        self.assertEqual(inactive.disposition, ImportDisposition.INACTIVE_PLATFORM)
+        self.assertEqual(active.disposition, ImportDisposition.ACTIVE_OBLIGATION)
+
     def test_default_false_optional_branch_is_detected(self) -> None:
         source = "def profile(enabled=False):\n    if enabled:\n        import yappi\n"
         assessment = self.analyzer.assess(

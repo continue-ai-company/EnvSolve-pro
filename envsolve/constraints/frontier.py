@@ -19,6 +19,7 @@ from envsolve.state import EnvironmentState
 
 
 FRONTIER_SCHEMA_VERSION = "1.1.0"
+MODEL_FRONTIER_SCHEMA_VERSION = "1.0.0"
 
 
 def _canonical_json(value: dict[str, Any]) -> str:
@@ -453,3 +454,163 @@ def build_causal_constraint_frontier(
             "ungrouped_surface_subjects_truncated": len(ungrouped) > 20,
         },
     }
+
+
+def _model_value(value: Any, limit: int = 256) -> Any:
+    if value is None or isinstance(value, (bool, int, float)):
+        return value
+    if isinstance(value, (list, tuple)):
+        return [_model_value(item, 64) for item in value[:8]]
+    if isinstance(value, dict):
+        return {
+            str(key)[:64]: _model_value(item, 64)
+            for key, item in list(value.items())[:8]
+        }
+    text = str(value)
+    return text if len(text) <= limit else text[: limit - 3] + "..."
+
+
+def _model_root(root: dict[str, Any]) -> dict[str, Any]:
+    fields = (
+        "root_id",
+        "root_kind",
+        "domain",
+        "subject",
+        "provider",
+        "observed_version",
+        "maximum_supported_version",
+        "scope_id",
+        "causal_relation",
+        "hard_constraint",
+        "trust_level",
+        "trust_levels",
+        "evidence_count",
+        "occurrence_count",
+        "surface_constraint_count",
+        "surface_subject_count",
+        "source_roles",
+        "resolution_requirement",
+    )
+    value = {key: _model_value(root[key]) for key in fields if key in root}
+    surfaces = root.get("surface_subjects")
+    if isinstance(surfaces, list):
+        value["surface_subjects_sample"] = [
+            _model_value(item) for item in surfaces[:3]
+        ]
+    return value
+
+
+def _root_priority(root: dict[str, Any]) -> tuple[int, int, int, str]:
+    return (
+        0 if root.get("root_kind") == "runtime_compatibility_frontier" else 1,
+        -int(root.get("surface_constraint_count", 0)),
+        -int(root.get("evidence_count", 0)),
+        str(root.get("root_id", "")),
+    )
+
+
+def build_model_constraint_frontier(
+    state: EnvironmentState,
+    engine: ConstraintEngine | None = None,
+    *,
+    max_chars: int = 9_000,
+) -> dict[str, Any]:
+    """Project the full frontier into a bounded, always-structured model view."""
+    if max_chars < 128:
+        raise ValueError("Model frontier budget must be at least 128 characters")
+    full = build_causal_constraint_frontier(state, engine)
+    all_facts = [
+        {
+            key: _model_value(item[key])
+            for key in (
+                "domain",
+                "subject",
+                "predicate",
+                "observed",
+                "scope_id",
+                "trust_levels",
+            )
+            if key in item
+        }
+        for item in full["observed_environment_facts"]
+    ]
+    roots = sorted(full["causal_roots"], key=_root_priority)
+    projection = {
+        "schema_version": full["schema_version"],
+        "model_projection_schema_version": MODEL_FRONTIER_SCHEMA_VERSION,
+        "raw_evidence_retained": True,
+        "hard_state_mutated": False,
+        "latest_execution_scope": full["latest_execution_scope"],
+        "latest_module_observation_scope": full[
+            "latest_module_observation_scope"
+        ],
+        "observed_environment_facts": [],
+        "causal_roots": [],
+        "summary": {
+            key: full["summary"][key]
+            for key in (
+                "causal_root_count",
+                "surface_module_obligation_count",
+                "causally_grouped_surface_constraint_count",
+                "ungrouped_surface_constraint_count",
+                "maximum_surface_amplification",
+            )
+        } | {
+            "environment_fact_count": len(all_facts),
+            "environment_facts_included": 0,
+            "environment_facts_omitted": len(all_facts),
+            "causal_roots_included": 0,
+            "causal_roots_omitted": len(roots),
+            "projection_complete": not roots,
+        },
+    }
+    if len(json.dumps(projection, ensure_ascii=True, sort_keys=True)) > max_chars:
+        projection = {
+            "causal_roots": [],
+            "summary": {
+                "causal_root_count": len(roots),
+                "causal_roots_omitted": len(roots),
+                "projection_complete": not roots and not all_facts,
+            },
+        }
+        if len(json.dumps(projection, ensure_ascii=True, sort_keys=True)) > max_chars:
+            raise ValueError("Model frontier budget cannot encode its structured skeleton")
+        return projection
+    for root in roots:
+        compact = _model_root(root)
+        projection["causal_roots"].append(compact)
+        included = len(projection["causal_roots"])
+        projection["summary"]["causal_roots_included"] = included
+        projection["summary"]["causal_roots_omitted"] = len(roots) - included
+        projection["summary"]["projection_complete"] = (
+            included == len(roots)
+            and projection["summary"]["environment_facts_omitted"] == 0
+        )
+        if len(json.dumps(projection, ensure_ascii=True, sort_keys=True)) > max_chars:
+            projection["causal_roots"].pop()
+            included -= 1
+            projection["summary"]["causal_roots_included"] = included
+            projection["summary"]["causal_roots_omitted"] = len(roots) - included
+            projection["summary"]["projection_complete"] = False
+            break
+    for fact in all_facts:
+        projection["observed_environment_facts"].append(fact)
+        included = len(projection["observed_environment_facts"])
+        projection["summary"]["environment_facts_included"] = included
+        projection["summary"]["environment_facts_omitted"] = len(all_facts) - included
+        projection["summary"]["projection_complete"] = (
+            included == len(all_facts)
+            and projection["summary"]["causal_roots_omitted"] == 0
+        )
+        if len(json.dumps(projection, ensure_ascii=True, sort_keys=True)) > max_chars:
+            projection["observed_environment_facts"].pop()
+            included -= 1
+            projection["summary"]["environment_facts_included"] = included
+            projection["summary"]["environment_facts_omitted"] = (
+                len(all_facts) - included
+            )
+            projection["summary"]["projection_complete"] = False
+            break
+    if len(json.dumps(projection, ensure_ascii=True, sort_keys=True)) > max_chars:
+        raise ValueError("Model frontier metadata exceeds its structured budget")
+    return projection

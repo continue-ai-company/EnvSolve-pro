@@ -9,6 +9,7 @@ from envsolve.constraints import (
     ConstraintRole,
     NormalizedConstraint,
     build_causal_constraint_frontier,
+    build_model_constraint_frontier,
 )
 from envsolve.runtime.policy import StructuredModelDeploymentPolicy
 from envsolve.runtime.verifier import PythonDeploymentVerifier
@@ -358,3 +359,74 @@ def test_causal_candidate_persists_the_exact_frontier_projection() -> None:
     assert candidate.metadata["constraint_frontier_sha256"] == hashlib.sha256(
         encoded.encode("utf-8")
     ).hexdigest()
+
+
+def test_model_frontier_remains_structured_under_a_tight_budget() -> None:
+    state = EnvironmentState(
+        "case",
+        case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+    )
+    for index in range(80):
+        evidence_id = f"module-evidence-{index}"
+        subject = f"surface.module.{index}"
+        evidence = _module_evidence(
+            evidence_id,
+            subject=subject,
+            path=f"src/very/long/generated/path/{index}/module.py",
+            sequence=index,
+        )
+        evidence["value"]["finding_provenance"]["runtime_observation"][
+            "missing_name"
+        ] = f"provider_{index}"
+        state.evidence[evidence_id] = evidence
+        constraint = NormalizedConstraint(
+            ConstraintDomain.MODULE,
+            subject,
+            ConstraintPredicate.PRESENT,
+            True,
+            ConstraintRole.REQUIREMENT,
+            (evidence_id,),
+        )
+        state.constraints[constraint.constraint_id] = constraint.to_state_fields(
+            "violated"
+        )
+
+    projection = build_model_constraint_frontier(state, max_chars=2_048)
+    encoded = json.dumps(projection, ensure_ascii=True, sort_keys=True)
+
+    assert len(encoded) <= 2_048
+    assert isinstance(projection["causal_roots"], list)
+    assert projection["summary"]["causal_roots_included"] > 0
+    assert projection["summary"]["causal_roots_omitted"] > 0
+    assert projection["summary"]["projection_complete"] is False
+    assert "truncated" not in projection
+
+
+def test_model_frontier_prioritizes_roots_over_environment_facts() -> None:
+    state = _state_with_amplified_imports()
+    for index in range(40):
+        evidence_id = f"platform-evidence-{index}"
+        state.evidence[evidence_id] = {
+            "evidence_id": evidence_id,
+            "kind": "platform-observation",
+            "source": "fresh-base-runtime:sha256:image",
+            "confidence": 1.0,
+            "value": {"name": f"platform_{index}", "value": "x" * 80},
+            "state_metadata": {"event_sequence": index},
+        }
+        constraint = NormalizedConstraint(
+            ConstraintDomain.PLATFORM,
+            f"platform_{index}",
+            ConstraintPredicate.EQUALS,
+            "x" * 80,
+            ConstraintRole.FACT,
+            (evidence_id,),
+        )
+        state.constraints[constraint.constraint_id] = constraint.to_state_fields(
+            "satisfied"
+        )
+
+    projection = build_model_constraint_frontier(state, max_chars=2_048)
+
+    assert projection["causal_roots"][0]["subject"] == "six.moves"
+    assert projection["summary"]["environment_facts_omitted"] > 0

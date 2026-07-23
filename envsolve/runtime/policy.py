@@ -6,7 +6,7 @@ from typing import Any
 import hashlib
 import json
 
-from envsolve.constraints.frontier import build_causal_constraint_frontier
+from envsolve.constraints.frontier import build_model_constraint_frontier
 from envsolve.operations.planner import ConstraintOperationPlanner
 from envsolve.constraints.models import (
     ConstraintDomain,
@@ -411,12 +411,11 @@ class StructuredModelDeploymentPolicy:
             ),
         }
         if causal:
-            projection["constraint_frontier"] = self._bounded_json_value(
-                build_causal_constraint_frontier(
-                    state,
-                    self.operation_planner.constraint_engine,
-                ),
-                self._field_limit(weights["frontier"]),
+            frontier_limit = self._field_limit(weights["frontier"])
+            projection["constraint_frontier"] = build_model_constraint_frontier(
+                state,
+                self.operation_planner.constraint_engine,
+                max_chars=frontier_limit,
             )
         else:
             projection["active_module_requirements"] = self._bounded_json_value(

@@ -41,6 +41,7 @@ class EnvironmentFacts:
     sys_platform: str
     python_major: int
     platform_name: str
+    python_version: tuple[int, ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -351,8 +352,14 @@ class ImportContextAnalyzer:
             return bindings.get(node.id, UNKNOWN)
         if isinstance(node, ast.Attribute) and ast.unparse(node) == "sys.platform":
             return facts.sys_platform
+        if isinstance(node, ast.Attribute) and ast.unparse(node) == "sys.version_info":
+            return facts.python_version if facts.python_version is not None else UNKNOWN
         if isinstance(node, ast.Subscript) and ast.unparse(node.value) == "sys.version_info":
             index = self._evaluate(node.slice, facts, bindings)
+            if not isinstance(index, int):
+                return UNKNOWN
+            if facts.python_version is not None and 0 <= index < len(facts.python_version):
+                return facts.python_version[index]
             return facts.python_major if index == 0 else UNKNOWN
         if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.Not):
             value = self._evaluate(node.operand, facts, bindings)
@@ -379,6 +386,17 @@ class ImportContextAnalyzer:
                 return left in right
             if isinstance(operator, ast.NotIn):
                 return left not in right
+            try:
+                if isinstance(operator, ast.Lt):
+                    return left < right
+                if isinstance(operator, ast.LtE):
+                    return left <= right
+                if isinstance(operator, ast.Gt):
+                    return left > right
+                if isinstance(operator, ast.GtE):
+                    return left >= right
+            except TypeError:
+                return UNKNOWN
         if isinstance(node, (ast.Tuple, ast.List, ast.Set)):
             values = [self._evaluate(item, facts, bindings) for item in node.elts]
             return UNKNOWN if any(value is UNKNOWN for value in values) else tuple(values)
