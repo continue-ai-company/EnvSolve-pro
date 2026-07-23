@@ -117,6 +117,12 @@ root 仍然存活。它可以提出通用 parser 或 scope-transition 修改，�
 `hard_state_mutated=false`，并在跨仓库反例和新的 shadow batch 上验证，不能学习 Conan 或 PyO3 名称
 本身作为 case rule。
 
+P5 V2 还暴露了外层系统必须优先处理的一类缺口：**模型输入合同失效**。即使完整内部状态可被事后
+重建，只要模型当时看到的是整体截断对象，该 episode 就不能用于判断某个内层机制是否有效。外层必须
+绑定模型可见投影的 schema、canonical hash、included/omitted count 和审计结果；不得用更完整的事后
+derived state 替换真实输入后重新解释效果。投影合同修复属于 measurement proposal，应先通过已消费
+轨迹回放和独立 canary，再允许触发算法 proposal。
+
 ## English Version
 
 ### 1. Core question
@@ -178,3 +184,12 @@ same-channel observation. It may propose generic parser or scope-transition chan
 when `hard_state_mutated=false` remains true and cross-repository counterexamples plus a
 fresh shadow batch pass. Repository or provider names are evidence instances, never
 admissible case rules.
+
+P5 V2 exposes a measurement gap that the outer system must handle before algorithmic
+proposals: a **broken model-input contract**. Even when the full internal state can be
+reconstructed later, an episode cannot identify mechanism value if the model actually
+saw a whole-object truncation wrapper. The outer loop must bind the model-visible schema,
+canonical digest, included and omitted counts, and integrity decision. It may not replace
+the historical input with a richer offline-derived state and reinterpret the outcome.
+Projection-contract repairs are measurement proposals and require consumed-trajectory
+replay plus an independent canary before any algorithm proposal is admitted.

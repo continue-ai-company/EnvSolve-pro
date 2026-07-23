@@ -100,6 +100,11 @@ scope、根因首次出现、复发与闭合，以及完整 raw evidence 的哈�
 而不会把收益混同为更小的动作空间。训练标签必须区分“根因被后续同通道观测证明闭合”和“后续候选
 未运行到该探针”；后者是删失，不是正 reward。
 
+训练数据还必须同时保存完整内部 frontier 与模型实际可见的 bounded projection，并绑定 projection schema、
+hash、included/omitted count 和完整性标签。若动作产生时的投影是整体截断、缺少根因列表或遗漏状态不明，
+该 transition 不能用于比较 frontier-conditioned policy，也不能用事后重建状态替换。这样 EnvSolve-RL
+学习的是可复现的信息条件下的策略，而不是拥有历史模型未见信息的离线 oracle。
+
 ## English Version
 
 ### 1. Core question
@@ -156,3 +161,11 @@ frontier, but still emits an open deployment program, allowing raw-history, flat
 and frontier-conditioned policies to be compared without an action-space confound. A
 root is a positive closure label only when a newer observation from the same channel
 retires it; failure to reach that probe is censoring, not reward.
+
+Training data must preserve both the complete internal frontier and the bounded projection
+actually shown to the policy, binding its schema, digest, included and omitted counts, and
+integrity label. A transition with whole-object truncation, a missing root list, or unknown
+omission status is inadmissible for evaluating a frontier-conditioned policy and cannot be
+repaired by substituting an offline reconstruction. EnvSolve-RL must learn under the
+reproducible information set available online rather than an offline oracle with historical
+information the policy never observed.

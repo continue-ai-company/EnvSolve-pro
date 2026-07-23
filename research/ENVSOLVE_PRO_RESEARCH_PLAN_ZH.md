@@ -74,7 +74,7 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 | P2（完成） | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
 | P3（完成） | 验证候选保留机制 | certified/admissible 状态及已消费配对重放 | terminal reach 为 `2/3` 对 `1/3`，Official Pass 无增益 |
 | P4（完成） | 量化剩余主要矛盾 | Spark 上两组独立的 8-case Dev 普查 | 单层复现失败，接口级信号已冻结 |
-| P5（进行中） | 验证因果约束前沿 | 已消费机制配对，再到新 Dev 配对 | 前沿被正确消费且不降低 paired Official Pass |
+| P5（进行中） | 验证因果约束前沿 | V2 测量否决、V3 完整性 canary、再到已消费配对 | 模型可见前沿完整，随后才检验 paired 效果 |
 | P6 | 扩大、冻结与确认 | 多模型 Dev、Canary、Official Test 和论文主表 | 代码、prompt、baseline、指标全部冻结 |
 
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
@@ -177,6 +177,18 @@ V1 实现 `8e79eab` 暴露的是三类测量问题，而不是可用的效果估
 程序接口、候选保留和 evaluator 边界不变；仍然只比较 flat 与 causal state。只有完整性与机制门槛都
 通过后，才抽取新的 outcome-blind Dev batch。
 
+V2 的基础设施重试完成后，冻结分析仍未通过测量门。三个 causal episode 共记录 16 个模型决策；其中
+LangGraph candidate 2 持久化的是整个 frontier 的截断包装，而不是含 `causal_roots` 的结构化对象。
+事后审计精确定位到这 1 次失效，并将 `measurement_integrity_ok` 与 `effect_analysis_admissible` 都判为
+false。因此 causal `1/3` 与 flat `0/3` 的表面 Official Pass 差异只能用于诊断，不能作为算法收益。
+
+最小 V3 修复把完整内部 frontier 与模型投影视为两个版本化对象。模型投影在固定字符预算内先保留
+causal root，再用剩余空间保留环境事实，并显式报告 omitted count；不再截断整个 JSON。另一个通用
+修复让 verifier 正确解释 `sys.version_info` tuple guard，避免在新 Python 上把不活跃的 compatibility
+import 硬化为义务。V3 先只在相同三个已消费 case 上运行完整性 canary；Official Pass 不进入 canary
+gate。只有每次决策的模型可见投影都通过 hash、schema、结构和 root-completeness 审计，才冻结后续
+multi-block flat/causal 配对。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -200,6 +212,7 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-完成并封存 V1 诊断，运行冻结的 V2 已消费配对，并按每个决策时模型实际看到的状态重建根因出现、复发
-与闭合。若 V2 门槛通过，冻结新的 outcome-blind paired Dev；否则只修改被跨仓库轨迹支持的最小机制。
-Token 与价格继续作为结果报告；候选和 wall-clock 只提供统一、可复现且尽量不绑定的执行边界。
+完成 V3 已消费 case 完整性 canary，并只根据模型实际看到的持久化投影判断测量是否合格。若 gate
+通过，先冻结同一已消费集合上的 multi-block flat/causal 配对，以处理 provider 非确定性；只有该机制
+实验无 paired Official Pass 回退且出现预注册增益，才抽取新的 outcome-blind Dev。Token 与价格继续
+作为结果报告；候选和 wall-clock 只提供统一、可复现且尽量不绑定的执行边界。

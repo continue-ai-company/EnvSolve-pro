@@ -62,6 +62,10 @@ advance independently, so absence of a new observation is not evidence of resolu
 a newer observation of the same channel may confirm or retire an old root. Deterministic
 evidence may form hard facts, ambiguous explanations remain hypotheses, and Unknown is
 not hardened. The model also retains bounded raw evidence and may challenge soft beliefs.
+The complete internal frontier and the model-visible projection are versioned separately:
+the bounded projection packs executable roots before descriptive facts and reports all
+omissions, so compression cannot replace the constraint object with an unparseable text
+fragment.
 
 The **Operation layer** lets a strong model generate self-contained deployment programs.
 The system enforces only environment-modification and safety boundaries plus exact
@@ -118,6 +122,8 @@ Diagnostic studies establish measurement and mechanism assumptions without makin
 effectiveness claim. Open programs, state-parity preconditions, and candidate retention
 first remove representation and terminal censoring. P5 then pairs flat state with the
 causal frontier on three consumed mechanism cases and measures root appearance,
-recurrence, and closure. Only a preregistered mechanism gate permits consumption of a new
+recurrence, and closure while auditing the exact persisted model-visible state for digest,
+schema, and completeness. A failed measurement gate excludes outcomes from effect
+statistics. Only a preregistered mechanism gate permits consumption of a new
 outcome-blind Dev batch. Final confirmation freezes code, prompts, analysis, and evaluator
 access and separates development and test by repository identity.

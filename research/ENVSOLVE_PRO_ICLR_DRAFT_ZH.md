@@ -42,6 +42,8 @@ EnvSolve-pro 维护状态 `S_t=(X_t,F_t,H_t,C_t,U_t)`：原始证据、事实、
 保留 scope、source role、path 与 trust。不同观测通道独立推进状态，因此“本轮未观测”不等于“已经
 解决”；新的同类观测可以确认或移除旧根因。确定性证据可形成 hard fact，歧义解释保留为 hypothesis，
 Unknown 不被硬化。模型同时看到有界原始证据，并可质疑任何 soft belief。
+完整内部前沿与模型可见投影分开版本化：投影在预算内优先保留可执行根因，再保留描述性事实，并显式
+报告省略数量；因此压缩不会把整个约束对象替换成不可解析的文本片段。
 
 **操作层**回答“怎样改变环境”。强模型自由生成自包含部署程序。系统只强制环境修改边界、安全边界和
 有直接执行反例的精确禁忌，其余 operation plan 是建议。candidate 是开放程序，不属于封闭 command
@@ -81,5 +83,6 @@ terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻�
 
 诊断实验只验证测量与机制假设，不承担效果结论。开放程序、状态等价前置条件和候选保留先移除了
 representation 与 terminal censoring。P5 随后在三个已消费机制 case 上配对比较 flat state 与 causal
-frontier，测量根因出现、复发和闭合；只有预注册门槛通过后才消耗新的 outcome-blind Dev batch。最终
+frontier，并对模型实际看到的持久化状态执行 hash、schema 与完整性审计；测量门失败的结果不进入效果
+统计。只有预注册门槛通过后才消耗新的 outcome-blind Dev batch。最终
 确认实验冻结代码、prompt、分析规则和 evaluator 边界，并按 repository identity 隔离开发与测试。

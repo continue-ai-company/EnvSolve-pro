@@ -78,7 +78,7 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | P2 (complete) | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
 | P3 (complete) | Qualify candidate retention | Certified/admissible state and paired consumed replay | Terminal reach `2/3` vs `1/3`; no Official Pass gain |
 | P4 (complete) | Quantify the remaining contradiction | Two independent eight-case Dev censuses on Spark | Single-layer replication failed; interface-level signal frozen |
-| P5 (in progress) | Qualify a causal constraint frontier | Consumed mechanism pairs, then fresh Dev pairs | Correct frontier consumption with no paired Official Pass regression |
+| P5 (in progress) | Qualify a causal constraint frontier | V2 measurement rejection, V3 integrity canary, then consumed pairs | Complete model-visible frontiers before paired effectiveness |
 | P6 | Broaden, freeze, and confirm | Multi-model Dev, Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
 
 P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A new
@@ -217,6 +217,23 @@ The model, verifier goal, open-program interface, candidate retention, and evalu
 boundary remain fixed; only flat versus causal state differs. Fresh outcome-blind Dev
 cases are consumed only after the preregistered integrity and mechanism gate passes.
 
+After the V2 infrastructure retries completed, the frozen analysis still failed its
+measurement gate. The three causal episodes persisted 16 model decisions; LangGraph
+candidate 2 stored a whole-frontier truncation wrapper rather than a structured object
+containing `causal_roots`. A separate posthoc audit identifies exactly this one invalid
+decision and sets both measurement integrity and effect admissibility to false. The
+apparent causal `1/3` versus flat `0/3` Official Pass difference is therefore diagnostic,
+not an algorithmic gain.
+
+The minimal V3 repair versions the complete internal frontier separately from its model
+projection. The bounded projection packs causal roots before descriptive environment
+facts, reports omitted counts, and never truncates the whole JSON object. A shared generic
+verifier correction also evaluates tuple guards over `sys.version_info`, preventing an
+inactive compatibility import from becoming an obligation on newer Python. V3 first runs
+an integrity-only canary on the same three consumed cases; Official Pass is not part of
+this gate. A multi-block flat/causal experiment is frozen only after every model-visible
+decision passes digest, schema, structure, and root-completeness checks.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -236,9 +253,9 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Finish and archive V1 as diagnostic evidence, run the frozen V2 consumed pairing, and
-reconstruct exact model-visible root appearance, recurrence, and closure at each decision.
-If the V2 gate passes, freeze a fresh outcome-blind paired Dev sample. Otherwise revise
-only the smallest replicated mechanism. Tokens and price remain reported outcomes;
-candidate and wall-clock limits provide a shared, reproducible, intentionally generous
-execution boundary.
+Complete the V3 consumed-case integrity canary and judge it only from the exact persisted
+model-visible projections. If it passes, freeze a multi-block flat/causal experiment on
+the same consumed cases to address provider nondeterminism. Consume a fresh outcome-blind
+Dev batch only after that mechanism test shows a preregistered gain without paired Official
+Pass regression. Tokens and price remain reported outcomes; candidate and wall-clock
+limits provide a shared, reproducible, intentionally generous execution boundary.

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-paired-v2",
+  "adjudicated_at": "2026-07-23T05:08:00Z",
+  "claim_scope": "consumed-case diagnosis only",
+  "implementation_freeze": "d250549dd29745887fe7fd1db4026b4d37aca384",
+  "schedule": "experiments/validations/pro_p5_causal_frontier_paired_v2_infra_retry3_schedule.json",
+  "schedule_sha256": "4bb2573fe4f21f991ea1216efa1d45a2c8238d4f801d404adf327cb91c1e4b16",
+  "frozen_analysis": {
+    "script": "experiments/analyze_causal_frontier_pairs.py",
+    "script_sha256": "3a0a422eee19b71b68615387dd38aea55f41bc21df762557a94cc3fb668271b0",
+    "process_exit_code": 1,
+    "output_created": false,
+    "failure": "KeyError: causal_roots while reading the persisted LangGraph candidate-0002 model projection",
+    "log_uri": "spark-f21c:/home/avdpro/work/runs/envsolve-pro-p5-v2-infra-retry3-control/frozen-analysis.log",
+    "log_sha256": "89fecf78b96446a92cbc02bfd83990bbe668662d3c567fd3c65f28b32e80d3d5"
+  },
+  "posthoc_projection_audit": {
+    "script": "experiments/audit_causal_frontier_projection.py",
+    "script_sha256": "f977d7c14ea98aeab9a6aac94fc05c9cc7333c5e38074720690cf58177322a40",
+    "artifact_uri": "spark-f21c:/home/avdpro/work/runs/envsolve-pro-p5-v2-infra-retry3-control/posthoc-projection-integrity-audit-v2.json",
+    "artifact_sha256": "bed221473bd7a9b5b5b36b46d93711e6c34d73357c7a1ac55b25b965b1d05791",
+    "causal_episode_count": 3,
+    "causal_decision_count": 16,
+    "invalid_causal_decision_count": 1,
+    "invalid_decision": {
+      "run_id": "pro-p5-causal-frontier-v2-infra-retry2-langgraph-causal",
+      "candidate_id": "candidate-0002",
+      "failure_reasons": [
+        "whole_object_truncated",
+        "causal_roots_missing_or_not_list",
+        "summary_missing_or_not_object"
+      ]
+    },
+    "measurement_integrity_ok": false,
+    "effect_analysis_admissible": false
+  },
+  "descriptive_outcomes_not_admissible_as_effect": {
+    "flat_official_passes": 0,
+    "causal_frontier_official_passes": 1,
+    "reason": "The preregistered measurement gate failed before effect aggregation."
+  },
+  "offline_replay_diagnostics": {
+    "langgraph_candidate_0002": {
+      "old_full_frontier_chars": 10409,
+      "new_compact_projection_chars": 6095,
+      "new_compact_causal_roots": 10,
+      "new_compact_causal_roots_omitted": 0
+    },
+    "admissible_use": "Representation diagnosis only; offline reconstruction never replaces the historical model input."
+  },
+  "decision": "reject_v2_effect_claim_and_run_v3_integrity_canary",
+  "fresh_dev_consumed": false
+}
