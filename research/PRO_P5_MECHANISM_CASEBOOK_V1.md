@@ -20,9 +20,9 @@ instances rather than admissible rules.
 - An independent V2 flat trajectory repeatedly observed Python 3.13 exceeding PyO3's 3.12
   maximum. Eight distinct candidates still searched locally over Rust, headers, maturin,
   and package patches instead of switching runtime.
-- The V2 causal run reached internal certification but failed officially with 1,701 errors:
-  one missing import and roughly 1,700 API/type mismatches. Import closure is not dependency-
-  version closure.
+- The V2 causal run reached internal certification but failed officially on one
+  missing import. Pyright also emitted roughly 1,700 API/type mismatches, but they
+  are non-scoring and outside the current optimization target.
 
 ### Three-layer diagnosis
 
@@ -30,9 +30,9 @@ instances rather than admissible rules.
   ensure that a strong model treats it as the dominant contradiction.
 - **Constraint:** causal compression exists only if the model-visible projection remains
   structured; a richer posthoc state cannot substitute for the historical input.
-- **Operation:** broad dependency installation can create extensive version skew after
-  import closure. This is a separate verifier-target gap and is not folded into the current
-  representation repair.
+- **Operation:** the current repair is evaluated only on whether it closes the
+  official missing-import target. Broader dependency-quality diagnostics are not
+  folded into mechanism selection.
 
 ## 2. `nonebot/nonebot2`
 
@@ -84,4 +84,3 @@ instances rather than admissible rules.
    causal decisions invalidates V2.
 5. The next batch tests compact-projection integrity only, followed by multi-block pairing
    on consumed cases to address provider nondeterminism.
-

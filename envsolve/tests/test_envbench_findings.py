@@ -39,6 +39,16 @@ def missing(module: str, path: str = "package/main.py", line: int = 0) -> dict:
     }
 
 
+def non_scoring_type_error(index: int) -> dict:
+    return {
+        "file": f"/data/project/package/module_{index}.py",
+        "severity": "error",
+        "message": "Argument type is incompatible",
+        "range": {"start": {"line": 0, "character": 0}},
+        "rule": "reportArgumentType",
+    }
+
+
 class EnvBenchFindingCollectorTests(unittest.TestCase):
     def setUp(self) -> None:
         self.collector = EnvBenchFindingCollector(FACTS)
@@ -110,6 +120,17 @@ class EnvBenchFindingCollectorTests(unittest.TestCase):
         self.assertFalse(outcome.passed)
         self.assertEqual(len(outcome.hypotheses), 1)
         self.assertFalse(report.details["diagnostic_count_matches"])
+
+    def test_non_scoring_pyright_errors_do_not_create_constraints(self) -> None:
+        diagnostics = [non_scoring_type_error(index) for index in range(1629)]
+        report = self.collect(raw_result(issues_count=0, diagnostics=diagnostics))
+        outcome = self.adapter.adapt(report)
+
+        self.assertTrue(report.goal_passed)
+        self.assertTrue(outcome.passed)
+        self.assertEqual(report.findings, ())
+        self.assertEqual(outcome.counterexamples, ())
+        self.assertEqual(report.details["non_missing_import_error_count"], 1629)
 
     def test_network_bootstrap_failure_is_infrastructure_unknown(self) -> None:
         report = self.collect(

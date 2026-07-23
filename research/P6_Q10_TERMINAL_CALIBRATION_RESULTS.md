@@ -28,8 +28,9 @@ as a Boolean failure or used to estimate verifier agreement.
 
 No completed script was an internal-verifier false negative. Six of nine completed
 evaluations failed during bootstrap. The remaining three completed bootstrap but
-failed terminal static analysis: one had 824 Pyright errors and 58 warnings, while
-the two matched reddit2telegram scripts each had 61 errors and 3 warnings.
+each failed the official target with `issues_count=4`. Their total Pyright error
+counts were 824, 61, and 61, respectively, but those totals are non-scoring
+diagnostics.
 
 The full condition reached Pyright on two of five scripts; the ablation reached it
 on one of five, with one ablation `Unknown`. These tiny development counts are

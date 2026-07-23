@@ -1088,24 +1088,17 @@ class CoreIoTest(unittest.TestCase):
                         "repo_name": "owner/repo",
                         "commit_sha": "abc",
                         "exit_code": 0,
-                        "issues_count": 1,
+                        "issues_count": 0,
                         "execution_time": 1.5,
                         "pyright": {
                             "version": "1.2.3",
                             "summary": {
-                                "errorCount": 2,
+                                "errorCount": 1629,
                                 "warningCount": 0,
                                 "informationCount": 0,
                                 "filesAnalyzed": 3,
                             },
                             "generalDiagnostics": [
-                                {
-                                    "severity": "error",
-                                    "rule": "reportMissingImports",
-                                    "message": (
-                                        'Import "missing.package" could not be resolved'
-                                    ),
-                                },
                                 {
                                     "severity": "error",
                                     "rule": "reportPrivateImportUsage",
@@ -1144,15 +1137,17 @@ class CoreIoTest(unittest.TestCase):
             )
 
             self.assertTrue(result.evaluation_completed)
-            self.assertFalse(result.official_pass)
+            self.assertTrue(result.official_pass)
             self.assertEqual(
                 [item.channel for item in result.evidence],
                 ["official", "diagnostic", "diagnostic"],
             )
             self.assertEqual(
                 [item.passed for item in result.evidence],
-                [False, True, False],
+                [True, True, None],
             )
+            self.assertNotIn("error_count", result.evidence[0].metrics)
+            self.assertEqual(result.raw_metrics["error_count"], 1629)
             report = audit_run(artifacts.root)
             self.assertTrue(report.valid)
             self.assertTrue(report.checks["diagnostic_evidence_schema"])

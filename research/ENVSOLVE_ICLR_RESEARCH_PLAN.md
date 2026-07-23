@@ -122,8 +122,11 @@ as Unknown.
 
 An unchanged official evaluator `Q` scores only the final deployment program. Its
 output is not observable during the online episode and cannot enter `S_t`. The
-objective is to maximize terminal deployment success. Resource limits are part of
-the experimental setting, not the task definition: compared methods receive matched
+objective is to maximize terminal deployment success. For EnvBench Python, success
+means that bootstrap exits zero and Pyright reports zero `reportMissingImports`;
+all other Pyright diagnostics are non-scoring and cannot guide constraints,
+candidate ranking, or mechanism selection. Resource limits are part of the
+experimental setting, not the task definition: compared methods receive matched
 limits on model requests and tokens, candidate environments, executable commands,
 and wall-clock time.
 

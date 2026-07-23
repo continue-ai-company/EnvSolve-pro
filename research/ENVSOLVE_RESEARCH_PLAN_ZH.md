@@ -26,6 +26,11 @@
 结构化执行状态，而不是更多 evaluator 权限或更多重试。EnvBench 是最终评测基准；
 Repo2Run、EnvBench agents、Codex 和相同 backbone 的反馈对照是 baseline。
 
+Python 赛道的优化目标严格等于未修改的官方 contract：bootstrap `exit_code == 0`，且
+`count(reportMissingImports) == 0`。Pyright `errorCount`、warning 和其他非 missing-import
+diagnostic 只保留用于 episode 后调试，不能影响约束、候选排序、机制优先级，也不能用于描述
+距离成功还有多远。
+
 资源上限属于评测协议，而不是任务定义。对比方法在模型调用与 token、candidate environment、
 命令和 wall-clock time 等原始资源上使用匹配上限。美元成本只是按带日期的 provider 价格快照得到的
 附属换算。
@@ -843,8 +848,9 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   未解、6 个共享 validation reject 和 3 个 operation-guard reject。随后，单独提交的 episode 后校准
   对每条 run 最后一个真正接受 verification 的 candidate 严格评测一次。10 份 artifact 全部
   audit-valid；9 次 evaluation completed，1 次为 infrastructure `Unknown`，0 次通过。9 次完成结果中
-  6 次 bootstrap failure，其余 3 次进入 Pyright 并分别产生 824、61、61 个 error。没有任何完成的
-  internal-negative script 成为 Official-positive，因此冻结的 Boolean verifier gate 不放松。代码审查
+  6 次 bootstrap failure，其余 3 次进入 Pyright，且均以 `issues_count=4` 未通过官方目标；824、61、
+  61 个总 error 只是非计分诊断。没有任何完成的 internal-negative script 成为 Official-positive，
+  因此冻结的 Boolean verifier gate 不放松。代码审查
   随后发现了更简单的 harness confound：9 个 pre-environment reject 与 fresh execution 消耗同一个
   5-unit cap，所以在 model limit 为 15 的情况下只使用了 41/50 个 environment slot。原始预算现已
   独立配置，并以 algorithm v12 / Harness v26 冻结，同时保留旧配置 fallback。在增加任何 solver
@@ -939,7 +945,8 @@ transition、internal check、预算或 candidate-selection rule。任何必要�
   后，在不使用 Mac 代理的条件下，全新的 `dgx-portability-smoke-v4` 成功从 GitHub 下载仓库，
   触发 adapter 的本地 `uv` 回退，执行 ARM64 evaluator 容器、运行 Pyright、持久化唯一 Official
   结果，并通过独立 artifact audit。固定手工脚本的结果为 Official-negative（`exit_code=0`、
-  `error_count=1295`），因此该 run 只能作为可移植性证据，不能支持 EnvSolve 效果 claim。
+  `issues_count=18`）；`error_count=1295` 只是非计分诊断。因此该 run 只能作为可移植性证据，
+  不能支持 EnvSolve 效果 claim。
 - Q11 现已在不重试、不 replacement 的条件下正式关闭。9 份 artifact 有效，8 条 run scientifically
   eligible，没有任何 run 得到 Boolean Official outcome，5 个 pair 全部删失。Position 8 的零信息
   provider failure 不重试，因为 paired control 本身没有 Official 结果，重试无法恢复 eligible pair；

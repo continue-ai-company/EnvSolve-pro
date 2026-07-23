@@ -34,6 +34,12 @@ rather than extra evaluator access or extra retries, causes the improvement.
 EnvBench is the final evaluation benchmark; Repo2Run, EnvBench agents, Codex,
 and same-backbone feedback controls are baselines.
 
+For the Python track, the optimization target is exactly the unchanged official
+contract: bootstrap `exit_code == 0` and `count(reportMissingImports) == 0`.
+Pyright `errorCount`, warnings, and non-missing-import diagnostics are retained only
+for post-hoc debugging. They must not affect constraints, candidate ranking,
+mechanism prioritization, or claims of distance to success.
+
 Resource limits belong to the evaluation protocol rather than the task definition.
 Compared methods receive matched limits on primitive resources such as model calls
 and tokens, candidate environments, commands, and wall-clock time. Dollar cost is
@@ -1150,9 +1156,10 @@ development batch; it never triggers tuning on the same held-out outcomes.
   calibration then evaluated the last actually verified candidate from each run
   exactly once. All ten artifacts are audit-valid; nine evaluations completed, one
   was infrastructure `Unknown`, and none passed. Six of nine completed scripts
-  failed bootstrap; the remaining three reached Pyright and failed with 824, 61,
-  and 61 errors. No completed internal-negative script was Official-positive, so
-  the frozen Boolean verifier gate is not relaxed. Code review then exposed a
+  failed bootstrap; the remaining three reached Pyright and each failed with
+  `issues_count=4`. Their total error counts of 824, 61, and 61 are non-scoring
+  diagnostics. No completed internal-negative script was Official-positive, so the
+  frozen Boolean verifier gate is not relaxed. Code review then exposed a
   simpler harness confound: nine pre-environment rejects consumed the same five-unit
   cap as fresh executions, leaving only 41/50 environment slots used despite a
   15-request model limit. Primitive limits are now independently configurable and
@@ -1292,8 +1299,9 @@ development batch; it never triggers tuning on the same held-out outcomes.
   downloaded the repository from GitHub, exercised the adapter's local-`uv` fallback,
   executed the ARM64 evaluator container, ran Pyright, persisted one official result,
   and passed independent artifact audit. Its fixed manual script is Official-negative
-  (`exit_code=0`, `error_count=1295`), so this run is portability evidence only and
-  cannot support an EnvSolve effectiveness claim.
+  (`exit_code=0`, `issues_count=18`); `error_count=1295` is a non-scoring diagnostic.
+  This run is portability evidence only and cannot support an EnvSolve effectiveness
+  claim.
 - Q11 is now formally closed without retry or replacement. Nine artifacts are valid,
   eight runs are scientifically eligible, zero runs reached a Boolean Official
   outcome, and all five pairs are censored. The position-8 zero-information provider

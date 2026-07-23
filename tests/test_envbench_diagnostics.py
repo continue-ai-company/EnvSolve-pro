@@ -45,8 +45,9 @@ class EnvBenchDiagnosticEvidenceTest(unittest.TestCase):
 
         self.assertEqual([item.channel for item in evidence], ["diagnostic"] * 2)
         self.assertTrue(evidence[0].passed)
-        self.assertFalse(evidence[1].passed)
+        self.assertIsNone(evidence[1].passed)
         metrics = evidence[1].metrics
+        self.assertEqual(metrics["objective_role"], "non_scoring")
         self.assertEqual(metrics["missing_import_modules"], ["missing.package"])
         self.assertEqual(metrics["non_missing_import_error_count"], 2)
         self.assertEqual(metrics["rule_counts"]["reportPrivateImportUsage"], 2)

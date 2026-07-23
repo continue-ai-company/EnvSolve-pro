@@ -26,9 +26,8 @@ overwrite 或 retry。
 ## 校准结论
 
 完成评测的脚本中没有 internal-verifier false negative。9 次 completed evaluation 中有 6 次在
-bootstrap 阶段失败；剩余 3 次完成 bootstrap，但 terminal static analysis 失败：一份脚本产生
-824 个 Pyright error 和 58 个 warning；reddit2telegram 的两份配对脚本都产生 61 个 error 和 3 个
-warning。
+bootstrap 阶段失败；剩余 3 次完成 bootstrap，但都以 `issues_count=4` 未通过官方目标。三者的
+Pyright 总 error 分别为 824、61、61，但这些总数只是非计分诊断。
 
 Full condition 的 5 份脚本中有 2 份进入 Pyright；ablation 为 1/5，另有 1 份 ablation `Unknown`。
 这些小规模 development 计数只能描述，不能支持效果 claim。

@@ -84,8 +84,10 @@ EnvBench 是检验方法的 testbed，不是 EnvSolve 的定义。Fresh containe
 还是应被标记为 Unknown。
 
 不变的官方 evaluator `Q` 只评测最终部署程序。其输出在在线 episode 中不可见，也不能进入 `S_t`。
-研究目标是提高终局部署成功率。资源上限属于实验设置，而不是任务定义：被比较方法获得匹配的模型
-请求与 token、候选环境、可执行命令和 wall-clock 上限。
+研究目标是提高终局部署成功率。对 EnvBench Python，成功严格定义为 bootstrap 退出码为 0，且
+Pyright 的 `reportMissingImports` 数量为 0；其他 Pyright diagnostic 不计分，也不能影响约束、
+候选排序或机制选择。资源上限属于实验设置，而不是任务定义：被比较方法获得匹配的模型请求与
+token、候选环境、可执行命令和 wall-clock 上限。
 
 ### 2.1 为什么部分可观测很重要
 

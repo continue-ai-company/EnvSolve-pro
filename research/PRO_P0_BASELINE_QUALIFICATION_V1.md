@@ -12,9 +12,9 @@ evidence.
 
 | Method | Native loop | Model | Valid terminal outcome |
 |---|---|---|---|
-| Codex CLI | Codex tool loop through one persistent container MCP | `gpt-5.5`, high reasoning | Official evaluation completed; fail, 18 issues / 1306 errors |
-| Repo2Run reproduced | Repo2Run configuration loop and command history | `deepseek/deepseek-v4-pro` | Official evaluation completed; fail, 18 / 1295 |
-| EnvBench raw ReAct | EnvBench FreeAgent ReAct loop | `deepseek/deepseek-v4-pro` | Official evaluation completed; fail, 18 / 1295 |
+| Codex CLI | Codex tool loop through one persistent container MCP | `gpt-5.5`, high reasoning | Official fail, `issues_count=18`; 1,306 total errors were non-scoring |
+| Repo2Run reproduced | Repo2Run configuration loop and command history | `deepseek/deepseek-v4-pro` | Official fail, `issues_count=18`; 1,295 total errors were non-scoring |
+| EnvBench raw ReAct | EnvBench FreeAgent ReAct loop | `deepseek/deepseek-v4-pro` | Official fail, `issues_count=18`; 1,295 total errors were non-scoring |
 | Frozen EnvSolve v1 | Observation-Constraint-Operation candidate loop from `07a208f` | `deepseek/deepseek-v4-pro` | Native terminal failure: five-candidate budget exhausted |
 
 Repo2Run is not claimed to be untouched upstream. It is the upstream implementation at

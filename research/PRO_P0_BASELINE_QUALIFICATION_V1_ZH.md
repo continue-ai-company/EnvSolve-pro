@@ -10,9 +10,9 @@
 
 | 方法 | 原生 loop | 模型 | 有效终局 |
 |---|---|---|---|
-| Codex CLI | 通过单个持久容器 MCP 执行 Codex 工具循环 | `gpt-5.5`，high reasoning | Official evaluation 完成；失败，18 issues / 1306 errors |
-| Repo2Run reproduced | Repo2Run 配置循环与命令历史 | `deepseek/deepseek-v4-pro` | Official evaluation 完成；失败，18 / 1295 |
-| EnvBench raw ReAct | EnvBench FreeAgent ReAct loop | `deepseek/deepseek-v4-pro` | Official evaluation 完成；失败，18 / 1295 |
+| Codex CLI | 通过单个持久容器 MCP 执行 Codex 工具循环 | `gpt-5.5`，high reasoning | Official 失败，`issues_count=18`；1,306 个总 error 不计分 |
+| Repo2Run reproduced | Repo2Run 配置循环与命令历史 | `deepseek/deepseek-v4-pro` | Official 失败，`issues_count=18`；1,295 个总 error 不计分 |
+| EnvBench raw ReAct | EnvBench FreeAgent ReAct loop | `deepseek/deepseek-v4-pro` | Official 失败，`issues_count=18`；1,295 个总 error 不计分 |
 | 冻结 EnvSolve v1 | 来自 `07a208f` 的观测-约束-操作候选循环 | `deepseek/deepseek-v4-pro` | 原生终止失败：五次候选预算耗尽 |
 
 Repo2Run 不被表述为未经修改的上游版本。当前 baseline 是上游提交 `65042aa` 加上可审计的兼容修复，覆盖

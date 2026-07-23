@@ -34,7 +34,7 @@ Git 依赖。它能把四种容易混为一谈的能力拆开：
 | 方法 | 已观察终局或当前状态 | 诊断价值 |
 |---|---|---|
 | Repo2Run reproduced | 16 次成功模型响应后，原生 generation 失败，未进入官方 evaluator。构建出的环境仍保留现代 Django，上游 agent 随后因索引空 agent 结果而崩溃。 | 长命令 loop 仍可能遗漏决定性版本约束；baseline 自身鲁棒性必须与环境正确性分开。 |
-| Codex CLI | 构建 Python 3.8 环境，安装 `requirements_debug.txt`，并运行 Django check/test。官方评估完成但失败，共 1,629 个 error；两个 missing-import 是 `django.conf.settings` 和 `django.core.urlresolvers`。 | 强自由 Agent 能从网络超时中自适应并选择合理的旧 runtime，但本地检查目标与官方目标没有对齐。 |
+| Codex CLI | 构建 Python 3.8 环境，安装 `requirements_debug.txt`，并运行 Django check/test。官方评估完成，`issues_count=2`，因此该 case 失败。Pyright 另有 1,629 个总 error，但其余 1,627 个不计分。 | 强自由 Agent 能从网络超时中自适应并选择合理的旧 runtime，但本地检查漏掉了两个官方 import obligation。 |
 | 冻结 EnvSolve v1 | 五候选耗尽后原生失败，未进入官方 evaluator；共 5 次成功模型响应、4 个执行环境、68,063 total token、2,316 秒。 | 该轨迹直接检验结构化状态是在帮助强模型，还是在限制强模型。 |
 | EnvBench raw ReAct | 达到原生 30 次迭代上限后仍未完成；最终 ledger 记录 31 次响应、806,340 token、1,447 秒。随后 Replay IR 拒绝三种成功 shell 形式，未进入官方 evaluator。 | 自由推理恢复了关键证据和多类失败，但上下文增长、迭代消耗与事后轨迹解析共同遮蔽了官方终局。 |
 
@@ -351,9 +351,10 @@ dependency，并在 fresh-container replay 中保留这些因果选择。仅仅�
 Python 3.10 venv，并使用 `pip install .`；54 个内部 import obligation、`pip check`、compileall 与 source
 import closure 全部通过。
 
-官方 bootstrap 也完成了，但 EnvBench 在 119 个文件中报告 746 个 Pyright error，最终判败。只有 2 个是
-missing import，其余 744 个是 argument、attribute、optional-member 等类型错误。这是真实的 EnvSolve 失败：
-内部 verifier 接受了 import 完整的 runtime，但它没有满足声明的静态分析目标。
+官方 bootstrap 也完成了，但 EnvBench 报告 2 个计分的 missing-import diagnostic，因此最终判败。
+Pyright 在 119 个文件中另有 746 个总 error；其余 744 个 argument、attribute、optional-member 等
+类型错误不计分。这是真实的 EnvSolve 失败，因为内部 verifier 漏掉了官方 import-resolution 目标中的
+两个 obligation。
 
 ### Repo2Run 观察
 
@@ -380,7 +381,7 @@ disallowed untracked path 都是 0。这是 wrapper-induced Unknown，不是原�
 
 **观测层：** 同一 locked extension 在 Python 3.13 下失败、在 Python 3.10 下安装成功，是直接的
 runtime-package compatibility evidence。成功命令还携带 active interpreter 与 package-manager environment
-等因果 ambient fact。官方失败说明 import closure 与 static-analysis closure 是两种不同观察。
+等因果 ambient fact。官方失败说明 runtime import probe 与官方 static missing-import check 是两种不同观察。
 
 **约束层：** 可重放方案必须 causally closed：runtime choice、environment ownership、dependency group 与
 verifier obligation 都不能隐含在 source container 中。内部 acceptance 必须覆盖声明的任务 contract，不能
@@ -393,8 +394,8 @@ environment root 的有界 reset 不等同于任意 destructive shell。复合�
 
 ### 候选通用假设
 
-- **H14：verifier-contract closure。** 从声明的 task contract 推导内部 obligation，并运行同一语义家族的独立
-  local checker，应能减少内部误接受，同时不向 solver 暴露 post-episode evaluator 结果。
+- **H14：verifier-contract closure。** 从官方 missing-import contract 推导内部 obligation，并运行同一
+  语义家族的独立 local checker，应能减少内部误接受，同时不向 solver 暴露 post-episode evaluator 结果。
 - **H15：causal replay closure。** 记录让成功动作成立的 runtime、environment owner 与其他 ambient
   precondition，应能避免语法重放在 fresh base container 中改变语义。
 - **H16：typed environment replacement。** 提供 project-scoped operation，用 selected runtime 替换并绑定
@@ -406,15 +407,16 @@ environment root 的有界 reset 不等同于任意 destructive shell。复合�
 
 任何修复都不能提及 `futaba`、`frozenlist`、Poetry 特定 package 名或本次版本号。runtime constraint 必须来自
 声明与执行证据。environment replacement 必须限制在经过 path-scope 验证的 typed generated root。verifier
-变化必须在打开下一个 untouched case 前声明，并在能区分 import success 与 static-analysis failure 的
-repository-neutral fixture 上评估。
+变化必须在打开下一个 untouched case 前声明，并在能区分 runtime import success 与官方 static
+missing-import 结果的 repository-neutral fixture 上评估。
 
 ### 证据锚点
 
 - 冻结 EnvSolve run ID：`pro-p0-v1-c04-envsolve-v1-frozen`
 - 冻结 EnvSolve 用量：3 次响应/候选、28,582 total token、501 秒
 - 冻结 EnvSolve 内部结果：候选 3 接受；54 个 obligation satisfied
-- 冻结 EnvSolve 官方结果：bootstrap 0、746 个 Pyright error、失败
+- 冻结 EnvSolve 官方结果：bootstrap 0、`issues_count=2`、失败；746 个 Pyright 总 error 仅作为
+  非计分诊断记录
 - Repo2Run run ID：`pro-p0-v1-c04-repo2run-reproduced`
 - Repo2Run 用量：5 次响应、32,055 total token、111 秒
 - Repo2Run 官方结果：bootstrap 1；`frozenlist==1.4.0` 在 Python 3.13 下失败

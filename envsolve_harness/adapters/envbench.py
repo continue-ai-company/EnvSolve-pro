@@ -285,6 +285,12 @@ class EnvBenchEvaluator:
         artifact_path = (
             str(result_path.relative_to(artifacts.root)) if result_path.exists() else None
         )
+        official_metrics = {
+            "exit_code": exit_code,
+            "issues_count": issues_count,
+            "repo_name": raw.get("repo_name", case.repository),
+            "commit_sha": raw.get("commit_sha", case.revision),
+        }
         official_evidence = VerificationEvidence(
             verifier_id="envbench-official",
             channel="official",
@@ -298,7 +304,7 @@ class EnvBenchEvaluator:
                     else "EnvBench official criteria not satisfied"
                 )
             ),
-            metrics=raw_metrics,
+            metrics=official_metrics,
             artifact_path=artifact_path,
         )
         diagnostic_evidence = build_envbench_diagnostic_evidence(

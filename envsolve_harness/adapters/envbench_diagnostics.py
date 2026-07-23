@@ -51,17 +51,17 @@ def build_envbench_diagnostic_evidence(
     )
     error_count = summary.get("errorCount")
     pyright_executed = completed and isinstance(error_count, int)
-    pyright_passed = error_count == 0 if pyright_executed else None
     pyright_evidence = VerificationEvidence(
         verifier_id="envbench-pyright-diagnostic",
         channel="diagnostic",
-        passed=pyright_passed,
+        passed=None,
         summary=(
-            "Non-scoring Pyright diagnostics are clean"
-            if pyright_passed
-            else "Non-scoring Pyright diagnostics contain errors"
+            "Non-scoring Pyright diagnostics recorded"
+            if pyright_executed
+            else "Non-scoring Pyright diagnostics unavailable"
         ),
         metrics={
+            "objective_role": "non_scoring",
             "diagnostic_count": len(valid_diagnostics),
             "error_count": error_count,
             "warning_count": summary.get("warningCount"),

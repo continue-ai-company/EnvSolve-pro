@@ -38,7 +38,7 @@ separates four capabilities that are easy to conflate:
 | Method | Observed terminal or current state | Diagnostic value |
 |---|---|---|
 | Repo2Run reproduced | Native generation failed after 16 successful model responses; no official evaluator. The built environment retained a modern Django and the upstream agent crashed while indexing an absent agent result. | A long command loop can still miss a decisive version constraint; baseline robustness must be separated from environment correctness. |
-| Codex CLI | Built a Python 3.8 environment, installed `requirements_debug.txt`, and ran Django checks/tests. Official evaluation completed but failed with 1,629 errors; the two missing-import findings were `django.conf.settings` and `django.core.urlresolvers`. | A strong free-form agent adapted to a network timeout and chose a plausible legacy runtime, but local checks and the official target were not aligned. |
+| Codex CLI | Built a Python 3.8 environment, installed `requirements_debug.txt`, and ran Django checks/tests. Official evaluation completed with `issues_count=2`, so the case failed. Pyright also emitted 1,629 total errors, but the other 1,627 were non-scoring diagnostics. | A strong free-form agent adapted to a network timeout and chose a plausible legacy runtime, but local checks missed two official import obligations. |
 | Frozen EnvSolve v1 | Native failure after exhausting five candidates; no official evaluator. It used five successful model responses, four executed environments, 68,063 total tokens, and 2,316 seconds. | The trajectory directly tests whether structured state helps or constrains a strong model. |
 | EnvBench raw ReAct | Reached its 30-iteration native limit and did not finish. The final ledger records 31 responses, 806,340 tokens, and 1,447 seconds. Replay IR then rejected three successful shell forms, so no official evaluator ran. | Free-form reasoning recovered key evidence and several failures, but context growth, iteration use, and post-hoc trajectory parsing censored the terminal result. |
 
@@ -457,11 +457,11 @@ a Python 3.13 environment and repeated the failure. Candidate 3 created a Python
 venv explicitly and used `pip install .`; all 54 internal import obligations,
 `pip check`, compileall, and source import closure passed.
 
-The official bootstrap also completed, but EnvBench reported 746 Pyright errors over
-119 files and failed the run. Only two were missing-import diagnostics; the other 744
-were argument, attribute, optional-member, and related type errors. This is a genuine
-EnvSolve failure: its internal verifier accepted an import-complete runtime that did
-not satisfy the declared static-analysis objective.
+The official bootstrap also completed, but EnvBench reported two scoring
+missing-import diagnostics, so the run failed. Pyright emitted 746 total errors over
+119 files; the other 744 argument, attribute, optional-member, and related type
+errors were non-scoring diagnostics. This is a genuine EnvSolve failure because its
+internal verifier missed two obligations in the official import-resolution target.
 
 ### Repo2Run Observation
 
@@ -497,8 +497,8 @@ agent failure.
 **Observation layer:** the same locked extension failing on Python 3.13 and installing
 on Python 3.10 is direct runtime-package compatibility evidence. A successful command
 also carries causal ambient facts, including the active interpreter and package-
-manager environment. Official failure shows that import closure and static-analysis
-closure are distinct observations.
+manager environment. Official failure shows that runtime import probes and the
+official static missing-import check are distinct observations.
 
 **Constraint layer:** a replayable solution must be causally closed: runtime choice,
 environment ownership, dependency groups, and verifier obligations cannot remain
@@ -514,10 +514,10 @@ successful install effect.
 
 ### Candidate General Hypotheses
 
-- **H14: verifier-contract closure.** Deriving internal obligations from the declared
-  task contract and running an independent local checker of the same semantic family
-  should reduce false internal acceptance without exposing post-episode evaluator
-  results to the solver.
+- **H14: verifier-contract closure.** Deriving internal obligations from the official
+  missing-import contract and running an independent local checker of the same
+  semantic family should reduce false internal acceptance without exposing
+  post-episode evaluator results to the solver.
 - **H15: causal replay closure.** Recording the runtime, environment owner, and other
   ambient preconditions that made a successful action work should prevent syntactic
   replay from changing semantics in a fresh base container.
@@ -534,15 +534,16 @@ No repair may mention `futaba`, `frozenlist`, Poetry-specific package names, or 
 observed version numbers. Runtime constraints must arise from declarations and
 execution evidence. Environment replacement must be limited to typed generated roots
 with path-scope validation. Verifier changes must be declared before the next
-untouched case and evaluated on repository-neutral fixtures that separate import
-success from static-analysis failure.
+untouched case and evaluated on repository-neutral fixtures that separate runtime
+import success from the official static missing-import result.
 
 ### Evidence Anchors
 
 - Frozen EnvSolve run ID: `pro-p0-v1-c04-envsolve-v1-frozen`
 - Frozen EnvSolve usage: 3 responses/candidates, 28,582 total tokens, 501 seconds
 - Frozen EnvSolve internal outcome: candidate 3 accepted; 54 obligations satisfied
-- Frozen EnvSolve official outcome: bootstrap 0, 746 Pyright errors, failed
+- Frozen EnvSolve official outcome: bootstrap 0, `issues_count=2`, failed; 746 total
+  Pyright errors were recorded as non-scoring diagnostics
 - Repo2Run run ID: `pro-p0-v1-c04-repo2run-reproduced`
 - Repo2Run usage: 5 responses, 32,055 total tokens, 111 seconds
 - Repo2Run official outcome: bootstrap 1; `frozenlist==1.4.0` failed under Python 3.13
