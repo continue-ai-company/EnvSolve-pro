@@ -557,6 +557,68 @@ import success from the official static missing-import result.
 - Scheduled Codex outcome: Unknown, exact preregistered executable unavailable
 
 
+## Case P0-006: `r-anime/holo@7864bc6`
+
+**Status:** all three cross-method census runs reached the official evaluator.
+EnvSolve-pro causal v3 and Codex CLI passed; Repo2Run reproduced failed with five
+missing-import issues. Total Pyright errors remain non-scoring.
+
+### Why This Case Is Valuable
+
+This is a compact positive control for the observation-to-action path. The repository
+has a plain requirements file and additional source imports. A method can read both
+without actually making the resulting dependency obligations true in its final
+program, so the case separates evidence acquisition from evidence use.
+
+### Cross-Method Observation
+
+| Method | Native behavior | Official outcome |
+|---|---|---|
+| EnvSolve-pro causal v3 | Used four fresh candidates and four model responses. The accepted strict script installed the declared requirements plus dependencies exposed by executable verification. | Pass, `issues_count=0`; 28,657 total model tokens and 408 seconds end to end. |
+| Codex CLI | Read requirements and source imports, installed the declaration plus one missing GUI dependency, then imported every source module before finalizing a two-line program. | Pass, `issues_count=0`; 13 container commands, 236,969 input tokens, and 156 seconds. |
+| Repo2Run reproduced | Read the requirements file, source tree, and Python files, but emitted only runtime selection and read-only inspection commands. | Fail, `issues_count=5`; 25,662 total model tokens and 79 seconds. |
+
+### Three-Layer Diagnosis
+
+**Observation layer:** repository declarations and source-import probes are both
+useful. Codex actively checked all source modules; EnvSolve accumulated executable
+feedback across fresh environments. Repo2Run also read the relevant files, so this
+case is not explained by file visibility alone.
+
+**Constraint layer:** observed declarations must become unresolved obligations until
+the accepted environment proves them satisfied. Repo2Run's final program demonstrates
+the counterexample: relevant evidence was present in the trajectory but had no
+binding effect on the emitted deployment.
+
+**Operation layer:** both passing methods emitted small replayable programs whose
+effects survived fresh official execution. EnvSolve's strict script also prevented a
+failed install from being mistaken for success.
+
+### Candidate General Hypotheses
+
+- **H19: evidence-to-action entailment.** Requiring every admitted high-confidence
+  declaration to be satisfied or explicitly discharged before finalization should
+  reduce trajectories that inspect the right evidence but emit a no-op deployment.
+- **H20: frontier-guided active observation.** Giving a strong model read-only
+  repository and import probes selected by the unresolved constraint frontier should
+  retain Codex-like discovery while keeping observations typed and auditable.
+
+### Anti-Overfitting Gate
+
+No repair may mention this repository or any package observed in it. H19 must be
+tested with synthetic declarations whose package names and file layouts differ from
+this case. H20 must compare a fixed profile, unconstrained exploration, and
+frontier-guided read-only queries on already consumed repositories before any
+untouched evaluation.
+
+### Evidence Anchors
+
+- EnvSolve-pro run ID: `pro-cross-method-v1-c05-envsolve-pro-causal-v3`
+- Codex run ID: `pro-cross-method-v1-c05-codex-cli-native`
+- Repo2Run run ID: `pro-cross-method-v1-c05-repo2run-reproduced-open`
+- Frozen success criterion: bootstrap exit 0 and `issues_count=0`
+
+
 ## Case P0-005: `python/importlib_metadata@f390168`
 
 **Status:** all runnable scheduled methods have terminated. Frozen EnvSolve converged

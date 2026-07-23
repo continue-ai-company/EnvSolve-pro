@@ -430,6 +430,60 @@ missing-import 结果的 repository-neutral fixture 上评估。
 - 计划 Codex 结果：Unknown，精确预注册 executable 不可获得
 
 
+## Case P0-006：`r-anime/holo@7864bc6`
+
+**状态：** 跨方法普查的三种方法都进入了官方 evaluator。EnvSolve-pro causal v3 与
+Codex CLI 通过；Repo2Run reproduced 留下 5 个 missing-import issues。Pyright 总
+error 仍然不计分。
+
+### 为什么这个 case 有价值
+
+这是检验“观测到操作”链路的紧凑正对照。仓库既有普通 requirements 文件，也有额外
+源码 import。方法可以读到两者，却不一定在最终程序中真正满足相应依赖，因此本 case
+可以把“获得证据”与“使用证据”分开。
+
+### 跨方法观察
+
+| 方法 | 原生行为 | 官方结果 |
+|---|---|---|
+| EnvSolve-pro causal v3 | 使用 4 个 fresh candidate 和 4 次模型响应；最终严格脚本安装声明依赖，并补齐 executable verification 暴露的依赖。 | 通过，`issues_count=0`；28,657 total model tokens，端到端 408 秒。 |
+| Codex CLI | 读取 requirements 与源码 import，安装声明及一个缺失 GUI 依赖，并在终局前遍历导入全部源码模块，最终程序只有两行。 | 通过，`issues_count=0`；13 条容器命令、236,969 input tokens、156 秒。 |
+| Repo2Run reproduced | 读取 requirements、源码树和 Python 文件，但最终只输出 runtime 选择与只读检查命令。 | 失败，`issues_count=5`；25,662 total model tokens、79 秒。 |
+
+### 三层诊断
+
+**观测层：** 仓库声明与源码 import probe 都有价值。Codex 主动检查全部源码模块；
+EnvSolve 在 fresh environment 间积累 executable feedback。Repo2Run 同样读到了相关
+文件，所以本 case 不能只归因于文件不可见。
+
+**约束层：** 已观测声明应持续作为 unresolved obligation，直到接受环境证明它已满足。
+Repo2Run 的最终程序给出了反例：轨迹中存在相关证据，但它对最终部署没有绑定作用。
+
+**操作层：** 两个通过方法都输出了小型可重放程序，其效果在全新官方执行中保留。
+EnvSolve 的严格脚本还避免把失败安装误认为成功。
+
+### 候选通用假设
+
+- **H19：evidence-to-action entailment。** 在终局前要求每条已接纳的高置信声明被满足或
+  显式解除，应减少“检查了正确证据，却输出 no-op 部署”的轨迹。
+- **H20：frontier-guided active observation。** 让强模型根据 unresolved constraint
+  frontier 选择只读仓库查询与 import probe，应能保留 Codex 式发现能力，同时让观测
+  保持 typed 且可审计。
+
+### 防过拟合 Gate
+
+任何修复都不能提及该仓库或其中任何 package。H19 必须使用 package 名与文件布局都不同
+的 synthetic declaration fixture 测试。H20 必须先在已消费仓库上比较 fixed profile、
+unconstrained exploration 与 frontier-guided read-only query，再进入任何 untouched 评估。
+
+### 证据锚点
+
+- EnvSolve-pro run ID：`pro-cross-method-v1-c05-envsolve-pro-causal-v3`
+- Codex run ID：`pro-cross-method-v1-c05-codex-cli-native`
+- Repo2Run run ID：`pro-cross-method-v1-c05-repo2run-reproduced-open`
+- 冻结成功标准：bootstrap exit 0 且 `issues_count=0`
+
+
 ## Case P0-005：`python/importlib_metadata@f390168`
 
 **状态：** 所有可运行的计划方法均已终止。冻结 EnvSolve 在 3 个 fresh candidate 内收敛到内部接受的部署，
