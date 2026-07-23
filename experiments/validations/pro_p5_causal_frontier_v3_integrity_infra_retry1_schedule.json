@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-p5-causal-frontier-v3-integrity",
+  "binding_id": "infra-retry1",
+  "bound_at": "2026-07-23T05:07:35Z",
+  "claim_scope": "consumed-case measurement and mechanism integrity only",
+  "source_schedule": "experiments/validations/pro_p5_causal_frontier_v3_integrity_schedule.json",
+  "source_schedule_sha256": "f87f1a9b86ba3e7efe24a83cad20ad729d9cabc243bb7ea67565146bac174df9",
+  "preregistration": "experiments/validations/pro_p5_causal_frontier_v3_integrity_preregistration.json",
+  "preregistration_sha256": "d3d4da9097275495c8d0779275c7794a75bc61f389f827edefb0ec078461753b",
+  "implementation_freeze": "f2193509c856da892c64bd50e1b7e33a88ed01ea",
+  "case_file": "experiments/cases/dev_pro_p5_causal_frontier_consumed3.jsonl",
+  "case_file_sha256": "10cf8c0ea26bd7b154a7c6f8908f8e2cc758aaa156f62a9106ed6aa8fbd86149",
+  "model": "deepseek/deepseek-v4-pro",
+  "episode_timeout_seconds": 21600,
+  "retry_policy": "Replace only the position-1 attempt censored by a verifier-classified dependency-acquisition read timeout. Preserve the source artifact and keep implementation, model, seed, condition, case identity, configuration, protocol, and episode budgets unchanged.",
+  "source_censoring": {
+    "position": 1,
+    "source_run_id": "pro-p5-causal-frontier-v3-integrity-nonebot2-causal-seed1",
+    "retry_run_id": "pro-p5-causal-frontier-v3-integrity-nonebot2-causal-seed1-infra-retry1",
+    "terminal_class": "dependency-acquisition-infrastructure",
+    "signature": "read-timeout",
+    "candidate_count": 1,
+    "model_request_errors": 0,
+    "first_projection_integrity_ok": true,
+    "source_artifacts": {
+      "generation/episode.jsonl": "5538f584e8b2f5bf0e5e1c6455ae26abbc3dfcdf5c5422c019a244d1f8dddafc",
+      "generation/result.json": "00a566b9515c66b58acf48615306444e58a8b5151710d037b18505e33cd4a963",
+      "generation/budget_ledger.json": "535cf710e158a2e61f8010fa5d660cb1483959f6efc43175366873c6e560597e",
+      "manifest.json": "8ff26f10e42e6177b77d2d9b580c28582501d7b7a9d84bb599e00caff63b890e"
+    }
+  },
+  "network_preflight": {
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "operation": "pip download --no-deps poetry-core==1.9.0",
+    "exit_code": 0,
+    "elapsed_seconds": 2.907
+  },
+  "execution": {
+    "config": "experiments/configs/local_spark_pro_p5.json",
+    "config_sha256": "bf702aca08ef90594ef2373895cf9e6ef1c3f044256704c7ff233c03ebfb8440",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "execution_order": [1, 2, 3],
+    "execution_mode": "single sequential lane"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "pair": 1,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "run_id": "pro-p5-causal-frontier-v3-integrity-nonebot2-causal-seed1-infra-retry1",
+      "source_run_id": "pro-p5-causal-frontier-v3-integrity-nonebot2-causal-seed1",
+      "attempt_role": "infrastructure-retry",
+      "method": "envsolve-pro-causal",
+      "seed": 1
+    },
+    {
+      "position": 2,
+      "pair": 2,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "run_id": "pro-p5-causal-frontier-v3-integrity-langgraph-causal-seed1",
+      "attempt_role": "unexecuted-source-position",
+      "method": "envsolve-pro-causal",
+      "seed": 1
+    },
+    {
+      "position": 3,
+      "pair": 3,
+      "condition": "causal-frontier",
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "run_id": "pro-p5-causal-frontier-v3-integrity-conan-causal-seed1",
+      "attempt_role": "unexecuted-source-position",
+      "method": "envsolve-pro-causal",
+      "seed": 1
+    }
+  ]
+}

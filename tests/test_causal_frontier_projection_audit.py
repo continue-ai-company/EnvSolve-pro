@@ -143,3 +143,35 @@ def test_v3_integrity_schedule_is_bound_before_execution() -> None:
     assert {item["condition"] for item in schedule["episodes"]} == {
         "causal-frontier"
     }
+
+
+def test_v3_integrity_retry_replaces_only_infrastructure_censoring() -> None:
+    source_path = (
+        ROOT
+        / "experiments/validations/"
+        "pro_p5_causal_frontier_v3_integrity_schedule.json"
+    )
+    retry_path = (
+        ROOT
+        / "experiments/validations/"
+        "pro_p5_causal_frontier_v3_integrity_infra_retry1_schedule.json"
+    )
+    source = json.loads(source_path.read_text(encoding="utf-8"))
+    retry = json.loads(retry_path.read_text(encoding="utf-8"))
+
+    assert retry["source_schedule_sha256"] == hashlib.sha256(
+        source_path.read_bytes()
+    ).hexdigest()
+    assert retry["implementation_freeze"] == source["implementation_freeze"]
+    assert retry["source_censoring"]["terminal_class"] == (
+        "dependency-acquisition-infrastructure"
+    )
+    assert retry["source_censoring"]["signature"] == "read-timeout"
+    assert retry["source_censoring"]["first_projection_integrity_ok"] is True
+    assert retry["network_preflight"]["exit_code"] == 0
+    assert [item["position"] for item in retry["episodes"]] == [1, 2, 3]
+    assert retry["episodes"][0]["attempt_role"] == "infrastructure-retry"
+    assert all(
+        item["attempt_role"] == "unexecuted-source-position"
+        for item in retry["episodes"][1:]
+    )
