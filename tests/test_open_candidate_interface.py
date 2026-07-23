@@ -117,6 +117,30 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
             "native-verifier-context:poetry-run",
         )
 
+    def test_repo2run_open_compiler_relocates_only_repo_path_tokens(self) -> None:
+        result = compile_repo2run_open_program(
+            [
+                {
+                    "command": "pip install -e /repo -q",
+                    "returncode": 0,
+                    "dir": "/repo",
+                },
+                {
+                    "command": (
+                        'cp "/repo/package/data.json" /tmp/data.json && '
+                        "echo https://example.test/repo /repository"
+                    ),
+                    "returncode": 0,
+                    "dir": "/repo",
+                },
+            ]
+        )
+
+        self.assertIn("pip install -e ${PROJECT_ROOT} -q", result.script)
+        self.assertIn('"${PROJECT_ROOT}/package/data.json"', result.script)
+        self.assertIn("https://example.test/repo", result.script)
+        self.assertIn("/repository", result.script)
+
     def test_repo2run_open_compiler_translates_private_download_helper(self) -> None:
         result = compile_repo2run_open_program(
             [
@@ -156,6 +180,37 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
 
         self.assertEqual(result.unsupported_commands, (command,))
         self.assertNotIn("bad;name", result.script)
+
+    def test_repo2run_open_compiler_drops_private_verifier_tools(self) -> None:
+        commands = (
+            "cat /home/tools/runtest.py",
+            (
+                "AWS_DEFAULT_REGION=us-east-1 "
+                "python /home/tools/runtest.py"
+            ),
+            "which runtest || ls /home/tools/poetryruntest.py",
+        )
+        result = compile_repo2run_open_program(
+            [
+                {"command": command, "returncode": 0, "dir": "/repo"}
+                for command in commands
+            ]
+        )
+
+        self.assertEqual(result.dropped_commands, commands)
+        self.assertNotIn("/home/tools", result.script)
+
+    def test_repo2run_open_compiler_rejects_unknown_private_tool(self) -> None:
+        command = "python /home/tools/unknown_helper.py"
+        result = compile_repo2run_open_program(
+            [{"command": command, "returncode": 0, "dir": "/repo"}]
+        )
+
+        self.assertEqual(
+            result.unsupported_commands,
+            (f"private-tool-path: {command}",),
+        )
+        self.assertNotIn("/home/tools", result.script)
 
     def test_repository_effect_audit_requires_adapter_state(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

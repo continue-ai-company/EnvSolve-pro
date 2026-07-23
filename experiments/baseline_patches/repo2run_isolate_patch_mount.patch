@@ -1,0 +1,52 @@
+diff --git a/build_agent/utils/agent_util.py b/build_agent/utils/agent_util.py
+--- a/build_agent/utils/agent_util.py
++++ b/build_agent/utils/agent_util.py
+@@ -191,15 +191,15 @@ def extract_diffs(text):
+     return diffs
+ 
+ def save_diff_description(text):
+-    temp_dir = "/tmp/patch"
+-    os.makedirs(temp_dir, exist_ok=True)
+-    cmd = f"sudo chmod -R 777 {temp_dir}"
+-    subprocess.run(cmd, check=True, shell=True)
+-    with tempfile.NamedTemporaryFile(mode='w+', dir=temp_dir, delete=False) as temp_file:
++    host_dir = os.environ.get(
++        "REPO2RUN_PATCH_DIR", f"/tmp/repo2run-patch-{os.getpid()}"
++    )
++    os.makedirs(host_dir, mode=0o700, exist_ok=True)
++    with tempfile.NamedTemporaryFile(mode='w+', dir=host_dir, delete=False) as temp_file:
+         temp_file_path = temp_file.name
+-        os.chmod(temp_file_path, 0o777)
++        os.chmod(temp_file_path, 0o644)
+         temp_file.write(text)
+-    return temp_file_path
++    return os.path.join("/tmp/patch", os.path.basename(temp_file_path))
+ 
+ if __name__=='__main__':
+     text = '''```bash
+diff --git a/build_agent/utils/sandbox.py b/build_agent/utils/sandbox.py
+--- a/build_agent/utils/sandbox.py
++++ b/build_agent/utils/sandbox.py
+@@ -222,7 +222,10 @@ class Sandbox:
+                 self.container.remove()
+                 delete_dangling_image()
+             
+-            host_path = '/tmp/patch'
++            host_path = os.environ.get(
++                "REPO2RUN_PATCH_DIR", f"/tmp/repo2run-patch-{os.getpid()}"
++            )
++            os.makedirs(host_path, mode=0o700, exist_ok=True)
+             container_path = '/tmp/patch'
+             # 创建并启动一个新的容器，使用 tmp 镜像
+             self.container = self.client.containers.run(
+@@ -264,6 +267,9 @@ class Sandbox:
+                 raise Exception('Build image error!')
+         image = f"{self.namespace}"
+-        host_path = '/tmp/patch'
++        host_path = os.environ.get(
++            "REPO2RUN_PATCH_DIR", f"/tmp/repo2run-patch-{os.getpid()}"
++        )
++        os.makedirs(host_path, mode=0o700, exist_ok=True)
+         container_path = '/tmp/patch'
+         try:
+             self.container = self.client.containers.run(

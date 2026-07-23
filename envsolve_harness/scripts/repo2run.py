@@ -25,6 +25,17 @@ INTERNAL_COMMANDS = {
     "$pip list --format json$",
 }
 
+INTERNAL_TOOL_PATHS = (
+    "/home/tools/runtest.py",
+    "/home/tools/poetryruntest.py",
+    "/home/tools/runpipreqs.py",
+    "/home/tools/generate_diff.py",
+)
+
+_REPO_PATH = re.compile(
+    r"(?<![A-Za-z0-9_./-])/repo(?=$|[/\s;&|<>()\"'])"
+)
+
 
 @dataclass(frozen=True)
 class DistillationResult:
@@ -47,15 +58,11 @@ def _python_switch(version: str) -> list[str]:
 
 
 def _map_repo_path(value: str) -> str:
-    return value.replace("/repo", '"${PROJECT_ROOT}"')
+    return _REPO_PATH.sub('"${PROJECT_ROOT}"', value)
 
 
 def _map_repo_path_open(value: str) -> str:
-    return re.sub(
-        r"(?<![A-Za-z0-9_])/repo(?=/|$)",
-        "${PROJECT_ROOT}",
-        value,
-    )
+    return _REPO_PATH.sub("${PROJECT_ROOT}", value)
 
 
 def _portable_pip_download(command: str) -> str | None:
@@ -151,6 +158,13 @@ def compile_repo2run_open_program(
             actions.append(
                 ReplayAction("python_package_install", mapped_download, command)
             )
+            continue
+
+        if any(path in command for path in INTERNAL_TOOL_PATHS):
+            dropped.append(command)
+            continue
+        if "/home/tools/" in command:
+            unsupported.append(f"private-tool-path: {command}")
             continue
 
         mapped = _map_repo_path_open(command)

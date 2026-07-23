@@ -72,6 +72,9 @@ def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
     completion_patch = (
         BASELINE_PATCHES / "repo2run_expand_completion_window.patch"
     ).read_text()
+    patch_mount_isolation = (
+        BASELINE_PATCHES / "repo2run_isolate_patch_mount.patch"
+    ).read_text()
 
     assert amendment["claim_scope"] == "Baseline execution compatibility only"
     assert amendment["effective_attempt_suffix"] == "infra-retry6"
@@ -82,10 +85,16 @@ def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
     added_lines = [
         line
         for line in (
-            patch + ownership_patch + addfile_patch + completion_patch
+            patch
+            + ownership_patch
+            + addfile_patch
+            + completion_patch
+            + patch_mount_isolation
         ).splitlines()
         if line.startswith("+") and not line.startswith("+++")
     ]
     assert all("sudo" not in line for line in added_lines)
+    assert "REPO2RUN_PATCH_DIR" in patch_mount_isolation
+    assert 'return os.path.join("/tmp/patch"' in patch_mount_isolation
     assert "envbench-" not in patch
     assert "prompt" not in patch.lower()

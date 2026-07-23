@@ -51,8 +51,9 @@
     "additional_path": "experiments/baseline_patches/repo2run_remove_host_chown.patch",
     "addfile_isolation_path": "experiments/baseline_patches/repo2run_isolate_addfile_export.patch",
     "completion_window_path": "experiments/baseline_patches/repo2run_expand_completion_window.patch",
+    "patch_mount_isolation_path": "experiments/baseline_patches/repo2run_isolate_patch_mount.patch",
     "path": "experiments/baseline_patches/repo2run_pin_pipdeptree_2_28_0.patch",
-    "repair": "Pin pipdeptree==2.28.0 in every image-construction path, remove a host-account-specific sudo chown, isolate addfile exports, and raise the per-response completion window from 1024 to 8192 tokens for reasoning-model compatibility",
+    "repair": "Pin pipdeptree==2.28.0 in every image-construction path, remove host-account-specific privilege assumptions, isolate addfile exports and per-process patch mounts, and raise the per-response completion window from 1024 to 8192 tokens for reasoning-model compatibility",
     "scope_guard": "No prompt, model loop, command parser, evaluator, case data, or solver decision logic changes"
   },
   "reason": "Only attempts that fail before producing a usable baseline program because of repository-independent host or model-adapter incompatibility are replaced. Completed episodes that never exhaust the old completion window remain valid.",
