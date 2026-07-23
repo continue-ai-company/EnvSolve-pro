@@ -1,0 +1,794 @@
+{
+  "aggregate": {
+    "cases_official_pass_despite_internal_unresolved": 1,
+    "cases_with_excess_internal_modules": 4,
+    "cases_with_official_unobserved_modules": 1,
+    "cases_with_runtime_only_modules": 1,
+    "complete_cases": 9,
+    "excess_internal_module_total": 30,
+    "excess_internal_share": 0.42857142857142855,
+    "expected_cases": 16,
+    "internal_module_obligation_total": 70,
+    "official_missing_module_total": 41,
+    "official_pass_cases": 4,
+    "official_static_overlap_total": 40,
+    "static_proxy_recall": 0.975609756097561
+  },
+  "cases": [
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e"
+      },
+      "candidate_id": "candidate-0005",
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "complete": true,
+      "excess_internal_modules": [],
+      "internal_unresolved_constraints": 2,
+      "module_obligation_counts": {
+        "excess_internal": 0,
+        "internal_union": 2,
+        "official": 3,
+        "official_static_overlap": 2,
+        "official_unobserved": 1,
+        "runtime": 2,
+        "runtime_only": 0,
+        "static": 2
+      },
+      "objective_dilution_ratio": 0.0,
+      "official_issues_count": 3,
+      "official_missing_modules": [
+        ".version",
+        "helpers_test_package",
+        "helpers_test_package.compiler_version"
+      ],
+      "official_pass": false,
+      "official_static_overlap": [
+        "helpers_test_package",
+        "helpers_test_package.compiler_version"
+      ],
+      "official_unobserved_modules": [
+        ".version"
+      ],
+      "repository": "astropy/extension-helpers",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [
+        "helpers_test_package",
+        "helpers_test_package.compiler_version"
+      ],
+      "static_unresolved_modules": [
+        "helpers_test_package",
+        "helpers_test_package.compiler_version"
+      ]
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-calliope-project__calliope__4079fbd595d0e25504e977df0b22883507b2492e",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-calliope-project__calliope__4079fbd595d0e25504e977df0b22883507b2492e",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-calliope-project__calliope__4079fbd595d0e25504e977df0b22883507b2492e"
+      },
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "calliope-project/calliope"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc"
+      },
+      "candidate_id": "candidate-0001",
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "complete": true,
+      "excess_internal_modules": [],
+      "internal_unresolved_constraints": 0,
+      "module_obligation_counts": {
+        "excess_internal": 0,
+        "internal_union": 1,
+        "official": 1,
+        "official_static_overlap": 1,
+        "official_unobserved": 0,
+        "runtime": 1,
+        "runtime_only": 0,
+        "static": 1
+      },
+      "objective_dilution_ratio": 0.0,
+      "official_issues_count": 1,
+      "official_missing_modules": [
+        "sphinx_rtd_theme"
+      ],
+      "official_pass": false,
+      "official_static_overlap": [
+        "sphinx_rtd_theme"
+      ],
+      "official_unobserved_modules": [],
+      "repository": "censys/censys-python",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [
+        "sphinx_rtd_theme"
+      ],
+      "static_unresolved_modules": [
+        "sphinx_rtd_theme"
+      ]
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-conan-io__conan-package-tools__decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-conan-io__conan-package-tools__decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-conan-io__conan-package-tools__decb63a1a470a5ffd5adf3ae6074b740f086aef2"
+      },
+      "candidate_id": "candidate-0002",
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "complete": true,
+      "excess_internal_modules": [
+        "conans",
+        "conans.cli.cli",
+        "conans.client.api.conan_api",
+        "conans.client.cache.cache",
+        "conans.client.cache.remote_registry",
+        "conans.client.cmd.uploader",
+        "conans.client.command",
+        "conans.client.conan_api",
+        "conans.client.profile_loader",
+        "conans.client.runner",
+        "conans.client.tools",
+        "conans.client.userio",
+        "conans.model.manifest",
+        "conans.model.profile",
+        "conans.paths",
+        "conans.server.conf",
+        "conans.server.crypto.jwt.jwt_credentials_manager",
+        "conans.server.crypto.jwt.jwt_updown_manager",
+        "conans.server.migrate",
+        "conans.server.rest.server",
+        "conans.server.revision_list",
+        "conans.server.service.authorize",
+        "conans.test",
+        "six.moves.urllib.parse",
+        "webtest.app"
+      ],
+      "internal_unresolved_constraints": 62,
+      "module_obligation_counts": {
+        "excess_internal": 25,
+        "internal_union": 26,
+        "official": 1,
+        "official_static_overlap": 1,
+        "official_unobserved": 0,
+        "runtime": 26,
+        "runtime_only": 24,
+        "static": 2
+      },
+      "objective_dilution_ratio": 0.9615384615384616,
+      "official_issues_count": 1,
+      "official_missing_modules": [
+        "conans.client.loader_parse"
+      ],
+      "official_pass": false,
+      "official_static_overlap": [
+        "conans.client.loader_parse"
+      ],
+      "official_unobserved_modules": [],
+      "repository": "conan-io/conan-package-tools",
+      "runtime_only_modules": [
+        "conans",
+        "conans.cli.cli",
+        "conans.client.api.conan_api",
+        "conans.client.cache.cache",
+        "conans.client.cache.remote_registry",
+        "conans.client.cmd.uploader",
+        "conans.client.command",
+        "conans.client.conan_api",
+        "conans.client.profile_loader",
+        "conans.client.runner",
+        "conans.client.tools",
+        "conans.client.userio",
+        "conans.model.manifest",
+        "conans.model.profile",
+        "conans.paths",
+        "conans.server.conf",
+        "conans.server.crypto.jwt.jwt_credentials_manager",
+        "conans.server.crypto.jwt.jwt_updown_manager",
+        "conans.server.migrate",
+        "conans.server.rest.server",
+        "conans.server.revision_list",
+        "conans.server.service.authorize",
+        "conans.test",
+        "webtest.app"
+      ],
+      "runtime_unresolved_modules": [
+        "conans",
+        "conans.cli.cli",
+        "conans.client.api.conan_api",
+        "conans.client.cache.cache",
+        "conans.client.cache.remote_registry",
+        "conans.client.cmd.uploader",
+        "conans.client.command",
+        "conans.client.conan_api",
+        "conans.client.loader_parse",
+        "conans.client.profile_loader",
+        "conans.client.runner",
+        "conans.client.tools",
+        "conans.client.userio",
+        "conans.model.manifest",
+        "conans.model.profile",
+        "conans.paths",
+        "conans.server.conf",
+        "conans.server.crypto.jwt.jwt_credentials_manager",
+        "conans.server.crypto.jwt.jwt_updown_manager",
+        "conans.server.migrate",
+        "conans.server.rest.server",
+        "conans.server.revision_list",
+        "conans.server.service.authorize",
+        "conans.test",
+        "six.moves.urllib.parse",
+        "webtest.app"
+      ],
+      "static_unresolved_modules": [
+        "conans.client.loader_parse",
+        "six.moves.urllib.parse"
+      ]
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-langchain-ai__langgraph__070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-langchain-ai__langgraph__070b339b67d64773fbfdf296a52a334fa27af2ac",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-langchain-ai__langgraph__070b339b67d64773fbfdf296a52a334fa27af2ac"
+      },
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "langchain-ai/langgraph"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-nonebot__nonebot2__7b724925badfe7133979c3d4d90a15054cdebabd",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-nonebot__nonebot2__7b724925badfe7133979c3d4d90a15054cdebabd",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-nonebot__nonebot2__7b724925badfe7133979c3d4d90a15054cdebabd"
+      },
+      "candidate_id": "candidate-0004",
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "complete": true,
+      "excess_internal_modules": [
+        "tomllib"
+      ],
+      "internal_unresolved_constraints": 1,
+      "module_obligation_counts": {
+        "excess_internal": 1,
+        "internal_union": 1,
+        "official": 0,
+        "official_static_overlap": 0,
+        "official_unobserved": 0,
+        "runtime": 1,
+        "runtime_only": 0,
+        "static": 1
+      },
+      "objective_dilution_ratio": 1.0,
+      "official_issues_count": 0,
+      "official_missing_modules": [],
+      "official_pass": true,
+      "official_static_overlap": [],
+      "official_unobserved_modules": [],
+      "repository": "nonebot/nonebot2",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [
+        "tomllib"
+      ],
+      "static_unresolved_modules": [
+        "tomllib"
+      ]
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-sphinx-gallery__sphinx-gallery__0d7823073f9307cfeaad370ad41207354dfe9713",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-sphinx-gallery__sphinx-gallery__0d7823073f9307cfeaad370ad41207354dfe9713",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-sphinx-gallery__sphinx-gallery__0d7823073f9307cfeaad370ad41207354dfe9713"
+      },
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "sphinx-gallery/sphinx-gallery"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45"
+      },
+      "candidate_id": "candidate-0004",
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "complete": true,
+      "excess_internal_modules": [
+        "docutils",
+        "hnswlib"
+      ],
+      "internal_unresolved_constraints": 33,
+      "module_obligation_counts": {
+        "excess_internal": 2,
+        "internal_union": 35,
+        "official": 33,
+        "official_static_overlap": 33,
+        "official_unobserved": 0,
+        "runtime": 34,
+        "runtime_only": 0,
+        "static": 35
+      },
+      "objective_dilution_ratio": 0.05714285714285714,
+      "official_issues_count": 40,
+      "official_missing_modules": [
+        "IPython",
+        "adjustText",
+        "biothings_client",
+        "fa2",
+        "igraph",
+        "ipywidgets",
+        "jinja2.defaults",
+        "matplotlib_inline.backend_inline",
+        "numpy._core._exceptions",
+        "rpy2",
+        "rpy2.robjects.packages",
+        "scanpy.pp",
+        "scvi.data",
+        "scvi.data._constants",
+        "scvi.data.fields",
+        "scvi.dataloaders",
+        "scvi.model.base",
+        "scvi.module.base",
+        "scvi.nn",
+        "scvi.train",
+        "scvi.utils._docstrings",
+        "setuptools_scm",
+        "sphinx",
+        "sphinx.application",
+        "sphinx.domains.python",
+        "sphinx.environment",
+        "sphinx.ext",
+        "sphinx.ext.autosummary.generate",
+        "sphinx_autodoc_typehints",
+        "torch",
+        "torch.distributions",
+        "torch.nn.functional",
+        "velocyto"
+      ],
+      "official_pass": false,
+      "official_static_overlap": [
+        "IPython",
+        "adjustText",
+        "biothings_client",
+        "fa2",
+        "igraph",
+        "ipywidgets",
+        "jinja2.defaults",
+        "matplotlib_inline.backend_inline",
+        "numpy._core._exceptions",
+        "rpy2",
+        "rpy2.robjects.packages",
+        "scanpy.pp",
+        "scvi.data",
+        "scvi.data._constants",
+        "scvi.data.fields",
+        "scvi.dataloaders",
+        "scvi.model.base",
+        "scvi.module.base",
+        "scvi.nn",
+        "scvi.train",
+        "scvi.utils._docstrings",
+        "setuptools_scm",
+        "sphinx",
+        "sphinx.application",
+        "sphinx.domains.python",
+        "sphinx.environment",
+        "sphinx.ext",
+        "sphinx.ext.autosummary.generate",
+        "sphinx_autodoc_typehints",
+        "torch",
+        "torch.distributions",
+        "torch.nn.functional",
+        "velocyto"
+      ],
+      "official_unobserved_modules": [],
+      "repository": "theislab/scvelo",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [
+        "IPython",
+        "adjustText",
+        "biothings_client",
+        "docutils",
+        "fa2",
+        "hnswlib",
+        "igraph",
+        "ipywidgets",
+        "jinja2.defaults",
+        "matplotlib_inline.backend_inline",
+        "numpy._core._exceptions",
+        "rpy2",
+        "rpy2.robjects.packages",
+        "scvi.data",
+        "scvi.data._constants",
+        "scvi.data.fields",
+        "scvi.dataloaders",
+        "scvi.model.base",
+        "scvi.module.base",
+        "scvi.nn",
+        "scvi.train",
+        "scvi.utils._docstrings",
+        "setuptools_scm",
+        "sphinx",
+        "sphinx.application",
+        "sphinx.domains.python",
+        "sphinx.environment",
+        "sphinx.ext",
+        "sphinx.ext.autosummary.generate",
+        "sphinx_autodoc_typehints",
+        "torch",
+        "torch.distributions",
+        "torch.nn.functional",
+        "velocyto"
+      ],
+      "static_unresolved_modules": [
+        "IPython",
+        "adjustText",
+        "biothings_client",
+        "docutils",
+        "fa2",
+        "hnswlib",
+        "igraph",
+        "ipywidgets",
+        "jinja2.defaults",
+        "matplotlib_inline.backend_inline",
+        "numpy._core._exceptions",
+        "rpy2",
+        "rpy2.robjects.packages",
+        "scanpy.pp",
+        "scvi.data",
+        "scvi.data._constants",
+        "scvi.data.fields",
+        "scvi.dataloaders",
+        "scvi.model.base",
+        "scvi.module.base",
+        "scvi.nn",
+        "scvi.train",
+        "scvi.utils._docstrings",
+        "setuptools_scm",
+        "sphinx",
+        "sphinx.application",
+        "sphinx.domains.python",
+        "sphinx.environment",
+        "sphinx.ext",
+        "sphinx.ext.autosummary.generate",
+        "sphinx_autodoc_typehints",
+        "torch",
+        "torch.distributions",
+        "torch.nn.functional",
+        "velocyto"
+      ]
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          },
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 2,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420"
+      },
+      "candidate_id": "candidate-0002",
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "complete": true,
+      "excess_internal_modules": [],
+      "internal_unresolved_constraints": 0,
+      "module_obligation_counts": {
+        "excess_internal": 0,
+        "internal_union": 0,
+        "official": 0,
+        "official_static_overlap": 0,
+        "official_unobserved": 0,
+        "runtime": 0,
+        "runtime_only": 0,
+        "static": 0
+      },
+      "objective_dilution_ratio": 0.0,
+      "official_issues_count": 0,
+      "official_missing_modules": [],
+      "official_pass": true,
+      "official_static_overlap": [],
+      "official_unobserved_modules": [],
+      "repository": "benthayer/git-gud",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [],
+      "static_unresolved_modules": []
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-jaraco__irc__5282a3d1471d091da24f77adc75018dbc94cc912",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-jaraco__irc__5282a3d1471d091da24f77adc75018dbc94cc912",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-jaraco__irc__5282a3d1471d091da24f77adc75018dbc94cc912"
+      },
+      "candidate_id": "candidate-0002",
+      "case_id": "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+      "complete": true,
+      "excess_internal_modules": [],
+      "internal_unresolved_constraints": 0,
+      "module_obligation_counts": {
+        "excess_internal": 0,
+        "internal_union": 0,
+        "official": 0,
+        "official_static_overlap": 0,
+        "official_unobserved": 0,
+        "runtime": 0,
+        "runtime_only": 0,
+        "static": 0
+      },
+      "objective_dilution_ratio": 0.0,
+      "official_issues_count": 0,
+      "official_missing_modules": [],
+      "official_pass": true,
+      "official_static_overlap": [],
+      "official_unobserved_modules": [],
+      "repository": "jaraco/irc",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [],
+      "static_unresolved_modules": []
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-mirageoscience__geoapps__9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-mirageoscience__geoapps__9dd62db0137dfe554fc550b57c58b0be521a1749",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-mirageoscience__geoapps__9dd62db0137dfe554fc550b57c58b0be521a1749"
+      },
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "mirageoscience/geoapps"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-r-anime__holo__7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-r-anime__holo__7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-r-anime__holo__7864bc6d8359f0eead242e015398fdb1aaebd3cb"
+      },
+      "candidate_id": "candidate-0002",
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "complete": true,
+      "excess_internal_modules": [],
+      "internal_unresolved_constraints": 0,
+      "module_obligation_counts": {
+        "excess_internal": 0,
+        "internal_union": 0,
+        "official": 0,
+        "official_static_overlap": 0,
+        "official_unobserved": 0,
+        "runtime": 0,
+        "runtime_only": 0,
+        "static": 0
+      },
+      "objective_dilution_ratio": 0.0,
+      "official_issues_count": 0,
+      "official_missing_modules": [],
+      "official_pass": true,
+      "official_static_overlap": [],
+      "official_unobserved_modules": [],
+      "repository": "r-anime/holo",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [],
+      "static_unresolved_modules": []
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-rlberry-py__rlberry__81413717d8526a4890b5af05d1a27c747088b31d",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-rlberry-py__rlberry__81413717d8526a4890b5af05d1a27c747088b31d",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-rlberry-py__rlberry__81413717d8526a4890b5af05d1a27c747088b31d"
+      },
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "rlberry-py/rlberry"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-rollbar__pyrollbar__8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-rollbar__pyrollbar__8493ac03c3468c2349c968726adffa5fd5661d0e",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-rollbar__pyrollbar__8493ac03c3468c2349c968726adffa5fd5661d0e"
+      },
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "rollbar/pyrollbar"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-spotify__luigi__3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-spotify__luigi__3cafd155bbc35918cfce442f9cef445eaa97f13c",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          }
+        ],
+        "attempt_count": 1,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-spotify__luigi__3cafd155bbc35918cfce442f9cef445eaa97f13c"
+      },
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "complete": false,
+      "incomplete_reason": "generation or evaluation result missing",
+      "repository": "spotify/luigi"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-vacanza__python-holidays__472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "attempt_resolution": {
+        "artifacts": [
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark/envbench-python-vacanza__python-holidays__472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+            "complete": false,
+            "incomplete_reason": "generation or evaluation result missing"
+          },
+          {
+            "artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-vacanza__python-holidays__472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+            "complete": true,
+            "incomplete_reason": null
+          }
+        ],
+        "attempt_count": 2,
+        "selected_artifact_root": "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark/envbench-python-vacanza__python-holidays__472e89d889cf3a5c5301d54bc642f6c149f55ee5"
+      },
+      "candidate_id": "candidate-0004",
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "complete": true,
+      "excess_internal_modules": [
+        "docutils",
+        "docutils.nodes"
+      ],
+      "internal_unresolved_constraints": 1,
+      "module_obligation_counts": {
+        "excess_internal": 2,
+        "internal_union": 5,
+        "official": 3,
+        "official_static_overlap": 3,
+        "official_unobserved": 0,
+        "runtime": 5,
+        "runtime_only": 0,
+        "static": 5
+      },
+      "objective_dilution_ratio": 0.4,
+      "official_issues_count": 3,
+      "official_missing_modules": [
+        "lingva.extract",
+        "sphinx.writers.html",
+        "sphinx_rtd_theme"
+      ],
+      "official_pass": false,
+      "official_static_overlap": [
+        "lingva.extract",
+        "sphinx.writers.html",
+        "sphinx_rtd_theme"
+      ],
+      "official_unobserved_modules": [],
+      "repository": "vacanza/python-holidays",
+      "runtime_only_modules": [],
+      "runtime_unresolved_modules": [
+        "docutils",
+        "docutils.nodes",
+        "lingva.extract",
+        "sphinx.writers.html",
+        "sphinx_rtd_theme"
+      ],
+      "static_unresolved_modules": [
+        "docutils",
+        "docutils.nodes",
+        "lingva.extract",
+        "sphinx.writers.html",
+        "sphinx_rtd_theme"
+      ]
+    }
+  ],
+  "claim_scope": "Consumed development trajectory diagnostics only",
+  "created_at": "2026-07-23T08:49:25.958392+00:00",
+  "run_roots": [
+    "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-v1-spark",
+    "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-spark",
+    "/home/avdpro/work/runs/envsolve-pro-diagnostics/pro-trajectory-census-replication-v1-infra-retry1-spark"
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-objective-alignment-v1"
+}

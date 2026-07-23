@@ -249,6 +249,13 @@ one unique largest category across at least four repositories and a repository-i
 counterexample. Mac runs Codex while Spark runs EnvSolve-pro and two disjoint Repo2Run
 lanes. The batch is diagnostic and cannot support a held-out or leaderboard claim.
 
+An objective-alignment audit on the two earlier consumed censuses found that nine
+comparable accepted candidates covered `40/41` official missing-import modules, but
+30 of 70 internal module obligations were not official missing imports. Twenty-five
+of those excess obligations came from one repository. This is a precision hypothesis,
+not yet a dominant mechanism: it must recur as the earliest decisive divergence across
+repositories in the frozen cross-method census.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -268,9 +275,10 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Complete the V3 consumed-case integrity canary and judge it only from the exact persisted
-model-visible projections. If it passes, freeze a multi-block flat/causal experiment on
-the same consumed cases to address provider nondeterminism. Consume a fresh outcome-blind
-Dev batch only after that mechanism test shows a preregistered gain without paired Official
+Complete the frozen 16-case EnvSolve-pro, Codex, and Repo2Run trajectory census. Select
+no intervention until the earliest-divergence analysis has a unique leader in at least
+four repositories and a repository-independent counterexample. Then implement one minimal
+change and test it first on consumed diagnostic cases. Consume a fresh outcome-blind Dev
+batch only after that mechanism test shows a preregistered gain without paired Official
 Pass regression. Tokens and price remain reported outcomes; candidate and wall-clock
 limits provide a shared, reproducible, intentionally generous execution boundary.

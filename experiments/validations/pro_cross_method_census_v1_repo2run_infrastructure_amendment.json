@@ -14,11 +14,16 @@
       "classification": "infrastructure",
       "failure": "The first dependency pin changed only the static Dockerfile template, while Repo2Run generated the executed Dockerfile from sandbox.py",
       "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry2"
+    },
+    {
+      "classification": "infrastructure",
+      "failure": "Repo2Run entered its agent loop but a hard-coded sudo chown for the original developer account stopped the background process on the host TTY",
+      "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry3"
     }
   ],
   "baseline_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
   "claim_scope": "Baseline execution compatibility only",
-  "effective_attempt_suffix": "infra-retry3",
+  "effective_attempt_suffix": "infra-retry4",
   "host_environment": {
     "architecture": "aarch64",
     "host_python": "3.12.3",
@@ -27,11 +32,13 @@
   "invalid_for_method_comparison": [
     "pro-cross-method-v1-c01-repo2run-reproduced-open",
     "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry1",
-    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry2"
+    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry2",
+    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry3"
   ],
   "patch": {
+    "additional_path": "experiments/baseline_patches/repo2run_remove_host_chown.patch",
     "path": "experiments/baseline_patches/repo2run_pin_pipdeptree_2_28_0.patch",
-    "repair": "Pin pipdeptree==2.28.0 in every Repo2Run image-construction path",
+    "repair": "Pin pipdeptree==2.28.0 in every image-construction path and remove a host-account-specific sudo chown",
     "scope_guard": "No prompt, model loop, command generation, evaluator, case data, or solver decision logic changes"
   },
   "reason": "No Repo2Run episode reached its native agent before this amendment, so the scored Repo2Run census begins only after the repository-independent compatibility repair.",

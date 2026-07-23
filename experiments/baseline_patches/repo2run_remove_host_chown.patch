@@ -1,0 +1,6 @@
+diff --git a/build_agent/utils/sandbox.py b/build_agent/utils/sandbox.py
+--- a/build_agent/utils/sandbox.py
++++ b/build_agent/utils/sandbox.py
+@@ -461 +461 @@ class Session:
+-                        subprocess.run(f'sudo chown huruida:huruida {project_directory}/repo/{self.sandbox.full_name}/repo/{file_path.split("/")[-1]}', shell=True, capture_output=True)
++                        # docker cp output is already readable; avoid host-specific ownership changes.

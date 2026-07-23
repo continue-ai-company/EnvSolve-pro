@@ -8,5 +8,9 @@ Rust 工具链。
 因此我们将 `pipdeptree` 锁定为此前已通过 Repo2Run 环境预检的 2.28.0，并覆盖
 静态模板和全部动态镜像生成路径。第一次锁定只覆盖了未被实际执行的静态模板，该次
 截断也完整保留。这是与仓库和 case 无关的执行兼容修复，不改变 Repo2Run 的 prompt、
-模型循环、操作生成、evaluator 或可见信息。有效的 Repo2Run 普查从带
-`infra-retry3` 后缀的 canary 开始。
+模型循环、操作生成、evaluator 或可见信息。
+
+下一次 canary 已进入原生 Agent 循环，但 `addfile` 操作调用了绑定原开发者账户的
+`sudo chown`，导致后台任务等待主机 TTY。复制出的文件本身可读，因此移除该主机
+专属的所有权改写，并完整保留被中断的尝试。有效的 Repo2Run 普查改从带
+`infra-retry4` 后缀的 canary 开始。

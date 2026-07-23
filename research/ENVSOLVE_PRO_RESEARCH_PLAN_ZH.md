@@ -201,6 +201,10 @@ multi-block flat/causal 配对。
 Codex，Spark 运行 EnvSolve-pro 和两条互不重叠的 Repo2Run 队列。本批仅用于诊断，不能支持 held-out
 或榜单结论。
 
+对前两组已消费 census 的目标对齐审计显示，9 个可比较最终候选覆盖了 `40/41` 个官方缺失模块，但
+70 个内部模块义务中有 30 个不对应官方 missing import，其中 25 个集中在同一仓库。这只是 precision
+假设，还不是主要机制；只有它在冻结的跨方法普查中跨仓库反复成为最早决定性分歧，才允许据此改算法。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -224,7 +228,8 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-完成 V3 已消费 case 完整性 canary，并只根据模型实际看到的持久化投影判断测量是否合格。若 gate
-通过，先冻结同一已消费集合上的 multi-block flat/causal 配对，以处理 provider 非确定性；只有该机制
-实验无 paired Official Pass 回退且出现预注册增益，才抽取新的 outcome-blind Dev。Token 与价格继续
+完成冻结的 16-case EnvSolve-pro、Codex 与 Repo2Run 轨迹普查。在最早分歧统计出现覆盖至少四个仓库
+的唯一领先类别、且存在 repository-independent counterexample 之前，不选择干预。随后只实现一个最小
+改动，并先在已消费诊断 case 上验证；只有该机制实验无 paired Official Pass 回退且出现预注册增益，
+才抽取新的 outcome-blind Dev。Token 与价格继续
 作为结果报告；候选和 wall-clock 只提供统一、可复现且尽量不绑定的执行边界。

@@ -63,10 +63,19 @@ def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
     patch = (
         BASELINE_PATCHES / "repo2run_pin_pipdeptree_2_28_0.patch"
     ).read_text()
+    ownership_patch = (
+        BASELINE_PATCHES / "repo2run_remove_host_chown.patch"
+    ).read_text()
 
     assert amendment["claim_scope"] == "Baseline execution compatibility only"
-    assert amendment["effective_attempt_suffix"] == "infra-retry3"
-    assert len(amendment["invalid_for_method_comparison"]) == 3
+    assert amendment["effective_attempt_suffix"] == "infra-retry4"
+    assert len(amendment["invalid_for_method_comparison"]) == 4
     assert patch.count("pipdeptree==2.28.0") == 4
+    added_lines = [
+        line
+        for line in (patch + ownership_patch).splitlines()
+        if line.startswith("+") and not line.startswith("+++")
+    ]
+    assert all("sudo" not in line for line in added_lines)
     assert "envbench-" not in patch
     assert "prompt" not in patch.lower()

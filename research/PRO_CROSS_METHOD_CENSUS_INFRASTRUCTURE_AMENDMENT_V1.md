@@ -11,4 +11,10 @@ qualified Repo2Run environment, in every static and generated image-construction
 path. The first pin covered only the unused static template; that censored attempt
 is also retained. This is a repository-independent execution repair. It does not
 change Repo2Run's prompt, model loop, generated operations, evaluator, or access to
-case information. The valid Repo2Run census begins with the `infra-retry3` canary.
+case information.
+
+The next canary entered the native agent loop, then stopped because an `addfile`
+operation invoked a hard-coded `sudo chown` for the original developer account.
+The copied file is already host-readable, so the host-specific ownership rewrite is
+removed. The interrupted attempt remains retained. The valid Repo2Run census begins
+with the `infra-retry4` canary.
