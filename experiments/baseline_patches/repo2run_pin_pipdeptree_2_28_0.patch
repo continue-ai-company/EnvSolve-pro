@@ -1,0 +1,9 @@
+diff --git a/build_agent/docker/Dockerfile b/build_agent/docker/Dockerfile
+--- a/build_agent/docker/Dockerfile
++++ b/build_agent/docker/Dockerfile
+@@ -16,4 +16,4 @@ ENV PATH="/root/.local/bin:$PATH"
+ 
+ RUN pip install pytest
+ 
+-RUN pip install pipdeptree
++RUN pip install pipdeptree==2.28.0

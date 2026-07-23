@@ -1,0 +1,34 @@
+{
+  "attempts_retained": [
+    {
+      "classification": "infrastructure",
+      "failure": "Repo2Run host virtual environment was absent",
+      "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open"
+    },
+    {
+      "classification": "infrastructure",
+      "failure": "Unpinned pipdeptree resolved to 4.1.0 on ARM64 and required unavailable cargo while building the baseline image",
+      "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry1"
+    }
+  ],
+  "baseline_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
+  "claim_scope": "Baseline execution compatibility only",
+  "effective_attempt_suffix": "infra-retry2",
+  "host_environment": {
+    "architecture": "aarch64",
+    "host_python": "3.12.3",
+    "requirements_freeze_sha256": "ee727d199250609c2b1d4bc4fe6e740a797726703c66a214b70d421b5508f6ba"
+  },
+  "invalid_for_method_comparison": [
+    "pro-cross-method-v1-c01-repo2run-reproduced-open",
+    "pro-cross-method-v1-c01-repo2run-reproduced-open-infra-retry1"
+  ],
+  "patch": {
+    "path": "experiments/baseline_patches/repo2run_pin_pipdeptree_2_28_0.patch",
+    "repair": "Pin pipdeptree==2.28.0 in the Repo2Run Docker image",
+    "scope_guard": "No prompt, model loop, command generation, evaluator, case data, or solver decision logic changes"
+  },
+  "reason": "No Repo2Run episode reached its native agent before this amendment, so the scored Repo2Run census begins only after the repository-independent compatibility repair.",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-cross-method-census-v1"
+}

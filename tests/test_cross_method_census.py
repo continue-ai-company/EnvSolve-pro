@@ -10,6 +10,7 @@ from experiments.run_schedule import _validate_schedule
 
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATIONS = ROOT / "experiments/validations"
+BASELINE_PATCHES = ROOT / "experiments/baseline_patches"
 SCHEDULES = (
     VALIDATIONS / "pro_cross_method_census_v1_codex_schedule.json",
     VALIDATIONS / "pro_cross_method_census_v1_envsolve_schedule.json",
@@ -50,3 +51,22 @@ def test_cross_method_configs_load_with_expected_roots() -> None:
     assert "codex-cli" in mac.solver_roots
     assert {"envbench-agent", "repo2run"} <= set(spark.solver_roots)
     assert mac.envsolve_max_candidates == spark.envsolve_max_candidates == 8
+
+
+def test_repo2run_infrastructure_amendment_is_case_independent() -> None:
+    amendment = json.loads(
+        (
+            VALIDATIONS
+            / "pro_cross_method_census_v1_repo2run_infrastructure_amendment.json"
+        ).read_text()
+    )
+    patch = (
+        BASELINE_PATCHES / "repo2run_pin_pipdeptree_2_28_0.patch"
+    ).read_text()
+
+    assert amendment["claim_scope"] == "Baseline execution compatibility only"
+    assert amendment["effective_attempt_suffix"] == "infra-retry2"
+    assert len(amendment["invalid_for_method_comparison"]) == 2
+    assert "+RUN pip install pipdeptree==2.28.0" in patch
+    assert "envbench-" not in patch
+    assert "prompt" not in patch.lower()
