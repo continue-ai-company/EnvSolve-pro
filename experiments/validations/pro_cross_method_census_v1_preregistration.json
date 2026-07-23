@@ -1,0 +1,90 @@
+{
+  "analysis": {
+    "dominance_minimum_distinct_repositories": 4,
+    "earliest_decisive_divergence_categories": [
+      "observation",
+      "constraint",
+      "operation",
+      "finalization",
+      "infrastructure"
+    ],
+    "infrastructure_is_unknown": true,
+    "non_scoring_fields": [
+      "error_count",
+      "warning_count",
+      "non_missing_import_error_count"
+    ],
+    "primary_mechanism_statistic": "distinct repository count by earliest decisive divergence",
+    "primary_terminal_outcome": "Official Pass when exit_code == 0 and issues_count == 0",
+    "unique_largest_category_required": true
+  },
+  "claim_scope": "Consumed development trajectory diagnostics only; no held-out effectiveness or leaderboard claim.",
+  "execution": {
+    "algorithm_or_wrapper_change_during_batch": false,
+    "canary_or_official_test_access": false,
+    "codex_host": "mac",
+    "envsolve_host": "spark-f21c",
+    "episode_timeout_seconds": 21600,
+    "official_evaluator_access": "once after each native episode",
+    "repo2run_hosts": [
+      "spark-f21c",
+      "spark-f21c"
+    ],
+    "retry_policy": "Retry only infrastructure-censored attempts under the existing frozen policy; retain every attempt."
+  },
+  "frozen_files": {
+    "envsolve/integrations/envbench_findings.py": "31f518a4b0cf7db85bad4c6b996ce5b13ce3760480988f8d9670632daa81a49a",
+    "envsolve_harness/adapters/envbench.py": "140e1a874c1bff62017d83ec9d11b2a8b7f0a6c9060885ca5710365a18d52371",
+    "envsolve_harness/runners/codex_cli.py": "a159c79f9adc54bebcbaf47ed6b279a148e5dfad17805881f411f0de154fe2f1",
+    "envsolve_harness/runners/envsolve_p6.py": "dcfbf659979dff2f9c8a7cffd79260cef94d2e7dd5883f9beca8342a4ab2a853",
+    "envsolve_harness/runners/repo2run.py": "e24ee1818c5e4d2443333398e3fb81111919e92a8f47436c659edc918096b7b1",
+    "experiments/configs/local_mac_pro_cross_method_v1.json": "cf54bd011c57c01311441e4ed9f43b9b75fe71042b7535a14d00df5eff4d60a2",
+    "experiments/configs/local_spark_pro_cross_method_v1.json": "d595d2ed8e781b0b1dbb8fab5efa9158566ac9b06e0ae03a49f4f243567d0816",
+    "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "experiments/run_case.py": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b",
+    "experiments/run_schedule.py": "84e0aa75c796b405361580feef6f4b96c5d7e2208ccd092dee6ec41f856500dc",
+    "experiments/tools/build_pro_cross_method_census_v1.py": "a8d583cc7385c3e6f732c8e180fdc1dd2851901879d2eddc6da53a065f0e73c9",
+    "research/PRO_CROSS_METHOD_CENSUS_PROTOCOL_V1.md": "1948736233bc69342fd557e4c3180f18ec05a58c169948f6fc9f1852b2c5dca0",
+    "research/PRO_CROSS_METHOD_CENSUS_PROTOCOL_V1_ZH.md": "f2d544640d38de0e50895af510f074bb80536dea4731440539bcbd2dc303a5fb"
+  },
+  "implementation_commit": "f114256d7b938d0a8f52c1e22e0cc985cc82e6eb",
+  "methods": [
+    {
+      "host": "spark-f21c",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "runner": "envsolve"
+    },
+    {
+      "host": "mac",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "runner": "codex-cli"
+    },
+    {
+      "host": "spark-f21c",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "runner": "repo2run"
+    }
+  ],
+  "protocol_id": "envsolve-pro-cross-method-census-v1",
+  "schedules": {
+    "experiments/validations/pro_cross_method_census_v1_codex_schedule.json": "48029d4deb33e93fb568261680d148c2e7d7815f1534bab7d51590ca48fd13f9",
+    "experiments/validations/pro_cross_method_census_v1_envsolve_schedule.json": "5005516e9c724b520a12f799db36e76e0a0ce100f9f072c9428b502d8809aa03",
+    "experiments/validations/pro_cross_method_census_v1_repo2run_lane1_schedule.json": "1fa07a27649713d9d32ac73570baf806117cc8a681a18d961e3192cd20c4dfb1",
+    "experiments/validations/pro_cross_method_census_v1_repo2run_lane2_schedule.json": "352e4f971dbc8f3a264c72b3ff98cb833ad2ad88742d5ee7302c272beb7a71ec"
+  },
+  "schema_version": "1.0.0",
+  "selection": {
+    "case_count": 16,
+    "case_file": "experiments/cases/dev_pro_cross_method_census_v1_16.jsonl",
+    "case_file_sha256": "c91ce950a8eee91e71ccb8d8d0b360985c0e986194ffb12e4c4f4c8c96647a42",
+    "new_untouched_cases_consumed": 0,
+    "selection_binding": "experiments/validations/pro_cross_method_census_v1_selection.json",
+    "selection_kind": "complete union of two previously consumed eight-case censuses"
+  }
+}

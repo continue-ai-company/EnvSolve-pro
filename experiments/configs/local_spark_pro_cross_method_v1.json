@@ -1,0 +1,55 @@
+{
+  "paths": {
+    "runs": "/home/avdpro/work/runs/envsolve-pro-cross-method-v1"
+  },
+  "benchmarks": {
+    "envbench": {
+      "adapter": "envbench",
+      "root": "/home/avdpro/EnvSolve/EnvBench",
+      "settings": {
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "deterministic_script": "evaluation/scripts/python_baseline.sh"
+      }
+    }
+  },
+  "solvers": {
+    "envbench-agent": {
+      "root": "/home/avdpro/EnvSolve/EnvBench"
+    },
+    "repo2run": {
+      "root": "/home/avdpro/EnvSolve/Repo2Run"
+    }
+  },
+  "model_pricing": {
+    "deepseek/deepseek-v4-pro": {
+      "input_cost_per_million": 0.435,
+      "output_cost_per_million": 0.87,
+      "cache_read_cost_per_million": 0.003625,
+      "source_url": "https://openrouter.ai/deepseek/deepseek-v4-pro",
+      "snapshot_date": "2026-07-13"
+    }
+  },
+  "generation": {
+    "timeout": 14400,
+    "model_request_timeout": 300,
+    "model_max_retries": 3,
+    "model_max_output_tokens": 32768,
+    "model_reasoning_effort": "high",
+    "model_response_format": "json_object",
+    "model_max_requests": 100,
+    "model_max_total_tokens": 100000000,
+    "model_max_estimated_cost_usd": 1000.0,
+    "max_iterations": 30,
+    "envsolve_max_candidates": 8,
+    "envsolve_max_environments": 8,
+    "envsolve_max_commands": 8,
+    "bash_timeout": 1200
+  },
+  "evaluation": {
+    "create_container_timeout": 300,
+    "container_timeout": 1800,
+    "process_timeout": 3600,
+    "git_fetch_timeout": 600,
+    "max_workers": 1
+  }
+}

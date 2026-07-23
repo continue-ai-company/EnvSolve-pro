@@ -118,6 +118,10 @@ environments, commands, and wall-clock time support efficiency and Pareto analys
 All methods share a terminal-only Official evaluator boundary. Canary and Official Test
 remain untouched until the method is frozen.
 
+For EnvBench Python, Official Pass means bootstrap exit zero and zero
+`reportMissingImports`. Other Pyright errors are non-scoring diagnostics and do not guide
+the solver, failure taxonomy, or algorithm selection.
+
 Diagnostic studies establish measurement and mechanism assumptions without making an
 effectiveness claim. Open programs, state-parity preconditions, and candidate retention
 first remove representation and terminal censoring. P5 then pairs flat state with the

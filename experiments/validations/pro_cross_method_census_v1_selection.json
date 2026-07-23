@@ -1,0 +1,44 @@
+{
+  "case_count": 16,
+  "case_file": "experiments/cases/dev_pro_cross_method_census_v1_16.jsonl",
+  "case_file_sha256": "c91ce950a8eee91e71ccb8d8d0b360985c0e986194ffb12e4c4f4c8c96647a42",
+  "case_ids": [
+    "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+    "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+    "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+    "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+    "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+    "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+    "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+    "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+    "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+    "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+    "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+    "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+    "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+    "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+    "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+    "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd"
+  ],
+  "new_untouched_cases_consumed": 0,
+  "salted_execution_order": "envsolve-pro-cross-method-census-v1-2026-07-23",
+  "schedules": {
+    "pro_cross_method_census_v1_codex_schedule.json": "48029d4deb33e93fb568261680d148c2e7d7815f1534bab7d51590ca48fd13f9",
+    "pro_cross_method_census_v1_envsolve_schedule.json": "5005516e9c724b520a12f799db36e76e0a0ce100f9f072c9428b502d8809aa03",
+    "pro_cross_method_census_v1_repo2run_lane1_schedule.json": "1fa07a27649713d9d32ac73570baf806117cc8a681a18d961e3192cd20c4dfb1",
+    "pro_cross_method_census_v1_repo2run_lane2_schedule.json": "352e4f971dbc8f3a264c72b3ff98cb833ad2ad88742d5ee7302c272beb7a71ec"
+  },
+  "schema_version": "1.0.0",
+  "selection_kind": "complete reuse of two previously consumed censuses",
+  "sources": [
+    {
+      "path": "experiments/cases/dev_pro_trajectory_census_v1_8.jsonl",
+      "sha256": "bb273c400b37ef9e1a2f2ce0e2b1285498ec3aa5d3733f290d6dd91766b593f1"
+    },
+    {
+      "path": "experiments/cases/dev_pro_trajectory_census_replication_v1_8.jsonl",
+      "sha256": "4bd7dc2cfaa2c8904f82733b6d9d2b9c4ebe7aec684b74f1b59d52f7e42d412c"
+    }
+  ],
+  "study_id": "envsolve-pro-cross-method-census-v1"
+}

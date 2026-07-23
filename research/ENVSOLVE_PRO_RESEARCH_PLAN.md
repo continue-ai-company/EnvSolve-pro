@@ -234,6 +234,21 @@ an integrity-only canary on the same three consumed cases; Official Pass is not 
 this gate. A multi-block flat/causal experiment is frozen only after every model-visible
 decision passes digest, schema, structure, and root-completeness checks.
 
+### 4.8 Cross-Method Trajectory Census
+
+The next algorithm revision is selected from paired trajectory statistics rather than
+another isolated case. The complete union of the two consumed P4 censuses supplies 16
+repositories without opening untouched data. Current EnvSolve-pro causal v3, Codex CLI,
+and Repo2Run run on the same case identities and unchanged terminal evaluator. The
+official objective is exactly bootstrap exit zero plus zero `reportMissingImports`;
+other Pyright errors are excluded from mechanism selection.
+
+For each case, analysis identifies the earliest decisive divergence at Observation,
+Constraint, Operation, Finalization, or Infrastructure. A next-version mechanism requires
+one unique largest category across at least four repositories and a repository-independent
+counterexample. Mac runs Codex while Spark runs EnvSolve-pro and two disjoint Repo2Run
+lanes. The batch is diagnostic and cannot support a held-out or leaderboard claim.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;

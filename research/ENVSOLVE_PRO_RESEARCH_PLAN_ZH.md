@@ -189,6 +189,18 @@ import 硬化为义务。V3 先只在相同三个已消费 case 上运行完整�
 gate。只有每次决策的模型可见投影都通过 hash、schema、结构和 root-completeness 审计，才冻结后续
 multi-block flat/causal 配对。
 
+### 4.8 跨方法轨迹普查
+
+下一版算法必须来自配对轨迹统计，而不是另一个孤立 case。两组已消费 P4 census 的完整并集提供 16 个
+仓库，不打开 untouched 数据。当前 EnvSolve-pro causal v3、Codex CLI 和 Repo2Run 在相同 case identity
+与未修改 terminal evaluator 下运行。官方目标严格等于 bootstrap 退出码为 0 且
+`reportMissingImports` 为 0；其他 Pyright error 不参与机制选择。
+
+每个 case 识别最早决定性分歧属于观测层、约束层、操作层、终局化还是基础设施。只有某一类别唯一最大、
+覆盖至少四个仓库，并能写成 repository-independent counterexample，才允许进入下一版。Mac 运行
+Codex，Spark 运行 EnvSolve-pro 和两条互不重叠的 Repo2Run 队列。本批仅用于诊断，不能支持 held-out
+或榜单结论。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：

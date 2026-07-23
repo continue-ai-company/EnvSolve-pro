@@ -81,6 +81,9 @@ DGX Spark 可并行运行，但每个 paired comparison 记录并控制执行平
 率与 Unknown 比例。Token、请求、候选环境、命令和 wall-clock 只用于效率与 Pareto 分析。所有方法共享
 terminal-only Official evaluator 边界；Canary 和 Official Test 在方法冻结前保持 untouched。
 
+对 EnvBench Python，Official Pass 严格表示 bootstrap 退出码为 0 且 `reportMissingImports` 为 0。
+其他 Pyright error 只是非计分诊断，不影响 solver、失败分类或算法选择。
+
 诊断实验只验证测量与机制假设，不承担效果结论。开放程序、状态等价前置条件和候选保留先移除了
 representation 与 terminal censoring。P5 随后在三个已消费机制 case 上配对比较 flat state 与 causal
 frontier，并对模型实际看到的持久化状态执行 hash、schema 与完整性审计；测量门失败的结果不进入效果
