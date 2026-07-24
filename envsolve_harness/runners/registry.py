@@ -67,6 +67,11 @@ def _load_builtin_runners() -> None:
         executable = configured or Path("/Applications/ChatGPT.app/Contents/Resources/codex")
         if executable.is_dir():
             executable = executable / "codex"
+        from envsolve_harness.adapters.registry import (
+            goal_contract_for,
+            workspace_preconditions_for,
+        )
+
         return CodexCliRunner(
             codex_executable=executable,
             harness_root=config.workspace_root,
@@ -76,6 +81,8 @@ def _load_builtin_runners() -> None:
             container_create_timeout=config.create_container_timeout,
             git_fetch_timeout=config.git_fetch_timeout,
             reasoning_effort=config.model_reasoning_effort,
+            workspace_preconditions=workspace_preconditions_for(config, protocol),
+            goal_contract=goal_contract_for(config, protocol),
         )
 
     def deterministic(
@@ -193,7 +200,10 @@ def _load_builtin_runners() -> None:
         if not isinstance(image, str) or not image:
             raise ValueError("EnvSolve requires a benchmark execution image")
         pricing = config.model_pricing.get(run_spec.model) if run_spec.model else None
-        from envsolve_harness.adapters.registry import workspace_preconditions_for
+        from envsolve_harness.adapters.registry import (
+            goal_contract_for,
+            workspace_preconditions_for,
+        )
 
         workspace_preconditions = workspace_preconditions_for(config, protocol)
         return EnvSolveP6Runner(
@@ -217,6 +227,7 @@ def _load_builtin_runners() -> None:
             max_total_tokens=config.model_max_total_tokens,
             max_estimated_cost_usd=config.model_max_estimated_cost_usd,
             workspace_preconditions=workspace_preconditions,
+            goal_contract=goal_contract_for(config, protocol),
         )
 
     register_solver_runner("deterministic", "benchmark-deterministic", deterministic)

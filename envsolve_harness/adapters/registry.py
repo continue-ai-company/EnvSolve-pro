@@ -6,6 +6,7 @@ from envsolve_harness.adapters.base import BenchmarkAdapter
 from envsolve_harness.core.models import HarnessConfig
 from envsolve_harness.core.protocol import ExperimentProtocol
 from envsolve.runtime.workspace import WorkspacePrecondition
+from envsolve.runtime.goal import ExecutableGoalContract
 
 
 AdapterFactory = Callable[[HarnessConfig, ExperimentProtocol], BenchmarkAdapter]
@@ -56,3 +57,21 @@ def workspace_preconditions_for(
         return ()
     adapter = factory(config, protocol)
     return tuple(getattr(adapter, "workspace_preconditions", ()))
+
+
+def goal_contract_for(
+    config: HarnessConfig,
+    protocol: ExperimentProtocol,
+) -> ExecutableGoalContract | None:
+    """Return the public executable goal declared by a benchmark adapter."""
+
+    _load_builtin_adapters()
+    benchmark = config.benchmark(protocol.benchmark)
+    factory = _FACTORIES.get(benchmark.adapter)
+    if factory is None:
+        return None
+    adapter = factory(config, protocol)
+    contract = getattr(adapter, "goal_contract", None)
+    if contract is not None and not isinstance(contract, ExecutableGoalContract):
+        raise ValueError("Benchmark adapter goal_contract must be typed")
+    return contract

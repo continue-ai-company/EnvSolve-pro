@@ -78,6 +78,17 @@ CAUSAL_FRONTIER_SYSTEM_PROMPT = dedent(
     """
 ).strip()
 
+GOAL_CONTRACT_SYSTEM_PROMPT = dedent(
+    """
+    The state contains a public executable_goal_contract. It is the
+    authoritative success criterion for this task. Optimize the complete
+    deployment program for that goal rather than proxy objectives such as
+    tests, documentation builds, or general environment completeness.
+    Findings returned by the contract are executable counterexamples and
+    remain active until the same contract observes them as resolved.
+    """
+).strip()
+
 OPERATION_PROFILES = {"constraint-driven", "free-form"}
 CONSTRAINT_PROFILES = {"flat", "causal-frontier"}
 
@@ -106,6 +117,7 @@ def _response_text(response: Any) -> str:
 class StructuredModelDeploymentPolicy:
     model: Any
     repository_profile: dict[str, Any]
+    goal_contract: dict[str, Any] | None = None
     max_feedback_chars: int = 64_000
     candidate_language: str = ""
     operation_profile: str = "constraint-driven"
@@ -117,6 +129,15 @@ class StructuredModelDeploymentPolicy:
     def __post_init__(self) -> None:
         if not isinstance(self.repository_profile, dict):
             raise ValueError("Repository profile must be an object")
+        if self.goal_contract is not None:
+            if not isinstance(self.goal_contract, dict):
+                raise ValueError("Executable goal contract must be an object")
+            try:
+                json.dumps(self.goal_contract, ensure_ascii=True)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    "Executable goal contract must be JSON serializable"
+                ) from exc
         if self.max_feedback_chars < 4_096:
             raise ValueError("Model feedback budget must be at least 4096 characters")
         if self.operation_profile not in OPERATION_PROFILES:
@@ -313,15 +334,16 @@ class StructuredModelDeploymentPolicy:
         causal = self.constraint_profile == "causal-frontier"
         weights = {
             "case": 0.03,
-            "repository": 0.17,
-            "candidates": 0.22,
-            "conflicts": 0.08 if causal else 0.20,
+            "goal": 0.09,
+            "repository": 0.14,
+            "candidates": 0.20,
+            "conflicts": 0.08 if causal else 0.16,
             "module_requirements": 0.04,
-            "frontier": 0.16,
+            "frontier": 0.14,
             "policy_failures": 0.04,
             "verification": 0.10,
-            "hypotheses": 0.08,
-            "operation": 0.12,
+            "hypotheses": 0.07,
+            "operation": 0.10,
         }
         actions = sorted(
             state.actions.values(),
@@ -357,6 +379,13 @@ class StructuredModelDeploymentPolicy:
         projection = {
             "case": self._bounded_json_value(
                 state.case, self._field_limit(weights["case"])
+            ),
+            "goal": self._bounded_json_value(
+                {
+                    "executable_goal_contract": self.goal_contract,
+                    "solver_goal_state": state.goals,
+                },
+                self._field_limit(weights["goal"]),
             ),
             "repository_profile": self._bounded_json_value(
                 self.repository_profile,
@@ -457,6 +486,8 @@ class StructuredModelDeploymentPolicy:
         system_prompt = BASE_SYSTEM_PROMPT
         if self.constraint_profile == "causal-frontier":
             system_prompt += "\n\n" + CAUSAL_FRONTIER_SYSTEM_PROMPT
+        if self.goal_contract is not None:
+            system_prompt += "\n\n" + GOAL_CONTRACT_SYSTEM_PROMPT
         if self.operation_profile == "constraint-driven":
             system_prompt += "\n\n" + OPERATION_SYSTEM_PROMPT
         if self.candidate_language.strip():
@@ -513,6 +544,11 @@ class StructuredModelDeploymentPolicy:
             "operation_profile": self.operation_profile,
             "constraint_profile": self.constraint_profile,
         }
+        if self.goal_contract is not None:
+            metadata["goal_contract"] = {
+                key: self.goal_contract.get(key)
+                for key in ("contract_id", "report_schema", "sha256")
+            }
         if self.constraint_profile == "causal-frontier":
             frontier_snapshot = projection["constraint_frontier"]
             encoded_frontier = json.dumps(

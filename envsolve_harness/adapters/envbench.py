@@ -22,6 +22,7 @@ from envsolve_harness.adapters.envbench_diagnostics import (
 from envsolve_harness.adapters.infrastructure import (
     envbench_bootstrap_infrastructure_signature,
 )
+from envsolve_harness.adapters.envbench_goal import envbench_python_goal_contract
 from envsolve_harness.execution.batch import cleanup_case_containers
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import ensure_manifest, update_manifest
@@ -31,6 +32,7 @@ from envsolve_harness.utils.provenance import (
     sha256_file,
 )
 from envsolve.runtime.workspace import WorkspacePrecondition
+from envsolve.runtime.goal import ExecutableGoalContract
 
 
 def _timeout_output(value: str | bytes | None) -> str:
@@ -98,6 +100,10 @@ class EnvBenchEvaluator:
                 producer="envbench-python-build-v1",
             ),
         )
+
+    @property
+    def goal_contract(self) -> ExecutableGoalContract:
+        return envbench_python_goal_contract()
 
     def evaluate(
         self,

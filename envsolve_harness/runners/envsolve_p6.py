@@ -12,12 +12,14 @@ from envsolve_harness.execution.batch import cleanup_case_containers
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import update_manifest
 from envsolve.runtime.workspace import WorkspacePrecondition
+from envsolve.runtime.goal import ExecutableGoalContract
 
 
 METHOD_PROFILES = {
     "envsolve-pro": ("two-layer", "free-form"),
     "envsolve-pro-causal": ("two-layer", "free-form"),
     "envsolve-pro-no-retention": ("two-layer", "free-form"),
+    "envsolve-pro-goal-contract": ("goal-contract", "free-form"),
     "envsolve-full": ("two-layer", "constraint-driven"),
     "envsolve-runtime-only": ("runtime-only", "constraint-driven"),
     "envsolve-operation": ("two-layer", "constraint-driven"),
@@ -63,6 +65,7 @@ class EnvSolveP6Runner:
         max_total_tokens: int,
         max_estimated_cost_usd: float,
         workspace_preconditions: tuple[WorkspacePrecondition, ...] = (),
+        goal_contract: ExecutableGoalContract | None = None,
     ) -> None:
         self.envbench_root = envbench_root
         self.harness_root = harness_root
@@ -84,6 +87,7 @@ class EnvSolveP6Runner:
         self.max_total_tokens = max_total_tokens
         self.max_estimated_cost_usd = max_estimated_cost_usd
         self.workspace_preconditions = workspace_preconditions
+        self.goal_contract = goal_contract
 
     @staticmethod
     def _now() -> str:
@@ -170,6 +174,14 @@ class EnvSolveP6Runner:
                 "unsupported EnvSolve method\n",
                 metadata,
             )
+        if obligation_profile == "goal-contract" and self.goal_contract is None:
+            return self._failure(
+                artifacts,
+                run_spec,
+                "Benchmark adapter does not declare an executable goal contract",
+                "missing executable goal contract\n",
+                metadata,
+            )
         if not run_spec.model:
             return self._failure(
                 artifacts, run_spec, "EnvSolve requires RunSpec.model", "missing model\n", metadata
@@ -227,6 +239,15 @@ class EnvSolveP6Runner:
                 else self.pricing.input_cost_per_million
             ),
         ]
+        if obligation_profile == "goal-contract":
+            goal_contract_path = artifacts.generation_dir / "goal_contract.json"
+            write_json(goal_contract_path, self.goal_contract.to_dict())
+            command.extend(["--goal-contract", str(goal_contract_path)])
+            metadata["goal_contract"] = {
+                "contract_id": self.goal_contract.contract_id,
+                "report_schema": self.goal_contract.report_schema,
+                "sha256": self.goal_contract.sha256,
+            }
         for precondition in self.workspace_preconditions:
             if precondition.kind == "directory":
                 command.extend(["--pre-bootstrap-directory", precondition.path])

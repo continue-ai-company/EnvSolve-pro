@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 import sys
 
@@ -15,6 +16,8 @@ for path in (ROOT, ENVBENCH):
 from env_setup_utils.repo_downloader import RepoDownloader
 from envsolve.runtime import (
     DockerFreshEnvironmentProvider,
+    ExecutableGoalContract,
+    ExecutableGoalContractVerifier,
     PythonDeploymentVerifier,
     StructuredModelDeploymentPolicy,
     WorkspacePrecondition,
@@ -55,7 +58,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--command-timeout", type=int, required=True)
     parser.add_argument(
         "--obligation-profile",
-        choices=("two-layer", "runtime-only"),
+        choices=("two-layer", "runtime-only", "goal-contract"),
         required=True,
     )
     parser.add_argument(
@@ -83,6 +86,7 @@ def parse_args() -> argparse.Namespace:
         action="append",
         default=[],
     )
+    parser.add_argument("--goal-contract", type=Path)
     parser.add_argument("--request-timeout", type=int, required=True)
     parser.add_argument("--max-retries", type=int, required=True)
     parser.add_argument("--max-output-tokens", type=int, required=True)
@@ -109,6 +113,17 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    goal_contract = (
+        ExecutableGoalContract.from_dict(
+            json.loads(args.goal_contract.read_text(encoding="utf-8"))
+        )
+        if args.goal_contract is not None
+        else None
+    )
+    if args.obligation_profile == "goal-contract" and goal_contract is None:
+        raise ValueError("goal-contract profile requires --goal-contract")
+    if args.obligation_profile != "goal-contract" and goal_contract is not None:
+        raise ValueError("--goal-contract requires the goal-contract profile")
     max_environments = (
         args.max_environments
         if args.max_environments is not None
@@ -225,20 +240,33 @@ def main() -> int:
         policy=StructuredModelDeploymentPolicy(
             model,
             profile,
+            goal_contract=goal_contract.to_dict() if goal_contract is not None else None,
             candidate_language=candidate_validator.prompt_contract,
             operation_profile=args.operation_profile,
             constraint_profile=args.constraint_profile,
         ),
         environment_provider=provider,
-        verifier=PythonDeploymentVerifier(
-            command_timeout=args.command_timeout,
-            obligation_profile=args.obligation_profile,
-            package_requirements=repository_constraints.evidence,
-            effect_auditor=lambda worktree: inspect_repository(
-                worktree,
-                args.revision,
-                required_preconditions=workspace_preconditions,
-            ),
+        verifier=(
+            ExecutableGoalContractVerifier(
+                goal_contract,
+                observation_timeout=args.command_timeout,
+                effect_auditor=lambda worktree: inspect_repository(
+                    worktree,
+                    args.revision,
+                    required_preconditions=workspace_preconditions,
+                ),
+            )
+            if goal_contract is not None
+            else PythonDeploymentVerifier(
+                command_timeout=args.command_timeout,
+                obligation_profile=args.obligation_profile,
+                package_requirements=repository_constraints.evidence,
+                effect_auditor=lambda worktree: inspect_repository(
+                    worktree,
+                    args.revision,
+                    required_preconditions=workspace_preconditions,
+                ),
+            )
         ),
         candidate_validator=candidate_validator,
         operation_guard=(
@@ -254,7 +282,9 @@ def main() -> int:
         condition=args.method,
         repository_profile=profile,
         initial_evidence=(
-            admitted_evidence
+            ()
+            if goal_contract is not None
+            else admitted_evidence
             if args.operation_profile == "constraint-driven"
             or args.candidate_interface == "open-program"
             else ()
@@ -267,7 +297,26 @@ def main() -> int:
             "workspace_preconditions": [
                 item.to_dict() for item in workspace_preconditions
             ],
+            "goal_contract": (
+                {
+                    "contract_id": goal_contract.contract_id,
+                    "report_schema": goal_contract.report_schema,
+                    "sha256": goal_contract.sha256,
+                }
+                if goal_contract is not None
+                else None
+            ),
         },
+        goal_id=(
+            goal_contract.contract_id
+            if goal_contract is not None
+            else "environment-ready"
+        ),
+        goal_description=(
+            goal_contract.description
+            if goal_contract is not None
+            else "Construct an executable project environment"
+        ),
     ).run(case, RunArtifacts(args.artifacts_root), run_spec)
     return 0 if result.generation_completed else 1
 

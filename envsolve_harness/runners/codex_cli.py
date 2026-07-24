@@ -18,6 +18,8 @@ from envsolve_harness.integrity.repository import inspect_repository
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import update_manifest
 from envsolve_harness.utils.provenance import sha256_file
+from envsolve.runtime.workspace import WorkspacePrecondition
+from envsolve.runtime.goal import ExecutableGoalContract
 
 
 OUTPUT_SCHEMA = {
@@ -91,6 +93,8 @@ class CodexCliRunner:
         container_create_timeout: int,
         git_fetch_timeout: int,
         reasoning_effort: str | None = None,
+        workspace_preconditions: tuple[WorkspacePrecondition, ...] = (),
+        goal_contract: ExecutableGoalContract | None = None,
     ) -> None:
         self.codex_executable = codex_executable
         self.harness_root = harness_root
@@ -100,6 +104,8 @@ class CodexCliRunner:
         self.container_create_timeout = container_create_timeout
         self.git_fetch_timeout = git_fetch_timeout
         self.reasoning_effort = reasoning_effort or "high"
+        self.workspace_preconditions = workspace_preconditions
+        self.goal_contract = goal_contract
 
     @staticmethod
     def _now() -> str:
@@ -194,6 +200,10 @@ class CodexCliRunner:
             )
             return self._checked(inspect, timeout=self.container_create_timeout)
 
+    def _materialize_workspace_preconditions(self, workspace: Path) -> None:
+        for precondition in self.workspace_preconditions:
+            precondition.materialize(workspace)
+
     def _create_container(self, workspace: Path, image_digest: str) -> str:
         container_id = self._checked(
             [
@@ -227,8 +237,12 @@ class CodexCliRunner:
             raise
         return container_id
 
-    def _prompt(self, case: Case) -> str:
-        return f"""\
+    def _prompt(
+        self,
+        case: Case,
+        goal_contract: ExecutableGoalContract | None = None,
+    ) -> str:
+        prompt = f"""\
 Act as a strong general-purpose coding agent whose sole task is to set up the
 Python development environment for `{case.repository}` at exact revision
 `{case.revision}`.
@@ -237,6 +251,8 @@ The repository is mounted at `/data/project` in a persistent EnvBench Docker
 container. Use `envsolve_container.envbench_shell` for every inspection,
 installation, and verification step. The Bash shell, current directory,
 exported variables, installed packages, and filesystem persist across calls.
+The checkout already contains any benchmark-adapter-owned workspace state that
+will be present before the submitted bootstrap script runs. Preserve that state.
 You have no access to the official EnvBench evaluator or any evaluator result.
 
 Explore the repository and its documentation, infer the intended Python and
@@ -253,6 +269,30 @@ environment setup commands needed to reproduce the final state; omit inspection,
 diagnostic, test, and failed commands. The script must not edit repository source
 or configuration. `summary` should briefly state what was installed.
 """
+        if goal_contract is None:
+            return prompt
+        return (
+            prompt
+            + "\n"
+            + f"""\
+The following public executable goal is the authoritative success criterion.
+You may run it during diagnosis. It is not a post-hoc evaluator result, and no
+official evaluator output is available.
+
+Goal ID: {goal_contract.contract_id}
+Goal description: {goal_contract.description}
+Goal report schema: {goal_contract.report_schema}
+Goal contract SHA-256: {goal_contract.sha256}
+
+Trusted goal program:
+<goal_program>
+{goal_contract.program}
+</goal_program>
+
+Optimize the bootstrap script for this goal. Tests, documentation builds, and
+other development checks are optional evidence rather than the success criterion.
+"""
+        )
 
     def _codex_command(
         self,
@@ -342,8 +382,22 @@ or configuration. `summary` should briefly state what was installed.
             },
             "model_reasoning_effort": self.reasoning_effort,
             "image_reference": self.image,
+            "workspace_preconditions": [
+                item.to_dict() for item in self.workspace_preconditions
+            ],
             "started_at": started_at,
         }
+        goal_contract = (
+            self.goal_contract
+            if run_spec.method == "codex-cli-goal-aware"
+            else None
+        )
+        if goal_contract is not None:
+            metadata["goal_contract"] = {
+                "contract_id": goal_contract.contract_id,
+                "report_schema": goal_contract.report_schema,
+                "sha256": goal_contract.sha256,
+            }
         if not run_spec.model:
             return self._finish(
                 artifacts,
@@ -371,12 +425,13 @@ or configuration. `summary` should briefly state what was installed.
         trace_path = artifacts.generation_dir / "container-commands.jsonl"
         prompt_path = control_dir / "prompt.txt"
         write_json(schema_path, OUTPUT_SCHEMA)
-        write_text_atomic(prompt_path, self._prompt(case))
+        write_text_atomic(prompt_path, self._prompt(case, goal_contract))
 
         container_id: str | None = None
         log_parts: list[str] = []
         try:
             acquisition_commands = self._acquire_repository(case, workspace)
+            self._materialize_workspace_preconditions(workspace)
             metadata["repository_acquisition"] = {
                 "source": "github-exact-revision",
                 "commands": acquisition_commands,
@@ -460,7 +515,11 @@ or configuration. `summary` should briefly state what was installed.
                 "count": len(command_records),
                 "successful_count": successful_command_count,
             }
-            integrity = inspect_repository(workspace, case.revision)
+            integrity = inspect_repository(
+                workspace,
+                case.revision,
+                required_preconditions=self.workspace_preconditions,
+            )
             metadata["repository_integrity"] = integrity.to_dict()
             metadata["checked_out_revision"] = integrity.checked_out_revision
 
@@ -513,7 +572,9 @@ or configuration. `summary` should briefly state what was installed.
             if workspace.is_dir() and "repository_integrity" not in metadata:
                 try:
                     metadata["repository_integrity"] = inspect_repository(
-                        workspace, case.revision
+                        workspace,
+                        case.revision,
+                        required_preconditions=self.workspace_preconditions,
                     ).to_dict()
                 except Exception:
                     pass

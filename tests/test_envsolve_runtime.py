@@ -448,6 +448,58 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             "causal-frontier",
         )
 
+    def test_goal_contract_method_changes_only_the_observation_profile(self) -> None:
+        self.assertEqual(
+            METHOD_PROFILES["envsolve-pro-goal-contract"],
+            ("goal-contract", "free-form"),
+        )
+        self.assertEqual(
+            METHOD_CANDIDATE_INTERFACES["envsolve-pro-goal-contract"],
+            "open-program",
+        )
+        self.assertEqual(
+            METHOD_CANDIDATE_RETENTION["envsolve-pro-goal-contract"],
+            "best-admissible",
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-contract"],
+            "flat",
+        )
+
+    def test_policy_projects_executable_goal_and_solver_goal_state(self) -> None:
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        state.goals["imports-clean"] = {
+            "goal_id": "imports-clean",
+            "description": "No unresolved imports",
+            "status": "open",
+        }
+        contract = {
+            "contract_id": "imports-clean",
+            "description": "No unresolved imports",
+            "program": "python -m pyright . --outputjson",
+            "report_schema": "envsolve-goal-report-v1",
+            "sha256": "abc",
+        }
+
+        projection = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            {"files": []},
+            goal_contract=contract,
+            operation_profile="free-form",
+        )._state_projection(state)
+
+        self.assertEqual(
+            projection["goal"]["executable_goal_contract"],
+            contract,
+        )
+        self.assertEqual(
+            projection["goal"]["solver_goal_state"]["imports-clean"]["status"],
+            "open",
+        )
+
     def test_model_policy_malformed_output_is_recoverable_and_auditable(self) -> None:
         policy = StructuredModelDeploymentPolicy(
             RecordingModel("not-json"),

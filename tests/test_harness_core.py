@@ -10,6 +10,7 @@ from unittest import mock
 from envsolve_harness.adapters.envbench import EnvBenchEvaluator
 from envsolve_harness.adapters.registry import (
     create_benchmark_adapter,
+    goal_contract_for,
     register_benchmark_adapter,
 )
 from envsolve_harness.audit import audit_run
@@ -326,6 +327,56 @@ class CoreIoTest(unittest.TestCase):
             self.assertFalse(rejected.valid)
             self.assertIn("fake-env/injected.py", rejected.disallowed_untracked_paths)
 
+    def test_repository_integrity_allows_declared_ignored_scm_version_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"],
+                cwd=repo,
+                check=True,
+            )
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.name", "Test"],
+                cwd=repo,
+                check=True,
+            )
+            (repo / "package").mkdir()
+            (repo / "package/__init__.py").write_text("\n")
+            (repo / "pyproject.toml").write_text(
+                "[tool.setuptools_scm]\nwrite_to = \"package/version.py\"\n"
+            )
+            (repo / ".gitignore").write_text(
+                "package/version.py\npackage/injected.py\n"
+            )
+            REAL_SUBPROCESS_RUN(["git", "add", "."], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+            (repo / "package/version.py").write_text("__version__ = '1.0'\n")
+
+            report = inspect_repository(repo, head)
+
+            self.assertTrue(report.valid, report.violations)
+            self.assertEqual(
+                report.declared_generated_paths,
+                ("package/version.py",),
+            )
+            self.assertIn("package/version.py", report.allowed_generated_paths)
+
+            (repo / "package/injected.py").write_text("VALUE = 1\n")
+            rejected = inspect_repository(repo, head)
+            self.assertFalse(rejected.valid)
+            self.assertIn(
+                "package/injected.py",
+                rejected.disallowed_untracked_paths,
+            )
+
     def test_repository_integrity_does_not_follow_venv_python_symlink(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -397,6 +448,31 @@ class CoreIoTest(unittest.TestCase):
             )
             adapter = create_benchmark_adapter(config, make_protocol("synthetic"))
             self.assertEqual(adapter.benchmark_id, "synthetic")
+
+    def test_envbench_adapter_declares_public_executable_goal(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            config = make_config(workspace)
+            protocol = make_protocol()
+
+            contract = goal_contract_for(config, protocol)
+            runner = create_solver_runner(
+                "envsolve",
+                config,
+                protocol,
+                RunSpec(
+                    "goal-contract-run",
+                    "envsolve-pro-goal-contract",
+                    "test-model",
+                ),
+            )
+
+            self.assertIsNotNone(contract)
+            self.assertEqual(
+                contract.contract_id,
+                "envbench-python-reportMissingImports-v1",
+            )
+            self.assertEqual(runner.goal_contract, contract)
 
     def test_solver_failure_is_recorded_and_auditable(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

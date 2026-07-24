@@ -1,4 +1,6 @@
 from envsolve.runtime.docker import BaseRuntimeObservation, DockerFreshEnvironmentProvider
+from envsolve.runtime.goal import ExecutableGoalContract, GOAL_REPORT_SCHEMA
+from envsolve.runtime.goal_verifier import ExecutableGoalContractVerifier
 from envsolve.runtime.declarations import (
     RepositoryConstraintInventory,
     collect_repository_constraints,
@@ -12,6 +14,9 @@ from envsolve.runtime.workspace import WorkspacePrecondition
 
 __all__ = [
     "DockerFreshEnvironmentProvider",
+    "ExecutableGoalContract",
+    "ExecutableGoalContractVerifier",
+    "GOAL_REPORT_SCHEMA",
     "BaseRuntimeObservation",
     "InitialConstraintEvidence",
     "PythonDeploymentVerifier",

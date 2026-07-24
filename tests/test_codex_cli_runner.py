@@ -4,12 +4,14 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from envsolve_harness.core.models import RunSpec
+from envsolve_harness.core.models import Case, RunSpec
 from envsolve_harness.runners.codex_cli import (
     CodexCliRunner,
     audit_script_grounding,
     parse_codex_usage,
 )
+from envsolve.runtime import ExecutableGoalContract
+from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 class CodexCliRunnerTest(unittest.TestCase):
@@ -84,6 +86,58 @@ class CodexCliRunnerTest(unittest.TestCase):
             self.assertIn("--ephemeral", command)
             self.assertIn("--ignore-user-config", command)
             self.assertEqual(command[-1], "-")
+
+    def test_materializes_adapter_workspace_preconditions(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = CodexCliRunner(
+                codex_executable=root / "codex",
+                harness_root=root,
+                image="envbench:test",
+                timeout=120,
+                command_timeout=30,
+                container_create_timeout=10,
+                git_fetch_timeout=20,
+                workspace_preconditions=(
+                    WorkspacePrecondition(
+                        "build_output",
+                        producer="synthetic-adapter",
+                    ),
+                ),
+            )
+
+            runner._materialize_workspace_preconditions(root)
+
+            self.assertTrue((root / "build_output").is_dir())
+
+    def test_goal_aware_prompt_adds_only_the_public_goal_contract(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            contract = ExecutableGoalContract(
+                contract_id="public-import-goal",
+                description="Require zero missing imports",
+                program="python -m pyright . --outputjson",
+            )
+            runner = CodexCliRunner(
+                codex_executable=root / "codex",
+                harness_root=root,
+                image="envbench:test",
+                timeout=120,
+                command_timeout=30,
+                container_create_timeout=10,
+                git_fetch_timeout=20,
+                goal_contract=contract,
+            )
+            case = Case("case", "owner/repo", "abc")
+
+            native = runner._prompt(case)
+            goal_aware = runner._prompt(case, contract)
+
+            self.assertNotIn("public-import-goal", native)
+            self.assertIn("public-import-goal", goal_aware)
+            self.assertIn(contract.sha256, goal_aware)
+            self.assertIn(contract.program, goal_aware)
+            self.assertIn("official evaluator output is available", goal_aware)
 
 
 if __name__ == "__main__":

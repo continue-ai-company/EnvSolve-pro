@@ -7,6 +7,11 @@ from typing import Any
 
 from envsolve.runtime.workspace import WorkspacePrecondition
 
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - exercised on Python < 3.11
+    import tomli as tomllib
+
 
 ALLOWED_GENERATED_DIRECTORIES = {
     ".mypy_cache",
@@ -57,6 +62,7 @@ class RepositoryIntegrityReport:
     expected_revision: str
     checked_out_revision: str | None
     tracked_changes: tuple[str, ...]
+    declared_generated_paths: tuple[str, ...]
     allowed_generated_paths: tuple[str, ...]
     allowed_generated_path_count: int
     disallowed_untracked_paths: tuple[str, ...]
@@ -68,11 +74,12 @@ class RepositoryIntegrityReport:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "policy": "clean-tracked-tree-and-no-untracked-injection-v3",
+            "policy": "clean-tracked-tree-and-declared-generated-files-v4",
             "valid": self.valid,
             "expected_revision": self.expected_revision,
             "checked_out_revision": self.checked_out_revision,
             "tracked_changes": list(self.tracked_changes),
+            "declared_generated_paths": list(self.declared_generated_paths),
             "allowed_generated_paths": list(self.allowed_generated_paths),
             "allowed_generated_path_count": self.allowed_generated_path_count,
             "allowed_generated_paths_truncated": (
@@ -146,12 +153,52 @@ def _inside_root(path: PurePosixPath, root: PurePosixPath) -> bool:
     return path == root or root in path.parents
 
 
+def _safe_relative_path(value: object) -> str | None:
+    if not isinstance(value, str):
+        return None
+    candidate = PurePosixPath(value)
+    if (
+        candidate.is_absolute()
+        or not candidate.parts
+        or any(part in {"", ".", ".."} for part in candidate.parts)
+    ):
+        return None
+    return str(candidate)
+
+
+def _declared_generated_paths(repo_path: Path) -> tuple[str, ...]:
+    """Read build-backend output paths that are explicit repository facts."""
+
+    pyproject = repo_path / "pyproject.toml"
+    try:
+        data = tomllib.loads(pyproject.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, tomllib.TOMLDecodeError):
+        return ()
+    tool = data.get("tool")
+    setuptools_scm = tool.get("setuptools_scm") if isinstance(tool, dict) else None
+    if not isinstance(setuptools_scm, dict):
+        return ()
+    return tuple(
+        sorted(
+            {
+                path
+                for key in ("version_file", "write_to")
+                if (path := _safe_relative_path(setuptools_scm.get(key))) is not None
+            }
+        )
+    )
+
+
 def _is_allowed_generated(
     path: str,
     virtual_environment_roots: tuple[PurePosixPath, ...] = (),
+    declared_generated_paths: tuple[str, ...] = (),
+    ignored_paths: frozenset[str] = frozenset(),
 ) -> bool:
     pure = PurePosixPath(path)
     if any(_inside_root(pure, root) for root in virtual_environment_roots):
+        return True
+    if path in declared_generated_paths and path in ignored_paths:
         return True
     if pure.name in ALLOWED_GENERATED_FILES:
         return True
@@ -164,11 +211,14 @@ def _is_allowed_generated(
 def _generated_root(
     path: str,
     virtual_environment_roots: tuple[PurePosixPath, ...] = (),
+    declared_generated_paths: tuple[str, ...] = (),
 ) -> str | None:
     pure = PurePosixPath(path)
     for root in virtual_environment_roots:
         if _inside_root(pure, root):
             return str(root) + "/"
+    if path in declared_generated_paths:
+        return path
     for index, part in enumerate(pure.parts):
         if part in ALLOWED_GENERATED_DIRECTORIES or part.endswith(".egg-info"):
             return "/".join(pure.parts[: index + 1]) + "/"
@@ -238,7 +288,9 @@ def inspect_repository(
         "-z",
     )
     untracked = _nul_paths(untracked_process.stdout + ignored_process.stdout)
+    ignored_paths = frozenset(_nul_paths(ignored_process.stdout))
     virtual_environment_roots = _virtual_environment_roots(repo_path, untracked)
+    declared_generated_paths = _declared_generated_paths(repo_path)
     if untracked_process.returncode != 0 or ignored_process.returncode != 0:
         violations.append(
             IntegrityViolation(
@@ -250,14 +302,24 @@ def inspect_repository(
     untracked_violations = {
         path: violation
         for path in untracked
-        if not _is_allowed_generated(path, virtual_environment_roots)
+        if not _is_allowed_generated(
+            path,
+            virtual_environment_roots,
+            declared_generated_paths,
+            ignored_paths,
+        )
         for violation in [_untracked_violation(repo_path, path)]
         if violation is not None
     }
     allowed = tuple(
         sorted(
             {
-                _generated_root(path, virtual_environment_roots) or path
+                _generated_root(
+                    path,
+                    virtual_environment_roots,
+                    declared_generated_paths,
+                )
+                or path
                 for path in untracked
                 if path not in untracked_violations
             }
@@ -283,6 +345,7 @@ def inspect_repository(
         expected_revision=expected_revision,
         checked_out_revision=checked_out_revision,
         tracked_changes=tracked_changes,
+        declared_generated_paths=declared_generated_paths,
         allowed_generated_paths=allowed_sample,
         allowed_generated_path_count=len(allowed),
         disallowed_untracked_paths=disallowed,

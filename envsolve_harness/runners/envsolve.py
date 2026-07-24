@@ -40,11 +40,15 @@ class EnvSolveEpisodeRunner:
         repository_profile: dict[str, Any] | None = None,
         initial_evidence: tuple[InitialConstraintEvidence, ...] = (),
         initial_observation_summary: dict[str, Any] | None = None,
+        goal_id: str = "environment-ready",
+        goal_description: str = "Construct an executable project environment",
     ) -> None:
         if max_candidates <= 0:
             raise ValueError("EnvSolve episode candidate budget must be positive")
         if not condition.strip():
             raise ValueError("EnvSolve episode condition cannot be empty")
+        if not goal_id.strip() or not goal_description.strip():
+            raise ValueError("EnvSolve episode goal cannot be empty")
         self.policy = policy
         self.environment_provider = environment_provider
         self.verifier = verifier
@@ -57,6 +61,8 @@ class EnvSolveEpisodeRunner:
         self.repository_profile = repository_profile
         self.initial_evidence = initial_evidence
         self.initial_observation_summary = initial_observation_summary
+        self.goal_id = goal_id
+        self.goal_description = goal_description
 
     @staticmethod
     def _now() -> str:
@@ -82,6 +88,10 @@ class EnvSolveEpisodeRunner:
                 if self.retain_admissible_candidate
                 else "disabled"
             ),
+            "goal": {
+                "goal_id": self.goal_id,
+                "description": self.goal_description,
+            },
         }
         if self.initial_observation_summary is not None:
             metadata["initial_repository_observation"] = self.initial_observation_summary
@@ -137,6 +147,8 @@ class EnvSolveEpisodeRunner:
                 constraint_engine=constraint_engine,
                 operation_guard=self.operation_guard,
                 retain_admissible_candidate=self.retain_admissible_candidate,
+                goal_id=self.goal_id,
+                goal_description=self.goal_description,
             )
             loop_result = loop.run(
                 self.policy,
