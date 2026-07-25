@@ -1,0 +1,89 @@
+{
+  "schema": "envsolve-pro-paired-qualification-preregistration-v1",
+  "status": "frozen-before-execution",
+  "frozen_at": "2026-07-25",
+  "code": {
+    "branch": "envsolve-pro-main",
+    "commit": "3c4a5d4",
+    "working_tree_required_clean": true
+  },
+  "dataset": {
+    "hub": "JetBrains-Research/EnvBench",
+    "config": "splits",
+    "split": "python_baseline_failure_train",
+    "total_cases": 229
+  },
+  "selection": {
+    "unit": "repository",
+    "exclude_any_repository_in_local_run_artifacts": true,
+    "local_run_repository_count": 96,
+    "exclude_any_repository_in_recorded_small_qualification_or_census_batch": true,
+    "recorded_small_batch_repository_count": 139,
+    "excluded_repository_union_count": 139,
+    "eligible_case_count": 90,
+    "salt": "3c4a5d4:P7-qualification-v1",
+    "hash_input": "{salt}:{repository}@{revision}",
+    "hash": "sha256",
+    "order": "ascending",
+    "take": 5,
+    "case_file": "experiments/cases/dev_pro_goal_contract_evidence_anchor_qualification_v1_5.jsonl",
+    "cases": [
+      {
+        "selection_hash_prefix": "01d1551f508c",
+        "repository": "online-ml/river",
+        "revision": "6995f1522a9136fd3982890afac5c4a178e4cd57"
+      },
+      {
+        "selection_hash_prefix": "059f46c669ec",
+        "repository": "Lightning-AI/litgpt",
+        "revision": "0c609550dfb61699ee513defd64da64634ee3788"
+      },
+      {
+        "selection_hash_prefix": "08c72a08b8ea",
+        "repository": "rubisco-sfa/ilamb",
+        "revision": "c0aecd5ea97c0817c1ef74935bc2d9aa3667195a"
+      },
+      {
+        "selection_hash_prefix": "1073bb510822",
+        "repository": "flask-middleware/flask-security",
+        "revision": "ec70c1deac0530edfa8c4f4d1b545d0b5613af59"
+      },
+      {
+        "selection_hash_prefix": "13613645357b",
+        "repository": "starsimhub/starsim",
+        "revision": "0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85"
+      }
+    ]
+  },
+  "controlled_pair": {
+    "model": "deepseek/deepseek-v4-pro",
+    "experimental_method": "envsolve-pro-goal-contract-evidence-anchor",
+    "control_method": "envsolve-pro-goal-aware-raw-evidence-anchor",
+    "only_intended_difference": "model-visible explicit constraint projection versus bounded raw goal history",
+    "shared": [
+      "public executable goal",
+      "constraint-routed repository evidence",
+      "retained admissible candidate anchor",
+      "open Bash candidate interface",
+      "fresh environments",
+      "integrity protocol v2",
+      "terminal-only Official evaluation",
+      "model and execution settings"
+    ]
+  },
+  "analysis": {
+    "primary_metric": "Official Pass@1",
+    "secondary_metrics": [
+      "post-failure repair success",
+      "executed candidates",
+      "model requests",
+      "total tokens",
+      "wall-clock time",
+      "infrastructure censoring"
+    ],
+    "official_evaluator_feedback_online": false,
+    "no_algorithm_or_prompt_change_until_pair_batch_complete": true,
+    "infrastructure_retry_policy": "same frozen configuration and a new run ID only",
+    "single_pair_efficiency_differences_are_descriptive": true
+  }
+}
