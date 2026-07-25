@@ -46,10 +46,12 @@ from envsolve_harness.audit import audit_run
 from envsolve_harness.core.io import read_json, write_json
 from envsolve_harness.core.protocol import ExperimentProtocol, SuccessCriteria
 from envsolve_harness.runners.envsolve_p6 import (
+    METHOD_CANDIDATE_ANCHOR_PROFILES,
     METHOD_CANDIDATE_INTERFACES,
     METHOD_CANDIDATE_RETENTION,
     METHOD_CONSTRAINT_PROFILES,
     METHOD_PROFILES,
+    METHOD_REPOSITORY_EVIDENCE_PROFILES,
     EnvSolveP6Runner,
 )
 from envsolve_harness.runners.registry import create_solver_runner, registered_solver_runners
@@ -464,6 +466,225 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertEqual(
             METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-contract"],
             "flat",
+        )
+
+    def test_goal_aware_raw_baseline_hides_structured_constraint_state(self) -> None:
+        methods = (
+            "envsolve-pro-goal-aware-raw",
+            "envsolve-pro-goal-contract",
+        )
+        self.assertEqual(
+            {METHOD_PROFILES[item] for item in methods},
+            {("goal-contract", "free-form")},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_INTERFACES[item] for item in methods},
+            {"open-program"},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_RETENTION[item] for item in methods},
+            {"best-admissible"},
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-aware-raw"],
+            "raw-history",
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-contract"],
+            "flat",
+        )
+
+    def test_repository_evidence_pair_changes_only_constraint_projection(self) -> None:
+        methods = (
+            "envsolve-pro-goal-aware-raw-evidence",
+            "envsolve-pro-goal-contract-evidence",
+        )
+        self.assertEqual(
+            {METHOD_PROFILES[item] for item in methods},
+            {("goal-contract", "free-form")},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_INTERFACES[item] for item in methods},
+            {"open-program"},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_RETENTION[item] for item in methods},
+            {"best-admissible"},
+        )
+        self.assertEqual(
+            {METHOD_REPOSITORY_EVIDENCE_PROFILES[item] for item in methods},
+            {"constraint-routed"},
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES[
+                "envsolve-pro-goal-aware-raw-evidence"
+            ],
+            "raw-history",
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-contract-evidence"],
+            "flat",
+        )
+
+    def test_anchor_pair_changes_only_constraint_projection(self) -> None:
+        methods = (
+            "envsolve-pro-goal-aware-raw-evidence-anchor",
+            "envsolve-pro-goal-contract-evidence-anchor",
+        )
+        self.assertEqual(
+            {METHOD_PROFILES[item] for item in methods},
+            {("goal-contract", "free-form")},
+        )
+        self.assertEqual(
+            {METHOD_REPOSITORY_EVIDENCE_PROFILES[item] for item in methods},
+            {"constraint-routed"},
+        )
+        self.assertEqual(
+            {METHOD_CANDIDATE_ANCHOR_PROFILES[item] for item in methods},
+            {"retained-admissible"},
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES[
+                "envsolve-pro-goal-aware-raw-evidence-anchor"
+            ],
+            "raw-history",
+        )
+        self.assertEqual(
+            METHOD_CONSTRAINT_PROFILES[
+                "envsolve-pro-goal-contract-evidence-anchor"
+            ],
+            "flat",
+        )
+
+    def test_retained_anchor_preserves_best_complete_candidate(self) -> None:
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        for candidate_id, script in (
+            ("candidate-1", "python -m pip install -e '.[test]'"),
+            ("candidate-2", "python -m pip install numpy"),
+        ):
+            state.actions[candidate_id] = {
+                "action_id": candidate_id,
+                "command": script,
+                "status": "completed",
+                "exit_code": 0,
+                "observation": {},
+            }
+        state.verifications.extend(
+            [
+                {
+                    "verification_id": "verification-1",
+                    "passed": False,
+                    "details": {
+                        "candidate_id": "candidate-1",
+                        "candidate_assessment": {
+                            "admissible": True,
+                            "reason": "four unresolved constraints",
+                            "satisfied_constraints": 0,
+                            "unknown_constraints": 0,
+                            "unresolved_constraints": 4,
+                        },
+                    },
+                },
+                {
+                    "verification_id": "verification-2",
+                    "passed": False,
+                    "details": {
+                        "candidate_id": "candidate-2",
+                        "candidate_assessment": {
+                            "admissible": True,
+                            "reason": "five unresolved constraints",
+                            "satisfied_constraints": 0,
+                            "unknown_constraints": 0,
+                            "unresolved_constraints": 5,
+                        },
+                    },
+                },
+            ]
+        )
+
+        projection = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            {"files": []},
+            operation_profile="free-form",
+            candidate_anchor_profile="retained-admissible",
+        )._state_projection(state)
+
+        anchor = projection["retained_candidate_anchor"]
+        self.assertEqual(anchor["candidate"]["candidate_id"], "candidate-1")
+        self.assertIn(".[test]", anchor["candidate"]["script"])
+        self.assertEqual(anchor["selection_rank"], [4, 0, 1])
+
+    def test_raw_history_projection_keeps_goal_feedback_but_hides_constraints(self) -> None:
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        state.constraints["requirement"] = {
+            "constraint_id": "requirement",
+            "kind": "typed:module:requirement",
+            "expression": json.dumps(
+                {
+                    "schema_version": "1.0.0",
+                    "domain": "module",
+                    "subject": "missing_dependency",
+                    "predicate": "present",
+                    "role": "requirement",
+                    "value": True,
+                    "confidence": 1.0,
+                }
+            ),
+            "status": "violated",
+            "evidence_ids": [],
+        }
+        state.verifications.append(
+            {
+                "verification_id": "verification-1",
+                "verifier": "goal",
+                "passed": False,
+                "details": {
+                    "candidate_id": "candidate-1",
+                    "summary": "missing_dependency is unresolved",
+                    "verifier_details": {
+                        "report_details": {
+                            "goal_report": {
+                                "status": "fail",
+                                "findings": [
+                                    {
+                                        "subject": "missing_dependency",
+                                        "required": True,
+                                        "observed": False,
+                                    }
+                                ],
+                            }
+                        }
+                    },
+                },
+            }
+        )
+
+        projection = StructuredModelDeploymentPolicy(
+            RecordingModel("{}"),
+            {"files": []},
+            goal_contract={"contract_id": "goal"},
+            operation_profile="free-form",
+            constraint_profile="raw-history",
+        )._state_projection(state)
+
+        self.assertNotIn("constraint_conflicts", projection)
+        self.assertNotIn("active_module_requirements", projection)
+        self.assertNotIn("constraint_frontier", projection)
+        self.assertEqual(
+            projection["verification_feedback"][0]["summary"],
+            "missing_dependency is unresolved",
+        )
+        self.assertEqual(
+            projection["verification_feedback"][0]["diagnostic"][
+                "report_details"
+            ]["goal_report"]["findings"][0]["subject"],
+            "missing_dependency",
         )
 
     def test_policy_projects_executable_goal_and_solver_goal_state(self) -> None:

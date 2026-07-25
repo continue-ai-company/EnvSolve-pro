@@ -19,14 +19,54 @@ METHOD_PROFILES = {
     "envsolve-pro": ("two-layer", "free-form"),
     "envsolve-pro-causal": ("two-layer", "free-form"),
     "envsolve-pro-no-retention": ("two-layer", "free-form"),
+    "envsolve-pro-goal-aware-raw": ("goal-contract", "free-form"),
     "envsolve-pro-goal-contract": ("goal-contract", "free-form"),
+    "envsolve-pro-goal-aware-raw-evidence": ("goal-contract", "free-form"),
+    "envsolve-pro-goal-contract-evidence": ("goal-contract", "free-form"),
+    "envsolve-pro-goal-aware-raw-evidence-anchor": (
+        "goal-contract",
+        "free-form",
+    ),
+    "envsolve-pro-goal-contract-evidence-anchor": (
+        "goal-contract",
+        "free-form",
+    ),
     "envsolve-full": ("two-layer", "constraint-driven"),
     "envsolve-runtime-only": ("runtime-only", "constraint-driven"),
     "envsolve-operation": ("two-layer", "constraint-driven"),
     "envsolve-operation-ablation": ("two-layer", "free-form"),
 }
-METHOD_CONSTRAINT_PROFILES = {
-    method: "causal-frontier" if method == "envsolve-pro-causal" else "flat"
+METHOD_CONSTRAINT_PROFILES = {method: "flat" for method in METHOD_PROFILES}
+METHOD_CONSTRAINT_PROFILES["envsolve-pro-causal"] = "causal-frontier"
+METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-aware-raw"] = "raw-history"
+METHOD_CONSTRAINT_PROFILES[
+    "envsolve-pro-goal-aware-raw-evidence"
+] = "raw-history"
+METHOD_CONSTRAINT_PROFILES[
+    "envsolve-pro-goal-aware-raw-evidence-anchor"
+] = "raw-history"
+METHOD_REPOSITORY_EVIDENCE_PROFILES = {
+    method: (
+        "constraint-routed"
+        if method in {
+            "envsolve-pro-goal-aware-raw-evidence",
+            "envsolve-pro-goal-contract-evidence",
+            "envsolve-pro-goal-aware-raw-evidence-anchor",
+            "envsolve-pro-goal-contract-evidence-anchor",
+        }
+        else "disabled"
+    )
+    for method in METHOD_PROFILES
+}
+METHOD_CANDIDATE_ANCHOR_PROFILES = {
+    method: (
+        "retained-admissible"
+        if method in {
+            "envsolve-pro-goal-aware-raw-evidence-anchor",
+            "envsolve-pro-goal-contract-evidence-anchor",
+        }
+        else "disabled"
+    )
     for method in METHOD_PROFILES
 }
 METHOD_CANDIDATE_INTERFACES = {
@@ -144,6 +184,12 @@ class EnvSolveP6Runner:
         obligation_profile = profiles[0] if profiles else None
         operation_profile = profiles[1] if profiles else None
         constraint_profile = METHOD_CONSTRAINT_PROFILES.get(run_spec.method)
+        repository_evidence_profile = (
+            METHOD_REPOSITORY_EVIDENCE_PROFILES.get(run_spec.method)
+        )
+        candidate_anchor_profile = METHOD_CANDIDATE_ANCHOR_PROFILES.get(
+            run_spec.method
+        )
         candidate_interface = METHOD_CANDIDATE_INTERFACES.get(run_spec.method)
         candidate_retention = METHOD_CANDIDATE_RETENTION.get(run_spec.method)
         metadata = {
@@ -158,6 +204,8 @@ class EnvSolveP6Runner:
             "obligation_profile": obligation_profile,
             "operation_profile": operation_profile,
             "constraint_profile": constraint_profile,
+            "repository_evidence_profile": repository_evidence_profile,
+            "candidate_anchor_profile": candidate_anchor_profile,
             "candidate_interface": candidate_interface,
             "candidate_retention": candidate_retention,
             "workspace_preconditions": [
@@ -222,6 +270,8 @@ class EnvSolveP6Runner:
             "--obligation-profile", obligation_profile,
             "--operation-profile", operation_profile,
             "--constraint-profile", constraint_profile,
+            "--repository-evidence-profile", repository_evidence_profile,
+            "--candidate-anchor-profile", candidate_anchor_profile,
             "--candidate-interface", candidate_interface,
             "--candidate-retention", candidate_retention,
             "--request-timeout", str(self.model_request_timeout),

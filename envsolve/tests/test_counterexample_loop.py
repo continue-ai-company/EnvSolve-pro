@@ -153,6 +153,7 @@ def outcome(
     channel: FeedbackChannel = FeedbackChannel.INTERNAL_EXECUTION,
     hypotheses: tuple[HypothesisEvidence, ...] = (),
     candidate_assessment: CandidateAssessment | None = None,
+    details: dict[str, object] | None = None,
 ) -> ExecutableVerification:
     return ExecutableVerification(
         verifier="synthetic-goal-verifier",
@@ -165,6 +166,7 @@ def outcome(
         counterexamples=counterexamples,
         hypotheses=hypotheses,
         candidate_assessment=candidate_assessment,
+        details=details or {},
     )
 
 
@@ -229,7 +231,6 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                     for item in second_state.constraints.values()
                 )
             )
-
             events = EventStore(root / "state.jsonl", CASE["case_id"]).read()
             constraint_sequence = next(
                 event.sequence
@@ -273,6 +274,163 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                 audit_state_artifacts(
                     root / "state.jsonl", root / "snapshot.json", CASE["case_id"]
                 ).valid
+            )
+
+    def test_passing_goal_retires_constraints_from_the_same_evidence_scope(self) -> None:
+        goal_scope = {"evidence_scope_id": "goal-contract:imports-clean:abc123"}
+        counterexamples = (
+            CounterexampleEvidence(
+                "module-requirement",
+                {"name": "example_dependency", "present": True},
+            ),
+            CounterexampleEvidence(
+                "module-observation",
+                {"name": "example_dependency", "present": False},
+            ),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            policy = RecordingPolicy([candidate(1), candidate(2)])
+            result = self.loop(session, 2).run(
+                policy,
+                QueueEnvironmentProvider(),
+                QueueVerifier(
+                    [
+                        outcome(
+                            1,
+                            False,
+                            counterexamples=counterexamples,
+                            details=goal_scope,
+                        ),
+                        outcome(2, True, details=goal_scope),
+                    ]
+                ),
+            )
+
+            self.assertEqual(result.goal_status, "satisfied")
+            self.assertEqual(
+                {
+                    item["status"]
+                    for item in session.reconstruct().constraints.values()
+                },
+                {"superseded"},
+            )
+
+    def test_complete_failure_snapshot_retires_absent_goal_findings(self) -> None:
+        goal_scope = {
+            "evidence_scope_id": "goal-contract:imports-clean:abc123",
+            "finding_set_complete": True,
+        }
+
+        def missing(name: str) -> tuple[CounterexampleEvidence, ...]:
+            return (
+                CounterexampleEvidence(
+                    "module-requirement",
+                    {"name": name, "present": True},
+                ),
+                CounterexampleEvidence(
+                    "module-observation",
+                    {"name": name, "present": False},
+                ),
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            policy = RecordingPolicy([candidate(1), candidate(2)])
+            result = self.loop(session, 2).run(
+                policy,
+                QueueEnvironmentProvider(),
+                QueueVerifier(
+                    [
+                        outcome(
+                            1,
+                            False,
+                            counterexamples=(*missing("resolved"), *missing("remaining")),
+                            details=goal_scope,
+                        ),
+                        outcome(
+                            2,
+                            False,
+                            counterexamples=missing("remaining"),
+                            details=goal_scope,
+                        ),
+                    ]
+                ),
+            )
+
+            self.assertEqual(result.goal_status, "blocked")
+            constraints = session.reconstruct().constraints.values()
+            resolved = [
+                item for item in constraints if "resolved" in item["expression"]
+            ]
+            remaining = [
+                item for item in constraints if "remaining" in item["expression"]
+            ]
+            self.assertTrue(resolved)
+            self.assertEqual({item["status"] for item in resolved}, {"superseded"})
+            self.assertTrue(
+                any(
+                    item["status"] == "violated"
+                    and json.loads(item["expression"])["role"] == "requirement"
+                    for item in remaining
+                )
+            )
+
+    def test_partial_failure_report_preserves_absent_goal_findings(self) -> None:
+        goal_scope = {"evidence_scope_id": "goal-contract:imports-clean:abc123"}
+        resolved = (
+            CounterexampleEvidence(
+                "module-requirement",
+                {"name": "not_observed_again", "present": True},
+            ),
+            CounterexampleEvidence(
+                "module-observation",
+                {"name": "not_observed_again", "present": False},
+            ),
+        )
+        remaining = (
+            CounterexampleEvidence(
+                "module-requirement",
+                {"name": "remaining", "present": True},
+            ),
+            CounterexampleEvidence(
+                "module-observation",
+                {"name": "remaining", "present": False},
+            ),
+        )
+
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            self.loop(session, 2).run(
+                RecordingPolicy([candidate(1), candidate(2)]),
+                QueueEnvironmentProvider(),
+                QueueVerifier(
+                    [
+                        outcome(
+                            1,
+                            False,
+                            counterexamples=(*resolved, *remaining),
+                            details=goal_scope,
+                        ),
+                        outcome(
+                            2,
+                            False,
+                            counterexamples=remaining,
+                            details=goal_scope,
+                        ),
+                    ]
+                ),
+            )
+
+            stale_requirements = [
+                item
+                for item in session.reconstruct().constraints.values()
+                if "not_observed_again" in item["expression"]
+                and json.loads(item["expression"])["role"] == "requirement"
+            ]
+            self.assertEqual(
+                {item["status"] for item in stale_requirements},
+                {"violated"},
             )
 
     def test_budget_exhaustion_returns_best_admissible_candidate_uncertified(self) -> None:

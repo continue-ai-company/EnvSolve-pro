@@ -123,6 +123,40 @@ P5 V2 还暴露了外层系统必须优先处理的一类缺口：**模型输入
 derived state 替换真实输入后重新解释效果。投影合同修复属于 measurement proposal，应先通过已消费
 轨迹回放和独立 canary，再允许触发算法 proposal。
 
+### 9. 与 Self-Harness 的边界
+
+[Self-Harness](https://arxiv.org/abs/2606.09498) 已经提出一般性的自改进 harness 范式：同一个固定模型
+从 verifier-grounded 失败轨迹中挖掘弱点，生成多个最小 harness 修改，再通过 held-in 与回归 split 的
+Pass 非退化规则决定是否晋级。它证明“模型参与修改自身 harness”本身不能再作为 Auto-EnvSolve 的主要
+novelty。
+
+[Meta-Harness](https://arxiv.org/abs/2603.28052) 已经研究基于历史源码、分数和轨迹搜索 harness code；
+[Agentic Harness Engineering](https://arxiv.org/abs/2604.25850) 进一步提出 component、experience 和
+decision observability，并报告了冻结 harness 的跨模型迁移；[Adaptive Auto-Harness](https://arxiv.org/abs/2606.01770)
+则把自动 harness 优化扩展到开放任务流。因此，“可观测、可回归、持续或跨模型的 harness 自动优化”
+也都不能单独构成我们的贡献。
+
+Auto-EnvSolve 应继承三项可靠做法：跨 case 聚类而不是响应单个故事；每个 proposal 绑定明确失败机制和
+最小 editable surface；每次修改都形成可逆、可回归验证的版本转移。但研究边界必须更具体：
+
+- 优化对象不是泛化 prompt 或 tool policy，而是部署引擎中版本化的 Observation parser、Constraint
+  transition、Operation interface 与 executable-goal adapter；
+- proposal 必须由跨仓库 typed evidence 和可执行反例支持，并检验能否跨模型迁移，而不只适配一个模型
+  的行为习惯；
+- 数据协议至少区分 failure-mining Dev、用于晋级的 shadow qualification 和永不参与晋级的 final test。
+  被反复查询并用于 accept/reject 的 split 属于 validation，不能再承担最终泛化结论；
+- 外层既可由同一模型运行，也可由独立研究 Agent 运行。主要 claim 应来自证据合同和安全晋级协议，而不
+  依赖“self”或“stronger external agent”的命名。
+
+因此，Auto-EnvSolve 的候选问题是：**一个外层系统能否从连续部署流中自动发现内层状态转移机制的缺口，
+并在不接触最终测试的条件下，产生可执行、可回归、跨仓库且跨模型有效的新 EnvSolve 版本？**
+
+P7 的开发过程给出了一个完整但仍由研究者完成的外层改进链：完整 finding 快照修复 stale state，
+完整性事故触发通用 artifact guard，缺少仓库语义触发 finding 定向源码证据，跨轮遗忘触发保留候选
+锚点。它只能作为未来 Auto-EnvSolve 的设计样例，不能宣称已经自动进化。另一个独立样例是 provider
+请求在 SDK 内部发生多次 transport retry，而账本只记录一次模型请求；外层应先提出可观测性修复，
+把 transport attempt、模型调用、候选执行和 Unknown 分开，再判断是否存在算法缺口。
+
 ## English Version
 
 ### 1. Core question
@@ -193,3 +227,42 @@ canonical digest, included and omitted counts, and integrity decision. It may no
 the historical input with a richer offline-derived state and reinterpret the outcome.
 Projection-contract repairs are measurement proposals and require consumed-trajectory
 replay plus an independent canary before any algorithm proposal is admitted.
+
+### 6. Boundary with Self-Harness
+
+[Self-Harness](https://arxiv.org/abs/2606.09498) already establishes the general paradigm
+in which the same fixed model mines verifier-grounded failure patterns, proposes minimal
+harness edits, and promotes non-regressive candidates. Auto-EnvSolve therefore cannot
+claim harness self-improvement itself as the novelty.
+
+[Meta-Harness](https://arxiv.org/abs/2603.28052) already searches harness code from prior
+source, scores, and trajectories; [Agentic Harness Engineering](https://arxiv.org/abs/2604.25850)
+adds component, experience, and decision observability and reports cross-model transfer
+of a frozen harness; [Adaptive Auto-Harness](https://arxiv.org/abs/2606.01770) extends
+automatic harness optimization to open-ended streams. Observable, regression-tested,
+continual, or cross-model harness optimization is therefore not sufficient novelty
+either.
+
+It should inherit cross-case weakness mining, mechanism-linked minimal proposals, and
+reversible regression-tested version transitions. Its distinct research object is the
+typed deployment engine: versioned Observation parsers, Constraint transitions,
+Operation interfaces, and executable-goal adapters. Proposals require cross-repository
+typed evidence and executable counterexamples, and should be evaluated for cross-model
+transfer rather than only model-specific adaptation.
+
+The data protocol must also separate failure-mining development data, a shadow
+qualification split used for promotion, and a final test that is never queried by the
+outer loop. Any split repeatedly used for candidate acceptance is validation data, even
+when called held-out. The outer optimizer may use the same model or an independent
+research agent; the central claim should concern evidence contracts and safe promotion,
+not whether the optimizer is labeled self or external.
+
+P7 provides a researcher-driven example of the future outer transaction: complete
+finding snapshots repaired stale state, an integrity incident motivated a generic
+artifact guard, missing repository semantics motivated finding-routed source evidence,
+and cross-round forgetting motivated a retained candidate anchor. This is a design
+example, not evidence that automatic evolution already works. A separate measurement
+example is an SDK request that performed multiple hidden transport retries while the
+ledger counted one model request. The outer system must first separate transport
+attempts, model calls, candidate executions, and Unknown outcomes before diagnosing an
+inner algorithm gap.

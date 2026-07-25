@@ -255,6 +255,18 @@ class StructuredFindingAdapter:
             passed = report.goal_passed
             observations = self._observations(satisfied)
             counterexamples = self._counterexamples(active)
+        evidence_scope_id = report.details.get("evidence_scope_id")
+        if evidence_scope_id is not None and (
+            not isinstance(evidence_scope_id, str) or not evidence_scope_id
+        ):
+            raise ValueError("Verifier evidence_scope_id must be a non-empty string")
+        finding_set_complete = report.details.get("finding_set_complete", False)
+        if not isinstance(finding_set_complete, bool):
+            raise ValueError("Verifier finding_set_complete must be a boolean")
+        if finding_set_complete and evidence_scope_id is None:
+            raise ValueError(
+                "Complete verifier finding sets require an evidence_scope_id"
+            )
         return ExecutableVerification(
             verifier=report.verifier,
             check_profile=report.check_profile,
@@ -275,6 +287,12 @@ class StructuredFindingAdapter:
                     item.finding_id: item.disposition.value for item in report.findings
                 },
                 "report_details": report.details,
+                **(
+                    {"evidence_scope_id": evidence_scope_id}
+                    if evidence_scope_id is not None
+                    else {}
+                ),
+                "finding_set_complete": finding_set_complete,
             },
             candidate_assessment=CandidateAssessment(
                 admissible=(

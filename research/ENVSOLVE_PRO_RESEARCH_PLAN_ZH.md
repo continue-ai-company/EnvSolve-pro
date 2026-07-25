@@ -1,15 +1,15 @@
-# EnvSolve-pro 研究计划
+# EnvSolve-Pro 研究计划
 
 ## 1. 研究目标
 
-EnvSolve-pro 研究陌生仓库的自动环境部署。核心问题保持不变：部署不是自由命令试错，而是一个
+EnvSolve-Pro 研究陌生仓库的自动环境部署。核心问题保持不变：部署不是自由命令试错，而是一个
 **部分可观测的状态化约束求解过程**。系统仍采用三层闭环：
 
 1. **观测层：发生了什么？** 保真记录仓库证据、执行结果、环境身份和不确定性。
 2. **约束层：现在缺什么、冲突在哪里？** 维护带证据来源的事实、假设、冲突和未解决义务。
 3. **操作层：怎样改变环境来解除冲突？** 由强模型提出完整部署方案，系统验证执行边界和状态转移。
 
-EnvSolve-pro 从冻结的 EnvSolve v1 代码和历史继续开发。旧仓库
+EnvSolve-Pro 从冻结的 EnvSolve v1 代码和历史继续开发。旧仓库
 `hongleo-Lee/EnvSolve` 已在提交 `07a208f` 以标签
 `envsolve-v1-baseline-freeze-2026-07-21` 封存，作为可运行 baseline；所有新改动只进入
 `hongleo-Lee/EnvSolve-pro`。
@@ -74,8 +74,10 @@ Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架�
 | P2（完成） | 找出主要矛盾 | 跨方法 failure decomposition | 一个高频、可干预且非 harness 假象的瓶颈 |
 | P3（完成） | 验证候选保留机制 | certified/admissible 状态及已消费配对重放 | terminal reach 为 `2/3` 对 `1/3`，Official Pass 无增益 |
 | P4（完成） | 量化剩余主要矛盾 | Spark 上两组独立的 8-case Dev 普查 | 单层复现失败，接口级信号已冻结 |
-| P5（进行中） | 验证因果约束前沿 | V2 测量否决、V3 完整性 canary、再到已消费配对 | 模型可见前沿完整，随后才检验 paired 效果 |
-| P6 | 扩大、冻结与确认 | 多模型 Dev、Canary、Official Test 和论文主表 | 代码、prompt、baseline、指标全部冻结 |
+| P5（完成） | 验证因果约束前沿 | V2 测量否决与 V3 完整性修复 | 保留为诊断 baseline，不做效果 claim |
+| P6（完成） | 观测各方法与官方目标的关系 | 16 个已消费仓库上的 causal-v3、Codex 与 Repo2Run | 一个跨方法、仓库无关的主要矛盾 |
+| P7（进行中） | 验证可执行目标驱动的状态 | 冻结 `goal-contract-evidence-anchor-v1` 后进行 repository-disjoint qualification | 目标保真、多轮修复且无 evaluator 泄漏 |
+| P8 | 受控效果实验与冻结 | goal-aware 配对、untouched Dev、Canary 与 Official Test | 代码、prompt、目标、baseline 与分析全部冻结 |
 
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
 多个独立轨迹，或者来自任务定义本身的确定性不变量。
@@ -111,14 +113,14 @@ P1 已完成。6 条冻结 Raw ReAct/Repo2Run 轨迹全部可编译，没有 uns
 ### 4.3 P2 冻结诊断设计
 
 P2 从剩余 118 个 untouched Dev 中仅按元数据抽取 6 个 case，执行 24 个 salted position：Codex native、
-Repo2Run、raw ReAct 和 P1 EnvSolve-pro scaffold。主分析单位是最早决定性修复机会，归因到 Observation、
+Repo2Run、raw ReAct 和 P1 EnvSolve-Pro scaffold。主分析单位是最早决定性修复机会，归因到 Observation、
 Constraint、Operation 或 unresolved。只有同一可干预矛盾出现在至少 3 个仓库和 2 种方法中，才允许提出
 新机制；抽样后整批 immutable，禁止修改 solver 或 wrapper。
 
 ### 4.4 P2 审计结论
 
 24 个位置已全部完成。由于多数 Codex、Repo2Run 位置以及两个 raw ReAct 位置受到 baseline adapter 或
-完整性审计删失，本批不能作为效果对比。EnvSolve-pro 与 raw ReAct 分别在不同仓库获得一次 Official
+完整性审计删失，本批不能作为效果对比。EnvSolve-Pro 与 raw ReAct 分别在不同仓库获得一次 Official
 Pass，把它们写成可比较的 1/6 会违反实验有效性。
 
 三个仓库出现了同一个确定性主矛盾：完整性有效的候选以零退出码完成内部执行，但任何残余内部约束
@@ -192,18 +194,66 @@ multi-block flat/causal 配对。
 ### 4.8 跨方法轨迹普查
 
 下一版算法必须来自配对轨迹统计，而不是另一个孤立 case。两组已消费 P4 census 的完整并集提供 16 个
-仓库，不打开 untouched 数据。当前 EnvSolve-pro causal v3、Codex CLI 和 Repo2Run 在相同 case identity
+仓库，不打开 untouched 数据。当前 EnvSolve-Pro causal-v3、Codex CLI 和 Repo2Run 在相同 case identity
 与未修改 terminal evaluator 下运行。官方目标严格等于 bootstrap 退出码为 0 且
 `reportMissingImports` 为 0；其他 Pyright error 不参与机制选择。
 
 每个 case 识别最早决定性分歧属于观测层、约束层、操作层、终局化还是基础设施。只有某一类别唯一最大、
 覆盖至少四个仓库，并能写成 repository-independent counterexample，才允许进入下一版。Mac 运行
-Codex，Spark 运行 EnvSolve-pro 和两条互不重叠的 Repo2Run 队列。本批仅用于诊断，不能支持 held-out
+Codex，Spark 运行 EnvSolve-Pro 和两条互不重叠的 Repo2Run 队列。本批仅用于诊断，不能支持 held-out
 或榜单结论。
 
 对前两组已消费 census 的目标对齐审计显示，9 个可比较最终候选覆盖了 `40/41` 个官方缺失模块，但
 70 个内部模块义务中有 30 个不对应官方 missing import，其中 25 个集中在同一仓库。这只是 precision
 假设，还不是主要机制；只有它在冻结的跨方法普查中跨仓库反复成为最早决定性分歧，才允许据此改算法。
+
+### 4.9 P6 跨方法结论
+
+完整普查得到一个比继续增加依赖规则更简单的主要矛盾：**可执行任务目标没有成为持续可见、具有权威性
+的状态变量**。原生 Agent 经常在没有执行计分目标时优化仓库测试或文档等代理目标。causal-v3 虽然运行
+丰富的内部 verifier，但语义推断可能移除真实目标义务，也可能保留不计分义务。c14 的 Codex
+state-parity 复核进一步表明，一个表面成功的生成仍可能留下 37 个官方缺失导入，而轨迹中从未运行
+Pyright。
+
+因此，因果前沿不再是论文中心。它作为冻结的结构化 baseline 和可选消融保留。下一版本首先必须用公开
+可执行成功标准锚定状态；语义压缩可以注释该状态，但不能覆盖它。
+
+### 4.10 P7 可执行目标契约
+
+`EnvSolve-Pro goal-contract-v1` 引入一个通用接口。版本化可执行目标包含公开描述、可信程序、报告
+schema 和内容摘要。对每个候选，verifier 在同一个 fresh shell 中依次执行完整部署程序和目标。有效
+报告产生 Pass 或带类型的 Fail finding；格式错误、能力缺失和基础设施事故产生 Unknown。目标 finding
+作为权威 active obligation 进入约束层，直到后续执行证明它已满足。每份报告同时声明 finding set 是
+complete 还是 partial；只有同一 scope 的完整快照才能通过“旧 finding 未再出现”解除它，部分证据
+不能。强模型仍然生成不受封闭动作集合限制的完整 Bash 程序。
+
+EnvBench adapter 将公开标准实例化为 bootstrap 成功且 `reportMissingImports` 为零；Pyright 代码不进入
+通用 runtime。Official evaluator 仍然只在终局运行，永远不进入 loop。为了区分目标可见性和结构化
+状态，`codex-cli-goal-aware` 获得相同公开目标，但没有 typed constraint loop。
+
+第一个已消费资格 case `jaraco/irc` 获得 Official Pass 且计分 issue 为零，它只证明端到端兼容。第二个
+已消费 case `censys/censys-python` 的冻结 causal-v3 曾丢失唯一的 `sphinx_rtd_theme` 义务，因此用于
+检验第一轮可执行目标失败能否进入第二轮定向操作。
+
+显式状态组与同模型 goal-aware raw-history 组都在 c10 的第二个候选完成修复并 Official Pass；该单次配对
+中 raw baseline 使用更少 token 和时间。因此 c10 支持可执行目标反馈，但不支持结构化状态的额外增益。
+审计还发现并修复了 stale-state bug：目标 Pass 后，同一版本化 evidence scope 产生的旧约束现在会被
+明确 supersede。c15 的第一组诊断又暴露了对应的 Fail 转移缺口：穷举报告已经解决四个 finding 中的
+三个，旧 requirement 却仍保持 active。报告契约现已区分完整 finding 快照与部分证据；修复前配对
+禁止用于比较。
+
+随后通过完整性检查的 c15 运行暴露了两个部分可观测状态问题：goal finding 没有包含解决动态 test
+package 所需的仓库局部构建语义；新候选还会遗忘早期候选已经满足的依赖。
+`goal-contract-evidence-anchor-v1` 用有界的 finding 定向源码证据和一个完整执行、通过准入的保留候选
+锚点解决这两个问题，同时保持开放 Bash 操作空间。新的 c15 机制运行在 11 个候选后通过 Official
+evaluation，计分 issue 为零。
+
+在已消费 c16 上，具有相同源码证据和锚点的显式状态组与同模型 raw-history 组都在 3 个执行候选内
+Official Pass。显式组使用 3 次模型请求和 40,438 tokens；raw-history 使用 4 次请求和 90,748 tokens，
+其中一次输出因违反 schema 在执行前被拒绝。这个单次配对既不支持成功率优势，也不支持候选数优势；
+它只提出一个待预注册验证的假设：在多 finding case 上，显式状态可能降低模型侧上下文与重试负担。
+上述 case 都不是 held-out 效果证据；详细证据记录在
+`PRO_GOAL_CONTRACT_CASEBOOK_V1_ZH.md`。
 
 ## 5. 核心消融
 
@@ -228,8 +278,8 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-完成冻结的 16-case EnvSolve-pro、Codex 与 Repo2Run 轨迹普查。在最早分歧统计出现覆盖至少四个仓库
-的唯一领先类别、且存在 repository-independent counterexample 之前，不选择干预。随后只实现一个最小
-改动，并先在已消费诊断 case 上验证；只有该机制实验无 paired Official Pass 回退且出现预注册增益，
-才抽取新的 outcome-blind Dev。Token 与价格继续
-作为结果报告；候选和 wall-clock 只提供统一、可复现且尽量不绑定的执行边界。
+完成回归、完整性和 artifact 审计，然后冻结 `goal-contract-evidence-anchor-v1`、对应 raw-history
+对照、protocol v2 与分析规则。在不修改算法的前提下完成一个小型 repository-disjoint Dev
+qualification batch；比较 Official Pass、失败后修复、执行候选数、模型请求、token 和基础设施删失。
+在解释下一项主要失败机制前，还要观察 Repo2Run 与原生 coding Agent 在同一批 case 上的轨迹。
+下一版测量应把 transport retry 与模型请求分开记录；资源限制继续作为宽松的实验控制，而不是成功目标。

@@ -176,6 +176,43 @@ class ConstraintEngine:
         )
 
     @classmethod
+    def constraint_ids_for_evidence_source(
+        cls,
+        state: EnvironmentState,
+        source: str,
+    ) -> tuple[str, ...]:
+        return tuple(
+            item.constraint_id
+            for item in cls.typed_constraints(state)
+            if any(
+                state.evidence.get(evidence_id, {}).get("source") == source
+                for evidence_id in item.evidence_ids
+            )
+        )
+
+    def supersede_constraints(
+        self,
+        session: SolverStateSession,
+        constraint_ids: Iterable[str],
+    ) -> tuple[str, ...]:
+        state = session.reconstruct()
+        changed: list[str] = []
+        for constraint_id in sorted(set(constraint_ids)):
+            record = state.constraints.get(constraint_id)
+            if record is None or record.get("status") == "superseded":
+                continue
+            item = NormalizedConstraint.from_state_record(record)
+            session.upsert_constraint(
+                item.constraint_id,
+                str(record["kind"]),
+                str(record["expression"]),
+                "superseded",
+                list(record["evidence_ids"]),
+            )
+            changed.append(item.constraint_id)
+        return tuple(changed)
+
+    @classmethod
     def fact_constraint_ids(
         cls,
         state: EnvironmentState,
@@ -203,14 +240,8 @@ class ConstraintEngine:
             item = NormalizedConstraint.from_state_record(record)
             if item.role != ConstraintRole.FACT:
                 raise ValueError("Only fact constraints may be superseded as observations")
-            session.upsert_constraint(
-                item.constraint_id,
-                str(record["kind"]),
-                str(record["expression"]),
-                "superseded",
-                list(record["evidence_ids"]),
-            )
-            changed.append(item.constraint_id)
+            changed.extend(self.supersede_constraints(session, (item.constraint_id,)))
+            state = session.reconstruct()
         return tuple(changed)
 
     def supersede_replaced_facts(

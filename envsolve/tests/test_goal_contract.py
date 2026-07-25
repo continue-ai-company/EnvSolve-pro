@@ -25,12 +25,17 @@ class ExecutableGoalContractTests(unittest.TestCase):
             contract_id="imports-clean",
             description="No unresolved imports",
             program="python goal.py",
+            protected_environment_prefixes=("PYRIGHT_",),
         )
 
         encoded = contract.to_dict()
         self.assertEqual(
             ExecutableGoalContract.from_dict(encoded),
             contract,
+        )
+        self.assertEqual(
+            encoded["protected_environment_prefixes"],
+            ["PYRIGHT_"],
         )
         tampered = {**encoded, "program": "python different.py"}
         with self.assertRaisesRegex(ValueError, "sha256"):
@@ -64,7 +69,7 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             DockerEnvironmentHandle(
                 container_id="container-1",
                 worktree=worktree,
-                container_workdir="/data/project",
+                container_workdir="/data/project/owner__repo@abc123",
             ),
         )
         self.candidate = DeploymentCandidate(
@@ -125,6 +130,7 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             {
                 "schema": "envsolve-goal-report-v1",
                 "status": "pass",
+                "finding_set_complete": True,
                 "findings": [],
                 "details": {"checked": 12},
             }
@@ -138,12 +144,22 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             result.details["report_details"]["goal_contract"]["contract_id"],
             "imports-clean",
         )
+        self.assertEqual(
+            result.details["evidence_scope_id"],
+            f"goal-contract:imports-clean:{self.contract.sha256}",
+        )
+        self.assertEqual(
+            result.details["report_details"]["goal_report"]["details"]["checked"],
+            12,
+        )
+        self.assertTrue(result.details["finding_set_complete"])
 
     def test_fail_creates_authoritative_active_constraint(self) -> None:
         verifier = self._run_with_report(
             {
                 "schema": "envsolve-goal-report-v1",
                 "status": "fail",
+                "finding_set_complete": True,
                 "findings": [
                     {
                         "finding_id": "missing-tomli",
@@ -161,6 +177,7 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
         result = verifier.verify(self.candidate, self.environment)
 
         self.assertFalse(result.passed)
+        self.assertTrue(result.details["finding_set_complete"])
         self.assertEqual(len(result.counterexamples), 2)
         self.assertEqual(
             {item.kind for item in result.counterexamples},
@@ -204,6 +221,83 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
 
         self.assertFalse(result.passed)
         self.assertIn("did not return control", result.summary)
+
+    def test_outer_workspace_mutation_is_rejected_before_goal(self) -> None:
+        def run_command(command: list[str], **_: object) -> subprocess.CompletedProcess[str]:
+            return subprocess.CompletedProcess(
+                command,
+                253,
+                "",
+                (
+                    "ENVSOLVE_GOAL_OUTER_WORKSPACE_VIOLATION_V1="
+                    "/data/project/pyrightconfig.json\n"
+                ),
+            )
+
+        result = ExecutableGoalContractVerifier(
+            self.contract,
+            run_command=run_command,
+        ).verify(self.candidate, self.environment)
+
+        self.assertFalse(result.passed)
+        self.assertIn("outer workspace", result.summary)
+        self.assertEqual(
+            result.details["outer_workspace_violation"]["path"],
+            "/data/project/pyrightconfig.json",
+        )
+
+    def test_goal_protected_environment_mutation_is_rejected(self) -> None:
+        contract = ExecutableGoalContract(
+            contract_id="imports-clean-protected",
+            description="No unresolved imports",
+            program='printf "{}" > "$ENVSOLVE_GOAL_REPORT"',
+            protected_environment_prefixes=("PYRIGHT_",),
+        )
+
+        def run_command(command: list[str], **_: object) -> subprocess.CompletedProcess[str]:
+            return subprocess.CompletedProcess(
+                command,
+                254,
+                "",
+                (
+                    "ENVSOLVE_GOAL_PROTECTED_ENVIRONMENT_VIOLATION_V1="
+                    "PYRIGHT_CONFIG_FILE\n"
+                ),
+            )
+
+        result = ExecutableGoalContractVerifier(
+            contract,
+            run_command=run_command,
+        ).verify(self.candidate, self.environment)
+
+        self.assertFalse(result.passed)
+        self.assertIn("protected environment", result.summary)
+        self.assertEqual(
+            result.details["protected_environment_violation"]["name"],
+            "PYRIGHT_CONFIG_FILE",
+        )
+
+    def test_rendered_contract_checks_outer_workspace_before_goal(self) -> None:
+        verifier = self._run_with_report(
+            {
+                "schema": "envsolve-goal-report-v1",
+                "status": "pass",
+                "finding_set_complete": True,
+                "findings": [],
+            }
+        )
+        command, _, _ = verifier._command(
+            self.candidate,
+            self.environment.handle,
+            "abc123",
+        )
+
+        self.assertIn("/usr/bin/find", command)
+        self.assertIn("/data/project/owner__repo@abc123", command)
+        self.assertLess(
+            command.index("ENVSOLVE_GOAL_OUTER_WORKSPACE_VIOLATION_V1"),
+            command.index("ENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1"),
+        )
 
     def test_rendered_shell_contract_executes(self) -> None:
         contract = ExecutableGoalContract(

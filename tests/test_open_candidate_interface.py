@@ -56,6 +56,92 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         self.assertFalse(nul.accepted)
         self.assertFalse(comments.accepted)
         self.assertFalse(normalized_overflow.accepted)
+        prompt = " ".join(validator.prompt_contract.split())
+        self.assertIn("inserted inline into the controlling Bash process", prompt)
+        self.assertIn("use `$PWD`", validator.prompt_contract)
+
+    def test_open_validator_rejects_direct_import_artifact_injection(self) -> None:
+        validator = OpenCandidateProgramValidator()
+        heredoc = validator.validate(
+            DeploymentCandidate(
+                "candidate-heredoc",
+                "cat > \"$TMPDIR/fake_package.py\" <<'PY'\npass\nPY\n",
+                "Inject a module",
+            )
+        )
+        touched = validator.validate(
+            DeploymentCandidate(
+                "candidate-touch",
+                "touch \"$TMPDIR/fake_package/__init__.py\"\n",
+                "Inject a package",
+            )
+        )
+        piped = validator.validate(
+            DeploymentCandidate(
+                "candidate-tee",
+                "printf 'pass\\n' | tee \"$TMPDIR/fake_package.py\"\n",
+                "Inject through a pipeline",
+            )
+        )
+        build_driver = validator.validate(
+            DeploymentCandidate(
+                "candidate-build",
+                "cat > \"$TMPDIR/setup.py\" <<'PY'\n"
+                "from setuptools import setup\n"
+                "setup()\n"
+                "PY\n"
+                "python -m pip install \"$TMPDIR\"\n",
+                "Use a temporary build driver",
+            )
+        )
+        generated_in_build_hook = validator.validate(
+            DeploymentCandidate(
+                "candidate-generated-build-hook",
+                "cat > \"$TMPDIR/setup.py\" <<'PY'\n"
+                "from setuptools import setup\n"
+                "import os\n"
+                "\n"
+                "def generate_package():\n"
+                "    with open(os.path.join('fake_package', '__init__.py'), 'w') as stream:\n"
+                "        stream.write('')\n"
+                "\n"
+                "generate_package()\n"
+                "setup(name='fake-package')\n"
+                "PY\n"
+                "python -m pip install \"$TMPDIR\"\n",
+                "Hide module injection in a temporary build hook",
+            )
+        )
+        generated_by_python_c = validator.validate(
+            DeploymentCandidate(
+                "candidate-python-c",
+                "python -c 'open(\"fake_package.py\", \"w\").write(\"pass\")'\n",
+                "Inject through embedded Python",
+            )
+        )
+        real_path = validator.validate(
+            DeploymentCandidate(
+                "candidate-path",
+                "export PYTHONPATH=\"$PWD/src:${PYTHONPATH:-}\"\n",
+                "Expose real repository source",
+            )
+        )
+
+        self.assertFalse(heredoc.accepted)
+        self.assertEqual(
+            heredoc.details["target"],
+            "$TMPDIR/fake_package.py",
+        )
+        self.assertFalse(touched.accepted)
+        self.assertFalse(piped.accepted)
+        self.assertTrue(build_driver.accepted)
+        self.assertFalse(generated_in_build_hook.accepted)
+        self.assertEqual(
+            generated_in_build_hook.details["target"],
+            "__init__.py",
+        )
+        self.assertFalse(generated_by_python_c.accepted)
+        self.assertTrue(real_path.accepted)
 
     def test_envbench_open_compiler_preserves_order_and_existing_quotes(self) -> None:
         project = "owner__repo@abc"

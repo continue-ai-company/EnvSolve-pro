@@ -19,6 +19,7 @@ _PYRIGHT_MISSING_IMPORT_GOAL = dedent(
             {
                 "schema": "envsolve-goal-report-v1",
                 "status": "fail",
+                "finding_set_complete": False,
                 "findings": [
                     {
                         "finding_id": f"missing-capability-{capability}",
@@ -118,6 +119,7 @@ _PYRIGHT_MISSING_IMPORT_GOAL = dedent(
     report = {
         "schema": "envsolve-goal-report-v1",
         "status": "fail" if findings else "pass",
+        "finding_set_complete": True,
         "findings": findings,
         "details": {
             "criterion": "count(reportMissingImports) == 0",
@@ -136,11 +138,12 @@ _PYRIGHT_MISSING_IMPORT_GOAL = dedent(
 
 def envbench_python_goal_contract() -> ExecutableGoalContract:
     return ExecutableGoalContract(
-        contract_id="envbench-python-reportMissingImports-v1",
+        contract_id="envbench-python-reportMissingImports-v2",
         description=(
             "After the candidate configures the environment, run Pyright over "
             "the repository and require zero reportMissingImports diagnostics. "
             "All other Pyright diagnostic rules are outside this goal."
         ),
         program=_PYRIGHT_MISSING_IMPORT_GOAL,
+        protected_environment_prefixes=("PYRIGHT_",),
     )

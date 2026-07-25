@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from textwrap import dedent
 from typing import Any
 import hashlib
@@ -17,6 +18,7 @@ from envsolve.operations import (
     parse_operation_feasibility_subject,
     verified_failed_operation_prefix,
 )
+from envsolve.runtime.repository_evidence import RepositoryEvidenceIndex
 from envsolve.solver import (
     DeploymentCandidate,
     EpisodeProviderAcquisitionFailed,
@@ -30,14 +32,18 @@ BASE_SYSTEM_PROMPT = dedent(
     You are the candidate generator inside EnvSolve. Produce one complete,
     cumulative, replayable shell program that configures the current Python
     repository from a clean checkout. You do not have a shell tool. Use only
-    the repository profile and prior fresh-container feedback below.
+    the repository profile, routed read-only repository evidence, and prior
+    fresh-container feedback below.
 
     The program may install Python packages, system packages, configure a
-    Python runtime, activate a project virtual environment, or export safe
-    environment variables. It must not inspect files, run tests, edit project
-    source, create fake modules, suppress diagnostics, or use benchmark
-    evaluator output. Every new candidate must include all still-needed setup,
-    not merely a delta from the previous candidate.
+    Python runtime, activate a project virtual environment, export safe
+    environment variables, or invoke repository-provided build and generation
+    entry points that materialize genuine project artifacts. It must not
+    inspect files, edit project source, create fake modules, suppress
+    diagnostics, or use benchmark evaluator output. Do not use unrelated test
+    or documentation outcomes as proxy success criteria. Every new candidate
+    must include all still-needed setup, not merely a delta from the previous
+    candidate.
 
     An import module name is not necessarily a package distribution name. Do
     not install a distribution solely because its spelling matches a missing
@@ -86,11 +92,28 @@ GOAL_CONTRACT_SYSTEM_PROMPT = dedent(
     tests, documentation builds, or general environment completeness.
     Findings returned by the contract are executable counterexamples and
     remain active until the same contract observes them as resolved.
+    When repository_evidence is present, use it to distinguish installable
+    dependencies from repository-local, generated, guarded, or fixture imports.
+    It is public source evidence, not permission to synthesize replacement modules
+    or suppress the goal.
+    """
+).strip()
+
+RETAINED_ANCHOR_SYSTEM_PROMPT = dedent(
+    """
+    The state may contain a retained_candidate_anchor: the best complete
+    candidate that reached the executable goal so far. Preserve its successful
+    setup and integrate newer repairs into it unless executable feedback proves
+    an anchored operation unnecessary. Current findings expose failures, not
+    every dependency that the anchor already satisfied.
     """
 ).strip()
 
 OPERATION_PROFILES = {"constraint-driven", "free-form"}
-CONSTRAINT_PROFILES = {"flat", "causal-frontier"}
+CONSTRAINT_PROFILES = {"flat", "causal-frontier", "raw-history"}
+REPOSITORY_EVIDENCE_PROFILES = {"disabled", "constraint-routed"}
+CANDIDATE_ANCHOR_PROFILES = {"disabled", "retained-admissible"}
+MODEL_INPUT_PROJECTION_SCHEMA = "envsolve-model-input-projection-v1"
 
 
 def _field(value: Any, name: str, default: Any = None) -> Any:
@@ -122,8 +145,16 @@ class StructuredModelDeploymentPolicy:
     candidate_language: str = ""
     operation_profile: str = "constraint-driven"
     constraint_profile: str = "flat"
+    repository_evidence_profile: str = "disabled"
+    candidate_anchor_profile: str = "disabled"
+    repository_root: Path | None = None
     operation_planner: ConstraintOperationPlanner = field(
         default_factory=ConstraintOperationPlanner
+    )
+    _repository_evidence_index: RepositoryEvidenceIndex | None = field(
+        init=False,
+        default=None,
+        repr=False,
     )
 
     def __post_init__(self) -> None:
@@ -145,7 +176,25 @@ class StructuredModelDeploymentPolicy:
                 "Operation profile must be constraint-driven or free-form"
             )
         if self.constraint_profile not in CONSTRAINT_PROFILES:
-            raise ValueError("Constraint profile must be flat or causal-frontier")
+            raise ValueError(
+                "Constraint profile must be flat, causal-frontier, or raw-history"
+            )
+        if self.repository_evidence_profile not in REPOSITORY_EVIDENCE_PROFILES:
+            raise ValueError(
+                "Repository evidence profile must be disabled or constraint-routed"
+            )
+        if self.repository_evidence_profile == "constraint-routed":
+            if self.repository_root is None:
+                raise ValueError(
+                    "Constraint-routed repository evidence requires a repository root"
+                )
+            self._repository_evidence_index = RepositoryEvidenceIndex(
+                self.repository_root
+            )
+        if self.candidate_anchor_profile not in CANDIDATE_ANCHOR_PROFILES:
+            raise ValueError(
+                "Candidate anchor profile must be disabled or retained-admissible"
+            )
         self._next_candidate = 1
 
     @staticmethod
@@ -311,7 +360,12 @@ class StructuredModelDeploymentPolicy:
         }
 
     @classmethod
-    def _verification_view(cls, item: dict[str, Any]) -> dict[str, Any]:
+    def _verification_view(
+        cls,
+        item: dict[str, Any],
+        *,
+        diagnostic_limit: int = 4_000,
+    ) -> dict[str, Any]:
         details = item.get("details")
         if not isinstance(details, dict):
             details = {}
@@ -327,21 +381,101 @@ class StructuredModelDeploymentPolicy:
             "bootstrap_exit_code": details.get("bootstrap_exit_code"),
             "summary": details.get("summary"),
             "counterexample_count": details.get("counterexample_count"),
-            "diagnostic": cls._bounded_json_value(diagnostic, 4_000),
+            "diagnostic": cls._bounded_json_value(diagnostic, diagnostic_limit),
+        }
+
+    @staticmethod
+    def _latest_goal_findings(state: EnvironmentState) -> tuple[dict[str, Any], ...]:
+        for verification in reversed(state.verifications):
+            details = verification.get("details")
+            if not isinstance(details, dict):
+                continue
+            diagnostic = details.get("verifier_details", details)
+            if not isinstance(diagnostic, dict):
+                continue
+            report_details = diagnostic.get("report_details", diagnostic)
+            if not isinstance(report_details, dict):
+                continue
+            report = report_details.get("goal_report")
+            findings = report.get("findings") if isinstance(report, dict) else None
+            if isinstance(findings, list):
+                return tuple(
+                    finding for finding in findings if isinstance(finding, dict)
+                )
+        return ()
+
+    def _repository_evidence_view(
+        self,
+        state: EnvironmentState,
+        *,
+        max_chars: int,
+    ) -> dict[str, Any] | None:
+        if self._repository_evidence_index is None:
+            return None
+        findings = self._latest_goal_findings(state)
+        if not findings:
+            return None
+        return self._repository_evidence_index.retrieve(
+            findings,
+            max_chars=max_chars,
+        )
+
+    def _retained_candidate_anchor(
+        self,
+        state: EnvironmentState,
+    ) -> dict[str, Any] | None:
+        if self.candidate_anchor_profile != "retained-admissible":
+            return None
+        retained: tuple[tuple[int, int, int], str, dict[str, Any]] | None = None
+        for attempt, verification in enumerate(state.verifications, start=1):
+            details = verification.get("details")
+            if not isinstance(details, dict):
+                continue
+            assessment = details.get("candidate_assessment")
+            candidate_id = details.get("candidate_id")
+            if (
+                not isinstance(assessment, dict)
+                or assessment.get("admissible") is not True
+                or not isinstance(candidate_id, str)
+                or candidate_id not in state.actions
+            ):
+                continue
+            unresolved = assessment.get("unresolved_constraints")
+            satisfied = assessment.get("satisfied_constraints")
+            if (
+                isinstance(unresolved, bool)
+                or not isinstance(unresolved, int)
+                or isinstance(satisfied, bool)
+                or not isinstance(satisfied, int)
+            ):
+                continue
+            rank = (unresolved, -satisfied, attempt)
+            if retained is None or rank < retained[0]:
+                retained = (rank, candidate_id, assessment)
+        if retained is None:
+            return None
+        rank, candidate_id, assessment = retained
+        return {
+            "candidate": self._candidate_view(state.actions[candidate_id]),
+            "assessment": assessment,
+            "selection_rank": list(rank),
         }
 
     def _state_projection(self, state: EnvironmentState) -> dict[str, Any]:
         causal = self.constraint_profile == "causal-frontier"
+        raw_history = self.constraint_profile == "raw-history"
         weights = {
             "case": 0.03,
             "goal": 0.09,
             "repository": 0.14,
+            "repository_evidence": 0.18,
             "candidates": 0.20,
-            "conflicts": 0.08 if causal else 0.16,
+            "candidate_anchor": 0.16,
+            "conflicts": 0.0 if raw_history else 0.08 if causal else 0.16,
             "module_requirements": 0.04,
             "frontier": 0.14,
             "policy_failures": 0.04,
-            "verification": 0.10,
+            "verification": 0.35 if raw_history else 0.10,
             "hypotheses": 0.07,
             "operation": 0.10,
         }
@@ -395,13 +529,6 @@ class StructuredModelDeploymentPolicy:
                 [self._candidate_view(item) for item in actions],
                 self._field_limit(weights["candidates"]),
             ),
-            "constraint_conflicts": self._bounded_json_value(
-                self._constraint_view(
-                    state,
-                    compact_module_surfaces=causal,
-                ),
-                self._field_limit(weights["conflicts"]),
-            ),
             "recent_policy_failures": self._bounded_json_value(
                 [
                     {
@@ -416,7 +543,17 @@ class StructuredModelDeploymentPolicy:
                 self._field_limit(weights["policy_failures"]),
             ),
             "verification_feedback": self._bounded_json_value(
-                [self._verification_view(item) for item in state.verifications[-2:]],
+                [
+                    self._verification_view(
+                        item,
+                        diagnostic_limit=(
+                            self._field_limit(weights["verification"])
+                            if raw_history
+                            else 4_000
+                        ),
+                    )
+                    for item in state.verifications[-2:]
+                ],
                 self._field_limit(weights["verification"]),
             ),
             "active_hypotheses": self._bounded_json_value(
@@ -439,6 +576,26 @@ class StructuredModelDeploymentPolicy:
                 self._field_limit(weights["hypotheses"]),
             ),
         }
+        repository_evidence = self._repository_evidence_view(
+            state,
+            max_chars=self._field_limit(weights["repository_evidence"]),
+        )
+        if repository_evidence is not None:
+            projection["repository_evidence"] = repository_evidence
+        candidate_anchor = self._retained_candidate_anchor(state)
+        if candidate_anchor is not None:
+            projection["retained_candidate_anchor"] = self._bounded_json_value(
+                candidate_anchor,
+                self._field_limit(weights["candidate_anchor"]),
+            )
+        if not raw_history:
+            projection["constraint_conflicts"] = self._bounded_json_value(
+                self._constraint_view(
+                    state,
+                    compact_module_surfaces=causal,
+                ),
+                self._field_limit(weights["conflicts"]),
+            )
         if causal:
             frontier_limit = self._field_limit(weights["frontier"])
             projection["constraint_frontier"] = build_model_constraint_frontier(
@@ -446,7 +603,7 @@ class StructuredModelDeploymentPolicy:
                 self.operation_planner.constraint_engine,
                 max_chars=frontier_limit,
             )
-        else:
+        elif not raw_history:
             projection["active_module_requirements"] = self._bounded_json_value(
                 sorted(set(active_module_requirements)),
                 self._field_limit(weights["module_requirements"]),
@@ -488,6 +645,8 @@ class StructuredModelDeploymentPolicy:
             system_prompt += "\n\n" + CAUSAL_FRONTIER_SYSTEM_PROMPT
         if self.goal_contract is not None:
             system_prompt += "\n\n" + GOAL_CONTRACT_SYSTEM_PROMPT
+        if self.candidate_anchor_profile == "retained-admissible":
+            system_prompt += "\n\n" + RETAINED_ANCHOR_SYSTEM_PROMPT
         if self.operation_profile == "constraint-driven":
             system_prompt += "\n\n" + OPERATION_SYSTEM_PROMPT
         if self.candidate_language.strip():
@@ -543,7 +702,23 @@ class StructuredModelDeploymentPolicy:
             "generator": "structured-model-policy-v1",
             "operation_profile": self.operation_profile,
             "constraint_profile": self.constraint_profile,
+            "repository_evidence_profile": self.repository_evidence_profile,
+            "candidate_anchor_profile": self.candidate_anchor_profile,
         }
+        encoded_projection = json.dumps(
+            projection,
+            ensure_ascii=True,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+        metadata["model_input_projection"] = projection
+        metadata["model_input_projection_schema"] = (
+            MODEL_INPUT_PROJECTION_SCHEMA
+        )
+        metadata["model_input_projection_sha256"] = hashlib.sha256(
+            encoded_projection.encode("utf-8")
+        ).hexdigest()
+        metadata["model_input_projection_chars"] = len(encoded_projection)
         if self.goal_contract is not None:
             metadata["goal_contract"] = {
                 key: self.goal_contract.get(key)

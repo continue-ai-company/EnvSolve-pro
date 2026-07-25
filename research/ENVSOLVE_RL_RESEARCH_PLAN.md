@@ -7,7 +7,7 @@ Status / 状态：独立后续项目，当前不属于 EnvSolve 的论文 claim�
 ### 1. 核心问题
 
 EnvSolve-RL 研究：能否利用大量可执行部署轨迹，学习一个比固定 LLM policy 更有效的
-constraint-to-action policy，并在严格的跨仓库划分和预算约束下泛化到未见项目？
+constraint-to-program policy，并在严格的跨仓库划分和共享实验条件下泛化到未见项目？
 
 它不研究如何重新定义 verifier，也不把 EnvSolve 的规则包装成 RL。前置条件是 EnvSolve 已经产生
 稳定、可审计的状态、操作和结果接口，并且数据规模足以支持学习。
@@ -17,16 +17,18 @@ constraint-to-action policy，并在严格的跨仓库划分和预算约束下�
 冻结并复用：
 
 - 不可变 observation 与 provenance；
+- 版本化公开可执行目标及其内容哈希；
+- Pass、Fail 与 Unknown 观测语义；
 - typed constraint state；
-- `OperationPlan` 与合法 action space；
+- 开放的完整部署程序接口；
 - fresh-environment verifier；
 - 统一的 candidate、token、environment、wall-time 和 cost ledger；
 - terminal-only official evaluation 规则。
 
 可以学习：
 
-- 给定约束状态时的 operation kind 选择；
-- 具体 operation 参数和完整部署程序生成；
+- 给定目标与约束状态时的完整部署程序生成；
+- 首次失败后的修复策略和证据选择；
 - 在剩余预算下继续、停止或探索的策略；
 - 对 hypothesis 的风险敏感排序。
 
@@ -45,7 +47,7 @@ constraint-to-action policy，并在严格的跨仓库划分和预算约束下�
 repository split and revision
 state before action
 source constraints and hypotheses
-operation requirements
+public goal contract and current goal state
 candidate action/program
 guard decision
 fresh-environment observation
@@ -60,14 +62,14 @@ Raw event 永远不可修改。Reward、advantage、failure cluster 和训练样
 
 1. Typed state-action trajectories 比 raw terminal-history trajectories 更具样本效率。
 2. 在相同 backbone 和总预算下，学习后的 policy 能提高 unseen-repository success-cost frontier。
-3. Provenance、Unknown censoring 和合法 action mask 能减少错误 credit assignment。
+3. Provenance、Unknown censoring 和目标状态转移能减少错误 credit assignment。
 
 ### 5. 必要实验
 
 - 固定 EnvSolve 与 EnvSolve-RL 的 verifier、action space、信息和评测权限；
 - 按 repository identity 做严格 train/dev/test 切分；
 - 比较 imitation learning、offline RL、online RL 和无训练 EnvSolve；
-- 消融 typed state、provenance、Unknown mask、operation mask 与 cost-aware objective；
+- 消融 typed state、provenance、Unknown mask、goal transition 与资源条件；
 - 报告 Official Pass@1、success-cost frontier、OOD 泛化和 invalid-action rate；
 - 检查训练数据规模曲线，证明收益不是简单来自更多推理计算。
 
@@ -105,30 +107,44 @@ hash、included/omitted count 和完整性标签。若动作产生时的投影�
 该 transition 不能用于比较 frontier-conditioned policy，也不能用事后重建状态替换。这样 EnvSolve-RL
 学习的是可复现的信息条件下的策略，而不是拥有历史模型未见信息的离线 oracle。
 
+P7 进一步把学习目标锚定到公开可执行目标。每个 transition 必须保存 goal contract ID、程序摘要、
+report schema、操作前后 goal status、typed finding disposition、evidence scope 以及 finding set
+completeness。只有同一 contract 从 Fail 转为 Pass，或完整的同 scope 快照解除同一 finding，才构成
+可靠的中间正标签；partial report 中未再次出现、未运行目标、目标报告损坏和基础设施失败都不能提供
+closure reward。goal-aware raw-history 与显式 constraint-state 的受控轨迹将成为 EnvSolve-RL 的第一组
+表示学习对照。
+
+当策略使用 finding 定向源码证据和保留候选锚点时，transition 还必须保存模型可见证据投影的 schema、
+内容哈希、查询范围与截断信息，以及锚点 candidate ID、程序哈希、准入评估和选择 rank。否则离线训练
+可能看到在线策略当时没有看到的源码，或无法判断新程序是在修复锚点还是遗忘锚点，形成不可审计的
+credit assignment。
+
 ## English Version
 
 ### 1. Core question
 
 EnvSolve-RL asks whether executable deployment trajectories can train a
-constraint-to-action policy that improves unseen-repository deployment under fixed
-information and total budgets. It is a separate project, not an extension of the
-current EnvSolve claim.
+constraint-to-program policy that improves unseen-repository deployment under fixed
+information and shared experimental conditions. It is a separate project, not an
+extension of the current EnvSolve claim.
 
 ### 2. Inherited and learnable components
 
-The immutable observation/provenance layer, typed constraint state, operation
-schema, fresh verifier, budget ledger, and terminal-only evaluation protocol remain
-frozen. The policy may learn operation selection, concrete parameters, complete
-program generation, budget-aware stopping, and hypothesis ranking. It may not use
-official online feedback, evaluation-case leakage, or source-edit repairs.
+The immutable observation/provenance layer, versioned executable goal, Pass/Fail/Unknown
+semantics, typed constraint state, open-program interface, fresh verifier, resource
+ledger, and terminal-only evaluation protocol remain frozen. The policy may learn
+complete program generation, post-failure repair, evidence selection, stopping, and
+hypothesis ranking. It may not use official online feedback, evaluation-case leakage,
+or source-edit repairs.
 
 ### 3. Data and evaluation contract
 
 Training examples preserve the complete state-constraint-action-guard-observation-
 outcome-cost chain. Raw events are immutable; rewards and training views are
 versioned derivatives. Experiments require repository-disjoint splits, matched
-budgets, fixed verifier access, comparisons with imitation and RL alternatives, and
-ablations of typed state, provenance, censoring, action masks, and cost objectives.
+execution settings, fixed verifier access, comparisons with imitation and RL
+alternatives, and ablations of typed state, provenance, censoring, goal transitions,
+and resource conditioning.
 
 ### 4. Start criterion
 
@@ -169,3 +185,19 @@ omission status is inadmissible for evaluating a frontier-conditioned policy and
 repaired by substituting an offline reconstruction. EnvSolve-RL must learn under the
 reproducible information set available online rather than an offline oracle with historical
 information the policy never observed.
+
+P7 grounds the learning target in the public executable goal. Every transition binds the
+goal contract ID, program digest, report schema, before/after goal status, typed finding
+dispositions, evidence scope, and finding-set completeness. A reliable intermediate
+positive label requires the same contract to move from Fail to Pass or a complete
+same-scope snapshot to retire the same finding. Absence from a partial report, a skipped
+goal, a malformed report, or an infrastructure failure provides no closure reward.
+Controlled goal-aware raw-history and explicit constraint-state trajectories provide the
+first representation-learning comparison for EnvSolve-RL.
+
+When the policy receives finding-routed source evidence and a retained candidate anchor,
+each transition must also preserve the model-visible evidence schema, digest, query and
+truncation metadata, plus the anchor candidate ID, program digest, admissibility
+assessment, and selection rank. Otherwise offline training may see source context that
+was unavailable online or cannot distinguish repairing an anchor from forgetting it,
+making credit assignment unauditable.

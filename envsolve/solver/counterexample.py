@@ -559,6 +559,16 @@ class CounterexampleGuidedDeploymentLoop:
                 (evidence_id,),
             )
 
+    @staticmethod
+    def _verifier_evidence_source(outcome: ExecutableVerification) -> str:
+        source = f"executable-verifier:{outcome.verifier}"
+        scope_id = outcome.details.get("evidence_scope_id")
+        if scope_id is None:
+            return source
+        if not isinstance(scope_id, str) or not scope_id:
+            raise ValueError("Verifier evidence_scope_id must be a non-empty string")
+        return f"{source}:{scope_id}"
+
     def _ingest_verifier_evidence(
         self,
         candidate: DeploymentCandidate,
@@ -572,7 +582,7 @@ class CounterexampleGuidedDeploymentLoop:
         for index, item in enumerate(evidence, start=1):
             evidence_id = self.session.record_evidence(
                 kind=item.kind,
-                source=f"executable-verifier:{outcome.verifier}",
+                source=self._verifier_evidence_source(outcome),
                 value=item.value,
                 confidence=item.confidence,
                 evidence_id=(
@@ -1043,9 +1053,19 @@ class CounterexampleGuidedDeploymentLoop:
                         constraints_updated,
                         action_id=decision.candidate_id,
                     )
+                state_before_pass = self.session.reconstruct()
                 prior_fact_ids = self.constraint_engine.fact_constraint_ids(
-                    self.session.reconstruct()
+                    state_before_pass
                 )
+                evidence_scope_id = outcome.details.get("evidence_scope_id")
+                prior_goal_constraint_ids: tuple[str, ...] = ()
+                if evidence_scope_id is not None:
+                    prior_goal_constraint_ids = (
+                        self.constraint_engine.constraint_ids_for_evidence_source(
+                            state_before_pass,
+                            self._verifier_evidence_source(outcome),
+                        )
+                    )
                 observation_ids = self._ingest_verifier_evidence(
                     decision,
                     environment,
@@ -1053,8 +1073,12 @@ class CounterexampleGuidedDeploymentLoop:
                     outcome.observations,
                     identifier_prefix="observation",
                 )
+                retired_goal_ids = self.constraint_engine.supersede_constraints(
+                    self.session,
+                    prior_goal_constraint_ids,
+                )
                 self.constraint_engine.supersede_facts(self.session, prior_fact_ids)
-                constraints_updated += len(set(observation_ids))
+                constraints_updated += len(set((*observation_ids, *retired_goal_ids)))
                 self.constraint_engine.propagate_constraints(self.session)
                 self._record_verification(decision, environment, outcome, True)
                 return self._finish(
@@ -1095,9 +1119,18 @@ class CounterexampleGuidedDeploymentLoop:
                 action_id=decision.candidate_id,
                 details=outcome.details,
             )
+            state_before_failure = self.session.reconstruct()
             prior_fact_ids = self.constraint_engine.fact_constraint_ids(
-                self.session.reconstruct()
+                state_before_failure
             )
+            prior_goal_constraint_ids: tuple[str, ...] = ()
+            if outcome.details.get("finding_set_complete", False):
+                prior_goal_constraint_ids = (
+                    self.constraint_engine.constraint_ids_for_evidence_source(
+                        state_before_failure,
+                        self._verifier_evidence_source(outcome),
+                    )
+                )
             action_constraint_ids = self.constraint_engine.ingest_evidence(
                 self.session,
                 action_evidence_id,
@@ -1154,7 +1187,12 @@ class CounterexampleGuidedDeploymentLoop:
                 prior_fact_ids,
                 replacement_fact_ids,
             )
-            constraints_updated += len(set(normalized_ids))
+            current_goal_constraint_ids = set((*observation_ids, *counterexample_ids))
+            retired_goal_ids = self.constraint_engine.supersede_constraints(
+                self.session,
+                set(prior_goal_constraint_ids) - current_goal_constraint_ids,
+            )
+            constraints_updated += len(set((*normalized_ids, *retired_goal_ids)))
             solve_report = self.constraint_engine.propagate_constraints(self.session)
             if not solve_report.conflicts:
                 return self._block(

@@ -1,8 +1,8 @@
-# EnvSolve-pro Research Plan
+# EnvSolve-Pro Research Plan
 
 ## 1. Objective
 
-EnvSolve-pro studies automatic environment construction for unfamiliar repositories.
+EnvSolve-Pro studies automatic environment construction for unfamiliar repositories.
 The core framing remains unchanged: deployment is a **partially observable,
 stateful constraint-solving process**, organized as a three-layer loop:
 
@@ -13,7 +13,7 @@ stateful constraint-solving process**, organized as a three-layer loop:
 3. **Operation: how can the environment resolve them?** Let a strong model propose a
    complete deployment program, then validate execution boundaries and state transitions.
 
-EnvSolve-pro inherits the complete EnvSolve v1 code and Git history. The original
+EnvSolve-Pro inherits the complete EnvSolve v1 code and Git history. The original
 `hongleo-Lee/EnvSolve` repository is archived at commit `07a208f` under tag
 `envsolve-v1-baseline-freeze-2026-07-21` and remains a runnable baseline. All new
 development belongs to `hongleo-Lee/EnvSolve-pro`.
@@ -78,8 +78,10 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | P2 (complete) | Identify the dominant contradiction | Cross-method failure decomposition | One frequent, actionable, non-harness bottleneck |
 | P3 (complete) | Qualify candidate retention | Certified/admissible state and paired consumed replay | Terminal reach `2/3` vs `1/3`; no Official Pass gain |
 | P4 (complete) | Quantify the remaining contradiction | Two independent eight-case Dev censuses on Spark | Single-layer replication failed; interface-level signal frozen |
-| P5 (in progress) | Qualify a causal constraint frontier | V2 measurement rejection, V3 integrity canary, then consumed pairs | Complete model-visible frontiers before paired effectiveness |
-| P6 | Broaden, freeze, and confirm | Multi-model Dev, Canary, Official Test, and paper tables | Code, prompts, baselines, and metrics frozen |
+| P5 (complete) | Qualify a causal constraint frontier | V2 measurement rejection and V3 integrity repair | Retained as a diagnostic baseline; no effectiveness claim |
+| P6 (complete) | Observe all methods against the official objective | Sixteen consumed repositories across causal-v3, Codex, and Repo2Run | One cross-method, repository-independent contradiction |
+| P7 (in progress) | Qualify executable goal-grounded state | Freeze `goal-contract-evidence-anchor-v1`, then run repository-disjoint qualification | Goal fidelity, multi-round repair, and no evaluator leakage |
+| P8 | Controlled effectiveness and freeze | Goal-aware baseline pairs, untouched Dev, Canary, and Official Test | Code, prompts, goals, baselines, and analysis frozen |
 
 P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A new
 parser, constraint, or guard requires multiple independent trajectories or a deterministic
@@ -127,7 +129,7 @@ effectiveness claim.
 ### 4.3 P2 Frozen Diagnostic Design
 
 P2 draws six metadata-only cases from the remaining 118 untouched Dev pool and executes
-24 salted positions: Codex native, Repo2Run, raw ReAct, and the P1 EnvSolve-pro scaffold.
+24 salted positions: Codex native, Repo2Run, raw ReAct, and the P1 EnvSolve-Pro scaffold.
 The primary analysis unit is the earliest decisive repair opportunity, attributed to
 Observation, Constraint, Operation, or unresolved. A new mechanism requires the same
 actionable contradiction in at least three repositories and two methods. The complete
@@ -137,7 +139,7 @@ batch is immutable; no solver or wrapper change is allowed after selection.
 
 All 24 positions completed. The batch is not an effectiveness comparison because most
 Codex and Repo2Run positions, plus two raw-ReAct positions, were censored by baseline
-adapter or integrity failures. EnvSolve-pro and raw ReAct each produced one official
+adapter or integrity failures. EnvSolve-Pro and raw ReAct each produced one official
 pass on different repositories; reporting these as comparable 1/6 rates would be invalid.
 
 The dominant deterministic contradiction occurred in three repositories: an
@@ -238,7 +240,7 @@ decision passes digest, schema, structure, and root-completeness checks.
 
 The next algorithm revision is selected from paired trajectory statistics rather than
 another isolated case. The complete union of the two consumed P4 censuses supplies 16
-repositories without opening untouched data. Current EnvSolve-pro causal v3, Codex CLI,
+repositories without opening untouched data. Current EnvSolve-Pro causal-v3, Codex CLI,
 and Repo2Run run on the same case identities and unchanged terminal evaluator. The
 official objective is exactly bootstrap exit zero plus zero `reportMissingImports`;
 other Pyright errors are excluded from mechanism selection.
@@ -246,7 +248,7 @@ other Pyright errors are excluded from mechanism selection.
 For each case, analysis identifies the earliest decisive divergence at Observation,
 Constraint, Operation, Finalization, or Infrastructure. A next-version mechanism requires
 one unique largest category across at least four repositories and a repository-independent
-counterexample. Mac runs Codex while Spark runs EnvSolve-pro and two disjoint Repo2Run
+counterexample. Mac runs Codex while Spark runs EnvSolve-Pro and two disjoint Repo2Run
 lanes. The batch is diagnostic and cannot support a held-out or leaderboard claim.
 
 An objective-alignment audit on the two earlier consumed censuses found that nine
@@ -255,6 +257,72 @@ comparable accepted candidates covered `40/41` official missing-import modules, 
 of those excess obligations came from one repository. This is a precision hypothesis,
 not yet a dominant mechanism: it must recur as the earliest decisive divergence across
 repositories in the frozen cross-method census.
+
+### 4.9 P6 Cross-Method Decision
+
+The completed census identifies one simpler contradiction than another dependency rule:
+the executable task goal is not a continuously visible, authoritative state variable.
+Native agents often optimize repository tests or documentation proxies without executing
+the scoring target. Causal-v3 does execute a rich internal verifier, but semantic
+inference can deactivate a real goal obligation or preserve a non-scoring one. The c14
+Codex state-parity adjudication confirms that a nominally successful generation can still
+contain 37 official missing-import diagnostics when Pyright never runs.
+
+This decision retires the causal frontier as the center of the paper. It remains a
+frozen structured baseline and an optional ablation. The next method must first ground
+state in the public executable success criterion; semantic compression may annotate that
+state but may not override it.
+
+### 4.10 P7 Executable Goal Contract
+
+`EnvSolve-Pro goal-contract-v1` introduces one generic interface. A versioned executable
+goal contains a public description, trusted program, report schema, and content digest.
+For each candidate, the verifier executes the complete deployment program and the goal
+in the same fresh shell. A valid report yields Pass or typed Fail findings; malformed
+reports, missing capabilities, and infrastructure incidents yield Unknown. Goal findings
+enter the Constraint layer as authoritative active obligations until a later execution
+discharges them. Every report also marks its finding set as complete or partial. Only a
+complete same-scope snapshot can discharge a prior finding by absence; partial evidence
+cannot. The strong model still emits an unrestricted Bash program.
+
+The EnvBench adapter instantiates the public criterion as bootstrap success plus zero
+`reportMissingImports`; Pyright-specific code remains outside the generic runtime. The
+Official evaluator is terminal-only and never feeds the loop. To isolate objective
+visibility from structured state, `codex-cli-goal-aware` receives the same public goal but
+no typed constraint loop.
+
+The first consumed qualification case, `jaraco/irc`, reached Official Pass with zero
+scoring issues. This establishes end-to-end compatibility only. A second consumed case,
+`censys/censys-python`, is selected because frozen causal-v3 lost its sole
+`sphinx_rtd_theme` obligation. It tests whether a first-round executable goal failure
+persists into a targeted second-round operation.
+
+Both explicit-state and same-model goal-aware raw-history runs repaired c10 on the second
+candidate and passed officially. The raw baseline did so with fewer tokens and less time
+in this single pair, so c10 supports executable goal feedback but not an incremental
+structured-state gain. The audit also found and repaired a stale-state bug: after a goal
+Pass, constraints from the same versioned evidence scope are now explicitly superseded.
+The first c15 diagnostic then exposed the corresponding Fail transition: an exhaustive
+report had resolved three of four findings, but their old requirements remained active.
+The report contract now distinguishes complete finding snapshots from partial evidence;
+the pre-fix pair is invalid for comparison.
+
+Subsequent integrity-valid c15 runs exposed two partially observable state failures:
+goal findings did not include the repository-local build semantics needed to resolve a
+dynamic test package, and newer candidates forgot dependencies that earlier candidates
+had already satisfied. `goal-contract-evidence-anchor-v1` addresses these with bounded
+finding-routed source evidence and a retained, fully executed admissible candidate
+anchor. It leaves the Bash action space open. The resulting c15 mechanism run passed
+Official evaluation with zero scoring issues after 11 candidates.
+
+On consumed c16, explicit-state and same-model raw-history variants with the same source
+evidence and anchor both passed officially in three executed candidates. The explicit
+variant used 3 model requests and 40,438 tokens; raw history used 4 requests and 90,748
+tokens, including one schema-invalid response rejected before execution. This single
+pair supports neither a success-rate nor candidate-count advantage. It motivates a
+preregistered test of whether explicit state reduces model-side context and retry burden
+on multi-finding cases. None of these cases is held-out evidence; details are recorded in
+`PRO_GOAL_CONTRACT_CASEBOOK_V1.md`.
 
 ## 5. Core Ablation
 
@@ -275,10 +343,12 @@ verification supplies online feedback; the Official evaluator remains terminal-o
 
 ## 7. Immediate Next Step
 
-Complete the frozen 16-case EnvSolve-pro, Codex, and Repo2Run trajectory census. Select
-no intervention until the earliest-divergence analysis has a unique leader in at least
-four repositories and a repository-independent counterexample. Then implement one minimal
-change and test it first on consumed diagnostic cases. Consume a fresh outcome-blind Dev
-batch only after that mechanism test shows a preregistered gain without paired Official
-Pass regression. Tokens and price remain reported outcomes; candidate and wall-clock
-limits provide a shared, reproducible, intentionally generous execution boundary.
+Finish regression, integrity, and artifact audits, then freeze
+`goal-contract-evidence-anchor-v1`, its raw-history control, protocol v2, and the analysis
+rules. Run a small repository-disjoint Dev qualification batch without changing the
+algorithm until the batch is complete. Compare Official Pass, post-failure repair,
+executed candidates, model requests, tokens, and infrastructure censoring. Observe
+Repo2Run and native coding-agent trajectories on the same cases before interpreting the
+next dominant failure mechanism. Transport retries must be surfaced separately from
+model requests in the next measurement revision, but resource limits remain generous
+experimental controls rather than success objectives.

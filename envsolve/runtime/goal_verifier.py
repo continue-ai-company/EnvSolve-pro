@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from pathlib import PurePosixPath
 import re
 import shlex
 import subprocess
@@ -40,8 +41,22 @@ class EffectAuditReport(Protocol):
 
 EffectAuditor = Callable[[Path], EffectAuditReport]
 _CANDIDATE_COMPLETION_PREFIX = "ENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1="
+_OUTER_WORKSPACE_VIOLATION_PREFIX = (
+    "ENVSOLVE_GOAL_OUTER_WORKSPACE_VIOLATION_V1="
+)
+_PROTECTED_ENVIRONMENT_VIOLATION_PREFIX = (
+    "ENVSOLVE_GOAL_PROTECTED_ENVIRONMENT_VIOLATION_V1="
+)
 _FAILED_ACTION = re.compile(
     r"^ENVSOLVE_GOAL_CANDIDATE_FAILED_V1=(?P<exit_code>[0-9]+)$",
+    re.MULTILINE,
+)
+_OUTER_WORKSPACE_VIOLATION = re.compile(
+    rf"^{_OUTER_WORKSPACE_VIOLATION_PREFIX}(?P<path>[^\r\n]+)$",
+    re.MULTILINE,
+)
+_PROTECTED_ENVIRONMENT_VIOLATION = re.compile(
+    rf"^{_PROTECTED_ENVIRONMENT_VIOLATION_PREFIX}(?P<name>[A-Za-z_][A-Za-z0-9_]*)$",
     re.MULTILINE,
 )
 
@@ -89,6 +104,12 @@ class ExecutableGoalContractVerifier:
         report_begin = f"ENVSOLVE_GOAL_REPORT_BEGIN_V1={nonce}"
         report_end = f"ENVSOLVE_GOAL_REPORT_END_V1={nonce}"
         report_path = f"/tmp/envsolve-goal-report-{nonce}.json"
+        project_path = PurePosixPath(handle.container_workdir)
+        outer_workspace = str(project_path.parent)
+        protected_prefixes = " ".join(
+            shlex.quote(prefix)
+            for prefix in self.contract.protected_environment_prefixes
+        )
         lines = [
             "set -e",
             (
@@ -96,6 +117,35 @@ class ExecutableGoalContractVerifier:
                 "\"$rc\" >&2; exit \"$rc\"' ERR"
             ),
             candidate.script.rstrip(),
+            (
+                f"for ENVSOLVE_PROTECTED_PREFIX in {protected_prefixes}; do "
+                "while IFS='=' read -r ENVSOLVE_ENV_NAME _; do "
+                "case \"$ENVSOLVE_ENV_NAME\" in "
+                "\"$ENVSOLVE_PROTECTED_PREFIX\"*) "
+                f"printf '{_PROTECTED_ENVIRONMENT_VIOLATION_PREFIX}%s\\n' "
+                "\"$ENVSOLVE_ENV_NAME\" >&2; exit 254 ;; "
+                "esac; "
+                "done < <(/usr/bin/env); "
+                "done"
+                if protected_prefixes
+                else ":"
+            ),
+            f"ENVSOLVE_OUTER_WORKSPACE={shlex.quote(outer_workspace)}",
+            (
+                "if [ -d \"$ENVSOLVE_OUTER_WORKSPACE\" ]; then "
+                "ENVSOLVE_UNEXPECTED_OUTER_PATH=$("
+                "/usr/bin/find \"$ENVSOLVE_OUTER_WORKSPACE\" "
+                "-mindepth 1 -maxdepth 1 "
+                f"! -path {shlex.quote(handle.container_workdir)} "
+                "-print -quit"
+                "); "
+                "if [ -n \"$ENVSOLVE_UNEXPECTED_OUTER_PATH\" ]; then "
+                f"printf '{_OUTER_WORKSPACE_VIOLATION_PREFIX}%s\\n' "
+                "\"$ENVSOLVE_UNEXPECTED_OUTER_PATH\" >&2; "
+                "exit 253; "
+                "fi; "
+                "fi"
+            ),
             f"printf '%s\\n' {shlex.quote(completion_marker)}",
             "trap - ERR",
             f"export ENVSOLVE_PROJECT_ROOT={shlex.quote(handle.container_workdir)}",
@@ -168,6 +218,9 @@ class ExecutableGoalContractVerifier:
 
     def _details(self, **extra: Any) -> dict[str, Any]:
         return {
+            "evidence_scope_id": (
+                f"goal-contract:{self.contract.contract_id}:{self.contract.sha256}"
+            ),
             "goal_contract": {
                 "contract_id": self.contract.contract_id,
                 "description": self.contract.description,
@@ -263,6 +316,68 @@ class ExecutableGoalContractVerifier:
         effect_audit, audit_failure = self._effect_audit(handle, result)
         if audit_failure is not None:
             return audit_failure
+        protected_environment_violation = _PROTECTED_ENVIRONMENT_VIOLATION.search(
+            result.stderr
+        )
+        if protected_environment_violation is not None:
+            name = protected_environment_violation.group("name")
+            return ExecutableVerification(
+                verifier="envsolve-executable-goal-verifier",
+                check_profile=self.check_profile,
+                channel=FeedbackChannel.INTERNAL_EXECUTION,
+                passed=False,
+                bootstrap=result,
+                summary=(
+                    "Candidate modified a goal-protected environment surface"
+                ),
+                hypotheses=(
+                    HypothesisEvidence(
+                        hypothesis_id=(
+                            "hypothesis-goal-contract-protected-environment"
+                        ),
+                        statement=(
+                            "The candidate must not influence the executable "
+                            "goal through protected environment variables"
+                        ),
+                        value={"environment_variable": name},
+                        confidence=1.0,
+                    ),
+                ),
+                details=self._details(
+                    repository_effect_audit=effect_audit,
+                    protected_environment_violation={"name": name},
+                ),
+            )
+        outer_workspace_violation = _OUTER_WORKSPACE_VIOLATION.search(result.stderr)
+        if outer_workspace_violation is not None:
+            path = outer_workspace_violation.group("path")
+            return ExecutableVerification(
+                verifier="envsolve-executable-goal-verifier",
+                check_profile=self.check_profile,
+                channel=FeedbackChannel.INTERNAL_EXECUTION,
+                passed=False,
+                bootstrap=result,
+                summary=(
+                    "Candidate modified the adapter-owned outer workspace"
+                ),
+                hypotheses=(
+                    HypothesisEvidence(
+                        hypothesis_id=(
+                            "hypothesis-goal-contract-outer-workspace-effect"
+                        ),
+                        statement=(
+                            "The candidate must keep all generated state inside "
+                            "the project or temporary workspace"
+                        ),
+                        value={"unexpected_path": path},
+                        confidence=1.0,
+                    ),
+                ),
+                details=self._details(
+                    repository_effect_audit=effect_audit,
+                    outer_workspace_violation={"path": path},
+                ),
+            )
         if completion_marker not in result.stdout:
             return ExecutableVerification(
                 verifier="envsolve-executable-goal-verifier",
@@ -326,6 +441,9 @@ class ExecutableGoalContractVerifier:
         status = payload.get("status")
         if status not in {"pass", "fail", "unknown"}:
             raise ValueError("Goal report status must be pass, fail, or unknown")
+        finding_set_complete = payload.get("finding_set_complete", False)
+        if not isinstance(finding_set_complete, bool):
+            raise ValueError("Goal report finding_set_complete must be a boolean")
         raw_findings = payload.get("findings", [])
         if not isinstance(raw_findings, list):
             raise ValueError("Goal report findings must be an array")
@@ -357,6 +475,8 @@ class ExecutableGoalContractVerifier:
             ),
             findings=findings,
             details=self._details(
+                finding_set_complete=finding_set_complete,
+                goal_report=payload,
                 goal_report_details=raw_details,
                 repository_effect_audit=effect_audit,
             ),

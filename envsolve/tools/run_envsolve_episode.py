@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import sys
 
+# ruff: noqa: E402 - workspace path bootstrapping must precede local imports.
 
 ROOT = Path(__file__).resolve().parents[2]
 ENVBENCH = ROOT / "EnvBench"
@@ -68,8 +69,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--constraint-profile",
-        choices=("flat", "causal-frontier"),
+        choices=("flat", "causal-frontier", "raw-history"),
         default="flat",
+    )
+    parser.add_argument(
+        "--repository-evidence-profile",
+        choices=("disabled", "constraint-routed"),
+        default="disabled",
+    )
+    parser.add_argument(
+        "--candidate-anchor-profile",
+        choices=("disabled", "retained-admissible"),
+        default="disabled",
     )
     parser.add_argument(
         "--candidate-interface",
@@ -244,6 +255,9 @@ def main() -> int:
             candidate_language=candidate_validator.prompt_contract,
             operation_profile=args.operation_profile,
             constraint_profile=args.constraint_profile,
+            repository_evidence_profile=args.repository_evidence_profile,
+            candidate_anchor_profile=args.candidate_anchor_profile,
+            repository_root=source_repository,
         ),
         environment_provider=provider,
         verifier=(
@@ -294,6 +308,8 @@ def main() -> int:
             "base_runtime": base_runtime.to_dict(),
             "conditional_runtime_admission": True,
             "constraint_profile": args.constraint_profile,
+            "repository_evidence_profile": args.repository_evidence_profile,
+            "candidate_anchor_profile": args.candidate_anchor_profile,
             "workspace_preconditions": [
                 item.to_dict() for item in workspace_preconditions
             ],

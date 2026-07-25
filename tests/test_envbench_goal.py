@@ -94,6 +94,7 @@ class EnvBenchGoalContractTests(unittest.TestCase):
             report = json.loads(report_path.read_text(encoding="utf-8"))
             self.assertEqual(report["schema"], "envsolve-goal-report-v1")
             self.assertEqual(report["status"], "fail")
+            self.assertTrue(report["finding_set_complete"])
             self.assertEqual(report["details"]["issues_count"], 1)
             self.assertEqual(report["details"]["pyright_version"], "pyright 1.test")
             self.assertEqual(

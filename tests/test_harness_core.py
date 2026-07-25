@@ -470,7 +470,7 @@ class CoreIoTest(unittest.TestCase):
             self.assertIsNotNone(contract)
             self.assertEqual(
                 contract.contract_id,
-                "envbench-python-reportMissingImports-v1",
+                "envbench-python-reportMissingImports-v2",
             )
             self.assertEqual(runner.goal_contract, contract)
 

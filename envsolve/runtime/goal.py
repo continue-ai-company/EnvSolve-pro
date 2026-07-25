@@ -17,6 +17,7 @@ class ExecutableGoalContract:
     description: str
     program: str
     report_schema: str = GOAL_REPORT_SCHEMA
+    protected_environment_prefixes: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         for name, value in (
@@ -29,6 +30,29 @@ class ExecutableGoalContract:
                 raise ValueError(f"Goal contract {name} cannot be empty")
             if "\0" in value:
                 raise ValueError(f"Goal contract {name} cannot contain NUL")
+        if not isinstance(self.protected_environment_prefixes, tuple):
+            raise ValueError(
+                "Goal contract protected environment prefixes must be a tuple"
+            )
+        for prefix in self.protected_environment_prefixes:
+            if (
+                not isinstance(prefix, str)
+                or not prefix
+                or "\0" in prefix
+                or not (prefix[0].isalpha() or prefix[0] == "_")
+                or any(not (character.isalnum() or character == "_") for character in prefix)
+            ):
+                raise ValueError(
+                    "Goal contract protected environment prefixes must be "
+                    "non-empty variable-name prefixes"
+                )
+        if len(set(self.protected_environment_prefixes)) != len(
+            self.protected_environment_prefixes
+        ):
+            raise ValueError(
+                "Goal contract protected environment prefixes must be unique"
+            )
+
     @property
     def sha256(self) -> str:
         payload = json.dumps(
@@ -45,6 +69,9 @@ class ExecutableGoalContract:
             "description": self.description,
             "program": self.program,
             "report_schema": self.report_schema,
+            "protected_environment_prefixes": list(
+                self.protected_environment_prefixes
+            ),
         }
         if include_sha256:
             value["sha256"] = self.sha256
@@ -59,6 +86,7 @@ class ExecutableGoalContract:
             "description",
             "program",
             "report_schema",
+            "protected_environment_prefixes",
             "sha256",
         }
         unknown = set(value) - allowed
@@ -66,12 +94,20 @@ class ExecutableGoalContract:
             raise ValueError(
                 f"Goal contract contains unknown fields: {sorted(unknown)}"
             )
+        prefixes = value.get("protected_environment_prefixes", [])
+        if not isinstance(prefixes, list) or not all(
+            isinstance(prefix, str) for prefix in prefixes
+        ):
+            raise ValueError(
+                "Goal contract protected_environment_prefixes must be a string array"
+            )
         try:
             contract = cls(
                 contract_id=value["contract_id"],
                 description=value["description"],
                 program=value["program"],
                 report_schema=value.get("report_schema", GOAL_REPORT_SCHEMA),
+                protected_environment_prefixes=tuple(prefixes),
             )
         except KeyError as exc:
             raise ValueError(f"Goal contract is missing {exc.args[0]!r}") from exc

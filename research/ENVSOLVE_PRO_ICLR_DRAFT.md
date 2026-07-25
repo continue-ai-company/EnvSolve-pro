@@ -1,133 +1,178 @@
-# EnvSolve-pro: Partially Observable Stateful Constraint Solving for Repository Deployment
+# EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
 ## Abstract
 
-Running an unfamiliar source repository requires recovering runtime, dependency, build,
-and platform conditions that the repository rarely specifies completely. An agent can
-only partially observe these hidden conditions through repository evidence and noisy
-execution outcomes. Existing deployment agents commonly append raw logs to a growing
-context and generate another command, leaving state tracking implicit and making
-candidate errors, incorrect hypotheses, and infrastructure censoring difficult to
-distinguish.
+Reproducing a source repository requires discovering runtime, dependency, build, and
+platform conditions that are rarely specified completely. An agent observes these hidden
+conditions only through repository evidence and the outcomes of programs executed in
+fresh environments. Current deployment agents leave this state implicit in a growing
+language-model context. They can therefore optimize convenient proxy tests, forget an
+unresolved failure, or mistake an infrastructure incident for evidence about the
+deployment.
 
-We propose EnvSolve-pro, which formulates deployment as partially observable stateful
-constraint solving. Its Observation layer preserves provenance-linked execution evidence;
-its Constraint layer organizes surface symptoms into a revisable causal constraint
-frontier; and its Operation layer lets a strong language model generate complete
-deployment programs whose executions update state. The frontier advances scope per
-observation channel, links surface failures to executable root conditions, and preserves
-both Unknown and raw evidence. It is an external cognitive tool rather than a closed
-action language: the model may act outside the current schema, while hard guards are
-limited to task safety and behavior directly contradicted by execution.
-Because internal checks are themselves partial observations, EnvSolve distinguishes a
-candidate certified by its internal goal from an admissible candidate that completed safe
-execution but retains unresolved constraints. It preserves the best admissible candidate
-rather than treating the internal verifier as a terminal oracle.
+We formulate repository deployment as **partially observable stateful constraint
+solving** and introduce EnvSolve-Pro. A public executable goal defines success without
+revealing terminal benchmark outcomes. An Observation layer executes each candidate and
+the goal in the same fresh environment, preserving provenance and distinguishing Pass,
+Fail, and Unknown. A Constraint layer turns goal-grounded failures into revisable
+obligations while retaining uncertain repository inferences as hypotheses. An Operation
+layer exposes this state to a strong language model, which remains free to generate a
+complete deployment program rather than choosing from a closed action vocabulary.
+Execution updates the state, and only a goal-passing, integrity-valid candidate is
+certified.
 
-We will compare EnvSolve-pro with Repo2Run, a native strong agent, same-backbone ReAct,
-and frozen EnvSolve v1 on EnvBench. Official Pass@1 is primary; tokens, calls,
-environments, and time are efficiency measures. Two independent development censuses
-place `11/16` failures at the interface between constraint closure and viable operations.
-An offline mechanism analysis on consumed trajectories groups `93/94` surface module
-obligations into `37` executable roots, with maximum `25:1` symptom amplification. These
-results motivate and qualify the representation; success claims are reserved for new
-untouched cases after method freeze.
+We evaluate EnvSolve-Pro on repository deployment benchmarks against Repo2Run, native
+coding agents, and same-model agent loops. Controlled baselines receive the same public
+goal, allowing us to separate gains from objective visibility, explicit state, and
+iterative constraint repair. Official Pass@1 is the primary outcome; resources are
+reported as efficiency measures rather than success thresholds.
 
 ## 1. Problem
 
-For repository `R`, let `Z_R` denote the unobserved set of valid environment conditions.
-At round `t`, an agent selects deployment program `P_t` and receives partial observation
-`O_t` after fresh execution. Similar symptoms can arise from different hidden causes, and
-network or provider failures can make an outcome uninformative. Deployment therefore
-requires maintaining a state over hidden environment conditions, not only generating
-shell commands.
+Given a repository `R`, an initially unknown environment state `z`, and a public
+executable goal `G`, the agent must produce a deployment program `P` such that
 
-EnvSolve-pro maintains `S_t=(X_t,F_t,H_t,C_t,U_t)`: raw evidence, facts, hypotheses,
-contradictions, and operation obligations. Updates use repository and internal execution
-feedback only. The Official evaluator scores the terminal candidate and never enters the
-online loop. The objective is final deployment success; resource limits belong to the
-experimental protocol rather than the problem definition.
+```text
+G(Execute(P, R, z)) = Pass.
+```
 
-## 2. Method
+The agent cannot inspect `z` directly. At round `t`, it runs candidate `P_t` in a fresh
+environment and receives observation `o_t`: command outcomes, goal diagnostics, and
+infrastructure signals. Each observation reveals only part of the relevant state.
+Different causes can produce similar symptoms, some failures expose only the first
+violated condition, and network or provider incidents may yield no valid task evidence.
+The agent must therefore revise beliefs and obligations across attempts.
 
-The **Observation layer** records repository declarations, environment identity, complete
-candidates, command outcomes, verifier results, and infrastructure signals while keeping
-Pass, Fail, and Unknown distinct.
+The executable goal is part of the task specification, not the terminal evaluator. It
+contains a versioned program, a report schema, and a content digest. The online solver
+may execute it but never receives official benchmark outcomes. This boundary permits
+grounded repair while preventing adaptation to hidden labels.
 
-The **Constraint layer** represents what is currently missing or conflicting as a
-revisable causal frontier. Fresh-execution `missing_name` observations, explicit runtime
-compatibility statements, and environment identity connect many surface failures to a
-shared root while preserving scope, source role, path, and trust. Observation channels
-advance independently, so absence of a new observation is not evidence of resolution;
-a newer observation of the same channel may confirm or retire an old root. Deterministic
-evidence may form hard facts, ambiguous explanations remain hypotheses, and Unknown is
-not hardened. The model also retains bounded raw evidence and may challenge soft beliefs.
-The complete internal frontier and the model-visible projection are versioned separately:
-the bounded projection packs executable roots before descriptive facts and reports all
-omissions, so compression cannot replace the constraint object with an unparseable text
-fragment.
+The objective is deployment success. Time, token, and environment limits are experimental
+controls used to compare methods under common conditions, not defining properties of the
+problem.
 
-The **Operation layer** lets a strong model generate self-contained deployment programs.
-The system enforces only environment-modification and safety boundaries plus exact
-prohibitions grounded by execution counterexamples; other operation plans are advisory.
-Candidates remain open programs rather than members of a closed command vocabulary.
-Fresh isolated execution and audited effects determine validity, return evidence to the
-Observation layer, and close the loop. A benchmark adapter declares non-outcome state
-that must exist before both internal and terminal execution, preventing the solver from
-being evaluated under easier hidden preconditions.
+## 2. EnvSolve-Pro
 
-Across rounds, EnvSolve retains a small candidate frontier. A **certified** candidate
-satisfies the internal goal and terminates early. An **admissible** candidate has completed
-safe, integrity-valid execution with no unknown verification state but retains residual
-constraints. If search ends without certification, the best admissible candidate remains
-eligible for terminal evaluation and is explicitly labeled uncertified. This preserves
-the distinction between solver belief and benchmark outcome.
+### 2.1 Observation: What Happened?
+
+For every candidate, the Observation layer records the repository evidence used, the
+complete deployment program, environment identity, execution outcomes, goal report, and
+audited effects. It assigns one of three goal states:
+
+- **Pass:** the goal program completed and its report satisfies the declared schema.
+- **Fail:** the goal completed and returned concrete unsatisfied conditions.
+- **Unknown:** the candidate or goal could not be evaluated reliably, for example because
+  a required tool or network operation failed.
+
+Unknown is never converted into task failure or success. Fresh environments prevent an
+unrecorded mutation from one attempt from silently changing a later attempt. Goal reports
+also declare whether their findings are a complete snapshot or partial evidence. Only a
+complete snapshot of the same scope may use absence to demonstrate that an earlier
+condition has been resolved.
+
+### 2.2 Constraint: What Is Still Unsatisfied?
+
+The Constraint layer maintains a versioned state `S_t` of active obligations, established
+facts, uncertain hypotheses, and their provenance. Goal failures are authoritative
+obligations: they remain active until a later execution of the same goal demonstrates
+that they are satisfied. Repository declarations and model interpretations may explain
+or refine an obligation, but they cannot erase goal evidence.
+
+State transitions are evidence-driven and reversible. A new observation may add an
+obligation, refine its scope, connect repeated symptoms to a shared cause, discharge it,
+or leave it unresolved. Partial observations may only add or refine state; a complete
+same-scope snapshot may discharge absent obligations. This structure prevents two common
+failures of raw-history agents: losing a decisive condition in a long trace and treating
+the absence of a repeated message as proof that the condition disappeared.
+
+The state is an external cognitive aid, not a complete symbolic model of Python or Linux.
+Its minimal form is a provenance-preserving set of current goal obligations. Causal
+compression and additional semantic inference are useful only when they improve
+resolution without suppressing executable evidence.
+
+Each active obligation also routes a bounded, read-only view of the repository evidence
+most likely to explain it: the exact reported source location and related occurrences of
+the missing subject. This turns an opaque symptom into grounded local context without
+granting the Constraint layer an unrestricted search-and-act loop.
+
+### 2.3 Operation: How Should the Environment Change?
+
+The Operation layer presents the public goal, current constraint state, and selected raw
+evidence to a strong language model. It also retains the best fully executed,
+integrity-valid candidate as an evidence-backed anchor. The model emits a self-contained
+deployment program that may freely revise the anchor but is asked to preserve settings
+that remain consistent with current evidence. This prevents a repair for a newly exposed
+condition from silently forgetting conditions satisfied by an earlier candidate.
+
+EnvSolve-Pro does not restrict the model to predefined package, runtime, or build actions; such a
+closed operator set would bound the capability of future models and fail on novel
+repositories.
+
+The program is executed in isolation, followed immediately by the executable goal in the
+same shell and environment. The resulting report returns to the Observation layer,
+forming the loop
+
+```text
+observe -> update constraints -> generate operation -> execute goal -> observe.
+```
+
+Safety and integrity checks govern what may be changed and whether the observed effects
+belong to the candidate. They do not prescribe a solution. A candidate is certified only
+when its goal state is Pass and its execution effects satisfy these checks.
 
 ## 3. Contributions
 
-1. We formulate real repository deployment as partially observable stateful constraint
-   solving, separating hidden environment conditions, online execution feedback, and
-   terminal evaluation.
-2. We introduce a strong-model-compatible three-layer algorithm whose channel-scoped
-   causal frontier compresses repeated symptoms while preserving provenance, Unknown,
-   and actions outside the current schema.
-3. We establish an external-baseline-driven evaluation of final success, mechanism value
-   under stronger models, failure recovery, and success-resource trade-offs.
+1. **Problem formulation.** We formulate repository deployment as partially observable
+   stateful constraint solving with a public executable goal, separating online evidence
+   from hidden terminal evaluation.
+2. **Method.** We introduce a strong-model-compatible three-layer solver that preserves
+   authoritative goal observations, maintains revisable constraint state, and leaves the
+   operation space open.
+3. **Evaluation.** We establish a same-goal controlled protocol that separates objective
+   visibility from stateful repair, compares against external deployment agents, and
+   measures both final success and post-failure recovery.
 
-## 4. Research Questions
+## 4. Experimental Design
 
-- **RQ1 Effectiveness:** Does EnvSolve-pro improve Official Pass@1 over Repo2Run, a native
-  strong agent, and raw ReAct?
-- **RQ2 Mechanism:** What do structured Observation, advisory Constraint state, and
-  grounded hard guards contribute, and do they complement, become redundant with, or
-  harm stronger models?
-- **RQ3 Robustness:** Does the method improve post-failure repair and clean replay across
-  repositories, models, and execution platforms?
+### Research Questions
 
-## 5. Evaluation
+- **RQ1:** Does EnvSolve-Pro improve Official Pass@1 over Repo2Run, native coding agents,
+  and same-model agent loops?
+- **RQ2:** How much comes from exposing the public goal, maintaining explicit constraint
+  state, and updating that state with executable feedback?
+- **RQ3:** Does the method recover more often after an initial failed deployment, and
+  does the effect persist across repositories, models, and execution platforms?
 
-Development begins by directly observing external baselines on new Dev cases before any
-algorithm revision. Core ablations progressively add structured Observation, advisory
-Constraint state, and grounded guards to raw ReAct; frozen EnvSolve v1 is an independent
-baseline. Mac and DGX Spark may run cases in parallel, while paired comparisons record
-and control platform, image, and network censoring.
+### Comparisons
 
-Official Pass@1 is primary. Secondary outcomes include terminal reach, post-first-failure
-repair, clean replay, repeated failures, and Unknown rate. Tokens, requests, candidate
-environments, commands, and wall-clock time support efficiency and Pareto analysis only.
-All methods share a terminal-only Official evaluator boundary. Canary and Official Test
-remain untouched until the method is frozen.
+The main controlled comparison uses the same model, tools, public goal, terminal
+evaluator boundary, and experimental limits:
 
-For EnvBench Python, Official Pass means bootstrap exit zero and zero
-`reportMissingImports`. Other Pyright errors are non-scoring diagnostics and do not guide
-the solver, failure taxonomy, or algorithm selection.
+1. a free-form agent loop without the executable goal;
+2. a goal-aware free-form agent loop without structured state;
+3. EnvSolve-Pro with Observation, Constraint, and Operation layers.
 
-Diagnostic studies establish measurement and mechanism assumptions without making an
-effectiveness claim. Open programs, state-parity preconditions, and candidate retention
-first remove representation and terminal censoring. P5 then pairs flat state with the
-causal frontier on three consumed mechanism cases and measures root appearance,
-recurrence, and closure while auditing the exact persisted model-visible state for digest,
-schema, and completeness. A failed measurement gate excludes outcomes from effect
-statistics. Only a preregistered mechanism gate permits consumption of a new
-outcome-blind Dev batch. Final confirmation freezes code, prompts, analysis, and evaluator
-access and separates development and test by repository identity.
+Repo2Run and native coding agents provide external system baselines. Frozen EnvSolve v1
+is retained as a historical structured baseline. Ablations remove goal-state persistence,
+finding-routed repository evidence, the retained candidate anchor, and the Fail/Unknown
+distinction one at a time.
+
+### Protocol and Metrics
+
+Development, qualification, and final evaluation are separated by repository identity.
+Algorithm changes use only completed development trajectories; qualification and test
+repositories remain hidden until the corresponding version is frozen. Every terminal
+candidate is evaluated from a clean environment, and official outcomes never enter an
+online repair loop.
+
+Official Pass@1 is primary. We additionally report first-attempt success, repair success
+conditioned on an initial failure, attempts to success, clean replay, and Unknown rate.
+Tokens, model requests, candidate environments, commands, and wall-clock time characterize
+efficiency and success-resource trade-offs. Network and provider incidents are reported
+as censored infrastructure outcomes rather than algorithm failures.
+
+For EnvBench Python, the public goal is successful bootstrap followed by zero
+`reportMissingImports`; the official implementation remains terminal-only. The same goal
+contract is supplied to all goal-aware controlled methods. Final tables will be produced
+only after code, prompts, goal contracts, split identities, and analysis rules are frozen.
