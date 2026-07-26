@@ -141,6 +141,25 @@ def _validate_provider_environment(
         )
 
 
+def _provider_execution_metadata(
+    identities: Sequence[dict[str, object]],
+    environ: Mapping[str, str] | None = None,
+) -> dict[str, object]:
+    provider_backed = any(
+        str(identity["runner"]) in OPENAI_API_RUNNERS
+        for identity in identities
+    )
+    if not provider_backed:
+        return {"provider_backed": False}
+    environment = os.environ if environ is None else environ
+    base_url = environment.get("OPENAI_BASE_URL", "").rstrip("/")
+    return {
+        "provider_backed": True,
+        "credential_variable": "OPENAI_API_KEY",
+        "base_url": base_url or None,
+    }
+
+
 def main(
     argv: Sequence[str] | None = None,
     *,
@@ -173,6 +192,12 @@ def main(
             config.generation_timeout + config.evaluation_process_timeout + 600,
         )
     )
+    selected_identities = [
+        _episode_identity(episode, schedule, args.runner)
+        for episode in schedule["episodes"]
+        if args.start_position <= int(episode["position"])
+        and (args.stop_position is None or int(episode["position"]) <= args.stop_position)
+    ]
     progress = ScheduleProgress(
         progress_path,
         schedule_path,
@@ -190,14 +215,13 @@ def main(
             "timeout_source": (
                 "schedule" if "episode_timeout_seconds" in schedule else "derived_from_config"
             ),
+            "provider": _provider_execution_metadata(selected_identities),
         },
     )
     pending_identities = [
-        _episode_identity(episode, schedule, args.runner)
-        for episode in schedule["episodes"]
-        if args.start_position <= int(episode["position"])
-        and (args.stop_position is None or int(episode["position"]) <= args.stop_position)
-        and not progress.contains(int(episode["position"]))
+        identity
+        for identity in selected_identities
+        if not progress.contains(int(identity["position"]))
     ]
     _validate_provider_environment(pending_identities, config)
     for position in progress.recover_orphans():

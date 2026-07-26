@@ -13,6 +13,7 @@ from envsolve_harness.execution.schedule import (
 )
 from experiments.run_schedule import (
     _episode_identity,
+    _provider_execution_metadata,
     _validate_provider_environment,
 )
 
@@ -75,6 +76,25 @@ class ScheduleProgressTest(unittest.TestCase):
             self._config("https://openrouter.ai/deepseek/model"),
             {},
         )
+
+    def test_provider_execution_metadata_binds_route_without_key(self) -> None:
+        metadata = _provider_execution_metadata(
+            [self._identity()],
+            {
+                "OPENAI_API_KEY": "must-not-be-recorded",
+                "OPENAI_BASE_URL": "https://openrouter.ai/api/v1/",
+            },
+        )
+
+        self.assertEqual(
+            metadata,
+            {
+                "provider_backed": True,
+                "credential_variable": "OPENAI_API_KEY",
+                "base_url": "https://openrouter.ai/api/v1",
+            },
+        )
+        self.assertNotIn("must-not-be-recorded", repr(metadata))
 
     def test_mixed_schedule_episode_overrides_runner_model_and_allows_null_seed(self) -> None:
         identity = _episode_identity(
