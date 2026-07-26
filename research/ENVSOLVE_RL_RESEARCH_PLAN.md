@@ -134,6 +134,13 @@ delta、实际完整快照 delta 和 effect-boundary decision。EnvSolve-Pro v1 
 不可行 operation family 且没有新前提证据，应形成负的策略监督；provider 延迟和 transport timeout
 只进入基础设施与资源视图，不进入部署动作 reward。
 
+操作相关性资格轨迹要求再保存两个视图：完整 active finding 集合，以及模型实际看到的 target/evidence
+projection，包括 included/omitted 数量和 policy rejection。Trax 中“真实但未展示的 target”和“不活跃
+target”必须使用不同标签，不能都作为 hallucination 负样本。UER-py 中，候选触发固定命令超时表示策略
+没有在协议内提交成功答案，应获得 terminal non-pass mask；其后环境状态仍是 Unknown，不能伪造具体
+constraint reward。Provider 402、请求超时和 evaluator 事故使用 external-censor mask，不产生动作负
+reward，也不能用重跑轨迹覆盖原始 transition。
+
 ## English Version
 
 ### 1. Core question
@@ -268,3 +275,14 @@ import artifacts are `integrity_invalid` even when diagnostics fall. Repeating a
 infeasible family without new precondition evidence is negative policy supervision.
 Provider latency and transport timeouts belong to infrastructure and resource views,
 not deployment-action reward.
+
+The operation-relevance qualification requires paired transition views: the complete
+active-finding set and the target/evidence projection actually shown to the model,
+including included and omitted counts plus policy rejections. Real but unexposed targets
+and genuinely inactive targets require different labels; neither may be collapsed into
+a generic hallucination penalty. A candidate that reaches the frozen command timeout
+receives a terminal non-pass mask because the policy submitted no passing answer, while
+its resulting constraint state remains Unknown and supplies no fabricated constraint
+reward. Provider HTTP 402, request timeout, and evaluator incidents receive an external
+censor mask, no negative action reward, and immutable source transitions even when an
+identical-episode retry is allowed.

@@ -139,6 +139,8 @@ qualification 与 test 仓库在对应版本冻结前保持隐藏。每个终局
 clean replay 和 Unknown 比例。Token、模型请求、候选环境、命令数和 wall-clock 用于描述效率与
 success-resource trade-off。网络与 provider 事故作为被删失的基础设施结果报告，不计为算法失败。
 逻辑模型调用与 provider transport attempt 分开报告。
+方法触发冻结的候选、命令、context 或 generation 上限时，Pass@1 计为 non-pass；只有能够独立归因的
+provider、网络、evaluator 或测量事故才做删失。
 
 对于 EnvBench Python，公开目标是 bootstrap 成功并且 `reportMissingImports` 为零；官方实现仍然只在
 终局运行。所有 goal-aware 受控方法获得同一目标契约。最终结果表只会在代码、prompt、目标契约、

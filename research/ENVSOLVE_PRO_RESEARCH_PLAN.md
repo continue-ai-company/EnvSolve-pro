@@ -374,19 +374,27 @@ commands, and wall-clock time. Report paired effects and confidence intervals. I
 verification supplies online feedback; the Official evaluator remains terminal-only.
 Logical model calls and provider transport attempts are reported separately.
 
+Pass@1 distinguishes method non-submission from external censoring. A method that reaches
+a frozen candidate, context, or generation limit has not produced a passing answer and
+is a primary non-pass, even though its unresolved task state remains Unknown. Provider,
+network, evaluator, and measurement failures are externally censored and may be retried
+only under a frozen identical-episode amendment.
+
 ## 7. Immediate Next Step
 
-Operation-relevance contract v1 has passed its synthetic counterexamples, projection
-stress test, frozen-baseline hash audit, and full regression suite. The implementation
-is isolated in a new policy, episode entry point, and runner so every historical
-EnvSolve method remains byte-identical.
+Operation-relevance contract v1 passed its synthetic counterexamples, projection stress
+test, provider-format closure, frozen-baseline hash audit, and full regression suite.
+Its repository-disjoint paired qualification is now frozen and partially executed.
+Pre-closure evidence is diagnostic only: Django passed under both conditions; Trax is
+provider-censored; the UER-py treatment reached a method-induced execution timeout; and
+the remaining valid responses were blocked by provider capacity. Details are isolated
+in `PRO_OPERATION_RELEVANCE_CASEBOOK_V1.md`.
 
-The next gate is provider-format validation followed by one frozen,
-repository-disjoint paired Dev batch against
-`envsolve-pro-goal-contract-evidence-anchor`. No algorithm, prompt, family identity, or
-threshold changes are allowed after selection. Analyze Official Pass first, then
-post-failure recovery, contract rejection, expected/observed delta calibration, and
+The immediate gate is an exact infrastructure closure under the frozen retry amendment.
+Provider-censored episodes receive new run IDs; completed Django attempts and the UER-py
+treatment timeout remain immutable. No algorithm, prompt, family identity, threshold,
+case, or seed may change. After closure, analyze Pass@1 first, then terminal reach,
+post-failure recovery, target rejection, expected/observed delta calibration, and
 repeated-family suppression. If v1 does not improve the cross-repository contradiction,
-archive it as an auditable baseline and let the observed failure distribution decide
-whether executable tool/provider probes are the next minimal mechanism. Do not tune on
-`openqasm`.
+archive it as an auditable baseline and redesign from the consumed internal trajectories.
+Do not tune on `openqasm` or any qualification repository.

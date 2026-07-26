@@ -172,6 +172,13 @@ Pass 都是 `4/5`。因此 Auto-EnvSolve 不能把“新机制被执行”“内
 必须先用合成反例和跨仓库 consumed-development 轨迹证明同一机制缺口，再进入新的 repository-disjoint
 qualification。
 
+操作相关性资格实验的 pre-closure 轨迹又增加了两个外层事务。Trax 的 unknown-target rejection 不能
+直接解释为模型幻觉：完整 active snapshot 表明其中一部分 target 真实存在但没有进入 bounded
+projection，另一部分才是不活跃 ID。外层必须比较完整状态与模型实际可见状态，分别提出 representation
+proposal 和 policy proposal。UER-py 则说明 finding delta 与证据引用不能替代操作可行性；触发固定
+命令超时的动作属于方法 terminal-reach failure，而 provider 402 属于外部删失。外层在提出算法修改前
+必须先冻结这类测量 taxonomy，保留旧分析，并用独立 shadow qualification 晋级。
+
 ## English Version
 
 ### 1. Core question
@@ -295,6 +302,16 @@ an ordered transport-attempt trace with start, finish, duration, outcome, status
 reason, and incomplete state. Auto-EnvSolve may diagnose provider infrastructure only
 from completed transport evidence; an in-progress attempt at an experimenter
 interruption is censoring evidence, not proof that the provider failed.
+
+The operation-relevance pre-closure trajectories add two outer-loop transactions. A
+Trax unknown-target rejection mixed real active findings omitted from the bounded
+projection with genuinely inactive identifiers. The outer loop must compare complete
+state with the model-visible projection and propose representation and policy changes
+separately. UER-py shows that finding deltas and evidence citations do not establish
+operation feasibility: a fixed command timeout is a method terminal-reach failure,
+whereas provider HTTP 402 is external censoring. The outer optimizer must freeze this
+measurement taxonomy, preserve the prior analysis, and pass an independent shadow
+qualification before promoting an inner-harness change.
 
 The River external-agent observation adds a wrapper-repair transaction. A valid solver
 trajectory was first rejected because the integrity policy conflated declared native

@@ -192,6 +192,9 @@ Tokens, model requests, candidate environments, commands, and wall-clock time ch
 efficiency and success-resource trade-offs. Network and provider incidents are reported
 as censored infrastructure outcomes rather than algorithm failures.
 Logical model calls and provider transport attempts are reported separately.
+A method that reaches a frozen candidate, command, context, or generation limit counts
+as a Pass@1 non-pass; only independently attributable provider, network, evaluator, or
+measurement incidents are censored.
 
 For EnvBench Python, the public goal is successful bootstrap followed by zero
 `reportMissingImports`; the official implementation remains terminal-only. The same goal

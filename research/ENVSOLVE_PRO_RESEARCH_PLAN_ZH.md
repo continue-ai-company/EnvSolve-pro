@@ -299,13 +299,21 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 报告 paired effect、置信区间和 failure-stratified analysis。基础设施 Unknown 不计作算法失败，但必须报告
 比例。Internal verifier 仅用于在线反馈；Official evaluator 始终 terminal-only。
 
+Pass@1 需要区分“方法未提交成功答案”和“外部删失”。方法触发冻结的候选、context 或 generation
+上限时，虽然未解决任务状态仍是 Unknown，但它没有在协议内产生通过答案，因此属于 primary
+non-pass。Provider、网络、evaluator 和测量失败属于外部删失，只有在冻结的 identical-episode
+amendment 下才能重试。
+
 ## 7. 当前下一步
 
-操作相关性合同 v1 已通过合成反例、投影压力测试、冻结 baseline 哈希审计和完整回归。实现位于新的
-policy、episode entry point 与 runner 中，历史 EnvSolve 方法保持逐字节不变。
+操作相关性合同 v1 已通过合成反例、投影压力测试、provider-format closure、冻结 baseline 哈希审计和
+完整回归。仓库不相交配对资格实验已经冻结并部分执行。Pre-closure 证据只能用于诊断：Django 两组都
+通过；Trax 被 provider 删失；UER-py treatment 触发方法自身执行超时；其余有效响应被 provider
+额度阻断。逐 case 证据单独记录在 `PRO_OPERATION_RELEVANCE_CASEBOOK_V1_ZH.md`。
 
-下一道 gate 是 provider 输出格式验证，然后在新的仓库不相交 Dev batch 上，与
-`envsolve-pro-goal-contract-evidence-anchor` 进行冻结配对。case 选择后不得修改算法、prompt、family
-identity 或阈值。先分析 Official Pass，再分析失败后恢复、合同拒绝、预期/实际 delta 校准和重复 family
-抑制。如果 v1 没有改善跨仓库主要矛盾，就把它封存为可审计 baseline，再由失败分布决定“可执行的
-工具/provider 探针”是否是下一项最小机制。不得针对 `openqasm` 调参。
+当前 gate 是按冻结 retry amendment 完成精确 infrastructure closure。Provider 删失 episode 使用新
+run ID；已完成的 Django attempt 与 UER-py treatment 超时保持不变。算法、prompt、family identity、
+阈值、case 和 seed 均不得修改。Closure 后先分析 Pass@1，再分析 terminal reach、失败后恢复、target
+rejection、预期/实际 delta 校准和 repeated-family suppression。若 v1 没有改善跨仓库主要矛盾，就将
+其封存为可审计 baseline，并只基于已消费 internal trajectory 重设计。不得针对 `openqasm` 或任何
+qualification repository 调参。
