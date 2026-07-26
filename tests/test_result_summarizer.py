@@ -202,6 +202,119 @@ class ResultSummarizerTest(unittest.TestCase):
         self.assertIsNone(full["official_pass"])
         self.assertEqual(summary["paired_scientific"]["censored_pairs"], 1)
 
+    @mock.patch(
+        "envsolve_harness.results.assess_scientific_eligibility",
+        return_value=EligibilityReport(eligible=True),
+    )
+    @mock.patch(
+        "envsolve_harness.results.audit_run",
+        return_value=AuditReport(valid=True),
+    )
+    def test_interrupted_in_progress_provider_attempt_is_experimenter_censored(
+        self,
+        _audit: mock.Mock,
+        _eligibility: mock.Mock,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schedule, runs = self._fixture(directory)
+            run = runs / safe_name("run-full") / safe_name("owner/repo@abc")
+            manifest = json.loads(
+                (run / "manifest.json").read_text(encoding="utf-8")
+            )
+            manifest["solver"] = {
+                "generation_completed": False,
+                "error": None,
+                "metadata": {},
+            }
+            manifest["result"] = None
+            write_json(run / "manifest.json", manifest)
+            write_json(
+                run / "status.json",
+                {
+                    "state": "interrupted",
+                    "reason": "experimenter stopped the run",
+                },
+            )
+            write_json(
+                run / "generation" / "budget_ledger.json",
+                {
+                    "usage": {
+                        "requests_started": 1,
+                        "provider_retries": 0,
+                    },
+                    "provider_attempts": [
+                        {
+                            "attempt_id": "attempt-1",
+                            "outcome": "in_progress",
+                        }
+                    ],
+                },
+            )
+
+            summary = summarize_schedule(
+                schedule,
+                runs,
+                treatment_method="full",
+                control_method="ablation",
+            )
+
+        full = next(run for run in summary["runs"] if run["method"] == "full")
+        self.assertEqual(full["descriptive_terminal"], "experimenter_censored")
+        self.assertEqual(full["resources"]["provider_attempts_started"], 1)
+        self.assertEqual(full["resources"]["provider_attempts_in_progress"], 1)
+
+    @mock.patch(
+        "envsolve_harness.results.assess_scientific_eligibility",
+        return_value=EligibilityReport(eligible=True),
+    )
+    @mock.patch(
+        "envsolve_harness.results.audit_run",
+        return_value=AuditReport(valid=True),
+    )
+    def test_completed_timeout_attempt_is_provider_infrastructure_unknown(
+        self,
+        _audit: mock.Mock,
+        _eligibility: mock.Mock,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schedule, runs = self._fixture(directory)
+            run = runs / safe_name("run-full") / safe_name("owner/repo@abc")
+            manifest = json.loads(
+                (run / "manifest.json").read_text(encoding="utf-8")
+            )
+            manifest["solver"] = {
+                "generation_completed": False,
+                "error": "EpisodeProviderAcquisitionFailed",
+                "metadata": {},
+            }
+            manifest["result"] = None
+            write_json(run / "manifest.json", manifest)
+            write_json(run / "status.json", {"state": "failed"})
+            write_json(
+                run / "generation" / "budget_ledger.json",
+                {
+                    "usage": {
+                        "requests_started": 1,
+                        "provider_retries": 2,
+                    },
+                    "provider_attempts": [
+                        {
+                            "attempt_id": "attempt-3",
+                            "outcome": "error",
+                            "error_type": "APITimeoutError",
+                        }
+                    ],
+                },
+            )
+
+            summary = summarize_schedule(schedule, runs)
+
+        full = next(run for run in summary["runs"] if run["method"] == "full")
+        self.assertEqual(
+            full["descriptive_terminal"],
+            "provider_infrastructure_unknown",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

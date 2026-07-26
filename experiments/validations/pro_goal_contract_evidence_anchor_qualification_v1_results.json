@@ -1,0 +1,333 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-goal-contract-evidence-anchor-qualification-v1",
+  "completed_at": "2026-07-26T00:43:57Z",
+  "claim_scope": "Consumed five-case development qualification only; no held-out effectiveness claim.",
+  "preregistration": "experiments/validations/pro_goal_contract_evidence_anchor_qualification_v1_preregistration.json",
+  "schedule": "experiments/validations/pro_goal_contract_evidence_anchor_qualification_v1_schedule.json",
+  "artifact_locator": "$ENVSOLVE_RUNS_ROOT/envsolve-pro-goal-contract-v1/{run_id}",
+  "official_success_rule": {
+    "exit_code": 0,
+    "issues_count": 0,
+    "error_count_scoring": false,
+    "warning_count_scoring": false
+  },
+  "methods": {
+    "explicit_state": "envsolve-pro-goal-contract-evidence-anchor",
+    "raw_history": "envsolve-pro-goal-aware-raw-evidence-anchor",
+    "model": "deepseek/deepseek-v4-pro"
+  },
+  "outcomes": [
+    {
+      "case_rank": 1,
+      "repository": "online-ml/river",
+      "method": "explicit_state",
+      "run_id": "pro-goal-anchor-qv1-c01-river-exp-retry2",
+      "schedule_binding": "frozen_configuration_retry2",
+      "termination": "goal_observation_timeout",
+      "candidate_slots": 4,
+      "executed_candidates": 4,
+      "model_requests": 4,
+      "total_tokens": 56699,
+      "generation_wall_seconds": 2970.278968,
+      "official_evaluation_completed": false,
+      "official_pass": null,
+      "official_metrics": null,
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 1,
+      "repository": "online-ml/river",
+      "method": "raw_history",
+      "run_id": "pro-goal-anchor-qv1-c01-river-raw",
+      "schedule_binding": "scheduled",
+      "termination": "feedback_context_contract_exceeded",
+      "candidate_slots": 11,
+      "executed_candidates": 11,
+      "model_requests": 12,
+      "total_tokens": 215561,
+      "generation_wall_seconds": 12958.52519,
+      "official_evaluation_completed": false,
+      "official_pass": null,
+      "official_metrics": null,
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 2,
+      "repository": "Lightning-AI/litgpt",
+      "method": "explicit_state",
+      "run_id": "pro-goal-anchor-qv1-c02-litgpt-exp",
+      "schedule_binding": "scheduled",
+      "termination": "goal_observation_timeout",
+      "candidate_slots": 3,
+      "executed_candidates": 3,
+      "model_requests": 3,
+      "total_tokens": 42150,
+      "generation_wall_seconds": 2477.57211,
+      "official_evaluation_completed": false,
+      "official_pass": null,
+      "official_metrics": null,
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 2,
+      "repository": "Lightning-AI/litgpt",
+      "method": "raw_history",
+      "run_id": "pro-goal-anchor-qv1-c02-litgpt-raw",
+      "schedule_binding": "scheduled",
+      "termination": "official_fail",
+      "candidate_slots": 12,
+      "executed_candidates": 10,
+      "model_requests": 12,
+      "total_tokens": 220855,
+      "generation_wall_seconds": 5021.597811,
+      "official_evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 2,
+        "error_count": 992,
+        "warning_count": 1
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 3,
+      "repository": "rubisco-sfa/ilamb",
+      "method": "explicit_state",
+      "run_id": "pro-goal-anchor-qv1-c03-ilamb-exp-replacement1",
+      "schedule_binding": "experimenter_censor_replacement1",
+      "termination": "official_pass",
+      "candidate_slots": 5,
+      "executed_candidates": 5,
+      "model_requests": 5,
+      "total_tokens": 98346,
+      "generation_wall_seconds": 2106.762244,
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 677,
+        "warning_count": 64
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 3,
+      "repository": "rubisco-sfa/ilamb",
+      "method": "raw_history",
+      "run_id": "pro-goal-anchor-qv1-c03-ilamb-raw",
+      "schedule_binding": "scheduled",
+      "termination": "official_pass",
+      "candidate_slots": 6,
+      "executed_candidates": 6,
+      "model_requests": 6,
+      "total_tokens": 105771,
+      "generation_wall_seconds": 4089.006579,
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 677,
+        "warning_count": 64
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 4,
+      "repository": "flask-middleware/flask-security",
+      "method": "explicit_state",
+      "run_id": "pro-goal-anchor-qv1-c04-flask-security-exp",
+      "schedule_binding": "scheduled",
+      "termination": "official_pass",
+      "candidate_slots": 3,
+      "executed_candidates": 3,
+      "model_requests": 3,
+      "total_tokens": 41636,
+      "generation_wall_seconds": 470.338217,
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 817,
+        "warning_count": 4
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 4,
+      "repository": "flask-middleware/flask-security",
+      "method": "raw_history",
+      "run_id": "pro-goal-anchor-qv1-c04-flask-security-raw",
+      "schedule_binding": "scheduled",
+      "termination": "official_pass",
+      "candidate_slots": 3,
+      "executed_candidates": 3,
+      "model_requests": 3,
+      "total_tokens": 46510,
+      "generation_wall_seconds": 1935.224874,
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 817,
+        "warning_count": 0
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": true,
+      "scientific_exclusion": null
+    },
+    {
+      "case_rank": 5,
+      "repository": "starsimhub/starsim",
+      "method": "explicit_state",
+      "run_id": "pro-goal-anchor-qv1-c05-starsim-exp",
+      "schedule_binding": "scheduled",
+      "termination": "gross_official_pass",
+      "candidate_slots": 4,
+      "executed_candidates": 3,
+      "model_requests": 5,
+      "total_tokens": 74785,
+      "generation_wall_seconds": 627.146302,
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 2551,
+        "warning_count": 8
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": false,
+      "scientific_exclusion": "synthetic project-source import aliases for stisim and hivsim"
+    },
+    {
+      "case_rank": 5,
+      "repository": "starsimhub/starsim",
+      "method": "raw_history",
+      "run_id": "pro-goal-anchor-qv1-c05-starsim-raw",
+      "schedule_binding": "scheduled",
+      "termination": "gross_official_pass",
+      "candidate_slots": 4,
+      "executed_candidates": 4,
+      "model_requests": 4,
+      "total_tokens": 85151,
+      "generation_wall_seconds": 1365.158869,
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 2350,
+        "warning_count": 10
+      },
+      "artifact_audit_valid": true,
+      "semantic_import_integrity_valid": false,
+      "scientific_exclusion": "synthetic project-source import aliases for stisim and hivsim"
+    }
+  ],
+  "excluded_attempts": [
+    {
+      "run_id": "pro-goal-anchor-qv1-c03-ilamb-exp",
+      "classification": "experimenter_censored",
+      "reason": "monitoring race terminated the process after a new model request had started",
+      "replacement_run_id": "pro-goal-anchor-qv1-c03-ilamb-exp-replacement1"
+    }
+  ],
+  "descriptive_aggregate": {
+    "explicit_state": {
+      "cases": 5,
+      "candidate_slots": 19,
+      "model_requests": 20,
+      "total_tokens": 313616,
+      "generation_wall_seconds": 8652.097841,
+      "gross_official_passes": 3,
+      "official_failures": 0,
+      "without_official_evaluation": 2,
+      "integrity_valid_official_passes": 2
+    },
+    "raw_history": {
+      "cases": 5,
+      "candidate_slots": 36,
+      "model_requests": 37,
+      "total_tokens": 673848,
+      "generation_wall_seconds": 25369.513323,
+      "gross_official_passes": 3,
+      "official_failures": 1,
+      "without_official_evaluation": 1,
+      "integrity_valid_official_passes": 2
+    },
+    "relative_reductions_explicit_vs_raw": {
+      "candidate_slots": 0.4722222222,
+      "model_requests": 0.4594594595,
+      "total_tokens": 0.5345849509,
+      "generation_wall_seconds": 0.6585627141
+    }
+  },
+  "integrity_valid_both_pass_pairs": {
+    "repositories": [
+      "rubisco-sfa/ilamb",
+      "flask-middleware/flask-security"
+    ],
+    "pair_count": 2,
+    "explicit_state": {
+      "candidate_slots": 8,
+      "total_tokens": 139982,
+      "generation_wall_seconds": 2577.100461
+    },
+    "raw_history": {
+      "candidate_slots": 9,
+      "total_tokens": 152281,
+      "generation_wall_seconds": 6024.231453
+    },
+    "admissible_interpretation": "mechanism evidence only"
+  },
+  "postqualification_integrity_repair": {
+    "status": "implemented_and_regression_tested",
+    "historical_results_changed": false,
+    "admission_policy": "open-candidate-program-v1 with symbolic-link search-path rejection",
+    "runtime_check_profiles": [
+      "python-deployment-v9",
+      "executable-goal-contract-v2"
+    ],
+    "runtime_scope": "active interpreter search paths on both internal verifier routes"
+  },
+  "postqualification_provider_measurement_repair": {
+    "status": "implemented_and_synthetic_qualified",
+    "live_provider_canary_completed": false,
+    "synthetic_validation_artifact": "experiments/validations/pro_provider_attempt_recovery_v2_results.json",
+    "ledger_schema": "1.1.0",
+    "logical_calls_separate_from_transport_attempts": true,
+    "hidden_sdk_retries": 0,
+    "shared_logical_call_deadline": true,
+    "in_progress_attempt_is_not_provider_failure": true
+  },
+  "decision": {
+    "success_rate_claim_supported": false,
+    "causal_efficiency_claim_supported": false,
+    "new_dependency_recipe_justified": false,
+    "next_stage": [
+      "run a live provider-attempt canary",
+      "test shared immutable verified-prefix branching with mandatory clean replay",
+      "observe external Codex and Repo2Run trajectories on the consumed cases before a repository-disjoint qualification"
+    ]
+  }
+}

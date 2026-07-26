@@ -201,3 +201,16 @@ truncation metadata, plus the anchor candidate ID, program digest, admissibility
 assessment, and selection rank. Otherwise offline training may see source context that
 was unavailable online or cannot distinguish repairing an anchor from forgetting it,
 making credit assignment unauditable.
+
+The five-case evidence-anchor qualification adds two mandatory labels. A transition that
+passes the executable goal through an import alias or equivalent synthetic capability is
+`integrity_invalid` and receives no success reward, even if the terminal benchmark
+passes. A suffix repair executed from an immutable verified environment prefix must bind
+the prefix image digest, parent candidate, reactivation context, and final clean-replay
+result. Search-time checkpoint success cannot replace the reward from full-program
+certification.
+
+Each transition also binds logical model-call identity to its ordered provider attempts,
+including duration, retry reason, deadline exhaustion, and censoring provenance.
+Transport retries are resource observations, not additional policy actions, and an
+in-progress attempt has no negative deployment reward.

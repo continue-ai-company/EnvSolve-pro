@@ -23,7 +23,18 @@ class ProviderRecoveryProbeTest(unittest.TestCase):
         recovered = result["result"]["recovered"]["usage"]
         exhausted = result["result"]["exhausted"]
         self.assertEqual(recovered["response_parse_recoveries"], 1)
+        self.assertEqual(
+            [
+                item["outcome"]
+                for item in result["result"]["recovered"]["provider_attempts"]
+            ],
+            ["error", "response"],
+        )
         self.assertEqual(exhausted["usage"]["response_parse_retries"], 2)
+        self.assertEqual(
+            [item["outcome"] for item in exhausted["provider_attempts"]],
+            ["error", "error", "error"],
+        )
         self.assertEqual(exhausted["terminal"]["attempts"], 3)
 
 

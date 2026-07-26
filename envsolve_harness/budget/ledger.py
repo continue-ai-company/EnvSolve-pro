@@ -89,6 +89,10 @@ class BudgetLedger:
         self._request_errors = 0
         self._response_parse_retries = 0
         self._response_parse_recoveries = 0
+        self._provider_retries = 0
+        self._provider_retry_recoveries = 0
+        self._provider_retry_reasons: dict[str, int] = {}
+        self._provider_attempts: list[dict[str, Any]] = []
         self._input_tokens = 0
         self._output_tokens = 0
         self._cache_read_tokens = 0
@@ -161,7 +165,7 @@ class BudgetLedger:
 
     def _snapshot_locked(self) -> dict[str, Any]:
         return {
-            "schema_version": "1.0.0",
+            "schema_version": "1.1.0",
             "limits": self._limits_dict(),
             "pricing": asdict(self.pricing),
             "usage": {
@@ -170,6 +174,9 @@ class BudgetLedger:
                 "request_errors": self._request_errors,
                 "response_parse_retries": self._response_parse_retries,
                 "response_parse_recoveries": self._response_parse_recoveries,
+                "provider_retries": self._provider_retries,
+                "provider_retry_recoveries": self._provider_retry_recoveries,
+                "provider_retry_reasons": dict(self._provider_retry_reasons),
                 "input_tokens": self._input_tokens,
                 "output_tokens": self._output_tokens,
                 "cache_read_tokens": self._cache_read_tokens,
@@ -185,6 +192,7 @@ class BudgetLedger:
                 "environment_candidate_ids": list(self._environment_candidate_ids),
                 "command_candidate_ids": list(self._command_candidate_ids),
             },
+            "provider_attempts": list(self._provider_attempts),
             "exhausted_limits": list(self._exhausted_limits()),
             "termination": self._termination,
             "finalized_at": self._finalized_at,
@@ -208,6 +216,14 @@ class BudgetLedger:
         self._response_parse_recoveries = int(
             usage.get("response_parse_recoveries", 0)
         )
+        self._provider_retries = int(usage.get("provider_retries", 0))
+        self._provider_retry_recoveries = int(
+            usage.get("provider_retry_recoveries", 0)
+        )
+        self._provider_retry_reasons = {
+            str(key): int(value)
+            for key, value in (usage.get("provider_retry_reasons") or {}).items()
+        }
         self._input_tokens = int(usage.get("input_tokens", 0))
         self._output_tokens = int(usage.get("output_tokens", 0))
         self._cache_read_tokens = int(usage.get("cache_read_tokens", 0))
@@ -221,6 +237,11 @@ class BudgetLedger:
         ]
         self._command_candidate_ids = [
             str(item) for item in trace.get("command_candidate_ids", [])
+        ]
+        self._provider_attempts = [
+            dict(item)
+            for item in persisted.get("provider_attempts", [])
+            if isinstance(item, dict)
         ]
         self._created_at = str(persisted.get("created_at") or self._created_at)
         self._termination = persisted.get("termination")
@@ -260,7 +281,70 @@ class BudgetLedger:
             self._requests_started += 1
             self._write_locked()
 
-    def record_response(self, usage: UsageDelta) -> dict[str, Any]:
+    def record_provider_attempt_start(self, attempt_id: str) -> dict[str, Any]:
+        with self._lock:
+            if self.path.is_file():
+                self._resume_locked()
+            self._require_open_locked()
+            if any(
+                item.get("attempt_id") == attempt_id
+                for item in self._provider_attempts
+            ):
+                raise ValueError(f"Duplicate provider attempt id: {attempt_id}")
+            self._provider_attempts.append(
+                {
+                    "attempt_id": attempt_id,
+                    "started_at": self._now(),
+                    "finished_at": None,
+                    "duration_seconds": None,
+                    "outcome": "in_progress",
+                }
+            )
+            return self._write_locked()
+
+    def _finish_provider_attempt_locked(
+        self,
+        attempt_id: str | None,
+        outcome: str,
+        metadata: dict[str, Any] | None,
+    ) -> None:
+        if attempt_id is None:
+            return
+        attempt = next(
+            (
+                item
+                for item in reversed(self._provider_attempts)
+                if item.get("attempt_id") == attempt_id
+            ),
+            None,
+        )
+        if attempt is None:
+            raise ValueError(f"Unknown provider attempt id: {attempt_id}")
+        if attempt.get("outcome") != "in_progress":
+            raise ValueError(f"Provider attempt already completed: {attempt_id}")
+        finished_at = self._now()
+        started_at = datetime.fromisoformat(str(attempt["started_at"]))
+        finished = datetime.fromisoformat(finished_at)
+        attempt.update(
+            {
+                "finished_at": finished_at,
+                "duration_seconds": max(
+                    (finished - started_at).total_seconds(),
+                    0.0,
+                ),
+                "outcome": outcome,
+                **(metadata or {}),
+            }
+        )
+
+    def record_response(
+        self,
+        usage: UsageDelta,
+        *,
+        provider_attempt_id: str | None = None,
+        provider_outcome: str = "response",
+        provider_metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         with self._lock:
             if self.path.is_file():
                 self._resume_locked()
@@ -269,14 +353,48 @@ class BudgetLedger:
             self._input_tokens += usage.input_tokens
             self._output_tokens += usage.output_tokens
             self._cache_read_tokens += usage.cache_read_tokens
+            self._finish_provider_attempt_locked(
+                provider_attempt_id,
+                provider_outcome,
+                provider_metadata,
+            )
             return self._write_locked()
 
-    def record_error(self) -> dict[str, Any]:
+    def record_error(
+        self,
+        *,
+        provider_attempt_id: str | None = None,
+        provider_metadata: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         with self._lock:
             if self.path.is_file():
                 self._resume_locked()
             self._require_open_locked()
             self._request_errors += 1
+            self._finish_provider_attempt_locked(
+                provider_attempt_id,
+                "error",
+                provider_metadata,
+            )
+            return self._write_locked()
+
+    def record_provider_retry(self, reason: str) -> dict[str, Any]:
+        with self._lock:
+            if self.path.is_file():
+                self._resume_locked()
+            self._require_open_locked()
+            self._provider_retries += 1
+            self._provider_retry_reasons[reason] = (
+                self._provider_retry_reasons.get(reason, 0) + 1
+            )
+            return self._write_locked()
+
+    def record_provider_retry_recovery(self) -> dict[str, Any]:
+        with self._lock:
+            if self.path.is_file():
+                self._resume_locked()
+            self._require_open_locked()
+            self._provider_retry_recoveries += 1
             return self._write_locked()
 
     def record_response_parse_retry(self) -> dict[str, Any]:

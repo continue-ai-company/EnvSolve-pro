@@ -156,3 +156,20 @@ driver finding。随后一次模型响应违反候选输出 schema，在执行�
 执行候选数优势；它只支持一个更窄的假设：显式状态可能让强模型更容易消费多 finding 修复轨迹，
 本次少用 1 次请求和 50,310 tokens。单个随机且已消费的配对不能确立效率效应，仍需在 repository-
 disjoint qualification 上重复验证。
+
+## 6. 五 Case Evidence-Anchor Qualification
+
+冻结的 River、LitGPT、ILAMB、Flask-Security 与 Starsim 日程记录在
+`PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS_ZH.md`。ILAMB 与 Flask-Security 在显式状态和 raw
+history 下均获得 Official Pass。River 两种方法都没有进入 Official evaluation；LitGPT 显式状态在
+Official evaluation 前被删失，raw history 则剩 2 个 issue 而 Official Fail。
+
+Starsim 两种方法表面上都 Official Pass，但必须排除：终局程序通过 symlink 把 `stisim` 或 `hivsim`
+名字指向 `starsim`，并没有提供真实模块。另一个 raw 候选安装 `hpvsim` 时通过依赖解析改写了被测
+仓库，已被 effect audit 正确拒绝。这说明 source ownership 已被保护，但 import-alias 的语义完整性
+仍有缺口。
+
+在两个双方完成且 integrity-valid 的配对上，显式状态使用 8 个候选和 139,982 tokens，raw history
+使用 9 个候选和 152,281 tokens。它只能作为机制证据。资格实验后的 integrity v2 已在执行前与两条
+verifier 的 runtime 层拒绝该 alias；完成 provider-attempt 测量修复后，再进行双方共享的
+verified-prefix branching 实验。不允许增加 case-specific 依赖规则。

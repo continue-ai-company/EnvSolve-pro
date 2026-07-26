@@ -13,12 +13,18 @@ import uuid
 from envsolve.constraints.models import ConstraintDomain, ConstraintPredicate
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.goal import ExecutableGoalContract
+from envsolve.runtime.integrity import (
+    IMPORT_ALIAS_AUDIT_MARKER,
+    marked_json_payload,
+    python_import_alias_audit_command,
+)
 from envsolve.solver import (
     CommandResult,
     DeploymentCandidate,
     ExecutableVerification,
     FeedbackChannel,
     HypothesisEvidence,
+    ObservationEvidence,
     ProvisionedEnvironment,
 )
 from envsolve.verification.counterexamples import (
@@ -64,7 +70,7 @@ _PROTECTED_ENVIRONMENT_VIOLATION = re.compile(
 class ExecutableGoalContractVerifier:
     """Execute a candidate and its public goal contract in one fresh shell."""
 
-    check_profile = "executable-goal-contract-v1"
+    check_profile = "executable-goal-contract-v2"
 
     def __init__(
         self,
@@ -147,6 +153,7 @@ class ExecutableGoalContractVerifier:
                 "fi"
             ),
             f"printf '%s\\n' {shlex.quote(completion_marker)}",
+            python_import_alias_audit_command(handle.container_workdir),
             "trap - ERR",
             f"export ENVSOLVE_PROJECT_ROOT={shlex.quote(handle.container_workdir)}",
             f"export ENVSOLVE_GOAL_REPORT={shlex.quote(report_path)}",
@@ -398,6 +405,61 @@ class ExecutableGoalContractVerifier:
                     ),
                 ),
                 details=self._details(repository_effect_audit=effect_audit),
+            )
+        import_alias_audit = marked_json_payload(
+            result.stdout,
+            IMPORT_ALIAS_AUDIT_MARKER,
+        )
+        if import_alias_audit is None:
+            return self._unknown(
+                result,
+                "Import alias integrity audit did not produce a valid report",
+                {
+                    "probe_marker": IMPORT_ALIAS_AUDIT_MARKER,
+                    "repository_effect_audit": effect_audit,
+                },
+            )
+        violations = import_alias_audit.get("violations")
+        if (
+            import_alias_audit.get("valid") is not True
+            or not isinstance(violations, list)
+            or violations
+        ):
+            return ExecutableVerification(
+                verifier="envsolve-executable-goal-verifier",
+                check_profile=self.check_profile,
+                channel=FeedbackChannel.INTERNAL_EXECUTION,
+                passed=False,
+                bootstrap=result,
+                summary="Candidate created a synthetic Python import alias",
+                hypotheses=(
+                    HypothesisEvidence(
+                        hypothesis_id=(
+                            "hypothesis-goal-contract-synthetic-import-alias"
+                        ),
+                        statement=(
+                            "Import names must be provided by genuine project "
+                            "or installed package artifacts"
+                        ),
+                        value={"import_alias_audit": import_alias_audit},
+                        confidence=1.0,
+                    ),
+                ),
+                observations=(
+                    ObservationEvidence(
+                        "candidate-integrity-observation",
+                        {
+                            "integrity_valid": False,
+                            "kind": "synthetic-import-alias",
+                            "violations": violations,
+                        },
+                        1.0,
+                    ),
+                ),
+                details=self._details(
+                    repository_effect_audit=effect_audit,
+                    import_alias_audit=import_alias_audit,
+                ),
             )
 
         payload = self._extract_report(result.stdout, report_begin, nonce)

@@ -126,7 +126,16 @@ qualification 与 test 仓库在对应版本冻结前保持隐藏。每个终局
 主指标是 Official Pass@1。次指标包括首次成功率、以首次失败为条件的修复成功率、成功所需尝试数、
 clean replay 和 Unknown 比例。Token、模型请求、候选环境、命令数和 wall-clock 用于描述效率与
 success-resource trade-off。网络与 provider 事故作为被删失的基础设施结果报告，不计为算法失败。
+逻辑模型调用与 provider transport attempt 分开报告。
 
 对于 EnvBench Python，公开目标是 bootstrap 成功并且 `reportMissingImports` 为零；官方实现仍然只在
 终局运行。所有 goal-aware 受控方法获得同一目标契约。最终结果表只会在代码、prompt、目标契约、
 split identity 和分析规则全部冻结后生成。
+
+### 当前开发证据
+
+冻结的 5-case 开发资格实验尚未证明成功率提升。两个双方都完成且通过完整性检查的配对，在显式状态和
+raw history 下都通过；显式状态表现出更低搜索负担，但样本太小、provider 时间方差过大，不能据此
+声明效率收益。更重要的是，该批次暴露了两个通用瓶颈：很小的已验证修复仍会重复重放昂贵安装前缀；
+symlink 可以制造合成 import alias，满足表面目标。我们因此先加固完整性边界，再把“从不可变的已验证
+环境前缀分支”作为操作层机制进行检验；所有最终程序仍必须从全新环境完整重放。

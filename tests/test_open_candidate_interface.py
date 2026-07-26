@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import json
+import re
 import subprocess
 import tempfile
 import unittest
@@ -142,6 +144,69 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         )
         self.assertFalse(generated_by_python_c.accepted)
         self.assertTrue(real_path.accepted)
+
+    def test_open_validator_rejects_import_alias_symlinks(self) -> None:
+        validator = OpenCandidateProgramValidator()
+        observed_alias = validator.validate(
+            DeploymentCandidate(
+                "candidate-observed-alias",
+                "SITE_PACKAGES=$(python -c 'import site; "
+                "print(site.getsitepackages()[0])')\n"
+                'ln -sf "$PWD/starsim" "$SITE_PACKAGES/stisim"\n',
+                "Alias a missing module to the project package",
+            )
+        )
+        compact_variable = validator.validate(
+            DeploymentCandidate(
+                "candidate-compact-alias",
+                "SP=$(python -c 'import sysconfig; "
+                "print(sysconfig.get_paths()[\"purelib\"])')\n"
+                'ln --symbolic "$PWD/starsim" "$SP/hivsim"\n',
+                "Use a shorter variable for the import directory",
+            )
+        )
+        indented_alias = validator.validate(
+            DeploymentCandidate(
+                "candidate-indented-alias",
+                "SITEPACKAGES=$(python -c 'import site; "
+                "print(site.getsitepackages()[0])')\n"
+                'if [ -n "$SITEPACKAGES" ]; then\n'
+                '    ln -sf "$(pwd)/starsim" "$SITEPACKAGES/stisim" || true\n'
+                "fi\n",
+                "Alias from inside a conditional block",
+            )
+        )
+        literal_site_packages = validator.validate(
+            DeploymentCandidate(
+                "candidate-literal-alias",
+                "ln -s \"$PWD/starsim\" "
+                "/tmp/venv/lib/python3.13/site-packages/stisim\n",
+                "Use a literal site-packages path",
+            )
+        )
+        interpreter_link = validator.validate(
+            DeploymentCandidate(
+                "candidate-python-link",
+                'ln -sf "$(command -v python3)" /usr/local/bin/python\n',
+                "Expose the selected interpreter",
+            )
+        )
+        data_link = validator.validate(
+            DeploymentCandidate(
+                "candidate-data-link",
+                'ln -sf "$PWD/data/source.json" /tmp/source.json\n',
+                "Link a non-import data artifact",
+            )
+        )
+
+        self.assertFalse(observed_alias.accepted)
+        self.assertIn("symbolic link", observed_alias.reason)
+        self.assertEqual(observed_alias.details["target"], "$SITE_PACKAGES/stisim")
+        self.assertFalse(compact_variable.accepted)
+        self.assertFalse(indented_alias.accepted)
+        self.assertFalse(literal_site_packages.accepted)
+        self.assertTrue(interpreter_link.accepted)
+        self.assertTrue(data_link.accepted)
 
     def test_envbench_open_compiler_preserves_order_and_existing_quotes(self) -> None:
         project = "owner__repo@abc"
@@ -456,6 +521,81 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         executed_shell = commands[0][-1]
         self.assertIn("if true; then\n  printf 'ready\\n'\nfi", executed_shell)
         self.assertNotIn("if true; then\nENVSOLVE_ACTION_INDEX", executed_shell)
+
+    def test_runtime_verifier_rejects_project_source_import_alias(self) -> None:
+        def run_command(command, **kwargs):
+            marker = re.search(
+                r"ENVSOLVE_CANDIDATE_COMPLETED_V1=[0-9a-f]+",
+                command[-1],
+            ).group(0)
+            alias_audit = {
+                "valid": False,
+                "provided_modules": ["starsim"],
+                "violations": [
+                    {
+                        "alias": "stisim",
+                        "link": "/venv/site-packages/stisim",
+                        "target": "/data/project/starsim",
+                        "reason": (
+                            "undeclared import alias resolves into project source"
+                        ),
+                    }
+                ],
+            }
+            return subprocess.CompletedProcess(
+                command,
+                0,
+                (
+                    marker
+                    + "\nENVSOLVE_IMPORT_ALIAS_AUDIT_V1="
+                    + json.dumps(alias_audit)
+                    + "\n"
+                ),
+                "",
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            worktree = Path(directory)
+            (worktree / "starsim").mkdir()
+            (worktree / "starsim" / "__init__.py").write_text("")
+            environment = ProvisionedEnvironment(
+                EnvironmentReceipt(
+                    "container-1",
+                    "fixture-provider",
+                    "sha256:image",
+                    "owner/repo",
+                    "a" * 40,
+                    "2026-07-21T00:00:00+00:00",
+                ),
+                DockerEnvironmentHandle(
+                    "container-1",
+                    worktree,
+                    "/data/project",
+                ),
+            )
+            candidate = DeploymentCandidate(
+                "candidate-1",
+                "true\n",
+                "Fixture alias",
+                metadata={
+                    "candidate_validation": {
+                        "policy_id": "open-candidate-program-v1",
+                        "details": {},
+                    }
+                },
+            )
+            result = PythonDeploymentVerifier(
+                collect_tests=False,
+                effect_auditor=lambda _: _AuditReport(True),
+                run_command=run_command,
+            ).verify(candidate, environment)
+
+        self.assertFalse(result.passed)
+        self.assertIn("synthetic Python import alias", result.summary)
+        self.assertEqual(
+            result.details["import_alias_audit"]["violations"][0]["alias"],
+            "stisim",
+        )
 
 
 if __name__ == "__main__":

@@ -113,6 +113,10 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             stdout = "\n".join(
                 (
                     completed,
+                    (
+                        "ENVSOLVE_IMPORT_ALIAS_AUDIT_V1="
+                        '{"provided_modules":[],"valid":true,"violations":[]}'
+                    ),
                     begin,
                     json.dumps(report, sort_keys=True),
                     end,
@@ -277,6 +281,60 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             "PYRIGHT_CONFIG_FILE",
         )
 
+    def test_synthetic_import_alias_is_rejected_before_goal_result(self) -> None:
+        def run_command(
+            command: list[str],
+            **_: object,
+        ) -> subprocess.CompletedProcess[str]:
+            completed, begin, end = self._markers(command)
+            stdout = "\n".join(
+                (
+                    completed,
+                    "ENVSOLVE_IMPORT_ALIAS_AUDIT_V1="
+                    + json.dumps(
+                        {
+                            "valid": False,
+                            "provided_modules": ["starsim"],
+                            "violations": [
+                                {
+                                    "alias": "stisim",
+                                    "link": "/venv/site-packages/stisim",
+                                    "target": "/data/project/starsim",
+                                    "reason": (
+                                        "undeclared import alias resolves into "
+                                        "project source"
+                                    ),
+                                }
+                            ],
+                        },
+                        sort_keys=True,
+                    ),
+                    begin,
+                    json.dumps(
+                        {
+                            "schema": "envsolve-goal-report-v1",
+                            "status": "pass",
+                            "finding_set_complete": True,
+                            "findings": [],
+                        }
+                    ),
+                    end,
+                )
+            )
+            return subprocess.CompletedProcess(command, 0, stdout, "")
+
+        result = ExecutableGoalContractVerifier(
+            self.contract,
+            run_command=run_command,
+        ).verify(self.candidate, self.environment)
+
+        self.assertFalse(result.passed)
+        self.assertIn("synthetic Python import alias", result.summary)
+        self.assertEqual(
+            result.details["import_alias_audit"]["violations"][0]["alias"],
+            "stisim",
+        )
+
     def test_rendered_contract_checks_outer_workspace_before_goal(self) -> None:
         verifier = self._run_with_report(
             {
@@ -297,6 +355,10 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
         self.assertLess(
             command.index("ENVSOLVE_GOAL_OUTER_WORKSPACE_VIOLATION_V1"),
             command.index("ENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1"),
+        )
+        self.assertLess(
+            command.index("ENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1"),
+            command.index("ENVSOLVE_IMPORT_ALIAS_AUDIT_V1"),
         )
 
     def test_rendered_shell_contract_executes(self) -> None:
@@ -327,6 +389,66 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
         )
 
         self.assertTrue(result.passed, result.bootstrap.stderr)
+
+    def test_rendered_shell_rejects_real_site_packages_alias(self) -> None:
+        worktree = Path(self.temp.name) / "project"
+        worktree.mkdir()
+        (worktree / "starsim").mkdir()
+        (worktree / "starsim" / "__init__.py").write_text("")
+        environment = ProvisionedEnvironment(
+            self.environment.receipt,
+            DockerEnvironmentHandle(
+                container_id="container-1",
+                worktree=worktree,
+                container_workdir=str(worktree),
+            ),
+        )
+        contract = ExecutableGoalContract(
+            contract_id="shell-alias-smoke",
+            description="Reject a synthetic import alias",
+            program=(
+                "printf '%s' "
+                "'{\"schema\":\"envsolve-goal-report-v1\","
+                "\"status\":\"pass\",\"findings\":[]}' "
+                '> "$ENVSOLVE_GOAL_REPORT"'
+            ),
+        )
+        candidate = DeploymentCandidate(
+            "candidate-alias",
+            (
+                "python -m venv env\n"
+                "source env/bin/activate\n"
+                "SITE_PACKAGES=$(python -c "
+                "'import site; print(site.getsitepackages()[0])')\n"
+                'ln -s "$PWD/starsim" "$SITE_PACKAGES/stisim"\n'
+            ),
+            "Create a synthetic alias",
+        )
+
+        def run_command(
+            command: list[str],
+            **kwargs: object,
+        ) -> subprocess.CompletedProcess[str]:
+            return subprocess.run(
+                ["/bin/bash", "-lc", command[-1]],
+                cwd=worktree,
+                **kwargs,
+            )
+
+        result = ExecutableGoalContractVerifier(
+            contract,
+            run_command=run_command,
+        ).verify(candidate, environment)
+
+        self.assertFalse(
+            result.passed,
+            f"stdout={result.bootstrap.stdout}\nstderr={result.bootstrap.stderr}",
+        )
+        self.assertIn("synthetic Python import alias", result.summary)
+        self.assertEqual(
+            result.details["import_alias_audit"]["violations"][0]["alias"],
+            "stisim",
+        )
 
 
 if __name__ == "__main__":

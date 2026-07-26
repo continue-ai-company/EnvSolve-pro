@@ -61,12 +61,16 @@ def _resources(root: Path) -> dict[str, Any] | None:
     path = root / "generation" / "budget_ledger.json"
     if not path.is_file():
         return None
-    usage = read_json(path).get("usage") or {}
-    return {
+    ledger = read_json(path)
+    usage = ledger.get("usage") or {}
+    attempts = ledger.get("provider_attempts") or []
+    resources = {
         key: usage.get(key)
         for key in (
             "candidates",
             "requests_started",
+            "provider_retries",
+            "provider_retry_recoveries",
             "input_tokens",
             "output_tokens",
             "cache_read_tokens",
@@ -76,9 +80,67 @@ def _resources(root: Path) -> dict[str, Any] | None:
             "elapsed_wall_clock_seconds",
         )
     }
+    resources.update(
+        {
+            "provider_attempts_started": len(attempts),
+            "provider_attempts_in_progress": sum(
+                isinstance(item, dict) and item.get("outcome") == "in_progress"
+                for item in attempts
+            ),
+        }
+    )
+    return resources
 
 
-def _descriptive_terminal(manifest: dict[str, Any]) -> tuple[str, bool | None]:
+def _provider_attempt_terminal(
+    ledger: dict[str, Any],
+    status: dict[str, Any],
+) -> str | None:
+    attempts = [
+        item
+        for item in ledger.get("provider_attempts", [])
+        if isinstance(item, dict)
+    ]
+    if not attempts:
+        return None
+    in_progress = [
+        item for item in attempts if item.get("outcome") == "in_progress"
+    ]
+    if status.get("state") == "interrupted":
+        return "experimenter_censored"
+    if in_progress:
+        return "provider_attempt_incomplete"
+    last = attempts[-1]
+    if last.get("outcome") != "error":
+        return None
+    error_type = str(last.get("error_type") or "").lower()
+    status_code = last.get("status_code")
+    if (
+        any(
+            token in error_type
+            for token in (
+                "apiconnection",
+                "apitimeout",
+                "connection",
+                "timeout",
+            )
+        )
+        or (
+            isinstance(status_code, int)
+            and (status_code in {408, 409, 429} or status_code >= 500)
+        )
+    ):
+        return "provider_infrastructure_unknown"
+    if "jsondecode" in error_type:
+        return "provider_response_unknown"
+    return None
+
+
+def _descriptive_terminal(
+    manifest: dict[str, Any],
+    status: dict[str, Any],
+    ledger: dict[str, Any],
+) -> tuple[str, bool | None]:
     result = manifest.get("result")
     if isinstance(result, dict) and result.get("evaluation_completed") is True:
         passed = result.get("official_pass") is True
@@ -96,6 +158,9 @@ def _descriptive_terminal(manifest: dict[str, Any]) -> tuple[str, bool | None]:
     solver = manifest.get("solver") or {}
     metadata = solver.get("metadata") or {}
     error = str(solver.get("error") or "").lower()
+    provider_terminal = _provider_attempt_terminal(ledger, status)
+    if provider_terminal is not None:
+        return provider_terminal, None
     budget = metadata.get("online_budget") or {}
     exhausted = set(budget.get("exhausted_limits") or [])
     if "candidates" in exhausted:
@@ -106,10 +171,15 @@ def _descriptive_terminal(manifest: dict[str, Any]) -> tuple[str, bool | None]:
         metadata.get("infrastructure_signature")
         or metadata.get("infrastructure_stage")
         or "infrastructure" in error
-        or "timeout" in error
         or "connectionerror" in error
+        or "apitimeouterror" in error
+        or "readtimeout" in error
     ):
         return "infrastructure_unknown", None
+    if "observation timeout" in error or "goal contract exceeded" in error:
+        return "execution_timeout_unknown", None
+    if "context contract" in error:
+        return "context_contract_exhausted", None
     if solver.get("generation_completed") is False:
         return "generation_failed", None
     if isinstance(result, dict):
@@ -140,13 +210,16 @@ def _summarize_episode(
     manifest = read_json(root / "manifest.json")
     manifest_run = manifest.get("run") or {}
     manifest_case = manifest.get("case") or {}
+    status = read_json(root / "status.json")
+    ledger_path = root / "generation" / "budget_ledger.json"
+    ledger = read_json(ledger_path) if ledger_path.is_file() else {}
     identity_valid = (
         manifest_run.get("run_id") == episode.get("run_id")
         and manifest_run.get("method") == episode.get("method")
         and manifest_run.get("seed") == episode.get("seed")
         and manifest_case.get("case_id") == episode.get("case_id")
     )
-    terminal, official_pass = _descriptive_terminal(manifest)
+    terminal, official_pass = _descriptive_terminal(manifest, status, ledger)
     hashes = _artifact_hashes(root)
     errors = list(integrity.errors)
     if not identity_valid:

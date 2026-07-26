@@ -340,15 +340,24 @@ post-failure repair success, clean replay, repeated-failure rate, and infrastruc
 censoring. Resource metrics report input/output tokens, requests, candidate environments,
 commands, and wall-clock time. Report paired effects and confidence intervals. Internal
 verification supplies online feedback; the Official evaluator remains terminal-only.
+Logical model calls and provider transport attempts are reported separately.
 
 ## 7. Immediate Next Step
 
-Finish regression, integrity, and artifact audits, then freeze
-`goal-contract-evidence-anchor-v1`, its raw-history control, protocol v2, and the analysis
-rules. Run a small repository-disjoint Dev qualification batch without changing the
-algorithm until the batch is complete. Compare Official Pass, post-failure repair,
-executed candidates, model requests, tokens, and infrastructure censoring. Observe
-Repo2Run and native coding-agent trajectories on the same cases before interpreting the
-next dominant failure mechanism. Transport retries must be surfaced separately from
-model requests in the next measurement revision, but resource limits remain generous
-experimental controls rather than success objectives.
+The frozen five-case qualification is complete. ILAMB and Flask-Security are the only
+integrity-valid pairs where both methods reached Official Pass; explicit state used
+slightly fewer candidates and tokens, but this is not enough for a success or efficiency
+claim. Starsim revealed an import-alias integrity bypass and is excluded. River and
+LitGPT exposed repeated full-prefix replay, context growth, and terminal censoring.
+Detailed outcomes are frozen in `PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS.md`.
+
+Post-qualification integrity v2 now rejects the observed symlink alias both before
+execution and in the active interpreter on both verifier paths. Resource-ledger v1.1
+exposes each provider attempt, disables hidden SDK retries, applies one logical-call
+deadline, and regression-tests censoring labels. After a live provider canary, the next
+algorithmic test is one operation-layer
+hypothesis: immutable branching from an effect-valid environment prefix for suffix
+repairs, followed by mandatory clean full-program certification. The same execution
+mechanism must be shared by explicit-state and raw-history controls. External Codex and
+Repo2Run trajectories on the same consumed cases remain required before a new
+repository-disjoint qualification is frozen.

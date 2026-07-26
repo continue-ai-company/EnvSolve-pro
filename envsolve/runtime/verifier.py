@@ -21,6 +21,11 @@ from envsolve.operations import OperationFailureClass, OperationKind
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.analysis.runtime_compatibility import parse_runtime_compatibility
 from envsolve.runtime.import_probe import ImportInventory, collect_source_imports
+from envsolve.runtime.integrity import (
+    IMPORT_ALIAS_AUDIT_MARKER,
+    marked_json_payload,
+    python_import_alias_audit_command,
+)
 from envsolve.solver import (
     CommandResult,
     DeploymentCandidate,
@@ -42,7 +47,6 @@ from envsolve.verification.imports import (
     MissingImportFinding,
 )
 from envsolve.verification.obligations import (
-    ObligationDisposition,
     ResolutionStatus,
     decide_import_obligation,
 )
@@ -317,8 +321,6 @@ print(
     )
 )
 """
-
-
 @dataclass(frozen=True)
 class _PackageRequirement:
     evidence_id: str
@@ -330,7 +332,7 @@ class _PackageRequirement:
 class PythonDeploymentVerifier:
     """Fixed internal Python checks with no benchmark evaluator dependency."""
 
-    check_profile = "python-deployment-v8"
+    check_profile = "python-deployment-v9"
 
     def __init__(
         self,
@@ -348,9 +350,9 @@ class PythonDeploymentVerifier:
         self.collect_tests = collect_tests
         self.obligation_profile = obligation_profile
         self.check_profile = (
-            "python-deployment-v8"
+            "python-deployment-v9"
             if obligation_profile == "two-layer"
-            else "python-deployment-v8-runtime-only-ablation"
+            else "python-deployment-v9-runtime-only-ablation"
         )
         parsed_requirements: list[_PackageRequirement] = []
         for item in package_requirements:
@@ -566,13 +568,18 @@ class PythonDeploymentVerifier:
                 json.dumps(sorted({item.name for item in self.package_requirements}))
             ),
         )
+        import_alias_audit = python_import_alias_audit_command(
+            handle.container_workdir
+        )
         completion_marker = f"{_CANDIDATE_COMPLETION_MARKER}{uuid.uuid4().hex}"
         instrumented_candidate, candidate_commands = (
             self._instrument_open_candidate(candidate.script, completion_marker)
             if self._is_open_candidate(candidate)
             else self._instrument_candidate(candidate.script, completion_marker)
         )
-        command = "\n".join([instrumented_candidate, *checks, probe])
+        command = "\n".join(
+            [instrumented_candidate, import_alias_audit, *checks, probe]
+        )
         started = time.monotonic()
         timed_out = False
         try:
@@ -653,6 +660,86 @@ class PythonDeploymentVerifier:
                         "repository_effect_audit": effect_audit,
                     },
                 )
+        candidate_completed = completion_marker in result.stdout
+        import_alias_audit_payload = (
+            marked_json_payload(result.stdout, IMPORT_ALIAS_AUDIT_MARKER)
+            if self._is_open_candidate(candidate) and candidate_completed
+            else None
+        )
+        if self._is_open_candidate(candidate) and candidate_completed:
+            if import_alias_audit_payload is None:
+                return ExecutableVerification(
+                    verifier="envsolve-python-deployment-verifier",
+                    check_profile=self.check_profile,
+                    channel=FeedbackChannel.INTERNAL_EXECUTION,
+                    passed=None,
+                    bootstrap=result,
+                    summary="Import alias integrity audit did not produce a valid report",
+                    hypotheses=(
+                        HypothesisEvidence(
+                            hypothesis_id=(
+                                f"hypothesis-{candidate.candidate_id}-"
+                                "import-alias-audit"
+                            ),
+                            statement=(
+                                "The candidate import alias boundary could not be "
+                                "verified"
+                            ),
+                            value={"probe_marker": IMPORT_ALIAS_AUDIT_MARKER},
+                            confidence=1.0,
+                        ),
+                    ),
+                    details={
+                        "checks": checks,
+                        "repository_effect_audit": effect_audit,
+                    },
+                )
+            violations = import_alias_audit_payload.get("violations")
+            if (
+                import_alias_audit_payload.get("valid") is not True
+                or not isinstance(violations, list)
+                or violations
+            ):
+                return ExecutableVerification(
+                    verifier="envsolve-python-deployment-verifier",
+                    check_profile=self.check_profile,
+                    channel=FeedbackChannel.INTERNAL_EXECUTION,
+                    passed=False,
+                    bootstrap=result,
+                    summary="Candidate created a synthetic Python import alias",
+                    hypotheses=(
+                        HypothesisEvidence(
+                            hypothesis_id=(
+                                f"hypothesis-{candidate.candidate_id}-"
+                                "synthetic-import-alias"
+                            ),
+                            statement=(
+                                "Import names must be provided by genuine project "
+                                "or installed package artifacts"
+                            ),
+                            value={
+                                "import_alias_audit": import_alias_audit_payload,
+                            },
+                            confidence=1.0,
+                        ),
+                    ),
+                    observations=(
+                        ObservationEvidence(
+                            "candidate-integrity-observation",
+                            {
+                                "integrity_valid": False,
+                                "kind": "synthetic-import-alias",
+                                "violations": violations,
+                            },
+                            1.0,
+                        ),
+                    ),
+                    details={
+                        "checks": checks,
+                        "repository_effect_audit": effect_audit,
+                        "import_alias_audit": import_alias_audit_payload,
+                    },
+                )
         failed_action = self._failed_candidate_action(
             result.stderr,
             candidate_commands,
@@ -664,7 +751,7 @@ class PythonDeploymentVerifier:
             result.stderr
         )
         if result.exit_code == 0:
-            if completion_marker not in result.stdout:
+            if not candidate_completed:
                 return ExecutableVerification(
                     verifier="envsolve-python-deployment-verifier",
                     check_profile=self.check_profile,
@@ -1180,15 +1267,7 @@ class PythonDeploymentVerifier:
 
     @staticmethod
     def _probe_payload(stdout: str) -> dict[str, object] | None:
-        for line in reversed(stdout.splitlines()):
-            if not line.startswith(_PROBE_MARKER):
-                continue
-            try:
-                value = json.loads(line[len(_PROBE_MARKER) :])
-            except json.JSONDecodeError:
-                return None
-            return value if isinstance(value, dict) else None
-        return None
+        return marked_json_payload(stdout, _PROBE_MARKER)
 
     @staticmethod
     def _inventory_details(inventory: ImportInventory) -> dict[str, object]:

@@ -16,6 +16,7 @@ from langgraph.prebuilt import create_react_agent
 from envsolve_harness.budget.langchain import (
     JSONResponseRetryModel,
     OnlineBudgetCallback,
+    create_budgeted_chat_model,
 )
 from envsolve_harness.core.io import read_json
 
@@ -56,6 +57,9 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             self.assertEqual(usage["input_tokens"], 2878)
             self.assertEqual(usage["output_tokens"], 16384)
             self.assertEqual(usage["cache_read_tokens"], 128)
+            attempt = read_json(ledger)["provider_attempts"][0]
+            self.assertEqual(attempt["outcome"], "usage_bearing_error")
+            self.assertEqual(attempt["error_type"], "Exception")
 
     def test_transport_error_remains_a_request_error(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -69,6 +73,9 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             usage = read_json(ledger)["usage"]
             self.assertEqual(usage["responses_completed"], 0)
             self.assertEqual(usage["request_errors"], 1)
+            attempt = read_json(ledger)["provider_attempts"][0]
+            self.assertEqual(attempt["outcome"], "error")
+            self.assertEqual(attempt["error_type"], "RuntimeError")
 
     def test_json_response_retry_is_bounded_and_audited(self) -> None:
         class FlakyModel:
@@ -92,6 +99,9 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             self.assertEqual(model.calls, 2)
             self.assertEqual(usage["response_parse_retries"], 1)
             self.assertEqual(usage["response_parse_recoveries"], 1)
+            self.assertEqual(usage["requests_started"], 1)
+            self.assertEqual(usage["provider_retries"], 1)
+            self.assertEqual(usage["provider_retry_recoveries"], 1)
 
     def test_json_response_retry_reports_attempts_when_exhausted(self) -> None:
         class BrokenModel:
@@ -115,6 +125,9 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             self.assertEqual(raised.exception.provider_attempts, 3)
             self.assertEqual(usage["response_parse_retries"], 2)
             self.assertEqual(usage["response_parse_recoveries"], 0)
+            self.assertEqual(usage["requests_started"], 1)
+            self.assertEqual(usage["provider_retries"], 2)
+            self.assertEqual(usage["provider_retry_recoveries"], 0)
 
     def test_json_response_retry_supports_async_invocation(self) -> None:
         class FlakyAsyncModel:
@@ -138,6 +151,106 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             self.assertEqual(model.calls, 2)
             self.assertEqual(usage["response_parse_retries"], 1)
             self.assertEqual(usage["response_parse_recoveries"], 1)
+            self.assertEqual(usage["requests_started"], 1)
+            self.assertEqual(usage["provider_retries"], 1)
+            self.assertEqual(usage["provider_retry_recoveries"], 1)
+
+    def test_retryable_status_uses_one_logical_request_and_shared_deadline(self) -> None:
+        class RetryableStatusError(RuntimeError):
+            status_code = 503
+
+        class FlakyStatusModel:
+            def __init__(self) -> None:
+                self.calls = 0
+                self.timeouts = []
+
+            def invoke(self, input, **kwargs):
+                self.calls += 1
+                self.timeouts.append(kwargs.get("timeout"))
+                if self.calls == 1:
+                    raise RetryableStatusError("provider unavailable")
+                return "ok"
+
+        with tempfile.TemporaryDirectory() as directory:
+            callback = self._callback(Path(directory) / "ledger.json")
+            model = FlakyStatusModel()
+            retrying = JSONResponseRetryModel(
+                model,
+                callback.ledger,
+                max_retries=2,
+                request_timeout_seconds=1.0,
+            )
+
+            self.assertEqual(retrying.invoke("input"), "ok")
+
+            usage = callback.ledger.snapshot()["usage"]
+            self.assertEqual(model.calls, 2)
+            self.assertEqual(usage["requests_started"], 1)
+            self.assertEqual(usage["provider_retries"], 1)
+            self.assertEqual(
+                usage["provider_retry_reasons"],
+                {"provider-http-503": 1},
+            )
+            self.assertGreater(model.timeouts[0], model.timeouts[1])
+            self.assertLessEqual(model.timeouts[0], 1.0)
+
+    def test_async_outer_deadline_stops_retry_loop(self) -> None:
+        class SlowModel:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            async def ainvoke(self, input, **kwargs):
+                self.calls += 1
+                await asyncio.sleep(1)
+                return "late"
+
+        with tempfile.TemporaryDirectory() as directory:
+            callback = self._callback(Path(directory) / "ledger.json")
+            model = SlowModel()
+            retrying = JSONResponseRetryModel(
+                model,
+                callback.ledger,
+                max_retries=2,
+                request_timeout_seconds=0.01,
+            )
+
+            with self.assertRaises(TimeoutError) as raised:
+                asyncio.run(retrying.ainvoke("input"))
+
+            self.assertEqual(model.calls, 1)
+            self.assertEqual(raised.exception.provider_attempts, 1)
+            self.assertTrue(raised.exception.provider_deadline_exhausted)
+            self.assertEqual(
+                callback.ledger.snapshot()["usage"]["requests_started"],
+                1,
+            )
+
+    def test_factory_disables_hidden_sdk_retries(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            model = create_budgeted_chat_model(
+                model="provider/model",
+                budget_ledger_path=str(Path(directory) / "ledger.json"),
+                budget_max_model_requests=5,
+                budget_max_total_tokens=100_000,
+                budget_max_estimated_cost_usd=10.0,
+                budget_input_cost_per_million=1.0,
+                budget_output_cost_per_million=2.0,
+                request_timeout=300,
+                max_retries=3,
+                api_key="test-key",
+                base_url="http://localhost:9",
+            )
+
+            self.assertEqual(model.max_retries, 3)
+            self.assertEqual(model.request_timeout_seconds, 300.0)
+            self.assertEqual(model.model.max_retries, 0)
+            self.assertFalse(
+                next(
+                    callback
+                    for callback in model.model.callbacks
+                    if isinstance(callback, OnlineBudgetCallback)
+                ).preflight_on_start
+            )
 
     def test_bind_tools_preserves_runnable_retry_wrapper(self) -> None:
         class ToolBindingModel:

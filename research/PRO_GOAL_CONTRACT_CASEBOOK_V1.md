@@ -200,3 +200,24 @@ many-finding repair trace easier for a strong model to consume: the explicit met
 one fewer request and 50,310 fewer tokens. A single stochastic, consumed pair cannot
 establish that efficiency effect; replicated repository-disjoint qualification is
 required.
+
+## 6. Five-Case Evidence-Anchor Qualification
+
+The frozen River, LitGPT, ILAMB, Flask-Security, and Starsim schedule is reported in
+`PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS.md`. ILAMB and Flask-Security passed
+officially under both explicit state and raw history. River reached no Official
+evaluation under either method; LitGPT explicit state was censored before Official
+evaluation while raw history failed with two issues.
+
+Starsim produced an Official Pass under both methods but is excluded: the terminal
+programs made `stisim` or `hivsim` importable by symlinking those names to `starsim`.
+One raw candidate was also correctly rejected after installing `hpvsim` rewrote the
+checked-out repository through dependency resolution. The combination shows that effect
+ownership is enforced, while semantic import-alias integrity is not.
+
+Across the two integrity-valid completed pairs, explicit state used 8 candidates and
+139,982 tokens versus 9 candidates and 152,281 tokens for raw history. This is mechanism
+evidence only. Post-qualification integrity v2 rejects the observed alias both before
+execution and at runtime on both verifier paths. Provider-attempt measurement repair
+precedes a shared verified-prefix branching experiment; no case-specific dependency
+rule is admitted.

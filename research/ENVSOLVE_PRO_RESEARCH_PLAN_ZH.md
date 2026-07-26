@@ -272,14 +272,22 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 主指标：Official Pass@1。关键次指标：terminal reach、首次失败后的修复成功率、clean replay、重复失败
 率和基础设施删失率。资源指标包括输入/输出 token、请求次数、候选环境、执行命令与 wall-clock。
+逻辑模型调用与 provider transport attempt 分开报告。
 
 报告 paired effect、置信区间和 failure-stratified analysis。基础设施 Unknown 不计作算法失败，但必须报告
 比例。Internal verifier 仅用于在线反馈；Official evaluator 始终 terminal-only。
 
 ## 7. 当前下一步
 
-完成回归、完整性和 artifact 审计，然后冻结 `goal-contract-evidence-anchor-v1`、对应 raw-history
-对照、protocol v2 与分析规则。在不修改算法的前提下完成一个小型 repository-disjoint Dev
-qualification batch；比较 Official Pass、失败后修复、执行候选数、模型请求、token 和基础设施删失。
-在解释下一项主要失败机制前，还要观察 Repo2Run 与原生 coding Agent 在同一批 case 上的轨迹。
-下一版测量应把 transport retry 与模型请求分开记录；资源限制继续作为宽松的实验控制，而不是成功目标。
+冻结的 5-case qualification 已完成。ILAMB 与 Flask-Security 是仅有的两个双方都达到
+integrity-valid Official Pass 的配对；显式状态使用的候选和 token 略少，但不足以支持成功率或效率
+结论。Starsim 暴露 import-alias 完整性旁路，禁止进入效果分析；River 与 LitGPT 暴露全前缀重复重放、
+上下文增长和终局删失。完整结果冻结在
+`PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS_ZH.md`。
+
+资格实验后的 integrity v2 已在执行前和两条 verifier 的活动解释器中拒绝观测到的 symlink alias。
+资源 ledger v1.1 已记录每次 provider attempt、关闭 SDK 隐藏重试、让一次逻辑调用共享同一 deadline，
+并回归验证删失标签。完成一次真实 provider canary 后，只检验一个操作层假设：
+对 suffix repair，从通过 effect audit 的不可变环境前缀分支，但终局候选必须在全新环境完整重放并认证。
+显式状态与 raw-history 对照必须共享同一执行机制。在冻结新的 repository-disjoint qualification 前，
+还必须观察相同已消费 case 上的外部 Codex 与 Repo2Run 轨迹。

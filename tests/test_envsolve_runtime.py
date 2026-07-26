@@ -2131,6 +2131,50 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             self.assertTrue(repaired.valid)
             self.assertTrue(repaired.checks["envsolve_model_usage_present"])
 
+            budget["schema_version"] = "1.1.0"
+            budget["usage"].update(
+                {
+                    "requests_started": 1,
+                    "responses_completed": 0,
+                    "request_errors": 0,
+                    "total_tokens": 0,
+                }
+            )
+            budget["provider_attempts"] = [
+                {
+                    "attempt_id": "attempt-1",
+                    "outcome": "in_progress",
+                }
+            ]
+            solver["metadata"]["online_budget"] = budget
+            manifest = read_json(root / "manifest.json")
+            manifest["solver"] = solver
+            write_json(root / "manifest.json", manifest)
+            write_json(root / "generation/budget_ledger.json", budget)
+
+            interrupted_attempt = audit_run(root)
+
+            self.assertTrue(interrupted_attempt.valid)
+            self.assertTrue(
+                interrupted_attempt.checks["provider_attempt_trace_valid"]
+            )
+            self.assertTrue(
+                interrupted_attempt.checks["envsolve_model_usage_present"]
+            )
+
+            budget["provider_attempts"] = []
+            solver["metadata"]["online_budget"] = budget
+            manifest["solver"] = solver
+            write_json(root / "manifest.json", manifest)
+            write_json(root / "generation/budget_ledger.json", budget)
+
+            missing_attempt_trace = audit_run(root)
+
+            self.assertFalse(missing_attempt_trace.valid)
+            self.assertFalse(
+                missing_attempt_trace.checks["provider_attempt_trace_valid"]
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

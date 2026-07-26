@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import asyncio
 import json
 from pathlib import Path
+import time
 from typing import Any
 from uuid import UUID
 
@@ -9,6 +11,7 @@ from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.outputs import LLMResult
 from langchain_core.runnables import Runnable, RunnableConfig
 from langchain_openai import ChatOpenAI
+from openai import APIConnectionError, APIStatusError, APITimeoutError
 
 from envsolve_harness.budget.ledger import BudgetLedger, BudgetLimits, TokenPricing, UsageDelta
 
@@ -87,6 +90,39 @@ def _usage_from_result(result: LLMResult) -> UsageDelta:
     return UsageDelta(input_tokens, output_tokens, min(cache_read, input_tokens))
 
 
+def _provider_error_metadata(error: BaseException) -> dict[str, Any]:
+    metadata: dict[str, Any] = {
+        "error_type": type(error).__name__,
+        "error_message": str(error)[:500],
+    }
+    status_code = getattr(error, "status_code", None)
+    if isinstance(status_code, int):
+        metadata["status_code"] = status_code
+    request_id = getattr(error, "request_id", None)
+    if isinstance(request_id, str) and request_id:
+        metadata["provider_request_id"] = request_id
+    return metadata
+
+
+def _retryable_provider_error(error: BaseException) -> str | None:
+    if isinstance(error, json.JSONDecodeError):
+        return "provider-json-decode"
+    if isinstance(error, APITimeoutError | TimeoutError):
+        return "provider-timeout"
+    if isinstance(error, APIConnectionError | ConnectionError):
+        return "provider-connection"
+    if isinstance(error, APIStatusError):
+        status_code = error.status_code
+        if status_code in {408, 409, 429} or status_code >= 500:
+            return f"provider-http-{status_code}"
+    status_code = getattr(error, "status_code", None)
+    if isinstance(status_code, int) and (
+        status_code in {408, 409, 429} or status_code >= 500
+    ):
+        return f"provider-http-{status_code}"
+    return None
+
+
 class OnlineBudgetCallback(BaseCallbackHandler):
     raise_error = True
 
@@ -106,6 +142,7 @@ class OnlineBudgetCallback(BaseCallbackHandler):
         max_environments: int | None = None,
         max_commands: int | None = None,
         max_wall_clock_seconds: int | None = None,
+        preflight_on_start: bool = True,
     ) -> None:
         self.ledger = BudgetLedger(
             Path(ledger_path),
@@ -127,6 +164,7 @@ class OnlineBudgetCallback(BaseCallbackHandler):
                 snapshot_date=pricing_snapshot_date,
             ),
         )
+        self.preflight_on_start = preflight_on_start
 
     def on_chat_model_start(
         self,
@@ -136,28 +174,88 @@ class OnlineBudgetCallback(BaseCallbackHandler):
         run_id: UUID,
         **kwargs: Any,
     ) -> None:
-        self.ledger.preflight()
+        if self.preflight_on_start:
+            self.ledger.preflight()
+        self.ledger.record_provider_attempt_start(str(run_id))
 
     def on_llm_end(self, response: LLMResult, *, run_id: UUID, **kwargs: Any) -> None:
-        self.ledger.record_response(_usage_from_result(response))
+        self.ledger.record_response(
+            _usage_from_result(response),
+            provider_attempt_id=str(run_id),
+        )
 
     def on_llm_error(self, error: BaseException, *, run_id: UUID, **kwargs: Any) -> None:
         usage = _usage_from_error(error)
+        metadata = _provider_error_metadata(error)
         if usage is None:
-            self.ledger.record_error()
+            self.ledger.record_error(
+                provider_attempt_id=str(run_id),
+                provider_metadata=metadata,
+            )
             return
-        self.ledger.record_response(usage)
+        self.ledger.record_response(
+            usage,
+            provider_attempt_id=str(run_id),
+            provider_outcome="usage_bearing_error",
+            provider_metadata=metadata,
+        )
 
 
 class JSONResponseRetryModel(Runnable[Any, Any]):
-    """Retry only provider responses that fail before model-message decoding."""
+    """Expose bounded provider attempts under one logical request deadline."""
 
-    def __init__(self, model: Any, ledger: BudgetLedger, max_retries: int) -> None:
+    def __init__(
+        self,
+        model: Any,
+        ledger: BudgetLedger,
+        max_retries: int,
+        request_timeout_seconds: float | None = None,
+    ) -> None:
         if max_retries < 0:
             raise ValueError("Provider response retries cannot be negative")
+        if request_timeout_seconds is not None and request_timeout_seconds <= 0:
+            raise ValueError("Provider request timeout must be positive")
         self.model = model
         self.ledger = ledger
         self.max_retries = max_retries
+        self.request_timeout_seconds = request_timeout_seconds
+
+    def _remaining_seconds(self, deadline: float | None) -> float | None:
+        if deadline is None:
+            return None
+        return max(deadline - time.monotonic(), 0.0)
+
+    def _attempt_kwargs(
+        self,
+        kwargs: dict[str, Any],
+        deadline: float | None,
+    ) -> dict[str, Any]:
+        remaining = self._remaining_seconds(deadline)
+        if remaining is None:
+            return kwargs
+        return {**kwargs, "timeout": max(remaining, 0.001)}
+
+    def _retry_or_raise(
+        self,
+        error: Exception,
+        *,
+        attempts: int,
+        retries: int,
+        deadline: float | None,
+    ) -> str:
+        setattr(error, "provider_attempts", attempts)
+        retry_kind = _retryable_provider_error(error)
+        if retry_kind is None or retries >= self.max_retries:
+            raise error
+        remaining = self._remaining_seconds(deadline)
+        if remaining is not None and remaining <= 0:
+            setattr(error, "provider_deadline_exhausted", True)
+            raise error
+        setattr(error, "provider_retry_kind", retry_kind)
+        self.ledger.record_provider_retry(retry_kind)
+        if isinstance(error, json.JSONDecodeError):
+            self.ledger.record_response_parse_retry()
+        return retry_kind
 
     def invoke(
         self,
@@ -165,19 +263,38 @@ class JSONResponseRetryModel(Runnable[Any, Any]):
         config: RunnableConfig | None = None,
         **kwargs: Any,
     ) -> Any:
+        self.ledger.preflight()
+        deadline = (
+            time.monotonic() + self.request_timeout_seconds
+            if self.request_timeout_seconds is not None
+            else None
+        )
+        attempts = 0
+        retries = 0
         parse_failures = 0
         while True:
+            attempts += 1
             try:
-                response = self.model.invoke(input, config=config, **kwargs)
-            except json.JSONDecodeError as exc:
-                parse_failures += 1
-                setattr(exc, "provider_attempts", parse_failures)
-                if parse_failures > self.max_retries:
-                    raise
-                self.ledger.record_response_parse_retry()
+                response = self.model.invoke(
+                    input,
+                    config=config,
+                    **self._attempt_kwargs(kwargs, deadline),
+                )
+            except Exception as exc:
+                self._retry_or_raise(
+                    exc,
+                    attempts=attempts,
+                    retries=retries,
+                    deadline=deadline,
+                )
+                retries += 1
+                if isinstance(exc, json.JSONDecodeError):
+                    parse_failures += 1
                 continue
             if parse_failures:
                 self.ledger.record_response_parse_recovery()
+            if retries:
+                self.ledger.record_provider_retry_recovery()
             return response
 
     async def ainvoke(
@@ -186,19 +303,44 @@ class JSONResponseRetryModel(Runnable[Any, Any]):
         config: RunnableConfig | None = None,
         **kwargs: Any,
     ) -> Any:
+        self.ledger.preflight()
+        deadline = (
+            time.monotonic() + self.request_timeout_seconds
+            if self.request_timeout_seconds is not None
+            else None
+        )
+        attempts = 0
+        retries = 0
         parse_failures = 0
         while True:
+            attempts += 1
             try:
-                response = await self.model.ainvoke(input, config=config, **kwargs)
-            except json.JSONDecodeError as exc:
-                parse_failures += 1
-                setattr(exc, "provider_attempts", parse_failures)
-                if parse_failures > self.max_retries:
-                    raise
-                self.ledger.record_response_parse_retry()
+                attempt = self.model.ainvoke(
+                    input,
+                    config=config,
+                    **self._attempt_kwargs(kwargs, deadline),
+                )
+                remaining = self._remaining_seconds(deadline)
+                response = (
+                    await asyncio.wait_for(attempt, timeout=max(remaining, 0.001))
+                    if remaining is not None
+                    else await attempt
+                )
+            except Exception as exc:
+                self._retry_or_raise(
+                    exc,
+                    attempts=attempts,
+                    retries=retries,
+                    deadline=deadline,
+                )
+                retries += 1
+                if isinstance(exc, json.JSONDecodeError):
+                    parse_failures += 1
                 continue
             if parse_failures:
                 self.ledger.record_response_parse_recovery()
+            if retries:
+                self.ledger.record_provider_retry_recovery()
             return response
 
     def bind_tools(self, tools: Any, **kwargs: Any) -> "JSONResponseRetryModel":
@@ -206,6 +348,7 @@ class JSONResponseRetryModel(Runnable[Any, Any]):
             self.model.bind_tools(tools, **kwargs),
             self.ledger,
             self.max_retries,
+            self.request_timeout_seconds,
         )
 
 
@@ -228,6 +371,16 @@ def create_budgeted_chat_model(
     callbacks: list[Any] | None = None,
     **model_kwargs: Any,
 ) -> JSONResponseRetryModel:
+    provider_max_retries = int(model_kwargs.get("max_retries", 0) or 0)
+    raw_timeout = model_kwargs.get(
+        "request_timeout",
+        model_kwargs.get("timeout"),
+    )
+    request_timeout_seconds = (
+        float(raw_timeout)
+        if isinstance(raw_timeout, int | float)
+        else None
+    )
     callback = OnlineBudgetCallback(
         ledger_path=budget_ledger_path,
         max_model_requests=budget_max_model_requests,
@@ -243,14 +396,16 @@ def create_budgeted_chat_model(
         max_environments=budget_max_environments,
         max_commands=budget_max_commands,
         max_wall_clock_seconds=budget_max_wall_clock_seconds,
+        preflight_on_start=False,
     )
     chat_model = ChatOpenAI(
         model=model,
         callbacks=[*(callbacks or []), callback],
-        **model_kwargs,
+        **{**model_kwargs, "max_retries": 0},
     )
     return JSONResponseRetryModel(
         chat_model,
         callback.ledger,
-        int(model_kwargs.get("max_retries", 0) or 0),
+        provider_max_retries,
+        request_timeout_seconds,
     )

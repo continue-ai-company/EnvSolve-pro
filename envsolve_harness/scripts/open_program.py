@@ -31,6 +31,19 @@ _EMBEDDED_FILE_WRITE = re.compile(
     """,
     re.IGNORECASE | re.DOTALL | re.VERBOSE,
 )
+_SYMLINK_COMMAND = re.compile(
+    r"(?:^|(?:&&|\|\||[;|])\s*|\bthen\s+)\s*"
+    r"ln\s+(?P<arguments>[^;&|]+)",
+)
+_IMPORT_SEARCH_PATH_TOKENS = (
+    "site-packages",
+    "dist-packages",
+    "site_packages",
+    "sitepackages",
+    "getsitepackages",
+    "purelib",
+    "platlib",
+)
 
 
 def _normalized_shell_target(value: str) -> str:
@@ -77,6 +90,50 @@ def _embedded_import_artifact_write(script: str) -> tuple[str, str] | None:
     return None
 
 
+def _symbolic_link_import_alias(script: str) -> tuple[str, str] | None:
+    import_path_variables = {
+        match.group("name").lower()
+        for match in re.finditer(
+            r"(?m)^\s*(?P<name>[A-Za-z_][A-Za-z0-9_]*)=(?P<value>[^\n]+)$",
+            script,
+        )
+        if any(
+            token in match.group("value").lower()
+            for token in _IMPORT_SEARCH_PATH_TOKENS
+        )
+    }
+    for line in script.splitlines():
+        for match in _SYMLINK_COMMAND.finditer(line):
+            tokens = re.findall(
+                r"\"[^\"\n]+\"|'[^'\n]+'|[^\s]+",
+                match.group("arguments"),
+            )
+            options = [token for token in tokens if token.startswith("-")]
+            symbolic = any(
+                token in {"--symbolic", "--symbolic-link"}
+                or (
+                    token.startswith("-")
+                    and not token.startswith("--")
+                    and "s" in token[1:]
+                )
+                for token in options
+            )
+            operands = [token for token in tokens if not token.startswith("-")]
+            if not symbolic or len(operands) < 2:
+                continue
+            destination = _normalized_shell_target(operands[-1])
+            lowered = destination.lower()
+            variable_target = any(
+                f"${name}" in lowered or f"${{{name}}}" in lowered
+                for name in import_path_variables
+            )
+            if variable_target or any(
+                token in lowered for token in _IMPORT_SEARCH_PATH_TOKENS
+            ):
+                return line.strip(), destination
+    return None
+
+
 class OpenCandidateProgramValidator:
     """Admit complete shell programs; execution effects determine validity."""
 
@@ -94,8 +151,9 @@ for commands that run after it.
 Environment-path configuration may expose real repository or installed artifacts,
 but must not point to synthetic modules or shadow the executable goal.
 Do not directly create or copy Python import artifacts such as `.py`, `.pyi`, `.pth`,
-or `.so` files. Use repository build and package tools to materialize real artifacts;
-a temporary `setup.py` may be used only as a build driver.
+or `.so` files, and do not create import aliases by symlinking repository paths into
+Python package search directories. Use repository build and package tools to
+materialize real artifacts; a temporary `setup.py` may be used only as a build driver.
 
 Shell syntax is not restricted to a command schema. Safety and correctness are
 decided by isolated execution, repository-effect audit, and executable postconditions.
@@ -145,6 +203,18 @@ decided by isolated execution, repository-effect audit, and executable postcondi
                 reason=(
                     "candidate program embeds code that materializes an "
                     "importable artifact"
+                ),
+                details={"line": line, "target": target},
+            )
+        import_alias = _symbolic_link_import_alias(script)
+        if import_alias is not None:
+            line, target = import_alias
+            return CandidateValidation(
+                False,
+                self.policy_id,
+                reason=(
+                    "candidate program creates a symbolic link in a Python "
+                    "import search directory"
                 ),
                 details={"line": line, "target": target},
             )

@@ -211,15 +211,64 @@ def audit_run(run_root: Path) -> AuditReport:
                     report.error("Online budget pricing does not match the run manifest")
                 launcher = solver_metadata.get("launcher")
                 envsolve_model_backed = (
-                    isinstance(launcher, dict)
-                    and launcher.get("runner") == "envsolve-p6"
+                    (
+                        isinstance(launcher, dict)
+                        and launcher.get("runner") == "envsolve-p6"
+                    )
+                    or solver_metadata.get("runner") in {
+                        "envsolve-p6",
+                        "envsolve-episode",
+                    }
                 )
                 if envsolve_model_backed:
                     usage = persisted_budget.get("usage") or {}
+                    provider_attempts = persisted_budget.get(
+                        "provider_attempts"
+                    )
+                    attempt_trace_required = (
+                        persisted_budget.get("schema_version") == "1.1.0"
+                    )
+                    attempt_trace_valid = (
+                        isinstance(provider_attempts, list)
+                        and len(provider_attempts)
+                        >= int(usage.get("requests_started", 0))
+                    )
+                    report.checks["provider_attempt_trace_valid"] = (
+                        attempt_trace_valid
+                        if attempt_trace_required
+                        else True
+                    )
+                    if attempt_trace_required and not attempt_trace_valid:
+                        report.error(
+                            "Model-backed EnvSolve run lacks a complete provider "
+                            "attempt trace"
+                        )
+                    in_progress_attempts = (
+                        sum(
+                            isinstance(item, dict)
+                            and item.get("outcome") == "in_progress"
+                            for item in provider_attempts
+                        )
+                        if isinstance(provider_attempts, list)
+                        else 0
+                    )
+                    completed_or_failed_attempt = (
+                        int(usage.get("responses_completed", 0))
+                        + int(usage.get("request_errors", 0))
+                    ) >= 1
                     model_usage_present = (
                         int(usage.get("requests_started", 0)) >= 1
-                        and int(usage.get("responses_completed", 0)) >= 1
-                        and int(usage.get("total_tokens", 0)) > 0
+                        and (
+                            completed_or_failed_attempt
+                            or in_progress_attempts >= 1
+                        )
+                        and (
+                            solver.get("generation_completed") is not True
+                            or (
+                                int(usage.get("responses_completed", 0)) >= 1
+                                and int(usage.get("total_tokens", 0)) > 0
+                            )
+                        )
                     )
                     report.checks["envsolve_model_usage_present"] = model_usage_present
                     if not model_usage_present:
@@ -227,8 +276,7 @@ def audit_run(run_root: Path) -> AuditReport:
                             "Model-backed EnvSolve run has no auditable model usage"
                         )
                     requires_finalized_budget = (
-                        solver_metadata.get("runner") == "envsolve-episode"
-                        and solver_metadata.get("runner_version") == "0.2.0"
+                        solver.get("generation_completed") is True
                     )
                     if requires_finalized_budget:
                         finalized = isinstance(

@@ -266,3 +266,17 @@ example is an SDK request that performed multiple hidden transport retries while
 ledger counted one model request. The outer system must first separate transport
 attempts, model calls, candidate executions, and Unknown outcomes before diagnosing an
 inner algorithm gap.
+
+The five-case evidence-anchor qualification adds two concrete outer-loop training
+examples. First, two methods obtained Official Pass on Starsim through a symlink import
+alias, so an outer proposal must distinguish leaderboard success from integrity-valid
+capability and produce a generic alias counterexample. Second, ILAMB repeatedly reached
+small finding deltas only after replaying a large installation prefix, motivating a
+versioned Operation-layer proposal rather than another package rule. Both examples must
+remain typed, consumed development evidence and require independent shadow promotion.
+
+Resource-ledger v1.1 supplies the acquisition boundary: every logical model call owns
+an ordered transport-attempt trace with start, finish, duration, outcome, status, retry
+reason, and incomplete state. Auto-EnvSolve may diagnose provider infrastructure only
+from completed transport evidence; an in-progress attempt at an experimenter
+interruption is censoring evidence, not proof that the provider failed.

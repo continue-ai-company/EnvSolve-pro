@@ -157,6 +157,39 @@ class BudgetLedgerTest(unittest.TestCase):
             self.assertEqual(snapshot["usage"]["environments"], 1)
             self.assertEqual(snapshot["usage"]["commands"], 1)
 
+    def test_in_progress_provider_attempt_survives_ledger_resume(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first = self.make_ledger(
+                root,
+                requests=10,
+                tokens=1_000_000,
+            )
+            first.preflight()
+            first.record_provider_attempt_start("attempt-1")
+
+            resumed = self.make_ledger(
+                root,
+                requests=10,
+                tokens=1_000_000,
+            )
+            snapshot = resumed.snapshot()
+
+            self.assertEqual(snapshot["schema_version"], "1.1.0")
+            self.assertEqual(snapshot["usage"]["requests_started"], 1)
+            self.assertEqual(
+                snapshot["provider_attempts"],
+                [
+                    {
+                        "attempt_id": "attempt-1",
+                        "started_at": snapshot["provider_attempts"][0]["started_at"],
+                        "finished_at": None,
+                        "duration_seconds": None,
+                        "outcome": "in_progress",
+                    }
+                ],
+            )
+
     def test_finalize_persists_terminal_wall_time_and_closes_the_ledger(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

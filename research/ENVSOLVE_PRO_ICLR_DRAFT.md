@@ -171,8 +171,21 @@ conditioned on an initial failure, attempts to success, clean replay, and Unknow
 Tokens, model requests, candidate environments, commands, and wall-clock time characterize
 efficiency and success-resource trade-offs. Network and provider incidents are reported
 as censored infrastructure outcomes rather than algorithm failures.
+Logical model calls and provider transport attempts are reported separately.
 
 For EnvBench Python, the public goal is successful bootstrap followed by zero
 `reportMissingImports`; the official implementation remains terminal-only. The same goal
 contract is supplied to all goal-aware controlled methods. Final tables will be produced
 only after code, prompts, goal contracts, split identities, and analysis rules are frozen.
+
+### Current Development Evidence
+
+A frozen five-case development qualification does not yet establish a success-rate
+advantage. The two integrity-valid pairs completed by both methods passed under both
+explicit state and raw history; explicit state showed lower search burden, but the sample
+is too small and provider timing is too variable for an efficiency claim. More
+importantly, the batch exposed two general bottlenecks: small verified repairs repeatedly
+replay expensive installation prefixes, and a symlink can create a synthetic import
+alias that satisfies the surface goal. We therefore harden the integrity boundary before
+testing immutable verified-prefix branching as an Operation-layer mechanism. All final
+programs remain subject to clean full replay.
