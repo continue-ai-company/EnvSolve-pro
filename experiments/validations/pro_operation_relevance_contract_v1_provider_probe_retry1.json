@@ -1,0 +1,64 @@
+{
+  "claim_scope": "Synthetic provider/output compatibility only.",
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "envsolve-pro-operation-contract-provider-v1",
+  "request": {
+    "model": "deepseek/deepseek-v4-pro",
+    "official_evaluator_context": false,
+    "repository_context": false,
+    "requests": 1,
+    "response_format": "json_object",
+    "seed": 0,
+    "temperature": 0
+  },
+  "result": {
+    "candidates": [
+      {
+        "candidate_id": "candidate-0001",
+        "expected_resolution_count": 1,
+        "operation_contract_id": "operation-contract-ca8a160d5f2b9af3507f",
+        "operation_family_id": "operation-family-7202dd6da5a8c3747eb0",
+        "precondition_evidence_count": 2,
+        "script_sha256": "1a11dc647eb66ad81a65aa4c353f3940e7a0ba340534980557da6c57d9b6f7c7",
+        "target_count": 1
+      }
+    ],
+    "errors": [],
+    "parsed_candidates": 1,
+    "qualified": true,
+    "responses": [
+      {
+        "finish_reason": "stop",
+        "input_tokens": 1468,
+        "output_tokens": 6899,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 6621,
+        "status": "completed"
+      }
+    ],
+    "usage": {
+      "cache_read_tokens": 1408,
+      "candidates": 0,
+      "commands": 0,
+      "elapsed_wall_clock_seconds": 111.843924,
+      "environments": 0,
+      "estimated_cost_usd": 0.006033334,
+      "input_tokens": 1468,
+      "output_tokens": 6899,
+      "provider_retries": 0,
+      "provider_retry_reasons": {},
+      "provider_retry_recoveries": 0,
+      "request_errors": 0,
+      "requests_started": 1,
+      "response_parse_recoveries": 0,
+      "response_parse_retries": 0,
+      "responses_completed": 1,
+      "total_tokens": 8367
+    }
+  },
+  "schema_version": "1.0.0"
+}

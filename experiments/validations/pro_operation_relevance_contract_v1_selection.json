@@ -1,0 +1,25 @@
+{
+  "algorithm": "ascending SHA256(salt + NUL + repository@revision)",
+  "eligible_repositories": 91,
+  "exclusions": "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl",
+  "exclusions_sha256": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
+  "preregistration": "experiments/validations/pro_operation_relevance_contract_v1_preregistration.json",
+  "preregistration_sha256": "f5a19eb4033f0c3ee07463d937f20bbfc686cd2f4439afdd08b6cffc27d74437",
+  "provider_closure": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_closure.json",
+  "provider_closure_sha256": "f1a93b8d87f19c9566d2bac1b3d41e42bd47870b20cd8cb96a5b482d486924a6",
+  "remaining_path": "experiments/cases/train_untouched_after_pro_operation_relevance_contract_v1_86.jsonl",
+  "remaining_sha256": "c1d02f8bd156d2b54245519660cd42414dfc9db6189043c65a204f91d12b3b1f",
+  "salt": "d00539b:operation-relevance-contract-qv1",
+  "schema_version": "1.0.0",
+  "selected_case_ids": [
+    "envbench-python-google__trax@14514794eb03247c3a4426032607e1f7547e6f63",
+    "envbench-python-libensemble__libensemble@99934db94cac472649d4e452da20123d51e8cee1",
+    "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+    "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+    "envbench-python-ubernostrum__django-registration@dc80d4e3f90d64d12c35a6c494aa1ec9b36a1705"
+  ],
+  "selected_path": "experiments/cases/dev_pro_operation_relevance_contract_v1_5.jsonl",
+  "selected_sha256": "17b0e16523389f3bede14987a78bc2c9a86d05251e4d05e8d672b9d07f0de1c6",
+  "source": "experiments/cases/train_untouched_after_pro_trajectory_census_replication_v1_96.jsonl",
+  "source_sha256": "8c00f9012821eb67b1035807fef2cb2274d580da954c55f258f72eb7642d8240"
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1",
+  "closure_id": "provider-probe-closure-v1",
+  "status": "qualified-after-preregistered-infrastructure-retry",
+  "closed_at": "2026-07-27",
+  "claim_scope": "Synthetic provider and operation-contract output compatibility only.",
+  "amendment": {
+    "path": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_infrastructure_amendment.json",
+    "sha256": "57aafac7d91d1c82c1c0506074995a92e57dd1b70c2683743481e0b1c41604e5"
+  },
+  "sources": [
+    {
+      "path": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe.json",
+      "sha256": "542beb2435e59a2f0a836fb23107a86d7103181fffa07607980c982e7c261cb9",
+      "requested_responses": 3,
+      "completed_responses": 2,
+      "parsed_candidates": 2,
+      "request_errors": 1,
+      "error_types": [
+        "APITimeoutError"
+      ]
+    },
+    {
+      "path": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_retry1.json",
+      "sha256": "cf76950976169f1a5a57b968aa6f8e3173dce692358d206a8bbe2f57791e91eb",
+      "requested_responses": 1,
+      "completed_responses": 1,
+      "parsed_candidates": 1,
+      "request_errors": 0,
+      "error_types": []
+    }
+  ],
+  "result": {
+    "qualified": true,
+    "required_normal_parsed_responses": 3,
+    "normal_parsed_responses": 3,
+    "policy_contract_failures": 0,
+    "infrastructure_censored_requests": 1,
+    "censored_request_retried": true
+  },
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false,
+    "repository_identity_opened": false,
+    "official_evaluator_accessed": false
+  }
+}

@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 
-import pytest
-
 from experiments.tools import (
+    build_pro_operation_relevance_contract_v1_schedule as schedule_builder,
     select_pro_operation_relevance_contract_v1 as selector,
 )
 
@@ -19,6 +19,10 @@ FREEZE = (
 PREREGISTRATION = (
     ROOT
     / "experiments/validations/pro_operation_relevance_contract_v1_preregistration.json"
+)
+AMENDMENT = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_infrastructure_amendment.json"
 )
 
 
@@ -60,14 +64,110 @@ def test_preregistration_binds_inputs_before_case_selection() -> None:
     )
 
 
-def test_selection_remains_closed_until_provider_probe_qualifies() -> None:
-    for output in (
-        selector.SELECTED,
-        selector.REMAINING,
-        selector.PROVENANCE,
-    ):
-        assert not output.exists()
-    assert not selector.PROVIDER_PROBE.exists()
+def test_provider_closure_matches_preregistered_infrastructure_retry() -> None:
+    closure = json.loads(
+        selector.PROVIDER_CLOSURE.read_text(encoding="utf-8")
+    )
+    amendment = json.loads(AMENDMENT.read_text(encoding="utf-8"))
+    completed = 0
+    parsed = 0
+    request_errors = 0
 
-    with pytest.raises(RuntimeError, match="Provider-format probe"):
-        selector.main()
+    assert closure["result"] == {
+        "qualified": True,
+        "required_normal_parsed_responses": 3,
+        "normal_parsed_responses": 3,
+        "policy_contract_failures": 0,
+        "infrastructure_censored_requests": 1,
+        "censored_request_retried": True,
+    }
+    assert closure["amendment"]["sha256"] == _sha256(AMENDMENT)
+    assert (
+        amendment["combined_gate"]["closure_output"]
+        == str(selector.PROVIDER_CLOSURE.relative_to(ROOT))
+    )
+    for source in closure["sources"]:
+        source_path = ROOT / source["path"]
+        probe = json.loads(source_path.read_text(encoding="utf-8"))
+        assert _sha256(source_path) == source["sha256"]
+        assert (
+            probe["result"]["usage"]["responses_completed"]
+            == source["completed_responses"]
+        )
+        assert (
+            probe["result"]["parsed_candidates"]
+            == source["parsed_candidates"]
+        )
+        assert (
+            probe["result"]["usage"]["request_errors"]
+            == source["request_errors"]
+        )
+        assert sorted(
+            error["error_type"] for error in probe["result"]["errors"]
+        ) == sorted(source["error_types"])
+        assert probe["privacy"]["api_key_persisted"] is False
+        completed += source["completed_responses"]
+        parsed += source["parsed_candidates"]
+        request_errors += source["request_errors"]
+    assert completed == parsed == 3
+    assert request_errors == 1
+
+
+def _read_jsonl(path: Path) -> list[dict[str, object]]:
+    return [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+
+def test_selected_and_remaining_cases_preserve_repository_partition() -> None:
+    selected = _read_jsonl(selector.SELECTED)
+    remaining = _read_jsonl(selector.REMAINING)
+    excluded = _read_jsonl(selector.EXCLUSIONS)
+    provenance = json.loads(selector.PROVENANCE.read_text(encoding="utf-8"))
+
+    selected_repositories = {str(row["repository"]) for row in selected}
+    remaining_repositories = {str(row["repository"]) for row in remaining}
+    excluded_repositories = {str(row["repository"]) for row in excluded}
+    assert len(selected) == len(selected_repositories) == 5
+    assert len(remaining) == len(remaining_repositories) == 86
+    assert selected_repositories.isdisjoint(remaining_repositories)
+    assert selected_repositories.isdisjoint(excluded_repositories)
+    assert remaining_repositories.isdisjoint(excluded_repositories)
+    assert provenance["selected_sha256"] == _sha256(selector.SELECTED)
+    assert provenance["remaining_sha256"] == _sha256(selector.REMAINING)
+    assert (
+        provenance["provider_closure_sha256"]
+        == _sha256(selector.PROVIDER_CLOSURE)
+    )
+
+
+def test_schedule_is_a_complete_deterministic_pairing() -> None:
+    schedule = json.loads(
+        schedule_builder.OUTPUT.read_text(encoding="utf-8")
+    )
+    episodes = schedule["episodes"]
+
+    assert len(episodes) == 10
+    assert schedule["case_file_sha256"] == _sha256(selector.SELECTED)
+    assert schedule["selection_provenance_sha256"] == _sha256(
+        selector.PROVENANCE
+    )
+    assert [episode["position"] for episode in episodes] == list(range(1, 11))
+    case_counts = Counter(str(episode["case_id"]) for episode in episodes)
+    assert set(case_counts.values()) == {2}
+    for case_id in case_counts:
+        pair = [
+            episode
+            for episode in episodes
+            if episode["case_id"] == case_id
+        ]
+        assert {episode["condition"] for episode in pair} == {
+            "frozen-fresh-control",
+            "operation-contract-v1",
+        }
+        assert {episode["runner"] for episode in pair} == {
+            "envsolve",
+            "envsolve-pro",
+        }

@@ -1,0 +1,95 @@
+{
+  "claim_scope": "Synthetic provider/output compatibility only.",
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "envsolve-pro-operation-contract-provider-v1",
+  "request": {
+    "model": "deepseek/deepseek-v4-pro",
+    "official_evaluator_context": false,
+    "repository_context": false,
+    "requests": 3,
+    "response_format": "json_object",
+    "seed": 0,
+    "temperature": 0
+  },
+  "result": {
+    "candidates": [
+      {
+        "candidate_id": "candidate-0001",
+        "expected_resolution_count": 1,
+        "operation_contract_id": "operation-contract-844e69e1bc5b21b69206",
+        "operation_family_id": "operation-family-42f91e49d943732e6914",
+        "precondition_evidence_count": 3,
+        "script_sha256": "bd89108080b338a93fb66024d4393bbc0f18a0f09b7c3a424fa9991e728ae491",
+        "target_count": 1
+      },
+      {
+        "candidate_id": "candidate-0002",
+        "expected_resolution_count": 1,
+        "operation_contract_id": "operation-contract-f77c16d5ef06c2c7fe13",
+        "operation_family_id": "operation-family-dfef991d725078a92b0e",
+        "precondition_evidence_count": 3,
+        "script_sha256": "861c06433b13fba15bbd61114c0556ff7bb333ad97fbc1f50180be449dec9a0b",
+        "target_count": 1
+      }
+    ],
+    "errors": [
+      {
+        "error_message_sha256": "98123ccc69040363d9434252c4fad917e2548c4123cc330f2d891bdc4eb30865",
+        "error_type": "APITimeoutError"
+      }
+    ],
+    "parsed_candidates": 2,
+    "qualified": false,
+    "responses": [
+      {
+        "error_type": "APITimeoutError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "finish_reason": "stop",
+        "input_tokens": 1468,
+        "output_tokens": 2628,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 2436,
+        "status": "completed"
+      },
+      {
+        "finish_reason": "stop",
+        "input_tokens": 1471,
+        "output_tokens": 3088,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 2807,
+        "status": "completed"
+      }
+    ],
+    "usage": {
+      "cache_read_tokens": 0,
+      "candidates": 0,
+      "commands": 0,
+      "elapsed_wall_clock_seconds": 397.010134,
+      "environments": 0,
+      "estimated_cost_usd": 0.006251385,
+      "input_tokens": 2939,
+      "output_tokens": 5716,
+      "provider_retries": 0,
+      "provider_retry_reasons": {},
+      "provider_retry_recoveries": 0,
+      "request_errors": 1,
+      "requests_started": 3,
+      "response_parse_recoveries": 0,
+      "response_parse_retries": 0,
+      "responses_completed": 2,
+      "total_tokens": 8655
+    }
+  },
+  "schema_version": "1.0.0"
+}

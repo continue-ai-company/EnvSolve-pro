@@ -27,9 +27,9 @@ PREREGISTRATION = (
     ROOT
     / "experiments/validations/pro_operation_relevance_contract_v1_preregistration.json"
 )
-PROVIDER_PROBE = (
+PROVIDER_CLOSURE = (
     ROOT
-    / "experiments/validations/pro_operation_relevance_contract_v1_provider_probe.json"
+    / "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_closure.json"
 )
 PROVENANCE = (
     ROOT
@@ -74,11 +74,11 @@ def main() -> int:
         raise RuntimeError("Consumed exclusion set hash changed")
     if not PREREGISTRATION.is_file():
         raise RuntimeError("Study must be preregistered before selection")
-    if not PROVIDER_PROBE.is_file():
-        raise RuntimeError("Provider-format probe must pass before selection")
-    probe = json.loads(PROVIDER_PROBE.read_text(encoding="utf-8"))
-    if probe.get("result", {}).get("qualified") is not True:
-        raise RuntimeError("Provider-format probe is not qualified")
+    if not PROVIDER_CLOSURE.is_file():
+        raise RuntimeError("Provider-format closure must pass before selection")
+    closure = json.loads(PROVIDER_CLOSURE.read_text(encoding="utf-8"))
+    if closure.get("result", {}).get("qualified") is not True:
+        raise RuntimeError("Provider-format closure is not qualified")
     for output in (SELECTED, REMAINING, PROVENANCE):
         if output.exists():
             raise RuntimeError(
@@ -134,8 +134,8 @@ def main() -> int:
         "schema_version": "1.0.0",
         "preregistration": str(PREREGISTRATION.relative_to(ROOT)),
         "preregistration_sha256": sha256(PREREGISTRATION),
-        "provider_probe": str(PROVIDER_PROBE.relative_to(ROOT)),
-        "provider_probe_sha256": sha256(PROVIDER_PROBE),
+        "provider_closure": str(PROVIDER_CLOSURE.relative_to(ROOT)),
+        "provider_closure_sha256": sha256(PROVIDER_CLOSURE),
         "source": str(SOURCE.relative_to(ROOT)),
         "source_sha256": EXPECTED_SOURCE_SHA256,
         "exclusions": str(EXCLUSIONS.relative_to(ROOT)),

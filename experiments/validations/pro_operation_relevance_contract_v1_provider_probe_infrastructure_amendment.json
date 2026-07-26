@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1",
+  "amendment_id": "provider-probe-infrastructure-retry1",
+  "status": "frozen-before-retry",
+  "frozen_at": "2026-07-27",
+  "trigger": {
+    "original_probe": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe.json",
+    "original_probe_sha256": "542beb2435e59a2f0a836fb23107a86d7103181fffa07607980c982e7c261cb9",
+    "requested_responses": 3,
+    "parsed_candidates": 2,
+    "completed_responses": 2,
+    "request_errors": 1,
+    "error_type": "APITimeoutError",
+    "timeout_seconds": 300,
+    "repository_identity_opened": false,
+    "official_evaluator_accessed": false
+  },
+  "classification": "infrastructure-censored provider request with no response content",
+  "retry": {
+    "requests": 1,
+    "script": "experiments/probe_operation_contract_provider.py",
+    "script_sha256": "187d186092724567adf03d2a02fa72e09b9bd93bdc658f2ca62ca173ef2f16c1",
+    "config": "experiments/configs/local_mac_pro_operation_relevance_v1.json",
+    "config_sha256": "61f11c16f7340268c27544e4001e6a171149595f5938dff175cf4fa0a5bc11c6",
+    "model": "deepseek/deepseek-v4-pro",
+    "temperature": 0,
+    "seed": 0,
+    "output": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_retry1.json"
+  },
+  "combined_gate": {
+    "qualified_if": "The immutable original contributes exactly two normal parsed responses, retry1 contributes exactly one normal parsed response, and neither completed response set contains a policy-contract failure.",
+    "closure_output": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_closure.json",
+    "case_selection_requires_qualified_closure": true
+  },
+  "forbidden_changes": [
+    "algorithm",
+    "prompt",
+    "parser",
+    "model",
+    "reasoning effort",
+    "output token limit",
+    "request timeout",
+    "repository selection"
+  ]
+}
