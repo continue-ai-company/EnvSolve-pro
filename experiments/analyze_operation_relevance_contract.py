@@ -298,7 +298,7 @@ def _aggregate_condition(
     )
     resource_totals = {
         key: sum(
-            float(run["resources"].get(key) or 0)
+            run["resources"].get(key) or 0
             for run in selected
             if isinstance(run.get("resources"), dict)
         )
