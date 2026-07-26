@@ -18,8 +18,11 @@
     "envsolve_harness/runners/envsolve_p6.py": "ba621f092ea04fa4f73e0cadef130e098e6629a2052f7643085358ec5fe1b4cc",
     "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
     "experiments/configs/local_mac_pro_postcondition_persistent_v1.json": "e8312276ebb8d8972e7e17d639e49aa21a3aab2ea5f61a0d73c98ce7a69fdc3a",
-    "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json": "beaa41cbc9bdd6043d1519bfb2d575b5d32d7a7ee7989967465440482859c253",
-    "experiments/validations/pro_postcondition_persistent_qualification_v1_schedule.json": "2e3ed8633154f4cceaf77103be6513a16317acffeeb460aec75c35fcf2c4505b",
+    "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json": "e3a03b108e5aed2797c30f9cb419b2ba56cd0aec228f93bb693be73c20f300be",
+    "experiments/validations/pro_postcondition_persistent_qualification_v1_schedule.json": "e730a47364d5fd78555e6dd74f1432e476bff472ecbc29fd65ea76ddba5cb70a",
+    "envsolve_harness/persistent_state_analysis.py": "4af65ae9f80c23d61d64def4b36e1090f559c207bb02f044178e7980b54eecf0",
+    "experiments/analyze_postcondition_persistent.py": "f8db6fe556c8c5060a362bc7d59af81a3e8d5fbaa7de4bfa7d814d654fbd5fe1",
+    "tests/test_persistent_state_analysis.py": "ed8d0db41088233aedf15a5eacd053efb25d46f032182ca1c1cfdba581406e66",
     "tests/test_pro_postcondition_persistent_qualification.py": "161bad5cc647e47f4acdbd66ba96c55b7bfec47799ae95e1a179238339f993c9"
   },
   "semantic_boundary": {
@@ -81,6 +84,7 @@
     "focused_algorithm_and_runner_tests": "101 passed, 8 subtests passed",
     "full_regression_before_algorithm_commit": "557 passed, 2 skipped, 75 subtests passed",
     "qualification_integrity_tests": "4 passed",
+    "frozen_analysis_tests": "5 passed",
     "schedule_schema_validation": "valid",
     "static_analysis": "ruff check passed",
     "secret_scan": "no matching key or private-key material"

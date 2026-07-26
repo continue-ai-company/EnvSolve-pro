@@ -122,6 +122,12 @@
     "host_policy": "Mac is the initial host; another validated host may execute whole case blocks under the identical commit, config semantics, image, and protocol."
   },
   "analysis": {
+    "frozen_script": "experiments/analyze_postcondition_persistent.py",
+    "frozen_script_sha256": "f8db6fe556c8c5060a362bc7d59af81a3e8d5fbaa7de4bfa7d814d654fbd5fe1",
+    "analysis_module": "envsolve_harness/persistent_state_analysis.py",
+    "analysis_module_sha256": "4af65ae9f80c23d61d64def4b36e1090f559c207bb02f044178e7980b54eecf0",
+    "analysis_tests": "tests/test_persistent_state_analysis.py",
+    "analysis_tests_sha256": "ed8d0db41088233aedf15a5eacd053efb25d46f032182ca1c1cfdba581406e66",
     "primary_contrast": "persistent-explicit versus fresh-explicit",
     "secondary_contrast": "persistent-explicit versus persistent-raw",
     "primary_metric": "Official Pass@1",

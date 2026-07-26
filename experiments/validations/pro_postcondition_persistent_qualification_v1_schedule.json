@@ -5,7 +5,7 @@
   "bound_at": "2026-07-25",
   "claim_scope": "repository-disjoint development qualification",
   "preregistration": "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json",
-  "preregistration_sha256": "beaa41cbc9bdd6043d1519bfb2d575b5d32d7a7ee7989967465440482859c253",
+  "preregistration_sha256": "e3a03b108e5aed2797c30f9cb419b2ba56cd0aec228f93bb693be73c20f300be",
   "implementation_freeze": "8104851b0ca7281bab75fcbf79afa00238d3034c",
   "case_file": "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl",
   "case_file_sha256": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
