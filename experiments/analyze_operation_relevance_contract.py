@@ -97,6 +97,20 @@ def _goal_report(event: dict[str, Any]) -> dict[str, Any] | None:
     return report if isinstance(report, dict) else None
 
 
+def _active_finding_ids(event: dict[str, Any]) -> set[str] | None:
+    report = _goal_report(event)
+    if report is None or report.get("finding_set_complete") is not True:
+        return None
+    return {
+        str(finding["finding_id"])
+        for finding in report.get("findings", [])
+        if isinstance(finding, dict)
+        and isinstance(finding.get("finding_id"), str)
+        and finding.get("observed") is not None
+        and finding.get("observed") != finding.get("required")
+    }
+
+
 def _progress_status(
     contract: OperationRelevanceContract,
     verification: dict[str, Any] | None,
@@ -111,14 +125,9 @@ def _progress_status(
     report = _goal_report(verification)
     if report is None or report.get("finding_set_complete") is not True:
         return "unknown"
-    active = {
-        str(finding["finding_id"])
-        for finding in report.get("findings", [])
-        if isinstance(finding, dict)
-        and isinstance(finding.get("finding_id"), str)
-        and finding.get("observed") is not None
-        and finding.get("observed") != finding.get("required")
-    }
+    active = _active_finding_ids(verification)
+    if active is None:
+        return "unknown"
     expected = set(contract.expected_resolved_finding_ids)
     still_active = (expected & active) | {
         item for item in expected if item.startswith("goal:")
@@ -203,7 +212,13 @@ def mechanism_metrics(
         ] += 1
 
     policy_rejections = Counter()
+    unknown_target_audit = Counter()
+    latest_active_ids: set[str] | None = None
     for event in events:
+        if event.get("event_type") == "verification_recorded":
+            observed = _active_finding_ids(event)
+            if observed is not None:
+                latest_active_ids = observed
         if event.get("event_type") != "failure_recorded":
             continue
         payload = event.get("payload")
@@ -222,6 +237,19 @@ def mechanism_metrics(
         policy_rejections[
             str(reason or "invalid-or-unparseable-contract")
         ] += 1
+        if reason == "unknown-target":
+            raw_unknown = details.get("unknown_target_ids")
+            unknown = {
+                str(item)
+                for item in raw_unknown
+                if isinstance(item, str)
+            } if isinstance(raw_unknown, list) else set()
+            active = latest_active_ids or set()
+            unknown_target_audit["rejected_target_ids"] += len(unknown)
+            unknown_target_audit["active_but_unexposed_ids"] += len(
+                unknown & active
+            )
+            unknown_target_audit["not_active_ids"] += len(unknown - active)
 
     candidate_verifications = [
         event
@@ -261,6 +289,14 @@ def mechanism_metrics(
         "operation_contracts": contracts,
         "distinct_operation_families": len(set(family_ids)),
         "policy_rejections_by_reason": dict(sorted(policy_rejections.items())),
+        "unknown_target_rejection_audit": {
+            key: unknown_target_audit[key]
+            for key in (
+                "rejected_target_ids",
+                "active_but_unexposed_ids",
+                "not_active_ids",
+            )
+        },
         "suppression_events": sum(
             policy_rejections[reason] for reason in suppression_reasons
         ),
@@ -280,6 +316,7 @@ def _aggregate_condition(
 ) -> dict[str, Any]:
     selected = [run for run in runs if run["condition"] == condition]
     rejection_counts: Counter[str] = Counter()
+    unknown_target_counts: Counter[str] = Counter()
     progress_counts: Counter[str] = Counter()
     terminal_counts = Counter(
         str(run["descriptive_terminal"]) for run in selected
@@ -307,6 +344,9 @@ def _aggregate_condition(
     for run in selected:
         mechanism = run["mechanism"]
         rejection_counts.update(mechanism["policy_rejections_by_reason"])
+        unknown_target_counts.update(
+            mechanism["unknown_target_rejection_audit"]
+        )
         progress_counts.update(mechanism["progress_calibration"])
     return {
         "runs": len(selected),
@@ -336,6 +376,14 @@ def _aggregate_condition(
             run["mechanism"]["operation_contracts"] for run in selected
         ),
         "policy_rejections_by_reason": dict(sorted(rejection_counts.items())),
+        "unknown_target_rejection_audit": {
+            key: unknown_target_counts[key]
+            for key in (
+                "rejected_target_ids",
+                "active_but_unexposed_ids",
+                "not_active_ids",
+            )
+        },
         "suppression_events": sum(
             run["mechanism"]["suppression_events"] for run in selected
         ),

@@ -108,6 +108,30 @@ def test_mechanism_metrics_audit_grounding_progress_and_suppression() -> None:
     assert result["later_internal_goal_pass_observed"] is True
 
 
+def test_unknown_target_audit_separates_omission_from_hallucination() -> None:
+    events = [
+        _verification("candidate-0001", passed=False, observed=False),
+        {
+            "event_type": "failure_recorded",
+            "payload": {
+                "category": "candidate-policy-operation-contract",
+                "details": {
+                    "reason_code": "unknown-target",
+                    "unknown_target_ids": ["finding-a", "finding-invented"],
+                },
+            },
+        },
+    ]
+
+    result = mechanism_metrics(events, treatment=True)
+
+    assert result["unknown_target_rejection_audit"] == {
+        "rejected_target_ids": 2,
+        "active_but_unexposed_ids": 1,
+        "not_active_ids": 1,
+    }
+
+
 def test_mechanism_metrics_rejects_unexposed_evidence_reference() -> None:
     proposal = _proposal("candidate-0001")
     proposal["payload"]["metadata"]["operation_contract"][
@@ -156,6 +180,11 @@ def test_condition_aggregate_reports_terminal_reach_and_resources() -> None:
         "executed_candidates": 2,
         "operation_contracts": 2,
         "policy_rejections_by_reason": {},
+        "unknown_target_rejection_audit": {
+            "rejected_target_ids": 0,
+            "active_but_unexposed_ids": 0,
+            "not_active_ids": 0,
+        },
         "suppression_events": 0,
         "progress_calibration": {"met": 1, "not_met": 1, "unknown": 0},
         "later_internal_goal_pass_observed": True,
