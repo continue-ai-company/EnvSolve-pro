@@ -19,8 +19,9 @@ obligations while retaining uncertain repository inferences as hypotheses. An Op
 layer admits a resulting construction state as reusable, damaged, or unknown from
 executable postconditions. It exposes this state to a strong language model, which
 remains free to generate a complete deployment program rather than choosing from a
-closed action vocabulary. Reusable state accelerates repair search, but the exact final
-program is certified only after passing in a fresh environment.
+closed action vocabulary. Reusable state can carry verified partial progress into later
+repair, but the exact final program is certified only after passing in a fresh
+environment.
 
 We evaluate EnvSolve-Pro on repository deployment benchmarks against Repo2Run, native
 coding agents, and same-model agent loops. Controlled baselines receive the same public
@@ -192,18 +193,26 @@ only after code, prompts, goal contracts, split identities, and analysis rules a
 
 ### Current Development Evidence
 
-A frozen five-case development qualification does not yet establish a success-rate
-advantage. The two integrity-valid pairs completed by both methods passed under both
-explicit state and raw history; explicit state showed lower search burden, but the sample
-is too small and provider timing is too variable for an efficiency claim. More
-importantly, the batch exposed two general bottlenecks: small verified repairs repeatedly
-replay expensive installation prefixes, and a symlink can create a synthetic import
-alias that satisfies the surface goal. We therefore harden the integrity boundary before
-testing postcondition-verified state preservation and minimal state transformation as
-an Operation-layer mechanism. Two post-hoc external-agent trajectories independently
-showed that command status and resulting state differ; one timed-out transition left
-both useful and inconsistent state. We therefore freeze a minimal transition classifier:
-only postcondition-verified reusable state persists, while damaged and unknown state is
-released. The model still emits complete programs, and a construction Pass requires
-clean full replay. A repository-disjoint five-case, three-condition qualification is
-preregistered before execution.
+A preregistered repository-disjoint qualification compared postcondition-persistent
+explicit state, fresh explicit search, and postcondition-persistent raw history on five
+development repositories. All 15 episodes passed integrity and eligibility audits.
+Each condition achieved `4/5` Official Pass, passing the same repositories and failing
+the same one. This is a useful negative result: it demonstrates executable,
+postcondition-gated reuse, but not a success-rate gain.
+
+Persistent explicit state recorded six reused-construction verifications, and two reused
+lineages produced programs that later passed clean replay. Relative to persistent raw
+history, it used fewer candidates and tokens and roughly half the aggregate generation
+time. Relative to fresh explicit search, it used slightly fewer candidates and tokens
+but more wall-clock time because mandatory clean replay adds overhead on easy cases.
+With five repositories and one stochastic seed, these resource differences are
+diagnostic rather than an efficiency claim.
+
+The shared failure identifies a sharper Operation-layer problem. All methods reduced the
+goal to seven unresolved findings, then repeated infeasible build-tool paths or proposed
+integrity-invalid ways to materialize import artifacts. Explicit state preserved what
+was missing, but did not ensure that a proposed operation was relevant, feasible, or
+causally progressive. The next frozen revision therefore adds executable operation
+preconditions, constraint-to-operation relevance, progress certificates, and
+duplicate-failure-family suppression. This evidence narrows the paper's method rather
+than adding new semantic rule types.

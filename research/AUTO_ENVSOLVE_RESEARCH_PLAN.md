@@ -157,6 +157,20 @@ P7 的开发过程给出了一个完整但仍由研究者完成的外层改进�
 请求在 SDK 内部发生多次 transport retry，而账本只记录一次模型请求；外层应先提出可观测性修复，
 把 transport attempt、模型调用、候选执行和 Unknown 分开，再判断是否存在算法缺口。
 
+### 10. 后置条件资格实验带来的更新
+
+完成的五 case、三 condition 资格实验为外层晋级规则提供了一个关键负例：状态复用通过了机制完整性
+gate，并出现 6 次复用 verification 和 2 次“复用后 clean replay 成功”，但三个 condition 的 Official
+Pass 都是 `4/5`。因此 Auto-EnvSolve 不能把“新机制被执行”“内部 finding 更少”或“资源指标改善”
+单独作为 promotion 条件；通用算法 proposal 必须在独立 shadow batch 上提高 Official Pass、失败后
+修复率或预注册的 success-resource frontier，且不能引入回归。
+
+本轮轨迹还定义了新的外层可观测量：operation-family identity、目标 active constraint、可执行前提探针、
+预期与实际 finding delta、effect-boundary decision，以及等价失败方案是否在没有新证据时重复。外层
+可以据此提出“操作相关性与前提 gate”这一通用 proposal，但单个 `openqasm` 失败不足以自动晋级；
+必须先用合成反例和跨仓库 consumed-development 轨迹证明同一机制缺口，再进入新的 repository-disjoint
+qualification。
+
 ## English Version
 
 ### 1. Core question
@@ -301,3 +315,20 @@ whether every reused lineage had a prior reusable label, whether damaged or unkn
 was released, and whether clean replay contradicted construction success. These are
 generic promotion predicates for later harness optimization; the current first-paper
 qualification keeps the classifier and promotion rule frozen.
+
+### 7. Update from the Postcondition Qualification
+
+The completed five-case, three-condition qualification supplies a negative promotion
+example. State reuse passed its mechanism-integrity gate, produced six reused
+verifications and two reuse-to-clean-replay passes, yet every condition achieved the
+same `4/5` Official Pass. Auto-EnvSolve must therefore not promote a proposal merely
+because it is exercised, reduces internal findings, or improves a resource statistic.
+A generic algorithm proposal requires an independently qualified gain in Official Pass,
+post-failure repair, or a preregistered success-resource frontier without regression.
+
+The trajectory contract should add operation-family identity, target active constraint,
+executable precondition probes, expected and observed finding deltas, effect-boundary
+decisions, and duplicate-family recurrence without new evidence. These fields support a
+future operation-relevance and feasibility proposal, but the single `openqasm` failure
+is only a hypothesis source. Synthetic counterexamples and cross-repository consumed
+development evidence must establish the mechanism before shadow qualification.

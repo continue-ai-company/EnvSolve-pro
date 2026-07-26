@@ -3,9 +3,11 @@ from __future__ import annotations
 import asyncio
 import json
 from pathlib import Path
+import signal
 from types import SimpleNamespace
 from uuid import uuid4
 import tempfile
+import time
 import unittest
 
 from langchain_core.runnables import Runnable
@@ -33,7 +35,9 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             output_cost_per_million=2.0,
         )
 
-    def test_length_finished_response_records_usage_instead_of_request_error(self) -> None:
+    def test_length_finished_response_records_usage_instead_of_request_error(
+        self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             ledger = Path(directory) / "ledger.json"
             callback = self._callback(ledger)
@@ -155,7 +159,9 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
             self.assertEqual(usage["provider_retries"], 1)
             self.assertEqual(usage["provider_retry_recoveries"], 1)
 
-    def test_retryable_status_uses_one_logical_request_and_shared_deadline(self) -> None:
+    def test_retryable_status_uses_one_logical_request_and_shared_deadline(
+        self,
+    ) -> None:
         class RetryableStatusError(RuntimeError):
             status_code = 503
 
@@ -224,6 +230,44 @@ class BudgetLangChainCallbackTest(unittest.TestCase):
                 callback.ledger.snapshot()["usage"]["requests_started"],
                 1,
             )
+
+    @unittest.skipUnless(
+        hasattr(signal, "SIGALRM") and hasattr(signal, "ITIMER_REAL"),
+        "hard synchronous deadlines require POSIX interval timers",
+    )
+    def test_sync_outer_deadline_interrupts_blocking_provider(self) -> None:
+        class SlowModel:
+            def __init__(self) -> None:
+                self.calls = 0
+                self.timeouts = []
+
+            def invoke(self, input, **kwargs):
+                self.calls += 1
+                self.timeouts.append(kwargs.get("timeout"))
+                time.sleep(1)
+                return "late"
+
+        with tempfile.TemporaryDirectory() as directory:
+            callback = self._callback(Path(directory) / "ledger.json")
+            model = SlowModel()
+            retrying = JSONResponseRetryModel(
+                model,
+                callback.ledger,
+                max_retries=2,
+                request_timeout_seconds=0.02,
+            )
+            previous_handler = signal.getsignal(signal.SIGALRM)
+            started_at = time.monotonic()
+
+            with self.assertRaises(TimeoutError) as raised:
+                retrying.invoke("input")
+
+            self.assertLess(time.monotonic() - started_at, 0.5)
+            self.assertEqual(model.calls, 1)
+            self.assertLessEqual(model.timeouts[0], 0.02)
+            self.assertEqual(raised.exception.provider_attempts, 1)
+            self.assertTrue(raised.exception.provider_deadline_exhausted)
+            self.assertEqual(signal.getsignal(signal.SIGALRM), previous_handler)
 
     def test_factory_disables_hidden_sdk_retries(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

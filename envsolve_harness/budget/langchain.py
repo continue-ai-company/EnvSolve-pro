@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import contextmanager
 import json
 from pathlib import Path
+import signal
+import threading
 import time
-from typing import Any
+from typing import Any, Iterator
 from uuid import UUID
 
 from langchain_core.callbacks import BaseCallbackHandler
@@ -13,7 +16,12 @@ from langchain_core.runnables import Runnable, RunnableConfig
 from langchain_openai import ChatOpenAI
 from openai import APIConnectionError, APIStatusError, APITimeoutError
 
-from envsolve_harness.budget.ledger import BudgetLedger, BudgetLimits, TokenPricing, UsageDelta
+from envsolve_harness.budget.ledger import (
+    BudgetLedger,
+    BudgetLimits,
+    TokenPricing,
+    UsageDelta,
+)
 
 
 def _field(value: Any, name: str, default: Any = None) -> Any:
@@ -57,7 +65,8 @@ def _usage_from_result(result: LLMResult) -> UsageDelta:
             token_usage.get("prompt_tokens", token_usage.get("input_tokens", 0)) or 0
         )
         output_tokens = int(
-            token_usage.get("completion_tokens", token_usage.get("output_tokens", 0)) or 0
+            token_usage.get("completion_tokens", token_usage.get("output_tokens", 0))
+            or 0
         )
         details = token_usage.get("prompt_tokens_details") or token_usage.get(
             "input_token_details"
@@ -71,7 +80,9 @@ def _usage_from_result(result: LLMResult) -> UsageDelta:
             or 0
         )
         if input_tokens or output_tokens:
-            return UsageDelta(input_tokens, output_tokens, min(cache_read, input_tokens))
+            return UsageDelta(
+                input_tokens, output_tokens, min(cache_read, input_tokens)
+            )
 
     input_tokens = 0
     output_tokens = 0
@@ -121,6 +132,53 @@ def _retryable_provider_error(error: BaseException) -> str | None:
     ):
         return f"provider-http-{status_code}"
     return None
+
+
+@contextmanager
+def _synchronous_wall_clock_deadline(
+    timeout_seconds: float | None,
+) -> Iterator[None]:
+    """Interrupt a blocking synchronous provider call at its outer deadline."""
+
+    if timeout_seconds is None:
+        yield
+        return
+
+    alarm_signal = getattr(signal, "SIGALRM", None)
+    timer_kind = getattr(signal, "ITIMER_REAL", None)
+    if (
+        alarm_signal is None
+        or timer_kind is None
+        or threading.current_thread() is not threading.main_thread()
+    ):
+        raise RuntimeError(
+            "A hard synchronous provider deadline requires a POSIX main thread; "
+            "use ainvoke() in this execution context"
+        )
+
+    previous_delay, _ = signal.getitimer(timer_kind)
+    if previous_delay > 0:
+        raise RuntimeError(
+            "Cannot install a hard provider deadline while ITIMER_REAL is active; "
+            "use ainvoke() to avoid replacing the existing timer"
+        )
+
+    previous_handler = signal.getsignal(alarm_signal)
+
+    def raise_timeout(signum: int, frame: Any) -> None:
+        del signum, frame
+        raise TimeoutError(
+            "Provider request exceeded its hard wall-clock deadline "
+            f"({timeout_seconds:.3f}s)"
+        )
+
+    signal.signal(alarm_signal, raise_timeout)
+    signal.setitimer(timer_kind, max(timeout_seconds, 0.001))
+    try:
+        yield
+    finally:
+        signal.setitimer(timer_kind, 0.0)
+        signal.signal(alarm_signal, previous_handler)
 
 
 class OnlineBudgetCallback(BaseCallbackHandler):
@@ -184,7 +242,9 @@ class OnlineBudgetCallback(BaseCallbackHandler):
             provider_attempt_id=str(run_id),
         )
 
-    def on_llm_error(self, error: BaseException, *, run_id: UUID, **kwargs: Any) -> None:
+    def on_llm_error(
+        self, error: BaseException, *, run_id: UUID, **kwargs: Any
+    ) -> None:
         usage = _usage_from_error(error)
         metadata = _provider_error_metadata(error)
         if usage is None:
@@ -275,11 +335,13 @@ class JSONResponseRetryModel(Runnable[Any, Any]):
         while True:
             attempts += 1
             try:
-                response = self.model.invoke(
-                    input,
-                    config=config,
-                    **self._attempt_kwargs(kwargs, deadline),
-                )
+                remaining = self._remaining_seconds(deadline)
+                with _synchronous_wall_clock_deadline(remaining):
+                    response = self.model.invoke(
+                        input,
+                        config=config,
+                        **self._attempt_kwargs(kwargs, deadline),
+                    )
             except Exception as exc:
                 self._retry_or_raise(
                     exc,
@@ -377,9 +439,7 @@ def create_budgeted_chat_model(
         model_kwargs.get("timeout"),
     )
     request_timeout_seconds = (
-        float(raw_timeout)
-        if isinstance(raw_timeout, int | float)
-        else None
+        float(raw_timeout) if isinstance(raw_timeout, int | float) else None
     )
     callback = OnlineBudgetCallback(
         ledger_path=budget_ledger_path,

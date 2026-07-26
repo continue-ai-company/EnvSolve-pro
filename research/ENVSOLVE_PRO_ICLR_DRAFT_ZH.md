@@ -11,8 +11,8 @@
 不泄露终局评测结果的前提下定义成功。观测层在同一个隔离环境中执行候选程序和目标，保留状态谱系，
 并区分 Pass、Fail 与 Unknown。约束层把目标驱动的失败转化为可修正的义务，同时把不确定的仓库推断
 保留为假设。操作层依据可执行后置条件把结果状态判为 reusable、damaged 或 unknown，再把状态交给
-强语言模型；模型仍自由生成完整部署程序，而不是从封闭动作集合中选择。可复用状态用于加速修复搜索，
-但最终程序只有在全新环境中再次通过才能被认证。
+强语言模型；模型仍自由生成完整部署程序，而不是从封闭动作集合中选择。可复用状态可以把已验证的
+部分进展带入后续修复，但最终程序只有在全新环境中再次通过才能被认证。
 
 我们将在仓库部署 benchmark 上与 Repo2Run、原生编程 Agent 和同模型 Agent loop 比较。受控 baseline
 获得相同的公开目标，从而区分目标可见性、显式状态和迭代约束修复的贡献。主指标是 Official Pass@1；
@@ -143,12 +143,18 @@ split identity 和分析规则全部冻结后生成。
 
 ### 当前开发证据
 
-冻结的 5-case 开发资格实验尚未证明成功率提升。两个双方都完成且通过完整性检查的配对，在显式状态和
-raw history 下都通过；显式状态表现出更低搜索负担，但样本太小、provider 时间方差过大，不能据此
-声明效率收益。更重要的是，该批次暴露了两个通用瓶颈：很小的已验证修复仍会重复重放昂贵安装前缀；
-symlink 可以制造合成 import alias，满足表面目标。我们因此先加固完整性边界，再把“从不可变的已验证
-状态出发，执行最小状态变换”作为操作层机制进行检验。两条事后的外部 Agent 轨迹独立表明命令状态与
-结果状态并不等价，其中一次超时转换同时留下有用和不一致的状态。因此，我们冻结了一个最小状态转移
-分类器：只保留通过后置条件验证的 reusable 状态，释放 damaged 和 unknown 状态。模型仍输出完整
-程序，construction Pass 必须 clean replay。一个仓库不相交的 5-case、3-condition qualification 已在
-执行前完成预注册。
+一个预注册、仓库不相交的资格实验，在五个开发仓库上比较了 postcondition-persistent explicit state、
+fresh explicit search 和 postcondition-persistent raw history。15 个 episode 全部通过完整性与科学可用性
+审计。三个 condition 都获得 `4/5` Official Pass，通过相同仓库并失败于同一仓库。这是一个有价值的
+负结果：它证明后置条件控制的状态复用真实可执行，但没有证明成功率提升。
+
+persistent explicit state 记录了 6 次复用 construction verification，其中 2 条复用谱系产生了随后通过
+clean replay 的程序。相对 persistent raw history，它使用更少候选和 token，总 generation time 约为
+一半；相对 fresh explicit search，它使用略少候选和 token，但 easy case 的强制 clean replay 使
+wall-clock 更高。由于只有五个仓库和一个随机 seed，这些资源差异只能作为诊断，不能声明效率优势。
+
+共同失败把问题收敛到更明确的操作层缺口。所有方法都把目标降到 7 个未解决 finding，随后重复不可行
+的构建工具路径，或提出违反完整性的 import artifact 物化方法。显式状态保留了“缺什么”，却没有保证
+操作与约束相关、前提可行、结果具有因果进展。因此下一冻结版本只增加可执行操作前提、constraint-to-
+operation relevance、progress certificate 和重复失败操作族抑制。这个证据让方法做减法，而不是继续
+增加语义规则类型。

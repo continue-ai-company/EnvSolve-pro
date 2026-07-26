@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "envsolve-pro-postcondition-persistent-qualification-v1-censored-position5-descriptive-audit",
+  "audited_at": "2026-07-26",
+  "source_resolution": "experiments/validations/pro_postcondition_persistent_qualification_v1_infrastructure_resolution_r1.json",
+  "run_id": "pro-persist-qv1-c02-sdg-translations-persistent-explicit",
+  "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+  "condition": "persistent-explicit",
+  "classification": "experimenter_censored_descriptive_only",
+  "terminal_state": "interrupted",
+  "official_evaluation_artifacts_present": false,
+  "official_outcome_observed": false,
+  "artifact_hashes_verified": {
+    "status.json": "3fe18f1036f040ba1a728a56339ff02e46a9b53aeb941434ec88c331b7d9747f",
+    "generation/budget_ledger.json": "3207191ae1a785835527b7d42b7a6e2e02d64f5cda423f186991282b8578a5e4",
+    "generation/episode.jsonl": "124610690c4f15d1b79a79cc03221a682155945a9e1dbeea9346e1908aa4c1c9"
+  },
+  "descriptive_resources": {
+    "candidates": 2,
+    "commands": 3,
+    "environments": 2,
+    "requests_started": 2,
+    "responses_completed": 2,
+    "total_tokens": 15752,
+    "elapsed_wall_clock_seconds": 982.915855
+  },
+  "scientific_disposition": {
+    "included_in_qualification_effectiveness_analysis": false,
+    "replacement_run_id": "pro-persist-qv1-c02-sdg-translations-persistent-explicit-infra-retry1",
+    "replacement_is_the_only_position5_run_in_resolved_schedule": true,
+    "reason": "The original coordinator was manually interrupted before clean replay certification and before official evaluation."
+  }
+}

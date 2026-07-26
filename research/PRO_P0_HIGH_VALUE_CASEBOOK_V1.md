@@ -556,6 +556,122 @@ import success from the official static missing-import result.
 - Raw ReAct integrity: valid; zero tracked changes and zero disallowed untracked paths
 - Scheduled Codex outcome: Unknown, exact preregistered executable unavailable
 
+## Case P0-007: `open-sdg/sdg-translations@9a33c0b`
+
+### Why This Case Is Valuable
+
+This is the smallest clean demonstration that postcondition-gated persistence performs
+real cross-candidate reuse. All three qualification conditions passed officially, so the
+case isolates mechanism behavior without a terminal-success confound.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** candidate 1 completed but exposed a missing `PyPDF2` import and
+left a reusable construction state. **Constraint layer:** the missing import remained an
+authoritative active finding. **Operation layer:** the second persistent candidate
+reused the verified lineage, installed the missing dependency, passed construction, and
+then passed exact-program clean replay.
+
+The persistent explicit run used 2 candidates, 2 environments, 3 commands, and 12,521
+tokens. Fresh explicit also needed 2 candidates and 2 environments, while persistent raw
+history followed the same reuse pattern. This proves mechanism execution, not a success
+or efficiency advantage.
+
+### Anti-Overfitting Gate
+
+No rule may mention SDG, PDF packages, or the observed module. The reusable-state
+classifier must pass synthetic late-missing-dependency cases and reject damaged or
+unknown postconditions independently of package identity.
+
+### Evidence Anchors
+
+- Persistent explicit replacement run:
+  `pro-persist-qv1-c02-sdg-translations-persistent-explicit-infra-retry1`
+- Fresh explicit run: `pro-persist-qv1-c02-sdg-translations-fresh-explicit`
+- Persistent raw run: `pro-persist-qv1-c02-sdg-translations-persistent-raw`
+- Official outcome: Pass for all three conditions
+
+## Case P0-008: `gymrek-lab/TRTools@99d7fb4`
+
+### Why This Case Is Valuable
+
+TRTools is the strongest trajectory-level separation in the qualification. All
+conditions passed, but explicit persistent state reached success in 3 candidates,
+compared with 5 for fresh explicit and 10 for persistent raw history.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** early candidates exposed Python-version incompatibility in the
+Poetry path, unavailable ARM conda packages, repeated APT conflicts, shell expansion
+errors, and finally a complete 20-import finding snapshot. **Constraint layer:** explicit
+state retained current goal findings and an admissible candidate anchor; raw history
+revisited equivalent root failures. **Operation layer:** the explicit persistent run
+reused the first complete environment lineage and repaired it in the next candidate,
+then certified the cumulative program by clean replay.
+
+Persistent explicit used 40,345 tokens and 750 generation seconds. Fresh explicit used
+88,407 tokens and 1,053 seconds; persistent raw used 147,603 tokens and 2,734 seconds.
+These large within-case differences are diagnostic only because model sampling is
+stochastic and the qualification has one seed.
+
+### Anti-Overfitting Gate
+
+No algorithm rule may mention TRTools, Poetry, nox, HTS libraries, or ARM. A general
+mechanism must normalize equivalent failure families, preserve complete goal findings,
+and demonstrate the same reduction on repository-disjoint cases.
+
+### Evidence Anchors
+
+- Persistent explicit run: `pro-persist-qv1-c04-trtools-persistent-explicit`
+- Fresh explicit run: `pro-persist-qv1-c04-trtools-fresh-explicit`
+- Persistent raw run: `pro-persist-qv1-c04-trtools-persistent-raw`
+- Official outcome: Pass for all three conditions
+
+## Case P0-009: `openqasm/openqasm@5efd5d0`
+
+### Why This Case Is Valuable
+
+OpenQASM is the only shared Official failure. Every condition exhausted 12 candidates
+and retained a program with seven unresolved official issues. It therefore identifies a
+common algorithmic boundary rather than a favorable treatment story.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** the executable goal consistently separated ordinary dependencies
+from missing ANTLR-generated parser modules. It also recorded tool acquisition failure,
+repository effects, and complete finding deltas. **Constraint layer:** explicit state
+preserved the seven unresolved findings but did not compress repeated failures into an
+operation-family prohibition. **Operation layer:** candidates repeatedly invoked
+nonexistent grammar paths or irrelevant Make targets, depended on an unavailable ANTLR
+jar, or tried to copy/generate importable artifacts directly. Effect auditing rejected
+the integrity-invalid shortcuts.
+
+Persistent explicit used 268,205 tokens and 2,790 generation seconds, compared with
+299,004 tokens and 5,434 seconds for persistent raw history. Fresh explicit used 241,575
+tokens and 2,426 seconds. All three officially failed with `issues_count=7`; lower
+search burden did not cross the success boundary.
+
+### Candidate General Hypothesis
+
+- **H19: executable operation relevance.** Requiring each operation to bind an active
+  constraint, pass tool/file/target/version preconditions, and predict a finding delta
+  should reduce repeated infeasible operation families without closing the model's
+  action space.
+
+### Anti-Overfitting Gate
+
+No implementation may mention OpenQASM, ANTLR, grammar filenames, parser modules, or
+the observed Make targets. H19 must first pass synthetic counterexamples and then improve
+repair or Official Pass on repository-disjoint cases. This consumed case may be used
+only for regression and explanation.
+
+### Evidence Anchors
+
+- Persistent explicit run: `pro-persist-qv1-c05-openqasm-persistent-explicit`
+- Fresh explicit run: `pro-persist-qv1-c05-openqasm-fresh-explicit`
+- Persistent raw run: `pro-persist-qv1-c05-openqasm-persistent-raw`
+- Official outcome: Fail with 7 issues for all three conditions
+
 
 ## Case P0-006: `r-anime/holo@7864bc6`
 

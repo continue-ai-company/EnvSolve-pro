@@ -324,6 +324,35 @@ preregistered test of whether explicit state reduces model-side context and retr
 on multi-finding cases. None of these cases is held-out evidence; details are recorded in
 `PRO_GOAL_CONTRACT_CASEBOOK_V1.md`.
 
+### 4.11 Postcondition-Gated State Reuse
+
+A repository-disjoint five-case qualification compared persistent explicit state,
+fresh explicit state, and persistent raw history under the same model, goal, prompt
+family, terminal evaluator boundary, and limits. All 15 episodes were integrity-valid
+and scientifically eligible. Every condition passed the same four repositories and
+failed `openqasm/openqasm`, yielding `4/5` Official Pass for each condition. The
+preregistered gate therefore retains the state-reuse mechanism because reuse was
+executable and auditable, but it provides no evidence of an Official Pass gain.
+
+The mechanism was exercised rather than merely present: persistent explicit state
+recorded six reused-construction verifications, and two reused lineages eventually
+produced clean-replay passes. Against persistent raw history, explicit state used 19
+rather than 27 candidates, 339,479 rather than 483,988 tokens, and 4,361 rather than
+9,064 generation seconds. Against fresh explicit search, however, it used 19 rather
+than 21 candidates and fewer tokens, but more wall-clock time because easy cases paid
+for mandatory clean replay. With five repositories and one stochastic seed, these are
+diagnostic resource differences, not an efficiency claim.
+
+`openqasm` isolates the next algorithmic contradiction. All three conditions retained
+a candidate with seven official issues and failed. Explicit persistent state reached
+that boundary in roughly half the generation time of persistent raw history, but then
+repeated infeasible ANTLR-generation paths and integrity-invalid attempts to materialize
+import artifacts. The next method change must therefore improve the Operation layer,
+not add more state types: each proposed operation must identify the active constraint
+it targets, establish executable preconditions for external tools and repository build
+entry points, and report the expected versus observed finding delta. Equivalent failed
+operation families should be blocked until new evidence changes their preconditions.
+
 ## 5. Core Ablation
 
 With a fixed backbone, compare raw-history ReAct; ReAct with structured Observation;
@@ -344,38 +373,23 @@ Logical model calls and provider transport attempts are reported separately.
 
 ## 7. Immediate Next Step
 
-The frozen five-case qualification is complete. ILAMB and Flask-Security are the only
-integrity-valid pairs where both methods reached Official Pass; explicit state used
-slightly fewer candidates and tokens, but this is not enough for a success or efficiency
-claim. Starsim revealed an import-alias integrity bypass and is excluded. River and
-LitGPT exposed repeated full-prefix replay, context growth, and terminal censoring.
-Detailed outcomes are frozen in `PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS.md`.
+Freeze the completed qualification and treat it as a mechanism result, not an
+effectiveness result. The next implementation is one minimal Operation-layer revision:
 
-Post-qualification integrity v2 now rejects the observed symlink alias both before
-execution and in the active interpreter on both verifier paths. Resource-ledger v1.1
-exposes each provider attempt, disables hidden SDK retries, applies one logical-call
-deadline, and regression-tests censoring labels.
+1. normalize observations into repository-independent root failure and operation-family
+   identities;
+2. require every operation to name its target active constraint and executable
+   preconditions;
+3. probe tool, file, build-target, version, and acquisition availability before an
+   expensive state transition;
+4. compare the proposed finding delta with the observed complete goal snapshot;
+5. suppress an equivalent failed operation family until new evidence changes a
+   precondition.
 
-A post-hoc native Codex observation on the consumed River revision reached Official
-evaluation but failed with 16 missing-import findings. A second observation on consumed
-LitGPT also reached Official evaluation and failed with 38 findings. Their evaluator
-outputs are frozen and cannot drive same-case repair. Both trajectories independently
-separate command status from resulting state. LitGPT further shows that a timed-out
-transition may leave both useful materialized packages and inconsistent generated state;
-preservation therefore requires executable postconditions, not exit-code heuristics.
-
-The minimal mechanism is now frozen at `8104851b0ca7281bab75fcbf79afa00238d3034c`.
-Each transition is classified as reusable, damaged, or unknown; only reusable state
-survives to the next repair. The model still emits a complete cumulative program, and a
-construction-state Pass triggers the exact same program in a distinct fresh environment
-before certification. The frozen fresh-state method is unchanged.
-
-The next execution is
-`pro_postcondition_persistent_qualification_v1_schedule.json`: five repositories selected
-outcome-blind by metadata hash and three conditions per repository. The primary contrast
-is persistent explicit state versus frozen fresh explicit state; persistent raw history
-tests whether any gain depends on structured constraints rather than state preservation
-alone. All fifteen runs must complete or receive frozen infrastructure-censoring labels
-before the algorithm, prompt, or threshold changes. Repo2Run remains a required external
-baseline for the later effectiveness stage, not a blocker for this internal mechanism
-qualification.
+Qualify this revision first on consumed development artifacts and synthetic
+counterexamples, then freeze a new repository-disjoint Dev batch. Do not tune on
+`openqasm`; it is evidence for a generic precondition and duplicate-family mechanism,
+not a regression target. Once the Operation layer shows a cross-repository Official Pass
+or repair-rate gain, run matched native Codex and Repo2Run baselines on the same frozen
+cases before scaling to the benchmark. Provider hard wall-clock enforcement is an
+infrastructure correction and must be qualified separately from the algorithm change.

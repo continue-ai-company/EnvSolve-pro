@@ -255,6 +255,26 @@ Official Pass。显式组使用 3 次模型请求和 40,438 tokens；raw-history
 上述 case 都不是 held-out 效果证据；详细证据记录在
 `PRO_GOAL_CONTRACT_CASEBOOK_V1_ZH.md`。
 
+### 4.11 后置条件控制的状态复用
+
+一个仓库不相交的五 case 资格实验，在相同模型、目标、prompt family、终局 evaluator 边界和限制下，
+比较了 persistent explicit state、fresh explicit state 与 persistent raw history。15 个 episode 全部通过
+完整性检查并具有科学可用性。三个 condition 都通过相同四个仓库、都失败于 `openqasm/openqasm`，
+因此各自 Official Pass 都是 `4/5`。预注册 gate 保留状态复用机制，因为复用真实发生且可审计，但该
+实验没有提供 Official Pass 增益证据。
+
+该机制不是只存在于代码中：persistent explicit state 记录了 6 次复用 construction verification，其中
+2 条复用谱系最终产生 clean-replay Pass。与 persistent raw history 相比，显式状态使用 19 而非 27 个
+候选、339,479 而非 483,988 tokens、4,361 而非 9,064 秒 generation time。与 fresh explicit 相比，
+它使用 19 而非 21 个候选且 token 更少，但 easy case 的强制 clean replay 使总 wall-clock 更长。由于
+只有五个仓库和一个随机 seed，这些只是诊断性资源差异，不构成效率结论。
+
+`openqasm` 隔离出下一步算法矛盾：三个 condition 最终都保留 7 个官方 issue 并失败。persistent
+explicit 用约一半于 persistent raw history 的 generation time 到达这一边界，之后却重复不可行的
+ANTLR 生成路径，并多次尝试违反完整性的 import artifact 物化。所以下一版应改进操作层，而不是增加
+更多状态类型：每个操作必须声明所解决的 active constraint，验证外部工具与仓库 build entry 的可执行
+前提，并比较预期 finding delta 与实际 finding delta；等价失败操作族在前提出现新证据前应被禁止重复。
+
 ## 5. 核心消融
 
 为了检验结构化约束是否限制强模型，固定 backbone 后依次比较：
@@ -279,29 +299,15 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-冻结的 5-case qualification 已完成。ILAMB 与 Flask-Security 是仅有的两个双方都达到
-integrity-valid Official Pass 的配对；显式状态使用的候选和 token 略少，但不足以支持成功率或效率
-结论。Starsim 暴露 import-alias 完整性旁路，禁止进入效果分析；River 与 LitGPT 暴露全前缀重复重放、
-上下文增长和终局删失。完整结果冻结在
-`PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS_ZH.md`。
+冻结已完成的资格实验，把它视为机制结果，而不是效果结果。下一版只进行一个最小操作层修改：
 
-资格实验后的 integrity v2 已在执行前和两条 verifier 的活动解释器中拒绝观测到的 symlink alias。
-资源 ledger v1.1 已记录每次 provider attempt、关闭 SDK 隐藏重试、让一次逻辑调用共享同一 deadline，
-并回归验证删失标签。
+1. 把观测归一化为仓库无关的 root failure 与 operation-family identity；
+2. 要求每个操作声明目标 active constraint 和可执行前提；
+3. 在昂贵状态转换前探测工具、文件、build target、版本与 acquisition channel 是否可用；
+4. 用完整目标快照比较预期 finding delta 与实际 finding delta；
+5. 在新证据改变前提之前，禁止重复等价失败操作族。
 
-同一已消费 River revision 上的原生 Codex 事后观测进入 Official evaluation，但留下 16 个 missing-
-import finding；已消费 LitGPT 上的第二条观测也进入 Official evaluation 并留下 38 个 finding。两个
-evaluator 输出都已冻结，不能驱动同 case 修复。两条轨迹都独立区分了命令状态与结果状态；LitGPT
-进一步说明，一次超时转换可能同时留下有用的已物化 package 和不一致的生成状态，因此状态保留必须
-依赖可执行后置条件，而不是退出码启发式。
-
-最小机制现已冻结在 `8104851b0ca7281bab75fcbf79afa00238d3034c`。每次状态转移被判为
-reusable、damaged 或 unknown；只有 reusable 状态可以进入下一轮修复。模型仍输出完整累计程序，
-construction-state Pass 会在另一个全新环境中执行完全相同的程序，只有该次重放通过才能认证。冻结的
-fresh-state 方法保持不变。
-
-下一步执行 `pro_postcondition_persistent_qualification_v1_schedule.json`：五个仓库通过 metadata hash
-盲选，每个仓库运行三个 condition。主对比是 persistent explicit state 与冻结的 fresh explicit state；
-persistent raw history 用于判断收益来自结构化约束，还是仅来自状态保留。15 个 episode 全部完成或获得
-冻结的基础设施删失标签之前，禁止修改算法、prompt 或阈值。Repo2Run 仍是后续效果实验必需的外部
-baseline，但不阻塞这次内部机制 qualification。
+先在已消费开发 artifact 和合成反例上验证，再冻结新的仓库不相交 Dev batch。不得针对 `openqasm`
+调参；它只为通用的前提检查和重复操作族机制提供证据。操作层跨仓库获得 Official Pass 或 repair-rate
+增益后，再在相同冻结 case 上运行 matched native Codex 与 Repo2Run，之后才扩展到完整 benchmark。
+Provider 硬墙钟超时属于基础设施修复，必须与算法修改分开验证。

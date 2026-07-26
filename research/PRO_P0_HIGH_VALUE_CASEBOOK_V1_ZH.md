@@ -429,6 +429,103 @@ missing-import 结果的 repository-neutral fixture 上评估。
 - Raw ReAct integrity：有效；0 个 tracked change，0 个 disallowed untracked path
 - 计划 Codex 结果：Unknown，精确预注册 executable 不可获得
 
+## Case P0-007：`open-sdg/sdg-translations@9a33c0b`
+
+### 为什么这个 Case 有价值
+
+这是后置条件控制的持久状态发生真实跨候选复用的最小干净正例。资格实验的三个 condition 都 Official
+Pass，因此可以在不混入终局成败差异的情况下观察机制。
+
+### 三层诊断
+
+**观测层：** candidate 1 完整执行后暴露缺失 `PyPDF2`，并留下 reusable construction state。
+**约束层：** 该缺失导入继续作为权威 active finding。**操作层：** 第二个 persistent candidate 复用
+已验证谱系、补充缺失依赖、通过 construction，随后完全相同程序通过 clean replay。
+
+persistent explicit 使用 2 个候选、2 个环境、3 条命令和 12,521 tokens；fresh explicit 同样需要 2 个
+候选与 2 个环境，persistent raw 也走过相同复用模式。因此该 case 证明机制执行，不证明成功率或效率
+优势。
+
+### 防过拟合 Gate
+
+任何规则不得提及 SDG、PDF package 或本次 module。reusable-state classifier 必须在 synthetic 的晚暴露
+依赖 case 上通过，并与 package identity 无关地拒绝 damaged 或 unknown postcondition。
+
+### 证据锚点
+
+- Persistent explicit replacement：
+  `pro-persist-qv1-c02-sdg-translations-persistent-explicit-infra-retry1`
+- Fresh explicit：`pro-persist-qv1-c02-sdg-translations-fresh-explicit`
+- Persistent raw：`pro-persist-qv1-c02-sdg-translations-persistent-raw`
+- 官方结果：三个 condition 全部 Pass
+
+## Case P0-008：`gymrek-lab/TRTools@99d7fb4`
+
+### 为什么这个 Case 有价值
+
+TRTools 是本次资格实验最强的轨迹级分离。三个 condition 都通过，但 persistent explicit 用 3 个候选
+成功，fresh explicit 用 5 个，persistent raw history 用 10 个。
+
+### 三层诊断
+
+**观测层：** 早期候选依次暴露 Poetry 路径的 Python 版本冲突、ARM conda package 不可用、重复 APT
+冲突、shell expansion 错误，最后得到完整的 20-import finding 快照。**约束层：** explicit state
+保留当前目标 finding 和 admissible candidate anchor；raw history 重访等价 root failure。**操作层：**
+persistent explicit 复用第一条完整环境谱系，在下一候选中修复，并用 clean replay 认证累计程序。
+
+persistent explicit 使用 40,345 tokens 和 750 秒 generation time；fresh explicit 为 88,407 tokens 和
+1,053 秒；persistent raw 为 147,603 tokens 和 2,734 秒。由于模型采样具有随机性且只有一个 seed，这些
+case 内差异只能作为诊断。
+
+### 防过拟合 Gate
+
+任何算法规则不得提及 TRTools、Poetry、nox、HTS library 或 ARM。通用机制必须归并等价失败操作族，
+保留完整目标 finding，并在仓库不相交 case 上复现下降。
+
+### 证据锚点
+
+- Persistent explicit：`pro-persist-qv1-c04-trtools-persistent-explicit`
+- Fresh explicit：`pro-persist-qv1-c04-trtools-fresh-explicit`
+- Persistent raw：`pro-persist-qv1-c04-trtools-persistent-raw`
+- 官方结果：三个 condition 全部 Pass
+
+## Case P0-009：`openqasm/openqasm@5efd5d0`
+
+### 为什么这个 Case 有价值
+
+OpenQASM 是唯一共同 Official failure。三个 condition 都耗尽 12 个候选，并保留一份仍有 7 个官方
+issue 的程序。因此它指出共同算法边界，而不是有利于某个 treatment 的故事。
+
+### 三层诊断
+
+**观测层：** 可执行目标稳定地区分普通依赖与缺失的 ANTLR 生成 parser module，并记录工具 acquisition
+失败、仓库 effect 和完整 finding delta。**约束层：** explicit state 保留 7 个未解决 finding，但没有
+把重复失败归并成 operation-family prohibition。**操作层：** 候选重复调用不存在的 grammar path 或无关
+Make target，依赖不可获得的 ANTLR jar，或尝试直接复制/生成 importable artifact；effect audit 拒绝了
+违反完整性的捷径。
+
+persistent explicit 使用 268,205 tokens 和 2,790 秒 generation time；persistent raw 为 299,004 tokens
+和 5,434 秒；fresh explicit 为 241,575 tokens 和 2,426 秒。三个 condition 最终都
+`issues_count=7` 并 Official Fail；较低搜索负担没有越过成功边界。
+
+### 候选通用假设
+
+- **H19：可执行操作相关性。** 要求每个操作绑定 active constraint、通过 tool/file/target/version
+  前提探针并预测 finding delta，应能减少重复不可行操作族，同时不关闭模型动作空间。
+
+### 防过拟合 Gate
+
+实现不得提及 OpenQASM、ANTLR、grammar filename、parser module 或本次 Make target。H19 必须先通过
+synthetic counterexample，再在仓库不相交 case 上提高 repair 或 Official Pass。该已消费 case 只能用于
+回归与解释。
+
+### 证据锚点
+
+- Persistent explicit：`pro-persist-qv1-c05-openqasm-persistent-explicit`
+- Fresh explicit：`pro-persist-qv1-c05-openqasm-fresh-explicit`
+- Persistent raw：`pro-persist-qv1-c05-openqasm-persistent-raw`
+- 官方结果：三个 condition 都 Fail，issues 为 7
+
 
 ## Case P0-006：`r-anime/holo@7864bc6`
 
