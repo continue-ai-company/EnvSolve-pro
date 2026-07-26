@@ -126,9 +126,11 @@ condition 都在 `openqasm` 上降到 7 个 finding 后失败，多次 finding �
 都没有转化成 Official Pass。可靠的正 reward 仍是 clean fresh replay；finding delta 只能作为带 scope
 和完整性标签的 shaping signal。
 
-每个 action transition 还应保存 operation-family identity、目标 constraint、前提探针、预期 finding
-delta、实际完整快照 delta 和 effect-boundary decision。手工复制生成 parser、写 evaluator 配置或制造
-import artifact 的动作必须标记为 `integrity_invalid`，即使它们减少诊断也不能获得正 reward。重复
+每个 action transition 还应保存 operation-family identity、目标 finding、前提证据引用、预期 finding
+delta、实际完整快照 delta 和 effect-boundary decision。EnvSolve-Pro v1 已生成这些版本化字段，可直接
+作为 EnvSolve-RL 的离线数据接口；但 model-declared family 只能作为带噪行为标签。手工复制生成 parser、
+写 evaluator 配置或制造 import artifact 的动作必须标记为 `integrity_invalid`，即使它们减少诊断也不能
+获得正 reward。重复
 不可行 operation family 且没有新前提证据，应形成负的策略监督；provider 延迟和 transport timeout
 只进入基础设施与资源视图，不进入部署动作 reward。
 
@@ -258,9 +260,11 @@ deployment success. Clean fresh replay remains the positive reward, while findin
 are scope- and integrity-qualified shaping signals.
 
 Each action transition should additionally preserve operation-family identity, target
-constraint, precondition probes, expected finding delta, observed complete-snapshot
-delta, and effect-boundary decision. Manual parser copying, evaluator-configuration
-changes, and synthetic import artifacts are `integrity_invalid` even when diagnostics
-fall. Repeating an infeasible operation family without new precondition evidence is
-negative policy supervision. Provider latency and transport timeouts belong to
-infrastructure and resource views, not deployment-action reward.
+finding, precondition-evidence references, expected finding delta, observed
+complete-snapshot delta, and effect-boundary decision. EnvSolve-Pro v1 now emits this
+versioned interface for offline learning, although model-declared families remain noisy
+behavior labels. Manual parser copying, evaluator-configuration changes, and synthetic
+import artifacts are `integrity_invalid` even when diagnostics fall. Repeating an
+infeasible family without new precondition evidence is negative policy supervision.
+Provider latency and transport timeouts belong to infrastructure and resource views,
+not deployment-action reward.

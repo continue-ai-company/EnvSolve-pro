@@ -348,10 +348,13 @@ a candidate with seven official issues and failed. Explicit persistent state rea
 that boundary in roughly half the generation time of persistent raw history, but then
 repeated infeasible ANTLR-generation paths and integrity-invalid attempts to materialize
 import artifacts. The next method change must therefore improve the Operation layer,
-not add more state types: each proposed operation must identify the active constraint
-it targets, establish executable preconditions for external tools and repository build
-entry points, and report the expected versus observed finding delta. Equivalent failed
-operation families should be blocked until new evidence changes their preconditions.
+not add more state types. Operation-relevance contract v1 is now implemented as an
+isolated post-freeze method. Each candidate names the active executable finding it
+targets, cites model-visible evidence for its preconditions, predicts a finding delta,
+and declares an open operation-family identity. The harness rejects stale references,
+conclusively failed exact scripts, and same-family retries without newly cited evidence;
+the next complete goal snapshot produces a progress certificate. V1 deliberately does
+not claim to prove arbitrary shell semantics or external-provider availability.
 
 ## 5. Core Ablation
 
@@ -373,23 +376,17 @@ Logical model calls and provider transport attempts are reported separately.
 
 ## 7. Immediate Next Step
 
-Freeze the completed qualification and treat it as a mechanism result, not an
-effectiveness result. The next implementation is one minimal Operation-layer revision:
+Operation-relevance contract v1 has passed its synthetic counterexamples, projection
+stress test, frozen-baseline hash audit, and full regression suite. The implementation
+is isolated in a new policy, episode entry point, and runner so every historical
+EnvSolve method remains byte-identical.
 
-1. normalize observations into repository-independent root failure and operation-family
-   identities;
-2. require every operation to name its target active constraint and executable
-   preconditions;
-3. probe tool, file, build-target, version, and acquisition availability before an
-   expensive state transition;
-4. compare the proposed finding delta with the observed complete goal snapshot;
-5. suppress an equivalent failed operation family until new evidence changes a
-   precondition.
-
-Qualify this revision first on consumed development artifacts and synthetic
-counterexamples, then freeze a new repository-disjoint Dev batch. Do not tune on
-`openqasm`; it is evidence for a generic precondition and duplicate-family mechanism,
-not a regression target. Once the Operation layer shows a cross-repository Official Pass
-or repair-rate gain, run matched native Codex and Repo2Run baselines on the same frozen
-cases before scaling to the benchmark. Provider hard wall-clock enforcement is an
-infrastructure correction and must be qualified separately from the algorithm change.
+The next gate is provider-format validation followed by one frozen,
+repository-disjoint paired Dev batch against
+`envsolve-pro-goal-contract-evidence-anchor`. No algorithm, prompt, family identity, or
+threshold changes are allowed after selection. Analyze Official Pass first, then
+post-failure recovery, contract rejection, expected/observed delta calibration, and
+repeated-family suppression. If v1 does not improve the cross-repository contradiction,
+archive it as an auditable baseline and let the observed failure distribution decide
+whether executable tool/provider probes are the next minimal mechanism. Do not tune on
+`openqasm`.

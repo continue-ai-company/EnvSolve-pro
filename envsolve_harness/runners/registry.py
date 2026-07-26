@@ -47,6 +47,7 @@ def _load_builtin_runners() -> None:
     from envsolve_harness.runners.deterministic import DeterministicScriptRunner
     from envsolve_harness.runners.codex_cli import CodexCliRunner
     from envsolve_harness.runners.envbench_agent import EnvBenchAgentRunner
+    from envsolve_harness.runners.envsolve_pro import EnvSolveProRunner
     from envsolve_harness.runners.envsolve_v0 import EnvSolveV0Runner
     from envsolve_harness.runners.envsolve_p6 import EnvSolveP6Runner
     from envsolve_harness.runners.recorded_envbench import RecordedEnvBenchTrajectoryRunner
@@ -230,6 +231,57 @@ def _load_builtin_runners() -> None:
             goal_contract=goal_contract_for(config, protocol),
         )
 
+    def envsolve_pro(
+        config: HarnessConfig,
+        protocol: ExperimentProtocol,
+        run_spec: RunSpec,
+        options: RunnerOptions,
+    ) -> SolverRunner:
+        benchmark = config.benchmark(protocol.benchmark)
+        image = benchmark.settings.get("image")
+        if not isinstance(image, str) or not image:
+            raise ValueError(
+                "EnvSolve-Pro requires a benchmark execution image"
+            )
+        pricing = (
+            config.model_pricing.get(run_spec.model)
+            if run_spec.model
+            else None
+        )
+        from envsolve_harness.adapters.registry import (
+            goal_contract_for,
+            workspace_preconditions_for,
+        )
+
+        return EnvSolveProRunner(
+            envbench_root=config.solver_root("envbench-agent"),
+            harness_root=config.workspace_root,
+            source_cache_root=(
+                config.runs_root / "_source_cache/envbench-python"
+            ),
+            image=image,
+            pricing=pricing,
+            timeout=config.generation_timeout,
+            max_candidates=config.envsolve_max_candidates,
+            max_environments=config.envsolve_max_environments,
+            max_commands=config.envsolve_max_commands,
+            command_timeout=config.bash_timeout,
+            container_create_timeout=config.create_container_timeout,
+            model_request_timeout=config.model_request_timeout,
+            model_max_retries=config.model_max_retries,
+            model_max_output_tokens=config.model_max_output_tokens,
+            model_reasoning_effort=config.model_reasoning_effort,
+            model_response_format=config.model_response_format,
+            max_model_requests=config.model_max_requests,
+            max_total_tokens=config.model_max_total_tokens,
+            max_estimated_cost_usd=config.model_max_estimated_cost_usd,
+            workspace_preconditions=workspace_preconditions_for(
+                config,
+                protocol,
+            ),
+            goal_contract=goal_contract_for(config, protocol),
+        )
+
     register_solver_runner("deterministic", "benchmark-deterministic", deterministic)
     register_solver_runner("codex-cli", "codex-cli-native", codex_cli)
     register_solver_runner("codex-recorded", "codex-cli-native-recorded", recorded_codex)
@@ -237,6 +289,11 @@ def _load_builtin_runners() -> None:
     register_solver_runner("envbench-agent", "envbench-react-freeagent", envbench_agent)
     register_solver_runner("envsolve-v0", "envsolve-v0", envsolve_v0)
     register_solver_runner("envsolve", "envsolve-pro", envsolve_p6)
+    register_solver_runner(
+        "envsolve-pro",
+        "envsolve-pro-operation-contract",
+        envsolve_pro,
+    )
     register_solver_runner(
         "envbench-recorded",
         "envbench-react-freeagent",

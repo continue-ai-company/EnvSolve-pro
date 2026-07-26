@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1",
+  "status": "design-frozen-before-implementation",
+  "frozen_at": "2026-07-27",
+  "source_evidence": {
+    "consumed_repository": "openqasm/openqasm",
+    "allowed_use": "Define generic failure classes and synthetic counterexamples only.",
+    "forbidden_use": "No case-specific package, command, path, target, or threshold may enter the algorithm."
+  },
+  "single_change": {
+    "layer": "Operation",
+    "control_method": "envsolve-pro-goal-contract-evidence-anchor",
+    "treatment_method": "envsolve-pro-operation-contract",
+    "unchanged": [
+      "public executable goal",
+      "explicit constraint projection",
+      "constraint-routed repository evidence",
+      "retained admissible candidate anchor",
+      "open Bash candidate language",
+      "fresh candidate environments",
+      "terminal-only Official evaluator"
+    ],
+    "added": [
+      "active-finding target references",
+      "visible-evidence precondition references",
+      "expected finding delta",
+      "open operation-family identity",
+      "observed progress certificate",
+      "failed exact-script and no-new-evidence family suppression"
+    ]
+  },
+  "anti_overfit": {
+    "implementation_inputs": [
+      "generic state and verifier schemas",
+      "synthetic counterexamples",
+      "already consumed trajectories"
+    ],
+    "no_new_repository_opened_before_freeze": true,
+    "no_official_feedback_in_online_loop": true
+  },
+  "synthetic_gate": {
+    "required_rejections": [
+      "unknown target",
+      "unknown evidence",
+      "expected resolution outside target",
+      "conclusively failed exact script",
+      "failed family without newly cited evidence"
+    ],
+    "required_acceptances": [
+      "initial goal attempt",
+      "finding-targeted evidence-grounded repair",
+      "same family with newly cited execution evidence",
+      "different open family",
+      "incomplete-feedback unknown progress"
+    ]
+  },
+  "next_step": "Implement and test without changing this design from repository outcomes."
+}

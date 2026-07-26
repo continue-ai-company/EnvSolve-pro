@@ -16,12 +16,12 @@ revealing terminal benchmark outcomes. An Observation layer executes each candid
 the goal in the same isolated environment, preserving lineage and distinguishing Pass,
 Fail, and Unknown. A Constraint layer turns goal-grounded failures into revisable
 obligations while retaining uncertain repository inferences as hypotheses. An Operation
-layer admits a resulting construction state as reusable, damaged, or unknown from
-executable postconditions. It exposes this state to a strong language model, which
-remains free to generate a complete deployment program rather than choosing from a
-closed action vocabulary. Reusable state can carry verified partial progress into later
-repair, but the exact final program is certified only after passing in a fresh
-environment.
+layer asks a strong language model for both a complete deployment program and a compact
+repair certificate: the active finding it targets, visible evidence supporting its
+preconditions, and the expected finding delta. The action space remains open. The
+harness rejects stale or evidence-free repetitions and checks predicted progress against
+the next executable-goal observation. The exact final program is certified only after
+passing in a fresh environment.
 
 We evaluate EnvSolve-Pro on repository deployment benchmarks against Repo2Run, native
 coding agents, and same-model agent loops. Controlled baselines receive the same public
@@ -115,9 +115,15 @@ deployment program that may freely revise the anchor but is asked to preserve se
 that remain consistent with current evidence. This prevents a repair for a newly exposed
 condition from silently forgetting conditions satisfied by an earlier candidate.
 
-EnvSolve-Pro does not restrict the model to predefined package, runtime, or build actions; such a
-closed operator set would bound the capability of future models and fail on novel
-repositories.
+Alongside the program, the model emits an operation-relevance contract that names current
+goal findings, cites evidence visible in the state, predicts which findings will be
+resolved, and identifies the new repair with open tool, mechanism, and target strings.
+The contract constrains provenance and progress, not the program vocabulary. EnvSolve-Pro
+therefore does not restrict the model to predefined package, runtime, or build actions.
+The next complete same-goal snapshot becomes a progress certificate; incomplete
+observations cannot claim resolution. A conclusively failed exact script, or the same
+failed family with no newly cited evidence, is rejected before another environment is
+allocated.
 
 The program is executed in isolation, followed immediately by the executable goal in the
 same shell and environment. The resulting report returns to the Observation layer,
@@ -139,8 +145,9 @@ fresh replay of that exact program; only a fresh Pass with valid effects is cert
    stateful constraint solving with a public executable goal, separating online evidence
    from hidden terminal evaluation.
 2. **Method.** We introduce a strong-model-compatible three-layer solver that preserves
-   authoritative goal observations, maintains revisable constraint state, and uses
-   postcondition-gated construction-state reuse without closing the operation space.
+   authoritative goal observations, maintains revisable constraint state, and binds open
+   deployment programs to evidence-linked operation targets and executable progress
+   certificates.
 3. **Evaluation.** We establish a same-goal controlled protocol that separates objective
    visibility from stateful repair, compares against external deployment agents, and
    measures both final success and post-failure recovery.
@@ -167,9 +174,9 @@ evaluator boundary, and experimental limits:
 
 Repo2Run and native coding agents provide external system baselines. Frozen EnvSolve v1
 is retained as a historical structured baseline. Ablations remove goal-state persistence,
-finding-routed repository evidence, the retained candidate anchor, and the Fail/Unknown
-distinction one at a time. A direct state-persistence ablation compares fresh-candidate
-search with postcondition-gated persistent construction and mandatory clean replay.
+finding-routed repository evidence, the retained candidate anchor, operation-relevance
+contracts, and the Fail/Unknown distinction one at a time. Postcondition-gated persistent
+construction remains a supporting ablation rather than the central method claim.
 
 ### Protocol and Metrics
 
@@ -211,8 +218,8 @@ diagnostic rather than an efficiency claim.
 The shared failure identifies a sharper Operation-layer problem. All methods reduced the
 goal to seven unresolved findings, then repeated infeasible build-tool paths or proposed
 integrity-invalid ways to materialize import artifacts. Explicit state preserved what
-was missing, but did not ensure that a proposed operation was relevant, feasible, or
-causally progressive. The next frozen revision therefore adds executable operation
-preconditions, constraint-to-operation relevance, progress certificates, and
-duplicate-failure-family suppression. This evidence narrows the paper's method rather
-than adding new semantic rule types.
+was missing, but did not ensure that a proposed operation was relevant or causally
+progressive. The current frozen hypothesis adds an evidence-linked operation-relevance
+contract, complete-snapshot progress certificates, and duplicate-failure-family
+suppression while leaving Bash generation open. It has passed implementation and
+integrity tests but has not yet established an effectiveness gain.

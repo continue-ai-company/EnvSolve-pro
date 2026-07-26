@@ -165,8 +165,9 @@ Pass 都是 `4/5`。因此 Auto-EnvSolve 不能把“新机制被执行”“内
 单独作为 promotion 条件；通用算法 proposal 必须在独立 shadow batch 上提高 Official Pass、失败后
 修复率或预注册的 success-resource frontier，且不能引入回归。
 
-本轮轨迹还定义了新的外层可观测量：operation-family identity、目标 active constraint、可执行前提探针、
-预期与实际 finding delta、effect-boundary decision，以及等价失败方案是否在没有新证据时重复。外层
+本轮轨迹还定义了新的外层可观测量：operation-family identity、目标 active constraint、前提证据引用、
+预期与实际 finding delta、effect-boundary decision，以及等价失败方案是否在没有新证据时重复。v1
+已经把这些字段落成版本化轨迹接口，但 family 仍由模型声明，不能被外层当作无噪声真值。外层
 可以据此提出“操作相关性与前提 gate”这一通用 proposal，但单个 `openqasm` 失败不足以自动晋级；
 必须先用合成反例和跨仓库 consumed-development 轨迹证明同一机制缺口，再进入新的 repository-disjoint
 qualification。
@@ -326,9 +327,10 @@ because it is exercised, reduces internal findings, or improves a resource stati
 A generic algorithm proposal requires an independently qualified gain in Official Pass,
 post-failure repair, or a preregistered success-resource frontier without regression.
 
-The trajectory contract should add operation-family identity, target active constraint,
-executable precondition probes, expected and observed finding deltas, effect-boundary
-decisions, and duplicate-family recurrence without new evidence. These fields support a
-future operation-relevance and feasibility proposal, but the single `openqasm` failure
-is only a hypothesis source. Synthetic counterexamples and cross-repository consumed
-development evidence must establish the mechanism before shadow qualification.
+The v1 trajectory contract now records operation-family identity, target active finding,
+precondition-evidence references, expected and observed finding deltas, effect-boundary
+decisions, and duplicate-family recurrence without new evidence. This is a concrete
+outer-loop interface, but the model-declared family is a noisy label rather than ground
+truth. The single `openqasm` failure remains only a hypothesis source; synthetic
+counterexamples and cross-repository evidence must establish a mechanism before shadow
+qualification.

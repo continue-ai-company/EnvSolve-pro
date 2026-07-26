@@ -272,8 +272,10 @@ Official Pass。显式组使用 3 次模型请求和 40,438 tokens；raw-history
 `openqasm` 隔离出下一步算法矛盾：三个 condition 最终都保留 7 个官方 issue 并失败。persistent
 explicit 用约一半于 persistent raw history 的 generation time 到达这一边界，之后却重复不可行的
 ANTLR 生成路径，并多次尝试违反完整性的 import artifact 物化。所以下一版应改进操作层，而不是增加
-更多状态类型：每个操作必须声明所解决的 active constraint，验证外部工具与仓库 build entry 的可执行
-前提，并比较预期 finding delta 与实际 finding delta；等价失败操作族在前提出现新证据前应被禁止重复。
+更多状态类型。操作相关性合同 v1 已作为独立的 post-freeze method 实现：每个候选声明目标 executable
+finding，引用模型确实看到的前提证据，预测 finding delta，并声明开放式 operation-family identity。
+harness 会拒绝过期引用、已经确定失败的相同完整脚本，以及没有新增引用证据的同 family 重试；下一次
+完整目标快照会生成 progress certificate。v1 不宣称能够证明任意 Shell 语义或外部 provider 可用性。
 
 ## 5. 核心消融
 
@@ -299,15 +301,11 @@ mechanism，把贡献定位在可验证状态、执行闭环与恢复能力，�
 
 ## 7. 当前下一步
 
-冻结已完成的资格实验，把它视为机制结果，而不是效果结果。下一版只进行一个最小操作层修改：
+操作相关性合同 v1 已通过合成反例、投影压力测试、冻结 baseline 哈希审计和完整回归。实现位于新的
+policy、episode entry point 与 runner 中，历史 EnvSolve 方法保持逐字节不变。
 
-1. 把观测归一化为仓库无关的 root failure 与 operation-family identity；
-2. 要求每个操作声明目标 active constraint 和可执行前提；
-3. 在昂贵状态转换前探测工具、文件、build target、版本与 acquisition channel 是否可用；
-4. 用完整目标快照比较预期 finding delta 与实际 finding delta；
-5. 在新证据改变前提之前，禁止重复等价失败操作族。
-
-先在已消费开发 artifact 和合成反例上验证，再冻结新的仓库不相交 Dev batch。不得针对 `openqasm`
-调参；它只为通用的前提检查和重复操作族机制提供证据。操作层跨仓库获得 Official Pass 或 repair-rate
-增益后，再在相同冻结 case 上运行 matched native Codex 与 Repo2Run，之后才扩展到完整 benchmark。
-Provider 硬墙钟超时属于基础设施修复，必须与算法修改分开验证。
+下一道 gate 是 provider 输出格式验证，然后在新的仓库不相交 Dev batch 上，与
+`envsolve-pro-goal-contract-evidence-anchor` 进行冻结配对。case 选择后不得修改算法、prompt、family
+identity 或阈值。先分析 Official Pass，再分析失败后恢复、合同拒绝、预期/实际 delta 校准和重复 family
+抑制。如果 v1 没有改善跨仓库主要矛盾，就把它封存为可审计 baseline，再由失败分布决定“可执行的
+工具/provider 探针”是否是下一项最小机制。不得针对 `openqasm` 调参。
