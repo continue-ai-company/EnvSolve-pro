@@ -1,0 +1,51 @@
+{
+  "freeze_id": "envsolve-pro-operation-relevance-contract-v1",
+  "frozen_at": "2026-07-27",
+  "source_revision": "d00539b351947ddcbca2f124ad0968d9875a6f37",
+  "source_revision_semantics": "Implementation commit created before provider-format probing or selection of another repository identity.",
+  "method": {
+    "runner": "envsolve-pro",
+    "method": "envsolve-pro-operation-contract",
+    "control_runner": "envsolve",
+    "control_method": "envsolve-pro-goal-contract-evidence-anchor",
+    "single_intended_difference": "evidence-directed operation relevance contract",
+    "candidate_language": "open Bash program",
+    "environment_strategy": "fresh-candidate",
+    "official_evaluator_access": "post-episode-only"
+  },
+  "algorithm_files": {
+    "envsolve/runtime/operation_contract.py": "50b6be05636c97358c2c922183bd2cedb0b01ea8beaa3b4f4e1e2d5b1c592a02",
+    "envsolve/runtime/operation_policy.py": "491cf05c6c7a8d34791bcab380e1c7d22335232978a8904adf21176418dc5dc0",
+    "envsolve/tools/run_envsolve_operation_episode.py": "1a89efe91c82a21c52393f921e36fd834fcc5c8078a63b9c20e5fbdd804ca5d7",
+    "envsolve_harness/runners/envsolve_pro.py": "c04768671b623a2d3f0bf17f3f116172ea377ee32b171ead242fb3f9cc84c378",
+    "envsolve_harness/runners/registry.py": "4f1c556474423080eb95aa6591948d883fcfac9f6a26f85224a2704554518e7f",
+    "experiments/run_envsolve_pro_schedule.py": "adcb736857e0465f3acb1d4cd5cd5d7877359f5567e2701521d85609dd730cfe",
+    "tests/test_operation_relevance_contract.py": "6b9c1cc11a2aeb3556b6ac4df0687b89f0ae4a0305ed88ed4a17ef79029bdfb7"
+  },
+  "preserved_baseline_files": {
+    "envsolve/runtime/policy.py": "9459ccd1c134870dffd92f238a2eb32f301d7a447d490ce6b5a43f9081420d5c",
+    "envsolve/tools/run_envsolve_episode.py": "e3e957fbcb63c4960af88af5835b6a41531e3c0390231839df718b076b86454e",
+    "envsolve_harness/runners/envsolve_p6.py": "ba621f092ea04fa4f73e0cadef130e098e6629a2052f7643085358ec5fe1b4cc"
+  },
+  "design_files": {
+    "experiments/validations/pro_operation_relevance_contract_v1_design_freeze.json": "262961ea7185d89922ff6296059342829140fc2bfdf2d192abd8780b2035c389",
+    "research/PRO_OPERATION_RELEVANCE_CONTRACT_V1.md": "9143570fb60637ced16203aae24b932b95a2517a20ea223283b7ef73887b738b",
+    "research/PRO_OPERATION_RELEVANCE_CONTRACT_V1_ZH.md": "b4419779e9cbbe1dd9f06bc7670afb4e86ed4691e5b1b84debacd5b75afbc6df"
+  },
+  "synthetic_gate": {
+    "focused_tests": "14 passed",
+    "full_regression": "586 passed, 3 skipped, 75 subtests passed",
+    "static_analysis": "targeted Ruff passed",
+    "frozen_baseline_hash_audit": "passed",
+    "projection_stress": "200 active findings under an 8192-character model-input limit",
+    "provider_format_probe": "pending"
+  },
+  "integrity": {
+    "case_specific_rules": false,
+    "package_or_module_recipes": false,
+    "consumed_openqasm_used_as_regression_target": false,
+    "model_declared_family_is_ground_truth": false,
+    "official_feedback_used_online": false,
+    "api_key_persisted": false
+  }
+}

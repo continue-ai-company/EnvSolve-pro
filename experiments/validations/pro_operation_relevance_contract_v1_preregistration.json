@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1",
+  "status": "preregistered-before-provider-probe-and-case-selection",
+  "preregistered_at": "2026-07-27",
+  "claim_scope": "Repository-disjoint development qualification; not final test or leaderboard evidence.",
+  "algorithm_freeze": {
+    "commit": "d00539b351947ddcbca2f124ad0968d9875a6f37",
+    "path": "experiments/protocols/pro_operation_relevance_contract_v1_freeze.json",
+    "sha256": "251ad1241837e25a89df73d8f0ec663f506450651fe853d9bdf563331bfa99d1"
+  },
+  "hypothesis": {
+    "problem": "Explicit goal state preserves unresolved findings but a strong model can still repeat operations whose relevance and evidence basis are implicit.",
+    "mechanism": "Require each open Bash candidate to bind its new repair to current finding IDs, model-visible precondition evidence, an expected finding delta, and an open operation-family identity; reject conclusively failed exact scripts and same-family retries without newly cited evidence.",
+    "primary": "The operation-relevance contract improves or preserves Official Pass relative to the frozen fresh evidence-anchor control.",
+    "secondary": "After a first executable-goal failure, the contract reduces evidence-free repeated repairs and improves progress calibration without increasing Unknown or policy-output failure enough to reduce terminal reach."
+  },
+  "provider_gate": {
+    "script": "experiments/probe_operation_contract_provider.py",
+    "script_sha256": "187d186092724567adf03d2a02fa72e09b9bd93bdc658f2ca62ca173ef2f16c1",
+    "output": "experiments/validations/pro_operation_relevance_contract_v1_provider_probe.json",
+    "requests": 3,
+    "repository_context": false,
+    "official_evaluator_context": false,
+    "proceed_rule": "All three provider responses parse into valid operation-contract candidates, finish normally, and produce no request or policy error.",
+    "failure_rule": "Repair only provider/output compatibility without opening or selecting a repository identity; update the algorithm freeze if prompt or parser semantics change."
+  },
+  "selection": {
+    "source_case_file": "experiments/cases/train_untouched_after_pro_trajectory_census_replication_v1_96.jsonl",
+    "source_case_file_sha256": "8c00f9012821eb67b1035807fef2cb2274d580da954c55f258f72eb7642d8240",
+    "source_rows": 96,
+    "consumed_exclusion_file": "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl",
+    "consumed_exclusion_file_sha256": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
+    "eligible_rows": 91,
+    "selection_unit": "repository",
+    "salt": "d00539b:operation-relevance-contract-qv1",
+    "hash_input": "{salt}\\0{repository}@{revision}",
+    "hash": "sha256",
+    "order": "ascending",
+    "take": 5,
+    "repository_content_or_outcome_used_for_selection": false,
+    "selected_case_file": "experiments/cases/dev_pro_operation_relevance_contract_v1_5.jsonl",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_operation_relevance_contract_v1_86.jsonl",
+    "selection_requires_qualified_provider_probe": true
+  },
+  "conditions": [
+    {
+      "condition": "frozen-fresh-control",
+      "runner": "envsolve",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "operation_profile": "free-form"
+    },
+    {
+      "condition": "operation-contract-v1",
+      "runner": "envsolve-pro",
+      "method": "envsolve-pro-operation-contract",
+      "operation_profile": "evidence-directed"
+    }
+  ],
+  "shared_contract": {
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 1,
+    "public_executable_goal": true,
+    "constraint_profile": "flat",
+    "repository_evidence": "constraint-routed",
+    "candidate_anchor": "retained-admissible",
+    "candidate_interface": "open-program",
+    "candidate_retention": "best-admissible",
+    "environment_strategy": "fresh-candidate",
+    "terminal_official_evaluator_only": true,
+    "official_success": "exit_code == 0 and issues_count == 0",
+    "config": "experiments/configs/local_mac_pro_operation_relevance_v1.json",
+    "config_sha256": "61f11c16f7340268c27544e4001e6a171149595f5938dff175cf4fa0a5bc11c6",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "max_candidates": 12,
+    "max_environments": 24,
+    "max_commands": 24,
+    "generation_timeout_seconds": 18000,
+    "candidate_command_timeout_seconds": 1200,
+    "token_policy": "Tokens and price are reported outcomes; configured limits are emergency guards, not research stopping thresholds."
+  },
+  "analysis": {
+    "primary_metric": "Official Pass@1",
+    "primary_contrast": "operation-contract-v1 versus frozen-fresh-control",
+    "paired_unit": "repository",
+    "mechanism_metrics": [
+      "post-first-failure Official repair success",
+      "contract proposal and rejection counts by reason",
+      "expected finding deltas met, not met, or unknown",
+      "conclusively failed exact-script suppression",
+      "same-family no-new-evidence suppression",
+      "executed candidates and terminal reach",
+      "policy-output and infrastructure Unknown rates"
+    ],
+    "descriptive_metrics": [
+      "input, cached, output, and reasoning tokens",
+      "logical model requests and provider attempts",
+      "candidate environments, commands, and wall-clock time"
+    ],
+    "integrity_gate": [
+      "Every treatment candidate carries a valid versioned operation contract.",
+      "Every referenced target and precondition evidence ID appeared in that candidate's model input.",
+      "Only complete same-goal snapshots claim finding resolution.",
+      "The treatment and control differ only in the frozen operation-contract mechanism and isolated launcher.",
+      "No Official evaluator finding enters an online model input or state transition.",
+      "Every terminal Official result uses an identity-matched fresh environment and passes repository integrity."
+    ],
+    "proceed_rule": "Retain v1 for larger qualification if the integrity gate passes, Official Pass does not regress, and at least one repository exhibits either a treatment-only Official repair or a correctly calibrated suppression that prevents an evidence-free repeated execution.",
+    "failure_rule": "If integrity fails, repair measurement before interpretation. If effectiveness or mechanism gates fail, archive all selected repositories as consumed and redesign only from internal trajectories before selecting another batch.",
+    "no_algorithm_prompt_or_threshold_change_after_selection": true,
+    "infrastructure_retry_policy": "Retry only a preregistered infrastructure-censored episode with identical code, settings, seed, and case; never replace a case based on outcome."
+  }
+}
