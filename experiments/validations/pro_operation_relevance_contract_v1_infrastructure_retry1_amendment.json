@@ -1,0 +1,88 @@
+{
+  "amendment_id": "infrastructure-retry1",
+  "bound_at": "2026-07-26T20:26:30Z",
+  "claim_scope": "Repository-disjoint development qualification closure only",
+  "implementation_freeze": "d00539b351947ddcbca2f124ad0968d9875a6f37",
+  "orchestration_commit": "c71f01b9ccca8a8a1eb36ec4998835194a288fc0",
+  "preclosure_results": "experiments/validations/pro_operation_relevance_contract_v1_results_preclosure.json",
+  "preclosure_results_sha256": "abb1238ab496494859049255b3c523c944498f43cc2684cc5c368fe33b969814",
+  "preregistration": "experiments/validations/pro_operation_relevance_contract_v1_preregistration.json",
+  "preregistration_sha256": "f5a19eb4033f0c3ee07463d937f20bbfc686cd2f4439afdd08b6cffc27d74437",
+  "reason": "Two episodes were censored by provider request timeout and five later episodes were censored by provider credit-capacity rejection. No case replacement or algorithm change is permitted.",
+  "retained_source_attempts": [
+    {
+      "position": 1,
+      "reason": "Identity-matched Official Pass with complete eligible artifacts.",
+      "run_id": "pro-oprel-qv1-c01-django-registration-operation-contract-v1"
+    },
+    {
+      "position": 2,
+      "reason": "Identity-matched Official Pass with complete eligible artifacts.",
+      "run_id": "pro-oprel-qv1-c01-django-registration-frozen-fresh-control"
+    },
+    {
+      "position": 5,
+      "reason": "The treatment selected a broad dependency operation that reached the fixed candidate command timeout. This is a terminal-reach outcome, not a provider-censored episode.",
+      "run_id": "pro-oprel-qv1-c03-uer-py-operation-contract-v1"
+    }
+  ],
+  "retry_policy": "Retry only provider-censored episodes under new run IDs. Preserve every prior artifact. Runtime code, model, seed, condition, case identity, config, protocol, host platform, and all budgets remain unchanged. The provider key must have sufficient capacity before either execution range begins.",
+  "retry_schedule": "experiments/validations/pro_operation_relevance_contract_v1_infrastructure_retry1_schedule.json",
+  "retry_schedule_sha256": "ec00a813580986fa2dee0ea4a0974e23d7a334ca0f1560d8d4fcf2ef844e79ff",
+  "schema_version": "1.0.0",
+  "source_censoring": [
+    {
+      "position": 3,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c02-trax-frozen-fresh-control",
+      "signature": "APITimeoutError after one valid model response",
+      "source_run_id": "pro-oprel-qv1-c02-trax-frozen-fresh-control",
+      "terminal_class": "provider_infrastructure_unknown"
+    },
+    {
+      "position": 4,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c02-trax-operation-contract-v1",
+      "signature": "APITimeoutError after five valid model responses",
+      "source_run_id": "pro-oprel-qv1-c02-trax-operation-contract-v1",
+      "terminal_class": "provider_infrastructure_unknown"
+    },
+    {
+      "position": 6,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c03-uer-py-frozen-fresh-control",
+      "signature": "HTTP 402 provider credit-capacity rejection after three valid model responses",
+      "source_run_id": "pro-oprel-qv1-c03-uer-py-frozen-fresh-control",
+      "terminal_class": "provider_capacity_unknown"
+    },
+    {
+      "position": 7,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c04-tortoise-orm-operation-contract-v1",
+      "signature": "HTTP 402 provider credit-capacity rejection before any valid model response",
+      "source_run_id": "pro-oprel-qv1-c04-tortoise-orm-operation-contract-v1",
+      "terminal_class": "provider_capacity_unknown"
+    },
+    {
+      "position": 8,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c04-tortoise-orm-frozen-fresh-control",
+      "signature": "HTTP 402 provider credit-capacity rejection before any valid model response",
+      "source_run_id": "pro-oprel-qv1-c04-tortoise-orm-frozen-fresh-control",
+      "terminal_class": "provider_capacity_unknown"
+    },
+    {
+      "position": 9,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c05-libensemble-operation-contract-v1",
+      "signature": "HTTP 402 provider credit-capacity rejection before any valid model response",
+      "source_run_id": "pro-oprel-qv1-c05-libensemble-operation-contract-v1",
+      "terminal_class": "provider_capacity_unknown"
+    },
+    {
+      "position": 10,
+      "retry_run_id": "pro-oprel-qv1-infra-retry1-c05-libensemble-frozen-fresh-control",
+      "signature": "HTTP 402 provider credit-capacity rejection before any valid model response",
+      "source_run_id": "pro-oprel-qv1-c05-libensemble-frozen-fresh-control",
+      "terminal_class": "provider_capacity_unknown"
+    }
+  ],
+  "source_schedule": "experiments/validations/pro_operation_relevance_contract_v1_schedule.json",
+  "source_schedule_sha256": "a1d6ae09083297fa416013b0a43fe43388aacdec0ba6ae0dec0acc01fab98a51",
+  "status": "frozen-awaiting-provider-capacity",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1"
+}

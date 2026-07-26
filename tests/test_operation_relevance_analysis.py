@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from experiments.analyze_operation_relevance_contract import (
     _aggregate_condition,
+    _primary_pass_at_1,
     mechanism_metrics,
     paired_metrics,
 )
@@ -152,6 +153,7 @@ def test_paired_metrics_counts_treatment_only_official_repair() -> None:
             "condition": "operation-contract-v1",
             "scientifically_eligible": True,
             "official_pass": True,
+            "descriptive_terminal": "official_pass",
             "mechanism": {
                 "first_internal_goal_failure_observed": True,
             },
@@ -161,6 +163,7 @@ def test_paired_metrics_counts_treatment_only_official_repair() -> None:
             "condition": "frozen-fresh-control",
             "scientifically_eligible": True,
             "official_pass": False,
+            "descriptive_terminal": "official_fail",
             "mechanism": {
                 "first_internal_goal_failure_observed": False,
             },
@@ -172,6 +175,41 @@ def test_paired_metrics_counts_treatment_only_official_repair() -> None:
     assert result["eligible_blocks"] == 1
     assert result["treatment_only_pass"] == 1
     assert result["treatment_only_official_repair"] == 1
+
+
+def test_execution_timeout_is_primary_nonpass_not_infrastructure_censor() -> None:
+    treatment = {
+        "case_block": 1,
+        "condition": "operation-contract-v1",
+        "scientifically_eligible": True,
+        "official_pass": None,
+        "descriptive_terminal": "execution_timeout_unknown",
+        "mechanism": {"first_internal_goal_failure_observed": True},
+    }
+    control = {
+        "case_block": 1,
+        "condition": "frozen-fresh-control",
+        "scientifically_eligible": True,
+        "official_pass": True,
+        "descriptive_terminal": "official_pass",
+        "mechanism": {"first_internal_goal_failure_observed": False},
+    }
+
+    assert _primary_pass_at_1(treatment) is False
+    result = paired_metrics([treatment, control])
+
+    assert result["eligible_blocks"] == 1
+    assert result["control_only_pass"] == 1
+    assert result["censored_blocks"] == 0
+
+
+def test_provider_capacity_is_primary_censor() -> None:
+    run = {
+        "scientifically_eligible": True,
+        "descriptive_terminal": "provider_capacity_unknown",
+    }
+
+    assert _primary_pass_at_1(run) is None
 
 
 def test_condition_aggregate_reports_terminal_reach_and_resources() -> None:
@@ -209,5 +247,8 @@ def test_condition_aggregate_reports_terminal_reach_and_resources() -> None:
     result = _aggregate_condition(runs, "operation-contract-v1")
 
     assert result["official_terminal_reach"] == 1
+    assert result["primary_pass_at_1"] == 1
+    assert result["primary_nonpass_at_1"] == 0
+    assert result["primary_censored"] == 0
     assert result["terminal_classes"] == {"official_pass": 1}
     assert result["resources"]["total_tokens"] == 100

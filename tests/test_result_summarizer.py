@@ -315,6 +315,56 @@ class ResultSummarizerTest(unittest.TestCase):
             "provider_infrastructure_unknown",
         )
 
+    @mock.patch(
+        "envsolve_harness.results.assess_scientific_eligibility",
+        return_value=EligibilityReport(eligible=True),
+    )
+    @mock.patch(
+        "envsolve_harness.results.audit_run",
+        return_value=AuditReport(valid=True),
+    )
+    def test_provider_credit_rejection_is_capacity_unknown(
+        self,
+        _audit: mock.Mock,
+        _eligibility: mock.Mock,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            schedule, runs = self._fixture(directory)
+            run = runs / safe_name("run-full") / safe_name("owner/repo@abc")
+            manifest = json.loads(
+                (run / "manifest.json").read_text(encoding="utf-8")
+            )
+            manifest["solver"] = {
+                "generation_completed": False,
+                "error": "APIStatusError",
+                "metadata": {},
+            }
+            manifest["result"] = None
+            write_json(run / "manifest.json", manifest)
+            write_json(run / "status.json", {"state": "failed"})
+            write_json(
+                run / "generation" / "budget_ledger.json",
+                {
+                    "usage": {"requests_started": 1},
+                    "provider_attempts": [
+                        {
+                            "attempt_id": "attempt-1",
+                            "outcome": "error",
+                            "error_type": "APIStatusError",
+                            "status_code": 402,
+                        }
+                    ],
+                },
+            )
+
+            summary = summarize_schedule(schedule, runs)
+
+        full = next(run for run in summary["runs"] if run["method"] == "full")
+        self.assertEqual(
+            full["descriptive_terminal"],
+            "provider_capacity_unknown",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

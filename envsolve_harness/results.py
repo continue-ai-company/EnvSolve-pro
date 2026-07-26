@@ -115,6 +115,8 @@ def _provider_attempt_terminal(
         return None
     error_type = str(last.get("error_type") or "").lower()
     status_code = last.get("status_code")
+    if status_code == 402:
+        return "provider_capacity_unknown"
     if (
         any(
             token in error_type

@@ -27,6 +27,7 @@ CONTROL = "frozen-fresh-control"
 TERMINAL_CLASSES = {
     "official_pass",
     "official_fail",
+    "provider_capacity_unknown",
     "provider_infrastructure_unknown",
     "provider_response_unknown",
     "infrastructure_unknown",
@@ -37,6 +38,22 @@ TERMINAL_CLASSES = {
     "candidate_limit",
     "context_contract_exhausted",
     "generation_failed",
+}
+METHOD_NONPASS_TERMINALS = {
+    "official_fail",
+    "execution_timeout_unknown",
+    "budget_exhausted",
+    "candidate_limit",
+    "context_contract_exhausted",
+    "generation_failed",
+}
+EXTERNAL_CENSOR_TERMINALS = {
+    "provider_capacity_unknown",
+    "provider_infrastructure_unknown",
+    "provider_response_unknown",
+    "infrastructure_unknown",
+    "evaluator_unknown",
+    "measurement_integrity_unknown",
 }
 
 
@@ -365,6 +382,19 @@ def _aggregate_condition(
         "official_terminal_reach": sum(
             isinstance(run["official_pass"], bool) for run in selected
         ),
+        "primary_pass_at_1": sum(
+            _primary_pass_at_1(run) is True for run in selected
+        ),
+        "primary_nonpass_at_1": sum(
+            _primary_pass_at_1(run) is False for run in selected
+        ),
+        "primary_censored": sum(
+            _primary_pass_at_1(run) is None for run in selected
+        ),
+        "external_censored": sum(
+            run["descriptive_terminal"] in EXTERNAL_CENSOR_TERMINALS
+            for run in selected
+        ),
         "terminal_classes": dict(sorted(terminal_counts.items())),
         "candidate_proposals": sum(
             run["mechanism"]["candidate_proposals"] for run in selected
@@ -404,6 +434,17 @@ def _aggregate_condition(
     }
 
 
+def _primary_pass_at_1(run: dict[str, Any]) -> bool | None:
+    if not run.get("scientifically_eligible"):
+        return None
+    terminal = str(run.get("descriptive_terminal"))
+    if terminal == "official_pass":
+        return True
+    if terminal in METHOD_NONPASS_TERMINALS:
+        return False
+    return None
+
+
 def paired_metrics(runs: list[dict[str, Any]]) -> dict[str, int]:
     blocks: dict[int, dict[str, dict[str, Any]]] = {}
     for run in runs:
@@ -426,17 +467,16 @@ def paired_metrics(runs: list[dict[str, Any]]) -> dict[str, int]:
             continue
         treatment = conditions[TREATMENT]
         control = conditions[CONTROL]
-        eligible = (
-            treatment["scientifically_eligible"]
-            and control["scientifically_eligible"]
-            and isinstance(treatment["official_pass"], bool)
-            and isinstance(control["official_pass"], bool)
+        treatment_outcome = _primary_pass_at_1(treatment)
+        control_outcome = _primary_pass_at_1(control)
+        eligible = isinstance(treatment_outcome, bool) and isinstance(
+            control_outcome, bool
         )
         if not eligible:
             counts["censored_blocks"] += 1
             continue
         counts["eligible_blocks"] += 1
-        outcomes = (treatment["official_pass"], control["official_pass"])
+        outcomes = (treatment_outcome, control_outcome)
         if outcomes == (True, True):
             counts["both_pass"] += 1
         elif outcomes == (True, False):
@@ -483,6 +523,7 @@ def analyze(schedule_path: Path, runs_root: Path) -> dict[str, Any]:
                 ),
             }
         )
+        runs[-1]["primary_pass_at_1"] = _primary_pass_at_1(runs[-1])
 
     by_condition = {
         condition: _aggregate_condition(runs, condition)
@@ -495,11 +536,16 @@ def analyze(schedule_path: Path, runs_root: Path) -> dict[str, Any]:
     mechanism_integrity = all(
         run["mechanism"]["valid"] for run in runs
     )
-    all_pairs_eligible = paired["eligible_blocks"] == paired["case_blocks"]
+    all_runs_scientifically_eligible = all(
+        run["scientifically_eligible"] for run in runs
+    )
+    all_pairs_primary_observed = (
+        paired["eligible_blocks"] == paired["case_blocks"]
+    )
     no_official_regression = (
-        all_pairs_eligible
-        and by_condition[TREATMENT]["official_pass"]
-        >= by_condition[CONTROL]["official_pass"]
+        all_pairs_primary_observed
+        and by_condition[TREATMENT]["primary_pass_at_1"]
+        >= by_condition[CONTROL]["primary_pass_at_1"]
     )
     suppression_observed = (
         by_condition[TREATMENT]["suppression_events"] > 0
@@ -509,7 +555,9 @@ def analyze(schedule_path: Path, runs_root: Path) -> dict[str, Any]:
         decision = "incomplete"
     elif not mechanism_integrity:
         decision = "invalid-mechanism-integrity"
-    elif not all_pairs_eligible:
+    elif not all_runs_scientifically_eligible:
+        decision = "invalid-scientific-eligibility-needs-retry"
+    elif not all_pairs_primary_observed:
         decision = "censored-needs-infrastructure-closure"
     elif not no_official_regression:
         decision = "archive-v1-official-regression"
@@ -535,7 +583,10 @@ def analyze(schedule_path: Path, runs_root: Path) -> dict[str, Any]:
         "gate": {
             "schedule_complete": schedule_complete,
             "mechanism_integrity_valid": mechanism_integrity,
-            "all_pairs_scientifically_eligible": all_pairs_eligible,
+            "all_runs_scientifically_eligible": (
+                all_runs_scientifically_eligible
+            ),
+            "all_pairs_primary_observed": all_pairs_primary_observed,
             "no_official_pass_regression": no_official_regression,
             "treatment_only_official_repair_observed": treatment_only_repair,
             "suppression_observed": suppression_observed,

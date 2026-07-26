@@ -24,6 +24,26 @@ AMENDMENT = (
     ROOT
     / "experiments/validations/pro_operation_relevance_contract_v1_provider_probe_infrastructure_amendment.json"
 )
+QUALIFICATION_SCHEDULE = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_schedule.json"
+)
+PRECLOSURE_RESULTS = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_results_preclosure.json"
+)
+RETRY_AMENDMENT = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_infrastructure_retry1_amendment.json"
+)
+RETRY_SCHEDULE = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_infrastructure_retry1_schedule.json"
+)
+MEASUREMENT_AMENDMENT = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_measurement_amendment.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -171,3 +191,93 @@ def test_schedule_is_a_complete_deterministic_pairing() -> None:
             "envsolve",
             "envsolve-pro",
         }
+
+
+def test_infrastructure_retry_preserves_episode_identity_and_algorithmic_timeout() -> None:
+    source = json.loads(QUALIFICATION_SCHEDULE.read_text(encoding="utf-8"))
+    retry = json.loads(RETRY_SCHEDULE.read_text(encoding="utf-8"))
+    amendment = json.loads(RETRY_AMENDMENT.read_text(encoding="utf-8"))
+    source_by_position = {
+        int(episode["position"]): episode for episode in source["episodes"]
+    }
+    retry_by_position = {
+        int(episode["position"]): episode for episode in retry["episodes"]
+    }
+    retained = {1, 2, 5}
+    retried = {3, 4, 6, 7, 8, 9, 10}
+
+    assert retry["source_schedule_sha256"] == _sha256(
+        QUALIFICATION_SCHEDULE
+    )
+    assert retry["preregistration_sha256"] == _sha256(PREREGISTRATION)
+    assert retry["case_file_sha256"] == _sha256(selector.SELECTED)
+    assert retry["execution"]["retained_positions"] == sorted(retained)
+    assert retry["execution"]["execution_ranges"] == [[3, 4], [6, 10]]
+    assert amendment["retry_schedule_sha256"] == _sha256(RETRY_SCHEDULE)
+    assert amendment["preclosure_results_sha256"] == _sha256(
+        PRECLOSURE_RESULTS
+    )
+    assert {
+        int(item["position"]) for item in amendment["source_censoring"]
+    } == retried
+    assert {
+        int(item["position"])
+        for item in amendment["retained_source_attempts"]
+    } == retained
+
+    identity_fields = (
+        "case_block",
+        "case_id",
+        "condition",
+        "method",
+        "model",
+        "position",
+        "runner",
+        "seed",
+    )
+    for position in range(1, 11):
+        original = source_by_position[position]
+        closure = retry_by_position[position]
+        assert {
+            field: closure[field] for field in identity_fields
+        } == {
+            field: original[field] for field in identity_fields
+        }
+        if position in retained:
+            assert closure["attempt_role"] == "retained-source"
+            assert closure["run_id"] == original["run_id"]
+            assert "source_run_id" not in closure
+        else:
+            assert closure["attempt_role"] == "infrastructure-retry"
+            assert closure["source_run_id"] == original["run_id"]
+            assert closure["run_id"] != original["run_id"]
+
+
+def test_measurement_amendment_preserves_original_and_binds_correction() -> None:
+    amendment = json.loads(
+        MEASUREMENT_AMENDMENT.read_text(encoding="utf-8")
+    )
+
+    for binding in (
+        amendment["original_preclosure_results"],
+        amendment["corrected_preclosure_results"],
+        amendment["corrected_analysis"]["analyzer"],
+        amendment["corrected_analysis"]["result_summarizer"],
+    ):
+        assert _sha256(ROOT / binding["path"]) == binding["sha256"]
+    for binding in amendment["corrected_analysis"]["tests"]:
+        assert _sha256(ROOT / binding["path"]) == binding["sha256"]
+    assert "execution_timeout_unknown" in amendment[
+        "frozen_primary_taxonomy"
+    ]["method_nonpass"]
+    assert "provider_capacity_unknown" in amendment[
+        "frozen_primary_taxonomy"
+    ]["external_censor"]
+    retained = json.loads(RETRY_AMENDMENT.read_text(encoding="utf-8"))[
+        "retained_source_attempts"
+    ]
+    assert any(
+        item["position"] == 5
+        and "terminal-reach outcome" in item["reason"]
+        for item in retained
+    )

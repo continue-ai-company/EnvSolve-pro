@@ -1,0 +1,84 @@
+{
+  "amendment_id": "posthoc-terminal-taxonomy-and-primary-outcome-v1",
+  "bound_at": "2026-07-26T20:32:54Z",
+  "claim_scope": "Measurement correction for the repository-disjoint development qualification; no algorithm or effectiveness claim is changed by this file.",
+  "corrected_analysis": {
+    "analyzer": {
+      "path": "experiments/analyze_operation_relevance_contract.py",
+      "sha256": "146a1ea4e0e2144be2f6fd310bf4364f66458b63555400a61cf40c9f8403b660"
+    },
+    "result_summarizer": {
+      "path": "envsolve_harness/results.py",
+      "sha256": "79086e254ffa5340683b670a7c7b68b52140efd2e49c9242fbd5d79231f470b2"
+    },
+    "tests": [
+      {
+        "path": "tests/test_result_summarizer.py",
+        "sha256": "c4d93bae3aeb34845f473ebdba3c8800195acb1112229d20d85d2aee8adac8ea"
+      },
+      {
+        "path": "tests/test_operation_relevance_analysis.py",
+        "sha256": "0164ded9490b7847714c0313703e30229216f34b21459ea8647b7921c50b373c"
+      }
+    ]
+  },
+  "corrected_preclosure_results": {
+    "path": "experiments/validations/pro_operation_relevance_contract_v1_results_preclosure_measurement_corrected.json",
+    "sha256": "c7fade03e103544ac8d71127b89e800aacb490e96ba7e02dfc1555d361de76a6"
+  },
+  "corrections": [
+    {
+      "after": "provider_capacity_unknown",
+      "before": "generation_failed",
+      "rule": "A completed provider attempt with HTTP status 402 is an external provider-capacity censor. It is never an algorithm failure and never a primary non-pass."
+    },
+    {
+      "after": "primary_pass_at_1=false while descriptive_terminal remains execution_timeout_unknown",
+      "before": "excluded from the paired primary outcome",
+      "rule": "A scientifically eligible method that exceeds a frozen candidate, context, candidate-count, or generation budget has not submitted a passing terminal answer under the protocol. It is a primary non-pass, while its unresolved task state remains epistemically Unknown."
+    }
+  ],
+  "frozen_primary_taxonomy": {
+    "external_censor": [
+      "provider_capacity_unknown",
+      "provider_infrastructure_unknown",
+      "provider_response_unknown",
+      "infrastructure_unknown",
+      "evaluator_unknown",
+      "measurement_integrity_unknown"
+    ],
+    "method_nonpass": [
+      "official_fail",
+      "execution_timeout_unknown",
+      "budget_exhausted",
+      "candidate_limit",
+      "context_contract_exhausted",
+      "generation_failed"
+    ],
+    "pass": [
+      "official_pass"
+    ]
+  },
+  "integrity_statement": "The original frozen analysis output remains immutable and hash-addressed. This correction was triggered by observed terminal classes, is applied uniformly to both conditions, was frozen before any infrastructure retry, and cannot authorize retry of a method-induced execution timeout.",
+  "original_preclosure_results": {
+    "path": "experiments/validations/pro_operation_relevance_contract_v1_results_preclosure.json",
+    "sha256": "abb1238ab496494859049255b3c523c944498f43cc2684cc5c368fe33b969814"
+  },
+  "preclosure_sensitivity": {
+    "corrected": {
+      "control_primary_nonpass": 0,
+      "external_censored_episodes": 7,
+      "paired_primary_observed_blocks": 1,
+      "treatment_primary_nonpass": 1
+    },
+    "frozen_original": {
+      "episodes_labeled_generation_failed": 5,
+      "paired_official_terminal_blocks": 1,
+      "treatment_execution_timeout_excluded_from_primary": true
+    },
+    "effect_interpretation": "No treatment effect is estimable before infrastructure closure. The correction only prevents provider-capacity failures from counting against a method and prevents method-induced terminal-reach failure from disappearing from Pass@1."
+  },
+  "schema_version": "1.0.0",
+  "status": "frozen-before-infrastructure-retry",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1"
+}
