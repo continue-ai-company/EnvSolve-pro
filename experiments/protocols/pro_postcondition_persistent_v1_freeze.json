@@ -23,6 +23,7 @@
     "envsolve_harness/persistent_state_analysis.py": "4af65ae9f80c23d61d64def4b36e1090f559c207bb02f044178e7980b54eecf0",
     "experiments/analyze_postcondition_persistent.py": "f8db6fe556c8c5060a362bc7d59af81a3e8d5fbaa7de4bfa7d814d654fbd5fe1",
     "tests/test_persistent_state_analysis.py": "ed8d0db41088233aedf15a5eacd053efb25d46f032182ca1c1cfdba581406e66",
+    "tests/test_envsolve_docker_integration.py": "4e6ee0a01e6b0e9e131716126712c167e3143be1cc7b90c4ea585338e71a4685",
     "tests/test_pro_postcondition_persistent_qualification.py": "161bad5cc647e47f4acdbd66ba96c55b7bfec47799ae95e1a179238339f993c9"
   },
   "semantic_boundary": {
@@ -85,6 +86,7 @@
     "full_regression_before_algorithm_commit": "557 passed, 2 skipped, 75 subtests passed",
     "qualification_integrity_tests": "4 passed",
     "frozen_analysis_tests": "5 passed",
+    "real_docker_integration": "2 passed; persistent construction observed REUSED and distinct clean certification observed FRESH",
     "schedule_schema_validation": "valid",
     "static_analysis": "ruff check passed",
     "secret_scan": "no matching key or private-key material"
