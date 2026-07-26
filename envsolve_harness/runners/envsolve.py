@@ -36,6 +36,7 @@ class EnvSolveEpisodeRunner:
         budget: EpisodeBudget,
         max_candidates: int,
         retain_admissible_candidate: bool = True,
+        environment_strategy: str = "fresh-candidate",
         condition: str = "envsolve-full",
         repository_profile: dict[str, Any] | None = None,
         initial_evidence: tuple[InitialConstraintEvidence, ...] = (),
@@ -57,6 +58,7 @@ class EnvSolveEpisodeRunner:
         self.budget = budget
         self.max_candidates = max_candidates
         self.retain_admissible_candidate = retain_admissible_candidate
+        self.environment_strategy = environment_strategy
         self.condition = condition
         self.repository_profile = repository_profile
         self.initial_evidence = initial_evidence
@@ -93,8 +95,12 @@ class EnvSolveEpisodeRunner:
                 "description": self.goal_description,
             },
         }
+        if self.environment_strategy != "fresh-candidate":
+            metadata["environment_strategy"] = self.environment_strategy
         if self.initial_observation_summary is not None:
-            metadata["initial_repository_observation"] = self.initial_observation_summary
+            metadata["initial_repository_observation"] = (
+                self.initial_observation_summary
+            )
         try:
             session = SolverStateSession(
                 artifacts.episode_event_log,
@@ -104,7 +110,9 @@ class EnvSolveEpisodeRunner:
                 run_id=run_spec.run_id,
                 episode_id=f"{run_spec.run_id}:{case.case_id}",
             )
-            if self.repository_profile is not None and not session.reconstruct().repository_profile:
+            if (
+                self.repository_profile is not None and not session.reconstruct().repository_profile
+            ):
                 session.profile_repository(self.repository_profile)
             constraint_engine = ConstraintEngine()
             admitted_constraints: list[str] = []
@@ -147,6 +155,7 @@ class EnvSolveEpisodeRunner:
                 constraint_engine=constraint_engine,
                 operation_guard=self.operation_guard,
                 retain_admissible_candidate=self.retain_admissible_candidate,
+                environment_strategy=self.environment_strategy,
                 goal_id=self.goal_id,
                 goal_description=self.goal_description,
             )

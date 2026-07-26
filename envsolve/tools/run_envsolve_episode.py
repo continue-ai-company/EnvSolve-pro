@@ -93,6 +93,11 @@ def parse_args() -> argparse.Namespace:
         default="best-admissible",
     )
     parser.add_argument(
+        "--environment-strategy",
+        choices=("fresh-candidate", "postcondition-persistent"),
+        default="fresh-candidate",
+    )
+    parser.add_argument(
         "--pre-bootstrap-directory",
         action="append",
         default=[],
@@ -257,6 +262,7 @@ def main() -> int:
             constraint_profile=args.constraint_profile,
             repository_evidence_profile=args.repository_evidence_profile,
             candidate_anchor_profile=args.candidate_anchor_profile,
+            environment_strategy=args.environment_strategy,
             repository_root=source_repository,
         ),
         environment_provider=provider,
@@ -293,6 +299,7 @@ def main() -> int:
         retain_admissible_candidate=(
             args.candidate_retention == "best-admissible"
         ),
+        environment_strategy=args.environment_strategy,
         condition=args.method,
         repository_profile=profile,
         initial_evidence=(
@@ -310,6 +317,11 @@ def main() -> int:
             "constraint_profile": args.constraint_profile,
             "repository_evidence_profile": args.repository_evidence_profile,
             "candidate_anchor_profile": args.candidate_anchor_profile,
+            **(
+                {"environment_strategy": args.environment_strategy}
+                if args.environment_strategy != "fresh-candidate"
+                else {}
+            ),
             "workspace_preconditions": [
                 item.to_dict() for item in workspace_preconditions
             ],

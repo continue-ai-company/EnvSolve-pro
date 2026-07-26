@@ -109,10 +109,22 @@ RETAINED_ANCHOR_SYSTEM_PROMPT = dedent(
     """
 ).strip()
 
+PERSISTENT_CONSTRUCTION_SYSTEM_PROMPT = dedent(
+    """
+    The solver may execute a candidate on a prior construction environment only
+    when executable postconditions classified that state as reusable. This is a
+    search acceleration, not a correctness assumption. Continue to emit one
+    complete cumulative program that can run from a clean checkout; never emit
+    a delta that depends on retained state. Terminal success requires the exact
+    same program to pass a mandatory fresh-environment replay.
+    """
+).strip()
+
 OPERATION_PROFILES = {"constraint-driven", "free-form"}
 CONSTRAINT_PROFILES = {"flat", "causal-frontier", "raw-history"}
 REPOSITORY_EVIDENCE_PROFILES = {"disabled", "constraint-routed"}
 CANDIDATE_ANCHOR_PROFILES = {"disabled", "retained-admissible"}
+ENVIRONMENT_STRATEGIES = {"fresh-candidate", "postcondition-persistent"}
 MODEL_INPUT_PROJECTION_SCHEMA = "envsolve-model-input-projection-v1"
 
 
@@ -147,6 +159,7 @@ class StructuredModelDeploymentPolicy:
     constraint_profile: str = "flat"
     repository_evidence_profile: str = "disabled"
     candidate_anchor_profile: str = "disabled"
+    environment_strategy: str = "fresh-candidate"
     repository_root: Path | None = None
     operation_planner: ConstraintOperationPlanner = field(
         default_factory=ConstraintOperationPlanner
@@ -195,6 +208,8 @@ class StructuredModelDeploymentPolicy:
             raise ValueError(
                 "Candidate anchor profile must be disabled or retained-admissible"
             )
+        if self.environment_strategy not in ENVIRONMENT_STRATEGIES:
+            raise ValueError("Unsupported model-policy environment strategy")
         self._next_candidate = 1
 
     @staticmethod
@@ -365,12 +380,13 @@ class StructuredModelDeploymentPolicy:
         item: dict[str, Any],
         *,
         diagnostic_limit: int = 4_000,
+        include_environment_provenance: bool = False,
     ) -> dict[str, Any]:
         details = item.get("details")
         if not isinstance(details, dict):
             details = {}
         diagnostic = details.get("verifier_details", details)
-        return {
+        view = {
             "verification_id": item.get("verification_id"),
             "passed": item.get("passed"),
             "verifier": item.get("verifier"),
@@ -383,6 +399,15 @@ class StructuredModelDeploymentPolicy:
             "counterexample_count": details.get("counterexample_count"),
             "diagnostic": cls._bounded_json_value(diagnostic, diagnostic_limit),
         }
+        if include_environment_provenance:
+            view.update(
+                {
+                    "verification_role": details.get("verification_role"),
+                    "environment_fresh": details.get("environment_fresh"),
+                    "state_lineage_id": details.get("state_lineage_id"),
+                }
+            )
+        return view
 
     @staticmethod
     def _latest_goal_findings(state: EnvironmentState) -> tuple[dict[str, Any], ...]:
@@ -551,6 +576,9 @@ class StructuredModelDeploymentPolicy:
                             if raw_history
                             else 4_000
                         ),
+                        include_environment_provenance=(
+                            self.environment_strategy == "postcondition-persistent"
+                        ),
                     )
                     for item in state.verifications[-2:]
                 ],
@@ -613,6 +641,17 @@ class StructuredModelDeploymentPolicy:
                 self._operation_prompt_view(state),
                 self._field_limit(weights["operation"]),
             )
+        if self.environment_strategy == "postcondition-persistent":
+            transition_evidence = [
+                item.get("value")
+                for item in state.evidence.values()
+                if item.get("kind") == "state-transition-observation"
+            ][-2:]
+            projection["environment_strategy"] = self.environment_strategy
+            projection["state_transition_feedback"] = self._bounded_json_value(
+                transition_evidence,
+                4_000,
+            )
         encoded = json.dumps(projection, ensure_ascii=True, sort_keys=True)
         if len(encoded) > self.max_feedback_chars:
             raise ValueError("Bounded solver feedback exceeds the model context contract")
@@ -641,6 +680,13 @@ class StructuredModelDeploymentPolicy:
     def propose(self, state: EnvironmentState) -> DeploymentCandidate:
         projection = self._state_projection(state)
         system_prompt = BASE_SYSTEM_PROMPT
+        if self.environment_strategy == "postcondition-persistent":
+            system_prompt = system_prompt.replace(
+                "prior\nfresh-container feedback",
+                "prior verifier feedback from fresh or postcondition-admitted "
+                "construction states",
+            )
+            system_prompt += "\n\n" + PERSISTENT_CONSTRUCTION_SYSTEM_PROMPT
         if self.constraint_profile == "causal-frontier":
             system_prompt += "\n\n" + CAUSAL_FRONTIER_SYSTEM_PROMPT
         if self.goal_contract is not None:
@@ -650,7 +696,9 @@ class StructuredModelDeploymentPolicy:
         if self.operation_profile == "constraint-driven":
             system_prompt += "\n\n" + OPERATION_SYSTEM_PROMPT
         if self.candidate_language.strip():
-            system_prompt += "\n\nCandidate language contract:\n" + self.candidate_language.strip()
+            system_prompt += (
+                "\n\nCandidate language contract:\n" + self.candidate_language.strip()
+            )
         try:
             response = self.model.invoke(
                 [
@@ -705,6 +753,8 @@ class StructuredModelDeploymentPolicy:
             "repository_evidence_profile": self.repository_evidence_profile,
             "candidate_anchor_profile": self.candidate_anchor_profile,
         }
+        if self.environment_strategy != "fresh-candidate":
+            metadata["environment_strategy"] = self.environment_strategy
         encoded_projection = json.dumps(
             projection,
             ensure_ascii=True,
@@ -712,9 +762,7 @@ class StructuredModelDeploymentPolicy:
             sort_keys=True,
         )
         metadata["model_input_projection"] = projection
-        metadata["model_input_projection_schema"] = (
-            MODEL_INPUT_PROJECTION_SCHEMA
-        )
+        metadata["model_input_projection_schema"] = MODEL_INPUT_PROJECTION_SCHEMA
         metadata["model_input_projection_sha256"] = hashlib.sha256(
             encoded_projection.encode("utf-8")
         ).hexdigest()

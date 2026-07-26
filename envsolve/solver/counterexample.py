@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from enum import Enum
 import hashlib
 import json
@@ -9,6 +9,10 @@ from typing import TYPE_CHECKING, Any, Protocol
 from envsolve.operations import OperationGuardDecision
 from envsolve.solver.loop import StopDecision
 from envsolve.solver.session import ActionSpec, CommandResult, SolverStateSession
+from envsolve.solver.transitions import (
+    StateTransitionDisposition,
+    assess_state_transition,
+)
 from envsolve.state import EnvironmentState
 
 if TYPE_CHECKING:
@@ -407,6 +411,7 @@ class CounterexampleGuidedDeploymentLoop:
         operation_guard: CandidateOperationGuard | None = None,
         max_policy_failures: int = 3,
         retain_admissible_candidate: bool = True,
+        environment_strategy: str = "fresh-candidate",
         goal_id: str = "environment-ready",
         goal_description: str = "Construct an executable project environment",
     ) -> None:
@@ -414,6 +419,11 @@ class CounterexampleGuidedDeploymentLoop:
             raise ValueError("Counterexample loop candidate budget must be positive")
         if max_policy_failures <= 0:
             raise ValueError("Counterexample loop policy failure budget must be positive")
+        if environment_strategy not in {
+            "fresh-candidate",
+            "postcondition-persistent",
+        }:
+            raise ValueError("Unsupported counterexample-loop environment strategy")
         if constraint_engine is None:
             from envsolve.constraints.engine import ConstraintEngine
 
@@ -426,8 +436,27 @@ class CounterexampleGuidedDeploymentLoop:
         self.operation_guard = operation_guard
         self.max_policy_failures = max_policy_failures
         self.retain_admissible_candidate = retain_admissible_candidate
+        self.environment_strategy = environment_strategy
         self.goal_id = goal_id
         self.goal_description = goal_description
+        self._retained_environment: ProvisionedEnvironment | None = None
+        self._retained_environment_provider: FreshEnvironmentProvider | None = None
+
+    @property
+    def _persistent_environment(self) -> bool:
+        return self.environment_strategy == "postcondition-persistent"
+
+    def _release_retained_environment(self) -> str | None:
+        environment = self._retained_environment
+        provider = self._retained_environment_provider
+        self._retained_environment = None
+        if environment is None or provider is None:
+            return None
+        try:
+            provider.release(environment)
+        except Exception as exc:
+            return f"{type(exc).__name__}: {exc}"
+        return None
 
     def _finish(
         self,
@@ -441,6 +470,12 @@ class CounterexampleGuidedDeploymentLoop:
         candidate_certification: str | None = None,
         candidate_assessment: CandidateAssessment | None = None,
     ) -> CounterexampleLoopResult:
+        release_error = self._release_retained_environment()
+        if release_error is not None:
+            self.session.record_failure(
+                category="construction-environment-release",
+                message=release_error,
+            )
         self.session.upsert_goal(
             self.goal_id,
             self.goal_description,
@@ -502,7 +537,13 @@ class CounterexampleGuidedDeploymentLoop:
         environment: ProvisionedEnvironment,
         outcome: ExecutableVerification,
         accepted_pass: bool | None,
+        *,
+        verification_id: str | None = None,
+        verification_role: str | None = None,
     ) -> None:
+        resolved_role = verification_role or str(
+            candidate.metadata.get("execution_role", "candidate")
+        )
         self.session.record_verification(
             level="internal",
             verifier=outcome.verifier,
@@ -518,6 +559,12 @@ class CounterexampleGuidedDeploymentLoop:
                 "reported_passed": outcome.passed,
                 "bootstrap_exit_code": outcome.bootstrap.exit_code,
                 "summary": outcome.summary,
+                "verification_role": resolved_role,
+                "environment_fresh": candidate.metadata.get(
+                    "environment_fresh",
+                    True,
+                ),
+                "state_lineage_id": candidate.metadata.get("state_lineage_id"),
                 "observation_count": len(outcome.observations),
                 "counterexample_count": len(outcome.counterexamples),
                 "candidate_assessment": (
@@ -526,8 +573,94 @@ class CounterexampleGuidedDeploymentLoop:
                     else None
                 ),
             },
-            verification_id=f"verification-{candidate.candidate_id}",
+            verification_id=(
+                verification_id
+                if verification_id is not None
+                else f"verification-{candidate.candidate_id}"
+            ),
         )
+
+    def _verify_clean_replay(
+        self,
+        candidate: DeploymentCandidate,
+        environment_provider: FreshEnvironmentProvider,
+        verifier: ExecutableVerifier,
+        environment_ids: set[str],
+    ) -> tuple[
+        DeploymentCandidate,
+        ProvisionedEnvironment,
+        ExecutableVerification,
+        str,
+    ]:
+        replay_metadata = {
+            **candidate.metadata,
+            "environment_fresh": True,
+            "execution_role": "clean-replay-certification",
+            "source_candidate_id": candidate.candidate_id,
+        }
+        replay_metadata.pop("state_lineage_id", None)
+        replay = DeploymentCandidate(
+            candidate_id=f"{candidate.candidate_id}-clean-replay",
+            script=candidate.script,
+            rationale="Mandatory clean replay of a postcondition-reusable construction state",
+            preconditions=candidate.preconditions,
+            metadata=replay_metadata,
+            parent_candidate_id=candidate.candidate_id,
+        )
+        replay_spec = replay.action_spec()
+        self.session.propose_action(replay_spec)
+        self.session.start_action(replay.candidate_id)
+        environment: ProvisionedEnvironment | None = None
+        try:
+            self.budget.reserve_environment(replay.candidate_id)
+            environment = environment_provider.provision(replay)
+            if not isinstance(environment, ProvisionedEnvironment):
+                raise ValueError("Fresh replay provider returned a malformed lease")
+            receipt = environment.receipt
+            case = self.session.case
+            if (
+                receipt.environment_id in environment_ids
+                or receipt.repository != case.get("repository")
+                or receipt.revision != case.get("revision")
+            ):
+                raise ValueError("Fresh replay environment receipt is invalid")
+            environment_ids.add(receipt.environment_id)
+            self.budget.reserve_command(replay.candidate_id)
+            outcome = verifier.verify(replay, environment)
+            if not isinstance(outcome, ExecutableVerification):
+                raise ValueError("Fresh replay verifier returned a malformed result")
+        except Exception as exc:
+            message = f"{type(exc).__name__}: {exc}"
+            self.session.complete_recorded_action(
+                replay.candidate_id,
+                replay_spec,
+                CommandResult(255, stderr=message),
+                evidence_source="clean-replay-certification",
+            )
+            if environment is not None:
+                try:
+                    environment_provider.release(environment)
+                except Exception:
+                    pass
+            raise
+        try:
+            environment_provider.release(environment)
+        except Exception as exc:
+            message = f"environment release failed: {type(exc).__name__}: {exc}"
+            self.session.complete_recorded_action(
+                replay.candidate_id,
+                replay_spec,
+                CommandResult(255, stderr=message),
+                evidence_source="clean-replay-certification",
+            )
+            raise RuntimeError(message) from exc
+        action_evidence_id = self.session.complete_recorded_action(
+            replay.candidate_id,
+            replay_spec,
+            outcome.bootstrap,
+            evidence_source="clean-replay-certification",
+        )
+        return replay, environment, outcome, action_evidence_id
 
     def _record_hypotheses(
         self,
@@ -607,6 +740,13 @@ class CounterexampleGuidedDeploymentLoop:
         environment_provider: FreshEnvironmentProvider,
         verifier: ExecutableVerifier,
     ) -> CounterexampleLoopResult:
+        if self._retained_environment is not None:
+            raise RuntimeError(
+                "Counterexample loop retained an environment across runs"
+            )
+        self._retained_environment_provider = (
+            environment_provider if self._persistent_environment else None
+        )
         state = self.session.reconstruct()
         if self.goal_id not in state.goals:
             self.session.upsert_goal(
@@ -861,103 +1001,127 @@ class CounterexampleGuidedDeploymentLoop:
                     verifier_failures,
                     constraints_updated,
                 )
-            try:
-                self.budget.reserve_environment(decision.candidate_id)
-            except Exception as exc:
-                self.session.complete_recorded_action(
-                    decision.candidate_id,
-                    action_spec,
-                    CommandResult(255, stderr=f"{type(exc).__name__}: {exc}"),
-                    evidence_source="episode-budget",
-                )
-                attempted += 1
-                return self._block(
-                    "episode-budget-exhausted",
-                    f"{type(exc).__name__}: {exc}",
-                    attempted,
-                    verifier_failures,
-                    constraints_updated,
-                    action_id=decision.candidate_id,
-                )
-            try:
-                environment = environment_provider.provision(decision)
-            except Exception as exc:
-                message = f"{type(exc).__name__}: {exc}"
-                self.session.complete_recorded_action(
-                    decision.candidate_id,
-                    action_spec,
-                    CommandResult(255, stderr=message),
-                    evidence_source="fresh-environment-replay",
-                )
-                attempted += 1
-                return self._block(
-                    "fresh-environment-provision-exception",
-                    message,
-                    attempted,
-                    verifier_failures,
-                    constraints_updated,
-                    action_id=decision.candidate_id,
-                )
+            environment_reused = (
+                self._persistent_environment and self._retained_environment is not None
+            )
+            if environment_reused:
+                environment = self._retained_environment
+            else:
+                try:
+                    self.budget.reserve_environment(decision.candidate_id)
+                except Exception as exc:
+                    self.session.complete_recorded_action(
+                        decision.candidate_id,
+                        action_spec,
+                        CommandResult(255, stderr=f"{type(exc).__name__}: {exc}"),
+                        evidence_source="episode-budget",
+                    )
+                    attempted += 1
+                    return self._block(
+                        "episode-budget-exhausted",
+                        f"{type(exc).__name__}: {exc}",
+                        attempted,
+                        verifier_failures,
+                        constraints_updated,
+                        action_id=decision.candidate_id,
+                    )
+                try:
+                    environment = environment_provider.provision(decision)
+                except Exception as exc:
+                    message = f"{type(exc).__name__}: {exc}"
+                    self.session.complete_recorded_action(
+                        decision.candidate_id,
+                        action_spec,
+                        CommandResult(255, stderr=message),
+                        evidence_source="fresh-environment-replay",
+                    )
+                    attempted += 1
+                    return self._block(
+                        "fresh-environment-provision-exception",
+                        message,
+                        attempted,
+                        verifier_failures,
+                        constraints_updated,
+                        action_id=decision.candidate_id,
+                    )
 
-            if not isinstance(environment, ProvisionedEnvironment):
-                message = "Fresh environment provider returned a malformed lease"
-                self.session.complete_recorded_action(
-                    decision.candidate_id,
-                    action_spec,
-                    CommandResult(255, stderr=message),
-                    evidence_source="fresh-environment-replay",
-                )
-                attempted += 1
-                return self._block(
-                    "malformed-environment-lease",
-                    message,
-                    attempted,
-                    verifier_failures,
-                    constraints_updated,
-                    action_id=decision.candidate_id,
-                )
+                if not isinstance(environment, ProvisionedEnvironment):
+                    message = "Fresh environment provider returned a malformed lease"
+                    self.session.complete_recorded_action(
+                        decision.candidate_id,
+                        action_spec,
+                        CommandResult(255, stderr=message),
+                        evidence_source="fresh-environment-replay",
+                    )
+                    attempted += 1
+                    return self._block(
+                        "malformed-environment-lease",
+                        message,
+                        attempted,
+                        verifier_failures,
+                        constraints_updated,
+                        action_id=decision.candidate_id,
+                    )
+
+                receipt = environment.receipt
+                case = self.session.case
+                if (
+                    receipt.environment_id in environment_ids
+                    or receipt.repository != case.get("repository")
+                    or receipt.revision != case.get("revision")
+                ):
+                    try:
+                        environment_provider.release(environment)
+                    except Exception as exc:
+                        release_error = f"{type(exc).__name__}: {exc}"
+                    else:
+                        release_error = None
+                    self.session.complete_recorded_action(
+                        decision.candidate_id,
+                        action_spec,
+                        CommandResult(255, stderr="Invalid fresh environment receipt"),
+                        evidence_source="fresh-environment-replay",
+                    )
+                    attempted += 1
+                    return self._block(
+                        "fresh-environment-contract",
+                        "Environment provider did not provide a unique case-matched environment",
+                        attempted,
+                        verifier_failures,
+                        constraints_updated,
+                        action_id=decision.candidate_id,
+                        details={
+                            "environment_receipt": receipt.to_dict(),
+                            "release_error": release_error,
+                        },
+                    )
+                environment_ids.add(receipt.environment_id)
+                if self._persistent_environment:
+                    self._retained_environment = environment
 
             receipt = environment.receipt
-            case = self.session.case
-            if (
-                receipt.environment_id in environment_ids
-                or receipt.repository != case.get("repository")
-                or receipt.revision != case.get("revision")
-            ):
-                try:
-                    environment_provider.release(environment)
-                except Exception as exc:
-                    release_error = f"{type(exc).__name__}: {exc}"
-                else:
-                    release_error = None
-                self.session.complete_recorded_action(
-                    decision.candidate_id,
-                    action_spec,
-                    CommandResult(255, stderr="Invalid fresh environment receipt"),
-                    evidence_source="fresh-environment-replay",
-                )
-                attempted += 1
-                return self._block(
-                    "fresh-environment-contract",
-                    "Environment provider did not provide a unique case-matched environment",
-                    attempted,
-                    verifier_failures,
-                    constraints_updated,
-                    action_id=decision.candidate_id,
-                    details={
-                        "environment_receipt": receipt.to_dict(),
-                        "release_error": release_error,
+            construction_reusable = False
+            if self._persistent_environment:
+                decision = replace(
+                    decision,
+                    metadata={
+                        **decision.metadata,
+                        "environment_fresh": not environment_reused,
+                        "execution_role": "construction-state",
+                        "state_lineage_id": receipt.environment_id,
                     },
                 )
-            environment_ids.add(receipt.environment_id)
 
             try:
                 self.budget.reserve_command(decision.candidate_id)
             except Exception as exc:
-                try:
-                    environment_provider.release(environment)
-                except Exception:
-                    pass
+                if self._persistent_environment:
+                    self._release_retained_environment()
+                else:
+                    try:
+                        environment_provider.release(environment)
+                    except Exception:
+                        pass
                 message = f"{type(exc).__name__}: {exc}"
                 self.session.complete_recorded_action(
                     decision.candidate_id,
@@ -983,16 +1147,24 @@ class CounterexampleGuidedDeploymentLoop:
                 verification_error = f"{type(exc).__name__}: {exc}"
                 outcome = None
             finally:
-                try:
-                    environment_provider.release(environment)
-                except Exception as exc:
-                    release_error = f"{type(exc).__name__}: {exc}"
+                if not self._persistent_environment:
+                    try:
+                        environment_provider.release(environment)
+                    except Exception as exc:
+                        release_error = f"{type(exc).__name__}: {exc}"
 
             if release_error is not None:
                 outcome = None
                 verification_error = f"environment release failed: {release_error}"
 
             if not isinstance(outcome, ExecutableVerification):
+                if self._persistent_environment:
+                    retained_release_error = self._release_retained_environment()
+                    if retained_release_error is not None:
+                        verification_error = (
+                            f"{verification_error or 'malformed verifier result'}; "
+                            f"environment release failed: {retained_release_error}"
+                        )
                 message = verification_error or "Executable verifier returned a malformed result"
                 self.session.complete_recorded_action(
                     decision.candidate_id,
@@ -1010,11 +1182,51 @@ class CounterexampleGuidedDeploymentLoop:
                     action_id=decision.candidate_id,
                 )
 
+            if self._persistent_environment:
+                transition = assess_state_transition(outcome)
+                outcome = replace(
+                    outcome,
+                    details={
+                        **outcome.details,
+                        "state_transition": transition.to_dict(),
+                    },
+                )
+                self.session.record_evidence(
+                    kind="state-transition-observation",
+                    source="postcondition-state-transition-v1",
+                    value={
+                        "candidate_id": decision.candidate_id,
+                        "environment_id": receipt.environment_id,
+                        **transition.to_dict(),
+                    },
+                    confidence=1.0,
+                    candidate_id=decision.candidate_id,
+                    parent_candidate_id=decision.parent_candidate_id,
+                    environment_id=receipt.environment_id,
+                )
+                if transition.disposition is not StateTransitionDisposition.REUSABLE:
+                    retained_release_error = self._release_retained_environment()
+                    if retained_release_error is not None:
+                        return self._block(
+                            "construction-environment-release",
+                            retained_release_error,
+                            attempted,
+                            verifier_failures,
+                            constraints_updated,
+                            action_id=decision.candidate_id,
+                        )
+                else:
+                    construction_reusable = True
+
             action_evidence_id = self.session.complete_recorded_action(
                 decision.candidate_id,
                 action_spec,
                 outcome.bootstrap,
-                evidence_source="fresh-environment-replay",
+                evidence_source=(
+                    "construction-state-replay"
+                    if self._persistent_environment
+                    else "fresh-environment-replay"
+                ),
             )
             attempted += 1
             previous_candidate_id = decision.candidate_id
@@ -1030,9 +1242,76 @@ class CounterexampleGuidedDeploymentLoop:
                     action_id=decision.candidate_id,
                 )
 
+            if (
+                self._persistent_environment
+                and construction_reusable
+                and outcome.passed is True
+            ):
+                construction_candidate = decision
+                self._record_verification(
+                    construction_candidate,
+                    environment,
+                    outcome,
+                    None,
+                    verification_id=(
+                        f"verification-construction-"
+                        f"{construction_candidate.candidate_id}"
+                    ),
+                    verification_role="construction-state",
+                )
+                try:
+                    (
+                        decision,
+                        environment,
+                        outcome,
+                        action_evidence_id,
+                    ) = self._verify_clean_replay(
+                        construction_candidate,
+                        environment_provider,
+                        verifier,
+                        environment_ids,
+                    )
+                except Exception as exc:
+                    return self._block(
+                        "clean-replay-certification-exception",
+                        f"{type(exc).__name__}: {exc}",
+                        attempted,
+                        verifier_failures,
+                        constraints_updated,
+                        action_id=construction_candidate.candidate_id,
+                    )
+                receipt = environment.receipt
+                if outcome.channel is not FeedbackChannel.INTERNAL_EXECUTION:
+                    self._record_verification(
+                        decision,
+                        environment,
+                        outcome,
+                        False,
+                        verification_role="clean-replay-certification",
+                    )
+                    return self._block(
+                        "forbidden-feedback-channel",
+                        "Post-episode evaluation feedback cannot enter the online solver",
+                        attempted,
+                        verifier_failures,
+                        constraints_updated,
+                        action_id=decision.candidate_id,
+                    )
+
             if outcome.passed is None:
                 self._record_hypotheses(decision, environment, outcome)
-                self._record_verification(decision, environment, outcome, None)
+                self._record_verification(
+                    decision,
+                    environment,
+                    outcome,
+                    None,
+                    verification_role=(
+                        "clean-replay-certification"
+                        if decision.metadata.get("execution_role")
+                        == "clean-replay-certification"
+                        else "candidate"
+                    ),
+                )
                 return self._block(
                     "executable-verifier-unknown",
                     outcome.summary,

@@ -34,6 +34,11 @@ from envsolve.solver.session import (
     CommandResult,
     SolverStateSession,
 )
+from envsolve.solver.transitions import (
+    StateTransitionAssessment,
+    StateTransitionDisposition,
+    assess_state_transition,
+)
 
 __all__ = [
     "ActionExecutor",
@@ -66,5 +71,8 @@ __all__ = [
     "SolverPolicy",
     "SolverStateSession",
     "StatefulSolverLoop",
+    "StateTransitionAssessment",
+    "StateTransitionDisposition",
     "StopDecision",
+    "assess_state_transition",
 ]

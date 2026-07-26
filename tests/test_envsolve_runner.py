@@ -76,6 +76,30 @@ class FreshProvider:
         self.released = True
 
 
+class CountingFreshProvider(FreshProvider):
+    def __init__(self, case: Case) -> None:
+        super().__init__(case)
+        self.count = 0
+        self.released_ids: list[str] = []
+
+    def provision(self, candidate):
+        self.count += 1
+        environment = super().provision(candidate)
+        return ProvisionedEnvironment(
+            EnvironmentReceipt(
+                f"environment-{self.count}",
+                environment.receipt.provider_id,
+                environment.receipt.image_digest,
+                environment.receipt.repository,
+                environment.receipt.revision,
+                environment.receipt.created_at,
+            )
+        )
+
+    def release(self, environment) -> None:
+        self.released_ids.append(environment.receipt.environment_id)
+
+
 class PassingVerifier:
     def verify(self, candidate, environment):
         return ExecutableVerification(
@@ -118,6 +142,59 @@ class UncertifiedVerifier:
 
 
 class EnvSolveEpisodeRunnerTest(unittest.TestCase):
+    def test_persistent_runner_requires_a_clean_replay_before_acceptance(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            case = Case("owner/repo@persistent", "owner/repo", "persistent")
+            run_spec = RunSpec(
+                "envsolve-persistent",
+                "envsolve-pro-goal-contract-evidence-anchor-persistent",
+                "test-model",
+            )
+            artifacts = RunArtifacts.create(
+                Path(directory), run_spec.run_id, case.case_id
+            )
+            provider = CountingFreshProvider(case)
+            budget = RecordingBudget()
+            runner = EnvSolveEpisodeRunner(
+                policy=OneCandidatePolicy(),
+                environment_provider=provider,
+                verifier=PassingVerifier(),
+                candidate_validator=AcceptingValidator(),
+                budget=budget,
+                max_candidates=1,
+                environment_strategy="postcondition-persistent",
+            )
+
+            result = runner.run(case, artifacts, run_spec)
+
+            self.assertTrue(result.generation_completed, result.error)
+            self.assertEqual(
+                result.metadata["environment_strategy"], "postcondition-persistent"
+            )
+            self.assertEqual(
+                result.metadata["episode"]["accepted_candidate"]["candidate_id"],
+                "candidate-1-clean-replay",
+            )
+            self.assertEqual(
+                result.metadata["episode"]["accepted_environment"]["environment_id"],
+                "environment-2",
+            )
+            self.assertEqual(
+                budget.events,
+                [
+                    ("candidate", "candidate-1"),
+                    ("environment", "candidate-1"),
+                    ("command", "candidate-1"),
+                    ("environment", "candidate-1-clean-replay"),
+                    ("command", "candidate-1-clean-replay"),
+                    ("finalize", ""),
+                ],
+            )
+            self.assertCountEqual(
+                provider.released_ids,
+                ["environment-1", "environment-2"],
+            )
+
     def test_writes_replayable_script_and_immutable_episode_lineage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             case = Case("owner/repo@abc", "owner/repo", "abc")
@@ -243,7 +320,8 @@ class EnvSolveEpisodeRunnerTest(unittest.TestCase):
                 "blocked",
             )
 
-    def test_initial_repository_evidence_is_admitted_before_first_proposal(self) -> None:
+    def test_initial_repository_evidence_is_admitted_before_first_proposal(self,
+    ) -> None:
         class StateRecordingPolicy(OneCandidatePolicy):
             def __init__(self) -> None:
                 self.states = []

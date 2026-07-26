@@ -50,11 +50,14 @@ from envsolve_harness.runners.envsolve_p6 import (
     METHOD_CANDIDATE_INTERFACES,
     METHOD_CANDIDATE_RETENTION,
     METHOD_CONSTRAINT_PROFILES,
+    METHOD_ENVIRONMENT_STRATEGIES,
     METHOD_PROFILES,
     METHOD_REPOSITORY_EVIDENCE_PROFILES,
     EnvSolveP6Runner,
 )
-from envsolve_harness.runners.registry import create_solver_runner, registered_solver_runners
+from envsolve_harness.runners.registry import (
+    create_solver_runner, registered_solver_runners,
+)
 from envsolve_harness.scripts import TypedReplayCandidateValidator
 
 
@@ -233,7 +236,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         )
         self.assertNotIn("operation_plan", ablation)
 
-    def test_constraint_driven_projection_hides_provisional_operation_failure(self) -> None:
+    def test_constraint_driven_projection_hides_provisional_operation_failure(self,
+    ) -> None:
         state = EnvironmentState(
             "case",
             case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
@@ -263,7 +267,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
 
         self.assertFalse(projection["operation_plan"]["infeasible_operations"])
 
-    def test_constraint_driven_projection_hides_unpositioned_operation_failure(self) -> None:
+    def test_constraint_driven_projection_hides_unpositioned_operation_failure(self,
+    ) -> None:
         command = "python -m pip install ungrounded-target"
         state = EnvironmentState(
             "case",
@@ -556,6 +561,104 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             "flat",
         )
 
+    def test_persistent_pair_changes_only_state_and_constraint_projection(self) -> None:
+        raw = "envsolve-pro-goal-aware-raw-evidence-anchor-persistent"
+        structured = "envsolve-pro-goal-contract-evidence-anchor-persistent"
+        frozen_raw = "envsolve-pro-goal-aware-raw-evidence-anchor"
+        frozen_structured = "envsolve-pro-goal-contract-evidence-anchor"
+
+        self.assertEqual(METHOD_PROFILES[raw], METHOD_PROFILES[frozen_raw])
+        self.assertEqual(
+            METHOD_PROFILES[structured],
+            METHOD_PROFILES[frozen_structured],
+        )
+        for mapping in (
+            METHOD_REPOSITORY_EVIDENCE_PROFILES,
+            METHOD_CANDIDATE_ANCHOR_PROFILES,
+            METHOD_CANDIDATE_INTERFACES,
+            METHOD_CANDIDATE_RETENTION,
+        ):
+            self.assertEqual(mapping[raw], mapping[frozen_raw])
+            self.assertEqual(mapping[structured], mapping[frozen_structured])
+        self.assertEqual(METHOD_CONSTRAINT_PROFILES[raw], "raw-history")
+        self.assertEqual(METHOD_CONSTRAINT_PROFILES[structured], "flat")
+        self.assertEqual(
+            {
+                METHOD_ENVIRONMENT_STRATEGIES[raw],
+                METHOD_ENVIRONMENT_STRATEGIES[structured],
+            },
+            {"postcondition-persistent"},
+        )
+        self.assertEqual(
+            {
+                METHOD_ENVIRONMENT_STRATEGIES[frozen_raw],
+                METHOD_ENVIRONMENT_STRATEGIES[frozen_structured],
+            },
+            {"fresh-candidate"},
+        )
+
+    def test_persistent_policy_keeps_complete_program_contract(self) -> None:
+        model = RecordingModel(
+            json.dumps(
+                {
+                    "script": "python -m pip install -e .",
+                    "rationale": "complete cumulative setup",
+                }
+            )
+        )
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+        state.evidence["transition-1"] = {
+            "kind": "state-transition-observation",
+            "value": {
+                "candidate_id": "candidate-1",
+                "disposition": "reusable",
+            },
+        }
+        policy = StructuredModelDeploymentPolicy(
+            model,
+            {"files": []},
+            operation_profile="free-form",
+            environment_strategy="postcondition-persistent",
+        )
+
+        candidate = policy.propose(state)
+
+        self.assertIn(
+            "complete cumulative program that can run from a clean checkout",
+            model.messages[0][1],
+        )
+        self.assertIn("mandatory fresh-environment replay", model.messages[0][1])
+        self.assertIn(
+            '"environment_strategy": "postcondition-persistent"', model.messages[1][1]
+        )
+        self.assertIn('"disposition": "reusable"', model.messages[1][1])
+        self.assertEqual(
+            candidate.metadata["environment_strategy"],
+            "postcondition-persistent",
+        )
+
+    def test_default_policy_does_not_change_frozen_projection_contract(self) -> None:
+        model = RecordingModel(
+            json.dumps({"script": "true", "rationale": "complete setup"})
+        )
+        state = EnvironmentState(
+            "case",
+            case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
+        )
+
+        candidate = StructuredModelDeploymentPolicy(
+            model,
+            {"files": []},
+            operation_profile="free-form",
+        ).propose(state)
+
+        self.assertNotIn('"environment_strategy"', model.messages[1][1])
+        self.assertNotIn("mandatory fresh-environment replay", model.messages[0][1])
+        self.assertNotIn("environment_strategy", candidate.metadata)
+
     def test_retained_anchor_preserves_best_complete_candidate(self) -> None:
         state = EnvironmentState(
             "case",
@@ -617,7 +720,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertIn(".[test]", anchor["candidate"]["script"])
         self.assertEqual(anchor["selection_rank"], [4, 0, 1])
 
-    def test_raw_history_projection_keeps_goal_feedback_but_hides_constraints(self) -> None:
+    def test_raw_history_projection_keeps_goal_feedback_but_hides_constraints(self,
+    ) -> None:
         state = EnvironmentState(
             "case",
             case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
@@ -760,7 +864,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertTrue(details["reasoning_content_present"])
         self.assertNotIn("not persisted", json.dumps(details))
 
-    def test_model_policy_treats_length_finish_as_recoverable_output_failure(self) -> None:
+    def test_model_policy_treats_length_finish_as_recoverable_output_failure(self,
+    ) -> None:
         policy = StructuredModelDeploymentPolicy(LengthErrorModel(), {"files": []})
         state = EnvironmentState(
             "case",
@@ -836,7 +941,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             provider.release(second)
             self.assertFalse(first.handle.worktree.exists())
 
-    def test_provider_observes_base_runtime_without_network_or_repository_mount(self) -> None:
+    def test_provider_observes_base_runtime_without_network_or_repository_mount(self,
+    ) -> None:
         revision = "a" * 40
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1190,7 +1296,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             )
             self.assertFalse(result.observations)
 
-    def test_transient_dependency_network_signatures_cannot_harden_a_target(self) -> None:
+    def test_transient_dependency_network_signatures_cannot_harden_a_target(self,
+    ) -> None:
         signatures = (
             ("ProxyError: Cannot connect to proxy", "proxy-error"),
             ("SSLError: certificate verify failed", "tls-error"),
@@ -1486,7 +1593,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
                 "artifact-hash-mismatch",
             )
 
-    def test_internal_verifier_treats_unsigned_timeout_as_candidate_failure(self) -> None:
+    def test_internal_verifier_treats_unsigned_timeout_as_candidate_failure(self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             worktree = Path(directory)
             environment = ProvisionedEnvironment(
@@ -1576,7 +1684,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
         self.assertTrue(bounded.startswith("begin"))
         self.assertTrue(bounded.endswith("terminal-error"))
 
-    def test_model_projection_is_aggregate_bounded_on_high_cardinality_state(self) -> None:
+    def test_model_projection_is_aggregate_bounded_on_high_cardinality_state(self,
+    ) -> None:
         state = EnvironmentState(
             "case",
             case={"case_id": "case", "repository": "owner/repo", "revision": "abc"},
@@ -1758,7 +1867,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             )
             self.assertEqual(legacy.fallback_modules, ("modern_dependency",))
 
-    def test_import_probe_turns_only_active_missing_module_into_constraint(self) -> None:
+    def test_import_probe_turns_only_active_missing_module_into_constraint(self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             worktree = Path(directory)
             (worktree / "app.py").write_text(
@@ -2030,7 +2140,8 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             self.assertEqual(runner.model_reasoning_effort, "high")
             self.assertEqual(runner.model_response_format, "json_object")
 
-    def test_runner_classifies_repository_download_timeout_as_infrastructure(self) -> None:
+    def test_runner_classifies_repository_download_timeout_as_infrastructure(self,
+    ) -> None:
         log = (
             "requests.exceptions.ReadTimeout: huggingface.co\n"
             "RuntimeError: Unable to acquire the requested repository revision\n"

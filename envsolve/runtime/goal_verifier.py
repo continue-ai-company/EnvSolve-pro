@@ -47,9 +47,7 @@ class EffectAuditReport(Protocol):
 
 EffectAuditor = Callable[[Path], EffectAuditReport]
 _CANDIDATE_COMPLETION_PREFIX = "ENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1="
-_OUTER_WORKSPACE_VIOLATION_PREFIX = (
-    "ENVSOLVE_GOAL_OUTER_WORKSPACE_VIOLATION_V1="
-)
+_OUTER_WORKSPACE_VIOLATION_PREFIX = "ENVSOLVE_GOAL_OUTER_WORKSPACE_VIOLATION_V1="
 _PROTECTED_ENVIRONMENT_VIOLATION_PREFIX = (
     "ENVSOLVE_GOAL_PROTECTED_ENVIRONMENT_VIOLATION_V1="
 )
@@ -119,17 +117,17 @@ class ExecutableGoalContractVerifier:
         lines = [
             "set -e",
             (
-                "trap 'rc=$?; printf \"ENVSOLVE_GOAL_CANDIDATE_FAILED_V1=%s\\n\" "
-                "\"$rc\" >&2; exit \"$rc\"' ERR"
+                'trap \'rc=$?; printf "ENVSOLVE_GOAL_CANDIDATE_FAILED_V1=%s\\n" '
+                '"$rc" >&2; exit "$rc"\' ERR'
             ),
             candidate.script.rstrip(),
             (
                 f"for ENVSOLVE_PROTECTED_PREFIX in {protected_prefixes}; do "
                 "while IFS='=' read -r ENVSOLVE_ENV_NAME _; do "
-                "case \"$ENVSOLVE_ENV_NAME\" in "
-                "\"$ENVSOLVE_PROTECTED_PREFIX\"*) "
+                'case "$ENVSOLVE_ENV_NAME" in '
+                '"$ENVSOLVE_PROTECTED_PREFIX"*) '
                 f"printf '{_PROTECTED_ENVIRONMENT_VIOLATION_PREFIX}%s\\n' "
-                "\"$ENVSOLVE_ENV_NAME\" >&2; exit 254 ;; "
+                '"$ENVSOLVE_ENV_NAME" >&2; exit 254 ;; '
                 "esac; "
                 "done < <(/usr/bin/env); "
                 "done"
@@ -138,16 +136,16 @@ class ExecutableGoalContractVerifier:
             ),
             f"ENVSOLVE_OUTER_WORKSPACE={shlex.quote(outer_workspace)}",
             (
-                "if [ -d \"$ENVSOLVE_OUTER_WORKSPACE\" ]; then "
+                'if [ -d "$ENVSOLVE_OUTER_WORKSPACE" ]; then '
                 "ENVSOLVE_UNEXPECTED_OUTER_PATH=$("
-                "/usr/bin/find \"$ENVSOLVE_OUTER_WORKSPACE\" "
+                '/usr/bin/find "$ENVSOLVE_OUTER_WORKSPACE" '
                 "-mindepth 1 -maxdepth 1 "
                 f"! -path {shlex.quote(handle.container_workdir)} "
                 "-print -quit"
                 "); "
-                "if [ -n \"$ENVSOLVE_UNEXPECTED_OUTER_PATH\" ]; then "
+                'if [ -n "$ENVSOLVE_UNEXPECTED_OUTER_PATH" ]; then '
                 f"printf '{_OUTER_WORKSPACE_VIOLATION_PREFIX}%s\\n' "
-                "\"$ENVSOLVE_UNEXPECTED_OUTER_PATH\" >&2; "
+                '"$ENVSOLVE_UNEXPECTED_OUTER_PATH" >&2; '
                 "exit 253; "
                 "fi; "
                 "fi"
@@ -478,6 +476,7 @@ class ExecutableGoalContractVerifier:
                 payload,
                 result,
                 environment,
+                candidate,
                 effect_audit,
             )
         except (KeyError, TypeError, ValueError) as exc:
@@ -496,6 +495,7 @@ class ExecutableGoalContractVerifier:
         payload: dict[str, Any],
         result: CommandResult,
         environment: ProvisionedEnvironment,
+        candidate: DeploymentCandidate,
         effect_audit: dict[str, Any] | None,
     ) -> StructuredVerifierReport:
         if payload.get("schema") != self.contract.report_schema:
@@ -524,12 +524,20 @@ class ExecutableGoalContractVerifier:
         raw_details = payload.get("details", {})
         if not isinstance(raw_details, dict):
             raise ValueError("Goal report details must be an object")
+        environment_fresh = candidate.metadata.get("environment_fresh", True)
+        if not isinstance(environment_fresh, bool):
+            raise ValueError("Candidate environment_fresh metadata must be a boolean")
+        state_lineage_id = candidate.metadata.get("state_lineage_id")
+        if state_lineage_id is not None and (
+            not isinstance(state_lineage_id, str) or not state_lineage_id.strip()
+        ):
+            raise ValueError("Candidate state_lineage_id must be a non-empty string")
         return StructuredVerifierReport(
             verifier="envsolve-executable-goal-verifier",
             check_profile=self.check_profile,
             channel=FeedbackChannel.INTERNAL_EXECUTION,
             environment_id=environment.receipt.environment_id,
-            environment_fresh=True,
+            environment_fresh=environment_fresh,
             bootstrap=result,
             completed=True,
             goal_passed=(
@@ -541,6 +549,8 @@ class ExecutableGoalContractVerifier:
                 goal_report=payload,
                 goal_report_details=raw_details,
                 repository_effect_audit=effect_audit,
+                environment_fresh=environment_fresh,
+                state_lineage_id=state_lineage_id,
             ),
         )
 

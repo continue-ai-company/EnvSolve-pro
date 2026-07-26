@@ -31,6 +31,14 @@ METHOD_PROFILES = {
         "goal-contract",
         "free-form",
     ),
+    "envsolve-pro-goal-aware-raw-evidence-anchor-persistent": (
+        "goal-contract",
+        "free-form",
+    ),
+    "envsolve-pro-goal-contract-evidence-anchor-persistent": (
+        "goal-contract",
+        "free-form",
+    ),
     "envsolve-full": ("two-layer", "constraint-driven"),
     "envsolve-runtime-only": ("runtime-only", "constraint-driven"),
     "envsolve-operation": ("two-layer", "constraint-driven"),
@@ -44,7 +52,12 @@ METHOD_CONSTRAINT_PROFILES[
 ] = "raw-history"
 METHOD_CONSTRAINT_PROFILES[
     "envsolve-pro-goal-aware-raw-evidence-anchor"
-] = "raw-history"
+] = (
+    "raw-history"
+)
+METHOD_CONSTRAINT_PROFILES["envsolve-pro-goal-aware-raw-evidence-anchor-persistent"] = (
+    "raw-history"
+)
 METHOD_REPOSITORY_EVIDENCE_PROFILES = {
     method: (
         "constraint-routed"
@@ -53,6 +66,8 @@ METHOD_REPOSITORY_EVIDENCE_PROFILES = {
             "envsolve-pro-goal-contract-evidence",
             "envsolve-pro-goal-aware-raw-evidence-anchor",
             "envsolve-pro-goal-contract-evidence-anchor",
+            "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+            "envsolve-pro-goal-contract-evidence-anchor-persistent",
         }
         else "disabled"
     )
@@ -64,6 +79,8 @@ METHOD_CANDIDATE_ANCHOR_PROFILES = {
         if method in {
             "envsolve-pro-goal-aware-raw-evidence-anchor",
             "envsolve-pro-goal-contract-evidence-anchor",
+            "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+            "envsolve-pro-goal-contract-evidence-anchor-persistent",
         }
         else "disabled"
     )
@@ -75,7 +92,14 @@ METHOD_CANDIDATE_INTERFACES = {
 }
 METHOD_CANDIDATE_RETENTION = {
     method: (
-        "disabled" if method == "envsolve-pro-no-retention" else "best-admissible"
+        "disabled" if method == "envsolve-pro-no-retention" else "best-admissible")
+    for method in METHOD_PROFILES
+}
+METHOD_ENVIRONMENT_STRATEGIES = {
+    method: (
+        "postcondition-persistent"
+        if method.endswith("-persistent")
+        else "fresh-candidate"
     )
     for method in METHOD_PROFILES
 }
@@ -184,14 +208,14 @@ class EnvSolveP6Runner:
         obligation_profile = profiles[0] if profiles else None
         operation_profile = profiles[1] if profiles else None
         constraint_profile = METHOD_CONSTRAINT_PROFILES.get(run_spec.method)
-        repository_evidence_profile = (
-            METHOD_REPOSITORY_EVIDENCE_PROFILES.get(run_spec.method)
+        repository_evidence_profile = METHOD_REPOSITORY_EVIDENCE_PROFILES.get(run_spec.method
         )
         candidate_anchor_profile = METHOD_CANDIDATE_ANCHOR_PROFILES.get(
             run_spec.method
         )
         candidate_interface = METHOD_CANDIDATE_INTERFACES.get(run_spec.method)
         candidate_retention = METHOD_CANDIDATE_RETENTION.get(run_spec.method)
+        environment_strategy = METHOD_ENVIRONMENT_STRATEGIES.get(run_spec.method)
         metadata = {
             "runner": "envsolve-p6",
             "runner_version": "0.2.0",
@@ -214,6 +238,8 @@ class EnvSolveP6Runner:
             "model_reasoning_effort": self.model_reasoning_effort,
             "model_response_format": self.model_response_format,
         }
+        if environment_strategy != "fresh-candidate":
+            metadata["environment_strategy"] = environment_strategy
         if obligation_profile is None:
             return self._failure(
                 artifacts,
@@ -232,11 +258,11 @@ class EnvSolveP6Runner:
             )
         if not run_spec.model:
             return self._failure(
-                artifacts, run_spec, "EnvSolve requires RunSpec.model", "missing model\n", metadata
+                artifacts, run_spec, "EnvSolve requires RunSpec.model", "missing model\n", metadata,
             )
         if not os.environ.get("OPENAI_API_KEY"):
             return self._failure(
-                artifacts, run_spec, "OPENAI_API_KEY is not set", "missing API key\n", metadata
+                artifacts, run_spec, "OPENAI_API_KEY is not set", "missing API key\n", metadata,
             )
         if self.pricing is None or self.pricing.model != run_spec.model:
             return self._failure(
@@ -274,6 +300,8 @@ class EnvSolveP6Runner:
             "--candidate-anchor-profile", candidate_anchor_profile,
             "--candidate-interface", candidate_interface,
             "--candidate-retention", candidate_retention,
+            "--environment-strategy",
+            environment_strategy,
             "--request-timeout", str(self.model_request_timeout),
             "--max-retries", str(self.model_max_retries),
             "--max-output-tokens", str(self.model_max_output_tokens),

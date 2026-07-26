@@ -183,6 +183,173 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
             budget=RecordingBudget(),
         )
 
+    @staticmethod
+    def persistent_loop(
+        session: SolverStateSession,
+        max_candidates: int,
+        budget: RecordingBudget | None = None,
+    ) -> CounterexampleGuidedDeploymentLoop:
+        return CounterexampleGuidedDeploymentLoop(
+            session,
+            max_candidates=max_candidates,
+            candidate_validator=AcceptingValidator(),
+            budget=budget or RecordingBudget(),
+            environment_strategy="postcondition-persistent",
+        )
+
+    @staticmethod
+    def admissible_missing(name: str, index: int) -> ExecutableVerification:
+        return outcome(
+            index,
+            False,
+            counterexamples=(
+                CounterexampleEvidence(
+                    "module-requirement",
+                    {"name": name, "present": True},
+                ),
+                CounterexampleEvidence(
+                    "module-observation",
+                    {"name": name, "present": False},
+                ),
+            ),
+            candidate_assessment=CandidateAssessment(
+                True,
+                1,
+                0,
+                0,
+                "complete replay with one residual constraint",
+            ),
+        )
+
+    def test_persistent_strategy_reuses_verified_state_then_certifies_cleanly(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            budget = RecordingBudget()
+            provider = QueueEnvironmentProvider()
+            verifier = QueueVerifier(
+                [
+                    self.admissible_missing("remaining", 1),
+                    outcome(2, True),
+                    outcome(3, True),
+                ]
+            )
+
+            result = self.persistent_loop(session, 2, budget).run(
+                RecordingPolicy([candidate(1), candidate(2)]),
+                provider,
+                verifier,
+            )
+
+            self.assertEqual(result.goal_status, "satisfied")
+            self.assertEqual(
+                result.accepted_candidate.candidate_id,
+                "candidate-2-clean-replay",
+            )
+            self.assertEqual(
+                result.accepted_environment.environment_id,
+                "fresh-env-2",
+            )
+            self.assertEqual(provider.count, 2)
+            self.assertCountEqual(provider.released, ["fresh-env-1", "fresh-env-2"])
+            self.assertEqual(
+                budget.environments,
+                ["candidate-1", "candidate-2-clean-replay"],
+            )
+            self.assertEqual(
+                budget.commands,
+                [
+                    "candidate-1",
+                    "candidate-2",
+                    "candidate-2-clean-replay",
+                ],
+            )
+            verifications = session.reconstruct().verifications
+            construction = next(
+                item
+                for item in verifications
+                if item["verification_id"] == "verification-construction-candidate-2"
+            )
+            certification = next(
+                item
+                for item in verifications
+                if item["verification_id"] == "verification-candidate-2-clean-replay"
+            )
+            self.assertIsNone(construction["passed"])
+            self.assertEqual(
+                construction["details"]["verification_role"],
+                "construction-state",
+            )
+            self.assertTrue(certification["passed"])
+            self.assertTrue(certification["details"]["environment_fresh"])
+
+    def test_clean_replay_failure_repairs_without_discarding_construction_state(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            provider = QueueEnvironmentProvider()
+            policy = RecordingPolicy([candidate(1), candidate(2)])
+            verifier = QueueVerifier(
+                [
+                    outcome(1, True),
+                    self.admissible_missing("replay_only_gap", 2),
+                    outcome(3, True),
+                    outcome(4, True),
+                ]
+            )
+
+            result = self.persistent_loop(session, 2).run(
+                policy,
+                provider,
+                verifier,
+            )
+
+            self.assertEqual(result.goal_status, "satisfied")
+            self.assertEqual(provider.count, 3)
+            self.assertCountEqual(
+                provider.released,
+                ["fresh-env-1", "fresh-env-2", "fresh-env-3"],
+            )
+            self.assertIn(
+                "replay_only_gap",
+                {
+                    json.loads(item["expression"])["subject"]
+                    for item in policy.observed_states[1].constraints.values()
+                },
+            )
+            second_verification = next(
+                item
+                for item in session.reconstruct().verifications
+                if item["verification_id"] == "verification-construction-candidate-2"
+            )
+            self.assertFalse(second_verification["details"]["environment_fresh"])
+            self.assertEqual(
+                second_verification["details"]["state_lineage_id"],
+                "fresh-env-1",
+            )
+
+    def test_unknown_transition_is_not_retained(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = self.session(Path(directory))
+            provider = QueueEnvironmentProvider()
+
+            result = self.persistent_loop(session, 1).run(
+                RecordingPolicy([candidate(1)]),
+                provider,
+                QueueVerifier([outcome(1, None, exit_code=124)]),
+            )
+
+            self.assertEqual(result.goal_status, "blocked")
+            self.assertEqual(provider.released, ["fresh-env-1"])
+            transition = next(
+                item
+                for item in session.reconstruct().evidence.values()
+                if item["kind"] == "state-transition-observation"
+            )
+            self.assertEqual(transition["value"]["disposition"], "unknown")
+
     def test_constraint_is_persisted_before_the_next_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -276,7 +443,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                 ).valid
             )
 
-    def test_passing_goal_retires_constraints_from_the_same_evidence_scope(self) -> None:
+    def test_passing_goal_retires_constraints_from_the_same_evidence_scope(self,
+    ) -> None:
         goal_scope = {"evidence_scope_id": "goal-contract:imports-clean:abc123"}
         counterexamples = (
             CounterexampleEvidence(
@@ -345,7 +513,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                         outcome(
                             1,
                             False,
-                            counterexamples=(*missing("resolved"), *missing("remaining")),
+                            counterexamples=(*missing("resolved"), *missing("remaining"),
+                            ),
                             details=goal_scope,
                         ),
                         outcome(
@@ -433,7 +602,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                 {"violated"},
             )
 
-    def test_budget_exhaustion_returns_best_admissible_candidate_uncertified(self) -> None:
+    def test_budget_exhaustion_returns_best_admissible_candidate_uncertified(self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             session = self.session(Path(directory))
             counterexample = (
@@ -762,7 +932,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
             }
             self.assertIn("candidate-state-transition", categories)
 
-    def test_post_episode_feedback_is_rejected_before_constraint_admission(self) -> None:
+    def test_post_episode_feedback_is_rejected_before_constraint_admission(self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             session = self.session(Path(directory))
             result = self.loop(session, 1).run(
@@ -829,7 +1000,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
             artifact = root / "raw-artifacts" / action["command_artifact"]["path"]
             self.assertEqual(artifact.read_text(), candidate(1).script)
 
-    def test_recoverable_policy_output_failure_is_feedback_not_termination(self) -> None:
+    def test_recoverable_policy_output_failure_is_feedback_not_termination(self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             session = self.session(Path(directory))
             policy = RecoveringPolicy()
@@ -983,7 +1155,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
                 {item["status"] for item in session.reconstruct().constraints.values()},
             )
 
-    def test_positive_observation_replaces_same_variable_from_prior_candidate(self) -> None:
+    def test_positive_observation_replaces_same_variable_from_prior_candidate(self,
+    ) -> None:
         first_failure = (
             CounterexampleEvidence(
                 "module-requirement", {"name": "dependency_a", "present": True}
@@ -1052,7 +1225,8 @@ class CounterexampleGuidedDeploymentLoopTests(unittest.TestCase):
             self.assertFalse(old_a[0]["value"])
             self.assertEqual(result.goal_status, "satisfied")
 
-    def test_grounded_hypothesis_can_rank_the_next_candidate_without_hard_rejection(self) -> None:
+    def test_grounded_hypothesis_can_rank_the_next_candidate_without_hard_rejection(self,
+    ) -> None:
         with tempfile.TemporaryDirectory() as directory:
             session = self.session(Path(directory))
             policy = RecordingPolicy([candidate(1), candidate(2)])

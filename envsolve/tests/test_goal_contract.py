@@ -157,6 +157,44 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             12,
         )
         self.assertTrue(result.details["finding_set_complete"])
+        self.assertTrue(result.details["environment_fresh"])
+
+    def test_persistent_construction_provenance_is_preserved(self) -> None:
+        verifier = self._run_with_report(
+            {
+                "schema": "envsolve-goal-report-v1",
+                "status": "fail",
+                "finding_set_complete": True,
+                "findings": [
+                    {
+                        "finding_id": "missing-tomli",
+                        "domain": "module",
+                        "subject": "tomli",
+                        "predicate": "present",
+                        "required": True,
+                        "observed": False,
+                    }
+                ],
+            }
+        )
+        candidate = DeploymentCandidate(
+            "candidate-persistent",
+            self.candidate.script,
+            self.candidate.rationale,
+            metadata={
+                "environment_fresh": False,
+                "state_lineage_id": "construction-environment-1",
+            },
+        )
+
+        result = verifier.verify(candidate, self.environment)
+
+        self.assertFalse(result.details["environment_fresh"])
+        self.assertFalse(result.details["report_details"]["environment_fresh"])
+        self.assertEqual(
+            result.details["report_details"]["state_lineage_id"],
+            "construction-environment-1",
+        )
 
     def test_fail_creates_authoritative_active_constraint(self) -> None:
         verifier = self._run_with_report(
@@ -367,8 +405,8 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             description="Exercise the rendered shell protocol",
             program=(
                 "printf '%s' "
-                "'{\"schema\":\"envsolve-goal-report-v1\","
-                "\"status\":\"pass\",\"findings\":[]}' "
+                '\'{"schema":"envsolve-goal-report-v1",'
+                '"status":"pass","findings":[]}\' '
                 '> "$ENVSOLVE_GOAL_REPORT"'
             ),
         )
@@ -408,8 +446,8 @@ class ExecutableGoalContractVerifierTests(unittest.TestCase):
             description="Reject a synthetic import alias",
             program=(
                 "printf '%s' "
-                "'{\"schema\":\"envsolve-goal-report-v1\","
-                "\"status\":\"pass\",\"findings\":[]}' "
+                '\'{"schema":"envsolve-goal-report-v1",'
+                '"status":"pass","findings":[]}\' '
                 '> "$ENVSOLVE_GOAL_REPORT"'
             ),
         )

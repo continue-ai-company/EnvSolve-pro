@@ -46,10 +46,12 @@ class StructuredVerifierFinding:
             raise ValueError("Structured finding predicate must be typed")
         if not isinstance(self.disposition, FindingDisposition):
             raise ValueError("Structured finding disposition must be typed")
-        if self.disposition in {
+        if (
+            self.disposition in {
             FindingDisposition.ACTIVE,
             FindingDisposition.SATISFIED,
-        } and self.observed is None:
+        } and self.observed is None
+        ):
             raise ValueError("Active and satisfied findings require an observed value")
         if not isinstance(self.provenance, dict):
             raise ValueError("Structured finding provenance must be an object")
@@ -198,7 +200,7 @@ class StructuredFindingAdapter:
 
     @staticmethod
     def _hypotheses(
-        findings: tuple[StructuredVerifierFinding, ...]
+        findings: tuple[StructuredVerifierFinding, ...],
     ) -> tuple[HypothesisEvidence, ...]:
         return tuple(
             HypothesisEvidence(
@@ -280,6 +282,7 @@ class StructuredFindingAdapter:
             details={
                 "adapter_schema": self.schema,
                 "completed": report.completed,
+                "environment_fresh": report.environment_fresh,
                 "goal_passed": report.goal_passed,
                 "infrastructure_error": report.infrastructure_error,
                 "finding_ids": [item.finding_id for item in report.findings],
