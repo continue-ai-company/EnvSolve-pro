@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "resolution_id": "envsolve-pro-postcondition-persistent-qualification-v1-infrastructure-resolution-r1",
+  "frozen_at": "2026-07-26T05:33:00Z",
+  "timing": "before replacement execution and before original position 6",
+  "parent_schedule": {
+    "path": "experiments/validations/pro_postcondition_persistent_qualification_v1_schedule.json",
+    "sha256": "e730a47364d5fd78555e6dd74f1432e476bff472ecbc29fd65ea76ddba5cb70a"
+  },
+  "censored_attempt": {
+    "original_position": 5,
+    "case_block": 2,
+    "condition": "persistent-explicit",
+    "run_id": "pro-persist-qv1-c02-sdg-translations-persistent-explicit",
+    "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+    "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+    "status": "experimenter_censored",
+    "reason": "The coordinator was manually interrupted after 997.77 seconds while clean replay certification was running.",
+    "official_evaluation_started": false,
+    "official_outcome_observed": false,
+    "provider_attempts_completed": 2,
+    "first_provider_attempt_seconds": 892.539231,
+    "internal_state_at_interruption": "candidate-0002 passed in a reused construction lineage; fresh clean replay had started but had not completed",
+    "progress_sha256_after_interruption": "7b447e96f7ebef1d6df23d94451e56a9cda6307c82a35af503e8303924dee3ca",
+    "artifact_hashes": {
+      "status.json": "3fe18f1036f040ba1a728a56339ff02e46a9b53aeb941434ec88c331b7d9747f",
+      "generation/budget_ledger.json": "3207191ae1a785835527b7d42b7a6e2e02d64f5cda423f186991282b8578a5e4",
+      "generation/episode.jsonl": "124610690c4f15d1b79a79cc03221a682155945a9e1dbeea9346e1908aa4c1c9"
+    }
+  },
+  "replacement": {
+    "policy": "The interrupted artifact remains immutable and scientifically ineligible. Execute the same episode once with a new run id before continuing the next condition in the case block.",
+    "schedule": "experiments/validations/pro_postcondition_persistent_qualification_v1_position5_retry1_schedule.json",
+    "schedule_sha256": "a29d423f15e5843559aa7fda12553df18c1f9afea8d65f8f295dd4ca4e53cf11",
+    "run_id": "pro-persist-qv1-c02-sdg-translations-persistent-explicit-infra-retry1",
+    "only_changed_field": "run_id",
+    "maximum_replacements_authorized": 1
+  },
+  "analysis_resolution": {
+    "rule": "For final qualification analysis, replace only original position 5 run_id with the replacement run_id. Preserve all other original schedule fields and positions.",
+    "resolved_schedule_path": "experiments/validations/pro_postcondition_persistent_qualification_v1_resolved_r1_schedule.json",
+    "generation": "Deterministic copy of the parent schedule with the single authorized run_id substitution.",
+    "censored_attempt_descriptive_only": true
+  },
+  "research_integrity": {
+    "case_selection_changed": false,
+    "condition_changed": false,
+    "algorithm_changed": false,
+    "prompt_changed": false,
+    "budget_changed": false,
+    "official_outcome_used": false,
+    "internal_trajectory_used_to_change_algorithm": false
+  },
+  "deferred_harness_issue": {
+    "issue": "The synchronous provider path does not enforce request_timeout_seconds as a hard wall-clock deadline.",
+    "action": "Repair and qualify after this frozen schedule; do not change execution semantics between conditions in the current study."
+  }
+}

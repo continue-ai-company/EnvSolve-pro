@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-postcondition-persistent-qualification-v1-position5-infra-retry1",
+  "status": "frozen-before-retry-execution",
+  "bound_at": "2026-07-26",
+  "claim_scope": "Infrastructure replacement for one operator-interrupted episode; no new condition or case.",
+  "parent_schedule": "experiments/validations/pro_postcondition_persistent_qualification_v1_schedule.json",
+  "parent_schedule_sha256": "e730a47364d5fd78555e6dd74f1432e476bff472ecbc29fd65ea76ddba5cb70a",
+  "replaces_original_position": 5,
+  "preregistration": "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json",
+  "preregistration_sha256": "e3a03b108e5aed2797c30f9cb419b2ba56cd0aec228f93bb693be73c20f300be",
+  "implementation_freeze": "8104851b0ca7281bab75fcbf79afa00238d3034c",
+  "execution_revision": "f43c5576682877029d2bb999c36b75845dc65d94",
+  "case_file": "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl",
+  "case_file_sha256": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
+  "model": "deepseek/deepseek-v4-pro",
+  "episode_timeout_seconds": 22200,
+  "execution": {
+    "config": "experiments/configs/local_mac_pro_postcondition_persistent_v1.json",
+    "config_sha256": "e8312276ebb8d8972e7e17d639e49aa21a3aab2ea5f61a0d73c98ce7a69fdc3a",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "host": "mac",
+    "provider_endpoint": "https://openrouter.ai/api/v1",
+    "retry_changes": [
+      "run_id"
+    ],
+    "unchanged": [
+      "repository",
+      "revision",
+      "condition",
+      "method",
+      "model",
+      "seed",
+      "algorithm",
+      "prompt",
+      "config",
+      "protocol",
+      "image",
+      "budgets"
+    ]
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "original_position": 5,
+      "case_block": 2,
+      "condition": "persistent-explicit",
+      "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+      "run_id": "pro-persist-qv1-c02-sdg-translations-persistent-explicit-infra-retry1",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "seed": 1
+    }
+  ]
+}
