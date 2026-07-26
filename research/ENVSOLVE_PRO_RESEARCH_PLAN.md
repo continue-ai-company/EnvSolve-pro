@@ -364,9 +364,18 @@ separate command status from resulting state. LitGPT further shows that a timed-
 transition may leave both useful materialized packages and inconsistent generated state;
 preservation therefore requires executable postconditions, not exit-code heuristics.
 
-After a live provider canary, the next algorithmic test is therefore one operation-layer
-hypothesis: search in persistent construction state, preserve only postcondition-verified
-state, and apply minimal transformations for suffix repairs, followed by mandatory clean
-full-program certification. The same mechanism must be shared by explicit-state and
-raw-history controls. Repo2Run remains required once its credential is explicitly
-available to the run process and before a new repository-disjoint qualification is frozen.
+The minimal mechanism is now frozen at `8104851b0ca7281bab75fcbf79afa00238d3034c`.
+Each transition is classified as reusable, damaged, or unknown; only reusable state
+survives to the next repair. The model still emits a complete cumulative program, and a
+construction-state Pass triggers the exact same program in a distinct fresh environment
+before certification. The frozen fresh-state method is unchanged.
+
+The next execution is
+`pro_postcondition_persistent_qualification_v1_schedule.json`: five repositories selected
+outcome-blind by metadata hash and three conditions per repository. The primary contrast
+is persistent explicit state versus frozen fresh explicit state; persistent raw history
+tests whether any gain depends on structured constraints rather than state preservation
+alone. All fifteen runs must complete or receive frozen infrastructure-censoring labels
+before the algorithm, prompt, or threshold changes. Repo2Run remains a required external
+baseline for the later effectiveness stage, not a blocker for this internal mechanism
+qualification.

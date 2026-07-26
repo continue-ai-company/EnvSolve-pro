@@ -229,3 +229,9 @@ install retained useful package data but also a missing generated executable. Tr
 labels must therefore distinguish `reusable`, `damaged`, and `unknown` state transitions.
 Only executable postconditions may assign state-retention reward; clean replay remains
 the terminal success reward.
+
+The frozen postcondition-persistent implementation records the first directly usable
+supervision for this objective: construction lineage, state-transition disposition,
+freshness, verification role, source candidate, and clean-replay outcome. EnvSolve-RL can
+later learn retention or repair value from these fields while treating construction Pass
+as an intermediate label and clean fresh replay as the success label.

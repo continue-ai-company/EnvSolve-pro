@@ -295,3 +295,9 @@ left both reusable package material and a broken generated entry point, then com
 quickly after explicit inspection. Auto-EnvSolve must therefore test state postconditions
 and classify a transition as reusable, damaged, or unknown before proposing persistence;
 raising a timeout or caching every nonzero transition is not an admissible repair.
+
+EnvSolve-Pro now makes this proposal executable and versioned. The outer loop can audit
+whether every reused lineage had a prior reusable label, whether damaged or unknown state
+was released, and whether clean replay contradicted construction success. These are
+generic promotion predicates for later harness optimization; the current first-paper
+qualification keeps the classifier and promotion rule frozen.

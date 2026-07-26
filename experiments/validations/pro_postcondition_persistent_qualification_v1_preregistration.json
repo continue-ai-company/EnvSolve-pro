@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-postcondition-persistent-qualification-v1",
+  "status": "frozen-before-execution",
+  "frozen_at": "2026-07-25",
+  "claim_scope": "Repository-disjoint development qualification; not final test or leaderboard evidence.",
+  "algorithm_freeze": {
+    "branch": "envsolve-pro-main",
+    "commit": "8104851b0ca7281bab75fcbf79afa00238d3034c",
+    "files": {
+      "envsolve/runtime/policy.py": "9459ccd1c134870dffd92f238a2eb32f301d7a447d490ce6b5a43f9081420d5c",
+      "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+      "envsolve/solver/counterexample.py": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c",
+      "envsolve/solver/transitions.py": "cf02b70f29c1c0c75421f0bb6e0f5ac8f12c4abb8cd93b7c9de095f54810ca73",
+      "envsolve/verification/counterexamples.py": "ed0c683c294a00aa949306495fbbc692375cac7462d43ef139e9cf4a00c0aac0",
+      "envsolve/tools/run_envsolve_episode.py": "e3e957fbcb63c4960af88af5835b6a41531e3c0390231839df718b076b86454e",
+      "envsolve_harness/runners/envsolve.py": "4b928824521b0967878bee964e18096eb33144f5d943d0409bc082bd80b163a5",
+      "envsolve_harness/runners/envsolve_p6.py": "ba621f092ea04fa4f73e0cadef130e098e6629a2052f7643085358ec5fe1b4cc"
+    }
+  },
+  "hypothesis": {
+    "problem": "Small verified repairs currently repay the full environment-construction prefix in every fresh candidate.",
+    "mechanism": "Search in a persistent construction state, retain it only after executable postconditions classify the transition as reusable, and require the exact complete program to pass one clean fresh replay before acceptance.",
+    "primary": "Postcondition-persistent explicit-state search improves or preserves Official Pass@1 relative to the frozen fresh-state explicit method while reducing repeated construction work on cases that require repair.",
+    "secondary": "Explicit constraints remain useful under the same persistence mechanism relative to bounded raw goal history."
+  },
+  "selection": {
+    "source_case_file": "experiments/cases/train_untouched_after_pro_trajectory_census_replication_v1_96.jsonl",
+    "source_case_file_sha256": "8c00f9012821eb67b1035807fef2cb2274d580da954c55f258f72eb7642d8240",
+    "source_rows": 96,
+    "excluded_consumed_repositories": [
+      "online-ml/river",
+      "Lightning-AI/litgpt",
+      "rubisco-sfa/ilamb",
+      "flask-middleware/flask-security",
+      "starsimhub/starsim"
+    ],
+    "eligible_repositories": 91,
+    "selection_unit": "repository",
+    "salt": "8104851:postcondition-persistent-qv1",
+    "hash_input": "{salt}:{repository}@{revision}",
+    "hash": "sha256",
+    "order": "ascending",
+    "take": 5,
+    "repository_content_or_outcome_used_for_selection": false,
+    "case_file": "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl",
+    "case_file_sha256": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
+    "cases": [
+      {
+        "selection_hash": "06375341d3f73063018702ee2c60f36682e96403e950218bcb30aad0f5181b11",
+        "repository": "tefra/xsdata",
+        "revision": "1f42a6a5990664494049d4f97810cb0bcccc76df"
+      },
+      {
+        "selection_hash": "071b06850e6903c2610de5536cc4cbce7a8ade37df088315c6e0d0b0fa2e7e6a",
+        "repository": "open-sdg/sdg-translations",
+        "revision": "9a33c0b60188a859e530e6168f647506fad9e405"
+      },
+      {
+        "selection_hash": "077e286bfcc21da467ef2c321d65b7a927522a56d9a3f84b11393a542723cf52",
+        "repository": "zostera/django-bootstrap3",
+        "revision": "a6565be14ed0edff98b84d2874dc709cbecb1118"
+      },
+      {
+        "selection_hash": "0ac6659a1284c53ef17fea3965bb1bbe7a7a604103bfafc8f5de2b2b863cb175",
+        "repository": "gymrek-lab/TRTools",
+        "revision": "99d7fb4ef0a420e4a689bafecba5189127d657ba"
+      },
+      {
+        "selection_hash": "10f8fbcf9a133a1e78e48ec31d23971364113ad1a1f7b63749bb7849f0e41e62",
+        "repository": "openqasm/openqasm",
+        "revision": "5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0"
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "condition": "fresh-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "environment_strategy": "fresh-candidate",
+      "role": "frozen direct control"
+    },
+    {
+      "condition": "persistent-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "environment_strategy": "postcondition-persistent",
+      "role": "primary treatment"
+    },
+    {
+      "condition": "persistent-raw",
+      "method": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+      "environment_strategy": "postcondition-persistent",
+      "role": "same-mechanism raw-history control"
+    }
+  ],
+  "shared_contract": {
+    "model": "deepseek/deepseek-v4-pro",
+    "seed": 1,
+    "public_executable_goal": true,
+    "repository_evidence": "constraint-routed",
+    "candidate_anchor": "retained-admissible",
+    "candidate_interface": "open-program",
+    "operation_profile": "free-form",
+    "terminal_official_evaluator_only": true,
+    "official_success": "exit_code == 0 and issues_count == 0",
+    "integrity_protocol": "repository integrity v5 plus open-program validation",
+    "config": "experiments/configs/local_mac_pro_postcondition_persistent_v1.json",
+    "config_sha256": "e8312276ebb8d8972e7e17d639e49aa21a3aab2ea5f61a0d73c98ce7a69fdc3a",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "max_candidates": 12,
+    "max_environments": 24,
+    "max_commands": 24,
+    "generation_timeout_seconds": 18000,
+    "candidate_command_timeout_seconds": 1200,
+    "token_policy": "Tokens and price are reported outcomes; configured limits are emergency guards, not research stopping thresholds."
+  },
+  "schedule": {
+    "path": "experiments/validations/pro_postcondition_persistent_qualification_v1_schedule.json",
+    "within_case_order": "cyclic three-condition rotation fixed by selection rank",
+    "cross_case_execution": "May interleave across available hosts, but each case preserves its frozen within-case order.",
+    "host_policy": "Mac is the initial host; another validated host may execute whole case blocks under the identical commit, config semantics, image, and protocol."
+  },
+  "analysis": {
+    "primary_contrast": "persistent-explicit versus fresh-explicit",
+    "secondary_contrast": "persistent-explicit versus persistent-raw",
+    "primary_metric": "Official Pass@1",
+    "mechanism_metrics": [
+      "post-failure repair success",
+      "reusable, damaged, and unknown transition counts",
+      "cross-candidate construction-state reuse count",
+      "clean replay attempts and pass rate",
+      "fresh environment provisions",
+      "executed candidates",
+      "model requests",
+      "wall-clock time"
+    ],
+    "descriptive_metrics": [
+      "input, cached, output, and reasoning tokens",
+      "reported price under the frozen pricing snapshot",
+      "infrastructure censoring"
+    ],
+    "integrity_gate": [
+      "Every reused state has an earlier state-transition-observation with disposition reusable and matching lineage.",
+      "Damaged and unknown states are released before another candidate executes.",
+      "Every certified terminal candidate is the same complete script that passed a fresh clean-replay verification.",
+      "No Official evaluator finding enters any online model input or constraint update.",
+      "Every terminal Official result uses an identity-matched fresh environment and passes repository integrity."
+    ],
+    "proceed_rule": "Retain the mechanism for the next repository-disjoint round if the integrity gate passes, persistent-explicit does not reduce Official Pass@1, and at least one repair trajectory demonstrates verified cross-candidate reuse without a clean-replay regression.",
+    "failure_rule": "If the integrity gate fails, fix measurement before interpreting effectiveness. If the mechanism gate fails, archive all five repositories as consumed and redesign only from internal trajectories, then select a new metadata-only repository-disjoint batch.",
+    "no_algorithm_prompt_or_threshold_change_until_schedule_complete": true,
+    "infrastructure_retry_policy": "Retry only a preregistered infrastructure-censored episode with the same code, settings, seed, and case; never replace a case based on outcome."
+  }
+}

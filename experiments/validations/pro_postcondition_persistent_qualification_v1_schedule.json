@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-postcondition-persistent-qualification-v1",
+  "status": "frozen-before-execution",
+  "bound_at": "2026-07-25",
+  "claim_scope": "repository-disjoint development qualification",
+  "preregistration": "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json",
+  "preregistration_sha256": "beaa41cbc9bdd6043d1519bfb2d575b5d32d7a7ee7989967465440482859c253",
+  "implementation_freeze": "8104851b0ca7281bab75fcbf79afa00238d3034c",
+  "case_file": "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl",
+  "case_file_sha256": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
+  "model": "deepseek/deepseek-v4-pro",
+  "episode_timeout_seconds": 22200,
+  "execution": {
+    "config": "experiments/configs/local_mac_pro_postcondition_persistent_v1.json",
+    "config_sha256": "e8312276ebb8d8972e7e17d639e49aa21a3aab2ea5f61a0d73c98ce7a69fdc3a",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "initial_host": "mac",
+    "within_case_order": "cyclic three-condition rotation"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "case_block": 1,
+      "condition": "persistent-explicit",
+      "case_id": "envbench-python-tefra__xsdata@1f42a6a5990664494049d4f97810cb0bcccc76df",
+      "run_id": "pro-persist-qv1-c01-xsdata-persistent-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 2,
+      "case_block": 1,
+      "condition": "fresh-explicit",
+      "case_id": "envbench-python-tefra__xsdata@1f42a6a5990664494049d4f97810cb0bcccc76df",
+      "run_id": "pro-persist-qv1-c01-xsdata-fresh-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "seed": 1
+    },
+    {
+      "position": 3,
+      "case_block": 1,
+      "condition": "persistent-raw",
+      "case_id": "envbench-python-tefra__xsdata@1f42a6a5990664494049d4f97810cb0bcccc76df",
+      "run_id": "pro-persist-qv1-c01-xsdata-persistent-raw",
+      "method": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 4,
+      "case_block": 2,
+      "condition": "persistent-raw",
+      "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+      "run_id": "pro-persist-qv1-c02-sdg-translations-persistent-raw",
+      "method": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 5,
+      "case_block": 2,
+      "condition": "persistent-explicit",
+      "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+      "run_id": "pro-persist-qv1-c02-sdg-translations-persistent-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 6,
+      "case_block": 2,
+      "condition": "fresh-explicit",
+      "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+      "run_id": "pro-persist-qv1-c02-sdg-translations-fresh-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "seed": 1
+    },
+    {
+      "position": 7,
+      "case_block": 3,
+      "condition": "fresh-explicit",
+      "case_id": "envbench-python-zostera__django-bootstrap3@a6565be14ed0edff98b84d2874dc709cbecb1118",
+      "run_id": "pro-persist-qv1-c03-django-bootstrap3-fresh-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "seed": 1
+    },
+    {
+      "position": 8,
+      "case_block": 3,
+      "condition": "persistent-raw",
+      "case_id": "envbench-python-zostera__django-bootstrap3@a6565be14ed0edff98b84d2874dc709cbecb1118",
+      "run_id": "pro-persist-qv1-c03-django-bootstrap3-persistent-raw",
+      "method": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 9,
+      "case_block": 3,
+      "condition": "persistent-explicit",
+      "case_id": "envbench-python-zostera__django-bootstrap3@a6565be14ed0edff98b84d2874dc709cbecb1118",
+      "run_id": "pro-persist-qv1-c03-django-bootstrap3-persistent-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 10,
+      "case_block": 4,
+      "condition": "persistent-explicit",
+      "case_id": "envbench-python-gymrek-lab__TRTools@99d7fb4ef0a420e4a689bafecba5189127d657ba",
+      "run_id": "pro-persist-qv1-c04-trtools-persistent-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 11,
+      "case_block": 4,
+      "condition": "fresh-explicit",
+      "case_id": "envbench-python-gymrek-lab__TRTools@99d7fb4ef0a420e4a689bafecba5189127d657ba",
+      "run_id": "pro-persist-qv1-c04-trtools-fresh-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "seed": 1
+    },
+    {
+      "position": 12,
+      "case_block": 4,
+      "condition": "persistent-raw",
+      "case_id": "envbench-python-gymrek-lab__TRTools@99d7fb4ef0a420e4a689bafecba5189127d657ba",
+      "run_id": "pro-persist-qv1-c04-trtools-persistent-raw",
+      "method": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 13,
+      "case_block": 5,
+      "condition": "persistent-raw",
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "run_id": "pro-persist-qv1-c05-openqasm-persistent-raw",
+      "method": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 14,
+      "case_block": 5,
+      "condition": "persistent-explicit",
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "run_id": "pro-persist-qv1-c05-openqasm-persistent-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "seed": 1
+    },
+    {
+      "position": 15,
+      "case_block": 5,
+      "condition": "fresh-explicit",
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "run_id": "pro-persist-qv1-c05-openqasm-fresh-explicit",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "seed": 1
+    }
+  ]
+}

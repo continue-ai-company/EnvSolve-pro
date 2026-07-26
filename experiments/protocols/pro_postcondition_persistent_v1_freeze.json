@@ -1,0 +1,98 @@
+{
+  "freeze_id": "envsolve-pro-postcondition-persistent-v1",
+  "frozen_at": "2026-07-25",
+  "source_revision": "8104851b0ca7281bab75fcbf79afa00238d3034c",
+  "source_revision_semantics": "The committed algorithm is immutable for this qualification; artifact hashes below bind selection, settings, and schedule.",
+  "harness_freeze": {
+    "path": "experiments/protocols/harness_freeze_v32.json",
+    "sha256": "2cba57997f93fe21c368e0c93edc7a3d66ad703edbe5397afa08db87830217f4"
+  },
+  "files": {
+    "envsolve/runtime/policy.py": "9459ccd1c134870dffd92f238a2eb32f301d7a447d490ce6b5a43f9081420d5c",
+    "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+    "envsolve/solver/counterexample.py": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c",
+    "envsolve/solver/transitions.py": "cf02b70f29c1c0c75421f0bb6e0f5ac8f12c4abb8cd93b7c9de095f54810ca73",
+    "envsolve/verification/counterexamples.py": "ed0c683c294a00aa949306495fbbc692375cac7462d43ef139e9cf4a00c0aac0",
+    "envsolve/tools/run_envsolve_episode.py": "e3e957fbcb63c4960af88af5835b6a41531e3c0390231839df718b076b86454e",
+    "envsolve_harness/runners/envsolve.py": "4b928824521b0967878bee964e18096eb33144f5d943d0409bc082bd80b163a5",
+    "envsolve_harness/runners/envsolve_p6.py": "ba621f092ea04fa4f73e0cadef130e098e6629a2052f7643085358ec5fe1b4cc",
+    "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
+    "experiments/configs/local_mac_pro_postcondition_persistent_v1.json": "e8312276ebb8d8972e7e17d639e49aa21a3aab2ea5f61a0d73c98ce7a69fdc3a",
+    "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json": "beaa41cbc9bdd6043d1519bfb2d575b5d32d7a7ee7989967465440482859c253",
+    "experiments/validations/pro_postcondition_persistent_qualification_v1_schedule.json": "2e3ed8633154f4cceaf77103be6513a16317acffeeb460aec75c35fcf2c4505b",
+    "tests/test_pro_postcondition_persistent_qualification.py": "161bad5cc647e47f4acdbd66ba96c55b7bfec47799ae95e1a179238339f993c9"
+  },
+  "semantic_boundary": {
+    "methods": {
+      "fresh_explicit": "envsolve-pro-goal-contract-evidence-anchor",
+      "persistent_explicit": "envsolve-pro-goal-contract-evidence-anchor-persistent",
+      "persistent_raw": "envsolve-pro-goal-aware-raw-evidence-anchor-persistent"
+    },
+    "shared_public_goal": "envbench-python-report-missing-imports-v1",
+    "shared_repository_evidence": "constraint-routed",
+    "shared_candidate_anchor": "retained-admissible",
+    "shared_candidate_interface": "open-program",
+    "shared_operation_profile": "free-form",
+    "shared_model": "deepseek/deepseek-v4-pro",
+    "shared_seed": 1,
+    "shared_official_evaluator_access": "post-episode-only",
+    "primary_treatment": "postcondition-persistent construction state versus fresh candidate environments",
+    "secondary_treatment": "explicit constraint projection versus bounded raw goal history under identical persistence",
+    "cross_case_memory": false,
+    "case_specific_rules": false,
+    "package_or_module_recipes": false
+  },
+  "state_transition_contract": {
+    "states": [
+      "reusable",
+      "damaged",
+      "unknown"
+    ],
+    "reusable": [
+      "bootstrap completes with exit code zero",
+      "integrity boundaries remain valid",
+      "the executable goal passes without counterexamples, or a complete admissible goal report identifies residual constraints"
+    ],
+    "damaged": [
+      "the verifier observes a protected-environment, outer-workspace, effect-ownership, or synthetic-import-alias integrity violation"
+    ],
+    "unknown": [
+      "verification is incomplete",
+      "bootstrap is nonzero or timed out before postconditions",
+      "a failure lacks a complete admissible candidate assessment"
+    ],
+    "reuse_policy": "Only reusable construction state may host the next candidate; damaged and unknown states are released.",
+    "candidate_contract": "Every model proposal remains a complete cumulative program executable from a clean checkout; retained state never authorizes a delta-only program.",
+    "certification": "A construction-state pass is diagnostic only. The exact same program must pass once in a distinct fresh environment before certified acceptance.",
+    "fresh_control_unchanged": true
+  },
+  "budget_contract": {
+    "max_candidates": 12,
+    "max_environments": 24,
+    "max_commands": 24,
+    "generation_timeout_seconds": 18000,
+    "candidate_command_timeout_seconds": 1200,
+    "model_max_requests": 100,
+    "model_max_total_tokens": 100000000,
+    "model_max_estimated_cost_usd": 1000.0,
+    "interpretation": "Token and price limits are emergency guards. Success is primary; all resource use is reported descriptively."
+  },
+  "verification": {
+    "focused_algorithm_and_runner_tests": "101 passed, 8 subtests passed",
+    "full_regression_before_algorithm_commit": "557 passed, 2 skipped, 75 subtests passed",
+    "qualification_integrity_tests": "4 passed",
+    "schedule_schema_validation": "valid",
+    "static_analysis": "ruff check passed",
+    "secret_scan": "no matching key or private-key material"
+  },
+  "integrity": {
+    "selection_uses_repository_content": false,
+    "selection_uses_case_outcome": false,
+    "selected_repository_count": 5,
+    "selected_repositories_previously_consumed": false,
+    "river_litgpt_ilamb_flask_security_starsim_reusable_for_effectiveness": false,
+    "official_evaluator_feedback_used_online": false,
+    "algorithm_change_allowed_during_schedule": false,
+    "effectiveness_claim_allowed": "development qualification only"
+  }
+}

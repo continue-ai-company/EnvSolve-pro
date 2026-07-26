@@ -5,7 +5,7 @@
 Reproducing a source repository requires discovering runtime, dependency, build, and
 platform conditions that are rarely specified completely. An agent observes these hidden
 conditions only through repository evidence and the outcomes of programs executed in
-fresh environments. Current deployment agents leave this state implicit in a growing
+isolated environments. Current deployment agents leave this state implicit in a growing
 language-model context. They can therefore optimize convenient proxy tests, forget an
 unresolved failure, or mistake an infrastructure incident for evidence about the
 deployment.
@@ -13,13 +13,14 @@ deployment.
 We formulate repository deployment as **partially observable stateful constraint
 solving** and introduce EnvSolve-Pro. A public executable goal defines success without
 revealing terminal benchmark outcomes. An Observation layer executes each candidate and
-the goal in the same fresh environment, preserving provenance and distinguishing Pass,
+the goal in the same isolated environment, preserving lineage and distinguishing Pass,
 Fail, and Unknown. A Constraint layer turns goal-grounded failures into revisable
 obligations while retaining uncertain repository inferences as hypotheses. An Operation
-layer exposes this state to a strong language model, which remains free to generate a
-complete deployment program rather than choosing from a closed action vocabulary.
-Execution updates the state, and only a goal-passing, integrity-valid candidate is
-certified.
+layer admits a resulting construction state as reusable, damaged, or unknown from
+executable postconditions. It exposes this state to a strong language model, which
+remains free to generate a complete deployment program rather than choosing from a
+closed action vocabulary. Reusable state accelerates repair search, but the exact final
+program is certified only after passing in a fresh environment.
 
 We evaluate EnvSolve-Pro on repository deployment benchmarks against Repo2Run, native
 coding agents, and same-model agent loops. Controlled baselines receive the same public
@@ -36,12 +37,19 @@ executable goal `G`, the agent must produce a deployment program `P` such that
 G(Execute(P, R, z)) = Pass.
 ```
 
-The agent cannot inspect `z` directly. At round `t`, it runs candidate `P_t` in a fresh
-environment and receives observation `o_t`: command outcomes, goal diagnostics, and
-infrastructure signals. Each observation reveals only part of the relevant state.
+The agent cannot inspect `z` directly. At round `t`, it runs candidate `P_t` in an
+isolated construction state `z_t` and receives observation `o_t`: command outcomes,
+goal diagnostics, effect audits, and infrastructure signals. The next round may retain
+the resulting state only if executable postconditions establish that it is reusable;
+damaged or unknown states are discarded. Each observation reveals only part of the
+relevant state.
 Different causes can produce similar symptoms, some failures expose only the first
 violated condition, and network or provider incidents may yield no valid task evidence.
 The agent must therefore revise beliefs and obligations across attempts.
+
+The returned solution is still a complete program, not a state-dependent delta. If a
+program passes during construction search, the solver executes the exact same program
+from a distinct fresh checkout and environment. Only that replay can certify success.
 
 The executable goal is part of the task specification, not the terminal evaluator. It
 contains a versioned program, a report schema, and a content digest. The online solver
@@ -65,11 +73,12 @@ audited effects. It assigns one of three goal states:
 - **Unknown:** the candidate or goal could not be evaluated reliably, for example because
   a required tool or network operation failed.
 
-Unknown is never converted into task failure or success. Fresh environments prevent an
-unrecorded mutation from one attempt from silently changing a later attempt. Goal reports
-also declare whether their findings are a complete snapshot or partial evidence. Only a
-complete snapshot of the same scope may use absence to demonstrate that an earlier
-condition has been resolved.
+Unknown is never converted into task failure or success. Every observation records
+environment lineage, freshness, and audited effects. The layer separately classifies the
+resulting construction state as reusable, damaged, or unknown; only reusable state may
+host a later attempt. Goal reports also declare whether their findings are a complete
+snapshot or partial evidence. Only a complete snapshot of the same scope may use absence
+to demonstrate that an earlier condition has been resolved.
 
 ### 2.2 Constraint: What Is Still Unsatisfied?
 
@@ -118,8 +127,10 @@ observe -> update constraints -> generate operation -> execute goal -> observe.
 ```
 
 Safety and integrity checks govern what may be changed and whether the observed effects
-belong to the candidate. They do not prescribe a solution. A candidate is certified only
-when its goal state is Pass and its execution effects satisfy these checks.
+belong to the candidate. They do not prescribe a solution. A verified reusable
+construction state can carry expensive setup into the next repair, while the model still
+emits a cumulative clean-start program. A construction-state Pass triggers a mandatory
+fresh replay of that exact program; only a fresh Pass with valid effects is certified.
 
 ## 3. Contributions
 
@@ -127,8 +138,8 @@ when its goal state is Pass and its execution effects satisfy these checks.
    stateful constraint solving with a public executable goal, separating online evidence
    from hidden terminal evaluation.
 2. **Method.** We introduce a strong-model-compatible three-layer solver that preserves
-   authoritative goal observations, maintains revisable constraint state, and leaves the
-   operation space open.
+   authoritative goal observations, maintains revisable constraint state, and uses
+   postcondition-gated construction-state reuse without closing the operation space.
 3. **Evaluation.** We establish a same-goal controlled protocol that separates objective
    visibility from stateful repair, compares against external deployment agents, and
    measures both final success and post-failure recovery.
@@ -156,7 +167,8 @@ evaluator boundary, and experimental limits:
 Repo2Run and native coding agents provide external system baselines. Frozen EnvSolve v1
 is retained as a historical structured baseline. Ablations remove goal-state persistence,
 finding-routed repository evidence, the retained candidate anchor, and the Fail/Unknown
-distinction one at a time.
+distinction one at a time. A direct state-persistence ablation compares fresh-candidate
+search with postcondition-gated persistent construction and mandatory clean replay.
 
 ### Protocol and Metrics
 
@@ -190,5 +202,8 @@ alias that satisfies the surface goal. We therefore harden the integrity boundar
 testing postcondition-verified state preservation and minimal state transformation as
 an Operation-layer mechanism. Two post-hoc external-agent trajectories independently
 showed that command status and resulting state differ; one timed-out transition left
-both useful and inconsistent state. The mechanism must therefore gate persistence with
-executable postconditions. All final programs remain subject to clean full replay.
+both useful and inconsistent state. We therefore freeze a minimal transition classifier:
+only postcondition-verified reusable state persists, while damaged and unknown state is
+released. The model still emits complete programs, and a construction Pass requires
+clean full replay. A repository-disjoint five-case, three-condition qualification is
+preregistered before execution.

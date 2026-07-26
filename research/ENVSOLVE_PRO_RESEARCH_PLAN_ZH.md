@@ -295,7 +295,13 @@ evaluator 输出都已冻结，不能驱动同 case 修复。两条轨迹都独�
 进一步说明，一次超时转换可能同时留下有用的已物化 package 和不一致的生成状态，因此状态保留必须
 依赖可执行后置条件，而不是退出码启发式。
 
-因此，在真实 provider canary 后只检验一个操作层假设：在持久 construction state 中搜索，只保留通过
-后置条件验证的状态，对 suffix repair 执行最小状态变换，并在终局使用全新环境完整重放认证。显式状态
-与 raw-history 对照必须共享同一机制。Repo2Run 仍需在 credential 被显式导出到运行进程后补齐，并先于
-新的 repository-disjoint qualification 冻结。
+最小机制现已冻结在 `8104851b0ca7281bab75fcbf79afa00238d3034c`。每次状态转移被判为
+reusable、damaged 或 unknown；只有 reusable 状态可以进入下一轮修复。模型仍输出完整累计程序，
+construction-state Pass 会在另一个全新环境中执行完全相同的程序，只有该次重放通过才能认证。冻结的
+fresh-state 方法保持不变。
+
+下一步执行 `pro_postcondition_persistent_qualification_v1_schedule.json`：五个仓库通过 metadata hash
+盲选，每个仓库运行三个 condition。主对比是 persistent explicit state 与冻结的 fresh explicit state；
+persistent raw history 用于判断收益来自结构化约束，还是仅来自状态保留。15 个 episode 全部完成或获得
+冻结的基础设施删失标签之前，禁止修改算法、prompt 或阈值。Repo2Run 仍是后续效果实验必需的外部
+baseline，但不阻塞这次内部机制 qualification。
