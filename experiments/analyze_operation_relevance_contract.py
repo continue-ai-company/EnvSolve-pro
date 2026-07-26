@@ -281,6 +281,29 @@ def _aggregate_condition(
     selected = [run for run in runs if run["condition"] == condition]
     rejection_counts: Counter[str] = Counter()
     progress_counts: Counter[str] = Counter()
+    terminal_counts = Counter(
+        str(run["descriptive_terminal"]) for run in selected
+    )
+    resource_keys = (
+        "candidates",
+        "requests_started",
+        "provider_attempts_started",
+        "input_tokens",
+        "output_tokens",
+        "cache_read_tokens",
+        "total_tokens",
+        "environments",
+        "commands",
+        "elapsed_wall_clock_seconds",
+    )
+    resource_totals = {
+        key: sum(
+            float(run["resources"].get(key) or 0)
+            for run in selected
+            if isinstance(run.get("resources"), dict)
+        )
+        for key in resource_keys
+    }
     for run in selected:
         mechanism = run["mechanism"]
         rejection_counts.update(mechanism["policy_rejections_by_reason"])
@@ -299,6 +322,10 @@ def _aggregate_condition(
         "official_unknown": sum(
             run["official_pass"] is None for run in selected
         ),
+        "official_terminal_reach": sum(
+            isinstance(run["official_pass"], bool) for run in selected
+        ),
+        "terminal_classes": dict(sorted(terminal_counts.items())),
         "candidate_proposals": sum(
             run["mechanism"]["candidate_proposals"] for run in selected
         ),
@@ -325,6 +352,7 @@ def _aggregate_condition(
             and run["official_pass"] is True
             for run in selected
         ),
+        "resources": resource_totals,
     }
 
 

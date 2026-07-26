@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from experiments.analyze_operation_relevance_contract import (
+    _aggregate_condition,
     mechanism_metrics,
     paired_metrics,
 )
@@ -147,3 +148,37 @@ def test_paired_metrics_counts_treatment_only_official_repair() -> None:
     assert result["eligible_blocks"] == 1
     assert result["treatment_only_pass"] == 1
     assert result["treatment_only_official_repair"] == 1
+
+
+def test_condition_aggregate_reports_terminal_reach_and_resources() -> None:
+    mechanism = {
+        "candidate_proposals": 2,
+        "executed_candidates": 2,
+        "operation_contracts": 2,
+        "policy_rejections_by_reason": {},
+        "suppression_events": 0,
+        "progress_calibration": {"met": 1, "not_met": 1, "unknown": 0},
+        "later_internal_goal_pass_observed": True,
+        "first_internal_goal_failure_observed": True,
+    }
+    runs = [
+        {
+            "condition": "operation-contract-v1",
+            "scientifically_eligible": True,
+            "official_pass": True,
+            "descriptive_terminal": "official_pass",
+            "resources": {
+                "total_tokens": 100,
+                "requests_started": 2,
+                "environments": 2,
+                "commands": 2,
+            },
+            "mechanism": mechanism,
+        }
+    ]
+
+    result = _aggregate_condition(runs, "operation-contract-v1")
+
+    assert result["official_terminal_reach"] == 1
+    assert result["terminal_classes"] == {"official_pass": 1}
+    assert result["resources"]["total_tokens"] == 100
