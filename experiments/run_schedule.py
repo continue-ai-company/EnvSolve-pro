@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Mapping, Sequence
 import json
+import os
 from pathlib import Path
 import signal
 import sys
-from typing import Sequence
+from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,10 +16,22 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from envsolve_harness.core.config import load_harness_config
+from envsolve_harness.core.models import HarnessConfig
 from envsolve_harness.execution.batch import cleanup_case_containers, mark_case_interrupted
 from envsolve_harness.execution.schedule import ScheduleProgress, run_scheduled_process
 from envsolve_harness.storage.artifacts import safe_name
 from envsolve_harness.utils.provenance import sha256_file
+
+
+OPENAI_API_RUNNERS = frozenset(
+    {
+        "envbench-agent",
+        "envsolve",
+        "envsolve-v0",
+        "repo2run",
+    }
+)
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 def parse_args(
@@ -84,6 +98,49 @@ def _episode_identity(
     }
 
 
+def _is_openrouter_model(config: HarnessConfig, model: str) -> bool:
+    pricing = config.model_pricing.get(model)
+    if pricing is None or not pricing.source_url:
+        return False
+    return urlparse(pricing.source_url).netloc.lower() == "openrouter.ai"
+
+
+def _validate_provider_environment(
+    identities: Sequence[dict[str, object]],
+    config: HarnessConfig,
+    environ: Mapping[str, str] | None = None,
+) -> None:
+    provider_episodes = [
+        identity
+        for identity in identities
+        if str(identity["runner"]) in OPENAI_API_RUNNERS
+    ]
+    if not provider_episodes:
+        return
+    environment = os.environ if environ is None else environ
+    if not environment.get("OPENAI_API_KEY", "").strip():
+        raise RuntimeError(
+            "OPENAI_API_KEY is required by pending provider-backed episodes; "
+            "no schedule progress was recorded"
+        )
+    openrouter_models = sorted(
+        {
+            str(identity["model"])
+            for identity in provider_episodes
+            if _is_openrouter_model(config, str(identity["model"]))
+        }
+    )
+    if not openrouter_models:
+        return
+    actual_base_url = environment.get("OPENAI_BASE_URL", "").rstrip("/")
+    if actual_base_url != OPENROUTER_BASE_URL:
+        models = ", ".join(openrouter_models)
+        raise RuntimeError(
+            f"OPENAI_BASE_URL must equal {OPENROUTER_BASE_URL!r} for "
+            f"OpenRouter-backed model(s) {models}; no schedule progress was recorded"
+        )
+
+
 def main(
     argv: Sequence[str] | None = None,
     *,
@@ -135,6 +192,14 @@ def main(
             ),
         },
     )
+    pending_identities = [
+        _episode_identity(episode, schedule, args.runner)
+        for episode in schedule["episodes"]
+        if args.start_position <= int(episode["position"])
+        and (args.stop_position is None or int(episode["position"]) <= args.stop_position)
+        and not progress.contains(int(episode["position"]))
+    ]
+    _validate_provider_environment(pending_identities, config)
     for position in progress.recover_orphans():
         print(f"position={position} state=orphaned", flush=True)
 

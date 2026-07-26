@@ -3,16 +3,79 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 
+from envsolve_harness.core.models import ModelPricing
 from envsolve_harness.execution.schedule import (
     ScheduleProgress,
     run_scheduled_process,
 )
-from experiments.run_schedule import _episode_identity
+from experiments.run_schedule import (
+    _episode_identity,
+    _validate_provider_environment,
+)
 
 
 class ScheduleProgressTest(unittest.TestCase):
+    @staticmethod
+    def _config(source_url: str | None = None) -> SimpleNamespace:
+        return SimpleNamespace(
+            model_pricing={
+                "provider/model": ModelPricing(
+                    model="provider/model",
+                    input_cost_per_million=1,
+                    output_cost_per_million=1,
+                    source_url=source_url,
+                )
+            }
+        )
+
+    @staticmethod
+    def _identity(runner: str = "envsolve") -> dict[str, object]:
+        return {
+            "position": 1,
+            "case_id": "owner/repo@abc",
+            "run_id": "run",
+            "runner": runner,
+            "method": "method",
+            "model": "provider/model",
+            "seed": 1,
+        }
+
+    def test_provider_preflight_rejects_missing_key_before_execution(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "no schedule progress was recorded"):
+            _validate_provider_environment(
+                [self._identity()],
+                self._config(),
+                {},
+            )
+
+    def test_provider_preflight_requires_openrouter_route_from_frozen_pricing(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "OPENAI_BASE_URL must equal"):
+            _validate_provider_environment(
+                [self._identity()],
+                self._config("https://openrouter.ai/deepseek/model"),
+                {"OPENAI_API_KEY": "not-recorded"},
+            )
+
+    def test_provider_preflight_accepts_openrouter_route_with_trailing_slash(self) -> None:
+        _validate_provider_environment(
+            [self._identity()],
+            self._config("https://openrouter.ai/deepseek/model"),
+            {
+                "OPENAI_API_KEY": "not-recorded",
+                "OPENAI_BASE_URL": "https://openrouter.ai/api/v1/",
+            },
+        )
+
+    def test_provider_preflight_ignores_non_provider_runner(self) -> None:
+        _validate_provider_environment(
+            [self._identity("codex-cli")],
+            self._config("https://openrouter.ai/deepseek/model"),
+            {},
+        )
+
     def test_mixed_schedule_episode_overrides_runner_model_and_allows_null_seed(self) -> None:
         identity = _episode_identity(
             {

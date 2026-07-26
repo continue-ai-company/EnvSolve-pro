@@ -16,6 +16,7 @@
     "envsolve/tools/run_envsolve_episode.py": "e3e957fbcb63c4960af88af5835b6a41531e3c0390231839df718b076b86454e",
     "envsolve_harness/runners/envsolve.py": "4b928824521b0967878bee964e18096eb33144f5d943d0409bc082bd80b163a5",
     "envsolve_harness/runners/envsolve_p6.py": "ba621f092ea04fa4f73e0cadef130e098e6629a2052f7643085358ec5fe1b4cc",
+    "experiments/run_schedule.py": "c59f77cdf34d8960d67dc5b70555d59c584bdecf6c654167b73c59e273f6ab6a",
     "experiments/cases/dev_pro_postcondition_persistent_qualification_v1_5.jsonl": "f0a732d194bca15199a0989d11831d62fe2c8b77a17e79d823f719dedd14fb30",
     "experiments/configs/local_mac_pro_postcondition_persistent_v1.json": "e8312276ebb8d8972e7e17d639e49aa21a3aab2ea5f61a0d73c98ce7a69fdc3a",
     "experiments/validations/pro_postcondition_persistent_qualification_v1_preregistration.json": "e3a03b108e5aed2797c30f9cb419b2ba56cd0aec228f93bb693be73c20f300be",
@@ -24,7 +25,16 @@
     "experiments/analyze_postcondition_persistent.py": "f8db6fe556c8c5060a362bc7d59af81a3e8d5fbaa7de4bfa7d814d654fbd5fe1",
     "tests/test_persistent_state_analysis.py": "ed8d0db41088233aedf15a5eacd053efb25d46f032182ca1c1cfdba581406e66",
     "tests/test_envsolve_docker_integration.py": "4e6ee0a01e6b0e9e131716126712c167e3143be1cc7b90c4ea585338e71a4685",
+    "tests/test_schedule_coordinator.py": "769423e78895fc0624b32d89da4a8e3227e3d4498f444a39270de505ffc3e009",
     "tests/test_pro_postcondition_persistent_qualification.py": "161bad5cc647e47f4acdbd66ba96c55b7bfec47799ae95e1a179238339f993c9"
+  },
+  "execution_safety_amendment": {
+    "timing": "after protocol freeze and before the first provider request or case execution",
+    "outcome_access": false,
+    "algorithm_or_condition_change": false,
+    "reason": "Provider credentials and the OpenRouter endpoint were previously checked only after an episode position and artifact root had been allocated.",
+    "change": "Pending provider-backed episodes now validate credential presence and the pricing-implied OpenRouter route before any schedule progress is recorded.",
+    "failure_semantics": "A failed provider preflight leaves the frozen schedule and progress namespace untouched."
   },
   "semantic_boundary": {
     "methods": {
@@ -87,6 +97,8 @@
     "qualification_integrity_tests": "4 passed",
     "frozen_analysis_tests": "5 passed",
     "real_docker_integration": "2 passed; persistent construction observed REUSED and distinct clean certification observed FRESH",
+    "provider_preflight": "missing credentials rejected before progress creation; OpenRouter route validated from frozen pricing metadata",
+    "full_regression_after_execution_safety": "570 passed, 3 skipped, 75 subtests passed",
     "schedule_schema_validation": "valid",
     "static_analysis": "ruff check passed",
     "secret_scan": "no matching key or private-key material"
