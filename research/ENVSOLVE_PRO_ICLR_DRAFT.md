@@ -187,5 +187,8 @@ is too small and provider timing is too variable for an efficiency claim. More
 importantly, the batch exposed two general bottlenecks: small verified repairs repeatedly
 replay expensive installation prefixes, and a symlink can create a synthetic import
 alias that satisfies the surface goal. We therefore harden the integrity boundary before
-testing immutable verified-prefix branching as an Operation-layer mechanism. All final
-programs remain subject to clean full replay.
+testing postcondition-verified state preservation and minimal state transformation as
+an Operation-layer mechanism. A post-hoc external-agent trajectory independently
+exposed the distinction between command failure and resulting state, as well as verifier
+scope changes caused by environment location. All final programs remain subject to
+clean full replay.

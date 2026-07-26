@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "pro-goal-contract-external-codex-river-v1",
+  "claim_scope": "post-hoc mechanism observation on one consumed development case",
+  "case": {
+    "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+    "repository": "online-ml/river",
+    "revision": "6995f1522a9136fd3982890afac5c4a178e4cd57"
+  },
+  "baseline": {
+    "runner": "codex-cli",
+    "method": "codex-cli-native",
+    "model": "gpt-5.5",
+    "source_run_id": "pro-goal-anchor-qv1-c01-river-codex-cli-native",
+    "generation_wall_seconds": 1153.416783,
+    "container_commands": 26,
+    "successful_container_commands": 19,
+    "token_usage": {
+      "input_tokens": 1076724,
+      "cached_input_tokens": 909824,
+      "output_tokens": 9411,
+      "reasoning_output_tokens": 5579
+    }
+  },
+  "wrapper_adjudication": {
+    "source_generation_completed": false,
+    "source_process_exit_code": 0,
+    "source_termination": "wrapper_integrity_false_positive",
+    "false_positive": "repository integrity v4 rejected ignored native extensions produced by the declared build backend",
+    "repair": {
+      "repository_integrity_policy": "clean-tracked-tree-and-declared-generated-files-v5",
+      "allows_repository_ignored_compiled_extensions": true,
+      "allows_standard_target_build_directory": true,
+      "requires_shared_open_program_validation_for_codex_submission": true
+    },
+    "model_reexecuted": false,
+    "bootstrap_script_changed": false,
+    "bootstrap_script_sha256": "eb1025226d0376a97bd4fa3a202112aa681841ead174847c348f97f042b4e6bf"
+  },
+  "authoritative_result": {
+    "run_id": "pro-goal-anchor-qv1-c01-river-codex-recorded-integrity-v5",
+    "method": "codex-cli-native-recorded",
+    "artifact_audit_valid": true,
+    "official_evaluation_completed": true,
+    "official_pass": false,
+    "official_metrics": {
+      "exit_code": 0,
+      "issues_count": 16,
+      "error_count": 2979,
+      "warning_count": 23
+    },
+    "unique_missing_import_modules": [
+      "Cython.Build",
+      "dominate.tags",
+      "numpydoc.docscrape",
+      "river.compat.pytorch",
+      "setuptools_rust",
+      "torch",
+      "vaex",
+      "vaex.utils",
+      "vowpalwabbit",
+      "watermark"
+    ],
+    "official_feedback_reused_for_same_case": false
+  },
+  "trajectory_observations": [
+    {
+      "command_sequence": 6,
+      "event": "conda create reached the command timeout after materializing a usable environment",
+      "subsequent_evidence_sequence": 7,
+      "inference": "command timeout does not imply unsatisfied state constraints"
+    },
+    {
+      "command_sequences": [
+        13,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22
+      ],
+      "event": "native tests aborted under Rust 1.97; the agent inferred an old PyO3 toolchain conflict, downgraded to Rust 1.75, rebuilt, and passed the targeted tests",
+      "inference": "undeclared toolchain compatibility is a first-class environment constraint"
+    },
+    {
+      "command_sequences": [
+        23,
+        24
+      ],
+      "event": "a project-local environment polluted pytest discovery; the agent cloned the verified environment outside the repository and removed the local copy",
+      "inference": "environment path changes verifier scope and belongs in state semantics"
+    },
+    {
+      "command_sequences": [
+        25,
+        26
+      ],
+      "event": "four network-dependent checks failed while 3386 tests passed; a network-independent scope then passed 3380 tests",
+      "inference": "external-data failures must be separated from deployment-state failures"
+    }
+  ],
+  "interpretation": {
+    "success_rate_claim_supported": false,
+    "algorithm_change_from_official_feedback_allowed": false,
+    "mechanism_hypothesis": "repair should preserve and transform verified state rather than replay every prefix command",
+    "next_external_baseline": "Repo2Run on the same consumed case without exposing official feedback"
+  }
+}

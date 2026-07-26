@@ -221,3 +221,28 @@ evidence only. Post-qualification integrity v2 rejects the observed alias both b
 execution and at runtime on both verifier paths. Provider-attempt measurement repair
 precedes a shared verified-prefix branching experiment; no case-specific dependency
 rule is admitted.
+
+## 7. River External Codex Observation
+
+The same consumed River revision was run with native Codex CLI and `gpt-5.5`; the
+machine-readable record is
+`experiments/validations/pro_goal_contract_external_codex_river_v1_results.json`.
+The first artifact was wrapper-censored because repository-integrity v4 rejected native
+extensions produced by the declared build backend. Integrity v5 admits only
+repository-ignored compiled extensions and standard build directories, while Codex
+submissions now pass the same open-program policy as EnvSolve. Re-finalization reused
+the identical script without another model call.
+
+Codex reached Official evaluation in 26 container commands and 1,153.4 generation
+seconds, but failed with 16 `reportMissingImports` findings. The Official findings are
+not reused on River. The trajectory itself exposes four generic mechanisms:
+
+1. A timed-out environment command can leave its postconditions satisfied.
+2. Old native bindings can impose an undeclared compiler-toolchain constraint.
+3. A project-local environment can change verifier discovery scope.
+4. Verified state can be migrated or repaired without replaying its entire history.
+
+The fourth observation sharpens the next operation-layer hypothesis. EnvSolve-Pro
+should preserve a verified state prefix and apply state transformations to it, then
+perform one clean full replay for certification. This is not a River recipe and will be
+tested only on repository-disjoint cases.

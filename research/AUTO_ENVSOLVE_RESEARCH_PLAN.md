@@ -280,3 +280,12 @@ an ordered transport-attempt trace with start, finish, duration, outcome, status
 reason, and incomplete state. Auto-EnvSolve may diagnose provider infrastructure only
 from completed transport evidence; an in-progress attempt at an experimenter
 interruption is censoring evidence, not proof that the provider failed.
+
+The River external-agent observation adds a wrapper-repair transaction. A valid solver
+trajectory was first rejected because the integrity policy conflated declared native
+build outputs with synthetic import artifacts. A safe outer proposal must relax only
+repository-declared compiled outputs, add a shared final-program guard, re-finalize the
+unchanged recorded output, and verify both regression tests and artifact identity. The
+same trace also shows that command status and environment state are separate objects:
+an outer optimizer should propose postcondition observers before changing timeout
+heuristics or deployment recipes.

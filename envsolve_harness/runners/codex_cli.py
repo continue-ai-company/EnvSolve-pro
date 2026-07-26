@@ -15,11 +15,13 @@ from envsolve_harness.core.io import read_json, read_jsonl, write_json, write_te
 from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.execution.batch import cleanup_case_containers, terminate_process_group
 from envsolve_harness.integrity.repository import inspect_repository
+from envsolve_harness.scripts.open_program import OpenCandidateProgramValidator
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import update_manifest
 from envsolve_harness.utils.provenance import sha256_file
 from envsolve.runtime.workspace import WorkspacePrecondition
 from envsolve.runtime.goal import ExecutableGoalContract
+from envsolve.solver import CandidateValidation, DeploymentCandidate
 
 
 OUTPUT_SCHEMA = {
@@ -78,6 +80,27 @@ def audit_script_grounding(
         "grounded_line_count": len(grounded),
         "ungrounded_lines": [line for line in script_lines if line not in grounded],
         "is_gate": False,
+    }
+
+
+def validate_codex_bootstrap(script: str) -> CandidateValidation:
+    return OpenCandidateProgramValidator().validate(
+        DeploymentCandidate(
+            candidate_id="codex-bootstrap",
+            script=script,
+            rationale="Codex CLI final bootstrap submission",
+        )
+    )
+
+
+def codex_validation_metadata(
+    validation: CandidateValidation,
+) -> dict[str, Any]:
+    return {
+        "accepted": validation.accepted,
+        "policy_id": validation.policy_id,
+        "reason": validation.reason,
+        "details": validation.details,
     }
 
 
@@ -548,6 +571,14 @@ other development checks are optional evidence rather than the success criterion
                 raise RuntimeError("Codex CLI returned an empty bootstrap script")
             if len(script) > 100_000:
                 raise RuntimeError("Codex CLI bootstrap script exceeds 100000 characters")
+            validation = validate_codex_bootstrap(script)
+            metadata["candidate_validation"] = codex_validation_metadata(validation)
+            if not validation.accepted:
+                raise RuntimeError(
+                    "Codex CLI bootstrap script violates the shared candidate "
+                    f"policy: {validation.reason}"
+                )
+            script = (validation.normalized_script or script).strip()
             metadata["submission"] = {
                 "summary": str(submission.get("summary", "")),
                 "script_grounding": audit_script_grounding(script, command_records),

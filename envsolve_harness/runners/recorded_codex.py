@@ -8,7 +8,11 @@ from envsolve_harness.audit import audit_run
 from envsolve_harness.core.io import read_json, read_jsonl, write_json, write_text_atomic
 from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.integrity.repository import inspect_repository
-from envsolve_harness.runners.codex_cli import audit_script_grounding
+from envsolve_harness.runners.codex_cli import (
+    audit_script_grounding,
+    codex_validation_metadata,
+    validate_codex_bootstrap,
+)
 from envsolve_harness.storage.artifacts import RunArtifacts, safe_name
 from envsolve_harness.storage.manifest import update_manifest
 from envsolve_harness.utils.provenance import sha256_file
@@ -85,6 +89,12 @@ class RecordedCodexCliRunner:
             and not record.get("timed_out")
             and not record.get("infrastructure_error")
         ]
+        submitted_script = (
+            submission.get("bootstrap_script", "")
+            if isinstance(submission, dict)
+            else ""
+        )
+        validation = validate_codex_bootstrap(submitted_script)
         source_failure_is_refinalizable = (
             source_solver.get("generation_completed") is False
             and str(source_solver.get("error") or "").startswith(
@@ -107,6 +117,7 @@ class RecordedCodexCliRunner:
             and isinstance(submission, dict)
             and isinstance(submission.get("bootstrap_script"), str)
             and bool(submission["bootstrap_script"].strip())
+            and validation.accepted
         )
         metadata.update(
             {
@@ -114,6 +125,7 @@ class RecordedCodexCliRunner:
                 "source_audit_valid": source_audit.valid,
                 "source_failure_is_refinalizable": source_failure_is_refinalizable,
                 "source_solver_error": source_solver.get("error"),
+                "candidate_validation": codex_validation_metadata(validation),
                 "repository_integrity": integrity.to_dict(),
                 "checked_out_revision": integrity.checked_out_revision,
             }
@@ -131,7 +143,7 @@ class RecordedCodexCliRunner:
         shutil.copyfile(trace, copied_trace)
         copied_output = artifacts.generation_dir / "codex-final-output.json"
         shutil.copyfile(output, copied_output)
-        script = submission["bootstrap_script"].strip() + "\n"
+        script = (validation.normalized_script or submitted_script).strip() + "\n"
         write_text_atomic(artifacts.generated_script, script)
         metadata.update(
             {

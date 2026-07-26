@@ -214,3 +214,12 @@ Each transition also binds logical model-call identity to its ordered provider a
 including duration, retry reason, deadline exhaustion, and censoring provenance.
 Transport retries are resource observations, not additional policy actions, and an
 in-progress attempt has no negative deployment reward.
+
+The River external-agent trajectory adds a transition label that command logs alone
+cannot express. A timed-out environment-creation action was followed by satisfied
+runtime and toolchain postconditions, so the action outcome is incomplete while the
+resulting state transition is useful. Later transitions downgraded a compiler, rebuilt
+native artifacts, and migrated a verified environment outside the repository to change
+verifier discovery scope. EnvSolve-RL must bind reward to observed postconditions and
+clean terminal replay, not to shell exit status or repeated execution of the original
+prefix.

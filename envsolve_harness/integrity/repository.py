@@ -27,6 +27,7 @@ ALLOWED_GENERATED_DIRECTORIES = {
     "dist",
     "htmlcov",
     "node_modules",
+    "target",
     "venv",
 }
 ALLOWED_GENERATED_PATH_SAMPLE_LIMIT = 256
@@ -45,6 +46,7 @@ CONFIGURATION_NAMES = {
     "uv.lock",
 }
 IMPORTABLE_SUFFIXES = {".pth", ".py", ".pyc", ".pyi", ".pyd", ".so"}
+COMPILED_EXTENSION_SUFFIXES = {".pyd", ".so"}
 
 
 @dataclass(frozen=True)
@@ -74,7 +76,7 @@ class RepositoryIntegrityReport:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "policy": "clean-tracked-tree-and-declared-generated-files-v4",
+            "policy": "clean-tracked-tree-and-declared-generated-files-v5",
             "valid": self.valid,
             "expected_revision": self.expected_revision,
             "checked_out_revision": self.checked_out_revision,
@@ -199,6 +201,8 @@ def _is_allowed_generated(
     if any(_inside_root(pure, root) for root in virtual_environment_roots):
         return True
     if path in declared_generated_paths and path in ignored_paths:
+        return True
+    if path in ignored_paths and pure.suffix.lower() in COMPILED_EXTENSION_SUFFIXES:
         return True
     if pure.name in ALLOWED_GENERATED_FILES:
         return True

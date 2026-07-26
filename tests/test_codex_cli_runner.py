@@ -9,12 +9,23 @@ from envsolve_harness.runners.codex_cli import (
     CodexCliRunner,
     audit_script_grounding,
     parse_codex_usage,
+    validate_codex_bootstrap,
 )
 from envsolve.runtime import ExecutableGoalContract
 from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 class CodexCliRunnerTest(unittest.TestCase):
+    def test_bootstrap_uses_shared_open_program_integrity_policy(self) -> None:
+        accepted = validate_codex_bootstrap("python -m pip install -e .\n")
+        rejected = validate_codex_bootstrap(
+            "cp build/fake.so package/fake.so\n"
+        )
+
+        self.assertTrue(accepted.accepted)
+        self.assertFalse(rejected.accepted)
+        self.assertIn("importable artifact", rejected.reason)
+
     def test_usage_aggregation_and_non_gating_script_grounding(self) -> None:
         usage = parse_codex_usage(
             [

@@ -287,7 +287,13 @@ integrity-valid Official Pass 的配对；显式状态使用的候选和 token �
 
 资格实验后的 integrity v2 已在执行前和两条 verifier 的活动解释器中拒绝观测到的 symlink alias。
 资源 ledger v1.1 已记录每次 provider attempt、关闭 SDK 隐藏重试、让一次逻辑调用共享同一 deadline，
-并回归验证删失标签。完成一次真实 provider canary 后，只检验一个操作层假设：
-对 suffix repair，从通过 effect audit 的不可变环境前缀分支，但终局候选必须在全新环境完整重放并认证。
-显式状态与 raw-history 对照必须共享同一执行机制。在冻结新的 repository-disjoint qualification 前，
-还必须观察相同已消费 case 上的外部 Codex 与 Repo2Run 轨迹。
+并回归验证删失标签。
+
+同一已消费 River revision 上的原生 Codex 事后观测进入 Official evaluation，但留下 16 个 missing-
+import finding。该 evaluator 输出已冻结，不能驱动新的 River candidate。其轨迹独立显示：命令超时后
+状态仍可能有效；编译器兼容约束可能未声明；环境位置会改变 verifier 作用域；同时它通过变换已验证
+环境而不是重放历史完成修复。
+
+因此，在真实 provider canary 后只检验一个操作层假设：保留通过后置条件验证的状态，对 suffix repair
+执行最小状态变换，并在终局使用全新环境完整重放认证。显式状态与 raw-history 对照必须共享同一机制。
+冻结新的 repository-disjoint qualification 前，还需补齐同一已消费 case 的 Repo2Run 轨迹。

@@ -354,10 +354,18 @@ Detailed outcomes are frozen in `PRO_GOAL_CONTRACT_QUALIFICATION_V1_RESULTS.md`.
 Post-qualification integrity v2 now rejects the observed symlink alias both before
 execution and in the active interpreter on both verifier paths. Resource-ledger v1.1
 exposes each provider attempt, disables hidden SDK retries, applies one logical-call
-deadline, and regression-tests censoring labels. After a live provider canary, the next
-algorithmic test is one operation-layer
-hypothesis: immutable branching from an effect-valid environment prefix for suffix
-repairs, followed by mandatory clean full-program certification. The same execution
-mechanism must be shared by explicit-state and raw-history controls. External Codex and
-Repo2Run trajectories on the same consumed cases remain required before a new
+deadline, and regression-tests censoring labels.
+
+A post-hoc native Codex observation on the consumed River revision reached Official
+evaluation but failed with 16 missing-import findings. Its evaluator output is frozen
+and cannot drive another River candidate. The trajectory independently showed that a
+timed-out command may leave valid state, compiler compatibility can be undeclared, and
+environment location can change verifier scope. It also repaired by transforming an
+already verified environment instead of replaying its history.
+
+After a live provider canary, the next algorithmic test is therefore one operation-layer
+hypothesis: preserve postcondition-verified state and apply minimal state
+transformations for suffix repairs, followed by mandatory clean full-program
+certification. The same mechanism must be shared by explicit-state and raw-history
+controls. Repo2Run on the same consumed case remains required before a new
 repository-disjoint qualification is frozen.

@@ -173,3 +173,23 @@ Starsim 两种方法表面上都 Official Pass，但必须排除：终局程序�
 使用 9 个候选和 152,281 tokens。它只能作为机制证据。资格实验后的 integrity v2 已在执行前与两条
 verifier 的 runtime 层拒绝该 alias；完成 provider-attempt 测量修复后，再进行双方共享的
 verified-prefix branching 实验。不允许增加 case-specific 依赖规则。
+
+## 7. River 外部 Codex 观测
+
+在同一个已消费 River revision 上运行了原生 Codex CLI 与 `gpt-5.5`，机器可读记录为
+`experiments/validations/pro_goal_contract_external_codex_river_v1_results.json`。首个 artifact
+被 wrapper 删失，因为 repository-integrity v4 把声明构建后端生成的原生扩展误判为注入。
+integrity v5 只放行仓库明确 ignore 的编译扩展和标准构建目录，同时要求 Codex 提交通过与 EnvSolve
+相同的 open-program policy。随后在不再次调用模型、不改变脚本的前提下完成 re-finalization。
+
+Codex 用 26 条容器命令和 1,153.4 秒生成时间进入 Official evaluation，最终留下 16 个
+`reportMissingImports` finding。Official finding 不会反馈给 River。轨迹本身暴露了四个通用机制：
+
+1. 环境命令超时后，其后置状态仍可能已经满足。
+2. 旧原生 binding 可能隐含未声明的编译工具链约束。
+3. 项目内环境路径会改变 verifier 的发现域。
+4. 已验证状态可以迁移或局部修复，无需重放全部历史。
+
+第四点进一步收紧了下一版操作层假设：EnvSolve-Pro 应保留已验证状态前缀，并对它执行状态变换；
+最终只进行一次全新容器完整重放用于认证。它不是 River 配方，只能在 repository-disjoint case 上
+验证。

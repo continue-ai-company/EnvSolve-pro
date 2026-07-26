@@ -232,7 +232,9 @@ class CoreIoTest(unittest.TestCase):
             )
             REAL_SUBPROCESS_RUN(["git", "config", "user.name", "Test"], cwd=repo, check=True)
             (repo / "README.md").write_text("clean\n")
-            (repo / ".gitignore").write_text("ignored_*.py\n")
+            (repo / ".gitignore").write_text(
+                "ignored_*.py\nignored_*.so\ntarget/\n"
+            )
             REAL_SUBPROCESS_RUN(["git", "add", "README.md", ".gitignore"], cwd=repo, check=True)
             REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
             head = REAL_SUBPROCESS_RUN(
@@ -273,6 +275,11 @@ class CoreIoTest(unittest.TestCase):
 
             (repo / "fake_module.py").write_text("# fake\n")
             (repo / "ignored_fake.py").write_text("# hidden fake\n")
+            (repo / "ignored_native.so").write_bytes(b"\x7fELF")
+            target = repo / "target/debug"
+            target.mkdir(parents=True)
+            (target / "libfixture.so").write_bytes(b"\x7fELF")
+            (repo / "unignored_native.so").write_bytes(b"\x7fELF")
             (repo / "pyrightconfig.json").write_text("{}\n")
             (repo / "linked.py").symlink_to(repo / "fake_module.py")
             (repo / "README.md").write_text("changed\n")
@@ -284,6 +291,12 @@ class CoreIoTest(unittest.TestCase):
             self.assertIn("untracked_configuration", kinds)
             self.assertIn("untracked_symlink", kinds)
             self.assertIn("ignored_fake.py", report.disallowed_untracked_paths)
+            self.assertIn("unignored_native.so", report.disallowed_untracked_paths)
+            self.assertNotIn("ignored_native.so", report.disallowed_untracked_paths)
+            self.assertNotIn(
+                "target/debug/libfixture.so",
+                report.disallowed_untracked_paths,
+            )
 
     def test_repository_integrity_recognizes_a_real_venv_with_any_name(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
