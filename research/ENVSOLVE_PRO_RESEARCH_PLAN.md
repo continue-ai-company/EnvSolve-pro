@@ -357,15 +357,16 @@ exposes each provider attempt, disables hidden SDK retries, applies one logical-
 deadline, and regression-tests censoring labels.
 
 A post-hoc native Codex observation on the consumed River revision reached Official
-evaluation but failed with 16 missing-import findings. Its evaluator output is frozen
-and cannot drive another River candidate. The trajectory independently showed that a
-timed-out command may leave valid state, compiler compatibility can be undeclared, and
-environment location can change verifier scope. It also repaired by transforming an
-already verified environment instead of replaying its history.
+evaluation but failed with 16 missing-import findings. A second observation on consumed
+LitGPT also reached Official evaluation and failed with 38 findings. Their evaluator
+outputs are frozen and cannot drive same-case repair. Both trajectories independently
+separate command status from resulting state. LitGPT further shows that a timed-out
+transition may leave both useful materialized packages and inconsistent generated state;
+preservation therefore requires executable postconditions, not exit-code heuristics.
 
 After a live provider canary, the next algorithmic test is therefore one operation-layer
-hypothesis: preserve postcondition-verified state and apply minimal state
-transformations for suffix repairs, followed by mandatory clean full-program
-certification. The same mechanism must be shared by explicit-state and raw-history
-controls. Repo2Run on the same consumed case remains required before a new
-repository-disjoint qualification is frozen.
+hypothesis: search in persistent construction state, preserve only postcondition-verified
+state, and apply minimal transformations for suffix repairs, followed by mandatory clean
+full-program certification. The same mechanism must be shared by explicit-state and
+raw-history controls. Repo2Run remains required once its credential is explicitly
+available to the run process and before a new repository-disjoint qualification is frozen.

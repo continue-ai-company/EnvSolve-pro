@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "pro-goal-contract-external-codex-litgpt-v1",
+  "claim_scope": "post-hoc mechanism observation on one consumed development case",
+  "case": {
+    "case_id": "envbench-python-Lightning-AI__litgpt@0c609550dfb61699ee513defd64da64634ee3788",
+    "repository": "Lightning-AI/litgpt",
+    "revision": "0c609550dfb61699ee513defd64da64634ee3788"
+  },
+  "baseline": {
+    "runner": "codex-cli",
+    "method": "codex-cli-native",
+    "model": "gpt-5.5",
+    "run_id": "pro-goal-anchor-qv1-c02-litgpt-codex-cli-native",
+    "generation_wall_seconds": 1978.129,
+    "container_commands": 27,
+    "successful_container_commands": 21,
+    "container_trace_sha256": "4ddf1cadd2fce2a439284324f812ebb8d7b53fbf2ee3f87bb75aec1c383ad3ef",
+    "bootstrap_script_sha256": "b9895357ffa16fe0a61d0a4f7b009473cd4b6e4d2166b003dedb789dbf2f73ce",
+    "token_usage": {
+      "input_tokens": 1381005,
+      "cached_input_tokens": 1263104,
+      "output_tokens": 11962,
+      "reasoning_output_tokens": 7242
+    }
+  },
+  "authoritative_result": {
+    "artifact_audit_valid": true,
+    "repository_integrity_valid": true,
+    "candidate_validation_accepted": true,
+    "official_evaluation_completed": true,
+    "official_pass": false,
+    "official_execution_seconds": 370.8697438240051,
+    "official_metrics": {
+      "exit_code": 0,
+      "issues_count": 38,
+      "error_count": 963,
+      "warning_count": 1
+    },
+    "unique_missing_import_modules": [
+      "thunder",
+      "thunder.core.proxies",
+      "thunder.core.transforms",
+      "thunder.distributed",
+      "thunder.distributed.checkpoint",
+      "thunder.extend",
+      "thunder.torch",
+      "torch_xla.core.xla_model",
+      "triton",
+      "triton.language"
+    ],
+    "official_feedback_reused_for_same_case": false
+  },
+  "trajectory_observations": [
+    {
+      "command_sequence": 5,
+      "event": "the declared test extra was unavailable because its exact lightning-thunder development release had disappeared from the current index",
+      "inference": "provider availability is an observed constraint rather than evidence that the whole deployment plan is infeasible"
+    },
+    {
+      "command_sequences": [
+        6,
+        7,
+        8
+      ],
+      "event": "an all-extra installation timed out after materializing substantial package state; immediate replay then failed on a missing generated executable and direct probes showed a partially useful but inconsistent environment",
+      "inference": "a timed-out transition can contain both satisfied postconditions and state damage, so shell status alone cannot decide whether state is reusable"
+    },
+    {
+      "command_sequence": 9,
+      "event": "the same installation completed in 66.9 seconds from the partially materialized state",
+      "inference": "verified state reuse can amortize expensive acquisition, but only after explicit postcondition checks"
+    },
+    {
+      "command_sequences": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "event": "the agent migrated from the base Python 3.13 environment to a repository-local Python 3.11 environment, then repaired one setuptools compatibility failure without rebuilding the environment",
+      "inference": "runtime migration and suffix repair are state transformations, not reasons to replay every successful operation"
+    }
+  ],
+  "cross_trajectory_interpretation": {
+    "success_rate_claim_supported": false,
+    "algorithm_change_from_official_feedback_allowed": false,
+    "river_replication": "both external trajectories separate command outcome from resulting environment state",
+    "new_distinction": "LitGPT shows that preserved state may be useful, damaged, or still unknown; preservation therefore requires postcondition evidence rather than a successful exit code",
+    "mechanism_hypothesis": "search in a persistent construction state, admit only postcondition-verified state transformations, and certify the synthesized complete program once in a clean environment",
+    "next_external_baseline": "Repo2Run after OPENAI_API_KEY is explicitly exported into the run environment"
+  }
+}

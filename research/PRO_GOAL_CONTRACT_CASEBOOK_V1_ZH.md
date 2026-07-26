@@ -193,3 +193,20 @@ Codex 用 26 条容器命令和 1,153.4 秒生成时间进入 Official evaluatio
 第四点进一步收紧了下一版操作层假设：EnvSolve-Pro 应保留已验证状态前缀，并对它执行状态变换；
 最终只进行一次全新容器完整重放用于认证。它不是 River 配方，只能在 repository-disjoint case 上
 验证。
+
+## 8. LitGPT 外部 Codex 观测
+
+我们也在已消费的 LitGPT revision 上运行了原生 Codex CLI 与 `gpt-5.5`，机器可读记录为
+`experiments/validations/pro_goal_contract_external_codex_litgpt_v1_results.json`。该 run 通过
+artifact、repository-integrity 和 candidate-program 审计，共执行 27 条容器命令，生成耗时
+1,978.1 秒。终局程序在全新环境完成重放，但留下 38 个 Official scoring finding；这些 finding
+已经冻结，不会驱动新的 LitGPT candidate。
+
+该轨迹独立复现了 River 中“命令结果不等于结果状态”的区别，同时补充了一个重要限制。一次 all-extra
+安装超时后留下了大量 package 状态，但立即重放又暴露缺失的生成入口，因此这个状态既有用又不一致。
+在直接检查后置条件后，同一安装只用 66.9 秒完成。随后 Codex 把环境从 Python 3.13 迁移到 Python
+3.11，并以一个很小的 suffix update 修复 `setuptools` 兼容问题。
+
+所以跨 case 机制不能简化为“缓存每个成功命令”。无论退出码如何，状态转换都可能有用、受损或仍然
+未知。下一版操作层应在持久 construction state 中搜索，只通过可执行后置条件准入状态复用，执行最小
+修复，并只在终局用全新环境认证合成出的完整程序。

@@ -289,3 +289,9 @@ unchanged recorded output, and verify both regression tests and artifact identit
 same trace also shows that command status and environment state are separate objects:
 an outer optimizer should propose postcondition observers before changing timeout
 heuristics or deployment recipes.
+
+The consumed LitGPT observation makes that outer-loop rule stricter. A timed-out install
+left both reusable package material and a broken generated entry point, then completed
+quickly after explicit inspection. Auto-EnvSolve must therefore test state postconditions
+and classify a transition as reusable, damaged, or unknown before proposing persistence;
+raising a timeout or caching every nonzero transition is not an admissible repair.

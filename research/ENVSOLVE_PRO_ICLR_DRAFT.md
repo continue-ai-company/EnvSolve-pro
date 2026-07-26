@@ -188,7 +188,7 @@ importantly, the batch exposed two general bottlenecks: small verified repairs r
 replay expensive installation prefixes, and a symlink can create a synthetic import
 alias that satisfies the surface goal. We therefore harden the integrity boundary before
 testing postcondition-verified state preservation and minimal state transformation as
-an Operation-layer mechanism. A post-hoc external-agent trajectory independently
-exposed the distinction between command failure and resulting state, as well as verifier
-scope changes caused by environment location. All final programs remain subject to
-clean full replay.
+an Operation-layer mechanism. Two post-hoc external-agent trajectories independently
+showed that command status and resulting state differ; one timed-out transition left
+both useful and inconsistent state. The mechanism must therefore gate persistence with
+executable postconditions. All final programs remain subject to clean full replay.

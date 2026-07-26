@@ -290,10 +290,12 @@ integrity-valid Official Pass 的配对；显式状态使用的候选和 token �
 并回归验证删失标签。
 
 同一已消费 River revision 上的原生 Codex 事后观测进入 Official evaluation，但留下 16 个 missing-
-import finding。该 evaluator 输出已冻结，不能驱动新的 River candidate。其轨迹独立显示：命令超时后
-状态仍可能有效；编译器兼容约束可能未声明；环境位置会改变 verifier 作用域；同时它通过变换已验证
-环境而不是重放历史完成修复。
+import finding；已消费 LitGPT 上的第二条观测也进入 Official evaluation 并留下 38 个 finding。两个
+evaluator 输出都已冻结，不能驱动同 case 修复。两条轨迹都独立区分了命令状态与结果状态；LitGPT
+进一步说明，一次超时转换可能同时留下有用的已物化 package 和不一致的生成状态，因此状态保留必须
+依赖可执行后置条件，而不是退出码启发式。
 
-因此，在真实 provider canary 后只检验一个操作层假设：保留通过后置条件验证的状态，对 suffix repair
-执行最小状态变换，并在终局使用全新环境完整重放认证。显式状态与 raw-history 对照必须共享同一机制。
-冻结新的 repository-disjoint qualification 前，还需补齐同一已消费 case 的 Repo2Run 轨迹。
+因此，在真实 provider canary 后只检验一个操作层假设：在持久 construction state 中搜索，只保留通过
+后置条件验证的状态，对 suffix repair 执行最小状态变换，并在终局使用全新环境完整重放认证。显式状态
+与 raw-history 对照必须共享同一机制。Repo2Run 仍需在 credential 被显式导出到运行进程后补齐，并先于
+新的 repository-disjoint qualification 冻结。

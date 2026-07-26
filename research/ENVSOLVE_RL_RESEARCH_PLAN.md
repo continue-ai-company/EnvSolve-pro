@@ -223,3 +223,9 @@ native artifacts, and migrated a verified environment outside the repository to 
 verifier discovery scope. EnvSolve-RL must bind reward to observed postconditions and
 clean terminal replay, not to shell exit status or repeated execution of the original
 prefix.
+
+The consumed LitGPT trajectory adds negative evidence for naive persistence: a timed-out
+install retained useful package data but also a missing generated executable. Training
+labels must therefore distinguish `reusable`, `damaged`, and `unknown` state transitions.
+Only executable postconditions may assign state-retention reward; clean replay remains
+the terminal success reward.

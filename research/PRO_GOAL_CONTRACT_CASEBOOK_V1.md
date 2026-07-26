@@ -246,3 +246,27 @@ The fourth observation sharpens the next operation-layer hypothesis. EnvSolve-Pr
 should preserve a verified state prefix and apply state transformations to it, then
 perform one clean full replay for certification. This is not a River recipe and will be
 tested only on repository-disjoint cases.
+
+## 8. LitGPT External Codex Observation
+
+Native Codex CLI with `gpt-5.5` was also run on the consumed LitGPT revision. The
+machine-readable record is
+`experiments/validations/pro_goal_contract_external_codex_litgpt_v1_results.json`.
+The run passed artifact, repository-integrity, and candidate-program audit. It used 27
+container commands and 1,978.1 generation seconds. Its clean terminal replay completed
+but failed Official evaluation with 38 scoring findings. Those findings are frozen and
+will not drive another LitGPT candidate.
+
+The trajectory independently replicated the River distinction between command outcome
+and resulting state, while adding an important qualification. An all-extra install
+timed out after materializing substantial package state; immediate replay exposed a
+missing generated executable, so the state was useful but inconsistent. After direct
+postcondition probes, another replay completed in 66.9 seconds. Codex then migrated the
+environment from Python 3.13 to Python 3.11 and repaired a `setuptools` compatibility
+failure as a small suffix update.
+
+The cross-case mechanism is therefore narrower than checkpointing every successful
+command. A state transition may be useful, damaged, or still unknown regardless of its
+exit code. The next Operation layer should search in a persistent construction state,
+admit reuse only through executable postconditions, apply minimal repairs, and certify
+the synthesized complete program once in a clean environment.
