@@ -362,3 +362,20 @@ Externally censored positions remain immutable and can be retried only under a
 same-setting amendment; they cannot trigger parser, constraint, operation, or timeout
 changes. Method-independent caches may reduce resource waste, but changing cache state
 is an infrastructure experiment, not an automatic algorithm promotion.
+
+### 9. Dependency-closure confound gate
+
+The preregistered UER-py replay supplies a concrete outer-loop infrastructure
+transaction. Six declared requirements resolved to 35 ARM64 wheels and 2.896 GB of
+cached content. Direct and empty-cache lifecycles exceeded the wrapper limit, while a
+fresh client reproduced the identical closure from process-level offline cache in 93.74
+seconds. Auto-EnvSolve should diagnose repeated acquisition as an infrastructure
+confound, propose an isolated cache experiment, and verify offline replay before
+attributing timeout changes to the inner solver.
+
+Promotion must preserve agent capability and comparison integrity. A frozen-offline
+cache is not admissible as the primary setting because a miss silently closes the
+operation space; a global mutable cache is not admissible because method order changes
+state. The outer harness may propose only method-independent seed snapshots with an
+independent writable online-miss copy per episode. Cache improvements never count as
+algorithm promotion, although they may qualify infrastructure for a later frozen study.

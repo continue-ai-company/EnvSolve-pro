@@ -201,6 +201,10 @@ separately from success.
 We validate cache isolation by requiring a fresh client to reproduce the installation
 while every cache service is process-level offline; cold and warm resource outcomes are
 reported separately and never attributed to the solver.
+To preserve an open action space, the primary comparison does not deny uncached package
+requests. Each episode receives an independent writable copy of the same attested,
+method-independent seed snapshot, with online misses allowed and no cache state shared
+across compared methods.
 
 For EnvBench Python, the public goal is successful bootstrap followed by zero
 `reportMissingImports`; the official implementation remains terminal-only. The same goal

@@ -336,3 +336,16 @@ container 安装一个 PyPI 包和一个 Ubuntu 包：直连网络耗时 151.63 
 配置哈希、缓存内容、进程级离线参数和 apt 输入/输出证据。整机网卡计数包含无关流量，只能作为描述性
 观测。估计批量实验的流量下降前仍需运行一个有代表性的 EnvBench 依赖轨迹；已经冻结的
 DeepSeek-direct 重试继续禁用缓存。
+
+代表性轨迹已经在已消费开发 case UER-py 上完成。它声明的 6 个顶层 requirement 最终解析为 35 个
+wheel 和 2.896 GB 缓存快照。直连与空缓存生命周期分别耗时 2584.94 和 2605.31 秒；两者都出现了
+验证成功标记，但在 `docker run --rm` 返回前保守地超过冻结 wrapper 超时。第三个 fresh client 在
+DevPI 进程级离线时复放相同闭包，只用 93.74 秒并正常退出。相对直连，这是描述性的 27.58 倍加速和
+96.37% wall-clock 降低；复放后缓存快照保持不变。
+
+该结果改变了批量实验设计。全局 mutable cache 会产生方法顺序效应；frozen-offline cache 则会拒绝
+新包，从而关闭强模型的操作空间。新的、尚未冻结的对比实验应给每个 episode 提供同一份、方法无关且
+经过审计的 seed snapshot 的独立可写副本，同时允许 online miss。Seed 只能由 benchmark-visible
+manifest 构建，不能使用结果。缓存变更只在单个 episode 内持久化，用于消除候选间重复下载，不在方法
+之间传递状态。Seed 构建成本、hit/miss、上游字节、缓存大小、wall-clock 和服务内存单独报告；现有
+DeepSeek-direct 重试继续禁用缓存。

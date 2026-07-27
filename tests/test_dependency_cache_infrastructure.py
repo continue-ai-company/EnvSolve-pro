@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -49,6 +50,46 @@ def test_cache_client_routes_only_ubuntu_archives_through_apt_proxy() -> None:
     assert 'Acquire::http::Pipeline-Depth "0";' in client_dockerfile
     assert 'Acquire::http::Timeout "120";' in client_dockerfile
     assert 'Acquire::Retries "5";' in client_dockerfile
+
+
+def test_representative_cache_replay_result_is_evidence_bound() -> None:
+    validation_root = REPOSITORY_ROOT / "experiments/validations"
+    result = json.loads(
+        (
+            validation_root / "dependency_cache_uer_py_replay_v1_results.json"
+        ).read_text(encoding="utf-8")
+    )
+    preregistration_path = (
+        REPOSITORY_ROOT / result["preregistration"]["path"]
+    )
+    snapshot_path = (
+        REPOSITORY_ROOT / result["cache_snapshot"]["manifest_path"]
+    )
+    raw_log_path = REPOSITORY_ROOT / result["evidence"]["raw_log_archive"]
+
+    def sha256(path: Path) -> str:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+
+    assert sha256(preregistration_path) == result["preregistration"]["sha256"]
+    assert sha256(snapshot_path) == result["cache_snapshot"]["manifest_sha256"]
+    assert sha256(raw_log_path) == result["evidence"][
+        "raw_log_archive_sha256"
+    ]
+    snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    assert snapshot["snapshot_id"] == result["cache_snapshot"]["snapshot_id"]
+    assert snapshot["roots"]["pypi"]["total_file_bytes"] == result[
+        "cache_snapshot"
+    ]["total_file_bytes"]
+
+    conditions = result["conditions"]
+    assert {
+        condition["resolved_torch_version"]
+        for condition in conditions.values()
+    } == {"2.13.0+cu130"}
+    assert conditions["warm_shared_cache"]["wrapper_exit_code"] == 0
+    assert conditions["warm_shared_cache"]["cache_remote_reads"] == 0
+    assert conditions["warm_shared_cache"]["cache_wheel_gets"] == 35
+    assert result["cache_snapshot"]["unchanged_after_offline_replay"] is True
 
 
 def test_cache_snapshot_detects_content_and_symlink_changes() -> None:

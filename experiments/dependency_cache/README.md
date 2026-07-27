@@ -130,6 +130,49 @@ network counters, and cache snapshot identity are recorded in
 canary validates function and isolation. It is not an EnvBench-scale traffic or
 runtime estimate.
 
+### Representative EnvBench replay
+
+A preregistered replay selected the largest persisted download lower bound among
+six consumed-development episodes. The UER-py command declared six top-level
+requirements but resolved to 35 wheels and 2.896 GB of cached files, dominated
+by PyTorch and CUDA 13:
+
+| Condition | Wrapper wall-clock | Frozen timeout | Verification |
+| --- | ---: | --- | --- |
+| Direct package network | 2584.94 s | exceeded during `--rm` lifecycle | observed |
+| Initially empty cache | 2605.31 s | exceeded during `--rm` lifecycle | observed |
+| Same cache, DevPI forced offline | 93.74 s | within limit | passed |
+
+The offline replay was 27.58 times faster than direct execution and reduced
+wall-clock by 96.37%. DevPI served all 35 wheel requests with zero remote reads,
+and the 2.896 GB content snapshot verified unchanged afterward. The direct and
+cold wrappers returned 124, so they are conservatively not counted as in-budget
+passes even though their verification markers were present.
+
+See `experiments/validations/dependency_cache_uer_py_replay_v1_results.json` for
+the preregistration binding, exact measurements, limitations, and raw-log
+archive.
+
+## Recommended batch mode
+
+The primary benchmark setting should not use a globally shared mutable cache or
+a frozen-offline cache:
+
+- Construct one method-independent seed snapshot from benchmark-visible
+  manifests without using outcomes.
+- Give every compared episode an independent writable copy of that same
+  attested seed.
+- Keep upstream misses enabled so an uncached package does not restrict the
+  Agent's open operation space.
+- Preserve mutations only within an episode, where they prevent repeated
+  candidate downloads without leaking state across methods.
+- Report seed construction, hits, misses, upstream bytes, cache bytes,
+  wall-clock, and peak service memory separately from Official Pass.
+
+Use forced-offline mode to verify snapshot coverage and reproducibility, not as
+the primary EnvSolve-Pro versus baseline condition. Previously frozen schedules
+remain unchanged and cache-disabled.
+
 ## Fairness rules
 
 - Never warm a cache from held-out outcomes.

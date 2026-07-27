@@ -1,0 +1,140 @@
+{
+  "artifact_type": "dependency_cache_representative_replay_results",
+  "cache_snapshot": {
+    "entry_count": 39,
+    "manifest_path": "experiments/validations/dependency_cache_uer_py_replay_v1_cache_snapshot.json",
+    "manifest_sha256": "220b06dd55faf283d266c5ab94cce2281d625282ba1519b94049b1a7694881ad",
+    "snapshot_id": "2fd80559027c489ded35f9b1bd886b87497df0cf713f693a1c8d1f89e1894f1a",
+    "total_file_bytes": 2896015107,
+    "unchanged_after_offline_replay": true
+  },
+  "conditions": {
+    "cold_shared_cache": {
+      "cache_remote_reads": 35,
+      "cache_wheel_gets": 35,
+      "client_local_cache": "disabled",
+      "logged_payload_bytes_lower_bound": 2878773500,
+      "resolved_torch_version": "2.13.0+cu130",
+      "service_upstream_mode": "online",
+      "verification_marker_observed": true,
+      "whole_machine_en0": {
+        "after": {
+          "rx_bytes": 142382886503,
+          "tx_bytes": 11725039391
+        },
+        "before": {
+          "rx_bytes": 139226849219,
+          "tx_bytes": 11545321022
+        },
+        "delta": {
+          "rx_bytes": 3156037284,
+          "tx_bytes": 179718369
+        }
+      },
+      "within_frozen_timeout": false,
+      "wrapper_exit_code": 124,
+      "wrapper_outcome": "The verification marker was observed, but the timeout wrapper fired before the docker run --rm lifecycle returned.",
+      "wrapper_wall_clock_seconds": 2605.31
+    },
+    "direct_network": {
+      "client_local_cache": "disabled",
+      "logged_payload_bytes_lower_bound": 2878986100,
+      "resolved_torch_version": "2.13.0+cu130",
+      "service_upstream_mode": "not_applicable",
+      "verification_marker_observed": true,
+      "whole_machine_en0": {
+        "after": {
+          "rx_bytes": 139224412831,
+          "tx_bytes": 11542205121
+        },
+        "before": {
+          "rx_bytes": 135959784880,
+          "tx_bytes": 11342473647
+        },
+        "delta": {
+          "rx_bytes": 3264627951,
+          "tx_bytes": 199731474
+        }
+      },
+      "within_frozen_timeout": false,
+      "wrapper_exit_code": 124,
+      "wrapper_outcome": "The verification marker was observed, but the timeout wrapper fired before the docker run --rm lifecycle returned.",
+      "wrapper_wall_clock_seconds": 2584.94
+    },
+    "warm_shared_cache": {
+      "cache_remote_reads": 0,
+      "cache_wheel_gets": 35,
+      "client_local_cache": "disabled",
+      "logged_payload_bytes_lower_bound": 2878773500,
+      "resolved_torch_version": "2.13.0+cu130",
+      "service_process": "devpi-server --offline-mode ... --request-timeout 120",
+      "service_upstream_mode": "forced_offline",
+      "verification_marker_observed": true,
+      "whole_machine_en0": {
+        "after": {
+          "rx_bytes": 142390027447,
+          "tx_bytes": 11733288210
+        },
+        "before": {
+          "rx_bytes": 142385615501,
+          "tx_bytes": 11728536912
+        },
+        "delta": {
+          "rx_bytes": 4411946,
+          "tx_bytes": 4751298
+        }
+      },
+      "within_frozen_timeout": true,
+      "wrapper_exit_code": 0,
+      "wrapper_outcome": "passed",
+      "wrapper_wall_clock_seconds": 93.74
+    }
+  },
+  "dependency_closure_observation": {
+    "declared_top_level_requirements": 6,
+    "historical_consumed_episode_download_decimal_gb_lower_bound": 2.094515,
+    "replay_cache_file_bytes": 2896015107,
+    "replay_logged_payload_decimal_gb_lower_bound": 2.878774,
+    "summary": "Six unpinned top-level requirements resolved to a 35-wheel ARM64 Linux closure dominated by PyTorch and CUDA 13 artifacts.",
+    "version_drift_observed_against_historical_episode": false,
+    "version_drift_risk": "The requirements are not pinned, so the identical command may resolve differently in a future run even though no drift was observed in this same-day replay."
+  },
+  "effect_summary": {
+    "cold_wrapper_overhead_vs_direct_percent": 0.79,
+    "warm_speedup_vs_cold": 27.79,
+    "warm_speedup_vs_direct": 27.58,
+    "warm_time_reduction_vs_cold_percent": 96.4,
+    "warm_time_reduction_vs_direct_percent": 96.37,
+    "whole_machine_rx_reduction_vs_direct_percent": 99.86
+  },
+  "evidence": {
+    "offline_causal_test": "A distinct fresh client resolved, downloaded, installed, and imported the same dependency closure while DevPI was process-level offline.",
+    "offline_log_semantics": "All 35 wheel requests were served locally and no 'reading remote' event occurred.",
+    "raw_log_archive": "experiments/validations/dependency_cache_uer_py_replay_v1_raw_logs.tar.gz",
+    "raw_log_archive_sha256": "e94540c44e6d6cbb2c9534a659d7cf824eaf21c527efbd31e15a101b07b02762",
+    "snapshot_integrity": "The content snapshot verified unchanged after offline replay."
+  },
+  "limitations": [
+    "This is one consumed-development case and one run per condition, so no confidence interval is available.",
+    "Direct and cold wrappers returned 124 because the 2400-second timeout fired before the docker run --rm lifecycle returned; verification markers were present, but they are conservatively not counted as in-budget passes.",
+    "Whole-machine en0 counters contain unrelated traffic and are supporting observations rather than exact package-byte measurements.",
+    "Cold and direct conditions were sequential and therefore include time-of-day network variation."
+  ],
+  "preregistration": {
+    "path": "experiments/validations/dependency_cache_uer_py_replay_v1_preregistration.json",
+    "sha256": "5ba20da1812ff799755f484679622de93da214fdc959a5da742bcf0eb834cd6f"
+  },
+  "recommended_batch_policy": {
+    "cache_mode": "attested-seed-online-miss",
+    "frozen_existing_retry": "Keep the previously frozen DeepSeek-direct retry cache-disabled.",
+    "initial_state": "Create one method-independent seed snapshot from benchmark-visible manifests without using outcomes.",
+    "isolation": "Give every compared episode an independent writable runtime copy of the same attested seed snapshot.",
+    "miss_policy": "Allow upstream misses so the cache does not close a strong agent's operation space.",
+    "reporting": "Report seed construction, hits, misses, upstream bytes, cache bytes, wall-clock, and peak service memory separately from Official Pass.",
+    "rationale": "A shared mutable cache across methods creates order effects, while a frozen-offline cache rejects novel packages. Identical isolated online-miss copies preserve fairness and open operations."
+  },
+  "schema_version": "1.0.0",
+  "status": "completed-diagnostic",
+  "study_id": "dependency-cache-uer-py-replay-v1",
+  "tested_at": "2026-07-27"
+}

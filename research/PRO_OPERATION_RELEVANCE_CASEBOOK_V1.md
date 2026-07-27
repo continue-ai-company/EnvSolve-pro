@@ -131,3 +131,22 @@ Across the six episodes with action ledgers, persisted output exposes a `2.455 G
 download lower bound: `2.199 GB` from pip and `0.256 GB` from apt, with 5 of 13 action
 outputs truncated. This is infrastructure evidence for a shared, attested dependency
 cache, not evidence for either deployment method.
+
+### UER-py Dependency-Closure Replay
+
+A preregistered infrastructure replay selected UER-py because its consumed episode had
+the largest persisted download lower bound. The unchanged candidate command resolved six
+declared requirements to 35 ARM64 wheels and a 2.896 GB cache snapshot, dominated by
+PyTorch and CUDA 13. Direct and initially empty-cache lifecycles both exceeded the
+2400-second wrapper limit during `docker run --rm`, although their verification markers
+were present. A third fresh client installed and imported the identical closure in 93.74
+seconds while DevPI was process-level offline. It exited normally, produced zero remote
+cache reads, and left the snapshot unchanged.
+
+This case has two distinct uses. First, it proves that repeated dependency acquisition
+is a major infrastructure confound and that an isolated seeded cache can remove it.
+Second, it sharpens the Operation-layer hypothesis: an operation that accepts the
+unconstrained latest PyTorch closure on ARM64 can spend roughly 2.9 GB and the whole
+candidate window before testing goal relevance. The future solver should observe and
+reason about platform fit and bounded dependency closure, but this replay does not
+itself justify a new rule or an algorithm-effect claim.

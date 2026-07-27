@@ -111,3 +111,16 @@ Tortoise ORM 与 libEnsemble 都在模型执行前的 Hugging Face 仓库获取�
 六个具有 action ledger 的 episode 中，持久化输出给出的下载下界是 `2.455 GB`：pip
 `2.199 GB`、apt `0.256 GB`，且 13 个 action output 中 5 个被截断。这只支持建立共享且
 可审计的依赖缓存，不能作为任一部署方法的效果证据。
+
+### UER-py 依赖闭包复放
+
+预注册基础设施复放选择 UER-py，是因为它在已消费 episode 中具有最大的持久化下载下界。未修改的
+candidate 命令把 6 个声明 requirement 解析为 35 个 ARM64 wheel 和 2.896 GB 缓存快照，主要由
+PyTorch 与 CUDA 13 构成。直连与空缓存生命周期都在 `docker run --rm` 期间超过 2400 秒 wrapper
+限制，虽然日志里存在验证成功标记。第三个 fresh client 在 DevPI 进程级离线时，用 93.74 秒安装并
+导入完全相同的闭包，正常退出、没有 remote cache read，且没有改变快照。
+
+这个 case 有两个独立价值。第一，它证明重复依赖获取是主要基础设施混杂因素，隔离的 seeded cache
+可以消除它。第二，它收紧了操作层假设：在 ARM64 上直接接受无约束的最新 PyTorch 闭包，可能在验证
+目标相关性前消耗约 2.9 GB 和整个候选时间窗口。未来求解器应观测并推理 platform fit 与有界 dependency
+closure，但本次复放本身不能推出新规则，也不能形成算法效果 claim。

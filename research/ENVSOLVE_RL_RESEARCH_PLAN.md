@@ -297,3 +297,19 @@ attributable infrastructure incident. A paired retry is a new trajectory linked 
 source attempt, not a replacement label. Cache hits, misses, and transferred bytes are
 context and resource features; shared cache state is never policy memory or success
 reward.
+
+### 8. Dependency-closure and cache context
+
+The UER-py replay shows that repository declarations can expand into a multi-gigabyte
+platform-specific closure before the policy receives goal feedback. Training transitions
+must therefore preserve the resolved package graph, platform tags, artifact identities
+and bytes, cache snapshot ID, hit/miss status, and upstream-read evidence. These fields
+are environment context for learning operation feasibility, not privileged outcome
+memory.
+
+Cache state can change whether an otherwise identical action finishes before a hard
+episode timeout. EnvSolve-RL must stratify or condition rewards by attested initial cache
+state and never compare trajectories that began from different snapshots as if only the
+policy changed. Per-episode runtime cache mutations may inform acquisition-cost shaping,
+but terminal reward still comes from integrity-valid clean replay; a cache hit is never
+a deployment-success reward.

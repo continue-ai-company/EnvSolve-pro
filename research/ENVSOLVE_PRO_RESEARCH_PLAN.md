@@ -423,3 +423,22 @@ content, process-level offline flags, and apt input/output evidence. Whole-machi
 network counters remain descriptive because they include unrelated traffic. A
 representative EnvBench trace is still required before estimating batch-scale traffic
 reduction, and the frozen DeepSeek-direct retry remains cache-disabled.
+
+The representative trace has now been completed on consumed-development UER-py. Its six
+declared requirements resolved to 35 wheels and a 2.896 GB cache snapshot. Direct and
+initially empty-cache lifecycles took 2584.94 and 2605.31 seconds; both exposed a
+verification marker but conservatively exceeded the frozen wrapper timeout during
+`docker run --rm`. A distinct fresh client then replayed the same closure from a
+process-level offline DevPI in 93.74 seconds and exited normally. This is a 27.58-fold
+descriptive speedup over direct execution and a 96.37% wall-clock reduction. The cache
+snapshot verified unchanged after replay.
+
+This result changes the batch design. A global mutable cache would create method-order
+effects, while a frozen-offline cache would reject novel packages and thereby close a
+strong model's operation space. New, unfrozen comparisons should instead receive
+independent writable copies of the same attested, method-independent seed snapshot, with
+online misses allowed. Seed construction may use benchmark-visible manifests but never
+outcomes. Cache mutations persist within one episode only, eliminating repeated
+candidate downloads without carrying state across compared methods. Seed cost,
+hit/miss counts, upstream bytes, cache size, wall-clock, and service memory are reported
+separately. The existing DeepSeek-direct retry remains cache-disabled.
