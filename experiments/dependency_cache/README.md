@@ -8,6 +8,13 @@ candidates.
 
 - DevPI is an on-demand PyPI mirror.
 - apt-cacher-ng caches HTTP Ubuntu package payloads.
+- DevPI allows 120 seconds for an uncached upstream request so slow experiment
+  networks do not turn transient latency into a false package-missing result.
+- Client pip processes allow 180 seconds, ensuring they do not abandon DevPI
+  while the mirror is still resolving a cold upstream request.
+- The apt client routes only Ubuntu archive hosts through apt-cacher-ng; unrelated
+  HTTPS repositories remain direct. Pipelining is disabled and both sides use
+  slow-network retries and 120-second timeouts.
 - Every candidate still receives a new container and a new virtual environment.
 - The cache is outside EnvSolve's observation, constraint, and operation layers.
 - A client image only configures package-manager endpoints. It does not install
@@ -96,6 +103,32 @@ denies upstream misses. Cache coverage is therefore part of the benchmark
 environment and must be identical for every method. A cache that allows
 upstream misses is `mutable-shared`, not frozen; its initial and final snapshots,
 hit/miss state, and randomized condition order are experimental metadata.
+
+## Validated effect canary
+
+The first completed functional canary used the exact local EnvBench Python base
+image and installed `humanize==4.12.3` plus Ubuntu's `sl` package in a fresh
+container for every condition:
+
+| Condition | Upstream state | Wall-clock |
+| --- | --- | ---: |
+| Direct package networks | Online | 151.63 s |
+| Empty shared cache | Online | 191.98 s |
+| Warm shared cache | Both cache services forced offline | 12.28 s |
+
+The offline replay was 12.35 times faster than direct installation. More
+importantly, it succeeded while the DevPI process had `--offline-mode` and the
+apt-cacher-ng process had `Offlinemode=1`; apt logs contained cache-output events
+without upstream-input events. This demonstrates that the repeated installation
+was served from the cache rather than from package networks. The cold-cache
+condition was 26.61% slower than direct installation, so cold and warm results
+must remain separate.
+
+The complete evidence, exact image IDs, source hashes, noisy whole-machine
+network counters, and cache snapshot identity are recorded in
+`experiments/validations/dependency_cache_effect_canary_v1.json`. This small
+canary validates function and isolation. It is not an EnvBench-scale traffic or
+runtime estimate.
 
 ## Fairness rules
 

@@ -1,0 +1,138 @@
+{
+  "artifact_type": "dependency_cache_effect_canary",
+  "cache_snapshot": {
+    "apt": {
+      "entry_count": 42,
+      "file_bytes": 46773283
+    },
+    "manifest_path_at_execution": "/private/tmp/envsolve-cache-effect-v4/snapshot.json",
+    "pypi": {
+      "entry_count": 5,
+      "file_bytes": 243249
+    },
+    "snapshot_id": "51bca43261f52277fa21716570158fb9c1e09423b6bc035964ea1ac138d525ef"
+  },
+  "conditions": {
+    "cold_shared_cache": {
+      "apt_package": "sl",
+      "fresh_client_container": true,
+      "pypi_package": "humanize==4.12.3",
+      "result": "passed",
+      "seconds": 191.98,
+      "service_upstream_mode": "online",
+      "whole_machine_en0": {
+        "after": {
+          "rx_bytes": 135899135433,
+          "tx_bytes": 11301159926
+        },
+        "before": {
+          "rx_bytes": 135836577962,
+          "tx_bytes": 11293166773
+        },
+        "delta": {
+          "rx_bytes": 62557471,
+          "tx_bytes": 7993153
+        }
+      }
+    },
+    "direct_network": {
+      "apt_package": "sl",
+      "fresh_client_container": true,
+      "pypi_package": "humanize==4.12.3",
+      "result": "passed",
+      "seconds": 151.63,
+      "service_upstream_mode": "not_applicable",
+      "whole_machine_en0": {
+        "after": {
+          "rx_bytes": 135757583575,
+          "tx_bytes": 11246205694
+        },
+        "before": {
+          "rx_bytes": 135702150287,
+          "tx_bytes": 11238801979
+        },
+        "delta": {
+          "rx_bytes": 55433288,
+          "tx_bytes": 7403715
+        }
+      }
+    },
+    "warm_shared_cache": {
+      "apt_package": "sl",
+      "fresh_client_container": true,
+      "pypi_package": "humanize==4.12.3",
+      "result": "passed",
+      "seconds": 12.28,
+      "service_upstream_mode": "forced_offline",
+      "whole_machine_en0": {
+        "after": {
+          "rx_bytes": 135901898437,
+          "tx_bytes": 11306259139
+        },
+        "before": {
+          "rx_bytes": 135900710080,
+          "tx_bytes": 11304387636
+        },
+        "delta": {
+          "rx_bytes": 1188357,
+          "tx_bytes": 1871503
+        }
+      }
+    }
+  },
+  "effect_summary": {
+    "cold_cache_overhead_vs_direct_percent": 26.61,
+    "warm_cache_speedup_vs_cold": 15.63,
+    "warm_cache_speedup_vs_direct": 12.35,
+    "warm_time_reduction_vs_cold_percent": 93.6,
+    "warm_time_reduction_vs_direct_percent": 91.9,
+    "whole_machine_rx_reduction_vs_direct_percent": 97.86
+  },
+  "evidence": {
+    "apt_cold_log_semantics": "Upstream input and cache output records were present.",
+    "apt_warm_log_semantics": "Cache output records were present and no upstream input records followed the offline restart.",
+    "offline_process_arguments": {
+      "apt": "apt-cacher-ng ... Offlinemode=1",
+      "pypi": "devpi-server --offline-mode ... --request-timeout 120"
+    },
+    "pypi_warm_log_semantics": "Only local simple-index and cached-wheel requests were present.",
+    "strong_causal_test": "A distinct fresh client completed both installs while both cache services were process-level offline."
+  },
+  "image_binding": {
+    "apt_service_image_id": "sha256:3452232271486cd38c0b503a758f1d5ca1d776d6ead664baccb43354c98f1c94",
+    "client_image_id": "sha256:1e8a8ae54f00b938c7ab6454eabcabba9530381a43e34f7226edb5e8d005363a",
+    "envbench_base_image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "envbench_base_image_ref": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "pypi_service_image_id": "sha256:ce6ef8bd24109d0c9e57e171f973cc7570cffb90075bc3fa3441e810f0e8f06d"
+  },
+  "limitations": [
+    "The package pair is a functional canary, not a representative EnvBench workload.",
+    "en0 counters cover the whole machine and include unrelated traffic; they are descriptive rather than exact dependency-byte measurements.",
+    "Timing is one run per condition and does not support a confidence interval."
+  ],
+  "preliminary_failures_and_repairs": [
+    {
+      "failure": "DevPI's default five-second upstream timeout produced a false package-missing response.",
+      "repair": "Set the DevPI upstream request timeout to 120 seconds."
+    },
+    {
+      "failure": "pip abandoned DevPI while the cold mirror request was still resolving.",
+      "repair": "Set the client pip timeout to 180 seconds."
+    },
+    {
+      "failure": "A global apt HTTP proxy captured unrelated repositories and slow parallel archive requests failed.",
+      "repair": "Proxy only Ubuntu archive hosts, disable pipelining, and add bounded slow-network retries."
+    }
+  ],
+  "schema_version": "1.0.0",
+  "source_binding": {
+    "apt_cacher_config_sha256": "db9db0b0e08fc3b09890b9fb5dc39f409486257d5acc67a82f0025c27d26fe93",
+    "client_dockerfile_sha256": "dbec24cff6924fef72e97eb87d38c76e529d1118fcbf9bacc9ca36cdfb50a214",
+    "compose_file_sha256": "277c396af021047ce01ac99a6b19fe94b771eef58fd27927ca860650e994b612",
+    "devpi_dockerfile_sha256": "0a2a8cf32009a6ffa8005a911d3795e38625eb9958a5ec2696fe04457f84ced5",
+    "snapshot_tool_sha256": "42109daec2d855b79bf7d897528a6b67fdb5880b5d31bd94c57701296543b9a8"
+  },
+  "status": "passed",
+  "tested_at": "2026-07-27",
+  "traffic_accounting_note": "The offline process proof and cache logs establish dependency isolation; whole-machine counters are supporting observations only."
+}

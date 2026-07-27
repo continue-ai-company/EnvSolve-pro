@@ -13,4 +13,4 @@ RUN chmod 0755 /usr/local/bin/envsolve-devpi-entrypoint
 
 EXPOSE 3141
 ENTRYPOINT ["/usr/local/bin/envsolve-devpi-entrypoint"]
-CMD ["--host", "0.0.0.0", "--port", "3141", "--serverdir", "/data", "--mirror-cache-expiry", "1800"]
+CMD ["--host", "0.0.0.0", "--port", "3141", "--serverdir", "/data", "--mirror-cache-expiry", "1800", "--request-timeout", "120"]

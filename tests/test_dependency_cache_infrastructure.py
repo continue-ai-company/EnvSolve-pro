@@ -13,6 +13,43 @@ from experiments.tools.dependency_cache_snapshot import (
     verify_manifest,
 )
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_cache_services_tolerate_slow_upstreams() -> None:
+    devpi_dockerfile = (
+        REPOSITORY_ROOT / "experiments/dependency_cache/devpi.Dockerfile"
+    ).read_text(encoding="utf-8")
+    apt_config = (
+        REPOSITORY_ROOT / "experiments/dependency_cache/apt-cacher-ng.conf"
+    ).read_text(encoding="utf-8")
+
+    assert '"--request-timeout", "120"' in devpi_dockerfile
+    assert "NetworkTimeout: 120" in apt_config
+    assert "DlMaxRetries: 5" in apt_config
+
+
+def test_cache_client_routes_only_ubuntu_archives_through_apt_proxy() -> None:
+    client_dockerfile = (
+        REPOSITORY_ROOT / "experiments/dependency_cache/client.Dockerfile"
+    ).read_text(encoding="utf-8")
+
+    assert "PIP_DEFAULT_TIMEOUT_SECONDS=180" in client_dockerfile
+    assert "ENV PIP_DEFAULT_TIMEOUT=${PIP_DEFAULT_TIMEOUT_SECONDS}" in (
+        client_dockerfile
+    )
+    assert 'Acquire::http::Proxy "DIRECT";' in client_dockerfile
+    for host in (
+        "ports.ubuntu.com",
+        "archive.ubuntu.com",
+        "security.ubuntu.com",
+    ):
+        assert f"Acquire::http::Proxy::{host}" in client_dockerfile
+    assert 'Acquire::Queue-Mode "access";' in client_dockerfile
+    assert 'Acquire::http::Pipeline-Depth "0";' in client_dockerfile
+    assert 'Acquire::http::Timeout "120";' in client_dockerfile
+    assert 'Acquire::Retries "5";' in client_dockerfile
+
 
 def test_cache_snapshot_detects_content_and_symlink_changes() -> None:
     with tempfile.TemporaryDirectory() as directory:

@@ -407,3 +407,19 @@ trajectories currently motivate a simpler next hypothesis: an operation must est
 package/platform feasibility and bounded execution progress, rather than merely cite a
 broad goal finding. No redesign may use a qualification outcome before the frozen
 comparison closes, and no rule may be tuned to `openqasm` or another individual case.
+
+### 7.1 Dependency-Cache Engineering Qualification
+
+The method-independent cache passed a strict functional canary on the exact EnvBench
+Python base image. A fresh container installed one PyPI and one Ubuntu package in 151.63
+seconds from direct networks, 191.98 seconds through an initially empty cache, and 12.28
+seconds from a warm cache while both cache services were forced offline. Offline warm
+replay was therefore 12.35 times faster than direct installation; the cold cache added
+26.61% overhead.
+
+This result qualifies the cache as shared experimental infrastructure, not as an
+EnvSolve-Pro effect. The full canary binds image identities, configuration hashes, cache
+content, process-level offline flags, and apt input/output evidence. Whole-machine
+network counters remain descriptive because they include unrelated traffic. A
+representative EnvBench trace is still required before estimating batch-scale traffic
+reduction, and the frozen DeepSeek-direct retry remains cache-disabled.

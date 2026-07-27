@@ -143,6 +143,8 @@ success-resource trade-off。网络与 provider 事故作为被删失的基础�
 provider、网络、evaluator 或测量事故才做删失。
 任何方法无关依赖缓存都只作为实验设置：被比较方法共享经过审计的同一初始状态，缓存模式与网络字节
 和成功率分开报告。
+缓存隔离通过严格离线复放验证：所有缓存服务都在进程级离线时，fresh client 仍必须完成相同安装；
+冷缓存与热缓存资源结果分开报告，且不归因于求解算法。
 
 对于 EnvBench Python，公开目标是 bootstrap 成功并且 `reportMissingImports` 为零；官方实现仍然只在
 终局运行。所有 goal-aware 受控方法获得同一目标契约。最终结果表只会在代码、prompt、目标契约、

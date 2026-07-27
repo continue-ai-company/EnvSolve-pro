@@ -198,6 +198,9 @@ measurement incidents are censored.
 Any method-independent dependency cache is treated as an experimental setting: compared
 methods share an attested initial state, while cache mode and network bytes are reported
 separately from success.
+We validate cache isolation by requiring a fresh client to reproduce the installation
+while every cache service is process-level offline; cold and warm resource outcomes are
+reported separately and never attributed to the solver.
 
 For EnvBench Python, the public goal is successful bootstrap followed by zero
 `reportMissingImports`; the official implementation remains terminal-only. The same goal
