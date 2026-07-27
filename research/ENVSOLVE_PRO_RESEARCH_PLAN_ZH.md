@@ -304,16 +304,23 @@ Pass@1 需要区分“方法未提交成功答案”和“外部删失”。方�
 non-pass。Provider、网络、evaluator 和测量失败属于外部删失，只有在冻结的 identical-episode
 amendment 下才能重试。
 
+依赖缓存是方法无关的实验基础设施，不是算法记忆。所有被比较方法必须获得同一初始缓存快照和 client
+image，并在 batch 前审计其身份。缓存模式与网络字节只作为资源设置和结果报告。冻结重试不能在看到
+源结果后临时采用新缓存。
+
 ## 7. 当前下一步
 
-操作相关性合同 v1 已通过合成反例、投影压力测试、provider-format closure、冻结 baseline 哈希审计和
-完整回归。仓库不相交配对资格实验已经冻结并部分执行。Pre-closure 证据只能用于诊断：Django 两组都
-通过；Trax 被 provider 删失；UER-py treatment 触发方法自身执行超时；其余有效响应被 provider
-额度阻断。逐 case 证据单独记录在 `PRO_OPERATION_RELEVANCE_CASEBOOK_V1_ZH.md`。
+操作相关性合同 v1 继续保持冻结。在 DeepSeek-direct 复现中，第一个有效配对在 Django 上是
+Pass/Pass，第二个有效配对在 Trax 上是 Nonpass/Nonpass。Treatment 在 Trax 上使用更少候选，但仍重复
+同一类宽泛且不可行的重安装，因此这不能证明 Pass@1 增益。UER-py 配对及后续位置都受到外部删失：
+VPN 退化先后引发包网络、provider transport 和仓库获取失败。
 
-当前 gate 是按冻结 retry amendment 完成精确 infrastructure closure。Provider 删失 episode 使用新
-run ID；已完成的 Django attempt 与 UER-py treatment 超时保持不变。算法、prompt、family identity、
-阈值、case 和 seed 均不得修改。Closure 后先分析 Pass@1，再分析 terminal reach、失败后恢复、target
-rejection、预期/实际 delta 校准和 repeated-family suppression。若 v1 没有改善跨仓库主要矛盾，就将
-其封存为可审计 baseline，并只基于已消费 internal trajectory 重设计。不得针对 `openqasm` 或任何
-qualification repository 调参。
+位置 1-4 保持不可变；位置 5-10 已生成新 run ID、保持原顺序的 network retry schedule，算法、模型、
+provider、prompt、seed、config、protocol、平台和预算全部不变。本轮新建的依赖缓存明确不用于该重试，
+因为加入缓存会改变冻结实验设置。只有 provider、Hugging Face、PyPI、Ubuntu 和 VPN 剩余额度
+preflight 全部通过后才恢复执行。
+
+Closure 后首先分析 Official Pass@1。若操作合同仍未提升跨仓库成功率，就将其封存为可审计的结构化
+baseline。当前已消费轨迹只提出一个更简单的后续假设：操作需要证明 package/platform 可行性与有界
+执行进展，而不是只引用宽泛 goal finding。在冻结比较关闭前不得用 qualification outcome 重设计，
+也不得针对 `openqasm` 或任何单独 case 调参。

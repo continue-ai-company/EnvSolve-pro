@@ -83,3 +83,31 @@ treatment 的证据合同也没有阻止昂贵且无法到达终局的依赖扩�
 在冻结 infrastructure closure 完成前，不允许修改算法。最终解释必须以 Official
 Pass@1 为主，将方法自身无法到达终局计为 non-pass，只删失外部失败，并同时报告原始
 与修正后的测量口径。
+
+## DeepSeek-Direct Provider 复现
+
+这是独立的同模型 provider 复现，不能与上面的 OpenRouter attempt 合并统计。位置 1-4
+科学可用并保持不可变：
+
+| Case | 条件 | 结果 | 候选数 | 请求数 | Tokens | Generation 秒 |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| Django | operation contract | Official Pass | 2 | 2 | 20,971 | 250.1 |
+| Django | frozen control | Official Pass | 2 | 2 | 16,631 | 335.7 |
+| Trax | frozen control | method non-pass | 4 | 4 | 70,077 | 3,929.6 |
+| Trax | operation contract | method non-pass | 1 | 1 | 10,757 | 1,289.3 |
+
+Django 再次形成 Pass/Pass，不能支持效果增益。Trax treatment 更早停止，但没有产生有效
+环境。它的 contract 只指向宽泛的 executable goal，引用的也只是 goal/repository 可见性；
+它没有证明 package、platform 或有界时间可行性，因此仍允许了与 control 同类的大规模依赖
+操作。失败 episode 的资源更少不构成成功率 claim。
+
+UER-py treatment 完成 4 次有效模型响应和 4 个候选，但 package access 先后出现 PyPI SSL
+错误与 Ubuntu HTTP 502，最后由 provider timeout 终止；配对 control 在生成任何候选前超时。
+Tortoise ORM 与 libEnsemble 都在模型执行前的 Hugging Face 仓库获取阶段失败。因此位置
+5-10 按
+`pro_operation_relevance_contract_v1_deepseek_direct_network_retry1_amendment.json`
+做外部删失；新 run ID 的重试保持原顺序，并明确禁用本轮新依赖缓存。
+
+六个具有 action ledger 的 episode 中，持久化输出给出的下载下界是 `2.455 GB`：pip
+`2.199 GB`、apt `0.256 GB`，且 13 个 action output 中 5 个被截断。这只支持建立共享且
+可审计的依赖缓存，不能作为任一部署方法的效果证据。

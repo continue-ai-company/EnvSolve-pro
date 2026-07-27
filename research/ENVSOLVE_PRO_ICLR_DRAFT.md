@@ -195,6 +195,9 @@ Logical model calls and provider transport attempts are reported separately.
 A method that reaches a frozen candidate, command, context, or generation limit counts
 as a Pass@1 non-pass; only independently attributable provider, network, evaluator, or
 measurement incidents are censored.
+Any method-independent dependency cache is treated as an experimental setting: compared
+methods share an attested initial state, while cache mode and network bytes are reported
+separately from success.
 
 For EnvBench Python, the public goal is successful bootstrap followed by zero
 `reportMissingImports`; the official implementation remains terminal-only. The same goal
@@ -225,4 +228,7 @@ was missing, but did not ensure that a proposed operation was relevant or causal
 progressive. The current frozen hypothesis adds an evidence-linked operation-relevance
 contract, complete-snapshot progress certificates, and duplicate-failure-family
 suppression while leaving Bash generation open. It has passed implementation and
-integrity tests but has not yet established an effectiveness gain.
+integrity tests but has not yet established an effectiveness gain. The first two eligible
+pairs in a same-model provider replication were respectively Pass/Pass and
+Nonpass/Nonpass; the remaining pairs were externally censored by network failures.
+These observations do not support a success-rate claim.

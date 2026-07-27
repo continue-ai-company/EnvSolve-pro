@@ -141,6 +141,8 @@ success-resource trade-off。网络与 provider 事故作为被删失的基础�
 逻辑模型调用与 provider transport attempt 分开报告。
 方法触发冻结的候选、命令、context 或 generation 上限时，Pass@1 计为 non-pass；只有能够独立归因的
 provider、网络、evaluator 或测量事故才做删失。
+任何方法无关依赖缓存都只作为实验设置：被比较方法共享经过审计的同一初始状态，缓存模式与网络字节
+和成功率分开报告。
 
 对于 EnvBench Python，公开目标是 bootstrap 成功并且 `reportMissingImports` 为零；官方实现仍然只在
 终局运行。所有 goal-aware 受控方法获得同一目标契约。最终结果表只会在代码、prompt、目标契约、
@@ -162,4 +164,5 @@ wall-clock 更高。由于只有五个仓库和一个随机 seed，这些资源�
 的构建工具路径，或提出违反完整性的 import artifact 物化方法。显式状态保留了“缺什么”，却没有保证
 操作与约束相关或结果具有因果进展。当前冻结假设只增加有证据来源的 operation-relevance contract、
 完整快照 progress certificate 和重复失败 family 抑制，同时保持 Bash 生成开放。它已经通过实现和
-完整性测试，但尚未证明效果增益。
+完整性测试，但尚未证明效果增益。同模型 provider 复现的前两个有效配对分别是 Pass/Pass 和
+Nonpass/Nonpass，其余配对被外部网络故障删失；这些观测不支持成功率 claim。

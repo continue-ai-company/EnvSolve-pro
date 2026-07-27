@@ -351,3 +351,14 @@ outer-loop interface, but the model-declared family is a noisy label rather than
 truth. The single `openqasm` failure remains only a hypothesis source; synthetic
 counterexamples and cross-repository evidence must establish a mechanism before shadow
 qualification.
+
+### 8. Infrastructure incident gate
+
+The DeepSeek-direct replication adds a negative outer-loop example. VPN degradation
+first appeared as package SSL/HTTP failures, then as provider timeout, and finally as
+repository-acquisition failure before the model ran. Auto-EnvSolve must aggregate host,
+provider-attempt, and acquisition evidence before proposing an inner-harness patch.
+Externally censored positions remain immutable and can be retried only under a
+same-setting amendment; they cannot trigger parser, constraint, operation, or timeout
+changes. Method-independent caches may reduce resource waste, but changing cache state
+is an infrastructure experiment, not an automatic algorithm promotion.

@@ -99,3 +99,35 @@ No algorithm change is allowed until the frozen infrastructure closure completes
 interpretation must use Official Pass@1, count method-induced terminal failure as a
 non-pass, censor only external failures, and report the original and corrected
 measurement views.
+
+## DeepSeek-Direct Provider Replication
+
+This is a separate same-model provider replication and is not pooled with the OpenRouter
+attempts above. Positions 1-4 are eligible and immutable:
+
+| Case | Condition | Outcome | Candidates | Requests | Tokens | Generation seconds |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| Django | operation contract | Official Pass | 2 | 2 | 20,971 | 250.1 |
+| Django | frozen control | Official Pass | 2 | 2 | 16,631 | 335.7 |
+| Trax | frozen control | method non-pass | 4 | 4 | 70,077 | 3,929.6 |
+| Trax | operation contract | method non-pass | 1 | 1 | 10,757 | 1,289.3 |
+
+Django is another Pass/Pass pair and supplies no effectiveness gain. On Trax, the
+treatment stopped earlier but did not produce a valid environment. Its contract targeted
+the broad executable goal and cited only goal/repository availability; it did not
+establish package, platform, or bounded-time feasibility and therefore admitted the same
+large dependency operation that failed in the control. Lower resource use on a failed
+episode is not a success claim.
+
+The UER-py treatment completed four model responses and four candidates while package
+access degraded through PyPI SSL errors and Ubuntu HTTP 502 responses, then terminated
+on a provider timeout. Its paired control timed out before any candidate. Tortoise ORM
+and libEnsemble failed during Hugging Face repository acquisition before model execution.
+Positions 5-10 are therefore externally censored under
+`pro_operation_relevance_contract_v1_deepseek_direct_network_retry1_amendment.json`;
+their new-ID retry preserves the original order and disables the new dependency cache.
+
+Across the six episodes with action ledgers, persisted output exposes a `2.455 GB`
+download lower bound: `2.199 GB` from pip and `0.256 GB` from apt, with 5 of 13 action
+outputs truncated. This is infrastructure evidence for a shared, attested dependency
+cache, not evidence for either deployment method.

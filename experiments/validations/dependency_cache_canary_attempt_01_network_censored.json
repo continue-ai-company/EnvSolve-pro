@@ -1,0 +1,33 @@
+{
+  "attempted_at": "2026-07-27T06:22:44Z",
+  "cache_services": {
+    "apt": "envsolve/dependency-cache-apt:dev",
+    "pypi": "envsolve/dependency-cache-pypi:dev"
+  },
+  "client_canary": {
+    "base_image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "base_image_ref": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "base_layer_count": 14,
+    "client_image_id": "sha256:6a4f76eebd860cdf79334d18b5fda7fe8663565e6f987b798cf68c2354408f0a",
+    "client_layer_count": 15,
+    "network_mode": "none",
+    "result": "passed",
+    "summary": "The derived client used the exact local EnvBench base image, added one proxy-configuration layer, and bound cache mode, endpoints, upstream policy, snapshot, and base-image labels."
+  },
+  "implementation_commit": "fabf497f252688d8d3fb3456213012740d0a5929",
+  "next_action": "After Docker Hub connectivity is restored, build both service images, prewarm one small PyPI and apt artifact online, restart the services offline, and require both artifacts to install in distinct fresh client containers.",
+  "result": {
+    "classification": "external_network_censored",
+    "image_layers_downloaded": false,
+    "message": "Docker Hub anonymous-token requests for python:3.13-slim and ubuntu:22.04 timed out before image metadata resolved.",
+    "services_built": false,
+    "services_started": false
+  },
+  "schema_version": "1.0.0",
+  "source": {
+    "compose_file": "experiments/dependency_cache/compose.yaml",
+    "compose_file_sha256": "277c396af021047ce01ac99a6b19fe94b771eef58fd27927ca860650e994b612",
+    "network_stage": "Docker image metadata authorization"
+  },
+  "status": "network-censored-awaiting-retry"
+}

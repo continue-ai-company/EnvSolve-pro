@@ -380,21 +380,30 @@ is a primary non-pass, even though its unresolved task state remains Unknown. Pr
 network, evaluator, and measurement failures are externally censored and may be retried
 only under a frozen identical-episode amendment.
 
+Dependency caching is method-independent experimental infrastructure, not algorithm
+memory. Compared methods must receive the same initial cache snapshot and client image;
+their identities are attested before a batch. Cache mode and network bytes are reported
+as resource settings and outcomes. A frozen retry cannot adopt a new cache after seeing
+source outcomes.
+
 ## 7. Immediate Next Step
 
-Operation-relevance contract v1 passed its synthetic counterexamples, projection stress
-test, provider-format closure, frozen-baseline hash audit, and full regression suite.
-Its repository-disjoint paired qualification is now frozen and partially executed.
-Pre-closure evidence is diagnostic only: Django passed under both conditions; Trax is
-provider-censored; the UER-py treatment reached a method-induced execution timeout; and
-the remaining valid responses were blocked by provider capacity. Details are isolated
-in `PRO_OPERATION_RELEVANCE_CASEBOOK_V1.md`.
+Operation-relevance contract v1 remains frozen. In the DeepSeek-direct replication, the
+first eligible pair was Pass/Pass on Django and the second was Nonpass/Nonpass on Trax.
+The treatment used fewer candidates on Trax but repeated the same broad, infeasible
+installation family, so this is not evidence of a Pass@1 gain. The UER-py pair and all
+later positions were externally censored as VPN degradation produced package-network,
+provider-transport, and repository-acquisition failures.
 
-The immediate gate is an exact infrastructure closure under the frozen retry amendment.
-Provider-censored episodes receive new run IDs; completed Django attempts and the UER-py
-treatment timeout remain immutable. No algorithm, prompt, family identity, threshold,
-case, or seed may change. After closure, analyze Pass@1 first, then terminal reach,
-post-failure recovery, target rejection, expected/observed delta calibration, and
-repeated-family suppression. If v1 does not improve the cross-repository contradiction,
-archive it as an auditable baseline and redesign from the consumed internal trajectories.
-Do not tune on `openqasm` or any qualification repository.
+Positions 1-4 are immutable. Positions 5-10 have a new-ID, same-order network retry
+schedule that preserves algorithm, model, provider, prompt, seed, config, protocol,
+platform, and budgets. The new dependency cache is intentionally disabled for this
+retry because adding it would change the frozen setting. Execution resumes only after
+provider, Hugging Face, PyPI, Ubuntu, and VPN-capacity preflights pass.
+
+After closure, analyze Official Pass@1 first. If the operation contract does not improve
+cross-repository success, archive it as an auditable structured baseline. Its consumed
+trajectories currently motivate a simpler next hypothesis: an operation must establish
+package/platform feasibility and bounded execution progress, rather than merely cite a
+broad goal finding. No redesign may use a qualification outcome before the frozen
+comparison closes, and no rule may be tuned to `openqasm` or another individual case.

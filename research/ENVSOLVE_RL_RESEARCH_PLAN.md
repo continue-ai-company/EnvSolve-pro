@@ -286,3 +286,14 @@ its resulting constraint state remains Unknown and supplies no fabricated constr
 reward. Provider HTTP 402, request timeout, and evaluator incidents receive an external
 censor mask, no negative action reward, and immutable source transitions even when an
 identical-episode retry is allowed.
+
+### 7. Network-censored transition masks
+
+The DeepSeek-direct replication shows that one episode may contain useful policy actions
+followed by external package failures and a provider timeout, while later episodes fail
+before any action during repository acquisition. EnvSolve-RL must preserve the valid
+prefix but mask all outcome and stopping rewards after the first independently
+attributable infrastructure incident. A paired retry is a new trajectory linked to the
+source attempt, not a replacement label. Cache hits, misses, and transferred bytes are
+context and resource features; shared cache state is never policy memory or success
+reward.
