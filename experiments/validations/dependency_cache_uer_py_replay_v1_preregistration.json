@@ -1,0 +1,69 @@
+{
+  "analysis": {
+    "external_failure_policy": "A provider-independent package-network or Docker failure is recorded as infrastructure-censored. The command and condition are not changed after execution starts.",
+    "primary_outcomes": [
+      "deployment command exit status",
+      "wall-clock seconds",
+      "successful import and version verification"
+    ],
+    "resource_outcomes": [
+      "cache snapshot bytes and identity",
+      "service input/output log semantics",
+      "whole-machine network counters with a noisy-measurement caveat"
+    ],
+    "success_claim_boundary": "This replay qualifies shared cache infrastructure only. It cannot support an EnvSolve-Pro algorithm or Official Pass claim."
+  },
+  "case": {
+    "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+    "requirements_sha256": "9ac99a2c711b636b3e2514592fa8738044e4b1b1d5299f02bd5eef27234241a4",
+    "source_archive_sha256": "566d8e966e05e030db0dd473e140166d0d2ef1b6acbaeb495e6c630cb3782509"
+  },
+  "conditions": [
+    {
+      "cache_state": "none",
+      "condition": "direct-network",
+      "order": 1,
+      "upstream_state": "online"
+    },
+    {
+      "cache_state": "empty",
+      "condition": "cold-shared-cache",
+      "order": 2,
+      "upstream_state": "online"
+    },
+    {
+      "cache_state": "state produced only by condition 2",
+      "condition": "warm-shared-cache",
+      "order": 3,
+      "upstream_state": "devpi process forced offline"
+    }
+  ],
+  "execution": {
+    "cache_data_root": "/private/tmp/envsolve-cache-uer-py-v1",
+    "candidate_command": "set -euo pipefail\npython3 -m venv venv\nsource venv/bin/activate\npython -m pip install --upgrade pip\npython -m pip install -r requirements.txt",
+    "candidate_command_sha256": "c6e41d5c22935a4feddc53843d66135f892d698d75d79f8a8f24f0959e325fb8",
+    "client_local_cache": "disabled with PIP_NO_CACHE_DIR=1 in every condition",
+    "freshness": "Each condition uses a distinct docker run --rm client and copies the same read-only source into a new writable container layer.",
+    "per_condition_timeout_seconds": 2400,
+    "pip_default_timeout_seconds": 180,
+    "verification_command": "source venv/bin/activate && python -c 'import argparse, numpy, packaging, regex, six, torch; print(torch.__version__)'"
+  },
+  "historical_selection": {
+    "eligible_source": "Six consumed-development DeepSeek-direct episodes with persisted action ledgers.",
+    "selected_episode_download_decimal_gb_lower_bound": 2.094515,
+    "selection_rule": "Choose the consumed episode with the largest persisted dependency-download lower bound.",
+    "share_of_eligible_download_lower_bound_percent": 85.32,
+    "uses_held_out_outcomes": false
+  },
+  "image_binding": {
+    "client_image_id": "sha256:1e8a8ae54f00b938c7ab6454eabcabba9530381a43e34f7226edb5e8d005363a",
+    "direct_base_image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "direct_base_image_ref": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "pypi_service_image_id": "sha256:ce6ef8bd24109d0c9e57e171f973cc7570cffb90075bc3fa3441e810f0e8f06d"
+  },
+  "implementation_commit": "cbec10edbae2ee033a5e4b42417d6c3c0736dfdd",
+  "result_path": "experiments/validations/dependency_cache_uer_py_replay_v1_results.json",
+  "schema_version": "1.0.0",
+  "status": "frozen-before-execution",
+  "study_id": "dependency-cache-uer-py-replay-v1"
+}
