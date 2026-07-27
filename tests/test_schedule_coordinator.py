@@ -70,6 +70,32 @@ class ScheduleProgressTest(unittest.TestCase):
             },
         )
 
+    def test_provider_preflight_requires_deepseek_direct_route(self) -> None:
+        config = self._config(
+            "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/"
+        )
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "https://api.deepseek.com",
+        ):
+            _validate_provider_environment(
+                [self._identity()],
+                config,
+                {
+                    "OPENAI_API_KEY": "not-recorded",
+                    "OPENAI_BASE_URL": "https://openrouter.ai/api/v1",
+                },
+            )
+
+        _validate_provider_environment(
+            [self._identity()],
+            config,
+            {
+                "OPENAI_API_KEY": "not-recorded",
+                "OPENAI_BASE_URL": "https://api.deepseek.com/",
+            },
+        )
+
     def test_provider_preflight_ignores_non_provider_runner(self) -> None:
         _validate_provider_environment(
             [self._identity("codex-cli")],

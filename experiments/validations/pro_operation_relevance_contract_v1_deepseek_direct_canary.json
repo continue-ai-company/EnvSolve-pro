@@ -1,0 +1,66 @@
+{
+  "claim_scope": "Synthetic provider/output compatibility only.",
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "envsolve-pro-operation-contract-deepseek-direct-provider-v1",
+  "request": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-pro",
+    "official_evaluator_context": false,
+    "provider": "deepseek-direct",
+    "repository_context": false,
+    "requests": 1,
+    "response_format": "json_object",
+    "seed": 0,
+    "temperature": 0
+  },
+  "result": {
+    "candidates": [
+      {
+        "candidate_id": "candidate-0001",
+        "expected_resolution_count": 1,
+        "operation_contract_id": "operation-contract-76c5ef344a7c81a5d859",
+        "operation_family_id": "operation-family-af6c1a82fe235d3b1a8b",
+        "precondition_evidence_count": 2,
+        "script_sha256": "adb29cbb771683c74877c9c5f32725b1abd941afef9f058e9d9d96234806b3c7",
+        "target_count": 1
+      }
+    ],
+    "errors": [],
+    "parsed_candidates": 1,
+    "qualified": true,
+    "responses": [
+      {
+        "finish_reason": "stop",
+        "input_tokens": 1468,
+        "output_tokens": 5437,
+        "reasoning_content_present": false,
+        "reasoning_tokens": 5160,
+        "status": "completed"
+      }
+    ],
+    "usage": {
+      "cache_read_tokens": 0,
+      "candidates": 0,
+      "commands": 0,
+      "elapsed_wall_clock_seconds": 147.291486,
+      "environments": 0,
+      "estimated_cost_usd": 0.0,
+      "input_tokens": 1468,
+      "output_tokens": 5437,
+      "provider_retries": 0,
+      "provider_retry_reasons": {},
+      "provider_retry_recoveries": 0,
+      "request_errors": 0,
+      "requests_started": 1,
+      "response_parse_recoveries": 0,
+      "response_parse_retries": 0,
+      "responses_completed": 1,
+      "total_tokens": 6905
+    }
+  },
+  "schema_version": "1.0.0"
+}

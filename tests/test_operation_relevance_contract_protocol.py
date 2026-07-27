@@ -44,6 +44,10 @@ MEASUREMENT_AMENDMENT = (
     ROOT
     / "experiments/validations/pro_operation_relevance_contract_v1_measurement_amendment.json"
 )
+DIRECT_PREREGISTRATION = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_replication_preregistration.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -280,4 +284,43 @@ def test_measurement_amendment_preserves_original_and_binds_correction() -> None
         item["position"] == 5
         and "terminal-reach outcome" in item["reason"]
         for item in retained
+    )
+
+
+def test_deepseek_direct_replication_binds_same_model_and_consumed_cases() -> None:
+    preregistration = json.loads(
+        DIRECT_PREREGISTRATION.read_text(encoding="utf-8")
+    )
+    canary = preregistration["canary"]
+    config = preregistration["config"]
+    provider = preregistration["frozen_provider_change"]
+    comparison = preregistration["frozen_comparison"]
+
+    assert _sha256(ROOT / canary["path"]) == canary["sha256"]
+    assert _sha256(ROOT / config["path"]) == config["sha256"]
+    assert _sha256(ROOT / comparison["case_file"]) == comparison[
+        "case_file_sha256"
+    ]
+    assert _sha256(ROOT / comparison["protocol"]) == comparison[
+        "protocol_sha256"
+    ]
+    assert _sha256(ROOT / preregistration["analysis"]["analyzer"]) == (
+        preregistration["analysis"]["analyzer_sha256"]
+    )
+    assert _sha256(ROOT / preregistration["provider_gate"]["script"]) == (
+        preregistration["provider_gate"]["script_sha256"]
+    )
+    canary_result = json.loads(
+        (ROOT / canary["path"]).read_text(encoding="utf-8")
+    )
+    assert canary_result["result"]["qualified"] is True
+    assert canary_result["privacy"] == {
+        "api_key_persisted": False,
+        "candidate_content_persisted": False,
+        "reasoning_content_persisted": False,
+    }
+    assert provider["direct_model_id"] == "deepseek-v4-pro"
+    assert provider["direct_model_version"] == "DeepSeek-V4-Pro"
+    assert preregistration["claim_scope"].startswith(
+        "Consumed-development provider replication."
     )

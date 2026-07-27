@@ -1,0 +1,83 @@
+{
+  "algorithm_freeze": {
+    "commit": "d00539b351947ddcbca2f124ad0968d9875a6f37",
+    "path": "experiments/protocols/pro_operation_relevance_contract_v1_freeze.json",
+    "sha256": "251ad1241837e25a89df73d8f0ec663f506450651fe853d9bdf563331bfa99d1"
+  },
+  "analysis": {
+    "analyzer": "experiments/analyze_operation_relevance_contract.py",
+    "analyzer_sha256": "146a1ea4e0e2144be2f6fd310bf4364f66458b63555400a61cf40c9f8403b660",
+    "external_censoring": "Provider, network, evaluator, and measurement incidents are censored and never counted against either method.",
+    "method_nonpass": "A scientifically eligible method that reaches a frozen command, candidate, context, or generation limit is a Pass@1 non-pass.",
+    "primary_contrast": "operation-contract-v1 versus frozen-fresh-control within each repository under DeepSeek direct serving",
+    "primary_metric": "Pass@1",
+    "reporting": "Report this replication separately from the original OpenRouter qualification and preserve all source attempts."
+  },
+  "canary": {
+    "path": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_canary.json",
+    "qualified": true,
+    "repository_context": false,
+    "sha256": "205bbf027b3df3073470e353f86da6f248e3ff1ae15fe110519478be8b904d21"
+  },
+  "claim_scope": "Consumed-development provider replication. It tests whether the same frozen algorithmic contrast is observable when the same DeepSeek-V4-Pro model is served directly by DeepSeek. It is not held-out, final-test, leaderboard, or a replacement for the OpenRouter qualification.",
+  "config": {
+    "path": "experiments/configs/local_mac_pro_operation_relevance_v1_deepseek_direct.json",
+    "sha256": "4993d797f9418960a3f10495cc366da1462f066901d27c3ab745add304cf1926"
+  },
+  "frozen_comparison": {
+    "candidate_command_timeout_seconds": 1200,
+    "case_file": "experiments/cases/dev_pro_operation_relevance_contract_v1_5.jsonl",
+    "case_file_sha256": "17b0e16523389f3bede14987a78bc2c9a86d05251e4d05e8d672b9d07f0de1c6",
+    "conditions": [
+      {
+        "condition": "frozen-fresh-control",
+        "method": "envsolve-pro-goal-contract-evidence-anchor",
+        "runner": "envsolve"
+      },
+      {
+        "condition": "operation-contract-v1",
+        "method": "envsolve-pro-operation-contract",
+        "runner": "envsolve-pro"
+      }
+    ],
+    "episode_order": "Identical positions, case blocks, and condition order to the original frozen schedule.",
+    "episode_timeout_seconds": 22200,
+    "model_max_output_tokens": 32768,
+    "model_reasoning_effort": "high",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "seed": 1
+  },
+  "frozen_provider_change": {
+    "base_url": "https://api.deepseek.com",
+    "credential_variable": "OPENAI_API_KEY",
+    "direct_model_id": "deepseek-v4-pro",
+    "direct_model_version": "DeepSeek-V4-Pro",
+    "direct_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+    "model_identity_rule": "The OpenRouter slug deepseek/deepseek-v4-pro and DeepSeek direct ID deepseek-v4-pro identify DeepSeek V4 Pro. Serving provider remains an explicit experimental factor.",
+    "openrouter_source": "https://openrouter.ai/deepseek/deepseek-v4-pro",
+    "pricing_policy": "Official direct prices are denominated in CNY. No exchange-rate conversion is frozen, so estimated_cost_usd is disabled with zero rates; tokens, requests, environments, commands, and wall-clock remain the resource outcomes."
+  },
+  "hypothesis": {
+    "primary": "Under direct serving of the same model, operation-contract-v1 does not reduce paired Pass@1 relative to the frozen fresh control.",
+    "secondary": "The exact-ID and operation-feasibility failure signatures observed before OpenRouter closure either replicate or disappear under a different serving provider."
+  },
+  "integrity": {
+    "algorithm_prompt_threshold_change_after_this_preregistration": false,
+    "api_key_persisted": false,
+    "official_evaluator_online_access": false,
+    "original_openrouter_attempts_replaced": false,
+    "repository_or_outcome_used_to_change_order": false
+  },
+  "preregistered_at": "2026-07-27",
+  "provider_gate": {
+    "output": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_provider_probe.json",
+    "proceed_rule": "All three repository-free responses finish normally and parse into valid operation-contract candidates with no request or policy error.",
+    "requests": 3,
+    "script": "experiments/probe_deepseek_direct_operation_contract_provider.py",
+    "script_sha256": "cc1a3542119c140db896a914236727941f86c16c7648f998e072bc03eb0a3eee"
+  },
+  "schema_version": "1.0.0",
+  "status": "preregistered-before-provider-closure-and-real-execution",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1-deepseek-direct-replication"
+}
