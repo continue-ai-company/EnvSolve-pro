@@ -1,0 +1,118 @@
+{
+  "amendment_id": "deepseek-direct-network-retry1",
+  "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-operation-relevance-v1-deepseek-direct",
+  "bound_at": "2026-07-27T05:56:05Z",
+  "claim_scope": "Consumed-development DeepSeek-direct provider replication only",
+  "implementation_freeze": "d00539b351947ddcbca2f124ad0968d9875a6f37",
+  "orchestration_commit": "4f3910863e00ebbe21b8df23e1f143b014f94a16",
+  "paired_censoring": {
+    "case_block": 3,
+    "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+    "decision": "Retry both conditions. The treatment received four valid model responses but its candidate executions encountered degrading package-network failures before a terminal provider timeout. The control received no candidate because provider transport failed immediately. Neither source attempt is an eligible method outcome."
+  },
+  "preregistration": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_replication_preregistration.json",
+  "preregistration_sha256": "a8425175577608aeb755288a3dc5d6dcc5eabce8dc5cb255388d7fca0ecd74e6",
+  "reason": "The VPN quota was exhausted while position 5 was running. Position 5 contains external PyPI and Ubuntu endpoint failures followed by a provider timeout; position 6 timed out before any candidate; positions 7-10 failed while acquiring repositories from Hugging Face. No case replacement or algorithm change is permitted.",
+  "retained_source_attempts": [
+    {
+      "outcome": "official-pass",
+      "position": 1,
+      "reason": "Identity-matched Official Pass with complete eligible artifacts.",
+      "run_id": "pro-oprel-qv1-ds-direct-c01-django-registration-operation-contract-v1"
+    },
+    {
+      "outcome": "official-pass",
+      "position": 2,
+      "reason": "Identity-matched Official Pass with complete eligible artifacts.",
+      "run_id": "pro-oprel-qv1-ds-direct-c01-django-registration-frozen-fresh-control"
+    },
+    {
+      "outcome": "method-nonpass",
+      "position": 3,
+      "reason": "Four model responses and four candidate executions completed. The executable goal observation reached its fixed timeout; no external transport exception terminated the episode.",
+      "run_id": "pro-oprel-qv1-ds-direct-c02-trax-frozen-fresh-control"
+    },
+    {
+      "outcome": "method-nonpass",
+      "position": 4,
+      "reason": "One model response and one candidate execution completed. The executable goal observation reached its fixed timeout; no external transport exception terminated the episode.",
+      "run_id": "pro-oprel-qv1-ds-direct-c02-trax-operation-contract-v1"
+    }
+  ],
+  "retry_policy": "Retry only positions 5-10 under new run IDs after all network preflights pass. Preserve every source artifact. Runtime code, model, provider, seed, condition, case identity, config, protocol, host platform, schedule order, and all budgets remain unchanged. The dependency cache is disabled because enabling new infrastructure would change the frozen replication setting.",
+  "retry_schedule": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_network_retry1_schedule.json",
+  "retry_schedule_sha256": "9a9765e81ac14c2eea97e928015b2ea84952144e387432567c238d65069f4e8a",
+  "schema_version": "1.0.0",
+  "source_censoring": [
+    {
+      "evidence": {
+        "episode_sha256": "b0348cb1c7f32297983fd9bb2196dfe9f49c3e90e5bafce39140ad6649326bb8",
+        "manifest_sha256": "168a53663bead24a046226b1deb46fef26f662781909969201b372b0afb098e0"
+      },
+      "position": 5,
+      "retry_run_id": "pro-oprel-qv1-ds-direct-network-retry1-c03-uer-py-operation-contract-v1",
+      "signature": "Candidate package acquisition degraded through SSL failures and Ubuntu HTTP 502 responses; the episode then terminated with APITimeoutError after four valid model responses.",
+      "source_run_id": "pro-oprel-qv1-ds-direct-c03-uer-py-operation-contract-v1",
+      "terminal_class": "external_network_and_provider_transport_unknown"
+    },
+    {
+      "evidence": {
+        "episode_sha256": "531ab7601650e6f3dce91c5c80c7505adb1dcb6ecf17ca9d9a45bfba44826b42",
+        "manifest_sha256": "643629dfe1158633c2a0b8528787af2c46fa5d418a2c54850db7d5fcc92b826f"
+      },
+      "position": 6,
+      "retry_run_id": "pro-oprel-qv1-ds-direct-network-retry1-c03-uer-py-frozen-fresh-control",
+      "signature": "APITimeoutError after two provider-connection retries and zero valid model responses or candidates.",
+      "source_run_id": "pro-oprel-qv1-ds-direct-c03-uer-py-frozen-fresh-control",
+      "terminal_class": "provider_transport_unknown"
+    },
+    {
+      "evidence": {
+        "manifest_sha256": "e96d06fd0c13df7b0866aa9c75d1e40a554d4ce72a223fd2d689374126cdb55b",
+        "solver_log_sha256": "217765ed3a4f988a36e3c9a1f7ad248f3edc97e641d3a8412588660961dabf6f"
+      },
+      "position": 7,
+      "retry_run_id": "pro-oprel-qv1-ds-direct-network-retry1-c04-tortoise-orm-operation-contract-v1",
+      "signature": "Hugging Face repository acquisition failed with SSL UNEXPECTED_EOF before model execution.",
+      "source_run_id": "pro-oprel-qv1-ds-direct-c04-tortoise-orm-operation-contract-v1",
+      "terminal_class": "repository_transport_unknown"
+    },
+    {
+      "evidence": {
+        "manifest_sha256": "0645b07075d6eb6b32cc5cbb7e3fb1021effdb1f08d1a7e943ea07e364216ada",
+        "solver_log_sha256": "1c6bbd02cdc6bee5b19db4a8efe4e7ad83df1ab0fc946ae6cbf47d73ceb516ce"
+      },
+      "position": 8,
+      "retry_run_id": "pro-oprel-qv1-ds-direct-network-retry1-c04-tortoise-orm-frozen-fresh-control",
+      "signature": "Hugging Face repository acquisition failed with SSL UNEXPECTED_EOF before model execution.",
+      "source_run_id": "pro-oprel-qv1-ds-direct-c04-tortoise-orm-frozen-fresh-control",
+      "terminal_class": "repository_transport_unknown"
+    },
+    {
+      "evidence": {
+        "manifest_sha256": "51a9248491c62ca24072350c2754cdfd4c2b1b0c79efe45abdd39898fbac9f99",
+        "solver_log_sha256": "03aa124ff6878f736cac679a01ef5da1a02a6bdd3b1c690e3cf810e1eec7fd66"
+      },
+      "position": 9,
+      "retry_run_id": "pro-oprel-qv1-ds-direct-network-retry1-c05-libensemble-operation-contract-v1",
+      "signature": "Hugging Face repository acquisition failed with SSL UNEXPECTED_EOF before model execution.",
+      "source_run_id": "pro-oprel-qv1-ds-direct-c05-libensemble-operation-contract-v1",
+      "terminal_class": "repository_transport_unknown"
+    },
+    {
+      "evidence": {
+        "manifest_sha256": "5fb28e6c77cd56cbed4558c994716ac2d069625491ae1eb09d4829ae38bb2b81",
+        "solver_log_sha256": "cc8eeab3e860c1c810df32ca08210da70ac716183bdcba84d03dc789839ce237"
+      },
+      "position": 10,
+      "retry_run_id": "pro-oprel-qv1-ds-direct-network-retry1-c05-libensemble-frozen-fresh-control",
+      "signature": "Hugging Face repository acquisition reached connect timeout before model execution.",
+      "source_run_id": "pro-oprel-qv1-ds-direct-c05-libensemble-frozen-fresh-control",
+      "terminal_class": "repository_transport_unknown"
+    }
+  ],
+  "source_schedule": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_schedule.json",
+  "source_schedule_sha256": "5b458c20f4e54a89ff57f00bd8593b51fc720a78cf4a8a05d97401a6ab5181e3",
+  "status": "frozen-awaiting-network-preflight",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1-deepseek-direct-replication"
+}

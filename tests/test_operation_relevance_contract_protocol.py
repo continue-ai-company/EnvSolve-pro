@@ -56,6 +56,14 @@ DIRECT_SCHEDULE = (
     ROOT
     / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_schedule.json"
 )
+DIRECT_NETWORK_RETRY_AMENDMENT = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_network_retry1_amendment.json"
+)
+DIRECT_NETWORK_RETRY_SCHEDULE = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_network_retry1_schedule.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -410,3 +418,54 @@ def test_deepseek_direct_schedule_is_mechanical_provider_replication() -> None:
 
     run_ids = [episode["run_id"] for episode in direct["episodes"]]
     assert len(run_ids) == len(set(run_ids))
+
+
+def test_deepseek_direct_network_retry_preserves_frozen_contrast() -> None:
+    source = json.loads(DIRECT_SCHEDULE.read_text(encoding="utf-8"))
+    retry = json.loads(
+        DIRECT_NETWORK_RETRY_SCHEDULE.read_text(encoding="utf-8")
+    )
+    amendment = json.loads(
+        DIRECT_NETWORK_RETRY_AMENDMENT.read_text(encoding="utf-8")
+    )
+
+    assert retry["source_schedule_sha256"] == _sha256(DIRECT_SCHEDULE)
+    assert amendment["source_schedule_sha256"] == _sha256(DIRECT_SCHEDULE)
+    assert amendment["retry_schedule_sha256"] == _sha256(
+        DIRECT_NETWORK_RETRY_SCHEDULE
+    )
+    assert retry["execution"]["execution_ranges"] == [[5, 10]]
+    assert retry["execution"]["retained_positions"] == [1, 2, 3, 4]
+    assert retry["execution"]["dependency_cache"].startswith("disabled")
+
+    invariant_fields = {
+        "position",
+        "case_block",
+        "case_id",
+        "condition",
+        "runner",
+        "method",
+        "model",
+        "seed",
+    }
+    for source_episode, retry_episode in zip(
+        source["episodes"],
+        retry["episodes"],
+        strict=True,
+    ):
+        assert {
+            key: source_episode[key] for key in invariant_fields
+        } == {
+            key: retry_episode[key] for key in invariant_fields
+        }
+        if retry_episode["position"] <= 4:
+            assert retry_episode["attempt_role"] == "retained-source"
+            assert retry_episode["run_id"] == source_episode["run_id"]
+        else:
+            assert retry_episode["attempt_role"] == "network-retry"
+            assert retry_episode["source_run_id"] == source_episode["run_id"]
+            assert retry_episode["run_id"] != source_episode["run_id"]
+
+    censoring = amendment["source_censoring"]
+    assert [item["position"] for item in censoring] == list(range(5, 11))
+    assert all("unknown" in item["terminal_class"] for item in censoring)

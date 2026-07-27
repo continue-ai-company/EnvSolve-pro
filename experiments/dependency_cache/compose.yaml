@@ -1,0 +1,50 @@
+name: envsolve-dependency-cache
+
+services:
+  pypi:
+    image: "envsolve/dependency-cache-pypi:${ENVSOLVE_CACHE_IMAGE_TAG:-dev}"
+    build:
+      context: .
+      dockerfile: devpi.Dockerfile
+      args:
+        PYTHON_IMAGE: "${ENVSOLVE_DEVPI_PYTHON_IMAGE:-python:3.13-slim}"
+        DEVPI_SERVER_VERSION: "6.20.3"
+    environment:
+      ENVSOLVE_CACHE_OFFLINE: "${ENVSOLVE_CACHE_OFFLINE:-0}"
+    ports:
+      - "127.0.0.1:3141:3141"
+    volumes:
+      - "${ENVSOLVE_CACHE_DATA_ROOT:-./data}/devpi:/data"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3141/+status', timeout=5)"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  apt:
+    image: "envsolve/dependency-cache-apt:${ENVSOLVE_CACHE_IMAGE_TAG:-dev}"
+    build:
+      context: .
+      dockerfile: apt-cacher-ng.Dockerfile
+      args:
+        UBUNTU_IMAGE: "${ENVSOLVE_APT_UBUNTU_IMAGE:-ubuntu:22.04}"
+    environment:
+      ENVSOLVE_CACHE_OFFLINE: "${ENVSOLVE_CACHE_OFFLINE:-0}"
+    ports:
+      - "127.0.0.1:3142:3142"
+    volumes:
+      - "${ENVSOLVE_CACHE_DATA_ROOT:-./data}/apt:/var/cache/apt-cacher-ng"
+      - "${ENVSOLVE_CACHE_DATA_ROOT:-./data}/apt-logs:/var/log/apt-cacher-ng"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "bash -c 'exec 3<>/dev/tcp/127.0.0.1/3142'"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
