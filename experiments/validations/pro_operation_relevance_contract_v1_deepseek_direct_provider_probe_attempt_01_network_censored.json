@@ -1,0 +1,171 @@
+{
+  "claim_scope": "Synthetic provider/output compatibility only.",
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "reasoning_content_persisted": false
+  },
+  "probe_id": "envsolve-pro-operation-contract-deepseek-direct-provider-v1",
+  "request": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-pro",
+    "official_evaluator_context": false,
+    "provider": "deepseek-direct",
+    "repository_context": false,
+    "requests": 3,
+    "response_format": "json_object",
+    "seed": 0,
+    "temperature": 0
+  },
+  "result": {
+    "candidates": [],
+    "errors": [
+      {
+        "error_message_sha256": "8ec9a0b7fe5cde1fde3419e132fca4570c7aafab557cf67c993a5ce1628f0079",
+        "error_type": "APIConnectionError"
+      },
+      {
+        "error_message_sha256": "8ec9a0b7fe5cde1fde3419e132fca4570c7aafab557cf67c993a5ce1628f0079",
+        "error_type": "APIConnectionError"
+      },
+      {
+        "error_message_sha256": "8ec9a0b7fe5cde1fde3419e132fca4570c7aafab557cf67c993a5ce1628f0079",
+        "error_type": "APIConnectionError"
+      }
+    ],
+    "parsed_candidates": 0,
+    "qualified": false,
+    "responses": [
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      },
+      {
+        "error_type": "APIConnectionError",
+        "finish_reason": null,
+        "input_tokens": null,
+        "output_tokens": null,
+        "reasoning_content_present": false,
+        "reasoning_tokens": null,
+        "status": "error"
+      }
+    ],
+    "usage": {
+      "cache_read_tokens": 0,
+      "candidates": 0,
+      "commands": 0,
+      "elapsed_wall_clock_seconds": 0.186782,
+      "environments": 0,
+      "estimated_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "provider_retries": 9,
+      "provider_retry_reasons": {
+        "provider-connection": 9
+      },
+      "provider_retry_recoveries": 0,
+      "request_errors": 12,
+      "requests_started": 3,
+      "response_parse_recoveries": 0,
+      "response_parse_retries": 0,
+      "responses_completed": 0,
+      "total_tokens": 0
+    }
+  },
+  "schema_version": "1.0.0"
+}

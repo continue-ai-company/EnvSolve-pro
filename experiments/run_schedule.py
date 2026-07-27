@@ -32,12 +32,6 @@ OPENAI_API_RUNNERS = frozenset(
     }
 )
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"
-_PROVIDER_BASE_URL_BY_PRICING_HOST = {
-    "openrouter.ai": OPENROUTER_BASE_URL,
-    "api-docs.deepseek.com": DEEPSEEK_BASE_URL,
-    "api.deepseek.com": DEEPSEEK_BASE_URL,
-}
 
 
 def parse_args(
@@ -104,15 +98,11 @@ def _episode_identity(
     }
 
 
-def _expected_provider_base_url(
-    config: HarnessConfig,
-    model: str,
-) -> str | None:
+def _is_openrouter_model(config: HarnessConfig, model: str) -> bool:
     pricing = config.model_pricing.get(model)
     if pricing is None or not pricing.source_url:
-        return None
-    host = urlparse(pricing.source_url).netloc.lower()
-    return _PROVIDER_BASE_URL_BY_PRICING_HOST.get(host)
+        return False
+    return urlparse(pricing.source_url).netloc.lower() == "openrouter.ai"
 
 
 def _validate_provider_environment(
@@ -133,20 +123,21 @@ def _validate_provider_environment(
             "OPENAI_API_KEY is required by pending provider-backed episodes; "
             "no schedule progress was recorded"
         )
+    openrouter_models = sorted(
+        {
+            str(identity["model"])
+            for identity in provider_episodes
+            if _is_openrouter_model(config, str(identity["model"]))
+        }
+    )
+    if not openrouter_models:
+        return
     actual_base_url = environment.get("OPENAI_BASE_URL", "").rstrip("/")
-    expected_routes: dict[str, list[str]] = {}
-    for identity in provider_episodes:
-        model = str(identity["model"])
-        expected = _expected_provider_base_url(config, model)
-        if expected is not None:
-            expected_routes.setdefault(expected, []).append(model)
-    for expected, models in sorted(expected_routes.items()):
-        if actual_base_url == expected:
-            continue
+    if actual_base_url != OPENROUTER_BASE_URL:
+        models = ", ".join(openrouter_models)
         raise RuntimeError(
-            f"OPENAI_BASE_URL must equal {expected!r} for provider-backed "
-            f"model(s) {', '.join(sorted(set(models)))}; "
-            "no schedule progress was recorded"
+            f"OPENAI_BASE_URL must equal {OPENROUTER_BASE_URL!r} for "
+            f"OpenRouter-backed model(s) {models}; no schedule progress was recorded"
         )
 
 

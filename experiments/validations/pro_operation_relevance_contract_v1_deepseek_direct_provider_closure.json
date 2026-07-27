@@ -1,0 +1,56 @@
+{
+  "claim_scope": "Synthetic provider and operation-contract output compatibility only.",
+  "closed_at": "2026-07-27",
+  "closure_id": "deepseek-direct-provider-closure-v1",
+  "network_censoring": {
+    "attempt": {
+      "error_types": [
+        "APIConnectionError"
+      ],
+      "path": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_provider_probe_attempt_01_network_censored.json",
+      "request_errors": 12,
+      "requested_responses": 3,
+      "responses_completed": 0,
+      "sha256": "3acb7dd17b9714f3032b0b27f992bb0c2a83dcd8ec77b2f4cbbaa61682e75e7a",
+      "wall_clock_seconds": 0.186782
+    },
+    "classification": "Local restricted-sandbox network censoring before any provider response.",
+    "evidence": "All initial attempts and frozen retries failed within 0.19 seconds with zero completed responses and zero tokens. The identical frozen probe completed outside the restricted sandbox.",
+    "original_attempt_preserved": true
+  },
+  "preregistration": {
+    "path": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_replication_preregistration.json",
+    "sha256": "a8425175577608aeb755288a3dc5d6dcc5eabce8dc5cb255388d7fca0ecd74e6"
+  },
+  "privacy": {
+    "api_key_persisted": false,
+    "candidate_content_persisted": false,
+    "official_evaluator_accessed": false,
+    "reasoning_content_persisted": false,
+    "repository_identity_opened": false
+  },
+  "provider": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-pro",
+    "name": "deepseek-direct"
+  },
+  "qualified_probe": {
+    "error_types": [],
+    "normal_parsed_responses": 3,
+    "path": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_provider_probe.json",
+    "request_errors": 0,
+    "requested_responses": 3,
+    "responses_completed": 3,
+    "sha256": "b6acc61bc75621bad8f593d0fca0d6b3a944b911d3ff9edc4455a89f913ac4e6"
+  },
+  "result": {
+    "infrastructure_censored_attempts": 1,
+    "normal_parsed_responses": 3,
+    "policy_contract_failures": 0,
+    "qualified": true,
+    "required_normal_parsed_responses": 3
+  },
+  "schema_version": "1.0.0",
+  "status": "qualified-after-local-network-censored-attempt",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1-deepseek-direct-replication"
+}

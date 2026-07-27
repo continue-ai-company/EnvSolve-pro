@@ -48,6 +48,14 @@ DIRECT_PREREGISTRATION = (
     ROOT
     / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_replication_preregistration.json"
 )
+DIRECT_PROVIDER_CLOSURE = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_provider_closure.json"
+)
+DIRECT_SCHEDULE = (
+    ROOT
+    / "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_schedule.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -324,3 +332,81 @@ def test_deepseek_direct_replication_binds_same_model_and_consumed_cases() -> No
     assert preregistration["claim_scope"].startswith(
         "Consumed-development provider replication."
     )
+
+
+def test_deepseek_direct_provider_closure_preserves_network_censor() -> None:
+    closure = json.loads(DIRECT_PROVIDER_CLOSURE.read_text(encoding="utf-8"))
+    preregistration = closure["preregistration"]
+    censored = closure["network_censoring"]["attempt"]
+    qualified = closure["qualified_probe"]
+
+    assert _sha256(ROOT / preregistration["path"]) == preregistration[
+        "sha256"
+    ]
+    assert _sha256(ROOT / censored["path"]) == censored["sha256"]
+    assert _sha256(ROOT / qualified["path"]) == qualified["sha256"]
+    assert closure["network_censoring"]["original_attempt_preserved"] is True
+    assert censored["responses_completed"] == 0
+    assert qualified["normal_parsed_responses"] == 3
+    assert qualified["request_errors"] == 0
+    assert closure["result"]["qualified"] is True
+
+
+def test_deepseek_direct_schedule_is_mechanical_provider_replication() -> None:
+    source = json.loads(
+        QUALIFICATION_SCHEDULE.read_text(encoding="utf-8")
+    )
+    direct = json.loads(DIRECT_SCHEDULE.read_text(encoding="utf-8"))
+
+    assert _sha256(ROOT / direct["source_schedule"]) == direct[
+        "source_schedule_sha256"
+    ]
+    assert _sha256(ROOT / direct["preregistration"]) == direct[
+        "preregistration_sha256"
+    ]
+    assert _sha256(ROOT / direct["provider_closure"]) == direct[
+        "provider_closure_sha256"
+    ]
+    assert _sha256(ROOT / direct["execution"]["config"]) == direct[
+        "execution"
+    ]["config_sha256"]
+    assert direct["implementation_freeze"] == source[
+        "implementation_freeze"
+    ]
+    assert direct["case_file_sha256"] == source["case_file_sha256"]
+    assert direct["episode_timeout_seconds"] == source[
+        "episode_timeout_seconds"
+    ]
+    assert direct["execution"]["protocol_sha256"] == source["execution"][
+        "protocol_sha256"
+    ]
+    assert len(direct["episodes"]) == len(source["episodes"]) == 10
+
+    invariant_fields = {
+        "position",
+        "case_block",
+        "case_id",
+        "condition",
+        "runner",
+        "method",
+        "seed",
+    }
+    for source_episode, direct_episode in zip(
+        source["episodes"],
+        direct["episodes"],
+        strict=True,
+    ):
+        assert {
+            key: source_episode[key] for key in invariant_fields
+        } == {
+            key: direct_episode[key] for key in invariant_fields
+        }
+        assert direct_episode["source_run_id"] == source_episode["run_id"]
+        assert direct_episode["model"] == "deepseek-v4-pro"
+        assert direct_episode["run_id"].startswith(
+            "pro-oprel-qv1-ds-direct-"
+        )
+        assert direct_episode["run_id"] != source_episode["run_id"]
+
+    run_ids = [episode["run_id"] for episode in direct["episodes"]]
+    assert len(run_ids) == len(set(run_ids))

@@ -1,0 +1,152 @@
+{
+  "case_file": "experiments/cases/dev_pro_operation_relevance_contract_v1_5.jsonl",
+  "case_file_sha256": "17b0e16523389f3bede14987a78bc2c9a86d05251e4d05e8d672b9d07f0de1c6",
+  "claim_scope": "Consumed-development provider replication. It tests whether the same frozen algorithmic contrast is observable when the same DeepSeek-V4-Pro model is served directly by DeepSeek. It is not held-out, final-test, leaderboard, or a replacement for the OpenRouter qualification.",
+  "episode_timeout_seconds": 22200,
+  "episodes": [
+    {
+      "case_block": 1,
+      "case_id": "envbench-python-ubernostrum__django-registration@dc80d4e3f90d64d12c35a6c494aa1ec9b36a1705",
+      "condition": "operation-contract-v1",
+      "method": "envsolve-pro-operation-contract",
+      "model": "deepseek-v4-pro",
+      "position": 1,
+      "run_id": "pro-oprel-qv1-ds-direct-c01-django-registration-operation-contract-v1",
+      "runner": "envsolve-pro",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c01-django-registration-operation-contract-v1"
+    },
+    {
+      "case_block": 1,
+      "case_id": "envbench-python-ubernostrum__django-registration@dc80d4e3f90d64d12c35a6c494aa1ec9b36a1705",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 2,
+      "run_id": "pro-oprel-qv1-ds-direct-c01-django-registration-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c01-django-registration-frozen-fresh-control"
+    },
+    {
+      "case_block": 2,
+      "case_id": "envbench-python-google__trax@14514794eb03247c3a4426032607e1f7547e6f63",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 3,
+      "run_id": "pro-oprel-qv1-ds-direct-c02-trax-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c02-trax-frozen-fresh-control"
+    },
+    {
+      "case_block": 2,
+      "case_id": "envbench-python-google__trax@14514794eb03247c3a4426032607e1f7547e6f63",
+      "condition": "operation-contract-v1",
+      "method": "envsolve-pro-operation-contract",
+      "model": "deepseek-v4-pro",
+      "position": 4,
+      "run_id": "pro-oprel-qv1-ds-direct-c02-trax-operation-contract-v1",
+      "runner": "envsolve-pro",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c02-trax-operation-contract-v1"
+    },
+    {
+      "case_block": 3,
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "condition": "operation-contract-v1",
+      "method": "envsolve-pro-operation-contract",
+      "model": "deepseek-v4-pro",
+      "position": 5,
+      "run_id": "pro-oprel-qv1-ds-direct-c03-uer-py-operation-contract-v1",
+      "runner": "envsolve-pro",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c03-uer-py-operation-contract-v1"
+    },
+    {
+      "case_block": 3,
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 6,
+      "run_id": "pro-oprel-qv1-ds-direct-c03-uer-py-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c03-uer-py-frozen-fresh-control"
+    },
+    {
+      "case_block": 4,
+      "case_id": "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+      "condition": "operation-contract-v1",
+      "method": "envsolve-pro-operation-contract",
+      "model": "deepseek-v4-pro",
+      "position": 7,
+      "run_id": "pro-oprel-qv1-ds-direct-c04-tortoise-orm-operation-contract-v1",
+      "runner": "envsolve-pro",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c04-tortoise-orm-operation-contract-v1"
+    },
+    {
+      "case_block": 4,
+      "case_id": "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 8,
+      "run_id": "pro-oprel-qv1-ds-direct-c04-tortoise-orm-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c04-tortoise-orm-frozen-fresh-control"
+    },
+    {
+      "case_block": 5,
+      "case_id": "envbench-python-libensemble__libensemble@99934db94cac472649d4e452da20123d51e8cee1",
+      "condition": "operation-contract-v1",
+      "method": "envsolve-pro-operation-contract",
+      "model": "deepseek-v4-pro",
+      "position": 9,
+      "run_id": "pro-oprel-qv1-ds-direct-c05-libensemble-operation-contract-v1",
+      "runner": "envsolve-pro",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c05-libensemble-operation-contract-v1"
+    },
+    {
+      "case_block": 5,
+      "case_id": "envbench-python-libensemble__libensemble@99934db94cac472649d4e452da20123d51e8cee1",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 10,
+      "run_id": "pro-oprel-qv1-ds-direct-c05-libensemble-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "source_run_id": "pro-oprel-qv1-c05-libensemble-frozen-fresh-control"
+    }
+  ],
+  "execution": {
+    "config": "experiments/configs/local_mac_pro_operation_relevance_v1_deepseek_direct.json",
+    "config_sha256": "4993d797f9418960a3f10495cc366da1462f066901d27c3ab745add304cf1926",
+    "coordinator": "experiments/run_envsolve_pro_schedule.py",
+    "initial_host": "mac",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "implementation_freeze": "d00539b351947ddcbca2f124ad0968d9875a6f37",
+  "model": "deepseek-v4-pro",
+  "preregistration": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_replication_preregistration.json",
+  "preregistration_sha256": "a8425175577608aeb755288a3dc5d6dcc5eabce8dc5cb255388d7fca0ecd74e6",
+  "provider": {
+    "base_url": "https://api.deepseek.com",
+    "name": "deepseek-direct",
+    "serving_provider_is_experimental_factor": true
+  },
+  "provider_closure": "experiments/validations/pro_operation_relevance_contract_v1_deepseek_direct_provider_closure.json",
+  "provider_closure_sha256": "2e3626a7c63d6582df90172a0d2545d54da64ad1702ad97f1655838a543b49f5",
+  "schema_version": "1.0.0",
+  "source_schedule": "experiments/validations/pro_operation_relevance_contract_v1_schedule.json",
+  "source_schedule_sha256": "a1d6ae09083297fa416013b0a43fe43388aacdec0ba6ae0dec0acc01fab98a51",
+  "status": "frozen-before-execution",
+  "study_id": "envsolve-pro-operation-relevance-contract-v1-deepseek-direct-replication"
+}
