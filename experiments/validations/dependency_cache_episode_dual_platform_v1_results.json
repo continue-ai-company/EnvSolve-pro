@@ -1,0 +1,177 @@
+{
+  "artifact_type": "dependency_cache_episode_dual_platform_qualification",
+  "schema_version": "1.0.0",
+  "study_id": "dependency-cache-episode-dual-platform-v1",
+  "status": "qualified",
+  "scope": {
+    "claim": "Infrastructure qualification only",
+    "excluded_claims": [
+      "EnvSolve-Pro algorithm improvement",
+      "EnvBench Official Pass",
+      "end-to-end batch throughput"
+    ],
+    "implementation_commit": "83a26d2894712ecb5f4749bc081e934e88c66134"
+  },
+  "contract": {
+    "cache_mode": "isolated-seeded",
+    "upstream_miss_policy": "allow",
+    "seed_scope": "One content-attested frozen seed copied into a distinct writable root for each episode",
+    "cross_episode_state": "none",
+    "solver_visibility": "outside the observation, constraint, and operation layers",
+    "close_audit": [
+      "preserve and hash service logs before removing containers",
+      "stop services before hashing cache state",
+      "normalize container-written ownership on native Linux",
+      "verify the seed manifest file and seed contents are unchanged",
+      "record the episode-only final content manifest and byte delta"
+    ]
+  },
+  "seed": {
+    "source": "UER-py representative dependency closure",
+    "manifest_path": "experiments/validations/dependency_cache_uer_py_replay_v1_cache_snapshot.json",
+    "manifest_sha256": "220b06dd55faf283d266c5ab94cce2281d625282ba1519b94049b1a7694881ad",
+    "snapshot_id": "2fd80559027c489ded35f9b1bd886b87497df0cf713f693a1c8d1f89e1894f1a",
+    "entry_count": 39,
+    "total_file_bytes": 2896015107,
+    "transfer_verification_on_spark": "passed"
+  },
+  "canary": {
+    "client_local_cache": "disabled with PIP_NO_CACHE_DIR=1",
+    "fresh_client_per_trial": true,
+    "seed_hit": "pip download --no-deps six==1.17.0",
+    "online_miss": "pip download --no-deps boltons==25.0.0",
+    "replay": "repeat the online-miss command in another fresh client",
+    "success_criterion": "all commands exit zero; one upstream file read is followed by a cache-only replay; source seed remains unchanged"
+  },
+  "platforms": {
+    "mac_docker_desktop": {
+      "host": {
+        "kernel": "Darwin 25.5.0",
+        "architecture": "arm64"
+      },
+      "docker": {
+        "client_version": "29.6.1",
+        "server_version": "29.6.1",
+        "server_os": "linux",
+        "server_architecture": "arm64"
+      },
+      "network_binding": "127.0.0.1",
+      "clone": {
+        "strategy": "macos-clonefile",
+        "duration_seconds_including_copy_verification": 1.598446
+      },
+      "attestation_id": "172109a948795c27ba5ca13d749128c3658991fff2142aebaa8ac3381a7a82ef",
+      "trials": {
+        "seed_hit": {
+          "exit_code": 0,
+          "wall_clock_seconds": 2.11
+        },
+        "online_miss": {
+          "exit_code": 0,
+          "wall_clock_seconds": 10.33
+        },
+        "fresh_client_replay": {
+          "exit_code": 0,
+          "wall_clock_seconds": 0.96
+        }
+      },
+      "service_log_summary": {
+        "pypi_project_gets": 6,
+        "pypi_file_gets": 3,
+        "pypi_remote_reads": 1,
+        "upstream_timeouts": 0
+      },
+      "seed_integrity_verified": true,
+      "episode_delta": {
+        "entry_count": 1,
+        "total_file_bytes": 272034
+      }
+    },
+    "dgx_spark_native_linux": {
+      "host": {
+        "kernel": "Linux 6.14.0-1015-nvidia",
+        "architecture": "aarch64"
+      },
+      "docker": {
+        "client_version": "28.5.1",
+        "server_version": "28.5.1",
+        "server_os": "linux",
+        "server_architecture": "arm64"
+      },
+      "network_binding": "172.17.0.1 Docker bridge gateway",
+      "clone": {
+        "strategy": "linux-reflink-auto",
+        "duration_seconds_including_copy_verification": 2.359163
+      },
+      "attestation_id": "06f3ddf0d270bbb93fa2107e0993857f9e07ab8ef62b53da4fa752e15ae5ddc4",
+      "trials": {
+        "seed_hit": {
+          "exit_code": 0,
+          "wall_clock_seconds": 1.1
+        },
+        "online_miss": {
+          "exit_code": 0,
+          "wall_clock_seconds": 9.07
+        },
+        "fresh_client_replay": {
+          "exit_code": 0,
+          "wall_clock_seconds": 0.53
+        }
+      },
+      "service_log_summary": {
+        "pypi_project_gets": 6,
+        "pypi_file_gets": 3,
+        "pypi_remote_reads": 1,
+        "upstream_timeouts": 0
+      },
+      "runtime_ownership_normalized": true,
+      "seed_integrity_verified": true,
+      "episode_delta": {
+        "entry_count": 1,
+        "total_file_bytes": 272034
+      }
+    }
+  },
+  "development_failures_resolved": [
+    {
+      "failure": "Native Linux clients could not reach ports published only on host loopback.",
+      "resolution": "Bind native Linux services only to the Docker bridge gateway and retain loopback binding on Docker Desktop.",
+      "qualified_after_fix": true
+    },
+    {
+      "failure": "Root-written DevPI metadata was unreadable to the native Linux coordinator during final hashing.",
+      "resolution": "After service shutdown, use the attested local apt image to normalize ownership inside only the writable episode copy.",
+      "qualified_after_fix": true
+    },
+    {
+      "failure": "A Mac development attempt timed out upstream while the same network carried the 2.896 GB Spark seed transfer.",
+      "resolution": "Classified as network contention; the unchanged trial passed after transfer stopped, and the final qualification had zero upstream timeouts.",
+      "qualified_after_fix": true
+    }
+  ],
+  "verification": {
+    "full_test_suite": {
+      "passed": 619,
+      "skipped": 3,
+      "subtests_passed": 75
+    },
+    "ruff": "passed",
+    "git_diff_check": "passed",
+    "credential_scan": "no API key, VPN subscription, or Spark password pattern found"
+  },
+  "evidence": {
+    "archive_path": "experiments/validations/dependency_cache_episode_dual_platform_v1_evidence.tar.gz",
+    "archive_sha256": "1dd94553098c64ec781b71948c00c3e482b3fc3471e9d1051b230830aaeb758d",
+    "mac_lease_sha256": "57bee5fc1c66c9e7439de26dfa7d37c0eb0f5a3c9d01e65cbd7209b51ea8a79a",
+    "spark_lease_sha256": "1cdf0787dab7ee74d283283e878ad41f2a3cca2fb9a1ce34aa9771be9a10c104",
+    "mac_attestation_sha256": "8ec686e27b012a8d912f36996c10d9c7f06b35437a7e70e15ed5046e344eb8eb",
+    "spark_attestation_sha256": "9d0893856c4d19ea46ce7d1e82f94f29841466e08ab3ac9b9208658a09d6007c"
+  },
+  "limitations": [
+    "The canary exercises PyPI hit and miss behavior; apt-cacher-ng was built, started, health-checked, and audited but no new apt payload was requested.",
+    "Wall-clock values include external network conditions and are qualification observations, not performance estimates.",
+    "The evidence archive preserves service logs, leases, attestations, and final manifests; client stdout was observed live but is not archived.",
+    "No EnvBench case or deployment algorithm was executed in this qualification."
+  ],
+  "conclusion": "The isolated seeded cache lifecycle is operational on both Mac Docker Desktop ARM64 and DGX Spark native Linux ARM64. It preserves an open online operation space, prevents cross-episode cache mutation, and retains auditable hit/miss evidence without entering the EnvSolve-Pro algorithm."
+}

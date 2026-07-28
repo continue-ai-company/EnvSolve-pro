@@ -97,6 +97,40 @@ def test_representative_cache_replay_result_is_evidence_bound() -> None:
     assert result["cache_snapshot"]["unchanged_after_offline_replay"] is True
 
 
+def test_dual_platform_episode_result_is_evidence_bound() -> None:
+    validation_root = REPOSITORY_ROOT / "experiments/validations"
+    result = json.loads(
+        (
+            validation_root
+            / "dependency_cache_episode_dual_platform_v1_results.json"
+        ).read_text(encoding="utf-8")
+    )
+    archive = REPOSITORY_ROOT / result["evidence"]["archive_path"]
+
+    assert hashlib.sha256(archive.read_bytes()).hexdigest() == result[
+        "evidence"
+    ]["archive_sha256"]
+    assert result["scope"]["implementation_commit"] == (
+        "83a26d2894712ecb5f4749bc081e934e88c66134"
+    )
+    assert result["seed"]["snapshot_id"] == (
+        "2fd80559027c489ded35f9b1bd886b87497df0cf713f693a1c8d1f89e1894f1a"
+    )
+    platforms = result["platforms"]
+    for platform_result in platforms.values():
+        assert platform_result["seed_integrity_verified"] is True
+        assert platform_result["service_log_summary"][
+            "pypi_remote_reads"
+        ] == 1
+        assert platform_result["service_log_summary"][
+            "upstream_timeouts"
+        ] == 0
+        assert platform_result["episode_delta"] == {
+            "entry_count": 1,
+            "total_file_bytes": 272034,
+        }
+
+
 def test_cache_snapshot_detects_content_and_symlink_changes() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
