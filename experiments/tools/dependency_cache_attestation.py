@@ -18,6 +18,7 @@ REQUIRED_ENDPOINTS = {"pypi", "apt"}
 LABEL_PREFIX = "org.envsolve.dependency-cache."
 VALID_SETTINGS = {
     ("mutable-shared", "allow"),
+    ("isolated-seeded", "allow"),
     ("frozen-offline", "deny"),
 }
 
@@ -124,7 +125,7 @@ def build_attestation(
     if not isinstance(snapshot_id, str) or not snapshot_id:
         raise ValueError("Cache manifest has no snapshot_id")
     expected_manifest_mode = (
-        "frozen" if cache_mode == "frozen-offline" else "development"
+        "development" if cache_mode == "mutable-shared" else "frozen"
     )
     if manifest.get("mode") != expected_manifest_mode:
         raise ValueError(
@@ -183,7 +184,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument(
         "--cache-mode",
-        choices=("mutable-shared", "frozen-offline"),
+        choices=("mutable-shared", "isolated-seeded", "frozen-offline"),
         required=True,
     )
     parser.add_argument(

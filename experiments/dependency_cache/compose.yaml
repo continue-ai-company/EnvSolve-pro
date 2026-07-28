@@ -12,7 +12,7 @@ services:
     environment:
       ENVSOLVE_CACHE_OFFLINE: "${ENVSOLVE_CACHE_OFFLINE:-0}"
     ports:
-      - "127.0.0.1:3141:3141"
+      - "${ENVSOLVE_CACHE_BIND_ADDRESS:-127.0.0.1}:${ENVSOLVE_CACHE_PYPI_PORT:-3141}:3141"
     volumes:
       - "${ENVSOLVE_CACHE_DATA_ROOT:-./data}/devpi:/data"
     healthcheck:
@@ -36,7 +36,7 @@ services:
     environment:
       ENVSOLVE_CACHE_OFFLINE: "${ENVSOLVE_CACHE_OFFLINE:-0}"
     ports:
-      - "127.0.0.1:3142:3142"
+      - "${ENVSOLVE_CACHE_BIND_ADDRESS:-127.0.0.1}:${ENVSOLVE_CACHE_APT_PORT:-3142}:3142"
     volumes:
       - "${ENVSOLVE_CACHE_DATA_ROOT:-./data}/apt:/var/cache/apt-cacher-ng"
       - "${ENVSOLVE_CACHE_DATA_ROOT:-./data}/apt-logs:/var/log/apt-cacher-ng"

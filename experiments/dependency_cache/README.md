@@ -169,6 +169,44 @@ a frozen-offline cache:
 - Report seed construction, hits, misses, upstream bytes, cache bytes,
   wall-clock, and peak service memory separately from Official Pass.
 
+The episode coordinator enforces that lifecycle without entering the solver:
+
+```bash
+python experiments/tools/dependency_cache_episode.py prepare \
+  --manifest /path/to/frozen-seed-manifest.json \
+  --seed-root pypi=/path/to/frozen-seed/devpi \
+  --seed-root apt=/path/to/frozen-seed/apt \
+  --episode-root /path/to/runtime/case-a \
+  --episode-id case-a
+
+python experiments/tools/dependency_cache_episode.py open \
+  --lease /path/to/runtime/case-a/metadata/lease.json \
+  --attestation /path/to/platform-attestation.json \
+  --image-tag qualified-arm64 \
+  --client-image envsolve/envbench-python-cache-client:qualified-arm64
+
+# Run exactly one compared episode against the endpoints in lease.json.
+
+python experiments/tools/dependency_cache_episode.py close \
+  --lease /path/to/runtime/case-a/metadata/lease.json
+```
+
+`prepare` verifies the frozen seed, creates a writable clone, verifies the clone,
+and emits client endpoint metadata. Docker Desktop binds cache ports to
+loopback. Native Linux binds them only to Docker's bridge gateway, making them
+reachable through `host-gateway` without exposing them on every host interface.
+`open` refuses changed image tags or an attestation for another seed and starts
+with upstream misses enabled. `close` stops services before hashing, normalizes
+Linux container-written ownership inside the episode copy, verifies that the
+source seed is unchanged, and records the episode-only cache delta. Before
+removing containers it preserves content-hashed service logs and counts package
+requests, upstream reads, and upstream timeouts. One coordinator instance owns
+one episode; parallel episodes use distinct roots, Compose project names, and
+host ports.
+Client launches should also use the emitted
+`--add-host=host.docker.internal:host-gateway` argument; it is required by
+native Linux Docker and harmless on Docker Desktop.
+
 Use forced-offline mode to verify snapshot coverage and reproducibility, not as
 the primary EnvSolve-Pro versus baseline condition. Previously frozen schedules
 remain unchanged and cache-disabled.

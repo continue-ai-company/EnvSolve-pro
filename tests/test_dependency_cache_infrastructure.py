@@ -9,6 +9,11 @@ import pytest
 
 from experiments.tools.analyze_dependency_downloads import analyze_run_root
 from experiments.tools.dependency_cache_attestation import build_attestation
+from experiments.tools.dependency_cache_episode import (
+    finalize_episode,
+    prepare_episode,
+    summarize_service_logs,
+)
 from experiments.tools.dependency_cache_snapshot import (
     build_manifest,
     verify_manifest,
@@ -276,3 +281,165 @@ def test_cache_attestation_rejects_mismatched_client_snapshot() -> None:
         assert "snapshot" in str(error)
     else:
         raise AssertionError("mismatched client snapshot was accepted")
+
+
+def test_isolated_seed_attestation_requires_frozen_seed() -> None:
+    endpoints = {
+        "pypi": "http://host.docker.internal:3141/root/pypi/+simple/",
+        "apt": "http://host.docker.internal:3142",
+    }
+    images = {
+        "pypi-service": _image("pypi-service", {}),
+        "apt-service": _image("apt-service", {}),
+        "client": _image(
+            "client",
+            {
+                "snapshot": "snapshot-1",
+                "mode": "isolated-seeded",
+                "upstream-miss-policy": "allow",
+                **endpoints,
+            },
+        ),
+    }
+
+    attestation = build_attestation(
+        manifest={"mode": "frozen", "snapshot_id": "snapshot-1"},
+        manifest_sha256="manifest-sha256",
+        images=images,
+        endpoints=endpoints,
+        cache_mode="isolated-seeded",
+        upstream_miss_policy="allow",
+    )
+
+    assert attestation["cache_mode"] == "isolated-seeded"
+    assert attestation["upstream_miss_policy"] == "allow"
+
+
+def test_episode_cache_copy_isolated_and_audited() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        pypi = root / "seed" / "devpi"
+        apt = root / "seed" / "apt"
+        pypi.mkdir(parents=True)
+        apt.mkdir()
+        (pypi / "cached.whl").write_bytes(b"seed-wheel")
+        (apt / "cached.deb").write_bytes(b"seed-deb")
+        seed_roots = {"pypi": pypi, "apt": apt}
+        manifest = build_manifest(seed_roots, "frozen")
+        manifest_path = root / "seed-manifest.json"
+        manifest_path.write_text(
+            json.dumps(manifest, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        lease = prepare_episode(
+            manifest_path=manifest_path,
+            seed_roots=seed_roots,
+            episode_root=root / "episode",
+            episode_id="case-a",
+            bind_address="127.0.0.1",
+            clone_strategy="copy",
+        )
+        runtime_pypi = Path(lease["runtime_seed_roots"]["pypi"])
+        (runtime_pypi / "online-miss.whl").write_bytes(b"episode-only")
+
+        closed = finalize_episode(
+            lease_path=root / "episode" / "metadata" / "lease.json",
+            services_stopped=True,
+        )
+
+        assert closed["state"] == "closed"
+        assert closed["seed_integrity_verified"] is True
+        assert closed["final_cache"]["changed_from_seed"] is True
+        assert closed["final_cache"]["root_deltas"]["pypi"] == {
+            "entry_count": 1,
+            "total_file_bytes": len(b"episode-only"),
+        }
+        assert not (pypi / "online-miss.whl").exists()
+        assert verify_manifest(manifest, seed_roots) == []
+        assert lease["client"]["docker_run_args"] == [
+            "--add-host=host.docker.internal:host-gateway"
+        ]
+
+
+def test_episode_cache_rejects_reusing_runtime_root() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        pypi = root / "seed"
+        pypi.mkdir()
+        (pypi / "cached.whl").write_bytes(b"seed-wheel")
+        seed_roots = {"pypi": pypi}
+        manifest = build_manifest(seed_roots, "frozen")
+        manifest_path = root / "seed-manifest.json"
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        episode_root = root / "episode"
+
+        prepare_episode(
+            manifest_path=manifest_path,
+            seed_roots=seed_roots,
+            episode_root=episode_root,
+            episode_id="case-a",
+            bind_address="127.0.0.1",
+            clone_strategy="copy",
+        )
+
+        with pytest.raises(ValueError, match="already exists"):
+            prepare_episode(
+                manifest_path=manifest_path,
+                seed_roots=seed_roots,
+                episode_root=episode_root,
+                episode_id="case-b",
+                bind_address="127.0.0.1",
+                clone_strategy="copy",
+            )
+
+
+def test_episode_finalization_rejects_changed_manifest_file() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        pypi = root / "seed"
+        pypi.mkdir()
+        (pypi / "cached.whl").write_bytes(b"seed-wheel")
+        seed_roots = {"pypi": pypi}
+        manifest_path = root / "seed-manifest.json"
+        manifest_path.write_text(
+            json.dumps(build_manifest(seed_roots, "frozen")),
+            encoding="utf-8",
+        )
+        episode_root = root / "episode"
+        prepare_episode(
+            manifest_path=manifest_path,
+            seed_roots=seed_roots,
+            episode_root=episode_root,
+            episode_id="case-a",
+            bind_address="127.0.0.1",
+            clone_strategy="copy",
+        )
+        manifest_path.write_text("{}\n", encoding="utf-8")
+
+        with pytest.raises(ValueError, match="manifest file changed"):
+            finalize_episode(
+                lease_path=episode_root / "metadata" / "lease.json",
+                services_stopped=True,
+            )
+
+
+def test_episode_service_log_summary_counts_causal_cache_events() -> None:
+    logs = "\n".join(
+        [
+            "GET /root/pypi/+simple/six/",
+            "GET /root/pypi/+f/abc/six.whl",
+            "GET /root/pypi/+simple/humanize/",
+            "GET /root/pypi/+f/def/humanize.whl",
+            "reading remote: URL('https://example.invalid/humanize.whl')",
+            "GET /root/pypi/+f/def/humanize.whl",
+            "getting data timed out after 120 seconds",
+        ]
+    )
+
+    assert summarize_service_logs(logs) == {
+        "pypi_remote_reads": 1,
+        "pypi_project_gets": 2,
+        "pypi_file_gets": 3,
+        "upstream_timeouts": 1,
+    }
