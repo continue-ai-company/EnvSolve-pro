@@ -1,0 +1,119 @@
+{
+  "analysis_policy": {
+    "case_order": "frozen salted-hash order",
+    "condition_order": "frozen per-case salted rotation",
+    "individual_case_rules_forbidden": true,
+    "infrastructure_policy": "Provider, network, acquisition, and evaluator failures are censored and may be retried only under an identical-setting amendment.",
+    "mechanism_change_gate": "A new inner rule requires either the same failure category on at least two repository-disjoint pilot cases or a generic counterexample canary plus a non-regression control. Any change requires a new version and new untouched cases.",
+    "paired_by_case": true
+  },
+  "artifacts": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_stateful_agent_v2_2_pilot5.json",
+      "sha256": "be9de54022d388afb69875f50f265494b680f634c2627ef2b2bdd7114cb79852"
+    },
+    "freeze_files": {
+      "envsolve/constraints/goal_frontier.py": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a",
+      "envsolve/runtime/stateful_goal_verifier_v2.py": "2393e0cec54647b6665da36e041dec6a6a5dc9b0855e686f7ca2d2f919d0702c",
+      "envsolve/runtime/stateful_goal_verifier_v22.py": "78ad045ae0d28cbf528017bc9a4f8d7dafd2e7f36dc8d5540269fb7de7bb86e1",
+      "envsolve/runtime/stateful_integrity_v2.py": "d5af234f8330a4eae8057d217b97932dffa7972d39954ce880e34044cd1da81d",
+      "envsolve/runtime/stateful_integrity_v22.py": "8668f65ba25a35ddcf9d81a2c92f145edf7c97a4ca85bdd314379d4788b14c7d",
+      "envsolve/solver/counterexample.py": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c",
+      "envsolve_harness/runners/codex_cli.py": "bb03c90357b84ac7659740ff79933221f6e647d8731057b295eec63913c4492a",
+      "envsolve_harness/runners/stateful_codex.py": "e69d9fe88fd214b5c2fcf47b32914713c390f76a26025f0254d5862479aae741",
+      "envsolve_harness/scripts/open_program.py": "f732008773c12bf1db5087c94a0345d4866233aaef84c2057dd4bbeacc18047a",
+      "experiments/configs/local_mac_pro_stateful_agent_v2_2_pilot5.json": "be9de54022d388afb69875f50f265494b680f634c2627ef2b2bdd7114cb79852",
+      "experiments/extensible_schedule.py": "b0166c0bfa517afe382a8316e5746d4e1c37cd14744362e499759bddd2d878eb",
+      "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+      "experiments/run_stateful_codex_case.py": "d597d3c8c21ef8491dc7012519db9cc7e65b9fb2065ea12faebaed7d22267cba",
+      "experiments/run_stateful_codex_schedule.py": "fcb101066e5f2047de0bffebabf7578bb79b5ea6e46aebbde4b3c33b0433c9b6",
+      "experiments/tools/select_pro_stateful_agent_v2_2_pilot5.py": "cc8ad61a13f91be9bf825446c1545436145d214a6cd50005057270d57e0dea04",
+      "tests/test_integrity_audit.py": "6b5d8963df1b16543de5274b4cd00797e83a48bbeffe6ff030f13a47282385cc",
+      "tests/test_stateful_codex_runner.py": "fec14c35a792f2e7332b22b466954530f8ad298605c09f12f8e9e89757773e4d",
+      "tests/test_stateful_integrity_v22.py": "168eae355d243f81e76e4416ce0223cfa7a8e2e92f7aebe6ed9436fba3de3be2"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_2_pilot5_mac.json",
+      "sha256": "2f32c9ba366a56b8a6d85f616bf84ce5edbee5a5021c0e07cac3fe69d6cf3383"
+    }
+  },
+  "claim_scope": "Repository-disjoint five-case development pilot. It can guide generic mechanism selection but cannot support final test or leaderboard-scale claims.",
+  "conditions": [
+    {
+      "condition": "codex-goal-aware-single-session",
+      "public_goal_visible": true,
+      "repair_rounds": false,
+      "role": "strong single-session baseline",
+      "structured_state": false
+    },
+    {
+      "condition": "codex-raw-repair-v2.2",
+      "public_goal_visible": true,
+      "repair_rounds": true,
+      "role": "same-model stateful raw-history control",
+      "structured_state": false
+    },
+    {
+      "condition": "envsolve-pro-structured-v2.2",
+      "public_goal_visible": true,
+      "repair_rounds": true,
+      "role": "EnvSolve-Pro treatment",
+      "structured_state": true
+    }
+  ],
+  "metrics": {
+    "official_and_integrity_labels_reported_separately": true,
+    "primary": "Official Pass@1 by condition",
+    "secondary": [
+      "integrity-qualified pass",
+      "repair success conditioned on first-candidate failure",
+      "model candidates",
+      "container commands",
+      "input and output tokens",
+      "wall-clock time",
+      "infrastructure censoring"
+    ]
+  },
+  "preflight": {
+    "mac_focused": "20 passed",
+    "module_identity_canary": {
+      "path": "experiments/validations/pro_stateful_agent_v2_2_module_identity_canary.json",
+      "status": "passed"
+    },
+    "spark_focused": "18 passed before runner exposure",
+    "spark_full": "662 passed, 3 skipped, 75 subtests passed; one diagnosed host logout fixture failure"
+  },
+  "preregistered_at": "2026-07-29T18:53:49.406519+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_stateful_agent_v2_2_pilot_65.jsonl",
+    "remaining_case_file_sha256": "cda916ee3517703ec8fd5c9eff99a7526c3bc1ca5af2a201bc650ca944274992",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-stateful-agent-v2.2-dev5-2026-07-30",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_stateful_agent_v2_2_pilot5.jsonl",
+    "selected_case_file_sha256": "d589013ea98ff9b9b4c9d1feca86c2145d53b5897f0c9074b81d8f77b68d750d",
+    "selection_unit": "case_id",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_execution_feedback_v3_spark4_70.jsonl",
+    "source_case_file_sha256": "300128ba31acd31b9f3de63b050a17b51653b0ee8ec1d0174c0c549afc66efbe",
+    "source_rows": 70,
+    "take": 5
+  },
+  "shared_setting": {
+    "candidate_interface": "open cumulative Bash program",
+    "candidate_verification_environment": "fresh exact-revision checkout",
+    "model": "gpt-5.5",
+    "model_cost_hard_limit": false,
+    "model_token_hard_limit": false,
+    "official_evaluator_feedback_available_online": false,
+    "reasoning_effort": "high",
+    "stateful_max_model_candidates": 3
+  },
+  "status": "frozen",
+  "study_id": "envsolve-pro-stateful-agent-v2.2-pilot5"
+}
