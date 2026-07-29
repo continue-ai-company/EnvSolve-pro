@@ -14,6 +14,9 @@ from envsolve.runtime.stateful_goal_verifier_v2 import (
     StatefulExecutableGoalVerifierV2,
     StatefulExecutableGoalVerifierV21,
 )
+from envsolve.runtime.stateful_goal_verifier_v22 import (
+    StatefulExecutableGoalVerifierV22,
+)
 from envsolve.solver import (
     DeploymentCandidate,
     EpisodeBudgetExhausted,
@@ -50,6 +53,8 @@ STRUCTURED_METHOD_V2 = "envsolve-pro-stateful-agent-v2"
 RAW_HISTORY_METHOD_V2 = "codex-cli-goal-aware-raw-repair-v2"
 STRUCTURED_METHOD_V21 = "envsolve-pro-stateful-agent-v2.1"
 RAW_HISTORY_METHOD_V21 = "codex-cli-goal-aware-raw-repair-v2.1"
+STRUCTURED_METHOD_V22 = "envsolve-pro-stateful-agent-v2.2"
+RAW_HISTORY_METHOD_V22 = "codex-cli-goal-aware-raw-repair-v2.2"
 _METHOD_MODES = {
     STRUCTURED_METHOD: "structured",
     RAW_HISTORY_METHOD: "raw",
@@ -57,9 +62,12 @@ _METHOD_MODES = {
     RAW_HISTORY_METHOD_V2: "raw",
     STRUCTURED_METHOD_V21: "structured",
     RAW_HISTORY_METHOD_V21: "raw",
+    STRUCTURED_METHOD_V22: "structured",
+    RAW_HISTORY_METHOD_V22: "raw",
 }
 _V2_METHODS = frozenset({STRUCTURED_METHOD_V2, RAW_HISTORY_METHOD_V2})
 _V21_METHODS = frozenset({STRUCTURED_METHOD_V21, RAW_HISTORY_METHOD_V21})
+_V22_METHODS = frozenset({STRUCTURED_METHOD_V22, RAW_HISTORY_METHOD_V22})
 
 
 def _tail(value: object, limit: int) -> str:
@@ -495,7 +503,7 @@ feedback. Do not repeat a rejected program without correcting its stated cause.
 class StatefulCodexCliRunner(CodexCliRunner):
     """Connect the Codex Operation layer to the existing EnvSolve state loop."""
 
-    runner_version = "0.3.0"
+    runner_version = "0.4.0"
 
     def __init__(
         self,
@@ -517,6 +525,7 @@ class StatefulCodexCliRunner(CodexCliRunner):
             "stateful-agent-v1",
             "stateful-agent-v2",
             "stateful-agent-v2.1",
+            "stateful-agent-v2.2",
         }:
             raise ValueError("Unsupported Stateful Codex method profile")
         profile_has_v2_features = method_profile != "stateful-agent-v1"
@@ -594,6 +603,9 @@ class StatefulCodexCliRunner(CodexCliRunner):
             "project_namespace_provenance": (
                 self.enforce_project_namespace_provenance
             ),
+            "project_module_identity_provenance": (
+                self.method_profile == "stateful-agent-v2.2"
+            ),
             "restore_shell_invariants": self.restore_shell_invariants,
             "official_evaluator_access": "post-episode-only",
             "online_feedback": "public-goal+candidate-policy+effect-audit",
@@ -615,8 +627,11 @@ class StatefulCodexCliRunner(CodexCliRunner):
             )
         expected_v2 = run_spec.method in _V2_METHODS
         expected_v21 = run_spec.method in _V21_METHODS
+        expected_v22 = run_spec.method in _V22_METHODS
         expected_profile = (
-            "stateful-agent-v2.1"
+            "stateful-agent-v2.2"
+            if expected_v22
+            else "stateful-agent-v2.1"
             if expected_v21
             else "stateful-agent-v2"
             if expected_v2
@@ -712,7 +727,9 @@ class StatefulCodexCliRunner(CodexCliRunner):
                 create_timeout=self.container_create_timeout,
             )
             verifier_class = (
-                StatefulExecutableGoalVerifierV21
+                StatefulExecutableGoalVerifierV22
+                if self.method_profile == "stateful-agent-v2.2"
+                else StatefulExecutableGoalVerifierV21
                 if self.method_profile == "stateful-agent-v2.1"
                 else StatefulExecutableGoalVerifierV2
                 if self.method_profile == "stateful-agent-v2"

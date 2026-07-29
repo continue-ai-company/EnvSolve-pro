@@ -269,6 +269,8 @@ def test_stateful_experiment_factory_preserves_the_builtin_registry() -> None:
         "envsolve-pro-stateful-agent-v2": "envsolve-pro-stateful-agent-v2",
         "codex-stateful-raw-v2.1": "codex-cli-goal-aware-raw-repair-v2.1",
         "envsolve-pro-stateful-agent-v2.1": "envsolve-pro-stateful-agent-v2.1",
+        "codex-stateful-raw-v2.2": "codex-cli-goal-aware-raw-repair-v2.2",
+        "envsolve-pro-stateful-agent-v2.2": "envsolve-pro-stateful-agent-v2.2",
     }
 
     with tempfile.TemporaryDirectory() as directory:
@@ -360,6 +362,19 @@ def test_stateful_experiment_factory_preserves_the_builtin_registry() -> None:
     )
     assert isinstance(runner_v21, StatefulCodexCliRunner)
     assert runner_v21.method_profile == "stateful-agent-v2.1"
+
+    runner_v22 = _factory(
+        config,
+        protocol,
+        RunSpec(
+            "run-v2.2",
+            "envsolve-pro-stateful-agent-v2.2",
+            "gpt-5.5",
+        ),
+        RunnerOptions(),
+    )
+    assert isinstance(runner_v22, StatefulCodexCliRunner)
+    assert runner_v22.method_profile == "stateful-agent-v2.2"
 
 
 def test_v2_goal_verifier_restores_shell_boundary_before_trusted_checks() -> None:

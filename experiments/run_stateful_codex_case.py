@@ -27,9 +27,11 @@ from envsolve_harness.runners.stateful_codex import (
     RAW_HISTORY_METHOD,
     RAW_HISTORY_METHOD_V2,
     RAW_HISTORY_METHOD_V21,
+    RAW_HISTORY_METHOD_V22,
     STRUCTURED_METHOD,
     STRUCTURED_METHOD_V2,
     STRUCTURED_METHOD_V21,
+    STRUCTURED_METHOD_V22,
     StatefulCodexCliRunner,
 )
 
@@ -41,6 +43,8 @@ RUNNER_METHODS = {
     "envsolve-pro-stateful-agent-v2": STRUCTURED_METHOD_V2,
     "codex-stateful-raw-v2.1": RAW_HISTORY_METHOD_V21,
     "envsolve-pro-stateful-agent-v2.1": STRUCTURED_METHOD_V21,
+    "codex-stateful-raw-v2.2": RAW_HISTORY_METHOD_V22,
+    "envsolve-pro-stateful-agent-v2.2": STRUCTURED_METHOD_V22,
 }
 
 
@@ -62,7 +66,11 @@ def _factory(
     )
     if executable.is_dir():
         executable = executable / "codex"
-    v21 = run_spec.method in {STRUCTURED_METHOD_V21, RAW_HISTORY_METHOD_V21}
+    v22 = run_spec.method in {STRUCTURED_METHOD_V22, RAW_HISTORY_METHOD_V22}
+    v21 = v22 or run_spec.method in {
+        STRUCTURED_METHOD_V21,
+        RAW_HISTORY_METHOD_V21,
+    }
     v2 = v21 or run_spec.method in {
         STRUCTURED_METHOD_V2,
         RAW_HISTORY_METHOD_V2,
@@ -82,11 +90,18 @@ def _factory(
         feedback_mode=(
             "structured"
             if run_spec.method
-            in {STRUCTURED_METHOD, STRUCTURED_METHOD_V2, STRUCTURED_METHOD_V21}
+            in {
+                STRUCTURED_METHOD,
+                STRUCTURED_METHOD_V2,
+                STRUCTURED_METHOD_V21,
+                STRUCTURED_METHOD_V22,
+            }
             else "raw"
         ),
         method_profile=(
-            "stateful-agent-v2.1"
+            "stateful-agent-v2.2"
+            if v22
+            else "stateful-agent-v2.1"
             if v21
             else "stateful-agent-v2"
             if v2
