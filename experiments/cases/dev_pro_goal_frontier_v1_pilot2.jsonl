@@ -1,0 +1,2 @@
+{"case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b", "language": "python", "repository": "terrapower/armi", "revision": "2bcb03689954ae39f3044f18a9a77c1fb7a0e63b", "split": "dev-pro-goal-frontier-v1-pilot2", "tags": []}
+{"case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa", "language": "python", "repository": "python-openapi/openapi-core", "revision": "68aaab4fb8c0d8382ab3d05588b501acaf7a51aa", "split": "dev-pro-goal-frontier-v1-pilot2", "tags": []}

@@ -349,3 +349,55 @@ DevPI 进程级离线时复放相同闭包，只用 93.74 秒并正常退出。�
 manifest 构建，不能使用结果。缓存变更只在单个 episode 内持久化，用于消除候选间重复下载，不在方法
 之间传递状态。Seed 构建成本、hit/miss、上游字节、缓存大小、wall-clock 和服务内存单独报告；现有
 DeepSeek-direct 重试继续禁用缓存。
+
+## 8. 外部轨迹裁决与下一版算法
+
+Lark 与 micropy-cli 的事后研究已经观察了 Repo2Run 和 goal-aware Codex 在已消费开发 case 上的
+行为。它只提供机制证据，不是性能比较。Repo2Run 在 Lark 原生测试通过后停止，但公开官方目标仍有
+13 个问题；在 micropy-cli 上，它通过修改受版本控制的依赖声明让原生测试通过，无法输出合法的纯
+环境重放程序。goal-aware Codex 则通过交互式包诊断找到了合法的 Lark 解法，但在 micropy-cli 上，
+即使提前看到开放候选契约，仍提交了合成 import stub；可执行验证正确拒绝了该候选。
+
+结合 execution-feedback-v3 的负结果，当前核心假设发生变化。下一版不会继续增加语义约束分类，也
+不会收窄 Bash 动作空间，而是把强交互 Agent 与三层状态结合：
+
+- **观测层：** 保留完整公开目标 finding、命令结果、仓库 effect、候选策略裁决和 clean replay
+  结果；
+- **约束层：** 只维护带来源的未解决目标义务、合法性 violation 和已验证候选事实；
+- **操作层：** 让强 Agent 使用开放终端进行检查与操作，再提交累计部署程序。候选被拒或 clean
+  replay 失败时，把精确结果作为下一次 fresh repair round 的反馈，而不是终止整例。
+
+这个最小假设冻结命名为 `stateful-agent-v1`。受控比较固定同一个强模型和同一个公开目标，依次比较：
+单次原生 goal-aware session、多 session 加原始历史反馈，以及多 session 加结构化当前状态和相关
+原始证据。主指标仍是 Official Pass@1；首次失败后的恢复率直接检验新机制。Token、请求、命令、
+环境数量和 wall-clock 继续作为资源结果报告，不覆盖成功结果。
+
+在打开未见开发 case 前，`stateful-agent-v1` 必须通过三个已消费机制检查：保留合法 Lark 程序；
+在 micropy-cli 上把精确策略拒绝转成新观测；所有成功都必须产生身份可审计的 clean replay。已消费
+case 只能验证 plumbing 与机制，任何规则都不得编码其包名或具体解法。
+
+### 8.1 Stateful-Agent V1 裁决
+
+四个已消费位置都在第一个候选上通过官方指标，但这不能证明机制合格。两份 Lark 程序是合法的纯环境
+部署；两份 micropy-cli 程序则通过 `PYTHONPATH`，用旧版同名 distribution 中的 `micropy.cli`
+覆盖当前 checkout 的 `micropy` namespace。它们是可重放的混合来源环境，不是来源一致的仓库复现。
+raw 与 structured 都选择同一捷径，说明漏洞在共享验证契约，而不是某一种状态表示。
+
+由于每个 episode 都在第一轮结束，没有拒绝或目标失败进入后续 session，结构化修复状态从未被真正
+使用。V1 作为强 Agent 诊断 baseline 冻结，不做效果或资源结论。V2 只增加共享的操作前目标观测、
+通用项目 namespace 来源检查，以及可信 verifier shell 不变量恢复。它必须先在已消费数据上展示真实
+的“失败后修复”转移，才允许打开新的 Dev 仓库。
+
+### 8.2 Stateful-Agent V2.1 裁决
+
+V2.1 修正了初始观测的角色边界，并完成 micropy-cli 已消费机制实验。第一次模型操作之前，公开可执行
+目标产生 70 条 active finding；约束层完整保留并压缩为 24 个 obligation group。候选 1 直接生成
+Python stub，被操作层精确拒绝到具体违规行。候选 2 在新的 session 中拿到完整程序和拒绝原因，改变
+方案后通过 fresh 内部验证，并以 0 个计分 issue 获得 Official Pass。这是第一次真实观测到的状态化
+“拒绝到修复”转移，但仍然只是已消费机制证据。
+
+事后审计发现一个剩余的定义缺口：候选 2 通过 setuptools 元数据，把已有的 `micropy.app` 源码赋予
+仓库中不存在的 `micropy.cli` 身份。它符合冻结的 V2.1 源码内容规则，也符合 EnvBench 官方
+`reportMissingImports` 目标，但不保持模块身份。V2.2 只增加这一个不变量。ARM64 Docker canary
+已经证明：正常同身份安装保持合法，未声明的源码重命名会被拒绝。下一步是在独立版本 runner 中接入
+V2.2，在打开仓库不相交 Dev case 前冻结，并分别报告 Official Pass 与 integrity-qualified Pass。

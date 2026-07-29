@@ -1,0 +1,161 @@
+{
+  "analysis": {
+    "official_evaluator_feedback_used_online": false,
+    "paired_unit": "repository",
+    "posthoc_case_replacement": false,
+    "primary_metric": "Official Pass@1",
+    "provider_censoring_excluded": true
+  },
+  "claim_scope": "Repository-disjoint supplementary development screen under concurrent Spark load; Official Pass is primary and resource metrics are descriptive only.",
+  "conditions": [
+    {
+      "candidate_interface": "open-program-v1",
+      "condition": "goal-frontier-v1-control",
+      "goal_frontier": "goal-obligation-frontier-v1",
+      "goal_process_failure": "terminal-unknown",
+      "method": "envsolve-pro-goal-frontier",
+      "runner": "envsolve-pro-goal-frontier"
+    },
+    {
+      "bootstrap_taxonomy": "disabled",
+      "candidate_interface": "open-program-v2-observable",
+      "condition": "execution-feedback-v3",
+      "goal_frontier": "goal-obligation-frontier-v1",
+      "goal_process_failure": "recoverable-non-infrastructure-counterexample",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback"
+    }
+  ],
+  "episodes": [
+    {
+      "case_id": "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 1,
+      "run_id": "pro-execution-feedback-v3-spark4-01-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 2,
+      "run_id": "pro-execution-feedback-v3-spark4-02-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 3,
+      "run_id": "pro-execution-feedback-v3-spark4-03-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 4,
+      "run_id": "pro-execution-feedback-v3-spark4-04-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 5,
+      "run_id": "pro-execution-feedback-v3-spark4-05-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 6,
+      "run_id": "pro-execution-feedback-v3-spark4-06-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-bottlecapdave__homeassistant-octopusenergy@1ece6dff9948051323f51aeee4c861ccaeb7d548",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 7,
+      "run_id": "pro-execution-feedback-v3-spark4-07-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-bottlecapdave__homeassistant-octopusenergy@1ece6dff9948051323f51aeee4c861ccaeb7d548",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 8,
+      "run_id": "pro-execution-feedback-v3-spark4-08-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    }
+  ],
+  "execution": {
+    "concurrent_with": "envsolve-pro-execution-feedback-v3-screen8-spark",
+    "config": "experiments/configs/spark_pro_execution_feedback_v3_deepseek_direct.json",
+    "config_sha256": "dc400b7dbcc9820b6cf43b322e344fbfaf7f865a71b55915dc242469223d8733",
+    "host": "spark",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "resource_metrics_comparable_as_primary": false,
+    "schedule": "experiments/schedules/pro_execution_feedback_v3_spark4.json",
+    "schedule_sha256": "c341e7357768920bb8c46524ca5add3ad409ebb41b765a0f7cf7df16fbe91e6d",
+    "success_metric_unaffected_by_host_concurrency": true
+  },
+  "parent_freeze": {
+    "path": "experiments/validations/pro_execution_feedback_v3_screen8_preregistration.json",
+    "sha256": "e38a1f5243e8c6dad3a7a2765a03f8f4c11a838fe2a2758042ef281b7715fd9c",
+    "treatment_files": {
+      "envsolve/runtime/execution_feedback.py": "95055d19aaede5e123e01a36c9015706272c69cb976efff35c0abff5e6bdea62",
+      "envsolve/tools/run_envsolve_execution_feedback_episode.py": "5ced065bd04c0966c8f3d331cab1364d0e8ee6ca572659ffa17a6e1b2ad005a1",
+      "envsolve_harness/runners/envsolve_pro_execution_feedback.py": "783922e02392b5f0000094357424184e3a7a1a421fec881c5564ef00b8b18d25",
+      "envsolve_harness/runners/frontier_experiment.py": "16956d14143cb2579d9e596f61a5ba60ad8d239692aa4d8c3da03628a0e86de5",
+      "envsolve_harness/scripts/observable_open_program.py": "1586150d877178efe211f754947e23264faef0fa145fc43c9ab59fb1e8b4e510",
+      "experiments/run_execution_feedback_case.py": "875535ed5c70d9c6edf33b5d5e1264ad9d966ae4ed51f53b06f4de383d256ad6"
+    }
+  },
+  "preregistered_at": "2026-07-29T06:50:01.136988+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_execution_feedback_v3_spark4_70.jsonl",
+    "remaining_case_file_sha256": "300128ba31acd31b9f3de63b050a17b51653b0ee8ec1d0174c0c549afc66efbe",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-execution-feedback-v3-spark4-2026-07-29",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_execution_feedback_v3_spark4.jsonl",
+    "selected_case_file_sha256": "c331a89b455185a9ca55337facdc13aef6135617de639077092f68d858706a14",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_execution_feedback_v3_screen8_74.jsonl",
+    "source_case_file_sha256": "dfe5f50717ae1e47f6a96b89b7db2baf9a68c0d0cfbdc568cbc842d7cebdf038",
+    "source_rows": 74,
+    "take": 4
+  },
+  "status": "preregistered",
+  "study_id": "envsolve-pro-execution-feedback-v3-spark4"
+}

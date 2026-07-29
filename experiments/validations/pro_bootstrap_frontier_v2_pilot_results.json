@@ -1,0 +1,354 @@
+{
+  "analysis_policy": {
+    "generation_failure_is_official_pass_failure": true,
+    "official_evaluator_feedback_used_online": false,
+    "posthoc_case_replacement": false,
+    "provider_censoring_is_not_official_pass_failure": true
+  },
+  "claim_scope": "Repository-disjoint development pilot only; not final test or leaderboard evidence.",
+  "created_at": "2026-07-29T05:43:11.020997+00:00",
+  "episodes": [
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-bootstrap-frontier-v2-deepseek-direct/pro-bootstrap-frontier-v2-pilot-01-bootstrap-frontier-v2/envbench-python-zostera__django-bootstrap5__f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "artifact_sha256": {
+        "evaluation/result.json": "202dc6f055f975b81b15a3f59d333683a239b337c6602c27c8f0bfb4964d6cc8",
+        "generation/budget_ledger.json": "b6cbf52f44331b3b08d0cdc856ae49d03e411efbd558926d0a9e2674f3e6751c",
+        "generation/episode.jsonl": "70b3b8a1a480b94ac10e5f31fa2edfe35e0be628ecd7af828bfe1209719d38cc",
+        "generation/episode_snapshot.json": "7a366349f13f2b919d6f5d2e232f54e533663b3a0b27d276f03733c6158998ec",
+        "generation/result.json": "675a47342b4dfd3a0b9cbedfcbfa7b88729ae662cfe8fb350e0933cc5bffb886"
+      },
+      "case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "condition": "bootstrap-frontier-v2",
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "bootstrap_frontier_summary": {
+          "failed_bootstrap_count": 0,
+          "infrastructure_censored_count": 0,
+          "observed_attempt_count": 1,
+          "repeated_failure_signature_count": 0,
+          "runtime_branch_count": 1,
+          "search_dominated_branch_count": 0,
+          "successful_bootstrap_count": 1
+        },
+        "candidate_count": 1,
+        "candidates_before_first_goal_observation": 0,
+        "first_goal_observation_candidate_id": "candidate-0001",
+        "global_provider_path_candidate_ids": [],
+        "goal_finding_counts": [
+          0
+        ],
+        "protected_environment_violation_candidate_ids": [],
+        "suppressed_mutation_output_candidate_count": 0,
+        "suppressed_mutation_output_candidates": [],
+        "unknown_verifications": [],
+        "unsound_unclassified_signature_collision_count": 0,
+        "unsound_unclassified_signature_collisions": []
+      },
+      "method": "envsolve-pro-bootstrap-frontier-v2",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "position": 1,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-01-bootstrap-frontier-v2",
+      "runner": "envsolve-pro-bootstrap-frontier",
+      "seed": 1,
+      "usage": {
+        "cache_read_tokens": 640,
+        "candidates": 1,
+        "commands": 1,
+        "elapsed_wall_clock_seconds": 143.2951,
+        "environments": 1,
+        "input_tokens": 4327,
+        "output_tokens": 3142,
+        "requests_started": 1,
+        "total_tokens": 7469
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-bootstrap-frontier-v2-deepseek-direct/pro-bootstrap-frontier-v2-pilot-02-goal-frontier-v1-control/envbench-python-zostera__django-bootstrap5__f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "artifact_sha256": {
+        "evaluation/result.json": "e4a517bd53a6a6bf3f1d95207c78c94eb309f5bb1e7b5fcb17052a968b8b65ee",
+        "generation/budget_ledger.json": "31fc646f3719fb4ac66313b9f5cd5f352b55ba50496bfccee351e1f22009cf18",
+        "generation/episode.jsonl": "92b49e9eff6596d7e9330417dd489dd6466972e29a84c51730eec479d61ba84a",
+        "generation/episode_snapshot.json": "631066111b7aef3cb91b72d66dd7e4949165346398c7d633613d175fdf4e24d8",
+        "generation/result.json": "13c0bf63476be62a3dfa855b0432a88029ef078e4922ad749a6b478e71c8512d"
+      },
+      "case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "condition": "goal-frontier-v1-control",
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "bootstrap_frontier_summary": {
+          "failed_bootstrap_count": 0,
+          "infrastructure_censored_count": 0,
+          "observed_attempt_count": 1,
+          "repeated_failure_signature_count": 0,
+          "runtime_branch_count": 1,
+          "search_dominated_branch_count": 0,
+          "successful_bootstrap_count": 1
+        },
+        "candidate_count": 1,
+        "candidates_before_first_goal_observation": 0,
+        "first_goal_observation_candidate_id": "candidate-0001",
+        "global_provider_path_candidate_ids": [],
+        "goal_finding_counts": [
+          0
+        ],
+        "protected_environment_violation_candidate_ids": [],
+        "suppressed_mutation_output_candidate_count": 0,
+        "suppressed_mutation_output_candidates": [],
+        "unknown_verifications": [],
+        "unsound_unclassified_signature_collision_count": 0,
+        "unsound_unclassified_signature_collisions": []
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "position": 2,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-02-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "usage": {
+        "cache_read_tokens": 896,
+        "candidates": 1,
+        "commands": 1,
+        "elapsed_wall_clock_seconds": 151.471238,
+        "environments": 1,
+        "input_tokens": 4592,
+        "output_tokens": 2867,
+        "requests_started": 1,
+        "total_tokens": 7459
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-bootstrap-frontier-v2-deepseek-direct/pro-bootstrap-frontier-v2-pilot-03-bootstrap-frontier-v2/envbench-python-textext__textext__a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "9b2d86e6fb7d3b1065b3b5b97dbdbd1bb1d3570c6dbc44efe2e34f8e07d1d7fa",
+        "generation/episode.jsonl": "e38ac5a6647e3efdbd285b928166a6b71039857928d9260db59be760bfc07dff",
+        "generation/episode_snapshot.json": "1504ea3b0d7bb2656dcc12e9224404096f4fbf8c9aacbe8bc56bcf77361cacb1",
+        "generation/result.json": "25bcd6846d2cc31c250c4c40dbcc4cb032b83ae12d49d982843df8b5e6e03324"
+      },
+      "case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "condition": "bootstrap-frontier-v2",
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "Executable goal did not produce a valid report",
+      "mechanism": {
+        "bootstrap_frontier_summary": {
+          "failed_bootstrap_count": 6,
+          "infrastructure_censored_count": 0,
+          "observed_attempt_count": 8,
+          "repeated_failure_signature_count": 1,
+          "runtime_branch_count": 2,
+          "search_dominated_branch_count": 0,
+          "successful_bootstrap_count": 2
+        },
+        "candidate_count": 10,
+        "candidates_before_first_goal_observation": 1,
+        "first_goal_observation_candidate_id": "candidate-0002",
+        "global_provider_path_candidate_ids": [
+          "candidate-0010"
+        ],
+        "goal_finding_counts": [
+          0,
+          17,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "protected_environment_violation_candidate_ids": [
+          "candidate-0008"
+        ],
+        "suppressed_mutation_output_candidate_count": 7,
+        "suppressed_mutation_output_candidates": [
+          {
+            "candidate_id": "candidate-0003",
+            "line_count": 2
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "line_count": 5
+          },
+          {
+            "candidate_id": "candidate-0006",
+            "line_count": 5
+          },
+          {
+            "candidate_id": "candidate-0007",
+            "line_count": 3
+          },
+          {
+            "candidate_id": "candidate-0008",
+            "line_count": 2
+          },
+          {
+            "candidate_id": "candidate-0009",
+            "line_count": 2
+          },
+          {
+            "candidate_id": "candidate-0010",
+            "line_count": 2
+          }
+        ],
+        "unknown_verifications": [
+          {
+            "candidate_id": "candidate-0010",
+            "summary": "Executable goal did not produce a valid report"
+          }
+        ],
+        "unsound_unclassified_signature_collision_count": 1,
+        "unsound_unclassified_signature_collisions": [
+          {
+            "distinct_raw_evidence_count": 3,
+            "failure_signature": "7f02c33998c6516df962"
+          }
+        ]
+      },
+      "method": "envsolve-pro-bootstrap-frontier-v2",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "position": 3,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-03-bootstrap-frontier-v2",
+      "runner": "envsolve-pro-bootstrap-frontier",
+      "seed": 1,
+      "usage": {
+        "cache_read_tokens": 9856,
+        "candidates": 10,
+        "commands": 10,
+        "elapsed_wall_clock_seconds": 1662.655827,
+        "environments": 10,
+        "input_tokens": 111230,
+        "output_tokens": 46336,
+        "requests_started": 10,
+        "total_tokens": 157566
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-bootstrap-frontier-v2-deepseek-direct/pro-bootstrap-frontier-v2-pilot-04-goal-frontier-v1-control/envbench-python-textext__textext__a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "artifact_sha256": {
+        "evaluation/result.json": "ef6ada1c7aaebc81260ba68556164cf73d4d30dbbb151ec26cb849a6b12a834f",
+        "generation/budget_ledger.json": "29bedce64408aa958b801a2e0138f3a3c844b9ae3a005e2150814ffe06db11e7",
+        "generation/episode.jsonl": "c2fd42421b861daabfbc17abc14cced6fab4df8bb237eaf7b3a4166a79775b85",
+        "generation/episode_snapshot.json": "dd4dffad7f343b140ea16ee3db1ae2519eb971da75d55fa1702e677a60b818c8",
+        "generation/result.json": "3b7d1a446f882433c229f6383d9e43a7d766bd2a6dc36543e441adf7f2ae23fa"
+      },
+      "case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "condition": "goal-frontier-v1-control",
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "bootstrap_frontier_summary": {
+          "failed_bootstrap_count": 4,
+          "infrastructure_censored_count": 0,
+          "observed_attempt_count": 7,
+          "repeated_failure_signature_count": 1,
+          "runtime_branch_count": 1,
+          "search_dominated_branch_count": 0,
+          "successful_bootstrap_count": 3
+        },
+        "candidate_count": 8,
+        "candidates_before_first_goal_observation": 3,
+        "first_goal_observation_candidate_id": "candidate-0004",
+        "global_provider_path_candidate_ids": [],
+        "goal_finding_counts": [
+          0,
+          0,
+          0,
+          8,
+          5,
+          5,
+          5,
+          0
+        ],
+        "protected_environment_violation_candidate_ids": [
+          "candidate-0007"
+        ],
+        "suppressed_mutation_output_candidate_count": 0,
+        "suppressed_mutation_output_candidates": [],
+        "unknown_verifications": [],
+        "unsound_unclassified_signature_collision_count": 1,
+        "unsound_unclassified_signature_collisions": [
+          {
+            "distinct_raw_evidence_count": 3,
+            "failure_signature": "7f02c33998c6516df962"
+          }
+        ]
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "position": 4,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-04-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "usage": {
+        "cache_read_tokens": 7296,
+        "candidates": 8,
+        "commands": 8,
+        "elapsed_wall_clock_seconds": 1223.11267,
+        "environments": 8,
+        "input_tokens": 65986,
+        "output_tokens": 34172,
+        "requests_started": 8,
+        "total_tokens": 100158
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "official_pass_control": true,
+      "official_pass_difference": -1,
+      "official_pass_treatment": false,
+      "paired_primary_eligible": true,
+      "treatment_minus_control": {
+        "candidates": 2,
+        "elapsed_wall_clock_seconds": 439.54315700000006,
+        "total_tokens": 57408
+      }
+    },
+    {
+      "case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "official_pass_control": true,
+      "official_pass_difference": 0,
+      "official_pass_treatment": true,
+      "paired_primary_eligible": true,
+      "treatment_minus_control": {
+        "candidates": 0,
+        "elapsed_wall_clock_seconds": -8.176138000000009,
+        "total_tokens": 10
+      }
+    }
+  ],
+  "primary_summary": {
+    "interpretation": "Bootstrap-frontier-v2 underperformed its frozen goal-frontier-v1 predecessor on this two-case development pilot (1/2 versus 2/2).",
+    "official_pass_control": 2,
+    "official_pass_difference_sum": -1,
+    "official_pass_treatment": 1,
+    "primary_eligible_pair_count": 2,
+    "selected_pair_count": 2
+  },
+  "schema_version": "1.0.0",
+  "source_artifacts": {
+    "preregistration": "experiments/validations/pro_bootstrap_frontier_v2_pilot_preregistration.json",
+    "preregistration_sha256": "95797c96ae0007f875b670940cdc3d5766ceaf4dc94ccc2f3d40568528ecc393",
+    "runs_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-bootstrap-frontier-v2-deepseek-direct"
+  },
+  "study_id": "envsolve-pro-bootstrap-frontier-v2-pilot"
+}

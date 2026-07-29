@@ -1,0 +1,52 @@
+{
+  "paths": {
+    "runs": "/home/avdpro/EnvSolve/runs/envsolve-pro-execution-feedback-v3-deepseek-direct"
+  },
+  "benchmarks": {
+    "envbench": {
+      "adapter": "envbench",
+      "root": "/home/avdpro/EnvSolve/EnvBench",
+      "settings": {
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "deterministic_script": "evaluation/scripts/python_baseline.sh"
+      }
+    }
+  },
+  "solvers": {
+    "envbench-agent": {
+      "root": "/home/avdpro/EnvSolve/EnvBench"
+    }
+  },
+  "model_pricing": {
+    "deepseek-v4-pro": {
+      "input_cost_per_million": 0.0,
+      "output_cost_per_million": 0.0,
+      "cache_read_cost_per_million": 0.0,
+      "source_url": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "snapshot_date": "2026-07-29"
+    }
+  },
+  "generation": {
+    "timeout": 18000,
+    "model_request_timeout": 900,
+    "model_max_retries": 3,
+    "model_max_output_tokens": 32768,
+    "model_reasoning_effort": "high",
+    "model_response_format": "json_object",
+    "model_max_requests": 100,
+    "model_max_total_tokens": 100000000,
+    "model_max_estimated_cost_usd": 1000.0,
+    "max_iterations": 30,
+    "envsolve_max_candidates": 12,
+    "envsolve_max_environments": 24,
+    "envsolve_max_commands": 24,
+    "bash_timeout": 1200
+  },
+  "evaluation": {
+    "create_container_timeout": 300,
+    "container_timeout": 1800,
+    "process_timeout": 3600,
+    "git_fetch_timeout": 600,
+    "max_workers": 1
+  }
+}

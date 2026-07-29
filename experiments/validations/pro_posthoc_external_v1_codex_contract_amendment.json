@@ -1,0 +1,40 @@
+{
+  "amendment_type": "baseline-interface-contract-disclosure-repair",
+  "claim_scope": "Consumed-development posthoc mechanism study only; no primary, test, or leaderboard claim.",
+  "defect": {
+    "algorithm_or_case_outcome_triggered": false,
+    "description": "The Codex adapter validated final programs with open-candidate-program-v1 but did not disclose that contract in the agent prompt.",
+    "observed_effect": "Both original Codex runs reached zero public-goal findings by materializing synthetic import artifacts and were rejected only after the agent returned its final program.",
+    "scientific_impact": "The original runs measure behavior under a hidden adapter rule and are ineligible for cross-method mechanism comparison."
+  },
+  "original": {
+    "progress_path": "/Users/admin/Documents/AnyDeploy/runs/pro_posthoc_external_v1_mac_codex_progress.json",
+    "progress_sha256": "7294dd1b97e67ae536d701f8f6c08100ef969876401bf69f9a69d68550679831",
+    "runner_sha256": "ed65a643e42046b4d786f97d52d37ab89379a3cbce05e19b4eba438961a77574",
+    "schedule_path": "experiments/schedules/pro_posthoc_external_v1_mac_codex.json",
+    "schedule_sha256": "8209e5cddee1b9ee118595cf36d0af21047d4a58c7cdc09daed6468037100b8e",
+    "source_disposition": "interface-defect-diagnostic-only"
+  },
+  "preregistration": {
+    "path": "experiments/validations/pro_posthoc_external_v1_preregistration.json"
+  },
+  "recorded_at": "2026-07-29T15:02:17Z",
+  "repair": {
+    "algorithm_changed": false,
+    "candidate_validator_changed": false,
+    "cases_changed": false,
+    "goal_contract_changed": false,
+    "model_changed": false,
+    "prompt_change": "Append the exact shared OpenCandidateProgramValidator.prompt_contract before generation.",
+    "resource_limits_changed": false,
+    "runner_sha256": "bb03c90357b84ac7659740ff79933221f6e647d8731057b295eec63913c4492a",
+    "schedule_path": "experiments/schedules/pro_posthoc_external_v1_mac_codex_contract_rerun1.json",
+    "schedule_sha256": "b438e44f34e33a91c5fa0b4f5e34886a1c453e3a233b5e3e71280d05fb6247bc"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-posthoc-external-v1",
+  "validation": {
+    "command": "PYTHONPATH=. pytest -q tests/test_codex_cli_runner.py tests/test_open_candidate_interface.py",
+    "result": "20 passed"
+  }
+}

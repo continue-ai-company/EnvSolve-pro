@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2.2-module-identity-canary",
+  "status": "passed",
+  "executed_at": "2026-07-29",
+  "claim_scope": "Integrity mechanism canary only. This is not an effectiveness or generalization result.",
+  "platform": {
+    "host": "DGX Spark",
+    "architecture": "aarch64",
+    "container_os": "linux",
+    "container_architecture": "arm64",
+    "python": "3.11"
+  },
+  "image": {
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4"
+  },
+  "checks": [
+    {
+      "condition": "declared_same_identity_install",
+      "expected_valid": true,
+      "observed_valid": true,
+      "identity_violations": []
+    },
+    {
+      "condition": "undeclared_module_identity_remap",
+      "expected_valid": false,
+      "observed_valid": false,
+      "violation": {
+        "requested_module": "micropy.cli",
+        "observed_project_identities": [
+          "micropy.app"
+        ],
+        "reason": "project source acquired an undeclared module identity"
+      }
+    }
+  ],
+  "result": {
+    "passed": true,
+    "interpretation": "V2.2 preserves a normal same-identity package installation and rejects assigning current-checkout source to an undeclared import identity through package metadata."
+  },
+  "regression": {
+    "spark": "18 passed",
+    "mac": "18 passed",
+    "spark_full": "662 passed, 3 skipped, 75 subtests passed; one previously diagnosed host logout fixture failure"
+  },
+  "artifacts": {
+    "integrity_policy": {
+      "path": "envsolve/runtime/stateful_integrity_v22.py",
+      "sha256": "8668f65ba25a35ddcf9d81a2c92f145edf7c97a4ca85bdd314379d4788b14c7d"
+    },
+    "goal_verifier": {
+      "path": "envsolve/runtime/stateful_goal_verifier_v22.py",
+      "sha256": "78ad045ae0d28cbf528017bc9a4f8d7dafd2e7f36dc8d5540269fb7de7bb86e1"
+    },
+    "probe": {
+      "path": "experiments/probe_stateful_v22_module_identity.py",
+      "sha256": "5ec0444ac4c1f87157ea448a76040a868aa1822ea4c0620985412e86b941d8ac"
+    },
+    "tests": {
+      "path": "tests/test_stateful_integrity_v22.py",
+      "sha256": "168eae355d243f81e76e4416ce0223cfa7a8e2e92f7aebe6ed9436fba3de3be2"
+    }
+  }
+}

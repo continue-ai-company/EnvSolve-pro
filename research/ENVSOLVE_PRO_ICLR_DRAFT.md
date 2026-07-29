@@ -16,12 +16,12 @@ revealing terminal benchmark outcomes. An Observation layer executes each candid
 the goal in the same isolated environment, preserving lineage and distinguishing Pass,
 Fail, and Unknown. A Constraint layer turns goal-grounded failures into revisable
 obligations while retaining uncertain repository inferences as hypotheses. An Operation
-layer asks a strong language model for both a complete deployment program and a compact
-repair certificate: the active finding it targets, visible evidence supporting its
-preconditions, and the expected finding delta. The action space remains open. The
-harness rejects stale or evidence-free repetitions and checks predicted progress against
-the next executable-goal observation. The exact final program is certified only after
-passing in a fresh environment.
+layer gives a strong language-model agent an open terminal for diagnosis and asks it to
+submit a complete deployment program. Candidate rejection, execution failure, and goal
+findings become verified state for a subsequent repair round instead of ending the
+search. The action space remains open, while executable validation prevents source
+editing, synthetic capability injection, and other invalid shortcuts. The exact final
+program is certified only after passing in a fresh environment.
 
 We evaluate EnvSolve-Pro on repository deployment benchmarks against Repo2Run, native
 coding agents, and same-model agent loops. Controlled baselines receive the same public
@@ -108,36 +108,31 @@ granting the Constraint layer an unrestricted search-and-act loop.
 
 ### 2.3 Operation: How Should the Environment Change?
 
-The Operation layer presents the public goal, current constraint state, and selected raw
-evidence to a strong language model. It also retains the best fully executed,
-integrity-valid candidate as an evidence-backed anchor. The model emits a self-contained
-deployment program that may freely revise the anchor but is asked to preserve settings
-that remain consistent with current evidence. This prevents a repair for a newly exposed
-condition from silently forgetting conditions satisfied by an earlier candidate.
+The Operation layer is a general-purpose agent, not a closed planner. It receives the
+public goal, the current constraint ledger, the best integrity-valid program, and the
+small amount of raw evidence needed to interpret unresolved findings. It may inspect the
+repository, install packages, change runtimes, invoke build systems, and test hypotheses
+through an open terminal. Structured state guides attention but does not prescribe a
+command vocabulary.
 
-Alongside the program, the model emits an operation-relevance contract that names current
-goal findings, cites evidence visible in the state, predicts which findings will be
-resolved, and identifies the new repair with open tool, mechanism, and target strings.
-The contract constrains provenance and progress, not the program vocabulary. EnvSolve-Pro
-therefore does not restrict the model to predefined package, runtime, or build actions.
-The next complete same-goal snapshot becomes a progress certificate; incomplete
-observations cannot claim resolution. A conclusively failed exact script, or the same
-failed family with no newly cited evidence, is rejected before another environment is
-allocated.
+After diagnosis, the agent submits a cumulative, self-contained deployment program.
+The harness validates the program, executes it in isolation, and runs the public goal in
+the same shell and environment. A policy rejection, command failure, complete finding
+delta, or effect violation is returned to the next agent round as an Observation. This
+matters because a capable agent may find useful environment facts yet submit an invalid
+shortcut; discarding the entire trajectory wastes information, while accepting the
+shortcut confounds deployment with verifier manipulation.
 
-The program is executed in isolation, followed immediately by the executable goal in the
-same shell and environment. The resulting report returns to the Observation layer,
-forming the loop
+The resulting loop is
 
 ```text
-observe -> update constraints -> generate operation -> execute goal -> observe.
+observe -> update constraints -> agent diagnosis -> submit program
+        -> validate and execute goal -> observe.
 ```
 
-Safety and integrity checks govern what may be changed and whether the observed effects
-belong to the candidate. They do not prescribe a solution. A verified reusable
-construction state can carry expensive setup into the next repair, while the model still
-emits a cumulative clean-start program. A construction-state Pass triggers a mandatory
-fresh replay of that exact program; only a fresh Pass with valid effects is certified.
+Safety and integrity checks define admissibility, not the solution. A construction-state
+Pass triggers mandatory replay of the exact program in a distinct fresh environment.
+Only a fresh Pass with valid repository effects is certified.
 
 ## 3. Contributions
 
@@ -145,9 +140,9 @@ fresh replay of that exact program; only a fresh Pass with valid effects is cert
    stateful constraint solving with a public executable goal, separating online evidence
    from hidden terminal evaluation.
 2. **Method.** We introduce a strong-model-compatible three-layer solver that preserves
-   authoritative goal observations, maintains revisable constraint state, and binds open
-   deployment programs to evidence-linked operation targets and executable progress
-   certificates.
+   authoritative goal observations, maintains minimal revisable constraint state, and
+   turns candidate validation and clean replay into feedback for an open strong-agent
+   operation loop.
 3. **Evaluation.** We establish a same-goal controlled protocol that separates objective
    visibility from stateful repair, compares against external deployment agents, and
    measures both final success and post-failure recovery.
@@ -169,14 +164,15 @@ The main controlled comparison uses the same model, tools, public goal, terminal
 evaluator boundary, and experimental limits:
 
 1. a free-form agent loop without the executable goal;
-2. a goal-aware free-form agent loop without structured state;
-3. EnvSolve-Pro with Observation, Constraint, and Operation layers.
+2. a single-session goal-aware agent;
+3. a multi-session goal-aware agent with raw prior feedback;
+4. EnvSolve-Pro with structured current state and the same raw evidence.
 
 Repo2Run and native coding agents provide external system baselines. Frozen EnvSolve v1
-is retained as a historical structured baseline. Ablations remove goal-state persistence,
-finding-routed repository evidence, the retained candidate anchor, operation-relevance
-contracts, and the Fail/Unknown distinction one at a time. Postcondition-gated persistent
-construction remains a supporting ablation rather than the central method claim.
+is retained as a historical structured baseline. Core ablations remove goal-state
+persistence, policy-rejection feedback, the retained valid program, and the Fail/Unknown
+distinction. A model-strength sweep tests whether the structure complements rather than
+constrains stronger agents.
 
 ### Protocol and Metrics
 
@@ -191,20 +187,9 @@ conditioned on an initial failure, attempts to success, clean replay, and Unknow
 Tokens, model requests, candidate environments, commands, and wall-clock time characterize
 efficiency and success-resource trade-offs. Network and provider incidents are reported
 as censored infrastructure outcomes rather than algorithm failures.
-Logical model calls and provider transport attempts are reported separately.
-A method that reaches a frozen candidate, command, context, or generation limit counts
-as a Pass@1 non-pass; only independently attributable provider, network, evaluator, or
-measurement incidents are censored.
-Any method-independent dependency cache is treated as an experimental setting: compared
-methods share an attested initial state, while cache mode and network bytes are reported
-separately from success.
-We validate cache isolation by requiring a fresh client to reproduce the installation
-while every cache service is process-level offline; cold and warm resource outcomes are
-reported separately and never attributed to the solver.
-To preserve an open action space, the primary comparison does not deny uncached package
-requests. Each episode receives an independent writable copy of the same attested,
-method-independent seed snapshot, with online misses allowed and no cache state shared
-across compared methods.
+Reaching a frozen method limit without a passing answer is a non-pass; independently
+attributable infrastructure and measurement failures are censored. Compared conditions
+receive the same initial image and method-independent cache state.
 
 For EnvBench Python, the public goal is successful bootstrap followed by zero
 `reportMissingImports`; the official implementation remains terminal-only. The same goal
@@ -213,29 +198,33 @@ only after code, prompts, goal contracts, split identities, and analysis rules a
 
 ### Current Development Evidence
 
-A preregistered repository-disjoint qualification compared postcondition-persistent
-explicit state, fresh explicit search, and postcondition-persistent raw history on five
-development repositories. All 15 episodes passed integrity and eligibility audits.
-Each condition achieved `4/5` Official Pass, passing the same repositories and failing
-the same one. This is a useful negative result: it demonstrates executable,
-postcondition-gated reuse, but not a success-rate gain.
+A five-repository qualification found identical `4/5` Official Pass for explicit
+state, fresh search, and raw history. A later eight-case paired screen found that a more
+complex causal-feedback variant achieved `3/7`, while its simpler goal-frontier control
+achieved `4/7`. These negative results reject the hypothesis that adding more constraint
+types is sufficient.
 
-Persistent explicit state recorded six reused-construction verifications, and two reused
-lineages produced programs that later passed clean replay. Relative to persistent raw
-history, it used fewer candidates and tokens and roughly half the aggregate generation
-time. Relative to fresh explicit search, it used slightly fewer candidates and tokens
-but more wall-clock time because mandatory clean replay adds overhead on easy cases.
-With five repositories and one stochastic seed, these resource differences are
-diagnostic rather than an efficiency claim.
+External trajectories sharpen the alternative. Repo2Run stopped on Lark after native
+tests passed while the public goal still had 13 issues. A goal-aware strong agent instead
+found a valid Conda solution by diagnosing package shadowing. On micropy-cli, the same
+agent reduced the public metric to zero using synthetic stubs and was correctly rejected.
+The active hypothesis is therefore that verified state should support a strong
+interactive operation loop and make rejection recoverable, while executable validation
+and clean replay remain hard boundaries. This hypothesis has not yet established an
+effectiveness gain.
 
-The shared failure identifies a sharper Operation-layer problem. All methods reduced the
-goal to seven unresolved findings, then repeated infeasible build-tool paths or proposed
-integrity-invalid ways to materialize import artifacts. Explicit state preserved what
-was missing, but did not ensure that a proposed operation was relevant or causally
-progressive. The current frozen hypothesis adds an evidence-linked operation-relevance
-contract, complete-snapshot progress certificates, and duplicate-failure-family
-suppression while leaving Bash generation open. It has passed implementation and
-integrity tests but has not yet established an effectiveness gain. The first two eligible
-pairs in a same-model provider replication were respectively Pass/Pass and
-Nonpass/Nonpass; the remaining pairs were externally censored by network failures.
-These observations do not support a success-rate claim.
+A first consumed mechanism study further exposed two requirements for testing this
+hypothesis correctly. All raw-history and structured-state episodes ended after the
+first model submission, so explicit repair state never affected an operation. Moreover,
+both micropy-cli conditions passed the benchmark by mixing the target checkout with an
+older same-name distribution. We therefore require an executable goal observation
+before the first operation and source-consistent namespace provenance in addition to
+fresh replay. These are method-contract corrections, not performance results.
+
+The corrected mechanism then produced the intended transition. A complete pre-operation
+goal failure became a compact obligation state; an inadmissible first program was
+returned with an exact violation; and a second independent session produced an Official
+Pass. The same trace separated source provenance from module identity: package metadata
+can relabel checkout source without changing its bytes. We therefore treat executable
+success and identity-qualified success as distinct measurements. This consumed result
+validates the loop, not its cross-repository effectiveness.

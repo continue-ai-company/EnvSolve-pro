@@ -10,9 +10,9 @@
 我们将仓库部署形式化为**部分可观测状态化约束求解**，并提出 EnvSolve-Pro。一个公开的可执行目标在
 不泄露终局评测结果的前提下定义成功。观测层在同一个隔离环境中执行候选程序和目标，保留状态谱系，
 并区分 Pass、Fail 与 Unknown。约束层把目标驱动的失败转化为可修正的义务，同时把不确定的仓库推断
-保留为假设。操作层要求强语言模型同时生成完整部署程序和紧凑修复证书：目标 active finding、支持
-其前提的可见证据，以及预期 finding delta。动作空间仍然开放。harness 拒绝过期或没有新证据的重复
-方案，并用下一次可执行目标观测核对预测进展。最终程序只有在全新环境中再次通过才能被认证。
+保留为假设。操作层让强语言模型 Agent 使用开放终端进行诊断，再提交完整部署程序。候选拒绝、执行
+失败和目标 finding 会变成下一轮修复可见的已验证状态，而不是直接结束搜索。动作空间保持开放，同时
+可执行验证阻止修改源码、注入合成能力等无效捷径。最终程序只有在全新环境中再次通过才能被认证。
 
 我们将在仓库部署 benchmark 上与 Repo2Run、原生编程 Agent 和同模型 Agent loop 比较。受控 baseline
 获得相同的公开目标，从而区分目标可见性、显式状态和迭代约束修复的贡献。主指标是 Official Pass@1；
@@ -77,34 +77,31 @@ subject 在仓库内的相关出现位置。这样可以把不透明症状转化
 
 ### 2.3 操作层：怎样改变环境？
 
-操作层向强语言模型提供公开目标、当前约束状态和必要的原始证据。它还把当前最好的、完整执行且通过
-完整性检查的候选保留为有执行证据支持的锚点。模型输出新的自包含部署程序，可以自由修改锚点，但应
-保留仍与当前证据一致的设置。这样可以防止针对新暴露条件的修复，悄悄遗忘早期候选已经满足的条件。
+操作层是通用 Agent，不是封闭规划器。它获得公开目标、当前约束 ledger、最佳合法程序，以及解释
+未解决 finding 所需的少量原始证据。它可以通过开放终端检查仓库、安装包、切换运行时、调用构建系统
+并测试假设。结构化状态只引导注意力，不规定命令词表。
 
-模型还会输出 operation-relevance contract：声明当前 goal finding、引用状态中可见的证据、预测将
-消除的 finding，并用开放的 tool、mechanism 和 target 字符串标识新修复。合同约束证据来源与进展，
-不约束程序词表，因此 EnvSolve-Pro 不把模型限制在预定义的包安装、运行时切换或构建动作中。下一次
-同目标完整快照形成 progress certificate；不完整观测不能宣称 finding 已解决。已经确定失败的相同
-完整脚本，或没有新增引用证据的同失败 family，会在再次分配环境前被拒绝。
+诊断后，Agent 提交累计的自包含部署程序。harness 验证程序，在隔离环境中执行它，并在同一 shell 和
+环境中运行公开目标。策略拒绝、命令失败、完整 finding delta 和 effect violation 都会作为观测返回
+下一轮 Agent。这很重要：强 Agent 可能发现有价值的环境事实，却提交不合法捷径。直接丢弃整条轨迹会
+浪费信息，接受捷径则会把部署问题混同为操纵 verifier。
 
-系统在隔离环境中执行该程序，随后立即在同一 shell 和环境中执行可执行目标。目标报告回到观测层，
-形成闭环：
+闭环因此是：
 
 ```text
-观测 -> 更新约束 -> 生成操作 -> 执行目标 -> 再观测。
+观测 -> 更新约束 -> Agent 诊断 -> 提交程序
+     -> 验证并执行目标 -> 再观测。
 ```
 
-安全与完整性检查只约束哪些状态可以被修改，并确认观测到的 effect 确实来自当前候选；它们不规定
-解决方案。通过后置条件验证的 construction state 可以把昂贵 setup 带入下一轮修复，但模型仍输出
-可从干净环境运行的累计程序。construction-state Pass 会触发完全相同程序的强制 fresh replay；
-只有 fresh Pass 且 effect 有效时，候选才被认证。
+安全与完整性检查只定义合法性，不规定解法。construction-state Pass 会触发完全相同程序在独立
+fresh 环境中的强制重放；只有 fresh Pass 且仓库 effect 合法时，候选才被认证。
 
 ## 3. 三项贡献
 
 1. **问题定义：** 将仓库部署形式化为带公开可执行目标的部分可观测状态化约束求解，分离在线证据与
    隐藏的终局评测。
 2. **方法：** 提出兼容强模型的三层求解器，保留权威目标观测，维护可修正约束状态，并在不关闭操作
-   空间的前提下，把开放部署程序绑定到有证据来源的操作目标和可执行进展证书。
+   空间的前提下，把候选验证与 clean replay 转化为开放强 Agent loop 的修复反馈。
 3. **评测：** 建立同目标受控协议，区分目标可见性与状态化修复的贡献，并通过外部部署 Agent、最终
    成功率和失败后恢复能力进行验证。
 
@@ -122,12 +119,13 @@ subject 在仓库内的相关出现位置。这样可以把不透明症状转化
 主要受控实验保持模型、工具、公开目标、终局 evaluator 边界和实验限制一致：
 
 1. 不使用可执行目标的 free-form Agent loop；
-2. 使用相同目标、但没有结构化状态的 goal-aware free-form Agent loop；
-3. 具有观测、约束和操作三层的 EnvSolve-Pro。
+2. 单 session 的 goal-aware Agent；
+3. 携带原始历史反馈的多 session goal-aware Agent；
+4. 携带结构化当前状态和相同原始证据的 EnvSolve-Pro。
 
-Repo2Run 和原生编程 Agent 作为外部系统 baseline；冻结的 EnvSolve v1 作为历史结构化 baseline。核心
-消融依次移除目标状态持久化、finding 定向仓库证据、保留候选锚点、操作相关性合同和 Fail/Unknown
-区分。后置条件控制的持久 construction 作为支持性消融保留，不再承担核心方法 claim。
+Repo2Run 和原生编程 Agent 作为外部系统 baseline；冻结的 EnvSolve v1 作为历史结构化 baseline。
+核心消融依次移除目标状态持久化、策略拒绝反馈、最佳合法程序和 Fail/Unknown 区分。模型能力分层
+实验检验这些结构是在增强强 Agent，而不是限制它。
 
 ### 协议与指标
 
@@ -138,15 +136,8 @@ qualification 与 test 仓库在对应版本冻结前保持隐藏。每个终局
 主指标是 Official Pass@1。次指标包括首次成功率、以首次失败为条件的修复成功率、成功所需尝试数、
 clean replay 和 Unknown 比例。Token、模型请求、候选环境、命令数和 wall-clock 用于描述效率与
 success-resource trade-off。网络与 provider 事故作为被删失的基础设施结果报告，不计为算法失败。
-逻辑模型调用与 provider transport attempt 分开报告。
-方法触发冻结的候选、命令、context 或 generation 上限时，Pass@1 计为 non-pass；只有能够独立归因的
-provider、网络、evaluator 或测量事故才做删失。
-任何方法无关依赖缓存都只作为实验设置：被比较方法共享经过审计的同一初始状态，缓存模式与网络字节
-和成功率分开报告。
-缓存隔离通过严格离线复放验证：所有缓存服务都在进程级离线时，fresh client 仍必须完成相同安装；
-冷缓存与热缓存资源结果分开报告，且不归因于求解算法。
-为了保持开放操作空间，主对比不拒绝未缓存包。每个 episode 获得同一份、方法无关且经过审计的 seed
-snapshot 的独立可写副本，允许 online miss，且不同方法之间不共享运行期缓存状态。
+方法触发冻结上限却没有产生通过答案时计为 non-pass；能够独立归因的基础设施和测量故障做删失。
+被比较条件获得相同初始镜像和方法无关缓存状态。
 
 对于 EnvBench Python，公开目标是 bootstrap 成功并且 `reportMissingImports` 为零；官方实现仍然只在
 终局运行。所有 goal-aware 受控方法获得同一目标契约。最终结果表只会在代码、prompt、目标契约、
@@ -154,19 +145,21 @@ split identity 和分析规则全部冻结后生成。
 
 ### 当前开发证据
 
-一个预注册、仓库不相交的资格实验，在五个开发仓库上比较了 postcondition-persistent explicit state、
-fresh explicit search 和 postcondition-persistent raw history。15 个 episode 全部通过完整性与科学可用性
-审计。三个 condition 都获得 `4/5` Official Pass，通过相同仓库并失败于同一仓库。这是一个有价值的
-负结果：它证明后置条件控制的状态复用真实可执行，但没有证明成功率提升。
+一个五仓库资格实验中，explicit state、fresh search 和 raw history 都得到相同的 `4/5` Official
+Pass。随后八 case 配对实验中，更复杂的 causal-feedback 版本得到 `3/7`，更简单的 goal-frontier
+control 得到 `4/7`。这些负结果否定了“继续增加约束类型就足够”的假设。
 
-persistent explicit state 记录了 6 次复用 construction verification，其中 2 条复用谱系产生了随后通过
-clean replay 的程序。相对 persistent raw history，它使用更少候选和 token，总 generation time 约为
-一半；相对 fresh explicit search，它使用略少候选和 token，但 easy case 的强制 clean replay 使
-wall-clock 更高。由于只有五个仓库和一个随机 seed，这些资源差异只能作为诊断，不能声明效率优势。
+外部轨迹给出了更明确的方向。Repo2Run 在 Lark 原生测试通过后停止，而公开目标仍有 13 个问题；
+goal-aware 强 Agent 则通过诊断包遮蔽关系找到合法 Conda 解法。在 micropy-cli 上，同一 Agent 用
+合成 stub 把公开指标降到 0，并被正确拒绝。因此当前假设是：可验证状态应该服务于强交互操作 loop，
+并让拒绝可以被修复；可执行验证和 clean replay 继续作为硬边界。这个假设尚未证明效果增益。
 
-共同失败把问题收敛到更明确的操作层缺口。所有方法都把目标降到 7 个未解决 finding，随后重复不可行
-的构建工具路径，或提出违反完整性的 import artifact 物化方法。显式状态保留了“缺什么”，却没有保证
-操作与约束相关或结果具有因果进展。当前冻结假设只增加有证据来源的 operation-relevance contract、
-完整快照 progress certificate 和重复失败 family 抑制，同时保持 Bash 生成开放。它已经通过实现和
-完整性测试，但尚未证明效果增益。同模型 provider 复现的前两个有效配对分别是 Pass/Pass 和
-Nonpass/Nonpass，其余配对被外部网络故障删失；这些观测不支持成功率 claim。
+第一组已消费机制实验又说明，要正确检验这个假设还缺少两个条件。raw-history 与 structured-state
+episode 都在模型第一次提交后结束，因此显式修复状态从未影响任何操作；micropy-cli 的两组还都通过
+混合目标 checkout 与旧版同名 distribution 得到榜单 Pass。因此，第一次操作之前必须先产生可执行
+目标观测，fresh replay 之外还必须验证 namespace 来源一致性。这是方法契约修正，不是性能结果。
+
+修正后的机制随后产生了预期状态转移：完整的操作前目标失败被压缩为义务状态；第一个不合法程序连同
+精确违规原因返回；第二个独立 session 最终得到 Official Pass。同一轨迹还区分了源码来源与模块身份：
+包元数据可以在不改变源码内容的情况下重命名 checkout 源码。因此，我们分别测量可执行成功与
+identity-qualified 成功。这条已消费结果验证了 loop，而不是跨仓库效果。

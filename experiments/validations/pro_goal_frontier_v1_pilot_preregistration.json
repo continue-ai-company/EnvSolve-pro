@@ -1,0 +1,135 @@
+{
+  "algorithm_freeze": {
+    "frozen_control_protocol": "experiments/protocols/pro_operation_relevance_contract_v1_freeze.json",
+    "frozen_control_protocol_sha256": "251ad1241837e25a89df73d8f0ec663f506450651fe853d9bdf563331bfa99d1",
+    "treatment_files": {
+      "envsolve/constraints/goal_frontier.py": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a",
+      "envsolve/runtime/goal_frontier_policy.py": "0429b6df60acdbfce066d47e54087e773ef3ec01d0fcc2abdd6b5f32fa59435a",
+      "envsolve/tools/run_envsolve_goal_frontier_episode.py": "c913b7824c4dd6880a303838f8afee9757d695830102fdef950df924644ff4a3",
+      "envsolve_harness/runners/envsolve_pro_goal_frontier.py": "43cf6f7524e31795c78e0e76eb568c230ecc08e9a577634dd6b65bb400c8098b",
+      "experiments/run_goal_frontier_case.py": "2cf6c7ddec87a1ce715d4124a2e3411ad84138b309e229ab980ac553743f3efc"
+    }
+  },
+  "analysis": {
+    "descriptive_metrics": [
+      "input, cached, output, and reasoning tokens",
+      "logical model requests and provider attempts",
+      "candidate environments, commands, and wall-clock time"
+    ],
+    "infrastructure_retry_policy": "Retry only a provider- or network-censored episode with identical code, settings, seed, and case; never replace a case based on outcome.",
+    "mechanism_metrics": [
+      "active finding count and obligation-group count",
+      "model projection completeness",
+      "package enumeration breadth",
+      "candidate execution count",
+      "post-first-failure finding delta"
+    ],
+    "no_algorithm_prompt_or_threshold_change_after_selection": true,
+    "paired_unit": "repository",
+    "primary_metric": "Official Pass@1"
+  },
+  "claim_scope": "Repository-disjoint development pilot only; consumed-trajectory mechanism check, not final test or leaderboard evidence.",
+  "conditions": [
+    {
+      "condition": "frozen-fresh-control",
+      "constraint_profile": "flat",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "operation_profile": "free-form",
+      "runner": "envsolve"
+    },
+    {
+      "condition": "goal-frontier-v1",
+      "constraint_profile": "goal-obligation-frontier-v1",
+      "method": "envsolve-pro-goal-frontier",
+      "operation_profile": "open-program",
+      "runner": "envsolve-pro-goal-frontier"
+    }
+  ],
+  "episodes": [
+    {
+      "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "condition": "goal-frontier-v1",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 1,
+      "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 2,
+      "run_id": "pro-goal-frontier-v1-pilot-02-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "condition": "goal-frontier-v1",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 3,
+      "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "condition": "frozen-fresh-control",
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "position": 4,
+      "run_id": "pro-goal-frontier-v1-pilot-04-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1
+    }
+  ],
+  "hypothesis": {
+    "mechanism": "Compress all active findings into lossless namespace-level goal obligations with source-role evidence, while preserving the strong model's open Bash action space.",
+    "primary": "Goal-frontier-v1 improves or preserves Official Pass relative to the frozen fresh evidence-anchor control.",
+    "problem": "Raw executable-goal findings amplify repeated source surfaces and induce package-by-symptom planning."
+  },
+  "preregistered_at": "2026-07-28T09:27:33.101271+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_goal_frontier_v1_pilot_84.jsonl",
+    "remaining_case_file_sha256": "0fa7185f3674fbe48f785ae15a6640ba9c9e589aea0eaeaaa85d9da937a71328",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-goal-frontier-v1-pilot-2026-07-28",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_goal_frontier_v1_pilot2.jsonl",
+    "selected_case_file_sha256": "0fd2df3655fc1a9c73afcf9302b1593c658ed9a76ed1d049a03144bebfb8cfec",
+    "selection_unit": "case_id",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_operation_relevance_contract_v1_86.jsonl",
+    "source_case_file_sha256": "c1d02f8bd156d2b54245519660cd42414dfc9db6189043c65a204f91d12b3b1f",
+    "source_rows": 86,
+    "take": 2
+  },
+  "shared_contract": {
+    "candidate_anchor": "retained-admissible",
+    "candidate_command_timeout_seconds": 1200,
+    "candidate_interface": "open-program",
+    "candidate_retention": "best-admissible",
+    "config": "experiments/configs/local_mac_pro_operation_relevance_v1_deepseek_direct.json",
+    "config_sha256": "4993d797f9418960a3f10495cc366da1462f066901d27c3ab745add304cf1926",
+    "environment_strategy": "fresh-candidate",
+    "generation_timeout_seconds": 18000,
+    "max_candidates": 12,
+    "max_commands": 24,
+    "max_environments": 24,
+    "model": "deepseek-v4-pro",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "provider": "DeepSeek direct",
+    "public_executable_goal": true,
+    "repository_evidence": "constraint-routed",
+    "seed": 1,
+    "token_policy": "Tokens and price are reported outcomes; configured limits are emergency guards, not research stopping thresholds."
+  },
+  "status": "preregistered",
+  "study_id": "envsolve-pro-goal-frontier-v1-pilot"
+}

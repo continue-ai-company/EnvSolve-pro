@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v1-consumed",
+  "status": "frozen",
+  "preregistered_at": "2026-07-29T16:02:04Z",
+  "claim_scope": "Consumed-development mechanism study only. These cases are excluded from primary algorithm comparison, held-out test claims, and leaderboard evidence.",
+  "research_question": "Can a strong interactive coding agent use an event-sourced, structured constraint state across independent repair sessions without restricting its open operation space?",
+  "cases": [
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "source_evidence_consumed": true,
+      "order": [
+        "raw-history",
+        "structured-state"
+      ],
+      "mechanism_role": "Known legitimate Conda-based solution and repository-integrity edge case."
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "source_evidence_consumed": true,
+      "order": [
+        "structured-state",
+        "raw-history"
+      ],
+      "mechanism_role": "Known temptation to modify tracked declarations or synthesize source-side typing artifacts."
+    }
+  ],
+  "frozen_conditions": {
+    "shared": {
+      "agent": "Codex CLI",
+      "model": "gpt-5.5",
+      "reasoning_effort": "high",
+      "candidate_interface": "open cumulative Bash program",
+      "public_goal_available_online": true,
+      "official_evaluator_feedback_available_online": false,
+      "candidate_contract": "open-candidate-program-policy-v1",
+      "diagnostic_environment": "persistent within condition",
+      "verification_environment": "fresh exact-revision checkout per admissible candidate",
+      "max_candidate_executions": 3,
+      "model_token_hard_limit": false,
+      "model_cost_hard_limit": false,
+      "execution_wall_clock_safety_cap_seconds": 18000
+    },
+    "control": {
+      "condition": "raw-history",
+      "runner": "codex-stateful-raw",
+      "method": "codex-cli-goal-aware-raw-repair",
+      "feedback": "Recent candidate programs, command outcomes, verification reports, and policy failures."
+    },
+    "treatment": {
+      "condition": "structured-state",
+      "runner": "envsolve-pro-stateful-agent",
+      "method": "envsolve-pro-stateful-agent-v1",
+      "feedback": "The same raw evidence as control plus a non-mutating goal-obligation frontier and the best admissible candidate anchor."
+    }
+  },
+  "mechanism_checks": [
+    {
+      "check_id": "raw-evidence-parity",
+      "pass_condition": "Every raw evidence field exposed to control is byte-equivalent in the treatment projection before structured fields are added.",
+      "evidence": "Unit test plus per-round state-projection artifacts."
+    },
+    {
+      "check_id": "candidate-rejection-memory",
+      "pass_condition": "When a candidate is rejected, the next independent session receives the rejected program and exact rejection reason.",
+      "evidence": "Episode event log and consecutive state-projection artifacts."
+    },
+    {
+      "check_id": "open-operation-space",
+      "pass_condition": "The treatment submits free-form cumulative Bash programs through the same candidate contract; no package/action vocabulary is imposed by the structured layer.",
+      "evidence": "Prompt, output schema, and accepted candidate artifact."
+    },
+    {
+      "check_id": "fresh-replay-authority",
+      "pass_condition": "Generation success is recorded only after an admissible candidate passes the public goal and repository-effect audit in a fresh exact-revision environment.",
+      "evidence": "Environment receipts, candidate assessment, repository integrity report, and episode result."
+    },
+    {
+      "check_id": "no-synthetic-source-acceptance",
+      "pass_condition": "A program that creates synthetic source, stub, test, or configuration artifacts cannot become the accepted candidate.",
+      "evidence": "Candidate-validator failure or repository-effect audit."
+    }
+  ],
+  "analysis_policy": {
+    "primary_metric_claim": false,
+    "report": [
+      "internal clean-goal pass",
+      "official EnvBench Pass after the episode",
+      "candidate count",
+      "policy rejection count",
+      "goal-failure count",
+      "repeated rejected strategy count",
+      "repository integrity",
+      "model token usage",
+      "wall-clock time"
+    ],
+    "interpretation": "The two consumed cases may validate or falsify the mechanism and implementation, but may not estimate generalization or headline performance.",
+    "failure_rule": "Any code, prompt, candidate-policy, goal-contract, or state-projection change after this freeze requires an amendment and new run identifiers."
+  },
+  "artifacts": {
+    "case_file": {
+      "path": "experiments/cases/consumed_pro_v3_external_trajectory2.jsonl",
+      "sha256": "bde702a097ae9e488863a3531deacba094d92497d8f5f88048c918d806a7cf84"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_stateful_agent_v1_consumed.json",
+      "sha256": "577244b5fcaf58460f7f5f3384dfb5488c9df2f7e102e29386bb9dc9f755d17e"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v1_consumed_mac.json",
+      "sha256": "d286904fe6769778952c61b218f00b400640ef3c064a9e07e7a88fec7407adfe"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "implementation": [
+      {
+        "path": "envsolve_harness/runners/stateful_codex.py",
+        "sha256": "38200934b87188e7433d09144e685687f2a822eb95f053b255a275280f7b084f"
+      },
+      {
+        "path": "envsolve_harness/runners/registry.py",
+        "sha256": "9b4c682172904d7428119671966932edd35246349af670758a2ff8c2e5869625"
+      },
+      {
+        "path": "envsolve/solver/counterexample.py",
+        "sha256": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c"
+      },
+      {
+        "path": "envsolve/constraints/goal_frontier.py",
+        "sha256": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a"
+      },
+      {
+        "path": "envsolve_harness/scripts/open_program.py",
+        "sha256": "f732008773c12bf1db5087c94a0345d4866233aaef84c2057dd4bbeacc18047a"
+      }
+    ],
+    "mechanism_test": {
+      "path": "tests/test_stateful_codex_runner.py",
+      "sha256": "938d16a303bcd01cd91ad0e95497ebacfee24f6f5c646fcbf02f53ca9c5fb379"
+    },
+    "codex_cli": {
+      "version": "codex-cli 0.146.0-alpha.3.1",
+      "executable_sha256": "6d8be49e49751554df16572369e636cbe02c84b208cad3dc35528c846eeca223"
+    }
+  }
+}

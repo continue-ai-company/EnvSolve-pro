@@ -1,0 +1,2063 @@
+{
+  "analysis_policy": {
+    "generation_failure_is_official_pass_failure": true,
+    "measurement_integrity_censoring_is_not_official_pass_failure": true,
+    "official_evaluator_feedback_used_online": false,
+    "posthoc_case_replacement": false,
+    "provider_censoring_is_not_official_pass_failure": true
+  },
+  "claim_scope": "Repository-disjoint eight-case development screen; not final test or leaderboard evidence.",
+  "constraint_progress_summary": {
+    "episode_with_stagnant_frontier_count": 5,
+    "maximum_identical_nonempty_finding_set_run": 4,
+    "stagnant_frontier_transition_count": 10
+  },
+  "created_at": "2026-07-29T14:21:39.725258+00:00",
+  "episodes": [
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-01-goal-frontier-v1-control/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "artifact_sha256": {
+        "evaluation/result.json": "f13b1691fb69f3f6d2af1e028cee2422e4483cd98fb935e01513cf183b6f8058",
+        "generation/budget_ledger.json": "a8bb79eabb8a04eaa9381296d75b67fa892cb5d302e35b890ea14c931f74b53e",
+        "generation/episode.jsonl": "5977e39c321263fd81aa75e2bfe148db1309a3fbd6613a9ab7b6f18d737d79c7",
+        "generation/episode_snapshot.json": "5f4efcaefc709043836f39c7cee1b532be5429483f567d9acdf73e4770911d1f",
+        "generation/result.json": "94970235bdb42740273ded2f45cf6a909d23241a18c804c2c2d986a3d341974e"
+      },
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0001",
+            "finding_count": 7
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "finding_count": 4
+          },
+          {
+            "candidate_id": "candidate-0005",
+            "finding_count": 2
+          },
+          {
+            "candidate_id": "candidate-0008",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 4,
+        "longest_identical_nonempty_finding_set_run": 1,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "mac",
+      "host_position": 1,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 8,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "failed": 4,
+          "succeeded": 4
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 8,
+          "maximum": 448.051061,
+          "maximum_candidate_id": "candidate-0008",
+          "total": 1901.832226
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0005",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0006",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0007",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0008",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 4,
+          "executable-verifier-counterexample": 7
+        },
+        "maximum_editable_extra_group_count": 4,
+        "running_action_ids": []
+      },
+      "position": 1,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-01-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 7296,
+        "candidates": 8,
+        "commands": 8,
+        "elapsed_wall_clock_seconds": 2802.331612,
+        "environments": 8,
+        "input_tokens": 83359,
+        "output_tokens": 40810,
+        "requests_started": 8,
+        "total_tokens": 124169
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-02-execution-feedback-v3/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "artifact_sha256": {
+        "evaluation/result.json": "647fb34b72df9e4d8ba963bd25b5b54c40e1b891f1a1de8ddf0535c94b86692e",
+        "generation/budget_ledger.json": "d5a3196225770b3faec17596af2e3740566a6ba1d92836c530f5421eee1a6e1f",
+        "generation/episode.jsonl": "5144a220fd4b11557b6dc2059e2d5e1ca480c9d7cc92545e78d28ed4cb2424ca",
+        "generation/episode_snapshot.json": "42af4a3a8169b7c7bc7e248615c8204c074e9481eaa9c8c9b4de7a4aa14893f6",
+        "generation/result.json": "7adcb9700ce1f9ec7271a527f46d512e0d9c1906e8a88fc8a33ba6c90c8ab79b"
+      },
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0001",
+            "finding_count": 7
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "finding_count": 4
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 4
+          },
+          {
+            "candidate_id": "candidate-0006",
+            "finding_count": 4
+          },
+          {
+            "candidate_id": "candidate-0008",
+            "finding_count": 4
+          },
+          {
+            "candidate_id": "candidate-0009",
+            "finding_count": 5
+          },
+          {
+            "candidate_id": "candidate-0012",
+            "finding_count": 4
+          }
+        ],
+        "finding_set_observation_count": 7,
+        "longest_identical_nonempty_finding_set_run": 4,
+        "stagnant_frontier_transition_count": 3,
+        "stagnant_frontier_transitions": [
+          {
+            "finding_count": 4,
+            "from_candidate_id": "candidate-0002",
+            "to_candidate_id": "candidate-0003"
+          },
+          {
+            "finding_count": 4,
+            "from_candidate_id": "candidate-0003",
+            "to_candidate_id": "candidate-0006"
+          },
+          {
+            "finding_count": 4,
+            "from_candidate_id": "candidate-0006",
+            "to_candidate_id": "candidate-0008"
+          }
+        ]
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "mac",
+      "host_position": 2,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 12,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0004",
+          "candidate-0007"
+        ],
+        "integrity_failure_count": 2,
+        "recoverable_goal_execution_failure_candidate_ids": [
+          "candidate-0010"
+        ],
+        "recoverable_goal_execution_failure_count": 1
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 4,
+          "succeeded": 8
+        },
+        "candidate_validation_reject_count": 1,
+        "candidate_validation_reject_messages": {
+          "candidate program directly materializes an importable artifact": 1
+        },
+        "completed_action_duration_seconds": {
+          "count": 11,
+          "maximum": 113.760053,
+          "maximum_candidate_id": "candidate-0003",
+          "total": 1073.330738
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0005",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0006",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0007",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0008",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0009",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0010",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0011",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0012",
+            "extra_group_count": 4,
+            "extra_groups": [
+              "atomic_cache",
+              "interegular",
+              "nearley",
+              "regex"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "candidate-budget": 1,
+          "candidate-validation-reject": 1,
+          "command-exit": 4,
+          "executable-verifier-counterexample": 11
+        },
+        "maximum_editable_extra_group_count": 4,
+        "running_action_ids": []
+      },
+      "position": 2,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-02-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "official-fail",
+      "usage": {
+        "cache_read_tokens": 12160,
+        "candidates": 12,
+        "commands": 11,
+        "elapsed_wall_clock_seconds": 2638.192598,
+        "environments": 11,
+        "input_tokens": 124052,
+        "output_tokens": 87066,
+        "requests_started": 12,
+        "total_tokens": 211118
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-03-goal-frontier-v1-control/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781",
+      "artifact_sha256": {
+        "evaluation/result.json": "c592f27c3d727a268168f1d8d7f9ca78a3065dc5898566faf81f7b0626808c61",
+        "generation/budget_ledger.json": "77a933b3fe7d3fb72bf60b924dfaa1db8391916acb810a2950d6976d8f79cbbf",
+        "generation/episode.jsonl": "d10c8bcc91a02b644fc69947cf29e545844a7bc25208c1029f1c01c27e6103e8",
+        "generation/episode_snapshot.json": "77a11bd3ceffe6b078a3f258e1a01821c178b132916013f0e567447e6552d845",
+        "generation/result.json": "e423549a00ba8751a10d7e6dad7d9dfbea27e32cfdb918575913969fa40a2d8f"
+      },
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 2
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 2,
+        "longest_identical_nonempty_finding_set_run": 1,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "spark",
+      "host_position": 1,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 4,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "failed": 2,
+          "succeeded": 2
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 4,
+          "maximum": 245.19242,
+          "maximum_candidate_id": "candidate-0004",
+          "total": 475.291505
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 2,
+          "executable-verifier-counterexample": 3
+        },
+        "maximum_editable_extra_group_count": 2,
+        "running_action_ids": []
+      },
+      "position": 3,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-03-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 3584,
+        "candidates": 4,
+        "commands": 4,
+        "elapsed_wall_clock_seconds": 744.785981,
+        "environments": 4,
+        "input_tokens": 34014,
+        "output_tokens": 12158,
+        "requests_started": 4,
+        "total_tokens": 46172
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-04-execution-feedback-v3/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781",
+      "artifact_sha256": {
+        "evaluation/result.json": "a07d81e5387768fc19671745fb6c30ad942c6a05bf8f4fc83914e7e5cbddb944",
+        "generation/budget_ledger.json": "8bd1bf616417a646704d1d860f41258c4c2accc197061f23d70e9bb6b991eadc",
+        "generation/episode.jsonl": "e98807de3256f703bbc7e7771754873bd6c56ebbc8d389844173de80d9cbc6ee",
+        "generation/episode_snapshot.json": "cc5107a0534a88b30ba425adafaea6c61b048d9856f31e5c623c5f0d85b2bd96",
+        "generation/result.json": "fee85decae72b78c7704e37b400a3f1d5342dad97f9e43aa9cabd6967244f562"
+      },
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 2
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 2,
+        "longest_identical_nonempty_finding_set_run": 1,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "spark",
+      "host_position": 2,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 4,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "failed": 2,
+          "succeeded": 2
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 4,
+          "maximum": 255.436418,
+          "maximum_candidate_id": "candidate-0004",
+          "total": 534.205738
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "dev",
+              "doc"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 2,
+          "executable-verifier-counterexample": 3
+        },
+        "maximum_editable_extra_group_count": 2,
+        "running_action_ids": []
+      },
+      "position": 4,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-04-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 3072,
+        "candidates": 4,
+        "commands": 4,
+        "elapsed_wall_clock_seconds": 759.822789,
+        "environments": 4,
+        "input_tokens": 33875,
+        "output_tokens": 11771,
+        "requests_started": 4,
+        "total_tokens": 45646
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-05-execution-feedback-v3/envbench-python-pysnmp__pysnmp__4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "a4aba4269225c6daf4885204cba26c973e17b6fb536db5c4689e53cffad8e346",
+        "generation/episode.jsonl": "9050adf2752d0bfd958ecf9165ccf214269fab6b9189e1b1932936ddc0c882d3",
+        "generation/episode_snapshot.json": "3775ff1b97ede92b72d5197e5573c4e73cc9869cd172a699f617b3f09bf47a2a",
+        "generation/result.json": "ecf3c8154b96e73e3ab2ac3e96617b8c61183d427c696e2b674b508de58a418d"
+      },
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0001",
+            "finding_count": 14
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "finding_count": 14
+          },
+          {
+            "candidate_id": "candidate-0006",
+            "finding_count": 14
+          }
+        ],
+        "finding_set_observation_count": 3,
+        "longest_identical_nonempty_finding_set_run": 3,
+        "stagnant_frontier_transition_count": 2,
+        "stagnant_frontier_transitions": [
+          {
+            "finding_count": 14,
+            "from_candidate_id": "candidate-0001",
+            "to_candidate_id": "candidate-0004"
+          },
+          {
+            "finding_count": 14,
+            "from_candidate_id": "candidate-0004",
+            "to_candidate_id": "candidate-0006"
+          }
+        ]
+      },
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "Import alias integrity audit did not produce a valid report",
+      "host": "mac",
+      "host_position": 3,
+      "infrastructure_censored": false,
+      "measurement_censored": true,
+      "mechanism": {
+        "candidate_count": 12,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0005",
+          "candidate-0008"
+        ],
+        "integrity_failure_count": 2,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": null,
+      "operation": {
+        "action_status_counts": {
+          "failed": 8,
+          "succeeded": 4
+        },
+        "candidate_validation_reject_count": 1,
+        "candidate_validation_reject_messages": {
+          "candidate program directly materializes an importable artifact": 1
+        },
+        "completed_action_duration_seconds": {
+          "count": 11,
+          "maximum": 71.471244,
+          "maximum_candidate_id": "candidate-0009",
+          "total": 330.591753
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "candidate-validation-reject": 1,
+          "command-exit": 8,
+          "executable-verifier-counterexample": 10,
+          "executable-verifier-unknown": 1
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 5,
+      "primary_metric_eligible": false,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-05-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "measurement-integrity-censored",
+      "usage": {
+        "cache_read_tokens": 11392,
+        "candidates": 12,
+        "commands": 11,
+        "elapsed_wall_clock_seconds": 2708.344552,
+        "environments": 11,
+        "input_tokens": 151616,
+        "output_tokens": 130590,
+        "requests_started": 12,
+        "total_tokens": 282206
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-06-goal-frontier-v1-control/envbench-python-pysnmp__pysnmp__4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "artifact_sha256": {
+        "evaluation/result.json": "04047ee1fd38a949cb484c4734337c5a320e6c10a184f907857ebc8f7315fe2a",
+        "generation/budget_ledger.json": "c09f74f4c77d3e71a6164f27be8f07ce184e5c60f36a667d548846e2e972c6f6",
+        "generation/episode.jsonl": "df8f48b03cd638cda456e1d688c2a8e6ae8abf47c8edbb31166e4f21377ed5e4",
+        "generation/episode_snapshot.json": "6fd6048ae25ccb2352d6f647e8f28408d6fc505c380ac120bee27a80bf74f485",
+        "generation/result.json": "59baee1f15101cced5c629269fe718499aa5be0db40fc006e25250e7ca54aa2b"
+      },
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0001",
+            "finding_count": 14
+          },
+          {
+            "candidate_id": "candidate-0011",
+            "finding_count": 14
+          },
+          {
+            "candidate_id": "candidate-0012",
+            "finding_count": 14
+          }
+        ],
+        "finding_set_observation_count": 3,
+        "longest_identical_nonempty_finding_set_run": 3,
+        "stagnant_frontier_transition_count": 2,
+        "stagnant_frontier_transitions": [
+          {
+            "finding_count": 14,
+            "from_candidate_id": "candidate-0001",
+            "to_candidate_id": "candidate-0011"
+          },
+          {
+            "finding_count": 14,
+            "from_candidate_id": "candidate-0011",
+            "to_candidate_id": "candidate-0012"
+          }
+        ]
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "mac",
+      "host_position": 4,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 12,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0005",
+          "candidate-0006"
+        ],
+        "integrity_failure_count": 2,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 8,
+          "succeeded": 4
+        },
+        "candidate_validation_reject_count": 2,
+        "candidate_validation_reject_messages": {
+          "candidate program directly materializes an importable artifact": 1,
+          "candidate program embeds code that materializes an importable artifact": 1
+        },
+        "completed_action_duration_seconds": {
+          "count": 10,
+          "maximum": 134.848535,
+          "maximum_candidate_id": "candidate-0004",
+          "total": 431.354674
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "candidate-budget": 1,
+          "candidate-validation-reject": 2,
+          "command-exit": 8,
+          "executable-verifier-counterexample": 10
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 6,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-06-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "official-fail",
+      "usage": {
+        "cache_read_tokens": 11136,
+        "candidates": 12,
+        "commands": 10,
+        "elapsed_wall_clock_seconds": 2319.119916,
+        "environments": 10,
+        "input_tokens": 162407,
+        "output_tokens": 101814,
+        "requests_started": 12,
+        "total_tokens": 264221
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-07-goal-frontier-v1-control/envbench-python-hazyresearch__meerkat__b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "01a5e66b163bf2beecf078e7c0c5a08f8928bcbe8c2a7258df0967fc3d422705",
+        "generation/episode.jsonl": "95ef544b93050479ec9498ed0ead42934c8b7e9f84b3d354381f967292bbe65c",
+        "generation/episode_snapshot.json": "6b90d64115660c421d7a84e134c9f328743eeae49eefe85de3217d70f1531e58",
+        "generation/result.json": "b6469edddf58bab4cba96be0f07a5730ebbff0e3c5c179fffa04c12cabceab30"
+      },
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [],
+        "finding_set_observation_count": 0,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "Executable goal contract exceeded its observation timeout",
+      "host": "spark",
+      "host_position": 3,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 2,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 2
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 2,
+          "maximum": 1200.076276,
+          "maximum_candidate_id": "candidate-0002",
+          "total": 1285.103449
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 5,
+            "extra_groups": [
+              "${EMBEDDINGS_EXTRA}",
+              "audio",
+              "dev",
+              "text",
+              "vision"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 5,
+            "extra_groups": [
+              "audio",
+              "dev",
+              "embeddings-mac",
+              "text",
+              "vision"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 2,
+          "executable-verifier-counterexample": 1,
+          "executable-verifier-unknown": 1
+        },
+        "maximum_editable_extra_group_count": 5,
+        "running_action_ids": []
+      },
+      "position": 7,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-07-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "algorithmic-execution-timeout",
+      "usage": {
+        "cache_read_tokens": 1792,
+        "candidates": 2,
+        "commands": 2,
+        "elapsed_wall_clock_seconds": 1385.580863,
+        "environments": 2,
+        "input_tokens": 12325,
+        "output_tokens": 3804,
+        "requests_started": 2,
+        "total_tokens": 16129
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-08-execution-feedback-v3/envbench-python-hazyresearch__meerkat__b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "7b9f3f6c6dbd247fe16661f080297acf685bf2273f1b12b03e23b422fe9d3148",
+        "generation/episode.jsonl": "a2748464affec60e4882396dadc45a2762f1b17d15faaecebf59e4fa184c3268",
+        "generation/episode_snapshot.json": "c824ac34e11a5cd06916467ccf2c075834413cc5281b55fbce8c12e3e2bb6423",
+        "generation/result.json": "da17f23863a85643a86a9061013d58ab33227109a4392fa8a82b143dd15e279c"
+      },
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [],
+        "finding_set_observation_count": 0,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "Executable goal contract exceeded its observation timeout",
+      "host": "spark",
+      "host_position": 4,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 1,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 1
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 1,
+          "maximum": 1200.076658,
+          "maximum_candidate_id": "candidate-0001",
+          "total": 1200.076658
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 5,
+            "extra_groups": [
+              "audio",
+              "dev",
+              "embeddings-mac",
+              "text",
+              "vision"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 1,
+          "executable-verifier-unknown": 1
+        },
+        "maximum_editable_extra_group_count": 5,
+        "running_action_ids": []
+      },
+      "position": 8,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-08-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "algorithmic-execution-timeout",
+      "usage": {
+        "cache_read_tokens": 896,
+        "candidates": 1,
+        "commands": 1,
+        "elapsed_wall_clock_seconds": 1269.04331,
+        "environments": 1,
+        "input_tokens": 4822,
+        "output_tokens": 3604,
+        "requests_started": 1,
+        "total_tokens": 8426
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-09-goal-frontier-v1-control/envbench-python-dj-stripe__dj-stripe__f271062a7662968385113df2482cd26a2ec69ac9",
+      "artifact_sha256": {
+        "evaluation/result.json": "29005476e89087a164ecd1ce0d3d5c0c6db0ad58cc98497409e54f4ce462e116",
+        "generation/budget_ledger.json": "b7d6f18779c8ddf397860c95a982ece456910c7c7751f1de4859ecb10eae2310",
+        "generation/episode.jsonl": "8463b32425179bfd5a9208351748e232237fdcaa66f1a883c3a35ff719618053",
+        "generation/episode_snapshot.json": "b46d983c22465ba6c0d6a3162ba5d8d406373a3b04c646e38c9511797c253d80",
+        "generation/result.json": "4dc99af7de9eb9f270e09f69bf731c7a735aa94dc63ce5838187bc615e53357d"
+      },
+      "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0002",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 1,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "mac",
+      "host_position": 5,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 2,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0001"
+        ],
+        "integrity_failure_count": 1,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "succeeded": 2
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 2,
+          "maximum": 209.205807,
+          "maximum_candidate_id": "candidate-0001",
+          "total": 398.454056
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "executable-verifier-counterexample": 1
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 9,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-09-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 1792,
+        "candidates": 2,
+        "commands": 2,
+        "elapsed_wall_clock_seconds": 525.805156,
+        "environments": 2,
+        "input_tokens": 11974,
+        "output_tokens": 5257,
+        "requests_started": 2,
+        "total_tokens": 17231
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-10-execution-feedback-v3/envbench-python-dj-stripe__dj-stripe__f271062a7662968385113df2482cd26a2ec69ac9",
+      "artifact_sha256": {
+        "evaluation/result.json": "e5da0a4f1d4382789b60189979a4cffa81e27ff6f6f3c55f32b1fde6810322f3",
+        "generation/budget_ledger.json": "fdce2d5e9682d1ec08bfa514ca4dad3f168282012141294dcc226ad659db36e1",
+        "generation/episode.jsonl": "89b2466e6de89ec7c5db8476d52aedce33e9c5a360b01f9d7f1231afc3d81c81",
+        "generation/episode_snapshot.json": "c9b67395e69801283b1f4bdf36b9356a2d39b049c6de60b797e83b962cdc1952",
+        "generation/result.json": "35aea675317b18d1c085554aabea9e1423581d4c3213cb2e53d313a1da4c839b"
+      },
+      "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0002",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 1,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "mac",
+      "host_position": 6,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 2,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0001"
+        ],
+        "integrity_failure_count": 1,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "succeeded": 2
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 2,
+          "maximum": 121.17566,
+          "maximum_candidate_id": "candidate-0001",
+          "total": 239.541046
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "executable-verifier-counterexample": 1
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 10,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-10-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 1792,
+        "candidates": 2,
+        "commands": 2,
+        "elapsed_wall_clock_seconds": 350.835158,
+        "environments": 2,
+        "input_tokens": 11968,
+        "output_tokens": 5105,
+        "requests_started": 2,
+        "total_tokens": 17073
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-11-execution-feedback-v3/envbench-python-jupyter__qtconsole__56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "artifact_sha256": {
+        "evaluation/result.json": "36e4f619c6d9d258964634da9fa76869b2b3830561d2c4e88fc17b32b103741b",
+        "generation/budget_ledger.json": "130679592232cfbc4c38372e16be24c234eec7c2beeb309579a85127f5e0f27f",
+        "generation/episode.jsonl": "4312d160192c1347cb57626cb59b6e3ec5a682f7b05f85bee83184b5460a8f1e",
+        "generation/episode_snapshot.json": "a9277202a9009394c12a963f0cb114b22bc7b701cab219799f54c004b8573b98",
+        "generation/result.json": "5a3ca775973d04baccec360ca525fa35db35f10edc7d0886530ea766c40e2d25"
+      },
+      "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 1,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "spark",
+      "host_position": 5,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 3,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "failed": 2,
+          "succeeded": 1
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 3,
+          "maximum": 109.858551,
+          "maximum_candidate_id": "candidate-0003",
+          "total": 226.565468
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "doc",
+              "test"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "doc",
+              "test"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "doc",
+              "test"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 2,
+          "executable-verifier-counterexample": 2
+        },
+        "maximum_editable_extra_group_count": 2,
+        "running_action_ids": []
+      },
+      "position": 11,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-11-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 2688,
+        "candidates": 3,
+        "commands": 3,
+        "elapsed_wall_clock_seconds": 353.018077,
+        "environments": 3,
+        "input_tokens": 19515,
+        "output_tokens": 7048,
+        "requests_started": 3,
+        "total_tokens": 26563
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-12-goal-frontier-v1-control/envbench-python-jupyter__qtconsole__56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "artifact_sha256": {
+        "evaluation/result.json": "c8f88e2ed8126ff4b62241af8459aa61e1aee8859cd87a11b617ce64c6a178ed",
+        "generation/budget_ledger.json": "bd01e6b3afe2ee80bae07aa92511d59930d672ef5aba5c06494045645caccccf",
+        "generation/episode.jsonl": "8b84110e15174949582a12e961fb4ad55d7d27c8910c52bededb9e524d199c1b",
+        "generation/episode_snapshot.json": "83d84a35c63b7567bb5b4cff31e99c3c9d73864b929a5756ed2783e3afbecdc3",
+        "generation/result.json": "0de7c720212ee9ac78232f3e7480d5a94456ebfa96bc4213ee56ff603165880e"
+      },
+      "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 0
+          }
+        ],
+        "finding_set_observation_count": 1,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "spark",
+      "host_position": 6,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 3,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "operation": {
+        "action_status_counts": {
+          "failed": 2,
+          "succeeded": 1
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 3,
+          "maximum": 563.23474,
+          "maximum_candidate_id": "candidate-0003",
+          "total": 744.79501
+        },
+        "editable_extra_groups": [
+          {
+            "candidate_id": "candidate-0001",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "doc",
+              "test"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0002",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "doc",
+              "test"
+            ]
+          },
+          {
+            "candidate_id": "candidate-0003",
+            "extra_group_count": 2,
+            "extra_groups": [
+              "doc",
+              "test"
+            ]
+          }
+        ],
+        "failure_category_counts": {
+          "command-exit": 2,
+          "executable-verifier-counterexample": 2
+        },
+        "maximum_editable_extra_group_count": 2,
+        "running_action_ids": []
+      },
+      "position": 12,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-12-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "official-pass",
+      "usage": {
+        "cache_read_tokens": 2688,
+        "candidates": 3,
+        "commands": 3,
+        "elapsed_wall_clock_seconds": 903.423698,
+        "environments": 3,
+        "input_tokens": 19532,
+        "output_tokens": 8978,
+        "requests_started": 3,
+        "total_tokens": 28510
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-13-execution-feedback-v3/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "251979e56c7395db0a7651fdd1e305fdeecb3afcef815e0b13aa83da33e35786",
+        "generation/episode.jsonl": "bd42350376932a09b74b7be3824c0c0590c0a4a2d06304b8da4c19933b12174f",
+        "generation/episode_snapshot.json": "0689cde1cb07cc1674e27b0fc63dd80a75a9ce69ad78f40ba7cee0f264ae5489",
+        "generation/result.json": "b18c2729f396e15291a023d4f55b4d9a277c78034ac26bf1f3fdccd9eeead9cc"
+      },
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0005",
+            "finding_count": 41
+          }
+        ],
+        "finding_set_observation_count": 1,
+        "longest_identical_nonempty_finding_set_run": 1,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "Executable goal contract exceeded its observation timeout",
+      "host": "mac",
+      "host_position": 7,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 8,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [],
+        "integrity_failure_count": 0,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 7,
+          "succeeded": 1
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 8,
+          "maximum": 1200.016146,
+          "maximum_candidate_id": "candidate-0008",
+          "total": 2381.230016
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "command-exit": 7,
+          "executable-verifier-counterexample": 7,
+          "executable-verifier-unknown": 1
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 13,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-13-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "algorithmic-execution-timeout",
+      "usage": {
+        "cache_read_tokens": 7552,
+        "candidates": 8,
+        "commands": 8,
+        "elapsed_wall_clock_seconds": 3198.865619,
+        "environments": 8,
+        "input_tokens": 84409,
+        "output_tokens": 44610,
+        "requests_started": 8,
+        "total_tokens": 129019
+      }
+    },
+    {
+      "analysis_replacement": "user-directed-external-interruption-retry",
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control-retry1/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "e0967a718ee159a47f851bd7737ad2be19ef4a79f1e8f7e6d63e7bd3390a0a57",
+        "generation/episode.jsonl": "53805bd008330d748318567198c6bedce84e66e87b610442d7dec53b780dd0fa",
+        "generation/episode_snapshot.json": "5f206d7e558dbb996e615222c1f534fb33782ec8e457d0bd145e14f295f6b8ad",
+        "generation/result.json": "cb56720b3ae5ccac15750ccca825cfcce245ddcc322ce6d5d6cb8959cc981bdd"
+      },
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [],
+        "finding_set_observation_count": 0,
+        "longest_identical_nonempty_finding_set_run": 0,
+        "stagnant_frontier_transition_count": 0,
+        "stagnant_frontier_transitions": []
+      },
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "candidate budget exhausted",
+      "host": "mac",
+      "host_position": 8,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 12,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0005"
+        ],
+        "integrity_failure_count": 1,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 12
+        },
+        "candidate_validation_reject_count": 0,
+        "candidate_validation_reject_messages": {},
+        "completed_action_duration_seconds": {
+          "count": 12,
+          "maximum": 249.643093,
+          "maximum_candidate_id": "candidate-0006",
+          "total": 1110.742083
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "candidate-budget": 1,
+          "command-exit": 12,
+          "executable-verifier-counterexample": 12
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 14,
+      "preregistered_run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control",
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control-retry1",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "algorithmic-generation-failure",
+      "usage": {
+        "cache_read_tokens": 11008,
+        "candidates": 12,
+        "commands": 12,
+        "elapsed_wall_clock_seconds": 2586.721667,
+        "environments": 12,
+        "input_tokens": 102874,
+        "output_tokens": 84949,
+        "requests_started": 12,
+        "total_tokens": 187823
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-15-goal-frontier-v1-control/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "artifact_sha256": {
+        "evaluation/result.json": "922c25a74cdaa36af598c230b85433a223e3ab8f6b5046a143bbe7c964a10505",
+        "generation/budget_ledger.json": "3d25c4faea85cad74fa03a504a757c4d4e7ed878e6fdcb728df272d5e12266c7",
+        "generation/episode.jsonl": "cdcb7d36903e43769a66c809eae5ea7bbead566a0d9ce413ff97f5b71a7a19a5",
+        "generation/episode_snapshot.json": "758a506b6a62d8c13d76bd9e0cbb0441cbe5e664639e0188e1cd7e9922ca3e3b",
+        "generation/result.json": "1675728ffd9f26e231fe9650d06a7d6c4f9af42692af3ce12eb26c7281553de5"
+      },
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "condition": "goal-frontier-v1-control",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 3
+          },
+          {
+            "candidate_id": "candidate-0004",
+            "finding_count": 1
+          },
+          {
+            "candidate_id": "candidate-0006",
+            "finding_count": 2
+          },
+          {
+            "candidate_id": "candidate-0007",
+            "finding_count": 1
+          },
+          {
+            "candidate_id": "candidate-0008",
+            "finding_count": 1
+          },
+          {
+            "candidate_id": "candidate-0009",
+            "finding_count": 1
+          },
+          {
+            "candidate_id": "candidate-0011",
+            "finding_count": 2
+          }
+        ],
+        "finding_set_observation_count": 7,
+        "longest_identical_nonempty_finding_set_run": 3,
+        "stagnant_frontier_transition_count": 2,
+        "stagnant_frontier_transitions": [
+          {
+            "finding_count": 1,
+            "from_candidate_id": "candidate-0007",
+            "to_candidate_id": "candidate-0008"
+          },
+          {
+            "finding_count": 1,
+            "from_candidate_id": "candidate-0008",
+            "to_candidate_id": "candidate-0009"
+          }
+        ]
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "spark",
+      "host_position": 7,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 12,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0005"
+        ],
+        "integrity_failure_count": 1,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 5,
+          "succeeded": 7
+        },
+        "candidate_validation_reject_count": 1,
+        "candidate_validation_reject_messages": {
+          "candidate program directly materializes an importable artifact": 1
+        },
+        "completed_action_duration_seconds": {
+          "count": 11,
+          "maximum": 380.930667,
+          "maximum_candidate_id": "candidate-0003",
+          "total": 1930.933386
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "candidate-budget": 1,
+          "candidate-validation-reject": 1,
+          "command-exit": 5,
+          "executable-verifier-counterexample": 11
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 15,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-15-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "terminal_class": "official-fail",
+      "usage": {
+        "cache_read_tokens": 14720,
+        "candidates": 12,
+        "commands": 11,
+        "elapsed_wall_clock_seconds": 3952.497805,
+        "environments": 11,
+        "input_tokens": 137688,
+        "output_tokens": 119054,
+        "requests_started": 12,
+        "total_tokens": 256742
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-16-execution-feedback-v3/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "artifact_sha256": {
+        "evaluation/result.json": "b77828ea88e57b6ef43fcc595ce5740cc1af927e576c3131a918813648ae3d97",
+        "generation/budget_ledger.json": "c3ec4ba03631d9442a6a236edca980cfb7a4646a914993b475e973619104ddbe",
+        "generation/episode.jsonl": "cd71b3e3c47d66bdece8c9d891a9348412d794f656ccfdae6269e783172d4905",
+        "generation/episode_snapshot.json": "8511b83c971cfeffeac60f35e051377a2dcbcddf14b1bfb0a520d00fc4508d4b",
+        "generation/result.json": "6a876b92929a3bb6c6c1ee6db85a1349cbbb7bd6026b53236806c2626007ec6f"
+      },
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "condition": "execution-feedback-v3",
+      "constraint_progress": {
+        "finding_count_sequence": [
+          {
+            "candidate_id": "candidate-0003",
+            "finding_count": 3
+          },
+          {
+            "candidate_id": "candidate-0009",
+            "finding_count": 14
+          },
+          {
+            "candidate_id": "candidate-0010",
+            "finding_count": 1
+          },
+          {
+            "candidate_id": "candidate-0011",
+            "finding_count": 1
+          }
+        ],
+        "finding_set_observation_count": 4,
+        "longest_identical_nonempty_finding_set_run": 2,
+        "stagnant_frontier_transition_count": 1,
+        "stagnant_frontier_transitions": [
+          {
+            "finding_count": 1,
+            "from_candidate_id": "candidate-0010",
+            "to_candidate_id": "candidate-0011"
+          }
+        ]
+      },
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "host": "spark",
+      "host_position": 8,
+      "infrastructure_censored": false,
+      "measurement_censored": false,
+      "mechanism": {
+        "candidate_count": 12,
+        "diagnostic_redirection_removal_count": 0,
+        "diagnostic_redirection_removals": [],
+        "infrastructure_censored_unknown_candidate_ids": [],
+        "infrastructure_censored_unknown_count": 0,
+        "integrity_failure_candidate_ids": [
+          "candidate-0012"
+        ],
+        "integrity_failure_count": 1,
+        "recoverable_goal_execution_failure_candidate_ids": [],
+        "recoverable_goal_execution_failure_count": 0
+      },
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "operation": {
+        "action_status_counts": {
+          "failed": 8,
+          "succeeded": 4
+        },
+        "candidate_validation_reject_count": 1,
+        "candidate_validation_reject_messages": {
+          "candidate program directly materializes an importable artifact": 1
+        },
+        "completed_action_duration_seconds": {
+          "count": 11,
+          "maximum": 367.525618,
+          "maximum_candidate_id": "candidate-0006",
+          "total": 1552.91082
+        },
+        "editable_extra_groups": [],
+        "failure_category_counts": {
+          "candidate-budget": 1,
+          "candidate-validation-reject": 1,
+          "command-exit": 8,
+          "executable-verifier-counterexample": 11
+        },
+        "maximum_editable_extra_group_count": 0,
+        "running_action_ids": []
+      },
+      "position": 16,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-execution-feedback-v3-screen8-16-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1,
+      "terminal_class": "official-fail",
+      "usage": {
+        "cache_read_tokens": 12032,
+        "candidates": 12,
+        "commands": 11,
+        "elapsed_wall_clock_seconds": 2545.690534,
+        "environments": 11,
+        "input_tokens": 137939,
+        "output_tokens": 60190,
+        "requests_started": 12,
+        "total_tokens": 198129
+      }
+    }
+  ],
+  "mechanism_summary": {
+    "diagnostic_redirection_removal_count": 0,
+    "infrastructure_censored_unknown_count": 0,
+    "integrity_failure_count": 6,
+    "recoverable_goal_execution_failure_count": 1
+  },
+  "operation_summary": {
+    "algorithmic_execution_timeout_count": 3,
+    "candidate_validation_reject_count": 6,
+    "candidate_validation_reject_message_counts": {
+      "candidate program directly materializes an importable artifact": 5,
+      "candidate program embeds code that materializes an importable artifact": 1
+    },
+    "episode_with_running_action_at_terminal_count": 0,
+    "maximum_editable_extra_group_count": 5
+  },
+  "pairs": [
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "host": "mac",
+      "official_pass_control": false,
+      "official_pass_difference": 0,
+      "official_pass_treatment": false,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "algorithmic-generation-failure",
+      "terminal_class_treatment": "algorithmic-execution-timeout",
+      "treatment_minus_control": {
+        "candidates": -4,
+        "elapsed_wall_clock_seconds": 612.1439520000004,
+        "total_tokens": -58804
+      }
+    },
+    {
+      "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+      "host": "mac",
+      "official_pass_control": true,
+      "official_pass_difference": 0,
+      "official_pass_treatment": true,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "official-pass",
+      "terminal_class_treatment": "official-pass",
+      "treatment_minus_control": {
+        "candidates": 0,
+        "elapsed_wall_clock_seconds": -174.96999800000003,
+        "total_tokens": -158
+      }
+    },
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "host": "spark",
+      "official_pass_control": true,
+      "official_pass_difference": 0,
+      "official_pass_treatment": true,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "official-pass",
+      "terminal_class_treatment": "official-pass",
+      "treatment_minus_control": {
+        "candidates": 0,
+        "elapsed_wall_clock_seconds": 15.03680799999995,
+        "total_tokens": -526
+      }
+    },
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "host": "spark",
+      "official_pass_control": false,
+      "official_pass_difference": 0,
+      "official_pass_treatment": false,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "algorithmic-execution-timeout",
+      "terminal_class_treatment": "algorithmic-execution-timeout",
+      "treatment_minus_control": {
+        "candidates": -1,
+        "elapsed_wall_clock_seconds": -116.53755299999989,
+        "total_tokens": -7703
+      }
+    },
+    {
+      "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "host": "spark",
+      "official_pass_control": true,
+      "official_pass_difference": 0,
+      "official_pass_treatment": true,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "official-pass",
+      "terminal_class_treatment": "official-pass",
+      "treatment_minus_control": {
+        "candidates": 0,
+        "elapsed_wall_clock_seconds": -550.4056209999999,
+        "total_tokens": -1947
+      }
+    },
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "host": "mac",
+      "official_pass_control": true,
+      "official_pass_difference": -1,
+      "official_pass_treatment": false,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "official-pass",
+      "terminal_class_treatment": "official-fail",
+      "treatment_minus_control": {
+        "candidates": 4,
+        "elapsed_wall_clock_seconds": -164.13901399999986,
+        "total_tokens": 86949
+      }
+    },
+    {
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "host": "spark",
+      "official_pass_control": false,
+      "official_pass_difference": 0,
+      "official_pass_treatment": false,
+      "paired_primary_eligible": true,
+      "terminal_class_control": "official-fail",
+      "terminal_class_treatment": "official-fail",
+      "treatment_minus_control": {
+        "candidates": 0,
+        "elapsed_wall_clock_seconds": -1406.8072710000001,
+        "total_tokens": -58613
+      }
+    },
+    {
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "host": "mac",
+      "official_pass_control": false,
+      "official_pass_difference": null,
+      "official_pass_treatment": null,
+      "paired_primary_eligible": false,
+      "terminal_class_control": "official-fail",
+      "terminal_class_treatment": "measurement-integrity-censored",
+      "treatment_minus_control": {
+        "candidates": 0,
+        "elapsed_wall_clock_seconds": 389.2246359999999,
+        "total_tokens": 17985
+      }
+    }
+  ],
+  "primary_summary": {
+    "control_win_count": 1,
+    "official_pass_control": 4,
+    "official_pass_difference_sum": -1,
+    "official_pass_treatment": 3,
+    "primary_eligible_pair_count": 7,
+    "selected_pair_count": 8,
+    "tie_count": 6,
+    "treatment_win_count": 0
+  },
+  "schema_version": "1.0.0",
+  "source_artifacts": {
+    "amendments": [
+      {
+        "path": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/validations/pro_execution_feedback_v3_screen8_interruption_amendment.json",
+        "sha256": "fa7c8ac061c5fcd4b0ca0f101bb1cafbfa20951579eb1270df20cc0cfaf90038"
+      }
+    ],
+    "preregistration": "experiments/validations/pro_execution_feedback_v3_screen8_preregistration.json",
+    "preregistration_sha256": "e38a1f5243e8c6dad3a7a2765a03f8f4c11a838fe2a2758042ef281b7715fd9c",
+    "run_id_replacements": [
+      {
+        "analyzed_run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control-retry1",
+        "preregistered_run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control"
+      }
+    ],
+    "runs_roots": {
+      "mac": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct",
+      "spark": "/Users/admin/Documents/AnyDeploy/runs/spark-envsolve-pro-execution-feedback-v3-deepseek-direct"
+    }
+  },
+  "study_id": "envsolve-pro-execution-feedback-v3-screen8",
+  "terminal_class_summary": {
+    "algorithmic-execution-timeout": 3,
+    "algorithmic-generation-failure": 1,
+    "measurement-integrity-censored": 1,
+    "official-fail": 4,
+    "official-pass": 7
+  }
+}

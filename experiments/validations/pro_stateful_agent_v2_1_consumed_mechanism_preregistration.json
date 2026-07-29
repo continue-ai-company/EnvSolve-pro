@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2.1-consumed-mechanism",
+  "status": "frozen",
+  "preregistered_at": "2026-07-29T18:04:46Z",
+  "claim_scope": "Consumed-development mechanism study only. This run cannot support an effectiveness, generalization, held-out, or leaderboard claim.",
+  "research_question": "Does V2.1 preserve a real Observation-to-Constraint-to-Operation transition by separating the read-only initial observation from candidate admissibility, while retaining exact source-provenance repair feedback for model-submitted programs?",
+  "case": {
+    "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+    "source_evidence_consumed": true,
+    "selection_reason": "V1 exposed a false-success mechanism on this case, and the first V2 attempt exposed an observation-role boundary error before any valid model round. The case is reused only to validate that correction."
+  },
+  "prior_failure": {
+    "path": "experiments/validations/pro_stateful_agent_v2_initial_probe_role_failure.json",
+    "sha256": "a4f482fefc898c224a255d47a01a52e0c0ad41aaf1ce4fcd10a720a424ffda67",
+    "required_correction": "The read-only initial observation executes the public goal without candidate provenance attribution. Every model-submitted program remains subject to V2 source-provenance audit."
+  },
+  "condition": {
+    "runner": "envsolve-pro-stateful-agent-v2.1",
+    "method": "envsolve-pro-stateful-agent-v2.1",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "max_model_candidates": 3,
+    "shared_initial_probe_candidates": 1,
+    "model_token_hard_limit": false,
+    "model_cost_hard_limit": false,
+    "official_evaluator_feedback_available_online": false,
+    "candidate_interface": "open cumulative Bash program",
+    "candidate_verification_environment": "fresh exact-revision checkout"
+  },
+  "mechanism_checks": [
+    {
+      "check_id": "observation-role-separation",
+      "pass_condition": "Candidate stateful-initial-observation executes the public goal before agent round 1 without candidate source-provenance attribution, while model-submitted programs retain the V2 provenance audit.",
+      "failure_condition": "The probe is blocked by base-image provenance, or a model candidate bypasses candidate provenance."
+    },
+    {
+      "check_id": "observation-before-operation",
+      "pass_condition": "The round-1 state projection contains the initial probe's complete public goal report and the probe is not counted as a model round.",
+      "failure_condition": "The first model prompt has no executable-goal report, or the probe consumes a model candidate."
+    },
+    {
+      "check_id": "constraint-before-operation",
+      "pass_condition": "The structured round-1 projection contains a non-empty active goal-obligation frontier derived from the shared probe.",
+      "failure_condition": "The projection contains only repository metadata or an empty frontier despite a failing probe."
+    },
+    {
+      "check_id": "divergent-source-rejection",
+      "pass_condition": "Any model candidate that adds divergent Python source beneath a project-provided namespace is rejected with project-namespace-provenance feedback.",
+      "failure_condition": "Such a model candidate is certified or reaches official evaluation as an eligible reproduction."
+    },
+    {
+      "check_id": "rejection-to-repair",
+      "pass_condition": "If a model candidate is rejected for divergent source, the next independent model session receives the exact rejected program, violation, and verification summary.",
+      "not_exercised_condition": "No model candidate triggers the provenance boundary; report this separately and do not infer repair behavior."
+    },
+    {
+      "check_id": "source-consistent-success",
+      "pass_condition": "Any claimed generation success passes the public goal, repository effect audit, and V2 source-provenance audit in a fresh environment.",
+      "failure_condition": "Official Pass or clean replay alone is treated as sufficient."
+    }
+  ],
+  "analysis_policy": {
+    "primary_metric_claim": false,
+    "report": [
+      "initial probe goal status and findings",
+      "round-1 raw-evidence parity and structured frontier",
+      "model candidate count",
+      "provenance rejection count",
+      "post-rejection repair count",
+      "internal goal status",
+      "official EnvBench status",
+      "scientific eligibility",
+      "token usage",
+      "container commands",
+      "wall-clock time"
+    ],
+    "decision_rule": "V2.1 may proceed to a repository-disjoint Dev design only if observation-role-separation, observation-before-operation, constraint-before-operation, and source-consistent-success pass. Rejection-to-repair must be marked passed, failed, or not exercised.",
+    "change_rule": "Any implementation, prompt, goal, policy, config, schedule, or analysis change after this freeze requires a new run ID and amendment."
+  },
+  "preflight_evidence": {
+    "mac": {
+      "focused_tests": "18 passed",
+      "lint": "Ruff and git diff checks passed"
+    },
+    "spark": {
+      "focused_tests": "18 passed",
+      "full_tests": "660 passed, 3 skipped, 75 subtests passed; one host-fixture failure occurs after the contract exits 0 because Spark /etc/bash.bash_logout runs clear_console -q",
+      "architecture": "aarch64",
+      "python": "3.12.3"
+    },
+    "docker_provenance_canary": {
+      "path": "experiments/validations/pro_stateful_agent_v2_provenance_canary.json",
+      "status": "passed"
+    },
+    "frozen_shared_files": {
+      "envsolve_harness/runners/registry.py": "4f1c556474423080eb95aa6591948d883fcfac9f6a26f85224a2704554518e7f",
+      "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+      "experiments/run_schedule.py": "24d70a1ab02ed0e92f6c3d5f5fbf0b792c32a4971eb5958e638f190b2569586a"
+    }
+  },
+  "artifacts": {
+    "case_file": {
+      "path": "experiments/cases/consumed_pro_v3_external_trajectory2.jsonl",
+      "sha256": "bde702a097ae9e488863a3531deacba094d92497d8f5f88048c918d806a7cf84"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_stateful_agent_v2_1_consumed.json",
+      "sha256": "2fc618349cc67b7c3f0c7dafd0564a3f44eaeb23453ba0d7f95a0829f8c38548"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_1_consumed_mechanism_mac.json",
+      "sha256": "6b08a09ea593cbdf68830da2588d3b028188d8513f9adb4b0a41715e9965a8d0"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "implementation": [
+      {
+        "path": "envsolve/runtime/stateful_integrity_v2.py",
+        "sha256": "d5af234f8330a4eae8057d217b97932dffa7972d39954ce880e34044cd1da81d"
+      },
+      {
+        "path": "envsolve/runtime/stateful_goal_verifier_v2.py",
+        "sha256": "2393e0cec54647b6665da36e041dec6a6a5dc9b0855e686f7ca2d2f919d0702c"
+      },
+      {
+        "path": "envsolve_harness/runners/stateful_codex.py",
+        "sha256": "bb9d5710260ffadc8ba1d21243257863773de2c02e491d84307bbaaff5904de8"
+      },
+      {
+        "path": "envsolve/solver/counterexample.py",
+        "sha256": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c"
+      },
+      {
+        "path": "envsolve/constraints/goal_frontier.py",
+        "sha256": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a"
+      },
+      {
+        "path": "envsolve_harness/scripts/open_program.py",
+        "sha256": "f732008773c12bf1db5087c94a0345d4866233aaef84c2057dd4bbeacc18047a"
+      },
+      {
+        "path": "experiments/extensible_schedule.py",
+        "sha256": "b0166c0bfa517afe382a8316e5746d4e1c37cd14744362e499759bddd2d878eb"
+      },
+      {
+        "path": "experiments/run_stateful_codex_case.py",
+        "sha256": "a2969256d81419972dc184287e30e904aa2287837d00a8164802299e1214c10d"
+      },
+      {
+        "path": "experiments/run_stateful_codex_schedule.py",
+        "sha256": "fcb101066e5f2047de0bffebabf7578bb79b5ea6e46aebbde4b3c33b0433c9b6"
+      }
+    ],
+    "tests": [
+      {
+        "path": "tests/test_integrity_audit.py",
+        "sha256": "6b5d8963df1b16543de5274b4cd00797e83a48bbeffe6ff030f13a47282385cc"
+      },
+      {
+        "path": "tests/test_stateful_codex_runner.py",
+        "sha256": "848f13693e2a4ed18a33064d2943ac39d2aef006b4176fff6956a1600c66a427"
+      }
+    ]
+  }
+}

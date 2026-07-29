@@ -1,0 +1,320 @@
+{
+  "algorithm_freeze": {
+    "goal_frontier_v1_freeze": "experiments/validations/pro_goal_frontier_v1_pilot_preregistration.json",
+    "goal_frontier_v1_freeze_sha256": "5caf4bc5a3de31dffcf378b70a1a5eab1f591bc06c2bf6368dd875e079cc1169",
+    "inherited_goal_frontier_v1_files": {
+      "envsolve/constraints/goal_frontier.py": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a",
+      "envsolve/runtime/goal_frontier_policy.py": "0429b6df60acdbfce066d47e54087e773ef3ec01d0fcc2abdd6b5f32fa59435a",
+      "envsolve/tools/run_envsolve_goal_frontier_episode.py": "c913b7824c4dd6880a303838f8afee9757d695830102fdef950df924644ff4a3",
+      "envsolve_harness/runners/envsolve_pro_goal_frontier.py": "43cf6f7524e31795c78e0e76eb568c230ecc08e9a577634dd6b65bb400c8098b",
+      "experiments/run_goal_frontier_case.py": "2cf6c7ddec87a1ce715d4124a2e3411ad84138b309e229ab980ac553743f3efc"
+    },
+    "treatment_files": {
+      "envsolve/runtime/execution_feedback.py": "95055d19aaede5e123e01a36c9015706272c69cb976efff35c0abff5e6bdea62",
+      "envsolve/tools/run_envsolve_execution_feedback_episode.py": "5ced065bd04c0966c8f3d331cab1364d0e8ee6ca572659ffa17a6e1b2ad005a1",
+      "envsolve_harness/runners/envsolve_pro_execution_feedback.py": "783922e02392b5f0000094357424184e3a7a1a421fec881c5564ef00b8b18d25",
+      "envsolve_harness/runners/frontier_experiment.py": "16956d14143cb2579d9e596f61a5ba60ad8d239692aa4d8c3da03628a0e86de5",
+      "envsolve_harness/scripts/observable_open_program.py": "1586150d877178efe211f754947e23264faef0fa145fc43c9ab59fb1e8b4e510",
+      "experiments/run_execution_feedback_case.py": "875535ed5c70d9c6edf33b5d5e1264ad9d966ae4ed51f53b06f4de383d256ad6"
+    }
+  },
+  "analysis": {
+    "descriptive_metrics": [
+      "input, cached, output, and reasoning tokens",
+      "model requests, environments, commands, and wall-clock time"
+    ],
+    "infrastructure_retry_policy": "Retry only a provider- or network-censored episode with identical code, settings, seed, host, and case.",
+    "mechanism_metrics": [
+      "diagnostic redirections removed",
+      "recoverable goal execution failures",
+      "infrastructure-censored unknowns",
+      "candidate count before official pass"
+    ],
+    "no_algorithm_prompt_or_threshold_change_after_selection": true,
+    "paired_unit": "repository",
+    "primary_metric": "Official Pass@1"
+  },
+  "claim_scope": "Repository-disjoint eight-case development screen; not final test or leaderboard evidence.",
+  "conditions": [
+    {
+      "candidate_interface": "open-program-v1",
+      "condition": "goal-frontier-v1-control",
+      "goal_frontier": "goal-obligation-frontier-v1",
+      "goal_process_failure": "terminal-unknown",
+      "method": "envsolve-pro-goal-frontier",
+      "runner": "envsolve-pro-goal-frontier"
+    },
+    {
+      "bootstrap_taxonomy": "disabled",
+      "candidate_interface": "open-program-v2-observable",
+      "condition": "execution-feedback-v3",
+      "goal_frontier": "goal-obligation-frontier-v1",
+      "goal_process_failure": "recoverable-non-infrastructure-counterexample",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback"
+    }
+  ],
+  "episodes": [
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "condition": "goal-frontier-v1-control",
+      "host": "mac",
+      "host_position": 1,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 1,
+      "run_id": "pro-execution-feedback-v3-screen8-01-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "condition": "execution-feedback-v3",
+      "host": "mac",
+      "host_position": 2,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 2,
+      "run_id": "pro-execution-feedback-v3-screen8-02-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "host_position": 1,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 3,
+      "run_id": "pro-execution-feedback-v3-screen8-03-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "host_position": 2,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 4,
+      "run_id": "pro-execution-feedback-v3-screen8-04-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "condition": "execution-feedback-v3",
+      "host": "mac",
+      "host_position": 3,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 5,
+      "run_id": "pro-execution-feedback-v3-screen8-05-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "condition": "goal-frontier-v1-control",
+      "host": "mac",
+      "host_position": 4,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 6,
+      "run_id": "pro-execution-feedback-v3-screen8-06-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "host_position": 3,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 7,
+      "run_id": "pro-execution-feedback-v3-screen8-07-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "host_position": 4,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 8,
+      "run_id": "pro-execution-feedback-v3-screen8-08-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+      "condition": "goal-frontier-v1-control",
+      "host": "mac",
+      "host_position": 5,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 9,
+      "run_id": "pro-execution-feedback-v3-screen8-09-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+      "condition": "execution-feedback-v3",
+      "host": "mac",
+      "host_position": 6,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 10,
+      "run_id": "pro-execution-feedback-v3-screen8-10-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "host_position": 5,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 11,
+      "run_id": "pro-execution-feedback-v3-screen8-11-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "host_position": 6,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 12,
+      "run_id": "pro-execution-feedback-v3-screen8-12-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "execution-feedback-v3",
+      "host": "mac",
+      "host_position": 7,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 13,
+      "run_id": "pro-execution-feedback-v3-screen8-13-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "goal-frontier-v1-control",
+      "host": "mac",
+      "host_position": 8,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 14,
+      "run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "host_position": 7,
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 15,
+      "run_id": "pro-execution-feedback-v3-screen8-15-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "host_position": 8,
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 16,
+      "run_id": "pro-execution-feedback-v3-screen8-16-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    }
+  ],
+  "hypothesis": {
+    "mechanism": "Preserve mutation diagnostics and reclassify only completed, non-infrastructure goal-process crashes as recoverable execution state conflicts, while retaining the v1 goal frontier and open Bash.",
+    "primary": "Execution-feedback-v3 improves or preserves Official Pass@1 relative to frozen goal-frontier-v1.",
+    "problem": "A solver cannot repair evidence that candidate programs discard, and a candidate-induced crash of the public goal currently ends the episode instead of becoming fresh-container feedback."
+  },
+  "preregistered_at": "2026-07-29T06:01:56.496188+00:00",
+  "schema_version": "1.0.0",
+  "screening_rule": {
+    "discard": "Treatment has no wins and at least two losses, or causes any repository-integrity or evaluator-leakage regression.",
+    "otherwise": "Inspect only preregistered mechanism traces, then decide.",
+    "promote_to_twenty_cases": "Net paired Official Pass difference is positive with no integrity regression, or tied with a directly triggered mechanism and no loss."
+  },
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_execution_feedback_v3_screen8_74.jsonl",
+    "remaining_case_file_sha256": "dfe5f50717ae1e47f6a96b89b7db2baf9a68c0d0cfbdc568cbc842d7cebdf038",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-execution-feedback-v3-screen8-2026-07-29",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_execution_feedback_v3_screen8.jsonl",
+    "selected_case_file_sha256": "b4b662dfc16f5bae6c0aef18dcdb643c03a66f9800ade06fcd3968271baf26d4",
+    "selection_unit": "case_id",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_bootstrap_frontier_v2_pilot_82.jsonl",
+    "source_case_file_sha256": "7895a2fd84abcf9609fc9f4e8b1675303dc43e4ebbde25a2d60d760f2c1d48d7",
+    "source_rows": 82,
+    "take": 8
+  },
+  "shared_contract": {
+    "candidate_anchor": "retained-admissible",
+    "candidate_command_timeout_seconds": 1200,
+    "candidate_retention": "best-admissible",
+    "configs": {
+      "mac": {
+        "path": "experiments/configs/local_mac_pro_execution_feedback_v3_deepseek_direct.json",
+        "sha256": "cc72a53ccdaa5ec0829d709f94ad2cec604630649a16333a73967c72da517722"
+      },
+      "spark": {
+        "path": "experiments/configs/spark_pro_execution_feedback_v3_deepseek_direct.json",
+        "sha256": "dc400b7dbcc9820b6cf43b322e344fbfaf7f865a71b55915dc242469223d8733"
+      }
+    },
+    "environment_strategy": "fresh-candidate",
+    "generation_timeout_seconds": 18000,
+    "host_assignment": "Both conditions for a repository run on the same host; four pairs per host by preregistered alternating case order.",
+    "host_schedules": {
+      "mac": {
+        "path": "experiments/schedules/pro_execution_feedback_v3_screen8_mac.json",
+        "sha256": "f02b49d5897f5c20621a442a63c8481496318a61b9a9d6aca34103089fb8dc3b"
+      },
+      "spark": {
+        "path": "experiments/schedules/pro_execution_feedback_v3_screen8_spark.json",
+        "sha256": "8b17097652566fa2d5cc38d90234cb6994427b309453f18555e9a2cda0aecd9e"
+      }
+    },
+    "max_candidates": 12,
+    "max_commands": 24,
+    "max_environments": 24,
+    "model": "deepseek-v4-pro",
+    "model_request_timeout_seconds": 900,
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "provider": "DeepSeek direct",
+    "public_executable_goal": true,
+    "repository_evidence": "constraint-routed",
+    "seed": 1,
+    "token_policy": "Tokens and price are reported outcomes; configured limits are emergency guards, not research stopping thresholds."
+  },
+  "status": "preregistered",
+  "study_id": "envsolve-pro-execution-feedback-v3-screen8"
+}

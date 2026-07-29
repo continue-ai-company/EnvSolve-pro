@@ -1,0 +1,45 @@
+{
+  "amendment_type": "user-directed-external-interruption",
+  "interruption": {
+    "algorithm_or_case_outcome_triggered": false,
+    "background_process_remaining_after_cleanup": false,
+    "reason": "The user moved the Mac and explicitly requested a pause.",
+    "running_container_remaining_after_cleanup": false
+  },
+  "original_progress": {
+    "path": "/Users/admin/Documents/AnyDeploy/runs/pro_execution_feedback_v3_screen8_mac_progress.json",
+    "sha256": "bed6d4fd5ab0e5b0e680d6216123726ace6b68c16885468be8fced362d580197"
+  },
+  "preregistration": {
+    "path": "experiments/validations/pro_execution_feedback_v3_screen8_preregistration.json",
+    "sha256": "e38a1f5243e8c6dad3a7a2765a03f8f4c11a838fe2a2758042ef281b7715fd9c"
+  },
+  "recorded_at": "2026-07-29T13:34:38Z",
+  "retry": {
+    "algorithm_prompt_or_threshold_changed": false,
+    "fresh_episode_and_containers": true,
+    "inherits_partial_candidate_state": false,
+    "run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control-retry1",
+    "same_algorithm_files": true,
+    "same_budget_and_timeouts": true,
+    "same_case": true,
+    "same_host": true,
+    "same_model": true,
+    "same_seed": true,
+    "schedule": "experiments/schedules/pro_execution_feedback_v3_screen8_mac_resume1.json",
+    "schedule_sha256": "9486a7f873f835f30aa69e35d8d30e8196c62f2a2c26e84532bf59705aec1b56"
+  },
+  "schema_version": "1.0.0",
+  "source_episode": {
+    "analysis_disposition": "mechanism-trajectory-only",
+    "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-execution-feedback-v3-deepseek-direct/pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+    "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+    "condition": "goal-frontier-v1-control",
+    "duration_seconds": 484.9701175000082,
+    "position": 14,
+    "primary_metric_eligible": false,
+    "run_id": "pro-execution-feedback-v3-screen8-14-goal-frontier-v1-control",
+    "terminal_evaluation_present": false
+  },
+  "study_id": "envsolve-pro-execution-feedback-v3-screen8"
+}

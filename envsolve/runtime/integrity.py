@@ -9,6 +9,7 @@ IMPORT_ALIAS_AUDIT_MARKER = "ENVSOLVE_IMPORT_ALIAS_AUDIT_V1="
 
 _IMPORT_ALIAS_AUDIT = """\
 import json
+import os
 from pathlib import Path
 import site
 import sys
@@ -31,6 +32,11 @@ for base in (project_root, project_root / "src"):
             provided.add(child.name)
 
 search_roots = {value for value in sys.path if value}
+search_roots.update(
+    value
+    for value in os.environ.get("PYTHONPATH", "").split(os.pathsep)
+    if value
+)
 try:
     search_roots.update(site.getsitepackages())
 except Exception:
@@ -90,10 +96,9 @@ print(
 
 
 def python_import_alias_audit_command(project_root: str) -> str:
-    return "command python -c {code} {project_root}".format(
-        code=shlex.quote(_IMPORT_ALIAS_AUDIT),
-        project_root=shlex.quote(str(PurePosixPath(project_root))),
-    )
+    code = shlex.quote(_IMPORT_ALIAS_AUDIT)
+    root = shlex.quote(str(PurePosixPath(project_root)))
+    return f"command python -I -c {code} {root}"
 
 
 def marked_json_payload(

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-execution-feedback-v3-spark4",
+  "recorded_at": "2026-07-29T15:04:21+08:00",
+  "disposition": "infrastructure-censored-no-algorithm-claim",
+  "preregistration": {
+    "path": "experiments/validations/pro_execution_feedback_v3_spark4_preregistration.json",
+    "sha256": "5b6f5e6a58788cf3bfc9178bc8a82f3a9d1ca199a1854ded2493069d4e17cc2c"
+  },
+  "schedule": {
+    "path": "experiments/schedules/pro_execution_feedback_v3_spark4.json",
+    "sha256": "c341e7357768920bb8c46524ca5add3ad409ebb41b765a0f7cf7df16fbe91e6d"
+  },
+  "progress": {
+    "host_path": "/home/avdpro/EnvSolve/runs/pro_execution_feedback_v3_spark4_progress.json",
+    "sha256": "89d90d5f590a1bad6ba8c9a9937981faafadadbbb8b437978d915f67e7a923e5"
+  },
+  "failure": {
+    "affected_positions": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "stage": "repository-acquisition",
+    "common_terminal_error": "Unable to acquire the requested repository revision",
+    "github_observation": "git fetch returned exit status 128",
+    "fallback_observation": "Hugging Face request failed with SSL unexpected EOF",
+    "generation_completed": false,
+    "model_request_started": false,
+    "candidate_proposed": false,
+    "official_evaluation_started": false,
+    "algorithm_or_outcome_triggered": false
+  },
+  "generation_result_sha256_by_position": {
+    "1": "5dbeefe146180a2d30283c6d47732a353df0aa62a41c9022a9c5ec4c5040f609",
+    "2": "c55808e08d813043849fcf1b5dc6895ad7abc54102df6343d032df87940a146b",
+    "3": "6b4530565566fc67063c670fb9305bd35c6b2eaa666a281d4b3a6ddaec81a155",
+    "4": "1d4de8f82929c026ee5adda5851e3cae48f4867e8745e72bfee526b18941bf0c",
+    "5": "553ae13d024eaefa6d51d6529282f2b212f1a4bea70a30e293c8573416504ecd",
+    "6": "da37e65323ae821b7951671db194f4c04ef5062289a1c8658f9d0aa6ddf4a053",
+    "7": "8e554735079567dcb6f61195a671553a3511b5be81570d049b5ae28752c77e6f",
+    "8": "199a13119e2cd8254be8a3869396be2607be3674cc10691aa42d32fcd53b43f0"
+  },
+  "retry_policy": {
+    "case_replacement_allowed": false,
+    "same_case_order_required": true,
+    "same_condition_order_required": true,
+    "same_algorithm_hashes_required": true,
+    "fresh_episode_required": true,
+    "source_acquisition_preflight_required": true,
+    "retry_attempts_are_separate_artifacts": true
+  }
+}

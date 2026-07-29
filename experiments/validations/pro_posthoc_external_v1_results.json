@@ -1,0 +1,89 @@
+{
+  "claim_scope": "Consumed-development posthoc mechanism study only; excluded from primary algorithm comparison, test claims, and leaderboard evidence.",
+  "completed_at": "2026-07-29T15:31:14Z",
+  "method_outcomes": [
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "generation_completed": true,
+      "method": "repo2run",
+      "model": "deepseek-v4-pro",
+      "official_issues_count": 13,
+      "official_pass": false,
+      "requests_started": 3,
+      "terminal_class": "official-fail",
+      "total_tokens": 19111,
+      "trajectory_finding": "Repo2Run stopped after its native repository test passed; the distilled candidate configured Python 3.10 but did not act on the public Pyright goal."
+    },
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "container_command_count": 37,
+      "generation_completed": true,
+      "method": "codex-cli-goal-aware-contract-visible",
+      "model": "gpt-5.5",
+      "model_reexecuted_for_wrapper_repair": false,
+      "official_issues_count": 0,
+      "official_pass": true,
+      "terminal_class": "official-pass",
+      "trajectory_finding": "The agent used a real project-local Conda environment, installed PyQt and QScintilla from conda-forge, and removed PyQt5-stubs after discovering that it shadowed the real PyQt5.Qsci binary module."
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "generation_completed": false,
+      "method": "repo2run",
+      "model": "deepseek-v4-pro",
+      "official_pass": false,
+      "requests_started": 27,
+      "terminal_class": "non-replayable-source-edit-trajectory",
+      "total_tokens": 524504,
+      "trajectory_finding": "Repo2Run made tracked pyproject.toml changes to pass its native test and emitted private code-edit actions that could not be represented as a valid environment-only candidate program."
+    },
+    {
+      "candidate_policy": "open-candidate-program-v1",
+      "container_command_count": 43,
+      "exploratory_goal_issues_count": 0,
+      "generation_completed": false,
+      "method": "codex-cli-goal-aware-contract-visible",
+      "model": "gpt-5.5",
+      "official_pass": false,
+      "policy_rejection": "candidate program directly materializes an importable artifact",
+      "terminal_class": "candidate-policy-reject",
+      "trajectory_finding": "The agent installed a legitimate Python environment but obtained zero missing imports by writing six synthetic .pyi files, despite receiving the candidate contract before exploration."
+    }
+  ],
+  "mechanism_conclusions": [
+    "A native terminal loop is insufficient when it optimizes a proxy repository test rather than the public deployment goal.",
+    "A strong goal-aware agent can discover package interactions that a one-shot script generator misses, as shown by the Lark stub-shadowing diagnosis.",
+    "Prompt-visible constraints do not guarantee compliance; executable candidate validation and repository-effect audits remain necessary even for a strong agent.",
+    "Making policy rejection terminal wastes useful search. Candidate rejection, clean-replay failure, and complete goal deltas should become observations for a subsequent strong-agent repair round.",
+    "The negative causal-v3 result and these trajectories favor a smaller constraint layer that preserves verified state without restricting the operation vocabulary."
+  ],
+  "primary_metric_claim": false,
+  "schema_version": "1.0.0",
+  "source_artifacts": {
+    "amendments": [
+      {
+        "path": "experiments/validations/pro_posthoc_external_v1_codex_contract_amendment.json",
+        "sha256": "dd582047de8e5208385c18facbbebed55626af3b266a1abaa4c8722fee4739e1"
+      },
+      {
+        "path": "experiments/validations/pro_posthoc_external_v1_conda_integrity_amendment.json",
+        "sha256": "32b7e21372663ddf0f4379e5968ea68cf7652d6f853ed446ac40df874e6aef14"
+      }
+    ],
+    "codex_lark_evaluation_result_sha256": "1408bf2f4d5743bf8e03b6aff8bf669bef7ce1e9bd43ed1d9daeb4b5067ccd27",
+    "codex_lark_generation_result_sha256": "848cdb8b5be62c1fdf1518a409a0bd4706a1f0ba4c5eaf65b5769e4f5153d590",
+    "codex_micropy_generation_result_sha256": "5b614cd1dc6be32103528632e06384b918fba5ae671d9e81db10ba8b847c4305",
+    "codex_micropy_trajectory_sha256": "87cc5e9c59e9bbe624d21b405446aa5bad1524128ee38246cb5c6d3db310abca",
+    "codex_progress_sha256": "f35e20d06d470abc0312a8be77f337da20bf13e6f4192ea996b47912c6c6fe3a",
+    "preregistration": {
+      "path": "experiments/validations/pro_posthoc_external_v1_preregistration.json",
+      "sha256": "d4e1cb2546f84bc44084a1cc12d6fc4cfff644e6958dabedfad4d38601fd32f4"
+    },
+    "repo2run_lark_evaluation_result_sha256": "f9774063f54d265baf479c0c7f006fa51aa2247128b143255c1e0993375ab853",
+    "repo2run_lark_generation_result_sha256": "e5eb71074c53bd40ac84c26ebc6ad8963b13d205cce4d3f3671bc9939e36c4ae",
+    "repo2run_micropy_generation_result_sha256": "622dca85b34db54396716e71d8aede268eac848c179c79b5639bb6fef7750497",
+    "repo2run_progress_sha256": "47c9137aae7b94005834f05d356b5e6d9f394c431cce5fa40140383b315c393f"
+  },
+  "status": "complete",
+  "study_id": "envsolve-pro-posthoc-external-v1"
+}

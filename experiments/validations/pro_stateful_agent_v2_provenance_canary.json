@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2-provenance-canary",
+  "status": "passed",
+  "executed_at": "2026-07-29",
+  "platform": {
+    "host": "DGX Spark",
+    "architecture": "aarch64",
+    "container_os": "linux",
+    "container_architecture": "arm64"
+  },
+  "image": {
+    "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4"
+  },
+  "checks": [
+    {
+      "condition": "divergent_external_source",
+      "expected_valid": false,
+      "observed_valid": false,
+      "violation": {
+        "alias": "micropy",
+        "divergent_sources": [
+          "cli.py"
+        ],
+        "reason": "external import search root contributes divergent project source"
+      }
+    },
+    {
+      "condition": "source_identical_external_copy",
+      "expected_valid": true,
+      "observed_valid": true,
+      "violations": []
+    }
+  ],
+  "result": {
+    "passed": true,
+    "interpretation": "V2 distinguishes divergent source completion from a source-identical external copy in the real EnvBench ARM64 container. This is an integrity mechanism canary, not an effectiveness result."
+  },
+  "artifacts": {
+    "probe": {
+      "path": "experiments/probe_stateful_v2_provenance.py",
+      "sha256": "9993ca579668a5f452f80b160bc74927f838bca1a78e09138e02cbb56a2b5080"
+    },
+    "integrity_policy": {
+      "path": "envsolve/runtime/stateful_integrity_v2.py",
+      "sha256": "d5af234f8330a4eae8057d217b97932dffa7972d39954ce880e34044cd1da81d"
+    },
+    "goal_verifier": {
+      "path": "envsolve/runtime/stateful_goal_verifier_v2.py",
+      "sha256": "bd6e82963b5774a4df8f6084544fc5180645352e5c01af034332f5f99a6c6146"
+    }
+  }
+}

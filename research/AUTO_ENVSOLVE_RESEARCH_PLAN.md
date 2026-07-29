@@ -379,3 +379,51 @@ operation space; a global mutable cache is not admissible because method order c
 state. The outer harness may propose only method-independent seed snapshots with an
 independent writable online-miss copy per episode. Cache improvements never count as
 algorithm promotion, although they may qualify infrastructure for a later frozen study.
+
+### 10. External-agent repair transactions
+
+The Lark and micropy-cli external trajectories add three durable outer-loop labels:
+`proxy_goal_termination`, `candidate_interface_violation`, and
+`measurement_environment_root_error`. Repo2Run's native-test success on Lark is not an
+inner solver success because the public goal remained unsatisfied. Codex's synthetic
+micropy-cli stubs are not a prompt-writing failure that should trigger a new package
+rule; they are an admissibility violation that should become next-round feedback. The
+Lark Conda rejection was instead a harness measurement error and was repaired without
+rerunning the model.
+
+Auto-EnvSolve must keep these intervention classes separate. Algorithm proposals change
+the Observation/Constraint/Operation policy and require unseen qualification.
+Measurement repairs preserve immutable trajectories, add adversarial tests, and may be
+re-finalized only with artifact-identity evidence. Baseline-interface repairs disclose
+the exact contract and invalidate hidden-rule comparisons. This taxonomy prevents the
+outer optimizer from turning every failed case into another inner constraint.
+
+The new `stateful-agent-v1` interface also creates a clean outer-loop target: optimize
+which verified observations and raw evidence are carried into the next agent session,
+while the public goal, admissibility boundary, clean-replay rule, split isolation, and
+terminal evaluator boundary remain frozen.
+
+The completed v1 mechanism study adds two negative promotion transactions. First, all
+episodes stopped after one submission, so an outer optimizer must reject a claimed
+stateful mechanism when its proposed state was never causally available to a later
+operation. Second, fresh replay and Official Pass both accepted a mixed-source Python
+namespace assembled from the checkout and an older same-name distribution. The outer
+system should propose a repository-independent provenance invariant, test it on a
+synthetic namespace-overlay counterexample, and preserve v1 as an immutable baseline.
+It must not convert the observed package names into an inner deployment rule.
+
+### 11. Module-identity promotion transaction
+
+The V2.1 micropy-cli trace is the first complete outer-loop repair transaction. A base
+image was incorrectly attributed to the read-only probe, so the outer process separated
+observation role from candidate admissibility and reran under a new method identity.
+The corrected run then exposed a second generic gap: source-byte provenance accepted a
+setuptools remap from one project module identity to another. The promoted V2.2 proposal
+contains one invariant, one same-identity control, one adversarial remap, and no
+repository-specific package rule.
+
+This is the target Auto-EnvSolve pattern: preserve the failing trajectory, classify the
+failure as a construct-boundary error, propose the smallest invariant, require a
+counterexample plus non-regression control, and only then expose the change to unseen
+repositories. Official benchmark success remains recorded even when a stricter
+integrity label blocks promotion.

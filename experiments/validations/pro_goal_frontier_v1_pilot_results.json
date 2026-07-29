@@ -1,0 +1,413 @@
+{
+  "analysis_policy": {
+    "censored_selected_cases_not_replaced": true,
+    "lexical_install_targets_are_descriptive_not_package_ground_truth": true,
+    "provider_censored_runs_excluded_from_primary_metric": true,
+    "tokens_and_wall_clock_reported_as_outcomes": true
+  },
+  "claim_scope": "Repository-disjoint development pilot only; consumed-trajectory mechanism check, not final test or leaderboard evidence.",
+  "created_at": "2026-07-29T04:10:53.269141+00:00",
+  "episodes": [
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-operation-relevance-v1-deepseek-direct/pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry3/envbench-python-python-openapi__openapi-core__68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "artifact_sha256": {
+        "evaluation/result.json": "321d76c5dd0b4cec468d5a8b092083043125ed0082b23b236ab7d6dda7d5a7e8",
+        "generation/budget_ledger.json": "02e6a6428e45fc636938e790f12d042f6e603b595da6bfd28474afa004991f93",
+        "generation/episode.jsonl": "6cab6929d00aa4854d309c207900970f9c4258cf5675408f7335428c40d349a7",
+        "generation/episode_snapshot.json": "18f380475ae1a7b79731cdd5e6ff14d3a362ee87492af053483374ba607e1a1b",
+        "generation/result.json": "1fcdff86c2dde2f45d54e1e4c0d9b206c6b9d4aeeb542d58f280bba57ae9faa7"
+      },
+      "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "condition": "goal-frontier-v1",
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_execution_count": 4,
+        "frontier_projection_complete_count": 4,
+        "frontier_projection_count": 4,
+        "goal_finding_counts": [
+          0,
+          0,
+          23,
+          0
+        ],
+        "goal_obligation_group_counts": [
+          0,
+          0,
+          6,
+          0
+        ],
+        "lexical_install_target_count": 4,
+        "lexical_install_targets": [
+          "pip",
+          "poetry",
+          "setuptools",
+          "wheel"
+        ],
+        "maximum_active_finding_count": 23,
+        "maximum_obligation_group_count": 6,
+        "post_first_positive_finding_delta": -23
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "official_raw_metrics": {
+        "commit_sha": "68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+        "error_count": 586,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "python-openapi/openapi-core",
+        "warning_count": 3
+      },
+      "position": 1,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "selected_run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry3",
+      "usage": {
+        "cache_read_tokens": 4992,
+        "candidates": 4,
+        "commands": 4,
+        "elapsed_wall_clock_seconds": 1266.95691,
+        "environments": 4,
+        "input_tokens": 35692,
+        "output_tokens": 18958,
+        "provider_retries": 0,
+        "requests_started": 4,
+        "total_tokens": 54650
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-operation-relevance-v1-deepseek-direct/pro-goal-frontier-v1-pilot-02-frozen-fresh-control/envbench-python-python-openapi__openapi-core__68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "artifact_sha256": {
+        "evaluation/result.json": "6293341cb24de05520212084ce371cfc43c25ae41296cc9847d471d38e0a91b9",
+        "generation/budget_ledger.json": "39673b956d6ae146e040693fe1ef98fff48d24f2f8a9610b3100130342aa8dab",
+        "generation/episode.jsonl": "c4cc2c10b25bf718936698df84d4d951c07e793af9977450d13cd41ec0833dfe",
+        "generation/episode_snapshot.json": "ab580dfc2406f27cd3b85ead531ce71381cc544fea41fd74badf7bad51aa94ec",
+        "generation/result.json": "305a9cde0b861a7ff52116d9b82457df957e831ceee5871201bec864a819ae0a"
+      },
+      "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "condition": "frozen-fresh-control",
+      "evaluation_completed": true,
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_execution_count": 3,
+        "frontier_projection_complete_count": 0,
+        "frontier_projection_count": 0,
+        "goal_finding_counts": [
+          0,
+          5,
+          0
+        ],
+        "goal_obligation_group_counts": [
+          0,
+          5,
+          0
+        ],
+        "lexical_install_target_count": 30,
+        "lexical_install_targets": [
+          ".[django,falcon,flask,requests,aiohttp,starlette,fastapi]",
+          "aiohttp",
+          "black",
+          "bump2version",
+          "deptry",
+          "django",
+          "djangorestframework",
+          "falcon",
+          "fastapi",
+          "flask",
+          "httpx",
+          "isort",
+          "mypy",
+          "pip",
+          "poetry",
+          "pre-commit",
+          "pyflakes",
+          "pytest",
+          "pytest-aiohttp",
+          "pytest-cov",
+          "pytest-flake8",
+          "python-multipart",
+          "responses",
+          "setuptools",
+          "sphinx",
+          "sphinx-immaterial",
+          "starlette",
+          "strict-rfc3339",
+          "webob",
+          "wheel"
+        ],
+        "maximum_active_finding_count": 5,
+        "maximum_obligation_group_count": 5,
+        "post_first_positive_finding_delta": -5
+      },
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "official_pass": true,
+      "official_raw_metrics": {
+        "commit_sha": "68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+        "error_count": 586,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "python-openapi/openapi-core",
+        "warning_count": 3
+      },
+      "position": 2,
+      "primary_metric_eligible": true,
+      "provider_censored": false,
+      "run_id": "pro-goal-frontier-v1-pilot-02-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "selected_run_id": "pro-goal-frontier-v1-pilot-02-frozen-fresh-control",
+      "usage": {
+        "cache_read_tokens": 2304,
+        "candidates": 3,
+        "commands": 3,
+        "elapsed_wall_clock_seconds": 443.578171,
+        "environments": 3,
+        "input_tokens": 26109,
+        "output_tokens": 10125,
+        "provider_retries": 0,
+        "requests_started": 3,
+        "total_tokens": 36234
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-operation-relevance-v1-deepseek-direct/pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry2/envbench-python-terrapower__armi__2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "cbdc542096fd56d408cb5729cac9ffe0cd9564b82afb1af59b4ea43a938c2c07",
+        "generation/episode.jsonl": "1ac94a721ae67fe491aeba94c4733b2532b9bf3e6c4695bdcbd9a7a1222a8f96",
+        "generation/episode_snapshot.json": "3f993deacf08b9a61bcede197ec0d7a5e460e40520ef2571c3a9ba39b7a6c308",
+        "generation/result.json": "e147f49751837465b34306ca4d111e70478abf7a365c943b196897365478e712"
+      },
+      "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "condition": "goal-frontier-v1",
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "APITimeoutError: Request timed out.",
+      "mechanism": {
+        "candidate_execution_count": 5,
+        "frontier_projection_complete_count": 5,
+        "frontier_projection_count": 5,
+        "goal_finding_counts": [
+          0,
+          0,
+          0,
+          0,
+          15
+        ],
+        "goal_obligation_group_counts": [
+          0,
+          0,
+          0,
+          0,
+          10
+        ],
+        "lexical_install_target_count": 17,
+        "lexical_install_targets": [
+          "$PKG",
+          "Cython",
+          "cython",
+          "htmltree",
+          "ordered-set",
+          "pip",
+          "pluggy",
+          "pyDOE",
+          "pybind11",
+          "pyevtk",
+          "ruamel.yaml",
+          "setuptools",
+          "tabulate",
+          "toml",
+          "voluptuous",
+          "wheel",
+          "yamlize"
+        ],
+        "maximum_active_finding_count": 15,
+        "maximum_obligation_group_count": 10,
+        "post_first_positive_finding_delta": 0
+      },
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "official_pass": null,
+      "official_raw_metrics": null,
+      "position": 3,
+      "primary_metric_eligible": false,
+      "provider_censored": true,
+      "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1,
+      "selected_run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry2",
+      "usage": {
+        "cache_read_tokens": 5120,
+        "candidates": 5,
+        "commands": 5,
+        "elapsed_wall_clock_seconds": 1480.236592,
+        "environments": 5,
+        "input_tokens": 37821,
+        "output_tokens": 30130,
+        "provider_retries": 0,
+        "requests_started": 6,
+        "total_tokens": 67951
+      }
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-operation-relevance-v1-deepseek-direct/pro-goal-frontier-v1-pilot-04-frozen-fresh-control/envbench-python-terrapower__armi__2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "artifact_sha256": {
+        "generation/budget_ledger.json": "18e4c7f11d71bd85273613369c8b87987e6a6f4824091c6abedbe4455b7c5384",
+        "generation/episode.jsonl": "45eed4500984736f3e0a332981cc362cbf2676dc3df0ef10230c682c0ad961db",
+        "generation/episode_snapshot.json": "2e4000d02aeeff4389f689925a84407691785b333098a5e80997ef6b04aa3088",
+        "generation/result.json": "43d167ddac2e95958380dcba13bde092fa178398341b0f9c252d5a3ac32a1e89"
+      },
+      "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "condition": "frozen-fresh-control",
+      "evaluation_completed": false,
+      "generation_completed": false,
+      "generation_error": "APITimeoutError: Request timed out.",
+      "mechanism": {
+        "candidate_execution_count": 10,
+        "frontier_projection_complete_count": 0,
+        "frontier_projection_count": 0,
+        "goal_finding_counts": [
+          0,
+          0,
+          0,
+          0,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "goal_obligation_group_counts": [
+          0,
+          0,
+          0,
+          0,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "lexical_install_target_count": 21,
+        "lexical_install_targets": [
+          "$tmp_ccl",
+          "./$d",
+          ".[test,docs,grids,mpi]",
+          ".[test]",
+          "Cython",
+          "ccl",
+          "h5py==3.9",
+          "importlib-metadata",
+          "importlib_metadata",
+          "matplotlib==3.7.3",
+          "mpi4py",
+          "numpy==1.23.5",
+          "pip",
+          "pybind11",
+          "scipy",
+          "setuptools",
+          "sphinx",
+          "sphinx-gallery",
+          "sphinx_rtd_theme",
+          "wheel",
+          "wxpython==4.2.1"
+        ],
+        "maximum_active_finding_count": 20,
+        "maximum_obligation_group_count": 7,
+        "post_first_positive_finding_delta": 0
+      },
+      "method": "envsolve-pro-goal-contract-evidence-anchor",
+      "model": "deepseek-v4-pro",
+      "official_pass": null,
+      "official_raw_metrics": null,
+      "position": 4,
+      "primary_metric_eligible": false,
+      "provider_censored": true,
+      "run_id": "pro-goal-frontier-v1-pilot-04-frozen-fresh-control",
+      "runner": "envsolve",
+      "seed": 1,
+      "selected_run_id": "pro-goal-frontier-v1-pilot-04-frozen-fresh-control",
+      "usage": {
+        "cache_read_tokens": 7680,
+        "candidates": 10,
+        "commands": 9,
+        "elapsed_wall_clock_seconds": 4699.650849,
+        "environments": 9,
+        "input_tokens": 118836,
+        "output_tokens": 58647,
+        "provider_retries": 0,
+        "requests_started": 11,
+        "total_tokens": 177483
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "conditions": {
+        "frozen-fresh-control": {
+          "official_pass": true,
+          "primary_metric_eligible": true,
+          "selected_run_id": "pro-goal-frontier-v1-pilot-02-frozen-fresh-control"
+        },
+        "goal-frontier-v1": {
+          "official_pass": true,
+          "primary_metric_eligible": true,
+          "selected_run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry3"
+        }
+      },
+      "disposition": "primary-comparison",
+      "official_pass_difference": 0,
+      "paired_primary_eligible": true,
+      "treatment_minus_control": {
+        "candidates": 1,
+        "elapsed_wall_clock_seconds": 823.3787390000001,
+        "total_tokens": 18416
+      },
+      "treatment_over_control": {
+        "elapsed_wall_clock_seconds": 2.8562201497512376,
+        "total_tokens": 1.5082519180879836
+      }
+    },
+    {
+      "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "conditions": {
+        "frozen-fresh-control": {
+          "official_pass": null,
+          "primary_metric_eligible": false,
+          "selected_run_id": "pro-goal-frontier-v1-pilot-04-frozen-fresh-control"
+        },
+        "goal-frontier-v1": {
+          "official_pass": null,
+          "primary_metric_eligible": false,
+          "selected_run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry2"
+        }
+      },
+      "disposition": "mechanism-only-provider-censored",
+      "paired_primary_eligible": false
+    }
+  ],
+  "primary_summary": {
+    "interpretation": "The only primary-eligible pair is a pass/pass tie. The second selected pair is provider-censored and supports no Official Pass claim.",
+    "official_pass_control": 1,
+    "official_pass_difference_sum": 0,
+    "official_pass_treatment": 1,
+    "primary_eligible_pair_count": 1,
+    "selected_pair_count": 2
+  },
+  "schema_version": "1.0.0",
+  "source_artifacts": {
+    "amendment": "experiments/validations/pro_goal_frontier_v1_pilot_interruption_amendment.json",
+    "amendment_sha256": "abeb59a9dbd55420de18bfc2556402aea038829fe34fc8810d237cce5c41d665",
+    "preregistration": "experiments/validations/pro_goal_frontier_v1_pilot_preregistration.json",
+    "preregistration_sha256": "5caf4bc5a3de31dffcf378b70a1a5eab1f591bc06c2bf6368dd875e079cc1169",
+    "runs_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-operation-relevance-v1-deepseek-direct"
+  },
+  "study_id": "envsolve-pro-goal-frontier-v1-pilot"
+}

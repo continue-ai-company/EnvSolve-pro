@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2.1-consumed-mechanism",
+  "status": "completed_with_posthoc_construct_gap",
+  "completed_at": "2026-07-29T18:30:35Z",
+  "claim_scope": "Consumed-development mechanism result only. It is an official EnvBench result, but not a generalization, held-out, or leaderboard-scale estimate.",
+  "case": {
+    "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+    "source_evidence_consumed": true
+  },
+  "outcome": {
+    "generation_completed": true,
+    "internal_goal_status": "satisfied",
+    "internal_certification": "certified",
+    "official_envbench_pass": true,
+    "official_issues_count": 0,
+    "official_missing_import_count": 0,
+    "non_scoring_error_count": 311,
+    "non_scoring_warning_count": 26,
+    "model_rounds": 2,
+    "model_candidates": 2,
+    "initial_probe_candidates": 1,
+    "container_commands": 71,
+    "fresh_candidate_environments": 2,
+    "episode_wall_clock_seconds": 1382.3352111660001,
+    "schedule_wall_clock_seconds": 1446.77431925,
+    "official_evaluation_seconds": 47.47374701499939,
+    "token_usage": {
+      "input_tokens": 3670827,
+      "cached_input_tokens": 3459072,
+      "output_tokens": 41474,
+      "reasoning_output_tokens": 27303
+    }
+  },
+  "mechanism_checks": [
+    {
+      "check_id": "observation-role-separation",
+      "status": "passed",
+      "evidence": "The initial observation completed with bootstrap exit 0 and was not subjected to candidate source-provenance attribution."
+    },
+    {
+      "check_id": "observation-before-operation",
+      "status": "passed",
+      "evidence": "Round 1 received a complete initial goal report before the first model candidate."
+    },
+    {
+      "check_id": "constraint-before-operation",
+      "status": "passed",
+      "evidence": "The projection retained all 70 active findings and compressed them into 24 complete obligation groups with 0 unknown and 0 omitted groups."
+    },
+    {
+      "check_id": "divergent-source-rejection",
+      "status": "not_exercised",
+      "evidence": "No submitted candidate installed divergent runtime source beneath the project namespace. The model explored an older distribution only in its diagnostic container."
+    },
+    {
+      "check_id": "rejection-to-repair",
+      "status": "not_exercised_as_preregistered",
+      "evidence": "No divergent-source rejection occurred. Separately, candidate 1 was rejected for directly materializing micropy/__init__.pyi, and round 2 received the exact rejected program, line, target, and failure message before producing a different candidate."
+    },
+    {
+      "check_id": "source-consistent-success",
+      "status": "passed_under_frozen_v2.1_definition",
+      "evidence": "Candidate 2 passed the public goal, repository effect audit, and python-import-source-provenance-v2 audit in a fresh exact-revision environment."
+    }
+  ],
+  "candidate_transition": {
+    "candidate_1": {
+      "status": "rejected_before_goal",
+      "exit_code": 252,
+      "reason": "candidate program directly materializes an importable artifact",
+      "rejected_target": "$MICROPY_CLI_PYRIGHT_STUBS/micropy/__init__.pyi"
+    },
+    "candidate_2": {
+      "status": "internal_and_official_pass",
+      "strategy": "Install declared dependencies and create a temporary setuptools distribution that maps the checkout's micropy/app package to the legacy micropy.cli import identity.",
+      "repository_effect_audit_valid": true,
+      "source_provenance_v2_valid": true,
+      "script_sha256": "efd69d303d24b1b33cd0409b33973d2aa80b5b5c4a33da14a216e27e6ae20530"
+    }
+  },
+  "posthoc_construct_audit": {
+    "status": "gap_detected",
+    "category": "undeclared_module_identity_remap",
+    "description": "V2.1 checks source bytes and direct importable-artifact generation, but a temporary package can assign current-checkout source to a new module identity through setuptools package_dir metadata. The accepted candidate mapped micropy.app to micropy.cli even though micropy.cli is absent from the revision.",
+    "official_metric_impact": "None. EnvBench officially counts reportMissingImports, and the run is an Official Pass.",
+    "scientific_impact": "The run remains valid evidence for observation, constraint projection, and rejection-to-repair plumbing. It is not a clean integrity-qualified effectiveness result until module-identity provenance is explicitly defined and tested.",
+    "next_required_test": "Freeze a module-identity canary that distinguishes a declared same-path editable install from an undeclared package metadata remap."
+  },
+  "decision": {
+    "official_result_usable": true,
+    "mechanism_result_usable": true,
+    "integrity_qualified_effectiveness_result_usable": false,
+    "proceed_directly_to_repository_disjoint_dev": false,
+    "required_next_step": "Define and validate the smallest module-identity provenance rule before freezing the repository-disjoint Dev experiment."
+  },
+  "artifacts": {
+    "preregistration": {
+      "path": "experiments/validations/pro_stateful_agent_v2_1_consumed_mechanism_preregistration.json"
+    },
+    "progress": {
+      "path": "experiments/runs/pro_stateful_agent_v2_1_consumed_mechanism_mac_progress.json",
+      "sha256": "740d6d855bf9d52c97429783c4d4e15e298d540ab2f2c6c167a25f2b78817465"
+    },
+    "generation_result": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/result.json",
+      "sha256": "5f99bb432523e17016886340cbd2dd98e485204168580d2e853d75ba20f6ee79"
+    },
+    "evaluation_result": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/evaluation/result.json",
+      "sha256": "b31d6d3c7fefdec0e270e2bfdc6bced9bbf4f198013dc07fc8bd0f75b2ae910a"
+    },
+    "official_attempt": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/evaluation/official_attempt.json",
+      "sha256": "23b313ca3603d6e281a7d415cc171f44239160422a243140d6a094eb0e6ed450"
+    },
+    "episode": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/episode.jsonl",
+      "sha256": "2992d1d86a80867014866594b23880267f3dbfafd70eac7361a2c6eccfcc4451"
+    },
+    "round_1_projection": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/agent-rounds/round-0001/state-projection.json",
+      "sha256": "2f926d1a7971a378dbf7b45f6301d8c6fe78e2f69fbee27a76e225b75e0a1ab4"
+    },
+    "round_2_projection": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/agent-rounds/round-0002/state-projection.json",
+      "sha256": "50526082459fbf486a0d6fd7d7d1d64a117cc2d24ec4c1dfd0621a030a3c2ebc"
+    },
+    "candidate_1_output": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/agent-rounds/round-0001/final-output.json",
+      "sha256": "3e18c84d7c868b170a01cb8d53308c2854dcb4e1095f70b50f34474239bf9b6b"
+    },
+    "candidate_2_output": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/agent-rounds/round-0002/final-output.json",
+      "sha256": "e2c720dd7c6faee86a4dece5efb8f8e2c24425c467da66f4e778bf047f9b8b67"
+    },
+    "generated_script": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/scripts/generated.sh",
+      "sha256": "efd69d303d24b1b33cd0409b33973d2aa80b5b5c4a33da14a216e27e6ae20530"
+    }
+  }
+}

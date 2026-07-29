@@ -442,3 +442,78 @@ outcomes. Cache mutations persist within one episode only, eliminating repeated
 candidate downloads without carrying state across compared methods. Seed cost,
 hit/miss counts, upstream bytes, cache size, wall-clock, and service memory are reported
 separately. The existing DeepSeek-direct retry remains cache-disabled.
+
+## 8. External-Trajectory Adjudication and Next Algorithm
+
+The completed Lark and micropy-cli posthoc study observed Repo2Run and a goal-aware Codex
+agent on consumed development cases. It is mechanism evidence, not a performance
+comparison. Repo2Run's native ReAct loop stopped on Lark when repository tests passed,
+although the official public goal still contained 13 issues. On micropy-cli it made
+tracked dependency-declaration edits to pass native tests and could not emit a valid
+environment-only replay program. Goal-aware Codex instead found a legitimate Lark
+solution through interactive package diagnosis, but on micropy-cli it submitted
+synthetic import stubs despite receiving the open candidate contract. Executable
+validation correctly rejected that candidate.
+
+Together with the negative execution-feedback-v3 screen, this changes the active
+hypothesis. The next method will not add another semantic constraint taxonomy or narrow
+the Bash action space. It will combine a strong interactive agent with the existing
+three-layer state:
+
+- **Observation:** preserve complete public-goal findings, command outcomes, repository
+  effects, candidate-policy decisions, and clean-replay results.
+- **Constraint:** maintain only a provenance-preserving ledger of unresolved goal
+  obligations, admissibility violations, and verified candidate facts.
+- **Operation:** let a strong agent inspect and act through an open terminal, then submit
+  a cumulative program. A rejected program or failed clean replay becomes feedback for a
+  subsequent fresh repair round rather than terminating the case.
+
+The frozen name for this minimal hypothesis is `stateful-agent-v1`. Its controlled
+comparison uses the same strong model and public goal: one native goal-aware session,
+multiple sessions with raw prior feedback, and multiple sessions with structured current
+state plus relevant raw evidence. Official Pass@1 is primary. Failure-conditioned
+recovery directly tests the new mechanism. Tokens, requests, commands, environments, and
+wall-clock remain reported resource outcomes rather than success overrides.
+
+Before unseen development cases are opened, `stateful-agent-v1` must pass three consumed
+mechanism checks: it must preserve the legitimate Lark program, return exact policy
+rejection as a new observation on micropy-cli, and produce an identity-audited clean
+replay for every claimed success. The consumed cases may validate plumbing and
+mechanism only; no rule may encode their package names or solutions.
+
+### 8.1 Stateful-Agent V1 Decision
+
+The four consumed positions all passed the official metric on their first submitted
+candidate, but this does not qualify the mechanism. The two Lark programs are valid
+environment-only deployments. Both micropy-cli programs instead overlay the checkout's
+`micropy` namespace with `micropy.cli` from an older same-name distribution on
+`PYTHONPATH`. They are reproducible mixed-source environments, not source-consistent
+reproductions. The identical shortcut in raw and structured conditions localizes the
+failure to the shared verification contract.
+
+Because every episode ended after one model round, no rejection or goal failure reached
+a later session and the structured repair state was never exercised. V1 is frozen as a
+diagnostic strong-agent baseline, with no effectiveness or resource claim. V2 adds only
+a shared pre-operation goal observation, a generic project-namespace provenance check,
+and restoration of trusted verifier shell invariants. It must demonstrate a genuine
+failure-to-repair transition on consumed data before any new Dev repository is opened.
+
+### 8.2 Stateful-Agent V2.1 Decision
+
+V2.1 corrected the initial-observation role boundary and completed the consumed
+micropy-cli mechanism case. Before the first model action, the executable goal produced
+70 active findings; the Constraint layer retained all of them and projected 24 complete
+obligation groups. Candidate 1 directly generated a Python stub and was rejected with
+the exact offending line. Candidate 2 received that program and rejection in a new
+session, changed strategy, passed fresh internal verification, and achieved Official
+Pass with zero scoring issues. This is the first observed stateful rejection-to-repair
+transition, but it remains consumed mechanism evidence.
+
+Posthoc audit found one remaining construct gap. Candidate 2 used setuptools metadata to
+assign the existing `micropy.app` source to the absent `micropy.cli` identity. That is
+valid under the frozen V2.1 source-byte rule and under EnvBench's official
+`reportMissingImports` objective, but it is not module-identity preserving. V2.2 adds
+only this missing invariant. Its ARM64 Docker canary permits a normal same-identity
+install and rejects an undeclared source relabel. The next step is to expose V2.2 through
+a versioned runner, freeze it before opening repository-disjoint Dev cases, and report
+Official Pass separately from integrity-qualified Pass.

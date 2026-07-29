@@ -1,0 +1,91 @@
+{
+  "adapters": {
+    "codex_cli": {
+      "executable_sha256": "6d8be49e49751554df16572369e636cbe02c84b208cad3dc35528c846eeca223",
+      "runner_path": "envsolve_harness/runners/codex_cli.py",
+      "runner_sha256": "ed65a643e42046b4d786f97d52d37ab89379a3cbce05e19b4eba438961a77574",
+      "version": "codex-cli 0.146.0-alpha.3.1"
+    },
+    "repo2run": {
+      "budget_bridge_sha256": "c830024c864be848a0091ceeabab4d206fd23e5e87ba6ed5e5b37a40690de433",
+      "candidate_interface": "open-program",
+      "compiler_path": "envsolve_harness/scripts/repo2run.py",
+      "compiler_sha256": "4de53b370a9ac06fce67c5c64299a5f40d0a0f73f0ef9c17f07aaef45fafcbe1",
+      "runner_path": "envsolve_harness/runners/repo2run.py",
+      "runner_sha256": "e24ee1818c5e4d2443333398e3fb81111919e92a8f47436c659edc918096b7b1",
+      "upstream_revision": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692"
+    }
+  },
+  "analysis": {
+    "compare": [
+      "whether the agent reaches the public executable goal",
+      "how execution feedback changes the next operation",
+      "whether failed strategies recur",
+      "whether a successful final script preserves repository integrity"
+    ],
+    "official_evaluator_feedback_used_online": false,
+    "primary_metric_claim": false,
+    "use": "posthoc mechanism observation before freezing the next EnvSolve-Pro algorithm"
+  },
+  "case_file": {
+    "path": "experiments/cases/consumed_pro_v3_external_trajectory2.jsonl",
+    "sha256": "bde702a097ae9e488863a3531deacba094d92497d8f5f88048c918d806a7cf84"
+  },
+  "cases": [
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "reason": "Treatment lost to control after repeated complete-goal constraint stagnation.",
+      "source_evidence_consumed": true
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "reason": "Both conditions failed before producing a successful goal report and repeated dependency strategies.",
+      "source_evidence_consumed": true
+    }
+  ],
+  "claim_scope": "Consumed-development trajectory study only; excluded from primary algorithm comparison, test claims, and leaderboard evidence.",
+  "configs": {
+    "mac_codex": {
+      "path": "experiments/configs/local_mac_pro_posthoc_external_v1.json",
+      "sha256": "d371842e20a88a44675509e870b34448a69421b9f34c5df8264c2e135d521c72"
+    },
+    "spark_repo2run": {
+      "path": "experiments/configs/spark_pro_posthoc_external_v1.json",
+      "sha256": "627bf7179306b27929d8a52ef33d0bac39827ec666a04f532568d689634e1a57"
+    }
+  },
+  "conditions": [
+    {
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "public_goal_available_online": true,
+      "runner": "codex-cli"
+    },
+    {
+      "host": "spark",
+      "method": "repo2run",
+      "model": "deepseek-v4-pro",
+      "public_goal_available_online": false,
+      "runner": "repo2run"
+    }
+  ],
+  "preregistered_at": "2026-07-29T14:42:03Z",
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "schedules": {
+    "mac_codex": {
+      "path": "experiments/schedules/pro_posthoc_external_v1_mac_codex.json",
+      "sha256": "8209e5cddee1b9ee118595cf36d0af21047d4a58c7cdc09daed6468037100b8e"
+    },
+    "spark_repo2run": {
+      "path": "experiments/schedules/pro_posthoc_external_v1_spark_repo2run.json",
+      "sha256": "53cba37c52972c03d30cced73c2466fcc4d31eb63266cdff2c257cb477449e66"
+    }
+  },
+  "schema_version": "1.0.0",
+  "status": "frozen",
+  "study_id": "envsolve-pro-posthoc-external-v1"
+}

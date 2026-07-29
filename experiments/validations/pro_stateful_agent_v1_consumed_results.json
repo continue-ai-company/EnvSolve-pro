@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v1-consumed",
+  "status": "complete",
+  "completed_at": "2026-07-29T17:14:00.680864Z",
+  "claim_scope": "Consumed-development mechanism study only. No generalization, held-out, or leaderboard claim.",
+  "source_artifacts": {
+    "preregistration": {
+      "path": "experiments/validations/pro_stateful_agent_v1_consumed_mechanism_preregistration.json",
+      "sha256": "807e196cebc8cc43a8a6f898c5a6cd40ed7949a6e845cf38710074668031c22d"
+    },
+    "progress": {
+      "path": "experiments/runs/pro_stateful_agent_v1_consumed_mac_progress.json",
+      "sha256": "829d427dbd27dbc8ca95284bcde270293d68018f3da87935a7244b481d6f440b"
+    },
+    "registry_snapshot_patch": {
+      "path": "experiments/frozen/pro_stateful_agent_v1_registry.patch",
+      "sha256": "5ab878878f30fdfae19d44b534422a6e464abe14c9d1f74dab927b7ee41c343d",
+      "resulting_registry_sha256": "9b4c682172904d7428119671966932edd35246349af670758a2ff8c2e5869625"
+    }
+  },
+  "aggregate": {
+    "scheduled_positions": 4,
+    "completed_positions": 4,
+    "official_passes": 4,
+    "scientifically_eligible_positions": 2,
+    "scientifically_eligible_passes": 2,
+    "provenance_invalid_official_passes": 2,
+    "multi_round_episodes": 0,
+    "policy_rejections": 0,
+    "structured_repair_mechanism_exercised": false
+  },
+  "outcomes": [
+    {
+      "run_id": "pro-stateful-v1-c01-lark-raw-history",
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "condition": "raw-history",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "scientifically_eligible": true,
+      "adjudication": "valid_environment_only_deployment",
+      "candidates": 1,
+      "agent_rounds": 1,
+      "container_commands": 39,
+      "input_tokens": 1709590,
+      "cached_input_tokens": 1585664,
+      "output_tokens": 21009,
+      "reasoning_output_tokens": 11247,
+      "generation_elapsed_seconds": 933.1716929589893,
+      "script_sha256": "42538a34efb791ebc3e8d59a9cdb9820d52749d68edfc2b19e5b88ef49ce409c",
+      "notes": [
+        "The current checkout was built into a local wheel and installed without tracked source edits.",
+        "The exact qscintilla2 Conda build pin is architecture-specific and should be audited in cross-platform replay."
+      ]
+    },
+    {
+      "run_id": "pro-stateful-v1-c01-lark-structured-state",
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "condition": "structured-state",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "scientifically_eligible": true,
+      "adjudication": "valid_environment_only_deployment",
+      "candidates": 1,
+      "agent_rounds": 1,
+      "container_commands": 26,
+      "input_tokens": 1071597,
+      "cached_input_tokens": 977408,
+      "output_tokens": 16115,
+      "reasoning_output_tokens": 6895,
+      "generation_elapsed_seconds": 844.5257572499977,
+      "script_sha256": "b8cd556dd79074056bb9f84e74ee7280b04685fd99bb9bb7c759de66acbe93cb",
+      "notes": [
+        "The current checkout was installed with declared extras and no tracked source edits.",
+        "The exact qscintilla2 Conda build pin is architecture-specific and should be audited in cross-platform replay."
+      ]
+    },
+    {
+      "run_id": "pro-stateful-v1-c02-micropy-cli-structured-state",
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "structured-state",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "scientifically_eligible": false,
+      "adjudication": "project_namespace_provenance_violation",
+      "candidates": 1,
+      "agent_rounds": 1,
+      "container_commands": 47,
+      "input_tokens": 1930159,
+      "cached_input_tokens": 1805824,
+      "output_tokens": 22004,
+      "reasoning_output_tokens": 10693,
+      "generation_elapsed_seconds": 866.3894589580013,
+      "script_sha256": "7da37d68152178ae1a31c9054ac74af106794678ab74e823b9ea0062e843ac96",
+      "notes": [
+        "The program placed micropy-cli 3.6.0 on PYTHONPATH to supply micropy.cli missing from the current checkout.",
+        "Official Pass and fresh replay therefore do not establish source-consistent reproduction."
+      ]
+    },
+    {
+      "run_id": "pro-stateful-v1-c02-micropy-cli-raw-history",
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "raw-history",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "scientifically_eligible": false,
+      "adjudication": "project_namespace_provenance_violation",
+      "candidates": 1,
+      "agent_rounds": 1,
+      "container_commands": 43,
+      "input_tokens": 1735888,
+      "cached_input_tokens": 1597952,
+      "output_tokens": 18635,
+      "reasoning_output_tokens": 9067,
+      "generation_elapsed_seconds": 872.6523740409903,
+      "script_sha256": "11ff088947e25102357edb8452ba355659b6d7af4f30cc127b53daf210157dbd",
+      "notes": [
+        "The program placed micropy-cli 4.1.0 on PYTHONPATH to supply micropy.cli missing from the current checkout.",
+        "The same shortcut in both conditions localizes the problem to the verification contract rather than structured-state guidance."
+      ]
+    }
+  ],
+  "mechanism_checks": {
+    "raw_evidence_parity": "passed_by_test_and_projection_artifacts",
+    "candidate_rejection_memory": "not_exercised",
+    "open_operation_space": "passed",
+    "fresh_replay_authority": "passed_under_v1_contract_but_found_insufficient_for_source_provenance",
+    "no_synthetic_source_acceptance": "passed",
+    "structured_state_used_for_repair": "failed_to_exercise"
+  },
+  "decision": {
+    "stateful_agent_v1_qualified": false,
+    "effectiveness_claim_allowed": false,
+    "resource_claim_allowed": false,
+    "reasons": [
+      "All four episodes terminated after the first model submission, so the structured repair state never influenced a subsequent operation.",
+      "Both micropy-cli passes combined the current checkout with an older same-name distribution, violating source provenance despite passing the official metric.",
+      "One stochastic eligible pair is insufficient for a resource-efficiency claim."
+    ],
+    "next_revision": [
+      "Run a shared read-only executable-goal probe before the first model operation so Observation and Constraint are non-empty in round one.",
+      "Add a generic project-namespace provenance check that rejects external search roots overlaying a namespace supplied by the checkout.",
+      "Restore verifier shell invariants after every candidate before trusted goal and integrity checks.",
+      "Preserve v1 as a frozen diagnostic baseline and qualify v2 first on consumed cases."
+    ]
+  }
+}

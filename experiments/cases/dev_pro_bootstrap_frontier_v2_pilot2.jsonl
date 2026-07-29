@@ -1,0 +1,2 @@
+{"case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d", "language": "python", "repository": "zostera/django-bootstrap5", "revision": "f07d75182b27a351ad07ae89400591046f0b2f3d", "split": "dev-pro-bootstrap-frontier-v2-pilot2", "tags": []}
+{"case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218", "language": "python", "repository": "textext/textext", "revision": "a7f423f8a44285f0059299ed3f1286a46ef17218", "split": "dev-pro-bootstrap-frontier-v2-pilot2", "tags": []}

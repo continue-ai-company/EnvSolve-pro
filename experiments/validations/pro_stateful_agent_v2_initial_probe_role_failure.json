@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2-consumed-mechanism",
+  "status": "invalid_mechanism_run",
+  "run_id": "pro-stateful-v2-c02-micropy-cli-structured-state",
+  "adjudicated_at": "2026-07-29T17:55:07Z",
+  "claim_scope": "Consumed-development mechanism failure. No effectiveness outcome was produced.",
+  "failure": {
+    "stage": "initial_observation",
+    "category": "observation_role_boundary_error",
+    "description": "The V2 source-provenance candidate audit ran on the read-only initial observation. A divergent same-namespace package already present in the base image caused the verifier to stop before executing the public goal.",
+    "observed_verification_summary": "Candidate mixed the project namespace with an external source",
+    "goal_report": null,
+    "active_goal_finding_count": 0,
+    "model_round_started_after_valid_observation": false
+  },
+  "decision": {
+    "mechanism_gate_passed": false,
+    "algorithm_outcome": "not_measured",
+    "interruption_reason": "The preregistered observation-before-operation and constraint-before-operation checks had already failed; continuing the model session could not repair the invalid input state.",
+    "required_correction": "Separate the observation-only probe contract from candidate admissibility. The initial probe must execute the public goal without attributing base-image provenance to a candidate; V2 provenance remains mandatory for every model-submitted program.",
+    "versioning": "The correction requires a new V2.1 method identifier, run ID, schedule, and preregistration."
+  },
+  "artifacts": {
+    "progress": {
+      "path": "experiments/runs/pro_stateful_agent_v2_consumed_mechanism_mac_retry1_progress.json",
+      "sha256": "4c73eb953bac3f5544debb541c419b81aca06789e19ebef444bc5390a5fddfc4"
+    },
+    "state_projection": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2-consumed/pro-stateful-v2-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/agent-rounds/round-0001/state-projection.json",
+      "sha256": "ef23677041c7067ee63d6657e20db891ceebd283770cd7965ec4ff0bd2504c58"
+    },
+    "episode": {
+      "external_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2-consumed/pro-stateful-v2-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/generation/episode.jsonl",
+      "sha256": "ee6e8362ce9d00234f078f59909eeab016adcb879174de531ab0e1f4c9e46817"
+    }
+  }
+}

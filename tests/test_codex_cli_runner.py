@@ -11,6 +11,7 @@ from envsolve_harness.runners.codex_cli import (
     parse_codex_usage,
     validate_codex_bootstrap,
 )
+from envsolve_harness.scripts.open_program import OpenCandidateProgramValidator
 from envsolve.runtime import ExecutableGoalContract
 from envsolve.runtime.workspace import WorkspacePrecondition
 
@@ -145,6 +146,11 @@ class CodexCliRunnerTest(unittest.TestCase):
             goal_aware = runner._prompt(case, contract)
 
             self.assertNotIn("public-import-goal", native)
+            self.assertIn("<candidate_contract>", native)
+            self.assertIn(
+                OpenCandidateProgramValidator.prompt_contract,
+                native,
+            )
             self.assertIn("public-import-goal", goal_aware)
             self.assertIn(contract.sha256, goal_aware)
             self.assertIn(contract.program, goal_aware)

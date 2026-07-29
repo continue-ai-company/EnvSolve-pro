@@ -1,0 +1,21 @@
+{
+  "case_file": "experiments/cases/consumed_pro_v3_external_trajectory2.jsonl",
+  "case_file_sha256": "bde702a097ae9e488863a3531deacba094d92497d8f5f88048c918d806a7cf84",
+  "episode_timeout_seconds": 22400,
+  "episodes": [
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "condition": "structured-state-v2",
+      "host": "mac",
+      "method": "envsolve-pro-stateful-agent-v2",
+      "model": "gpt-5.5",
+      "position": 1,
+      "run_id": "pro-stateful-v2-c02-micropy-cli-structured-state",
+      "runner": "envsolve-pro-stateful-agent-v2",
+      "seed": 2
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2-consumed-mechanism"
+}

@@ -1,0 +1,40 @@
+{
+  "claim": "Python isolated mode prevents candidate PYTHONPATH contents from corrupting the import-alias audit while explicit PYTHONPATH root scanning preserves synthetic-alias detection.",
+  "implementation": {
+    "path": "envsolve/runtime/integrity.py",
+    "sha256": "8410aae17120b861f7a1b2072b344c62a5cfc867ebe35dcee5b367d567ef3453"
+  },
+  "qualification": {
+    "envbench_image": {
+      "digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+      "network": "none",
+      "result": "2 passed"
+    },
+    "mac_host": {
+      "result": "2 passed"
+    },
+    "regression_suite": {
+      "result": "36 passed",
+      "scope": [
+        "tests/test_integrity_audit.py",
+        "tests/test_open_candidate_interface.py",
+        "envsolve/tests/test_goal_contract.py",
+        "tests/test_execution_feedback_analysis.py"
+      ]
+    },
+    "ruff": "passed"
+  },
+  "research_disposition": {
+    "algorithm_condition": false,
+    "counts_as_official_pass_gain": false,
+    "kind": "harness-measurement-correctness",
+    "pysnmp_screen_episode_remains_censored": true
+  },
+  "schema_version": "1.0.0",
+  "test": {
+    "path": "tests/test_integrity_audit.py",
+    "sha256": "b47c20883fdd5bdfd6a970e55ca2cfb7b40b6cb70aef8aa99bcd07d49164bfcf"
+  },
+  "validated_at": "2026-07-29T14:32:14Z"
+}

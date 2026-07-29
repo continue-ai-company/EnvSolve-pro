@@ -313,3 +313,49 @@ state and never compare trajectories that began from different snapshots as if o
 policy changed. Per-episode runtime cache mutations may inform acquisition-cost shaping,
 but terminal reward still comes from integrity-valid clean replay; a cache hit is never
 a deployment-success reward.
+
+### 9. Strong-agent submission and repair labels
+
+The external trajectories establish a useful hierarchy for later training. Native-test
+success with an unsatisfied public goal is `proxy_success`, not terminal reward. A
+public-goal Pass produced by synthetic import artifacts is
+`goal_pass_integrity_invalid`, not positive reward. A legitimate program rejected by a
+faulty environment-root measurement is `measurement_censored`; after an identity-
+preserving wrapper repair, its clean official Pass becomes valid terminal supervision.
+
+`stateful-agent-v1` should retain the full interactive command trajectory but define one
+policy action at each submitted cumulative program. Candidate validation, construction
+execution, complete goal delta, and clean replay form ordered outcome labels. A rejected
+submission may still contain useful search evidence, but receives no success reward; the
+next repair round supplies a transition showing whether the model responds to the exact
+violation without forgetting verified environment facts.
+
+This structure supports both offline imitation and later Agent RL while keeping the
+first paper model-agnostic. The first paper should log immutable raw events, normalized
+observations, model-visible projections, submitted programs, rejection reasons, and
+clean-replay identity so that reward definitions can change without rerunning cases.
+
+The v1 consumed study adds two required masks. A trajectory in which the structured
+state is empty before the only policy action provides no supervision for state-conditioned
+repair and must not be labeled as such. A clean replay that passes by overlaying a
+checkout namespace with an older same-name distribution is
+`goal_pass_provenance_invalid`, not terminal reward. V2 should preserve the initial
+read-only goal observation, the resulting raw and structured projections, the rejected
+overlay program, and the next cumulative repair so later learning can assign credit to
+an actual Observation-to-Constraint-to-Operation transition.
+
+### 10. First complete state-conditioned repair trajectory
+
+V2.1 now supplies the first complete transition sequence for later learning: a complete
+initial goal snapshot, a 70-finding to 24-obligation projection, a submitted cumulative
+program, an exact policy rejection, a second model-visible state containing the rejected
+program and line-level violation, and a repaired program with internal and official
+success. This trajectory can supervise rejection-conditioned repair without inventing
+credit from terminal evaluator feedback.
+
+It also requires a two-axis terminal label. Candidate 2 is
+`official_goal_pass=true` under EnvBench, but
+`module_identity_qualified=false` under the posthoc V2.2 construct. Future rewards
+should preserve both labels rather than silently replacing the benchmark objective with
+an integrity objective. Identity qualification may be used as a constraint, preference,
+or auxiliary reward only after its policy version is bound to the trajectory.

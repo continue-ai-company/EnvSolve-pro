@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import json
 from pathlib import Path, PurePosixPath
 import subprocess
 from typing import Any
@@ -151,6 +152,90 @@ def _virtual_environment_roots(
     )
 
 
+def _is_conda_environment(root: Path) -> bool:
+    metadata = root / "conda-meta"
+    history_path = metadata / "history"
+    python = root / "bin/python"
+    try:
+        valid_layout = (
+            history_path.is_file()
+            and not history_path.is_symlink()
+            and (python.is_symlink() or python.is_file())
+        )
+    except OSError:
+        return False
+    if not valid_layout:
+        return False
+    try:
+        history = history_path.read_text(encoding="utf-8")
+        records = sorted(metadata.glob("*.json"))
+    except (OSError, UnicodeError):
+        return False
+    if "# cmd:" not in history or not records:
+        return False
+
+    for record_path in records[:64]:
+        try:
+            if record_path.is_symlink() or not record_path.is_file():
+                continue
+            record = json.loads(record_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            continue
+        if not isinstance(record, dict):
+            continue
+        name = record.get("name")
+        version = record.get("version")
+        build = record.get("build")
+        files = record.get("files")
+        if not all(isinstance(value, str) and value for value in (name, version, build)):
+            continue
+        if not isinstance(files, list) or not files:
+            continue
+        if f"::{name}-{version}-{build}" not in history:
+            continue
+        for value in files:
+            relative = _safe_relative_path(value)
+            if relative is None:
+                continue
+            installed = root / relative
+            try:
+                if installed.is_symlink() or installed.is_file():
+                    return True
+            except OSError:
+                continue
+    return False
+
+
+def _conda_environment_roots(
+    repo_path: Path,
+    paths: tuple[str, ...],
+) -> tuple[PurePosixPath, ...]:
+    candidates = {
+        PurePosixPath(path).parent.parent
+        for path in paths
+        if PurePosixPath(path).name == "history"
+        and PurePosixPath(path).parent.name == "conda-meta"
+        and len(PurePosixPath(path).parts) > 2
+    }
+    return tuple(
+        sorted(root for root in candidates if _is_conda_environment(repo_path / root))
+    )
+
+
+def _environment_roots(
+    repo_path: Path,
+    paths: tuple[str, ...],
+) -> tuple[PurePosixPath, ...]:
+    return tuple(
+        sorted(
+            {
+                *_virtual_environment_roots(repo_path, paths),
+                *_conda_environment_roots(repo_path, paths),
+            }
+        )
+    )
+
+
 def _inside_root(path: PurePosixPath, root: PurePosixPath) -> bool:
     return path == root or root in path.parents
 
@@ -193,12 +278,12 @@ def _declared_generated_paths(repo_path: Path) -> tuple[str, ...]:
 
 def _is_allowed_generated(
     path: str,
-    virtual_environment_roots: tuple[PurePosixPath, ...] = (),
+    environment_roots: tuple[PurePosixPath, ...] = (),
     declared_generated_paths: tuple[str, ...] = (),
     ignored_paths: frozenset[str] = frozenset(),
 ) -> bool:
     pure = PurePosixPath(path)
-    if any(_inside_root(pure, root) for root in virtual_environment_roots):
+    if any(_inside_root(pure, root) for root in environment_roots):
         return True
     if path in declared_generated_paths and path in ignored_paths:
         return True
@@ -214,11 +299,11 @@ def _is_allowed_generated(
 
 def _generated_root(
     path: str,
-    virtual_environment_roots: tuple[PurePosixPath, ...] = (),
+    environment_roots: tuple[PurePosixPath, ...] = (),
     declared_generated_paths: tuple[str, ...] = (),
 ) -> str | None:
     pure = PurePosixPath(path)
-    for root in virtual_environment_roots:
+    for root in environment_roots:
         if _inside_root(pure, root):
             return str(root) + "/"
     if path in declared_generated_paths:
@@ -293,7 +378,7 @@ def inspect_repository(
     )
     untracked = _nul_paths(untracked_process.stdout + ignored_process.stdout)
     ignored_paths = frozenset(_nul_paths(ignored_process.stdout))
-    virtual_environment_roots = _virtual_environment_roots(repo_path, untracked)
+    environment_roots = _environment_roots(repo_path, untracked)
     declared_generated_paths = _declared_generated_paths(repo_path)
     if untracked_process.returncode != 0 or ignored_process.returncode != 0:
         violations.append(
@@ -308,7 +393,7 @@ def inspect_repository(
         for path in untracked
         if not _is_allowed_generated(
             path,
-            virtual_environment_roots,
+            environment_roots,
             declared_generated_paths,
             ignored_paths,
         )
@@ -320,7 +405,7 @@ def inspect_repository(
             {
                 _generated_root(
                     path,
-                    virtual_environment_roots,
+                    environment_roots,
                     declared_generated_paths,
                 )
                 or path

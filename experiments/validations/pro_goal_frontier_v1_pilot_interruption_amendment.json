@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-goal-frontier-v1-pilot",
+  "amendment_type": "user-directed-external-interruption",
+  "recorded_at": "2026-07-28T23:20:52+08:00",
+  "source_episode": {
+    "position": 1,
+    "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+    "condition": "goal-frontier-v1",
+    "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1",
+    "episode_sha256": "9f8f8b829866bc40e109fcbceb21c760fd7cf90752b21bbd47c27488c4dffba1",
+    "heartbeat_sha256": "bc90385dfefd86f7ea0ce6ec04465b54c339341137720c2e36b32cdc61784095",
+    "terminal_solver_result_present": false,
+    "terminal_evaluation_present": false,
+    "analysis_disposition": "mechanism-trajectory-only",
+    "primary_metric_eligible": false
+  },
+  "interruption": {
+    "reason": "The user moved the Mac and explicitly requested a pause.",
+    "algorithm_or_case_outcome_triggered": false,
+    "background_process_remaining_after_cleanup": false,
+    "running_container_remaining_after_cleanup": false
+  },
+  "preflight_failures": [
+    {
+      "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry1",
+      "recorded_at": "2026-07-28T23:23:36+08:00",
+      "stage": "base-runtime-observation",
+      "reason": "Docker daemon was not running after the Mac was moved.",
+      "model_request_started": false,
+      "candidate_proposed": false,
+      "primary_metric_eligible": false
+    }
+  ],
+  "retry": {
+    "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry2",
+    "same_case": true,
+    "same_algorithm_files": true,
+    "same_model": true,
+    "same_seed": true,
+    "same_budget_and_timeouts": true,
+    "fresh_episode_and_containers": true,
+    "inherits_partial_candidate_state": false,
+    "algorithm_prompt_or_threshold_changed": false
+  },
+  "provider_censored_failures": [
+    {
+      "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry2",
+      "recorded_at": "2026-07-28T15:43:55Z",
+      "stage": "candidate-0005-model-acquisition",
+      "reason": "Four consecutive APIConnectionError attempts exhausted the preregistered provider retry policy.",
+      "completed_candidates": 4,
+      "provider_attempts": 8,
+      "provider_retry_attempts_for_terminal_request": 3,
+      "provider_responses": 4,
+      "terminal_solver_result_present": true,
+      "terminal_evaluation_present": false,
+      "generation_result_sha256": "3c6eb77315af66b65a87a4347840127076048ef60d5eea869f8faf26f47f6261",
+      "episode_snapshot_sha256": "b7777d78e47bd84687f7f6218e8601a6c488db1a042a5d6e07853963cf5c641e",
+      "budget_ledger_sha256": "437836286ccfb5f11e635a55e430eebe98391d08096d31dd5b8691819227b648",
+      "analysis_disposition": "mechanism-trajectory-only",
+      "primary_metric_eligible": false
+    },
+    {
+      "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1",
+      "recorded_at": "2026-07-29T01:53:57Z",
+      "stage": "candidate-0003-model-acquisition",
+      "reason": "Four consecutive APIConnectionError attempts exhausted the preregistered provider retry policy.",
+      "completed_candidates": 2,
+      "provider_attempts": 6,
+      "provider_retry_attempts_for_terminal_request": 3,
+      "provider_responses": 2,
+      "terminal_solver_result_present": true,
+      "terminal_evaluation_present": false,
+      "generation_result_sha256": "9edefbbf67e07c26e817eb00f3542a90c7943ad9b4c50975f3bd9168194d8345",
+      "episode_snapshot_sha256": "81eaf87a6787ba6e84b37c9483d0d6366ca288704ef917c0cb8363890fc01d5a",
+      "budget_ledger_sha256": "3a2018edec0eee4e7a5e1039eee050ec647a508c972bb74668aaf035e49ca710",
+      "analysis_disposition": "mechanism-trajectory-only",
+      "primary_metric_eligible": false
+    },
+    {
+      "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry1",
+      "recorded_at": "2026-07-29T02:06:03Z",
+      "stage": "candidate-0002-model-acquisition",
+      "reason": "Four consecutive APIConnectionError attempts exhausted the preregistered provider retry policy.",
+      "completed_candidates": 1,
+      "provider_attempts": 5,
+      "provider_retry_attempts_for_terminal_request": 3,
+      "provider_responses": 1,
+      "terminal_solver_result_present": true,
+      "terminal_evaluation_present": false,
+      "generation_result_sha256": "f42f8b08b05d789b0fef80ca56d97d65c006846448c54122f35d22b6137f3944",
+      "episode_snapshot_sha256": "eb16a5a6cebaa2acd969f7d7deee7cbdadb37e00b0bc8421b86a8ee656e041a1",
+      "budget_ledger_sha256": "188ff8de8c9cab41c1f86ecc6f9e5185b89e2287dbbd8bb7374c1bca62a9fbff",
+      "analysis_disposition": "mechanism-trajectory-only",
+      "primary_metric_eligible": false
+    },
+    {
+      "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry2",
+      "recorded_at": "2026-07-29T02:32:17Z",
+      "stage": "candidate-0006-model-acquisition",
+      "reason": "The provider request reached the preregistered 300-second hard request deadline and raised APITimeoutError.",
+      "completed_candidates": 5,
+      "provider_attempts": 6,
+      "provider_retry_attempts_for_terminal_request": 0,
+      "provider_responses": 5,
+      "terminal_solver_result_present": true,
+      "terminal_evaluation_present": false,
+      "generation_result_sha256": "e147f49751837465b34306ca4d111e70478abf7a365c943b196897365478e712",
+      "episode_snapshot_sha256": "3f993deacf08b9a61bcede197ec0d7a5e460e40520ef2571c3a9ba39b7a6c308",
+      "budget_ledger_sha256": "cbdc542096fd56d408cb5729cac9ffe0cd9564b82afb1af59b4ea43a938c2c07",
+      "analysis_disposition": "mechanism-trajectory-only",
+      "primary_metric_eligible": false
+    },
+    {
+      "run_id": "pro-goal-frontier-v1-pilot-04-frozen-fresh-control",
+      "recorded_at": "2026-07-29T03:52:25Z",
+      "stage": "candidate-0011-model-acquisition",
+      "reason": "The provider request reached the preregistered 300-second hard request deadline and raised APITimeoutError.",
+      "completed_candidates": 10,
+      "provider_attempts": 11,
+      "provider_retry_attempts_for_terminal_request": 0,
+      "provider_responses": 10,
+      "terminal_solver_result_present": true,
+      "terminal_evaluation_present": false,
+      "generation_result_sha256": "43d167ddac2e95958380dcba13bde092fa178398341b0f9c252d5a3ac32a1e89",
+      "episode_snapshot_sha256": "2e4000d02aeeff4389f689925a84407691785b333098a5e80997ef6b04aa3088",
+      "budget_ledger_sha256": "18e4c7f11d71bd85273613369c8b87987e6a6f4824091c6abedbe4455b7c5384",
+      "analysis_disposition": "mechanism-trajectory-only",
+      "primary_metric_eligible": false
+    }
+  ],
+  "provider_retry": {
+    "run_id": "pro-goal-frontier-v1-pilot-01-goal-frontier-v1-retry3",
+    "same_case": true,
+    "same_algorithm_files": true,
+    "same_model": true,
+    "same_seed": true,
+    "same_budget_and_timeouts": true,
+    "fresh_episode_and_containers": true,
+    "inherits_partial_candidate_state": false,
+    "algorithm_prompt_or_threshold_changed": false
+  },
+  "position_3_provider_retry": {
+    "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry1",
+    "same_case": true,
+    "same_algorithm_files": true,
+    "same_model": true,
+    "same_seed": true,
+    "same_budget_and_timeouts": true,
+    "fresh_episode_and_containers": true,
+    "inherits_partial_candidate_state": false,
+    "algorithm_prompt_or_threshold_changed": false
+  },
+  "position_3_provider_retry_2": {
+    "run_id": "pro-goal-frontier-v1-pilot-03-goal-frontier-v1-retry2",
+    "same_case": true,
+    "same_algorithm_files": true,
+    "same_model": true,
+    "same_seed": true,
+    "same_budget_and_timeouts": true,
+    "fresh_episode_and_containers": true,
+    "inherits_partial_candidate_state": false,
+    "algorithm_prompt_or_threshold_changed": false,
+    "provider_probe_before_retry": {
+      "path": "/private/tmp/envsolve-goal-frontier-deepseek-connectivity-probe.json",
+      "qualified": true,
+      "parsed_candidates": 1
+    }
+  },
+  "position_3_disposition_after_retry_2": {
+    "state": "paired-provider-censored-no-primary-claim",
+    "next_schedule_action": "Freeze both trajectories for mechanism analysis; do not replace the selected case or claim an Official Pass comparison.",
+    "position_4_provider_censored": true,
+    "algorithm_prompt_or_threshold_changed": false
+  }
+}

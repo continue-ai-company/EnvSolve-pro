@@ -1,0 +1,71 @@
+{
+  "adjudicated_at": "2026-07-29T14:23:06Z",
+  "decision": {
+    "action": "archive-as-negative-baseline",
+    "extend_to_twenty_cases": false,
+    "retain_as_next_control": false,
+    "status": "not-promoted"
+  },
+  "evidence": {
+    "constraint_progress": {
+      "control_stagnant_frontier_transition_count": 4,
+      "treatment_stagnant_frontier_transition_count": 6
+    },
+    "mechanisms": {
+      "diagnostic_redirection_removal_count": 0,
+      "recoverable_goal_execution_failure_count": 1,
+      "recoverable_goal_execution_failure_produced_official_pass_gain": false
+    },
+    "primary": {
+      "control_win_count": 1,
+      "official_pass_control": 4,
+      "official_pass_treatment": 3,
+      "paired_primary_eligible": 7,
+      "selected_pairs": 8,
+      "tie_count": 6,
+      "treatment_win_count": 0
+    },
+    "terminal_measurement": {
+      "measurement_integrity_censored_pair_count": 1,
+      "measurement_integrity_failure": "Candidate-selected Python state prevented the import-alias audit from producing its trusted report."
+    }
+  },
+  "interpretation": [
+    "The preregistered direct-discard rule was not triggered because treatment had one loss rather than at least two losses.",
+    "The preregistered promotion rule was not triggered because the net paired Official Pass difference was negative and treatment had no wins.",
+    "Mechanism inspection provides no reason to override non-promotion: diagnostic-redirection removal never fired, and the one recovered goal-process failure occurred in the Lark episode that treatment lost.",
+    "The added execution-failure taxonomy did not address the dominant observed contradiction, which was repeated execution without reduction of a complete executable-goal finding set."
+  ],
+  "next_control": {
+    "condition": "goal-frontier-v1-control",
+    "reason": "It is simpler, achieved the higher Official Pass count, and preserves the open Bash operation space."
+  },
+  "next_research_actions": [
+    {
+      "action": "Repair import-alias measurement isolation and qualify it with regression canaries.",
+      "kind": "harness-correctness",
+      "must_not_count_as_algorithm_gain": true
+    },
+    {
+      "action": "Observe external Codex and Repo2Run trajectories on consumed high-value failures before freezing another method.",
+      "kind": "posthoc-mechanism-study",
+      "must_not_count_as primary_screen_evidence": true
+    },
+    {
+      "action": "Test a minimal complete-goal effect frontier that records verified constraint deltas while leaving the Bash operation space open.",
+      "kind": "algorithm-hypothesis",
+      "restrictions": [
+        "Do not restore the discarded bootstrap contradiction taxonomy.",
+        "Do not use Official evaluator feedback online.",
+        "Do not tune rules to any repository in this consumed screen.",
+        "Do not impose token or dollar cost as a success-stopping threshold."
+      ]
+    }
+  ],
+  "results": {
+    "path": "experiments/validations/pro_execution_feedback_v3_screen8_results.json",
+    "sha256": "718b0688532cfb1977a3a8250afff4b0287b325c788a37b050c0e5cb38fea38d"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-execution-feedback-v3-screen8"
+}

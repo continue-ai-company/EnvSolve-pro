@@ -1,0 +1,76 @@
+diff --git a/envsolve_harness/runners/registry.py b/envsolve_harness/runners/registry.py
+index 322174e9..df1f14f9 100644
+--- a/envsolve_harness/runners/registry.py
++++ b/envsolve_harness/runners/registry.py
+@@ -53,6 +53,7 @@ def _load_builtin_runners() -> None:
+     from envsolve_harness.runners.recorded_envbench import RecordedEnvBenchTrajectoryRunner
+     from envsolve_harness.runners.recorded_codex import RecordedCodexCliRunner
+     from envsolve_harness.runners.repo2run import Repo2RunRunner
++    from envsolve_harness.runners.stateful_codex import StatefulCodexCliRunner
+ 
+     def codex_cli(
+         config: HarnessConfig,
+@@ -86,6 +87,46 @@ def _load_builtin_runners() -> None:
+             goal_contract=goal_contract_for(config, protocol),
+         )
+ 
++    def stateful_codex(
++        config: HarnessConfig,
++        protocol: ExperimentProtocol,
++        run_spec: RunSpec,
++        options: RunnerOptions,
++    ) -> SolverRunner:
++        benchmark = config.benchmark(protocol.benchmark)
++        image = benchmark.settings.get("image")
++        if not isinstance(image, str) or not image:
++            raise ValueError("Stateful Codex requires a benchmark execution image")
++        configured = config.solver_roots.get("codex-cli")
++        executable = configured or Path(
++            "/Applications/ChatGPT.app/Contents/Resources/codex"
++        )
++        if executable.is_dir():
++            executable = executable / "codex"
++        from envsolve_harness.adapters.registry import (
++            goal_contract_for,
++            workspace_preconditions_for,
++        )
++
++        return StatefulCodexCliRunner(
++            codex_executable=executable,
++            harness_root=config.workspace_root,
++            image=image,
++            timeout=config.generation_timeout,
++            command_timeout=config.bash_timeout,
++            container_create_timeout=config.create_container_timeout,
++            git_fetch_timeout=config.git_fetch_timeout,
++            reasoning_effort=config.model_reasoning_effort,
++            workspace_preconditions=workspace_preconditions_for(config, protocol),
++            goal_contract=goal_contract_for(config, protocol),
++            max_rounds=config.envsolve_max_candidates,
++            feedback_mode=(
++                "structured"
++                if run_spec.method == "envsolve-pro-stateful-agent-v1"
++                else "raw"
++            ),
++        )
++
+     def deterministic(
+         config: HarnessConfig,
+         protocol: ExperimentProtocol,
+@@ -284,6 +325,16 @@ def _load_builtin_runners() -> None:
+ 
+     register_solver_runner("deterministic", "benchmark-deterministic", deterministic)
+     register_solver_runner("codex-cli", "codex-cli-native", codex_cli)
++    register_solver_runner(
++        "codex-stateful-raw",
++        "codex-cli-goal-aware-raw-repair",
++        stateful_codex,
++    )
++    register_solver_runner(
++        "envsolve-pro-stateful-agent",
++        "envsolve-pro-stateful-agent-v1",
++        stateful_codex,
++    )
+     register_solver_runner("codex-recorded", "codex-cli-native-recorded", recorded_codex)
+     register_solver_runner("repo2run", "repo2run", repo2run)
+     register_solver_runner("envbench-agent", "envbench-react-freeagent", envbench_agent)

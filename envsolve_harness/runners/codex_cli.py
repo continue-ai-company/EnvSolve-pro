@@ -291,6 +291,11 @@ the root of a fresh checkout in the same base image. Include only the successful
 environment setup commands needed to reproduce the final state; omit inspection,
 diagnostic, test, and failed commands. The script must not edit repository source
 or configuration. `summary` should briefly state what was installed.
+
+The submitted script will be checked against this shared candidate contract:
+<candidate_contract>
+{OpenCandidateProgramValidator.prompt_contract}
+</candidate_contract>
 """
         if goal_contract is None:
             return prompt

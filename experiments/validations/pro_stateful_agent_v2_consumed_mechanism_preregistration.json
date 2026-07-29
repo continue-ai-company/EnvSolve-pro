@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2-consumed-mechanism",
+  "status": "frozen",
+  "preregistered_at": "2026-07-29T17:52:09Z",
+  "claim_scope": "Consumed-development mechanism study only. This run cannot support an effectiveness, generalization, held-out, or leaderboard claim.",
+  "research_question": "Does V2 establish a real Observation-to-Constraint-to-Operation transition before the first model action, and does divergent same-namespace source become exact repair feedback rather than a false success?",
+  "case": {
+    "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+    "source_evidence_consumed": true,
+    "selection_reason": "Both V1 conditions passed by adding micropy.cli from an older same-name distribution, so this case is a frozen counterexample to fresh-replay-only certification."
+  },
+  "condition": {
+    "runner": "envsolve-pro-stateful-agent-v2",
+    "method": "envsolve-pro-stateful-agent-v2",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "max_model_candidates": 3,
+    "shared_initial_probe_candidates": 1,
+    "model_token_hard_limit": false,
+    "model_cost_hard_limit": false,
+    "official_evaluator_feedback_available_online": false,
+    "candidate_interface": "open cumulative Bash program",
+    "candidate_verification_environment": "fresh exact-revision checkout"
+  },
+  "mechanism_checks": [
+    {
+      "check_id": "observation-before-operation",
+      "pass_condition": "Candidate stateful-initial-observation executes the public goal before agent round 1, and the round-1 state projection contains its complete goal report.",
+      "failure_condition": "The first model prompt has no executable-goal observation or the probe is counted as a model round."
+    },
+    {
+      "check_id": "constraint-before-operation",
+      "pass_condition": "The structured round-1 projection contains a non-empty active goal-obligation frontier derived from the shared probe.",
+      "failure_condition": "The projection contains only repository metadata or an empty frontier despite a failing probe."
+    },
+    {
+      "check_id": "divergent-source-rejection",
+      "pass_condition": "Any candidate that adds divergent Python source beneath a project-provided namespace is rejected with project-namespace-provenance feedback.",
+      "failure_condition": "Such a candidate is certified or reaches official evaluation as an eligible reproduction."
+    },
+    {
+      "check_id": "rejection-to-repair",
+      "pass_condition": "If an agent candidate is rejected for divergent source, the next independent model session receives the exact rejected program, violation, and verification summary.",
+      "not_exercised_condition": "No agent candidate triggers the provenance boundary; report this separately and do not infer repair behavior."
+    },
+    {
+      "check_id": "source-consistent-success",
+      "pass_condition": "Any claimed generation success passes the public goal, repository effect audit, and V2 source-provenance audit in a fresh environment.",
+      "failure_condition": "Official Pass or clean replay alone is treated as sufficient."
+    }
+  ],
+  "analysis_policy": {
+    "primary_metric_claim": false,
+    "report": [
+      "initial probe goal status and findings",
+      "round-1 raw-evidence parity and structured frontier",
+      "model candidate count",
+      "provenance rejection count",
+      "post-rejection repair count",
+      "internal goal status",
+      "official EnvBench status",
+      "scientific eligibility",
+      "token usage",
+      "container commands",
+      "wall-clock time"
+    ],
+    "decision_rule": "V2 may proceed to a repository-disjoint Dev design only if observation-before-operation, constraint-before-operation, and source-consistent-success pass. Rejection-to-repair must be marked passed, failed, or not exercised; it cannot be inferred from plumbing.",
+    "change_rule": "Any implementation, prompt, goal, policy, config, schedule, or analysis change after this freeze requires a new run ID and amendment."
+  },
+  "preflight_evidence": {
+    "mac": {
+      "focused_tests": "17 passed",
+      "broad_tests": "355 passed, 3 skipped; two Python-3.9-only zip(strict=True) test failures are unrelated to V2"
+    },
+    "spark": {
+      "full_tests": "369 passed, 3 skipped, 64 subtests passed",
+      "architecture": "aarch64",
+      "python": "3.12.3"
+    },
+    "docker_provenance_canary": {
+      "path": "experiments/validations/pro_stateful_agent_v2_provenance_canary.json",
+      "status": "passed"
+    },
+    "frozen_shared_files": {
+      "envsolve_harness/runners/registry.py": "4f1c556474423080eb95aa6591948d883fcfac9f6a26f85224a2704554518e7f",
+      "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+      "experiments/run_schedule.py": "24d70a1ab02ed0e92f6c3d5f5fbf0b792c32a4971eb5958e638f190b2569586a"
+    }
+  },
+  "artifacts": {
+    "case_file": {
+      "path": "experiments/cases/consumed_pro_v3_external_trajectory2.jsonl",
+      "sha256": "bde702a097ae9e488863a3531deacba094d92497d8f5f88048c918d806a7cf84"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_stateful_agent_v2_consumed.json",
+      "sha256": "2b33046b432a61484691f64c7f21ffcd6960c5b084eed9519a42e5f28b79855e"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_consumed_mechanism_mac.json",
+      "sha256": "668336e57c55a3108b7c8ef8cc11da6ae6764c9c7c7af1c35bc2ae1cb533a9ba"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "implementation": [
+      {
+        "path": "envsolve/runtime/stateful_integrity_v2.py",
+        "sha256": "d5af234f8330a4eae8057d217b97932dffa7972d39954ce880e34044cd1da81d"
+      },
+      {
+        "path": "envsolve/runtime/stateful_goal_verifier_v2.py",
+        "sha256": "bd6e82963b5774a4df8f6084544fc5180645352e5c01af034332f5f99a6c6146"
+      },
+      {
+        "path": "envsolve_harness/runners/stateful_codex.py",
+        "sha256": "df96fe2387f1931142d465b443864063a0a81772e0fba88e19026000cb6c0f2a"
+      },
+      {
+        "path": "envsolve/solver/counterexample.py",
+        "sha256": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c"
+      },
+      {
+        "path": "envsolve/constraints/goal_frontier.py",
+        "sha256": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a"
+      },
+      {
+        "path": "envsolve_harness/scripts/open_program.py",
+        "sha256": "f732008773c12bf1db5087c94a0345d4866233aaef84c2057dd4bbeacc18047a"
+      },
+      {
+        "path": "experiments/extensible_schedule.py",
+        "sha256": "b0166c0bfa517afe382a8316e5746d4e1c37cd14744362e499759bddd2d878eb"
+      },
+      {
+        "path": "experiments/run_stateful_codex_case.py",
+        "sha256": "507202f882f2fbb35f96abd6aabe37a98894898267665ab0c9107844a682ba41"
+      },
+      {
+        "path": "experiments/run_stateful_codex_schedule.py",
+        "sha256": "fcb101066e5f2047de0bffebabf7578bb79b5ea6e46aebbde4b3c33b0433c9b6"
+      }
+    ],
+    "tests": [
+      {
+        "path": "tests/test_integrity_audit.py",
+        "sha256": "6b5d8963df1b16543de5274b4cd00797e83a48bbeffe6ff030f13a47282385cc"
+      },
+      {
+        "path": "tests/test_stateful_codex_runner.py",
+        "sha256": "b94598b48ecec94b65a1c0986b0578531cb916e9feff02b631e42c463a0c4b56"
+      }
+    ]
+  }
+}

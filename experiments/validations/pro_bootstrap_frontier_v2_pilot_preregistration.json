@@ -1,0 +1,153 @@
+{
+  "algorithm_freeze": {
+    "goal_frontier_v1_freeze": "experiments/validations/pro_goal_frontier_v1_pilot_preregistration.json",
+    "goal_frontier_v1_freeze_sha256": "5caf4bc5a3de31dffcf378b70a1a5eab1f591bc06c2bf6368dd875e079cc1169",
+    "inherited_goal_frontier_v1_files": {
+      "envsolve/constraints/goal_frontier.py": "8284480920c3addd579464d5219cb37d1a5895285dd9bb3374ba87834613c59a",
+      "envsolve/runtime/goal_frontier_policy.py": "0429b6df60acdbfce066d47e54087e773ef3ec01d0fcc2abdd6b5f32fa59435a",
+      "envsolve/tools/run_envsolve_goal_frontier_episode.py": "c913b7824c4dd6880a303838f8afee9757d695830102fdef950df924644ff4a3",
+      "envsolve_harness/runners/envsolve_pro_goal_frontier.py": "43cf6f7524e31795c78e0e76eb568c230ecc08e9a577634dd6b65bb400c8098b",
+      "experiments/run_goal_frontier_case.py": "2cf6c7ddec87a1ce715d4124a2e3411ad84138b309e229ab980ac553743f3efc"
+    },
+    "treatment_files": {
+      "envsolve/analysis/bootstrap_failures.py": "69065e1aa6bf67d582ee02b4b3a46877eb9afe5764acdc45d1950ddc26f88b95",
+      "envsolve/constraints/bootstrap_frontier.py": "ebd0953a5b3359e24f9ff2893d8096d1f9e45ee70bd9ed60795166e7ec33dac0",
+      "envsolve/runtime/bootstrap_frontier_policy.py": "2537b7b69d1631e212ded2b5ede94e2b0ce871e2108b4309a7ee2be39c8f63d6",
+      "envsolve/tools/run_envsolve_bootstrap_frontier_episode.py": "24dcba84b3c884534987e9a542d6da1b1dadee0a9dd6b0ad71cbd1d85a891f3e",
+      "envsolve_harness/runners/envsolve_pro_bootstrap_frontier.py": "c6db47158f964075addc9e1411ced7776281f883dc6663a15b1353ddb19033b8",
+      "envsolve_harness/runners/frontier_experiment.py": "16956d14143cb2579d9e596f61a5ba60ad8d239692aa4d8c3da03628a0e86de5",
+      "experiments/run_bootstrap_frontier_case.py": "06e57ff2947865610f8fa020576a67c7fa4ee417a7f1ef54a3653ff62206b1df"
+    }
+  },
+  "analysis": {
+    "descriptive_metrics": [
+      "input, cached, output, and reasoning tokens",
+      "logical model requests and provider attempts",
+      "candidate environments, commands, and wall-clock time"
+    ],
+    "infrastructure_retry_policy": "Retry only a provider- or network-censored episode with identical code, settings, seed, and case; never replace a case based on outcome.",
+    "mechanism_metrics": [
+      "bootstrap failures before first goal observation",
+      "first search-dominance trigger",
+      "runtime branch changes",
+      "repeated failure signatures",
+      "frontier projection completeness"
+    ],
+    "no_algorithm_prompt_or_threshold_change_after_selection": true,
+    "paired_unit": "repository",
+    "planned_ablation_after_pilot": [
+      "base-environment visibility only",
+      "failure aggregation without search-dominance status",
+      "goal-frontier removal"
+    ],
+    "primary_metric": "Official Pass@1"
+  },
+  "claim_scope": "Repository-disjoint development pilot only; not final test or leaderboard evidence.",
+  "conditions": [
+    {
+      "base_environment_observation": "not-model-visible",
+      "condition": "goal-frontier-v1-control",
+      "constraint_profile": "goal-obligation-frontier-v1",
+      "method": "envsolve-pro-goal-frontier",
+      "operation_profile": "open-program",
+      "runner": "envsolve-pro-goal-frontier"
+    },
+    {
+      "base_environment_observation": "model-visible",
+      "condition": "bootstrap-frontier-v2",
+      "constraint_profile": "bootstrap-contradiction-frontier-v2",
+      "method": "envsolve-pro-bootstrap-frontier-v2",
+      "operation_profile": "open-program",
+      "runner": "envsolve-pro-bootstrap-frontier"
+    }
+  ],
+  "episodes": [
+    {
+      "case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "condition": "bootstrap-frontier-v2",
+      "method": "envsolve-pro-bootstrap-frontier-v2",
+      "model": "deepseek-v4-pro",
+      "position": 1,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-01-bootstrap-frontier-v2",
+      "runner": "envsolve-pro-bootstrap-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "condition": "goal-frontier-v1-control",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 2,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-02-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "condition": "bootstrap-frontier-v2",
+      "method": "envsolve-pro-bootstrap-frontier-v2",
+      "model": "deepseek-v4-pro",
+      "position": 3,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-03-bootstrap-frontier-v2",
+      "runner": "envsolve-pro-bootstrap-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "condition": "goal-frontier-v1-control",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 4,
+      "run_id": "pro-bootstrap-frontier-v2-pilot-04-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    }
+  ],
+  "hypothesis": {
+    "mechanism": "Expose the base environment and aggregate direct bootstrap outcomes into soft runtime-by-strategy branch constraints, while retaining raw evidence and an open Bash action space.",
+    "primary": "Bootstrap-frontier-v2 improves or preserves Official Pass relative to goal-frontier-v1.",
+    "problem": "Before the executable goal runs, repeated deployment failures remain raw local logs, so a solver can oscillate among repairs without representing the failed runtime branch.",
+    "threshold_rationale": "Search dominance requires the minimum evidence that distinguishes branch persistence from one local failure: three failed attempts, at least two strategy signatures, and at least two classified deployment failures. It is a soft search status and is revoked by observed success."
+  },
+  "preregistered_at": "2026-07-29T04:20:04.151271+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + case_id)",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_bootstrap_frontier_v2_pilot_82.jsonl",
+    "remaining_case_file_sha256": "7895a2fd84abcf9609fc9f4e8b1675303dc43e4ebbde25a2d60d760f2c1d48d7",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-bootstrap-frontier-v2-pilot-2026-07-29",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_bootstrap_frontier_v2_pilot2.jsonl",
+    "selected_case_file_sha256": "65b246e938806aed542b091bf849a54834690954b8374fdf7e71b7c570a5fc62",
+    "selection_unit": "case_id",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_goal_frontier_v1_pilot_84.jsonl",
+    "source_case_file_sha256": "0fa7185f3674fbe48f785ae15a6640ba9c9e589aea0eaeaaa85d9da937a71328",
+    "source_rows": 84,
+    "take": 2
+  },
+  "shared_contract": {
+    "candidate_anchor": "retained-admissible",
+    "candidate_command_timeout_seconds": 1200,
+    "candidate_interface": "open-program",
+    "candidate_retention": "best-admissible",
+    "config": "experiments/configs/local_mac_pro_bootstrap_frontier_v2_deepseek_direct.json",
+    "config_sha256": "9734ef4ca30e4a0bc0f33c5b57152f9bb7709684faf96ccba2d5bfed15eb3f37",
+    "environment_strategy": "fresh-candidate",
+    "generation_timeout_seconds": 18000,
+    "max_candidates": 12,
+    "max_commands": 24,
+    "max_environments": 24,
+    "model": "deepseek-v4-pro",
+    "model_request_timeout_seconds": 900,
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "provider": "DeepSeek direct",
+    "public_executable_goal": true,
+    "repository_evidence": "constraint-routed",
+    "seed": 1,
+    "token_policy": "Tokens and price are reported outcomes; configured limits are emergency guards, not research stopping thresholds."
+  },
+  "status": "preregistered",
+  "study_id": "envsolve-pro-bootstrap-frontier-v2-pilot"
+}

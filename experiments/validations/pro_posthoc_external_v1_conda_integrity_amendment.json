@@ -1,0 +1,47 @@
+{
+  "amendment_type": "baseline-wrapper-environment-root-recognition-repair",
+  "claim_scope": "Consumed-development posthoc mechanism study only; no primary, test, or leaderboard claim.",
+  "defect": {
+    "algorithm_or_case_outcome_triggered": false,
+    "description": "The repository-integrity wrapper recognized arbitrary-name virtual environments through pyvenv.cfg but did not recognize a legitimate project-local Conda environment.",
+    "observed_effect": "The corrected Codex Lark run produced a real Conda environment and reached zero public-goal findings, but the wrapper misclassified Conda-managed files and symlinks as repository modifications.",
+    "scientific_impact": "The model trajectory and candidate program were valid, while the original wrapper verdict was a measurement error."
+  },
+  "original": {
+    "final_output_sha256": "df98764ae9c2e404c5caeab3ba56fd73bc58e85eead0e04594a885831552832c",
+    "generation_result_sha256": "22d6267f4de7d8621b87b6c3d4bdee05413d4e5bbdc8167808ccce6708d7d3b7",
+    "run_id": "pro-posthoc-v1-c01-lark-codex-cli-goal-aware-contract-rerun1",
+    "source_disposition": "valid-model-trajectory-with-wrapper-measurement-error",
+    "trajectory_sha256": "620d1bbf94e2e1eb80ed5420e22f1dc2298e6349bb532c5910223dbed8969ea5"
+  },
+  "preregistration": {
+    "path": "experiments/validations/pro_posthoc_external_v1_preregistration.json"
+  },
+  "recorded_at": "2026-07-29T15:24:15Z",
+  "repair": {
+    "algorithm_changed": false,
+    "candidate_program_changed": false,
+    "cases_changed": false,
+    "goal_contract_changed": false,
+    "model_reexecuted": false,
+    "repository_integrity_sha256": "c4eb1b580c5c5e6cf759adbdd259c87d78781db36833146144f2c0ef8fb6c4a9",
+    "resource_limits_changed": false,
+    "recognized_environment": "A project-local Conda root must contain a regular conda-meta/history file, a bin/python file or symlink, a recorded # cmd transaction, at least one well-formed package record whose name/version/build matches a transaction entry, and at least one recorded installed file present on disk.",
+    "replay_method": "RecordedCodexCliRunner re-finalization from immutable generation artifacts"
+  },
+  "result": {
+    "error_count": 665,
+    "evaluation_result_sha256": "1408bf2f4d5743bf8e03b6aff8bf669bef7ce1e9bd43ed1d9daeb4b5067ccd27",
+    "generation_result_sha256": "848cdb8b5be62c1fdf1518a409a0bd4706a1f0ba4c5eaf65b5769e4f5153d590",
+    "issues_count": 0,
+    "official_pass": true,
+    "run_id": "pro-posthoc-v1-c01-lark-codex-contract-visible-integrity-refinalized1",
+    "warning_count": 4
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-posthoc-external-v1",
+  "validation": {
+    "command": "PYTHONPATH=. pytest -q tests/test_harness_core.py -k repository_integrity",
+    "result": "6 passed"
+  }
+}

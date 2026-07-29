@@ -1,0 +1,98 @@
+{
+  "case_file": "experiments/cases/dev_pro_execution_feedback_v3_spark4.jsonl",
+  "case_file_sha256": "c331a89b455185a9ca55337facdc13aef6135617de639077092f68d858706a14",
+  "episode_timeout_seconds": 22800,
+  "episodes": [
+    {
+      "case_id": "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 1,
+      "run_id": "pro-execution-feedback-v3-spark4-01-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 2,
+      "run_id": "pro-execution-feedback-v3-spark4-02-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 3,
+      "run_id": "pro-execution-feedback-v3-spark4-03-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 4,
+      "run_id": "pro-execution-feedback-v3-spark4-04-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 5,
+      "run_id": "pro-execution-feedback-v3-spark4-05-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 6,
+      "run_id": "pro-execution-feedback-v3-spark4-06-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-bottlecapdave__homeassistant-octopusenergy@1ece6dff9948051323f51aeee4c861ccaeb7d548",
+      "condition": "execution-feedback-v3",
+      "host": "spark",
+      "method": "envsolve-pro-execution-feedback-v3",
+      "model": "deepseek-v4-pro",
+      "position": 7,
+      "run_id": "pro-execution-feedback-v3-spark4-07-execution-feedback-v3",
+      "runner": "envsolve-pro-execution-feedback",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-bottlecapdave__homeassistant-octopusenergy@1ece6dff9948051323f51aeee4c861ccaeb7d548",
+      "condition": "goal-frontier-v1-control",
+      "host": "spark",
+      "method": "envsolve-pro-goal-frontier",
+      "model": "deepseek-v4-pro",
+      "position": 8,
+      "run_id": "pro-execution-feedback-v3-spark4-08-goal-frontier-v1-control",
+      "runner": "envsolve-pro-goal-frontier",
+      "seed": 1
+    }
+  ],
+  "model": "deepseek-v4-pro",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-execution-feedback-v3-spark4"
+}

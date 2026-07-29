@@ -340,6 +340,93 @@ class CoreIoTest(unittest.TestCase):
             self.assertFalse(rejected.valid)
             self.assertIn("fake-env/injected.py", rejected.disallowed_untracked_paths)
 
+    def test_repository_integrity_recognizes_a_real_conda_environment(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"], cwd=repo, check=True
+            )
+            REAL_SUBPROCESS_RUN(["git", "config", "user.name", "Test"], cwd=repo, check=True)
+            (repo / "README.md").write_text("clean\n")
+            REAL_SUBPROCESS_RUN(["git", "add", "README.md"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            environment = repo / "solver-conda"
+            metadata = environment / "conda-meta"
+            binary = environment / "bin"
+            metadata.mkdir(parents=True)
+            binary.mkdir()
+            (binary / "python").symlink_to("/container-only/python3.10")
+            (metadata / "history").write_text(
+                "# cmd: conda create -p /repo/solver-conda python=3.10\n"
+                "+conda-forge/linux-aarch64::python-3.10.0-build_0\n"
+            )
+            (metadata / "python-3.10.0-build_0.json").write_text(
+                json.dumps(
+                    {
+                        "name": "python",
+                        "version": "3.10.0",
+                        "build": "build_0",
+                        "build_number": 0,
+                        "subdir": "linux-aarch64",
+                        "url": "https://conda.example/python.tar.bz2",
+                        "files": ["bin/python"],
+                    }
+                )
+            )
+            site_packages = environment / "lib/python3.10/site-packages"
+            site_packages.mkdir(parents=True)
+            (site_packages / "installed_dependency.py").write_text("VALUE = 1\n")
+
+            report = inspect_repository(repo, head)
+
+            self.assertTrue(report.valid, report.violations)
+            self.assertIn("solver-conda/", report.allowed_generated_paths)
+
+    def test_repository_integrity_rejects_a_forged_conda_marker(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"], cwd=repo, check=True
+            )
+            REAL_SUBPROCESS_RUN(["git", "config", "user.name", "Test"], cwd=repo, check=True)
+            (repo / "README.md").write_text("clean\n")
+            REAL_SUBPROCESS_RUN(["git", "add", "README.md"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            fake = repo / "fake-conda"
+            (fake / "conda-meta").mkdir(parents=True)
+            (fake / "bin").mkdir()
+            (fake / "bin/python").symlink_to("/container-only/python3.10")
+            (fake / "conda-meta/history").write_text(
+                "# cmd: conda create -p /repo/fake-conda python=3.10\n"
+            )
+            (fake / "injected.py").write_text("VALUE = 1\n")
+
+            report = inspect_repository(repo, head)
+
+            self.assertFalse(report.valid)
+            self.assertIn(
+                "fake-conda/injected.py",
+                report.disallowed_untracked_paths,
+            )
+
     def test_repository_integrity_allows_declared_ignored_scm_version_file(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
