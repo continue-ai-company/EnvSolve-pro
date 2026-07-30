@@ -150,3 +150,36 @@ unconstrained latest PyTorch closure on ARM64 can spend roughly 2.9 GB and the w
 candidate window before testing goal relevance. The future solver should observe and
 reason about platform fit and bounded dependency closure, but this replay does not
 itself justify a new rule or an algorithm-effect claim.
+
+## StopStalk Caller-CWD Causal Replay
+
+A model-free replay on DGX Spark tested the V2.4 caller-working-directory
+postcondition using the unchanged consumed StopStalk candidate. The candidate script
+hash was
+`1028246dbd0e910cfcee45e3fc28e2e6c78d27ca802fc4e02b5511f26d345c22`.
+In a successful internal execution, the public goal report contained zero
+`reportMissingImports` findings, repository effects were valid, and V2.4 rejected only
+the final working directory: the script ended in
+`/tmp/envsolve-stopstalk-deployment/pyright-work` instead of the checkout root.
+
+The same script then underwent a fresh Official EnvBench evaluation without model
+execution. Evaluation completed with identity matching, but Official Pass was false:
+the bootstrap exited `1`, Pyright diagnostics were unavailable, and the evaluator log
+reported:
+
+```text
+/data/project/build.sh: line 39: build_output/pyright_output.json: No such file or directory
+```
+
+EnvBench sources the candidate before continuing its build script. Because the
+candidate changed the caller's directory, the evaluator's relative `build_output`
+path no longer resolved under the checkout. This establishes a causal chain from the
+observed V2.4 violation to official failure; the CWD postcondition is not an inferred
+repository semantic or a cosmetic integrity rule. It preserves evaluator continuity
+while leaving the deployment program otherwise open.
+
+The replay is consumed mechanism evidence, not an effectiveness result. One repeated
+internal attempt was externally censored by a GitHub TLS failure and remains an
+immutable Unknown. The Official artifact is stored at
+`spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/`
+`v24-cwd-postcondition-official-replay1/`.

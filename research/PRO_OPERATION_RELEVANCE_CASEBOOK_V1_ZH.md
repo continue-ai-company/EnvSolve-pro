@@ -124,3 +124,30 @@ PyTorch 与 CUDA 13 构成。直连与空缓存生命周期都在 `docker run --
 可以消除它。第二，它收紧了操作层假设：在 ARM64 上直接接受无约束的最新 PyTorch 闭包，可能在验证
 目标相关性前消耗约 2.9 GB 和整个候选时间窗口。未来求解器应观测并推理 platform fit 与有界 dependency
 closure，但本次复放本身不能推出新规则，也不能形成算法效果 claim。
+
+## StopStalk caller CWD 因果复放
+
+在 DGX Spark 上进行了一次不调用模型的 V2.4 复放，输入是未修改的已消费 StopStalk candidate，
+脚本哈希为
+`1028246dbd0e910cfcee45e3fc28e2e6c78d27ca802fc4e02b5511f26d345c22`。
+在一次成功的内部执行中，公开目标报告的 `reportMissingImports` finding 为零，repository effect
+合法；V2.4 唯一拒绝原因是最终工作目录：脚本停在
+`/tmp/envsolve-stopstalk-deployment/pyright-work`，而不是 checkout 根目录。
+
+随后，同一脚本在 fresh 环境中接受 EnvBench 官方评测，过程中没有重新调用模型。评测完整且仓库
+身份匹配，但 Official Pass 为 false：bootstrap 退出码为 `1`，Pyright 没有运行，evaluator 日志
+明确报告：
+
+```text
+/data/project/build.sh: line 39: build_output/pyright_output.json: No such file or directory
+```
+
+EnvBench 在继续执行 build script 前 source candidate。candidate 改变 caller 工作目录后，
+evaluator 使用的相对路径 `build_output` 不再指向 checkout 下的目录。这条证据建立了从 V2.4
+观测到的 violation 到官方失败的因果链：CWD 后置条件不是推断的仓库语义，也不是装饰性的完整性
+规则；它保护 evaluator continuity，同时不限制其余部署程序。
+
+该复放只是已消费机制证据，不是效果结果。一次重复的内部执行被 GitHub TLS 错误外部删失，按
+Unknown 原样保留。Official artifact 位于
+`spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/`
+`v24-cwd-postcondition-official-replay1/`。

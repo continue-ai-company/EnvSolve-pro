@@ -1,0 +1,121 @@
+{
+  "algorithm_change": false,
+  "clean_retry": {
+    "algorithm_freeze_policy": "All files and hashes listed in the original preregistration artifacts.freeze_files remain unchanged.",
+    "condition_order_changed": false,
+    "config": {
+      "path": "experiments/configs/local_mac_pro_stateful_agent_v2_4_pilot4.json",
+      "sha256": "8eca84aae95a04ee48bb7c6c6754122edaa9c23de779582c5d183a8891d645dc"
+    },
+    "excluded_attempt_selection_uses_outcome": false,
+    "model_or_budget_changed": false,
+    "positions_to_execute": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "progress_path": "experiments/runs/pro_stateful_agent_v2_4_pilot4_mac_clean_retry2_progress.json",
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "required_source_state": {
+      "committed": true,
+      "dirty": false
+    },
+    "run_id_changes": {
+      "3": "pro-stateful-v2-4-pilot4-03-envsolve-pro-structured-v2.4-clean-retry2",
+      "4": "pro-stateful-v2-4-pilot4-04-codex-raw-repair-v2.4-clean-retry2",
+      "5": "pro-stateful-v2-4-pilot4-05-envsolve-pro-structured-v2.4-clean-retry2",
+      "6": "pro-stateful-v2-4-pilot4-06-codex-goal-aware-single-session-clean-retry2"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_clean_retry2.json",
+      "sha256": "f53bd5bd726ae4c23a008154743ea9961b63700c0c1c724eed4c8370ea73c224"
+    },
+    "scientific_rule": "Retain eligible original positions 1-2. Exclude every interrupted or dirty-source attempt. Rerun the complete affected positions 3-6 regardless of observed outcome, then continue untouched positions 7-12.",
+    "start_position": 3
+  },
+  "discovery": {
+    "detected_before_position_6_completed": true,
+    "issue": "The operational resume schedule was untracked, and later research records were edited while the resume schedule was active. Run manifests therefore recorded harness dirty=true.",
+    "response": "The coordinator was interrupted, active containers were cleaned by the coordinator, and no further case was opened.",
+    "root_cause": "Experiment bookkeeping was created in the same audited worktree after the implementation freeze but before and during execution."
+  },
+  "excluded_attempts": [
+    {
+      "position": 3,
+      "reason": "experimenter interruption before terminal evaluation",
+      "run_id": "pro-stateful-v2-4-pilot4-03-envsolve-pro-structured-v2.4",
+      "source": "original"
+    },
+    {
+      "observed_official_pass": true,
+      "position": 3,
+      "reason": "unfrozen_source: run was produced without a committed, clean harness revision",
+      "run_id": "pro-stateful-v2-4-pilot4-03-envsolve-pro-structured-v2.4-retry1",
+      "source": "dirty-resume"
+    },
+    {
+      "observed_official_pass": true,
+      "position": 4,
+      "reason": "unfrozen_source: run was produced without a committed, clean harness revision",
+      "run_id": "pro-stateful-v2-4-pilot4-04-codex-raw-repair-v2.4",
+      "source": "dirty-resume"
+    },
+    {
+      "observed_official_pass": true,
+      "position": 5,
+      "reason": "unfrozen_source: run was produced without a committed, clean harness revision",
+      "run_id": "pro-stateful-v2-4-pilot4-05-envsolve-pro-structured-v2.4",
+      "source": "dirty-resume"
+    },
+    {
+      "position": 6,
+      "reason": "experimenter interruption after dirty-source detection",
+      "run_id": "pro-stateful-v2-4-pilot4-06-codex-goal-aware-single-session",
+      "source": "dirty-resume"
+    }
+  ],
+  "immutable_sources": {
+    "dirty_resume_schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_resume_from_3.json",
+      "sha256": "09cb94c00d848709602e577588614ac62c494b8aa8665a28204065b4f159e4e1"
+    },
+    "original_preregistration": {
+      "path": "experiments/validations/pro_stateful_agent_v2_4_pilot4_preregistration.json",
+      "sha256": "f2039b35eb3bf4d0a8394372af75186cbdc6e25531c4fbf9f178bac399bea5bb"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac.json",
+      "sha256": "03fba3dcc14690263f237fe6514e274a060cf1bef26bff365faa411a06b9eb96"
+    },
+    "source_commit": "1bf553ebcd307afb23a09c8cb183f0b79c085eec"
+  },
+  "retained_attempts": [
+    {
+      "official_pass": true,
+      "position": 1,
+      "reason": "artifact-valid, committed clean source, complete heartbeat",
+      "run_id": "pro-stateful-v2-4-pilot4-01-codex-goal-aware-single-session",
+      "scientifically_eligible": true
+    },
+    {
+      "official_pass": true,
+      "position": 2,
+      "reason": "artifact-valid, committed clean source, complete heartbeat",
+      "run_id": "pro-stateful-v2-4-pilot4-02-codex-raw-repair-v2.4",
+      "scientifically_eligible": true
+    }
+  ],
+  "schema_version": "1.0.0",
+  "status": "frozen-before-clean-retry",
+  "study_id": "envsolve-pro-stateful-agent-v2.4-pilot4-clean-retry2-amendment"
+}

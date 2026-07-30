@@ -156,6 +156,18 @@ V2.3 Pilot-3 表明，一个 transition 不能只有单一的 pass/fail 标签�
 终局合法 Pass 后的旧 CandidateAssessment 必须从 policy state 中移除，否则 learner 会把成功状态
 错误标成 inadmissible。这样的因子化标签允许未来重新定义 reward，而不需要重跑第一篇论文的轨迹。
 
+### 10. 具有因果依据的操作奖励
+
+StopStalk 的已消费复放消除了一个因子化标签的歧义。candidate 内部目标完整通过，但最终停在临时
+工作目录；不修改 candidate 的 Official 复放随后因为 evaluator 无法创建相对
+`build_output` 结果路径而在 Pyright 前失败。因此该 transition 应标为
+`goal_satisfied=true`、`operation_cwd_valid=false`、`official_pass=false`，并绑定
+evaluator continuity 的因果证据。
+
+这是操作策略的局部负监督，不是依赖选择的全局失败 reward。被网络删失的重复执行继续 mask。
+未来 RL 数据必须区分“具有官方因果证据的操作 violation”和“尚未证实的验证器拒绝”；后者只有
+通过反例资格验证后，才允许塑造策略。
+
 ## English Version
 
 ### 1. Core question
@@ -404,3 +416,18 @@ repair, not a restart of deployment search. A validator false rejection is
 CWD violation provides exact constraint supervision. Stale candidate-assessment
 metadata must be removed after a valid terminal Pass. This factorization permits future
 reward changes without rerunning the first paper's trajectories.
+
+### 13. Causally Grounded Operation Reward
+
+The consumed StopStalk replay resolves one ambiguous factorized label. The candidate
+achieved a complete zero-finding internal goal, but ended in a temporary working
+directory. The unchanged Official replay then failed before Pyright because the
+evaluator could not create its relative `build_output` result path. The transition is
+therefore `goal_satisfied=true`, `operation_cwd_valid=false`, and
+`official_pass=false`, with a causal evaluator-continuity witness.
+
+This is valid local negative supervision for the operation policy, not a global failure
+reward for dependency selection. Network-censored repetitions remain masked. Future RL
+data should distinguish operation violations with an official causal witness from
+uncorroborated validator rejections; the latter require counterexample qualification
+before they can shape policy.

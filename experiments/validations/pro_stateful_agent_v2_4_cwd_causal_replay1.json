@@ -1,0 +1,76 @@
+{
+  "case": {
+    "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+    "repository": "stopstalk/stopstalk-deployment",
+    "revision": "2bb56983cedeaf684aeea122d56bcb2996f66bc9"
+  },
+  "code": {
+    "commit": "1bf553ebcd307afb23a09c8cb183f0b79c085eec",
+    "worktree_clean": true
+  },
+  "evidence_boundary": {
+    "algorithm_effect_claim": false,
+    "model_reexecuted": false,
+    "role": "consumed-mechanism-causal-replay",
+    "split_status": "consumed-development"
+  },
+  "host": {
+    "architecture": "linux-arm64",
+    "hostname": "spark-f21c"
+  },
+  "input": {
+    "candidate_action_id": "stateful-agent-0003",
+    "candidate_script_sha256": "1028246dbd0e910cfcee45e3fc28e2e6c78d27ca802fc4e02b5511f26d345c22",
+    "source_snapshot_sha256": "4d44231cac5728313aa0da975e8065b8af10c7afaadac09bd5f71e521f16c382"
+  },
+  "internal_v2_4_replay": {
+    "artifact_sha256": "fcab0b9cd32b956159f2adcc5037a003ad240922f3eeb4a831c2a49f626dde90",
+    "artifact_uri": "spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/v24-cwd-postcondition-official-replay1/internal-v24-replay-retry1.jsonl",
+    "bootstrap_exit_code": 0,
+    "candidate_validation_accepted": true,
+    "goal_issues_count": 0,
+    "goal_status": "satisfied",
+    "operation_contract_status": "violated",
+    "repository_effect_valid": true,
+    "violations": [
+      {
+        "kind": "shell_postcondition",
+        "name": "working_directory",
+        "observed": "/tmp/envsolve-stopstalk-deployment/pyright-work",
+        "required": "/data/project/stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9"
+      }
+    ]
+  },
+  "official_replay": {
+    "artifact_root_uri": "spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/v24-cwd-postcondition-official-replay1/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+    "evaluation_completed": true,
+    "evaluation_log_sha256": "d7f696350421cb8542ab1128daae481c4c65de0365d8dc003613632709e0c1d9",
+    "failure_evidence": "/data/project/build.sh: line 39: build_output/pyright_output.json: No such file or directory",
+    "identity_matches": true,
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "issues_count": 0,
+    "official_exit_code": 1,
+    "official_pass": false,
+    "pyright_diagnostics_available": false,
+    "raw_result_sha256": "a7c5623bedcfa4d56aab2c6e3c146d09b2e82d53fc6d4277b59200f66db812fc"
+  },
+  "interpretation": {
+    "causal_chain": [
+      "candidate leaves the sourced caller in a temporary working directory",
+      "the official evaluator resolves build_output relative to that directory",
+      "the official build script cannot create its Pyright output",
+      "Official Pass is false before Pyright diagnostics are produced"
+    ],
+    "conclusion": "The caller-working-directory postcondition predicts a real official lifecycle failure and is retained as a generic operation constraint.",
+    "rule_scope": "evaluator-continuity",
+    "status": "causally_supported"
+  },
+  "network_censoring": {
+    "artifact_uri": "spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/v24-cwd-postcondition-official-replay1/internal-v24-replay.jsonl",
+    "classification": "external-unknown",
+    "excluded_from_causal_conclusion": true,
+    "signature": "GitHub TLS connection was non-properly terminated"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2.4-cwd-causal-replay1"
+}

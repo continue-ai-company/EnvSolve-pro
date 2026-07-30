@@ -197,6 +197,18 @@ V2.3 Pilot-3 给出一个更接近 Auto-EnvSolve 目标的事务。外层系统�
 这说明未来外层 harness 的核心不是从单个失败中记住自然语言经验，而是生成可执行反例、提出最小
 接口修改，并通过跨 case 证据控制 promotion。
 
+### 12. 规则保留的因果事务
+
+StopStalk 的已消费 V2.4 复放提供了互补的正例。内部执行已经得到完整的零 finding 目标报告，但
+操作契约拒绝了 caller CWD；随后，不修改 candidate、也不重新调用模型的 Official 复放在 Pyright
+之前失败，因为 evaluator 的相对路径 `build_output` 被解析到了 candidate 的临时目录。这把一个
+通用观测与下游官方失败建立了因果绑定。
+
+Auto-EnvSolve 只有在完成这种反事实审计后，才能保留或晋级操作规则：冻结 candidate，不改变模型
+行为，重放官方生命周期，并证明被观测的 violation 能预测真实终局失败。同期网络失败必须删失，
+不能用来证明规则。该事务既支持自动做加法，也支持自动做减法：没有官方因果相关性的规则应降级；
+已经复放验证相关性的规则保持冻结，并继续接受独立 control 的假阳性检验。
+
 ## English Version
 
 ### 1. Core question
@@ -479,3 +491,20 @@ violation counterexample, one legitimate read-source/write-config control, and
 qualification on new repository identities. The generating StopStalk case remains a
 regression only. Goal status, operation-contract validity, and Official Pass must remain
 separate labels so a measurement repair cannot masquerade as an algorithmic gain.
+
+### 14. Causal Rule-Retention Transaction
+
+The consumed StopStalk V2.4 replay supplies the complementary positive transaction.
+Internal execution reached a complete zero-finding goal report while the operation
+contract rejected the caller CWD. An unchanged, model-free Official replay then failed
+before Pyright because the evaluator's relative `build_output` path was resolved from
+the candidate's temporary directory. This binds one generic observation to a downstream
+official consequence.
+
+Auto-EnvSolve should retain or promote an operation rule only after this kind of
+counterfactual audit: preserve the candidate, vary no model behavior, replay the
+official lifecycle, and show that the observed violation predicts a real terminal
+failure. A coincident network failure is censored and cannot justify the rule. This
+transaction is a template for automatic subtraction as well as addition: rules without
+causal official relevance should be demoted, while rules with replayed relevance remain
+frozen and are tested for false positives on independent controls.
