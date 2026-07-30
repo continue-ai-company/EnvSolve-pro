@@ -431,3 +431,24 @@ reward for dependency selection. Network-censored repetitions remain masked. Fut
 data should distinguish operation violations with an official causal witness from
 uncorroborated validator rejections; the latter require counterexample qualification
 before they can shape policy.
+
+### 14. Within-Session Compatibility Transitions
+
+Pilot-4 shows that candidate-level trajectories alone are too coarse for strong-agent
+learning. All raw and structured episodes passed on the first submission, so they
+contain no state-conditioned cross-candidate repair action. They must be labeled as
+first-round deployment trajectories, not as positive evidence for a repair policy.
+
+The hard trajectory still contains useful action-level supervision. Package resolution,
+version conflicts, build feasibility, static visibility, and runtime ABI coherence
+should be stored as distinct observed postconditions linked to the command that exposed
+them. Repeating an action whose relevant precondition is already falsified is local
+negative supervision; recovering from a transport failure is infrastructure context,
+not a deployment-policy penalty.
+
+Terminal data must retain at least three independent axes:
+`official_goal_pass`, `protocol_admissible`, and `runtime_coherence`. A static Official
+Pass with unknown or contradictory ABI coherence is not relabeled as benchmark failure,
+but it must not receive full reproduction-integrity reward. This representation lets
+EnvSolve-RL later learn a monotonic compatibility frontier without changing the first
+paper's frozen objective.

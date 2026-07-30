@@ -183,3 +183,25 @@ internal attempt was externally censored by a GitHub TLS failure and remains an
 immutable Unknown. The Official artifact is stored at
 `spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/`
 `v24-cwd-postcondition-official-replay1/`.
+
+## Pilot-4 Flavio Compatibility Frontier
+
+The clean Pilot-4 `flavio` comparison is consumed development evidence. All three
+conditions achieved Official Pass, so it supplies no effectiveness contrast. It is
+retained because it exposes an operation sequence that cannot be represented by a
+single unresolved-import constraint.
+
+The trajectory required simultaneous compatibility across legacy SciPy APIs, Python
+version support, NumPy aliases removed in 1.24, ARM availability of `rundec`, Pyright
+visibility, and compiled-extension ABI coherence. Raw repair and the strong baseline
+eventually submitted coherent Python 3.8 environments. Structured V2.4 revisited
+incompatible versions and finally exposed Python 3.9 package-cache contents to Python
+3.8 through `PYTHONPATH`. Static Official evaluation passed, while runtime loading of
+the compiled extension remains unverified.
+
+The reusable mechanism hypothesis is a monotonic compatibility frontier attached to
+within-session operations. Each package or environment transaction should preserve the
+observed preconditions it satisfies and violates; an already falsified combination
+should not be retried without new evidence. Official-goal success and runtime coherence
+remain separate outcomes. No future method may encode `flavio`, SciPy, NumPy, or
+`rundec` as a special case.

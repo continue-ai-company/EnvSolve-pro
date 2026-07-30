@@ -151,3 +151,19 @@ evaluator 使用的相对路径 `build_output` 不再指向 checkout 下的目�
 Unknown 原样保留。Official artifact 位于
 `spark-f21c:/home/avdpro/work/runs/envsolve-pro-v24-consumed-spark/`
 `v24-cwd-postcondition-official-replay1/`。
+
+## Pilot-4 Flavio 兼容性 Frontier
+
+干净 Pilot-4 中的 `flavio` 对比属于已消费开发证据。三个 condition 全部 Official Pass，因此不提供
+效果差异。保留它，是因为该操作序列无法用单一“缺少 import”约束表达。
+
+这条轨迹需要同时满足旧 SciPy API、Python 版本支持、NumPy 1.24 已删除 alias、ARM 平台
+`rundec` 可用性、Pyright 可见性，以及编译扩展 ABI 一致性。Raw repair 与强 baseline 最终提交
+内部一致的 Python 3.8 环境。Structured V2.4 则反复进入不兼容版本组合，最后通过
+`PYTHONPATH` 把 Python 3.9 package-cache 内容暴露给 Python 3.8。静态 Official evaluation
+通过，但编译扩展能否被运行时加载没有验证。
+
+可复用的机制假设是：为 session 内 operation 维护单调兼容性 frontier。每次包或环境事务都要保留
+它满足和违反的观测前提；已经证伪的组合只有获得新证据后才能重试。Official-goal success 与
+runtime coherence 继续作为独立结果。未来方法不得把 `flavio`、SciPy、NumPy 或 `rundec`
+编码成特例。

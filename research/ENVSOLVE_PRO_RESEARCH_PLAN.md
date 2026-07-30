@@ -591,3 +591,40 @@ and clean before a new salted sample is selected. The V2.3 cases are consumed an
 serve only as regression tests. Promotion requires new-case Official Pass improvement
 or reproducible recovery from the factorized failure state without regression on easy
 first-round successes.
+
+### 8.6 Stateful-Agent V2.4 Pilot Decision
+
+The clean four-repository Pilot-4 comparison is complete. All 12 artifacts are valid and
+scientifically eligible. The strong single-session baseline, raw repair V2.4, and
+structured V2.4 each achieved `4/4` Official Pass. Structured V2.4 used 66.7% more input
+tokens and 3.4% more end-to-end time than raw repair, with no success gain.
+
+More importantly, all raw and structured episodes passed on one candidate in one model
+round. The cross-candidate state transition was never causally available to the
+Operation layer. V2.4 therefore does not test the proposed failure-conditioned repair
+mechanism; its resource differences cannot be attributed to dormant state. It is frozen
+as an auditable structured baseline and is not promoted. Exact results and the disclosed
+clean-retry amendment are recorded in
+`PRO_STATEFUL_AGENT_V2_4_PILOT4_RESULTS.md`.
+
+The hard `flavio` trajectory localizes the next problem inside the active operation
+session: package installation success, legacy semantic compatibility, platform
+feasibility, static visibility, and runtime ABI coherence are distinct facts. The
+structured condition observed several of them but did not maintain a monotonic
+compatibility frontier; it revisited incompatible states and finally exploited a static
+evaluator gap.
+
+The next version will not add a repository-specific package rule or a larger semantic
+taxonomy. Its qualification hypothesis is:
+
+1. normalize command outcomes into a compact within-session compatibility frontier;
+2. admit only causally grounded facts and preserve their supporting observations;
+3. screen high-impact environment transactions for feasibility and postconditions while
+   leaving the terminal action space open;
+4. suppress only actions whose relevant preconditions have already been falsified;
+5. report Official Pass and runtime-coherence certification as separate outcomes.
+
+The Pilot-4 repositories are consumed. New qualification cases must be selected
+outcome-blind from repository-disjoint identities. Before opening them, the mechanism
+must show on consumed or synthetic traces that a falsified operation changes the next
+operation without blocking an easy valid first-round solution.

@@ -460,3 +460,32 @@ V2.4 只做最小通用修正：
 算法中不加入任何仓库名、包名或具体解法。V2.4 必须先提交为干净版本，再通过 salted sampling
 选择新 case。V2.3 的 case 只能作为回归测试。只有在新 case 上提高 Official Pass，或稳定修复这种
 因子化失败且不损害简单首轮成功，V2.4 才能晋升。
+
+### 8.6 Stateful-Agent V2.4 Pilot 结论
+
+干净的四仓库 Pilot-4 对比已经完成。12 个 artifact 全部完整有效并具备科学统计资格。强单 session
+baseline、raw repair V2.4 与 structured V2.4 都得到 `4/4` Official Pass。Structured V2.4
+相对 raw repair 多使用 66.7% input token 和 3.4% 端到端时间，但没有成功率增益。
+
+更重要的是，所有 raw 与 structured episode 都在一个候选、一个模型轮次内通过。跨候选状态转移
+从未因果地到达操作层。因此 V2.4 没有检验所提出的 failure-conditioned repair 机制；资源差异
+也不能归因于未被触发的状态机制。V2.4 冻结为可审计 structured baseline，不予晋升。精确结果与
+完整披露的干净重跑 amendment 记录在
+`PRO_STATEFUL_AGENT_V2_4_PILOT4_RESULTS_ZH.md`。
+
+最难的 `flavio` 轨迹把下一处问题定位到活跃 operation session 内部：包能否安装、旧版本语义是否
+兼容、平台是否可行、静态分析是否可见、运行时 ABI 是否一致，是不同事实。Structured condition
+虽然观测到其中多个事实，却没有维护单调演化的 compatibility frontier；它反复进入相互冲突的状态，
+最终利用了静态 evaluator 与运行时一致性之间的缺口。
+
+下一版不增加仓库特定包规则，也不扩张语义 taxonomy。资格假设是：
+
+1. 把命令结果规范化为紧凑的 session 内 compatibility frontier；
+2. 只接纳有因果根据的事实，并保留对应观测证据；
+3. 对高影响环境事务进行可行性与后置条件检查，同时保持终端动作空间开放；
+4. 只抑制相关前提已经被证伪的操作；
+5. 分别报告 Official Pass 与 runtime-coherence certification。
+
+Pilot-4 四个仓库已经消费。新的资格 case 必须从 repository-disjoint identity 中 outcome-blind
+选择。打开新 case 前，机制要先在已消费或 synthetic 轨迹上证明：一次被证伪的操作能够改变下一次
+操作，同时不会阻断简单、合法的首轮解。

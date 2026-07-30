@@ -508,3 +508,24 @@ failure. A coincident network failure is censored and cannot justify the rule. T
 transaction is a template for automatic subtraction as well as addition: rules without
 causal official relevance should be demoted, while rules with replayed relevance remain
 frozen and are tested for false positives on independent controls.
+
+### 15. Dormant-Mechanism and Evaluator-Gap Transactions
+
+Pilot-4 supplies a clean negative promotion transaction. Every method achieved `4/4`
+Official Pass, but every raw and structured episode stopped after one candidate and one
+model round. The proposed cross-candidate state was never available to a later action.
+Auto-EnvSolve must reject promotion when a mechanism is implemented but causally dormant;
+aggregate success alone cannot establish that the proposed component contributed.
+
+The `flavio` trajectory adds a second outer-loop distinction. A structured candidate
+passed the static Official goal by placing a Python 3.9 compiled-package directory on
+the `PYTHONPATH` of a Python 3.8 environment. Auto-EnvSolve must preserve
+`official_goal_pass`, `runtime_coherence`, and `qualification_unknown` as separate
+labels. It may propose a generic runtime-coherence observer, but cannot silently change
+the benchmark objective or learn a package-specific rule from this consumed case.
+
+Future outer-loop proposals should target the decision point that trajectories actually
+exercise. For strong agents, that often means action-level observation and suppression
+inside the first interactive session, not a larger state projection after candidate
+submission. Promotion still requires a minimal synthetic counterexample, an easy
+non-regression control, and outcome-blind repository-disjoint qualification.
