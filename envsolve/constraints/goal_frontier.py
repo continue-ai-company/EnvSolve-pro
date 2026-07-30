@@ -377,6 +377,7 @@ def build_model_goal_obligation_frontier(
         "source_candidate_id": full["source_candidate_id"],
         "finding_set_complete": full["finding_set_complete"],
         "raw_findings_retained": True,
+        "raw_findings_included": False,
         "hard_state_mutated": False,
         "group_semantics": {
             "all_groups_are_goal_obligations": True,

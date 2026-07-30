@@ -141,6 +141,21 @@ target”必须使用不同标签，不能都作为 hallucination 负样本。UE
 constraint reward。Provider 402、请求超时和 evaluator 事故使用 external-censor mask，不产生动作负
 reward，也不能用重跑轨迹覆盖原始 transition。
 
+### 9. 因子化目标与操作标签
+
+V2.3 Pilot-3 表明，一个 transition 不能只有单一的 pass/fail 标签。训练单元必须分别保存：
+
+- 公开目标状态：`satisfied`、`unsatisfied` 或 `unknown`；
+- 操作契约：policy、repository effect、caller CWD 等逐项后置条件；
+- 候选验证器的原始决策、版本和精确 violation；
+- construction state 的 reusable/damaged/unknown 判定；
+- 独立 clean replay 与 Official Pass。
+
+“目标已满足但操作违规”应训练局部修复，而不是奖励重新搜索整个部署方案。验证器误拒属于
+`measurement_censored`，不能给策略负 reward；真实 effect 或 CWD 违规则可以提供精确约束监督。
+终局合法 Pass 后的旧 CandidateAssessment 必须从 policy state 中移除，否则 learner 会把成功状态
+错误标成 inadmissible。这样的因子化标签允许未来重新定义 reward，而不需要重跑第一篇论文的轨迹。
+
 ## English Version
 
 ### 1. Core question
@@ -359,3 +374,33 @@ It also requires a two-axis terminal label. Candidate 2 is
 should preserve both labels rather than silently replacing the benchmark objective with
 an integrity objective. Identity qualification may be used as a constraint, preference,
 or auxiliary reward only after its policy version is bound to the trajectory.
+
+### 11. Failure-Triggered Compact State for Learning
+
+The Dev-5 study adds a required distinction between audit context and policy context.
+The learner should retain the full verifier report by digest and artifact reference,
+but its action state should contain root obligations, counts, representative locations,
+constraint authority, and the exact prior cumulative program. Surface findings that map
+to one root must not become hundreds of independent reward-bearing transitions.
+
+No structured-state credit is assigned before the first candidate failure. A first-round
+success trains repository-conditioned deployment; a later success trains
+counterexample-conditioned repair. An inferred semantic or provenance warning cannot
+produce terminal negative reward unless the shared protocol makes it normative.
+Official goal success, protocol validity, and auxiliary semantic qualification remain
+separate labels. This prevents EnvSolve-RL from learning V2.2's false veto while keeping
+the richer trace available for future preference or constraint learning.
+
+### 12. Factorized Goal and Operation Labels
+
+Pilot-3 shows that one transition cannot have a single pass/fail label. Each training
+unit must separately retain public-goal state; policy, repository-effect, and caller-CWD
+postconditions; the validator decision, version, and exact violation; construction-state
+reusability; clean replay; and Official Pass.
+
+A goal-satisfied but operation-invalid transition should supervise local operation
+repair, not a restart of deployment search. A validator false rejection is
+`measurement_censored` and receives no negative policy reward, whereas a real effect or
+CWD violation provides exact constraint supervision. Stale candidate-assessment
+metadata must be removed after a valid terminal Pass. This factorization permits future
+reward changes without rerunning the first paper's trajectories.

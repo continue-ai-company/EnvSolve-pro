@@ -63,3 +63,38 @@ effect violation 和 clean replay 结果；约束层只维护带来源的小型 
 主指标仍是 Official Pass@1。尝试数、wall-clock、token、请求数、命令数、候选拒绝和首次失败后的
 恢复率作为次指标。资源数据描述成功率与效率的关系，但不能覆盖一次合法成功。
 
+## Stateful-Agent V2.2 Dev-5 补充
+
+repository-disjoint Dev-5 现在属于已消费开发证据。强单 session、raw feedback 与 structured V2.2
+分别得到 `5/5`、`5/5` 和 `4/5` Official Pass。
+
+三个 case 应长期保留在高价值轨迹集合中：
+
+- **moat-mqtt：** 合法的 `pkgutil.extend_path` namespace composition 证伪了把同项目 provenance
+  一刀切设为 hard constraint。这是约束权威错误。
+- **smart_open：** 有意失败的 import fixture 可以区分“保留运行语义”与“仅让名称在静态分析中
+  可见”。这是方案质量诊断，不属于官方计分。
+- **plotnine：** 572 个 surface failure 只有 15 个 root obligation，但旧状态路径生成了 2,557 个
+  event 和约 630 KB 模型输入。这是状态放大的标准案例。
+
+`molecularnodes` 作为 benchmark 语义案例保留：静态 import 可见性可能接受与目标 runtime 不兼容的
+二进制。`aqtinstall` 是 stateful repair 没有增加成功价值的 negative control。
+
+这些 case 可以启发 V2.3，但不能检验 V2.3。后续轨迹分析必须记录 surface finding 数、root
+obligation 数、模型可见字节、审计档案字节、state event 数、constraint authority，以及结构化修复
+状态之前是否真的发生过首次失败。
+
+## Stateful-Agent V2.3 Pilot-3 补充
+
+三个 repository-disjoint case 都已经消费。所有条件都通过 pypose 与 Pulser，并在 StopStalk 上失败，
+因此本轮不能对方法效果排序。
+
+- **pypose：** repair structure 的 negative control。三种方法都找到合法环境，额外状态没有提高成功。
+- **Pulser：** 第二个 negative control。仓库 source root 加 `PYTHONPATH` 已满足官方目标，结构化
+  loop 没有增加成功价值。
+- **StopStalk：** 操作接口的标准 case。一份候选已经满足目标，却没有恢复 caller CWD；另一份候选
+  满足目标但违反 repository effect；之后一份合法候选只读取 `.py` 源文件并写配置，却被验证器错误
+  关联后拒绝。因此真正需要保留的状态是“目标状态 + 精确操作后置条件”。
+
+StopStalk 只能验证 V2.4 回归行为，不能验证 V2.4 性能。后续 case 应按最早失败接口标注：goal、
+operation policy、repository effect、caller shell postcondition、clean replay 或 infrastructure。

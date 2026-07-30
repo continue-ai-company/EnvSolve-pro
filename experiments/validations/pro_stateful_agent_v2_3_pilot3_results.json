@@ -1,0 +1,464 @@
+{
+  "descriptive": {
+    "artifact_integrity_valid": 9,
+    "official_fail": 1,
+    "official_pass": 6,
+    "runs": 9
+  },
+  "paired_scientific": {
+    "both_pass": 0,
+    "censored_pairs": 0,
+    "control_method": "codex-cli-goal-aware",
+    "control_only_pass": 0,
+    "eligible_pairs": 0,
+    "neither_pass": 0,
+    "pairs": 0,
+    "treatment_method": "envsolve-pro-stateful-agent-v2.3",
+    "treatment_only_pass": 0
+  },
+  "runs": [
+    {
+      "artifact_bundle_sha256": "3deca115ce45332a9c0cf7011ff6a9ca5aac63457578593e455b3c2d6f6a30a4",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "c718c68c0b7de6a4e146b7288e56c3eb07315bc3bd1b348e01289c38b2e0a848",
+        "evaluation/official_attempt.json": "60b042039b734c10d97aafddf0ae17d2492a843fae6d15e264f781e378c4582f",
+        "evaluation/result.json": "2a018b1062df4579fac781d5b8cdd1b4b458ec269eaa277540fb8db591951345",
+        "generation/episode.jsonl": "a5a89a6605f60f4e2e3ee5f7a0bd2afb219505fa8d4e1847d61f40f4e9f4cf8c",
+        "generation/episode_snapshot.json": "bca9a129c2799dc50ac44dc1d7bb2cf3a4c6625bffd5b306561e4ecd38221244",
+        "generation/result.json": "f430242b64414ff367bf30c3a2090a0c9c7c28207ad35d28270ff999a0195802",
+        "inputs/case.json": "971fb12f1ac6fe12e4ad06f9e909d48703735a7a550b7625cf8bb1652a5f5be9",
+        "manifest.json": "49d21b395160628c946c6eebd723859ee09cab8147b9de0a03ef6f9dca711fa2",
+        "runtime/heartbeat.jsonl": "f73462e4f0d79c742106a86b236a098ea25e6b0a185c77d1e8822820b8dc7aeb",
+        "scripts/bootstrap.sh": "93ce3a51763a1e1b440db61c84eac8b373e206882c6ee823f74865159587763d",
+        "status.json": "12e468811eedb80c91bede8f27697379741533da436e99d996f703e8e2ccbd5c"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-01-envsolve-pro-structured-v2.3/envbench-python-pypose__pypose__931dc6f496936792059806eee190b9d6755c8c6f",
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-stateful-agent-v2.3",
+      "official_pass": true,
+      "pair_index": null,
+      "position": 1,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-01-envsolve-pro-structured-v2.3",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "6d703e61d09f0717664b20f5b754abf0cf59f3a0fc1b94a6cbebe6503e18f999",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "90037904d3679ddcbb8f3de1cdb47e681e053386bb6b1ffaa86978fa21c182cd",
+        "evaluation/official_attempt.json": "f7b33f829e8c17c7a4a5594cb769b135f2acaca0fab597c592152141348ec8e5",
+        "evaluation/result.json": "e93d83686b9af38871f950fb7a0621bbbd355082cc662d1901d0abaeddd07763",
+        "generation/result.json": "1b48ecf9b8eb858cee509d739ad7d308baf7f1171b5d1a424e020af4787efcb3",
+        "generation/trajectory.jsonl": "ef52f7256dc891f165a2471e868ed9dcbd91914a11dd941e1b055f3b9f3a5123",
+        "inputs/case.json": "971fb12f1ac6fe12e4ad06f9e909d48703735a7a550b7625cf8bb1652a5f5be9",
+        "manifest.json": "4e8226ba8cf134a690792d4989860cb1fcc7ba271e8fab56478f4efde36de893",
+        "runtime/heartbeat.jsonl": "0ebb60a3e0850b86a191801e136dcdee0233b22409c96f5ec80364264777486f",
+        "scripts/bootstrap.sh": "545ff3eefa3264fa7fe6da35e408e87594e706d6bbf243ed6aabe84f16259b33",
+        "status.json": "bcf1c2e61830861b38fee71a368f51d2072b0e5a2b25646a271cc72cbc771d41"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-02-codex-goal-aware-single-session/envbench-python-pypose__pypose__931dc6f496936792059806eee190b9d6755c8c6f",
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "codex-cli-goal-aware",
+      "official_pass": true,
+      "pair_index": null,
+      "position": 2,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-02-codex-goal-aware-single-session",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "1c5f8c42b6c10c8e9560a7865ce0d380165b1dc8d3ee714c581d5b1c5020dbdd",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "6013789f131262dcc77142ae8e0badbb817eeae2b137bf514fcdc438a8f2186d",
+        "evaluation/official_attempt.json": "57b4db8c3c57b363c112665944e4043c35ffa8e647a28fa69b395345599d919f",
+        "evaluation/result.json": "badf052df6dbb50fe92567aa75de43d6638522bdf61ed845e1001e9f4f9f2136",
+        "generation/episode.jsonl": "a6e68770f82fea50577e91dd2a2424653d6d19153e5f5b0e6f4aa542134e854f",
+        "generation/episode_snapshot.json": "49a014448e3c71b846f5caa6ed44e07fe5cec4b3e023bef8420c93b9ad2eb993",
+        "generation/result.json": "c5a7d1bedb71860a061cf59bef11d4b082fcd20173b602ce70185230da7d7f99",
+        "inputs/case.json": "971fb12f1ac6fe12e4ad06f9e909d48703735a7a550b7625cf8bb1652a5f5be9",
+        "manifest.json": "8c6c49adcf8b229d6d266d4e6eed824ff4e4662dfbf67bf3651f6d4841bc1273",
+        "runtime/heartbeat.jsonl": "fefb81bb48893bc8c61eaad257428e32c180c3cf7a7cd27053b61fa47c8bd418",
+        "scripts/bootstrap.sh": "f5e1112f370a59ecc0a1a7d4c1efab5b1802aee67d5955e72af6086306800d6b",
+        "status.json": "71fcac574bfbcd0d185f748460abea25e127487880726dded5138f7dd493a282"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-03-codex-raw-repair-v2.3/envbench-python-pypose__pypose__931dc6f496936792059806eee190b9d6755c8c6f",
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "codex-cli-goal-aware-raw-repair-v2.3",
+      "official_pass": true,
+      "pair_index": null,
+      "position": 3,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-03-codex-raw-repair-v2.3",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "8a613ceae0aa489d835486222a1c46d023a95353bbf31c930a3d4a6fd5081b9b",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "a7963f97025b83dfb63158ace147160204fc4f68058e56aad4291d1da5d5f8d7",
+        "evaluation/official_attempt.json": "1da0446aeae13d7f40bc8f3112daf9d240c7c2527d79e96343ef6c08d55d2b04",
+        "evaluation/result.json": "9784268c8184f28637d0efcfa81db074b88c1853436f6881829c0129024fd51b",
+        "generation/episode.jsonl": "e2369284ce491a61d5ebd3be518f5bc175bb9a26a90a1e1bee427281f7ba6b5e",
+        "generation/episode_snapshot.json": "98b92d39cc61f4ba5f028a55625dca4b4d4520b88d4fee2f84a93703e32cdb84",
+        "generation/result.json": "81be24d20cf78b8621fc8e533ed07014ab1330796f469d9b1fe13d0d41bfba68",
+        "inputs/case.json": "0c323a4ffeb29aebd9c53e8581788767618fffe8f008cfe1adda878ba143c96b",
+        "manifest.json": "b333220ded8035bca160b7130cae6b4f4757346bfc3041b9ae3e89cf1cfb9685",
+        "runtime/heartbeat.jsonl": "6a14496643c41b83c9bc1632a444c77521c2e4b1fae941018ac35a76bd89f077",
+        "scripts/bootstrap.sh": "fa54d8fa011a7655c444ed679ac8b1d27f37623ba0147d08bdee76bdf9796d88",
+        "status.json": "66c76edba5ccf2f4d8b639292933874af57ca5dea7bdb14d34714d894c0ec03c"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-04-codex-raw-repair-v2.3/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "descriptive_terminal": "official_fail",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "codex-cli-goal-aware-raw-repair-v2.3",
+      "official_pass": false,
+      "pair_index": null,
+      "position": 4,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-04-codex-raw-repair-v2.3",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "ae87dce80f3152977c169428ba70618a31afbb325c5623b68333b5722d31228f",
+      "artifact_hashes": {
+        "generation/episode.jsonl": "ed7ccf55b94574d56f968e3030da2b5b87278a7e1af3130811202b6457167751",
+        "generation/episode_snapshot.json": "4d44231cac5728313aa0da975e8065b8af10c7afaadac09bd5f71e521f16c382",
+        "generation/result.json": "91be65b2f9108959cdbf7d863f2bb6aabe1dedaea1277d607b954f05833d960f",
+        "inputs/case.json": "0c323a4ffeb29aebd9c53e8581788767618fffe8f008cfe1adda878ba143c96b",
+        "manifest.json": "a0c427bd4205defc3e7e552c67c1386803414812fa41576334f5543a35aa5664",
+        "runtime/heartbeat.jsonl": "4fd19a96f75fb6a9fce249720d076805e425c83f9d4aba31139bfeebdd932b23",
+        "status.json": "2600b37c1e4c14a419aec2b6a93fb7aec8d77e268ec5ec26bfbd08f92411abe2"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-05-envsolve-pro-structured-v2.3/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "descriptive_terminal": "generation_failed",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-stateful-agent-v2.3",
+      "official_pass": null,
+      "pair_index": null,
+      "position": 5,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-05-envsolve-pro-structured-v2.3",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "1e63d98b141feabef7a54dc66520411e3f5f9a36e347cab0c03dc88f7191732a",
+      "artifact_hashes": {
+        "generation/result.json": "0d48df9800fe4b7bd9c635448b8278cc3465c3d06c00e3dee264913739bcbe9d",
+        "generation/trajectory.jsonl": "947811c8edf143e633643fe59892a6452dc001e8ab5fee826e5e7e4fb0b5f3b4",
+        "inputs/case.json": "0c323a4ffeb29aebd9c53e8581788767618fffe8f008cfe1adda878ba143c96b",
+        "manifest.json": "e8e352d1500bc3645d1bad89bed9210f9a04d870aed6002f13c66cd1975a0855",
+        "runtime/heartbeat.jsonl": "92503b866fc5d4132fa1a8385931ac71031ae9d52cade6e73dc106f1c70e5c85",
+        "status.json": "b1eb9d3448f56cf61ec545465e6b7436a89817cd4eee39bba56593ece5e8b7ca"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-06-codex-goal-aware-single-session/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "descriptive_terminal": "generation_failed",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "codex-cli-goal-aware",
+      "official_pass": null,
+      "pair_index": null,
+      "position": 6,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-06-codex-goal-aware-single-session",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "1eb55d8f8f9f1031bf8a13ec95bdfc0fb5efda2f715cbc51b1256ee2c7de36e4",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "f30a89fb149296973dd913097c2f32a7d25e669ad482b47046303eb80682a2bf",
+        "evaluation/official_attempt.json": "2f352e78be59b36381b2592a6910488395745bca325bad7af31a641931ada8db",
+        "evaluation/result.json": "84a949e2709fd03b2f6595bf01773852f231be167bed2e963e1273b4ae52f55e",
+        "generation/episode.jsonl": "e877b39bcb823a4064dc2df166eb0caa0624aa283a9a4bf170a24db2fcb16ef2",
+        "generation/episode_snapshot.json": "a60f8b0e492eea344fab5f3f3de8a2d45a8f604502a73a1b5bcd79bc28a190d0",
+        "generation/result.json": "0151256226cd18b763f11a3c9f3643d1eccaf8ef3321bff26adeb74dcc7d755f",
+        "inputs/case.json": "3b1ed3477e47afbe5771d3b3a872d03cb4fe69a640d282964962415775e891ee",
+        "manifest.json": "369683086be5762c9396baf9b2b147971174756c2c577b7cfb90506e28fc22fb",
+        "runtime/heartbeat.jsonl": "75184cfbb92687e6d99aa123dbdab321747137a78f9e66c019d4afedc683836d",
+        "scripts/bootstrap.sh": "43598a7fa463addb79beaa507bb3acbe19329831c986f08c41591e62efa95ed3",
+        "status.json": "ddb1118295429cd6f82a7ab3b6cd5af767284cca76b2a9ee63247a090bf7c10c"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-07-envsolve-pro-structured-v2.3/envbench-python-pasqal-io__pulser__acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-stateful-agent-v2.3",
+      "official_pass": true,
+      "pair_index": null,
+      "position": 7,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-07-envsolve-pro-structured-v2.3",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "c8aaf5c5048785d2e60b205b8b2ca3e9bca45a6327788270c2cb3e77bfd3f3d0",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "4900461578f5f5baba2f3ea2be441593c4dc59a9a470a59b7c3b7599fad97cb5",
+        "evaluation/official_attempt.json": "cf0cf944d6953e7fc1e7a8d2fe4f29df1e64be26b2c79b1d6cd3c6475b0cbc21",
+        "evaluation/result.json": "5befe361e7ddb34a80609e41fcb69aef6a6dd0460b3070a9eb5d67bc8d415fd8",
+        "generation/result.json": "524cff0859828f2710ae684205b90466120bb95195dad4b8dddfa17cfd2130b2",
+        "generation/trajectory.jsonl": "50a8cce4e784784cf1a631e0114064f31d3a4395aca97cb18f01fb9168f6d044",
+        "inputs/case.json": "3b1ed3477e47afbe5771d3b3a872d03cb4fe69a640d282964962415775e891ee",
+        "manifest.json": "189c900c43bfbcedc6affdeb2b8e383d9c4cd08d26301dc406d6cd71756f8ce9",
+        "runtime/heartbeat.jsonl": "1b55c2eecaa8667b6049269cd26163828171aabd4dc38b01af62e0d4e32e1b20",
+        "scripts/bootstrap.sh": "f8c0c56ffbf7745dac0cd6a88110e1604de9dbec7a80f59e4f3e21c2e355475e",
+        "status.json": "61a31682c806efc9adeafd05bf1727b9b0d609cb752184aa35698384c94bd4bb"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-08-codex-goal-aware-single-session/envbench-python-pasqal-io__pulser__acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "codex-cli-goal-aware",
+      "official_pass": true,
+      "pair_index": null,
+      "position": 8,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-08-codex-goal-aware-single-session",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    },
+    {
+      "artifact_bundle_sha256": "a7b1cb20419b6440890241718622188c40ff82195f9fb792e26c5190a68a3b1e",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "7450faf9a11079d3da7390817090e074f4594b55d4ab1597ab3559c8ce16ede8",
+        "evaluation/official_attempt.json": "8f31741548e7c6f4fe8c6d40a41cc6dffefbdc792727240c956b60e99bf6384b",
+        "evaluation/result.json": "9e25cd48dc2f6f7e8b661d6874f1f110c283bd9c42a3ec0262f4b047943f55bd",
+        "generation/episode.jsonl": "ddbdacd6952e1a4131c688945fb8a799fe0dc163412f379a695f49b30f99e162",
+        "generation/episode_snapshot.json": "d75e2cfb1f136cae3325650e5123d3df41b6cba345165abad03832090185474c",
+        "generation/result.json": "98ea90c8a9764bed258085d5623e5cc1d8f372a4e21887dc9e3b9c03acab2c18",
+        "inputs/case.json": "3b1ed3477e47afbe5771d3b3a872d03cb4fe69a640d282964962415775e891ee",
+        "manifest.json": "c089ffd227c4be7c43ca5b5bf282e5cde7683244f2fba9fb3be2d41570e64261",
+        "runtime/heartbeat.jsonl": "e22bb1c46814456636bb80a3e2c5671a974db916d3b01c94238541e3ed1b9b16",
+        "scripts/bootstrap.sh": "ef3f4a4c8f5d274eeb0aa74cef58d70f3482a340b38350e99bdc6ba5dbf8fc6e",
+        "status.json": "7110cc3b9a711b06543dd75d91e679826bc194cc263dcaf176335d57c0fc100c"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-stateful-v2-3-pilot3-09-codex-raw-repair-v2.3/envbench-python-pasqal-io__pulser__acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": false,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_ineligible",
+        "eligible": false,
+        "exclusion_reasons": [
+          "unfrozen_source: run was produced without a committed, clean harness revision"
+        ],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "codex-cli-goal-aware-raw-repair-v2.3",
+      "official_pass": true,
+      "pair_index": null,
+      "position": 9,
+      "resources": null,
+      "run_id": "pro-stateful-v2-3-pilot3-09-codex-raw-repair-v2.3",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": false,
+      "seed": 3
+    }
+  ],
+  "schedule": {
+    "case_file": "experiments/cases/dev_pro_stateful_agent_v2_3_pilot3.jsonl",
+    "case_file_sha256": "e514df90f2c69d328de23e2d64f65643dcedcdd8f9c41af663be73ee7939f696",
+    "path": "pro_stateful_agent_v2_3_pilot3_mac.json",
+    "sha256": "c63580b324927fbc2a248b5b38cf693098dc5a5d6fc3040a85cc9e35223b07ef"
+  },
+  "schema_version": "1.0.0",
+  "scientific": {
+    "eligible_runs": 0,
+    "excluded_runs": 9,
+    "official_fail": 0,
+    "official_pass": 0
+  }
+}

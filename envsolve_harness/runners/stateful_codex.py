@@ -17,6 +17,12 @@ from envsolve.runtime.stateful_goal_verifier_v2 import (
 from envsolve.runtime.stateful_goal_verifier_v22 import (
     StatefulExecutableGoalVerifierV22,
 )
+from envsolve.runtime.stateful_goal_verifier_v23 import (
+    StatefulExecutableGoalVerifierV23,
+)
+from envsolve.runtime.stateful_goal_verifier_v24 import (
+    StatefulExecutableGoalVerifierV24,
+)
 from envsolve.solver import (
     DeploymentCandidate,
     EpisodeBudgetExhausted,
@@ -55,6 +61,10 @@ STRUCTURED_METHOD_V21 = "envsolve-pro-stateful-agent-v2.1"
 RAW_HISTORY_METHOD_V21 = "codex-cli-goal-aware-raw-repair-v2.1"
 STRUCTURED_METHOD_V22 = "envsolve-pro-stateful-agent-v2.2"
 RAW_HISTORY_METHOD_V22 = "codex-cli-goal-aware-raw-repair-v2.2"
+STRUCTURED_METHOD_V23 = "envsolve-pro-stateful-agent-v2.3"
+RAW_HISTORY_METHOD_V23 = "codex-cli-goal-aware-raw-repair-v2.3"
+STRUCTURED_METHOD_V24 = "envsolve-pro-stateful-agent-v2.4"
+RAW_HISTORY_METHOD_V24 = "codex-cli-goal-aware-raw-repair-v2.4"
 _METHOD_MODES = {
     STRUCTURED_METHOD: "structured",
     RAW_HISTORY_METHOD: "raw",
@@ -64,10 +74,16 @@ _METHOD_MODES = {
     RAW_HISTORY_METHOD_V21: "raw",
     STRUCTURED_METHOD_V22: "structured",
     RAW_HISTORY_METHOD_V22: "raw",
+    STRUCTURED_METHOD_V23: "structured",
+    RAW_HISTORY_METHOD_V23: "raw",
+    STRUCTURED_METHOD_V24: "structured",
+    RAW_HISTORY_METHOD_V24: "raw",
 }
 _V2_METHODS = frozenset({STRUCTURED_METHOD_V2, RAW_HISTORY_METHOD_V2})
 _V21_METHODS = frozenset({STRUCTURED_METHOD_V21, RAW_HISTORY_METHOD_V21})
 _V22_METHODS = frozenset({STRUCTURED_METHOD_V22, RAW_HISTORY_METHOD_V22})
+_V23_METHODS = frozenset({STRUCTURED_METHOD_V23, RAW_HISTORY_METHOD_V23})
+_V24_METHODS = frozenset({STRUCTURED_METHOD_V24, RAW_HISTORY_METHOD_V24})
 
 
 def _tail(value: object, limit: int) -> str:
@@ -142,6 +158,97 @@ def _recent_verifications(state: EnvironmentState) -> list[dict[str, Any]]:
     return values
 
 
+def _compact_recent_failures(state: EnvironmentState) -> list[dict[str, Any]]:
+    ordered = sorted(
+        state.failures.values(),
+        key=lambda item: int(item.get("state_metadata", {}).get("event_sequence", 0)),
+    )[-2:]
+    values: list[dict[str, Any]] = []
+    for item in ordered:
+        details = item.get("details")
+        details = details if isinstance(details, dict) else {}
+        report_details = details.get("report_details")
+        report_details = report_details if isinstance(report_details, dict) else {}
+        values.append(
+            {
+                "category": item.get("category"),
+                "message": _tail(item.get("message"), 2000),
+                "action_id": item.get("action_id"),
+                "verifier_summary": {
+                    "adapter_schema": details.get("adapter_schema"),
+                    "completed": details.get("completed"),
+                    "goal_passed": details.get("goal_passed"),
+                    "infrastructure_error": details.get("infrastructure_error"),
+                    "finding_set_complete": details.get("finding_set_complete"),
+                    "constraint_compaction": report_details.get(
+                        "constraint_compaction"
+                    ),
+                },
+            }
+        )
+    return values
+
+
+def _compact_recent_verifications(
+    state: EnvironmentState,
+) -> list[dict[str, Any]]:
+    values: list[dict[str, Any]] = []
+    for item in state.verifications[-2:]:
+        details = item.get("details")
+        details = details if isinstance(details, dict) else {}
+        verifier_details = details.get("verifier_details")
+        verifier_details = (
+            verifier_details if isinstance(verifier_details, dict) else {}
+        )
+        report_details = verifier_details.get("report_details")
+        report_details = report_details if isinstance(report_details, dict) else {}
+        values.append(
+            {
+                "verification_id": item.get("verification_id"),
+                "candidate_id": details.get("candidate_id"),
+                "passed": item.get("passed"),
+                "reported_passed": details.get("reported_passed"),
+                "bootstrap_exit_code": details.get("bootstrap_exit_code"),
+                "summary": _tail(details.get("summary"), 2000),
+                "counterexample_count": details.get("counterexample_count"),
+                "candidate_assessment": details.get("candidate_assessment"),
+                "constraint_compaction": report_details.get(
+                    "constraint_compaction"
+                ),
+            }
+        )
+    return values
+
+
+def _operation_state(state: EnvironmentState) -> dict[str, Any] | None:
+    for item in reversed(state.verifications):
+        details = item.get("details")
+        details = details if isinstance(details, dict) else {}
+        verifier_details = details.get("verifier_details")
+        verifier_details = (
+            verifier_details if isinstance(verifier_details, dict) else {}
+        )
+        contract = verifier_details.get("operation_contract")
+        if not isinstance(contract, dict):
+            continue
+        violations = contract.get("violations")
+        violations = violations if isinstance(violations, list) else []
+        return {
+            "candidate_id": details.get("candidate_id"),
+            "goal_status": contract.get("goal_status"),
+            "operation_status": contract.get("status"),
+            "operation_valid": contract.get("valid"),
+            "repository_effect_valid": contract.get(
+                "repository_effect_valid"
+            ),
+            "shell_postconditions": contract.get("shell_postconditions"),
+            "violations": violations[:20],
+            "violation_count": len(violations),
+            "violations_omitted": max(0, len(violations) - 20),
+        }
+    return None
+
+
 def _best_candidate(state: EnvironmentState) -> dict[str, Any] | None:
     best: tuple[tuple[int, int, int], str, dict[str, Any]] | None = None
     for position, item in enumerate(state.verifications, start=1):
@@ -181,30 +288,69 @@ def _best_candidate(state: EnvironmentState) -> dict[str, Any] | None:
     }
 
 
-def state_projection(state: EnvironmentState, mode: str) -> dict[str, Any]:
+def state_projection(
+    state: EnvironmentState,
+    mode: str,
+    *,
+    compact: bool = False,
+    operation_feedback: bool = False,
+) -> dict[str, Any]:
+    prior_candidates = _recent_actions(state)
+    if compact:
+        prior_candidates = prior_candidates[-1:]
     common = {
         "schema": (
-            "envsolve-agent-state-v1"
+            "envsolve-agent-state-v3"
+            if mode == "structured" and compact and operation_feedback
+            else "envsolve-agent-state-v2"
+            if mode == "structured" and compact
+            else "envsolve-agent-state-v1"
             if mode == "structured"
             else "envsolve-agent-raw-feedback-v1"
         ),
         "case": state.case,
-        "prior_candidates": _recent_actions(state),
-        "recent_failures": _recent_failures(state),
-        "recent_verifications": _recent_verifications(state),
+        "prior_candidates": prior_candidates,
+        "recent_failures": (
+            _compact_recent_failures(state)
+            if compact
+            else _recent_failures(state)
+        ),
+        "recent_verifications": (
+            _compact_recent_verifications(state)
+            if compact
+            else _recent_verifications(state)
+        ),
     }
     if mode == "raw":
         return common
     if mode != "structured":
         raise ValueError(f"Unsupported stateful-agent mode: {mode}")
-    return {
+    best = _best_candidate(state)
+    if (
+        compact
+        and best is not None
+        and any(
+            item.get("candidate_id") == best["candidate_id"]
+            for item in prior_candidates
+        )
+    ):
+        best = {
+            key: value
+            for key, value in best.items()
+            if key != "script"
+        }
+        best["script_ref"] = "prior_candidates"
+    projection = {
         **common,
         "active_goal_state": build_model_goal_obligation_frontier(
             state,
             max_chars=16_000,
         ),
-        "best_integrity_valid_candidate": _best_candidate(state),
+        "best_integrity_valid_candidate": best,
     }
+    if operation_feedback:
+        projection["operation_state"] = _operation_state(state)
+    return projection
 
 
 class ExecutionOnlyBudget:
@@ -270,6 +416,8 @@ class CodexInteractivePolicy:
         max_rounds: int,
         deadline: float,
         initial_probe: bool = False,
+        compact_projection: bool = False,
+        operation_feedback: bool = False,
     ) -> None:
         self.runner = runner
         self.case = case
@@ -282,6 +430,8 @@ class CodexInteractivePolicy:
         self.deadline = deadline
         self.round_count = 0
         self.initial_probe = initial_probe
+        self.compact_projection = compact_projection
+        self.operation_feedback = operation_feedback
         self.initial_probe_submitted = False
         self.total_usage: dict[str, int] = {}
         self.total_container_commands = 0
@@ -289,6 +439,14 @@ class CodexInteractivePolicy:
 
     def _prompt(self, projection: dict[str, Any]) -> str:
         encoded = json.dumps(projection, ensure_ascii=True, indent=2, sort_keys=True)
+        operation_instruction = (
+            "\nThe structured state separates executable-goal status from "
+            "caller-visible operation postconditions. If the goal is already "
+            "satisfied, preserve that construction and repair only the exact "
+            "operation violations.\n"
+            if self.operation_feedback
+            else ""
+        )
         return (
             self.runner._prompt(self.case, self.runner.goal_contract)
             + "\n"
@@ -300,6 +458,7 @@ this Codex session has no prior conversation. Inspect the current workspace,
 repair the deployment, and submit one cumulative program for a fresh checkout.
 Treat candidate-policy and repository-effect failures as hard admissibility
 feedback. Do not repeat a rejected program without correcting its stated cause.
+{operation_instruction}
 
 <solver_state mode="{self.feedback_mode}">
 {encoded}
@@ -465,7 +624,12 @@ feedback. Do not repeat a rejected program without correcting its stated cause.
                     "initial_observation": True,
                 },
             )
-        projection = state_projection(state, self.feedback_mode)
+        projection = state_projection(
+            state,
+            self.feedback_mode,
+            compact=self.compact_projection,
+            operation_feedback=self.operation_feedback,
+        )
         submission = self._invoke(projection)
         script = submission["bootstrap_script"].strip()
         if not script:
@@ -493,6 +657,8 @@ feedback. Do not repeat a rejected program without correcting its stated cause.
             "feedback_mode": self.feedback_mode,
             "initial_probe_enabled": self.initial_probe,
             "initial_probe_submitted": self.initial_probe_submitted,
+            "compact_projection": self.compact_projection,
+            "operation_feedback": self.operation_feedback,
             "rounds_started": self.round_count,
             "token_usage": dict(self.total_usage),
             "container_command_count": self.total_container_commands,
@@ -503,7 +669,7 @@ feedback. Do not repeat a rejected program without correcting its stated cause.
 class StatefulCodexCliRunner(CodexCliRunner):
     """Connect the Codex Operation layer to the existing EnvSolve state loop."""
 
-    runner_version = "0.4.0"
+    runner_version = "0.6.0"
 
     def __init__(
         self,
@@ -526,9 +692,15 @@ class StatefulCodexCliRunner(CodexCliRunner):
             "stateful-agent-v2",
             "stateful-agent-v2.1",
             "stateful-agent-v2.2",
+            "stateful-agent-v2.3",
+            "stateful-agent-v2.4",
         }:
             raise ValueError("Unsupported Stateful Codex method profile")
-        profile_has_v2_features = method_profile != "stateful-agent-v1"
+        profile_has_v2_features = method_profile in {
+            "stateful-agent-v2",
+            "stateful-agent-v2.1",
+            "stateful-agent-v2.2",
+        }
         if any(
             enabled != profile_has_v2_features
             for enabled in (
@@ -606,6 +778,24 @@ class StatefulCodexCliRunner(CodexCliRunner):
             "project_module_identity_provenance": (
                 self.method_profile == "stateful-agent-v2.2"
             ),
+            "constraint_authority": (
+                "official-goal+shared-protocol-only"
+                if self.method_profile
+                in {"stateful-agent-v2.3", "stateful-agent-v2.4"}
+                else "legacy-profile"
+            ),
+            "finding_projection": (
+                "root-obligation-v1"
+                if self.method_profile
+                in {"stateful-agent-v2.3", "stateful-agent-v2.4"}
+                and self.feedback_mode == "structured"
+                else self.feedback_mode
+            ),
+            "operation_postconditions": (
+                "repository-effects+caller-working-directory-v1"
+                if self.method_profile == "stateful-agent-v2.4"
+                else None
+            ),
             "restore_shell_invariants": self.restore_shell_invariants,
             "official_evaluator_access": "post-episode-only",
             "online_feedback": "public-goal+candidate-policy+effect-audit",
@@ -628,8 +818,14 @@ class StatefulCodexCliRunner(CodexCliRunner):
         expected_v2 = run_spec.method in _V2_METHODS
         expected_v21 = run_spec.method in _V21_METHODS
         expected_v22 = run_spec.method in _V22_METHODS
+        expected_v23 = run_spec.method in _V23_METHODS
+        expected_v24 = run_spec.method in _V24_METHODS
         expected_profile = (
-            "stateful-agent-v2.2"
+            "stateful-agent-v2.4"
+            if expected_v24
+            else "stateful-agent-v2.3"
+            if expected_v23
+            else "stateful-agent-v2.2"
             if expected_v22
             else "stateful-agent-v2.1"
             if expected_v21
@@ -716,6 +912,15 @@ class StatefulCodexCliRunner(CodexCliRunner):
                 max_rounds=self.max_rounds,
                 deadline=time.monotonic() + self.timeout,
                 initial_probe=self.initial_probe,
+                compact_projection=(
+                    self.method_profile
+                    in {"stateful-agent-v2.3", "stateful-agent-v2.4"}
+                    and self.feedback_mode == "structured"
+                ),
+                operation_feedback=(
+                    self.method_profile == "stateful-agent-v2.4"
+                    and self.feedback_mode == "structured"
+                ),
             )
             provider = DockerFreshEnvironmentProvider(
                 source_repository=workspace,
@@ -727,7 +932,11 @@ class StatefulCodexCliRunner(CodexCliRunner):
                 create_timeout=self.container_create_timeout,
             )
             verifier_class = (
-                StatefulExecutableGoalVerifierV22
+                StatefulExecutableGoalVerifierV24
+                if self.method_profile == "stateful-agent-v2.4"
+                else StatefulExecutableGoalVerifierV23
+                if self.method_profile == "stateful-agent-v2.3"
+                else StatefulExecutableGoalVerifierV22
                 if self.method_profile == "stateful-agent-v2.2"
                 else StatefulExecutableGoalVerifierV21
                 if self.method_profile == "stateful-agent-v2.1"
@@ -742,6 +951,12 @@ class StatefulCodexCliRunner(CodexCliRunner):
                     worktree,
                     case.revision,
                     required_preconditions=self.workspace_preconditions,
+                ),
+                **(
+                    {"compact_findings": self.feedback_mode == "structured"}
+                    if self.method_profile
+                    in {"stateful-agent-v2.3", "stateful-agent-v2.4"}
+                    else {}
                 ),
             )
             result = EnvSolveEpisodeRunner(

@@ -1,0 +1,136 @@
+{
+  "analysis_policy": {
+    "case_order": "frozen salted-hash order",
+    "condition_order": "frozen per-repository salted rotation",
+    "individual_case_rules_forbidden": true,
+    "next_change_gate": "At least two repository-disjoint cases with the same earliest failure interface, or one generic counterexample plus a non-regression control.",
+    "official_and_integrity_outcomes_reported_separately": true,
+    "paired_by_repository": true,
+    "v2_3_pilot_reuse_for_effect_claim": false
+  },
+  "artifacts": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_stateful_agent_v2_4_pilot4.json",
+      "sha256": "8eca84aae95a04ee48bb7c6c6754122edaa9c23de779582c5d183a8891d645dc"
+    },
+    "freeze_files": {
+      "envsolve/constraints/goal_frontier.py": "bc524f89e26544be8da487a2e9f402c4ca36d5e8abad417cb23542b8ce18be6a",
+      "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+      "envsolve/runtime/stateful_goal_verifier_v23.py": "8f0fb22c7c8c270a0679c73c983ee64a048e583c21c850e68e45346b4e19aca7",
+      "envsolve/runtime/stateful_goal_verifier_v24.py": "07a4cfbeaf9ae39e2eea399a34cb2e3987f57b56cb0163da2f5abe6b8f0306ed",
+      "envsolve/solver/counterexample.py": "524182a152749d96b4977f66a58d5df6cbd46d1f30f8e1d43b1f57c99e11d23c",
+      "envsolve/tests/test_stateful_codex_projection.py": "23020bedd1501fb66afcaf0361c893521beb74ba2137b55a84ca2475e25991df",
+      "envsolve/tests/test_structured_counterexamples.py": "0808f4a782c66a9e08405188ed14a85c3ae5a29d4523affbb6c1bfa07ba5ae7e",
+      "envsolve/verification/counterexamples.py": "ed0c683c294a00aa949306495fbbc692375cac7462d43ef139e9cf4a00c0aac0",
+      "envsolve/verification/root_obligations.py": "94c046a0ca8af54942c6d079b15081bedb5124e102e4cc1089d8e11052670029",
+      "envsolve_harness/runners/codex_cli.py": "bb03c90357b84ac7659740ff79933221f6e647d8731057b295eec63913c4492a",
+      "envsolve_harness/runners/stateful_codex.py": "25d31b182d58048caed86bc3fa78fd505d9dc9b3005bf8c4ebc286e8686b3041",
+      "envsolve_harness/scripts/open_program.py": "3adf579a7b517ac5006c0705eac5523f4f8286e564624a9f51977274f1700795",
+      "experiments/configs/local_mac_pro_stateful_agent_v2_4_pilot4.json": "8eca84aae95a04ee48bb7c6c6754122edaa9c23de779582c5d183a8891d645dc",
+      "experiments/extensible_schedule.py": "b0166c0bfa517afe382a8316e5746d4e1c37cd14744362e499759bddd2d878eb",
+      "experiments/protocols/envbench_python_official_v1.json": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+      "experiments/run_stateful_codex_case.py": "eb69c1461514ddd8d3b04a89b58e2242b29a468952e56e3b6bc42a6549ffc4cf",
+      "experiments/run_stateful_codex_schedule.py": "fcb101066e5f2047de0bffebabf7578bb79b5ea6e46aebbde4b3c33b0433c9b6",
+      "experiments/tools/select_pro_stateful_agent_v2_4_pilot4.py": "7d728f012f17fe50773e839acb8166862c9dbbf559d92d7e2228a996f928bab0",
+      "tests/test_goal_obligation_frontier.py": "8b4db199b2bd683c2b94cced72c76037067a4bdc075df8cfcb9d04a732465f0d",
+      "tests/test_open_candidate_interface.py": "4f6973a22d8523edc6471fc02069ae27b120d24e01ccc2ecc51a2ac251a51596",
+      "tests/test_stateful_codex_runner.py": "b5e2ab1abec117193bc29b918473f1f837b5caca8b7fcfb1ece03fa6afbb1fca"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_official_v1.json",
+      "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac.json",
+      "sha256": "03fba3dcc14690263f237fe6514e274a060cf1bef26bff365faa411a06b9eb96"
+    }
+  },
+  "claim_scope": "Repository-disjoint four-case development pilot. It may select the next generic mechanism but cannot support final test or leaderboard claims.",
+  "conditions": [
+    {
+      "condition": "codex-goal-aware-single-session",
+      "public_goal_visible": true,
+      "repair_rounds": false,
+      "role": "strong single-session baseline",
+      "structured_state": false
+    },
+    {
+      "condition": "codex-raw-repair-v2.4",
+      "public_goal_visible": true,
+      "repair_rounds": true,
+      "role": "failure-triggered same-model raw control",
+      "structured_state": false
+    },
+    {
+      "condition": "envsolve-pro-structured-v2.4",
+      "public_goal_visible": true,
+      "repair_rounds": true,
+      "role": "factorized goal-operation state treatment",
+      "structured_state": true
+    }
+  ],
+  "mechanism": {
+    "goal_and_operation_state_factorized": true,
+    "hard_constraint_authority": "public executable goal and shared protocol",
+    "initial_goal_probe": false,
+    "operation_postconditions": [
+      "candidate policy",
+      "repository effects",
+      "caller working directory"
+    ],
+    "operation_space": "open",
+    "raw_findings": "immutable audit archive only",
+    "structured_feedback_trigger": "first candidate failure",
+    "structured_projection": "root-obligation-plus-operation-contract-v1"
+  },
+  "metrics": {
+    "primary": "Official Pass@1 by condition",
+    "secondary": [
+      "repair success conditioned on first-candidate failure",
+      "goal-satisfied operation-repair success",
+      "first-candidate success",
+      "model candidates",
+      "container commands",
+      "input and output tokens",
+      "model-visible projection bytes",
+      "surface finding and root obligation counts",
+      "state event count",
+      "wall-clock time",
+      "infrastructure censoring"
+    ]
+  },
+  "preflight": {
+    "historical_freeze_hashes": "preserved",
+    "mac": "663 passed, 3 skipped",
+    "spark_arm_linux": "54 V2.4-focused passed; full 660 passed, 3 skipped, with two host python-alias and one no-git fixture failure"
+  },
+  "preregistered_at": "2026-07-30T07:04:05.363178+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + repository)",
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_stateful_agent_v2_4_pilot_58.jsonl",
+    "remaining_case_file_sha256": "a008e4e70f355ecbad9267c373ec710a94e839e6ef9a69645e309f5e6488e1a6",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-stateful-agent-v2.4-dev4-2026-07-30",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_stateful_agent_v2_4_pilot4.jsonl",
+    "selected_case_file_sha256": "ab35360eae2c5f50d5be7eb4d97256d3a6ce2cb52fed40d20a0e829ddc8d125b",
+    "selection_unit": "repository",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_stateful_agent_v2_3_pilot_62.jsonl",
+    "source_case_file_sha256": "92785247d6b920cc862d8d680ff8f32c103b780f19c09312924f34e0d22b0323",
+    "source_rows": 62,
+    "take": 4
+  },
+  "shared_setting": {
+    "candidate_interface": "open cumulative Bash program",
+    "candidate_verification_environment": "fresh exact-revision checkout",
+    "model": "gpt-5.5",
+    "model_cost_hard_limit": false,
+    "model_token_hard_limit": false,
+    "official_evaluator_feedback_available_online": false,
+    "reasoning_effort": "high",
+    "stateful_max_model_candidates": 3
+  },
+  "status": "frozen",
+  "study_id": "envsolve-pro-stateful-agent-v2.4-pilot4"
+}

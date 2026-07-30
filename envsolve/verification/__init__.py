@@ -5,9 +5,11 @@ from envsolve.verification.counterexamples import (
     StructuredVerifierFinding,
     StructuredVerifierReport,
 )
+from envsolve.verification.root_obligations import RootObligationFindingAdapter
 
 __all__ = [
     "FindingDisposition",
+    "RootObligationFindingAdapter",
     "SemanticCapabilityRepairPolicy",
     "StructuredFindingAdapter",
     "StructuredVerifierFinding",

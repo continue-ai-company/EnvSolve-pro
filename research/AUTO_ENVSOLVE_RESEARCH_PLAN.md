@@ -179,6 +179,24 @@ proposal 和 policy proposal。UER-py 则说明 finding delta 与证据引用不
 命令超时的动作属于方法 terminal-reach failure，而 provider 402 属于外部删失。外层在提出算法修改前
 必须先冻结这类测量 taxonomy，保留旧分析，并用独立 shadow qualification 晋级。
 
+### 11. V2.3 验证器反例与外层改进事务
+
+V2.3 Pilot-3 给出一个更接近 Auto-EnvSolve 目标的事务。外层系统应从轨迹中发现：目标已经满足，
+但操作验证器给出拒绝；随后用最小反例重放验证器，判断拒绝来自真实写入还是文本共现。这里，合法
+程序只读取真实 `.py` 文件并写配置，却被全局字符串规则误拒。正确 proposal 不是增加 case 规则，
+而是把验证对象从“命令中出现过哪些字符串”改为“程序实际写入哪些目标”。
+
+该事务的自动晋级条件应冻结为：
+
+1. 原始失败轨迹、验证器版本和精确 violation 不可变；
+2. proposal 只改变验证器归因，不改变公开目标或终局 evaluator；
+3. 至少包含一个真实违规反例和一个合法读源码/写配置的 non-regression control；
+4. 修改后必须在新的 repository identity 上验证，生成 proposal 的 StopStalk 只能做回归；
+5. `goal_status`、`operation_contract` 与 Official Pass 分列，不能用修复测量错误冒充算法增益。
+
+这说明未来外层 harness 的核心不是从单个失败中记住自然语言经验，而是生成可执行反例、提出最小
+接口修改，并通过跨 case 证据控制 promotion。
+
 ## English Version
 
 ### 1. Core question
@@ -427,3 +445,37 @@ failure as a construct-boundary error, propose the smallest invariant, require a
 counterexample plus non-regression control, and only then expose the change to unseen
 repositories. Official benchmark success remains recorded even when a stricter
 integrity label blocks promotion.
+
+### 12. V2.2 Negative Promotion and V2.3 State Contract
+
+The Dev-5 result is a complete negative outer-loop promotion example. V2.2 reduced
+commands and input tokens relative to raw history but regressed Official Pass because
+an inferred provenance rule had hard authority. Auto-EnvSolve must reject a proposal
+when its efficiency gain is accompanied by an official-success regression, and it must
+audit every hard veto against one of two sources: the public executable goal or the
+frozen shared admissibility protocol.
+
+The V2.3 trajectory contract separates immutable audit state from decision state:
+raw report digest and archive reference; compact root obligations and representative
+samples shown to the model; authority class for every constraint; cumulative program;
+same-environment verifier receipt; official terminal outcome; and infrastructure censor
+mask. The outer optimizer may change projection timing, grouping, or advisory state,
+but may not silently promote hypotheses to hard constraints. A proposal is evaluated on
+new repository identities after synthetic counterexamples and non-regression controls,
+never on the cases that generated it.
+
+### 13. V2.3 Verifier Counterexample Transaction
+
+Pilot-3 supplies a transaction close to the Auto-EnvSolve objective. The outer system
+should detect that the executable goal was satisfied while the operation validator
+rejected the candidate, then replay a minimal counterexample to distinguish an actual
+write from textual co-occurrence. The observed legitimate program read a real `.py`
+file and wrote configuration, but a global string rule rejected it. The generic proposal
+changes the measured object from strings appearing in a command to actual write targets;
+it adds no repository or package rule.
+
+Promotion requires an immutable source trajectory and validator version, one true
+violation counterexample, one legitimate read-source/write-config control, and
+qualification on new repository identities. The generating StopStalk case remains a
+regression only. Goal status, operation-contract validity, and Official Pass must remain
+separate labels so a measurement repair cannot masquerade as an algorithmic gain.

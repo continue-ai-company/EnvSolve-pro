@@ -80,3 +80,49 @@ candidate rejection, and failure-conditioned recovery are reported as secondary
 outcomes. Resource measurements describe the success-efficiency trade-off; they do not
 override a valid success.
 
+## Stateful-Agent V2.2 Dev-5 Addendum
+
+The repository-disjoint Dev-5 batch is now consumed development evidence. Strong
+single-session, raw feedback, and structured V2.2 achieved `5/5`, `5/5`, and `4/5`
+Official Pass respectively.
+
+Three cases should remain in the high-value trajectory set:
+
+- **moat-mqtt:** legitimate `pkgutil.extend_path` namespace composition falsifies
+  blanket same-project provenance as a hard constraint. This is an authority error.
+- **smart_open:** an intentional failing-import fixture distinguishes semantic
+  preservation from merely making a name statically visible. This is a solution-quality
+  diagnostic, not part of the official score.
+- **plotnine:** 572 surface failures reduce to 15 root obligations, yet the old state
+  path generated 2,557 events and approximately 630 KB model inputs. This is the
+  canonical state-amplification case.
+
+`molecularnodes` remains a benchmark-semantics example: static import visibility may
+accept a binary incompatible with the selected runtime. `aqtinstall` is the negative
+control where stateful repair adds no success value.
+
+These cases motivate V2.3 but cannot test it. Future trajectory analysis must report
+surface finding count, root obligation count, model-visible bytes, archived bytes,
+state-event count, constraint authority, and whether a first failure actually preceded
+the structured repair state.
+
+## Stateful-Agent V2.3 Pilot-3 Addendum
+
+The three repository-disjoint cases are consumed development evidence. All conditions
+passed pypose and Pulser and failed StopStalk, so the pilot provides no effectiveness
+ranking.
+
+- **pypose:** a negative control for repair structure. All methods found a valid
+  environment; additional state did not improve success.
+- **Pulser:** a second negative control. Repository source roots plus `PYTHONPATH`
+  satisfied the official objective, and the structured loop added no success value.
+- **StopStalk:** the canonical operation-interface case. One candidate satisfied the
+  goal but failed because the program did not restore caller CWD. Another satisfied the
+  goal while violating repository effects. A legitimate later candidate was falsely
+  rejected because the validator correlated reading a `.py` file with an unrelated
+  configuration write. The useful state is therefore factorized as goal status plus
+  exact operation postconditions.
+
+StopStalk may validate V2.4 regression behavior but cannot qualify V2.4 performance.
+Future cases should be labeled by the earliest failed interface: goal, operation policy,
+repository effect, caller shell postcondition, clean replay, or infrastructure.

@@ -28,10 +28,14 @@ from envsolve_harness.runners.stateful_codex import (
     RAW_HISTORY_METHOD_V2,
     RAW_HISTORY_METHOD_V21,
     RAW_HISTORY_METHOD_V22,
+    RAW_HISTORY_METHOD_V23,
+    RAW_HISTORY_METHOD_V24,
     STRUCTURED_METHOD,
     STRUCTURED_METHOD_V2,
     STRUCTURED_METHOD_V21,
     STRUCTURED_METHOD_V22,
+    STRUCTURED_METHOD_V23,
+    STRUCTURED_METHOD_V24,
     StatefulCodexCliRunner,
 )
 
@@ -45,6 +49,10 @@ RUNNER_METHODS = {
     "envsolve-pro-stateful-agent-v2.1": STRUCTURED_METHOD_V21,
     "codex-stateful-raw-v2.2": RAW_HISTORY_METHOD_V22,
     "envsolve-pro-stateful-agent-v2.2": STRUCTURED_METHOD_V22,
+    "codex-stateful-raw-v2.3": RAW_HISTORY_METHOD_V23,
+    "envsolve-pro-stateful-agent-v2.3": STRUCTURED_METHOD_V23,
+    "codex-stateful-raw-v2.4": RAW_HISTORY_METHOD_V24,
+    "envsolve-pro-stateful-agent-v2.4": STRUCTURED_METHOD_V24,
 }
 
 
@@ -67,6 +75,8 @@ def _factory(
     if executable.is_dir():
         executable = executable / "codex"
     v22 = run_spec.method in {STRUCTURED_METHOD_V22, RAW_HISTORY_METHOD_V22}
+    v23 = run_spec.method in {STRUCTURED_METHOD_V23, RAW_HISTORY_METHOD_V23}
+    v24 = run_spec.method in {STRUCTURED_METHOD_V24, RAW_HISTORY_METHOD_V24}
     v21 = v22 or run_spec.method in {
         STRUCTURED_METHOD_V21,
         RAW_HISTORY_METHOD_V21,
@@ -95,11 +105,17 @@ def _factory(
                 STRUCTURED_METHOD_V2,
                 STRUCTURED_METHOD_V21,
                 STRUCTURED_METHOD_V22,
+                STRUCTURED_METHOD_V23,
+                STRUCTURED_METHOD_V24,
             }
             else "raw"
         ),
         method_profile=(
-            "stateful-agent-v2.2"
+            "stateful-agent-v2.4"
+            if v24
+            else "stateful-agent-v2.3"
+            if v23
+            else "stateful-agent-v2.2"
             if v22
             else "stateful-agent-v2.1"
             if v21
@@ -107,9 +123,9 @@ def _factory(
             if v2
             else "stateful-agent-v1"
         ),
-        initial_probe=v2,
-        enforce_project_namespace_provenance=v2,
-        restore_shell_invariants=v2,
+        initial_probe=v2 and not v23,
+        enforce_project_namespace_provenance=v2 and not v23,
+        restore_shell_invariants=v2 and not v23,
     )
 
 

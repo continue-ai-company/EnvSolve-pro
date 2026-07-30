@@ -51,6 +51,10 @@ The agent must therefore revise beliefs and obligations across attempts.
 The returned solution is still a complete program, not a state-dependent delta. If a
 program passes during construction search, the solver executes the exact same program
 from a distinct fresh checkout and environment. Only that replay can certify success.
+Certification factorizes two requirements: the executable goal must be satisfied, and
+the submitted operation must obey shared admissibility and caller-visible
+postconditions. A goal-satisfying state with an invalid operation is repairable evidence,
+not either success or an undifferentiated failure.
 
 The executable goal is part of the task specification, not the terminal evaluator. It
 contains a versioned program, a report schema, and a content digest. The online solver
@@ -67,7 +71,8 @@ problem.
 
 For every candidate, the Observation layer records the repository evidence used, the
 complete deployment program, environment identity, execution outcomes, goal report, and
-audited effects. It assigns one of three goal states:
+audited effects. It records the operation contract independently and assigns one of
+three goal states:
 
 - **Pass:** the goal program completed and its report satisfies the declared schema.
 - **Fail:** the goal completed and returned concrete unsatisfied conditions.
@@ -80,14 +85,18 @@ resulting construction state as reusable, damaged, or unknown; only reusable sta
 host a later attempt. Goal reports also declare whether their findings are a complete
 snapshot or partial evidence. Only a complete snapshot of the same scope may use absence
 to demonstrate that an earlier condition has been resolved.
+Operation observations retain exact policy, effect, and shell-postcondition violations.
+Thus a later round can preserve a goal-satisfying construction while repairing only its
+invalid operation boundary.
 
 ### 2.2 Constraint: What Is Still Unsatisfied?
 
-The Constraint layer maintains a versioned state `S_t` of active obligations, established
-facts, uncertain hypotheses, and their provenance. Goal failures are authoritative
-obligations: they remain active until a later execution of the same goal demonstrates
-that they are satisfied. Repository declarations and model interpretations may explain
-or refine an obligation, but they cannot erase goal evidence.
+The Constraint layer maintains a versioned state `S_t` of active obligations,
+established facts, operation violations, uncertain hypotheses, and their provenance.
+Goal failures are authoritative obligations: they remain active until a later execution
+of the same goal demonstrates that they are satisfied. Repository declarations and
+model interpretations may explain or refine an obligation, but they cannot erase goal
+evidence.
 
 State transitions are evidence-driven and reversible. A new observation may add an
 obligation, refine its scope, connect repeated symptoms to a shared cause, discharge it,
@@ -97,14 +106,18 @@ failures of raw-history agents: losing a decisive condition in a long trace and 
 the absence of a repeated message as proof that the condition disappeared.
 
 The state is an external cognitive aid, not a complete symbolic model of Python or Linux.
-Its minimal form is a provenance-preserving set of current goal obligations. Causal
-compression and additional semantic inference are useful only when they improve
-resolution without suppressing executable evidence.
+It is created only after a submitted candidate produces executable counterevidence; the
+first operation is not preceded by a mandatory full-goal diagnostic. Repeated surface
+findings are grouped by root obligation before entering solver state. Complete reports
+remain available in an immutable audit archive, while the model receives counts,
+representative locations, and a bounded set of active roots.
 
-Each active obligation also routes a bounded, read-only view of the repository evidence
-most likely to explain it: the exact reported source location and related occurrences of
-the missing subject. This turns an opaque symptom into grounded local context without
-granting the Constraint layer an unrestricted search-and-act loop.
+Constraint authority is explicit. The public executable goal and shared experimental
+admissibility rules may reject a candidate. Repository declarations, provenance
+interpretations, and runtime-semantic checks may explain risk, but remain revisable
+hypotheses unless the evaluation protocol makes them normative. This prevents a
+plausible but incomplete environment model from vetoing a solution found by a stronger
+agent.
 
 ### 2.3 Operation: How Should the Environment Change?
 
@@ -122,6 +135,8 @@ delta, or effect violation is returned to the next agent round as an Observation
 matters because a capable agent may find useful environment facts yet submit an invalid
 shortcut; discarding the entire trajectory wastes information, while accepting the
 shortcut confounds deployment with verifier manipulation.
+The operation contract also covers caller-visible shell state, such as returning to the
+declared repository directory, so the program composes with an independent evaluator.
 
 The resulting loop is
 
@@ -198,33 +213,18 @@ only after code, prompts, goal contracts, split identities, and analysis rules a
 
 ### Current Development Evidence
 
-A five-repository qualification found identical `4/5` Official Pass for explicit
-state, fresh search, and raw history. A later eight-case paired screen found that a more
-complex causal-feedback variant achieved `3/7`, while its simpler goal-frontier control
-achieved `4/7`. These negative results reject the hypothesis that adding more constraint
-types is sufficient.
+Development evidence has so far falsified two larger variants. In a consumed five-case
+study, a strong single-session agent and raw repair both passed `5/5`, while structured
+state passed `4/5`; eager diagnostics amplified hundreds of surface findings and an
+inferred provenance rule vetoed a valid solution. This motivated failure-triggered,
+root-level state and a strict separation between executable authority and advisory
+hypotheses.
 
-External trajectories sharpen the alternative. Repo2Run stopped on Lark after native
-tests passed while the public goal still had 13 issues. A goal-aware strong agent instead
-found a valid Conda solution by diagnosing package shadowing. On micropy-cli, the same
-agent reduced the public metric to zero using synthetic stubs and was correctly rejected.
-The active hypothesis is therefore that verified state should support a strong
-interactive operation loop and make rejection recoverable, while executable validation
-and clean replay remain hard boundaries. This hypothesis has not yet established an
-effectiveness gain.
-
-A first consumed mechanism study further exposed two requirements for testing this
-hypothesis correctly. All raw-history and structured-state episodes ended after the
-first model submission, so explicit repair state never affected an operation. Moreover,
-both micropy-cli conditions passed the benchmark by mixing the target checkout with an
-older same-name distribution. We therefore require an executable goal observation
-before the first operation and source-consistent namespace provenance in addition to
-fresh replay. These are method-contract corrections, not performance results.
-
-The corrected mechanism then produced the intended transition. A complete pre-operation
-goal failure became a compact obligation state; an inadmissible first program was
-returned with an exact violation; and a second independent session produced an Official
-Pass. The same trace separated source provenance from module identity: package metadata
-can relabel checkout source without changing its bytes. We therefore treat executable
-success and identity-qualified success as distinct measurements. This consumed result
-validates the loop, not its cross-repository effectiveness.
+A subsequent three-case pilot gave all three conditions `2/3` and therefore provides no
+effectiveness evidence. Its hard trajectory exposed a smaller interface error: the
+executable goal could be satisfied while an operation postcondition remained invalid,
+but the solver collapsed both facts into one failure and lost the exact repair target.
+The current hypothesis factorizes goal state from operation-contract state while keeping
+the strong agent's action space open. Because the pilot ran from an unfrozen worktree,
+it is used only for mechanism design; the hypothesis requires clean, repository-disjoint
+evaluation before any empirical claim.

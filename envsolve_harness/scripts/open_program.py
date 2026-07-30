@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import ast
 from pathlib import PurePosixPath
 import re
+import shlex
+from typing import Iterator
 
 from envsolve.solver import CandidateValidation, DeploymentCandidate
 
@@ -15,21 +18,6 @@ _OUTPUT_REDIRECTION = re.compile(
 _DIRECT_FILE_COMMAND = re.compile(
     r"(?:^|(?:&&|\|\||[;|])\s*)"
     r"(?:touch|truncate|cp|mv|install|tee)\s+(?P<arguments>[^;&|]+)"
-)
-_QUOTED_IMPORT_ARTIFACT = re.compile(
-    r"""["'](?P<target>[^"'\n]+\.(?:py|pyi|pyc|pyd|so|pth))["']""",
-    re.IGNORECASE,
-)
-_EMBEDDED_FILE_WRITE = re.compile(
-    r"""
-    \bopen\s*\([^)]*,\s*["'][^"']*[wax+][^"']*["']
-    |\.open\s*\(\s*["'][^"']*[wax+][^"']*["']
-    |\.write\s*\(
-    |\.(?:write_text|write_bytes|touch)\s*\(
-    |\b(?:shutil\.)?(?:copy|copyfile|move)\s*\(
-    |\bos\.(?:mknod|rename|replace)\s*\(
-    """,
-    re.IGNORECASE | re.DOTALL | re.VERBOSE,
 )
 _SYMLINK_COMMAND = re.compile(
     r"(?:^|(?:&&|\|\||[;|])\s*|\bthen\s+)\s*"
@@ -75,18 +63,176 @@ def _direct_import_artifact_write(script: str) -> tuple[str, str] | None:
     return None
 
 
-def _embedded_import_artifact_write(script: str) -> tuple[str, str] | None:
-    if _EMBEDDED_FILE_WRITE.search(script) is None:
-        return None
-    for match in _QUOTED_IMPORT_ARTIFACT.finditer(script):
-        target = _direct_import_artifact(match.group("target"))
-        if target is None:
+def _embedded_python_snippets(script: str) -> Iterator[tuple[str, int]]:
+    lines = script.splitlines()
+    index = 0
+    while index < len(lines):
+        match = re.search(
+            r"<<-?\s*(?P<quote>['\"]?)(?P<marker>[A-Za-z_][A-Za-z0-9_]*)"
+            r"(?P=quote)",
+            lines[index],
+        )
+        if match is None:
+            index += 1
             continue
-        line_start = script.rfind("\n", 0, match.start()) + 1
-        line_end = script.find("\n", match.end())
-        if line_end < 0:
-            line_end = len(script)
-        return script[line_start:line_end].strip(), target
+        marker = match.group("marker")
+        end = index + 1
+        while end < len(lines) and lines[end].lstrip("\t").strip() != marker:
+            end += 1
+        if end >= len(lines):
+            index += 1
+            continue
+        yield "\n".join(lines[index + 1 : end]), index + 2
+        index = end + 1
+
+    for line_number, line in enumerate(lines, start=1):
+        try:
+            tokens = shlex.split(line, posix=True)
+        except ValueError:
+            continue
+        for position, token in enumerate(tokens[:-1]):
+            executable = PurePosixPath(token).name
+            if not re.fullmatch(r"python(?:\d+(?:\.\d+)*)?", executable):
+                continue
+            try:
+                command_position = tokens.index("-c", position + 1)
+            except ValueError:
+                continue
+            if command_position + 1 >= len(tokens):
+                continue
+            yield tokens[command_position + 1], line_number
+
+
+def _joined_string(node: ast.JoinedStr) -> str:
+    return "".join(
+        item.value if isinstance(item, ast.Constant) else "{...}"
+        for item in node.values
+        if isinstance(item, (ast.Constant, ast.FormattedValue))
+    )
+
+
+def _expression_import_artifact(
+    node: ast.AST,
+    assignments: dict[str, ast.AST],
+    *,
+    seen: frozenset[str] = frozenset(),
+) -> str | None:
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return _direct_import_artifact(node.value)
+    if isinstance(node, ast.JoinedStr):
+        return _direct_import_artifact(_joined_string(node))
+    if isinstance(node, ast.Name):
+        if node.id in seen or node.id not in assignments:
+            return None
+        return _expression_import_artifact(
+            assignments[node.id],
+            assignments,
+            seen=seen | {node.id},
+        )
+    if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Div)):
+        return _expression_import_artifact(
+            node.right,
+            assignments,
+            seen=seen,
+        ) or _expression_import_artifact(node.left, assignments, seen=seen)
+    if not isinstance(node, ast.Call):
+        return None
+    function = node.func
+    if (
+        isinstance(function, ast.Attribute)
+        and function.attr == "with_suffix"
+        and node.args
+    ):
+        suffix = node.args[0]
+        if isinstance(suffix, ast.Constant) and isinstance(suffix.value, str):
+            return _direct_import_artifact(f"artifact{suffix.value}")
+    path_constructor = (
+        isinstance(function, ast.Name)
+        and function.id in {"Path", "PurePath", "PurePosixPath"}
+    )
+    path_join = isinstance(function, ast.Attribute) and function.attr in {
+        "join",
+        "joinpath",
+    }
+    if path_constructor or path_join:
+        for argument in reversed(node.args):
+            target = _expression_import_artifact(
+                argument,
+                assignments,
+                seen=seen,
+            )
+            if target is not None:
+                return target
+    return None
+
+
+def _literal_write_mode(node: ast.AST | None) -> bool:
+    return (
+        isinstance(node, ast.Constant)
+        and isinstance(node.value, str)
+        and any(flag in node.value for flag in "wax+")
+    )
+
+
+def _call_write_target(node: ast.Call) -> ast.AST | None:
+    function = node.func
+    if isinstance(function, ast.Name) and function.id == "open":
+        mode = node.args[1] if len(node.args) > 1 else None
+        mode = next(
+            (
+                keyword.value
+                for keyword in node.keywords
+                if keyword.arg == "mode"
+            ),
+            mode,
+        )
+        return node.args[0] if node.args and _literal_write_mode(mode) else None
+    if not isinstance(function, ast.Attribute):
+        return None
+    if function.attr in {"write_text", "write_bytes", "touch"}:
+        return function.value
+    if function.attr == "open":
+        mode = node.args[0] if node.args else None
+        mode = next(
+            (
+                keyword.value
+                for keyword in node.keywords
+                if keyword.arg == "mode"
+            ),
+            mode,
+        )
+        return function.value if _literal_write_mode(mode) else None
+    if function.attr in {"copy", "copyfile", "move", "rename", "replace"}:
+        return node.args[-1] if len(node.args) >= 2 else None
+    if function.attr == "mknod":
+        return node.args[0] if node.args else None
+    return None
+
+
+def _embedded_import_artifact_write(script: str) -> tuple[str, str] | None:
+    for source, _line_offset in _embedded_python_snippets(script):
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            continue
+        assignments: dict[str, ast.AST] = {}
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Assign):
+                continue
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    assignments[target.id] = node.value
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            write_target = _call_write_target(node)
+            if write_target is None:
+                continue
+            target = _expression_import_artifact(write_target, assignments)
+            if target is None:
+                continue
+            source_line = source.splitlines()[node.lineno - 1].strip()
+            return source_line, target
     return None
 
 

@@ -18,6 +18,7 @@ from envsolve.solver import (
 )
 from envsolve.verification import (
     FindingDisposition,
+    RootObligationFindingAdapter,
     StructuredFindingAdapter,
     StructuredVerifierFinding,
     StructuredVerifierReport,
@@ -300,6 +301,114 @@ class StructuredFindingAdapterTests(unittest.TestCase):
                 {item["status"] for item in final_state.constraints.values()},
             )
             self.assertEqual(result.accepted_candidate.candidate_id, "candidate-2")
+
+
+class RootObligationFindingAdapterTests(unittest.TestCase):
+    def test_terminal_pass_has_no_repair_candidate_assessment(self) -> None:
+        outcome = RootObligationFindingAdapter().adapt(
+            report(finding(FindingDisposition.INACTIVE), goal_passed=True)
+        )
+
+        self.assertTrue(outcome.passed)
+        self.assertIsNone(outcome.candidate_assessment)
+
+    def test_repeated_surface_findings_collapse_before_state_ingestion(self) -> None:
+        findings = tuple(
+            StructuredVerifierFinding(
+                finding_id=f"finding-{index:04d}",
+                domain=ConstraintDomain.MODULE,
+                subject=f"matplotlib.area_{index % 7}.symbol_{index}",
+                predicate=ConstraintPredicate.PRESENT,
+                required=True,
+                observed=False,
+                disposition=FindingDisposition.ACTIVE,
+                provenance={"file": f"tests/test_{index:04d}.py"},
+            )
+            for index in range(572)
+        )
+        raw_archive = {
+            "schema": "envsolve-goal-report-v1",
+            "findings": [{"finding_id": item.finding_id} for item in findings],
+        }
+        verifier_report = StructuredVerifierReport(
+            verifier="synthetic-structured-verifier",
+            check_profile="synthetic-structured-checks",
+            channel=FeedbackChannel.INTERNAL_EXECUTION,
+            environment_id="fresh-environment-1",
+            environment_fresh=True,
+            bootstrap=CommandResult(0),
+            completed=True,
+            goal_passed=False,
+            findings=findings,
+            details={
+                "evidence_scope_id": "goal-contract:synthetic",
+                "finding_set_complete": True,
+                "goal_report": raw_archive,
+            },
+        )
+
+        outcome = RootObligationFindingAdapter().adapt(verifier_report)
+
+        self.assertEqual(len(outcome.counterexamples), 2)
+        self.assertEqual(
+            outcome.counterexamples[0].value["name"],
+            "matplotlib",
+        )
+        self.assertEqual(outcome.candidate_assessment.unresolved_constraints, 1)
+        self.assertEqual(
+            outcome.details["report_details"]["constraint_compaction"],
+            {
+                "schema": "envsolve-root-obligation-finding-adapter-v1",
+                "surface_finding_count": 572,
+                "obligation_group_count": 1,
+                "raw_findings_archived": True,
+                "raw_findings_in_model_view": False,
+            },
+        )
+        self.assertEqual(
+            outcome.details["report_details"]["goal_report"],
+            raw_archive,
+        )
+        self.assertEqual(
+            outcome.counterexamples[0].value["finding_provenance"][
+                "surface_finding_count"
+            ],
+            572,
+        )
+
+    def test_groups_use_semantic_state_not_surface_identifier_set(self) -> None:
+        adapter = RootObligationFindingAdapter()
+        first = adapter.adapt(
+            report(
+                StructuredVerifierFinding(
+                    finding_id="first",
+                    domain=ConstraintDomain.MODULE,
+                    subject="numpy.typing",
+                    predicate=ConstraintPredicate.PRESENT,
+                    required=True,
+                    observed=False,
+                    disposition=FindingDisposition.ACTIVE,
+                )
+            )
+        )
+        second = adapter.adapt(
+            report(
+                StructuredVerifierFinding(
+                    finding_id="second",
+                    domain=ConstraintDomain.MODULE,
+                    subject="numpy.linalg",
+                    predicate=ConstraintPredicate.PRESENT,
+                    required=True,
+                    observed=False,
+                    disposition=FindingDisposition.ACTIVE,
+                )
+            )
+        )
+
+        self.assertEqual(
+            first.counterexamples[0].value["finding_id"],
+            second.counterexamples[0].value["finding_id"],
+        )
 
 
 if __name__ == "__main__":

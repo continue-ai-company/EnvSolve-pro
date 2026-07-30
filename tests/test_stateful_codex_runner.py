@@ -15,6 +15,13 @@ from envsolve.runtime.stateful_goal_verifier_v2 import (
     StatefulExecutableGoalVerifierV2,
     StatefulExecutableGoalVerifierV21,
 )
+from envsolve.runtime.stateful_goal_verifier_v23 import (
+    StatefulExecutableGoalVerifierV23,
+    python_same_environment_alias_audit_command,
+)
+from envsolve.runtime.stateful_goal_verifier_v24 import (
+    StatefulExecutableGoalVerifierV24,
+)
 from envsolve.solver import (
     DeploymentCandidate,
     EnvironmentReceipt,
@@ -262,7 +269,7 @@ def test_execution_budget_has_no_token_or_cost_limit() -> None:
 
 
 def test_stateful_experiment_factory_preserves_the_builtin_registry() -> None:
-    assert RUNNER_METHODS == {
+    builtin_methods = {
         "codex-stateful-raw": "codex-cli-goal-aware-raw-repair",
         "envsolve-pro-stateful-agent": "envsolve-pro-stateful-agent-v1",
         "codex-stateful-raw-v2": "codex-cli-goal-aware-raw-repair-v2",
@@ -272,6 +279,19 @@ def test_stateful_experiment_factory_preserves_the_builtin_registry() -> None:
         "codex-stateful-raw-v2.2": "codex-cli-goal-aware-raw-repair-v2.2",
         "envsolve-pro-stateful-agent-v2.2": "envsolve-pro-stateful-agent-v2.2",
     }
+    assert RUNNER_METHODS.items() >= builtin_methods.items()
+    assert RUNNER_METHODS["codex-stateful-raw-v2.3"] == (
+        "codex-cli-goal-aware-raw-repair-v2.3"
+    )
+    assert RUNNER_METHODS["envsolve-pro-stateful-agent-v2.3"] == (
+        "envsolve-pro-stateful-agent-v2.3"
+    )
+    assert RUNNER_METHODS["codex-stateful-raw-v2.4"] == (
+        "codex-cli-goal-aware-raw-repair-v2.4"
+    )
+    assert RUNNER_METHODS["envsolve-pro-stateful-agent-v2.4"] == (
+        "envsolve-pro-stateful-agent-v2.4"
+    )
 
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -375,6 +395,282 @@ def test_stateful_experiment_factory_preserves_the_builtin_registry() -> None:
     )
     assert isinstance(runner_v22, StatefulCodexCliRunner)
     assert runner_v22.method_profile == "stateful-agent-v2.2"
+
+    runner_v23 = _factory(
+        config,
+        protocol,
+        RunSpec(
+            "run-v2.3",
+            "envsolve-pro-stateful-agent-v2.3",
+            "gpt-5.5",
+        ),
+        RunnerOptions(),
+    )
+    assert isinstance(runner_v23, StatefulCodexCliRunner)
+    assert runner_v23.method_profile == "stateful-agent-v2.3"
+    assert runner_v23.initial_probe is False
+    assert runner_v23.enforce_project_namespace_provenance is False
+    assert runner_v23.restore_shell_invariants is False
+
+    runner_v24 = _factory(
+        config,
+        protocol,
+        RunSpec(
+            "run-v2.4",
+            "envsolve-pro-stateful-agent-v2.4",
+            "gpt-5.5",
+        ),
+        RunnerOptions(),
+    )
+    assert isinstance(runner_v24, StatefulCodexCliRunner)
+    assert runner_v24.method_profile == "stateful-agent-v2.4"
+    assert runner_v24.initial_probe is False
+    assert runner_v24.enforce_project_namespace_provenance is False
+    assert runner_v24.restore_shell_invariants is False
+
+
+def test_v23_alias_audit_uses_the_goal_shell_python_resolution() -> None:
+    command = python_same_environment_alias_audit_command(
+        "/data/project/example"
+    )
+
+    assert command.startswith("python -c ")
+    assert "command python" not in command
+    assert " -I " not in command
+
+
+def test_v23_verifier_compacts_only_the_structured_condition() -> None:
+    contract = ExecutableGoalContract(
+        "public-goal",
+        "Require no missing imports",
+        "printf '{}\\n' > \"$ENVSOLVE_GOAL_REPORT\"",
+    )
+
+    raw = StatefulExecutableGoalVerifierV23(contract)
+    structured = StatefulExecutableGoalVerifierV23(
+        contract,
+        compact_findings=True,
+    )
+
+    assert raw.finding_adapter.schema == "envsolve-structured-finding-adapter-v3"
+    assert structured.finding_adapter.schema == (
+        "envsolve-root-obligation-finding-adapter-v1"
+    )
+
+
+def _v24_result(
+    *,
+    observed_cwd: str,
+    effect_valid: bool,
+    import_alias_valid: bool = True,
+) -> object:
+    class EffectReport:
+        valid = effect_valid
+
+        def to_dict(self):
+            return {
+                "valid": self.valid,
+                "policy": "fixture-effect-audit",
+                "violations": (
+                    []
+                    if self.valid
+                    else [
+                        {
+                            "kind": "untracked_configuration",
+                            "path": "pyrightconfig.json",
+                            "detail": "configuration must remain external",
+                        }
+                    ]
+                ),
+            }
+
+    contract = ExecutableGoalContract(
+        "public-goal",
+        "Require no missing imports",
+        "printf '{}\\n' > \"$ENVSOLVE_GOAL_REPORT\"",
+    )
+
+    def run_command(command, **kwargs):
+        nonce = re.search(
+            r"ENVSOLVE_GOAL_REPORT_BEGIN_V1=([0-9a-f]+)",
+            command[-1],
+        ).group(1)
+        payload = {
+            "schema": contract.report_schema,
+            "status": "pass",
+            "finding_set_complete": True,
+            "findings": [],
+            "details": {"issues_count": 0},
+        }
+        stdout = "\n".join(
+            [
+                f"ENVSOLVE_CANDIDATE_CWD_V1={observed_cwd}",
+                f"ENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1={nonce}",
+                "ENVSOLVE_IMPORT_ALIAS_AUDIT_V1="
+                + json.dumps(
+                    {
+                        "valid": import_alias_valid,
+                        "violations": (
+                            []
+                            if import_alias_valid
+                            else [
+                                {
+                                    "alias": "synthetic_name",
+                                    "target": "/tmp/generated.py",
+                                }
+                            ]
+                        ),
+                    }
+                ),
+                f"ENVSOLVE_GOAL_REPORT_BEGIN_V1={nonce}",
+                json.dumps(payload),
+                f"ENVSOLVE_GOAL_REPORT_END_V1={nonce}",
+            ]
+        )
+        return subprocess.CompletedProcess(command, 0, stdout, "")
+
+    environment = ProvisionedEnvironment(
+        EnvironmentReceipt(
+            "container-1",
+            "fixture-provider",
+            "sha256:image",
+            "owner/repo",
+            "abc",
+            "2026-07-30T00:00:00+00:00",
+        ),
+        DockerEnvironmentHandle(
+            "container-1",
+            Path("/tmp/worktree"),
+            "/data/project",
+        ),
+    )
+    return StatefulExecutableGoalVerifierV24(
+        contract,
+        compact_findings=True,
+        effect_auditor=lambda _: EffectReport(),
+        run_command=run_command,
+    ).verify(
+        DeploymentCandidate("candidate-1", ":", "No-op"),
+        environment,
+    )
+
+
+def test_v24_preserves_goal_pass_across_an_exact_effect_failure() -> None:
+    result = _v24_result(
+        observed_cwd="/data/project",
+        effect_valid=False,
+    )
+
+    assert result.passed is False
+    assert result.details["goal_status"] == "satisfied"
+    operation = result.details["operation_contract"]
+    assert operation["status"] == "violated"
+    assert operation["repository_effect_valid"] is False
+    assert operation["violations"] == [
+        {
+            "kind": "untracked_configuration",
+            "path": "pyrightconfig.json",
+            "detail": "configuration must remain external",
+        }
+    ]
+    assert result.candidate_assessment is None
+    assert "untracked_configuration: pyrightconfig.json" in result.summary
+
+
+def test_v24_rejects_a_goal_pass_that_breaks_the_caller_cwd() -> None:
+    result = _v24_result(
+        observed_cwd="/tmp/pyright-work",
+        effect_valid=True,
+    )
+
+    assert result.passed is False
+    assert result.details["goal_status"] == "satisfied"
+    working_directory = result.details["operation_contract"][
+        "shell_postconditions"
+    ]["working_directory"]
+    assert working_directory == {
+        "required": "/data/project",
+        "observed": "/tmp/pyright-work",
+        "satisfied": False,
+    }
+    assert result.details["operation_contract"]["violations"][0]["kind"] == (
+        "shell_postcondition"
+    )
+
+
+def test_v24_terminal_pass_has_no_false_inadmissible_assessment() -> None:
+    result = _v24_result(
+        observed_cwd="/data/project",
+        effect_valid=True,
+    )
+
+    assert result.passed is True
+    assert result.candidate_assessment is None
+    assert result.details["operation_contract"]["status"] == "satisfied"
+
+
+def test_v24_includes_existing_integrity_failures_in_operation_contract() -> None:
+    result = _v24_result(
+        observed_cwd="/data/project",
+        effect_valid=True,
+        import_alias_valid=False,
+    )
+
+    assert result.passed is False
+    assert result.details["goal_status"] == "unknown"
+    operation = result.details["operation_contract"]
+    assert operation["status"] == "violated"
+    assert operation["violations"] == [
+        {
+            "kind": "synthetic_import_alias",
+            "alias": "synthetic_name",
+            "target": "/tmp/generated.py",
+        }
+    ]
+
+
+def test_v24_projection_keeps_goal_and_operation_status_separate() -> None:
+    state = _state()
+    state.verifications.append(
+        {
+            "verification_id": "verification-candidate-2",
+            "passed": False,
+            "details": {
+                "candidate_id": "candidate-2",
+                "verifier_details": {
+                    "goal_status": "satisfied",
+                    "operation_contract": {
+                        "status": "violated",
+                        "valid": False,
+                        "goal_status": "satisfied",
+                        "repository_effect_valid": False,
+                        "shell_postconditions": {},
+                        "violations": [
+                            {
+                                "kind": "untracked_configuration",
+                                "path": "pyrightconfig.json",
+                            }
+                        ],
+                    },
+                },
+            },
+        }
+    )
+
+    projection = state_projection(
+        state,
+        "structured",
+        compact=True,
+        operation_feedback=True,
+    )
+
+    assert projection["schema"] == "envsolve-agent-state-v3"
+    assert projection["operation_state"]["goal_status"] == "satisfied"
+    assert projection["operation_state"]["operation_status"] == "violated"
+    assert projection["operation_state"]["violations"][0] == {
+        "kind": "untracked_configuration",
+        "path": "pyrightconfig.json",
+    }
 
 
 def test_v2_goal_verifier_restores_shell_boundary_before_trusted_checks() -> None:

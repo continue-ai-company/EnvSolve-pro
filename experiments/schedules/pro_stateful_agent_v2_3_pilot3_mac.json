@@ -1,0 +1,118 @@
+{
+  "case_file": "experiments/cases/dev_pro_stateful_agent_v2_3_pilot3.jsonl",
+  "case_file_sha256": "e514df90f2c69d328de23e2d64f65643dcedcdd8f9c41af663be73ee7939f696",
+  "episode_timeout_seconds": 22400,
+  "episodes": [
+    {
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "case_position": 1,
+      "condition": "envsolve-pro-structured-v2.3",
+      "host": "mac",
+      "method": "envsolve-pro-stateful-agent-v2.3",
+      "model": "gpt-5.5",
+      "position": 1,
+      "run_id": "pro-stateful-v2-3-pilot3-01-envsolve-pro-structured-v2.3",
+      "runner": "envsolve-pro-stateful-agent-v2.3",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "case_position": 1,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 2,
+      "run_id": "pro-stateful-v2-3-pilot3-02-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "case_position": 1,
+      "condition": "codex-raw-repair-v2.3",
+      "host": "mac",
+      "method": "codex-cli-goal-aware-raw-repair-v2.3",
+      "model": "gpt-5.5",
+      "position": 3,
+      "run_id": "pro-stateful-v2-3-pilot3-03-codex-raw-repair-v2.3",
+      "runner": "codex-stateful-raw-v2.3",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "case_position": 2,
+      "condition": "codex-raw-repair-v2.3",
+      "host": "mac",
+      "method": "codex-cli-goal-aware-raw-repair-v2.3",
+      "model": "gpt-5.5",
+      "position": 4,
+      "run_id": "pro-stateful-v2-3-pilot3-04-codex-raw-repair-v2.3",
+      "runner": "codex-stateful-raw-v2.3",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "case_position": 2,
+      "condition": "envsolve-pro-structured-v2.3",
+      "host": "mac",
+      "method": "envsolve-pro-stateful-agent-v2.3",
+      "model": "gpt-5.5",
+      "position": 5,
+      "run_id": "pro-stateful-v2-3-pilot3-05-envsolve-pro-structured-v2.3",
+      "runner": "envsolve-pro-stateful-agent-v2.3",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "case_position": 2,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 6,
+      "run_id": "pro-stateful-v2-3-pilot3-06-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "case_position": 3,
+      "condition": "envsolve-pro-structured-v2.3",
+      "host": "mac",
+      "method": "envsolve-pro-stateful-agent-v2.3",
+      "model": "gpt-5.5",
+      "position": 7,
+      "run_id": "pro-stateful-v2-3-pilot3-07-envsolve-pro-structured-v2.3",
+      "runner": "envsolve-pro-stateful-agent-v2.3",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "case_position": 3,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 8,
+      "run_id": "pro-stateful-v2-3-pilot3-08-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 3
+    },
+    {
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "case_position": 3,
+      "condition": "codex-raw-repair-v2.3",
+      "host": "mac",
+      "method": "codex-cli-goal-aware-raw-repair-v2.3",
+      "model": "gpt-5.5",
+      "position": 9,
+      "run_id": "pro-stateful-v2-3-pilot3-09-codex-raw-repair-v2.3",
+      "runner": "codex-stateful-raw-v2.3",
+      "seed": 3
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-stateful-agent-v2.3-pilot3"
+}

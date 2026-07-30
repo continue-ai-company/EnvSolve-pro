@@ -517,3 +517,77 @@ only this missing invariant. Its ARM64 Docker canary permits a normal same-ident
 install and rejects an undeclared source relabel. The next step is to expose V2.2 through
 a versioned runner, freeze it before opening repository-disjoint Dev cases, and report
 Official Pass separately from integrity-qualified Pass.
+
+### 8.3 Stateful-Agent V2.2 Dev-5 Decision
+
+The frozen repository-disjoint Dev-5 diagnostic is complete. The strong single-session
+goal-aware baseline and the raw-feedback loop both achieved `5/5` Official Pass;
+structured V2.2 achieved `4/5`. V2.2 used 16.2% fewer commands and 19.4% fewer input
+tokens than raw feedback, but had essentially identical total wall time and introduced
+a false hard rejection. It therefore provides no effectiveness evidence and is retained
+as a frozen structured baseline.
+
+The failure analysis changes the active mechanism. Eager pre-action goal probing imposed
+cost and attention bias before the strong agent had used repository evidence. Derived
+root groups did not reduce state growth because complete findings remained in the model
+projection and each surface finding produced two state events. Most importantly, the
+project-provenance heuristic rejected legitimate Python namespace composition in
+`moat-mqtt`. A constraint inferred from deployment semantics cannot override the
+official objective unless it is part of the shared experimental admissibility contract.
+
+Detailed totals and case evidence are frozen in
+`PRO_STATEFUL_AGENT_V2_2_RESULTS.md`. These cases are consumed and cannot qualify the
+next version.
+
+### 8.4 Stateful-Agent V2.3 Hypothesis
+
+V2.3 makes a subtraction rather than adding another rule:
+
+1. the first operation receives repository access and no mandatory full-goal probe;
+2. after a candidate fails, complete goal findings enter the audit archive while only
+   root obligations enter solver state and the bounded model view;
+3. hard authority is limited to the public executable goal and shared candidate/effect
+   rules; inferred provenance or runtime semantics remain advisory;
+4. the Operation layer remains an unrestricted strong agent.
+
+This restores the intended partial-observability loop: a model first acts under
+uncertainty, executable failure reveals new state, and a later independent session
+repairs against a compact constraint frontier. Raw-feedback V2.3 receives the same
+failure-triggered schedule and verifier boundary but no root compaction, providing the
+same-model ablation.
+
+The implementation is isolated from all historical freeze files. Mac regression is
+`655 passed, 3 skipped, 2 Python-3.9 deselections`; Spark ARM/Linux regression is
+`670 passed, 3 skipped`, with two unrelated host tests failing because the login shell
+does not provide a `python` alias. The next scientific step is a newly frozen,
+repository-disjoint batch comparing strong single-session, raw V2.3, and structured
+V2.3. Success is Official Pass@1; recovery after a genuine first-candidate failure is
+the mechanism outcome. Resource statistics remain secondary.
+
+### 8.5 Stateful-Agent V2.3 Pilot Decision and V2.4
+
+The repository-disjoint Pilot-3 produced `2/3` Official Pass for every condition.
+Structured V2.3 used the most time, commands, and model tokens, so it provides neither
+effectiveness nor efficiency evidence. The runs began from a dirty worktree and are
+scientifically ineligible; their role is restricted to mechanism diagnosis. Exact
+descriptive totals are recorded in
+`PRO_STATEFUL_AGENT_V2_3_PILOT3_RESULTS.md`.
+
+StopStalk localizes the next contradiction at the Operation interface. The executable
+goal can be satisfied while repository effects or caller-visible shell postconditions
+remain invalid. V2.3 collapsed these axes into one candidate failure, discarded exact
+repair information, and also used an over-broad text validator that rejected a
+legitimate configuration writer after it merely read a real source file.
+
+V2.4 is the smallest general correction:
+
+1. preserve goal status independently from operation-contract status;
+2. project exact operation violations after a goal Pass;
+3. validate actual embedded-Python write targets structurally;
+4. enforce restoration of the caller working directory.
+
+No repository name, package, or solution enters the algorithm. V2.4 must be committed
+and clean before a new salted sample is selected. The V2.3 cases are consumed and may
+serve only as regression tests. Promotion requires new-case Official Pass improvement
+or reproducible recovery from the factorized failure state without regression on easy
+first-round successes.

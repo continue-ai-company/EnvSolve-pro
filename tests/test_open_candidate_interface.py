@@ -208,6 +208,41 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         self.assertTrue(interpreter_link.accepted)
         self.assertTrue(data_link.accepted)
 
+    def test_embedded_write_validation_tracks_the_actual_python_target(self) -> None:
+        validator = OpenCandidateProgramValidator()
+        generated_stub = validator.validate(
+            DeploymentCandidate(
+                "candidate-generated-stub",
+                "python - <<'PY'\n"
+                "from pathlib import Path\n"
+                "root = Path('/tmp/environment/site-packages')\n"
+                "parts = ['missing_dependency']\n"
+                "target = root / f'{parts[0]}.pyi'\n"
+                "target.write_text('VALUE: int\\n', encoding='utf-8')\n"
+                "PY\n",
+                "Generate a synthetic import stub",
+            )
+        )
+        configuration_only = validator.validate(
+            DeploymentCandidate(
+                "candidate-configuration",
+                "python - \"$PYRIGHT_WORK\" <<'PY'\n"
+                "from pathlib import Path\n"
+                "import sys\n"
+                "work = Path(sys.argv[1])\n"
+                "real_source = Path('/tmp/gevent-1.1.1/gevent/coros.py')\n"
+                "if not real_source.is_file():\n"
+                "    raise RuntimeError('missing downloaded source')\n"
+                "(work / 'pyrightconfig.json').write_text('{}\\n')\n"
+                "PY\n",
+                "Write analyzer configuration after checking genuine source",
+            )
+        )
+
+        self.assertFalse(generated_stub.accepted)
+        self.assertTrue(generated_stub.details["target"].endswith(".pyi"))
+        self.assertTrue(configuration_only.accepted)
+
     def test_envbench_open_compiler_preserves_order_and_existing_quotes(self) -> None:
         project = "owner__repo@abc"
         result = compile_envbench_open_program(

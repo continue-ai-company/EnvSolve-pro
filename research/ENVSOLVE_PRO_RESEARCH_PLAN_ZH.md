@@ -401,3 +401,62 @@ Python stub，被操作层精确拒绝到具体违规行。候选 2 在新的 se
 `reportMissingImports` 目标，但不保持模块身份。V2.2 只增加这一个不变量。ARM64 Docker canary
 已经证明：正常同身份安装保持合法，未声明的源码重命名会被拒绝。下一步是在独立版本 runner 中接入
 V2.2，在打开仓库不相交 Dev case 前冻结，并分别报告 Official Pass 与 integrity-qualified Pass。
+
+### 8.3 Stateful-Agent V2.2 Dev-5 结论
+
+冻结的 repository-disjoint Dev-5 诊断已经完成。强单 session goal-aware baseline 与
+raw-feedback loop 都得到 `5/5` Official Pass，structured V2.2 得到 `4/5`。相对 raw feedback，
+V2.2 少用 16.2% 命令和 19.4% input token，但总 wall time 基本相同，并新增了一次错误 hard
+reject。因此 V2.2 没有效果证据，只作为冻结的结构化 baseline 保留。
+
+错误分析改变了当前机制。操作前的完整目标探测在强 Agent 使用仓库证据之前就产生额外成本和注意力
+偏置。derived root group 没有真正减少状态增长，因为完整 finding 仍进入模型投影，而且每个 surface
+finding 都产生两条状态事件。最重要的是，project-provenance 启发式在 `moat-mqtt` 上错误拒绝了合法
+Python namespace composition。除非属于共享实验合法性契约，否则从部署语义推断出的约束不能覆盖官方
+目标。
+
+完整数字和逐例证据冻结在 `PRO_STATEFUL_AGENT_V2_2_RESULTS_ZH.md`。这些 case 已消费，不能用于
+资格验证下一版。
+
+### 8.4 Stateful-Agent V2.3 假设
+
+V2.3 不再加规则，而是做减法：
+
+1. 第一轮操作只获得仓库访问，不再强制先运行完整目标；
+2. 候选失败后，完整 goal finding 进入审计档案，只有 root obligation 进入 solver state 和有界模型
+   视图；
+3. hard authority 只属于公开可执行目标与共享 candidate/effect 规则；推断的 provenance 或 runtime
+   语义只能作为 advice；
+4. 操作层继续使用不受限的强 Agent。
+
+这恢复了部分可观测闭环的本意：模型先在不确定状态下行动，可执行失败揭示新状态，后续独立 session
+再依据紧凑约束 frontier 修复。Raw-feedback V2.3 使用相同的 failure-triggered schedule 和 verifier
+边界，但不做 root compaction，从而构成同模型消融。
+
+实现与所有历史 freeze 文件隔离。Mac 回归结果为
+`655 passed, 3 skipped, 2 项因 Python 3.9 deselect`；Spark ARM/Linux 回归为
+`670 passed, 3 skipped`，另有两个无关宿主测试因为登录 shell 没有 `python` alias 而失败。下一步在
+全新 repository-disjoint batch 上比较强单 session、raw V2.3 与 structured V2.3。主结果是 Official
+Pass@1；真正首个候选失败后的恢复率是机制指标；资源数据保持为次指标。
+
+### 8.5 Stateful-Agent V2.3 Pilot 结论与 V2.4
+
+repository-disjoint Pilot-3 中三个条件都得到 `2/3` Official Pass。Structured V2.3 消耗了最多的
+时间、命令和模型 token，因此既没有效果证据，也没有效率证据。由于运行开始时 worktree 不干净，
+这些轨迹不具备科学统计资格，只能用于机制诊断。完整描述性结果记录在
+`PRO_STATEFUL_AGENT_V2_3_PILOT3_RESULTS_ZH.md`。
+
+StopStalk 把下一处矛盾定位到操作层接口：可执行目标可能已经满足，但 repository effect 或 caller
+可见的 shell 后置条件仍不合法。V2.3 把两个维度压成一个候选失败，丢失精确修复信息；同时，过宽的
+文本验证器会因为合法配置程序读取了真实源码，就错误拒绝它。
+
+V2.4 只做最小通用修正：
+
+1. 独立保留目标状态与操作契约状态；
+2. 目标 Pass 后仍向下一轮投影精确操作 violation；
+3. 结构化分析 embedded-Python 真正的写入目标；
+4. 强制恢复 caller 工作目录。
+
+算法中不加入任何仓库名、包名或具体解法。V2.4 必须先提交为干净版本，再通过 salted sampling
+选择新 case。V2.3 的 case 只能作为回归测试。只有在新 case 上提高 Official Pass，或稳定修复这种
+因子化失败且不损害简单首轮成功，V2.4 才能晋升。
