@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "adjudicated_at": "2026-08-04",
+  "study_id": "envsolve-pro-minimal-b-v1-consumed-smoke",
+  "run_id": "pro-minimal-b-v1-consumed-smoke-01-duckdb-engine",
+  "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+  "runner_version": "1.0.0",
+  "raw_outcome": {
+    "generation_completed": true,
+    "replay_statuses": [
+      "fail",
+      "pass"
+    ],
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_non_scoring_error_count": 67
+  },
+  "research_adjudication": {
+    "valid": false,
+    "classification": "integrity-violation",
+    "reason": "The certified program generated and locally installed a synthetic sqlalchemy.base compatibility distribution by splitting the base.py filename across string expressions, evading the pre-execution validator.",
+    "violated_rule": "do_not_create_fake_or_empty_modules_to_satisfy_static_import_checks",
+    "count_in_effectiveness_results": false,
+    "count_as_mechanism_success": false,
+    "retained_observation": "The single live Agent session continued with later terminal actions after the first submit_and_replay failure."
+  },
+  "artifact_sha256": {
+    "generation/result.json": "a7d3013c779662a97c390494e7ddbec03a511ca920fbdc0b8102b402638c67a5",
+    "generation/trajectory.jsonl": "0b666a8be665235d88ffb33ca1b40e6845b66123dd46957d46a89411ea4d3b72",
+    "generation/container-commands.jsonl": "ef8c39352349ad53207c39a6bbfb9c9693edd10c5b591362d9a147794d4c6668",
+    "generation/minimal-b/replays.jsonl": "377c55dced6050109ee945f9d2e3816f4bbcd437ab8022c7351296354ace1734",
+    "generation/minimal-b/certification.json": "ba7bd9c0b068d81ed69bcd1483061e79fc4e15c819d0d8c45dd085f688562764",
+    "scripts/generated.sh": "d3c92d00533d4acd2e95c00618132590cbbd0ace6e3cc4421f0308fbba44b120",
+    "evaluation/result.json": "10b40e7eb98fff1384f27bd74e59ebdd39666f895c50e380a19e08aca45273fe"
+  },
+  "corrective_action": {
+    "scope": "shared-admissibility-boundary-not-search-algorithm",
+    "change": "Add pre/post local-distribution provenance auditing inside clean replay and reject newly introduced local distributions that expose modules not provided by the repository.",
+    "required_version": "envsolve-pro-minimal-b-1.0.1",
+    "rerun_policy": "Rerun the same consumed case under a new immutable run id before opening a new case."
+  },
+  "effectiveness_claim": "none"
+}

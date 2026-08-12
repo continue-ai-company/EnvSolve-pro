@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-minimal-b-v1-design",
+  "freeze_type": "semantic-preimplementation",
+  "frozen_at": "2026-08-04",
+  "base_source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "implementation_status": "not-yet-implemented",
+  "method": {
+    "name": "EnvSolve-Pro Minimal B v1",
+    "agent_session": "one-continuous-session",
+    "construction_environment": "one-persistent-environment",
+    "operation_interface": "unrestricted-container-terminal",
+    "online_treatment": "repeated-callable-clean-replay",
+    "replay_feedback_destination": "same-active-agent-session",
+    "success_condition": "exact-returned-program-passed-clean-replay",
+    "official_evaluator_access": "post-episode-only"
+  },
+  "three_layer_boundary": {
+    "observation": [
+      "terminal-command-results",
+      "candidate-validation",
+      "clean-bootstrap-execution",
+      "public-executable-goal-report",
+      "repository-effect-audit",
+      "fresh-environment-identity",
+      "infrastructure-status"
+    ],
+    "constraint": [
+      "public-executable-goal",
+      "shared-candidate-contract",
+      "repository-integrity-boundary",
+      "certified-script-hash-equality"
+    ],
+    "operation": [
+      "open-terminal-in-persistent-construction-environment",
+      "submit-complete-bootstrap-program",
+      "continue-same-session-after-replay-fail-or-unknown"
+    ]
+  },
+  "submit_and_replay_contract": {
+    "input": "complete-self-contained-bootstrap-program",
+    "fresh_checkout_required": true,
+    "fresh_environment_identity_required": true,
+    "same_base_image_and_declared_preconditions": true,
+    "construction_environment_mutation_allowed": false,
+    "returns_raw_bounded_internal_evidence": true,
+    "official_evaluator_result_returned": false,
+    "fail_and_unknown_are_repairable": true,
+    "passing_script_sha256_is_terminal_certificate": true
+  },
+  "excluded_orthogonal_treatments": [
+    "structured-state-projection",
+    "constraint-ledger",
+    "compatibility-frontier",
+    "checkpointing",
+    "branching-or-rollback",
+    "hypothesis-search",
+    "action-level-postcondition-admission",
+    "cross-session-memory",
+    "cross-case-memory",
+    "bootstrap-minimization",
+    "resource-aware-search",
+    "repository-package-module-or-case-specific-rules"
+  ],
+  "primary_causal_pair": {
+    "control": "same strong goal-aware Agent with one terminal post-session clean replay",
+    "treatment": "same Agent with repeatedly callable clean replay inside the active session",
+    "only_intended_difference": "online replay feedback availability",
+    "shared": [
+      "model",
+      "prompt-prefix",
+      "public-goal",
+      "terminal-tool",
+      "construction-environment",
+      "base-image",
+      "benchmark-preconditions",
+      "official-evaluator-boundary",
+      "broad-safety-limits"
+    ]
+  },
+  "metrics": {
+    "primary": "Official Pass@1",
+    "secondary": [
+      "construction-success-replay-failure-rate",
+      "replay-conditioned-repair-success",
+      "replay-attempts",
+      "commands",
+      "wall-clock-seconds",
+      "peak-memory-bytes",
+      "disk-growth-bytes",
+      "network-bytes",
+      "model-tokens"
+    ],
+    "token_or_price_is_success_stopping_budget": false
+  },
+  "implementation_freeze_gate": [
+    "same model session survives multiple replay failures",
+    "every replay uses a distinct fresh environment and checkout",
+    "replay evidence returns without Official evaluator leakage",
+    "replay does not mutate construction state",
+    "only the exact passing replay script can be accepted",
+    "Pass Fail Unknown and infrastructure censoring remain distinct",
+    "all excluded treatments remain absent or disabled",
+    "frozen EnvSolve and strong-Agent baselines retain behavior"
+  ],
+  "authoritative_documents": {
+    "research/PRO_MINIMAL_B_V1_DESIGN_FREEZE.md": "d64723c197234d20fc6a5c6508060bd86e20b588783b1d7e8084e6ee4a949fa8",
+    "research/PRO_MINIMAL_B_V1_DESIGN_FREEZE_ZH.md": "b597584dbcdd73fc29cd181cef6a4a3a40516ec7cac360f65a03c46e1cad7a12",
+    "research/ENVSOLVE_PRO_ICLR_DRAFT.md": "55bc6d40c2ffc8b67519c1ee71d511a00aab8fe102a3ba9dfdf10731b93d1cd7",
+    "research/ENVSOLVE_PRO_ICLR_DRAFT_ZH.md": "760897de6c76bc0c8713cd41f0b2080b6b507f75b3c34899754e9f2f7f8dc74f",
+    "research/ENVSOLVE_PRO_RESEARCH_PLAN.md": "32ebe46f7cf03942fe7ef2fad739bd30d2359e4819b45becb2059bfd22bef78d",
+    "research/ENVSOLVE_PRO_RESEARCH_PLAN_ZH.md": "5a4082ef23a0a515ac8c945700d3edafd0de140ebfbd513aa9768bdcf792a9d4"
+  },
+  "next_allowed_work": "implement-and-test-minimal-b-without-opening-new-effectiveness-cases"
+}

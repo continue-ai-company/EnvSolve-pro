@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "codex-qualified-infrastructure-v1-linux-arm-2026-08-05",
+  "qualified_at": "2026-08-05",
+  "status": "pass",
+  "infrastructure_freeze": {
+    "path": "experiments/protocols/codex_qualified_infrastructure_v1_freeze.json",
+    "sha256": "855a4f63cf6cd7bfefe2a571f9b1c1278b96eaecc8a4438d505216e7e9b4cf70"
+  },
+  "machine": {
+    "host_role": "spark",
+    "kernel": "Linux 6.14.0-1015-nvidia",
+    "architecture": "aarch64",
+    "operating_system": "Ubuntu 24.04",
+    "gpu": "NVIDIA GB10",
+    "docker_client": "28.5.1",
+    "docker_server": "28.5.1",
+    "python": "3.12.3"
+  },
+  "source_snapshot": {
+    "transport": "secret-scanned-rsync-to-independent-directory",
+    "frozen_hash_groups_verified": [
+      "minimal_b_parent_source_sha256",
+      "qualified_source_sha256",
+      "qualification_test_sha256"
+    ],
+    "hash_verification": "pass"
+  },
+  "verification": [
+    {
+      "scope": "source-cache-qualified-runner-process-minimal-b-one-shot-focused",
+      "result": "25-passed-3-skipped"
+    },
+    {
+      "scope": "real-envbench-docker-process-tree-and-one-shot-integration",
+      "result": "7-passed"
+    }
+  ],
+  "validated_properties": [
+    "exact-revision-cache-miss-then-hit",
+    "independent-no-agent-state-checkouts",
+    "host-process-tree-timeout-cleanup",
+    "container-descendant-timeout-cleanup",
+    "normal-persistent-shell-state",
+    "minimal-b-interface",
+    "one-shot-second-replay-rejection-without-second-container"
+  ],
+  "algorithm_change": false,
+  "claim_boundary": "This establishes Linux ARM portability of the frozen experimental infrastructure; it is not an EnvBench effectiveness result."
+}

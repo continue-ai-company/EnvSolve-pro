@@ -1,0 +1,24 @@
+{
+  "amends_study_id": "envsolve-pro-minimal-b-v1-paired-dev5",
+  "case_file": "experiments/cases/dev_pro_minimal_b_v1_paired5.jsonl",
+  "case_file_sha256": "5432f6c6da2d0a40ac2fe9b3bbc50690c43c1ae10ce4ade3fc23505fb261cfee",
+  "episode_timeout_seconds": 22400,
+  "episodes": [
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "case_position": 2,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "original_position": 4,
+      "position": 1,
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3",
+      "runner": "codex-cli",
+      "seed": 1816760719
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5-position4-source-cache-retry3"
+}

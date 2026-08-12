@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "codex-qualified-infrastructure-v1",
+  "freeze_type": "symmetric-experimental-infrastructure",
+  "frozen_at": "2026-08-05",
+  "base_source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "purpose": "Remove source-download duplication and orphaned timeout processes without changing the compared deployment algorithms.",
+  "applies_identically_to": [
+    {
+      "runner": "codex-cli-qualified",
+      "method": "codex-cli-goal-aware"
+    },
+    {
+      "runner": "envsolve-pro-minimal-b-qualified",
+      "method": "envsolve-pro-minimal-b-v1"
+    }
+  ],
+  "source_cache": {
+    "profile": "immutable-exact-revision-cache-v1",
+    "shared_state": "bare-git-objects-for-one-repository-and-exact-commit-only",
+    "integrity": [
+      "requested-commit-equals-fetched-commit",
+      "cached-commit-and-tree-match-receipt",
+      "git-fsck-passes"
+    ],
+    "concurrency": "cross-process-exclusive-file-lock",
+    "episode_checkout": "independent-git-clone-with-no-hardlinks-and-detached-exact-revision",
+    "explicitly_not_cached": [
+      "agent-conversation",
+      "agent-generated-files",
+      "installed-dependencies",
+      "container-filesystem",
+      "candidate-program",
+      "evaluation-result"
+    ]
+  },
+  "timeout_cleanup": {
+    "host_processes": "new-process-session-with-complete-process-group-termination",
+    "container_commands": "marker-bound-shell-pid-with-recursive-descendant-term-then-kill",
+    "persistent_shell_after_normal_command": true,
+    "persistent_shell_after_timed-out-command": false,
+    "reason": "A timed-out command may have corrupted shell state; the next command receives a new shell in the same construction container."
+  },
+  "algorithmic_invariants": {
+    "model_unchanged": true,
+    "reasoning_effort_unchanged": true,
+    "generation_timeout_unchanged": true,
+    "agent_prompt_unchanged": true,
+    "public_goal_contract_unchanged": true,
+    "official_evaluator_access_unchanged": true,
+    "minimal_b_tool_contract_unchanged": true,
+    "minimal_b_acceptance_rule_unchanged": true,
+    "agent_sessions_per_attempt_unchanged": true
+  },
+  "minimal_b_parent_freeze": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json",
+    "sha256": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2"
+  },
+  "minimal_b_parent_source_sha256": {
+    "envsolve_harness/codex/minimal_b_mcp.py": "de0031e6d8148fdcb61a7f804bfcfc41e75516014348f38419c59312b1e8ea4c",
+    "envsolve_harness/runners/codex_cli.py": "8a17bcc6580bd0cec81c7e0faf34311f3ecc20f9fee7bc0d7f277c1d25ba6dd5",
+    "envsolve_harness/runners/envsolve_pro_minimal_b.py": "ed51f8e793c6d731fc1a2a26ac61c6546dc06f501a9a920f2cabb383d7656b98",
+    "experiments/run_minimal_b_case.py": "1aebb3d6af81cc6ab78ed642c076359419b5280f69b8c664c1996cdbca096cdf"
+  },
+  "qualified_source_sha256": {
+    "envsolve_harness/execution/process.py": "f6b06c0b158d34a8370beb815d9313f1f7cbf4edc0cce0e69d0d0e3401e78fd1",
+    "envsolve_harness/execution/source_cache.py": "d7195c13689a73e00d39c5fa77499fde888ad66dc83f9d3070af24e4dc40f116",
+    "envsolve_harness/codex/container_mcp_qualified.py": "04478d12ca111f0bbb817b38f08f6f919839b8ada7ea934496c650c0214a8ee4",
+    "envsolve_harness/codex/minimal_b_mcp_qualified.py": "9fffb30d8ac9d5960e4355e8701e80820f384482e4d42a1759e5db1aa5b90e4e",
+    "envsolve_harness/runners/codex_cli_qualified.py": "987f1b7c8eaca87ab6d6caaaa3a5d6fd9c8bd0d9f9d0ffd22e3976e0dc5c4ad5",
+    "experiments/run_qualified_codex_case.py": "6ba36d1a923fa1262f22264898df74d29fecc711552ff92fe5e5b3750aae6e67",
+    "experiments/run_qualified_codex_schedule.py": "72f91dd78d80ead6121c9e1364e07a8402d431760b733fb8795fabf32c14560b"
+  },
+  "qualification_test_sha256": {
+    "tests/test_source_cache.py": "7d9086cbb08a94f6928a7ecbfc6105c194f72f3da1cfe19ac1802d8c72e903c4",
+    "tests/test_codex_qualified.py": "6a6b3c5ebedddd33bb2e940ca62646d5d36c08b4aef3d1cb61a682976c5fa472",
+    "tests/test_codex_cli_runner.py": "ea012dc4a836c1c928a7901e33e42957b4d1cecd0d17a5e54a11ab26b969c8e7",
+    "tests/test_codex_container_mcp.py": "f3821e2d63366c10c9092aedd9ad0e1eec0a4e3140f2b731ca4f1ab5c65bf41a"
+  },
+  "qualification": {
+    "focused_regression": "24-passed-4-skipped",
+    "full_harness_regression": "699-passed-6-skipped-75-subtests-passed",
+    "real_docker_integration": "4-passed",
+    "new_file_ruff_0_16_1": "passed-with-repository-script-shebang-rules-ignored",
+    "git_diff_check": "passed"
+  },
+  "claim_boundary": "This freeze qualifies experimental infrastructure only. It is not evidence that Minimal B improves Official Pass@1 or resource efficiency."
+}

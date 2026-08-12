@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "registered_at": "2026-08-04",
+  "study_id": "envsolve-pro-minimal-b-v1.0.1-consumed-smoke-retry1",
+  "purpose": "Repeat the same consumed live smoke after repairing the adjudicated admissibility-boundary defect.",
+  "original_preregistration": {
+    "path": "experiments/validations/pro_minimal_b_v1_consumed_smoke_preregistration.json",
+    "sha256": "17eb75facf9fcc08e4b013d8d12b8b1fddbc1e362ef11629f1901ffb0fe29c33"
+  },
+  "triggering_adjudication": {
+    "path": "experiments/validations/pro_minimal_b_v1_consumed_smoke_01_adjudication.json",
+    "sha256": "4d251f80c61d72f2078117ac7bccaf91c920ada268c197ea46ad347c8bc983c9"
+  },
+  "implementation_freeze": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_1_implementation_freeze.json",
+    "sha256": "5b36fc06850817430cbaf621a2bbd62245aa43f4436453c868b74ce8443fad8a"
+  },
+  "episode": {
+    "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+    "run_id": "pro-minimal-b-v1-0-1-consumed-smoke-01-duckdb-engine-retry1",
+    "runner": "envsolve-pro-minimal-b",
+    "runner_version": "1.0.1",
+    "method": "envsolve-pro-minimal-b-v1",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "host": "mac"
+  },
+  "fixed_inputs": {
+    "case": true,
+    "revision": true,
+    "model": true,
+    "reasoning_effort": true,
+    "public_goal": true,
+    "docker_image": true,
+    "configuration": true
+  },
+  "only_intended_change": "pre-post-local-distribution-provenance-v1-admissibility-audit",
+  "outcome_rules": {
+    "integrity_regression": "Any generated local distribution exposing undeclared repository modules must return clean-replay Fail and cannot be certified.",
+    "live_mechanism_pass": "A research-valid final program receives a passing certificate and generation completes.",
+    "unsolved_after_valid_failures": "Record as a valid Minimal B failure; do not weaken integrity and do not change the algorithm from this case.",
+    "official_result": "Report separately only if a research-valid program reaches the post-episode evaluator.",
+    "effectiveness_claim": "none"
+  },
+  "next_decision": "Do not open a new case until this retry is adjudicated."
+}

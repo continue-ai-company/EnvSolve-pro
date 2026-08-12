@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "registered_at": "2026-08-04",
+  "study_id": "envsolve-pro-minimal-b-v1.0.2-consumed-smoke-great-tables",
+  "purpose": "Obtain one research-valid live Minimal B mechanism smoke after closing the two admissibility bypasses observed on duckdb_engine.",
+  "claim_scope": "This previously consumed case can validate live session, clean replay, certification, and admissibility plumbing only. It cannot support effectiveness or generalization claims.",
+  "implementation_freeze": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json",
+    "sha256": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2"
+  },
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_pro_minimal_b_v1_consumed.json",
+    "sha256": "b94f5c098dca6866b4484801aad209641dcc08c44777275211f82ee78db56d9f"
+  },
+  "case_source": {
+    "path": "experiments/cases/dev_pro_stateful_agent_v2_4_pilot4.jsonl",
+    "sha256": "ab35360eae2c5f50d5be7eb4d97256d3a6ce2cb52fed40d20a0e829ddc8d125b",
+    "selection_status": "previously-consumed",
+    "selection_reason": "The case already has a valid official pass from the ordinary declared dependency path, so it isolates Minimal B plumbing without selecting a new case or encouraging an integrity workaround."
+  },
+  "episode": {
+    "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+    "repository": "posit-dev/great-tables",
+    "revision": "c4cbd943e9376c62872c3c402e64d168264e5623",
+    "run_id": "pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables",
+    "runner": "envsolve-pro-minimal-b",
+    "runner_version": "1.0.2",
+    "method": "envsolve-pro-minimal-b-v1",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "codex_cli_version": "0.146.0-alpha.9.2",
+    "host": "mac"
+  },
+  "mechanism_checks": [
+    "one-agent-process-hosts-the-complete-episode",
+    "one-persistent-construction-environment-is-used",
+    "submit-and-replay-is-invoked-before-final-output",
+    "each-candidate-validation-accepted-replay-uses-a-distinct-fresh-checkout-and-container",
+    "replay-feedback-returns-to-the-same-agent-process",
+    "the-final-program-exactly-matches-a-passing-bound-certificate",
+    "no-generated-compatibility-module-or-unowned-import-artifact-is-certified",
+    "the-official-evaluator-runs-only-after-the-agent-process-ends"
+  ],
+  "outcome_rules": {
+    "research_valid_mechanism_pass": "Generation completes with an admissible final program exactly matching a passing clean-replay certificate.",
+    "valid_mechanism_failure": "Record the failure without changing the frozen algorithm from case content.",
+    "infrastructure_failure": "Record an amendment before an identical retry.",
+    "official_result": "Report separately only after a research-valid generation reaches the post-episode evaluator.",
+    "effectiveness_claim": "none"
+  },
+  "post_selection_code_changes": "forbidden",
+  "next_decision": "Adjudicate the episode before opening any repository-disjoint development comparison."
+}

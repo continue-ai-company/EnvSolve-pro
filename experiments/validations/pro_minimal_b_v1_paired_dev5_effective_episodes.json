@@ -1,0 +1,170 @@
+{
+  "claim_scope": "Repository-disjoint paired five-case development comparison. This is mechanism evidence, not held-out or leaderboard evidence.",
+  "conditions": {
+    "control": "codex-goal-aware-single-session",
+    "treatment": "envsolve-pro-minimal-b-v1.0.2"
+  },
+  "effective_episodes": [
+    {
+      "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+      "condition": "codex-goal-aware-single-session",
+      "method": "codex-cli-goal-aware",
+      "pair_index": 1,
+      "position": 1,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "pymanopt/pymanopt",
+      "run_id": "pro-minimal-b-v1-paired5-01-codex-goal-aware-single-session",
+      "seed": 1940233041
+    },
+    {
+      "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "method": "envsolve-pro-minimal-b-v1",
+      "pair_index": 1,
+      "position": 2,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_position2_retry1_mac-progress.json",
+      "repository": "pymanopt/pymanopt",
+      "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1",
+      "seed": 1940233041
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "method": "envsolve-pro-minimal-b-v1",
+      "pair_index": 2,
+      "position": 3,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "datactive/bigbang",
+      "run_id": "pro-minimal-b-v1-paired5-03-envsolve-pro-minimal-b-v1.0.2",
+      "seed": 1816760719
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "condition": "codex-goal-aware-single-session",
+      "coordinator_wall_clock_censor_reason": "Control source acquisition used the preregistered infrastructure amendment's exact-revision local cache after repeated pre-Agent GitHub failures.",
+      "coordinator_wall_clock_comparable": false,
+      "method": "codex-cli-goal-aware",
+      "pair_index": 2,
+      "position": 4,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_position4_retry3_mac-progress.json",
+      "repository": "datactive/bigbang",
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3",
+      "seed": 1816760719
+    },
+    {
+      "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "method": "envsolve-pro-minimal-b-v1",
+      "pair_index": 3,
+      "position": 5,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "rdmorganiser/rdmo",
+      "run_id": "pro-minimal-b-v1-paired5-05-envsolve-pro-minimal-b-v1.0.2",
+      "seed": 3237554904
+    },
+    {
+      "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+      "condition": "codex-goal-aware-single-session",
+      "method": "codex-cli-goal-aware",
+      "pair_index": 3,
+      "position": 6,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "rdmorganiser/rdmo",
+      "run_id": "pro-minimal-b-v1-paired5-06-codex-goal-aware-single-session",
+      "seed": 3237554904
+    },
+    {
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "condition": "codex-goal-aware-single-session",
+      "method": "codex-cli-goal-aware",
+      "pair_index": 4,
+      "position": 7,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "jazzband/tablib",
+      "run_id": "pro-minimal-b-v1-paired5-07-codex-goal-aware-single-session",
+      "seed": 2814670835
+    },
+    {
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "method": "envsolve-pro-minimal-b-v1",
+      "pair_index": 4,
+      "position": 8,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "jazzband/tablib",
+      "run_id": "pro-minimal-b-v1-paired5-08-envsolve-pro-minimal-b-v1.0.2",
+      "seed": 2814670835
+    },
+    {
+      "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "method": "envsolve-pro-minimal-b-v1",
+      "pair_index": 5,
+      "position": 9,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "castagnait/plugin.video.netflix",
+      "run_id": "pro-minimal-b-v1-paired5-09-envsolve-pro-minimal-b-v1.0.2",
+      "seed": 874961272,
+      "semantic_adjudication": {
+        "basis": "docs/conf.py imports get_addon_data from setup, but the selected pylint/config/_pylint_config/setup.py provider does not expose that symbol.",
+        "evidence_paths": [
+          "scripts/bootstrap.sh",
+          "generation/container-commands.jsonl"
+        ],
+        "role": "posthoc diagnostic, not the preregistered outcome",
+        "status": "failed_required_interface"
+      }
+    },
+    {
+      "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+      "condition": "codex-goal-aware-single-session",
+      "method": "codex-cli-goal-aware",
+      "pair_index": 5,
+      "position": 10,
+      "progress_path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "repository": "castagnait/plugin.video.netflix",
+      "run_id": "pro-minimal-b-v1-paired5-10-codex-goal-aware-single-session",
+      "seed": 874961272,
+      "semantic_adjudication": {
+        "basis": "docs/conf.py imports get_addon_data from setup, but the selected pylint/config/_pylint_config/setup.py provider does not expose that symbol.",
+        "evidence_paths": [
+          "scripts/bootstrap.sh",
+          "generation/container-commands.jsonl"
+        ],
+        "role": "posthoc diagnostic, not the preregistered outcome",
+        "status": "failed_required_interface"
+      }
+    }
+  ],
+  "excluded_attempts": [
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position2_interruption_amendment.json",
+      "classification": "user_or_host_interruption",
+      "position": 2,
+      "replacement": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1",
+      "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2"
+    },
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_infrastructure_amendment.json",
+      "classification": "local_filesystem_sandbox_before_agent_start",
+      "position": 4,
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session"
+    },
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_network_amendment.json",
+      "classification": "repository_acquisition_network_timeout_before_agent_start",
+      "position": 4,
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-infrastructure-retry1"
+    },
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_source_cache_amendment.json",
+      "classification": "repository_acquisition_timeout_with_orphaned_transport_process_before_agent_start",
+      "position": 4,
+      "replacement": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3",
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-network-retry2"
+    }
+  ],
+  "preregistration": "experiments/validations/pro_minimal_b_v1_paired_dev5_preregistration.json",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}

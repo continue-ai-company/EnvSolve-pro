@@ -1,0 +1,24 @@
+{
+  "amends_study_id": "envsolve-pro-minimal-b-v1-paired-dev5",
+  "case_file": "experiments/cases/dev_pro_minimal_b_v1_paired5.jsonl",
+  "case_file_sha256": "5432f6c6da2d0a40ac2fe9b3bbc50690c43c1ae10ce4ade3fc23505fb261cfee",
+  "episode_timeout_seconds": 22400,
+  "episodes": [
+    {
+      "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+      "case_position": 1,
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "host": "mac",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "original_position": 2,
+      "position": 1,
+      "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 1940233041
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5-position2-interruption-retry1"
+}

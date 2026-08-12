@@ -11,7 +11,9 @@ import unittest
 from envsolve_harness.codex.container_mcp import (
     ContainerCommandResult,
     ContainerMcpServer,
-    PersistentContainerShell,
+)
+from envsolve_harness.codex.container_mcp_qualified import (
+    ProcessTreeSafePersistentContainerShell,
 )
 
 
@@ -118,7 +120,7 @@ class PersistentContainerShellIntegrationTest(unittest.TestCase):
             check=True,
         )
         container_id = created.stdout.strip()
-        shell = PersistentContainerShell(
+        shell = ProcessTreeSafePersistentContainerShell(
             container_id,
             "/tmp",
             command_timeout=30,
@@ -134,6 +136,70 @@ class PersistentContainerShellIntegrationTest(unittest.TestCase):
             self.assertEqual(second.output.strip(), "/tmp/state:ready")
             self.assertEqual(failure.exit_code, 1)
             self.assertIsNone(failure.infrastructure_error)
+        finally:
+            shell.close()
+            subprocess.run(
+                ["docker", "rm", "-f", container_id],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+    def test_timeout_removes_container_command_descendants(self) -> None:
+        image = "ghcr.io/jetbrains-research/envbench-python:latest"
+        created = subprocess.run(
+            [
+                "docker",
+                "run",
+                "-d",
+                "--entrypoint",
+                "/bin/bash",
+                image,
+                "-lc",
+                "while true; do sleep 1000; done",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        container_id = created.stdout.strip()
+        shell = ProcessTreeSafePersistentContainerShell(
+            container_id,
+            "/tmp",
+            command_timeout=5,
+            max_output_chars=16000,
+        )
+        try:
+            result = shell.execute(
+                "sleep 60 & child=$!; printf '%s\\n' \"$child\" > /tmp/child.pid; "
+                "wait \"$child\"",
+                timeout_seconds=1,
+            )
+            child_pid = subprocess.run(
+                ["docker", "exec", container_id, "cat", "/tmp/child.pid"],
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout.strip()
+            alive = subprocess.run(
+                [
+                    "docker",
+                    "exec",
+                    container_id,
+                    "/bin/bash",
+                    "-c",
+                    "kill -0 \"$1\" 2>/dev/null",
+                    "--",
+                    child_pid,
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+            self.assertTrue(result.timed_out, result)
+            self.assertIsNone(result.infrastructure_error, result)
+            self.assertNotEqual(alive.returncode, 0, f"child {child_pid} survived timeout")
         finally:
             shell.close()
             subprocess.run(

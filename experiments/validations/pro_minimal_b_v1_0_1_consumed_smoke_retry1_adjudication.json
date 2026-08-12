@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "adjudicated_at": "2026-08-04",
+  "study_id": "envsolve-pro-minimal-b-v1.0.1-consumed-smoke-retry1",
+  "run_id": "pro-minimal-b-v1-0-1-consumed-smoke-01-duckdb-engine-retry1",
+  "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+  "runner_version": "1.0.1",
+  "raw_outcome": {
+    "generation_completed": true,
+    "replay_statuses": [
+      "fail",
+      "fail",
+      "fail",
+      "pass"
+    ],
+    "third_replay_rejected_generated_local_distribution": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_non_scoring_error_count": 52
+  },
+  "research_adjudication": {
+    "valid": false,
+    "classification": "integrity-violation",
+    "reason": "After the local-distribution provenance audit rejected a generated compatibility distribution, the final program deleted that distribution's dist-info metadata while leaving its injected sqlalchemy/base.py import artifact installed. The post audit therefore saw no local distribution record and incorrectly certified the program.",
+    "violated_rules": [
+      "do_not_create_fake_or_empty_modules_to_satisfy_static_import_checks",
+      "preserve-installation-provenance"
+    ],
+    "count_in_effectiveness_results": false,
+    "count_as_mechanism_success": false,
+    "retained_observation": "The live Agent continued after two candidate-validation failures and one execution-time provenance failure within one session."
+  },
+  "artifact_sha256": {
+    "generation/result.json": "22c67792a4badd8cf695f9e9e3b7909d2d8eaf3e9b8f1efa8af44a454b2b4bf2",
+    "generation/trajectory.jsonl": "67685dda8cc718b074a3e25c3e5208a3667202a7c3d964738bb5adb93fb01f46",
+    "generation/container-commands.jsonl": "5491b5e02e9cf61d9e6266b1609965053e873ee2168b3ab02890167424e3bb9c",
+    "generation/minimal-b/replays.jsonl": "ff03e38c043a11a9a40bd31a47eb41f26e6113c55b8137c9e2e0fd961c2f0e82",
+    "generation/minimal-b/certification.json": "8657082347531b310a5341d95c445e95a5470bc3747abb2fe175cd3dea67cdff",
+    "scripts/generated.sh": "4a0aded4057b7f16ec76972fd1c7c4b73a7a4ec79fcdf29698746cce3f4ff487",
+    "evaluation/result.json": "07c224174f742cc588b1b1d234be98bdaeb7eea143a505cb7bfd929ceb51a579"
+  },
+  "corrective_action": {
+    "scope": "shared-admissibility-boundary-not-search-algorithm",
+    "change": "Audit importable files in active site-package roots against installed distribution file ownership, and reject newly observed unowned import artifacts in addition to undeclared local distributions.",
+    "required_version": "envsolve-pro-minimal-b-1.0.2",
+    "rerun_policy": "Exercise the exact metadata-removal trajectory in Docker before deciding whether another live retry is scientifically useful."
+  },
+  "effectiveness_claim": "none"
+}

@@ -1,0 +1,65 @@
+{
+  "amendment_id": "envsolve-pro-minimal-b-v1-paired-dev5-position4-source-cache-retry3",
+  "artifacts": {
+    "interrupted_retry_progress": {
+      "path": "experiments/runs/pro_minimal_b_v1_paired_dev5_position4_retry2_mac-progress.json",
+      "sha256": "52b282b8d10047c6d3e8a7562cd0ba253ce9f0868a53d1fc045e23b36c96f007"
+    },
+    "interrupted_retry_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_network_retry2_mac.json",
+      "sha256": "d6b5481d18ba9dea3b0d91d77571eab9e61ebae65055030ca6890259a87b0334"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+      "sha256": "0750ac2842f4ab4d333898329404dd6b396d5ff5be2cce0489fa64507770350e"
+    },
+    "preregistration": {
+      "path": "experiments/validations/pro_minimal_b_v1_paired_dev5_preregistration.json",
+      "sha256": "568302d178b5dfc926fd7516100d9383cc65e459725bfc6720227fcae2efbb60"
+    },
+    "retry_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_source_cache_retry3_mac.json",
+      "sha256": "4bb6a1863bc90acae998d7b084f543901919e76d535d2c4d2b8379b9356161ec"
+    }
+  },
+  "created_at": "2026-08-05T05:56:25Z",
+  "decision": {
+    "algorithm_change_before_retry": false,
+    "analysis_treatment": "Use retry3 for the paired primary analysis. Preserve retry2 as a censored infrastructure observation and report the acquisition mechanism change for secondary timing analysis.",
+    "case_replacement": false,
+    "original_observation_class": "repository_acquisition_timeout_with_orphaned_transport_process",
+    "original_observation_in_effect_denominator": false,
+    "source_cache_contains_prior_solution_information": false
+  },
+  "interrupted_retry_episode": {
+    "agent_started": false,
+    "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+    "duration_seconds": 714.541632708,
+    "official_evaluator_reached": false,
+    "process_exit_code": -15,
+    "reason": "The first 600-second git fetch timeout left git-remote-https alive while the runner started another fetch into the same checkout. The coordinator was interrupted before Agent startup to prevent concurrent acquisition from contaminating the episode.",
+    "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-network-retry2",
+    "state": "interrupted"
+  },
+  "retry_episode": {
+    "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+    "condition": "codex-goal-aware-single-session",
+    "model": "gpt-5.5",
+    "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3",
+    "seed": 1816760719
+  },
+  "source_cache": {
+    "cache_path": "/Users/admin/Documents/AnyDeploy/runs/_source_cache/manual/datactive__bigbang.git",
+    "commit": "42568c20e318bd351a1d42acda21895960646133",
+    "derivation": "Bare clone of the treatment's integrity-valid exact-revision source checkout; Git object storage excludes untracked build outputs and trajectory artifacts.",
+    "environment_override": {
+      "GIT_CONFIG_COUNT": "1",
+      "GIT_CONFIG_KEY_0": "url.file:///Users/admin/Documents/AnyDeploy/runs/_source_cache/manual/datactive__bigbang.git.insteadOf",
+      "GIT_CONFIG_VALUE_0": "https://github.com/datactive/bigbang.git"
+    },
+    "fsck": "pass",
+    "tree": "f07b73977a256585daf8787eb4ef22719cb52e76"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}

@@ -1,0 +1,68 @@
+{
+  "amendment_id": "envsolve-pro-minimal-b-v1-paired-dev5-position4-network-retry2",
+  "artifacts": {
+    "failed_retry_progress": {
+      "path": "experiments/runs/pro_minimal_b_v1_paired_dev5_position4_retry1_mac-progress.json",
+      "sha256": "667568b4c7634ddf1e3f2b0f503f64c13d7ccd11bfac2aa9a4916f9b50ee0682"
+    },
+    "failed_retry_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_infrastructure_retry1_mac.json",
+      "sha256": "0d589b78b5f30864cf5db8aeb45098cdfc44ec135aa2e339a597a85ea27574be"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+      "sha256": "0750ac2842f4ab4d333898329404dd6b396d5ff5be2cce0489fa64507770350e"
+    },
+    "preregistration": {
+      "path": "experiments/validations/pro_minimal_b_v1_paired_dev5_preregistration.json",
+      "sha256": "568302d178b5dfc926fd7516100d9383cc65e459725bfc6720227fcae2efbb60"
+    },
+    "retry_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_network_retry2_mac.json",
+      "sha256": "d6b5481d18ba9dea3b0d91d77571eab9e61ebae65055030ca6890259a87b0334"
+    }
+  },
+  "connectivity_check": {
+    "checked_at": "2026-08-05T05:38:55Z",
+    "result": "HTTP/2 200",
+    "target": "https://github.com"
+  },
+  "created_at": "2026-08-05T05:39:10Z",
+  "decision": {
+    "algorithm_change_before_retry": false,
+    "analysis_treatment": "Replace the pre-agent network-censored retry1 with retry2 for the paired primary analysis. Preserve and report retry1 separately.",
+    "case_replacement": false,
+    "original_observation_class": "github_fetch_network_failure",
+    "original_observation_in_effect_denominator": false,
+    "retry_identity": [
+      "case",
+      "case source revision",
+      "condition",
+      "runner implementation",
+      "model",
+      "reasoning effort",
+      "seed",
+      "container image",
+      "protocol",
+      "episode timeout"
+    ]
+  },
+  "failed_retry_episode": {
+    "agent_started": false,
+    "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+    "duration_seconds": 277.60730424999997,
+    "error": "repository fetch failed after 3 attempts: curl 28 failed to connect to github.com:443 after 75002 ms",
+    "official_evaluator_reached": false,
+    "process_exit_code": 1,
+    "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-infrastructure-retry1"
+  },
+  "retry_episode": {
+    "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+    "condition": "codex-goal-aware-single-session",
+    "model": "gpt-5.5",
+    "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-network-retry2",
+    "seed": 1816760719
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}

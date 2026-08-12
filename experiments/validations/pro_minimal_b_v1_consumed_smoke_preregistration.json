@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-consumed-smoke",
+  "registered_at": "2026-08-04",
+  "purpose": "Mechanism-only live smoke test before opening any new development case.",
+  "claim_scope": "This consumed-case run may validate the live session and replay plumbing but cannot support an effectiveness or generalization claim.",
+  "implementation_freeze": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_implementation_freeze.json",
+    "sha256": "e953512f0275f2a409cbfb8fce69c19c2175bb38d11e54304c24c5f8867769c2"
+  },
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+  },
+  "config": {
+    "path": "experiments/configs/local_mac_pro_minimal_b_v1_consumed.json",
+    "sha256": "b94f5c098dca6866b4484801aad209641dcc08c44777275211f82ee78db56d9f"
+  },
+  "case_source": {
+    "path": "experiments/cases/dev_pro_execution_feedback_v3_screen8.jsonl",
+    "sha256": "b4b662dfc16f5bae6c0aef18dcdb643c03a66f9800ade06fcd3968271baf26d4",
+    "selection_status": "previously-consumed",
+    "selection_reason": "duckdb_engine previously exposed construction-success versus clean-replay failure and is therefore diagnostic for the Minimal B mechanism"
+  },
+  "episode": {
+    "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+    "repository": "mause/duckdb_engine",
+    "revision": "f196b338b383d597ebdb6bef69879e75e6a3edbb",
+    "run_id": "pro-minimal-b-v1-consumed-smoke-01-duckdb-engine",
+    "runner": "envsolve-pro-minimal-b",
+    "method": "envsolve-pro-minimal-b-v1",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "host": "mac"
+  },
+  "mechanism_checks": [
+    "one-codex-exec-process-hosts-the-complete-agent-episode",
+    "the-agent-invokes-submit-and-replay-before-final-output",
+    "every-replay-record-has-a-distinct-fresh-environment-receipt",
+    "fail-or-unknown-feedback-if-observed-returns-before-a-later-agent-action",
+    "the-final-program-matches-a-passing-certificate-bound-to-revision-image-and-goal",
+    "the-official-evaluator-runs-only-after-the-agent-process-ends"
+  ],
+  "outcome_rules": {
+    "live_mechanism_pass": "generation completes with at least one replay and an accepted passing certificate",
+    "official_pass": "report separately as a smoke result, not an effectiveness estimate",
+    "infrastructure_failure": "rerun the identical frozen episode only after recording an amendment",
+    "mechanism_failure": "do not open a new case; repair using synthetic or this consumed evidence and create a new implementation freeze",
+    "algorithm_change_from_case_content": "forbidden"
+  },
+  "next_decision": "Only after the live mechanism passes may a repository-disjoint paired development protocol be preregistered."
+}

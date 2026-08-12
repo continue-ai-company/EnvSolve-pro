@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-minimal-b-v1-implementation",
+  "freeze_type": "source-bound-mechanism",
+  "frozen_at": "2026-08-04",
+  "base_source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "design_freeze": {
+    "freeze_id": "envsolve-pro-minimal-b-v1-design",
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_design_freeze.json",
+    "sha256": "3d54d0f3d4ba3527e60b910143b5c98607dd1682b9bb5d100a134fef7f61bf4b"
+  },
+  "implementation": {
+    "method": "envsolve-pro-minimal-b-v1",
+    "runner": "envsolve-pro-minimal-b",
+    "runner_version": "1.0.0",
+    "agent_interface": "continuous-agent+online-clean-replay-mcp-v1",
+    "registration": "isolated-experimental-entrypoint",
+    "builtin_runner_registry_modified": false
+  },
+  "frozen_mechanism": {
+    "agent_processes_per_attempt": 1,
+    "construction_environments_per_attempt": 1,
+    "construction_environment_persistent": true,
+    "clean_replay_calls": "zero-or-more-during-session-but-at-least-one-for-acceptance",
+    "fresh_checkout_and_container_per_replay": true,
+    "replay_feedback_returns_to_same_agent_process": true,
+    "official_evaluator_access": "post-episode-only",
+    "acceptance": "canonical-final-program-sha256-matches-a-passing-clean-replay-certificate",
+    "certificate_bindings": [
+      "repository-revision",
+      "docker-image-digest",
+      "public-goal-contract-sha256",
+      "fresh-environment-receipt",
+      "passing-replay-id",
+      "program-sha256"
+    ]
+  },
+  "excluded_treatments": [
+    "structured-state-projection",
+    "constraint-ledger",
+    "compatibility-frontier",
+    "checkpointing",
+    "branching-or-rollback",
+    "hypothesis-search",
+    "action-level-postcondition-admission",
+    "cross-session-memory",
+    "cross-case-memory",
+    "bootstrap-minimization",
+    "resource-aware-search",
+    "repository-package-module-or-case-specific-rules"
+  ],
+  "source_sha256": {
+    "envsolve_harness/codex/minimal_b_mcp.py": "de9b9d52796f3f0c5629fe49775b96574d7693bc30703cfd2b7bfc7391029471",
+    "envsolve_harness/runners/codex_cli.py": "8a17bcc6580bd0cec81c7e0faf34311f3ecc20f9fee7bc0d7f277c1d25ba6dd5",
+    "envsolve_harness/runners/envsolve_pro_minimal_b.py": "21cfa587e6ab708dd24871a4621339722fcdf79d20ad2c4b12089ea43b7f6763",
+    "experiments/run_minimal_b_case.py": "1aebb3d6af81cc6ab78ed642c076359419b5280f69b8c664c1996cdbca096cdf",
+    "tests/test_envsolve_pro_minimal_b_runner.py": "5218699edb0f1004ef2455cc8f538704d5ef59e10991ace911460760ad09b351",
+    "tests/test_minimal_b_mcp.py": "7bb050498f2bfee434fd61e73bb6ff797f1c950dc358783c3686451f9ea3138e"
+  },
+  "verification": {
+    "focused_regression": {
+      "result": "18-passed-2-skipped",
+      "covers": [
+        "same-mcp-service-across-multiple-replays",
+        "fail-unknown-pass-and-infrastructure-separation",
+        "fresh-receipt-identity",
+        "wrong-image-rejection",
+        "exact-final-program-certification",
+        "goal-revision-and-image-certificate-binding",
+        "frozen-baseline-registry-integrity"
+      ]
+    },
+    "real_docker_integration": {
+      "result": "7-passed",
+      "scenario": "first-clean-replay-fails-second-passes-in-distinct-released-containers",
+      "source_repository_clean_after_replays": true
+    },
+    "full_harness_regression": {
+      "result": "692-passed-4-skipped-75-subtests-passed",
+      "warnings": "7-upstream-pydantic-deprecation-warnings"
+    },
+    "static_checks": {
+      "ruff": "passed",
+      "git_diff_check": "passed"
+    }
+  },
+  "claims_not_yet_supported": [
+    "live-strong-agent-completes-a-real-envbench-episode-through-this-interface",
+    "official-envbench-pass-rate-improvement",
+    "replay-conditioned-repair-improves-over-the-controlled-strong-agent",
+    "resource-or-token-efficiency-improvement"
+  ],
+  "effectiveness_protocol_status": "not-yet-preregistered",
+  "next_allowed_work": "preregister-and-run-consumed-development-smoke-before-opening-new-development-cases"
+}

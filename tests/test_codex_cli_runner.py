@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
+import time
 import unittest
 
 from envsolve_harness.core.models import Case, RunSpec
+from envsolve_harness.execution.process import checked_output
 from envsolve_harness.runners.codex_cli import (
     CodexCliRunner,
     audit_script_grounding,
@@ -17,6 +22,34 @@ from envsolve.runtime.workspace import WorkspacePrecondition
 
 
 class CodexCliRunnerTest(unittest.TestCase):
+    def test_checked_timeout_terminates_the_complete_process_group(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            child_pid_path = Path(directory) / "child.pid"
+            program = (
+                "import pathlib, subprocess, sys, time; "
+                "child=subprocess.Popen([sys.executable, '-c', "
+                "'import time; time.sleep(60)']); "
+                "pathlib.Path(sys.argv[1]).write_text(str(child.pid)); "
+                "time.sleep(60)"
+            )
+
+            with self.assertRaises(subprocess.TimeoutExpired):
+                checked_output(
+                    [sys.executable, "-c", program, str(child_pid_path)],
+                    timeout=1,
+                )
+
+            child_pid = int(child_pid_path.read_text())
+            deadline = time.monotonic() + 3
+            while time.monotonic() < deadline:
+                try:
+                    os.kill(child_pid, 0)
+                except ProcessLookupError:
+                    break
+                time.sleep(0.05)
+            else:
+                self.fail(f"timed-out child process {child_pid} survived")
+
     def test_bootstrap_uses_shared_open_program_integrity_policy(self) -> None:
         accepted = validate_codex_bootstrap("python -m pip install -e .\n")
         rejected = validate_codex_bootstrap(

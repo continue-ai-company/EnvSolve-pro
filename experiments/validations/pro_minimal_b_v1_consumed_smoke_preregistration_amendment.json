@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "amended_at": "2026-08-04",
+  "study_id": "envsolve-pro-minimal-b-v1-consumed-smoke",
+  "original_preregistration": {
+    "path": "experiments/validations/pro_minimal_b_v1_consumed_smoke_preregistration.json",
+    "sha256": "17eb75facf9fcc08e4b013d8d12b8b1fddbc1e362ef11629f1901ffb0fe29c33"
+  },
+  "correction": {
+    "original_check": "every-replay-record-has-a-distinct-fresh-environment-receipt",
+    "corrected_check": "every-candidate-validation-accepted-clean-replay-has-a-distinct-fresh-environment-receipt",
+    "reason": "The frozen submit_and_replay contract validates a candidate before provisioning. Candidate-validation failures are replay feedback records but intentionally have no environment receipt."
+  },
+  "algorithm_changed": false,
+  "outcome_rule_changed": false,
+  "case_or_model_changed": false
+}

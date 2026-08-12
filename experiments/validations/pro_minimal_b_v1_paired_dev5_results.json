@@ -1,0 +1,1198 @@
+{
+  "analysis_implementation": {
+    "path": "envsolve_harness/minimal_b_analysis.py",
+    "sha256": "de715a8bf20bd7c4168b051f54607051be69f3348462155ed458d57113993c5b"
+  },
+  "claim_scope": "Repository-disjoint paired five-case development comparison. This is mechanism evidence, not held-out or leaderboard evidence.",
+  "conditions": {
+    "control": "codex-goal-aware-single-session",
+    "treatment": "envsolve-pro-minimal-b-v1.0.2"
+  },
+  "excluded_attempts": [
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position2_interruption_amendment.json",
+      "classification": "user_or_host_interruption",
+      "position": 2,
+      "replacement": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1",
+      "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2"
+    },
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_infrastructure_amendment.json",
+      "classification": "local_filesystem_sandbox_before_agent_start",
+      "position": 4,
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session"
+    },
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_network_amendment.json",
+      "classification": "repository_acquisition_network_timeout_before_agent_start",
+      "position": 4,
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-infrastructure-retry1"
+    },
+    {
+      "amendment": "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_source_cache_amendment.json",
+      "classification": "repository_acquisition_timeout_with_orphaned_transport_process_before_agent_start",
+      "position": 4,
+      "replacement": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3",
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-network-retry2"
+    }
+  ],
+  "inputs": {
+    "adjudication": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/validations/pro_minimal_b_v1_paired_dev5_effective_episodes.json",
+    "adjudication_sha256": "b8d06f3bcb5cbb4ec37c4962b97d6e21c07c49e91382ecc5c7626062abe79eac",
+    "runs_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5"
+  },
+  "pairs": [
+    {
+      "category": "both_pass",
+      "episodes": {
+        "codex-goal-aware-single-session": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-01-codex-goal-aware-single-session/envbench-python-pymanopt__pymanopt__1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+          "condition": "codex-goal-aware-single-session",
+          "diagnostics": {
+            "error_count": 602,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "c90ac8b898194437e968a7c2c5c799e874cc9622607deac3d6aa3aba8424c5db",
+            "generation/container-commands.jsonl": "6cd8ea7a6c007942354a23872b49a70b42a9cede3995b4b129956dd0cf027ecb",
+            "generation/result.json": "874cac49acb6e9e7a64f406e871c9229a7a4d1dbbe1ff79d6531934e8c096163",
+            "manifest.json": "953f88cbb33c9987cef070c226713ef0817f559b975065ced9ff2be46d99522b",
+            "scripts/bootstrap.sh": "304bddef974413421164a64e25429a4e8dd24d3b30e412cb9e9de6836c4c5b2d"
+          },
+          "generation_completed": true,
+          "method": "codex-cli-goal-aware",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 1,
+          "position": 1,
+          "repository": "pymanopt/pymanopt",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 577536,
+            "commands": 42,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 3591.694291083,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 695.292805,
+            "generation_wall_clock_seconds": 2871.754172,
+            "input_tokens": 746589,
+            "network_bytes": null,
+            "output_tokens": 13345,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 6120,
+            "replay_calls": 0,
+            "successful_commands": 40,
+            "total_tokens": 759934
+          },
+          "run_id": "pro-minimal-b-v1-paired5-01-codex-goal-aware-single-session",
+          "seed": 1940233041,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        },
+        "envsolve-pro-minimal-b-v1.0.2": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1/envbench-python-pymanopt__pymanopt__1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+          "condition": "envsolve-pro-minimal-b-v1.0.2",
+          "diagnostics": {
+            "error_count": 840,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "9ee7ce1464282e106b9c24d38d264987338be059a505b409c0ee39163651e234",
+            "generation/container-commands.jsonl": "4d406595d9394b703bff9043721a02950486d7cc04f4c4b3ff1375cf3f90546f",
+            "generation/result.json": "4cf0ab41d54e788464e62bf572d4b98e3449b15514a085a525db87a253612d5f",
+            "manifest.json": "6a5afa37213a2802ab88b00abc1447930dff581b96e0b99617c6c50d0baba1a8",
+            "scripts/bootstrap.sh": "a2984a9032f466f2d537f23e7ff49b0344a6b5989adab3803acfcbf8a6971351"
+          },
+          "generation_completed": true,
+          "method": "envsolve-pro-minimal-b-v1",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 1,
+          "position": 2,
+          "repository": "pymanopt/pymanopt",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 794624,
+            "commands": 28,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 5195.592373333,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 429.139252,
+            "generation_wall_clock_seconds": 4763.19664,
+            "input_tokens": 861516,
+            "network_bytes": null,
+            "output_tokens": 11033,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 6547,
+            "replay_calls": 1,
+            "successful_commands": 25,
+            "total_tokens": 872549
+          },
+          "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1",
+          "seed": 1940233041,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        }
+      },
+      "pair_index": 1,
+      "repository": "pymanopt/pymanopt"
+    },
+    {
+      "category": "treatment_only_pass",
+      "episodes": {
+        "codex-goal-aware-single-session": {
+          "artifact_integrity": {
+            "checks": {
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "interruption_recorded": false,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "solver_failure_recorded": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133",
+          "candidate_policy": {
+            "accepted": false,
+            "policy_id": "open-candidate-program-v1",
+            "reason": "candidate program directly materializes an importable artifact"
+          },
+          "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+          "condition": "codex-goal-aware-single-session",
+          "diagnostics": {
+            "error_count": null,
+            "missing_import_count": null
+          },
+          "evidence_sha256": {
+            "generation/container-commands.jsonl": "762cfc3c4e82cfe6b0fee1c363ce3f2533308218cdb8987053df4abb8b3dc440",
+            "generation/result.json": "eb21257587f5fe43a32f774644dd311829c70f2bf92920ca3cf115a6de7d41f4",
+            "manifest.json": "e4dd8154b0250dd43682f0881308171194226a01a673bab14e25b467346368a3"
+          },
+          "generation_completed": false,
+          "method": "codex-cli-goal-aware",
+          "official_evaluator_reached": false,
+          "official_pass": null,
+          "official_pass_at_1": false,
+          "pair_index": 2,
+          "position": 4,
+          "repository": "datactive/bigbang",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 640000,
+            "commands": 21,
+            "coordinator_wall_clock_censor_reason": "Control source acquisition used the preregistered infrastructure amendment's exact-revision local cache after repeated pre-Agent GitHub failures.",
+            "coordinator_wall_clock_comparable": false,
+            "coordinator_wall_clock_seconds": 1776.073303875,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": null,
+            "generation_wall_clock_seconds": 1764.83052,
+            "input_tokens": 776458,
+            "network_bytes": null,
+            "output_tokens": 14876,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 8219,
+            "replay_calls": 0,
+            "successful_commands": 19,
+            "total_tokens": 791334
+          },
+          "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3",
+          "seed": 1816760719,
+          "semantic_adjudication": null,
+          "terminal": "generation_failed"
+        },
+        "envsolve-pro-minimal-b-v1.0.2": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-03-envsolve-pro-minimal-b-v1.0.2/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+          "condition": "envsolve-pro-minimal-b-v1.0.2",
+          "diagnostics": {
+            "error_count": 983,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "3f3ae292c03d2e390198cef263a2e56facaafe91b821b214fe2ab0c2979652aa",
+            "generation/container-commands.jsonl": "d59bb69a2c7c11d43b09c0ee19847cd0a52e245435aa969ac383179ba36c3149",
+            "generation/result.json": "9636f82e3ba287090a9cd95aec0fed53eac35dedc1d077e2d7febb16287eeed6",
+            "manifest.json": "32c44698945615b7c8a06737199c816635809ce6ca49177eabbc50a66bc5d129",
+            "scripts/bootstrap.sh": "cad10098a63eded65a5d04cd6cef12671139458b112bfea341a2302becf0e52d"
+          },
+          "generation_completed": true,
+          "method": "envsolve-pro-minimal-b-v1",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 2,
+          "position": 3,
+          "repository": "datactive/bigbang",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 759808,
+            "commands": 24,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 3175.926495,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 705.98591,
+            "generation_wall_clock_seconds": 2465.910553,
+            "input_tokens": 832516,
+            "network_bytes": null,
+            "output_tokens": 13889,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 7715,
+            "replay_calls": 1,
+            "successful_commands": 23,
+            "total_tokens": 846405
+          },
+          "run_id": "pro-minimal-b-v1-paired5-03-envsolve-pro-minimal-b-v1.0.2",
+          "seed": 1816760719,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        }
+      },
+      "pair_index": 2,
+      "repository": "datactive/bigbang"
+    },
+    {
+      "category": "both_pass",
+      "episodes": {
+        "codex-goal-aware-single-session": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-06-codex-goal-aware-single-session/envbench-python-rdmorganiser__rdmo__065d195043b7ac34a7b6b3180dac69829a3974bc",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+          "condition": "codex-goal-aware-single-session",
+          "diagnostics": {
+            "error_count": 1356,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "f97379a6f3a6f73c14c1563f9eafc3023eaf0e3d7d4b9c65cfc17184518cb414",
+            "generation/container-commands.jsonl": "9be83307acca24f05c0d2b2daf29be882c31cbe58021c496cf3db5de7f2f5b51",
+            "generation/result.json": "b8b03f94e174ead75a3492836794e3acfbe88c3235905c3d0a15a34ad71bee1d",
+            "manifest.json": "a0588b69b81e163352c46eeffa6c51f2f4bd260846bf7886768f73b49cb81cd5",
+            "scripts/bootstrap.sh": "782c8d330d546bd2f3b641070ca609fb0e9fe565591ba30f1a5197966272a359"
+          },
+          "generation_completed": true,
+          "method": "codex-cli-goal-aware",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 3,
+          "position": 6,
+          "repository": "rdmorganiser/rdmo",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 396288,
+            "commands": 12,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 1852.165574833,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 814.765022,
+            "generation_wall_clock_seconds": 1026.566495,
+            "input_tokens": 455852,
+            "network_bytes": null,
+            "output_tokens": 6333,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 3488,
+            "replay_calls": 0,
+            "successful_commands": 10,
+            "total_tokens": 462185
+          },
+          "run_id": "pro-minimal-b-v1-paired5-06-codex-goal-aware-single-session",
+          "seed": 3237554904,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        },
+        "envsolve-pro-minimal-b-v1.0.2": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-05-envsolve-pro-minimal-b-v1.0.2/envbench-python-rdmorganiser__rdmo__065d195043b7ac34a7b6b3180dac69829a3974bc",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+          "condition": "envsolve-pro-minimal-b-v1.0.2",
+          "diagnostics": {
+            "error_count": 1356,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "d3f8ece2ef716378ca81ab8ba670ac49428aa1ceb4f79100a42f816f248738c1",
+            "generation/container-commands.jsonl": "bc100d67592319e0626e91eb29fce8397601c5b9459ef871c5da48e1e5bc3ffd",
+            "generation/result.json": "fa89bca70a1242ed1fb2d650ca4d08cd9700cd8882e8e4078179544676990558",
+            "manifest.json": "24da2db34b2dc922604e9f82905372c0b8295c94bd1662f32783d7bf2658876d",
+            "scripts/bootstrap.sh": "d18a4744c5dfe43464a07ea6f352cfaa8add3f92cfc37b942624495366407527"
+          },
+          "generation_completed": true,
+          "method": "envsolve-pro-minimal-b-v1",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 3,
+          "position": 5,
+          "repository": "rdmorganiser/rdmo",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 166400,
+            "commands": 11,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 2043.257175166,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 697.349886,
+            "generation_wall_clock_seconds": 1334.091881,
+            "input_tokens": 235226,
+            "network_bytes": null,
+            "output_tokens": 3492,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 1335,
+            "replay_calls": 1,
+            "successful_commands": 11,
+            "total_tokens": 238718
+          },
+          "run_id": "pro-minimal-b-v1-paired5-05-envsolve-pro-minimal-b-v1.0.2",
+          "seed": 3237554904,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        }
+      },
+      "pair_index": 3,
+      "repository": "rdmorganiser/rdmo"
+    },
+    {
+      "category": "both_pass",
+      "episodes": {
+        "codex-goal-aware-single-session": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-07-codex-goal-aware-single-session/envbench-python-jazzband__tablib__2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+          "condition": "codex-goal-aware-single-session",
+          "diagnostics": {
+            "error_count": 190,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "f521563315f1a751198b32b7aef338ffc3a38a738ce604676890206560a79eda",
+            "generation/container-commands.jsonl": "bc5a49b0f93a8380b2d317d7a625c927415c259e4dcf5f87bc1aa1fc3c4d5b58",
+            "generation/result.json": "26aa570039de8eb6d9183b98b0a9152d5041e852093a0999e4fafcaff44dd88c",
+            "manifest.json": "557b199072b02695c40ee290fbef310719dbab3f217a139f2ac1118d86974b60",
+            "scripts/bootstrap.sh": "f2ea5b689f0bd6afa1797c73bda2db90db45319abc8fa4fe78ee7907c09e991b"
+          },
+          "generation_completed": true,
+          "method": "codex-cli-goal-aware",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 4,
+          "position": 7,
+          "repository": "jazzband/tablib",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 181248,
+            "commands": 11,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 670.8655827079999,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 192.449382,
+            "generation_wall_clock_seconds": 476.069183,
+            "input_tokens": 219833,
+            "network_bytes": null,
+            "output_tokens": 5744,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 2969,
+            "replay_calls": 0,
+            "successful_commands": 9,
+            "total_tokens": 225577
+          },
+          "run_id": "pro-minimal-b-v1-paired5-07-codex-goal-aware-single-session",
+          "seed": 2814670835,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        },
+        "envsolve-pro-minimal-b-v1.0.2": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-08-envsolve-pro-minimal-b-v1.0.2/envbench-python-jazzband__tablib__2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+          "condition": "envsolve-pro-minimal-b-v1.0.2",
+          "diagnostics": {
+            "error_count": 190,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "0ca2ee7be7aae597aca9748fa1c394743388c161a2cc59313016f3bd16fc3a17",
+            "generation/container-commands.jsonl": "2ca3d42afaac3d56b1083fef1012838b742dabc0135bb595db3cdfec38780d74",
+            "generation/result.json": "8a301b97e1ee74559c4030711c3a3c6743a55ebfc4163a839e504f9412d1c140",
+            "manifest.json": "449a63355eaa5ade974cbd18627d411d0d4ab42b65ff2a28ab4d728f1851d082",
+            "scripts/bootstrap.sh": "ea9f5809cd9c9d7ad5f2b1714a73b65f665faf99eb97fc62354fdc03dd1a8f90"
+          },
+          "generation_completed": true,
+          "method": "envsolve-pro-minimal-b-v1",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 4,
+          "position": 8,
+          "repository": "jazzband/tablib",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 128000,
+            "commands": 6,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 599.151148292,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 193.880849,
+            "generation_wall_clock_seconds": 403.122816,
+            "input_tokens": 160452,
+            "network_bytes": null,
+            "output_tokens": 3558,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 2042,
+            "replay_calls": 1,
+            "successful_commands": 6,
+            "total_tokens": 164010
+          },
+          "run_id": "pro-minimal-b-v1-paired5-08-envsolve-pro-minimal-b-v1.0.2",
+          "seed": 2814670835,
+          "semantic_adjudication": null,
+          "terminal": "official_pass"
+        }
+      },
+      "pair_index": 4,
+      "repository": "jazzband/tablib"
+    },
+    {
+      "category": "both_pass",
+      "episodes": {
+        "codex-goal-aware-single-session": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-10-codex-goal-aware-single-session/envbench-python-castagnait__plugin.video.netflix__e87aa8559e9b0d38699a5383e09381ee7756783b",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+          "condition": "codex-goal-aware-single-session",
+          "diagnostics": {
+            "error_count": 605,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "f7da568bfcf35c81bb3499eab776fc01049bcf0221e85e06520e6b1732cdc42a",
+            "generation/container-commands.jsonl": "24a0674ffea23075b8c569c4e89cc01ad5d51a28f7f1ab52411d63ca4aa244e0",
+            "generation/result.json": "b658cc448f96d435f2d907e176481880d351f0a873be2b22a6c0adda1d3d5257",
+            "manifest.json": "f7761d42093722e55db84465e7a44b362bf5f92b2b60d3a89a5724f3bb020138",
+            "scripts/bootstrap.sh": "1204fbc74c6781a68db2e7e934329f338b9a5a47037f8fe2bca62a3b8cd0b5c4"
+          },
+          "generation_completed": true,
+          "method": "codex-cli-goal-aware",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 5,
+          "position": 10,
+          "repository": "castagnait/plugin.video.netflix",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 396288,
+            "commands": 21,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 988.102831041,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 293.371073,
+            "generation_wall_clock_seconds": 692.520437,
+            "input_tokens": 474814,
+            "network_bytes": null,
+            "output_tokens": 10684,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 5900,
+            "replay_calls": 0,
+            "successful_commands": 19,
+            "total_tokens": 485498
+          },
+          "run_id": "pro-minimal-b-v1-paired5-10-codex-goal-aware-single-session",
+          "seed": 874961272,
+          "semantic_adjudication": {
+            "basis": "docs/conf.py imports get_addon_data from setup, but the selected pylint/config/_pylint_config/setup.py provider does not expose that symbol.",
+            "evidence_paths": [
+              "scripts/bootstrap.sh",
+              "generation/container-commands.jsonl"
+            ],
+            "role": "posthoc diagnostic, not the preregistered outcome",
+            "status": "failed_required_interface"
+          },
+          "terminal": "official_pass"
+        },
+        "envsolve-pro-minimal-b-v1.0.2": {
+          "artifact_integrity": {
+            "checks": {
+              "benchmark_matches_protocol": true,
+              "case_exists": true,
+              "case_matches_manifest": true,
+              "diagnostic_evidence_schema": true,
+              "lifecycle_state": true,
+              "manifest_exists": true,
+              "manifest_schema": true,
+              "official_evaluation_claim_exists": true,
+              "official_evaluation_claim_matches": true,
+              "official_evidence": true,
+              "official_evidence_unique": true,
+              "official_pass_recomputed": true,
+              "raw_metrics_schema": true,
+              "raw_result_exists": true,
+              "raw_result_path_portable": true,
+              "repository_integrity": true,
+              "result_case_identity": true,
+              "result_exists": true,
+              "result_matches_manifest": true,
+              "runtime_heartbeat_exists": true,
+              "runtime_heartbeat_hash": true,
+              "runtime_heartbeat_portable": true,
+              "script_exists": true,
+              "script_hash": true,
+              "status_exists": true
+            },
+            "errors": [],
+            "valid": true,
+            "warnings": []
+          },
+          "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-09-envsolve-pro-minimal-b-v1.0.2/envbench-python-castagnait__plugin.video.netflix__e87aa8559e9b0d38699a5383e09381ee7756783b",
+          "candidate_policy": {
+            "accepted": true,
+            "policy_id": "open-candidate-program-v1",
+            "reason": null
+          },
+          "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+          "condition": "envsolve-pro-minimal-b-v1.0.2",
+          "diagnostics": {
+            "error_count": 605,
+            "missing_import_count": 0
+          },
+          "evidence_sha256": {
+            "evaluation/result.json": "bd886fbc19868b376cb5c7f115ed4c6d5c180357c9d056996f4f26fd626c844e",
+            "generation/container-commands.jsonl": "d2f6c4347c2d5ce1db3fbb8322a3829b4f1c85d1248671fd82ab5cf04990a0e4",
+            "generation/result.json": "c201eb9322ddc1642fa91bffe3d7e6b293fa77375d2c26624da2f70f0a309679",
+            "manifest.json": "877f70dc7545071833d2b57827180116d36cebd6492e468601b155eb29220e27",
+            "scripts/bootstrap.sh": "cee9bd3b0518cff33b91eeb48b678a7ecbf9cc172aaebb5b963e1f72df137e73"
+          },
+          "generation_completed": true,
+          "method": "envsolve-pro-minimal-b-v1",
+          "official_evaluator_reached": true,
+          "official_pass": true,
+          "official_pass_at_1": true,
+          "pair_index": 5,
+          "position": 9,
+          "repository": "castagnait/plugin.video.netflix",
+          "repository_integrity_valid": true,
+          "resources": {
+            "cached_input_tokens": 651264,
+            "commands": 25,
+            "coordinator_wall_clock_censor_reason": null,
+            "coordinator_wall_clock_comparable": true,
+            "coordinator_wall_clock_seconds": 1826.439172916,
+            "disk_growth_bytes": null,
+            "evaluation_wall_clock_seconds": 839.208143,
+            "generation_wall_clock_seconds": 985.024074,
+            "input_tokens": 723642,
+            "network_bytes": null,
+            "output_tokens": 9871,
+            "peak_memory_bytes": null,
+            "reasoning_output_tokens": 5085,
+            "replay_calls": 1,
+            "successful_commands": 24,
+            "total_tokens": 733513
+          },
+          "run_id": "pro-minimal-b-v1-paired5-09-envsolve-pro-minimal-b-v1.0.2",
+          "seed": 874961272,
+          "semantic_adjudication": {
+            "basis": "docs/conf.py imports get_addon_data from setup, but the selected pylint/config/_pylint_config/setup.py provider does not expose that symbol.",
+            "evidence_paths": [
+              "scripts/bootstrap.sh",
+              "generation/container-commands.jsonl"
+            ],
+            "role": "posthoc diagnostic, not the preregistered outcome",
+            "status": "failed_required_interface"
+          },
+          "terminal": "official_pass"
+        }
+      },
+      "pair_index": 5,
+      "repository": "castagnait/plugin.video.netflix"
+    }
+  ],
+  "posthoc_semantic_audit": {
+    "scope": "Diagnostic only; not part of preregistered Official Pass@1.",
+    "status_counts": {
+      "failed_required_interface": 2,
+      "not_adjudicated": 8
+    }
+  },
+  "primary": {
+    "absolute_pass_rate_difference": 0.19999999999999996,
+    "by_condition": {
+      "codex-goal-aware-single-session": {
+        "generation_completed": 4,
+        "official_evaluator_reached": 4,
+        "official_pass_at_1": 4,
+        "pass_rate": 0.8,
+        "runs": 5
+      },
+      "envsolve-pro-minimal-b-v1.0.2": {
+        "generation_completed": 5,
+        "official_evaluator_reached": 5,
+        "official_pass_at_1": 5,
+        "pass_rate": 1,
+        "runs": 5
+      }
+    },
+    "exact_two_sided_mcnemar_p": 1.0,
+    "failure_rule": "Any episode without an Official Pass is zero; independently attributable pre-Agent infrastructure attempts are replaced only by frozen amendment.",
+    "metric": "paired Official Pass@1",
+    "paired_counts": {
+      "both_pass": 4,
+      "control_only_pass": 0,
+      "neither_pass": 0,
+      "pairs": 5,
+      "treatment_only_pass": 1
+    }
+  },
+  "resources": {
+    "metric_policy": {
+      "commands": "all paired attempts",
+      "coordinator_wall_clock_seconds": "pairs with comparable acquisition and timing",
+      "input_tokens": "all paired attempts",
+      "total_tokens": "all paired attempts"
+    },
+    "metrics": {
+      "commands": {
+        "control": {
+          "count": 5,
+          "mean": 21.4,
+          "median": 21,
+          "sum": 107
+        },
+        "paired_difference": {
+          "count": 5,
+          "mean": -2.6,
+          "median": -1,
+          "sum": -13
+        },
+        "pairs": [
+          {
+            "control": 42,
+            "pair_index": 1,
+            "repository": "pymanopt/pymanopt",
+            "treatment": 28,
+            "treatment_minus_control": -14
+          },
+          {
+            "control": 21,
+            "pair_index": 2,
+            "repository": "datactive/bigbang",
+            "treatment": 24,
+            "treatment_minus_control": 3
+          },
+          {
+            "control": 12,
+            "pair_index": 3,
+            "repository": "rdmorganiser/rdmo",
+            "treatment": 11,
+            "treatment_minus_control": -1
+          },
+          {
+            "control": 11,
+            "pair_index": 4,
+            "repository": "jazzband/tablib",
+            "treatment": 6,
+            "treatment_minus_control": -5
+          },
+          {
+            "control": 21,
+            "pair_index": 5,
+            "repository": "castagnait/plugin.video.netflix",
+            "treatment": 25,
+            "treatment_minus_control": 4
+          }
+        ],
+        "ratio_of_sums": 0.8785046728971962,
+        "treatment": {
+          "count": 5,
+          "mean": 18.8,
+          "median": 24,
+          "sum": 94
+        }
+      },
+      "coordinator_wall_clock_seconds": {
+        "control": {
+          "count": 4,
+          "mean": 1775.70706991625,
+          "median": 1420.1342029369998,
+          "sum": 7102.828279665
+        },
+        "paired_difference": {
+          "count": 4,
+          "mean": 640.4028975105001,
+          "median": 514.713971104,
+          "sum": 2561.6115900420004
+        },
+        "pairs": [
+          {
+            "control": 3591.694291083,
+            "pair_index": 1,
+            "repository": "pymanopt/pymanopt",
+            "treatment": 5195.592373333,
+            "treatment_minus_control": 1603.8980822500002
+          },
+          {
+            "control": 1852.165574833,
+            "pair_index": 3,
+            "repository": "rdmorganiser/rdmo",
+            "treatment": 2043.257175166,
+            "treatment_minus_control": 191.0916003330001
+          },
+          {
+            "control": 670.8655827079999,
+            "pair_index": 4,
+            "repository": "jazzband/tablib",
+            "treatment": 599.151148292,
+            "treatment_minus_control": -71.7144344159999
+          },
+          {
+            "control": 988.102831041,
+            "pair_index": 5,
+            "repository": "castagnait/plugin.video.netflix",
+            "treatment": 1826.439172916,
+            "treatment_minus_control": 838.336341875
+          }
+        ],
+        "ratio_of_sums": 1.3606467014521173,
+        "treatment": {
+          "count": 4,
+          "mean": 2416.10996742675,
+          "median": 1934.848174041,
+          "sum": 9664.439869707
+        }
+      },
+      "input_tokens": {
+        "control": {
+          "count": 5,
+          "mean": 534709.2,
+          "median": 474814,
+          "sum": 2673546
+        },
+        "paired_difference": {
+          "count": 5,
+          "mean": 27961.2,
+          "median": 56058,
+          "sum": 139806
+        },
+        "pairs": [
+          {
+            "control": 746589,
+            "pair_index": 1,
+            "repository": "pymanopt/pymanopt",
+            "treatment": 861516,
+            "treatment_minus_control": 114927
+          },
+          {
+            "control": 776458,
+            "pair_index": 2,
+            "repository": "datactive/bigbang",
+            "treatment": 832516,
+            "treatment_minus_control": 56058
+          },
+          {
+            "control": 455852,
+            "pair_index": 3,
+            "repository": "rdmorganiser/rdmo",
+            "treatment": 235226,
+            "treatment_minus_control": -220626
+          },
+          {
+            "control": 219833,
+            "pair_index": 4,
+            "repository": "jazzband/tablib",
+            "treatment": 160452,
+            "treatment_minus_control": -59381
+          },
+          {
+            "control": 474814,
+            "pair_index": 5,
+            "repository": "castagnait/plugin.video.netflix",
+            "treatment": 723642,
+            "treatment_minus_control": 248828
+          }
+        ],
+        "ratio_of_sums": 1.0522923488131493,
+        "treatment": {
+          "count": 5,
+          "mean": 562670.4,
+          "median": 723642,
+          "sum": 2813352
+        }
+      },
+      "total_tokens": {
+        "control": {
+          "count": 5,
+          "mean": 544905.6,
+          "median": 485498,
+          "sum": 2724528
+        },
+        "paired_difference": {
+          "count": 5,
+          "mean": 26133.4,
+          "median": 55071,
+          "sum": 130667
+        },
+        "pairs": [
+          {
+            "control": 759934,
+            "pair_index": 1,
+            "repository": "pymanopt/pymanopt",
+            "treatment": 872549,
+            "treatment_minus_control": 112615
+          },
+          {
+            "control": 791334,
+            "pair_index": 2,
+            "repository": "datactive/bigbang",
+            "treatment": 846405,
+            "treatment_minus_control": 55071
+          },
+          {
+            "control": 462185,
+            "pair_index": 3,
+            "repository": "rdmorganiser/rdmo",
+            "treatment": 238718,
+            "treatment_minus_control": -223467
+          },
+          {
+            "control": 225577,
+            "pair_index": 4,
+            "repository": "jazzband/tablib",
+            "treatment": 164010,
+            "treatment_minus_control": -61567
+          },
+          {
+            "control": 485498,
+            "pair_index": 5,
+            "repository": "castagnait/plugin.video.netflix",
+            "treatment": 733513,
+            "treatment_minus_control": 248015
+          }
+        ],
+        "ratio_of_sums": 1.047959499773906,
+        "treatment": {
+          "count": 5,
+          "mean": 571039,
+          "median": 733513,
+          "sum": 2855195
+        }
+      }
+    },
+    "unavailable_preregistered_metrics": [
+      "peak_memory_bytes",
+      "disk_growth_bytes",
+      "network_bytes"
+    ]
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}

@@ -105,6 +105,10 @@ def codex_validation_metadata(
 
 
 class CodexCliRunner:
+    runner_name = "codex-cli"
+    runner_version = "0.1.0"
+    agent_interface = "native-codex-agent+container-terminal-mcp-v1"
+
     def __init__(
         self,
         *,
@@ -129,6 +133,72 @@ class CodexCliRunner:
         self.reasoning_effort = reasoning_effort or "high"
         self.workspace_preconditions = workspace_preconditions
         self.goal_contract = goal_contract
+
+    def _goal_contract_for_run(
+        self,
+        run_spec: RunSpec,
+    ) -> ExecutableGoalContract | None:
+        return (
+            self.goal_contract
+            if run_spec.method == "codex-cli-goal-aware"
+            else None
+        )
+
+    def _mcp_server_args(
+        self,
+        *,
+        trace_path: Path,
+        container_id: str,
+        case: Case | None,
+        image_digest: str | None,
+    ) -> list[str]:
+        return [
+            "-m",
+            "envsolve_harness.codex.container_mcp",
+            "--container-id",
+            container_id,
+            "--workdir",
+            "/data/project",
+            "--trace",
+            str(trace_path),
+            "--command-timeout",
+            str(self.command_timeout),
+            "--max-output-chars",
+            "16000",
+            "--docker",
+            shutil.which("docker") or "docker",
+        ]
+
+    def _mcp_tool_names(self) -> tuple[str, ...]:
+        return ("envbench_shell",)
+
+    def _mcp_tool_timeout_seconds(self) -> int:
+        return self.command_timeout + 30
+
+    def _augment_generation_metadata(
+        self,
+        artifacts: RunArtifacts,
+        metadata: dict[str, Any],
+    ) -> None:
+        return None
+
+    def _has_required_tool_activity(
+        self,
+        successful_command_count: int,
+        metadata: dict[str, Any],
+    ) -> bool:
+        return successful_command_count > 0
+
+    def _required_tool_activity_error(self) -> str:
+        return "Codex CLI completed without a successful container command"
+
+    def _validate_additional_submission(
+        self,
+        script: str,
+        artifacts: RunArtifacts,
+        metadata: dict[str, Any],
+    ) -> None:
+        return None
 
     @staticmethod
     def _now() -> str:
@@ -331,23 +401,16 @@ other development checks are optional evidence rather than the success criterion
         output_path: Path,
         trace_path: Path,
         container_id: str,
+        case: Case | None = None,
+        image_digest: str | None = None,
     ) -> list[str]:
-        server_args = [
-            "-m",
-            "envsolve_harness.codex.container_mcp",
-            "--container-id",
-            container_id,
-            "--workdir",
-            "/data/project",
-            "--trace",
-            str(trace_path),
-            "--command-timeout",
-            str(self.command_timeout),
-            "--max-output-chars",
-            "16000",
-            "--docker",
-            shutil.which("docker") or "docker",
-        ]
+        server_args = self._mcp_server_args(
+            trace_path=trace_path,
+            container_id=container_id,
+            case=case,
+            image_digest=image_digest,
+        )
+        tool_names = self._mcp_tool_names()
         overrides = {
             "approval_policy": "never",
             "project_doc_max_bytes": 0,
@@ -364,11 +427,16 @@ other development checks are optional evidence rather than the success criterion
             "mcp_servers.envsolve_container.args": server_args,
             "mcp_servers.envsolve_container.cwd": str(self.harness_root),
             "mcp_servers.envsolve_container.required": True,
-            "mcp_servers.envsolve_container.enabled_tools": ["envbench_shell"],
-            "mcp_servers.envsolve_container.tool_timeout_sec": self.command_timeout + 30,
+            "mcp_servers.envsolve_container.enabled_tools": list(tool_names),
+            "mcp_servers.envsolve_container.tool_timeout_sec": (
+                self._mcp_tool_timeout_seconds()
+            ),
             "mcp_servers.envsolve_container.default_tools_approval_mode": "approve",
-            "mcp_servers.envsolve_container.tools.envbench_shell.approval_mode": "approve",
         }
+        for tool_name in tool_names:
+            overrides[
+                f"mcp_servers.envsolve_container.tools.{tool_name}.approval_mode"
+            ] = "approve"
         command = [
             str(self.codex_executable),
             "exec",
@@ -397,9 +465,9 @@ other development checks are optional evidence rather than the success criterion
         started_at = self._now()
         write_json(artifacts.status, {"state": "generating", "updated_at": started_at})
         metadata: dict[str, Any] = {
-            "runner": "codex-cli",
-            "runner_version": "0.1.0",
-            "baseline_interface": "native-codex-agent+container-terminal-mcp-v1",
+            "runner": self.runner_name,
+            "runner_version": self.runner_version,
+            "baseline_interface": self.agent_interface,
             "official_evaluator_access": "post-episode-only",
             "audit_requirements": {"repository_integrity": True},
             "resource_policy": {
@@ -415,11 +483,7 @@ other development checks are optional evidence rather than the success criterion
             ],
             "started_at": started_at,
         }
-        goal_contract = (
-            self.goal_contract
-            if run_spec.method == "codex-cli-goal-aware"
-            else None
-        )
+        goal_contract = self._goal_contract_for_run(run_spec)
         if goal_contract is not None:
             metadata["goal_contract"] = {
                 "contract_id": goal_contract.contract_id,
@@ -487,6 +551,8 @@ other development checks are optional evidence rather than the success criterion
                 output_path=output_path,
                 trace_path=trace_path,
                 container_id=container_id,
+                case=case,
+                image_digest=image_digest,
             )
             metadata["command"] = command
             process_env = os.environ.copy()
@@ -543,6 +609,7 @@ other development checks are optional evidence rather than the success criterion
                 "count": len(command_records),
                 "successful_count": successful_command_count,
             }
+            self._augment_generation_metadata(artifacts, metadata)
             integrity = inspect_repository(
                 workspace,
                 case.revision,
@@ -560,10 +627,11 @@ other development checks are optional evidence rather than the success criterion
                 raise RuntimeError("Codex CLI exceeded the generation safety cap")
             if process.returncode != 0:
                 raise RuntimeError(f"Codex CLI exited with {process.returncode}")
-            if successful_command_count == 0:
-                raise RuntimeError(
-                    "Codex CLI completed without a successful container command"
-                )
+            if not self._has_required_tool_activity(
+                successful_command_count,
+                metadata,
+            ):
+                raise RuntimeError(self._required_tool_activity_error())
             if not output_path.is_file():
                 raise RuntimeError("Codex CLI did not produce its structured final output")
             submission = read_json(output_path)
@@ -595,6 +663,7 @@ other development checks are optional evidence rather than the success criterion
                 raise RuntimeError(
                     f"Codex CLI repository integrity failed: {integrity.to_dict()['violations']}"
                 )
+            self._validate_additional_submission(script, artifacts, metadata)
             write_text_atomic(artifacts.generated_script, script + "\n")
             result = SolverResult(
                 True,

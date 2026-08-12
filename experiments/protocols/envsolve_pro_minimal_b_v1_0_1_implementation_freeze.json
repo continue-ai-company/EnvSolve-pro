@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-minimal-b-v1.0.1-implementation",
+  "freeze_type": "source-bound-mechanism",
+  "frozen_at": "2026-08-04",
+  "base_source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "design_freeze": {
+    "freeze_id": "envsolve-pro-minimal-b-v1-design",
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_design_freeze.json",
+    "sha256": "3d54d0f3d4ba3527e60b910143b5c98607dd1682b9bb5d100a134fef7f61bf4b"
+  },
+  "supersedes": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_implementation_freeze.json",
+    "sha256": "e953512f0275f2a409cbfb8fce69c19c2175bb38d11e54304c24c5f8867769c2",
+    "reason": "A consumed live smoke found that a generated local compatibility distribution could evade the pre-execution candidate validator and receive a passing certificate."
+  },
+  "triggering_adjudication": {
+    "path": "experiments/validations/pro_minimal_b_v1_consumed_smoke_01_adjudication.json",
+    "sha256": "4d251f80c61d72f2078117ac7bccaf91c920ada268c197ea46ad347c8bc983c9"
+  },
+  "implementation": {
+    "method": "envsolve-pro-minimal-b-v1",
+    "runner": "envsolve-pro-minimal-b",
+    "runner_version": "1.0.1",
+    "agent_interface": "continuous-agent+online-clean-replay-mcp-v1",
+    "registration": "isolated-experimental-entrypoint",
+    "builtin_runner_registry_modified": false
+  },
+  "frozen_mechanism": {
+    "agent_processes_per_attempt": 1,
+    "construction_environments_per_attempt": 1,
+    "construction_environment_persistent": true,
+    "clean_replay_calls": "zero-or-more-during-session-but-at-least-one-for-acceptance",
+    "fresh_checkout_and_container_per-candidate-validation-accepted-replay": true,
+    "replay_feedback_returns_to_same_agent_process": true,
+    "official_evaluator_access": "post-episode-only",
+    "acceptance": "canonical-final-program-sha256-matches-a-passing-clean-replay-certificate",
+    "admissibility_audits": [
+      "pre-execution-open-candidate-program-v1",
+      "repository-and-workspace-effect-audit",
+      "python-import-alias-audit",
+      "pre-post-local-distribution-provenance-v1"
+    ],
+    "certificate_bindings": [
+      "repository-revision",
+      "docker-image-digest",
+      "public-goal-contract-sha256",
+      "fresh-environment-receipt",
+      "passing-replay-id",
+      "program-sha256"
+    ]
+  },
+  "local_distribution_provenance_contract": {
+    "observation_points": [
+      "before-candidate-in-the-clean-replay-shell",
+      "after-candidate-in-the-same-clean-replay-shell"
+    ],
+    "new-local-distribution_allowed_only_if": "its top-level modules are already provided by the repository",
+    "registry-or-vcs-distributions_affected": false,
+    "purpose": "Reject candidate-generated local distributions that inject undeclared Python modules without introducing repository-specific rules."
+  },
+  "excluded_treatments": [
+    "structured-state-projection",
+    "constraint-ledger",
+    "compatibility-frontier",
+    "checkpointing",
+    "branching-or-rollback",
+    "hypothesis-search",
+    "action-level-postcondition-admission",
+    "cross-session-memory",
+    "cross-case-memory",
+    "bootstrap-minimization",
+    "resource-aware-search",
+    "repository-package-module-or-case-specific-rules"
+  ],
+  "source_sha256": {
+    "envsolve_harness/codex/minimal_b_mcp.py": "941d16d2c4f81ab9bbf0102e886c8757c02061f35fcde5630ba77dd7091dda8c",
+    "envsolve_harness/runners/codex_cli.py": "8a17bcc6580bd0cec81c7e0faf34311f3ecc20f9fee7bc0d7f277c1d25ba6dd5",
+    "envsolve_harness/runners/envsolve_pro_minimal_b.py": "f9427ecbe7ee0bcb9c9f310cda94bf6e4ed98fa86e463104d66fb2b9d954fba6",
+    "experiments/run_minimal_b_case.py": "1aebb3d6af81cc6ab78ed642c076359419b5280f69b8c664c1996cdbca096cdf",
+    "tests/test_envsolve_pro_minimal_b_runner.py": "4343ffeac6527ffd4449979f9d6bb56a7a6e0e7ad23a173ddc2cbda9f6d8b0eb",
+    "tests/test_minimal_b_mcp.py": "9cab4866e26a5e8429b423ece5fd2c85a770afbdaedbefaf11844c7b1b01e4e9"
+  },
+  "verification": {
+    "focused_regression": {
+      "result": "19-passed-3-skipped",
+      "covers": [
+        "same-mcp-service-across-multiple-replays",
+        "same-live-session-continues-after-replay-fail",
+        "fail-unknown-pass-and-infrastructure-separation",
+        "fresh-receipt-identity",
+        "wrong-image-rejection",
+        "exact-final-program-certification",
+        "goal-revision-and-image-certificate-binding",
+        "local-distribution-provenance-delta",
+        "frozen-baseline-registry-integrity"
+      ]
+    },
+    "real_docker_integration": {
+      "result": "9-passed",
+      "scenarios": [
+        "first-clean-replay-fails-second-passes-in-distinct-released-containers",
+        "dynamically-generated-local-python-distribution-is-rejected-after-execution"
+      ],
+      "source_repository_clean_after_replays": true
+    },
+    "full_harness_regression": {
+      "result": "693-passed-5-skipped-75-subtests-passed",
+      "warnings": "7-upstream-pydantic-deprecation-warnings"
+    },
+    "static_checks": {
+      "ruff": "passed",
+      "git_diff_check": "passed"
+    }
+  },
+  "claims_not_yet_supported": [
+    "a-research-valid-live-strong-agent-episode-passes-clean-replay",
+    "official-envbench-pass-rate-improvement",
+    "replay-conditioned-repair-improves-over-the-controlled-strong-agent",
+    "resource-or-token-efficiency-improvement"
+  ],
+  "effectiveness_protocol_status": "not-yet-preregistered",
+  "next_allowed_work": "rerun-the-same-consumed-development-smoke-without-changing-the-algorithm"
+}

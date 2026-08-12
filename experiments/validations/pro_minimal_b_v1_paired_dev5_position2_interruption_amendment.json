@@ -1,0 +1,76 @@
+{
+  "amendment_id": "envsolve-pro-minimal-b-v1-paired-dev5-position2-interruption-retry1",
+  "artifacts": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_minimal_b_v1_paired_dev5.json",
+      "sha256": "0ba89b8ced3f089ecefd59fa0c96f8d5ce8f6c424ca369c0cb3d986c68840ce5"
+    },
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json",
+      "sha256": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2"
+    },
+    "original_progress_at_amendment": {
+      "path": "experiments/runs/pro_minimal_b_v1_paired_dev5_mac-progress.json",
+      "sha256": "ec11a1afd89fb8a882924f3713d6943b950b00cc9f257a4b1cd45590218bc0ec"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+      "sha256": "0750ac2842f4ab4d333898329404dd6b396d5ff5be2cce0489fa64507770350e"
+    },
+    "preregistration": {
+      "path": "experiments/validations/pro_minimal_b_v1_paired_dev5_preregistration.json",
+      "sha256": "568302d178b5dfc926fd7516100d9383cc65e459725bfc6720227fcae2efbb60"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "retry_schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_position2_retry1_mac.json",
+      "sha256": "04e7dd2fbfef3376cbc12fa0d6b61e967de0d12c65d25c0be74438daf7b98404"
+    }
+  },
+  "created_at": "2026-08-05T03:05:28Z",
+  "decision": {
+    "algorithm_change_before_retry": false,
+    "analysis_treatment": "Replace the censored position-2 observation with retry1 for the paired primary analysis. Preserve and report the original interruption separately.",
+    "case_replacement": false,
+    "original_observation_class": "user_or_host_interruption",
+    "original_observation_in_effect_denominator": false,
+    "retry_environment": "new clean construction and replay containers",
+    "retry_identity": [
+      "case",
+      "case source revision",
+      "condition",
+      "runner implementation",
+      "model",
+      "reasoning effort",
+      "seed",
+      "container image",
+      "protocol",
+      "episode timeout"
+    ]
+  },
+  "original_episode": {
+    "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2/envbench-python-pymanopt__pymanopt__1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+    "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+    "clean_replay_reached": false,
+    "duration_seconds": 1566.6646178750002,
+    "generation_result_recorded": false,
+    "official_evaluator_reached": false,
+    "original_position": 2,
+    "process_exit_code": -15,
+    "reason": "The user requested an end-of-day pause and host relocation. The coordinator received termination, recorded the interruption, and removed the active container.",
+    "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2",
+    "state": "interrupted"
+  },
+  "retry_episode": {
+    "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+    "condition": "envsolve-pro-minimal-b-v1.0.2",
+    "model": "gpt-5.5",
+    "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1",
+    "seed": 1940233041
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}

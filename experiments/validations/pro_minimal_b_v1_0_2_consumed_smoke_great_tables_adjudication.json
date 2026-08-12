@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "adjudicated_at": "2026-08-04",
+  "adjudication_id": "envsolve-pro-minimal-b-v1.0.2-consumed-smoke-great-tables",
+  "preregistration": {
+    "path": "experiments/validations/pro_minimal_b_v1_0_2_consumed_smoke_great_tables_preregistration.json",
+    "sha256": "e31c3027881c7a4e03f671c0edf8d2e9a02f7c18a91d42985df5f18787fe0420"
+  },
+  "network_amendment": {
+    "path": "experiments/validations/pro_minimal_b_v1_0_2_consumed_smoke_great_tables_network_amendment.json",
+    "sha256": "95bedb89e7ef043397c74161a3ef4950fb2d6a028da6870d7e9b6fb60421018c"
+  },
+  "implementation_freeze": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json",
+    "sha256": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2",
+    "source_hashes_unchanged_after_episode": true
+  },
+  "case": {
+    "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+    "selection_status": "previously-consumed",
+    "effectiveness_sample": false
+  },
+  "runs": {
+    "censored_initial_run": {
+      "run_id": "pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables",
+      "classification": "infrastructure-failure",
+      "stage": "initial-repository-fetch",
+      "agent_started": false,
+      "research_outcome": null
+    },
+    "adjudicated_retry": {
+      "run_id": "pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables-network-retry1",
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-consumed/pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables-network-retry1/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623",
+      "generation_completed": true,
+      "research_valid": true,
+      "official_evaluation_completed": true,
+      "official_pass": true
+    }
+  },
+  "mechanism_checks": {
+    "one_agent_process": true,
+    "one_agent_thread_started": true,
+    "one_agent_turn_completed": true,
+    "one_persistent_construction_container": true,
+    "replay_feedback_returned_before_final_output": true,
+    "candidate_validation_accepted": true,
+    "fresh_replay_count": 1,
+    "fresh_replay_status_counts": {
+      "pass": 1
+    },
+    "fresh_replay_environment_id": "f6db0633160d117b2a68943aac545bc6bbda8ca4304173d2f9e298ef3e6ce5fb",
+    "final_program_matches_passing_certificate_under_canonical_script_hash": true,
+    "canonical_program_sha256": "9623c35c32fb6467a416a3dd329bca303d9ccf3105f82878c3044e5ca761e3b2",
+    "new_local_distribution_or_unowned_import_violations": 0,
+    "repository_integrity_valid": true,
+    "official_evaluator_started_after_agent_finished": true
+  },
+  "trajectory": {
+    "container_commands": 13,
+    "successful_container_commands": 11,
+    "first_probe_exit_code": 127,
+    "first_install": {
+      "program": "python -m pip install -e '.[all]'",
+      "timed_out": true,
+      "duration_seconds": 600.043373375
+    },
+    "recovery_in_same_session": {
+      "preserved_partial_environment": true,
+      "program": "python -m pip install -e '.[extra]' pandas polars pytest shiny requests ipykernel pyright",
+      "exit_code": 0,
+      "duration_seconds": 146.557435875
+    },
+    "clean_replay_bootstrap_seconds": 338.9220485000001,
+    "agent_transport_reconnect_events": 4,
+    "agent_process_exit_code": 0,
+    "token_usage": {
+      "input_tokens": 309420,
+      "cached_input_tokens": 257024,
+      "output_tokens": 4443,
+      "reasoning_output_tokens": 2046
+    }
+  },
+  "official_envbench": {
+    "exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 1560,
+    "error_count_role": "non-scoring-pyright-diagnostics",
+    "identity_matches": true,
+    "evaluation_container_execution_seconds": 430.8891429901123
+  },
+  "artifact_sha256": {
+    "generation/result.json": "8699973b469fe364897042e1d80ba21e0131794dcd32fbc75c69e49d0a86ff14",
+    "evaluation/result.json": "2328ceba80ff86904d50aeb939bdd73bd84428b8e2d8a68c5f2a1fe3441999f9",
+    "generation/trajectory.jsonl": "ed1bf110924275e916f78643f9e9124c1bc3e63d1dfaa94aabe18f861f451b21",
+    "generation/container-commands.jsonl": "46a46edd32c9b26ab42a16b36fcf7eda76da1b4c08d4479c9cc317cf7d7a84db",
+    "generation/minimal-b/replays.jsonl": "997dff1bd40899102d362e63276eef482cc906e7084ad15ecd461a2728529f5f",
+    "generation/minimal-b/certification.json": "2609aeef7ddf436f14d4d6d5ca2d2aedb844512c23d7d93a853933439a9f3198",
+    "scripts/generated.sh": "54a755ac80cab7a3a9656efaecc2a44543f58927038d01fd4c8c75e5007e44b3",
+    "runtime/heartbeat.jsonl": "77ae9c3854542aabebba40bf661511d1bb67d810cef0947ea990d2d6f7152751"
+  },
+  "decision": {
+    "minimal_b_live_mechanism_gate": "pass",
+    "admissibility_boundary": "pass-for-the-observed-generated-module-and-unowned-artifact-bypasses",
+    "official_consumed_smoke": "pass",
+    "effectiveness_claim": "not-supported",
+    "next_allowed_work": "freeze-a-repository-disjoint-paired-development-comparison-without-changing-minimal-b-from-this-case"
+  }
+}

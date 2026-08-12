@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "registered_at": "2026-08-04",
+  "amendment_id": "envsolve-pro-minimal-b-v1.0.2-consumed-smoke-great-tables-network-retry1",
+  "original_preregistration": {
+    "path": "experiments/validations/pro_minimal_b_v1_0_2_consumed_smoke_great_tables_preregistration.json",
+    "sha256": "e31c3027881c7a4e03f671c0edf8d2e9a02f7c18a91d42985df5f18787fe0420"
+  },
+  "censored_run": {
+    "run_id": "pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables",
+    "stage": "initial-repository-fetch",
+    "agent_started": false,
+    "replays_started": false,
+    "elapsed_seconds": 691.857239166,
+    "termination": "operator-interrupt-after-the-first-600-second-fetch-timeout-entered-an-identical-automatic-retry",
+    "classification": "infrastructure-failure",
+    "heartbeat_sha256": "313c00a72fd8b0255d9468de93d9b218c9f4a127b9f4106860fd99131e3e67c3",
+    "research_outcome": null
+  },
+  "retry": {
+    "run_id": "pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables-network-retry1",
+    "only_change": "Rewrite the exact repository GitHub URL to a read-only local Git object source for the initial checkout.",
+    "mirror_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-01-codex-goal-aware-single-session/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/generation/workspace",
+    "mirror_head": "c4cbd943e9376c62872c3c402e64d168264e5623",
+    "mirror_object_type": "commit",
+    "mirror_origin": "https://github.com/posit-dev/great-tables.git",
+    "url_rewrite_scope": "child-process-environment-only",
+    "case_unchanged": true,
+    "implementation_unchanged": true,
+    "model_unchanged": true,
+    "goal_unchanged": true,
+    "docker_image_unchanged": true,
+    "dependency_network_unchanged": true
+  },
+  "interpretation": "The censored run is excluded. The retry remains a mechanism-only consumed smoke and cannot support effectiveness claims."
+}

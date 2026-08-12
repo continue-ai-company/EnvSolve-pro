@@ -1,0 +1,130 @@
+{
+  "case_file": "experiments/cases/dev_pro_minimal_b_v1_paired5.jsonl",
+  "case_file_sha256": "5432f6c6da2d0a40ac2fe9b3bbc50690c43c1ae10ce4ade3fc23505fb261cfee",
+  "episode_timeout_seconds": 22400,
+  "episodes": [
+    {
+      "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+      "case_position": 1,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 1,
+      "run_id": "pro-minimal-b-v1-paired5-01-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 1940233041
+    },
+    {
+      "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+      "case_position": 1,
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "host": "mac",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 2,
+      "run_id": "pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 1940233041
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "case_position": 2,
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "host": "mac",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 3,
+      "run_id": "pro-minimal-b-v1-paired5-03-envsolve-pro-minimal-b-v1.0.2",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 1816760719
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "case_position": 2,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 4,
+      "run_id": "pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 1816760719
+    },
+    {
+      "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+      "case_position": 3,
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "host": "mac",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 5,
+      "run_id": "pro-minimal-b-v1-paired5-05-envsolve-pro-minimal-b-v1.0.2",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 3237554904
+    },
+    {
+      "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+      "case_position": 3,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 6,
+      "run_id": "pro-minimal-b-v1-paired5-06-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 3237554904
+    },
+    {
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "case_position": 4,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 7,
+      "run_id": "pro-minimal-b-v1-paired5-07-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 2814670835
+    },
+    {
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "case_position": 4,
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "host": "mac",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 8,
+      "run_id": "pro-minimal-b-v1-paired5-08-envsolve-pro-minimal-b-v1.0.2",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 2814670835
+    },
+    {
+      "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+      "case_position": 5,
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "host": "mac",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 9,
+      "run_id": "pro-minimal-b-v1-paired5-09-envsolve-pro-minimal-b-v1.0.2",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 874961272
+    },
+    {
+      "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+      "case_position": 5,
+      "condition": "codex-goal-aware-single-session",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 10,
+      "run_id": "pro-minimal-b-v1-paired5-10-codex-goal-aware-single-session",
+      "runner": "codex-cli",
+      "seed": 874961272
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}

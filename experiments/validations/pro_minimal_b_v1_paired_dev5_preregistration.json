@@ -1,0 +1,111 @@
+{
+  "analysis_policy": {
+    "all_ten_episodes_before_algorithm_change": true,
+    "case_order": "frozen salted-hash order",
+    "case_replacement": false,
+    "condition_order": "frozen per-repository salted rotation",
+    "identical_infrastructure_retry_requires_frozen_amendment": true,
+    "individual_case_rules_forbidden": true,
+    "infrastructure_unknown_excluded_from_effect_denominator": true,
+    "official_and_integrity_outcomes_reported_separately": true,
+    "paired_by_repository": true
+  },
+  "artifacts": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_minimal_b_v1_paired_dev5.json",
+      "sha256": "0ba89b8ced3f089ecefd59fa0c96f8d5ce8f6c424ca369c0cb3d986c68840ce5"
+    },
+    "freeze_files": {
+      "envsolve_harness/codex/minimal_b_mcp.py": "de0031e6d8148fdcb61a7f804bfcfc41e75516014348f38419c59312b1e8ea4c",
+      "envsolve_harness/runners/codex_cli.py": "8a17bcc6580bd0cec81c7e0faf34311f3ecc20f9fee7bc0d7f277c1d25ba6dd5",
+      "envsolve_harness/runners/envsolve_pro_minimal_b.py": "ed51f8e793c6d731fc1a2a26ac61c6546dc06f501a9a920f2cabb383d7656b98",
+      "experiments/configs/local_mac_pro_minimal_b_v1_paired_dev5.json": "0ba89b8ced3f089ecefd59fa0c96f8d5ce8f6c424ca369c0cb3d986c68840ce5",
+      "experiments/extensible_schedule.py": "b0166c0bfa517afe382a8316e5746d4e1c37cd14744362e499759bddd2d878eb",
+      "experiments/protocols/envbench_python_public_goal_v2.json": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+      "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2",
+      "experiments/run_case.py": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b",
+      "experiments/run_minimal_b_case.py": "1aebb3d6af81cc6ab78ed642c076359419b5280f69b8c664c1996cdbca096cdf",
+      "experiments/run_minimal_b_schedule.py": "3b98b365479547e0c1bf02e6577fb7a6fe7c2d9d9e6607e60764e0110545769f",
+      "experiments/tools/select_pro_minimal_b_v1_paired_dev5.py": "ca5a7e184eae735e5d4a5bf892a957fd55b655b3e010d70af38fa40efe797668",
+      "research/PRO_MINIMAL_B_V1_PAIRED_DEV5_PROTOCOL.md": "696b8e63fff14d4a79e662e3bb851c74e68fa41f97086cfd2cf0527af1d06968",
+      "research/PRO_MINIMAL_B_V1_PAIRED_DEV5_PROTOCOL_ZH.md": "b8e3c884838d13d26f2dddfd5c015b231eb99e4978d09f4691baac245ff5043e",
+      "tests/test_envsolve_pro_minimal_b_runner.py": "d4c26f756fab80ece3c11f2a357f5b21bd190b3394144d44a4a6dbfb82322f32",
+      "tests/test_minimal_b_mcp.py": "1feb144b55f6634181283607013e7efa21fb47f7eb08553de590c459bbdfb9af"
+    },
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json",
+      "sha256": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+      "sha256": "0750ac2842f4ab4d333898329404dd6b396d5ff5be2cce0489fa64507770350e"
+    }
+  },
+  "claim_scope": "Repository-disjoint paired five-case development comparison. It can evaluate the Minimal B mechanism but cannot support held-out or leaderboard claims.",
+  "conditions": [
+    {
+      "condition": "codex-goal-aware-single-session",
+      "method": "codex-cli-goal-aware",
+      "online_clean_replay": false,
+      "role": "strong Agent control",
+      "runner": "codex-cli"
+    },
+    {
+      "condition": "envsolve-pro-minimal-b-v1.0.2",
+      "method": "envsolve-pro-minimal-b-v1",
+      "online_clean_replay": true,
+      "role": "online clean-replay treatment",
+      "runner": "envsolve-pro-minimal-b"
+    }
+  ],
+  "metrics": {
+    "mechanism": "replay-conditioned repair within one Agent session",
+    "primary": "paired Official Pass@1",
+    "secondary": [
+      "generation completion",
+      "integrity outcome",
+      "replay calls",
+      "commands",
+      "model tokens",
+      "wall-clock time",
+      "peak memory",
+      "disk growth",
+      "network bytes when available"
+    ]
+  },
+  "preregistered_at": "2026-08-04T08:38:43.737694+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + repository)",
+    "failure_prescreen": false,
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_minimal_b_v1_paired_53.jsonl",
+    "remaining_case_file_sha256": "62932c34602538f0653c25cce71adc43aeb2d95113eb2bf6a48901a305e28115",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-minimal-b-v1-paired-dev5-2026-08-04",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_minimal_b_v1_paired5.jsonl",
+    "selected_case_file_sha256": "5432f6c6da2d0a40ac2fe9b3bbc50690c43c1ae10ce4ade3fc23505fb261cfee",
+    "selection_unit": "repository",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_stateful_agent_v2_4_pilot_58.jsonl",
+    "source_case_file_sha256": "a008e4e70f355ecbad9267c373ec710a94e839e6ef9a69645e309f5e6488e1a6",
+    "source_rows": 58,
+    "take": 5
+  },
+  "shared_setting": {
+    "candidate_interface": "open cumulative Bash program",
+    "construction_environment": "persistent within one Agent session",
+    "cross_case_memory": false,
+    "model": "gpt-5.5",
+    "model_cost_hard_limit": false,
+    "model_token_hard_limit": false,
+    "official_evaluator_feedback_available_online": false,
+    "reasoning_effort": "high"
+  },
+  "source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "status": "frozen-before-execution",
+  "study_id": "envsolve-pro-minimal-b-v1-paired-dev5"
+}
