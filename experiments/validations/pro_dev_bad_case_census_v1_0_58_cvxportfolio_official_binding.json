@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.58-cvxportfolio-official",
+  "frozen_at": "2026-08-09T17:25:32Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-52-lane2-42-A-spark",
+    "generation_result_sha256": "ea7730256be0a9434f6e128eeceb8c8e0a2ca388f591f74c90377baa31903893",
+    "final_output_sha256": "248c569840929c3fcb1b74494c950cff58bd8d9011e1bd0f9bad5a61155d103a",
+    "submitted_program_sha256": "c7c0bfd0e6d0e0bcd501da94abd375f6e5484a8e1ff9c74e89f2eadfcc6816f0",
+    "agent_command_count": 19,
+    "qualification_status": "advisory-unavailable-transport-timeout",
+    "qualification_is_advisory": true,
+    "qualification_error": "Remote workspace rsync exceeded 1200 seconds because two generated virtual environments totaling most of the 1.5 GB workspace were not excluded. The model episode and submitted program completed before this control-plane error."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-52-lane2-42-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 510689,
+    "cached_input_tokens": 459264,
+    "output_tokens": 10699,
+    "reasoning_output_tokens": 6078,
+    "clean_replay_seconds": null,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program creates a Python 3.12 environment and installs the project with its declared development, test, examples, and documentation extras plus two repository-import dependencies. Fresh replay evidence is unavailable because of the transport timeout, so this is not a completeness certification.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

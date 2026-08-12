@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.48-mqt-bench",
+  "recorded_at": "2026-08-09T16:14:39Z",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-42-lane1-31-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-42-lane1-31-A-spark-official",
+  "submitted_program_sha256": "9b206b32d01c72e32389f778fda75d0c5e12f24545908eab1fb6fdc72e175aab",
+  "official_result_sha256": "69c08d58606261d636c82d4a9da970bdd4bfa013e10c95db730e1e39c96c7baf",
+  "official_raw_result_sha256": "1ee7b61b9c352543e5fa0dce42b128fe506872531bf85e477e70002a8191c2c0",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 114,
+    "warning_count": 0,
+    "execution_time_seconds": 354.4285662174225
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "goal_pass": true,
+    "classification": "true-positive-relative-to-official",
+    "clean_replay_seconds": 164.4645933329998
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "no-red-flag-observed",
+    "reason": "The program used an isolated Python 3.12 environment, installed the declared development dependency set, and applied an explicit compatibility pin without mutating source or synthesizing import providers."
+  }
+}

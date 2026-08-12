@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.76-bigbang-counterfactual-official",
+  "frozen_at": "2026-08-09T19:18:25Z",
+  "status": "frozen-before-diagnostic-official-outcome",
+  "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+  "source_condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark",
+  "submitted_program_sha256": "facbc628cf3d6e7f762ab571783e0fc2f4162147e21168d12068a90f07587026",
+  "program_source": "exact-bootstrap-script-from-captured-agent-final-output",
+  "candidate_policy_accepted": false,
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark-counterfactual-official-diagnostic",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": false,
+    "objective_role": "non_scoring_causal_diagnostic"
+  },
+  "causal_question": "Would the completed strong-Agent program satisfy the EnvBench Official metric if the frozen candidate boundary did not reject the mktemp-based compatibility package construction?",
+  "statistical_disposition_frozen": {
+    "may_change_a_primary_outcome": false,
+    "may_change_a_failure_classification": false,
+    "may_quantify_boundary_cost": true
+  },
+  "protected_sets_touched": false
+}

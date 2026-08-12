@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.92-phobos-remote-source-retry",
+  "created_at": "2026-08-09T20:22:56Z",
+  "status": "frozen-before-phobos-source-retry1",
+  "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+  "censored_attempt": {
+    "run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark",
+    "runner_version": "1.0.1",
+    "generation_result_sha256": "d5fe46e1a4ac5e813b084fdab8afe1374199354eba8fce1549509b477a5a2884",
+    "failure_scope": "spark-remote-repository-acquisition-dns",
+    "failure_signature": "Could not resolve host: github.com",
+    "repository_fetch_attempts": 3,
+    "agent_started": false,
+    "final_submission_exists": false,
+    "terminal_classification": "infrastructure_unknown",
+    "counts_toward_fixed_seed_pass_at_1": false
+  },
+  "retry": {
+    "allowed": true,
+    "run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-source-retry1",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "runner_version": "1.0.1",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "seed": 510049,
+    "precondition": "spark git ls-remote to GitHub succeeds",
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "case_change": false,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

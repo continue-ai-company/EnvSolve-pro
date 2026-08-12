@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.16-neps-official",
+  "frozen_at": "2026-08-09T13:32:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-9-lane1-15-A-spark",
+    "generation_result_sha256": "d589ed7392c559a95ad65109926d9a3db17ee1c3193c2d56c08ec18e0c1d59dd",
+    "submitted_program_sha256": "a526283e6a717486655504730fd5ff6dac6a35559dabe69c9bd6ba370bfc7146",
+    "agent_command_count": 37,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-9-lane1-15-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "protected_sets_touched": false
+}

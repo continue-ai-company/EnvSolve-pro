@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.33-molecularnodes-official",
+  "frozen_at": "2026-08-09T15:05:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-bradyajohnston__molecularnodes@33a07854f471eebe8f131d260b3fcbc9416f69b0",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-25-lane1-25-A-spark",
+    "generation_result_sha256": "4cab2e43ea8cb5eb99a2ea2e4d41926ecd7c325d5403f16d0e459cce55b7c70f",
+    "final_output_sha256": "bc6e68b1636d99c4b75317886f44b6d56c6a756be4f49900d08f60208cd60d1f",
+    "submitted_program_sha256": "a41ba3fe8c1b35d8b7d04846762f4742af70ff8fbeaff0f7e2c2495ae699e20d",
+    "agent_command_count": 30,
+    "qualification_status": "advisory-fail-python-installation-provenance",
+    "qualification_goal_status": "pass-zero-missing-imports",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-25-lane1-25-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1488606,
+    "cached_input_tokens": 1392640,
+    "output_tokens": 15825,
+    "reasoning_output_tokens": 8189,
+    "clean_replay_seconds": 480.9799129170001,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "detail": "The program retags a cp37 pyopenvdb wheel as py3-any and installs fake-bpy rather than Blender's bpy runtime. The clean goal reports zero missing imports, but runtime compatibility with the selected Python 3.11 environment is not established.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

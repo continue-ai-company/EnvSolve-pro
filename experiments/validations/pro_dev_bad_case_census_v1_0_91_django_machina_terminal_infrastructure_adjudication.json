@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.91-django-machina-terminal-infrastructure",
+  "recorded_at": "2026-08-09T20:19:11Z",
+  "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+  "condition": "A-strong-agent-control",
+  "terminal_status": "infrastructure-censored-before-agent-start",
+  "attempts": [
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark",
+      "generation_result_sha256": "854f095fcbaf448169670bd814058c80ac2cf16dc91d78f7810ddeb5e5e54d0d",
+      "repository_fetch_attempts": 3,
+      "failure_signature": "Could not resolve host: github.com"
+    },
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-source-retry1",
+      "generation_result_sha256": "ac285c49e640e8963b68b69c1cc2a703a5b21592d915d076efcd604bf36f451a",
+      "repository_fetch_attempts": 3,
+      "failure_signature": "Could not resolve host: github.com"
+    }
+  ],
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_a_failure": false,
+    "counts_as_infrastructure_censored": true,
+    "official_primary_outcome_available": false,
+    "agent_started": false,
+    "maximum_semantics_identical_retries_exhausted": true,
+    "reason": "Both the original acquisition and the single preregistered retry failed before model execution with the same Spark DNS signature."
+  },
+  "protected_sets_touched": false
+}

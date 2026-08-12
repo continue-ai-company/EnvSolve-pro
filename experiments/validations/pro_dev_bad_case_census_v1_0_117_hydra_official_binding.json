@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.117-hydra-official",
+  "frozen_at": "2026-08-09T22:22:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-facebookresearch__hydra@2e682d84e789d82dd11ab1f329f2dd1966fa6b54",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-77-lane2-62-A-spark-remote-valid1",
+  "submitted_program_sha256": "53d00895a0cc368dc2f42ae384b015b2570fedc87de21a818b3fd6f2e1e08b74",
+  "source_artifacts": {
+    "generation_result_sha256": "bc3678eb0151de14cdfd1f38a13a75937893540ac2c1b764648b442d5c25d041",
+    "final_output_sha256": "89ab242258de75c1d1e2cc6e806439660be6b4814da946432f783fb40c3ab426",
+    "trajectory_sha256": "8cf0fcb8e6995092b7f9fe42ba9e0e132a47f3d2b75fdf6b6933fb2a57223a07",
+    "command_trace_sha256": "69e9aa11ed67c318e3f58b840571d7596c2df7c0d156a9edcdd71b9e4426f2a2",
+    "qualification_result_sha256": "7ee7e0a30ab780732b48d2701dcad70a63901503ab553bcce37ddf340353d094"
+  },
+  "generation": {
+    "agent_command_count": 52,
+    "successful_agent_command_count": 42,
+    "input_tokens": 2623496,
+    "cached_input_tokens": 2506240,
+    "output_tokens": 18430,
+    "reasoning_output_tokens": 8776
+  },
+  "advisory_qualification": {
+    "status": "fail",
+    "fresh_replay_seconds": 485.0419690829999,
+    "bootstrap_exit_code": 0,
+    "failure_family": "tracked-generated-source-modification",
+    "detail": "The script changes two committed ANTLR-generated Python files from `from typing.io import TextIO` to `from typing import TextIO`; the executable goal passed but repository effect policy rejected tracked changes."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-77-lane2-62-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-tracked-generated-source-rewrite",
+    "detail": "The path installs a broad real dependency stack, but it mutates committed generated sources to adapt an obsolete typing import. Whether generated-source compatibility repair belongs inside deployment is a separate policy question from Official success.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

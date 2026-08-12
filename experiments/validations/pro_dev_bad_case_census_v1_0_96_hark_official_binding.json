@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.96-hark-official",
+  "frozen_at": "2026-08-09T20:47:56Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-remote-valid1",
+    "generation_result_sha256": "50c2b4b87ccfdfdcaa24ecc4b3f5ac4412c9f93800da5fff25ed28242e214751",
+    "final_output_sha256": "47f8a1e744badd7acef84d2445ebfcdf08ddcd4cbd8ddaaa43be5fe9f5183b20",
+    "submitted_program_sha256": "6bf328ae7a624c9848641d4c56af96427454577751b2e31d8f3b0bef7e4eddbc",
+    "agent_command_count": 14,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "62e33f3fbaeabb4d57418b4ec54e4d258e81597790a6a0f290f07983b0b94e71"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 334990,
+    "cached_input_tokens": 290304,
+    "output_tokens": 6267,
+    "reasoning_output_tokens": 2513,
+    "clean_replay_seconds": 236.7657882499999,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program creates a Python 3.11 environment, installs the local project with declared dev and doc extras, and installs two real distributions for the remaining imports. Both construction and fresh replay report zero missing imports; runtime behavior remains untested.",
+    "official_outcome_not_overridden": true
+  },
+  "execution_backend_receipt": {
+    "profile": "codex-qualified-ssh-remote-docker-v1",
+    "ssh_target": "avdpro@100.81.196.23",
+    "repository_acquisition_host_role": "spark-execution-host",
+    "construction_and_replay_host_role": "spark-execution-host",
+    "control_host_role": "mac-codex-only"
+  },
+  "protected_sets_touched": false
+}

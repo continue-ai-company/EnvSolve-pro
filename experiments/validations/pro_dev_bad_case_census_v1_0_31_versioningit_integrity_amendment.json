@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.31-versioningit-integrity",
+  "frozen_at": "2026-08-09T14:59:00Z",
+  "status": "frozen-before-cclib-requalification-or-official-outcome",
+  "scope": {
+    "algorithm_identity_changed": false,
+    "baseline": "A",
+    "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "protected_sets_touched": false
+  },
+  "observed_measurement_failure": {
+    "case_id": "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+    "path": "cclib/_version.py",
+    "classification": "repository-integrity-false-positive",
+    "evidence": [
+      "the exact checked-out pyproject.toml declares [tool.versioningit.write].file as cclib/_version.py",
+      "the exact checked-out .gitignore ignores cclib/_version.py",
+      "the exact checked-out build-system requires versioningit>=2.0"
+    ]
+  },
+  "measurement_correction": {
+    "policy_before": "clean-tracked-tree-and-provenance-derived-files-v7",
+    "policy_after": "clean-tracked-tree-and-provenance-derived-files-v8",
+    "rule": "Treat an ignored file named by the tracked [tool.versioningit.write].file setting as a repository-declared build output, matching the existing setuptools-scm rule. Continue rejecting undeclared importable files, tracked changes, unsafe paths, and non-ignored declared paths."
+  },
+  "recovery_policy": {
+    "agent_or_model_may_be_reexecuted": false,
+    "submitted_program_may_change": false,
+    "allowed_action": "re-audit and requalify the already consumed final program under the corrected measurement policy",
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.109-evox-official",
+  "frozen_at": "2026-08-09T21:26:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-remote-valid1",
+  "submitted_program_sha256": "46c05355bd0e6033dd4fcd201a8fa9123cdb801f8c57d906ae043d1aed55b285",
+  "source_artifacts": {
+    "generation_result_sha256": "1fa38da5d573eb838d5b173ec8fd5026de8b4e9352b1731db924a064041aa8c7",
+    "final_output_sha256": "3da9a66b49d98d2a9e526d2125c2e3b518d312206790cac9ff1717dc0ca62703",
+    "trajectory_sha256": "867ce2379fa843804c6ff122b27d0e0d338f3b998c1294858489f5a1c0f3c603",
+    "command_trace_sha256": "4842c1d5609ce3cb8bd49f1da1f0a034a6db090ea0efb6bb035e083b8ffaad21",
+    "qualification_result_sha256": "1b5a92c5f4fb0920fcca6902900bbd819c03d340bd28d9e98074847c65dee824"
+  },
+  "generation": {
+    "agent_command_count": 27,
+    "successful_agent_command_count": 24,
+    "input_tokens": 785573,
+    "cached_input_tokens": 737792,
+    "output_tokens": 8821,
+    "reasoning_output_tokens": 3105
+  },
+  "advisory_qualification": {
+    "status": "pass",
+    "fresh_replay_seconds": 210.70158179200007,
+    "missing_import_count": 0
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-no-deps-scientific-stack",
+    "detail": "The program pins the core JAX stack but installs thirteen additional scientific, simulation, and distributed packages with --no-deps; transitive runtime completeness is not established.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

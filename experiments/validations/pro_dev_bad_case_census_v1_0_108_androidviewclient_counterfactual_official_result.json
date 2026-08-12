@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.108-androidviewclient-counterfactual-official",
+  "recorded_at": "2026-08-09T21:24:13Z",
+  "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-75-lane1-53-A-spark-remote-valid1",
+  "counterfactual_official_run_id": "pro-dev-bad-case-census-v1-0-75-lane1-53-A-spark-remote-valid1-counterfactual-official-diagnostic",
+  "submitted_program_sha256": "7bb4b215f789a8a33ed0fb99bf6069d0dac1cf0473bf30e1194da05d4611debe",
+  "official_result_sha256": "3a260344d836f06a96dade7613ced444e33ea53c837db3c3828f859ba777a85b",
+  "official_raw_result_sha256": "3e633f5a6cc48194ffdd38dcd4ed95c767b2d7e3171e8cefe967a7f0747c75b9",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 871,
+    "warning_count": 436,
+    "files_analyzed": 96,
+    "execution_time_seconds": 58.86696529388428
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_a_official_primary_observation": false,
+    "counts_as_infrastructure_censored": false,
+    "role": "non-scoring-exact-program-boundary-counterfactual",
+    "reason": "The frozen A candidate boundary rejected this exact program before Official submission, so A remains a failure. The post-hoc run isolates the benchmark pass removed by that rejection."
+  },
+  "causal_interpretation": {
+    "candidate_boundary_false_positive_for_official_goal": true,
+    "mechanism": "The program packaged empty Python-2 GUI compatibility modules and behaviorless Android MonkeyRunner classes into a local wheel. Frozen policy rejected importable-artifact materialization, but the exact program passed fresh Official evaluation.",
+    "independent_boundary_pass_loss_index": 3,
+    "related_boundary_pass_loss_cases": [
+      "dbiir/uer-py",
+      "ellmetha/django-machina"
+    ],
+    "algorithm_implication": "Do not use categorical pre-execution rejection as a benchmark gate. Execute candidates, preserve provenance, score Official success separately, and evaluate deployment completeness on an orthogonal axis."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-synthetic-legacy-import-wheel",
+    "reason": "The generated modules satisfy static import resolution but do not implement Tk compatibility or Android MonkeyRunner behavior. This is a clear metric-success versus executable-deployment counterexample."
+  }
+}

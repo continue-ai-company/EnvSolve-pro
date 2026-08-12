@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import base64
+import binascii
+import csv
 from dataclasses import asdict, dataclass
+import hashlib
+import hmac
 import json
 from pathlib import Path, PurePosixPath
 import subprocess
@@ -48,6 +53,7 @@ CONFIGURATION_NAMES = {
 }
 IMPORTABLE_SUFFIXES = {".pth", ".py", ".pyc", ".pyi", ".pyd", ".so"}
 COMPILED_EXTENSION_SUFFIXES = {".pyd", ".so"}
+REPOSITORY_TEMPLATE_MARKERS = ("dist", "example", "sample", "template")
 
 
 @dataclass(frozen=True)
@@ -61,6 +67,17 @@ class IntegrityViolation:
 
 
 @dataclass(frozen=True)
+class RepositoryDerivedArtifact:
+    path: str
+    source_path: str
+    sha256: str
+    derivation: str = "exact-copy-of-tracked-sibling-template"
+
+    def to_dict(self) -> dict[str, str]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class RepositoryIntegrityReport:
     expected_revision: str
     checked_out_revision: str | None
@@ -68,6 +85,7 @@ class RepositoryIntegrityReport:
     declared_generated_paths: tuple[str, ...]
     allowed_generated_paths: tuple[str, ...]
     allowed_generated_path_count: int
+    repository_derived_artifacts: tuple[RepositoryDerivedArtifact, ...]
     disallowed_untracked_paths: tuple[str, ...]
     violations: tuple[IntegrityViolation, ...]
 
@@ -77,7 +95,7 @@ class RepositoryIntegrityReport:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "policy": "clean-tracked-tree-and-declared-generated-files-v5",
+            "policy": "clean-tracked-tree-and-provenance-derived-files-v8",
             "valid": self.valid,
             "expected_revision": self.expected_revision,
             "checked_out_revision": self.checked_out_revision,
@@ -88,6 +106,10 @@ class RepositoryIntegrityReport:
             "allowed_generated_paths_truncated": (
                 self.allowed_generated_path_count > len(self.allowed_generated_paths)
             ),
+            "repository_derived_artifacts": [
+                artifact.to_dict()
+                for artifact in self.repository_derived_artifacts
+            ],
             "disallowed_untracked_paths": list(self.disallowed_untracked_paths),
             "violations": [violation.to_dict() for violation in self.violations],
         }
@@ -99,6 +121,16 @@ def _git(repo_path: Path, *args: str) -> subprocess.CompletedProcess[str]:
         cwd=repo_path,
         capture_output=True,
         text=True,
+        check=False,
+    )
+
+
+def _git_bytes(repo_path: Path, *args: str) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=repo_path,
+        capture_output=True,
+        text=False,
         check=False,
     )
 
@@ -236,6 +268,93 @@ def _environment_roots(
     )
 
 
+def _record_digest_matches(path: Path, digest: str, size: str) -> bool:
+    try:
+        expected_size = int(size)
+        algorithm, encoded = digest.split("=", 1)
+        expected_digest = base64.urlsafe_b64decode(
+            encoded + "=" * (-len(encoded) % 4)
+        )
+        hasher = hashlib.new(algorithm)
+        payload = path.read_bytes()
+    except (OSError, ValueError, TypeError, binascii.Error):
+        return False
+    hasher.update(payload)
+    return len(payload) == expected_size and hmac.compare_digest(
+        hasher.digest(), expected_digest
+    )
+
+
+def _is_verified_setuptools_egg(root: Path) -> bool:
+    """Recognize an unpacked wheel cached by setuptools without trusting its name."""
+
+    metadata = root / "EGG-INFO"
+    record_path = metadata / "RECORD"
+    try:
+        if (
+            root.is_symlink()
+            or not root.is_dir()
+            or not (metadata / "PKG-INFO").is_file()
+            or not (metadata / "WHEEL").is_file()
+            or record_path.is_symlink()
+            or not record_path.is_file()
+        ):
+            return False
+        records = {
+            relative: (digest, size)
+            for row in csv.reader(record_path.read_text(encoding="utf-8").splitlines())
+            if len(row) == 3
+            for relative, digest, size in [row]
+            if _safe_relative_path(relative) is not None
+        }
+        importable_files = tuple(
+            path
+            for path in root.rglob("*")
+            if path.is_file()
+            and path.suffix.lower() in IMPORTABLE_SUFFIXES
+            and "__pycache__" not in path.relative_to(root).parts
+        )
+    except (OSError, UnicodeError, csv.Error):
+        return False
+    if not importable_files:
+        return False
+    for path in importable_files:
+        try:
+            if path.is_symlink():
+                return False
+            relative = path.relative_to(root).as_posix()
+        except (OSError, ValueError):
+            return False
+        digest_and_size = records.get(relative)
+        if (
+            digest_and_size is None
+            or not all(digest_and_size)
+            or not _record_digest_matches(path, *digest_and_size)
+        ):
+            return False
+    return True
+
+
+def _setuptools_egg_roots(
+    repo_path: Path,
+    paths: tuple[str, ...],
+) -> tuple[PurePosixPath, ...]:
+    candidates: set[PurePosixPath] = set()
+    for path in paths:
+        parts = PurePosixPath(path).parts
+        for index, part in enumerate(parts[:-1]):
+            if part == ".eggs" and parts[index + 1].endswith(".egg"):
+                candidates.add(PurePosixPath(*parts[: index + 2]))
+                break
+    return tuple(
+        sorted(
+            root
+            for root in candidates
+            if _is_verified_setuptools_egg(repo_path / root)
+        )
+    )
+
+
 def _inside_root(path: PurePosixPath, root: PurePosixPath) -> bool:
     return path == root or root in path.parents
 
@@ -262,30 +381,46 @@ def _declared_generated_paths(repo_path: Path) -> tuple[str, ...]:
     except (OSError, UnicodeError, tomllib.TOMLDecodeError):
         return ()
     tool = data.get("tool")
-    setuptools_scm = tool.get("setuptools_scm") if isinstance(tool, dict) else None
-    if not isinstance(setuptools_scm, dict):
+    if not isinstance(tool, dict):
         return ()
-    return tuple(
-        sorted(
-            {
-                path
-                for key in ("version_file", "write_to")
-                if (path := _safe_relative_path(setuptools_scm.get(key))) is not None
-            }
+
+    declared: set[str] = set()
+    setuptools_scm = tool.get("setuptools_scm")
+    if isinstance(setuptools_scm, dict):
+        declared.update(
+            path
+            for key in ("version_file", "write_to")
+            if (path := _safe_relative_path(setuptools_scm.get(key))) is not None
         )
+
+    versioningit = tool.get("versioningit")
+    versioningit_write = (
+        versioningit.get("write") if isinstance(versioningit, dict) else None
     )
+    if isinstance(versioningit_write, dict):
+        path = _safe_relative_path(versioningit_write.get("file"))
+        if path is not None:
+            declared.add(path)
+
+    return tuple(sorted(declared))
 
 
 def _is_allowed_generated(
     path: str,
     environment_roots: tuple[PurePosixPath, ...] = (),
+    setuptools_egg_roots: tuple[PurePosixPath, ...] = (),
     declared_generated_paths: tuple[str, ...] = (),
     ignored_paths: frozenset[str] = frozenset(),
+    repository_derived_paths: frozenset[str] = frozenset(),
 ) -> bool:
     pure = PurePosixPath(path)
     if any(_inside_root(pure, root) for root in environment_roots):
         return True
+    if any(_inside_root(pure, root) for root in setuptools_egg_roots):
+        return True
     if path in declared_generated_paths and path in ignored_paths:
+        return True
+    if path in repository_derived_paths:
         return True
     if path in ignored_paths and pure.suffix.lower() in COMPILED_EXTENSION_SUFFIXES:
         return True
@@ -300,13 +435,20 @@ def _is_allowed_generated(
 def _generated_root(
     path: str,
     environment_roots: tuple[PurePosixPath, ...] = (),
+    setuptools_egg_roots: tuple[PurePosixPath, ...] = (),
     declared_generated_paths: tuple[str, ...] = (),
+    repository_derived_paths: frozenset[str] = frozenset(),
 ) -> str | None:
     pure = PurePosixPath(path)
     for root in environment_roots:
         if _inside_root(pure, root):
             return str(root) + "/"
+    for root in setuptools_egg_roots:
+        if _inside_root(pure, root):
+            return str(root) + "/"
     if path in declared_generated_paths:
+        return path
+    if path in repository_derived_paths:
         return path
     for index, part in enumerate(pure.parts):
         if part in ALLOWED_GENERATED_DIRECTORIES or part.endswith(".egg-info"):
@@ -335,6 +477,65 @@ def _untracked_violation(
             "untracked build, dependency, or verifier configuration is prohibited",
         )
     return None
+
+
+def _repository_derived_artifact(
+    repo_path: Path,
+    expected_revision: str,
+    path: str,
+    tracked_paths: tuple[str, ...],
+    ignored_paths: frozenset[str],
+) -> RepositoryDerivedArtifact | None:
+    target = PurePosixPath(path)
+    if (
+        path not in ignored_paths
+        or target.suffix.lower() not in {".py", ".pyi"}
+    ):
+        return None
+    target_path = repo_path / path
+    try:
+        if target_path.is_symlink() or not target_path.is_file():
+            return None
+        target_bytes = target_path.read_bytes()
+    except OSError:
+        return None
+
+    candidates = (
+        source
+        for source in tracked_paths
+        if source != path
+        and PurePosixPath(source).parent == target.parent
+        and _is_repository_template(PurePosixPath(source), target)
+    )
+    for source in candidates:
+        blob = _git_bytes(repo_path, "show", f"{expected_revision}:{source}")
+        if blob.returncode != 0 or blob.stdout != target_bytes:
+            continue
+        return RepositoryDerivedArtifact(
+            path=path,
+            source_path=source,
+            sha256=hashlib.sha256(target_bytes).hexdigest(),
+        )
+    return None
+
+
+def _is_repository_template(source: PurePosixPath, target: PurePosixPath) -> bool:
+    if source.parent != target.parent:
+        return False
+    if (
+        source.stem == target.stem
+        and source.suffix.lower() not in IMPORTABLE_SUFFIXES
+    ):
+        return True
+    names = {
+        f"{target.name}.{marker}"
+        for marker in REPOSITORY_TEMPLATE_MARKERS
+    }
+    names.update(
+        f"{target.stem}.{marker}{target.suffix}"
+        for marker in REPOSITORY_TEMPLATE_MARKERS
+    )
+    return source.name in names
 
 
 def inspect_repository(
@@ -378,24 +579,51 @@ def inspect_repository(
     )
     untracked = _nul_paths(untracked_process.stdout + ignored_process.stdout)
     ignored_paths = frozenset(_nul_paths(ignored_process.stdout))
+    tracked_process = _git(repo_path, "ls-files", "-z")
+    tracked_paths = _nul_paths(tracked_process.stdout)
     environment_roots = _environment_roots(repo_path, untracked)
+    setuptools_egg_roots = _setuptools_egg_roots(repo_path, untracked)
     declared_generated_paths = _declared_generated_paths(repo_path)
-    if untracked_process.returncode != 0 or ignored_process.returncode != 0:
+    if (
+        untracked_process.returncode != 0
+        or ignored_process.returncode != 0
+        or tracked_process.returncode != 0
+    ):
         violations.append(
             IntegrityViolation(
                 "git_error",
                 None,
-                f"untracked files: {untracked_process.stderr.strip()} {ignored_process.stderr.strip()}",
+                "repository file inventory: "
+                f"{untracked_process.stderr.strip()} "
+                f"{ignored_process.stderr.strip()} "
+                f"{tracked_process.stderr.strip()}",
             )
         )
+    repository_derived_artifacts = tuple(
+        artifact
+        for path in untracked
+        if (artifact := _repository_derived_artifact(
+            repo_path,
+            expected_revision,
+            path,
+            tracked_paths,
+            ignored_paths,
+        ))
+        is not None
+    )
+    repository_derived_paths = frozenset(
+        artifact.path for artifact in repository_derived_artifacts
+    )
     untracked_violations = {
         path: violation
         for path in untracked
         if not _is_allowed_generated(
             path,
             environment_roots,
+            setuptools_egg_roots,
             declared_generated_paths,
             ignored_paths,
+            repository_derived_paths,
         )
         for violation in [_untracked_violation(repo_path, path)]
         if violation is not None
@@ -406,7 +634,9 @@ def inspect_repository(
                 _generated_root(
                     path,
                     environment_roots,
+                    setuptools_egg_roots,
                     declared_generated_paths,
+                    repository_derived_paths,
                 )
                 or path
                 for path in untracked
@@ -437,6 +667,7 @@ def inspect_repository(
         declared_generated_paths=declared_generated_paths,
         allowed_generated_paths=allowed_sample,
         allowed_generated_path_count=len(allowed),
+        repository_derived_artifacts=repository_derived_artifacts,
         disallowed_untracked_paths=disallowed,
         violations=tuple(violations),
     )

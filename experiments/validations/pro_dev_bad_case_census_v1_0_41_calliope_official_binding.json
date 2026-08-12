@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.41-calliope-official",
+  "frozen_at": "2026-08-09T15:29:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-28-lane1-27-A-spark",
+    "generation_result_sha256": "7d1b37c8bec0a87d5696b132f0c841480a1834fff449eadc3e0cef0f4c5f0426",
+    "final_output_sha256": "7ffb5587e27c26cf36b1b8d7272daee706d43bbbdcb953085a21168760d13f8e",
+    "submitted_program_sha256": "9dc595b7b1db5d54a019b298e920f754a458c599a9c43184c09ee00d45437d4e",
+    "agent_command_count": 28,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-28-lane1-27-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 687066,
+    "cached_input_tokens": 614400,
+    "output_tokens": 8892,
+    "reasoning_output_tokens": 4154,
+    "clean_replay_seconds": 423.175137833,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "detail": "The program installs the GLPK system solver, creates a Python 3.10 virtual environment, installs the project editable, and installs development dependencies. Clean replay reached zero missing imports without synthetic modules or retagged packages.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

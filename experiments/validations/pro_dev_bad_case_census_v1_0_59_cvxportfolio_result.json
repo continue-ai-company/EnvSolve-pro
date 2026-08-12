@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.59-cvxportfolio",
+  "recorded_at": "2026-08-09T17:28:51Z",
+  "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-52-lane2-42-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-52-lane2-42-A-spark-official",
+  "submitted_program_sha256": "c7c0bfd0e6d0e0bcd501da94abd375f6e5484a8e1ff9c74e89f2eadfcc6816f0",
+  "official_result_sha256": "a43c537b5a43d8dc2be264f60a1676b38aa839998539521826d4707f3965c1c4",
+  "official_raw_result_sha256": "8cd715445c7dabd1e38b6d5b3ea917fe969bb0ee781ab0e4092624cb36dbf417",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 45.10492396354675,
+    "terminal_stage": "isolated-build-dependency-resolution-before-pyright",
+    "terminal_signature": "no-matching-distribution-for-setuptools"
+  },
+  "advisory_qualification": {
+    "pass": null,
+    "classification": "unavailable-control-plane-transport-timeout",
+    "reason": "The post-session workspace transfer exceeded 1200 seconds because generated virtual environments were not excluded. This did not alter the submitted program or Official outcome."
+  },
+  "causal_disposition": {
+    "status": "unresolved-upstream-index-likely",
+    "reason": "The package index returned no versions for setuptools inside build isolation even though setuptools is known to exist and the same project installation completed in construction. Frozen Official policy counts the result as Fail because no recognized infrastructure signature was present, but this case must not motivate an algorithm rule without a deterministic reproduction."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-flagged-from-trajectory",
+    "reason": "The submitted program used Python 3.12 and installed declared extras plus repository-import dependencies; no fresh qualification result is available."
+  }
+}

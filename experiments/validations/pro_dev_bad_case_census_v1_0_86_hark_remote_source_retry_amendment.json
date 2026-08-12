@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.86-hark-remote-source-retry",
+  "created_at": "2026-08-09T20:11:21Z",
+  "status": "frozen-before-hark-source-retry1",
+  "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+  "censored_attempt": {
+    "run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark",
+    "runner_version": "1.0.1",
+    "generation_result_sha256": "c0e9dfc0f0509161aa7f79e486fd004efaa998dd7e29f75b103c70f5de34632a",
+    "failure_scope": "spark-remote-repository-acquisition-dns",
+    "failure_signature": "Could not resolve host: github.com",
+    "repository_fetch_attempts": 3,
+    "agent_started": false,
+    "final_submission_exists": false,
+    "terminal_classification": "infrastructure_unknown",
+    "counts_toward_fixed_seed_pass_at_1": false
+  },
+  "retry": {
+    "allowed": true,
+    "run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-source-retry1",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "runner_version": "1.0.1",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "seed": 510056,
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "case_change": false,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

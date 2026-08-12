@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.55-neo3-boa-official",
+  "frozen_at": "2026-08-09T17:13:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-cityofzion__neo3-boa@58d33fdcbb67cc6d4f5efefced4ef0a382346ad4",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-51-lane1-35-A-spark",
+    "generation_result_sha256": "990a09ab7622712c1d3d528e161a01add7f970e8a4ea8c74ecfa5ccb3368f434",
+    "final_output_sha256": "2914f68a5d3866a05be0fdfb0c463cacdefdf6432a5652e37dea0bdf8fbf3cd0",
+    "submitted_program_sha256": "95cb25a1f64915ea05ae7dec864c48eb93d11ff7e073590e2839ec665ac57c20",
+    "agent_command_count": 38,
+    "qualification_status": "advisory-pass",
+    "qualification_result_sha256": "32d3926cfa9a4429d9901403c80e21741a24567c9a67ea7aabde2d64f36e17d5",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-51-lane1-35-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 2297851,
+    "cached_input_tokens": 2166784,
+    "output_tokens": 21910,
+    "reasoning_output_tokens": 9812,
+    "clean_replay_seconds": 156.937238041,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged",
+    "detail": "The program creates and installs an empty synthetic boa3-stubs wheel solely to satisfy a legacy negative-test import. The advisory installation audit accepted it because the wheel declares the invalid top-level token boa3-stubs while its files create the importable boa3-stubs directory, exposing an audit blind spot. A passing Official outcome would establish metric success, not a complete neo3-boa runtime environment.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

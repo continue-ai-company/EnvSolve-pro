@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.12-featuretools-official-network-retry1",
+  "created_at": "2026-08-09T13:18:00Z",
+  "status": "frozen-before-retry1-outcome",
+  "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-6-lane2-8-A-spark-official",
+  "source_outcome": {
+    "evaluation_completed": false,
+    "termination_kind": "infrastructure_unknown",
+    "scope": "evaluator_bootstrap",
+    "signature": "read-timeout",
+    "result_sha256": "55b046d90adef5baf6656ea1b26c3d62d4d80d2179c503dbf60e2b13e451da97",
+    "raw_result_sha256": "ad7f670b2238b98465b32c04a0d7023804308c698dbc257c8b20894c06da7868"
+  },
+  "retry": {
+    "run_id": "pro-dev-bad-case-census-v1-0-6-lane2-8-A-spark-official-network-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "submitted_program_sha256": "4ff807ae57d47b4c2b801f93931bf4536770a54b6009c77781a3d33c9aed7d51",
+    "agent_or_model_reexecuted": false,
+    "maximum_retries": 1,
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none"
+  },
+  "adjudication_rule": "Retry1 may replace only the infrastructure-unknown Official outcome. A second infrastructure signature is terminal censored evidence and permits no further replacement retry."
+}

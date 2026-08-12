@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.39-cheroot-official",
+  "frozen_at": "2026-08-09T15:22:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-cherrypy__cheroot@1ff20b18e98e424e0616654c28c92524deef348a",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-35-lane2-34-A-spark",
+    "generation_result_sha256": "b21d640d3d4bbb1ba3b53b94141db5f1745df5373c25f751330ab4c999f1d22f",
+    "final_output_sha256": "508c9bfdce7156f5b49cb4c63fe01a532a0fb8f876c37c639d3dcf805b2d1d5a",
+    "submitted_program_sha256": "44f309dcebe53ce2ab6fc42c8d1a41b623d0cf1538f35a7ceb56328fdaeeb165",
+    "agent_command_count": 14,
+    "qualification_status": "advisory-fail-32-missing-imports",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-35-lane2-34-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 388205,
+    "cached_input_tokens": 351232,
+    "output_tokens": 8544,
+    "reasoning_output_tokens": 4830,
+    "clean_replay_seconds": 62.41072920800002,
+    "token_usage_is_hard_limit": false
+  },
+  "failure_hypothesis_observed_before_official": {
+    "objective_role": "non_scoring_analysis",
+    "observation": "The editable installation is guarded by an if statement. When dependency resolution fails, the program skips all test requirements and still exits successfully, leaving 32 missing imports in clean replay.",
+    "three_layer_mapping": {
+      "observation": "Construction success did not establish that the exact submitted install would succeed from fresh state.",
+      "constraint": "Project extras and test dependencies must both resolve before the goal can hold.",
+      "operation": "The program conditionally suppresses the project-install failure instead of repairing it or failing closed."
+    },
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.36-cclib-terminal-infrastructure",
+  "adjudicated_at": "2026-08-09T15:14:31Z",
+  "status": "terminal-infrastructure-censored",
+  "case_id": "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+  "submitted_program_sha256": "f15b69b280d04f5b316a77d55c7289a900947c5f0f89bcea56b05adcbfebdd41",
+  "attempts": [
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-26-lane2-30-A-spark-official",
+      "evaluation_result_sha256": "83a758017856dd3b026aae1088275d18d05811a76908dda6ad00b67ea1465d00",
+      "raw_result_sha256": "6a0a009eb975945c55e42054e2184af40621bd11614146a4fbf09dcfa1cc8492",
+      "signature": "read-timeout",
+      "stage": "conda-package-download-before-pyright",
+      "evaluation_completed": false
+    },
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-26-lane2-30-A-spark-official-network-retry1",
+      "evaluation_result_sha256": "423d668dd43de4cc9f6c97b238cdb080bf28392b5ca3734f49dc58903b55cfa5",
+      "raw_result_sha256": "e64d1c0e9afb774f67f441023f178d51083f4358a7cba69cad8ed4f9ba3d87c2",
+      "signature": "conda-http-connection-failed",
+      "stage": "conda-repodata-download-before-pyright",
+      "evaluation_completed": false
+    }
+  ],
+  "decision": {
+    "infrastructure_family": "upstream-conda-network",
+    "reason": "Both exact-script attempts were independently classified as evaluator-bootstrap infrastructure failures before Pyright. The preregistered maximum of one retry is exhausted even though the low-level network signatures differ.",
+    "count_in_pass_numerator": false,
+    "count_in_algorithm_failure_denominator": false,
+    "further_retry_allowed": false,
+    "model_reexecuted": false,
+    "algorithm_identity_changed": false,
+    "protected_sets_touched": false
+  }
+}

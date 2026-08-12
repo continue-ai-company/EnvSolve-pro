@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.110-evox",
+  "recorded_at": "2026-08-09T21:30:41Z",
+  "case_id": "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-remote-valid1",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-remote-valid1-official",
+  "submitted_program_sha256": "46c05355bd0e6033dd4fcd201a8fa9123cdb801f8c57d906ae043d1aed55b285",
+  "official_result_sha256": "2fa36834bc0903db7e66fa4bc8a6fcab6d4de36b999435a4404bd01c599f4c09",
+  "official_raw_result_sha256": "02c702a70c58418543528a6952249b5b24805c2684b99322bb723e217ff1cd4e",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 107.7559986114502,
+    "bootstrap_completed": false
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "false-positive"
+  },
+  "failure_signature": {
+    "family": "isolated-build-index-resolution-empty-candidate-set",
+    "stage": "editable-install-build-dependency-resolution",
+    "detail": "After installing the pinned JAX stack, pip build isolation returned no available version for setuptools>=61.0. The same submitted script had just passed advisory fresh replay."
+  },
+  "causal_disposition": {
+    "counts_as_official_failure": true,
+    "algorithm_rule_motivated": false,
+    "reason": "The frozen protocol counts the primary Official outcome as Fail, but equivalent empty-setuptools candidate failures have been intermittent and unresolved. Do not derive a new operation rule without deterministic reproduction."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-no-deps-scientific-stack",
+    "reason": "Even if the missing-import objective passed, thirteen packages were installed with --no-deps, so transitive runtime completeness would remain unestablished."
+  }
+}

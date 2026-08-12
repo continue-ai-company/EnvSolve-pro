@@ -6,7 +6,7 @@ from typing import Any
 
 from envsolve_harness.core.io import read_json
 from envsolve_harness.adapters.infrastructure import (
-    envbench_bootstrap_infrastructure_signature,
+    envbench_evaluation_infrastructure_signature,
 )
 from envsolve_harness.core.protocol import ExperimentProtocol
 from envsolve_harness.utils.provenance import sha256_file
@@ -130,7 +130,7 @@ def audit_run(run_root: Path) -> AuditReport:
                 report.checks["evaluation_retry_metadata_matches"] = retry_matches
                 if not retry_matches:
                     report.error("Evaluation retry metadata does not match its input record")
-                signature = envbench_bootstrap_infrastructure_signature(source_raw)
+                signature = envbench_evaluation_infrastructure_signature(source_raw)
                 eligible = (
                     retry.get("policy") == "single-exact-script-infrastructure-retry-v1"
                     and retry.get("max_retries") == 1

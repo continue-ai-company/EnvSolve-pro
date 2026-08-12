@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.107-androidviewclient-counterfactual-official",
+  "frozen_at": "2026-08-09T21:20:00Z",
+  "status": "frozen-before-non-scoring-official-outcome",
+  "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-75-lane1-53-A-spark-remote-valid1",
+  "counterfactual_role": "non-scoring-exact-program-boundary-cost-diagnostic",
+  "submitted_program_sha256": "7bb4b215f789a8a33ed0fb99bf6069d0dac1cf0473bf30e1194da05d4611debe",
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-75-lane1-53-A-spark-remote-valid1-counterfactual-official-diagnostic",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": false
+  },
+  "statistical_disposition": {
+    "a_outcome_remains_failure": true,
+    "counterfactual_outcome_cannot_replace_a": true,
+    "purpose": "Determine whether rejecting the generated legacy-import wheel costs Official benchmark success."
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-synthetic-legacy-import-wheel",
+    "detail": "The wheel supplies mostly empty Python-2 GUI compatibility modules and behaviorless Android MonkeyRunner classes.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.118-hydra",
+  "recorded_at": "2026-08-09T22:30:39Z",
+  "case_id": "envbench-python-facebookresearch__hydra@2e682d84e789d82dd11ab1f329f2dd1966fa6b54",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-77-lane2-62-A-spark-remote-valid1",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-77-lane2-62-A-spark-remote-valid1-official",
+  "submitted_program_sha256": "53d00895a0cc368dc2f42ae384b015b2570fedc87de21a818b3fd6f2e1e08b74",
+  "official_result_sha256": "f9dcc0ad69d026f2945ecd49308dae3ab5d16382b8f85463e88897f47fb5dcfa",
+  "official_raw_result_sha256": "fee9dbe191d698bcc0908d68790da11c8fcc977b121f5b68476dd38858b0a6b4",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 308,
+    "warning_count": 5,
+    "files_analyzed": 442,
+    "execution_time_seconds": 471.11288022994995
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "false-negative",
+    "reason": "The exact program passed its goal contract and Official but modified two committed ANTLR-generated files to replace an obsolete typing.io import. Repository effect policy categorically rejected the tracked changes."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-tracked-generated-source-rewrite",
+    "reason": "The path installs a substantial real dependency stack and makes a narrow compatibility edit to generated parser code. Official success does not decide whether mutating committed generated sources belongs inside deployment."
+  },
+  "algorithm_implication": "Operation policy should reason over artifact role, provenance, reproducibility, and effect. A categorical tracked-file-write ban loses benchmark-capable compatibility repairs, while unrestricted source mutation would blur deployment and code repair."
+}

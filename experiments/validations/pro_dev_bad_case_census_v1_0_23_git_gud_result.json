@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.23-git-gud-result",
+  "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-18-lane1-21-A-spark",
+  "effective_run_id": "pro-dev-bad-case-census-v1-0-18-lane1-21-A-spark-official",
+  "submitted_program_sha256": "f9ade5863c270593d18d799213a28c6595a39416567078b7001c458085bd0908",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 148,
+    "warning_count": 0,
+    "execution_time_seconds": 7.507085561752319,
+    "result_sha256": "fe1b5440628d1d3476846e3d2618f6446e0b24481051ffc74b4ab3907df6762f",
+    "raw_result_sha256": "939e691e3eced0e5c69fcb0ae2ea510659a26f075a4955a61ff12b1d76a15199"
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "interpretation": "Audit-boundary diagnostic only; it did not predict the Official outcome."
+  },
+  "infrastructure_censored": false,
+  "protected_sets_touched": false
+}

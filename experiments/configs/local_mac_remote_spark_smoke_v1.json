@@ -1,0 +1,32 @@
+{
+  "paths": {
+    "runs": "runs/remote-spark-smoke-v1"
+  },
+  "benchmarks": {
+    "envbench": {
+      "adapter": "envbench",
+      "root": "/Users/admin/Documents/AnyDeploy/EnvBench",
+      "settings": {
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "deterministic_script": "evaluation/scripts/python_baseline.sh"
+      }
+    }
+  },
+  "solvers": {
+    "codex-cli": {
+      "root": "/Applications/ChatGPT.app/Contents/Resources/codex"
+    }
+  },
+  "generation": {
+    "timeout": 18000,
+    "model_reasoning_effort": "high",
+    "bash_timeout": 1200
+  },
+  "evaluation": {
+    "create_container_timeout": 300,
+    "container_timeout": 1800,
+    "process_timeout": 3600,
+    "git_fetch_timeout": 600,
+    "max_workers": 1
+  }
+}

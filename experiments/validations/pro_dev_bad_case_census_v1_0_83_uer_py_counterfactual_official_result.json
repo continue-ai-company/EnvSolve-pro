@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.83-uer-py-counterfactual-official",
+  "recorded_at": "2026-08-09T20:05:30Z",
+  "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-66-lane1-45-A-spark",
+  "counterfactual_official_run_id": "pro-dev-bad-case-census-v1-0-66-lane1-45-A-spark-counterfactual-official-diagnostic",
+  "submitted_program_sha256": "3e3f2ce799592ff820f66ef27624c38f37d1777331ff7b23056ae61d247200f3",
+  "official_result_sha256": "a21d6560f716dca4ed4a9eddac76d42f5005b6d54427d3027b24ea069155978c",
+  "official_attempt_sha256": "2515fac45160da0174f4dbe96066630f3bf8effc2487d67aa7c5df6c8e98d487",
+  "official_raw_result_sha256": "83ccc9fa5e385d466f711c68e9beb9f124733368843107772f564d8bd0970933",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 105,
+    "warning_count": 0,
+    "execution_time_seconds": 540.804690361023
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_a_official_primary_observation": false,
+    "counts_as_infrastructure_censored": false,
+    "role": "non-scoring-exact-program-boundary-counterfactual",
+    "reason": "The frozen A candidate boundary rejected this exact program before Official submission, so A remains a failure. The post-hoc run isolates whether that rejection removed a benchmark-capable deployment path."
+  },
+  "causal_interpretation": {
+    "candidate_boundary_false_positive_for_official_goal": true,
+    "mechanism": "The program repaired TensorFlow's installed import layout with a symbolic link from tensorflow/keras to tensorflow/python/keras. The frozen v5 boundary forbids symbolic links in Python import search directories, but the exact program passed fresh Official evaluation.",
+    "algorithm_implication": "Do not retain the categorical third-party-import-layout rejection in the next treatment. Replace it with post-execution provenance and effect checks so reversible, evaluator-relevant compatibility repairs can be admitted without generally allowing empty import shims."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-third-party-layout-repair",
+    "reason": "Official success establishes the frozen missing-import objective only. The TensorFlow compatibility symlink changes an installed package's import layout and still requires separate runtime-effect evaluation."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.95-everyelection",
+  "recorded_at": "2026-08-09T20:30:29Z",
+  "case_id": "envbench-python-democracyclub__everyelection@74e6fabf58668d8b96713d05f877b6e4f0353166",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-69-lane1-47-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-69-lane1-47-A-spark-official",
+  "submitted_program_sha256": "b7d7f686e86f97f2f7aeafedca7c9f3771a0a8b2f5347d29db7ad61980410a70",
+  "official_result_sha256": "722ba510bbd534c2b2105ababee9051506b92aff9a8d4c7c63b641f539589614",
+  "official_raw_result_sha256": "df0d60865305c75802c9122e206c81e6e7b8716729cb812904681019e6401dda",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 641,
+    "warning_count": 21,
+    "execution_time_seconds": 167.1796588897705
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-flagged-from-trajectory",
+    "reason": "The program installs a broad declared runtime, infrastructure, and test dependency set plus two pinned DemocracyClub packages, derives local settings from a tracked example, and passes both clean replay and Official. Runtime services remain untested."
+  }
+}

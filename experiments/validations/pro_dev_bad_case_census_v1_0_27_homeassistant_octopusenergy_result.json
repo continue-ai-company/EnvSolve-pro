@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.27-homeassistant-octopusenergy-result",
+  "case_id": "envbench-python-bottlecapdave__homeassistant-octopusenergy@1ece6dff9948051323f51aeee4c861ccaeb7d548",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-22-lane1-23-A-spark",
+  "effective_run_id": "pro-dev-bad-case-census-v1-0-22-lane1-23-A-spark-official",
+  "submitted_program_sha256": "bdfdc0b7f5b776211c6110d56e18a9f05b860b916a4dcbd474259077d84bf6e5",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 1299,
+    "warning_count": 0,
+    "execution_time_seconds": 230.66770267486572,
+    "result_sha256": "0ac4abbe83a8858fb1dc6b2d008d6ddc77d76a3467beba37256deb3ced6c94e0",
+    "raw_result_sha256": "4773ff67de410e896589486c21046326b9af363e025895c7379d0ebc1ce0d18e"
+  },
+  "advisory_qualification": {
+    "pass": true
+  },
+  "infrastructure_censored": false,
+  "protected_sets_touched": false
+}

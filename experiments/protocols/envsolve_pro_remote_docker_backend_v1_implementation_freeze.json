@@ -1,0 +1,70 @@
+{
+  "schema": "envsolve-pro-shared-remote-execution-backend-freeze-v1",
+  "frozen_at": "2026-08-09T10:00:00Z",
+  "research_role": "shared-experiment-infrastructure",
+  "algorithm_component": false,
+  "runners": [
+    {
+      "name": "codex-cli-qualified-boundary-v5-remote-docker",
+      "version": "5.0.1+remote.2",
+      "role": "qualification-primary infrastructure validation"
+    },
+    {
+      "name": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "version": "1.0.0",
+      "role": "Official-primary Dev census"
+    }
+  ],
+  "method": "codex-cli-goal-aware-boundary-v5",
+  "execution_roles": {
+    "agent_control": "mac-local-codex-cli",
+    "construction": "spark-persistent-docker-container",
+    "clean_replay": "spark-fresh-docker-container",
+    "official_evaluation": "spark-envbench"
+  },
+  "invariants": [
+    "The model, prompt, public goal, command schema, image digest, and boundary-v5 verifier are unchanged.",
+    "Only container commands cross SSH; Codex credentials and the Codex executable remain on Mac.",
+    "Generation and clean replay use the same Spark Docker daemon.",
+    "GPU exposure is explicit, defaults to none, and must match across compared arms.",
+    "A rebuildable directory may be excluded from download only when no path beneath it is tracked by Git.",
+    "Tracked source changes and non-rebuildable untracked effects remain synchronized for integrity audit.",
+    "A timed-out remote command must not leave container descendants running.",
+    "For the Official-primary runner, post-session qualification is advisory and is never returned to the Agent.",
+    "A completed submission is emitted for Official evaluation only when the Agent process completed, the structured final output exists, and the open-program safety boundary accepts it."
+  ],
+  "transport": {
+    "workspace_upload": "rsync-archive-delete",
+    "workspace_download": "rsync-archive-delete-with-index-safe-rebuildable-excludes",
+    "candidate_excludes": [
+      "/.nox/",
+      "/.tox/",
+      "/.venv/",
+      "/node_modules/",
+      "/venv/"
+    ],
+    "ownership_during_execution": "0:0",
+    "ownership_during_transport": "ssh-host-uid:gid"
+  },
+  "implementation_sha256": {
+    "envsolve_harness/execution/remote_docker.py": "da9d5d2b02871896110d5f822168ed288efa2a0a96a73e2016ca881c107a6329",
+    "envsolve_harness/codex/remote_container_mcp.py": "312168464cb48a87b70bbd10c849cf16517fe6bfe3d77d2b13ca19cb662a1ef2",
+    "envsolve_harness/runners/remote_boundary_v5.py": "a72558736d3c5c3046756b683c8e65688050e960be5728ded5c4bc25919d930f",
+    "experiments/run_remote_boundary_v5_case.py": "d88a545ed1c60726537c814701933e04b30a95f8b6d0c363d5184986fa1d441d",
+    "experiments/run_case.py": "b35e5770f9b5ada8846209deb0075ba1e64cb050346437695590229b1e26b8a2",
+    "experiments/configs/local_mac_remote_spark_smoke_v1.json": "fa98702a7af57cf8384a45e0fc792ae438fa66f97a5d3f7a20fcbab0296c32db",
+    "tests/test_remote_docker.py": "52eeb76ee9286e5ae25b581cdaf8eab7a50c585144d638bc238abcf464aa286c",
+    "tests/test_remote_boundary_v5_runner.py": "f5a700bba1ce1934dac38eb74c5234d3dbc55bc560bb2c2cf9635cce3cbd88ae"
+  },
+  "verification": {
+    "mac_full_regression_before_transfer_optimization": "773 passed, 10 skipped, 76 subtests passed",
+    "final_focused_regression": "22 passed, 3 skipped",
+    "spark_integration": "3 passed",
+    "spark_integration_checks": [
+      "persistent-shell-state-and-workspace-roundtrip",
+      "timeout-removes-container-descendants",
+      "untracked-rebuildable-environment-is-not-downloaded"
+    ],
+    "ruff": "passed"
+  }
+}

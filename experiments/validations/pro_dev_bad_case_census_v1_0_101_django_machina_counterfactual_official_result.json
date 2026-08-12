@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.101-django-machina-counterfactual-official",
+  "recorded_at": "2026-08-09T21:07:01Z",
+  "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1",
+  "counterfactual_official_run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1-counterfactual-official-diagnostic",
+  "submitted_program_sha256": "a55b5fccb5eaad4ad610485665f52f92c4a9b6a6673bb4ae6f587ee9fe92c9de",
+  "official_result_sha256": "635fccb03efabae31b7a9b9f31e1dd2361b04425448db6383899e77ef19228da",
+  "official_raw_result_sha256": "8ab2b885d381be4a19b162bfc57ada6d200358d894a2c5aa5cc0f841a3aa9739",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 559,
+    "warning_count": 1,
+    "execution_time_seconds": 73.53749418258667
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_a_official_primary_observation": false,
+    "counts_as_infrastructure_censored": false,
+    "role": "non-scoring-exact-program-boundary-counterfactual",
+    "reason": "The frozen A candidate boundary rejected this exact program before Official submission, so A remains a failure. The post-hoc run isolates whether that rejection removed a benchmark-capable deployment path."
+  },
+  "causal_interpretation": {
+    "candidate_boundary_false_positive_for_official_goal": true,
+    "mechanism": "The program created an empty tests/settings_local.py module after installing real project and test dependencies. The frozen policy categorically rejected direct importable-artifact materialization, but the exact program passed fresh Official evaluation.",
+    "independent_boundary_pass_loss_index": 2,
+    "related_boundary_pass_loss_case": "dbiir/uer-py",
+    "algorithm_implication": "Replace categorical operation rejection with post-execution provenance and effect checks. Project-local configuration files should be judged by source convention, location, content, and observed effect rather than by importability alone."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-empty-project-local-settings-module",
+    "reason": "Official success establishes the frozen missing-import objective. The empty local settings module follows a plausible project convention but supplies no runtime configuration behavior."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.45-plugin-video-netflix",
+  "recorded_at": "2026-08-09T15:44:56Z",
+  "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark",
+  "terminal_official_run_id": "pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark-official-network-retry1",
+  "submitted_program_sha256": "739ed03c0b5c08646c0d37ddd173c254497497186a077bb14eeb824961735255",
+  "terminal_official_result_sha256": "de1b78e771eda2caa25575d388c8c4f25affa4ce8143cc928fbc2926eca16a6d",
+  "terminal_official_raw_result_sha256": "57325556b34746b01c870839a2abc8db278029a4adf9e2a3be89a3ee739114ce",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "bootstrap_exit_code": 1,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 22.740598917007446
+  },
+  "attempt_history": {
+    "initial": "infrastructure-censored files.pythonhosted.org read-timeout",
+    "retry": "completed Official Fail after pip reported no setuptools versions",
+    "further_retry_allowed": false
+  },
+  "causal_interpretation": {
+    "status": "ambiguous-upstream-index-resolution",
+    "count_in_official_failure_denominator": true,
+    "count_as_support_for_a_new_algorithm_rule": false,
+    "reason": "setuptools exists for the selected interpreter and its metadata was reached in the first attempt, so the retry's empty version set is plausibly transient. The frozen evaluator nevertheless classified the retry as completed, which determines the Official result."
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "true-negative-relative-to-terminal-official",
+    "clean_replay_missing_import_count": 104
+  }
+}

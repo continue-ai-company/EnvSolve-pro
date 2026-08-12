@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.99-django-machina-counterfactual-official",
+  "frozen_at": "2026-08-09T21:00:06Z",
+  "status": "frozen-before-non-scoring-official-outcome",
+  "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1",
+  "counterfactual_role": "non-scoring-exact-program-boundary-cost-diagnostic",
+  "submitted_program_sha256": "a55b5fccb5eaad4ad610485665f52f92c4a9b6a6673bb4ae6f587ee9fe92c9de",
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1-counterfactual-official-diagnostic",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": false
+  },
+  "statistical_disposition": {
+    "a_outcome_remains_failure": true,
+    "counterfactual_outcome_cannot_replace_a": true,
+    "purpose": "Determine whether rejecting an empty project-local settings module costs Official benchmark success."
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-empty-project-local-settings-module",
+    "detail": "The rejected artifact is an empty tests/settings_local.py module. It may be a legitimate local configuration convention rather than a third-party import shim, but no executable configuration behavior is supplied.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

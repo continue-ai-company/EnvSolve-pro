@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.35-censys-python-official",
+  "frozen_at": "2026-08-09T15:12:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-29-lane2-32-A-spark",
+    "generation_result_sha256": "3f47c0c802404fe556e4af0d226ca98eda1f84a7e689e5c905a9060e348e1100",
+    "final_output_sha256": "5cf1d4fc136f92b39932f6cddefae1da734c7f75ec336731753eef07b71aac8b",
+    "submitted_program_sha256": "739c44649f9ad765a1ec53cfe3e7d0d8265a254006ae06b4a88ee45bf08150c9",
+    "agent_command_count": 9,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-29-lane2-32-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 212650,
+    "cached_input_tokens": 188928,
+    "output_tokens": 4487,
+    "reasoning_output_tokens": 2226,
+    "clean_replay_seconds": 42.25097541700001,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "detail": "The program performs an ordinary editable project installation with declared test and documentation dependencies. No package retagging, synthetic namespace, or copied import implementation was observed.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

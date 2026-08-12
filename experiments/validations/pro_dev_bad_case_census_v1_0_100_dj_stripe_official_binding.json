@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.100-dj-stripe-official",
+  "frozen_at": "2026-08-09T21:04:10Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-74-lane1-51-A-spark-remote-valid1",
+    "generation_result_sha256": "cc6a90f73d4b63ba4296a11cd0621e781622f7bd9140ec7d945b74a771d5191e",
+    "final_output_sha256": "07deebf38cfede56e56e4539aac1562b19de6a6fdee8e2e439b8ea3ae9b0fcf7",
+    "submitted_program_sha256": "ddca03e8ce652141fe77dc617e2c0a9004a7ed3837798d8a27138ab725348db3",
+    "agent_command_count": 16,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "cfdc29127f2c7d51842bf2940548063ccb2e6abc16d839a6eb24fc62c71ae93b"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-74-lane1-51-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 439861,
+    "cached_input_tokens": 390656,
+    "output_tokens": 7018,
+    "reasoning_output_tokens": 3555,
+    "clean_replay_seconds": 63.93133908300001,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program creates a conventional local venv, installs the checked-out project editable with its runtime dependencies, and installs the declared development and test tools. Construction and fresh replay report zero missing imports; runtime services remain untested.",
+    "official_outcome_not_overridden": true
+  },
+  "execution_backend_receipt": {
+    "profile": "codex-qualified-ssh-remote-docker-v1",
+    "ssh_target": "avdpro@100.81.196.23",
+    "construction_and_replay_host_role": "spark-execution-host",
+    "control_host_role": "mac-codex-only"
+  },
+  "protected_sets_touched": false
+}

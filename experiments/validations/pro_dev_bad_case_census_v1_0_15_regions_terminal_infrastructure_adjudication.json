@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.15-regions-terminal-infrastructure",
+  "created_at": "2026-08-09T13:31:00Z",
+  "case_id": "envbench-python-astropy__regions@15393a984d1bd93333805b4f0a9277e3e1ed7929",
+  "status": "terminal-infrastructure-censored",
+  "attempts": [
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark-official",
+      "submitted_program_sha256": "c96a0e0a49fc084e0b76cdb18ea19bb146452c1f55c40e5479a8d03e228d5332",
+      "infrastructure_signature": "read-timeout",
+      "result_sha256": "393e9437306583def9e6c5bca81141d58b62645f40b692c09ab172013e109a74",
+      "raw_result_sha256": "42517dae693309c6c64b076ccc3ef55cf2229c1fbdb7607c6f7f5309048f6925"
+    },
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark-official-network-retry1",
+      "submitted_program_sha256": "c96a0e0a49fc084e0b76cdb18ea19bb146452c1f55c40e5479a8d03e228d5332",
+      "recorded_evaluation_completed": true,
+      "corrected_evaluation_completed": false,
+      "infrastructure_signature": "conda-http-connection-failed",
+      "terminal_evidence": "CondaHTTPError: HTTP 000 CONNECTION FAILED while fetching repo.anaconda.com linux-aarch64 repodata",
+      "result_sha256": "a874833b72e5c3a50ed5fc820a1244696665b9b51f7ed3c82f82862fad7122b6",
+      "raw_result_sha256": "70c553cc4ee1044df36f9efc84b41bb4b93ba384982997d6618946558a7fdafa"
+    }
+  ],
+  "measurement_correction": {
+    "kind": "missing-infrastructure-signature",
+    "implementation": "envsolve_harness/adapters/infrastructure.py",
+    "implementation_sha256": "d62f87ae9789b2c5fa27c0da641da9c8a2104186da789085465450b5eccb6991",
+    "tests": "tests/test_evaluator_infrastructure.py",
+    "tests_sha256": "9dbf409a1ecd65ad7026e369660ff82aae6943e73adc28cc8c0688e35447eaa7",
+    "test_result": "7 passed",
+    "algorithm_identity_changed": false
+  },
+  "effect_estimate_disposition": {
+    "official_pass_numerator": "excluded",
+    "algorithm_failure_denominator": "excluded",
+    "retry_budget_exhausted": true,
+    "further_retries_permitted": false
+  },
+  "protected_sets_touched": false
+}

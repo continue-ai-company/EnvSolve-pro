@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.116-citationhunt-terminal-infrastructure",
+  "recorded_at": "2026-08-09T22:02:57Z",
+  "case_id": "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1",
+  "submitted_program_sha256": "a55b675cd8f7436d2f9ffce9185616d9e99c152b2a6be6710c2e3133ead6f5ad",
+  "attempts": [
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1-official",
+      "result_sha256": "7d1218988b6d7c14842cd85f36eab03b2e93dba1b5125c8d5f10e351bc3ca38d",
+      "raw_result_sha256": "c3c70e962c373607c75e7e3c9deecfd69e8d48e2579f84c6cefcc9543905b9ca",
+      "signature": "conda-http-connection-failed",
+      "stage": "conda-forge-noarch-repodata"
+    },
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1-official-network-retry1",
+      "result_sha256": "0910e951ca6fc58fad0477ce3a56afe25c67046a5d46d89bd026569536ac367e",
+      "raw_result_sha256": "1cb036a4eeebc88910730349f728bcef716448d18f5f936c0f3300a1efbe5989",
+      "signature": "conda-http-connection-failed",
+      "stage": "defaults-and-conda-forge-repodata"
+    }
+  ],
+  "terminal_status": "infrastructure-censored",
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_algorithm_failure": false,
+    "counts_in_official_primary_denominator": false,
+    "retry_count": 1,
+    "further_replacement_retry_allowed": false,
+    "reason": "Both exact-program Official attempts failed while retrieving Conda repodata before project installation or Pyright."
+  },
+  "advisory_qualification": {
+    "status": "fail",
+    "goal_contract_passed": true,
+    "failure_family": "conda-build-origin-provenance-false-positive-hypothesis",
+    "statistical_role": "excluded-because-official-censored"
+  },
+  "protected_sets_touched": false
+}

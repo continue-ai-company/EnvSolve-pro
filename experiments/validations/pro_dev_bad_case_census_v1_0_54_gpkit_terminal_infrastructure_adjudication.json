@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.54-gpkit-terminal-infrastructure",
+  "adjudicated_at": "2026-08-09T17:05:15Z",
+  "status": "terminal-infrastructure-censored",
+  "case_id": "envbench-python-convexengineering__gpkit@bea1234606649dd11a2e59b610b2ba8b8c8adfae",
+  "submitted_program_sha256": "91ab9ef0b25cbd902d1f95dba1162366a6381bc03427180247cbd04a2a5442c7",
+  "attempts": [
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-47-lane2-40-A-spark-official",
+      "evaluation_result_sha256": "07fde7ac6e2601576168034ad461c86a053bced7922e7d8eaf6a46c072b0c572",
+      "raw_result_sha256": "97664e3ef14b59836ed55fc4a8f3f4ec800f4864b74f5fc0202b287a332c09a9",
+      "signature": "package-download-hash-mismatch",
+      "stage": "package-download-before-pyright",
+      "evaluation_completed": false
+    },
+    {
+      "run_id": "pro-dev-bad-case-census-v1-0-47-lane2-40-A-spark-official-retry1",
+      "evaluation_result_sha256": "48da8bc9e254653747b13e5289d55dc4dbce8d99c5bd003f57cba62e2784526e",
+      "raw_result_sha256": "787cae0074bb64dd91c0dd19a8777acbe38313c753683f7991627e51158deafa",
+      "signature": "package-index-json-truncation",
+      "stage": "pip-index-response-parsing-before-pyright",
+      "recorded_evaluation_completed": true,
+      "corrected_evaluation_completed": false
+    }
+  ],
+  "measurement_correction": {
+    "kind": "missing-infrastructure-signature",
+    "implementation": "envsolve_harness/adapters/infrastructure.py",
+    "implementation_sha256": "c0b47408ffbd29777cb08b7cd34ec6aeaa70b74f83d17bc23e4aa7e281074b1d",
+    "tests": "tests/test_evaluator_infrastructure.py",
+    "tests_sha256": "b18ebfaa0beec5c34d511003694b98a5843d5f8b2ddd62c3a8be187c50d70dda",
+    "test_result": "57 passed in focused infrastructure, harness-core, and census-analysis suites",
+    "algorithm_identity_changed": false
+  },
+  "decision": {
+    "infrastructure_family": "upstream-python-package-index-transport",
+    "reason": "The initial exact-script attempt received package bytes that failed their expected hash. The sole preregistered retry received a truncated package-index JSON response and failed before Pyright. Neither attempt measured the submitted deployment program under the Official objective, and the retry budget is exhausted.",
+    "count_in_pass_numerator": false,
+    "count_in_algorithm_failure_denominator": false,
+    "further_retry_allowed": false,
+    "model_reexecuted": false,
+    "algorithm_identity_changed": false,
+    "protected_sets_touched": false
+  }
+}

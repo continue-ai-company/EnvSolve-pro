@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.61-columnflow-official",
+  "frozen_at": "2026-08-09T18:08:16Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-columnflow__columnflow@ad04770a757f5031229ea1b47314cef6de5c9edf",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-55-lane1-37-A-spark",
+    "generation_result_sha256": "f0256eec1d186bbe61d49b717262e00c3a66ff1526a4e1664f87dccb7c3d4875",
+    "final_output_sha256": "6bd079bafe83c067a560dfb4c0c94c484e71699f8d2a3f60a6ca61f0c2a02024",
+    "submitted_program_sha256": "5fba731004323d78ad2a9f04319f82a0548d96ba3742ce41b2614157e5812b47",
+    "agent_command_count": 50,
+    "qualification_status": "advisory-unavailable-transport-timeout",
+    "qualification_is_advisory": true,
+    "qualification_error": "Remote workspace rsync exceeded 1200 seconds because generated Python and ROOT environments under repository-local paths were not excluded. The model episode and submitted program completed before this control-plane error."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-55-lane1-37-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1965160,
+    "cached_input_tokens": 1844736,
+    "output_tokens": 17014,
+    "reasoning_output_tokens": 8272,
+    "clean_replay_seconds": null,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-unpinned-and-partial-runtime",
+    "detail": "The program shallow-clones the current cmsdb default branch without a revision pin and installs root_base with --no-deps. It may satisfy static import resolution, but neither reproducibility nor an executable ROOT runtime is established.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

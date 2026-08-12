@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.20-brainrender-official",
+  "frozen_at": "2026-08-09T13:44:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-brainglobe__brainrender@2b9e89533cd7802802ef63c791245af7b33cc916",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-14-lane2-26-A-spark",
+    "generation_result_sha256": "b8d2143604884c06dc920d7f1296cf7ade0143792470c20171e9b18f51218ee1",
+    "submitted_program_sha256": "487eb0157ce9f94fb0186be053b91c30f2a1e7c30012ffcf9b4849a0f373e7ed",
+    "agent_command_count": 17,
+    "qualification_status": "fail",
+    "qualification_is_advisory": true,
+    "qualification_summary": "Candidate did not return control to the executable goal"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-14-lane2-26-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "protected_sets_touched": false
+}

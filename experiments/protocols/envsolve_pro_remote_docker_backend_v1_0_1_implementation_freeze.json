@@ -1,0 +1,69 @@
+{
+  "schema": "envsolve-pro-shared-remote-execution-backend-freeze-v1.0.1",
+  "frozen_at": "2026-08-09T11:40:00Z",
+  "research_role": "shared-experiment-infrastructure",
+  "algorithm_component": false,
+  "supersedes_for_new_episodes": {
+    "path": "experiments/protocols/envsolve_pro_remote_docker_backend_v1_implementation_freeze.json",
+    "sha256": "f2fdd0cfec4375a21ec90bac19ec5f030d64ede54e27e1ecf7a7acb3db03642e",
+    "preserve_prior_results": true
+  },
+  "runners": [
+    {
+      "name": "codex-cli-qualified-boundary-v5-remote-docker",
+      "version": "5.0.1+remote.3"
+    },
+    {
+      "name": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "version": "1.0.1"
+    }
+  ],
+  "method": "codex-cli-goal-aware-boundary-v5",
+  "correction": {
+    "observed_failure": "The remote.2 runner still populated its exact-revision source cache through the Mac network before transferring the checkout to Spark.",
+    "effect": "Repository acquisition failures could censor an episode before the Agent or Spark execution backend started.",
+    "change": "Populate, lock, validate, and fsck the immutable exact-revision Git cache on Spark; return the verified checkout over Tailscale and reuse the same Spark checkout for construction.",
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "evaluator_change": false
+  },
+  "execution_roles": {
+    "agent_control": "mac-local-codex-cli",
+    "repository_acquisition": "spark-remote-exact-revision-cache",
+    "construction": "spark-persistent-docker-container",
+    "clean_replay": "spark-fresh-docker-container",
+    "official_evaluation": "spark-envbench"
+  },
+  "source_cache_invariants": [
+    "The cache is keyed by repository and exact revision under the configured Spark workspace root.",
+    "Cache population is protected by a host-side flock and published only after exact commit validation and git fsck.",
+    "Every cache hit is revalidated against refs/envsolve/exact and git fsck.",
+    "Each episode receives an independent no-hardlinks checkout.",
+    "The checked-out HEAD must equal the case revision before the workspace is transferred to Mac or mounted into Docker.",
+    "No model credential or Codex executable is transferred to Spark."
+  ],
+  "implementation_sha256": {
+    "envsolve_harness/execution/remote_docker.py": "ed4cd3e9305a84613c5228bfb2d109b14485e57b5e4f7c6faadeae31401161bd",
+    "envsolve_harness/codex/remote_container_mcp.py": "312168464cb48a87b70bbd10c849cf16517fe6bfe3d77d2b13ca19cb662a1ef2",
+    "envsolve_harness/runners/remote_boundary_v5.py": "955d3233db60bb0223550fd9611f89452f3b4746514e0dea092d22332fd4eb05",
+    "experiments/run_remote_boundary_v5_case.py": "d88a545ed1c60726537c814701933e04b30a95f8b6d0c363d5184986fa1d441d",
+    "experiments/run_case.py": "b35e5770f9b5ada8846209deb0075ba1e64cb050346437695590229b1e26b8a2",
+    "experiments/configs/local_mac_remote_spark_dev_bad_case_census_v1_0_2.json": "d18b61190234346b6fd826c5840209f0a845bb97925656a0e7f30f21270cdb2b",
+    "tests/test_remote_docker.py": "029813e3128a41642382109c41c1a9afa87f703e4ff02103d807d74fef8edc8b",
+    "tests/test_remote_boundary_v5_runner.py": "6669f66a1f8b7868163578c4937012b238527032811f75eb62ce2f6f6f76c7b1"
+  },
+  "verification": {
+    "focused_regression": "9 passed, 3 skipped",
+    "compileall": "passed with PYTHONPYCACHEPREFIX under /private/tmp",
+    "ruff": "not rerun because ruff is not installed in the active Mac interpreter; remote.2 scoped Ruff had passed before this source-cache-only correction",
+    "spark_exact_revision_smoke": {
+      "repository": "ai4co/rl4co",
+      "revision": "a6231241b8ddf2fd6f38f8931f42778d84e78603",
+      "tree": "bc4663bdcf99e732666a936551633fbde38da4c7",
+      "cache_hit": false,
+      "fsck": "pass",
+      "acquisition_host_role": "spark-execution-host"
+    }
+  }
+}

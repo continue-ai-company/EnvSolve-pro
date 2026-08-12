@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.65-klingon-assistant-data-official",
+  "frozen_at": "2026-08-09T18:21:09Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-de7vid__klingon-assistant-data@2a8945f261748cde5e84363ac5145ac74b7c5e61",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-61-lane2-46-A-spark",
+    "generation_result_sha256": "d32e7dc78c414b9612728fe85cfc3c5b56ca1f5fed4a4ca211b5044b91977f89",
+    "final_output_sha256": "d47fd54ad12b89af836985bd9cbd7fafd016e088b02ce7ffd6c4e32c43eb925c",
+    "submitted_program_sha256": "e6bf537e305334ac0a6cb8292baf9c35dc58bf4faa3158445042d99768e68559",
+    "agent_command_count": 10,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "01a4e946a54a71aea66192ec7180901c6e8fadfd6afcc63b65174f3b21eba12d"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-61-lane2-46-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 153203,
+    "cached_input_tokens": 134656,
+    "output_tokens": 3453,
+    "reasoning_output_tokens": 1304,
+    "clean_replay_seconds": 148.855254,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program uses an ordinary virtual environment, installs declared requirements, and adds two imported dependencies discovered from the repository. Fresh replay passed; this remains an observation rather than a runtime-completeness certification.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

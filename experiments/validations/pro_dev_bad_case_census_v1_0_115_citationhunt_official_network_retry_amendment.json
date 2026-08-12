@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.115-citationhunt-official-network-retry1",
+  "frozen_at": "2026-08-09T21:59:00Z",
+  "status": "frozen-before-retry-outcome",
+  "case_id": "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1-official",
+  "source_result_sha256": "7d1218988b6d7c14842cd85f36eab03b2e93dba1b5125c8d5f10e351bc3ca38d",
+  "source_raw_result_sha256": "c3c70e962c373607c75e7e3c9deecfd69e8d48e2579f84c6cefcc9543905b9ca",
+  "infrastructure_signature": "conda-http-connection-failed",
+  "submitted_program_sha256": "a55b675cd8f7436d2f9ffce9185616d9e99c152b2a6be6710c2e3133ead6f5ad",
+  "retry": {
+    "run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1-official-network-retry1",
+    "execution_host": "spark-f21c",
+    "same_script_required": true,
+    "model_reexecuted": false,
+    "max_retries": 1
+  },
+  "statistical_disposition": {
+    "source_attempt_infrastructure_censored": true,
+    "retry_replaces_source_for_terminal_outcome": true,
+    "no_further_replacement_retry": true
+  },
+  "protected_sets_touched": false
+}

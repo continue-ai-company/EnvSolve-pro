@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.24-brainrender-result",
+  "case_id": "envbench-python-brainglobe__brainrender@2b9e89533cd7802802ef63c791245af7b33cc916",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-14-lane2-26-A-spark",
+  "effective_run_id": "pro-dev-bad-case-census-v1-0-14-lane2-26-A-spark-official",
+  "submitted_program_sha256": "487eb0157ce9f94fb0186be053b91c30f2a1e7c30012ffcf9b4849a0f373e7ed",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 151,
+    "warning_count": 0,
+    "execution_time_seconds": 517.8843891620636,
+    "result_sha256": "9c9cec428afa6419be098b1c25f685d91b6ee6368f532c38b23bc9baae5385b3",
+    "raw_result_sha256": "bf5662d1afb5e57c6b6296d74336295c7687efe5da37de86d10a9a57efd58c48"
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "interpretation": "Candidate-control diagnostic only; it did not predict the Official outcome."
+  },
+  "infrastructure_censored": false,
+  "protected_sets_touched": false
+}

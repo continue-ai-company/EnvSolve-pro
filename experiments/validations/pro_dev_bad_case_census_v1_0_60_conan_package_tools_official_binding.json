@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.60-conan-package-tools-official",
+  "frozen_at": "2026-08-09T18:05:10Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-60-lane1-39-A-spark",
+    "generation_result_sha256": "d565ebbbf16ea43cdac78be09b5a96c69361966339e3d0c57ed4961db4e664ed",
+    "final_output_sha256": "344c1862311bc754ebca8b7c2f14f357d7b7e3e5b785e626ec641ca3cba3c772",
+    "submitted_program_sha256": "a5e4cc56ffe5bca3cea4e791ac376e5f1c262fbba7ce551b63ae5e481db50079",
+    "agent_command_count": 25,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "b7ec96c863bf61ff96441e983dd220519a83080bda7a7e7be40d125194befa9b"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-60-lane1-39-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 507247,
+    "cached_input_tokens": 455168,
+    "output_tokens": 12691,
+    "reasoning_output_tokens": 6410,
+    "clean_replay_seconds": 94.1326274170001,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-mixed-version-overlay",
+    "detail": "The program overlays Conan 1.66.0 onto an environment that first installed Conan 1.6.1, preserving historical internal modules while replacing newer files. This is metric-aligned and passed fresh replay, but it does not establish a coherent executable Conan runtime.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

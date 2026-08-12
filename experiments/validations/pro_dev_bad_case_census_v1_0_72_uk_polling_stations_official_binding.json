@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.72-uk-polling-stations-official",
+  "frozen_at": "2026-08-09T18:53:14Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-64-lane2-48-A-spark",
+    "generation_result_sha256": "eb2fe1ca2d2596cfd4a35a1b2ec1687647202cb9a03ddcccd3ad1d51cc03e0ed",
+    "final_output_sha256": "5ed2a8678b0b21023bd45157e8a7a20cdd62fc30b564599c77e11359117d8781",
+    "submitted_program_sha256": "41c630c0cf6cafe30e3603ebba72e36904b9d2514ce1c1d94be46e4c060a3c94",
+    "agent_command_count": 19,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "0b7040659222796026eb47177f3f98c306e3c44a164e5010f4791bca395f79d1"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-64-lane2-48-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 901125,
+    "cached_input_tokens": 822272,
+    "output_tokens": 13620,
+    "reasoning_output_tokens": 7307,
+    "clean_replay_seconds": 544.407374166,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program creates an ordinary Python 3.10 virtual environment, installs all documented requirement groups plus imports found during construction, derives the ignored local settings file by exact copy from its tracked sibling template, and exposes repository source roots through PYTHONPATH. Fresh replay passed; runtime completeness remains uncertified.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

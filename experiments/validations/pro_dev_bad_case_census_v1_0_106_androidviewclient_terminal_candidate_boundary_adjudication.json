@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.106-androidviewclient-terminal-candidate-boundary",
+  "recorded_at": "2026-08-09T21:19:00Z",
+  "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-75-lane1-53-A-spark-remote-valid1",
+  "terminal_status": "algorithm-failure-before-official-submission",
+  "source_artifacts": {
+    "generation_result_sha256": "77d41adeb95fe8bc84b260fcc28b3f75ad03e6c29e0418e893ffa24f97af7cb0",
+    "final_output_sha256": "5683df64bae3764580ccf7471c0daa00a6dfbc2e894196cb61e7329898723804",
+    "trajectory_sha256": "11c89c6da3a31f2f592ded46c133be3a9f1cf01a80297f62e0328600290fb3ac",
+    "command_trace_sha256": "0e8d8b724492d2bd12a2893abc946f044d0fb79f591b7e6035c314aa0b7755b5",
+    "recovered_submission_sha256": "7bb4b215f789a8a33ed0fb99bf6069d0dac1cf0473bf30e1194da05d4611debe",
+    "recovered_submission_exactly_matches_final_output": true
+  },
+  "observations": {
+    "agent_process_exit_code": 0,
+    "agent_timed_out": false,
+    "agent_command_count": 42,
+    "successful_agent_command_count": 34,
+    "input_tokens": 1522740,
+    "cached_input_tokens": 1431040,
+    "output_tokens": 14775,
+    "reasoning_output_tokens": 8191,
+    "candidate_policy": "open-candidate-program-v5",
+    "candidate_policy_accepted": false,
+    "candidate_policy_reason": "candidate program directly materializes an importable artifact",
+    "rejected_line": ": > \"$_legacy_pkg_dir/${_module}.py\"",
+    "agent_observed_effect": "After real project and dependency installation plus a generated legacy-import wheel, Pyright reported zero missing imports."
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_infrastructure_censored": false,
+    "official_primary_outcome_available": false,
+    "failure_family": "operation-layer-generated-legacy-import-wheel-rejected",
+    "reason": "The exact submitted program is deterministically inadmissible under the frozen v5 candidate policy, so A is a pre-Official algorithm failure."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-synthetic-legacy-import-wheel",
+    "reason": "Most generated modules are empty and the MonkeyRunner classes have no behavior. Passing the narrow missing-import objective would not establish an executable Android deployment."
+  },
+  "protected_sets_touched": false
+}

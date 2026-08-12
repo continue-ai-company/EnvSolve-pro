@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.80-uer-py-terminal-candidate-boundary",
+  "recorded_at": "2026-08-09T19:48:14Z",
+  "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-66-lane1-45-A-spark",
+  "terminal_status": "algorithm-failure-before-official-submission",
+  "source_artifacts": {
+    "generation_result_sha256": "a812ada2bcdf8fb72652d25559e70ffee44bc1f88c93fc8c2bb0ab48e700910e",
+    "final_output_sha256": "3c5189eb5ecd3a00d0bbccbb5e719006a9f0f7782fa9e4d606efb048490adaea",
+    "trajectory_sha256": "11c2ff84cfdadbd115ab322e8b941e6b5c25872a28aac4ab787c3b7bb2ad2190",
+    "command_trace_sha256": "5ad683ea0ff7a0ef1e0a2239e5f4d3c74d3df312072a9c097ecf64423144ae9f",
+    "recovered_submission_sha256": "3e3f2ce799592ff820f66ef27624c38f37d1777331ff7b23056ae61d247200f3",
+    "recovered_submission_exactly_matches_final_output": true
+  },
+  "observations": {
+    "agent_process_exit_code": 0,
+    "agent_timed_out": false,
+    "agent_command_count": 49,
+    "input_tokens": 2566446,
+    "cached_input_tokens": 2461184,
+    "output_tokens": 22584,
+    "reasoning_output_tokens": 11826,
+    "candidate_policy": "open-candidate-program-v5",
+    "candidate_policy_accepted": false,
+    "candidate_policy_reason": "candidate program creates a symbolic link in a Python import search directory",
+    "rejected_line": "ln -s \"$_tf_pkg/python/keras\" \"$_tf_pkg/keras\"",
+    "agent_observed_effect": "Pyright missing imports changed from one tensorflow.keras.backend finding to zero after the symlink."
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_infrastructure_censored": false,
+    "official_primary_outcome_available": false,
+    "failure_family": "operation-layer-third-party-import-layout-mutation-rejected",
+    "reason": "The frozen A system rejected a completed program that mutates an installed third-party package import layout. Whether this is an overconstraint or a necessary deployment-integrity guard is intentionally left to a non-scoring exact-program counterfactual."
+  },
+  "protected_sets_touched": false
+}

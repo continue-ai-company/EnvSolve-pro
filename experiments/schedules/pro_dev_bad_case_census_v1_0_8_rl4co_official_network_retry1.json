@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.8-rl4co-official-network-retry1",
+  "case_id": "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+  "condition": "A-strong-agent-control",
+  "model": "gpt-5.5",
+  "reasoning_effort": "high",
+  "seed": 510006,
+  "submitted_script_sha256": "0ffe1f56ae87040b63ba85f11c0f3e5b85023aaa4e9e01cc463b24c6eb65250b",
+  "run_id": "pro-dev-bad-case-census-v1-0-8-lane2-6-A-spark-official-network-retry1",
+  "execution_host": "spark",
+  "accelerator_exposure": "none",
+  "selection_rule": "Retry the byte-identical submitted script because the first Official attempt terminated with an explicit files.pythonhosted.org ReadTimeoutError before Pyright ran. Do not rerun the Agent."
+}

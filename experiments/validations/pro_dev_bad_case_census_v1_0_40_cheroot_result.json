@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.40-cheroot",
+  "recorded_at": "2026-08-09T15:26:42Z",
+  "case_id": "envbench-python-cherrypy__cheroot@1ff20b18e98e424e0616654c28c92524deef348a",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-35-lane2-34-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-35-lane2-34-A-spark-official",
+  "submitted_program_sha256": "44f309dcebe53ce2ab6fc42c8d1a41b623d0cf1538f35a7ceb56328fdaeeb165",
+  "official_result_sha256": "ebc5ae125a874daa1de1a6f397fef02e88517fc86f18942952949f26700d685d",
+  "official_raw_result_sha256": "a9191f14f28f601a1b12c141888001073dbe2f4bec5ec0313432b80662511d03",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 198,
+    "warning_count": 20,
+    "execution_time_seconds": 221.97521018981934
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "false-negative-relative-to-official",
+    "clean_replay_missing_import_count": 32,
+    "clean_replay_failure": "Editable installation could not resolve the docs extra, so the conditional script skipped all test dependencies."
+  },
+  "interpretation": {
+    "official_is_primary": true,
+    "claim": "Replay feedback is useful evidence but cannot be a hard submission gate unless deterministic deployment failures are separated from transient dependency-source failures."
+  }
+}

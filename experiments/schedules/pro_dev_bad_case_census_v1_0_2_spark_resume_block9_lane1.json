@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-resume-block9-lane1",
+  "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+  "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+  "model": "gpt-5.5",
+  "reasoning_effort": "high",
+  "episode_timeout_seconds": 22400,
+  "selection_rule": "Pending position 21 is the next unresolved entry in frozen outcome-blind lane 1 after position 19. Selection was fixed from lexical order without using briefcase or any concurrent outcome.",
+  "execution_stage": "remote-generation-and-clean-replay-before-spark-official",
+  "episodes": [
+    {
+      "position": 1,
+      "original_lane": 1,
+      "original_lane_position": 11,
+      "pending_case_position": 21,
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "condition": "A-strong-agent-control",
+      "control_host": "mac",
+      "execution_host": "spark",
+      "accelerator_exposure": "none",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "run_id": "pro-dev-bad-case-census-v1-0-18-lane1-21-A-spark",
+      "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "runner_version": "1.0.1",
+      "seed": 510021
+    }
+  ]
+}

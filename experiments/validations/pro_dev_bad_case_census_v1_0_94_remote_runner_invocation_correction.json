@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.94-remote-runner-invocation-correction",
+  "created_at": "2026-08-09T20:27:05Z",
+  "status": "superseding-control-plane-correction-before-valid-remote-reruns",
+  "error": {
+    "summary": "Four scheduled Spark episodes were accidentally invoked through the generic run_case.py codex-cli registration instead of run_remote_boundary_v5_case.py.",
+    "observed_runner": "codex-cli",
+    "observed_runner_version": "0.1.0",
+    "observed_agent_interface": "native-codex-agent+container-terminal-mcp-v1",
+    "required_runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "required_runner_version": "1.0.1",
+    "required_agent_interface": "native-codex-agent+ssh-remote-container-terminal-mcp-v1",
+    "consequence": "Repository acquisition occurred on the Mac control host, so the repeated local github.com DNS failures are not evidence about Spark infrastructure and are not A episodes."
+  },
+  "invalid_invocations": [
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "run_ids": [
+        "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark",
+        "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-source-retry1"
+      ],
+      "generation_result_sha256": [
+        "c0e9dfc0f0509161aa7f79e486fd004efaa998dd7e29f75b103c70f5de34632a",
+        "4e5edd58d220c590c3e8dafa9804f05175a721e5210126033f5a3b7ec1ee8487"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+      "run_ids": [
+        "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark",
+        "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-source-retry1"
+      ],
+      "generation_result_sha256": [
+        "854f095fcbaf448169670bd814058c80ac2cf16dc91d78f7810ddeb5e5e54d0d",
+        "ac285c49e640e8963b68b69c1cc2a703a5b21592d915d076efcd604bf36f451a"
+      ]
+    },
+    {
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "run_ids": [
+        "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark",
+        "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-source-retry1"
+      ],
+      "generation_result_sha256": [
+        "d5fe46e1a4ac5e813b084fdab8afe1374199354eba8fce1549509b477a5a2884",
+        "1db4047b9fd0b2392faf4a2b1d5ab6a4676ce95da2bb686b8cd840e357dbf638"
+      ]
+    },
+    {
+      "case_id": "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+      "run_ids": [
+        "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark",
+        "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-source-retry1"
+      ],
+      "generation_result_sha256": [
+        "ad5dcaeee7891bd31931de9cc712aaba1fdfe66d61a046a8bb737bcbe12ae015",
+        "04b1683ea94fcde04892bf16d410488e50982c90ebb6523a7acdc2d13d6c083f"
+      ]
+    }
+  ],
+  "superseded_records": [
+    "experiments/validations/pro_dev_bad_case_census_v1_0_86_hark_remote_source_retry_amendment.json",
+    "experiments/validations/pro_dev_bad_case_census_v1_0_87_hark_terminal_infrastructure_adjudication.json",
+    "experiments/validations/pro_dev_bad_case_census_v1_0_89_django_machina_remote_source_retry_amendment.json",
+    "experiments/validations/pro_dev_bad_case_census_v1_0_91_django_machina_terminal_infrastructure_adjudication.json",
+    "experiments/validations/pro_dev_bad_case_census_v1_0_92_phobos_remote_source_retry_amendment.json",
+    "experiments/validations/pro_dev_bad_case_census_v1_0_93_evox_remote_source_retry_amendment.json"
+  ],
+  "statistical_correction": {
+    "invalid_runs_count_as_a_episodes": false,
+    "invalid_runs_consume_infrastructure_retries": false,
+    "hark_terminal_infrastructure_status_withdrawn": true,
+    "django_machina_terminal_infrastructure_status_withdrawn": true,
+    "corrected_terminal_a_episode_count": 40,
+    "corrected_noncensored_official_primary_count": 33,
+    "corrected_official_pass_count": 24,
+    "corrected_official_fail_count": 9,
+    "corrected_infrastructure_censored_count": 5,
+    "corrected_pre_official_algorithm_failure_count": 2
+  },
+  "valid_remote_execution": {
+    "launcher": "experiments/run_remote_boundary_v5_case.py",
+    "required_environment": {
+      "ENVSOLVE_REMOTE_DOCKER_TARGET": "avdpro@100.81.196.23",
+      "ENVSOLVE_REMOTE_WORKSPACE_ROOT": "/home/avdpro/work/envsolve-pro-dev-census-v1-0-2",
+      "ENVSOLVE_REMOTE_EXPOSE_GPUS": "false"
+    },
+    "resume_order": [
+      {
+        "case": "dfki-ric/phobos",
+        "lane": 1,
+        "run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1"
+      },
+      {
+        "case": "econ-ark/hark",
+        "lane": 2,
+        "run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-remote-valid1"
+      },
+      {
+        "case": "ellmetha/django-machina",
+        "lane": 2,
+        "run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1"
+      },
+      {
+        "case": "emi-group/evox",
+        "lane": 2,
+        "run_id": "pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-remote-valid1"
+      }
+    ]
+  },
+  "validity": {
+    "algorithm_change": false,
+    "case_order_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "protected_sets_touched": false
+  }
+}

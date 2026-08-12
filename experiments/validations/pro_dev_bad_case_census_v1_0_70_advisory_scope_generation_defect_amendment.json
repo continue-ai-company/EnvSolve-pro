@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.70-advisory-scope-generation-defect",
+  "created_at": "2026-08-09T18:38:18Z",
+  "status": "recorded-after-test-discovery-without-frozen-snapshot-change",
+  "defect": {
+    "component": "boundary-v4 local-distribution audit inherited by boundary-v5 qualification",
+    "symptom": "NameError for native_source_suffixes on repositories whose top-level package scan does not execute the accidentally enclosing branch",
+    "cause": "A literal continuation backslash in two raw source fragments suppressed a generated-code DEDENT and made initialization repository-shape-dependent."
+  },
+  "scope": {
+    "agent_episode_affected": false,
+    "submitted_program_affected": false,
+    "official_evaluator_affected": false,
+    "post_session_advisory_qualification_may_be_affected": true,
+    "qualification_feedback_returned_to_agent": false
+  },
+  "disposition": {
+    "frozen_A_snapshot_changed_mid_census": false,
+    "official_outcomes_changed": false,
+    "affected_advisory_results": "reclassify-as-harness-unavailable-after-log-audit",
+    "observed_affected_qualification_logs": 0,
+    "log_audit_scope": "all locally retained Dev census v1.0.2 JSON and JSONL artifacts",
+    "working_tree_fix": "remove the literal continuation backslashes so generated declarations are top-level",
+    "verification": "66 related boundary, remote-runner, infrastructure, source-cache, and census-analysis tests passed"
+  },
+  "protected_sets_touched": false
+}

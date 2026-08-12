@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.113-citationhunt-official",
+  "frozen_at": "2026-08-09T21:56:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1",
+  "submitted_program_sha256": "a55b675cd8f7436d2f9ffce9185616d9e99c152b2a6be6710c2e3133ead6f5ad",
+  "source_artifacts": {
+    "generation_result_sha256": "cec78656d216c934ccfdfee385f4e2b74e618a67156a0c685813a46bee725ce6",
+    "final_output_sha256": "c794df1bb58eea34a57d441d1b178db72dc994fe7936f9cf131986357db72335",
+    "trajectory_sha256": "98202dbe6f018555239203b38c9b62dbdd100c81b830721740c135f1b6170415",
+    "command_trace_sha256": "1bd00109c19805f27bdb1fffc5e0c8cd3a1468f2fe91ac7ce9011541e6579111",
+    "qualification_result_sha256": "c97b72aa20d2673ed0c34e928a6ceabe74ee0d90b77033943624d3ac6f58e481"
+  },
+  "generation": {
+    "agent_command_count": 15,
+    "successful_agent_command_count": 13,
+    "input_tokens": 406386,
+    "cached_input_tokens": 361984,
+    "output_tokens": 7377,
+    "reasoning_output_tokens": 3614
+  },
+  "advisory_qualification": {
+    "status": "fail",
+    "fresh_replay_seconds": 220.306944542,
+    "missing_import_count": 0,
+    "failure_family": "conda-build-origin-provenance-false-positive-hypothesis",
+    "detail": "The audit interpreted conda-forge build-origin paths in pip and mysqlclient distribution metadata as undeclared local installations, despite a conventional pinned Conda environment and a passing goal contract."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program creates a pinned Python 3.9 Conda environment, installs binary mysqlclient from conda-forge, and installs the remaining declared requirements. Runtime database services remain untested.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

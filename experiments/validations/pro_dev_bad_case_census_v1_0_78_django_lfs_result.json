@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.78-django-lfs",
+  "recorded_at": "2026-08-09T19:23:00Z",
+  "case_id": "envbench-python-diefenbach__django-lfs@3e6e96ec223a8184ae84fdeabd984745ea29e27f",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-65-lane2-50-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-65-lane2-50-A-spark-official",
+  "submitted_program_sha256": "03cffa5fb59e9712c6fc47593c801118a83a262db5e9aafaf23075e03fdeb34e",
+  "official_result_sha256": "69a6d55bcda012c51dcbb28499fb042d3ad46f358b6a2410014163a30a286808",
+  "official_raw_result_sha256": "b9055487e81a72c222e806f91177c83bc929421617355e6b8ce8cd60606a91ed",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 1284,
+    "warning_count": 17,
+    "execution_time_seconds": 172.347993850708
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "false-negative",
+    "reason": "CPython 2.7 source download ended with curl error 56 before the goal verifier ran."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-cross-runtime-import-resolution",
+    "reason": "Official accepted Python 2.7 hotshot sources and the cStringIO native extension on Python 3.13 PYTHONPATH as import-resolving artifacts. This does not establish Python 3.13 runtime compatibility."
+  }
+}

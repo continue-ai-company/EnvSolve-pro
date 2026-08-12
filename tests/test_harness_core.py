@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import base64
 from pathlib import Path
+import hashlib
 import json
 import subprocess
 import tempfile
@@ -340,6 +342,71 @@ class CoreIoTest(unittest.TestCase):
             self.assertFalse(rejected.valid)
             self.assertIn("fake-env/injected.py", rejected.disallowed_untracked_paths)
 
+    def test_repository_integrity_verifies_setuptools_egg_record(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"],
+                cwd=repo,
+                check=True,
+            )
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.name", "Test"], cwd=repo, check=True
+            )
+            (repo / "README.md").write_text("clean\n")
+            REAL_SUBPROCESS_RUN(["git", "add", "README.md"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            egg = repo / ".eggs/dependency-1.0-py3.egg"
+            metadata = egg / "EGG-INFO"
+            package = egg / "dependency"
+            metadata.mkdir(parents=True)
+            package.mkdir()
+            (metadata / "PKG-INFO").write_text("Name: dependency\nVersion: 1.0\n")
+            (metadata / "WHEEL").write_text("Wheel-Version: 1.0\n")
+            module = package / "__init__.py"
+            module.write_text("VALUE = 1\n")
+            encoded = base64.urlsafe_b64encode(
+                hashlib.sha256(module.read_bytes()).digest()
+            ).rstrip(b"=").decode("ascii")
+            (metadata / "RECORD").write_text(
+                f"dependency/__init__.py,sha256={encoded},{module.stat().st_size}\n"
+                "dependency-1.0.dist-info/RECORD,,\n"
+            )
+
+            report = inspect_repository(repo, head)
+            self.assertTrue(report.valid, report.violations)
+            self.assertIn(
+                ".eggs/dependency-1.0-py3.egg/",
+                report.allowed_generated_paths,
+            )
+
+            injected = package / "injected.py"
+            injected.write_text("VALUE = 2\n")
+            rejected = inspect_repository(repo, head)
+            self.assertFalse(rejected.valid)
+            self.assertIn(
+                ".eggs/dependency-1.0-py3.egg/dependency/injected.py",
+                rejected.disallowed_untracked_paths,
+            )
+
+            injected.unlink()
+            module.write_text("VALUE = 3\n")
+            corrupted = inspect_repository(repo, head)
+            self.assertFalse(corrupted.valid)
+            self.assertIn(
+                ".eggs/dependency-1.0-py3.egg/dependency/__init__.py",
+                corrupted.disallowed_untracked_paths,
+            )
+
     def test_repository_integrity_recognizes_a_real_conda_environment(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -477,6 +544,177 @@ class CoreIoTest(unittest.TestCase):
                 rejected.disallowed_untracked_paths,
             )
 
+    def test_repository_integrity_allows_declared_ignored_versioningit_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"],
+                cwd=repo,
+                check=True,
+            )
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.name", "Test"],
+                cwd=repo,
+                check=True,
+            )
+            (repo / "package").mkdir()
+            (repo / "package/__init__.py").write_text("\n")
+            (repo / "pyproject.toml").write_text(
+                "[build-system]\n"
+                "requires = [\"setuptools\", \"versioningit>=2\"]\n"
+                "build-backend = \"setuptools.build_meta\"\n\n"
+                "[tool.versioningit.write]\n"
+                "file = \"package/_version.py\"\n"
+            )
+            (repo / ".gitignore").write_text(
+                "package/_version.py\npackage/injected.py\n"
+            )
+            REAL_SUBPROCESS_RUN(["git", "add", "."], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(["git", "commit", "-qm", "fixture"], cwd=repo, check=True)
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+            (repo / "package/_version.py").write_text("__version__ = '1.0'\n")
+
+            report = inspect_repository(repo, head)
+
+            self.assertTrue(report.valid, report.violations)
+            self.assertEqual(
+                report.declared_generated_paths,
+                ("package/_version.py",),
+            )
+            self.assertIn("package/_version.py", report.allowed_generated_paths)
+
+            (repo / "package/injected.py").write_text("VALUE = 1\n")
+            rejected = inspect_repository(repo, head)
+            self.assertFalse(rejected.valid)
+            self.assertIn(
+                "package/injected.py",
+                rejected.disallowed_untracked_paths,
+            )
+
+    def test_repository_integrity_uses_revision_provenance_for_runtime_config(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"],
+                cwd=repo,
+                check=True,
+            )
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.name", "Test"],
+                cwd=repo,
+                check=True,
+            )
+            settings = repo / "config/settings"
+            settings.mkdir(parents=True)
+            template = settings / "local.dst"
+            template.write_text("DEBUG = False\n", encoding="utf-8")
+            (repo / ".gitignore").write_text(
+                "config/settings/local.py\nconfig/settings/signals.py\n",
+                encoding="utf-8",
+            )
+            REAL_SUBPROCESS_RUN(["git", "add", "."], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "commit", "-qm", "fixture"],
+                cwd=repo,
+                check=True,
+            )
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            runtime_config = settings / "local.py"
+            runtime_config.write_bytes(template.read_bytes())
+            report = inspect_repository(repo, head)
+
+            self.assertTrue(report.valid, report.violations)
+            self.assertEqual(
+                [item.to_dict() for item in report.repository_derived_artifacts],
+                [
+                    {
+                        "path": "config/settings/local.py",
+                        "source_path": "config/settings/local.dst",
+                        "sha256": (
+                            "bbf3e29cc11c9989e4f6842b0f36d7cbbd28bd5c3cd2f3376"
+                            "b24e1964a73ef72"
+                        ),
+                        "derivation": "exact-copy-of-tracked-sibling-template",
+                    }
+                ],
+            )
+
+            runtime_config.write_text("DEBUG = True\n", encoding="utf-8")
+            modified = inspect_repository(repo, head)
+            self.assertFalse(modified.valid)
+            self.assertIn(
+                "config/settings/local.py",
+                modified.disallowed_untracked_paths,
+            )
+
+            runtime_config.unlink()
+            (settings / "signals.py").write_text("", encoding="utf-8")
+            synthetic = inspect_repository(repo, head)
+            self.assertFalse(synthetic.valid)
+            self.assertIn(
+                "config/settings/signals.py",
+                synthetic.disallowed_untracked_paths,
+            )
+
+    def test_repository_integrity_accepts_ignored_exact_copy_dot_example(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"],
+                cwd=repo,
+                check=True,
+            )
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.name", "Test"],
+                cwd=repo,
+                check=True,
+            )
+            template = repo / "config.py.example"
+            template.write_text("SETTING = 'fixture'\n", encoding="utf-8")
+            (repo / ".gitignore").write_text("config.py\n", encoding="utf-8")
+            REAL_SUBPROCESS_RUN(["git", "add", "."], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "commit", "-qm", "fixture"], cwd=repo, check=True
+            )
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            runtime_config = repo / "config.py"
+            runtime_config.write_bytes(template.read_bytes())
+            accepted = inspect_repository(repo, head)
+
+            self.assertTrue(accepted.valid, accepted.violations)
+            self.assertEqual(
+                accepted.repository_derived_artifacts[0].source_path,
+                "config.py.example",
+            )
+
+            runtime_config.write_text("SETTING = 'invented'\n", encoding="utf-8")
+            rejected = inspect_repository(repo, head)
+            self.assertFalse(rejected.valid)
+            self.assertIn("config.py", rejected.disallowed_untracked_paths)
+
     def test_repository_integrity_does_not_follow_venv_python_symlink(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
@@ -570,7 +808,7 @@ class CoreIoTest(unittest.TestCase):
             self.assertIsNotNone(contract)
             self.assertEqual(
                 contract.contract_id,
-                "envbench-python-reportMissingImports-v2",
+                "envbench-python-reportMissingImports-v3",
             )
             self.assertEqual(runner.goal_contract, contract)
 

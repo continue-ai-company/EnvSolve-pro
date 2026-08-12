@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.104-phobos-counterfactual-official",
+  "frozen_at": "2026-08-09T21:11:03Z",
+  "status": "frozen-before-non-scoring-official-outcome",
+  "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1",
+  "counterfactual_role": "non-scoring-exact-program-boundary-cost-diagnostic",
+  "submitted_program_sha256": "66966dc74a494895a973850c11ec3cefb8953f6c99d773391e32129d4c2aa15d",
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1-counterfactual-official-diagnostic",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": false
+  },
+  "statistical_disposition": {
+    "a_outcome_remains_failure": true,
+    "counterfactual_outcome_cannot_replace_a": true,
+    "purpose": "Determine whether rejecting generated type-stub artifacts costs Official benchmark success."
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-generated-type-stub-distributions",
+    "detail": "The program installs substantial real dependencies but creates local .pyi-only packages for unavailable HyRoDyn and a missing internal Phobos module. These satisfy static resolution without executable implementations.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

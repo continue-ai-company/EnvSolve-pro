@@ -1,0 +1,41 @@
+{
+  "schema": "envsolve-pro-remote-execution-smoke-preregistration-v1",
+  "created_at": "2026-08-09T08:00:00Z",
+  "research_role": "infrastructure-validation-only",
+  "outcome_inclusion": "excluded-from-dev-census-and-all-algorithm-comparisons",
+  "case": {
+    "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+    "repository": "jazzband/tablib",
+    "revision": "2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+    "selection": "previously-consumed-case"
+  },
+  "runner": {
+    "name": "codex-cli-qualified-boundary-v5-remote-docker",
+    "version": "5.0.1+remote.1",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high"
+  },
+  "execution_roles": {
+    "mac": "codex-control-and-local-artifact-store",
+    "spark": "persistent-generation-container-and-clean-replay",
+    "official_evaluation": "separate-spark-envbench-run-after-generation"
+  },
+  "accelerator_exposure": "none",
+  "reason": "Preserve frozen A platform semantics; CUDA exposure is a later explicit treatment.",
+  "acceptance_criteria": [
+    "Codex CLI remains on Mac and invokes no local Docker command successfully",
+    "all model-visible deployment commands execute in one persistent Spark container",
+    "the final submitted program is replayed in a fresh Spark container",
+    "repository integrity and command traces are present in local artifacts",
+    "no remote command descendant survives a harness timeout"
+  ],
+  "implementation_sha256": {
+    "envsolve_harness/execution/remote_docker.py": "ffe454cab6bc7ad4df862ef5594883ad784b6d66d396062054bfd45f25c75a25",
+    "envsolve_harness/codex/remote_container_mcp.py": "312168464cb48a87b70bbd10c849cf16517fe6bfe3d77d2b13ca19cb662a1ef2",
+    "envsolve_harness/runners/remote_boundary_v5.py": "aeb721d668772b62587d993902df9c790e4ea700ada407068bd7a4e4ce1cee78",
+    "experiments/run_remote_boundary_v5_case.py": "70d8796b2bca1de1a3bf016ed19fc303dd8b627ce6163ce6f20135b8890b2cc7",
+    "experiments/run_case.py": "b35e5770f9b5ada8846209deb0075ba1e64cb050346437695590229b1e26b8a2",
+    "experiments/configs/local_mac_remote_spark_smoke_v1.json": "fa98702a7af57cf8384a45e0fc792ae438fa66f97a5d3f7a20fcbab0296c32db"
+  }
+}

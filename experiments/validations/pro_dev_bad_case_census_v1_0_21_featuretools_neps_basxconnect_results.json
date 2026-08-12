@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.21-featuretools-neps-basxconnect",
+  "created_at": "2026-08-09T13:47:00Z",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "official_is_primary": true,
+  "results": [
+    {
+      "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+      "effective_run_id": "pro-dev-bad-case-census-v1-0-6-lane2-8-A-spark-official-network-retry1",
+      "submitted_program_sha256": "4ff807ae57d47b4c2b801f93931bf4536770a54b6009c77781a3d33c9aed7d51",
+      "evaluation_completed": true,
+      "official_pass": true,
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 504,
+      "warning_count": 10,
+      "execution_time_seconds": 240.1939468383789,
+      "result_sha256": "0f9129873d5af3e1a7f7b12b9d9589b080ff167d145b821839a7075cfed8b073",
+      "raw_result_sha256": "97643421e128d7db69aa7ba38c2f5f08cc8ba6567c4f0cf93caab6084a4d26d5"
+    },
+    {
+      "case_id": "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+      "effective_run_id": "pro-dev-bad-case-census-v1-0-9-lane1-15-A-spark-official",
+      "submitted_program_sha256": "a526283e6a717486655504730fd5ff6dac6a35559dabe69c9bd6ba370bfc7146",
+      "evaluation_completed": true,
+      "official_pass": true,
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 1137,
+      "warning_count": 0,
+      "execution_time_seconds": 314.3278648853302,
+      "result_sha256": "62900f5cff58549b6c2d80c61414d2c01f75ec06c052b1bef9e133e447079e03",
+      "raw_result_sha256": "9d1c9b0d9f54efba2e4e6096b6fb7a824ec8fb67bced7fa8e68b767b890d26c0"
+    },
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "effective_run_id": "pro-dev-bad-case-census-v1-0-10-lane1-17-A-spark-official",
+      "submitted_program_sha256": "44f19c6f10f41319ef001f23b0438d4646c3d4d32d5ad9bcfc64d24f70e313bb",
+      "evaluation_completed": true,
+      "official_pass": false,
+      "exit_code": 1,
+      "issues_count": 0,
+      "error_count": null,
+      "warning_count": null,
+      "execution_time_seconds": 4.237697124481201,
+      "terminal_cause": "setuptools_scm Git introspection failed because /data/project was not configured as a safe.directory",
+      "result_sha256": "c78e075152da04a65a57450169c597ab547b8a08d3417a110dc963f2dd6635a0",
+      "raw_result_sha256": "4bd06ecafe04e5cc83450d99902fa0432c6f727acdf6de5fa6531f2c24cb595d"
+    }
+  ],
+  "diagnostic_note": "error_count is non-scoring. Official pass is determined by bootstrap completion and issues_count, whose current Python goal is reportMissingImports.",
+  "protected_sets_touched": false
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.77-bigbang-counterfactual-official-network-retry",
+  "recorded_at": "2026-08-09T19:23:00Z",
+  "status": "frozen-before-exact-script-diagnostic-retry-outcome",
+  "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark-counterfactual-official-diagnostic",
+  "source_official_result_sha256": "7dcfadc729fc2f2c7e61546c8608bf09319f6f133689e7db2d92a7acdd6e7a0e",
+  "source_official_raw_result_sha256": "6b3ea2fc00072d8ed4359cbf48bdf0a5a1e8cb4760232dc6fe0b64ad0eaf7f7f",
+  "infrastructure_signature": "read-timeout",
+  "failure_point": "pip upgrade download from files.pythonhosted.org before project installation and Pyright",
+  "submitted_program_sha256": "facbc628cf3d6e7f762ab571783e0fc2f4162147e21168d12068a90f07587026",
+  "retry": {
+    "run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark-counterfactual-official-diagnostic-retry1",
+    "execution_host": "spark-f21c",
+    "agent_or_model_reexecuted": false,
+    "script_must_match_source": true,
+    "max_retries": 1,
+    "objective_role": "non_scoring_causal_diagnostic"
+  },
+  "statistical_disposition_frozen": {
+    "may_change_a_primary_outcome": false,
+    "may_change_a_failure_classification": false,
+    "may_quantify_boundary_cost": true
+  },
+  "protected_sets_touched": false
+}

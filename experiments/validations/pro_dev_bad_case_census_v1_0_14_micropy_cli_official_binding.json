@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.14-micropy-cli-official",
+  "frozen_at": "2026-08-09T13:26:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-10-lane2-24-A-spark",
+    "generation_result_sha256": "043261b4a07cb2eb692896e119ba5e83b79cdcd8a6c02ec5e3a7bc190fad438e",
+    "submitted_program_sha256": "7a50e69d8886da4246bd0c4f535aa623982ad575a233f1c5ac4db7bc51466e18",
+    "agent_command_count": 45,
+    "qualification_status": "fail",
+    "qualification_is_advisory": true,
+    "qualification_summary": "Candidate did not return control to the executable goal"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-10-lane2-24-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "protected_sets_touched": false
+}

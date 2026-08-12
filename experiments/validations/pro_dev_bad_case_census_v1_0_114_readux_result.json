@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.114-readux",
+  "recorded_at": "2026-08-09T21:57:59Z",
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1",
+  "initial_official_run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1-official",
+  "terminal_official_run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1-official-network-retry1",
+  "submitted_program_sha256": "3294724c79a82157f6f9d733cf0a2f761085432ba6bb5b62d5562a5cc32d8f6d",
+  "initial_official_result_sha256": "ba5700e7a53ee1f538d14b79ab863c316f80c17b862d3503f14d9665ac85916f",
+  "initial_official_raw_result_sha256": "828dd294fb08c4dd6464191d2d5c11fc538b93d064d62aebf02a983ab83e848a",
+  "official_result_sha256": "f82b730c1abd94c8ee8df4dc0682076e7b5be995cf59c36da3c04074858248f8",
+  "official_raw_result_sha256": "6180117e11503e4b74934264faa8c12bca60c76c6224b82ff6ac76471bcb19be",
+  "initial_attempt": {
+    "evaluation_completed": false,
+    "infrastructure_signature": "read-timeout",
+    "execution_time_seconds": 91.51702237129211
+  },
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 931,
+    "warning_count": 2,
+    "files_analyzed": 409,
+    "execution_time_seconds": 587.8180232048035
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "false-negative",
+    "reason": "The audit misclassified the requirements-declared editable digitaledition-jekylltheme checkout as an undeclared local distribution."
+  },
+  "retry_disposition": {
+    "same_script": true,
+    "model_reexecuted": false,
+    "retry_count": 1,
+    "further_replacement_retry_allowed": false
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-flagged-from-trajectory",
+    "reason": "The program installs system headers and declared local requirements, derives settings from a tracked template, and exposes a requirements-installed editable source. Runtime services remain untested."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.119-portingdb-official",
+  "frozen_at": "2026-08-10T04:56:29Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-fedora-python__portingdb@6c7f97e01d35594833856bab7e187999fc78fea2",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-80-lane2-64-A-spark-remote-valid1",
+    "generation_result_sha256": "0be71fd4a8099d48164caf26336f94b9c5bcd8e80f8b006c21ad8725af158234",
+    "final_output_sha256": "1f641247b585f3e24c92da64525ce6cde221f6721a1e59b05c2c77b5b0ac75d6",
+    "submitted_program_sha256": "37380478c858948117c51d3e8eec7dee6804510bde6e9793100f600f2079d7dd",
+    "agent_command_count": 43,
+    "qualification_status": "fail-network-censored",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "2d56c7fe998d9112c601fe6bb97bfdb1a7eb761cf74412a5992fe884cfd8486c"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-80-lane2-64-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1246450,
+    "cached_input_tokens": 1169920,
+    "output_tokens": 13269,
+    "reasoning_output_tokens": 6723,
+    "clean_replay_seconds": 286.62231595799994,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-from-trajectory",
+    "detail": "The construction path reached zero missing imports, but it installed unconstrained current package versions despite the project's upper bounds and manually layered Ubuntu DNF bindings plus a source checkout of dnf-plugins-core into the base Python. The advisory clean replay was censored by a Git TLS early EOF before the goal ran.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

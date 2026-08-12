@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.118-baybe-official",
+  "frozen_at": "2026-08-10T04:56:29Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-emdgroup__baybe@8afb0ff99655d34176fa7dc52ec488e3773103d3",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-79-lane1-59-A-spark-remote-valid1",
+    "generation_result_sha256": "1173fd1f2719c986cbad07ef96f8f06234805355440c0154c44bb8cd16012858",
+    "final_output_sha256": "a101b8eabf7366226fff814af406a20f1ba13ec05bdd410f4f1689307ab731d4",
+    "submitted_program_sha256": "f4230fdfdb006015eab9cf2871930c4a9ccdd03820698384847cc64dbaae96f7",
+    "agent_command_count": 17,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "b6aac7be24211735437c6ca0159d0794d695f2a251289e716acf1bf3ef094092"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-79-lane1-59-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 535442,
+    "cached_input_tokens": 455168,
+    "output_tokens": 11309,
+    "reasoning_output_tokens": 5946,
+    "clean_replay_seconds": 334.34063924999987,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-from-trajectory",
+    "detail": "The exact clean replay reached zero missing imports, but pip reported an internally inconsistent environment: torch 2.1.2 conflicts with botorch 0.18.1, protobuf 3.20.3 conflicts with onnx 1.22.0, and multiple direct --no-deps installations leave required transitive packages absent. This is metric success evidence, not a complete executable BayBE development environment.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

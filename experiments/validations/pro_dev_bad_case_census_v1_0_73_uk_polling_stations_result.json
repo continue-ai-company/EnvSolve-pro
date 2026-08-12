@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.73-uk-polling-stations",
+  "recorded_at": "2026-08-09T19:09:32Z",
+  "case_id": "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-64-lane2-48-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-64-lane2-48-A-spark-official",
+  "submitted_program_sha256": "41c630c0cf6cafe30e3603ebba72e36904b9d2514ce1c1d94be46e4c060a3c94",
+  "official_result_sha256": "21d1b49b73ea9a2a49deb846abb9e256872adce59e0cd5269eb1feb02b60ab16",
+  "official_raw_result_sha256": "5268d60fd1d49dbefc7fbb50ec8ec6f72f170648f248c85c909e54b12ff6aa16",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 2620,
+    "warning_count": 11,
+    "execution_time_seconds": 621.9415326118469
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-flagged-from-trajectory",
+    "reason": "The program installs all documented requirement groups plus imports found during construction, derives local settings from a tracked sibling template, and exposes repository source roots. Both fresh replay and Official passed; runtime completeness remains untested."
+  }
+}

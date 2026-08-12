@@ -1,0 +1,79 @@
+{
+  "execution": {
+    "config": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/configs/local_mac_pro_dev_bad_case_census_v1.json",
+    "config_sha256": "f95e1eaac19d0cf72aac99b474a1eec6651c3bc81057fd9c9c11c1019b6c8155",
+    "episode_runner_override": true,
+    "episode_timeout_seconds": 22400.0,
+    "protocol": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "provider": {
+      "provider_backed": false
+    },
+    "runner": "envsolve",
+    "timeout_source": "schedule"
+  },
+  "outcomes": [
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-1-A/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788",
+      "case_id": "envbench-python-Lightning-AI__litgpt@0c609550dfb61699ee513defd64da64634ee3788",
+      "duration_seconds": 2621.2958679170115,
+      "finished_at": "2026-08-09T05:01:54.236974+00:00",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "position": 1,
+      "process_exit_code": 0,
+      "reason": null,
+      "run_id": "pro-dev-bad-case-census-v1-lane1-1-A",
+      "runner": "codex-cli-qualified-boundary-v5",
+      "seed": 510001,
+      "started_at": "2026-08-09T04:18:12.945110+00:00",
+      "state": "process_finished",
+      "stderr_tail": "",
+      "stdout_tail": "artifacts=/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-1-A/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788\ngeneration_completed=true\nevaluation_completed=true\nofficial_pass=true\nbenchmark=envbench\nraw_metrics={'exit_code': 0, 'issues_count': 0, 'error_count': 995, 'warning_count': 29, 'repo_name': 'Lightning-AI/litgpt', 'commit_sha': '0c609550dfb61699ee513defd64da64634ee3788'}\n"
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-3-A/envbench-python-Modalities__modalities__4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+      "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+      "duration_seconds": 6213.007224333007,
+      "finished_at": "2026-08-09T06:45:27.321718+00:00",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "position": 2,
+      "process_exit_code": 1,
+      "reason": null,
+      "run_id": "pro-dev-bad-case-census-v1-lane1-3-A",
+      "runner": "codex-cli-qualified-boundary-v5",
+      "seed": 510003,
+      "started_at": "2026-08-09T05:01:54.241672+00:00",
+      "state": "process_finished",
+      "stderr_tail": "",
+      "stdout_tail": "generation_completed=false\nerror=RuntimeError: submitted program integrity failed: [{'kind': 'submitted_program_qualification_failed', 'path': None, 'detail': 'Executable goal contract exceeded its observation timeout'}]\nartifacts=/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-3-A/envbench-python-Modalities__modalities__4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443\n"
+    },
+    {
+      "artifact_interruption_recorded": true,
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-5-A/envbench-python-adamchainz__django-mysql__d6f0500565b1e4bc94044ca061e745cada955c11",
+      "case_id": "envbench-python-adamchainz__django-mysql@d6f0500565b1e4bc94044ca061e745cada955c11",
+      "cleaned_container_ids": [
+        "2e57df55dda4228d8ca1412eb696522c664d74101db94544b54f44629eea98f1"
+      ],
+      "duration_seconds": 45.84019179199822,
+      "finished_at": "2026-08-09T06:46:14.696811+00:00",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "position": 3,
+      "process_exit_code": -15,
+      "reason": "coordinator interrupted",
+      "run_id": "pro-dev-bad-case-census-v1-lane1-5-A",
+      "runner": "codex-cli-qualified-boundary-v5",
+      "seed": 510005,
+      "started_at": "2026-08-09T06:45:27.328034+00:00",
+      "state": "interrupted",
+      "stderr_tail": "",
+      "stdout_tail": ""
+    }
+  ],
+  "schedule": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/schedules/pro_dev_bad_case_census_v1_mac_lane1.json",
+  "schedule_sha256": "1a5d1af47c159cc54c3ed517d1cf60949b9cb86e04095e23129b0de8dd2f6209",
+  "schema_version": "2.0.0",
+  "updated_at": "2026-08-09T06:46:14.696830+00:00"
+}

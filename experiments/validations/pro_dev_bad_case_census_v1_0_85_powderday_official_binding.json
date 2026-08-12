@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.85-powderday-official",
+  "frozen_at": "2026-08-09T20:07:53Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-dnarayanan__powderday@d81ce05aa0baedaa4b63b17abc0963b64fb33bbc",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-67-lane2-52-A-spark",
+    "generation_result_sha256": "039a6a5dbeb31b8474cb5d8861ca296c0c4106bb345f870360ad911917cac301",
+    "final_output_sha256": "1f79b330bd15598d30a6313cce2df592f9a2f70fb0e3abe3cb0c2a0ada3f43a1",
+    "submitted_program_sha256": "4a1132262a096c9a0bef7e4bc29ed1896cf7af467798da8f2b679baa4e930f8d",
+    "agent_command_count": 66,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "e46fa10a64156eedf5aca0456da332d5036277c9700729e9c51b2379799702fc"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-67-lane2-52-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 2736183,
+    "cached_input_tokens": 2631680,
+    "output_tokens": 21640,
+    "reasoning_output_tokens": 11834,
+    "clean_replay_seconds": 1060.12543525,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-empty-namespace-placeholders-and-source-tree-directory",
+    "detail": "After installing substantial scientific dependencies, the program creates empty importable namespace directories for common_analysis, progenner, dn_galinfo_return, cPickle, octree_zoom, plot_generate, yt/mods, and powderday/front_ends/ramses2pd. These paths can satisfy static import resolution without supplying the referenced implementations.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

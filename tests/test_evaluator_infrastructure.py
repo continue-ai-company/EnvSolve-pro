@@ -9,6 +9,7 @@ from unittest import mock
 from envsolve_harness.adapters.envbench import EnvBenchEvaluator
 from envsolve_harness.adapters.infrastructure import (
     envbench_bootstrap_infrastructure_signature,
+    envbench_evaluation_infrastructure_signature,
 )
 from envsolve_harness.audit import audit_run
 from envsolve_harness.core.io import write_jsonl
@@ -22,11 +23,70 @@ REAL_SUBPROCESS_RUN = subprocess.run
 
 
 class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
+    def test_classifies_missing_official_launcher_on_evaluator_host(self) -> None:
+        self.assertEqual(
+            envbench_evaluation_infrastructure_signature(
+                {
+                    "evaluation_completed": False,
+                    "metadata": {
+                        "adapter_error": (
+                            "FileNotFoundError: [Errno 2] "
+                            "No such file or directory: 'uv'"
+                        )
+                    },
+                }
+            ),
+            "evaluator-host-missing-uv",
+        )
+
+    def test_does_not_classify_an_arbitrary_missing_host_command(self) -> None:
+        self.assertIsNone(
+            envbench_evaluation_infrastructure_signature(
+                {
+                    "metadata": {
+                        "adapter_error": (
+                            "FileNotFoundError: [Errno 2] "
+                            "No such file or directory: 'python'"
+                        )
+                    }
+                }
+            )
+        )
+
     def test_classifies_network_censoring_before_pyright(self) -> None:
         cases = {
             "ReadTimeoutError while downloading": "read-timeout",
+            (
+                "WARNING: Connection timed out while downloading.\n"
+                "error: incomplete-download"
+            ): "connection-timeout",
+            (
+                "CondaHTTPError: HTTP 000 CONNECTION FAILED for url "
+                "<https://repo.anaconda.com/pkgs/main/linux-aarch64/repodata.json>"
+            ): "conda-http-connection-failed",
             "502 Bad Gateway [IP: 198.18.0.1 80]": "upstream-http-5xx",
             "Connection failed [IP: 198.18.0.1 80]": "apt-connection-failed",
+            (
+                "ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE "
+                "REQUIREMENTS FILE.\n"
+                "    unknown package:\n"
+                "        Expected sha256 " + "a" * 64 + "\n"
+                "             Got        " + "b" * 64
+            ): "package-download-hash-mismatch",
+            (
+                'File "/opt/conda/lib/python3.13/site-packages/pip/'
+                '_internal/index/collector.py", line 231, in parse_links\n'
+                "    data = json.loads(page.content)\n"
+                "json.decoder.JSONDecodeError: Unterminated string starting at: "
+                "line 1 column 335383 (char 335382)"
+            ): "package-index-json-truncation",
+            (
+                "error: RPC failed; curl 56 GnuTLS recv error (-9): "
+                "Error decoding the received TLS packet.\n"
+                "fetch-pack: unexpected disconnect while reading sideband packet\n"
+                "fatal: early EOF\n"
+                "fatal: fetch-pack: invalid index-pack output"
+            ): "git-rpc-tls-truncation",
         }
         for logs, expected in cases.items():
             with self.subTest(logs=logs):
@@ -48,6 +108,23 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
             )
         )
 
+    def test_does_not_censor_a_named_requirement_with_a_bad_hash(self) -> None:
+        self.assertIsNone(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE "
+                        "REQUIREMENTS FILE.\n"
+                        "    requests==2.0:\n"
+                        "        Expected sha256 " + "a" * 64 + "\n"
+                        "             Got        " + "b" * 64
+                    ),
+                    "pyright": {},
+                }
+            )
+        )
+
     def test_completed_pyright_is_not_censored_by_historical_log_text(self) -> None:
         self.assertIsNone(
             envbench_bootstrap_infrastructure_signature(
@@ -55,6 +132,24 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
                     "exit_code": 2,
                     "container_logs": "old diagnostic mentioned ReadTimeoutError",
                     "pyright": {"summary": {"errorCount": 1}},
+                }
+            )
+        )
+
+    def test_recovered_network_error_does_not_override_terminal_build_failure(
+        self,
+    ) -> None:
+        self.assertIsNone(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "Retrying after ReadTimeoutError while downloading torch\n"
+                        "Successfully installed torch\n"
+                        "Preparing metadata finished with status error\n"
+                        "error: metadata-generation-failed\n"
+                    ),
+                    "pyright": {},
                 }
             )
         )

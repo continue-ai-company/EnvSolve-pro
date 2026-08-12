@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.51-ceph-ansible",
+  "recorded_at": "2026-08-09T16:23:35Z",
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-46-lane1-33-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-46-lane1-33-A-spark-official",
+  "submitted_program_sha256": "cb18a8543bbcf0cc56ffa81d98b2623303a408fab0c2d1493438cc28b16acc61",
+  "official_result_sha256": "70fedcdbf7ad2999f6518008409206c249eb2e9243c05810f4ebe85f3694d5d6",
+  "official_raw_result_sha256": "e9b247891bef1cb259587e3d27e188a3cdf297c993b57671448c509e54de1174",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 263,
+    "warning_count": 0,
+    "execution_time_seconds": 75.28098607063293
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "goal_pass": true,
+    "classification": "false-negative-relative-to-official",
+    "reason": "The installation provenance audit rejected the handcrafted local distribution even though its payload was copied from tracked repository source."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged",
+    "reason": "The program repackaged tracked module_utils/ca_common.py into an undeclared inline wheel under Ansible's module namespace. Official missing-import success does not establish broader Ceph-Ansible runtime validity."
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.97-hark",
+  "recorded_at": "2026-08-09T20:50:46Z",
+  "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-remote-valid1",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-remote-valid1-official",
+  "submitted_program_sha256": "6bf328ae7a624c9848641d4c56af96427454577751b2e31d8f3b0bef7e4eddbc",
+  "official_result_sha256": "f1851e008db69a27014f1d6e9088f0e0b9f706a5087ad2461d4f6ab4736bddb3",
+  "official_raw_result_sha256": "d482ec276ca055a17c662045b0fcf5bdfc0cc31f88f49d6d5cbd8fbcd3374be2",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 8.021533727645874,
+    "bootstrap_exit_code": 1,
+    "pyright_ran": false
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "false-positive"
+  },
+  "failure": {
+    "family": "observation-operation-clean-replay-ownership-drift",
+    "mechanism": "During editable metadata generation, setuptools_scm invoked Git in the fresh Official checkout and Git rejected /data/project as a dubious-ownership repository.",
+    "deterministic_signature": "fatal: detected dubious ownership in repository at '/data/project'",
+    "agent_observed_official_equivalent_fact": false,
+    "submitted_operation_missing": "normalize the fresh checkout's Git safe.directory state before editable installation"
+  },
+  "causal_interpretation": {
+    "independent_primary_official_reproduction_index": 4,
+    "independent_all_path_reproduction_index": 5,
+    "related_primary_official_cases": [
+      "basxsoftwareassociation/basxconnect",
+      "claritychallenge/clarity",
+      "datamol-io/graphium"
+    ],
+    "related_non_scoring_counterfactual_case": "datactive/bigbang",
+    "algorithm_implication": "The in-session replay must reproduce Official checkout ownership semantics and return the deterministic bootstrap failure to the same Agent; additional package-selection rules do not address this failure."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-assessable-after-bootstrap-failure",
+    "reason": "The program used real project and dependency installations, but Official failed before environment completion."
+  }
+}

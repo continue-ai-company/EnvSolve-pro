@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-resume-block2",
+  "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+  "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+  "model": "gpt-5.5",
+  "reasoning_effort": "high",
+  "episode_timeout_seconds": 22400,
+  "selection_rule": "Next unresolved episode in each original outcome-blind lane after block 1 generation completed; selected before block 1 Official outcomes were used for any decision.",
+  "execution_stage": "remote-generation-and-clean-replay-before-spark-official",
+  "episodes": [
+    {
+      "position": 1,
+      "original_lane": 1,
+      "original_lane_position": 4,
+      "pending_case_position": 7,
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "condition": "A-strong-agent-control",
+      "control_host": "mac",
+      "execution_host": "spark",
+      "accelerator_exposure": "none",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "run_id": "pro-dev-bad-case-census-v1-0-2-lane1-7-A-spark",
+      "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "seed": 510007,
+      "retry_reason": null
+    },
+    {
+      "position": 2,
+      "original_lane": 2,
+      "original_lane_position": 3,
+      "pending_case_position": 6,
+      "case_id": "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+      "condition": "A-strong-agent-control",
+      "control_host": "mac",
+      "execution_host": "spark",
+      "accelerator_exposure": "none",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "run_id": "pro-dev-bad-case-census-v1-0-2-lane2-6-A-spark",
+      "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "seed": 510006,
+      "retry_reason": "prior episode failed during repository acquisition before Agent execution"
+    }
+  ]
+}

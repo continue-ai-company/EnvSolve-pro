@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.3-remote-source",
+  "created_at": "2026-08-09T11:40:00Z",
+  "status": "frozen-before-first-remote.3-Agent-episode",
+  "trigger": "The first v1.0.2 rl4co attempt failed while the remote.2 runner was still acquiring source through the Mac network, before a construction container or Agent session existed.",
+  "adjudication": {
+    "case_id": "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+    "run_id": "pro-dev-bad-case-census-v1-0-2-lane2-6-A-spark",
+    "generation_result_sha256": "08d4b282a0e0f1dc074082b94e469847ef502dad2a51bab43e82c3b30ab407fc",
+    "agent_started": false,
+    "final_submission_exists": false,
+    "terminal_classification": "infrastructure_unknown",
+    "counts_toward_fixed_seed_pass_at_1": false
+  },
+  "correction": {
+    "remote_backend_freeze": "experiments/protocols/envsolve_pro_remote_docker_backend_v1_0_1_implementation_freeze.json",
+    "remote_backend_freeze_sha256": "ce284ad7af0e6a2535c7ed26de92c827bea1ce0be6b90dbdd4f30a5a74344837",
+    "repository_acquisition_host": "spark",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "runner_version": "1.0.1",
+    "qualified_runner_version": "5.0.1+remote.3",
+    "algorithm_change": false,
+    "model_change": false,
+    "prompt_change": false,
+    "seed_change": false
+  },
+  "pre_agent_smoke": {
+    "repository": "ai4co/rl4co",
+    "revision": "a6231241b8ddf2fd6f38f8931f42778d84e78603",
+    "tree": "bc4663bdcf99e732666a936551633fbde38da4c7",
+    "source": "remote-immutable-exact-revision-cache-v1",
+    "acquisition_host_role": "spark-execution-host",
+    "fsck": "pass",
+    "model_called": false
+  },
+  "retry": {
+    "allowed": true,
+    "case_id": "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+    "run_id": "pro-dev-bad-case-census-v1-0-3-lane2-6-A-spark-source-retry1",
+    "seed": 510006,
+    "condition": "A-strong-agent-control",
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "carry_forward": {
+    "all_prior completed Agent submissions remain frozen": true,
+    "all prior Official outcomes remain unchanged": true,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1-platform-interpretation",
+  "recorded_at": "2026-08-09T04:38:25Z",
+  "status": "interpretation-frozen-before-first-terminal-outcome-without-execution-change",
+  "trigger": "The first active trajectory encountered a dependency with architecture-dependent wheel availability.",
+  "execution_change": false,
+  "parent_preregistration": {
+    "path": "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json",
+    "sha256": "76ba58fe7d41f880752658b8e3f364307f7ccd45b0305ee2ff2acc37d7afc9e4"
+  },
+  "observed_platform": {
+    "host": "Apple Silicon Mac",
+    "container_platform": "linux/arm64",
+    "docker_architecture": "aarch64",
+    "image_index": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4"
+  },
+  "upstream_image_manifest": {
+    "linux_amd64_manifest": "sha256:e920d9b1a001ad57c353cab813a6404631ecde4ca5d318209380b95ccc4a6f3c",
+    "linux_arm64_manifest": "sha256:3f8797094f99353e03e715eec9efc544219d5b34f6b509357c5e9815470673a0",
+    "multi_arch_supported": true
+  },
+  "interpretation": {
+    "census_claim": "A complete failure census for the frozen strong-Agent control on the official EnvBench arm64 image path.",
+    "platform_conditional_failures": "Retain as real deployment outcomes and classify under the frozen platform or hardware subtype when supported by A-only evidence.",
+    "paper_baseline_comparison": "Do not compare this arm64 Pass@1 directly with published results whose execution architecture is unreported.",
+    "sota_requirement": "Either rerun all compared methods on the same arm64 platform or run the frozen final methods and baselines on a common standardized amd64 platform.",
+    "cross_platform_claim": "Requires a separately frozen paired platform study and is not provided by this census."
+  },
+  "validity_policy": {
+    "current_lanes_continue_unchanged": true,
+    "no_case_replacement_for_platform_difficulty": true,
+    "architecture_is_recorded_for_every_result": true,
+    "platform_observation_cannot_change_the_v1_taxonomy_or_batch_rule": true
+  }
+}

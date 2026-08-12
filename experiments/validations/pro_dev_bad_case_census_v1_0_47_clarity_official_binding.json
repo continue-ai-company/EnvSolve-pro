@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.47-clarity-official",
+  "frozen_at": "2026-08-09T16:09:35Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-40-lane2-36-A-spark",
+    "generation_result_sha256": "368adef088999448fe081c83fbad610b1b3e27391a99564b830f0b8d4150e4cf",
+    "final_output_sha256": "8863562f37b049bba5ffd977cc74bc8102102b77e65896853fb148d5c0a5051f",
+    "submitted_program_sha256": "fd0f698051c9d0e232d9b7dfb0e468f3e8cf9820f1154d4d957c6e89ce1353ba",
+    "agent_command_count": 32,
+    "qualification_status": "advisory-pass-zero-missing-imports",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-40-lane2-36-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1298837,
+    "cached_input_tokens": 1211904,
+    "output_tokens": 15785,
+    "reasoning_output_tokens": 7520,
+    "clean_replay_seconds": 237.81880004200002,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged",
+    "detail": "The program installs the project and a broad set of direct providers with --no-deps. This reproducibly resolves the measured imports, but transitive runtime dependencies and end-to-end audio or deep-learning execution were not established.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

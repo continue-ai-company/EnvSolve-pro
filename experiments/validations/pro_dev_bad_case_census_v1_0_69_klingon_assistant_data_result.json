@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.69-klingon-assistant-data",
+  "recorded_at": "2026-08-09T18:24:02Z",
+  "case_id": "envbench-python-de7vid__klingon-assistant-data@2a8945f261748cde5e84363ac5145ac74b7c5e61",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-61-lane2-46-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-61-lane2-46-A-spark-official",
+  "submitted_program_sha256": "e6bf537e305334ac0a6cb8292baf9c35dc58bf4faa3158445042d99768e68559",
+  "official_result_sha256": "20121e514fa912e252935c4e12da88e5c7bb27f8b38eeaf5b92e9a039393d74f",
+  "official_raw_result_sha256": "a96179bc43c208f027f1620de8cc78e1b01c4ae7cb147f71ec9bcd32279e542b",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 19,
+    "warning_count": 3,
+    "execution_time_seconds": 86.86828637123108
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-flagged-from-trajectory",
+    "reason": "The program uses an ordinary virtual environment, installs declared requirements, and adds two imported dependencies. Both fresh replay and Official passed; runtime completeness remains untested."
+  }
+}

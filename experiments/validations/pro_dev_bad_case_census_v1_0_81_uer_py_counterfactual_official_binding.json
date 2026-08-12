@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.81-uer-py-counterfactual-official",
+  "frozen_at": "2026-08-09T19:48:14Z",
+  "status": "frozen-before-diagnostic-official-outcome",
+  "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+  "source_condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-66-lane1-45-A-spark",
+  "submitted_program_sha256": "3e3f2ce799592ff820f66ef27624c38f37d1777331ff7b23056ae61d247200f3",
+  "program_source": "exact-bootstrap-script-from-captured-agent-final-output",
+  "candidate_policy_accepted": false,
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-66-lane1-45-A-spark-counterfactual-official-diagnostic",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": false,
+    "objective_role": "non_scoring_causal_diagnostic"
+  },
+  "causal_question": "Would the completed strong-Agent program satisfy EnvBench Official if the frozen candidate boundary allowed a symlink that changes TensorFlow's installed import layout?",
+  "statistical_disposition_frozen": {
+    "may_change_a_primary_outcome": false,
+    "may_change_a_failure_classification": false,
+    "may_quantify_boundary_cost": true,
+    "deployment_completeness_remains_separate": true
+  },
+  "protected_sets_touched": false
+}

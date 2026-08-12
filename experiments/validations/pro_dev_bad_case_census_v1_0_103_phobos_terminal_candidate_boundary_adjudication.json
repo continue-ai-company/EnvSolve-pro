@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.103-phobos-terminal-candidate-boundary",
+  "recorded_at": "2026-08-09T21:11:03Z",
+  "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1",
+  "terminal_status": "algorithm-failure-before-official-submission",
+  "source_artifacts": {
+    "generation_result_sha256": "096edf9e0e47b153888eacbca7dbd84d8946af8c6da3d51ac87140cff5417c44",
+    "final_output_sha256": "e5132322033608396a04cebd984f3bf8fd57f5b8460ae051ea6a0292298daf9e",
+    "trajectory_sha256": "76327d90e3d79138aeb743729d708e3956070891e2b1f8091efae5a1ea9d2697",
+    "command_trace_sha256": "c406143c129b0453470efdeb7cb8c87773ae0b181b2d3da766592b8c03b64ceb",
+    "recovered_submission_sha256": "66966dc74a494895a973850c11ec3cefb8953f6c99d773391e32129d4c2aa15d",
+    "recovered_submission_exactly_matches_final_output": true
+  },
+  "observations": {
+    "agent_process_exit_code": 0,
+    "agent_timed_out": false,
+    "agent_command_count": 31,
+    "input_tokens": 1445370,
+    "cached_input_tokens": 1355264,
+    "output_tokens": 19221,
+    "reasoning_output_tokens": 11530,
+    "post_agent_transport_error": "rsync of the construction workspace timed out after 1200 seconds because the custom .envsolve-py310 virtual environment was not excluded",
+    "candidate_policy_recovered_deterministically": true,
+    "candidate_policy": "open-candidate-program-v5",
+    "candidate_policy_accepted": false,
+    "candidate_policy_reason": "candidate program embeds code that materializes an importable artifact",
+    "rejected_line": "(site_dir / \"hyrodyn-stubs\" / \"__init__.pyi\").write_text(\"class RobotModel: ...\\n\", encoding=\"utf-8\")",
+    "rejected_target": "__init__.pyi",
+    "agent_observed_effect": "After real Phobos, fake-bpy, PyBullet, and related installations plus two local stub-only distributions, Pyright reported zero missing imports."
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_infrastructure_censored": false,
+    "official_primary_outcome_available": false,
+    "failure_family": "operation-layer-generated-type-stub-artifact-rejected",
+    "reason": "Although post-Agent transport independently failed, the exact submitted program is deterministically inadmissible under the frozen v5 candidate policy. A therefore remains an algorithm failure."
+  },
+  "transport_implication": {
+    "algorithm_outcome_affected": false,
+    "throughput_affected": true,
+    "vpn_traffic_affected": true,
+    "future_fix": "Exclude dynamically detected rebuildable virtual environments from post-session workspace transport under a separately frozen infrastructure amendment."
+  },
+  "protected_sets_touched": false
+}

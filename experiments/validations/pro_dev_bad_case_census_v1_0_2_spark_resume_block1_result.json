@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-resume-block1",
+  "recorded_at": "2026-08-09T11:53:32Z",
+  "status": "complete",
+  "preregistration": {
+    "path": "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json",
+    "sha256": "caf5ea7d58396df26581290a0ea13ac3ec5a7112c87e2772a7ca709896fe339f"
+  },
+  "schedule": {
+    "path": "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block1.json",
+    "sha256": "a7c9d913f7f4887970032f0b57ac6b2315d4877510414af17e5a946925aac5d6"
+  },
+  "execution": {
+    "control_host": "mac",
+    "construction_clean_replay_and_official_host": "spark-f21c",
+    "spark_architecture": "aarch64",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "accelerator_exposure": "none"
+  },
+  "outcomes": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-adamchainz__django-mysql@d6f0500565b1e4bc94044ca061e745cada955c11",
+      "seed": 510005,
+      "model": "gpt-5.5",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "generation": {
+        "completed": true,
+        "process_exit_code": 0,
+        "timed_out": false,
+        "script_sha256": "90ff1fe2b5352322c88527de275e7c3f12956938b260272126d5f11666448975",
+        "final_output_sha256": "9178131ae37f778a7c6d071b8a55699384db01ea3a2a50cfc6653054feb7b6ea",
+        "trajectory_sha256": "ad94c994ac6300561d2203614ec11cb568a0d746e44ea369525d4f1324178707",
+        "container_commands_sha256": "8af1cb6d3b35ff136413eff91503d0a53a8018907719e0b2aa9835c1117aab64",
+        "token_usage": {
+          "input_tokens": 508817,
+          "cached_input_tokens": 447488,
+          "output_tokens": 9245,
+          "reasoning_output_tokens": 4208
+        }
+      },
+      "advisory_qualification": {
+        "status": "pass",
+        "certified": true,
+        "result_sha256": "bd2c2d44d057925ad4212429f78ea76de14d7b89f36212b50936d6e5416e648c"
+      },
+      "official": {
+        "evaluation_completed": true,
+        "official_pass": true,
+        "execution_time_seconds": 43.75555968284607,
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 487,
+        "warning_count": 3,
+        "result_sha256": "7562ca0ad760604976fb78bb6a0e3c11ed002dfaf746e3e717e82b3189210301",
+        "raw_result_sha256": "f838d9fa081996a59ca92063e4fd7c72fdc64b3663dd30be0cadcde554830108",
+        "evaluated_script_sha256": "90ff1fe2b5352322c88527de275e7c3f12956938b260272126d5f11666448975"
+      },
+      "terminal_outcome": "official_pass"
+    },
+    {
+      "position": 2,
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "seed": 510004,
+      "model": "gpt-5.5",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "generation": {
+        "completed": true,
+        "process_exit_code": 0,
+        "timed_out": false,
+        "script_sha256": "54a87129a7d97bc384372a2bdc1cbed674c0d1bea9dbbc3e3eb4b385cd478476",
+        "final_output_sha256": "6c0449f4d85467595cea02bfc338b7ebfb56f6191d16c25e041a06f1c35f9a00",
+        "trajectory_sha256": "7c840fca29727d0a962df577ce0fe3775ecd1105ebcc8b148b35e7ce04da2757",
+        "container_commands_sha256": "096752d40eb67e56bdb8a0d87f75da7c77679edfff9f2f2205be91f5718fdd0e",
+        "token_usage": {
+          "input_tokens": 685007,
+          "cached_input_tokens": 616960,
+          "output_tokens": 16620,
+          "reasoning_output_tokens": 12316
+        }
+      },
+      "advisory_qualification": {
+        "status": "fail",
+        "certified": false,
+        "summary": "Candidate did not return control to the executable goal",
+        "result_sha256": "c2b10967acfb0224caaf31dd2d3186855a16f6f1609b456d5f06d120845f6355"
+      },
+      "official": {
+        "evaluation_completed": true,
+        "official_pass": false,
+        "execution_time_seconds": 1210.4260323047638,
+        "exit_code": 1,
+        "issues_count": 0,
+        "error_count": null,
+        "warning_count": null,
+        "original_parsed_result_sha256": "a78ad23e759304c74232f84a05d286e38b87bdd5417297b7c63c80571d5276c9",
+        "raw_result_sha256": "00f38b452b085f962c742701130ae7bee98cc001452c8bbb65289515ce97e214",
+        "evaluated_script_sha256": "54a87129a7d97bc384372a2bdc1cbed674c0d1bea9dbbc3e3eb4b385cd478476",
+        "terminal_cause": "tblite metadata generation failed because LAPACK was unavailable on aarch64",
+        "classification_amendment": "experiments/validations/pro_dev_bad_case_census_v1_0_5_terminal_cause_amendment.json"
+      },
+      "terminal_outcome": "official_fail"
+    }
+  ],
+  "pending_positions": []
+}

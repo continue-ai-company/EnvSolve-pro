@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.32-cclib-official",
+  "frozen_at": "2026-08-09T15:04:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-26-lane2-30-A-spark",
+    "generation_result_sha256": "2388121e7c4d5f1f17be146fcbbfe9a535ac8ef2bcc8c8ffa2aaa12d80ae84b7",
+    "final_output_sha256": "06ce5737ea9bb2fb387a2028cb5d8807ca2665ca7a864e8b2769b5a52306c75a",
+    "submitted_program_sha256": "f15b69b280d04f5b316a77d55c7289a900947c5f0f89bcea56b05adcbfebdd41",
+    "agent_command_count": 58,
+    "qualification_status": "measurement-false-positive-corrected-before-official",
+    "qualification_is_advisory": true,
+    "measurement_amendment": "experiments/validations/pro_dev_bad_case_census_v1_0_31_versioningit_integrity_amendment.json"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-26-lane2-30-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 2927498,
+    "cached_input_tokens": 2762240,
+    "output_tokens": 22651,
+    "reasoning_output_tokens": 10925,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "detail": "The submitted program copies PyQuante 1.6.5 Python-2-era pure-Python files into a Python 3.13 site-packages directory. Missing-import checks can succeed even though syntax errors indicate that the dependency is not generally executable under the selected interpreter.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

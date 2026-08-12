@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-execution",
+  "created_at": "2026-08-09T10:40:34Z",
+  "status": "frozen-before-first-v1.0.2-episode",
+  "reason": "The Mac cannot provide the intended Linux ARM execution capacity or CUDA platform. Spark becomes the primary construction, clean-replay, and Official-evaluation host while the local Codex process remains the control plane.",
+  "scientific_scope": "Execution-infrastructure and measurement correction only; this amendment does not add an EnvSolve-Pro algorithm treatment.",
+  "unchanged": {
+    "case_universe": "frozen outcome-blind 209-case Dev census",
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+    "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+    "condition": "A-strong-agent-control",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "prompt_and_public_goal": "unchanged",
+    "official_evaluator_feedback_during_generation": false,
+    "post_session_qualification_feedback_returned_to_agent": false,
+    "B_or_C_execution": false
+  },
+  "execution_roles": {
+    "mac": [
+      "Codex control session",
+      "experiment coordination",
+      "code and artifact retention"
+    ],
+    "spark": [
+      "repository acquisition",
+      "persistent construction container",
+      "fresh-container qualification replay",
+      "EnvBench Official evaluation"
+    ],
+    "remote_target": "avdpro@100.81.196.23",
+    "accelerator_exposure_for_frozen_census": "none",
+    "accelerator_rationale": "The frozen CPU-compatible census must not silently change environment semantics. CUDA exposure is reserved for an explicit later platform treatment and must be equal across compared arms."
+  },
+  "implementation": {
+    "remote_backend_freeze": "experiments/protocols/envsolve_pro_remote_docker_backend_v1_implementation_freeze.json",
+    "remote_backend_freeze_sha256": "f2fdd0cfec4375a21ec90bac19ec5f030d64ede54e27e1ecf7a7acb3db03642e",
+    "boundary_freeze": "experiments/protocols/envsolve_pro_certification_repair_boundary_v5_0_1_implementation_freeze.json",
+    "boundary_freeze_sha256": "a233f7574c0bd783ae53791e76afa9c6e214b06952371c44828789aa08e616e2",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "runner_version": "1.0.0",
+    "official_primary_rule": "Every completed open-program-safety-admissible submission proceeds to Official evaluation; local qualification remains an advisory axis and is not Agent feedback."
+  },
+  "prior_episode_disposition": {
+    "completed_submission_exact_followup": {
+      "policy": "Never regenerate a completed Agent submission. Preserve and evaluate the exact program on Spark.",
+      "cases": {
+        "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443": "official_pass",
+        "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e": "official_pass",
+        "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031": "official_pass",
+        "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34": "infrastructure_unknown"
+      },
+      "evidence": "experiments/validations/pro_dev_bad_case_census_v1_0_1_requalification_summary.json",
+      "evidence_sha256": "54f55559e871548516b02a009eb2fa8b9be8c91edaa6b7949599444e83bcc631"
+    },
+    "no_agent_submission_repository_acquisition_failure": [
+      "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+      "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c"
+    ],
+    "no_agent_submission_interrupted": [
+      "envbench-python-adamchainz__django-mysql@d6f0500565b1e4bc94044ca061e745cada955c11",
+      "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+      "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7"
+    ],
+    "retry_rule": "Only episodes with no Agent final submission may execute the same frozen A condition and original seed again."
+  },
+  "resume": {
+    "ordering": "Continue the original two outcome-blind lanes from each lane's earliest unresolved episode.",
+    "maximum_concurrent_lanes": 2,
+    "initial_block": "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block1.json",
+    "initial_block_sha256": "a7c9d913f7f4887970032f0b57ac6b2315d4877510414af17e5a946925aac5d6",
+    "control_config": "experiments/configs/local_mac_remote_spark_dev_bad_case_census_v1_0_2.json",
+    "control_config_sha256": "d18b61190234346b6fd826c5840209f0a845bb97925656a0e7f30f21270cdb2b",
+    "official_config": "experiments/configs/local_spark_pro_dev_bad_case_census_v1_0_1.json",
+    "official_config_sha256": "3424a5c77dd80071cb86acb8e5a78e55f34635a25079e1b24e0b0578b7d029aa"
+  },
+  "validity_rules": {
+    "official_outcome_is_primary": true,
+    "qualification_is_advisory": true,
+    "error_count_is_diagnostic_only": true,
+    "infrastructure_unknown_does_not_become_an_algorithm_failure": true,
+    "existing_primary_outcomes_are_not_replaced": true,
+    "protected_canary_and_test_sets_remain_untouched": true
+  }
+}

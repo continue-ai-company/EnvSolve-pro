@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.79-bigbang-counterfactual-official",
+  "recorded_at": "2026-08-09T19:30:00Z",
+  "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+  "source_condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark",
+  "diagnostic_run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark-counterfactual-official-diagnostic-retry1",
+  "submitted_program_sha256": "facbc628cf3d6e7f762ab571783e0fc2f4162147e21168d12068a90f07587026",
+  "official_result_sha256": "5bf1bc6475929179ce4bcefac77523b4a8a0e9b375f5da21b27bc000a595ae50",
+  "official_raw_result_sha256": "437074ca26ae9f563c9a1c532bd302a3c08692f3e91cfcedebb1fa8c4a60c424",
+  "initial_attempt": {
+    "infrastructure_censored": true,
+    "signature": "read-timeout",
+    "official_result_sha256": "7dcfadc729fc2f2c7e61546c8608bf09319f6f133689e7db2d92a7acdd6e7a0e",
+    "official_raw_result_sha256": "6b3ea2fc00072d8ed4359cbf48bdf0a5a1e8cb4760232dc6fe0b64ad0eaf7f7f"
+  },
+  "exact_script_retry": {
+    "evaluation_completed": true,
+    "pass": false,
+    "exit_code": 1,
+    "issues_count": 0,
+    "pyright_ran": false,
+    "execution_time_seconds": 8.78449821472168,
+    "terminal_mechanism": "setuptools_scm Git dubious ownership during local project metadata generation in the fresh Official checkout"
+  },
+  "causal_conclusion": {
+    "candidate_boundary_false_positive_confirmed": true,
+    "benchmark_pass_lost_on_this_case": false,
+    "detail": "The candidate policy conservatively rejected configuration writes beneath a mktemp-derived directory, but exact-program counterfactual evaluation also failed before Pyright because the submitted program did not normalize fresh-checkout Git ownership."
+  },
+  "statistical_disposition": {
+    "objective_role": "non_scoring_causal_diagnostic",
+    "changes_a_primary_outcome": false,
+    "a_primary_outcome_remains": "pre-Official algorithm failure"
+  },
+  "protected_sets_touched": false
+}

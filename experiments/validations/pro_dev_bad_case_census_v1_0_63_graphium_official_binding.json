@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.63-graphium-official",
+  "frozen_at": "2026-08-09T18:12:46Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-57-lane2-44-A-spark",
+    "generation_result_sha256": "b22839ca09d8223a0ccf0a9193c65ec52a43fcaf568608d5cfdcb80466cd193c",
+    "final_output_sha256": "dbf2f0edeb62ee962fca2d1185a5e52e6a0de6a41605a31659d36428fdefe8b2",
+    "submitted_program_sha256": "2d53df1fa027805909ea5204462d0ba77080d99bbe148a30deb3d5824fc6fe5b",
+    "agent_command_count": 43,
+    "qualification_status": "fail",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "ca19b0913598e4f8d7190712a76cbe74a4ef031aec683c571471ecf7338ba5d2",
+    "qualification_error": "Candidate introduced an inadmissible Python installation artifact."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-57-lane2-44-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 2925481,
+    "cached_input_tokens": 2762752,
+    "output_tokens": 18902,
+    "reasoning_output_tokens": 10243,
+    "clean_replay_seconds": 499.5629373750003,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-static-source-namespace",
+    "detail": "The program does not install an executable PopTorch SDK. It shallow-clones the current Graphcore PopTorch source and places its repository root on PYTHONPATH, which makes the top-level poptorch source directory visible to static analysis without establishing runtime behavior or reproducibility.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

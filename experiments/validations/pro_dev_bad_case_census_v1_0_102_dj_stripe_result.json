@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.102-dj-stripe",
+  "recorded_at": "2026-08-09T21:11:03Z",
+  "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-74-lane1-51-A-spark-remote-valid1",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-74-lane1-51-A-spark-remote-valid1-official",
+  "submitted_program_sha256": "ddca03e8ce652141fe77dc617e2c0a9004a7ed3837798d8a27138ab725348db3",
+  "official_result_sha256": "6071fd45715963673d1d79c212f31e9cb41aaefaa7f8775b142bdd4135836f2e",
+  "official_raw_result_sha256": "21bdfce5b19835a0f1d5ab3d610f4ce26a0712dad05d0d6ea5b263426157c600",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 1848,
+    "warning_count": 9,
+    "execution_time_seconds": 157.4233193397522
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "not-flagged-from-trajectory",
+    "reason": "A conventional local venv and editable project installation with declared development tools passed both clean replay and Official. Runtime services remain untested."
+  }
+}

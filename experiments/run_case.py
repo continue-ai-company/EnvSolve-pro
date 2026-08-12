@@ -40,6 +40,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model")
     parser.add_argument("--source-run", type=Path)
     parser.add_argument("--seed", type=int)
+    parser.add_argument(
+        "--generation-only",
+        action="store_true",
+        help="Stop after solver generation and qualification without evaluation.",
+    )
     parser.add_argument("--config", type=Path, default=WORKSPACE_ROOT / "experiments/configs/local_mac.json")
     parser.add_argument(
         "--protocol",
@@ -91,6 +96,11 @@ def main() -> int:
                 print(f"generation_completed=false\nerror={solver_result.error}")
                 print(f"artifacts={artifacts.root}")
                 exit_code = 1
+            elif args.generation_only:
+                print(f"artifacts={artifacts.root}")
+                print("generation_completed=true")
+                print("evaluation_skipped=true")
+                exit_code = 0
             else:
                 generated_script = artifacts.root / solver_result.script_path
                 result = create_benchmark_adapter(config, protocol).evaluate(

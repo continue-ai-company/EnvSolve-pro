@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.49-clarity",
+  "recorded_at": "2026-08-09T16:12:27Z",
+  "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-40-lane2-36-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-40-lane2-36-A-spark-official",
+  "submitted_program_sha256": "fd0f698051c9d0e232d9b7dfb0e468f3e8cf9820f1154d4d957c6e89ce1353ba",
+  "official_result_sha256": "1362c4a8867bbce6d70a1cd63217813b4b0dbfcaa67fac7c8e64893cb955aa92",
+  "official_raw_result_sha256": "a7dff5bb9768d7e6bf7fd120c1bc8600095282afacd49477221251fc40cf81ad",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "bootstrap_exit_code": 1,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 17.079782724380493
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "goal_pass": true,
+    "classification": "false-positive-relative-to-official",
+    "clean_replay_seconds": 237.81880004200002
+  },
+  "failure": {
+    "taxonomy": "observation-operation-clean-replay-ownership-drift",
+    "deterministic": true,
+    "infrastructure_censored": false,
+    "mechanism": "The Official checkout was not trusted by Git under its runtime ownership. setuptools_scm invoked Git while preparing editable metadata and failed with detected dubious ownership before Pyright ran.",
+    "repeated_failure_family": "basxconnect and clarity independently fail because the submitted program does not normalize Git safe-directory state in the Official deployment environment."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged",
+    "reason": "The candidate used --no-deps for the project and direct providers, so end-to-end runtime completeness was not established even though advisory missing-import verification passed."
+  }
+}

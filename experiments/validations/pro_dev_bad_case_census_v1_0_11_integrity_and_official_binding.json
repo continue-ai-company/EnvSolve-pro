@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.11-integrity-and-official-binding",
+  "frozen_at": "2026-08-09T13:12:31Z",
+  "status": "frozen-before-official-outcomes",
+  "scope": {
+    "algorithm_identity_changed": false,
+    "baseline": "A",
+    "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "protected_sets_touched": false
+  },
+  "measurement_correction": {
+    "kind": "repository-integrity-false-positive",
+    "reason": "setuptools setup_requires stores unpacked wheel dependencies under .eggs; the v6 integrity policy treated their importable files as candidate-authored modules",
+    "new_rule": "accept only .eggs/<distribution>.egg roots with PKG-INFO, WHEEL, and a RECORD whose size and digest validate every non-cache importable file; reject extra files, invalid hashes, and symlinks",
+    "policy_before": "clean-tracked-tree-and-provenance-derived-files-v6",
+    "policy_after": "clean-tracked-tree-and-provenance-derived-files-v7",
+    "implementation": {
+      "path": "envsolve_harness/integrity/repository.py",
+      "sha256": "ca06fa91d322ce52036eace79054966d405de2a666c4afdcbe0fe12d753c12cc"
+    },
+    "tests": {
+      "path": "tests/test_harness_core.py",
+      "sha256": "d91b9d5111f2fa32fd7aa497f4a1f90b9d6dd40a4739f6de0908534a1c41f760",
+      "result": "42 passed"
+    },
+    "real_workspace_reaudit": {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "policy": "clean-tracked-tree-and-provenance-derived-files-v7",
+      "valid": true,
+      "violation_count": 0,
+      "allowed_generated_root_count": 5
+    }
+  },
+  "official_executions": [
+    {
+      "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+      "source_run_id": "pro-dev-bad-case-census-v1-0-6-lane2-8-A-spark",
+      "source_result_sha256": "6d1eee089f588cebd3d4e62378d2ff83c4b498942b7f4e08960a4eb2e9ea8b6d",
+      "submitted_program_sha256": "4ff807ae57d47b4c2b801f93931bf4536770a54b6009c77781a3d33c9aed7d51",
+      "run_id": "pro-dev-bad-case-census-v1-0-6-lane2-8-A-spark-official"
+    },
+    {
+      "case_id": "envbench-python-astropy__regions@15393a984d1bd93333805b4f0a9277e3e1ed7929",
+      "source_run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark",
+      "source_result_sha256": "4260b36857f0e0cb0342aec52047f5fcc569e1e17f88b76a1774bed3928be81f",
+      "submitted_program_sha256": "c96a0e0a49fc084e0b76cdb18ea19bb146452c1f55c40e5479a8d03e228d5332",
+      "run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark-official"
+    },
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "source_run_id": "pro-dev-bad-case-census-v1-0-10-lane1-17-A-spark",
+      "source_result_sha256": "e1870cfdad8ed3656fc8c3e8e5f2db2b9ce26c1e28a5c7194eedf04e42544492",
+      "qualification_wrapper_sha256": "c14f6878c965be1a4bd1a8f613f31277a7e1640390d5b13cde861e966918407b",
+      "submitted_program_sha256": "44f19c6f10f41319ef001f23b0438d4646c3d4d32d5ad9bcfc64d24f70e313bb",
+      "run_id": "pro-dev-bad-case-census-v1-0-10-lane1-17-A-spark-official"
+    }
+  ],
+  "execution_policy": {
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "qualification_is_advisory": true,
+    "official_is_primary": true,
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.1-verifier-correctness",
+  "created_at": "2026-08-09T07:13:33Z",
+  "status": "frozen-before-resumed-execution",
+  "parent_preregistration": {
+    "path": "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json",
+    "sha256": "76ba58fe7d41f880752658b8e3f364307f7ccd45b0305ee2ff2acc37d7afc9e4"
+  },
+  "reason_for_stop": "Three A-only trajectories exposed verifier correctness failures: generated-audit incompatibility with Python 3.9, missing distribution ownership for configured import roots, and rejection of an exact repository-declared runtime template.",
+  "new_boundary_freeze": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v5_0_1_implementation_freeze.json",
+    "runner_version": "5.0.1",
+    "boundary_version": "certification-repair-boundary-v5.0.1"
+  },
+  "scientific_scope": {
+    "dev_universe_changed": false,
+    "case_order_or_selection_changed": false,
+    "model_or_reasoning_changed": false,
+    "agent_prompt_changed": false,
+    "algorithm_changed": false,
+    "official_evaluator_changed": false,
+    "failure_taxonomy_changed": false,
+    "protected_sets_touched": false
+  },
+  "affected_cases": [
+    {
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "v5_0_0_outcome": "qualification_fail",
+      "trigger": "configured-import-root-distribution-ownership",
+      "required_disposition": "exact-program-requalification"
+    },
+    {
+      "case_id": "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+      "v5_0_0_outcome": "infrastructure_unknown",
+      "trigger": "python-3.9-generated-audit-compatibility",
+      "required_disposition": "exact-program-requalification"
+    },
+    {
+      "case_id": "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031",
+      "v5_0_0_outcome": "qualification_fail",
+      "trigger": "repository-declared-runtime-template",
+      "required_disposition": "exact-program-requalification"
+    }
+  ],
+  "carry_forward_policy": {
+    "direct_manual_relabeling": false,
+    "agent_regeneration_for_existing_submissions": false,
+    "feedback_to_agent": false,
+    "required_check": "Replay the exact submitted program in a fresh environment under frozen boundary v5.0.1.",
+    "previous_official_outcome_reusable_after_requalification": true,
+    "all_completed_v5_0_0_submissions_receive_noninterference_requalification": true,
+    "qualification_failure_or_timeout_remains_a_v1_0_1_failure": true
+  },
+  "execution_topology": {
+    "spark_role": "primary Linux ARM, CUDA, clean-replay, qualification, and Official-evaluation node",
+    "mac_role": "control plane, code editing, lightweight tests, and temporary Agent front end until remote execution is verified",
+    "resume_gate": "Do not resume new census episodes until exact-program requalification and the Spark execution path are validated."
+  },
+  "protected_sets": {
+    "canary20_untouched": true,
+    "official_test100_untouched": true
+  }
+}

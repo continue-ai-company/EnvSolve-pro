@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.37-molecularnodes",
+  "recorded_at": "2026-08-09T15:16:00Z",
+  "case_id": "envbench-python-bradyajohnston__molecularnodes@33a07854f471eebe8f131d260b3fcbc9416f69b0",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-25-lane1-25-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-25-lane1-25-A-spark-official",
+  "submitted_program_sha256": "a41ba3fe8c1b35d8b7d04846762f4742af70ff8fbeaff0f7e2c2495ae699e20d",
+  "official_result_sha256": "21e080f1e1fb3ca3efd5e3a81c578864f77ff367ca399888274cf2c9f54bd55c",
+  "official_raw_result_sha256": "f822b0b3959cda255ac3ea98c278bab8d32ad6b657f7489cd2bf2b26e08628eb",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 954,
+    "warning_count": 56,
+    "execution_time_seconds": 421.00608682632446
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "goal_pass": true,
+    "classification": "false-negative-relative-to-official",
+    "reason": "The local-distribution provenance audit rejected the retagged pyopenvdb wheel."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged",
+    "reason": "The cp37 pyopenvdb wheel was retagged as py3-any and fake-bpy was used instead of Blender's bpy runtime; runtime compatibility was not established."
+  }
+}

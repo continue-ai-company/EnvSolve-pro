@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-bad-case-revalidation-v1",
+  "recorded_at": "2026-08-09T03:40:00Z",
+  "status": "methodological-stop-before-any-effective-episode",
+  "reason": "The study was stopped because a complete Dev universe, frozen failure taxonomy, and treatment-blind batch-selection rule must precede targeted bad-case revalidation.",
+  "interrupted_attempt": {
+    "position": 1,
+    "case_id": "envbench-python-markqvist__reticulum@6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+    "condition": "A-strong-agent-control",
+    "duration_seconds": 76.86037266702624,
+    "process_exit_code": -15,
+    "generation_completed": false,
+    "official_evaluation_completed": false,
+    "usable_outcome": false,
+    "treatment_B_or_C_started": false
+  },
+  "scientific_disposition": {
+    "excluded_from_dev_census": true,
+    "excluded_from_effect_estimates": true,
+    "official_feedback_observed": false,
+    "case_may_be_rerun_only_under_the_complete_census_protocol": true
+  },
+  "evidence": {
+    "progress_path": "experiments/schedules/pro_bad_case_revalidation_v1_mac_progress.json",
+    "progress_sha256": "26743b1ef40899cf9cc8a01f02683eb4073434339740300099ba5eb2cbf98739"
+  }
+}

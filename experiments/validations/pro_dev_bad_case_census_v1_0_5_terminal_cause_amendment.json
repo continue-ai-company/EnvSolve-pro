@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.5-terminal-cause",
+  "created_at": "2026-08-09T11:53:32Z",
+  "status": "frozen-before-later-Official-results-are-classified",
+  "trigger": "The quacc bootstrap log contained an early pip ReadTimeoutError that recovered, followed by a later deterministic tblite metadata-generation failure. The prior classifier treated any historical network text as the terminal cause.",
+  "measurement_rule": {
+    "name": "terminal-cause-dominance-v1",
+    "description": "When Pyright did not run and bootstrap exited nonzero, classify infrastructure censoring only when the last recognized terminal cause is a network failure. A later explicit package-resolution or package-build terminal failure dominates an earlier recovered network event.",
+    "official_raw_metrics_remain_primary": true,
+    "algorithm_component": false,
+    "agent_feedback": false
+  },
+  "implementation": {
+    "path": "envsolve_harness/adapters/infrastructure.py",
+    "sha256": "cea1650e064783943508bf65db7cbbbbc2e23176f63849f3391f30fa2a93d9b7",
+    "test_path": "tests/test_evaluator_infrastructure.py",
+    "test_sha256": "828bb7918e8e5aedce9992efa19e29b16852246d906296a64d487f23684b67be",
+    "focused_regression": "15 passed, 3 skipped"
+  },
+  "quacc_adjudication": {
+    "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+    "submitted_script_sha256": "54a87129a7d97bc384372a2bdc1cbed674c0d1bea9dbbc3e3eb4b385cd478476",
+    "raw_result_sha256": "00f38b452b085f962c742701130ae7bee98cc001452c8bbb65289515ce97e214",
+    "original_parsed_result_sha256": "a78ad23e759304c74232f84a05d286e38b87bdd5417297b7c63c80571d5276c9",
+    "raw_metrics": {
+      "exit_code": 1,
+      "issues_count": 0,
+      "repo_name": "Quantum-Accelerators/quacc",
+      "commit_sha": "f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "execution_time_seconds": 1210.4260323047638
+    },
+    "early_recovered_event": "pip ReadTimeoutError while downloading torch",
+    "terminal_failure": "tblite metadata generation failed because LAPACK was unavailable on aarch64",
+    "corrected_infrastructure_signature": null,
+    "corrected_evaluation_completed": true,
+    "official_pass": false,
+    "terminal_outcome": "official_fail"
+  },
+  "application_scope": {
+    "apply_to_all_census_raw_results": true,
+    "do_not_mutate_original_artifacts": true,
+    "do_not_rerun_model": true,
+    "do_not_rerun_official_for_reclassification": true,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

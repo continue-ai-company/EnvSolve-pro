@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.13-regions-official-network-retry1",
+  "created_at": "2026-08-09T13:21:00Z",
+  "status": "frozen-before-retry1-outcome",
+  "case_id": "envbench-python-astropy__regions@15393a984d1bd93333805b4f0a9277e3e1ed7929",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark-official",
+  "source_outcome": {
+    "evaluation_completed": false,
+    "termination_kind": "infrastructure_unknown",
+    "scope": "evaluator_bootstrap",
+    "signature": "read-timeout",
+    "terminal_evidence": "CondaHTTPError while downloading numpy-base from repo.anaconda.com",
+    "result_sha256": "393e9437306583def9e6c5bca81141d58b62645f40b692c09ab172013e109a74",
+    "raw_result_sha256": "42517dae693309c6c64b076ccc3ef55cf2229c1fbdb7607c6f7f5309048f6925"
+  },
+  "retry": {
+    "run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark-official-network-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "submitted_program_sha256": "c96a0e0a49fc084e0b76cdb18ea19bb146452c1f55c40e5479a8d03e228d5332",
+    "agent_or_model_reexecuted": false,
+    "maximum_retries": 1,
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none"
+  },
+  "adjudication_rule": "Retry1 may replace only the infrastructure-unknown Official outcome. A second infrastructure signature is terminal censored evidence and permits no further replacement retry."
+}

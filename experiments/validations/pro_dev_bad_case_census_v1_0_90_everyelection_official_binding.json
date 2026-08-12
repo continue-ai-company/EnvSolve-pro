@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.90-everyelection-official",
+  "frozen_at": "2026-08-09T20:19:11Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-democracyclub__everyelection@74e6fabf58668d8b96713d05f877b6e4f0353166",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-69-lane1-47-A-spark",
+    "generation_result_sha256": "09242046220967a24110eee5e889fbbc5d4ba35fdd9d25c08b693a9bc4f3e0d3",
+    "final_output_sha256": "5ab9ea5720b52a7326ec34844a2b51414730a5f342b4521d844958343a0911cf",
+    "submitted_program_sha256": "b7d7f686e86f97f2f7aeafedca7c9f3771a0a8b2f5347d29db7ad61980410a70",
+    "agent_command_count": 27,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "9f89bd2319d4d8cb03d8e46b2f3affe5162fc092578b4778ae8a1a96982f67ba"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-69-lane1-47-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 852332,
+    "cached_input_tokens": 774656,
+    "output_tokens": 14594,
+    "reasoning_output_tokens": 8382,
+    "clean_replay_seconds": 270.1042479580001,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program installs the repository's broad runtime, infrastructure, and test dependency set plus two pinned DemocracyClub packages, derives local settings from a tracked example, and exposes repository application paths. Runtime service completeness remains untested.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

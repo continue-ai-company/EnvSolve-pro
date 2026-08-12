@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.111-readux-official",
+  "frozen_at": "2026-08-09T21:43:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1",
+  "submitted_program_sha256": "3294724c79a82157f6f9d733cf0a2f761085432ba6bb5b62d5562a5cc32d8f6d",
+  "source_artifacts": {
+    "generation_result_sha256": "35fdb2fced5e57b830fde533339cf98a387ec068005bbed4fb15eeb804454d05",
+    "final_output_sha256": "11c5b97758073b0d7ebeedea5427d88dbb05847ad0757ad031f2a09f584fbba0",
+    "trajectory_sha256": "b79737068b673ac0e1880d98ed0fba53ef8bbcd51ebbe8c8b1ffe3281c0f4308",
+    "command_trace_sha256": "ece39dbe5828b085fadf75f9c1eb1c47afca9f273d2dfdae9653ae39f2023ec5",
+    "qualification_result_sha256": "0f35549cf0a664ec03899421989f903f1ccef9795b90ad0d0898028c93104294"
+  },
+  "generation": {
+    "agent_command_count": 22,
+    "successful_agent_command_count": 20,
+    "input_tokens": 792332,
+    "cached_input_tokens": 731136,
+    "output_tokens": 13207,
+    "reasoning_output_tokens": 7855
+  },
+  "advisory_qualification": {
+    "status": "fail",
+    "fresh_replay_seconds": 331.35956683300003,
+    "missing_import_count": 0,
+    "failure_family": "editable-requirement-provenance-false-positive-hypothesis",
+    "detail": "The audit rejected digitaledition_jekylltheme because pip installed it as an editable checkout under the venv src directory, although requirements/local.txt declared the installation path and the goal contract passed."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "not-flagged-from-trajectory",
+    "detail": "The program installs system headers and declared local requirements, adds one observed optional package, derives local settings from a tracked sibling template, and exposes an editable requirement source path. Runtime services remain untested.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

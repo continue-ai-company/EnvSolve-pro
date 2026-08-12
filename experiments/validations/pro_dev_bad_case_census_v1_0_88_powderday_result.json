@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.88-powderday",
+  "recorded_at": "2026-08-09T20:15:54Z",
+  "case_id": "envbench-python-dnarayanan__powderday@d81ce05aa0baedaa4b63b17abc0963b64fb33bbc",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-67-lane2-52-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-67-lane2-52-A-spark-official",
+  "submitted_program_sha256": "4a1132262a096c9a0bef7e4bc29ed1896cf7af467798da8f2b679baa4e930f8d",
+  "official_result_sha256": "fe1614199b846ca6247e4b87b3c33c2839032e6f3862ba330e4b0af09168a786",
+  "official_raw_result_sha256": "e2e1cc040376a8db980e519b5b07c025bdb93b097a60799661db874d80dbb002",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 1888,
+    "warning_count": 41,
+    "execution_time_seconds": 214.0776515007019
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-empty-namespace-placeholders-and-source-tree-directory",
+    "reason": "The substantial scientific stack is accompanied by empty importable namespace directories for several unresolved legacy modules. Official success establishes the missing-import metric, not executable implementations for those imports."
+  }
+}

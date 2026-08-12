@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "taxonomy_id": "envsolve-pro-dev-bad-case-taxonomy-v1.0.1",
+  "frozen_at": "2026-08-09T07:35:00Z",
+  "status": "frozen-after-measurement-validity-stop-before-census-resume",
+  "purpose": "Classify the frozen-A Dev census by Official outcome while retaining submitted-program qualification as an independent quality axis.",
+  "parent_taxonomy": {
+    "path": "experiments/protocols/envsolve_pro_dev_bad_case_taxonomy_v1.json",
+    "sha256": "c98997d1041d4cbc172b50e8a701eed2d5895e4a2c7b733abe33254796a40e75"
+  },
+  "outcome_axes": {
+    "submission_outcome": [
+      "submitted",
+      "noncompletion"
+    ],
+    "qualification_outcome": [
+      "pass",
+      "fail",
+      "not_run",
+      "infrastructure_unknown"
+    ],
+    "official_outcome": [
+      "pass",
+      "fail",
+      "not_evaluated",
+      "infrastructure_unknown"
+    ]
+  },
+  "quality_flags": [
+    "advisory-qualification-fail",
+    "incomplete-runtime-environment",
+    "platform-specific-or-nonportable",
+    "excessive-installation-cost"
+  ],
+  "terminal_outcomes": {
+    "official_pass": {
+      "definition": "The exact submitted program completes EnvBench Official evaluation and Official Pass is true. Advisory qualification may independently pass or fail.",
+      "bad_case": false,
+      "required_axes": {
+        "submission_outcome": [
+          "submitted"
+        ],
+        "official_outcome": [
+          "pass"
+        ]
+      }
+    },
+    "official_fail": {
+      "definition": "The exact submitted program completes EnvBench Official evaluation and Official Pass is false.",
+      "bad_case": true,
+      "required_axes": {
+        "submission_outcome": [
+          "submitted"
+        ],
+        "official_outcome": [
+          "fail"
+        ]
+      }
+    },
+    "agent_noncompletion": {
+      "definition": "The Agent exhausts its operational limit, times out, or terminates without a safety-admissible submitted program, with no infrastructure censoring evidence.",
+      "bad_case": true,
+      "required_axes": {
+        "submission_outcome": [
+          "noncompletion"
+        ],
+        "official_outcome": [
+          "not_evaluated"
+        ]
+      }
+    },
+    "infrastructure_unknown": {
+      "definition": "Network, provider, host suspension, source acquisition, container, or evaluator infrastructure prevents a valid Official outcome.",
+      "bad_case": false,
+      "required_axes": {
+        "official_outcome": [
+          "not_evaluated",
+          "infrastructure_unknown"
+        ]
+      }
+    }
+  },
+  "failure_layers": {
+    "observation": {
+      "question": "Did the Agent fail to obtain or correctly read decisive execution evidence?",
+      "subtypes": [
+        "goal-residual-not-observed",
+        "transition-poststate-misread",
+        "evidence-timeout-or-truncation",
+        "repository-metadata-or-source-layout-not-observed"
+      ]
+    },
+    "constraint": {
+      "question": "Was decisive evidence available, but converted into an incorrect or incomplete requirement or conflict?",
+      "subtypes": [
+        "dependency-to-provider-mapping",
+        "version-runtime-toolchain-compatibility",
+        "platform-or-hardware-conditionality",
+        "optional-extra-or-development-scope",
+        "generated-artifact-or-import-path-semantics"
+      ]
+    },
+    "operation": {
+      "question": "Was the relevant requirement understood, but the selected state transition, state reuse, or final program failed to satisfy it?",
+      "subtypes": [
+        "provider-unavailable-or-resolution-failure",
+        "native-or-system-build-failure",
+        "expensive-transition-timeout",
+        "useful-state-not-preserved-or-reused",
+        "environment-path-or-verifier-scope",
+        "final-program-replay-or-distillation",
+        "premature-search-termination"
+      ]
+    },
+    "cross-layer": {
+      "question": "Do at least two independently necessary failures from different layers remain, with no single supported primary bottleneck?",
+      "subtypes": [
+        "multi-constraint-interaction"
+      ]
+    },
+    "unresolved": {
+      "question": "Is the available A-only evidence insufficient for a causal classification?",
+      "subtypes": [
+        "insufficient-evidence",
+        "novel-mechanism-held-for-taxonomy-v2"
+      ]
+    }
+  },
+  "adjudication_rules": {
+    "primary_metric": "EnvBench Official Pass",
+    "qualification_role": "Independent advisory deployment-quality and integrity axis; it cannot overwrite a completed Official outcome.",
+    "official_followup": "Every safety-admissible exact submitted program must receive Official evaluation even when advisory qualification fails.",
+    "inputs_allowed": [
+      "Frozen-A prompt and tool contract",
+      "Frozen-A construction commands and outputs",
+      "Frozen-A exact submitted program and advisory qualification",
+      "Frozen-A Official result and residual missing imports",
+      "Repository metadata visible to Frozen A"
+    ],
+    "inputs_forbidden": [
+      "Any B or C trajectory",
+      "Any B or C outcome",
+      "Whether a proposed EnvSolve-Pro change repairs the case",
+      "Official Test or Canary content and outcomes"
+    ],
+    "primary_failure_rule": "For Official bad cases, assign exactly one primary layer only when A-only evidence supports the earliest counterfactual bottleneck whose removal would plausibly change the Official outcome. Otherwise assign cross-layer or unresolved.",
+    "secondary_tags": "Up to three frozen subtypes may be retained as secondary contributors.",
+    "evidence_requirement": "Every non-unresolved failure assignment and every quality flag must cite exact A-only artifact evidence.",
+    "no_mid_census_taxonomy_growth": true,
+    "novel_mechanism_policy": "Map to unresolved/novel-mechanism-held-for-taxonomy-v2 until the complete census is closed."
+  },
+  "batch_selection": {
+    "eligible_terminal_outcomes": [
+      "official_fail",
+      "agent_noncompletion"
+    ],
+    "batch_size": 12,
+    "stratum": "terminal_outcome + primary_failure_layer + primary_subtype",
+    "stratum_order": "Descending census frequency, then lexical stratum identifier.",
+    "case_order_within_stratum": "Ascending SHA256 of envsolve-pro-core-batch-v1-2026-08-09 + case_id.",
+    "selection_algorithm": "Round-robin over ordered nonempty strata, taking the next ranked case from each stratum until 12 unique cases are selected or all eligible cases are exhausted.",
+    "selection_inputs_forbidden": [
+      "Any B or C outcome",
+      "Any treatment repairability judgment",
+      "Advisory qualification outcome when Official outcome is available",
+      "Expected ease of improving a case"
+    ],
+    "remaining_cases": "All unselected eligible Official bad cases form the frozen validation pool and cannot be used to design the first core algorithm."
+  }
+}

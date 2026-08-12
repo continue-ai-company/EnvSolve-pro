@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.30-cantools-result",
+  "case_id": "envbench-python-cantools__cantools@2c92c60f2d1b50894ad0c5652afd331283e03402",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-20-lane2-28-A-spark",
+  "effective_run_id": "pro-dev-bad-case-census-v1-0-20-lane2-28-A-spark-official",
+  "submitted_program_sha256": "33b9ad570360822d7021f105a6ab33990866457e0304cb9c4989a3ce9fa68228",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 1002,
+    "warning_count": 1,
+    "execution_time_seconds": 153.09768533706665,
+    "result_sha256": "4d454dfcbd44aba02aab81b47209dd14ca9f4532b01ed9b8f252a858111e7308",
+    "raw_result_sha256": "3bae85471902c5642cd6a10b69d36e78efa655c53d7426424d1b0f8c256c8c01"
+  },
+  "advisory_qualification": {
+    "pass": true
+  },
+  "deployment_completeness": {
+    "status": "flagged",
+    "objective_role": "non_scoring_secondary_axis",
+    "detail": "An empty StringIO namespace suppresses missing-import diagnostics without providing the imported runtime behavior."
+  },
+  "infrastructure_censored": false,
+  "protected_sets_touched": false
+}

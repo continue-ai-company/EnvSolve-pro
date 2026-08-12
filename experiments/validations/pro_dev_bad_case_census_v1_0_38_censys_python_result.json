@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.38-censys-python",
+  "recorded_at": "2026-08-09T15:16:00Z",
+  "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-29-lane2-32-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-29-lane2-32-A-spark-official",
+  "submitted_program_sha256": "739c44649f9ad765a1ec53cfe3e7d0d8265a254006ae06b4a88ee45bf08150c9",
+  "official_result_sha256": "8d49a27fc8fd43a1a8aa0ae18c85659b0b34be5f9dd9ea368095b7c87cf64dad",
+  "official_raw_result_sha256": "0c3b9919caab8bea0f198fb94f3595f75df312063036009b2feeb5f5d82d54d4",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 57,
+    "warning_count": 0,
+    "execution_time_seconds": 31.0592360496521
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive-relative-to-official",
+    "clean_replay_seconds": 42.25097541700001
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "no-red-flag-observed",
+    "reason": "The submitted program used an ordinary editable install plus test and documentation dependencies."
+  }
+}

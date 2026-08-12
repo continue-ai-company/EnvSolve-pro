@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.50-ceph-ansible-official",
+  "frozen_at": "2026-08-09T16:20:56Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-46-lane1-33-A-spark",
+    "generation_result_sha256": "6ed44c7bd09fa059c63851e5bf792c7b310597ec6e780ddcff3f2a72633bc683",
+    "final_output_sha256": "3787957db5eeb0fcf7e01bd38374c7d1a5e4e2f1551cdfdea8cfa4f03c84499e",
+    "submitted_program_sha256": "cb18a8543bbcf0cc56ffa81d98b2623303a408fab0c2d1493438cc28b16acc61",
+    "agent_command_count": 32,
+    "qualification_status": "advisory-fail-after-zero-missing-imports-local-wheel-repackaging",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-46-lane1-33-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1387978,
+    "cached_input_tokens": 1296896,
+    "output_tokens": 20748,
+    "reasoning_output_tokens": 10760,
+    "clean_replay_seconds": 32.20747429200003,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged",
+    "detail": "The program constructs a wheel inline from the repository's tracked module_utils/ca_common.py and installs it into the Ansible module_utils namespace. The bytes are repository-derived rather than a synthetic stub, but the handcrafted distribution is not declared by the project and its broader runtime validity was not established.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

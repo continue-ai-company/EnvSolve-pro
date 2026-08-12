@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.89-django-machina-remote-source-retry",
+  "created_at": "2026-08-09T20:15:54Z",
+  "status": "frozen-before-django-machina-source-retry1",
+  "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+  "censored_attempt": {
+    "run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark",
+    "runner_version": "1.0.1",
+    "generation_result_sha256": "854f095fcbaf448169670bd814058c80ac2cf16dc91d78f7810ddeb5e5e54d0d",
+    "failure_scope": "spark-remote-repository-acquisition-dns",
+    "failure_signature": "Could not resolve host: github.com",
+    "repository_fetch_attempts": 3,
+    "agent_started": false,
+    "final_submission_exists": false,
+    "terminal_classification": "infrastructure_unknown",
+    "counts_toward_fixed_seed_pass_at_1": false
+  },
+  "retry": {
+    "allowed": true,
+    "run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-source-retry1",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "runner_version": "1.0.1",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "seed": 510058,
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "case_change": false,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

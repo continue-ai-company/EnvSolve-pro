@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-resume-block5-parallel",
+  "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+  "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+  "model": "gpt-5.5",
+  "reasoning_effort": "high",
+  "episode_timeout_seconds": 22400,
+  "selection_rule": "Pending positions 13 and 14 are the next unresolved entries after the already fixed or historical positions in the two original outcome-blind lanes. Both were frozen before any active predecessor outcome was used.",
+  "execution_stage": "remote-generation-and-clean-replay-before-spark-official",
+  "episodes": [
+    {
+      "position": 1,
+      "original_lane": 1,
+      "pending_case_position": 13,
+      "case_id": "envbench-python-astropy__regions@15393a984d1bd93333805b4f0a9277e3e1ed7929",
+      "condition": "A-strong-agent-control",
+      "control_host": "mac",
+      "execution_host": "spark",
+      "accelerator_exposure": "none",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "run_id": "pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark",
+      "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "runner_version": "1.0.1",
+      "seed": 510013
+    },
+    {
+      "position": 2,
+      "original_lane": 2,
+      "pending_case_position": 14,
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "condition": "A-strong-agent-control",
+      "control_host": "mac",
+      "execution_host": "spark",
+      "accelerator_exposure": "none",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "run_id": "pro-dev-bad-case-census-v1-0-7-lane2-14-A-spark",
+      "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+      "runner_version": "1.0.1",
+      "seed": 510014
+    }
+  ]
+}

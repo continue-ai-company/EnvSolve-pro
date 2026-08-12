@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.22-git-gud-official",
+  "frozen_at": "2026-08-09T13:46:50Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-18-lane1-21-A-spark",
+    "generation_result_sha256": "e29a6c7167bd27e8c4c693b8309f5418518258778ac6b813ca57d6011c29cb7f",
+    "submitted_program_sha256": "f9ade5863c270593d18d799213a28c6595a39416567078b7001c458085bd0908",
+    "agent_command_count": 18,
+    "qualification_status": "fail",
+    "qualification_is_advisory": true,
+    "qualification_summary": "Qualification replay completed but repository integrity rejected an inadmissible Python installation artifact"
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-18-lane1-21-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "protected_sets_touched": false
+}

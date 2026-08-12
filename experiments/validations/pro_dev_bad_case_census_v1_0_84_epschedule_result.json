@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.84-epschedule",
+  "recorded_at": "2026-08-09T20:07:53Z",
+  "case_id": "envbench-python-eastsidepreparatoryschool__epschedule@76cc6bec7d37dedae67c6926142ae37cbf15194a",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-68-lane2-54-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-68-lane2-54-A-spark-official",
+  "submitted_program_sha256": "98f18da62da4fb66c4b3a5bf2480e818ab517bd5c8c426794a1b1046b0865ff5",
+  "official_result_sha256": "d92763c1cc7520199d87d3e9851a7de86ff2266fc7ba3db10af2a1fbaf2ea97e",
+  "official_raw_result_sha256": "ef0cdb34a9229bc33849752efb1bfa24e08c84575f7b850a3cb963d235558c0e",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 35,
+    "warning_count": 3,
+    "execution_time_seconds": 19.49858331680298
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-no-deps-partial-environment",
+    "reason": "The program installs import-bearing distributions with --no-deps. Both fresh replay and Official pass the frozen missing-import objective, but transitive runtime completeness is not established."
+  }
+}

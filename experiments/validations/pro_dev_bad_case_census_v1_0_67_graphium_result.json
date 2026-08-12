@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.67-graphium",
+  "recorded_at": "2026-08-09T18:21:24Z",
+  "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-57-lane2-44-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-57-lane2-44-A-spark-official",
+  "submitted_program_sha256": "2d53df1fa027805909ea5204462d0ba77080d99bbe148a30deb3d5824fc6fe5b",
+  "official_result_sha256": "26f93db60b04ddf8c8211eebf97cdddbdccff92c5570b1c6505fd2635395a738",
+  "official_raw_result_sha256": "13ab3d47927460026b9787929f9d9cdf185511e12de0535f7b5c1b1325bc743c",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 445.2312219142914,
+    "terminal_stage": "editable-build-requirements-before-pyright",
+    "terminal_signature": "git-dubious-ownership"
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "true-negative",
+    "reason": "Fresh replay rejected an inadmissible Python installation artifact before Official evaluation."
+  },
+  "causal_disposition": {
+    "status": "deterministic-algorithm-failure",
+    "reason": "The submitted program did not normalize Git safe.directory for the fresh Official checkout. setuptools_scm failed on dubious ownership before Pyright. This independently repeats the basxconnect and clarity failure mechanism."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-static-source-namespace",
+    "reason": "The program exposes a shallow PopTorch source checkout on PYTHONPATH without installing an executable PopTorch SDK, so static import visibility would not establish runtime functionality even if bootstrap completed."
+  }
+}

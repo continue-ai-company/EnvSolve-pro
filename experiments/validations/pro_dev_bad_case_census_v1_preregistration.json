@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1",
+  "preregistered_at": "2026-08-09T04:15:00Z",
+  "status": "frozen-before-first-effective-census-episode",
+  "claim_scope": "Complete A-only census of the frozen 209-case Env development universe; no B/C effectiveness or leaderboard claim.",
+  "research_question": "Under the current frozen strong-Agent baseline, which Dev cases fail, how do they terminate, and which Observation, Constraint, or Operation failure mechanisms dominate before any next algorithm is designed?",
+  "universe": {
+    "definition": "Union of the previously frozen Dev-5 and Train-Rest-204 sets.",
+    "count": 209,
+    "unique_case_ids": 209,
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_209.jsonl",
+    "case_file_sha256": "85d0d878a1f5f7ae70f9f93ec31e57cc99989a153c835adee94c56a49e0c6753",
+    "source_files": [
+      {
+        "path": "experiments/cases/dev5.jsonl",
+        "count": 5,
+        "sha256": "81ffcd29cfede3fd0a4993aa84e58b96702660189fbba5c570a6bdbf635da981"
+      },
+      {
+        "path": "experiments/cases/train_rest204.jsonl",
+        "count": 204,
+        "sha256": "cb508f2099e0bfe6706dfc381e27a5bd527c8fc8c1ed6a96bcb4685e5d79b7bb"
+      }
+    ],
+    "selection_is_outcome_blind": true,
+    "all_cases_included": true
+  },
+  "protected_sets": {
+    "canary": {
+      "path": "experiments/cases/canary20.jsonl",
+      "count": 20,
+      "sha256": "efaa56b0087776003432fa51ed585aa46729310ab014634352819ae622da709c",
+      "overlap_with_dev_census": 0,
+      "remain_untouched": true
+    },
+    "official_test": {
+      "path": "experiments/cases/official_test100.jsonl",
+      "count": 100,
+      "sha256": "2c5f9345f12623e1ea197fdd6a1d801eaddb559722c918cbb13220de8f61cfea",
+      "overlap_with_dev_census": 0,
+      "remain_untouched": true
+    },
+    "split_manifest": {
+      "path": "experiments/cases/split_manifest.json",
+      "sha256": "c41284028cd05d1313163fd8ef2af5c857798ff80e001ead2500abe797ecd5db"
+    }
+  },
+  "frozen_baseline": {
+    "condition": "A-strong-agent-control",
+    "runner": "codex-cli-qualified-boundary-v5",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "agent_visible_clean_replays": 0,
+    "post_session_qualification_feedback_returned_to_agent": false,
+    "official_evaluator_feedback_during_generation": false,
+    "boundary_freeze_path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v5_implementation_freeze.json",
+    "boundary_freeze_sha256": "0c80b5550f4c148f4d997ba658f389d6fc38ad8fec92ea9ef5cc709c3814c99b",
+    "public_goal_path": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "public_goal_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "official_protocol_path": "experiments/protocols/envbench_python_official_v1.json",
+    "official_protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "exact_reuse": {
+    "policy": "Reuse only an artifact-valid result produced by the exact frozen baseline identity above. Reused outcomes enter the census once and are not rerun.",
+    "count": 4,
+    "outcomes": [
+      {
+        "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+        "official_pass": true,
+        "result": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position1_effective_result.json",
+        "result_sha256": "81b11e9bf309168a33f72d0eac91fae1a723cab8584cf2eea7909d366daa93a5"
+      },
+      {
+        "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+        "official_pass": true,
+        "result": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position4_effective_result.json",
+        "result_sha256": "df4d53d031936e0883deb3e08b066d81a3361696f8295589f955eda03752f519"
+      },
+      {
+        "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+        "official_pass": true,
+        "result": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position8_result.json",
+        "result_sha256": "bdae15e2eb5faa51bb5e77e95b8b92679d8f96031b57de74ba0c3583e9e36078"
+      },
+      {
+        "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+        "official_pass": true,
+        "result": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position12_result.json",
+        "result_sha256": "1573726c11a27e6a57759d1358c31f54389959f2a69bbbdb77249fb0759fe896"
+      }
+    ]
+  },
+  "pending_execution": {
+    "count": 205,
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+    "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+    "host": "mac",
+    "maximum_concurrent_lanes": 2,
+    "lane_assignment": "Sort all pending case IDs lexically; assign zero-based even positions to lane 1 and odd positions to lane 2.",
+    "lane1": {
+      "count": 103,
+      "schedule": "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane1.json",
+      "schedule_sha256": "1a5d1af47c159cc54c3ed517d1cf60949b9cb86e04095e23129b0de8dd2f6209"
+    },
+    "lane2": {
+      "count": 102,
+      "schedule": "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2.json",
+      "schedule_sha256": "f4d2565eb206479d1e4b73dda728ecbb6a4c0cb83538bf2cbee225842bcd4075"
+    },
+    "config": "experiments/configs/local_mac_pro_dev_bad_case_census_v1.json",
+    "config_sha256": "f95e1eaac19d0cf72aac99b474a1eec6651c3bc81057fd9c9c11c1019b6c8155"
+  },
+  "failure_taxonomy": {
+    "path": "experiments/protocols/envsolve_pro_dev_bad_case_taxonomy_v1.json",
+    "sha256": "c98997d1041d4cbc172b50e8a701eed2d5895e4a2c7b733abe33254796a40e75",
+    "frozen_before_census": true
+  },
+  "execution_and_retry_policy": {
+    "token_usage_is_not_a_hard_threshold": true,
+    "episode_timeout_is_an_operational_safety_cap": true,
+    "infrastructure_unknown": "Exclude the attempt and allow one semantics-identical sequential retry after preserving evidence.",
+    "agent_noncompletion": "Count as the fixed-seed Pass@1 failure. A later A-only diagnostic replay may measure stability but cannot replace the primary outcome.",
+    "official_fail": "Count as the fixed-seed Pass@1 failure with no outcome replacement.",
+    "host_contention": "Record concurrent lane identity. If host contention is directly evidenced, classify the attempt as infrastructure_unknown rather than algorithmic failure.",
+    "algorithm_or_boundary_hash_change": "Stop the census and preregister a new version."
+  },
+  "treatment_blinding": {
+    "B_or_C_execution_before_complete_census": false,
+    "B_or_C_outcomes_allowed_for_classification": false,
+    "historical_treatment_repairability_allowed_for_selection": false,
+    "algorithm_changes_before_complete_census_and_batch_freeze": false
+  },
+  "completion_gate": {
+    "all_209_terminal_outcomes_recorded": true,
+    "all_infrastructure_unknowns_resolved_or_explicitly_censored": true,
+    "every_bad_case_has_terminal_classification": true,
+    "every_non_unresolved_failure_assignment_has_A_only_evidence_anchors": true,
+    "complete_bad_case_list_published_before_batch_identity": true,
+    "batch_selected_only_by_frozen_taxonomy_rule": true,
+    "remaining_bad_cases_frozen_as_validation_pool": true
+  },
+  "interrupted_precursor": {
+    "path": "experiments/validations/pro_bad_case_revalidation_v1_interruption_amendment.json",
+    "sha256": "c57789f6c5c2c1d4b481ee442fffafea3777f08bebdf8304088fe2549bcc376d",
+    "effective_outcomes_reused": 0,
+    "B_or_C_started": false
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-resume-block4-parallel",
+  "recorded_at": "2026-08-09T12:53:00Z",
+  "status": "complete",
+  "schedule": {
+    "path": "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block4_parallel.json",
+    "sha256": "d694f7996540d15d8aa3020f332235bd1453673775f811b7bc9787d1f1392307"
+  },
+  "outcome": {
+    "pending_case_position": 11,
+    "case_id": "envbench-python-ansible__molecule@fd3ed55b11bf896aa1892ee75a6f32761eed3032",
+    "seed": 510011,
+    "model": "gpt-5.5",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "generation": {
+      "completed": true,
+      "script_sha256": "0d3731398f25e740255bad40a34aaf61a340a88fad532727fba0a4af39aa4d55",
+      "result_sha256": "86426a17744f541badc020dff206d39bd2ddf9e3604eaaf74d6f8ec92c180502",
+      "final_output_sha256": "37cd00b1021020c21d5a08215ee8f21f279afbb9f5de44b64668d7f8671dfd3b",
+      "trajectory_sha256": "751b9d39e7c1a47c61de0d2ec427b4433291ff7b41ce40881740c11f96976387",
+      "container_commands_sha256": "396fc1d5ab22416ead81fb02a0748ca9fb4336fc9521e40cbdfd33f3d9568f79",
+      "token_usage": {
+        "input_tokens": 373922,
+        "cached_input_tokens": 332800,
+        "output_tokens": 7570,
+        "reasoning_output_tokens": 4354
+      }
+    },
+    "advisory_qualification": {
+      "status": "fail",
+      "certified": false,
+      "summary": "Candidate did not return control to the executable goal",
+      "result_sha256": "921aba2180bb1f5007e137deb225c3301568d47b1236eab969648d90322665d3",
+      "feedback_returned_to_agent": false
+    },
+    "official": {
+      "evaluation_completed": true,
+      "official_pass": true,
+      "execution_time_seconds": 313.7923483848572,
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 80,
+      "warning_count": 0,
+      "result_sha256": "5ef263f1d5b1e2eb00405cf85862c884d0dbaad7488b79f0a845af086eb046af",
+      "raw_result_sha256": "cc7fc9524563f8e3d5f09f0fbd833313a26a72c1883fb99df4f7f53c1723949a",
+      "evaluation_log_sha256": "1bc25a2990d6bf6e343628f5c2419e76f9f8c9df8e9e0acbbd510b47356c9da5",
+      "evaluated_script_sha256": "0d3731398f25e740255bad40a34aaf61a340a88fad532727fba0a4af39aa4d55"
+    },
+    "terminal_outcome": "official_pass"
+  }
+}

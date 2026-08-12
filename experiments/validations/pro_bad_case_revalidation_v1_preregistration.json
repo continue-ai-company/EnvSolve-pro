@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-bad-case-revalidation-v1",
+  "preregistered_at": "2026-08-09T00:00:00+08:00",
+  "status": "frozen-before-current-baseline-revalidation",
+  "claim_scope": "Outcome-informed consumed-development diagnosis only; no unbiased success-rate, held-out, or leaderboard claim.",
+  "research_question": "Which historical gpt-5.5 Official EnvBench failures remain failures under the current frozen A strong-Agent baseline, and what reproducible error mechanisms do they expose?",
+  "selection": {
+    "policy": "Select every consumed development case with an existing artifact-valid gpt-5.5 run that completed Official evaluation and recorded Official Fail.",
+    "outcome_informed": true,
+    "intended_use": "Hard-case discovery and algorithm development",
+    "forbidden_use": "Estimating population success rate or claiming held-out effectiveness",
+    "selected_cases": [
+      {
+        "case_id": "envbench-python-markqvist__reticulum@6ded42edd7ae203e5a565cb70138c2d7b4b58b5b",
+        "historical_official_issues": 18,
+        "source": "experiments/validations/pro_p0_baseline_qualification_v1.json",
+        "source_sha256": "ba4491f0b3534029dd47f5af70cd1249be53cf8c56b1ccbe6b1f2a8cfa3649e5"
+      },
+      {
+        "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+        "historical_official_issues": 16,
+        "source": "experiments/validations/pro_goal_contract_external_codex_river_v1_results.json",
+        "source_sha256": "346d4e5cd54ed51602a341dfe289e1b39b2dca205e5e6c890eee123e4f18939a"
+      },
+      {
+        "case_id": "envbench-python-Lightning-AI__litgpt@0c609550dfb61699ee513defd64da64634ee3788",
+        "historical_official_issues": 38,
+        "source": "experiments/validations/pro_goal_contract_external_codex_litgpt_v1_results.json",
+        "source_sha256": "a21ff8593950d4f48cec46d7e2c649cfd1859179ccf2db5fedf999b208ab27fe"
+      }
+    ]
+  },
+  "frozen_baseline": {
+    "condition": "A-strong-agent-control",
+    "runner": "codex-cli-qualified-boundary-v5",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "agent_visible_clean_replays": 0,
+    "post_session_qualification_feedback_returned_to_agent": false,
+    "official_evaluator_feedback_during_generation": false,
+    "boundary_freeze": "experiments/protocols/envsolve_pro_certification_repair_boundary_v5_implementation_freeze.json",
+    "boundary_freeze_sha256": "0c80b5550f4c148f4d997ba658f389d6fc38ad8fec92ea9ef5cc709c3814c99b"
+  },
+  "classification": {
+    "confirmed_current_official_bad_case": "Generation and submitted-program qualification complete, Official evaluator completes normally, and Official Pass is false.",
+    "historical_only_resolved_case": "Current frozen A obtains Official Pass; retain the old trajectory for history but exclude the case from the current hard set.",
+    "algorithmic_noncompletion": "The Agent fails to submit an admissible program or reaches an algorithmic timeout; retain as a separate terminal-error class, not as an Official-evaluated failure.",
+    "infrastructure_unknown": "Network, provider, host suspension, source acquisition, container, or evaluator infrastructure prevents a valid outcome; exclude and allow only a semantics-identical retry.",
+    "boundary_failure": "The submitted program fails hidden qualification before Official evaluation; analyze separately from Official bad cases."
+  },
+  "analysis_policy": {
+    "complete_all_three_before_algorithm_change": true,
+    "official_failures_and_noncompletion_reported_separately": true,
+    "historical_official_feedback_not_exposed_to_current_agent": true,
+    "per_case_recipe_changes_before_revalidation": false,
+    "error_analysis_fields": [
+      "remaining_missing_import_modules",
+      "last_verified_environment_state",
+      "failed_or_timed_out_state_transitions",
+      "provider_availability",
+      "runtime_and_native_toolchain_constraints",
+      "hardware_specific_dependency_choices",
+      "reason_the_agent_stopped"
+    ]
+  },
+  "artifacts": {
+    "case_file": "experiments/cases/dev_pro_bad_case_revalidation_v1_3.jsonl",
+    "case_file_sha256": "19d800d806fdd770265f279e78708a6574cccfbf6311e43ec227bfbad9f60533",
+    "config": "experiments/configs/local_mac_pro_bad_case_revalidation_v1.json",
+    "config_sha256": "27c0d86e7483d7779cf27c9261c5077450c19e025e3be344da217fcc8a01bbf2",
+    "schedule": "experiments/schedules/pro_bad_case_revalidation_v1_mac.json",
+    "schedule_sha256": "8b4bf7f7c2e8a0d2191c4554f6d72ee63e6ca5a07908de090ec27c4980d2cbed"
+  },
+  "decision_after_revalidation": "Freeze only confirmed current Official failures as the initial consumed Dev hard set, cluster their causal errors, then decide whether more Dev screening is required before designing the next EnvSolve-Pro treatment."
+}

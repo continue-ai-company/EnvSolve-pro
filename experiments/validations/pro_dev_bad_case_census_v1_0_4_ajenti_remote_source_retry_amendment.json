@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.4-ajenti-remote-source-retry",
+  "created_at": "2026-08-09T11:43:44Z",
+  "status": "frozen-before-ajenti-remote.3-retry",
+  "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+  "censored_attempt": {
+    "run_id": "pro-dev-bad-case-census-v1-0-2-lane1-7-A-spark",
+    "runner_version": "1.0.0",
+    "generation_result_sha256": "3ec48973dbb10461a2b336fcc6c20a9fb508481abce933d0af9170e21fd4c06c",
+    "failure_scope": "mac-local-repository-acquisition",
+    "agent_started": false,
+    "final_submission_exists": false,
+    "terminal_classification": "infrastructure_unknown",
+    "counts_toward_fixed_seed_pass_at_1": false
+  },
+  "pre_agent_spark_source_smoke": {
+    "repository": "ajenti/ajenti",
+    "revision": "af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+    "tree": "30428b33419d40455d317545eb138d0444d43df6",
+    "source": "remote-immutable-exact-revision-cache-v1",
+    "acquisition_host_role": "spark-execution-host",
+    "fsck": "pass",
+    "model_called": false
+  },
+  "retry": {
+    "allowed": true,
+    "run_id": "pro-dev-bad-case-census-v1-0-4-lane1-7-A-spark-source-retry1",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "runner_version": "1.0.1",
+    "remote_backend_freeze": "experiments/protocols/envsolve_pro_remote_docker_backend_v1_0_1_implementation_freeze.json",
+    "remote_backend_freeze_sha256": "ce284ad7af0e6a2535c7ed26de92c827bea1ce0be6b90dbdd4f30a5a74344837",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "seed": 510007,
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

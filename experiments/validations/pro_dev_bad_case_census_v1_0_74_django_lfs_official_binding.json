@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.74-django-lfs-official",
+  "frozen_at": "2026-08-09T19:14:26Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-diefenbach__django-lfs@3e6e96ec223a8184ae84fdeabd984745ea29e27f",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-65-lane2-50-A-spark",
+    "generation_result_sha256": "9216ae060e24b4bc88f78cbca09dfb46c4804ac608e85b1fc58990ab29aca583",
+    "final_output_sha256": "19600de57b55a485129db37c0612429f0f5099dbb087acd7ccb61f575c2b7f5e",
+    "submitted_program_sha256": "03cffa5fb59e9712c6fc47593c801118a83a262db5e9aafaf23075e03fdeb34e",
+    "agent_command_count": 49,
+    "qualification_status": "fail",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "2b16418435e476d8856a21e9e617b3b2fe7372dc3103c8757da8d6865646525e",
+    "qualification_error": "Candidate did not return control after the CPython 2.7 source download ended with curl error 56: unexpected EOF."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-65-lane2-50-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1948000,
+    "cached_input_tokens": 1852928,
+    "output_tokens": 21391,
+    "reasoning_output_tokens": 11932,
+    "clean_replay_seconds": 247.485457708,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-cross-runtime-import-resolution",
+    "detail": "The program builds CPython 2.7.18 and exposes its hotshot sources and cStringIO native extension on Python 3.13 PYTHONPATH. These are real legacy artifacts rather than empty stubs, but Pyright resolution does not establish that a Python 2 extension or source package is executable under Python 3.13.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

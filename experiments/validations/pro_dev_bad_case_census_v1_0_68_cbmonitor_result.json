@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.68-cbmonitor",
+  "recorded_at": "2026-08-09T18:20:01Z",
+  "case_id": "envbench-python-couchbase__cbmonitor@c041e290452b284c0e8913192158193af777f6cd",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-62-lane1-41-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-62-lane1-41-A-spark-official",
+  "submitted_program_sha256": "30e920273be387f88f4329e622cbd32a715fdd0ff3dc65286f5830e902492022",
+  "official_result_sha256": "e7a5a5eed74e97a42a0476deca8cf6ed3173706c45cbbe382477ecb0a7b68023",
+  "official_raw_result_sha256": "da0911953f32d9ffbca412cfce5c30bd7158c4c1e79d241c9f59b89eb245be55",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 82,
+    "warning_count": 1,
+    "execution_time_seconds": 105.89126968383789
+  },
+  "advisory_qualification": {
+    "pass": false,
+    "classification": "false-negative",
+    "reason": "Advisory replay reported that the candidate did not return control, while the exact frozen program completed and passed Official."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-unvalidated-version-drift",
+    "reason": "The program installs contemporary dependency versions, including Django 6.1, into a legacy Python application. Official static imports pass, but runtime compatibility is not established."
+  }
+}

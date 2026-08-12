@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.105-phobos-counterfactual-official",
+  "recorded_at": "2026-08-09T21:15:07Z",
+  "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1",
+  "counterfactual_official_run_id": "pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1-counterfactual-official-diagnostic",
+  "submitted_program_sha256": "66966dc74a494895a973850c11ec3cefb8953f6c99d773391e32129d4c2aa15d",
+  "official_result_sha256": "9bc15dd1d38f5115362145d902348f3d19874fa01f2c4975a7fa3dc825eb5edb",
+  "official_raw_result_sha256": "09d87bffc54511138b43a1b38acc2f80bc15f49d854b0ae14739a6976151f11d",
+  "official": {
+    "evaluation_completed": true,
+    "pass": false,
+    "issues_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "execution_time_seconds": 8.810136795043945,
+    "bootstrap_completed": false
+  },
+  "failure_signature": {
+    "family": "fresh-checkout-git-dubious-ownership",
+    "stage": "editable-build-requirements",
+    "detail": "Project setup invoked git rev-parse while pip prepared editable-build requirements; Git rejected /data/project as dubious ownership before the generated type stubs were created or Pyright ran."
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_a_official_primary_observation": false,
+    "counts_as_infrastructure_censored": false,
+    "role": "non-scoring-exact-program-boundary-counterfactual",
+    "reason": "The frozen A candidate boundary rejected this exact program before Official submission, so A remains a pre-Official algorithm failure. The diagnostic cannot establish whether accepting the generated type stubs would have produced a benchmark pass because an earlier Official checkout-ownership mismatch deterministically stopped installation."
+  },
+  "causal_interpretation": {
+    "candidate_boundary_false_positive_for_official_goal": null,
+    "ownership_reproduction_index": 6,
+    "algorithm_implication": "First make in-session replay reproduce Official checkout ownership. Only then can post-execution provenance and effect checks evaluate generated type-stub repairs without this upstream confound."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-generated-type-stub-distributions",
+    "reason": "The program installed substantial real dependencies but supplied .pyi-only distributions for HyRoDyn and an unavailable internal Phobos module; executable behavior was not established."
+  }
+}

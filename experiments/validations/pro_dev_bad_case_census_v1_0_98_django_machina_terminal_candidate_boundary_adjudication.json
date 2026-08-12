@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.98-django-machina-terminal-candidate-boundary",
+  "recorded_at": "2026-08-09T21:00:06Z",
+  "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1",
+  "terminal_status": "algorithm-failure-before-official-submission",
+  "source_artifacts": {
+    "generation_result_sha256": "a6cc7266a4abc742b6b53629f36cfc901ed7d68f9e24e183a23b3bd65e18ac78",
+    "final_output_sha256": "dc76e2386bab93b728c5bc7040e9d124da9fde515b29cb679aa5e030b03032a9",
+    "trajectory_sha256": "4229bdb800985e6829e1c7e1be4775a12229f0f7387ec5d4fccd26f44fcaf283",
+    "command_trace_sha256": "86c6f5733030931318df831025c67f168436fcffee891fa7106205ecd1153771",
+    "recovered_submission_sha256": "a55b5fccb5eaad4ad610485665f52f92c4a9b6a6673bb4ae6f587ee9fe92c9de",
+    "recovered_submission_exactly_matches_final_output": true
+  },
+  "observations": {
+    "agent_process_exit_code": 0,
+    "agent_timed_out": false,
+    "agent_command_count": 36,
+    "input_tokens": 1296768,
+    "cached_input_tokens": 1216000,
+    "output_tokens": 16231,
+    "reasoning_output_tokens": 8480,
+    "candidate_policy": "open-candidate-program-v2-within-boundary-v5",
+    "candidate_policy_accepted": false,
+    "candidate_policy_reason": "candidate program directly materializes an importable artifact",
+    "rejected_line": ": > \"$PWD/tests/settings_local.py\"",
+    "rejected_target": "$PWD/tests/settings_local.py",
+    "agent_observed_effect": "After dependency installation and creation of the empty local settings module, the frozen Pyright goal reported zero missing imports."
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_infrastructure_censored": false,
+    "official_primary_outcome_available": false,
+    "failure_family": "operation-layer-project-local-configuration-artifact-rejected",
+    "reason": "The frozen A system rejected a completed program before Official submission. A non-scoring exact-program counterfactual will isolate whether the policy removed a benchmark-capable project-local configuration operation."
+  },
+  "protected_sets_touched": false
+}

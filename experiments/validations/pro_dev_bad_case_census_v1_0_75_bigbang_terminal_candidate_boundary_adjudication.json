@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-dev-bad-case-census-v1.0.75-bigbang-terminal-candidate-boundary",
+  "recorded_at": "2026-08-09T19:18:25Z",
+  "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark",
+  "terminal_status": "algorithm-failure-before-official-submission",
+  "source_artifacts": {
+    "generation_result_sha256": "d3fc3db9712e23fa217b04fc99bd80c4aba3f99e468f6a392c2dee499f7e28a3",
+    "final_output_sha256": "91943b1bf886af6c9f749fc03ba601477e8fa9f2e0dabfd14479b2f99e154f2a",
+    "trajectory_sha256": "84cbd6a162fbb33d8fbafc32be18984b1e23f7627a2160fcbf8b2c6be9a0c576",
+    "command_trace_sha256": "c3d6e794c5fc98df993d5aa21de2996eb98615332b505a0b8ce383fdabf69c7b",
+    "recovered_submission_sha256": "facbc628cf3d6e7f762ab571783e0fc2f4162147e21168d12068a90f07587026",
+    "recovered_submission_exactly_matches_final_output": true
+  },
+  "observations": {
+    "agent_process_exit_code": 0,
+    "agent_timed_out": false,
+    "agent_command_count": 31,
+    "input_tokens": 1227990,
+    "cached_input_tokens": 1161728,
+    "output_tokens": 20364,
+    "reasoning_output_tokens": 11548,
+    "workspace_transport_failure": "rsync timed out after 1200 seconds",
+    "candidate_policy": "open-candidate-program-v5",
+    "candidate_policy_accepted": false,
+    "candidate_policy_reason": "candidate program writes protected repository configuration",
+    "rejected_line": "cat > \"$COMPAT_DIR/pyproject.toml\" <<'EOF'",
+    "runtime_provenance": "COMPAT_DIR is assigned by mktemp -d before the rejected write"
+  },
+  "statistical_disposition": {
+    "counts_as_a_success": false,
+    "counts_as_infrastructure_censored": false,
+    "official_primary_outcome_available": false,
+    "failure_family": "operation-layer-candidate-boundary-false-positive",
+    "reason": "The frozen A system rejected the completed Agent program. The preceding rsync timeout exposed the recovery path but does not explain the terminal decision, because exact-output recovery deterministically reached the frozen candidate validator and was rejected there."
+  },
+  "protected_sets_touched": false
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.42-calliope",
+  "recorded_at": "2026-08-09T15:38:27Z",
+  "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-28-lane1-27-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-28-lane1-27-A-spark-official",
+  "submitted_program_sha256": "9dc595b7b1db5d54a019b298e920f754a458c599a9c43184c09ee00d45437d4e",
+  "official_result_sha256": "be913229ca8c015a4734a85f2613f7692ade35f16651ad880f5adf42840a8106",
+  "official_raw_result_sha256": "55e04ac86dc67da7805d0799761282928eabf51d92f75202a5dbb9350830113b",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 395,
+    "warning_count": 13,
+    "execution_time_seconds": 451.50060272216797
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive-relative-to-official",
+    "clean_replay_seconds": 423.175137833
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "no-red-flag-observed",
+    "reason": "The program installed the GLPK system solver, created a Python 3.10 venv, installed the project editable, and installed development dependencies in both clean replay and Official evaluation."
+  }
+}

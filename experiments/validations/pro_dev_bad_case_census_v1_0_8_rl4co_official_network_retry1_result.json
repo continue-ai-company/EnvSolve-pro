@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.8-rl4co-official-network-retry1",
+  "recorded_at": "2026-08-09T12:53:00Z",
+  "status": "complete",
+  "schedule": {
+    "path": "experiments/schedules/pro_dev_bad_case_census_v1_0_8_rl4co_official_network_retry1.json",
+    "sha256": "b2b3ce0ade887141b28a05c07c25721a60cfdaceee77b2b87ae16ff5e5099a48"
+  },
+  "amendment": {
+    "path": "experiments/validations/pro_dev_bad_case_census_v1_0_8_rl4co_official_network_retry_amendment.json",
+    "sha256": "eb9d953b942075dfcd9c13b28d5b74494e067a61e51962f16d627169f932f857"
+  },
+  "case_id": "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+  "submitted_script_sha256": "0ffe1f56ae87040b63ba85f11c0f3e5b85023aaa4e9e01cc463b24c6eb65250b",
+  "generation": {
+    "result_sha256": "24bed4c8fd5a823d29f12776fcedf83be62a35fb61fb3b6eeb0539b7a19172f6",
+    "final_output_sha256": "ee1aa516fd31b764765cd1992deddde67ec84355c09f984592e82af76b906999",
+    "trajectory_sha256": "04bf9912c85627eecb3515f0c663b1e5c452b7ead1459212af2ac494796dfed2",
+    "container_commands_sha256": "a63f62cf8371196a02591943e7f28c6c9eaa3d799b8666b3063afdb95521967b",
+    "advisory_qualification_result_sha256": "aa9fe53ab0a5715956946ecdbb4065ad1b1187b583f98e5d892ba171e69acf4e",
+    "token_usage": {
+      "input_tokens": 4435262,
+      "cached_input_tokens": 4293632,
+      "output_tokens": 23138,
+      "reasoning_output_tokens": 11003
+    }
+  },
+  "effective_official_attempt": {
+    "evaluation_completed": false,
+    "official_pass": false,
+    "execution_time_seconds": 24.881290435791016,
+    "exit_code": 2,
+    "issues_count": 0,
+    "infrastructure_signature": "read-timeout",
+    "result_sha256": "5041d0abbf1d1d6c1fafe064d9af963bd90dbfc948a342ec409c0ef5f09ded58",
+    "raw_result_sha256": "324b33c90d75b9716478d439e95e250d385656cba99630477cfe096e4f1bafb6",
+    "evaluation_log_sha256": "7ef42e93c2cf9ddd9846cc8ae126cc92c5bcd3d3aed5639b2e2fd70464593d4b"
+  },
+  "retry_count": 1,
+  "model_reexecuted": false,
+  "script_changed": false,
+  "terminal_outcome": "infrastructure_censored",
+  "effect_denominator_inclusion": false
+}

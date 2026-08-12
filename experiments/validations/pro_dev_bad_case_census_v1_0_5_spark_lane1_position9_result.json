@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1.0.2-spark-resume-block3-lane1",
+  "recorded_at": "2026-08-09T12:39:23Z",
+  "status": "complete",
+  "schedule": {
+    "path": "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block3_lane1.json",
+    "sha256": "4f45e69cf0d56960f15c79eb50b884249b12014d320f617e2625cc9ffce70ad9"
+  },
+  "execution": {
+    "control_host": "mac",
+    "construction_clean_replay_and_official_host": "spark-f21c",
+    "spark_architecture": "aarch64",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "accelerator_exposure": "none"
+  },
+  "outcome": {
+    "pending_case_position": 9,
+    "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+    "seed": 510009,
+    "model": "gpt-5.5",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "generation": {
+      "completed": true,
+      "process_exit_code": 0,
+      "timed_out": false,
+      "script_sha256": "180fda252d0d54f755e874f2222ae5106a8410cd293dc9481871ca594e577ffb",
+      "result_sha256": "acf5bfc45b05e242f38e1d3362a9c4c6fe2e216dc2ea852cbb4a19e8c2786142",
+      "final_output_sha256": "2d72768fdc014bc250ad9385f79be4e4598fb95d331c9a16020eb8fc099460c0",
+      "trajectory_sha256": "6923502ef383a1b1e5a36b9f27da538a53f42862703d391ceb41ab912f459756",
+      "container_commands_sha256": "4f9e55c4d9fa46d64ed088a23042a8c054018eccdcd2f4b37c4740f8e3e8f5db",
+      "token_usage": {
+        "input_tokens": 379617,
+        "cached_input_tokens": 305664,
+        "output_tokens": 6590,
+        "reasoning_output_tokens": 3148
+      }
+    },
+    "advisory_qualification": {
+      "status": "pass",
+      "certified": true,
+      "result_sha256": "2cf4241e4799e7c28d154f6e4a5a39db91f6e9f1223b95b38d9d4fc49643d785",
+      "feedback_returned_to_agent": false
+    },
+    "official": {
+      "evaluation_completed": true,
+      "official_pass": false,
+      "execution_time_seconds": 96.51767873764038,
+      "exit_code": 1,
+      "issues_count": 0,
+      "error_count": null,
+      "warning_count": null,
+      "result_sha256": "594265cb83ffb001e425d383a40b7439d0d10c835dee960d5e853bd2b0afb3d0",
+      "raw_result_sha256": "01a950c6f5dd372f9f33e688c4fc58f0a6be190c40d18fc77b43c705b02c02c8",
+      "evaluation_log_sha256": "1a61cafd19cdd93f3e2e2bc17e8125d125001a645f1e05af91dd558ad65ea6e3",
+      "evaluated_script_sha256": "180fda252d0d54f755e874f2222ae5106a8410cd293dc9481871ca594e577ffb",
+      "terminal_cause": "ulid-transform build isolation could not resolve Cython from the package index",
+      "infrastructure_signature": null,
+      "classification_rule": "terminal-cause-dominance-v1"
+    },
+    "trajectory_observation": {
+      "clean_replay_passed_before_official": true,
+      "official_failed_before_pyright": true,
+      "provisional_failure_family": "replay-instability-or-external-acquisition-sensitivity",
+      "algorithm_change_authorized": false
+    },
+    "terminal_outcome": "official_fail"
+  }
+}

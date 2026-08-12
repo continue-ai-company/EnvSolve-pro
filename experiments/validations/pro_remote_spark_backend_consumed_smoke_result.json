@@ -1,0 +1,56 @@
+{
+  "schema": "envsolve-pro-remote-execution-smoke-result-v1",
+  "completed_at": "2026-08-09T09:34:30.154365Z",
+  "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+  "research_role": "infrastructure-validation-only",
+  "algorithm_outcome": "excluded",
+  "attempts": [
+    {
+      "run_id": "pro-remote-spark-backend-smoke-tablib-v1",
+      "classification": "infrastructure-invalid-user-interrupted",
+      "finding": "rsync preserved SSH-host ownership, causing Git dubious-ownership rejection in the root container shell"
+    },
+    {
+      "run_id": "pro-remote-spark-backend-smoke-tablib-v2",
+      "classification": "remote-generation-and-clean-replay-pass",
+      "runner_version": "5.0.1+remote.1",
+      "generation_completed": true,
+      "construction_public_goal": "pass",
+      "clean_replay": {
+        "status": "pass",
+        "certified": true,
+        "bootstrap_duration_seconds": 300.28540991595946,
+        "program_sha256": "43c41172c539c616cbf47d6a7e914261b2035a91c80ad92992a016c989186457"
+      },
+      "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "container_commands": {
+        "count": 9,
+        "successful_count": 8,
+        "only_nonzero_reason": "rg absent from image; Agent recovered with find"
+      },
+      "token_usage": {
+        "input_tokens": 187352,
+        "cached_input_tokens": 167424,
+        "output_tokens": 5368,
+        "reasoning_output_tokens": 2838
+      }
+    }
+  ],
+  "artifact_sha256": {
+    "generation_result": "2957af276a05bb7bdc53aab7d57e8b00b8b7c386d70f624d704efc0054617790",
+    "generated_program": "3085c0c6d66f9a64793dcad9d1cd988f230539f400857e5aca5b4803538c8090",
+    "container_trace": "bbca967e339707b32bc943388962c18e42d1bce7db515384d61229c284b2bb7e",
+    "qualification_result": "7c0d558b688ad8eac305e05d992e0bf4b7eec2451cde8883fc2ace2a2f062ec8",
+    "qualification_trace": "d51019fd5442230b96df26a62fdfb91ab663e15ab0a92566f55aa000abb526c3",
+    "codex_trajectory": "fbc1ed9608ecb1622866bf76c786ada18e00177766d1c415896c7f954c4f762b"
+  },
+  "transfer_analysis": {
+    "observed_remote_generation_workspace_mib": 227,
+    "observed_non_rebuildable_workspace_kib": 1012,
+    "estimated_download_reduction_percent": 99.56,
+    "cause": "The original remote.1 backend downloaded the rebuilt .venv after both construction and replay.",
+    "remote_2_correction": "Exclude only top-level rebuildable directories that contain no Git-tracked path.",
+    "remote_2_spark_test": "passed"
+  },
+  "conclusion": "Mac can remain the Agent control plane while Spark is the deployment execution plane. The remote.2 transport is qualified shared infrastructure, not an algorithm treatment."
+}

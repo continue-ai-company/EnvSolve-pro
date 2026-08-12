@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.112-readux-official-network-retry1",
+  "frozen_at": "2026-08-09T21:47:00Z",
+  "status": "frozen-before-retry-outcome",
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "A-strong-agent-control",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1-official",
+  "source_result_sha256": "ba5700e7a53ee1f538d14b79ab863c316f80c17b862d3503f14d9665ac85916f",
+  "source_raw_result_sha256": "828dd294fb08c4dd6464191d2d5c11fc538b93d064d62aebf02a983ab83e848a",
+  "infrastructure_signature": "read-timeout",
+  "submitted_program_sha256": "3294724c79a82157f6f9d733cf0a2f761085432ba6bb5b62d5562a5cc32d8f6d",
+  "retry": {
+    "run_id": "pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1-official-network-retry1",
+    "execution_host": "spark-f21c",
+    "same_script_required": true,
+    "model_reexecuted": false,
+    "max_retries": 1
+  },
+  "statistical_disposition": {
+    "source_attempt_infrastructure_censored": true,
+    "retry_replaces_source_for_terminal_outcome": true,
+    "no_further_replacement_retry": true
+  },
+  "protected_sets_touched": false
+}

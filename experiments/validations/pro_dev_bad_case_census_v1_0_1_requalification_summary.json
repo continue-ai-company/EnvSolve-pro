@@ -1,0 +1,45 @@
+{
+  "schema": "envsolve-pro-dev-census-requalification-summary-v1",
+  "completed_at": "2026-08-09T10:00:00Z",
+  "boundary_version": "certification-repair-boundary-v5.0.1",
+  "official_outcome_is_primary": true,
+  "records": [
+    {
+      "case": "biothings/biothings.api",
+      "qualification": "pass",
+      "qualification_result_sha256": "f8592a6599c5556c889c700fe69530216fa3cf94fe1ff31d107727937872845c",
+      "official": "pass",
+      "official_metrics": {"exit_code": 0, "issues_count": 0, "error_count": 1754, "execution_time_seconds": 204.69898533821106},
+      "official_result_sha256": "786ba3f22054ce0af9d4265207524fce2f3f88daf1e43dc879bc5a7afbd2dc6e"
+    },
+    {
+      "case": "astropy/extension-helpers",
+      "qualification": "fail-advisory-local-generated-test-distribution",
+      "qualification_result_sha256": "269f4e95adb597db066f31adaa14a403c7dd4b215f7508ae0f2e152ca4c854f8",
+      "official": "pass",
+      "official_metrics": {"exit_code": 0, "issues_count": 0, "error_count": 16, "execution_time_seconds": 57.228906869888306},
+      "official_result_sha256": "e30d198f5a53840ef2ceefe9343c8dced077a7161a22f0ab266966928b8d156d"
+    },
+    {
+      "case": "unioslo/helios-server",
+      "qualification": "infrastructure-unknown",
+      "qualification_result_sha256": "77011a219209287742868b183eaa0dd978cb1ccb06e5bd0c63a9cc36d3c9da75",
+      "official": "not-run-after-repeated-package-transport-censoring",
+      "note": "The Python 3.9 verifier NameError is fixed; retries were censored by PyPI and Conda transport."
+    },
+    {
+      "case": "Modalities/modalities",
+      "qualification": "infrastructure-unknown-at-1200-second-replay-cap",
+      "qualification_result_sha256": "16ee038176d55c8eb9a7e61f80fe6d19235c01f274146415b64d72004a7d3f7d",
+      "official": "pass",
+      "official_metrics": {"exit_code": 0, "issues_count": 0, "error_count": 288, "warning_count": 2, "execution_time_seconds": 3452.424468755722},
+      "official_result_sha256": "fb89ca981e7449a7cce935aa13e6a3e0143f28527ac6c89ca1d6470a05eafe30"
+    }
+  ],
+  "conclusions": [
+    "No completed submission is reclassified as an Official bad case by boundary-v5.0.1.",
+    "Qualification is an advisory quality and integrity axis, not a replacement for Official outcome.",
+    "Modalities demonstrates that a 1200-second internal replay cap can censor a real Official Pass requiring about 3452 seconds.",
+    "The corrected census taxonomy may now resume on unopened A-only Dev identities."
+  ]
+}

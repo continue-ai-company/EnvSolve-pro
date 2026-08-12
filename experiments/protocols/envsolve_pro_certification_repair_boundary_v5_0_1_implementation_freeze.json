@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "boundary_id": "envsolve-pro-certification-repair-boundary-v5.0.1",
+  "created_at": "2026-08-09T07:13:33Z",
+  "status": "frozen",
+  "claim_scope": "Verifier-correctness patch only; no Agent, algorithm, prompt, public-goal, or Official-evaluator change.",
+  "parent_freeze": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v5_implementation_freeze.json",
+    "sha256": "0c80b5550f4c148f4d997ba658f389d6fc38ad8fec92ea9ef5cc709c3814c99b"
+  },
+  "runner_identity": {
+    "runner": "codex-cli-qualified-boundary-v5",
+    "runner_version": "5.0.1",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "boundary_version": "certification-repair-boundary-v5.0.1"
+  },
+  "corrections": [
+    {
+      "id": "python-3.9-generated-audit-compatibility",
+      "change": "Boundary v5 removes standalone backslash lines introduced by inherited raw-string fragments before executing the generated audit.",
+      "observed_failure": "NameError for native_source_suffixes or effective_import_roots under Python 3.9.",
+      "algorithm_semantics_changed": false
+    },
+    {
+      "id": "configured-import-root-distribution-ownership",
+      "change": "Distribution metadata in configured PYTHONPATH roots is included when computing installed-file ownership.",
+      "observed_failure": "A real pip --target installation with dist-info was classified as unowned import artifacts.",
+      "algorithm_semantics_changed": false
+    },
+    {
+      "id": "repository-declared-runtime-template",
+      "change": "An ignored Python runtime configuration is admissible only when it is an exact byte copy of a tracked sibling template with a standard template marker.",
+      "observed_failure": "config.py copied from tracked config.py.example was rejected despite repository-declared ignore semantics.",
+      "algorithm_semantics_changed": false
+    }
+  ],
+  "unchanged": {
+    "agent": true,
+    "model": true,
+    "prompt": true,
+    "candidate_operation_language": true,
+    "public_goal": true,
+    "official_evaluator": true,
+    "agent_visible_clean_replays": 0,
+    "post_session_feedback_returned_to_agent": false
+  },
+  "frozen_files": {
+    "envsolve_harness/boundary_v5.py": "9116e97511111a2bdc3387ab592e7611eecd9e2ca63b534cd9a07fe9200b9477",
+    "envsolve_harness/integrity/repository.py": "5a61a2faa8b27d938871a8b07fb1d43715e18338ab26c8224fa99d193230aa89",
+    "envsolve_harness/runners/certification_repair_boundary_v5.py": "0de3e3fbd35c5c3b3f0ce66c3bfb6a1e68c4165ae1560f09bbd3d3aa39dde5e6",
+    "tests/test_certification_repair_boundary_v5.py": "c1bb1a5d78d24076a607045fa46cbf96560b0d7419322d7ce5102b7212513291",
+    "tests/test_certification_repair_boundary_v5_entrypoint.py": "f33b02d14f2a78e7794d5677f86253ef5a949793162a4e6435ac93d7e4bec3f5",
+    "tests/test_harness_core.py": "9a5657906cf4ea7169c3796623019121bac87f6e482b1948e083ee1882e88cec"
+  },
+  "preserved_parent_files": {
+    "envsolve_harness/codex/minimal_b_mcp.py": "de0031e6d8148fdcb61a7f804bfcfc41e75516014348f38419c59312b1e8ea4c",
+    "envsolve_harness/boundary_v3.py": "36bb5e3a581b0b67d8a0fc8fedb85ac382323e554d2a62bb5e7c377c93acaa8d",
+    "envsolve_harness/boundary_v4.py": "ad0ed8580bed77a48a04f8611d94e11d3df56257bf5c0848604bf6afacba6710"
+  },
+  "qualification": {
+    "mac_full_suite": {
+      "passed": 767,
+      "skipped": 8,
+      "subtests_passed": 76
+    },
+    "mac_focused_suite": {
+      "passed": 54
+    },
+    "spark_linux_arm_suite": {
+      "passed": 59,
+      "architecture": "aarch64"
+    },
+    "spark_python_3_9_generated_audit": {
+      "exit_code": 0,
+      "valid": true,
+      "image": "python:3.9-slim"
+    },
+    "adversarial_guards": {
+      "bare_python_or_native_artifact_rejected": true,
+      "modified_runtime_template_rejected": true,
+      "installed_target_distribution_owned_only_by_dist_info": true
+    }
+  }
+}

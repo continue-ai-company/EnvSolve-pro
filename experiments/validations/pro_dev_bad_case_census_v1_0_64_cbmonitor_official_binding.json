@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.64-cbmonitor-official",
+  "frozen_at": "2026-08-09T18:16:15Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-couchbase__cbmonitor@c041e290452b284c0e8913192158193af777f6cd",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-62-lane1-41-A-spark",
+    "generation_result_sha256": "c4a28fbdda15f8456aff94a8dcb51fa628b1e8cafacd19386f52b6c51f122459",
+    "final_output_sha256": "8a3c4e890c2243f514aa8425ad6bda6e01694556956a4ed16868c9b8cbb9b0ff",
+    "submitted_program_sha256": "30e920273be387f88f4329e622cbd32a715fdd0ff3dc65286f5830e902492022",
+    "agent_command_count": 12,
+    "qualification_status": "fail",
+    "qualification_is_advisory": true,
+    "qualification_result_sha256": "7ced07bc3cad6edead628ea239c957c3a1be02a509c5604bc0d1461850131479",
+    "qualification_error": "Candidate did not return control to the executable goal."
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-62-lane1-41-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 215500,
+    "cached_input_tokens": 196096,
+    "output_tokens": 5795,
+    "reasoning_output_tokens": 2366,
+    "clean_replay_seconds": 30.66373929100007,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "status": "flagged-unvalidated-version-drift",
+    "detail": "The program replaces the historical dependency set with contemporary versions including Django 6.1, NumPy 2.5.2, and pandas 3.0.5. Static imports may resolve, but compatibility with the checked-out legacy application is not established.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

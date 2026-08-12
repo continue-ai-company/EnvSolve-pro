@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.56-neo3-boa",
+  "recorded_at": "2026-08-09T17:18:35Z",
+  "case_id": "envbench-python-cityofzion__neo3-boa@58d33fdcbb67cc6d4f5efefced4ef0a382346ad4",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-51-lane1-35-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-51-lane1-35-A-spark-official",
+  "submitted_program_sha256": "95cb25a1f64915ea05ae7dec864c48eb93d11ff7e073590e2839ec665ac57c20",
+  "official_result_sha256": "163cc6e8f8a4132864d478346b8ab8f3a1526804e0758a30181ec696f235beae",
+  "official_raw_result_sha256": "f1db472f080177feda1ae6799b18fecbf6a5b825b20c2c4e7df793f4e9fdf2ce",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 5796,
+    "warning_count": 8,
+    "execution_time_seconds": 228.55475330352783
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "goal_pass": true,
+    "classification": "true-positive-relative-to-official",
+    "reason": "The exact submitted program passed both fresh advisory replay and Official with zero reportMissingImports findings."
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged",
+    "reason": "The program installed an empty synthetic boa3-stubs wheel for a legacy negative-test import. The advisory audit missed it because its declared top-level token was not a Python identifier. Official success therefore establishes metric satisfaction, not a complete neo3-boa runtime environment."
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-dev-bad-case-census-v1-annotation-reliability",
+  "preregistered_at": "2026-08-09T04:32:04Z",
+  "status": "frozen-after-census-launch-before-first-terminal-outcome",
+  "claim_scope": "Reliability of the frozen Observation-Constraint-Operation failure taxonomy on A-only Dev bad cases; no treatment-effect claim.",
+  "parent_study": {
+    "path": "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json",
+    "sha256": "76ba58fe7d41f880752658b8e3f364307f7ccd45b0305ee2ff2acc37d7afc9e4"
+  },
+  "taxonomy": {
+    "path": "experiments/protocols/envsolve_pro_dev_bad_case_taxonomy_v1.json",
+    "sha256": "c98997d1041d4cbc172b50e8a701eed2d5895e4a2c7b733abe33254796a40e75",
+    "changes_during_annotation": false
+  },
+  "annotation_population": {
+    "definition": "Every case whose frozen-A terminal outcome is official_fail, agent_noncompletion, or qualification_fail.",
+    "primary_annotation_coverage": "all eligible bad cases",
+    "case_exclusion_after_annotation": false
+  },
+  "independent_replication_sample": {
+    "selection_time": "after the complete bad-case identity list is frozen and before the second annotator opens any selected trajectory",
+    "sample_size": "min(N, max(30, ceil(0.25 * N))), where N is the complete bad-case count",
+    "ranking": "ascending SHA256(salt + case_id)",
+    "salt": "envsolve-pro-dev-bad-case-annotation-reliability-v1-2026-08-09",
+    "selection_inputs": [
+      "case_id",
+      "membership in the complete A-only bad-case list"
+    ],
+    "selection_inputs_forbidden": [
+      "primary layer or subtype",
+      "primary annotator confidence",
+      "B or C outcome",
+      "repairability or expected ease"
+    ]
+  },
+  "blinding": {
+    "second_annotator_hidden_inputs": [
+      "primary annotation",
+      "aggregate taxonomy frequencies",
+      "all B or C trajectories and outcomes",
+      "whether any proposed algorithm repairs the case"
+    ],
+    "allowed_inputs": "The same frozen-A artifacts and frozen taxonomy available to the primary annotator.",
+    "annotator_identity_freeze": "Record annotator identity and annotation-assistance mode before opening selected labels."
+  },
+  "annotation_assistance": {
+    "evidence_packet_generation": "Automated tools or language models may retrieve and index A-only evidence.",
+    "final_labels": "Primary and independent labels used for the paper reliability claim must be entered by named researchers; model suggestions are supplementary and cannot replace independent final coding.",
+    "adjudication": "A named researcher adjudicates disagreements after both original annotations are frozen."
+  },
+  "required_fields": [
+    "terminal_outcome",
+    "primary_failure_layer",
+    "primary_subtype",
+    "secondary_subtypes",
+    "evidence_anchors",
+    "confidence",
+    "adjudication_note"
+  ],
+  "reliability_metrics": {
+    "primary_layer": [
+      "raw exact agreement",
+      "Cohen kappa",
+      "bootstrap 95 percent confidence interval"
+    ],
+    "primary_subtype": [
+      "raw exact agreement",
+      "hierarchical agreement conditional on primary-layer agreement"
+    ],
+    "additional": [
+      "unresolved rate per annotator",
+      "evidence-anchor validity rate",
+      "full pre-adjudication confusion matrix"
+    ],
+    "threshold_policy": "Report all metrics without dropping labels or changing the taxonomy to cross an agreement threshold."
+  },
+  "adjudication_policy": {
+    "preserve_original_labels": true,
+    "adjudicated_label_used_for_failure_counts": true,
+    "new_mechanism": "Use unresolved/novel-mechanism-held-for-taxonomy-v2; do not add a v1 label.",
+    "treatment_data_forbidden": true
+  }
+}

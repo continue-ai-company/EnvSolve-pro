@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-dev-bad-case-census-v1.0.62-conan-package-tools",
+  "recorded_at": "2026-08-09T18:08:29Z",
+  "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+  "source_run_id": "pro-dev-bad-case-census-v1-0-60-lane1-39-A-spark",
+  "official_run_id": "pro-dev-bad-case-census-v1-0-60-lane1-39-A-spark-official",
+  "submitted_program_sha256": "a5e4cc56ffe5bca3cea4e791ac376e5f1c262fbba7ce551b63ae5e481db50079",
+  "official_result_sha256": "b94ee2b47e1312baada35f8dfa300b2be93ce1e3e26546e98779c6a1cea8f61e",
+  "official_raw_result_sha256": "78079097bbcde451aef9d6ed0a15cd48fa0efeb9ce9450c596aef7c2f16fa15d",
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "issues_count": 0,
+    "error_count": 793,
+    "warning_count": 80,
+    "execution_time_seconds": 99.69455671310425
+  },
+  "advisory_qualification": {
+    "pass": true,
+    "classification": "true-positive"
+  },
+  "deployment_completeness": {
+    "objective_role": "non_scoring_secondary_axis",
+    "status": "flagged-mixed-version-overlay",
+    "reason": "The program installs Conan 1.6.1 and then overlays Conan 1.66.0 with --ignore-installed, leaving historical internal modules beside newer files. Official static imports pass, but runtime version coherence is not established."
+  }
+}

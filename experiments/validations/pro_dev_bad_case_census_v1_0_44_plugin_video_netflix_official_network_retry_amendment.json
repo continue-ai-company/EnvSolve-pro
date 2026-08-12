@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.44-plugin-video-netflix-official-network-retry",
+  "frozen_at": "2026-08-09T15:43:00Z",
+  "status": "frozen-before-retry-outcome",
+  "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+  "source_execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark-official",
+    "submitted_program_sha256": "739ed03c0b5c08646c0d37ddd173c254497497186a077bb14eeb824961735255",
+    "evaluation_result_sha256": "076b8d272cb1e0df7bb7cb23236fa12ac524a89d61692dd9ebc107823a3be81e",
+    "raw_result_sha256": "5d18445289521595a8a7a9645748ee6a8ddb29e2928bcf2ae5a87f7a5e344876",
+    "evaluation_completed": false,
+    "termination_scope": "evaluator_bootstrap",
+    "infrastructure_signature": "read-timeout",
+    "evidence": "files.pythonhosted.org timed out while downloading the pip wheel before Pyright ran."
+  },
+  "retry": {
+    "run_id": "pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark-official-network-retry1",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "exact_program_required": true,
+    "model_reexecuted": false,
+    "maximum_retries": 1,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "adjudication": {
+    "retry_completed": "use the retry as the terminal Official outcome",
+    "retry_infrastructure_censored": "terminally infrastructure-censor the case",
+    "algorithm_identity_changed": false,
+    "protected_sets_touched": false
+  }
+}

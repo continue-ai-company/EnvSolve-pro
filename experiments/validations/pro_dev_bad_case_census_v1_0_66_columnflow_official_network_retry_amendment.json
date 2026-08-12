@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.66-columnflow-official-network-retry",
+  "created_at": "2026-08-09T18:26:21Z",
+  "status": "frozen-before-exact-script-retry",
+  "case_id": "envbench-python-columnflow__columnflow@ad04770a757f5031229ea1b47314cef6de5c9edf",
+  "censored_attempt": {
+    "run_id": "pro-dev-bad-case-census-v1-0-55-lane1-37-A-spark-official",
+    "evaluation_completed": false,
+    "official_result_sha256": "8a2783774018ed40ccb789a7d68fe48eaa79c70cea1976530db7143fe8d49526",
+    "official_raw_result_sha256": "6c861b1fa86cc72242a038e3f483f2195f0888d374b119bf46fed872f514feeb",
+    "infrastructure_signature": "conda-http-connection-failed",
+    "terminal_classification": "infrastructure_unknown",
+    "counts_toward_official_denominator": false
+  },
+  "retry": {
+    "allowed": true,
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "run_id": "pro-dev-bad-case-census-v1-0-55-lane1-37-A-spark-official-retry1",
+    "submitted_program_sha256": "5fba731004323d78ad2a9f04319f82a0548d96ba3742ce41b2614157e5812b47",
+    "model_reexecuted": false,
+    "seed": 510037,
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "validity": {
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false,
+    "B_or_C_execution": false,
+    "protected_sets_touched": false
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-dev-bad-case-census-v1.0.1-official-primary",
+  "created_at": "2026-08-09T07:35:00Z",
+  "status": "frozen-before-census-resume",
+  "trigger": "A safety-admissible exact submission completed the public goal and EnvBench Official evaluation but failed an additional submitted-program qualification constraint.",
+  "measurement_validity_finding": "Official benchmark success and additional deployment-quality or integrity checks are distinct outcomes. An advisory qualification failure cannot overwrite a completed Official result.",
+  "frozen_taxonomy": {
+    "path": "experiments/protocols/envsolve_pro_dev_bad_case_taxonomy_v1_0_1.json",
+    "sha256": "e2f024e796b2a27682a81b52660a67a212c4d39ad243fa28f23c1b6a54d350a2"
+  },
+  "executable_validation": {
+    "implementation": "envsolve_harness/dev_bad_case_analysis.py",
+    "implementation_sha256": "444aec14a327a1de391d8cf9459809047ef07c59cc8a612c8708ff0ca2dd1f38",
+    "tests": "tests/test_dev_bad_case_analysis.py",
+    "tests_sha256": "990a1da36a5614a4a100b46da06457de8629701d8738c8df7bcd664e69fc828d",
+    "focused_suite_passed": 61
+  },
+  "empirical_anchors": [
+    {
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "exact_program_sha256": "a8cf09e1ef610e9084b28e70d8be8882a949ae274f0d4f6c33ce59130e3edf5a",
+      "qualification_outcome": "fail",
+      "qualification_summary": "Locally generated repository test package rejected by advisory local-distribution provenance policy.",
+      "official_outcome": "pass",
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 16,
+        "execution_time_seconds": 57.228906869888306
+      },
+      "official_result_sha256": "6b2e680581a809df4fd43796a9413b561f9e7361bc53f19ba271bcaa14f99fe9"
+    },
+    {
+      "case_id": "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031",
+      "exact_program_sha256": "cd146fc040411f0165670ed5886fa7239dd6239547131c27f167167d4f359234",
+      "qualification_outcome": "pass",
+      "official_outcome": "pass",
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 1754,
+        "execution_time_seconds": 204.69898533821106
+      },
+      "official_result_sha256": "260cfcf86b237b1d26f0be912d217847b734d3c70349a0631a5f2067ce11445a"
+    }
+  ],
+  "terminal_policy": {
+    "primary_bad_case_outcomes": [
+      "official_fail",
+      "agent_noncompletion"
+    ],
+    "non_bad_censored_outcome": "infrastructure_unknown",
+    "qualification_is_terminal": false,
+    "qualification_is_advisory_quality_axis": true,
+    "official_followup_required_after_qualification_fail": true,
+    "non_scoring_error_count_is_quality_metadata": true
+  },
+  "carry_forward": {
+    "all_safety_admissible_existing_submissions_require_official_outcome": true,
+    "manual_official_relabeling_without_evaluator": false,
+    "agent_regeneration": false,
+    "feedback_to_agent": false,
+    "B_or_C_observed": false,
+    "protected_sets_touched": false
+  },
+  "spark_config": {
+    "path": "experiments/configs/local_spark_pro_dev_bad_case_census_v1_0_1.json",
+    "sha256": "3424a5c77dd80071cb86acb8e5a78e55f34635a25079e1b24e0b0578b7d029aa"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.26-cantools-official",
+  "frozen_at": "2026-08-09T14:15:15Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-cantools__cantools@2c92c60f2d1b50894ad0c5652afd331283e03402",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-20-lane2-28-A-spark",
+    "generation_result_sha256": "22abe2f32aff296df87c227816daa5aeb5ebb9d5b5521cf5ec2c4cc44aa4e821",
+    "submitted_program_sha256": "33b9ad570360822d7021f105a6ab33990866457e0304cb9c4989a3ce9fa68228",
+    "agent_command_count": 32,
+    "qualification_status": "pass",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-20-lane2-28-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 1337662,
+    "cached_input_tokens": 1252864,
+    "output_tokens": 16398,
+    "reasoning_output_tokens": 7943,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "detail": "The submitted program creates an empty site-packages/StringIO directory rather than installing a distribution that provides executable StringIO behavior.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}

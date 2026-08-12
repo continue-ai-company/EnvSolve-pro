@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-dev-bad-case-census-v1.0.43-plugin-video-netflix-official",
+  "frozen_at": "2026-08-09T15:41:00Z",
+  "status": "frozen-before-official-outcome",
+  "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+  "condition": "A-strong-agent-control",
+  "baseline_identity": "codex-cli-goal-aware-boundary-v5",
+  "model": "gpt-5.5",
+  "source": {
+    "run_id": "pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark",
+    "generation_result_sha256": "a38372fe2db2505b5ac86dbad1bccc5262f31ddea9c2bbc883c6378a8b5ff422",
+    "final_output_sha256": "746af0c3805b041b899e13f30c9d1421db37956ab8ce1337b037d89dca3bc48f",
+    "submitted_program_sha256": "739ed03c0b5c08646c0d37ddd173c254497497186a077bb14eeb824961735255",
+    "agent_command_count": 15,
+    "qualification_status": "advisory-fail-104-missing-imports-after-index-resolution-failure",
+    "qualification_is_advisory": true
+  },
+  "execution": {
+    "run_id": "pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark-official",
+    "execution_host": "spark-f21c",
+    "accelerator_exposure": "none",
+    "agent_or_model_reexecuted": false,
+    "official_evaluator_access": "post-episode-only",
+    "official_is_primary": true
+  },
+  "resource_observation": {
+    "input_tokens": 405401,
+    "cached_input_tokens": 365056,
+    "output_tokens": 9457,
+    "reasoning_output_tokens": 5148,
+    "clean_replay_seconds": 42.742094000000066,
+    "token_usage_is_hard_limit": false
+  },
+  "deployment_completeness_observation": {
+    "objective_role": "non_scoring_secondary_axis",
+    "observed_before_official": true,
+    "detail": "The program installs declared and supplemental dependencies but also adds pylint.config's private package directory to PYTHONPATH so a private helper module is importable as a top-level module. This is executable dependency reuse, not a synthetic module, but it is a portability risk.",
+    "official_outcome_not_overridden": true
+  },
+  "protected_sets_touched": false
+}
