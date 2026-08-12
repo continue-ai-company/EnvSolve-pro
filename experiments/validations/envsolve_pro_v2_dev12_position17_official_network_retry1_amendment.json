@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-dev12-position17-official-network-retry1",
+  "recorded_at": "2026-08-12T09:49:00Z",
+  "status": "frozen-before-exact-script-retry",
+  "case_id": "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+  "censored_attempt": {
+    "run_id": "pro-v2-dev12-17-B-FSR",
+    "generation_completed": true,
+    "certified_by_clean_replay": true,
+    "evaluation_completed": false,
+    "official_pass": false,
+    "termination_scope": "official-bootstrap-package-download",
+    "infrastructure_signature": "connection-timeout",
+    "failure": "pip received only 2.4 of 8.4 MB of the public Django wheel and reported an incomplete network download; Pyright did not execute",
+    "submitted_program_sha256": "87ead9e37d8ab8c101546160c4f817614eb47731edc2372888e42707479955fc",
+    "bootstrap_script_sha256": "10bf8e10c69939789414870767f60c2b7bfa6d58d15cddc8aa785010bdff0648",
+    "manifest_sha256": "9e2ba0fee57e35feda660d2a6ad76a8b27291e502977ead2d8e178b28475c319",
+    "generation_result_sha256": "a617465d5d7d8e8504e5d1ddfd5dff7ea9a8d413d3e2ef400d913fe07564fe1f",
+    "trajectory_sha256": "00aad99bf0b45e805442ef78656bdae4f14e5f647a5bbc5262fa5910c9f54544",
+    "replays_sha256": "a7553b694dfcb3c42f3e3b1ef2bf9f0676b7400dd6ff5c15bb2eba1d96978c76",
+    "certification_sha256": "5ba98d7efdd9d43f7a2e7875d59404c951ab88cb1edc0f23690fd6a673824664",
+    "official_result_sha256": "ccc92a0dec88b7de0d72e12bc74b0b6cde39b7dc73f9d7298f5b682ca3fd0495",
+    "official_raw_result_sha256": "b14808b70a5a6b6bdd35f2f94b1260dcbcbd23704902e50bc069a96791b3a6e4",
+    "evaluation_log_sha256": "cf71df9d058451fad0404496adcb6daa8dad2e972ce103ef594cd6256a72aa4a",
+    "source_run_audit_valid": true,
+    "counts_toward_official_denominator": false
+  },
+  "retry": {
+    "allowed": true,
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "run_id": "pro-v2-dev12-17-B-FSR-official-retry1",
+    "source_run_id": "pro-v2-dev12-17-B-FSR",
+    "model_reexecuted": false,
+    "seed": 1494782751,
+    "maximum_semantics_identical_retries_after_this_attempt": 0,
+    "entrypoint": "experiments/evaluate_only.py",
+    "entrypoint_sha256": "49cb506f37724238b611bcc079a30ca9ebcc7d0bd02bc8ce620f9bd0ba3fea46"
+  },
+  "validity": {
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false,
+    "official_feedback_returned_to_agent": false,
+    "protected_sets_touched": false,
+    "source_run_audit_valid": true
+  }
+}
