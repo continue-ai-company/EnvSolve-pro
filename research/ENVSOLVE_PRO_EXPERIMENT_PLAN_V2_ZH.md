@@ -373,3 +373,16 @@ tokens、100 对 66 次 shell 调用，生成耗时约 4,984 对 3,093 秒。这
 预登记的基础设施重试而不能估计配对效应。第七对还暴露了下个实验必须事前冻结的协议边界：依赖下载失败
 若在活跃 session 内被修复，可以体现部署能力；相同故障若发生在 session 结束后，当前规则却会将其删失。
 Dev-12 不做事后修改，剩余五对继续沿用冻结规则。
+
+第八个冻结配对 `mov-cli/mov-cli` 是双方都通过，并在简单依赖闭包上隔离出“认证驱动终止”。B-FSR 在
+第 12 次请求达到本地零 missing imports，第 14 次首次 clean replay 通过，第 15 次提交。A-F 在第 13 次
+首次达到相同目标，之后又重复检查 8 次，到第 43 次才提交。两份最终程序都安装 editable 项目以及
+`fastapi`、`mov-cli-youtube`；B 还安装了 verifier 侧便利包。B 使用 15 对 43 次模型请求、158,559 对
+1,007,718 tokens、21 对 69 次 shell 调用，生成耗时约 172 对 1,963 秒。双方均通过 Official，且非计分
+error count 相同。不可变记录为
+`experiments/validations/envsolve_pro_v2_dev12_pair08_result.json`。
+
+八个已尝试配对中有六个具备双臂可观测的 Official 结果，在这些配对上两臂均为 5/6。B 目前有三条
+feedback-conditioned repair 和三条首次 replay 认证。第五、六、八对独立显示 clean replay 一旦成功就
+会立即提交；第八对的最终依赖策略近似，因此最清楚地把资源差异归因于终止行为。这仍不建立期望效率
+增益：第七对说明修复可能很昂贵，同时还有两次候选形成失败。剩余四个冻结配对尚未运行。

@@ -687,10 +687,11 @@ EnvBench FreeAgent、Repo2Run、原生 Codex、旧 EnvSolve 和 EnvSolve-Pro 的
 模型和结果均不修改；`envsolve_pro_v2_dev12_mechanism_semantics_amendment.json` 只澄清原 minimal-H 标签
 表示公共 E。冻结的 `B-FSR` run ID 保持不变，其中 S 解释为软约束 C_s。
 
-目前已运行十二对中的七对。五对具备双臂可观测的 Official 结果，两臂均为 4/5；另外两对作为删失的
-机制证据保留。B 已产生三条 feedback-conditioned repair 和两条首次 replay 认证。最新修复跨过了
-evaluator 不可见依赖和脆弱 Git 传输，但 token 与生成时间均比 A 多约 61%。这些 pilot 观察目前只支持
-机制真实激活，既不建立通过率优势，也不建立效率优势。
+目前已运行十二对中的八对。六对具备双臂可观测的 Official 结果，两臂均为 5/6；另外两对作为删失的
+机制证据保留。B 已产生三条 feedback-conditioned repair 和三条首次 replay 认证。最新双方通过的配对
+使用近似的依赖策略，但 B 在认证后立即提交，A 则对已经满足的目标反复检查到第 43 次请求；相反，前一条
+修复轨迹中 B 的 token 与生成时间均比 A 多约 61%。这些 pilot 观察支持修复与终止机制真实激活，但既不
+建立通过率优势，也不建立无条件效率优势。
 
 Dev-12 的 24 个 episode 全部结束后，在运行任何 arm 前，仅按 outcome-independent identity 哈希从冻结
 reserve 中选择新的 Dev-16。四个条件使用相同 DeepSeek V4 Pro，并在 case 内随机运行顺序：

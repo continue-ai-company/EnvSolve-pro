@@ -1,0 +1,131 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-08",
+  "recorded_at": "2026-08-12T09:25:00Z",
+  "case": {
+    "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "repository": "mov-cli/mov-cli",
+    "revision": "32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "architecture": "linux/arm64"
+  },
+  "primary_outcome_semantics": "Official Pass@1 is measured only after the active Agent session ends; infrastructure incidents are preserved separately",
+  "effective_outcomes": [
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-15-B-FSR",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "primary_pass_fail_eligible": true,
+      "generation_wall_clock_seconds": 172.381331,
+      "episode_wall_clock_seconds": 255.8754429598339,
+      "official_evaluation_seconds": 79.63029074668884,
+      "model_requests": 15,
+      "provider_attempts": 15,
+      "provider_errors": 0,
+      "prompt_tokens": 153861,
+      "completion_tokens": 4698,
+      "total_tokens": 158559,
+      "reported_provider_cost": 0.13444325,
+      "shell_tool_calls": 21,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 58.83115939376876,
+      "clean_replay_calls": 1,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 12,
+      "first_clean_replay_request": 14,
+      "final_submission_request": 15,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 130,
+      "submitted_program_sha256": "886d8e6ebe5243ded4e7c3d6f3036dcdeb4e5b2d0db4c73ffa0451b310e2ad34",
+      "manifest_sha256": "e9d60da116b88490411e9308fbbab5435a2d1c4ea81a234326337e47703bc209",
+      "generation_result_sha256": "a3497742f550f24901d81839b639dc065e84dcb941102ae93bad8660def235df",
+      "trajectory_sha256": "7ab3a1856d2409cf0426384dc3f7d0383e12b13d642553b9db34d7d6a863ffcc",
+      "replays_sha256": "7b577e828b143539af9dab76694575af23df0f5483ff01c1ff33cf16cd625270",
+      "certification_sha256": "7680da1dbc901fd607e2939127fb4a46588155f7088abd18e2cf28ab7c65937f",
+      "official_result_sha256": "5750bb0ee2f033b2f4270dfe0ce5e6c903a64392c9fd00ce1bd6fb3461dcf82b",
+      "official_raw_result_sha256": "2be597cbcba5b4d26b31767cabd4fcb46bec43d1d7d02361ccb99827fe297355"
+    },
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-16-A-F",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "primary_pass_fail_eligible": true,
+      "generation_wall_clock_seconds": 1963.377081,
+      "episode_wall_clock_seconds": 2021.6576741999015,
+      "official_evaluation_seconds": 54.07141709327698,
+      "model_requests": 43,
+      "provider_attempts": 45,
+      "provider_errors": 2,
+      "prompt_tokens": 947988,
+      "completion_tokens": 59730,
+      "total_tokens": 1007718,
+      "reported_provider_cost": 0.5977744999999998,
+      "shell_tool_calls": 69,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 152.60695791756734,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 13,
+      "final_submission_request": 43,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 130,
+      "submitted_program_sha256": "a7e0c82819ab0bc29cc58f6130ebafa151fb6d38a5da404d46a4130faf477243",
+      "manifest_sha256": "b48906305158f5a62b9bd5d34c2dcef8bcdccd012afaf309f1653c1fc82728e9",
+      "generation_result_sha256": "4a439116ec24bcde2dc4979b1f836edc1e9d404c2356bc58f818c27b95a14192",
+      "trajectory_sha256": "b3a8f119f155d44c3935dd92236f6b430a690489085e29423a3cda7ead43b7d4",
+      "official_result_sha256": "3cfb298552e266f042872724afafd7a58dcc4cc675f8f6e205decbd0f663b54a",
+      "official_raw_result_sha256": "4da544d4e8a06bb95d06e5e6bb262de56ced2b157a95d929d6d9338b5961cb42"
+    }
+  ],
+  "replay_sequence": [
+    {
+      "index": 1,
+      "request": 14,
+      "program_sha256": "886d8e6ebe5243ded4e7c3d6f3036dcdeb4e5b2d0db4c73ffa0451b310e2ad34",
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "note": "the first complete program passed the trusted goal in a fresh checkout and the exact artifact was submitted on the next request"
+    }
+  ],
+  "paired_result": {
+    "class": "both-pass",
+    "paired_primary_effect_estimable": true,
+    "official_pass_difference_B_minus_A": 0,
+    "mechanism_activation": "B invoked clean replay once; its first complete program passed and was submitted on the next request",
+    "feedback_conditioned_repair_observed": false,
+    "certification_as_stopping_signal_observed": true,
+    "candidate_formation": {
+      "A": "first local goal pass at request 13; repeated the zero-missing-import check at requests 15, 19, 26, 32, 36, 37, 39, and 42 before submitting at request 43",
+      "B": "first local goal pass at request 12; formed a complete program, passed clean replay at request 14, and submitted at request 15"
+    },
+    "descriptive_resource_differences_B_vs_A": {
+      "model_requests_percent": -65.11627906976744,
+      "total_tokens_percent": -84.26553857329134,
+      "generation_wall_clock_percent": -91.220161798354,
+      "shell_tool_calls_percent": -69.56521739130434,
+      "reported_provider_cost_percent": -77.50937017219704
+    },
+    "deployment_program_comparison": {
+      "shared_core": "both programs installed the repository in editable mode plus fastapi and mov-cli-youtube to cover the example import surface",
+      "B_only": "B also upgraded pip and installed pyright and uvicorn",
+      "A_only": "none",
+      "interpretation": "the programs implement the same missing-import solution; the large resource difference is primarily consistent with termination behavior rather than a different dependency strategy"
+    },
+    "supported_observation": "on this simple both-pass case, successful clean replay provided an immediate certification and stopping signal, while the free Agent repeatedly reconfirmed an already satisfied goal before submitting",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate on this pair",
+      "clean replay repaired a failed candidate on this pair",
+      "the observed resource reduction generalizes to difficult or repair-requiring cases",
+      "B's program is more complete at runtime than A's program",
+      "the non-scoring Official error counts indicate deployment failure or quality ordering"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds",
+  "analysis_note": "A experienced two provider connection errors at request 35 and recovered under the frozen retry policy. The first 22 requests after its local goal pass occurred before those errors, so the termination-latency observation is not explained by provider transport."
+}

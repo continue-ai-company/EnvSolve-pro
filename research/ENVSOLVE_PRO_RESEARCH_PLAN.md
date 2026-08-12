@@ -888,12 +888,14 @@ F+C_s+R pilot. Its implementation, prompt, schedule, model, and outcomes are unc
 minimal-H label denotes shared E. The frozen `B-FSR` run IDs remain stable, with S read as
 soft-constraint guidance C_s.
 
-Seven of twelve pairs have now run. Five are pairwise Official-observable, with both arms
-at 4/5; the other two are retained as censored mechanism evidence. B has produced three
-feedback-conditioned repairs and two first-replay certifications. The newest repair
-survived missing evaluator-visible dependencies and a fragile Git transport, but used 61%
-more tokens and generation time than A. These pilot observations support mechanism
-activation only: they establish neither a pass-rate nor an efficiency advantage.
+Eight of twelve pairs have now run. Six are pairwise Official-observable, with both arms
+at 5/6; the other two are retained as censored mechanism evidence. B has produced three
+feedback-conditioned repairs and three first-replay certifications. The newest both-pass
+pair used nearly identical dependency strategies, but B submitted immediately after
+certification while A repeated an already satisfied goal until request 43. Conversely,
+the preceding repair pair cost B about 61% more tokens and generation time than A. These
+pilot observations support repair and stopping mechanisms, but establish neither a
+pass-rate nor an unconditional efficiency advantage.
 
 After all 24 Dev-12 episodes finish, select a fresh Dev-16 from the frozen reserve by an
 outcome-independent identity hash before any arm is run. Use randomized within-case order

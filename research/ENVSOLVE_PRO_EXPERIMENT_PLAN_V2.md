@@ -459,3 +459,22 @@ boundary that must be frozen before the next study: resilience to dependency-dow
 failures can be deployment competence when repaired inside the active session, yet the
 same failure is currently censored after session termination. Dev-12 will not be changed
 post hoc; its remaining five pairs continue under the frozen rule.
+
+The eighth frozen pair, `mov-cli/mov-cli`, is both-pass and isolates certification-driven
+termination on a simple dependency closure. B-FSR reached zero local missing imports at
+request 12, passed its first clean replay at request 14, and submitted at request 15. A-F
+first reached the same goal at request 13, then repeated the goal check eight more times
+before submitting at request 43. Both final programs installed the editable project plus
+`fastapi` and `mov-cli-youtube`; B additionally installed verifier-side conveniences.
+B used 15 versus 43 model requests, 158,559 versus 1,007,718 tokens, 21 versus 69 shell
+calls, and about 172 versus 1,963 seconds of generation time. Both passed Official with
+the same non-scoring error count. The immutable record is
+`experiments/validations/envsolve_pro_v2_dev12_pair08_result.json`.
+
+Across eight attempted pairs, six are pairwise Official-observable and both arms are 5/6
+on those pairs. B has three feedback-conditioned repairs and three first-replay
+certifications. Pairs five, six, and eight independently show that a successful replay is
+followed by immediate submission; pair eight most cleanly attributes the resource gap to
+termination because the two final dependency strategies are nearly identical. This still
+does not establish an expected efficiency gain: pair seven shows repair can be expensive,
+and two candidate-formation failures remain. Four frozen pairs remain.

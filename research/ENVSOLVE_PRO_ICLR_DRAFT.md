@@ -200,16 +200,16 @@ counterfactuals. Conversely, advisory replay agrees with Official in only 22 of 
 comparable episodes. Replay therefore needs high fidelity and must remain soft evidence,
 not become another hard gate.
 
-This motivates the method but does not establish its effect. Seven Dev-12 pairs have run;
-five are pairwise Official-observable, and both arms are 4/5 on those pairs. EnvSolve-Pro
-produced three auditable feedback-conditioned repairs and two first-replay certifications.
-It also failed twice to form a replay candidate, while two A outcomes were censored after
-their single infrastructure retry. The newest repair recovered from missing evaluator-
-visible dependencies and fragile Git transport, but used about 61% more tokens and
-generation time than A. The evidence therefore supports mechanism activation, not a
-pass-rate or efficiency advantage. The remaining Dev-12 and fresh Dev-16 must test whether
-the mechanism yields a reproducible benefit. If not, we will narrow the claim rather than
-add rules.
+This motivates the method but does not establish its effect. Eight Dev-12 pairs have run;
+six are pairwise Official-observable, and both arms are 5/6 on those pairs. EnvSolve-Pro
+produced three auditable feedback-conditioned repairs and three first-replay
+certifications. The clearest stopping trace used nearly identical dependency strategies:
+EnvSolve-Pro submitted at request 15 after replay, whereas F repeated an already satisfied
+goal until request 43. Yet a preceding repair cost EnvSolve-Pro about 61% more tokens and
+generation time, and it twice failed to form a replay candidate. The evidence therefore
+supports repair and stopping mechanisms, not a pass-rate or unconditional efficiency
+advantage. The remaining Dev-12 and fresh Dev-16 must test reproducibility; otherwise we
+will narrow the claim rather than add rules.
 
 ## 7. Limitations
 
