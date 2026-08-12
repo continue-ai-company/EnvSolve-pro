@@ -1,0 +1,54 @@
+{
+  "amendment_id": "envsolve-pro-boundary-v3-trader-a-runtime-provenance-network-retry-v1",
+  "case_id": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+  "classification": "infrastructure-censored-before-trusted-goal",
+  "created_at": "2026-08-07T08:58:26Z",
+  "decision": {
+    "action": "permit one byte-identical retry after direct endpoint preflight",
+    "algorithm_outcome": "excluded",
+    "changes_forbidden": [
+      "candidate bytes",
+      "repository or revision",
+      "image",
+      "workspace preconditions",
+      "boundary implementation",
+      "goal contract",
+      "timeout or decision rule"
+    ],
+    "changes_permitted": [
+      "new output path",
+      "new temporary worktree root",
+      "retry attempt identifier"
+    ]
+  },
+  "evidence": {
+    "bootstrap_exit_code": 1,
+    "candidate_completed": false,
+    "failure": "pip reported no matching distribution for public dependency yarl<2.0,>=1.6",
+    "goal_report_observed": false,
+    "managed_dependency_audit_observed": false,
+    "post_failure_preflight": {
+      "files_pythonhosted_http_status": 200,
+      "pypi_yarl_json_http_status": 200,
+      "registry_autonolas_http_status": 401,
+      "registry_autonolas_interpretation": "endpoint reachable; unauthenticated root request rejected"
+    }
+  },
+  "frozen_inputs": {
+    "boundary_implementation_sha256": "3195205de50ba0707d3652e437c85c8cbfc9bafcb29b92e61977cb3c5dd0c615",
+    "candidate_program_sha256": "d67a17bf9a12c07e9c596ba58ea468bde06eff4a5f03f64995774bfa6b40b28c",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "repository": "valory-xyz/trader",
+    "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "timeout_seconds": 1800,
+    "validator_sha256": "cd36992f82d46f8612ac82f2dac89e0e12370906404d159e6472fd2dac953cdb"
+  },
+  "inputs": {
+    "censored_result": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_a_spark_runtime_provenance_result.json",
+      "sha256": "b310e32958fccf304f09a32128c0cae9353c91ddbf1c7cfc9e9fe23d34ffda74"
+    }
+  },
+  "retry_output": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_a_spark_runtime_provenance_retry1_result.json",
+  "schema_version": "1.0.0"
+}

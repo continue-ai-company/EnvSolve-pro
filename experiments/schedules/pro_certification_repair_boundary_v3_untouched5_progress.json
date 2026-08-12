@@ -1,0 +1,57 @@
+{
+  "execution": {
+    "config": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/configs/local_mac_pro_certification_repair_boundary_v3_untouched5.json",
+    "config_sha256": "9167938510a5a626c684a572b51dbb703181ad29d10528404b1c42666b263017",
+    "episode_runner_override": true,
+    "episode_timeout_seconds": 22400.0,
+    "protocol": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/protocols/envbench_python_public_goal_v2.json",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "provider": {
+      "provider_backed": false
+    },
+    "runner": "envsolve",
+    "timeout_source": "schedule"
+  },
+  "outcomes": [
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-01-C-retryable-minimal-b/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+      "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+      "duration_seconds": 787.122774959018,
+      "finished_at": "2026-08-08T02:14:16.022312+00:00",
+      "method": "envsolve-pro-minimal-b-boundary-v3",
+      "model": "gpt-5.5",
+      "position": 1,
+      "process_exit_code": 0,
+      "reason": null,
+      "run_id": "pro-cert-repair-boundary-v3-untouched5-01-C-retryable-minimal-b",
+      "runner": "envsolve-pro-minimal-b-qualified-boundary-v3",
+      "seed": 3389898334,
+      "started_at": "2026-08-08T02:01:08.896547+00:00",
+      "state": "process_finished",
+      "stderr_tail": "",
+      "stdout_tail": "artifacts=/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-01-C-retryable-minimal-b/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0\ngeneration_completed=true\nevaluation_completed=true\nofficial_pass=true\nbenchmark=envbench\nraw_metrics={'exit_code': 0, 'issues_count': 0, 'error_count': 867, 'warning_count': 25, 'repo_name': 'pypa/distutils', 'commit_sha': '0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0'}\n"
+    },
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+      "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+      "duration_seconds": 0.1446377079701051,
+      "finished_at": "2026-08-08T02:16:07.387671+00:00",
+      "method": "codex-cli-goal-aware-boundary-v3",
+      "model": "gpt-5.5",
+      "position": 2,
+      "process_exit_code": 1,
+      "reason": null,
+      "run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control",
+      "runner": "codex-cli-qualified-boundary-v3",
+      "seed": 3389898334,
+      "started_at": "2026-08-08T02:16:07.241721+00:00",
+      "state": "process_finished",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/pathlib/_local.py\", line 722, in mkdir\n    os.mkdir(self, mode)\n    ~~~~~~~~^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/inputs'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/pathlib/_local.py\", line 722, in mkdir\n    os.mkdir(self, mode)\n    ~~~~~~~~^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/run_replay_ablation_boundary_v3_case.py\", line 70, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/run_replay_ablation_boundary_v3_case.py\", line 66, in main\n    return run_case.main()\n           ~~~~~~~~~~~~~^^\n  File \"/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/run_case.py\", line 61, in main\n    artifacts = RunArtifacts.create(\n        config.runs_root,\n    ...<2 lines>...\n        overwrite=args.overwrite,\n    )\n  File \"/Users/admin/.codex/worktrees/4050/AnyDeploy/envsolve_harness/storage/artifacts.py\", line 31, in create\n    (root / child).mkdir(parents=True, exist_ok=True)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/pathlib/_local.py\", line 726, in mkdir\n    self.parent.mkdir(parents=True, exist_ok=True)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/pathlib/_local.py\", line 726, in mkdir\n    self.parent.mkdir(parents=True, exist_ok=True)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Caskroom/miniconda/base/lib/python3.13/pathlib/_local.py\", line 722, in mkdir\n    os.mkdir(self, mode)\n    ~~~~~~~~^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control'\n",
+      "stdout_tail": ""
+    }
+  ],
+  "schedule": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+  "schedule_sha256": "15e289b8c065366b9810a68e1db1312b13d2169d5f0e955f50181a05492621c2",
+  "schema_version": "2.0.0",
+  "updated_at": "2026-08-08T02:16:07.387688+00:00"
+}

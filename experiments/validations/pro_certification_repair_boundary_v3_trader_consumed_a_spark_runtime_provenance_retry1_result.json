@@ -1,0 +1,1992 @@
+{
+  "boundary_implementation_sha256": "3195205de50ba0707d3652e437c85c8cbfc9bafcb29b92e61977cb3c5dd0c615",
+  "candidate_validation": {
+    "accepted": true,
+    "details": {
+      "interface": "open-candidate-program-v3",
+      "protected_configuration_history": "no-write-observed",
+      "safety_boundary": "fresh-container+effect-audit+postconditions",
+      "script_chars": 540
+    },
+    "policy_id": "open-candidate-program-v3",
+    "reason": null
+  },
+  "canonical_program_sha256": "336cac2ea3008fc7135a755cede3c1ef7ff202b2030a3ac3e44da3d23bab182b",
+  "claim_scope": "consumed-boundary-validation-only-outcome-excluded",
+  "classification": "boundary-v3-not-qualified",
+  "completed_at": "2026-08-07T08:56:56.393479+00:00",
+  "environment_receipt": {
+    "created_at": "2026-08-07T08:56:56.659641+00:00",
+    "environment_id": "79d68ae1ca2518f5ab3f3552e862fd8581b5730f8cd2f5ffaf32ca558300d0dd",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "provider_id": "docker-fresh-checkout-v1",
+    "repository": "valory-xyz/trader",
+    "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1"
+  },
+  "goal_contract": {
+    "contract_id": "envbench-python-reportMissingImports-v3",
+    "sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463"
+  },
+  "mechanism_evidence": {
+    "candidate_completed": true,
+    "goal_report_observed": true,
+    "managed_dependency_provenance": {
+      "adapter": "open-aea-content-addressed-lock-v1",
+      "applicable": false,
+      "detection": {
+        "declaration_exit_code": 128,
+        "declared_by": [],
+        "executable": "/tmp/envsolve-trader-py310/bin/autonomy",
+        "inventory_exit_code": 128,
+        "lock_paths": []
+      },
+      "valid": false
+    }
+  },
+  "outcome": {
+    "bootstrap": {
+      "duration_seconds": 718.7810556031764,
+      "exit_code": 0,
+      "stderr": "\n[notice] A new release of pip is available: 25.1.1 -> 26.2.1\n[notice] To update, run: pip install --upgrade pip\n\n[notice] A new release of pip is available: 25.1.1 -> 26.2.1\n[notice] To update, run: pip install --upgrade pip\n\n[notice] A new release of pip is available: 25.1.1 -> 26.2.1\n[notice] To update, run: pip install --upgrade pip\n[2026-08-07 09:06:38,364][INFO] Performing sync @ /data/project/valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1/packages\n[2026-08-07 09:06:38,364][INFO] Checking third party packages.\n[2026-08-07 09:06:38,364][INFO] (protocol, open_aea/signing:1.0.0) not found locally, downloading...\n[2026-08-07 09:06:38,364][INFO] Adding (protocol, open_aea/signing:1.0.0)\n[2026-08-07 09:06:42,199][INFO] (protocol, valory/abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:06:42,199][INFO] Adding (protocol, valory/abci:0.1.0)\n[2026-08-07 09:06:50,227][INFO] (protocol, valory/contract_api:1.0.0) not found locally, downloading...\n[2026-08-07 09:06:50,227][INFO] Adding (protocol, valory/contract_api:1.0.0)\n[2026-08-07 09:06:56,068][INFO] (protocol, valory/http:1.0.0) not found locally, downloading...\n[2026-08-07 09:06:56,068][INFO] Adding (protocol, valory/http:1.0.0)\n[2026-08-07 09:06:58,363][INFO] (protocol, valory/ledger_api:1.0.0) not found locally, downloading...\n[2026-08-07 09:06:58,363][INFO] Adding (protocol, valory/ledger_api:1.0.0)\n[2026-08-07 09:07:03,297][INFO] (protocol, valory/acn:1.1.0) not found locally, downloading...\n[2026-08-07 09:07:03,297][INFO] Adding (protocol, valory/acn:1.1.0)\n[2026-08-07 09:07:07,591][INFO] (protocol, valory/tendermint:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:07,591][INFO] Adding (protocol, valory/tendermint:0.1.0)\n[2026-08-07 09:07:10,108][INFO] (protocol, valory/ipfs:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:10,108][INFO] Adding (protocol, valory/ipfs:0.1.0)\n[2026-08-07 09:07:12,606][INFO] (contract, valory/gnosis_safe_proxy_factory:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:12,606][INFO] Adding (contract, valory/gnosis_safe_proxy_factory:0.1.0)\n[2026-08-07 09:07:14,909][INFO] (contract, valory/gnosis_safe:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:14,909][INFO] Adding (contract, valory/gnosis_safe:0.1.0)\n[2026-08-07 09:07:20,988][INFO] (contract, valory/mech:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:20,988][INFO] Adding (contract, valory/mech:0.1.0)\n[2026-08-07 09:07:23,450][INFO] (contract, valory/service_registry:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:23,450][INFO] Adding (contract, valory/service_registry:0.1.0)\n[2026-08-07 09:07:26,980][INFO] (contract, valory/multisend:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:26,980][INFO] Adding (contract, valory/multisend:0.1.0)\n[2026-08-07 09:07:47,849][INFO] (contract, valory/erc20:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:47,849][INFO] Adding (contract, valory/erc20:0.1.0)\n[2026-08-07 09:07:50,952][INFO] (connection, valory/abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:07:50,952][INFO] Adding (connection, valory/abci:0.1.0)\n[2026-08-07 09:07:55,089][INFO] (connection, valory/http_client:0.23.0) not found locally, downloading...\n[2026-08-07 09:07:55,089][INFO] Adding (connection, valory/http_client:0.23.0)\n[2026-08-07 09:07:57,586][INFO] (connection, valory/ledger:0.19.0) not found locally, downloading...\n[2026-08-07 09:07:57,586][INFO] Adding (connection, valory/ledger:0.19.0)\n[2026-08-07 09:08:01,833][INFO] (connection, valory/p2p_libp2p_client:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:01,833][INFO] Adding (connection, valory/p2p_libp2p_client:0.1.0)\n[2026-08-07 09:08:04,118][INFO] (connection, valory/ipfs:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:04,118][INFO] Adding (connection, valory/ipfs:0.1.0)\n[2026-08-07 09:08:10,113][INFO] (connection, valory/http_server:0.22.0) not found locally, downloading...\n[2026-08-07 09:08:10,113][INFO] Adding (connection, valory/http_server:0.22.0)\n[2026-08-07 09:08:12,391][INFO] (skill, valory/abstract_abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:12,391][INFO] Adding (skill, valory/abstract_abci:0.1.0)\n[2026-08-07 09:08:15,015][INFO] (skill, valory/reset_pause_abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:15,015][INFO] Adding (skill, valory/reset_pause_abci:0.1.0)\n[2026-08-07 09:08:20,032][INFO] Adding (skill, valory/abstract_round_abci:0.1.0)\n[2026-08-07 09:08:25,653][INFO] (skill, valory/registration_abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:25,653][INFO] Adding (skill, valory/registration_abci:0.1.0)\n[2026-08-07 09:08:28,746][INFO] (skill, valory/transaction_settlement_abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:28,746][INFO] Adding (skill, valory/transaction_settlement_abci:0.1.0)\n[2026-08-07 09:08:31,776][INFO] (skill, valory/termination_abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:31,776][INFO] Adding (skill, valory/termination_abci:0.1.0)\n[2026-08-07 09:08:34,432][INFO] (skill, valory/mech_interact_abci:0.1.0) not found locally, downloading...\n[2026-08-07 09:08:34,432][INFO] Adding (skill, valory/mech_interact_abci:0.1.0)\n[2026-08-07 09:08:37,941][INFO] Sync complete\n[2026-08-07 09:08:37,942][INFO] Updating hashes\n\n[notice] A new release of pip is available: 25.1.1 -> 26.2.1\n[notice] To update, run: pip install --upgrade pip\n",
+      "stdout": "ENVSOLVE_PYTHON_INSTALLATION_BASELINE_V2={\"provided_modules\": [\"packages\", \"scripts\"], \"trusted_virtualenv_build\": {\"applicable\": true, \"distribution_version\": \"20.31.2\", \"template_sha256\": \"0f20351ea7e90039c46d3fabdef991f28b1e3ff33eb13ee6f0d5cd21ea0e8b14\", \"valid\": true}, \"unowned_import_artifacts\": [{\"audit_kind\": \"unowned-import-artifact\", \"reason\": \"importable site-package artifact is not owned by an installed distribution\", \"relative_path\": \"distutils-precedence.pth\", \"site_root\": \"/opt/conda/lib/python3.13/site-packages\"}], \"valid\": false, \"violations\": [{\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"rich\", \"origin\": \"/croot/rich_1732638988216/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"rich\"], \"undeclared_modules\": [\"rich\"], \"version\": \"13.9.4\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"tqdm\", \"origin\": \"/croot/tqdm_1738943461672/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"tqdm\"], \"undeclared_modules\": [\"tqdm\"], \"version\": \"4.67.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pydantic\", \"origin\": \"/croot/pydantic_1734736068201/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pydantic\"], \"undeclared_modules\": [\"pydantic\"], \"version\": \"2.10.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pydantic_core\", \"origin\": \"/croot/pydantic-core_1734726049599/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pydantic_core\"], \"undeclared_modules\": [\"pydantic_core\"], \"version\": \"2.27.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"charset-normalizer\", \"origin\": \"/croot/charset-normalizer_1721748349566/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"charset_normalizer\"], \"undeclared_modules\": [\"charset_normalizer\"], \"version\": \"3.3.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda_package_streaming\", \"origin\": \"/croot/conda-package-streaming_1731366181612/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_package_streaming\"], \"undeclared_modules\": [\"conda_package_streaming\"], \"version\": \"0.11.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-content-trust\", \"origin\": \"/work/perseverance-python-buildout/croot/conda-content-trust_1728507652179/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_content_trust\"], \"undeclared_modules\": [\"conda_content_trust\"], \"version\": \"0.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"cryptography\", \"origin\": \"/croot/cryptography_1740577832525/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"cryptography\", \"rust\"], \"undeclared_modules\": [\"cryptography\", \"rust\"], \"version\": \"44.0.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda\", \"origin\": \"/croot/conda_1743715298530/work/conda-src\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda\", \"conda_env\", \"tests\"], \"undeclared_modules\": [\"conda\", \"conda_env\", \"tests\"], \"version\": \"25.3.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"idna\", \"origin\": \"/work/perseverance-python-buildout/croot/idna_1728406285595/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"idna\"], \"undeclared_modules\": [\"idna\"], \"version\": \"3.7\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"Brotli\", \"origin\": \"/croot/brotli-split_1736182465122/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_brotli\", \"brotli\"], \"undeclared_modules\": [\"_brotli\", \"brotli\"], \"version\": \"1.0.9\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"requests\", \"origin\": \"/croot/requests_1731001047220/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"requests\"], \"undeclared_modules\": [\"requests\"], \"version\": \"2.32.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"distro\", \"origin\": \"/work/perseverance-python-buildout/croot/distro_1728480038109/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"distro\"], \"undeclared_modules\": [\"distro\"], \"version\": \"1.9.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"platformdirs\", \"origin\": \"/croot/platformdirs_1744273047827/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"platformdirs\"], \"undeclared_modules\": [\"platformdirs\"], \"version\": \"4.3.7\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"certifi\", \"origin\": \"/croot/certifi_1745939213408/work/certifi\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"certifi\"], \"undeclared_modules\": [\"certifi\"], \"version\": \"2025.4.26\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"jsonpatch\", \"origin\": \"/work/perseverance-python-buildout/croot/jsonpatch_1728480643704/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"jsonpatch\"], \"undeclared_modules\": [\"jsonpatch\"], \"version\": \"1.33\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pluggy\", \"origin\": \"/croot/pluggy_1733169620750/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pluggy\"], \"undeclared_modules\": [\"pluggy\"], \"version\": \"1.5.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"typing_extensions\", \"origin\": \"/croot/typing_extensions_1734714855955/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"__pycache__\", \"typing_extensions\"], \"undeclared_modules\": [\"__pycache__\", \"typing_extensions\"], \"version\": \"4.12.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-libmamba-solver\", \"origin\": \"/croot/conda-libmamba-solver_1745607008911/work/src\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_libmamba_solver\"], \"undeclared_modules\": [\"conda_libmamba_solver\"], \"version\": \"25.4.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"markdown-it-py\", \"origin\": \"/work/perseverance-python-buildout/croot/markdown-it-py_1728408399614/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"markdown_it\"], \"undeclared_modules\": [\"markdown_it\"], \"version\": \"2.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"PySocks\", \"origin\": \"/work/perseverance-python-buildout/croot/pysocks_1728406488267/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"socks\", \"sockshandler\"], \"undeclared_modules\": [\"socks\", \"sockshandler\"], \"version\": \"1.7.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"anaconda-anon-usage\", \"origin\": \"/croot/anaconda-anon-usage_1743190149852/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"anaconda_anon_usage\"], \"undeclared_modules\": [\"anaconda_anon_usage\"], \"version\": \"0.7.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"mdurl\", \"origin\": \"/work/perseverance-python-buildout/croot/mdurl_1728407610863/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"mdurl\"], \"undeclared_modules\": [\"mdurl\"], \"version\": \"0.1.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"zstandard\", \"origin\": \"/croot/zstandard_1731356343166/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"zstandard\"], \"undeclared_modules\": [\"zstandard\"], \"version\": \"0.23.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"urllib3\", \"origin\": \"/croot/urllib3_1737133636136/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"urllib3\"], \"undeclared_modules\": [\"urllib3\"], \"version\": \"2.3.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pip\", \"origin\": \"/io/buildout/croot/pip_1739558191570/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pip\"], \"undeclared_modules\": [\"pip\"], \"version\": \"25.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-package-handling\", \"origin\": \"/croot/conda-package-handling_1731369021572/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_package_handling\"], \"undeclared_modules\": [\"conda_package_handling\"], \"version\": \"2.4.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-anaconda-tos\", \"origin\": \"/croot/conda-anaconda-tos_1744823865095/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_anaconda_tos\"], \"undeclared_modules\": [\"conda_anaconda_tos\"], \"version\": \"0.1.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"archspec\", \"origin\": \"/croot/archspec_1709217642129/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"archspec\"], \"undeclared_modules\": [\"archspec\"], \"version\": \"0.2.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"menuinst\", \"origin\": \"/croot/menuinst_1738943421398/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"menuinst\"], \"undeclared_modules\": [\"menuinst\"], \"version\": \"2.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pycparser\", \"origin\": \"/tmp/build/80754af9/pycparser_1636541352034/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pycparser\"], \"undeclared_modules\": [\"pycparser\"], \"version\": \"2.21\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pycosat\", \"origin\": \"/croot/pycosat_1736868411880/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pycosat\", \"test_pycosat\"], \"undeclared_modules\": [\"pycosat\", \"test_pycosat\"], \"version\": \"0.6.6\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"Pygments\", \"origin\": \"/croot/pygments_1744664115646/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pygments\"], \"undeclared_modules\": [\"pygments\"], \"version\": \"2.19.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"annotated-types\", \"origin\": \"/work/perseverance-python-buildout/croot/annotated-types_1728407282600/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"annotated_types\"], \"undeclared_modules\": [\"annotated_types\"], \"version\": \"0.6.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"ruamel.yaml.clib\", \"origin\": \"/croot/ruamel.yaml.clib_1745937156736/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_ruamel_yaml\", \"ruamel\"], \"undeclared_modules\": [\"_ruamel_yaml\", \"ruamel\"], \"version\": \"0.2.12\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"boltons\", \"origin\": \"/croot/boltons_1737061692029/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"boltons\"], \"undeclared_modules\": [\"boltons\"], \"version\": \"24.1.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"cffi\", \"origin\": \"/croot/cffi_1736182496610/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_cffi_backend\", \"cffi\"], \"undeclared_modules\": [\"_cffi_backend\", \"cffi\"], \"version\": \"1.17.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"libmambapy\", \"origin\": \"/croot/mamba-split_1734469473285/work/libmambapy\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"libmambapy\"], \"undeclared_modules\": [\"libmambapy\"], \"version\": \"2.0.5\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-anaconda-telemetry\", \"origin\": \"/croot/conda-anaconda-telemetry_1744662545519/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_anaconda_telemetry\"], \"undeclared_modules\": [\"conda_anaconda_telemetry\"], \"version\": \"0.1.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"packaging\", \"origin\": \"/croot/packaging_1734472115061/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"packaging\"], \"undeclared_modules\": [\"packaging\"], \"version\": \"24.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"truststore\", \"origin\": \"/croot/truststore_1736550128580/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"truststore\"], \"undeclared_modules\": [\"truststore\"], \"version\": \"0.10.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"ruamel.yaml\", \"origin\": \"/croot/ruamel.yaml_1745960308213/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"ruamel\"], \"undeclared_modules\": [\"ruamel\"], \"version\": \"0.18.10\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"frozendict\", \"origin\": \"/work/perseverance-python-buildout/croot/frozendict_1728480246023/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"frozendict\"], \"undeclared_modules\": [\"frozendict\"], \"version\": \"2.4.2\"}], \"virtualenv_runtime_artifacts\": {\"applicable\": false, \"distribution_version\": null, \"environment_root\": \"/opt/conda\", \"pairs\": [], \"valid\": false}}\ncreated virtual environment CPython3.10.12.final.0-64 in 251ms\n  creator CPython3Posix(dest=/tmp/envsolve-trader-py310, clear=False, no_vcs_ignore=False, global=False)\n  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, via=copy, app_data_dir=/root/.local/share/virtualenv)\n    added seed packages: pip==25.1.1, setuptools==80.3.1\n  activators BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator\nCollecting setuptools==70.0.0\n  Downloading setuptools-70.0.0-py3-none-any.whl.metadata (5.9 kB)\nCollecting click==8.1.7\n  Downloading click-8.1.7-py3-none-any.whl.metadata (3.0 kB)\nDownloading setuptools-70.0.0-py3-none-any.whl (863 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 863.4/863.4 kB 223.8 kB/s eta 0:00:00\nDownloading click-8.1.7-py3-none-any.whl (97 kB)\nInstalling collected packages: setuptools, click\n  Attempting uninstall: setuptools\n    Found existing installation: setuptools 80.3.1\n    Uninstalling setuptools-80.3.1:\n      Successfully uninstalled setuptools-80.3.1\n\nSuccessfully installed click-8.1.7 setuptools-70.0.0\nObtaining file:///data/project/valory-xyz__trader%4064fa99dd872a157bbd9eef436bf8396e8f5d34d1\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Getting requirements to build editable: started\n  Getting requirements to build editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nCollecting aiohttp<4.0.0,>=3.8.5 (from trader==0.1.0)\n  Downloading aiohttp-3.14.3-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (8.3 kB)\nCollecting asn1crypto<1.5.0,>=1.4.0 (from trader==0.1.0)\n  Downloading asn1crypto-1.4.0-py2.py3-none-any.whl.metadata (13 kB)\nCollecting certifi (from trader==0.1.0)\n  Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)\nCollecting ecdsa>=0.15 (from trader==0.1.0)\n  Downloading ecdsa-0.19.2-py2.py3-none-any.whl.metadata (29 kB)\nCollecting eth-abi==4.0.0 (from trader==0.1.0)\n  Downloading eth_abi-4.0.0-py3-none-any.whl.metadata (6.0 kB)\nCollecting eth-utils==2.2.0 (from trader==0.1.0)\n  Downloading eth_utils-2.2.0-py3-none-any.whl.metadata (5.2 kB)\nCollecting eth_typing (from trader==0.1.0)\n  Downloading eth_typing-6.0.0-py3-none-any.whl.metadata (3.1 kB)\nCollecting grpcio==1.53.0 (from trader==0.1.0)\n  Downloading grpcio-1.53.0-cp310-cp310-manylinux_2_17_aarch64.whl.metadata (3.8 kB)\nCollecting hexbytes==0.3.1 (from trader==0.1.0)\n  Downloading hexbytes-0.3.1-py3-none-any.whl.metadata (5.5 kB)\nCollecting hypothesis==6.21.6 (from trader==0.1.0)\n  Downloading hypothesis-6.21.6-py3-none-any.whl.metadata (6.2 kB)\nCollecting ipfshttpclient==0.8.0a2 (from trader==0.1.0)\n  Downloading ipfshttpclient-0.8.0a2-py3-none-any.whl.metadata (11 kB)\nCollecting jsonschema<4.4.0,>=4.3.0 (from trader==0.1.0)\n  Downloading jsonschema-4.3.3-py3-none-any.whl.metadata (7.5 kB)\nCollecting multidict (from trader==0.1.0)\n  Downloading multidict-6.7.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (5.3 kB)\nCollecting open-aea-cli-ipfs==1.52.0 (from trader==0.1.0)\n  Downloading open_aea_cli_ipfs-1.52.0-py3-none-any.whl.metadata (1.1 kB)\nCollecting open-aea-ledger-cosmos==1.52.0 (from trader==0.1.0)\n  Downloading open_aea_ledger_cosmos-1.52.0-py3-none-any.whl.metadata (1.2 kB)\nCollecting open-aea-ledger-ethereum==1.52.0 (from trader==0.1.0)\n  Downloading open_aea_ledger_ethereum-1.52.0-py3-none-any.whl.metadata (1.2 kB)\nCollecting open-aea-test-autonomy==0.14.12 (from trader==0.1.0)\n  Downloading open_aea_test_autonomy-0.14.12-py3-none-any.whl.metadata (1.1 kB)\nCollecting open-autonomy==0.14.12 (from trader==0.1.0)\n  Downloading open_autonomy-0.14.12-py3-none-any.whl.metadata (7.8 kB)\nCollecting openapi-core==0.15.0 (from trader==0.1.0)\n  Downloading openapi_core-0.15.0-py3-none-any.whl.metadata (6.3 kB)\nCollecting openapi-spec-validator<0.5.0,>=0.4.0 (from trader==0.1.0)\n  Downloading openapi_spec_validator-0.4.0-py3-none-any.whl.metadata (5.1 kB)\nCollecting packaging (from trader==0.1.0)\n  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)\nCollecting protobuf<4.25.0,>=4.21.6 (from trader==0.1.0)\n  Downloading protobuf-4.24.4-cp37-abi3-manylinux2014_aarch64.whl.metadata (540 bytes)\nCollecting py-ecc==6.0.0 (from trader==0.1.0)\n  Downloading py_ecc-6.0.0-py3-none-any.whl.metadata (5.2 kB)\nCollecting py-eth-sig-utils (from trader==0.1.0)\n  Downloading py_eth_sig_utils-0.4.0-py3-none-any.whl.metadata (1.3 kB)\nCollecting py-multibase==1.0.3 (from trader==0.1.0)\n  Downloading py_multibase-1.0.3-py2.py3-none-any.whl.metadata (3.5 kB)\nCollecting py-multicodec==0.2.1 (from trader==0.1.0)\n  Downloading py_multicodec-0.2.1-py2.py3-none-any.whl.metadata (3.2 kB)\nCollecting pycryptodome==3.18.0 (from trader==0.1.0)\n  Downloading pycryptodome-3.18.0-cp35-abi3-manylinux2014_aarch64.whl.metadata (3.3 kB)\nCollecting pytest==7.2.1 (from trader==0.1.0)\n  Downloading pytest-7.2.1-py3-none-any.whl.metadata (7.8 kB)\nCollecting pytest-asyncio (from trader==0.1.0)\n  Downloading pytest_asyncio-1.4.0-py3-none-any.whl.metadata (4.1 kB)\nCollecting pytz==2022.2.1 (from trader==0.1.0)\n  Downloading pytz-2022.2.1-py2.py3-none-any.whl.metadata (21 kB)\nCollecting requests==2.28.1 (from trader==0.1.0)\n  Downloading requests-2.28.1-py3-none-any.whl.metadata (4.6 kB)\nCollecting toml==0.10.2 (from trader==0.1.0)\n  Downloading toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)\nCollecting tomte==0.2.17 (from tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading tomte-0.2.17-py3-none-any.whl.metadata (4.9 kB)\nCollecting typing_extensions>=3.10.0.2 (from trader==0.1.0)\n  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)\nCollecting urllib3==1.26.16 (from trader==0.1.0)\n  Downloading urllib3-1.26.16-py2.py3-none-any.whl.metadata (48 kB)\nCollecting web3<7,>=6.0.0 (from trader==0.1.0)\n  Downloading web3-6.20.4-py3-none-any.whl.metadata (4.7 kB)\nCollecting websocket_client<1,>=0.32.0 (from trader==0.1.0)\n  Downloading websocket_client-0.59.0-py2.py3-none-any.whl.metadata (6.5 kB)\nCollecting parsimonious<0.10.0,>=0.9.0 (from eth-abi==4.0.0->trader==0.1.0)\n  Downloading parsimonious-0.9.0.tar.gz (48 kB)\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting eth-hash>=0.3.1 (from eth-utils==2.2.0->trader==0.1.0)\n  Downloading eth_hash-0.8.0-py3-none-any.whl.metadata (4.1 kB)\nCollecting cytoolz>=0.10.1 (from eth-utils==2.2.0->trader==0.1.0)\n  Downloading cytoolz-1.1.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (5.2 kB)\nCollecting attrs>=19.2.0 (from hypothesis==6.21.6->trader==0.1.0)\n  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)\nCollecting sortedcontainers<3.0.0,>=2.1.0 (from hypothesis==6.21.6->trader==0.1.0)\n  Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)\nCollecting multiaddr>=0.0.7 (from ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading multiaddr-0.2.0-py3-none-any.whl.metadata (11 kB)\nCollecting open-aea<2.0.0,>=1.0.0 (from open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading open_aea-1.65.0-py3-none-manylinux2014_aarch64.whl.metadata (6.3 kB)\nCollecting iniconfig (from pytest==7.2.1->trader==0.1.0)\n  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)\nCollecting pluggy<2.0,>=0.12 (from pytest==7.2.1->trader==0.1.0)\n  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)\nCollecting exceptiongroup>=1.0.0rc8 (from pytest==7.2.1->trader==0.1.0)\n  Downloading exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)\nCollecting tomli>=1.0.0 (from pytest==7.2.1->trader==0.1.0)\n  Downloading tomli-2.4.1-py3-none-any.whl.metadata (10 kB)\nCollecting ecdsa>=0.15 (from trader==0.1.0)\n  Downloading ecdsa-0.16.1-py2.py3-none-any.whl.metadata (24 kB)\nCollecting bech32<2,>=1.2.0 (from open-aea-ledger-cosmos==1.52.0->trader==0.1.0)\n  Downloading bech32-1.2.0-py3-none-any.whl.metadata (1.1 kB)\nCollecting cosmpy==0.9.2 (from open-aea-ledger-cosmos==1.52.0->trader==0.1.0)\n  Downloading cosmpy-0.9.2-py3-none-any.whl.metadata (5.0 kB)\nCollecting googleapis-common-protos (from cosmpy==0.9.2->open-aea-ledger-cosmos==1.52.0->trader==0.1.0)\n  Downloading googleapis_common_protos-1.75.1-py3-none-any.whl.metadata (8.5 kB)\nCollecting python-dateutil (from cosmpy==0.9.2->open-aea-ledger-cosmos==1.52.0->trader==0.1.0)\n  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)\nCollecting eth-account<0.9.0,>=0.8.0 (from open-aea-ledger-ethereum==1.52.0->trader==0.1.0)\n  Downloading eth_account-0.8.0-py3-none-any.whl.metadata (6.3 kB)\nCollecting docker==6.1.2 (from open-aea-test-autonomy==0.14.12->trader==0.1.0)\n  Downloading docker-6.1.2-py3-none-any.whl.metadata (3.5 kB)\nCollecting Flask<3.0.0,>=2.0.2 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading flask-2.3.3-py3-none-any.whl.metadata (3.6 kB)\nCollecting open-aea<2.0.0,>=1.0.0 (from open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading open_aea-1.52.0-py3-none-manylinux2014_aarch64.whl.metadata (6.3 kB)\nCollecting watchdog>=2.1.6 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading watchdog-6.0.0-py3-none-manylinux2014_aarch64.whl.metadata (44 kB)\nCollecting valory-docker-compose==1.29.3 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading valory_docker_compose-1.29.3-py2.py3-none-any.whl.metadata (4.7 kB)\nCollecting werkzeug==2.0.3 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading Werkzeug-2.0.3-py3-none-any.whl.metadata (4.5 kB)\nCollecting gql==3.5.0 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading gql-3.5.0-py2.py3-none-any.whl.metadata (9.2 kB)\nCollecting requests-toolbelt==1.0.0 (from open-autonomy==0.14.12->trader==0.1.0)\n  Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)\nRequirement already satisfied: click<9,>=8.1.0 in /tmp/envsolve-trader-py310/lib/python3.10/site-packages (from open-autonomy==0.14.12->trader==0.1.0) (8.1.7)\nCollecting texttable==1.6.7 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading texttable-1.6.7-py2.py3-none-any.whl.metadata (9.8 kB)\nCollecting python-dotenv<0.22.0,>=0.14.5 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading python_dotenv-0.21.1-py3-none-any.whl.metadata (21 kB)\nCollecting coverage<8.0.0,>=6.4.4 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading coverage-7.15.4-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (8.6 kB)\nCollecting semver<3.0.0,>=2.9.1 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading semver-2.13.0-py2.py3-none-any.whl.metadata (5.0 kB)\nCollecting base58<3.0.0,>=1.0.3 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading base58-2.1.1-py3-none-any.whl.metadata (3.1 kB)\nCollecting packaging (from trader==0.1.0)\n  Downloading packaging-23.2-py3-none-any.whl.metadata (3.2 kB)\nCollecting pymultihash==0.8.2 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading pymultihash-0.8.2-py3-none-any.whl.metadata (1.8 kB)\nCollecting pyyaml<7,>=6.0.1 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.4 kB)\nCollecting morphys>=1.0 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading morphys-1.0-py2.py3-none-any.whl.metadata (3.3 kB)\nCollecting charset-normalizer<3,>=2 (from requests==2.28.1->trader==0.1.0)\n  Downloading charset_normalizer-2.1.1-py3-none-any.whl.metadata (11 kB)\nCollecting idna<4,>=2.5 (from requests==2.28.1->trader==0.1.0)\n  Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)\nCollecting graphql-core<3.3,>=3.2 (from gql==3.5.0->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading graphql_core-3.2.11-py3-none-any.whl.metadata (11 kB)\nCollecting yarl<2.0,>=1.6 (from gql==3.5.0->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading yarl-1.24.5-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (103 kB)\nCollecting backoff<3.0,>=1.11.1 (from gql==3.5.0->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading backoff-2.2.1-py3-none-any.whl.metadata (14 kB)\nCollecting anyio<5,>=3.0 (from gql==3.5.0->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading anyio-4.14.2-py3-none-any.whl.metadata (4.6 kB)\nCollecting isodate (from openapi-core==0.15.0->trader==0.1.0)\n  Downloading isodate-0.7.2-py3-none-any.whl.metadata (11 kB)\nCollecting more-itertools (from openapi-core==0.15.0->trader==0.1.0)\n  Downloading more_itertools-11.1.0-py3-none-any.whl.metadata (41 kB)\nCollecting openapi-schema-validator<0.3.0,>=0.2.0 (from openapi-core==0.15.0->trader==0.1.0)\n  Downloading openapi_schema_validator-0.2.3-py3-none-any.whl.metadata (4.5 kB)\nCollecting parse (from openapi-core==0.15.0->trader==0.1.0)\n  Downloading parse-1.22.1-py2.py3-none-any.whl.metadata (21 kB)\nCollecting pathable<0.5.0,>=0.4.0 (from openapi-core==0.15.0->trader==0.1.0)\n  Downloading pathable-0.4.4-py3-none-any.whl.metadata (1.8 kB)\nCollecting eth_typing (from trader==0.1.0)\n  Downloading eth_typing-3.5.2-py3-none-any.whl.metadata (5.5 kB)\nCollecting mypy-extensions>=0.4.1 (from py-ecc==6.0.0->trader==0.1.0)\n  Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)\nCollecting cached-property<2,>=1.5.1 (from py-ecc==6.0.0->trader==0.1.0)\n  Downloading cached_property-1.5.2-py2.py3-none-any.whl.metadata (11 kB)\nCollecting python-baseconv<2.0,>=1.2.0 (from py-multibase==1.0.3->trader==0.1.0)\n  Downloading python-baseconv-1.2.2.tar.gz (4.9 kB)\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting six<2.0,>=1.10.0 (from py-multibase==1.0.3->trader==0.1.0)\n  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)\nCollecting varint<2.0.0,>=1.0.2 (from py-multicodec==0.2.1->trader==0.1.0)\n  Downloading varint-1.0.2.tar.gz (1.9 kB)\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting tox==3.28.0 (from tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading tox-3.28.0-py2.py3-none-any.whl.metadata (7.8 kB)\nCollecting pytest-asyncio (from trader==0.1.0)\n  Downloading pytest_asyncio-0.21.2-py3-none-any.whl.metadata (4.0 kB)\nCollecting pytest-cov==4.0.0 (from tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading pytest_cov-4.0.0-py3-none-any.whl.metadata (25 kB)\nCollecting pytest-randomly==3.12.0 (from tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading pytest_randomly-3.12.0-py3-none-any.whl.metadata (8.1 kB)\nCollecting pytest-rerunfailures==11.0 (from tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading pytest_rerunfailures-11.0-py3-none-any.whl.metadata (15 kB)\nCollecting filelock>=3.0.0 (from tox==3.28.0->tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading filelock-3.32.2-py3-none-any.whl.metadata (2.0 kB)\nCollecting py>=1.4.17 (from tox==3.28.0->tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading py-1.11.0-py2.py3-none-any.whl.metadata (2.8 kB)\nCollecting virtualenv!=20.0.0,!=20.0.1,!=20.0.2,!=20.0.3,!=20.0.4,!=20.0.5,!=20.0.6,!=20.0.7,>=16.0.0 (from tox==3.28.0->tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading virtualenv-21.7.1-py3-none-any.whl.metadata (3.5 kB)\nCollecting docopt<1,>=0.6.1 (from valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading docopt-0.6.2.tar.gz (25 kB)\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting pyyaml<7,>=6.0.1 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading PyYAML-6.0.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (2.1 kB)\nCollecting distro<2,>=1.5.0 (from valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)\nCollecting dockerpty<1,>=0.4.1 (from valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading dockerpty-0.4.1.tar.gz (13 kB)\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting aiohappyeyeballs>=2.5.0 (from aiohttp<4.0.0,>=3.8.5->trader==0.1.0)\n  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)\nCollecting aiosignal>=1.4.0 (from aiohttp<4.0.0,>=3.8.5->trader==0.1.0)\n  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)\nCollecting async-timeout<6.0,>=4.0 (from aiohttp<4.0.0,>=3.8.5->trader==0.1.0)\n  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)\nCollecting frozenlist>=1.1.1 (from aiohttp<4.0.0,>=3.8.5->trader==0.1.0)\n  Downloading frozenlist-1.8.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (20 kB)\nCollecting propcache>=0.2.0 (from aiohttp<4.0.0,>=3.8.5->trader==0.1.0)\n  Downloading propcache-0.5.2-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (16 kB)\nCollecting bitarray<3,>=2.4.0 (from eth-account<0.9.0,>=0.8.0->open-aea-ledger-ethereum==1.52.0->trader==0.1.0)\n  Downloading bitarray-2.9.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (34 kB)\nCollecting eth-keyfile<0.7.0,>=0.6.0 (from eth-account<0.9.0,>=0.8.0->open-aea-ledger-ethereum==1.52.0->trader==0.1.0)\n  Downloading eth_keyfile-0.6.1-py3-none-any.whl.metadata (7.5 kB)\nCollecting eth-keys<0.5,>=0.4.0 (from eth-account<0.9.0,>=0.8.0->open-aea-ledger-ethereum==1.52.0->trader==0.1.0)\n  Downloading eth_keys-0.4.0-py3-none-any.whl.metadata (12 kB)\nCollecting eth-rlp<1,>=0.3.0 (from eth-account<0.9.0,>=0.8.0->open-aea-ledger-ethereum==1.52.0->trader==0.1.0)\n  Downloading eth_rlp-0.3.0-py3-none-any.whl.metadata (5.4 kB)\nCollecting rlp<4,>=1.0.0 (from eth-account<0.9.0,>=0.8.0->open-aea-ledger-ethereum==1.52.0->trader==0.1.0)\n  Downloading rlp-3.0.0-py2.py3-none-any.whl.metadata (3.4 kB)\nINFO: pip is looking at multiple versions of flask to determine which version is compatible with other requirements. This could take a while.\nCollecting Flask<3.0.0,>=2.0.2 (from open-autonomy==0.14.12->trader==0.1.0)\n  Downloading Flask-2.3.2-py3-none-any.whl.metadata (3.7 kB)\n  Downloading Flask-2.3.1-py3-none-any.whl.metadata (3.7 kB)\n  Downloading Flask-2.3.0-py3-none-any.whl.metadata (3.7 kB)\n  Downloading Flask-2.2.5-py3-none-any.whl.metadata (3.9 kB)\n  Downloading Flask-2.2.4-py3-none-any.whl.metadata (3.9 kB)\n  Downloading Flask-2.2.3-py3-none-any.whl.metadata (3.9 kB)\n  Downloading Flask-2.2.2-py3-none-any.whl.metadata (3.9 kB)\nINFO: pip is still looking at multiple versions of flask to determine which version is compatible with other requirements. This could take a while.\n  Downloading Flask-2.2.1-py3-none-any.whl.metadata (3.9 kB)\n  Downloading Flask-2.2.0-py3-none-any.whl.metadata (3.9 kB)\n  Downloading Flask-2.1.3-py3-none-any.whl.metadata (3.9 kB)\nCollecting Jinja2>=3.0 (from Flask<3.0.0,>=2.0.2->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)\nCollecting itsdangerous>=2.0 (from Flask<3.0.0,>=2.0.2->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)\nCollecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 (from jsonschema<4.4.0,>=4.3.0->trader==0.1.0)\n  Downloading pyrsistent-0.20.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (27 kB)\nRequirement already satisfied: setuptools in /tmp/envsolve-trader-py310/lib/python3.10/site-packages (from openapi-spec-validator<0.5.0,>=0.4.0->trader==0.1.0) (70.0.0)\nCollecting regex>=2022.3.15 (from parsimonious<0.10.0,>=0.9.0->eth-abi==4.0.0->trader==0.1.0)\n  Downloading regex-2026.7.19-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (40 kB)\nCollecting ckzg<2 (from web3<7,>=6.0.0->trader==0.1.0)\n  Downloading ckzg-1.0.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (683 bytes)\nCollecting lru-dict<1.3.0,>=1.1.6 (from web3<7,>=6.0.0->trader==0.1.0)\n  Downloading lru_dict-1.2.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (4.5 kB)\nCollecting websockets<14.0.0,>=10.0.0 (from web3<7,>=6.0.0->trader==0.1.0)\n  Downloading websockets-13.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (6.8 kB)\nCollecting pyunormalize>=15.0.0 (from web3<7,>=6.0.0->trader==0.1.0)\n  Downloading pyunormalize-17.0.0-py3-none-any.whl.metadata (5.7 kB)\nCollecting toolz>=0.8.0 (from cytoolz>=0.10.1->eth-utils==2.2.0->trader==0.1.0)\n  Downloading toolz-1.1.0-py3-none-any.whl.metadata (5.1 kB)\nCollecting paramiko>=2.4.3 (from docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading paramiko-5.0.0-py3-none-any.whl.metadata (3.7 kB)\nCollecting MarkupSafe>=2.0 (from Jinja2>=3.0->Flask<3.0.0,>=2.0.2->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)\nCollecting dnspython>=2.7.0 (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading dnspython-2.8.0-py3-none-any.whl.metadata (5.7 kB)\nCollecting netaddr (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading netaddr-1.3.0-py3-none-any.whl.metadata (5.0 kB)\nCollecting psutil (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading psutil-7.2.2-cp36-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (22 kB)\nCollecting py-cid>=0.3.1 (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading py_cid-0.5.0-py3-none-any.whl.metadata (4.4 kB)\nCollecting py-multihash (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading py_multihash-3.0.0-py3-none-any.whl.metadata (3.6 kB)\nCollecting trio-typing>=0.0.4 (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading trio_typing-0.10.0-py3-none-any.whl.metadata (10 kB)\nCollecting trio>=0.26.0 (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading trio-0.33.0-py3-none-any.whl.metadata (8.5 kB)\nCollecting bcrypt>=3.2 (from paramiko>=2.4.3->docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_aarch64.whl.metadata (10 kB)\nCollecting cryptography>=3.3 (from paramiko>=2.4.3->docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading cryptography-50.0.0-cp39-abi3-manylinux_2_34_aarch64.whl.metadata (4.3 kB)\nCollecting invoke>=2.0 (from paramiko>=2.4.3->docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading invoke-3.0.3-py3-none-any.whl.metadata (3.2 kB)\nCollecting pynacl>=1.5 (from paramiko>=2.4.3->docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading pynacl-1.6.2-cp38-abi3-manylinux_2_34_aarch64.whl.metadata (10.0 kB)\nCollecting cffi>=2.0.0 (from cryptography>=3.3->paramiko>=2.4.3->docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading cffi-2.1.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (2.5 kB)\nCollecting pycparser (from cffi>=2.0.0->cryptography>=3.3->paramiko>=2.4.3->docker[ssh]>=5->valory-docker-compose==1.29.3->open-autonomy==0.14.12->trader==0.1.0)\n  Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)\nINFO: pip is looking at multiple versions of py-cid to determine which version is compatible with other requirements. This could take a while.\nCollecting py-cid>=0.3.1 (from multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading py_cid-0.4.0-py3-none-any.whl.metadata (4.4 kB)\n  Downloading py_cid-0.3.1-py3-none-any.whl.metadata (4.4 kB)\nCollecting base58<3.0.0,>=1.0.3 (from open-aea<2.0.0,>=1.0.0->open-aea-cli-ipfs==1.52.0->trader==0.1.0)\n  Downloading base58-1.0.3-py3-none-any.whl.metadata (565 bytes)\nCollecting outcome (from trio>=0.26.0->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading outcome-1.3.0.post0-py2.py3-none-any.whl.metadata (2.6 kB)\nCollecting sniffio>=1.3.0 (from trio>=0.26.0->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)\nCollecting async-generator (from trio-typing>=0.0.4->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading async_generator-1.10-py3-none-any.whl.metadata (4.9 kB)\nCollecting importlib-metadata (from trio-typing>=0.0.4->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading importlib_metadata-9.0.0-py3-none-any.whl.metadata (4.5 kB)\nCollecting distlib<1,>=0.3.7 (from virtualenv!=20.0.0,!=20.0.1,!=20.0.2,!=20.0.3,!=20.0.4,!=20.0.5,!=20.0.6,!=20.0.7,>=16.0.0->tox==3.28.0->tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading distlib-0.4.3-py2.py3-none-any.whl.metadata (5.3 kB)\nCollecting platformdirs<5,>=3.9.1 (from virtualenv!=20.0.0,!=20.0.1,!=20.0.2,!=20.0.3,!=20.0.4,!=20.0.5,!=20.0.6,!=20.0.7,>=16.0.0->tox==3.28.0->tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading platformdirs-4.11.0-py3-none-any.whl.metadata (5.5 kB)\nCollecting python-discovery>=1.4.2 (from virtualenv!=20.0.0,!=20.0.1,!=20.0.2,!=20.0.3,!=20.0.4,!=20.0.5,!=20.0.6,!=20.0.7,>=16.0.0->tox==3.28.0->tomte[cli,tests]==0.2.17->trader==0.1.0)\n  Downloading python_discovery-1.5.1-py3-none-any.whl.metadata (5.0 kB)\nINFO: pip is looking at multiple versions of googleapis-common-protos to determine which version is compatible with other requirements. This could take a while.\nCollecting googleapis-common-protos (from cosmpy==0.9.2->open-aea-ledger-cosmos==1.52.0->trader==0.1.0)\n  Downloading googleapis_common_protos-1.75.0-py3-none-any.whl.metadata (8.6 kB)\n  Downloading googleapis_common_protos-1.74.0-py3-none-any.whl.metadata (9.2 kB)\n  Downloading googleapis_common_protos-1.73.1-py3-none-any.whl.metadata (9.2 kB)\n  Downloading googleapis_common_protos-1.73.0-py3-none-any.whl.metadata (9.4 kB)\nCollecting zipp>=3.20 (from importlib-metadata->trio-typing>=0.0.4->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading zipp-4.1.0-py3-none-any.whl.metadata (3.6 kB)\nCollecting blake3<2.0,>=0.3.0 (from py-multihash->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading blake3-1.0.9-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (4.9 kB)\nCollecting mmh3<6.0,>=3.0.0 (from py-multihash->multiaddr>=0.0.7->ipfshttpclient==0.8.0a2->trader==0.1.0)\n  Downloading mmh3-5.2.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (14 kB)\nDownloading eth_abi-4.0.0-py3-none-any.whl (28 kB)\nDownloading eth_utils-2.2.0-py3-none-any.whl (23 kB)\nDownloading grpcio-1.53.0-cp310-cp310-manylinux_2_17_aarch64.whl (4.3 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 4.3/4.3 MB 130.2 kB/s eta 0:00:00\nDownloading hexbytes-0.3.1-py3-none-any.whl (5.9 kB)\nDownloading hypothesis-6.21.6-py3-none-any.whl (381 kB)\nDownloading ipfshttpclient-0.8.0a2-py3-none-any.whl (82 kB)\nDownloading open_aea_cli_ipfs-1.52.0-py3-none-any.whl (16 kB)\nDownloading pytest-7.2.1-py3-none-any.whl (317 kB)\nDownloading open_aea_ledger_cosmos-1.52.0-py3-none-any.whl (21 kB)\nDownloading pycryptodome-3.18.0-cp35-abi3-manylinux2014_aarch64.whl (2.1 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 2.1/2.1 MB 177.5 kB/s eta 0:00:00\nDownloading cosmpy-0.9.2-py3-none-any.whl (413 kB)\nDownloading open_aea_ledger_ethereum-1.52.0-py3-none-any.whl (27 kB)\nDownloading open_aea_test_autonomy-0.14.12-py3-none-any.whl (49 kB)\nDownloading docker-6.1.2-py3-none-any.whl (148 kB)\nDownloading open_autonomy-0.14.12-py3-none-any.whl (356 kB)\nDownloading open_aea-1.52.0-py3-none-manylinux2014_aarch64.whl (658 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 658.4/658.4 kB 132.8 kB/s eta 0:00:00\nDownloading requests-2.28.1-py3-none-any.whl (62 kB)\nDownloading urllib3-1.26.16-py2.py3-none-any.whl (143 kB)\nDownloading gql-3.5.0-py2.py3-none-any.whl (74 kB)\nDownloading openapi_core-0.15.0-py3-none-any.whl (62 kB)\nDownloading py_ecc-6.0.0-py3-none-any.whl (43 kB)\nDownloading py_multibase-1.0.3-py2.py3-none-any.whl (6.4 kB)\nDownloading py_multicodec-0.2.1-py2.py3-none-any.whl (8.5 kB)\nDownloading pymultihash-0.8.2-py3-none-any.whl (13 kB)\nDownloading pytz-2022.2.1-py2.py3-none-any.whl (500 kB)\nUsing cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)\nDownloading texttable-1.6.7-py2.py3-none-any.whl (10 kB)\nDownloading toml-0.10.2-py2.py3-none-any.whl (16 kB)\nDownloading tomte-0.2.17-py3-none-any.whl (13 kB)\nDownloading pytest_cov-4.0.0-py3-none-any.whl (21 kB)\nDownloading pytest_randomly-3.12.0-py3-none-any.whl (8.5 kB)\nDownloading pytest_rerunfailures-11.0-py3-none-any.whl (11 kB)\nDownloading tox-3.28.0-py2.py3-none-any.whl (86 kB)\nDownloading valory_docker_compose-1.29.3-py2.py3-none-any.whl (114 kB)\nDownloading Werkzeug-2.0.3-py3-none-any.whl (289 kB)\nDownloading aiohttp-3.14.3-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (1.7 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 1.7/1.7 MB 219.7 kB/s eta 0:00:00\nDownloading anyio-4.14.2-py3-none-any.whl (125 kB)\nDownloading asn1crypto-1.4.0-py2.py3-none-any.whl (104 kB)\nDownloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)\nDownloading backoff-2.2.1-py3-none-any.whl (15 kB)\nDownloading bech32-1.2.0-py3-none-any.whl (4.6 kB)\nDownloading cached_property-1.5.2-py2.py3-none-any.whl (7.6 kB)\nDownloading charset_normalizer-2.1.1-py3-none-any.whl (39 kB)\nDownloading coverage-7.15.4-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (253 kB)\nDownloading distro-1.9.0-py3-none-any.whl (20 kB)\nDownloading ecdsa-0.16.1-py2.py3-none-any.whl (104 kB)\nDownloading eth_account-0.8.0-py3-none-any.whl (102 kB)\nDownloading bitarray-2.9.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (288 kB)\nDownloading eth_keyfile-0.6.1-py3-none-any.whl (6.5 kB)\nDownloading eth_keys-0.4.0-py3-none-any.whl (21 kB)\nDownloading eth_rlp-0.3.0-py3-none-any.whl (5.0 kB)\nDownloading eth_typing-3.5.2-py3-none-any.whl (14 kB)\nDownloading Flask-2.1.3-py3-none-any.whl (95 kB)\nDownloading graphql_core-3.2.11-py3-none-any.whl (214 kB)\nDownloading idna-3.18-py3-none-any.whl (65 kB)\nDownloading jsonschema-4.3.3-py3-none-any.whl (71 kB)\nDownloading morphys-1.0-py2.py3-none-any.whl (5.6 kB)\nDownloading multidict-6.7.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (242 kB)\nDownloading openapi_schema_validator-0.2.3-py3-none-any.whl (8.3 kB)\nDownloading openapi_spec_validator-0.4.0-py3-none-any.whl (31 kB)\nDownloading packaging-23.2-py3-none-any.whl (53 kB)\nDownloading pathable-0.4.4-py3-none-any.whl (9.6 kB)\nDownloading pluggy-1.6.0-py3-none-any.whl (20 kB)\nDownloading protobuf-4.24.4-cp37-abi3-manylinux2014_aarch64.whl (310 kB)\nDownloading pytest_asyncio-0.21.2-py3-none-any.whl (13 kB)\nDownloading python_dotenv-0.21.1-py3-none-any.whl (19 kB)\nDownloading PyYAML-6.0.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (677 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 677.0/677.0 kB 135.3 kB/s eta 0:00:00\nDownloading rlp-3.0.0-py2.py3-none-any.whl (20 kB)\nDownloading semver-2.13.0-py2.py3-none-any.whl (12 kB)\nDownloading six-1.17.0-py2.py3-none-any.whl (11 kB)\nDownloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)\nDownloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)\nDownloading web3-6.20.4-py3-none-any.whl (1.6 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 1.6/1.6 MB 286.4 kB/s eta 0:00:00\nDownloading ckzg-1.0.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (131 kB)\nDownloading lru_dict-1.2.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (29 kB)\nDownloading websocket_client-0.59.0-py2.py3-none-any.whl (67 kB)\nDownloading websockets-13.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (164 kB)\nDownloading yarl-1.24.5-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (109 kB)\nDownloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)\nDownloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)\nDownloading attrs-26.1.0-py3-none-any.whl (67 kB)\nDownloading certifi-2026.7.22-py3-none-any.whl (136 kB)\nDownloading cytoolz-1.1.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (2.7 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 2.7/2.7 MB 166.7 kB/s eta 0:00:00\nDownloading eth_hash-0.8.0-py3-none-any.whl (8.0 kB)\nDownloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)\nDownloading filelock-3.32.2-py3-none-any.whl (98 kB)\nDownloading frozenlist-1.8.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (221 kB)\nDownloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)\nDownloading jinja2-3.1.6-py3-none-any.whl (134 kB)\nDownloading markupsafe-3.0.3-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (22 kB)\nDownloading multiaddr-0.2.0-py3-none-any.whl (40 kB)\nDownloading dnspython-2.8.0-py3-none-any.whl (331 kB)\nDownloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)\nDownloading paramiko-5.0.0-py3-none-any.whl (208 kB)\nDownloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_aarch64.whl (275 kB)\nDownloading cryptography-50.0.0-cp39-abi3-manylinux_2_34_aarch64.whl (4.7 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 4.7/4.7 MB 206.7 kB/s eta 0:00:00\nDownloading cffi-2.1.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (218 kB)\nDownloading invoke-3.0.3-py3-none-any.whl (160 kB)\nDownloading propcache-0.5.2-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (58 kB)\nDownloading py-1.11.0-py2.py3-none-any.whl (98 kB)\nDownloading py_cid-0.3.1-py3-none-any.whl (6.5 kB)\nDownloading base58-1.0.3-py3-none-any.whl (3.1 kB)\nDownloading pynacl-1.6.2-cp38-abi3-manylinux_2_34_aarch64.whl (818 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 818.3/818.3 kB 171.0 kB/s eta 0:00:00\nDownloading pyrsistent-0.20.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (118 kB)\nDownloading pyunormalize-17.0.0-py3-none-any.whl (51 kB)\nDownloading regex-2026.7.19-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (785 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 785.3/785.3 kB 153.8 kB/s eta 0:00:00\nDownloading tomli-2.4.1-py3-none-any.whl (14 kB)\nDownloading toolz-1.1.0-py3-none-any.whl (58 kB)\nDownloading trio-0.33.0-py3-none-any.whl (510 kB)\nUsing cached sniffio-1.3.1-py3-none-any.whl (10 kB)\nDownloading trio_typing-0.10.0-py3-none-any.whl (42 kB)\nDownloading virtualenv-21.7.1-py3-none-any.whl (5.5 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 5.5/5.5 MB 198.8 kB/s eta 0:00:00\nDownloading distlib-0.4.3-py2.py3-none-any.whl (470 kB)\nDownloading platformdirs-4.11.0-py3-none-any.whl (23 kB)\nDownloading python_discovery-1.5.1-py3-none-any.whl (35 kB)\nDownloading watchdog-6.0.0-py3-none-manylinux2014_aarch64.whl (79 kB)\nDownloading async_generator-1.10-py3-none-any.whl (18 kB)\nDownloading googleapis_common_protos-1.73.0-py3-none-any.whl (297 kB)\nDownloading importlib_metadata-9.0.0-py3-none-any.whl (27 kB)\nDownloading zipp-4.1.0-py3-none-any.whl (10 kB)\nDownloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)\nDownloading isodate-0.7.2-py3-none-any.whl (22 kB)\nDownloading more_itertools-11.1.0-py3-none-any.whl (72 kB)\nDownloading netaddr-1.3.0-py3-none-any.whl (2.3 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 2.3/2.3 MB 239.7 kB/s eta 0:00:00\nDownloading outcome-1.3.0.post0-py2.py3-none-any.whl (10 kB)\nDownloading parse-1.22.1-py2.py3-none-any.whl (20 kB)\nDownloading psutil-7.2.2-cp36-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (156 kB)\nDownloading py_eth_sig_utils-0.4.0-py3-none-any.whl (11 kB)\nDownloading py_multihash-3.0.0-py3-none-any.whl (21 kB)\nDownloading blake3-1.0.9-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (378 kB)\nDownloading mmh3-5.2.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (103 kB)\nDownloading pycparser-3.0-py3-none-any.whl (48 kB)\nDownloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)\nBuilding wheels for collected packages: trader, dockerpty, docopt, parsimonious, python-baseconv, varint\n  Building editable for trader (pyproject.toml): started\n  Building editable for trader (pyproject.toml): finished with status 'done'\n  Created wheel for trader: filename=trader-0.1.0-py3-none-any.whl size=10541 sha256=5c05c978851e716d9a7b799639aa0819f0b4a296766e4151e260b851d3f99e0e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-47nsqt4l/wheels/db/45/1b/80b7f90fb7ee6734c663c78775fcb64ba21febf01ba0574ce1\n  Building wheel for dockerpty (pyproject.toml): started\n  Building wheel for dockerpty (pyproject.toml): finished with status 'done'\n  Created wheel for dockerpty: filename=dockerpty-0.4.1-py3-none-any.whl size=16675 sha256=3f7de45346e37b673054bc965a6b908ed36eca84e2bd27693177766463dce87b\n  Stored in directory: /root/.cache/pip/wheels/18/00/32/f75cd03098074f988a01c59a2e3a55ae9c0773eb66acb4cb5e\n  Building wheel for docopt (pyproject.toml): started\n  Building wheel for docopt (pyproject.toml): finished with status 'done'\n  Created wheel for docopt: filename=docopt-0.6.2-py2.py3-none-any.whl size=13782 sha256=db20e68af8cb30ba38bd267d6f56f97b6b4f4f263d855d92ac56533b01fcc201\n  Stored in directory: /root/.cache/pip/wheels/fc/ab/d4/5da2067ac95b36618c629a5f93f809425700506f72c9732fac\n  Building wheel for parsimonious (pyproject.toml): started\n  Building wheel for parsimonious (pyproject.toml): finished with status 'done'\n  Created wheel for parsimonious: filename=parsimonious-0.9.0-py3-none-any.whl size=44375 sha256=d66528585cb73106672455c99deebf871decb81665058fc9e235c3a1f2e2d440\n  Stored in directory: /root/.cache/pip/wheels/a8/6e/e1/5274cd97b5abf9c9fa5c7f51185d48bfc8095d8ce6ca251155\n  Building wheel for python-baseconv (pyproject.toml): started\n  Building wheel for python-baseconv (pyproject.toml): finished with status 'done'\n  Created wheel for python-baseconv: filename=python_baseconv-1.2.2-py3-none-any.whl size=5571 sha256=d6a68ac4e3b4f49f7e8a97c168b97bbb9b2e7c51de4a7c5b6f7d3c6994e15ace\n  Stored in directory: /root/.cache/pip/wheels/3b/27/00/2e69fc13c0d8952ebd42b435be4ce3617570a2c01973165d1f\n  Building wheel for varint (pyproject.toml): started\n  Building wheel for varint (pyproject.toml): finished with status 'done'\n  Created wheel for varint: filename=varint-1.0.2-py3-none-any.whl size=2005 sha256=7ecd4276f29832a7ef5ad84ead48f0b2a17205af2f875e73ed98de9e16d3d1b7\n  Stored in directory: /root/.cache/pip/wheels/39/48/5e/33919c52a2a695a512ca394a5308dd12626a40bbcd288de814\nSuccessfully built trader dockerpty docopt parsimonious python-baseconv varint\nInstalling collected packages: varint, texttable, sortedcontainers, pytz, python-baseconv, pymultihash, parse, morphys, lru-dict, docopt, distlib, ckzg, cached-property, bitarray, base58, asn1crypto, zipp, werkzeug, websockets, watchdog, urllib3, typing_extensions, toolz, tomte, tomli, toml, sniffio, six, semver, regex, pyyaml, pyunormalize, python-dotenv, pyrsistent, pycryptodome, pycparser, py, psutil, protobuf, propcache, pluggy, platformdirs, pathable, packaging, netaddr, mypy-extensions, more-itertools, mmh3, MarkupSafe, itsdangerous, isodate, invoke, iniconfig, idna, hexbytes, grpcio, graphql-core, frozenlist, filelock, eth-hash, dnspython, distro, coverage, charset-normalizer, certifi, bech32, bcrypt, backoff, attrs, async-timeout, async-generator, aiohappyeyeballs, websocket_client, requests, python-discovery, python-dateutil, py-multicodec, py-multibase, parsimonious, outcome, multidict, jsonschema, Jinja2, importlib-metadata, hypothesis, googleapis-common-protos, exceptiongroup, eth_typing, ecdsa, dockerpty, cytoolz, cffi, blake3, aiosignal, yarl, virtualenv, trio, requests-toolbelt, pytest, pynacl, py-multihash, py-cid, openapi-schema-validator, open-aea, Flask, eth-utils, docker, cryptography, cosmpy, anyio, trio-typing, tox, rlp, pytest-rerunfailures, pytest-randomly, pytest-cov, pytest-asyncio, py-ecc, paramiko, openapi-spec-validator, open-aea-ledger-cosmos, gql, eth-keys, eth-abi, aiohttp, py-eth-sig-utils, openapi-core, multiaddr, eth-rlp, eth-keyfile, valory-docker-compose, ipfshttpclient, eth-account, web3, open-aea-cli-ipfs, open-autonomy, open-aea-ledger-ethereum, open-aea-test-autonomy, trader\n\nSuccessfully installed Flask-2.1.3 Jinja2-3.1.6 MarkupSafe-3.0.3 aiohappyeyeballs-2.7.1 aiohttp-3.14.3 aiosignal-1.4.0 anyio-4.14.2 asn1crypto-1.4.0 async-generator-1.10 async-timeout-5.0.1 attrs-26.1.0 backoff-2.2.1 base58-1.0.3 bcrypt-5.0.0 bech32-1.2.0 bitarray-2.9.3 blake3-1.0.9 cached-property-1.5.2 certifi-2026.7.22 cffi-2.1.1 charset-normalizer-2.1.1 ckzg-1.0.2 cosmpy-0.9.2 coverage-7.15.4 cryptography-50.0.0 cytoolz-1.1.0 distlib-0.4.3 distro-1.9.0 dnspython-2.8.0 docker-6.1.2 dockerpty-0.4.1 docopt-0.6.2 ecdsa-0.16.1 eth-abi-4.0.0 eth-account-0.8.0 eth-hash-0.8.0 eth-keyfile-0.6.1 eth-keys-0.4.0 eth-rlp-0.3.0 eth-utils-2.2.0 eth_typing-3.5.2 exceptiongroup-1.3.1 filelock-3.32.2 frozenlist-1.8.0 googleapis-common-protos-1.73.0 gql-3.5.0 graphql-core-3.2.11 grpcio-1.53.0 hexbytes-0.3.1 hypothesis-6.21.6 idna-3.18 importlib-metadata-9.0.0 iniconfig-2.3.0 invoke-3.0.3 ipfshttpclient-0.8.0a2 isodate-0.7.2 itsdangerous-2.2.0 jsonschema-4.3.3 lru-dict-1.2.0 mmh3-5.2.1 more-itertools-11.1.0 morphys-1.0 multiaddr-0.2.0 multidict-6.7.1 mypy-extensions-1.1.0 netaddr-1.3.0 open-aea-1.52.0 open-aea-cli-ipfs-1.52.0 open-aea-ledger-cosmos-1.52.0 open-aea-ledger-ethereum-1.52.0 open-aea-test-autonomy-0.14.12 open-autonomy-0.14.12 openapi-core-0.15.0 openapi-schema-validator-0.2.3 openapi-spec-validator-0.4.0 outcome-1.3.0.post0 packaging-23.2 paramiko-5.0.0 parse-1.22.1 parsimonious-0.9.0 pathable-0.4.4 platformdirs-4.11.0 pluggy-1.6.0 propcache-0.5.2 protobuf-4.24.4 psutil-7.2.2 py-1.11.0 py-cid-0.3.1 py-ecc-6.0.0 py-eth-sig-utils-0.4.0 py-multibase-1.0.3 py-multicodec-0.2.1 py-multihash-3.0.0 pycparser-3.0 pycryptodome-3.18.0 pymultihash-0.8.2 pynacl-1.6.2 pyrsistent-0.20.0 pytest-7.2.1 pytest-asyncio-0.21.2 pytest-cov-4.0.0 pytest-randomly-3.12.0 pytest-rerunfailures-11.0 python-baseconv-1.2.2 python-dateutil-2.9.0.post0 python-discovery-1.5.1 python-dotenv-0.21.1 pytz-2022.2.1 pyunormalize-17.0.0 pyyaml-6.0.1 regex-2026.7.19 requests-2.28.1 requests-toolbelt-1.0.0 rlp-3.0.0 semver-2.13.0 six-1.17.0 sniffio-1.3.1 sortedcontainers-2.4.0 texttable-1.6.7 toml-0.10.2 tomli-2.4.1 tomte-0.2.17 toolz-1.1.0 tox-3.28.0 trader-0.1.0 trio-0.33.0 trio-typing-0.10.0 typing_extensions-4.16.0 urllib3-1.26.16 valory-docker-compose-1.29.3 varint-1.0.2 virtualenv-21.7.1 watchdog-6.0.0 web3-6.20.4 websocket_client-0.59.0 websockets-13.1 werkzeug-2.0.3 yarl-1.24.5 zipp-4.1.0\nRequirement already satisfied: setuptools==70.0.0 in /tmp/envsolve-trader-py310/lib/python3.10/site-packages (70.0.0)\nRequirement already satisfied: click==8.1.7 in /tmp/envsolve-trader-py310/lib/python3.10/site-packages (8.1.7)\n    _     _____     _    \n   / \\   | ____|   / \\   \n  / _ \\  |  _|    / _ \\  \n / ___ \\ | |___  / ___ \\ \n/_/   \\_\\|_____|/_/   \\_\\\n                         \nv1.52.0\n\nAEA configurations successfully initialized: {'author': 'valory'}\nENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1=ffe4f95519894f54ad1249986f2a1cfb\nENVSOLVE_PYTHON_INSTALLATION_POST_V2={\"provided_modules\": [\"packages\", \"scripts\"], \"trusted_virtualenv_build\": {\"applicable\": true, \"distribution_version\": \"21.7.1\", \"template_sha256\": \"0278334cdcfab4c746b4416fbd5c2b6e7da937c81e132397d62c361d404ebe0e\", \"valid\": true}, \"unowned_import_artifacts\": [{\"audit_kind\": \"unowned-import-artifact\", \"reason\": \"importable site-package artifact is not owned by an installed distribution\", \"relative_path\": \"_virtualenv.pth\", \"site_root\": \"/tmp/envsolve-trader-py310/lib/python3.10/site-packages\"}, {\"audit_kind\": \"unowned-import-artifact\", \"reason\": \"importable site-package artifact is not owned by an installed distribution\", \"relative_path\": \"_virtualenv.py\", \"site_root\": \"/tmp/envsolve-trader-py310/lib/python3.10/site-packages\"}], \"valid\": false, \"violations\": [], \"virtualenv_runtime_artifacts\": {\"applicable\": true, \"distribution_version\": \"20.31.2\", \"environment_root\": \"/tmp/envsolve-trader-py310\", \"pairs\": [{\"helper_sha256\": \"0f20351ea7e90039c46d3fabdef991f28b1e3ff33eb13ee6f0d5cd21ea0e8b14\", \"pth_is_standard\": true, \"relative_paths\": [\"_virtualenv.pth\", \"_virtualenv.py\"], \"site_root\": \"/tmp/envsolve-trader-py310/lib/python3.10/site-packages\"}], \"valid\": true}}\nENVSOLVE_MANAGED_DEPENDENCY_PROVENANCE_V1={\"adapter\": \"open-aea-content-addressed-lock-v1\", \"applicable\": false, \"detection\": {\"declaration_exit_code\": 128, \"declared_by\": [], \"executable\": \"/tmp/envsolve-trader-py310/bin/autonomy\", \"inventory_exit_code\": 128, \"lock_paths\": []}, \"valid\": false}\nENVSOLVE_IMPORT_ALIAS_AUDIT_V1={\"provided_modules\": [\"packages\", \"scripts\"], \"valid\": true, \"violations\": []}\nENVSOLVE_GOAL_REPORT_BEGIN_V1=ffe4f95519894f54ad1249986f2a1cfb\n{\"details\": {\"criterion\": \"count(reportMissingImports) == 0\", \"issues_count\": 0, \"pyright_version\": \"pyright 1.1.411\"}, \"finding_set_complete\": true, \"findings\": [], \"schema\": \"envsolve-goal-report-v1\", \"status\": \"pass\"}\nENVSOLVE_GOAL_REPORT_END_V1=ffe4f95519894f54ad1249986f2a1cfb\n"
+    },
+    "check_profile": "minimal-b-executable-goal-contract-boundary-v3",
+    "counterexamples": [],
+    "details": {
+      "evidence_scope_id": "goal-contract:envbench-python-reportMissingImports-v3:61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+      "goal_contract": {
+        "contract_id": "envbench-python-reportMissingImports-v3",
+        "description": "After the candidate configures the environment, run Pyright over the repository and require zero reportMissingImports diagnostics. All other Pyright diagnostic rules are outside this goal.",
+        "report_schema": "envsolve-goal-report-v1",
+        "sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463"
+      },
+      "repository_effect_audit": {
+        "accepted_managed_path_count": 0,
+        "accepted_managed_paths": [],
+        "accepted_managed_paths_truncated": false,
+        "allowed_generated_path_count": 84,
+        "allowed_generated_paths": [
+          "packages/open_aea/protocols/signing/README.md",
+          "packages/open_aea/protocols/signing/protocol.yaml",
+          "packages/open_aea/protocols/signing/signing.proto",
+          "packages/valory/connections/abci/Makefile",
+          "packages/valory/connections/abci/connection.yaml",
+          "packages/valory/connections/abci/protos/gogoproto/gogo.proto",
+          "packages/valory/connections/abci/protos/tendermint/abci/types.proto",
+          "packages/valory/connections/abci/protos/tendermint/crypto/keys.proto",
+          "packages/valory/connections/abci/protos/tendermint/crypto/proof.proto",
+          "packages/valory/connections/abci/protos/tendermint/types/params.proto",
+          "packages/valory/connections/abci/protos/tendermint/types/types.proto",
+          "packages/valory/connections/abci/protos/tendermint/types/validator.proto",
+          "packages/valory/connections/abci/protos/tendermint/version/types.proto",
+          "packages/valory/connections/abci/readme.md",
+          "packages/valory/connections/abci/version.txt",
+          "packages/valory/connections/http_client/README.md",
+          "packages/valory/connections/http_client/connection.yaml",
+          "packages/valory/connections/http_server/README.md",
+          "packages/valory/connections/http_server/connection.yaml",
+          "packages/valory/connections/http_server/tests/data/certs/server.crt",
+          "packages/valory/connections/http_server/tests/data/certs/server.csr",
+          "packages/valory/connections/http_server/tests/data/certs/server.key",
+          "packages/valory/connections/http_server/tests/data/petstore_sim.yaml",
+          "packages/valory/connections/ipfs/connection.yaml",
+          "packages/valory/connections/ipfs/readme.md",
+          "packages/valory/connections/ledger/README.md",
+          "packages/valory/connections/ledger/connection.yaml",
+          "packages/valory/connections/p2p_libp2p_client/README.md",
+          "packages/valory/connections/p2p_libp2p_client/connection.yaml",
+          "packages/valory/contracts/erc20/README.md",
+          "packages/valory/contracts/erc20/build/",
+          "packages/valory/contracts/erc20/contract.yaml",
+          "packages/valory/contracts/gnosis_safe/README.md",
+          "packages/valory/contracts/gnosis_safe/build/",
+          "packages/valory/contracts/gnosis_safe/contract.yaml",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/README.md",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/build/",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/contract.yaml",
+          "packages/valory/contracts/mech/README.md",
+          "packages/valory/contracts/mech/build/",
+          "packages/valory/contracts/mech/contract.yaml",
+          "packages/valory/contracts/multisend/README.md",
+          "packages/valory/contracts/multisend/build/",
+          "packages/valory/contracts/multisend/contract.yaml",
+          "packages/valory/contracts/service_registry/build/",
+          "packages/valory/contracts/service_registry/contract.yaml",
+          "packages/valory/protocols/abci/README.md",
+          "packages/valory/protocols/abci/abci.proto",
+          "packages/valory/protocols/abci/protocol.yaml",
+          "packages/valory/protocols/acn/README.md",
+          "packages/valory/protocols/acn/acn.proto",
+          "packages/valory/protocols/acn/protocol.yaml",
+          "packages/valory/protocols/contract_api/README.md",
+          "packages/valory/protocols/contract_api/contract_api.proto",
+          "packages/valory/protocols/contract_api/protocol.yaml",
+          "packages/valory/protocols/http/README.md",
+          "packages/valory/protocols/http/http.proto",
+          "packages/valory/protocols/http/protocol.yaml",
+          "packages/valory/protocols/ipfs/README.md",
+          "packages/valory/protocols/ipfs/ipfs.proto",
+          "packages/valory/protocols/ipfs/protocol.yaml",
+          "packages/valory/protocols/ledger_api/README.md",
+          "packages/valory/protocols/ledger_api/ledger_api.proto",
+          "packages/valory/protocols/ledger_api/protocol.yaml",
+          "packages/valory/protocols/tendermint/README.md",
+          "packages/valory/protocols/tendermint/protocol.yaml",
+          "packages/valory/protocols/tendermint/tendermint.proto",
+          "packages/valory/skills/abstract_abci/README.md",
+          "packages/valory/skills/abstract_abci/skill.yaml",
+          "packages/valory/skills/abstract_round_abci/README.md",
+          "packages/valory/skills/abstract_round_abci/skill.yaml",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/skill.yaml",
+          "packages/valory/skills/mech_interact_abci/fsm_specification.yaml",
+          "packages/valory/skills/mech_interact_abci/skill.yaml",
+          "packages/valory/skills/registration_abci/README.md",
+          "packages/valory/skills/registration_abci/fsm_specification.yaml",
+          "packages/valory/skills/registration_abci/skill.yaml",
+          "packages/valory/skills/reset_pause_abci/README.md",
+          "packages/valory/skills/reset_pause_abci/fsm_specification.yaml",
+          "packages/valory/skills/reset_pause_abci/skill.yaml",
+          "packages/valory/skills/termination_abci/skill.yaml",
+          "packages/valory/skills/transaction_settlement_abci/README.md",
+          "packages/valory/skills/transaction_settlement_abci/fsm_specification.yaml",
+          "packages/valory/skills/transaction_settlement_abci/skill.yaml"
+        ],
+        "allowed_generated_paths_truncated": false,
+        "base_policy": "clean-tracked-tree-and-provenance-derived-files-v6",
+        "checked_out_revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+        "declared_generated_paths": [],
+        "disallowed_untracked_paths": [
+          "packages/open_aea/__init__.py",
+          "packages/open_aea/protocols/__init__.py",
+          "packages/open_aea/protocols/signing/__init__.py",
+          "packages/open_aea/protocols/signing/custom_types.py",
+          "packages/open_aea/protocols/signing/dialogues.py",
+          "packages/open_aea/protocols/signing/message.py",
+          "packages/open_aea/protocols/signing/serialization.py",
+          "packages/open_aea/protocols/signing/signing_pb2.py",
+          "packages/open_aea/protocols/signing/tests/__init__.py",
+          "packages/open_aea/protocols/signing/tests/test_signing.py",
+          "packages/open_aea/protocols/signing/tests/test_signing_dialogues.py",
+          "packages/open_aea/protocols/signing/tests/test_signing_messages.py",
+          "packages/valory/connections/abci/__init__.py",
+          "packages/valory/connections/abci/check_dependencies.py",
+          "packages/valory/connections/abci/connection.py",
+          "packages/valory/connections/abci/dialogues.py",
+          "packages/valory/connections/abci/gogoproto/__init__.py",
+          "packages/valory/connections/abci/gogoproto/gogo_pb2.py",
+          "packages/valory/connections/abci/scripts/genproto.py",
+          "packages/valory/connections/abci/tendermint/__init__.py",
+          "packages/valory/connections/abci/tendermint/abci/types_pb2.py",
+          "packages/valory/connections/abci/tendermint/abci/types_pb2_grpc.py",
+          "packages/valory/connections/abci/tendermint/crypto/keys_pb2.py",
+          "packages/valory/connections/abci/tendermint/crypto/proof_pb2.py",
+          "packages/valory/connections/abci/tendermint/types/params_pb2.py",
+          "packages/valory/connections/abci/tendermint/types/types_pb2.py",
+          "packages/valory/connections/abci/tendermint/types/validator_pb2.py",
+          "packages/valory/connections/abci/tendermint/version/types_pb2.py",
+          "packages/valory/connections/abci/tendermint_decoder.py",
+          "packages/valory/connections/abci/tendermint_encoder.py",
+          "packages/valory/connections/abci/tests/__init__.py",
+          "packages/valory/connections/abci/tests/helper.py",
+          "packages/valory/connections/abci/tests/test_abci.py",
+          "packages/valory/connections/abci/tests/test_abci_fuzz.py",
+          "packages/valory/connections/abci/tests/test_abci_spec.py",
+          "packages/valory/connections/abci/tests/test_fuzz/__init__.py",
+          "packages/valory/connections/abci/tests/test_fuzz/base.py",
+          "packages/valory/connections/abci/tests/test_fuzz/mock_node/__init__.py",
+          "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/__init__.py",
+          "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/base.py",
+          "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/grpc_channel.py",
+          "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/tcp_channel.py",
+          "packages/valory/connections/abci/tests/test_fuzz/mock_node/node.py",
+          "packages/valory/connections/abci/tests/test_fuzz/test_fuzz.py",
+          "packages/valory/connections/abci/tests/test_tendermint_decoder.py",
+          "packages/valory/connections/abci/tests/test_tendermint_encoder.py",
+          "packages/valory/connections/http_client/__init__.py",
+          "packages/valory/connections/http_client/connection.py",
+          "packages/valory/connections/http_client/tests/__init__.py",
+          "packages/valory/connections/http_client/tests/test_http_client.py",
+          "packages/valory/connections/http_server/__init__.py",
+          "packages/valory/connections/http_server/connection.py",
+          "packages/valory/connections/http_server/tests/__init__.py",
+          "packages/valory/connections/http_server/tests/test_http_server.py",
+          "packages/valory/connections/ipfs/__init__.py",
+          "packages/valory/connections/ipfs/connection.py",
+          "packages/valory/connections/ipfs/tests/__init__.py",
+          "packages/valory/connections/ipfs/tests/test_connection.py",
+          "packages/valory/connections/ledger/__init__.py",
+          "packages/valory/connections/ledger/base.py",
+          "packages/valory/connections/ledger/connection.py",
+          "packages/valory/connections/ledger/contract_dispatcher.py",
+          "packages/valory/connections/ledger/ledger_dispatcher.py",
+          "packages/valory/connections/ledger/tests/__init__.py",
+          "packages/valory/connections/ledger/tests/conftest.py",
+          "packages/valory/connections/ledger/tests/test_contract_dispatcher.py",
+          "packages/valory/connections/ledger/tests/test_ledger.py",
+          "packages/valory/connections/ledger/tests/test_ledger_api.py",
+          "packages/valory/connections/p2p_libp2p_client/__init__.py",
+          "packages/valory/connections/p2p_libp2p_client/connection.py",
+          "packages/valory/contracts/erc20/__init__.py",
+          "packages/valory/contracts/erc20/contract.py",
+          "packages/valory/contracts/gnosis_safe/__init__.py",
+          "packages/valory/contracts/gnosis_safe/contract.py",
+          "packages/valory/contracts/gnosis_safe/encode.py",
+          "packages/valory/contracts/gnosis_safe/tests/__init__.py",
+          "packages/valory/contracts/gnosis_safe/tests/test_contract.py",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/__init__.py",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/contract.py",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/tests/__init__.py",
+          "packages/valory/contracts/gnosis_safe_proxy_factory/tests/test_contract.py",
+          "packages/valory/contracts/mech/__init__.py",
+          "packages/valory/contracts/mech/contract.py",
+          "packages/valory/contracts/multisend/__init__.py",
+          "packages/valory/contracts/multisend/contract.py",
+          "packages/valory/contracts/multisend/tests/__init__.py",
+          "packages/valory/contracts/multisend/tests/test_contract.py",
+          "packages/valory/contracts/service_registry/__init__.py",
+          "packages/valory/contracts/service_registry/contract.py",
+          "packages/valory/contracts/service_registry/tests/__init__.py",
+          "packages/valory/contracts/service_registry/tests/test_contract.py",
+          "packages/valory/protocols/abci/__init__.py",
+          "packages/valory/protocols/abci/abci_pb2.py",
+          "packages/valory/protocols/abci/custom_types.py",
+          "packages/valory/protocols/abci/dialogues.py",
+          "packages/valory/protocols/abci/message.py",
+          "packages/valory/protocols/abci/serialization.py",
+          "packages/valory/protocols/abci/tests/__init__.py",
+          "packages/valory/protocols/abci/tests/conftest.py",
+          "packages/valory/protocols/abci/tests/test_abci.py",
+          "packages/valory/protocols/abci/tests/test_abci_dialogues.py",
+          "packages/valory/protocols/abci/tests/test_abci_messages.py",
+          "packages/valory/protocols/acn/__init__.py",
+          "packages/valory/protocols/acn/acn_pb2.py",
+          "packages/valory/protocols/acn/custom_types.py",
+          "packages/valory/protocols/acn/dialogues.py",
+          "packages/valory/protocols/acn/message.py",
+          "packages/valory/protocols/acn/serialization.py",
+          "packages/valory/protocols/acn/tests/__init__.py",
+          "packages/valory/protocols/acn/tests/test_acn.py",
+          "packages/valory/protocols/acn/tests/test_acn_dialogues.py",
+          "packages/valory/protocols/acn/tests/test_acn_messages.py",
+          "packages/valory/protocols/contract_api/__init__.py",
+          "packages/valory/protocols/contract_api/contract_api_pb2.py",
+          "packages/valory/protocols/contract_api/custom_types.py",
+          "packages/valory/protocols/contract_api/dialogues.py",
+          "packages/valory/protocols/contract_api/message.py",
+          "packages/valory/protocols/contract_api/serialization.py",
+          "packages/valory/protocols/contract_api/tests/__init__.py",
+          "packages/valory/protocols/contract_api/tests/test_contract_api.py",
+          "packages/valory/protocols/contract_api/tests/test_contract_api_dialogues.py",
+          "packages/valory/protocols/contract_api/tests/test_contract_api_messages.py",
+          "packages/valory/protocols/http/__init__.py",
+          "packages/valory/protocols/http/dialogues.py",
+          "packages/valory/protocols/http/http_pb2.py",
+          "packages/valory/protocols/http/message.py",
+          "packages/valory/protocols/http/serialization.py",
+          "packages/valory/protocols/http/tests/__init__.py",
+          "packages/valory/protocols/http/tests/test_http.py",
+          "packages/valory/protocols/http/tests/test_http_dialogues.py",
+          "packages/valory/protocols/http/tests/test_http_messages.py",
+          "packages/valory/protocols/ipfs/__init__.py",
+          "packages/valory/protocols/ipfs/dialogues.py",
+          "packages/valory/protocols/ipfs/ipfs_pb2.py",
+          "packages/valory/protocols/ipfs/message.py",
+          "packages/valory/protocols/ipfs/serialization.py",
+          "packages/valory/protocols/ipfs/tests/test_ipfs_dialogues.py",
+          "packages/valory/protocols/ipfs/tests/test_ipfs_messages.py",
+          "packages/valory/protocols/ledger_api/__init__.py",
+          "packages/valory/protocols/ledger_api/custom_types.py",
+          "packages/valory/protocols/ledger_api/dialogues.py",
+          "packages/valory/protocols/ledger_api/ledger_api_pb2.py",
+          "packages/valory/protocols/ledger_api/message.py",
+          "packages/valory/protocols/ledger_api/serialization.py",
+          "packages/valory/protocols/ledger_api/tests/__init__.py",
+          "packages/valory/protocols/ledger_api/tests/test_ledger_api.py",
+          "packages/valory/protocols/ledger_api/tests/test_ledger_api_dialogues.py",
+          "packages/valory/protocols/ledger_api/tests/test_ledger_api_messages.py",
+          "packages/valory/protocols/tendermint/__init__.py",
+          "packages/valory/protocols/tendermint/custom_types.py",
+          "packages/valory/protocols/tendermint/dialogues.py",
+          "packages/valory/protocols/tendermint/message.py",
+          "packages/valory/protocols/tendermint/serialization.py",
+          "packages/valory/protocols/tendermint/tendermint_pb2.py",
+          "packages/valory/protocols/tendermint/tests/__init__.py",
+          "packages/valory/protocols/tendermint/tests/test_tendermint.py",
+          "packages/valory/protocols/tendermint/tests/test_tendermint_dialogues.py",
+          "packages/valory/protocols/tendermint/tests/test_tendermint_messages.py",
+          "packages/valory/skills/abstract_abci/__init__.py",
+          "packages/valory/skills/abstract_abci/dialogues.py",
+          "packages/valory/skills/abstract_abci/handlers.py",
+          "packages/valory/skills/abstract_abci/tests/__init__.py",
+          "packages/valory/skills/abstract_abci/tests/test_dialogues.py",
+          "packages/valory/skills/abstract_abci/tests/test_handlers.py",
+          "packages/valory/skills/abstract_round_abci/__init__.py",
+          "packages/valory/skills/abstract_round_abci/abci_app_chain.py",
+          "packages/valory/skills/abstract_round_abci/base.py",
+          "packages/valory/skills/abstract_round_abci/behaviour_utils.py",
+          "packages/valory/skills/abstract_round_abci/behaviours.py",
+          "packages/valory/skills/abstract_round_abci/common.py",
+          "packages/valory/skills/abstract_round_abci/dialogues.py",
+          "packages/valory/skills/abstract_round_abci/handlers.py",
+          "packages/valory/skills/abstract_round_abci/io_/__init__.py",
+          "packages/valory/skills/abstract_round_abci/io_/ipfs.py",
+          "packages/valory/skills/abstract_round_abci/io_/load.py",
+          "packages/valory/skills/abstract_round_abci/io_/paths.py",
+          "packages/valory/skills/abstract_round_abci/io_/store.py",
+          "packages/valory/skills/abstract_round_abci/models.py",
+          "packages/valory/skills/abstract_round_abci/test_tools/__init__.py",
+          "packages/valory/skills/abstract_round_abci/test_tools/abci_app.py",
+          "packages/valory/skills/abstract_round_abci/test_tools/base.py",
+          "packages/valory/skills/abstract_round_abci/test_tools/common.py",
+          "packages/valory/skills/abstract_round_abci/test_tools/integration.py",
+          "packages/valory/skills/abstract_round_abci/test_tools/rounds.py",
+          "packages/valory/skills/abstract_round_abci/tests/__init__.py",
+          "packages/valory/skills/abstract_round_abci/tests/conftest.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/__init__.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/__init__.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/behaviours.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/dialogues.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/handlers.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/models.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/payloads.py",
+          "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/rounds.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_abci_app_chain.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_base.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_base_rounds.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_behaviours.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_behaviours_utils.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_common.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_dialogues.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_handlers.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_io/__init__.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_io/test_ipfs.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_io/test_load.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_io/test_store.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_models.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_tools/__init__.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_tools/base.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_tools/test_base.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_tools/test_common.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_tools/test_integration.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_tools/test_rounds.py",
+          "packages/valory/skills/abstract_round_abci/tests/test_utils.py",
+          "packages/valory/skills/abstract_round_abci/utils.py",
+          "packages/valory/skills/mech_interact_abci/__init__.py",
+          "packages/valory/skills/mech_interact_abci/behaviours/__init__.py",
+          "packages/valory/skills/mech_interact_abci/behaviours/base.py",
+          "packages/valory/skills/mech_interact_abci/behaviours/request.py",
+          "packages/valory/skills/mech_interact_abci/behaviours/response.py",
+          "packages/valory/skills/mech_interact_abci/behaviours/round_behaviour.py",
+          "packages/valory/skills/mech_interact_abci/dialogues.py",
+          "packages/valory/skills/mech_interact_abci/handlers.py",
+          "packages/valory/skills/mech_interact_abci/models.py",
+          "packages/valory/skills/mech_interact_abci/payloads.py",
+          "packages/valory/skills/mech_interact_abci/rounds.py",
+          "packages/valory/skills/mech_interact_abci/states/__init__.py",
+          "packages/valory/skills/mech_interact_abci/states/base.py",
+          "packages/valory/skills/mech_interact_abci/states/final_states.py",
+          "packages/valory/skills/mech_interact_abci/states/request.py",
+          "packages/valory/skills/mech_interact_abci/states/response.py",
+          "packages/valory/skills/mech_interact_abci/tests/__init__.py",
+          "packages/valory/skills/mech_interact_abci/tests/test_behaviours.py",
+          "packages/valory/skills/mech_interact_abci/tests/test_dialogues.py",
+          "packages/valory/skills/mech_interact_abci/tests/test_handlers.py",
+          "packages/valory/skills/mech_interact_abci/tests/test_models.py",
+          "packages/valory/skills/mech_interact_abci/tests/test_payloads.py",
+          "packages/valory/skills/mech_interact_abci/tests/test_rounds.py",
+          "packages/valory/skills/registration_abci/__init__.py",
+          "packages/valory/skills/registration_abci/behaviours.py",
+          "packages/valory/skills/registration_abci/dialogues.py",
+          "packages/valory/skills/registration_abci/handlers.py",
+          "packages/valory/skills/registration_abci/models.py",
+          "packages/valory/skills/registration_abci/payloads.py",
+          "packages/valory/skills/registration_abci/rounds.py",
+          "packages/valory/skills/registration_abci/tests/__init__.py",
+          "packages/valory/skills/registration_abci/tests/test_behaviours.py",
+          "packages/valory/skills/registration_abci/tests/test_dialogues.py",
+          "packages/valory/skills/registration_abci/tests/test_handlers.py",
+          "packages/valory/skills/registration_abci/tests/test_models.py",
+          "packages/valory/skills/registration_abci/tests/test_payloads.py",
+          "packages/valory/skills/registration_abci/tests/test_rounds.py",
+          "packages/valory/skills/reset_pause_abci/__init__.py",
+          "packages/valory/skills/reset_pause_abci/behaviours.py",
+          "packages/valory/skills/reset_pause_abci/dialogues.py",
+          "packages/valory/skills/reset_pause_abci/handlers.py",
+          "packages/valory/skills/reset_pause_abci/models.py",
+          "packages/valory/skills/reset_pause_abci/payloads.py",
+          "packages/valory/skills/reset_pause_abci/rounds.py",
+          "packages/valory/skills/reset_pause_abci/tests/__init__.py",
+          "packages/valory/skills/reset_pause_abci/tests/test_behaviours.py",
+          "packages/valory/skills/reset_pause_abci/tests/test_dialogues.py",
+          "packages/valory/skills/reset_pause_abci/tests/test_handlers.py",
+          "packages/valory/skills/reset_pause_abci/tests/test_payloads.py",
+          "packages/valory/skills/reset_pause_abci/tests/test_rounds.py",
+          "packages/valory/skills/termination_abci/__init__.py",
+          "packages/valory/skills/termination_abci/behaviours.py",
+          "packages/valory/skills/termination_abci/dialogues.py",
+          "packages/valory/skills/termination_abci/handlers.py",
+          "packages/valory/skills/termination_abci/models.py",
+          "packages/valory/skills/termination_abci/payloads.py",
+          "packages/valory/skills/termination_abci/rounds.py",
+          "packages/valory/skills/termination_abci/tests/__init__.py",
+          "packages/valory/skills/termination_abci/tests/test_behaviours.py",
+          "packages/valory/skills/termination_abci/tests/test_dialogues.py",
+          "packages/valory/skills/termination_abci/tests/test_handlers.py",
+          "packages/valory/skills/termination_abci/tests/test_models.py",
+          "packages/valory/skills/termination_abci/tests/test_payloads.py",
+          "packages/valory/skills/termination_abci/tests/test_rounds.py",
+          "packages/valory/skills/transaction_settlement_abci/__init__.py",
+          "packages/valory/skills/transaction_settlement_abci/behaviours.py",
+          "packages/valory/skills/transaction_settlement_abci/dialogues.py",
+          "packages/valory/skills/transaction_settlement_abci/handlers.py",
+          "packages/valory/skills/transaction_settlement_abci/models.py",
+          "packages/valory/skills/transaction_settlement_abci/payload_tools.py",
+          "packages/valory/skills/transaction_settlement_abci/payloads.py",
+          "packages/valory/skills/transaction_settlement_abci/rounds.py",
+          "packages/valory/skills/transaction_settlement_abci/test_tools/__init__.py",
+          "packages/valory/skills/transaction_settlement_abci/test_tools/integration.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/__init__.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_behaviours.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_dialogues.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_handlers.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_models.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_payload_tools.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_payloads.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_rounds.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_tools/__init__.py",
+          "packages/valory/skills/transaction_settlement_abci/tests/test_tools/test_integration.py"
+        ],
+        "expected_revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+        "managed_dependency_provenance": {
+          "adapter": "open-aea-content-addressed-lock-v1",
+          "applicable": false,
+          "detection": {
+            "declaration_exit_code": 128,
+            "declared_by": [],
+            "executable": "/tmp/envsolve-trader-py310/bin/autonomy",
+            "inventory_exit_code": 128,
+            "lock_paths": []
+          },
+          "valid": false
+        },
+        "policy": "submitted-state-plus-content-provenance-v7",
+        "repository_derived_artifacts": [],
+        "tracked_changes": [],
+        "valid": false,
+        "violations": [
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/custom_types.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/signing_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/tests/test_signing.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/tests/test_signing_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/open_aea/protocols/signing/tests/test_signing_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/check_dependencies.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/gogoproto/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/gogoproto/gogo_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/scripts/genproto.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/abci/types_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/abci/types_pb2_grpc.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/crypto/keys_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/crypto/proof_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/types/params_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/types/types_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/types/validator_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint/version/types_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint_decoder.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tendermint_encoder.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/helper.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_abci.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_abci_fuzz.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_abci_spec.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/mock_node/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/grpc_channel.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/mock_node/channels/tcp_channel.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/mock_node/node.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_fuzz/test_fuzz.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_tendermint_decoder.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/abci/tests/test_tendermint_encoder.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_client/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_client/connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_client/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_client/tests/test_http_client.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_server/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_server/connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_server/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/http_server/tests/test_http_server.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ipfs/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ipfs/connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ipfs/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ipfs/tests/test_connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/contract_dispatcher.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/ledger_dispatcher.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/tests/conftest.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/tests/test_contract_dispatcher.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/tests/test_ledger.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/ledger/tests/test_ledger_api.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/p2p_libp2p_client/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/connections/p2p_libp2p_client/connection.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/erc20/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/erc20/contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe/contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe/encode.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe/tests/test_contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe_proxy_factory/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe_proxy_factory/contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe_proxy_factory/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/gnosis_safe_proxy_factory/tests/test_contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/mech/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/mech/contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/multisend/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/multisend/contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/multisend/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/multisend/tests/test_contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/service_registry/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/service_registry/contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/service_registry/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/contracts/service_registry/tests/test_contract.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/abci_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/custom_types.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/tests/conftest.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/tests/test_abci.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/tests/test_abci_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/abci/tests/test_abci_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/acn_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/custom_types.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/tests/test_acn.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/tests/test_acn_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/acn/tests/test_acn_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/contract_api_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/custom_types.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/tests/test_contract_api.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/tests/test_contract_api_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/contract_api/tests/test_contract_api_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/http_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/tests/test_http.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/tests/test_http_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/http/tests/test_http_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/ipfs_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/tests/test_ipfs_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ipfs/tests/test_ipfs_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/custom_types.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/ledger_api_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/tests/test_ledger_api.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/tests/test_ledger_api_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/ledger_api/tests/test_ledger_api_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/custom_types.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/message.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/serialization.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/tendermint_pb2.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/tests/test_tendermint.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/tests/test_tendermint_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/protocols/tendermint/tests/test_tendermint_messages.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/abci_app_chain.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/behaviour_utils.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/common.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/io_/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/io_/ipfs.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/io_/load.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/io_/paths.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/io_/store.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/test_tools/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/test_tools/abci_app.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/test_tools/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/test_tools/common.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/test_tools/integration.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/test_tools/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/conftest.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/data/dummy_abci/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_abci_app_chain.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_base_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_behaviours_utils.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_common.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_io/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_io/test_ipfs.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_io/test_load.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_io/test_store.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_tools/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_tools/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_tools/test_base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_tools/test_common.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_tools/test_integration.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_tools/test_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/tests/test_utils.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/abstract_round_abci/utils.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/behaviours/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/behaviours/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/behaviours/request.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/behaviours/response.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/behaviours/round_behaviour.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/states/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/states/base.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/states/final_states.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/states/request.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/states/response.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/test_behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/test_models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/test_payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/mech_interact_abci/tests/test_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/test_behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/test_models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/test_payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/registration_abci/tests/test_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/tests/test_behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/tests/test_payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/reset_pause_abci/tests/test_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/test_behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/test_models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/test_payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/termination_abci/tests/test_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/payload_tools.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/test_tools/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/test_tools/integration.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_behaviours.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_dialogues.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_handlers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_models.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_payload_tools.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_payloads.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_rounds.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_tools/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "packages/valory/skills/transaction_settlement_abci/tests/test_tools/test_integration.py"
+          }
+        ]
+      }
+    },
+    "observations": [],
+    "passed": false,
+    "summary": "Candidate violated repository or workspace effect boundaries"
+  },
+  "repository": "valory-xyz/trader",
+  "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+  "schema_version": "1.0.0",
+  "source_program_sha256": "d67a17bf9a12c07e9c596ba58ea468bde06eff4a5f03f64995774bfa6b40b28c",
+  "validation_id": "envsolve-pro-boundary-v3-consumed-candidate-v1",
+  "validation_pass": false,
+  "workspace_preconditions": [
+    {
+      "kind": "directory",
+      "path": "data",
+      "producer": "envbench-python-build-v1"
+    }
+  ]
+}

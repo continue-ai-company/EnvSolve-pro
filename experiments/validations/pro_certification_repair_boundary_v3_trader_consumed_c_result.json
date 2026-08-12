@@ -1,0 +1,22 @@
+{
+  "boundary_implementation_sha256": "7f28f599fbb02e471f959ddaa5df4f02d2d65a1a0e182ec2fc9276c1ac5dc9b8",
+  "candidate_validation": {
+    "accepted": false,
+    "details": {
+      "line": "cat > setup.py <<'PY'",
+      "target": "setup.py"
+    },
+    "policy_id": "open-candidate-program-v3",
+    "reason": "candidate program writes protected repository configuration"
+  },
+  "canonical_program_sha256": "d1e89c3d3ac7cf2b28c70cf666da06e1f5d391533cc6aeed0ba69410547893ef",
+  "claim_scope": "consumed-boundary-validation-only-outcome-excluded",
+  "classification": "candidate-policy-rejected",
+  "completed_at": "2026-08-07T08:18:49.173581+00:00",
+  "repository": "valory-xyz/trader",
+  "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+  "schema_version": "1.0.0",
+  "source_program_sha256": "848e5492baa3a55dc2b63ea62d7f104d9d99a2ed3d1305acb8582cb1efb275fa",
+  "validation_id": "envsolve-pro-boundary-v3-consumed-candidate-v1",
+  "validation_pass": false
+}

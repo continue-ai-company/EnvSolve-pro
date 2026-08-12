@@ -1,0 +1,91 @@
+{
+  "analysis_policy": {
+    "all_15_episodes_before_algorithm_change": true,
+    "host": "mac for all Agent episodes to avoid a host-by-treatment confound",
+    "individual_case_rules_forbidden": true,
+    "infrastructure_unknown_excluded_from_effect_denominator": true,
+    "official_and_protocol_admissibility_reported_separately": true,
+    "paired_by_repository": true,
+    "primary_metric": "Official Pass@1",
+    "token_cost_and_wall_time": "reported as secondary measurements, not success stopping thresholds"
+  },
+  "artifacts": {
+    "boundary_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v3_implementation_freeze.json",
+      "sha256": "39300b3b2164f8035a49e0c37bc9c93736e0a39034c440b183cbd3fba5589861"
+    },
+    "case_file": {
+      "path": "experiments/cases/dev_pro_certification_repair_boundary_v3_untouched5.jsonl",
+      "sha256": "e652a29549de8d5943f180314bb39c5cd153a218b556a814c9744063107ac45d"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v3_untouched5.json",
+      "sha256": "9167938510a5a626c684a572b51dbb703181ad29d10528404b1c42666b263017"
+    },
+    "goal_protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+      "sha256": "15e289b8c065366b9810a68e1db1312b13d2169d5f0e955f50181a05492621c2"
+    }
+  },
+  "claim_scope": "Repository-disjoint development mechanism gate under boundary v3.",
+  "conditions": [
+    {
+      "arm": "A",
+      "agent_visible_clean_replays": 0,
+      "method": "codex-cli-goal-aware-boundary-v3",
+      "post_session_qualification_feedback_returned_to_agent": false,
+      "runner": "codex-cli-qualified-boundary-v3"
+    },
+    {
+      "arm": "B",
+      "maximum_agent_visible_clean_replays": 1,
+      "method": "envsolve-pro-one-shot-certification-boundary-v3",
+      "retry_after_replay": false,
+      "runner": "envsolve-pro-one-shot-certification-qualified-boundary-v3"
+    },
+    {
+      "arm": "C",
+      "agent_visible_clean_replays_repeatable": true,
+      "method": "envsolve-pro-minimal-b-boundary-v3",
+      "runner": "envsolve-pro-minimal-b-qualified-boundary-v3"
+    }
+  ],
+  "exclusions": {
+    "calibration_case": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "calibration_case_reason": "consumed while repairing the shared measurement boundary",
+    "prior_boundary_v2_cases": "descriptive pilot evidence only; not pooled into this five-pair estimate"
+  },
+  "mechanism_decision": {
+    "certification_aware_construction": "Compare A versus B on paired Official Pass@1.",
+    "dormant_loop": "If every C first replay passes, do not claim iterative repair and do not add structured state.",
+    "feedback_conditioned_repair": "Count only a C first replay Fail or Unknown followed by a different passing program in the same session and terminal Official Pass.",
+    "next_algorithm_change": "Allowed only after all effective episodes complete and aggregate trajectory error analysis identifies a repeated failure mode."
+  },
+  "preregistered_at": "2026-08-08T01:50:19Z",
+  "resource_policy": {
+    "episode_timeout_seconds": 22400,
+    "interpretation": "operational safety cap, not a paper-level budget definition",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "spark_role": "source-cache acquisition, cross-platform qualification, and result analysis only; no Agent arm runs"
+  },
+  "schema_version": "1.0.0",
+  "selection": {
+    "manifest_counts_before_freeze": {
+      "adbar__trafilatura": 0,
+      "gpflow__gpflow": 0,
+      "nixtla__neuralforecast": 0,
+      "pypa__distutils": 0,
+      "zappa__zappa": 0
+    },
+    "policy": "Carry forward positions 4-8 from the outcome-blind boundary-v2 Dev-8 schedule after positions 1-3 were consumed.",
+    "repository_content_or_outcome_used": false,
+    "source_schedule": "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json"
+  },
+  "status": "frozen-before-any-boundary-v3-untouched5-episode",
+  "study_id": "envsolve-pro-certification-repair-boundary-v3-untouched5"
+}

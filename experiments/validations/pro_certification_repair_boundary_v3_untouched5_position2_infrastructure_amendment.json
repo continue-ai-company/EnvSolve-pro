@@ -1,0 +1,85 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v3-untouched5-position2-infrastructure-retry1",
+  "artifacts": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v3_untouched5.json",
+      "sha256": "9167938510a5a626c684a572b51dbb703181ad29d10528404b1c42666b263017"
+    },
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v3_implementation_freeze.json",
+      "sha256": "39300b3b2164f8035a49e0c37bc9c93736e0a39034c440b183cbd3fba5589861"
+    },
+    "original_execution_binding": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_execution_binding.json",
+      "sha256": "359d2f901d6330030b113d6d94c2c60de0291585367415e1d862d14d92954afa"
+    },
+    "original_progress_at_amendment": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v3_untouched5_progress.json",
+      "sha256": "f7bf63db6a9f83aa1e482fbceba0f5d14447ae9ebbe68f4809f61985b0a1959a"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+      "sha256": "15e289b8c065366b9810a68e1db1312b13d2169d5f0e955f50181a05492621c2"
+    },
+    "preregistration": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_preregistration.json",
+      "sha256": "a4a94dc2fb9754bd5724e8509a5304fe64d7f4418f610ed533648e374fd38303"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "retry_schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v3_untouched5_position2_infrastructure_retry1.json",
+      "sha256": "61fd3d80f73cfd0fcedf2b7a29238817f454f43f0c5826c189a8e40601fdd0fc"
+    }
+  },
+  "created_at": "2026-08-08T02:17:36Z",
+  "decision": {
+    "algorithm_change_before_retry": false,
+    "analysis_treatment": "Replace the position-2 pre-episode filesystem-sandbox failure with retry1 for the primary analysis. Preserve and report the original failed launch separately.",
+    "case_replacement": false,
+    "original_observation_class": "host_artifact_directory_permission_failure",
+    "original_observation_in_effect_denominator": false,
+    "retry_environment": "new clean construction container",
+    "retry_identity": [
+      "case",
+      "case source revision",
+      "condition",
+      "runner implementation",
+      "model",
+      "reasoning effort",
+      "seed",
+      "container image",
+      "protocol",
+      "episode timeout"
+    ]
+  },
+  "original_episode": {
+    "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+    "artifact_root_created": false,
+    "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+    "duration_seconds": 0.1446377079701051,
+    "generation_started": false,
+    "official_evaluator_reached": false,
+    "original_position": 2,
+    "process_exit_code": 1,
+    "reason": "The coordinator was launched inside a restricted filesystem sandbox and was denied permission before RunArtifacts.create could create the episode directory.",
+    "run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control",
+    "state": "process_finished"
+  },
+  "prohibitions": [
+    "No prompt, model, reasoning effort, runner, verifier, boundary, goal contract, seed, image, or resource policy change is permitted for retry1.",
+    "The original failed launch must remain excluded from effect denominators and algorithm-failure counts.",
+    "No algorithm change may be motivated by this infrastructure amendment."
+  ],
+  "retry_episode": {
+    "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+    "condition": "A-strong-agent-control",
+    "model": "gpt-5.5",
+    "run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control-infrastructure-retry1",
+    "seed": 3389898334
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v3-untouched5"
+}

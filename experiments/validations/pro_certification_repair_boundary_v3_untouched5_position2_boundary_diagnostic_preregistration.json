@@ -1,0 +1,37 @@
+{
+  "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+  "created_at": "2026-08-08T02:38:43Z",
+  "diagnostic_id": "envsolve-pro-certification-repair-boundary-v3-untouched5-position2-boundary-diagnostic-v1",
+  "frozen_inputs": {
+    "case_file_sha256": "e652a29549de8d5943f180314bb39c5cd153a218b556a814c9744063107ac45d",
+    "config_sha256": "9167938510a5a626c684a572b51dbb703181ad29d10528404b1c42666b263017",
+    "evaluate_only_sha256": "7d28a8c7b201a46c99e6ae68cde537b87229f824fd9fcd90a59eb2ce3cd84059",
+    "goal_protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "source_final_output_sha256": "cbec11d9ca8c8815b129c67c8ffc17026bbd94304927a945aff733286fea20cd",
+    "source_generation_result_sha256": "6222a7ad051e19004d5151023b5c6b6dca25dc17f97bbf2c67b64eca4a156fbe",
+    "source_trajectory_sha256": "694597ff24086b8ea65e6b121f221114295cd5f345266374ee9f8272b762bbd8",
+    "submitted_program_sha256": "75391a9f6d2f28b1655ab4d593dc72a7748a6b8f1ce909c83ee34a12d1df2769"
+  },
+  "hypotheses": {
+    "boundary_false_rejection": "The exact A program passes official EnvBench but boundary-v3 rejects it solely because a tracked-source-derived extension is located inside build_output.",
+    "program_failure": "The exact A program also fails official EnvBench in a clean evaluation environment."
+  },
+  "procedure": {
+    "agent_feedback": false,
+    "agent_reexecuted": false,
+    "boundary_reexecuted": false,
+    "method": "evaluation-only-exact-submitted-program",
+    "model_reexecuted": false,
+    "run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-boundary-diagnostic-evaluation-only-v1",
+    "script_edits": false
+  },
+  "result_policy": {
+    "effect_denominator": false,
+    "if_official_fail": "Retain A as an algorithm failure, subject to ordinary artifact audit.",
+    "if_official_pass": "Declare a boundary-validity stop for the current block; do not count A versus C and do not start position 3 under boundary-v3.",
+    "paper_role": "posthoc measurement diagnostic only"
+  },
+  "schema_version": "1.0.0",
+  "source_run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control-infrastructure-retry1",
+  "study_id": "envsolve-pro-certification-repair-boundary-v3-untouched5"
+}

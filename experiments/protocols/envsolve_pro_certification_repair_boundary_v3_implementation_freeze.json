@@ -1,0 +1,80 @@
+{
+  "boundary_id": "envsolve-pro-certification-repair-boundary-v3",
+  "claim_scope": "Shared admissibility and submitted-program qualification boundary; no algorithm-effect claim.",
+  "created_at": "2026-08-08T01:50:19Z",
+  "frozen_files": {
+    "envsolve_harness/boundary_v3.py": "36bb5e3a581b0b67d8a0fc8fedb85ac382323e554d2a62bb5e7c377c93acaa8d",
+    "envsolve_harness/codex/minimal_b_mcp_boundary_v3_qualified.py": "f7700b56c2f75e7ba800ba40f8a595a27e7884f7040262ed5f5a192f5b9f81bb",
+    "envsolve_harness/codex/one_shot_mcp_boundary_v3_qualified.py": "02bd34eef415f70798c8fec7ae023f99fe36636183de2479b92a08d063a6a584",
+    "envsolve_harness/runners/certification_repair_boundary_v3.py": "05bc5497f254dcdbca903b3f3235ce54916dd4d9c7e04ed3e9d7e25be22a404e",
+    "experiments/run_replay_ablation_boundary_v3_case.py": "3654823184178b2604e2870f56bf105725ec5fc98cd863d3c4b5799da9c23d4f",
+    "experiments/run_replay_ablation_boundary_v3_schedule.py": "b8e2c3f3e1e948c8d7c91cae3e2e14b06555164d3497eb57cc9a6d490aa28396",
+    "experiments/validate_boundary_v3_consumed_candidate.py": "cd36992f82d46f8612ac82f2dac89e0e12370906404d159e6472fd2dac953cdb",
+    "tests/test_certification_repair_boundary_v3.py": "159103c3adda5acedd94e1fe9c2dbcb0ac6293122a86c65512d84cee6f665971",
+    "tests/test_certification_repair_boundary_v3_entrypoint.py": "544ef16303073473df73d5184e343ce55dbdce397f7221291adb40f0ddf4a7eb"
+  },
+  "inherited_frozen_files": {
+    "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+    "envsolve_harness/boundary_v2.py": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "envsolve_harness/codex/minimal_b_mcp.py": "de0031e6d8148fdcb61a7f804bfcfc41e75516014348f38419c59312b1e8ea4c",
+    "envsolve_harness/runners/codex_cli.py": "8a17bcc6580bd0cec81c7e0faf34311f3ecc20f9fee7bc0d7f277c1d25ba6dd5",
+    "tests/test_minimal_b_mcp.py": "1feb144b55f6634181283607013e7efa21fb47f7eb08553de590c459bbdfb9af"
+  },
+  "policies": {
+    "candidate_program": "open-candidate-program-v3",
+    "managed_dependency": "open-aea-content-addressed-lock-v1",
+    "repository": "submitted-state-plus-content-provenance-v7",
+    "submitted_program_only": true,
+    "temporary_protected_configuration_writes_rejected": true,
+    "trusted_goal_shell": "noninterfering-privileged-bash",
+    "trusted_virtualenv_runtime_files_require_pre_candidate_template_hash_and_version_match": true
+  },
+  "qualification": {
+    "A": {
+      "candidate_program_sha256": "d67a17bf9a12c07e9c596ba58ea468bde06eff4a5f03f64995774bfa6b40b28c",
+      "host": "spark-linux-arm",
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_a_freeze_result.json",
+      "result": "pass",
+      "sha256": "5709cc680756c4504eb248d40f7c8c0ce62b167c5034a5bff0a819e616e97e00"
+    },
+    "B": {
+      "candidate_program_sha256": "fd1b764683199495804b722cfcad46ac9e0c678809bf9283d0af10762ed6ce24",
+      "passing_predecessor": {
+        "boundary_sha256": "3195205de50ba0707d3652e437c85c8cbfc9bafcb29b92e61977cb3c5dd0c615",
+        "path": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_b_final_retry1_result.json",
+        "sha256": "b2dc6f9283e0a818d25aae3ecf36a45515253f3e1eff1cc14033a7aa87794299"
+      },
+      "final_boundary_attempts": [
+        {
+          "classification": "infrastructure-censored-before-trusted-goal",
+          "path": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_b_freeze_result.json",
+          "sha256": "67cf9188e68885de6ca022e2b09e91046787cfbbba8038e548709fd4e11d4a4b"
+        },
+        {
+          "classification": "infrastructure-censored-before-trusted-goal",
+          "path": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_b_freeze_public_result.json",
+          "sha256": "4f76ca1dc6c96e0b13d596cec6612c6b297f310254f2a8e38ae8a81a74c46c51"
+        }
+      ],
+      "interpretation": "The final change only replaces Git safe-directory transport. It is exercised by the full passing A replay and a Linux ARM mounted-worktree smoke test; censored B attempts do not enter effect estimates."
+    },
+    "C": {
+      "candidate_program_sha256": "848e5492baa3a55dc2b63ea62d7f104d9d99a2ed3d1305acb8582cb1efb275fa",
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_trader_consumed_c_freeze_result.json",
+      "result": "candidate-policy-rejected-temporary-setup-py",
+      "sha256": "44397e7263bca0d42508e7111d6230f7a463b93248fbbab14482d141818b1735"
+    },
+    "full_test_suite": {
+      "passed": 735,
+      "skipped": 8,
+      "subtests_passed": 76
+    }
+  },
+  "resume_decision": {
+    "algorithm_interfaces_changed": false,
+    "calibration_case_effect_estimate": "excluded",
+    "resume_new_dev_cases": true
+  },
+  "schema_version": "1.0.0",
+  "status": "frozen"
+}

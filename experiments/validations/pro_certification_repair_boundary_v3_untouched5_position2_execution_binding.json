@@ -1,0 +1,28 @@
+{
+  "binding_id": "envsolve-pro-certification-repair-boundary-v3-untouched5-position2-v1",
+  "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+  "condition": "A-strong-agent-control",
+  "created_at": "2026-08-08T02:15:29Z",
+  "execution": {
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "host": "mac",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "method": "codex-cli-goal-aware-boundary-v3",
+    "model": "gpt-5.5",
+    "position": 2,
+    "reasoning_effort": "high",
+    "run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control",
+    "runner": "codex-cli-qualified-boundary-v3",
+    "seed": 3389898334
+  },
+  "frozen_inputs": {
+    "case_entrypoint_sha256": "3654823184178b2604e2870f56bf105725ec5fc98cd863d3c4b5799da9c23d4f",
+    "config_sha256": "9167938510a5a626c684a572b51dbb703181ad29d10528404b1c42666b263017",
+    "goal_protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "preregistration_sha256": "a4a94dc2fb9754bd5724e8509a5304fe64d7f4418f610ed533648e374fd38303",
+    "runner_sha256": "05bc5497f254dcdbca903b3f3235ce54916dd4d9c7e04ed3e9d7e25be22a404e",
+    "schedule_entrypoint_sha256": "b8e2c3f3e1e948c8d7c91cae3e2e14b06555164d3497eb57cc9a6d490aa28396",
+    "schedule_sha256": "15e289b8c065366b9810a68e1db1312b13d2169d5f0e955f50181a05492621c2"
+  },
+  "schema_version": "1.0.0"
+}

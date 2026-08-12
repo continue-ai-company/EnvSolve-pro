@@ -1,0 +1,59 @@
+{
+  "adjudication_id": "envsolve-pro-certification-repair-boundary-v3-untouched5-position2-boundary-validity-stop-v1",
+  "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+  "created_at": "2026-08-08T02:43:00Z",
+  "decision": {
+    "arm_a_algorithm_failure": false,
+    "arm_a_official_outcome": "pass",
+    "arm_a_primary_effect_eligible": false,
+    "arm_c_official_outcome": "pass",
+    "boundary_v3_valid_for_this_comparison": false,
+    "position_3_action": "do-not-start-under-boundary-v3",
+    "study_action": "validity-stop-before-completing-case-1-block"
+  },
+  "diagnosis": {
+    "boundary_rejection": {
+      "detail": "untracked importable files and .pth files are prohibited",
+      "kind": "untracked_import_artifact",
+      "path": "build_output/xx.cpython-313-aarch64-linux-gnu.so"
+    },
+    "confound": "A and C compiled the repository-tracked distutils/tests/xxmodule.c fixture. Boundary-v3 accepted C when the resulting extension was outside the repository but rejected A when it was inside build_output.",
+    "official_diagnostic": {
+      "error_count": 1734,
+      "evaluation_completed": true,
+      "exit_code": 0,
+      "issues_count": 0,
+      "official_pass": true,
+      "warning_count": 50
+    },
+    "status": "location-dependent-false-rejection"
+  },
+  "evidence": {
+    "diagnostic_manifest_sha256": "307569882660368a226b8b3e7a713ac96fbc58d2763d17319014145558d12b3d",
+    "diagnostic_official_attempt_sha256": "2537fdcba4470608c34f728faa3ce09b7f1a0cc376b84036b95c60c327169472",
+    "diagnostic_result_sha256": "e30a55dde8e81a736a65fd39a83214b5fcd11de01d68f9fea79bdd3014d34b38",
+    "diagnostic_run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-boundary-diagnostic-evaluation-only-v1",
+    "preregistration": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_boundary_diagnostic_preregistration.json",
+      "sha256": "10ab6eb1a1117a8b1fb643cbeadeb1707236f491fa93e6071e570f3f6b3d39a3"
+    },
+    "source_final_output_sha256": "cbec11d9ca8c8815b129c67c8ffc17026bbd94304927a945aff733286fea20cd",
+    "source_generation_result_sha256": "6222a7ad051e19004d5151023b5c6b6dca25dc17f97bbf2c67b64eca4a156fbe",
+    "source_run_id": "pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control-infrastructure-retry1",
+    "submitted_program_sha256": "75391a9f6d2f28b1655ab4d593dc72a7748a6b8f1ce909c83ee34a12d1df2769"
+  },
+  "prohibitions": [
+    "Do not report position 1 versus position 2 as evidence that repeatable replay improves success.",
+    "Do not reinterpret the boundary rejection as an official EnvBench failure.",
+    "Do not resume the frozen boundary-v3 schedule after changing its boundary implementation.",
+    "Do not use this consumed case to tune the deployment algorithm."
+  ],
+  "required_remedy": {
+    "algorithm_change": false,
+    "boundary_change": true,
+    "criterion": "Repository-tracked-source-derived import artifacts must receive the same admissibility decision independent of whether the output path is inside the repository or in a temporary directory.",
+    "next_study": "new boundary version, repository-free tests, consumed-case calibration, then a new untouched preregistered set"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v3-untouched5"
+}
