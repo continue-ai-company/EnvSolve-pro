@@ -60,6 +60,18 @@ def _existing_retry(config_runs: Path, source_run_id: str, case_id: str) -> str 
             and retry.get("source_run_id") == source_run_id
             and retry.get("source_case_id") == case_id
         ):
+            result = manifest.get("result")
+            if isinstance(result, dict):
+                result_metadata = result.get("metadata") or {}
+                adapter_error = str(result_metadata.get("adapter_error") or "")
+                launcher_never_started = (
+                    result.get("raw_result_path") is None
+                    and result_metadata.get("harness_process_exit_code") is None
+                    and adapter_error.startswith("FileNotFoundError:")
+                    and "No such file or directory: 'uv'" in adapter_error
+                )
+                if launcher_never_started:
+                    continue
             return str((manifest.get("run") or {}).get("run_id"))
     return None
 

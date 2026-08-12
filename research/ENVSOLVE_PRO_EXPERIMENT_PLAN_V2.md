@@ -436,3 +436,26 @@ complete candidate early: 24 requests elapsed between B's first local goal pass 
 first replay. The emerging algorithmic question is therefore not whether replay can verify
 a candidate, but how to preserve an already sufficient candidate while optional completeness
 exploration continues, without converting a secondary quality objective into a new hard gate.
+
+The seventh frozen pair, `has2k1/plotnine`, provides the strongest repair trace so far but
+no paired Official effect. A-F reached a whole-repository local goal pass at request 42 and
+submitted at request 68. Its original Official attempt and single exact-script retry both
+failed while pip cloned the public `qrenderer` dependency from GitHub; repeated TLS
+truncation occurred before Pyright, so A remains infrastructure-censored with no imputed
+outcome. B-FSR began replay at request 52. Its first three candidates respectively failed
+to return to the goal, exposed 34 evaluator-visible missing imports, and hit the same Git
+TLS failure. The same session replaced the Git clone with a tarball, and the fourth and
+fifth replays passed before the exact program passed Official. B used 73 versus 68 model
+requests, 3.174M versus 1.973M tokens, 100 versus 66 shell calls, and about 4,984 versus
+3,093 seconds of generation time. This is feedback-conditioned repair, not evidence of
+pass-rate or efficiency improvement. The immutable record is
+`experiments/validations/envsolve_pro_v2_dev12_pair07_result.json`.
+
+Across seven attempted pairs, five remain pairwise Official-observable and both arms are
+4/5 on those pairs. B has three feedback-conditioned repairs and two first-replay
+certifications. Two further pairs retain useful trajectories but no paired effect because
+A exhausted its preregistered infrastructure retry. Pair seven also exposes a protocol
+boundary that must be frozen before the next study: resilience to dependency-download
+failures can be deployment competence when repaired inside the active session, yet the
+same failure is currently censored after session termination. Dev-12 will not be changed
+post hoc; its remaining five pairs continue under the frozen rule.

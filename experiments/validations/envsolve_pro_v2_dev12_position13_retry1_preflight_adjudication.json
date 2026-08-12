@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-v2-dev12-position13-retry1-zero-evaluation-preflight",
+  "recorded_at": "2026-08-12T08:12:44Z",
+  "case_id": "envbench-python-has2k1__plotnine@812a5ab0b591515c4f5b62c08b5e51f90ab4cae1",
+  "source_run_id": "pro-v2-dev12-13-A-F",
+  "preflight_run_id": "pro-v2-dev12-13-A-F-official-retry1",
+  "disposition": "preserved-invalid-preflight-does-not-consume-official-retry",
+  "failure": {
+    "stage": "evaluator-launcher-preflight",
+    "exception": "FileNotFoundError: [Errno 2] No such file or directory: 'uv'",
+    "cause": "the detached tmux command replaced the repository virtual-environment PATH before invoking the EnvBench adapter",
+    "official_attempt_claim_created": true,
+    "official_evaluator_process_started": false,
+    "official_raw_result_created": false,
+    "source_script_executed": false,
+    "model_reexecuted": false
+  },
+  "preserved_artifacts": {
+    "manifest_sha256": "b4828aecc195dcea0ab0adfac2657525de44bec5a4ccfd77018ed3ac49542f90",
+    "official_result_sha256": "66291f4e1391e0db7b9bec9d38f0444e53d3aaf30bc3e975cc36177bc057c1c8",
+    "evaluation_log_sha256": "92582340890132983341b0408badcce82934e5993c4ab62b515dbc8d2084703f",
+    "evaluation_retry_provenance_sha256": "b502eb4a99d110bae6748fbcbff9a846c50ec95991389b2056132f688bf61ba6"
+  },
+  "generic_fix": {
+    "policy": "completed missing-uv launcher preflights do not occupy the single executed-evaluator retry slot",
+    "started_or_in_progress_retries_remain_locked": true,
+    "ordinary_algorithm_failures_retryable": false,
+    "entrypoint_sha256": "49cb506f37724238b611bcc079a30ca9ebcc7d0bd02bc8ce620f9bd0ba3fea46",
+    "test_file_sha256": "109332889b66ea055e0876e46a1d464cf551efaea67774450759cc7ac210cf80",
+    "verification": "57 passed, 8 subtests passed"
+  },
+  "authorized_execution": {
+    "run_id": "pro-v2-dev12-13-A-F-official-retry1-execution1",
+    "maximum_official_evaluations": 1,
+    "maximum_additional_retries_after_execution": 0,
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false
+  }
+}

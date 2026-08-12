@@ -1,0 +1,192 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-07",
+  "recorded_at": "2026-08-12T08:36:00Z",
+  "case": {
+    "case_id": "envbench-python-has2k1__plotnine@812a5ab0b591515c4f5b62c08b5e51f90ab4cae1",
+    "repository": "has2k1/plotnine",
+    "revision": "812a5ab0b591515c4f5b62c08b5e51f90ab4cae1",
+    "architecture": "linux/arm64"
+  },
+  "primary_outcome_semantics": "Official Pass@1 is measured only after the active Agent session ends; an infrastructure-censored bootstrap may receive one exact-script retry without rerunning the model",
+  "effective_outcomes": [
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-13-A-F",
+      "official_evaluation_run_id": "pro-v2-dev12-13-A-F-official-retry1-execution1",
+      "official_pass": null,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-infrastructure-censored-retry-exhausted",
+      "primary_pass_fail_eligible": false,
+      "generation_wall_clock_seconds": 3093.146434,
+      "model_requests": 68,
+      "provider_attempts": 74,
+      "provider_errors": 6,
+      "prompt_tokens": 1917502,
+      "completion_tokens": 55438,
+      "total_tokens": 1972940,
+      "reported_provider_cost": 0.8782958000000002,
+      "shell_tool_calls": 66,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 900.2892214902677,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 42,
+      "final_submission_request": 68,
+      "submitted_program_sha256": "de51abafe859f6bf72c2ac59c8ccfb9cdf675bb10857ab2a91009842c2640c20",
+      "source_manifest_sha256": "a0d538d7a78eca0606770e4115b5f4409661c849979c08effb4afdc9f959ea91",
+      "generation_result_sha256": "c30d13bf76a9ea9c5d2a347674e0b23a1217242b7604d403288e6cbb668983fc",
+      "trajectory_sha256": "a095bcb0971ce5e4a8e5f1ae03d8904228df5be592cd5fbaca042ef0ec0d81e7",
+      "official_retry_manifest_sha256": "9abf4c37720b44c6cad3b2b834912e50c45a6fc09334b2e188ae3a7a0706900b",
+      "official_retry_result_sha256": "981f98ec612620cc3706ba68e4e4a17c0a745e9078e0ed8fe7b250ce63d8309b",
+      "official_retry_raw_result_sha256": "841481649e0212820a0cb5ee18b8a2c4f2459c8a46aa44fe3a2e9fbd25f61a95",
+      "official_retry_evaluation_log_sha256": "2fe494560b8d0145bf1a080eaa6ee826e4e87af3728fda3c743625e32be75337",
+      "evaluation_retry_provenance_sha256": "b502eb4a99d110bae6748fbcbff9a846c50ec95991389b2056132f688bf61ba6",
+      "official_disposition": "The original Official bootstrap and the single executed exact-script retry both failed while pip cloned the public qrenderer dependency from GitHub. Both contain repeated TLS truncation evidence and ended before Pyright, so the frozen infrastructure policy censors A without imputing a pass or failure. No further retry is allowed."
+    },
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-14-B-FSR",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "primary_pass_fail_eligible": true,
+      "generation_wall_clock_seconds": 4983.618285,
+      "official_evaluation_seconds": 385.8614225387573,
+      "model_requests": 73,
+      "provider_attempts": 77,
+      "provider_errors": 4,
+      "prompt_tokens": 3118643,
+      "completion_tokens": 55599,
+      "total_tokens": 3174242,
+      "reported_provider_cost": 1.2925688999999998,
+      "shell_tool_calls": 100,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 2634.3323535458185,
+      "clean_replay_calls": 5,
+      "final_submission_calls": 3,
+      "first_local_goal_pass_request": 50,
+      "first_clean_replay_request": 52,
+      "final_submission_request": 73,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 213,
+      "submitted_program_sha256": "e4344e0871c7b20bd3f6e89355661f0efc35dbd91f168f287d4e0283fad6d00e",
+      "manifest_sha256": "46c5d515b44da162efc6b3536561e5674e08faca5e7427af3626397522adad0e",
+      "generation_result_sha256": "781afe34d7ae33ba362e64d0b6ceb2404ee7c0fde819f854d1f4fccb361df68f",
+      "trajectory_sha256": "19043bd38270e88bc0586de51c01dbf7de4236c272aa5bd75f86cbbe322906e2",
+      "replays_sha256": "96dc80f7cd5d12a926ff450dbed11efcb180c439c2d9ce59223d984bd896a485",
+      "certification_sha256": "f22a2793b415c0ff0c8551e2b54fa783179ce79ea207df952c8663c6d9255860",
+      "official_result_sha256": "d3dbd99ca8e3c5bc0686b0b7cf5f4452fc2b27798d5da93602663db6d6346a6b",
+      "official_raw_result_sha256": "699df10d5bc64c3a43a815ebdd3359062ce6c49c471500fc77045711b1370916"
+    }
+  ],
+  "replay_sequence": [
+    {
+      "index": 1,
+      "request": 52,
+      "program_sha256": "71c16dcefce99fb0e63b667f5066d1aabae8d294ae08d13bb72baae54bd31c53",
+      "pass": false,
+      "bootstrap_exit_code": 1,
+      "note": "the candidate did not return control to the executable goal despite printing a local zero-missing-import message"
+    },
+    {
+      "index": 2,
+      "request": 53,
+      "program_sha256": "4919f38259b4c74494e31d296cd0bbb52bbbc5ddfca756b568466c8ce2115c83",
+      "pass": false,
+      "bootstrap_exit_code": 0,
+      "active_missing_imports": 34,
+      "note": "the fresh evaluator-visible environment lacked test and documentation dependencies"
+    },
+    {
+      "index": 3,
+      "request": 66,
+      "program_sha256": "09548804422f77214300048324003f327de2388c8205b870072e0e0bfd654d02",
+      "pass": false,
+      "bootstrap_exit_code": 1,
+      "note": "the qrenderer Git clone failed with a TLS handshake termination"
+    },
+    {
+      "index": 4,
+      "request": 69,
+      "program_sha256": "e4344e0871c7b20bd3f6e89355661f0efc35dbd91f168f287d4e0283fad6d00e",
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "note": "the session replaced the fragile Git clone with a GitHub tarball and reached zero active findings"
+    },
+    {
+      "index": 5,
+      "request": 72,
+      "program_sha256": "e4344e0871c7b20bd3f6e89355661f0efc35dbd91f168f287d4e0283fad6d00e",
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "note": "the exact certified program was replayed again after two modified program hashes were correctly rejected at submission"
+    }
+  ],
+  "censored_attempts": [
+    {
+      "run_id": "pro-v2-dev12-13-A-F",
+      "scope": "post-episode-official-bootstrap",
+      "terminal_class": "infrastructure-censored",
+      "reason": "GitHub TLS truncation while pip acquired qrenderer; Pyright did not execute",
+      "model_reexecuted_for_retry": false,
+      "censored_official_result_sha256": "8d689f144e25bdb5f41e8811c5cffe6aeb8d2b4eec65ce2ddb5d6189e523d743",
+      "censored_official_raw_result_sha256": "3207ba08ce9581184550e4b10171455211c6ff86e5deadbb1f7b8189ec5b22ad",
+      "censored_evaluation_log_sha256": "e84479b014f05e0efa33cbaf8b239339a6f93f6d3da0439229880755e6848057"
+    },
+    {
+      "run_id": "pro-v2-dev12-13-A-F-official-retry1",
+      "scope": "evaluator-launcher-preflight",
+      "terminal_class": "preserved-invalid-preflight",
+      "reason": "the detached launcher replaced PATH and could not locate uv; no Official evaluator process or source script started",
+      "consumed_retry_slot": false,
+      "manifest_sha256": "b4828aecc195dcea0ab0adfac2657525de44bec5a4ccfd77018ed3ac49542f90",
+      "result_sha256": "66291f4e1391e0db7b9bec9d38f0444e53d3aaf30bc3e975cc36177bc057c1c8",
+      "evaluation_log_sha256": "92582340890132983341b0408badcce82934e5993c4ab62b515dbc8d2084703f"
+    },
+    {
+      "run_id": "pro-v2-dev12-13-A-F-official-retry1-execution1",
+      "scope": "post-episode-official-bootstrap",
+      "terminal_class": "infrastructure-censored-retry-exhausted",
+      "reason": "repeated GitHub TLS handshake termination while pip cloned qrenderer; bootstrap exited before Pyright",
+      "model_reexecuted_for_retry": false,
+      "evaluation_seconds": 789.2593476772308,
+      "audit_valid": true,
+      "official_result_sha256": "981f98ec612620cc3706ba68e4e4a17c0a745e9078e0ed8fe7b250ce63d8309b",
+      "official_raw_result_sha256": "841481649e0212820a0cb5ee18b8a2c4f2459c8a46aa44fe3a2e9fbd25f61a95"
+    }
+  ],
+  "paired_result": {
+    "class": "official-censored-A_B-pass",
+    "paired_primary_effect_estimable": false,
+    "official_pass_difference_B_minus_A": null,
+    "mechanism_activation": "B invoked clean replay five times; three distinct candidates failed, feedback changed the program, and the fourth candidate passed before exact-hash certification and Official success",
+    "feedback_conditioned_repair_observed": true,
+    "certification_as_stopping_signal_observed": false,
+    "candidate_formation": {
+      "A": "first explicit whole-repository local goal pass at request 42; submitted without clean-environment evidence at request 68",
+      "B": "first local complete-script goal pass at request 50; immediately began clean replay at request 52 and submitted the certified program at request 73"
+    },
+    "descriptive_resource_differences_B_vs_A": {
+      "model_requests_percent": 7.352941176470589,
+      "total_tokens_percent": 60.888927184810484,
+      "generation_wall_clock_percent": 61.118084492213185,
+      "shell_tool_calls_percent": 51.515151515151516,
+      "reported_provider_cost_percent": 47.16783343379304
+    },
+    "supported_observation": "on this case, same-session clean replay exposed non-transferable local success, missing evaluator-visible dependencies, and a fragile Git transport; B revised the deployment program until the exact replayed artifact passed Official, but consumed substantially more resources than A",
+    "network_robustness_boundary": "B converted a TLS failure observed inside its active replay loop into a robust tarball-based program, while A's post-session TLS failures are censored by the frozen protocol. This is valid mechanism evidence but not a paired pass-rate effect; future studies must preregister whether dependency-acquisition robustness is an algorithmic outcome or infrastructure censoring.",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate on this pair",
+      "A would have passed Official evaluation under reliable networking",
+      "EnvSolve-Pro reduces resources on this pair or in expectation",
+      "every clean-replay failure was caused by an algorithmic defect",
+      "the non-scoring Official error count indicates deployment failure"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds",
+  "analysis_note": "The missing-uv detached-launcher preflight is preserved separately and does not consume the one executed-evaluator retry because neither the evaluator nor source script started. The generic retry lock now ignores only this exact completed preflight class; started and in-progress retries remain locked."
+}

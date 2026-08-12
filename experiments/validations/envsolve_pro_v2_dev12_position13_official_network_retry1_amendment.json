@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-dev12-position13-official-network-retry1",
+  "recorded_at": "2026-08-12T08:05:34Z",
+  "status": "frozen-before-exact-script-retry",
+  "case_id": "envbench-python-has2k1__plotnine@812a5ab0b591515c4f5b62c08b5e51f90ab4cae1",
+  "censored_attempt": {
+    "run_id": "pro-v2-dev12-13-A-F",
+    "generation_completed": true,
+    "certified_by_clean_replay": false,
+    "evaluation_completed": false,
+    "official_pass": false,
+    "termination_scope": "official-bootstrap-package-download",
+    "infrastructure_signature": "git-rpc-tls-truncation",
+    "failure": "GitHub TLS truncation while pip acquired the public quartodoc dependency; Pyright did not execute",
+    "submitted_program_sha256": "de51abafe859f6bf72c2ac59c8ccfb9cdf675bb10857ab2a91009842c2640c20",
+    "bootstrap_script_sha256": "7b45d703354843ebf7238411c623615aecfd82fa20e7d833689ad881b9d967d8",
+    "manifest_sha256": "a0d538d7a78eca0606770e4115b5f4409661c849979c08effb4afdc9f959ea91",
+    "generation_result_sha256": "c30d13bf76a9ea9c5d2a347674e0b23a1217242b7604d403288e6cbb668983fc",
+    "trajectory_sha256": "a095bcb0971ce5e4a8e5f1ae03d8904228df5be592cd5fbaca042ef0ec0d81e7",
+    "official_result_sha256": "8d689f144e25bdb5f41e8811c5cffe6aeb8d2b4eec65ce2ddb5d6189e523d743",
+    "official_raw_result_sha256": "3207ba08ce9581184550e4b10171455211c6ff86e5deadbb1f7b8189ec5b22ad",
+    "evaluation_log_sha256": "e84479b014f05e0efa33cbaf8b239339a6f93f6d3da0439229880755e6848057",
+    "source_run_audit_valid": true,
+    "counts_toward_official_denominator": false
+  },
+  "retry": {
+    "allowed": true,
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "run_id": "pro-v2-dev12-13-A-F-official-retry1",
+    "source_run_id": "pro-v2-dev12-13-A-F",
+    "model_reexecuted": false,
+    "seed": 443308073,
+    "maximum_semantics_identical_retries_after_this_attempt": 0,
+    "entrypoint": "experiments/evaluate_only.py",
+    "entrypoint_sha256": "6a3c8308e37952c00381dca83d90c678cd5f5db4c45eb58296e525c787c94e24"
+  },
+  "validity": {
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false,
+    "official_feedback_returned_to_agent": false,
+    "protected_sets_touched": false,
+    "source_run_audit_valid": true
+  }
+}

@@ -26,6 +26,80 @@ REAL_SUBPROCESS_RUN = subprocess.run
 
 
 class EvaluationRetryTest(unittest.TestCase):
+    def test_retry_lock_ignores_only_completed_missing_uv_preflight(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runs = Path(directory)
+            root = runs / "retry-preflight" / "case"
+            root.mkdir(parents=True)
+            write_json(
+                root / "manifest.json",
+                {
+                    "run": {"run_id": "retry-preflight"},
+                    "solver": {
+                        "metadata": {
+                            "evaluation_retry": {
+                                "source_run_id": "source",
+                                "source_case_id": "case-id",
+                            }
+                        }
+                    },
+                    "result": {
+                        "raw_result_path": None,
+                        "metadata": {
+                            "adapter_error": (
+                                "FileNotFoundError: [Errno 2] No such file or "
+                                "directory: 'uv'"
+                            ),
+                            "harness_process_exit_code": None,
+                        },
+                    },
+                },
+            )
+
+            self.assertIsNone(_existing_retry(runs, "source", "case-id"))
+
+    def test_retry_lock_retains_started_and_in_progress_attempts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runs = Path(directory)
+            for run_id, result in (
+                (
+                    "retry-started",
+                    {
+                        "raw_result_path": None,
+                        "metadata": {
+                            "adapter_error": "repository acquisition failed",
+                            "harness_process_exit_code": 0,
+                        },
+                    },
+                ),
+                ("retry-running", None),
+            ):
+                root = runs / run_id / "case"
+                root.mkdir(parents=True)
+                manifest = {
+                    "run": {"run_id": run_id},
+                    "solver": {
+                        "metadata": {
+                            "evaluation_retry": {
+                                "source_run_id": run_id,
+                                "source_case_id": "case-id",
+                            }
+                        }
+                    },
+                }
+                if result is not None:
+                    manifest["result"] = result
+                write_json(root / "manifest.json", manifest)
+
+            self.assertEqual(
+                _existing_retry(runs, "retry-started", "case-id"),
+                "retry-started",
+            )
+            self.assertEqual(
+                _existing_retry(runs, "retry-running", "case-id"),
+                "retry-running",
+            )
+
     @mock.patch(
         "envsolve_harness.adapters.envbench.docker_image_provenance",
         return_value={"reference": "test:image"},

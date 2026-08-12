@@ -357,3 +357,19 @@ feedback-conditioned repair 和两条首次 replay 认证。第五、六对都�
 会立即提交；但第六对也说明当前接口并不能促使 Agent 尽早提出完整候选：B 从首次本地目标通过到首次
 replay 相隔 24 次请求。因此正在浮现的算法问题不再是 replay 能否验证候选，而是如何在 Agent 继续
 探索可选完整性时保留一个已经足够好的候选，同时不把次要质量目标变成新的硬门槛。
+
+第七个冻结配对 `has2k1/plotnine` 给出了目前最强的修复轨迹，但不能产生配对 Official 效应。A-F 在
+第 42 次请求达到整个仓库的本地目标，第 68 次提交；原始 Official 和唯一一次 exact-script retry 都在
+pip 从 GitHub 克隆公开 `qrenderer` 依赖时发生 TLS 截断，Pyright 尚未运行，因此 A 仍按基础设施删失，
+不推断 pass/fail。B-FSR 在第 52 次请求开始 replay。前三个候选分别没有把控制权交回目标、暴露 34 个
+evaluator 可见的缺失导入、以及遭遇同类 Git TLS 失败；同一 session 随后把 Git clone 换成 tarball，
+第 4、5 次 replay 通过，精确程序最终通过 Official。B 使用 73 对 68 次模型请求、3.174M 对 1.973M
+tokens、100 对 66 次 shell 调用，生成耗时约 4,984 对 3,093 秒。这证明 feedback-conditioned repair，
+不证明通过率或效率提升。不可变记录为
+`experiments/validations/envsolve_pro_v2_dev12_pair07_result.json`。
+
+七个已尝试配对中仍只有五个具备双臂可观测的 Official 结果，在这些配对上两臂均为 4/5。B 目前有
+三条 feedback-conditioned repair 和两条首次 replay 认证；另外两对保留有价值的轨迹，但因为 A 用完
+预登记的基础设施重试而不能估计配对效应。第七对还暴露了下个实验必须事前冻结的协议边界：依赖下载失败
+若在活跃 session 内被修复，可以体现部署能力；相同故障若发生在 session 结束后，当前规则却会将其删失。
+Dev-12 不做事后修改，剩余五对继续沿用冻结规则。
