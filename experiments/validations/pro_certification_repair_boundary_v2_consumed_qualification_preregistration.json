@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "envsolve-pro-certification-repair-boundary-v2-readux-consumed",
+  "frozen_at": "2026-08-06",
+  "timing": "before boundary-v2 replay of the consumed Readux program",
+  "case": {
+    "repository": "ecds/readux",
+    "revision": "3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+    "status": "consumed"
+  },
+  "input_program": {
+    "role": "exact arm-C program that passed the v1 public goal through a candidate-defined python shell function",
+    "sha256": "87098537cf3e713d005500829a674c2c68c31dcf420893c898e5823c6f7b54fa"
+  },
+  "qualification_rule": "The exact program must not receive a passing boundary-v2 clean-replay certificate.",
+  "expected_mechanism": "The trusted goal runs in a privileged clean Bash child that does not import candidate-defined shell functions, so real Pyright observes the unresolved import.",
+  "allowed_interpretation": "infrastructure and integrity boundary qualification on a consumed case",
+  "forbidden_interpretations": [
+    "algorithm effectiveness",
+    "held-out generalization",
+    "Official Pass improvement"
+  ]
+}

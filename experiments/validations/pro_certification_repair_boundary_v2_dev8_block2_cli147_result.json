@@ -1,0 +1,109 @@
+{
+  "artifact_type": "certification-repair-boundary-v2-block-result",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "conditions": {
+    "A": {
+      "audit_valid": true,
+      "cached_input_tokens": 186368,
+      "commands": 9,
+      "evaluation_result_sha256": "4c28ee973ee668b99986cec035592fe709626cacf7fa2b4f292912568f645be6",
+      "generation_result_sha256": "99221cac495741d8308dd33d8a71b3bec1583ec47dc90f0b943956234782c2de",
+      "generation_seconds": 803.109553,
+      "input_tokens": 224699,
+      "manifest_sha256": "e18889c36c41f77e465109469d1e096a290c7c2a7d088249dc48854e046a4b82",
+      "official_error_count_non_scoring": 114,
+      "official_evaluation_seconds": 479.452327,
+      "official_issues_count": 0,
+      "official_state": "pass",
+      "output_tokens": 4974,
+      "reasoning_output_tokens": 2708,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control-cli147-replacement1",
+      "script_sha256": "d07d9b127bf6480a7da99719cdb7ea5255235b27f352ddea9d5eeca316c58410"
+    },
+    "B": {
+      "audit_valid": true,
+      "cached_input_tokens": 225280,
+      "commands": 10,
+      "evaluation_result_sha256": "f011d9e9a8192658830ff67951660ed981618b3bbca3d1f8b370bd41b9d5228d",
+      "first_clean_replay": "pass",
+      "generation_result_sha256": "0f03d280a4da4f84c37ff18c5d0dab91a247aaf0729915096e902874b1c7d737",
+      "generation_seconds": 958.218315,
+      "input_tokens": 269993,
+      "manifest_sha256": "0719844a5d3147fb87eac6618e06e59436d95f993b7487e83a67b0b9b4d9cc19",
+      "official_error_count_non_scoring": 114,
+      "official_evaluation_seconds": 440.974117,
+      "official_issues_count": 0,
+      "official_state": "pass",
+      "output_tokens": 5248,
+      "reasoning_output_tokens": 2594,
+      "replay_count": 1,
+      "replay_trace_sha256": "8c3fd9421854c8deacb47649d5701b2def56d5e63107585efd101cc2e8624e49",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-semantic-stall-retry1",
+      "script_sha256": "912ddb593020f38ee6467f51461c818fb2206acb3b682f67f2c474ce3a02a661"
+    },
+    "C": {
+      "audit_valid": true,
+      "cached_input_tokens": 368640,
+      "commands": 12,
+      "evaluation_failure": "pip ResolutionImpossible: pytket fallback candidates required types-pkg-resources, for which the evaluator found no matching distribution",
+      "evaluation_result_sha256": "507a6b682d9934e915a672d4e191f0502d4befdae377037ab320f827198a0ea6",
+      "first_clean_replay": "pass",
+      "generation_result_sha256": "9186b7c5e36f1b81a924a53bb0c0d681eced02b987114bdfc0a9bce5f1d7c478",
+      "generation_seconds": 945.377348,
+      "input_tokens": 434501,
+      "manifest_sha256": "1aa3dc2e18f2bb3ea83f3a06e6c48264a0494bd27a4029de82b66c9a5c7b2f6a",
+      "official_error_count_non_scoring": null,
+      "official_evaluation_seconds": 336.103398,
+      "official_issues_count": 0,
+      "official_state": "fail",
+      "output_tokens": 6571,
+      "reasoning_output_tokens": 2038,
+      "replay_count": 1,
+      "replay_trace_sha256": "0e24f0bb6ce41428c223a78de08f3dd220bc75b92e901d6f81496f6f03c691b6",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b-cli147-replacement1",
+      "script_sha256": "27aca883c4907dcb19fe5354a7b253a05f65094bf2e3f133d0a926fcf05de3e4"
+    }
+  },
+  "created_at": "2026-08-07T05:33:07+00:00",
+  "descriptive_resources": {
+    "B_relative_to_A_percent": {
+      "commands": 11.11,
+      "generation_seconds": 19.31,
+      "input_tokens": 20.16,
+      "official_evaluation_seconds": -8.03,
+      "output_tokens": 5.51
+    },
+    "C_relative_to_B_percent": {
+      "commands": 20.0,
+      "generation_seconds": -1.34,
+      "input_tokens": 60.93,
+      "official_evaluation_seconds": -23.78,
+      "output_tokens": 25.21
+    },
+    "caveat": "The effective B arm is a preregistered replacement after a censored Agent-runtime stall; resource values are trajectory descriptions, not treatment-effect estimates."
+  },
+  "frozen_input_bindings": {
+    "adjudication": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_cli147_adjudication.json",
+      "sha256": "6247fbbd641e9468a4459005d10ab78354c5db6a692584f34ef5fdb31b4cfc03"
+    },
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+  },
+  "mechanism": {
+    "A_vs_B_certification_outcome": "both passed; no binary success gain is identified for one-shot certification in this case",
+    "B_first_replay_pass": true,
+    "C_first_replay_pass": true,
+    "feedback_conditioned_repair_activated": false,
+    "repair_opportunity_observed": false,
+    "repeatability_failure_observed": true,
+    "repeatability_observation": "C passed one fresh internal replay but the same submitted program failed during the later official execution because an unpinned dependency resolution changed or was incompletely available",
+    "treatment_interpretation": "C's retry interface could not react to a failure that occurred only after the Agent session ended, so this case does not test feedback-conditioned repair"
+  },
+  "next_decision": "Keep the frozen Dev-8 algorithms unchanged. Continue collecting cases, and retain repeated certification or dependency-resolution stabilization as a candidate orthogonal treatment after the batch closes.",
+  "schema_version": "1.0.0",
+  "status": "block-closed",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

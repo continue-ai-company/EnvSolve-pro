@@ -1,0 +1,43 @@
+{
+  "amendment": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry_amendment.json",
+    "sha256": "c01a962ea3893b57712c8006edf37989f44648926e0d7161ccdedfd5d0053cb9"
+  },
+  "archive": {
+    "bytes": 3745478,
+    "mac_sha256": "b13f17fc1f5b9f9e8831804b839b469e569b505bdeb23f72ea584474322e4534",
+    "spark_sha256": "b13f17fc1f5b9f9e8831804b839b469e569b505bdeb23f72ea584474322e4534"
+  },
+  "cache": {
+    "cache_version": "immutable-exact-revision-cache-v1",
+    "commit": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "fsck_mac": "pass-full-strict",
+    "fsck_spark": "pass-full-strict",
+    "head": "refs/heads/envsolve-exact",
+    "installed_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/_source_cache/repositories/valory-xyz__trader/64fa99dd872a157bbd9eef436bf8396e8f5d34d1.git",
+    "object_count_in_pack": 294,
+    "pack_count": 1,
+    "repository": "valory-xyz/trader",
+    "source_ref": "refs/envsolve/exact",
+    "tree": "09cdf3ae28ec18ab493f2749721d27f3d2749e92"
+  },
+  "created_at": "2026-08-07T06:19:10+00:00",
+  "noninterference": {
+    "agent_episode_ran_on_spark": false,
+    "repository_worktree_created_on_spark": false,
+    "repository_worktree_inspected_on_spark": false,
+    "source_object_bytes_changed_in_transfer": false
+  },
+  "schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry1.json",
+    "sha256": "0ebb206feda43ce4e63f370205fbc65f9b149685a3989a9e5db965725b9ece56"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-spark-source-retry1",
+  "transport": {
+    "agent_execution_host": "mac",
+    "source_acquisition_host": "spark",
+    "source_network": "spark configured egress",
+    "transfer": "scp-over-tailscale"
+  }
+}

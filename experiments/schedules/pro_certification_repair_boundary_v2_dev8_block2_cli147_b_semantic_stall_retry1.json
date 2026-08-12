@@ -1,0 +1,25 @@
+{
+  "amendment": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_cli147_b_semantic_stall_retry_amendment.json",
+  "amendment_sha256": "e592ee176908ea4f3fcc4c276e97d4c60bdf136c381fe432a114e91b573e85ad",
+  "case_file": "experiments/cases/dev_pro_certification_repair_boundary_v2_8.jsonl",
+  "case_file_sha256": "6e25d260a1128d7b5ecafb56187d6384bb54d58b4a640d8b498116df6f391b01",
+  "episode_timeout_seconds": 22400,
+  "episodes": [
+    {
+      "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+      "case_position": 2,
+      "condition": "B-one-shot-certification",
+      "host": "mac",
+      "method": "envsolve-pro-one-shot-certification-boundary-v2",
+      "model": "gpt-5.5",
+      "position": 1,
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-replacement1",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-semantic-stall-retry1",
+      "runner": "envsolve-pro-one-shot-certification-qualified-boundary-v2",
+      "seed": 1834703488
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-b-semantic-stall-retry1"
+}

@@ -1,0 +1,69 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block1-package-integrity-validity-v1",
+  "created_at": "2026-08-06T08:00:00+00:00",
+  "discovery": {
+    "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+    "evaluation_result_sha256": "9adca3c88fc8d01bfe748d9098867b37f3de193762b24bfa2c06a9f3a3bf26ef",
+    "manifest_sha256": "31965737a0c5768d2e661d0b20f85b058c62b2021457d0c22dd8514d35c8983b",
+    "old_classification": "completed-official-fail",
+    "raw_result_sha256": "5dfefd3736be98980f16ff002ab486f3a82f3793280558813535076e8ac4d2e6",
+    "run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry1",
+    "terminal_log_signature": "pip reported an unknown package whose downloaded bytes did not match the SHA-256 advertised by the package index"
+  },
+  "generic_rule": {
+    "classification": "infrastructure_unknown",
+    "guard": "nonzero bootstrap exit before any completed Pyright summary",
+    "name": "package-download-hash-mismatch",
+    "negative_control": "a named requirement with a user-supplied incorrect hash remains an ordinary bootstrap failure",
+    "pattern_scope": "pip hash-mismatch banner followed by unknown package and Expected/Got SHA-256 values",
+    "rationale": "an unnamed artifact disagreeing with package-index metadata is transport or cache integrity failure, not evidence about whether the candidate selected compatible dependencies"
+  },
+  "implementation_scope": {
+    "allowed": [
+      "Add the generic signature to envsolve_harness/adapters/infrastructure.py.",
+      "Add positive and negative unit coverage in tests/test_evaluator_infrastructure.py."
+    ],
+    "forbidden": [
+      "No solver, prompt, candidate, goal verifier, repository boundary, model, seed, schedule ordering, or success criterion may change.",
+      "Do not mutate any consumed run artifact.",
+      "Do not classify named user requirement hash errors as infrastructure."
+    ],
+    "pre_change_sha256": {
+      "envsolve_harness/adapters/envbench.py": "e0f130743069f65062aae7b143c557ded7eb253daa8351776fa7ca5bfa9e1aec",
+      "envsolve_harness/adapters/infrastructure.py": "94e48b47250e608926478d34be5d2fbaa2e2b0d9551ee19129ce70e5e437d6f3",
+      "experiments/evaluate_only.py": "7d28a8c7b201a46c99e6ae68cde537b87229f824fd9fcd90a59eb2ce3cd84059",
+      "tests/test_evaluator_infrastructure.py": "0018798b9e34023100da331fb565315f301e807d42dc854c570c6a770d02df3d"
+    }
+  },
+  "retry_decision": {
+    "action": "one-additional-evaluation-only-retry",
+    "model_reexecuted": false,
+    "new_run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry2",
+    "source_run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry1",
+    "script_policy": "exact bytes chained to the original audit-valid C bootstrap",
+    "timing_policy": "all official evaluator attempts for this case remain infrastructure-censored for timing analysis"
+  },
+  "retry_outcome": {
+    "audit_valid": true,
+    "evaluation_completed": false,
+    "evaluation_result_sha256": "72a2c4599bb0cac39af5f563b8b21b9e37a9e721bd6399956cb616752f98316f",
+    "manifest_sha256": "94ebd8cd19176e6e071bca2305a56e6677daeec8002ee57c3118157f00eae945",
+    "official_pass": false,
+    "raw_result_sha256": "28d86e323b5650a5a73a4283a810c5af763dcc60542841b748e0431b5aff16d1",
+    "run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry2",
+    "signature": "package-download-hash-mismatch",
+    "terminal_decision": "stop evaluator retries and retain Official outcome as infrastructure unknown"
+  },
+  "validation": {
+    "envsolve_harness/adapters/envbench.py_unchanged_sha256": "e0f130743069f65062aae7b143c557ded7eb253daa8351776fa7ca5bfa9e1aec",
+    "envsolve_harness/adapters/infrastructure.py_post_change_sha256": "4425fd379a143774fd43b6222e2923f245bca084f8f3f62184b9df5281536f99",
+    "experiments/evaluate_only.py_unchanged_sha256": "7d28a8c7b201a46c99e6ae68cde537b87229f824fd9fcd90a59eb2ce3cd84059",
+    "focused_tests": "6 passed, 4 subtests passed",
+    "full_regression": "720 passed, 8 skipped, 76 subtests passed",
+    "real_artifact_signature": "package-download-hash-mismatch",
+    "ruff": "passed",
+    "tests/test_evaluator_infrastructure.py_post_change_sha256": "4115cb2475cc7dee6e8273a6590a851ae4cb2e20b7948e1a6915aeeeb77f49bb"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

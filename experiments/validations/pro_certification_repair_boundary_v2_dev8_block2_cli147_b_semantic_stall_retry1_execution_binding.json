@@ -1,0 +1,47 @@
+{
+  "binding_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-b-semantic-stall-retry1",
+  "created_at": "2026-08-07T04:45:25+00:00",
+  "schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_cli147_b_semantic_stall_retry1.json",
+    "sha256": "94127aaaa5cb60c1540ff3a49ebbca3de546b119efe01f5eb75dc5fb54cb9882"
+  },
+  "execution": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "progress": "experiments/runs/pro_certification_repair_boundary_v2_dev8_block2_cli147_b_semantic_stall_retry1-progress.json",
+    "runner": "envsolve",
+    "agent_host": "mac",
+    "source_cache_host": "mac-attested-copy-from-spark"
+  },
+  "preflight": {
+    "codex_cli_path": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "source_fsck": "pass-full-strict",
+    "source_tree": "386e97f6c830ba2c91856be80572e778a5e3c434"
+  },
+  "connectivity_canary": {
+    "agent_output": "OK",
+    "attempts": 6,
+    "model": "gpt-5.5",
+    "result": "pass-after-transport-fallback",
+    "transport_observation": "five websocket request timeouts followed by a successful HTTPS fallback",
+    "usage": {
+      "cached_input_tokens": 0,
+      "input_tokens": 9699,
+      "output_tokens": 5,
+      "reasoning_output_tokens": 0
+    }
+  },
+  "adjudication_guard": "The canary establishes model reachability but also documents transport instability. The retry must follow the preregistered full timeout and may not use the posthoc 34-minute threshold.",
+  "postcondition": "the retry manifest must report the bound CLI version and an independently completed or explicitly censored outcome before entering causal analysis",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-b-semantic-stall-retry1"
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-ablation-v1-selection-correction-v1-0-1",
+  "frozen_at": "2026-08-05T16:01:05Z",
+  "status": "frozen-before-position-2-outcome-and-before-any-replacement-repository-episode",
+  "scope": "Correct a stale untouched-pool snapshot using repository identities from pre-study run manifests without using task outcomes.",
+  "artifacts": {
+    "selection_tool": {
+      "path": "experiments/tools/correct_pro_certification_repair_ablation_v1_dev8_selection.py",
+      "sha256": "2eae56c1842cbd280c350ed9b9ddd314b1d77086304b3edb39d0f3955ab97715"
+    },
+    "test": {
+      "path": "tests/test_certification_repair_selection_correction.py",
+      "sha256": "4bee03fc92b11175ca00f8b0e7bd31e9ea842b1e6b0786e2e8f3a7c80316992c"
+    },
+    "selected_cases": {
+      "path": "experiments/cases/dev_pro_certification_repair_ablation_v1_8_v1_0_1.jsonl",
+      "sha256": "1c3da3347271aee8d7bd8bd8ad8a6375e9759fc2fc1d219330db6af21d6e4b1c"
+    },
+    "untouched_remaining_cases": {
+      "path": "experiments/cases/train_untouched_after_pro_certification_repair_ablation_v1_37_v1_0_1.jsonl",
+      "sha256": "512954f013026c1a240192da2cd070a650564b06adab68b089f8040a118c0b00"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+      "sha256": "c6e36ba47a18337eec611502c3438e59b2d0ee4c79ecb5f377cc6903e6f0f238"
+    },
+    "consumption_audit": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_preselection_consumed_repository_audit.json",
+      "sha256": "08b1b2512ded9ebf6a89e701d881ef30062c594dc136ac2a1c23a668ec5684a4"
+    },
+    "amendment": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_selection_amendment.json",
+      "sha256": "884a770a1f34d8f08725fc9742143ea9388287d9909c878ca9924aa93c554f49"
+    }
+  },
+  "invariants": {
+    "source_repositories": 53,
+    "prestudy_consumed_repositories": 8,
+    "selected_fresh_repositories": 8,
+    "remaining_fresh_repositories": 37,
+    "episodes": 24,
+    "conditions_per_repository": 3,
+    "original_salt_preserved": true,
+    "task_outcomes_used": false
+  },
+  "verification": {
+    "focused_pytest": "3 passed",
+    "full_pytest": "712 passed, 7 skipped, 75 subtests passed",
+    "ruff": "pass"
+  }
+}

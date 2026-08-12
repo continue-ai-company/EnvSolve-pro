@@ -1,0 +1,25 @@
+{
+  "audit_id": "envsolve-pro-certification-repair-boundary-v2-dev8-replacement-identity-audit",
+  "frozen_at": "2026-08-06T06:39:35.231868+00:00",
+  "manifest_files_scanned": 658,
+  "pool_rows": 37,
+  "prior_manifest_evidence": {},
+  "prior_manifest_identity_count": 0,
+  "replacement_repositories_in_rank_order": [
+    "astropy/reproject",
+    "cda-tum/mqt-bench"
+  ],
+  "runs_root": "/Users/admin/Documents/AnyDeploy/runs",
+  "schema_version": "1.0.0",
+  "selection_information_not_used": [
+    "repository contents",
+    "task outcome",
+    "official score",
+    "failure class"
+  ],
+  "selection_information_used": [
+    "repository identity",
+    "existence of any prior manifest",
+    "original frozen salt"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "snapshot_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-b-semantic-stall-v1",
+  "observed_at": "2026-08-07T04:37:40+00:00",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-replacement1",
+  "outcome_blind_state": {
+    "final_output_exists": false,
+    "replay_count": 0,
+    "certified_programs": [],
+    "candidate_outcome_observed": false,
+    "official_evaluation_started": false
+  },
+  "semantic_progress": {
+    "container_command_count": 6,
+    "last_command_sequence": 6,
+    "last_command_recorded_at": "2026-08-07T04:03:21.463774+00:00",
+    "last_command_exit_code": 0,
+    "last_command_duration_seconds": 0.013611625006888062,
+    "no_progress_seconds_lower_bound": 2058,
+    "latest_heartbeat_sequence": 438,
+    "latest_heartbeat_at": "2026-08-07T04:37:35.964662+00:00"
+  },
+  "process_state": {
+    "runner_elapsed": "00:36:42",
+    "runner_cpu_seconds": 0.62,
+    "codex_elapsed": "00:36:41",
+    "codex_cpu_seconds": 1.47,
+    "codex_state": "sleeping",
+    "codex_proxy_connection": "TCP 127.0.0.1:58658->127.0.0.1:7897 ESTABLISHED"
+  },
+  "artifact_sha256_at_snapshot": {
+    "generation/container-commands.jsonl": "ecabc901ec0f743a014747edde19e4ad684cb688afd7b325caf99dfef5d9f3c2",
+    "generation/minimal-b/certification.json": "adbc60eeb30039e71eedfaec0cd37812b65981e824c0d0dc9c2673d65591bc88",
+    "manifest.json": "09c080f254459fe91a148abdb3a95d1bdfaba8a4c97f2b166ad039d29984f0be",
+    "runtime/heartbeat.jsonl": "24d3de8177efd95cdfc79f1ab3335e8ecd4a1fe39e534f3a9be960effe02f238",
+    "status.json": "2a8220236a2829dcf85b79b5da23bfd6386baf207f3aca40887f9cccf334af02"
+  },
+  "intervention": {
+    "action": "gracefully interrupt the coordinator after freezing this snapshot",
+    "classification": "agent-runtime-semantic-stall-censored",
+    "algorithm_outcome": "exclude from B success and failure denominators",
+    "reason": "the process heartbeat did not correspond to semantic progress for more than 34 minutes, and no candidate or replay outcome existed when the intervention was selected"
+  },
+  "validity_note": "The 34-minute intervention threshold is post hoc and may not be reused as a benchmark rule without separate preregistration.",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-replacement1"
+}

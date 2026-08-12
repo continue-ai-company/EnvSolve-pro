@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position3",
+  "frozen_at": "2026-08-05T16:35:00Z",
+  "status": "final",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "position": 3,
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "B-one-shot-certification",
+  "run_id": "pro-cert-repair-v1-dev8-03-B-one-shot-certification",
+  "raw_outcome": {
+    "generation_completed": false,
+    "official_evaluator_reached": false,
+    "official_outcome": "not-observed",
+    "process_exit_code": 1
+  },
+  "one_shot_replay": {
+    "replay_id": "minimal-b-replay-0001",
+    "program_sha256": "c431d62b0119f31a17ed9c75ce410c391b2427d4ef7f6c46203660272349c20c",
+    "replay_executed": false,
+    "status": "fail",
+    "phase": "candidate-validation",
+    "reason": "The proposed program directly created apps/users/signals.py as an importable artifact.",
+    "second_replay_available": false
+  },
+  "construction_observation": {
+    "public_goal_pass_observed_in_construction_container": true,
+    "public_goal_pass_is_scoring": false,
+    "public_goal_pass_used_both": [
+      "config/settings/local.py copied from the tracked template",
+      "an empty apps/users/signals.py artifact"
+    ],
+    "final_workspace_integrity_pass": false,
+    "final_workspace_violations": [
+      "apps/users/signals.py",
+      "config/settings/local.py"
+    ]
+  },
+  "decision": {
+    "official_pass": false,
+    "integrity_pass": false,
+    "valid_certificate": false,
+    "valid_feedback_conditioned_repair_observed": false,
+    "one_shot_contract_operated_as_frozen": true
+  },
+  "artifact_evidence": {
+    "generation_result": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-03-B-one-shot-certification/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/result.json",
+      "sha256": "d252cf33d6afe30ebc4820dcae726fa889f8d7ad1c882873c627d87cd39cca6a"
+    },
+    "replay_trace": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-03-B-one-shot-certification/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/minimal-b/replays.jsonl",
+      "sha256": "c597d07b9efaa2520418f6de296c4e21168f5d541ed8113be959681c860db500"
+    },
+    "final_output": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-03-B-one-shot-certification/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/codex-control/final-output.json",
+      "sha256": "b03cb2279e61626967d93093017680a043e50d5c966e1f1f74dc0acb764dc319"
+    },
+    "command_trace": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-03-B-one-shot-certification/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/container-commands.jsonl",
+      "sha256": "88a9991914dc356c26081e4e8309ee1597ed72373cbd3091ad70baea45079c01"
+    },
+    "validity_stop": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_validity_stop_amendment.json",
+      "sha256": "9db6bba77bb023d70ba5be8baf6e278fe5ae853ec66c28f302fbaf84362c3935"
+    }
+  },
+  "algorithm_changed": false
+}

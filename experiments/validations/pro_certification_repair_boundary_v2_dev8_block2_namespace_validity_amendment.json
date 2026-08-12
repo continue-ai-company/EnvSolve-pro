@@ -1,0 +1,76 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-namespace-validity-v1",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "created_at": "2026-08-07T02:34:26+00:00",
+  "discovery": {
+    "candidate_program_canonical_sha256": "dacd54dae208da2af4cda94b1c8ac479bb63397f387fff015f5afd132af1eea2",
+    "candidate_program_file_sha256": "cae99cf9af6a279d1fc28228f4026397411a93fe8d467a5fed25ebebe6e67dbc",
+    "certification_sha256": "375310ae3c7c467aa6899f3ebcb04fef2e97950f9d750eae027617c744eca289",
+    "generation_result_sha256": "3c6bf38117cebb760ab052aea8843c30c3c80e75851e5e030dc85ee7e56b5295",
+    "goal_passed": true,
+    "goal_report_missing_import_count": 0,
+    "repository_integrity_passed": true,
+    "replay_trace_sha256": "1eb0675b4ac79c765e9ac224ad26f5bd9bb4750666624c3dc36f56dfd440f47b",
+    "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-infra-retry1",
+    "status_sha256_after_user_pause": "606cd7315fe0d62bcec505a65eecf287a8e71d46fc9f20b72dcf6e8012a71892",
+    "termination": "boundary-audit-false-positive-then-user-interruption"
+  },
+  "generic_defect": {
+    "actual": "the repository-provided-module scan recognized regular packages and direct Python files but omitted implicit namespace packages whose Python files occur below a child package",
+    "false_violation": {
+      "distribution": "mqt.bench",
+      "module": "mqt",
+      "reason": "src/mqt is a valid implicit namespace package without src/mqt/__init__.py"
+    },
+    "impact": "a legitimate editable install can be rejected after the executable public goal and repository-integrity checks both pass",
+    "scope": "all Python repositories using PEP 420 implicit namespace packages"
+  },
+  "implementation_scope": {
+    "allowed": [
+      "Treat an identifier-named top-level directory under the project root or src as repository-provided when it recursively contains a non-symlink Python source or stub file.",
+      "Recognize both regular and implicit namespace packages.",
+      "Add direct execution tests for a synthetic src-layout implicit namespace package and a synthetic undeclared local distribution negative control."
+    ],
+    "forbidden": [
+      "No model, prompt, treatment interface, replay count, goal contract, repository-integrity policy, candidate policy, seed, or resource policy may change.",
+      "Do not add a repository-name, distribution-name, case-id, module-name, or mqt-specific exception.",
+      "Do not permit a local distribution that exposes a top-level module absent from repository Python sources.",
+      "Do not mutate consumed run artifacts or the original implementation freeze."
+    ],
+    "pre_change_sha256": {
+      "envsolve_harness/codex/minimal_b_mcp.py": "de0031e6d8148fdcb61a7f804bfcfc41e75516014348f38419c59312b1e8ea4c",
+      "experiments/protocols/envsolve_pro_certification_repair_boundary_v2_implementation_freeze.json": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895",
+      "tests/test_minimal_b_mcp.py": "1feb144b55f6634181283607013e7efa21fb47f7eb08553de590c459bbdfb9af"
+    }
+  },
+  "outcome_policy": {
+    "arm_a": "retain generated program; permit one evaluation-only retry under a separately frozen infrastructure amendment because the initial official evaluator was read-timeout censored",
+    "arm_b_consumed_attempt": "exclude from algorithm success and failure denominators; retain as boundary-validity evidence",
+    "arm_b_replacement": "run a new full one-shot episode only after the generic repair passes regression tests and a replacement schedule is frozen",
+    "arm_c": "retain the audit-valid official pass without rerunning the model"
+  },
+  "prior_binding": {
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v2_implementation_freeze.json",
+      "sha256": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895"
+    },
+    "retry_amendment": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry_amendment.json",
+      "sha256": "5f7f847760dcc02db57fcdc93f65e482818c64fffaf0e662acecfc92de6efcb4"
+    },
+    "retry_progress": {
+      "path": "experiments/runs/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry1-progress.json",
+      "sha256_after_pause": "dd7dbadeab4e91a8972323e5e494768b2915c16ba129bcf59887577a7a1ab884"
+    },
+    "retry_schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry1.json",
+      "sha256": "295c9f5b506b00f2d0399ac0bdf18d2f3600f150288d6f7ed43660726eec6a43"
+    },
+    "source_attestation": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_spark_source_attestation.json",
+      "sha256": "3058e5925daf07d3753d615c3540320907fac06b6f943a7d5485d8aa4620ad52"
+    }
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

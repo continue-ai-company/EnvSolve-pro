@@ -128,6 +128,20 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
                 "Expose real repository source",
             )
         )
+        repository_template = validator.validate(
+            DeploymentCandidate(
+                "candidate-repository-template",
+                "cp config/settings/local.dst config/settings/local.py\n",
+                "Materialize repository-provided runtime configuration",
+            )
+        )
+        renamed_template = validator.validate(
+            DeploymentCandidate(
+                "candidate-renamed-template",
+                "cp config/settings/local.dst apps/users/signals.py\n",
+                "Rename a template into an unrelated import",
+            )
+        )
 
         self.assertFalse(heredoc.accepted)
         self.assertEqual(
@@ -144,6 +158,12 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         )
         self.assertFalse(generated_by_python_c.accepted)
         self.assertTrue(real_path.accepted)
+        self.assertTrue(repository_template.accepted)
+        self.assertFalse(renamed_template.accepted)
+        self.assertEqual(
+            validator.policy_id,
+            "open-candidate-program-v2",
+        )
 
     def test_open_validator_rejects_import_alias_symlinks(self) -> None:
         validator = OpenCandidateProgramValidator()

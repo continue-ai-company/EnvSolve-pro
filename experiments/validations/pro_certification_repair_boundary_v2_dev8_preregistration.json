@@ -1,0 +1,93 @@
+{
+  "analysis_policy": {
+    "all_24_episodes_before_algorithm_change": true,
+    "host": "mac for all three arms to avoid a host-by-treatment confound",
+    "individual_case_rules_forbidden": true,
+    "infrastructure_unknown_excluded_from_effect_denominator": true,
+    "official_and_protocol_admissibility_reported_separately": true,
+    "paired_by_repository": true,
+    "primary_metric": "Official Pass@1",
+    "token_and_price_are_measurements_not_success_stopping_budgets": true
+  },
+  "artifacts": {
+    "boundary_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v2_implementation_freeze.json",
+      "sha256": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "freeze_files": {
+      "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53",
+      "experiments/protocols/envbench_python_public_goal_v2.json": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+      "experiments/protocols/envsolve_pro_certification_repair_boundary_v2_implementation_freeze.json": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895",
+      "experiments/run_replay_ablation_boundary_v2_case.py": "27ee28d7c5a8cb4ed4c4a6e327398cb7cc4bbe576392dd772bfbfa266629c008",
+      "experiments/run_replay_ablation_boundary_v2_schedule.py": "9b1fce50006b7c83d8971efdfb76972aaed84d7dcac8a7182a19589a65a3f792",
+      "experiments/tools/select_pro_certification_repair_boundary_v2_dev8.py": "3fddd24df45639f7334e56dfa2621a3388a7409c1a6c54aa5cf12350db020c95"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "64a5723bae5fe1697a1d3e3802660b24f10bc9070543f9eb4e260602a294b69f"
+    }
+  },
+  "claim_scope": "Repository-disjoint development mechanism gate under the corrected shared boundary.",
+  "conditions": [
+    {
+      "arm": "A",
+      "generation_clean_replays": 0,
+      "method": "codex-cli-goal-aware-boundary-v2",
+      "runner": "codex-cli-qualified-boundary-v2"
+    },
+    {
+      "arm": "B",
+      "maximum_executed_clean_replays": 1,
+      "method": "envsolve-pro-one-shot-certification-boundary-v2",
+      "runner": "envsolve-pro-one-shot-certification-qualified-boundary-v2"
+    },
+    {
+      "arm": "C",
+      "clean_replays_repeatable": true,
+      "method": "envsolve-pro-minimal-b-boundary-v2",
+      "runner": "envsolve-pro-minimal-b-qualified-boundary-v2"
+    }
+  ],
+  "mechanism_decision": {
+    "certification_aware_construction": "Compare A versus B.",
+    "dormant_loop": "If all C first replays pass, do not claim iterative repair and do not add structured state.",
+    "feedback_conditioned_repair": "Count only C first replay Fail or Unknown followed by a different passing replay in the same session and terminal Official Pass."
+  },
+  "preregistered_at": "2026-08-06T06:39:35.231868+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "carry_forward_count": 6,
+    "carry_forward_policy": "Only identities frozen as unexecuted and uninspected by the validity-stop amendment.",
+    "identity_audit": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_replacement_identity_audit.json",
+      "sha256": "0c44a41eb0d6eda2948e785511b6193d971d66058d8cf8fee87d1ad464b98395"
+    },
+    "remaining": {
+      "path": "experiments/cases/train_untouched_after_pro_certification_repair_boundary_v2_35.jsonl",
+      "sha256": "36d1060a3dd2b677f34ebae0ac728a66e3e569b3d284a4fe4c87e36f0d762b67"
+    },
+    "replacement_algorithm": "Exclude identities with any manifest, then take the next repositories by the original ascending salted SHA256 rank.",
+    "replacement_count": 2,
+    "replacement_source": {
+      "path": "experiments/cases/train_untouched_after_pro_certification_repair_ablation_v1_37_v1_0_1.jsonl",
+      "sha256": "512954f013026c1a240192da2cd070a650564b06adab68b089f8040a118c0b00"
+    },
+    "repository_content_or_outcome_used": false,
+    "salt": "envsolve-pro-certification-repair-ablation-v1-dev8-2026-08-05",
+    "selected": {
+      "path": "experiments/cases/dev_pro_certification_repair_boundary_v2_8.jsonl",
+      "sha256": "6e25d260a1128d7b5ecafb56187d6384bb54d58b4a640d8b498116df6f391b01"
+    }
+  },
+  "source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "status": "frozen-before-any-boundary-v2-effectiveness-episode",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

@@ -1,0 +1,33 @@
+{
+  "binding_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-replacement1",
+  "created_at": "2026-08-07T03:12:12+00:00",
+  "schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_cli147_replacement1.json",
+    "sha256": "05740a81045b89d6e40968850737c006fa1e47c8a88fe37128eb846f150d5632"
+  },
+  "execution": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "progress": "experiments/runs/pro_certification_repair_boundary_v2_dev8_block2_cli147_replacement1-progress.json",
+    "runner": "envsolve",
+    "agent_host": "mac",
+    "source_cache_host": "mac-attested-copy-from-spark"
+  },
+  "preflight": {
+    "codex_cli_path": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "source_fsck": "pass-full-strict",
+    "source_tree": "386e97f6c830ba2c91856be80572e778a5e3c434"
+  },
+  "postcondition": "all three manifests must report the bound CLI version before the triplet can enter causal analysis",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-replacement1"
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position1-official-retry1",
+  "completed_at": "2026-08-05T16:38:00Z",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "source_position": 1,
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "C-retryable-minimal-b",
+  "retry_run_id": "pro-cert-repair-v1-dev8-01O1-C-official-network-retry",
+  "execution": {
+    "agent_or_model_reexecuted": false,
+    "source_program_sha256": "87098537cf3e713d005500829a674c2c68c31dcf420893c898e5823c6f7b54fa",
+    "retry_program_sha256": "87098537cf3e713d005500829a674c2c68c31dcf420893c898e5823c6f7b54fa",
+    "program_identity_match": true,
+    "evaluation_completed": true,
+    "identity_matches": true
+  },
+  "official": {
+    "pass": true,
+    "exit_code": 0,
+    "issues_count": 0,
+    "error_count": 963,
+    "warning_count": 4,
+    "interpretation": "EnvBench Official Pass is based on the frozen missing-import objective; non-missing-import Pyright diagnostics are secondary."
+  },
+  "integrity": {
+    "pass": false,
+    "unchanged_by_official_retry": true,
+    "reason": "The exact program injects an empty digitaledition_jekylltheme namespace only for the trusted Pyright invocation.",
+    "adjudication": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_integrity_adjudication.json"
+  },
+  "effective_outcome": {
+    "official_pass": true,
+    "integrity_pass": false,
+    "valid_feedback_conditioned_repair": false
+  },
+  "artifacts": {
+    "manifest": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01O1-C-official-network-retry/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/manifest.json",
+      "sha256": "5f9ddcaf7336fb4f7a2914dd2da5c8d18bc0a8e16d1f442593bb67dfce33cfd8"
+    },
+    "evaluation_result": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01O1-C-official-network-retry/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/evaluation/result.json",
+      "sha256": "ebaa9ad22d0c7559e2f97af9af53bc266295682c2e1bb3dd716a29f9892c5e74"
+    },
+    "evaluation_log": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01O1-C-official-network-retry/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/logs/evaluation.log",
+      "sha256": "90e2ff12419b7a0bfa4d1421c0f80b03bbbd4691b513f47655cd706cf813141e"
+    },
+    "execution_binding": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_official_retry1_execution_binding.json"
+  }
+}

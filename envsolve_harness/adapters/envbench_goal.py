@@ -8,7 +8,7 @@ from envsolve.runtime import ExecutableGoalContract
 _PYRIGHT_MISSING_IMPORT_GOAL = dedent(
     r"""
     write_missing_capability() {
-        python - "$1" "$ENVSOLVE_GOAL_REPORT" <<'PY'
+        command python - "$1" "$ENVSOLVE_GOAL_REPORT" <<'PY'
     import json
     from pathlib import Path
     import sys
@@ -57,16 +57,16 @@ _PYRIGHT_MISSING_IMPORT_GOAL = dedent(
     }
     trap cleanup_envsolve_goal EXIT
 
-    python -m pip install --quiet pyright
+    command python -m pip install --quiet pyright
     if ! command -v pyright >/dev/null 2>&1; then
         write_missing_capability "pyright-cli"
         exit 0
     fi
-    python -m pyright --version > "$PYRIGHT_VERSION"
-    python -m pyright "$ENVSOLVE_PROJECT_ROOT" \
+    command python -m pyright --version > "$PYRIGHT_VERSION"
+    command python -m pyright "$ENVSOLVE_PROJECT_ROOT" \
         --level error --outputjson > "$PYRIGHT_OUTPUT" || true
 
-    python - "$PYRIGHT_OUTPUT" "$PYRIGHT_VERSION" "$ENVSOLVE_GOAL_REPORT" <<'PY'
+    command python - "$PYRIGHT_OUTPUT" "$PYRIGHT_VERSION" "$ENVSOLVE_GOAL_REPORT" <<'PY'
     import hashlib
     import json
     from pathlib import Path
@@ -138,7 +138,7 @@ _PYRIGHT_MISSING_IMPORT_GOAL = dedent(
 
 def envbench_python_goal_contract() -> ExecutableGoalContract:
     return ExecutableGoalContract(
-        contract_id="envbench-python-reportMissingImports-v2",
+        contract_id="envbench-python-reportMissingImports-v3",
         description=(
             "After the candidate configures the environment, run Pyright over "
             "the repository and require zero reportMissingImports diagnostics. "

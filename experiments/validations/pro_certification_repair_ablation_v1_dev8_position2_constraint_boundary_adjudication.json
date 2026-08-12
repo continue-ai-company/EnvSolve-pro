@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position2-constraint-boundary",
+  "frozen_at": "2026-08-05T16:16:00Z",
+  "status": "frozen-before-position-3-outcome",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "position": 2,
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "A-strong-agent-control",
+  "run_id": "pro-cert-repair-v1-dev8-02-A-strong-agent-control",
+  "raw_outcome": {
+    "generation_completed": false,
+    "official_evaluator_reached": false,
+    "official_outcome": "not-observed",
+    "process_exit_code": 1,
+    "runner_error": "Codex CLI repository integrity failed because config/settings/local.py was an untracked import artifact."
+  },
+  "execution_observation": {
+    "agent_process_exit_code": 0,
+    "container_commands": 28,
+    "successful_container_commands": 27,
+    "public_goal_pass_observed_in_construction_container": true,
+    "public_goal_pass_command_sequence": 28,
+    "public_goal_pass_is_scoring": false,
+    "final_program_components": [
+      "Python 3.10 virtual environment",
+      "repository requirements/local.txt",
+      "the repository-declared digitaledition-jekylltheme VCS dependency",
+      "the real django-users2==0.2.2 distribution that provides users.signals",
+      "config/settings/local.py copied from the tracked config/settings/local.dst template",
+      "project-root PYTHONPATH configuration"
+    ],
+    "synthetic_exploration_removed_before_final_program": "The Agent tested a synthetic readux-local-import-support distribution, then explicitly uninstalled it and replaced it with real django-users2 before reaching the public goal and submitting."
+  },
+  "constraint_boundary": {
+    "frozen_policy_outcome": "fail",
+    "outcome_override": false,
+    "possible_false_rejection": true,
+    "reason": "The repository audit treats every untracked importable Python file as inadmissible. It cannot distinguish a runtime configuration copied from a tracked project template from a synthetic module introduced only to satisfy the verifier.",
+    "strong_agent_capability_may_be_constrained": true,
+    "required_follow_up": "After completing the three-arm Readux block, audit whether provenance-preserving runtime configuration should be a distinct admissible operation class. Do not change the frozen runner inside this block."
+  },
+  "artifact_evidence": {
+    "generation_result": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-02-A-strong-agent-control/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/result.json",
+      "sha256": "19c70e92d15f34bf5280cbce3e63ff8e5885e95fbd435a50925aab11a89091c4"
+    },
+    "final_output": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-02-A-strong-agent-control/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/codex-control/final-output.json",
+      "sha256": "719ff8dd1fa817bd76756133d9446600a756653386638358206b2f124c16069e"
+    },
+    "command_trace": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-02-A-strong-agent-control/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/container-commands.jsonl",
+      "sha256": "39db51610d79579e6c621f363e34dfa75469b6109888dc13f848436bc0c1cac9"
+    },
+    "prompt": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-02-A-strong-agent-control/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/codex-control/prompt.txt",
+      "sha256": "7116cfd05989d0743a35b2f5577aa7e1e64bf95899ef2157eeb25df2ea08e39e"
+    },
+    "tracked_template": "config/settings/local.dst"
+  },
+  "algorithm_changed": false
+}

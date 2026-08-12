@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-readux-network-retry1",
+  "frozen_at": "2026-08-06",
+  "timing": "after attempt 1 terminated and before retry 1",
+  "attempt_1": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v2_readux_consumed_attempt1_infrastructure_censored.json",
+    "sha256": "7176f49262e44225140be5c349906538c8640097df17397b6352139b76d56dae",
+    "candidate_completed": false,
+    "trusted_goal_report_observed": false,
+    "failure": "pip reported no matching distribution for Pillow>=11",
+    "adjudication": "infrastructure-censored-before-trusted-goal"
+  },
+  "analysis_correction": {
+    "problem": "The initial qualification script treated any non-passing outcome as a successful boundary rejection.",
+    "repair": "Qualification now requires the candidate-completion marker, both trusted-goal report markers, a valid repository audit, and a non-passing goal outcome.",
+    "attempt_1_effect": "The generated attempt-1 artifact remains immutable and is excluded from qualification evidence."
+  },
+  "retry_policy": {
+    "agent_or_model_reexecuted": false,
+    "program_changed": false,
+    "repository_or_revision_changed": false,
+    "image_digest_changed": false,
+    "allowed_retries": 1
+  }
+}

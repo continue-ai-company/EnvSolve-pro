@@ -1,0 +1,109 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-spark-source-retry-v1",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "created_at": "2026-08-06T09:16:31+00:00",
+  "decision": {
+    "action": "rerun-all-three-full-episodes-once",
+    "agent_execution_host": "mac",
+    "analysis": {
+      "original_attempts": "exclude from effect, success, and timing denominators",
+      "replacement_attempts": "use only if source identity and run audit both validate",
+      "resource_accounting": "report source transfer separately from solver and evaluator resources"
+    },
+    "reason": "all three arms failed during exact-revision source acquisition before model execution",
+    "source_acquisition_host": "spark",
+    "source_policy": "transfer an attested bare Git object database for the exact preregistered revision; do not inspect or modify repository contents",
+    "treatment_order": [
+      "C-retryable-minimal-b",
+      "A-strong-agent-control",
+      "B-one-shot-certification"
+    ]
+  },
+  "frozen_inputs": {
+    "case_file": {
+      "path": "experiments/cases/dev_pro_certification_repair_boundary_v2_8.jsonl",
+      "sha256": "6e25d260a1128d7b5ecafb56187d6384bb54d58b4a640d8b498116df6f391b01"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v2_implementation_freeze.json",
+      "sha256": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895"
+    },
+    "model": "gpt-5.5",
+    "original_progress": {
+      "path": "experiments/runs/pro_certification_repair_boundary_v2_dev8-progress.json",
+      "sha256_after_position_6": "9170d46f86a3a35a857e9884216a3f230fc9d77ff69a87e7d56648150dcf1d2e"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "64a5723bae5fe1697a1d3e3802660b24f10bc9070543f9eb4e260602a294b69f"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "repository": "cda-tum/mqt-bench",
+    "revision": "ae62809395e5b31b5f5b5886f3e5916193029cdd",
+    "seed": 1834703488
+  },
+  "observed_censoring": {
+    "arm_a": {
+      "generation_result_sha256": "c678b62908477db6fd7d2179a02fb94d4926ee12374fce0e619fe9d4ef3f2503",
+      "manifest_sha256": "509741eeb43a12dce9f68c2a101e623ebce56f4a211cdfb17a2b53463c8d2356",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control",
+      "signature": "github-connect-timeout-before-model"
+    },
+    "arm_b": {
+      "generation_result_sha256": "e886f6a7386a468884f4ebe10db0d3d65b1376cdcc5ec6fb3ef451950917c60d",
+      "manifest_sha256": "f9b919a8fe2621382bedbb340c853c5fafab7f3a655f0b5f6dc897d59aa71e4a",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification",
+      "signature": "github-connect-timeout-before-model"
+    },
+    "arm_c": {
+      "generation_result_sha256": "01fe64e46624a0b4ffae54b8c0131281d159d197198e9373eead25159cb83d8e",
+      "manifest_sha256": "e03250c7d382b6de05851e98fdfec6edbf342ffb7ac5c24bfdd16a8d8347e562",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b",
+      "signature": "github-connect-timeout-before-model"
+    }
+  },
+  "preflight": {
+    "agent_host_change": false,
+    "github_http_status": 200,
+    "observed_at": "2026-08-06T09:16:31+00:00",
+    "source_host": "spark",
+    "transport": "ssh-over-tailscale",
+    "vpn_policy": "TAG group, 1X node"
+  },
+  "prohibitions": [
+    "No prompt, model, reasoning effort, runner, verifier, boundary, goal contract, seed, treatment order, or resource policy change is permitted.",
+    "Spark must not run an agent episode or inspect repository worktree contents for this amendment.",
+    "The transferred cache must resolve the exact revision and pass git fsck on both hosts before installation.",
+    "No original censored attempt may be converted into an algorithm pass or failure.",
+    "No algorithm change may be motivated by source transport behavior."
+  ],
+  "replacement_runs": [
+    {
+      "condition": "C-retryable-minimal-b",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b-infra-retry1",
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b"
+    },
+    {
+      "condition": "A-strong-agent-control",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control-infra-retry1",
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control"
+    },
+    {
+      "condition": "B-one-shot-certification",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-infra-retry1",
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

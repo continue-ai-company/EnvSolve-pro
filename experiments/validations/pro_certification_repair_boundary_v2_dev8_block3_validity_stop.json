@@ -1,0 +1,36 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-validity-stop-v1",
+  "artifact_type": "prospective-validity-stop",
+  "created_at": "2026-08-07T07:32:26Z",
+  "evidence": {
+    "block_result": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry1_result.json",
+      "sha256": "ba88b04f840819771dbf762599ccf54a79ccdd9cfe6bbfd812689a6ec97fba3f"
+    },
+    "case_id": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "progress_sha256": "7934ee5afab064c9fbc1f274d09c3cd58e14d436a77c865edac7bad629dd5d62"
+  },
+  "observed_before_change": {
+    "A": "Public goal passed in construction, but generation was rejected because the construction workspace retained repository-declared package-manager outputs.",
+    "B": "The only clean replay reached zero missing imports, but its submitted program was rejected for retaining the same repository-declared package-manager outputs.",
+    "C": "Replay four was certified only after a temporary setup.py packaged those outputs into a wheel and removed the files before the final-state audit; this violates the frozen no-created-build-configuration rule."
+  },
+  "permitted_work": [
+    "repair the measurement and admissibility boundary without changing the A, B, or C reasoning interfaces",
+    "audit the state produced by the submitted bootstrap program rather than exploratory construction residue",
+    "record and reject prohibited operations even when their filesystem effects are later deleted",
+    "recognize generated dependencies only through general project-declared and content-verifiable provenance",
+    "add focused adversarial tests and cross-platform qualification"
+  ],
+  "prohibited_interpretations": [
+    "do not count block 3 toward A/B/C success rates or treatment effects",
+    "do not claim that C defeated A or B",
+    "do not add a valory/trader-specific path allowlist",
+    "do not alter the frozen Minimal-B, one-shot, or strong-Agent treatment interfaces while repairing validity"
+  ],
+  "reason": "Continuing the frozen batch under a known invalid boundary would spend model and infrastructure resources while producing uninterpretable treatment comparisons.",
+  "resume_condition": "A corrected versioned boundary must reject C's temporally hidden setup.py operation, accept content-verifiable project-declared dependency materialization, ignore non-submitted construction residue, and pass focused regression tests before any new Dev case is consumed.",
+  "schema_version": "1.0.0",
+  "status": "batch-paused-for-measurement-repair",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

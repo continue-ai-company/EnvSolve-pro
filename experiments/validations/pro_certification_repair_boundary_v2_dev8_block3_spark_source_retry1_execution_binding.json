@@ -1,0 +1,40 @@
+{
+  "binding_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-spark-source-retry1",
+  "created_at": "2026-08-07T06:20:00+00:00",
+  "schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry1.json",
+    "sha256": "0ebb206feda43ce4e63f370205fbc65f9b149685a3989a9e5db965725b9ece56"
+  },
+  "execution": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "progress": "experiments/runs/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry1-progress.json",
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "runner": "envsolve"
+  },
+  "preflight": {
+    "agent_host": "mac",
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "codex_cli_path": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "repository": "valory-xyz/trader",
+    "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "source_cache_attestation": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block3_spark_source_attestation.json",
+      "sha256": "eb8938eac16adbda5e7f30b8530538b26f27846aba2369e48c841a00f3c8e983"
+    },
+    "source_tree": "09cdf3ae28ec18ab493f2749721d27f3d2749e92"
+  },
+  "postcondition": "All three manifests must report the bound CLI version, exact source tree, image identity, and frozen treatment interfaces before entering paired analysis.",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-spark-source-retry1"
+}

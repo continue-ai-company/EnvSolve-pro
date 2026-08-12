@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-certification-repair-ablation-v1-dev8-validity-stop",
+  "frozen_at": "2026-08-05T16:20:00Z",
+  "status": "frozen-during-position-3-and-before-position-3-outcome",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "trigger_evidence": {
+    "position_1_integrity_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_integrity_adjudication.json",
+      "sha256": "f47bf003a3b8edd6adfce834aaa3c63d02598802472cc61564feac8e8de82543"
+    },
+    "position_2_constraint_boundary_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position2_constraint_boundary_adjudication.json",
+      "sha256": "7df855a49a169a36067823d6381e389d8b121ad6cad0126e32900e7d6c1de6fc"
+    }
+  },
+  "structural_validity_failures": [
+    {
+      "layer": "observation",
+      "failure": "The trusted executable goal inherits candidate-defined shell functions. A candidate can intercept python -m pyright and change only the verifier invocation."
+    },
+    {
+      "layer": "constraint",
+      "failure": "A post-execution repository snapshot cannot detect synthetic import artifacts that are created for the verifier and deleted before the audit."
+    },
+    {
+      "layer": "operation",
+      "failure": "The same snapshot policy rejects a local runtime configuration copied from a tracked repository template, so it conflates a provenance-preserving deployment action with a fake module."
+    }
+  ],
+  "decision": {
+    "complete_position_3": true,
+    "reason_to_complete_position_3": "Finish the already-running Readux block so all three frozen arms can be diagnosed under the same flawed boundary.",
+    "execute_positions_4_to_24": false,
+    "position_3_outcome_used_for_stop_decision": false,
+    "official_retry_for_position_1_still_allowed": true,
+    "algorithm_effect_claim_from_v1": false,
+    "new_status": "consumed-three-arm-diagnostic-pilot"
+  },
+  "scientific_reason": "The intended treatment difference is online clean-replay feedback. Under the observed boundary, the experiment also changes access to an exploitable verifier interaction and can suppress a valid strong-Agent deployment. Running more repositories would not isolate the intended causal mechanism.",
+  "case_accounting": {
+    "trajectory_consumed_repositories": [
+      "ecds/readux",
+      "basxsoftwareassociation/basxconnect"
+    ],
+    "basxconnect_reason": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position4_coordinator_amendment.json",
+      "sha256": "17bb88ef97adb5daa21059b70b69f3fd14407c6395ad34fc3670ce223003bebc"
+    },
+    "selected_but_unexecuted_and_uninspected_repositories": [
+      "gpflow/gpflow",
+      "pypa/distutils",
+      "valory-xyz/trader",
+      "adbar/trafilatura",
+      "zappa/zappa",
+      "nixtla/neuralforecast"
+    ],
+    "carry_forward_policy": "The six unexecuted repositories may enter a future preregistered validation only if no repository contents or task outcomes are inspected before the next implementation freeze. Source-cache acquisition alone is not outcome inspection."
+  },
+  "selection_amendment": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_selection_amendment.json",
+    "sha256": "884a770a1f34d8f08725fc9742143ea9388287d9909c878ca9924aa93c554f49"
+  },
+  "next_gate": [
+    "isolate the executable goal from candidate-defined shell functions",
+    "distinguish provenance-preserving generated runtime configuration from synthetic import artifacts",
+    "qualify both changes on synthetic tests and the consumed Readux case",
+    "freeze the next three-arm protocol before selecting replacement repositories"
+  ],
+  "algorithm_changed": false
+}

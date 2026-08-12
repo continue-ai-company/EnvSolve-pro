@@ -1,0 +1,23 @@
+{
+  "correction_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-cli147-schedule-index-v1",
+  "created_at": "2026-08-07T05:39:45+00:00",
+  "discovery": {
+    "episode_started": false,
+    "error": "ValueError: Schedule positions must be contiguous and ordered from one",
+    "model_or_repository_exposed": false,
+    "progress_file_created": false,
+    "stage": "coordinator schedule validation"
+  },
+  "mechanical_change": {
+    "case_position": "unchanged at 3",
+    "condition_order": "unchanged: C, A, B",
+    "episode_positions": "renumbered locally from 7,8,9 to 1,2,3",
+    "original_schedule_sha256": "e145cca8c7fc7cf597fb387ca9affc6d16c818d18b0f2ab05c46dfc5680c2db3",
+    "corrected_schedule_sha256": "17f6c614fe5469912ad6b9f2e07e18fec532dff32f5a1abf47208840cce9587c",
+    "run_ids": "unchanged",
+    "treatment_inputs": "unchanged"
+  },
+  "original_execution_binding_sha256": "29a7b687145882acf99aa41fcc13ca5547716dfa52d2282f3ac338740c6d5615",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-cli147"
+}

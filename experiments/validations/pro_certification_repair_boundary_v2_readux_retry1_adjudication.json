@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-certification-repair-boundary-v2-readux-retry1",
+  "adjudicated_at": "2026-08-06",
+  "raw_result": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v2_readux_consumed_retry1_result.json",
+    "sha256": "59eea8cc94ff6ea050a30d44e999f42999e710bc9fc201666734de432f32766f",
+    "modified": false
+  },
+  "analysis_error": {
+    "recorded_classification": "qualification-failed",
+    "cause": "The qualification script looked for repository_effect_audit at outcome.details instead of outcome.details.report_details after StructuredFindingAdapter adaptation.",
+    "scope": "post-execution result classification only"
+  },
+  "raw_mechanism_evidence": {
+    "candidate_completed": true,
+    "trusted_goal_report_observed": true,
+    "candidate_exit_code": 0,
+    "repository_effect_audit_path": "outcome.details.report_details.repository_effect_audit",
+    "repository_integrity_pass": true,
+    "goal_passed": false,
+    "active_missing_import_findings": 24,
+    "includes_original_gamed_subject": "digitaledition_jekylltheme",
+    "includes_runtime_config_subject": "config.settings.local"
+  },
+  "final_classification": "qualified-boundary-rejection",
+  "qualification_pass": true,
+  "interpretation": "The exact consumed Arm-C script completed in a fresh container, but its candidate-defined python function was absent from the trusted goal shell; real Pyright therefore observed unresolved imports and no v2 certificate could be issued.",
+  "claim_scope": "consumed-boundary-qualification-only"
+}

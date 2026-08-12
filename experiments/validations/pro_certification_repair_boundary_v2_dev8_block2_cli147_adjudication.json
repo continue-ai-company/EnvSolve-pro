@@ -1,0 +1,62 @@
+{
+  "adjudication_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli147-v1",
+  "artifact_type": "replacement-and-outcome-adjudication",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "created_at": "2026-08-07T05:33:07+00:00",
+  "identity_audit": {
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "model": "gpt-5.5",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "repository": "cda-tum/mqt-bench",
+    "revision": "ae62809395e5b31b5f5b5886f3e5916193029cdd",
+    "tree": "386e97f6c830ba2c91856be80572e778a5e3c434",
+    "valid": true
+  },
+  "interrupted_b_attempt": {
+    "algorithm_outcome": "excluded",
+    "candidate_outcome_observed": false,
+    "classification": "agent-runtime-semantic-stall-censored",
+    "container_command_count": 6,
+    "final_output_exists": false,
+    "no_progress_seconds_lower_bound": 2058,
+    "replay_count": 0,
+    "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-replacement1",
+    "stall_snapshot_sha256": "6b9d5bb99635b6522b1cea3263cba334d0eef8ef0cb62f55abe2057b2de30462"
+  },
+  "replacement_b_attempt": {
+    "effective_for_arm_b": true,
+    "evaluation_result_sha256": "f011d9e9a8192658830ff67951660ed981618b3bbca3d1f8b370bd41b9d5228d",
+    "generation_result_sha256": "0f03d280a4da4f84c37ff18c5d0dab91a247aaf0729915096e902874b1c7d737",
+    "identity_valid": true,
+    "manifest_sha256": "0719844a5d3147fb87eac6618e06e59436d95f993b7487e83a67b0b9b4d9cc19",
+    "official_state": "pass",
+    "process_exit_code": 0,
+    "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-semantic-stall-retry1"
+  },
+  "official_outcome_rules": {
+    "A": "count as pass",
+    "B": "count the valid replacement as pass; exclude the censored attempt",
+    "C": "count as fail because the submitted bootstrap exited 1 under the official evaluator; the preceding internal certificate does not override the official metric"
+  },
+  "validity_notes": [
+    "The connectivity canary returned OK only after five websocket request timeouts and an HTTPS fallback. It established reachability but documented transport instability.",
+    "The replacement B episode followed the preregistered full timeout and did not reuse the post hoc 34-minute stopping threshold.",
+    "C's pip ResolutionImpossible may reflect time-varying package resolution, but it is still a deployment failure under the frozen official metric rather than a qualifying evaluator timeout or artifact-integrity censoring event.",
+    "Resource measurements remain descriptive because B is a preregistered replacement executed after the censored attempt rather than in its original sequence slot."
+  ],
+  "bindings": {
+    "replacement_amendment_sha256": "e592ee176908ea4f3fcc4c276e97d4c60bdf136c381fe432a114e91b573e85ad",
+    "replacement_execution_binding_sha256": "ab549ae29daef3eb850d969e6719114c92e4ebb44deae3aa4a5c939127b08e44",
+    "replacement_progress_sha256": "529a20a7c14aef9d57bcf2edfe617450f94f0159f74bc022658d4f70df656ac8",
+    "replacement_schedule_sha256": "94127aaaa5cb60c1540ff3a49ebbca3de546b119efe01f5eb75dc5fb54cb9882",
+    "triplet_execution_binding_sha256": "8e2e98eda61fa356680908a4a00ea5d36a5b57a8959b7c6e6809277d3875e695",
+    "triplet_progress_sha256": "ce7730989ca282e41c71b74b1230b6bbd38b5ea6f17bf8beb8b64d0539b16d69",
+    "triplet_schedule_sha256": "05740a81045b89d6e40968850737c006fa1e47c8a88fe37128eb846f150d5632"
+  },
+  "schema_version": "1.0.0",
+  "status": "closed-with-valid-b-replacement",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

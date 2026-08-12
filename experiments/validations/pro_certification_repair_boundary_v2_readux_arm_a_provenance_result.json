@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "envsolve-pro-certification-repair-boundary-v2-readux-arm-a-provenance",
+  "completed_at": "2026-08-06",
+  "scope": "post-hoc boundary qualification on a consumed construction workspace",
+  "case": {
+    "repository": "ecds/readux",
+    "revision": "3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb"
+  },
+  "frozen_inputs": {
+    "arm_a_final_output": {
+      "sha256": "719ff8dd1fa817bd76756133d9446600a756653386638358206b2f124c16069e"
+    },
+    "arm_a_generation_result": {
+      "sha256": "19c70e92d15f34bf5280cbce3e63ff8e5885e95fbd435a50925aab11a89091c4"
+    },
+    "canonical_bootstrap_program_sha256": "03ca33fd183acd268785c2d1e693d19d84048d8f9f09fac7ad927d8d18fa7f94"
+  },
+  "repository_audit": {
+    "policy": "clean-tracked-tree-and-provenance-derived-files-v6",
+    "valid": true,
+    "violations": [],
+    "repository_derived_artifacts": [
+      {
+        "path": "config/settings/local.py",
+        "source_path": "config/settings/local.dst",
+        "sha256": "2ad65314077ff94f7579dc59c05af6979c2194a27157ca1951c7a5980e64158a",
+        "derivation": "exact-copy-of-tracked-sibling-template"
+      }
+    ]
+  },
+  "qualification_pass": true,
+  "interpretation": "Boundary v2 admits the ignored runtime configuration because its bytes and name relation are grounded in a tracked sibling template at the exact repository revision.",
+  "claim_scope": "operation-boundary-qualification-only"
+}

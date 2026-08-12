@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position1-official-network-retry1",
+  "frozen_at": "2026-08-05T16:01:05Z",
+  "status": "frozen-before-retry-and-before-position-2-outcome",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "position": 1,
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "C-retryable-minimal-b",
+  "run_id": "pro-cert-repair-v1-dev8-01-C-retryable-minimal-b",
+  "failure": {
+    "phase": "post-generation official evaluation",
+    "classification": "network-infrastructure",
+    "github": "git fetch exited 128 after repository download failure",
+    "huggingface": "SSL EOF while downloading the repository archive",
+    "evaluation_completed": false,
+    "identity_matches": false
+  },
+  "evidence": {
+    "evaluation_log": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/logs/evaluation.log",
+      "sha256": "eeef2b1377b4cb37914aef9fd04d597fa9bd21c74c76c4eb11d24ee1bf4510c4"
+    },
+    "evaluation_result": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/evaluation/result.json",
+      "sha256": "944fbf8cf7f846afe8ee041955c2cbf897e50bcb475317d04dde98cf877a5a52"
+    },
+    "generated_program": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/scripts/generated.sh",
+      "sha256": "87098537cf3e713d005500829a674c2c68c31dcf420893c898e5823c6f7b54fa"
+    }
+  },
+  "retry_policy": {
+    "scope": "official-evaluator-only",
+    "maximum_additional_attempts": 1,
+    "reuse_exact_generated_program": true,
+    "rerun_agent_generation": false,
+    "algorithm_change_before_retry": false,
+    "execute_after_connectivity_check": true,
+    "raw_failed_attempt_retained": true,
+    "effective_official_outcome": "Use retry only if the evaluator produces a complete identity-matched result; otherwise classify Official as infrastructure-unknown."
+  },
+  "integrity_outcome_independent_of_retry": {
+    "integrity_pass": false,
+    "adjudication_path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_integrity_adjudication.json"
+  }
+}

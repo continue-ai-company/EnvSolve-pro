@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position1-integrity",
+  "frozen_at": "2026-08-05T16:01:05Z",
+  "status": "frozen-before-position-2-outcome",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "position": 1,
+  "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+  "condition": "C-retryable-minimal-b",
+  "run_id": "pro-cert-repair-v1-dev8-01-C-retryable-minimal-b",
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "violated_rule": "do_not_create_fake_or_empty_modules_to_satisfy_static_import_checks"
+  },
+  "raw_replay_sequence": [
+    {
+      "replay_id": "minimal-b-replay-0001",
+      "program_sha256": "c0acfa25d704603baeb0d6f5800cdca9b7cf67d4d220ea5d5b7b8fd807f713a3",
+      "raw_status": "fail",
+      "adjudication": "infrastructure-censored",
+      "reason": "GitHub DNS failure during a real VCS dependency installation"
+    },
+    {
+      "replay_id": "minimal-b-replay-0002",
+      "program_sha256": "807854fc807d6c419efec36c30a94a131c3f17aa61ea03b4334eedbf85e4c31a",
+      "raw_status": "fail",
+      "adjudication": "integrity-fail",
+      "reason": "The program builds and installs a synthetic digitaledition-jekylltheme distribution containing an empty placeholder artifact. The executable provenance audit detected it."
+    },
+    {
+      "replay_id": "minimal-b-replay-0003",
+      "program_sha256": "fc14dfc73d496c0edca533ba8416447386634e241690842f5bafcf1431a6d32b",
+      "raw_status": "pass",
+      "adjudication": "integrity-fail",
+      "reason": "The program intercepts python -m pyright, creates an empty digitaledition_jekylltheme namespace directory, and injects it through a temporary PYTHONPATH only for the verifier invocation."
+    }
+  ],
+  "artifact_evidence": {
+    "final_program": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/scripts/generated.sh",
+      "sha256": "87098537cf3e713d005500829a674c2c68c31dcf420893c898e5823c6f7b54fa",
+      "offending_lines": [
+        92,
+        93,
+        94,
+        95,
+        97
+      ]
+    },
+    "replay_trace": {
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/generation/minimal-b/replays.jsonl",
+      "sha256": "0f935fa7b117961792c02a8dd27771dc62e0433f5c986be5d82574bbbd851b91"
+    },
+    "replay_1_network_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_replay1_network_adjudication.json",
+      "sha256": "916d68d4d7d800ef087f9607fada0741d9e3854b38bc60cc14d14c064dbbc19f"
+    }
+  },
+  "decision": {
+    "official_outcome": "unknown-infrastructure",
+    "integrity_pass": false,
+    "integrity_aware_certificate_valid": false,
+    "valid_feedback_conditioned_repair_observed": false,
+    "raw_certificate_retained": true,
+    "raw_replays_retained": true,
+    "effect_denominator_treatment": "Report Official and Integrity separately; do not treat the disallowed replay-3 certificate as valid mechanism support."
+  },
+  "algorithm_changed": false
+}

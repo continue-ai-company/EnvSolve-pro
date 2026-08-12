@@ -1,0 +1,42 @@
+{
+  "amendment": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry_amendment.json",
+    "sha256": "5f7f847760dcc02db57fcdc93f65e482818c64fffaf0e662acecfc92de6efcb4"
+  },
+  "archive": {
+    "bytes": 4727594,
+    "mac_sha256": "b166e1f9d103198dfba4f0a5935af23338b990a88eafcd79713038d7ec9af23e",
+    "spark_sha256": "b166e1f9d103198dfba4f0a5935af23338b990a88eafcd79713038d7ec9af23e"
+  },
+  "cache": {
+    "cache_version": "immutable-exact-revision-cache-v1",
+    "commit": "ae62809395e5b31b5f5b5886f3e5916193029cdd",
+    "fsck_mac": "pass-full-strict",
+    "fsck_spark": "pass-full-strict",
+    "head": "refs/heads/envsolve-exact",
+    "installed_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/_source_cache/repositories/cda-tum__mqt-bench/ae62809395e5b31b5f5b5886f3e5916193029cdd.git",
+    "object_count_in_pack": 152,
+    "repository": "cda-tum/mqt-bench",
+    "source_ref": "refs/envsolve/exact",
+    "tree": "386e97f6c830ba2c91856be80572e778a5e3c434"
+  },
+  "created_at": "2026-08-06T09:20:00+00:00",
+  "noninterference": {
+    "agent_episode_ran_on_spark": false,
+    "repository_worktree_created_on_spark": false,
+    "repository_worktree_inspected_on_spark": false,
+    "source_object_bytes_changed_in_transfer": false
+  },
+  "schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry1.json",
+    "sha256": "295c9f5b506b00f2d0399ac0bdf18d2f3600f150288d6f7ed43660726eec6a43"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-spark-source-retry1",
+  "transport": {
+    "agent_execution_host": "mac",
+    "source_acquisition_host": "spark",
+    "source_network": "TAG VPN group on a 1X node",
+    "transfer": "scp-over-tailscale"
+  }
+}

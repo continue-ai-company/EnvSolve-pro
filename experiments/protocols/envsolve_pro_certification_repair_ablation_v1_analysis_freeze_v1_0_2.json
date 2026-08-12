@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-ablation-v1-analysis-v1-0-2",
+  "frozen_at": "2026-08-05T16:01:05Z",
+  "status": "frozen-before-position-2-outcome",
+  "supersedes": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_analysis_freeze_v1_0_1.json",
+    "sha256": "aeb0579140b9698e6bdddc795cf3bfb2566298b905a2508ab2fc83c11aa0e0f5"
+  },
+  "reason": "A raw passing replay can violate a pre-registered integrity rule. Mechanism evidence must therefore exclude both infrastructure-censored and integrity-invalid replay records while retaining the complete raw sequence.",
+  "analysis_change": {
+    "algorithm_execution_changed": false,
+    "official_metric_changed": false,
+    "raw_trace_changed": false,
+    "new_generic_input": "replay_adjudication.integrity_invalid_replay_ids",
+    "effective_replay_definition": "An executed replay that is neither infrastructure-censored nor integrity-invalid.",
+    "mechanism_support_rule": "Arm C first integrity-valid replay Fail/Unknown, later different integrity-valid replay Pass, and final Official Pass."
+  },
+  "position_1_evidence": {
+    "integrity_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_integrity_adjudication.json",
+      "sha256": "f47bf003a3b8edd6adfce834aaa3c63d02598802472cc61564feac8e8de82543"
+    },
+    "official_network_retry_amendment": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_official_network_retry_amendment.json",
+      "sha256": "2faaae70b665de6931375d068aae86152dc1ad20d4bddae2868283ff0bd908a8"
+    },
+    "raw_replay_statuses": [
+      "fail",
+      "fail",
+      "pass"
+    ],
+    "infrastructure_censored_replay_ids": [
+      "minimal-b-replay-0001"
+    ],
+    "integrity_invalid_replay_ids": [
+      "minimal-b-replay-0002",
+      "minimal-b-replay-0003"
+    ],
+    "effective_replay_statuses": []
+  },
+  "source_hashes": {
+    "envsolve_harness/certification_repair_analysis.py": "68d63b05f9b6f8eb2a2a72aa404f1c1020e4f7e185250134b4f773dfc8a7dd23",
+    "experiments/analyze_pro_certification_repair_ablation_v1.py": "646744a178ecad5cb422462820878291343651e91b34a5a8a4423b8ced3eb017",
+    "tests/test_certification_repair_analysis.py": "05991d1a0606e6a87c9efe9152e8fc40f77ffb689f51b98dff320972282df577"
+  },
+  "verification": {
+    "focused_pytest": "9 passed",
+    "full_pytest": "712 passed, 7 skipped, 75 subtests passed",
+    "ruff": "pass"
+  }
+}

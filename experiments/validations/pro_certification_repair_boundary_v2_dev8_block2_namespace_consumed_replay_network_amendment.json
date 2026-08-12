@@ -1,0 +1,47 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-namespace-consumed-replay-network-retry-v1",
+  "created_at": "2026-08-07T02:53:41+00:00",
+  "classification": "infrastructure-censored-before-trusted-goal",
+  "evidence": {
+    "candidate_completed": false,
+    "failure": "pip._vendor.urllib3.exceptions.ReadTimeoutError while downloading pip from files.pythonhosted.org",
+    "goal_report_observed": false,
+    "network_host": "files.pythonhosted.org",
+    "post_audit_observed": false,
+    "pre_candidate_mechanism_evidence": {
+      "baseline_audit_observed": true,
+      "provided_modules_contains_mqt": true
+    }
+  },
+  "decision": {
+    "action": "permit the single byte-identical infrastructure retry preregistered before the censored attempt",
+    "algorithm_outcome": "excluded",
+    "changes_permitted": [
+      "new output path",
+      "new temporary worktree root",
+      "retry attempt identifier"
+    ],
+    "changes_forbidden": [
+      "candidate bytes",
+      "repository or revision",
+      "image digest",
+      "workspace preconditions",
+      "boundary implementation",
+      "goal contract",
+      "timeout or decision rule"
+    ]
+  },
+  "bindings": {
+    "censored_result": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_result.json",
+      "sha256": "3228a6026f52dab1fd7f7c327ba43a05bdcbc53375f4fd7d6e4954a131916b58"
+    },
+    "preregistration": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_preregistration.json",
+      "sha256": "fcec7bf74f03b5777a985013c937869f17f5fa2c35d8f4a96cfdcb5cb8f14322"
+    }
+  },
+  "retry_output": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_retry1_result.json",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

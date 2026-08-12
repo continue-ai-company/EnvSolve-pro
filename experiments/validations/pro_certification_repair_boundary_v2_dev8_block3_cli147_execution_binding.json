@@ -1,0 +1,44 @@
+{
+  "binding_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-cli147",
+  "created_at": "2026-08-07T05:37:41+00:00",
+  "schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block3_cli147.json",
+    "sha256": "17f6c614fe5469912ad6b9f2e07e18fec532dff32f5a1abf47208840cce9587c"
+  },
+  "execution": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "progress": "experiments/runs/pro_certification_repair_boundary_v2_dev8_block3_cli147-progress.json",
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "runner": "envsolve"
+  },
+  "preflight": {
+    "agent_host": "mac",
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "codex_cli_path": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "repository": "valory-xyz/trader",
+    "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "seed": 2276368076
+  },
+  "research_freeze": {
+    "implementation_freeze_sha256": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895",
+    "preregistration_sha256": "c31790e045fc8fd7f4cb10f6cc531f46c8b3d96357869dc484a747cb5daa7a7b"
+  },
+  "schedule_index_correction": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block3_cli147_schedule_index_correction.json",
+    "sha256": "2cf6ae0e3b5da2999a18aee530f8a6b53d6ed044ce7af10b62525605f941bd34"
+  },
+  "postcondition": "All three manifests must report the bound CLI version, identical source tree and image identity, and the frozen treatment interfaces before this block can enter paired analysis.",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-cli147"
+}

@@ -1,0 +1,76 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-cli-drift-contemporaneous-v1",
+  "created_at": "2026-08-07T03:10:32+00:00",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "discovery": {
+    "observed_during": "preflight after freezing but before executing the B-only replacement schedule",
+    "prior_effective_cli_version": "codex-cli 0.146.0-alpha.9.2",
+    "current_cli_path": "/Applications/ChatGPT.app/Contents/Resources/codex",
+    "current_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "current_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "prior_binary_available": false,
+    "risk": "a B-only replacement would confound the boundary correction with a changed Agent client implementation"
+  },
+  "decision": {
+    "action": "supersede the unexecuted B-only replacement with a contemporaneous C-A-B triplet under the current CLI",
+    "reason": "within-case treatment comparisons require the same observable Agent client implementation",
+    "prior_a_and_c": "retain as historical and mechanism evidence but do not compare them causally with the new B",
+    "new_triplet": "use only if all three manifests report the frozen CLI version and all other identity audits pass"
+  },
+  "superseded_unexecuted_schedule": {
+    "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_namespace_replacement_b1.json",
+    "sha256": "04f2fe56c6a4deac0f4f5d36ac2296821c64e4415f5e410632dbf6eb25fe0d1e",
+    "executed": false
+  },
+  "replacement_triplet": [
+    {
+      "condition": "C-retryable-minimal-b",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b-cli147-replacement1"
+    },
+    {
+      "condition": "A-strong-agent-control",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control-cli147-replacement1"
+    },
+    {
+      "condition": "B-one-shot-certification",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-replacement1"
+    }
+  ],
+  "frozen_common_inputs": {
+    "case_file_sha256": "6e25d260a1128d7b5ecafb56187d6384bb54d58b4a640d8b498116df6f391b01",
+    "config_sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "repository": "cda-tum/mqt-bench",
+    "revision": "ae62809395e5b31b5f5b5886f3e5916193029cdd",
+    "tree": "386e97f6c830ba2c91856be80572e778a5e3c434",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "seed": 1834703488,
+    "treatment_order": [
+      "C-retryable-minimal-b",
+      "A-strong-agent-control",
+      "B-one-shot-certification"
+    ],
+    "episode_timeout_seconds": 22400,
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5"
+  },
+  "bindings": {
+    "namespace_replacement_b_amendment": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_replacement_b_amendment.json",
+      "sha256": "6b37e9f5534565674de83f65eb6deb3ee66c6f39671831ac4f86ba6e03f6eb1c"
+    },
+    "namespace_consumed_replay_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_adjudication.json",
+      "sha256": "e5855a916b6320f82e35c9f4094f4259adb3bd1191c663ea06068440448448bd"
+    }
+  },
+  "prohibitions": [
+    "Do not compare the new B causally against old-client A or C outcomes.",
+    "Do not reuse any prior model session, candidate, or final output.",
+    "Do not alter treatment prompts, interfaces, verifier, source, image, model, seed, reasoning effort, or resource policy.",
+    "Exclude the whole new triplet if the CLI version or binary hash changes between arms."
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "envsolve-pro-certification-repair-boundary-v2-dual-platform-2026-08-06",
+  "qualified_at": "2026-08-06",
+  "status": "pass",
+  "boundary": {
+    "version": "certification-repair-boundary-v2",
+    "goal_contract": "envbench-python-reportMissingImports-v3",
+    "candidate_policy": "open-candidate-program-v2",
+    "repository_policy": "clean-tracked-tree-and-provenance-derived-files-v6"
+  },
+  "source_snapshot": {
+    "mac_root": "/Users/admin/.codex/worktrees/4050/AnyDeploy",
+    "linux_arm_root": "/home/avdpro/worktrees/EnvSolve-pro-cert-repair-v1-20260805",
+    "compared_file_count": 23,
+    "sha256_match": true,
+    "frozen_goal_verifier_sha256": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904"
+  },
+  "machines": [
+    {
+      "host_role": "mac-development",
+      "operating_system": "macOS",
+      "architecture": "arm64",
+      "python": "3.13",
+      "verification": [
+        "61-passed-1-skipped-focused",
+        "2-passed-real-docker-red-team",
+        "718-passed-8-skipped-75-subtests-full-regression",
+        "boundary-v2-case-and-schedule-help-pass",
+        "ruff-pass",
+        "git-diff-check-pass"
+      ]
+    },
+    {
+      "host_role": "spark-linux-arm",
+      "operating_system": "Ubuntu 24.04",
+      "kernel": "Linux 6.14.0-1015-nvidia",
+      "architecture": "aarch64",
+      "gpu": "NVIDIA GB10",
+      "docker": "28.5.1",
+      "python": "3.12.3",
+      "verification": [
+        "61-passed-1-skipped-focused",
+        "2-passed-real-docker-red-team",
+        "boundary-v2-case-and-schedule-help-pass"
+      ]
+    }
+  ],
+  "consumed_counterexamples": {
+    "verifier_interference": {
+      "result": "pass",
+      "evidence": "The exact Readux Arm-C program completes, but real Pyright reports unresolved imports and no boundary-v2 certificate is issued."
+    },
+    "legitimate_repository_configuration": {
+      "result": "pass",
+      "evidence": "The exact Readux Arm-A local.py is admitted only as a byte-identical copy of the tracked local.dst at the frozen revision."
+    }
+  },
+  "validated_properties": [
+    "candidate-defined-shell-functions-cannot-control-trusted-goal",
+    "candidate-defined-bash-startup-hooks-are-not-loaded-by-trusted-goal",
+    "synthetic-unowned-import-artifacts-remain-rejected",
+    "revision-bound-repository-template-copies-are-admitted",
+    "boundary-v2-runner-and-entrypoint-selection-is-explicit",
+    "mac-and-linux-arm-source-snapshots-are-byte-identical"
+  ],
+  "algorithm_change": false,
+  "claim_boundary": "This qualifies a shared measurement and admissibility boundary. It is not an EnvBench effectiveness result and does not rescue the consumed Readux three-arm pilot."
+}

@@ -1,0 +1,101 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block1-infrastructure-retry-v1",
+  "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+  "created_at": "2026-08-06T07:45:00+00:00",
+  "decision": {
+    "arm_a": {
+      "action": "rerun-full-episode-once",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-01-A-strong-agent-control-infra-retry1",
+      "reason": "source acquisition failed before model execution",
+      "reuse": "shared immutable exact-revision source cache"
+    },
+    "arm_b": {
+      "action": "rerun-full-episode-once",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-02-B-one-shot-certification-infra-retry1",
+      "reason": "source acquisition failed before model execution",
+      "reuse": "shared immutable exact-revision source cache"
+    },
+    "arm_c": {
+      "action": "rerun-official-evaluator-once",
+      "model_reexecuted": false,
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry1",
+      "reason": "official evaluator bootstrap was censored by a read timeout",
+      "script_policy": "exact bytes from the audit-valid source run"
+    },
+    "analysis": {
+      "arm_c_first_clean_replay": "retain as a valid first-replay pass",
+      "end_to_end_timing": "censor for this block because source acquisition and evaluator network conditions differed",
+      "initial_arm_a_and_b_attempts": "exclude from effect denominators and algorithm-failure counts",
+      "initial_arm_c_official_attempt": "exclude from official success denominator as infrastructure unknown",
+      "primary_effect_outcomes": "use the replacement A and B episodes and the evaluation-only C retry",
+      "solver_generation_metrics": "retain separately with infrastructure censoring labels"
+    }
+  },
+  "frozen_inputs": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v2_implementation_freeze.json",
+      "sha256": "38027f95a6ace0f8ed10f6358cbc916629f3def5af2910accc81ce9f100bc895"
+    },
+    "model": "gpt-5.5",
+    "original_progress": {
+      "path": "experiments/runs/pro_certification_repair_boundary_v2_dev8-progress.json",
+      "sha256": "b94221827d292c80e03629b26299e38a72a49287d429e2d7c5e6f33b3578987c"
+    },
+    "original_schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "64a5723bae5fe1697a1d3e3802660b24f10bc9070543f9eb4e260602a294b69f"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "seed": 3109955732,
+    "source_cache": {
+      "commit": "529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "fsck": "pass",
+      "repository": "astropy/reproject",
+      "source": "immutable-exact-revision-cache-v1",
+      "tree": "efb2f1eadfee8dc7d32a965e304562efad9f962f"
+    }
+  },
+  "observed_censoring": {
+    "arm_a": {
+      "generation_result_sha256": "23f6c274a8edb7673f1e7dd3a14eba810572daffa9f096d86237c325c1029ba2",
+      "manifest_sha256": "b69aa943f6980a9c5ec7907c93ea6e47e5c7ee44c32983e8fcca9b959963b643",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-01-A-strong-agent-control",
+      "signature": "github-ssl-connection-timeout"
+    },
+    "arm_b": {
+      "generation_result_sha256": "18e0687426349a3a2c73c1fcf169e9aed70cb5b2c237806b867334c81df97f6e",
+      "manifest_sha256": "c17ec3fda4c15aedd220066788810f38b76b94ebc7b86a509b8a660e11b2e1d1",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-02-B-one-shot-certification",
+      "signature": "github-connect-timeout"
+    },
+    "arm_c": {
+      "bootstrap_script_sha256": "07eb220d2e6d6239a54512b29da99a331bace47e8472591d18699878ca81f278",
+      "evaluation_result_sha256": "39269192b8166ad616df66fd04a34804eb6f13f4b351a96c482acdccfc8b3e1c",
+      "generation_result_sha256": "07c10966574aef8500bde49fe48333261b1a4a421f92ae0386f805a86e098f56",
+      "inner_clean_replay_certified": true,
+      "inner_clean_replay_count": 1,
+      "manifest_sha256": "bd44cb5b18ea93ab523544b7aab1d1a788940d041a0a5c3c4c8b37c554011eee",
+      "official_evaluation_completed": false,
+      "official_raw_result_sha256": "89140516c58edcf865d3364df974a87304464138f40e4c25676b4c0989fd3dcf",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b",
+      "signature": "evaluator-bootstrap-read-timeout"
+    }
+  },
+  "prohibitions": [
+    "No prompt, model, reasoning effort, runner, verifier, boundary, goal contract, seed, or resource policy changes are permitted for the A and B retries.",
+    "The C model session and bootstrap program must not be regenerated or edited.",
+    "No result from the initial censored attempts may be converted into a pass or fail.",
+    "No algorithm change may be motivated by this infrastructure amendment."
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

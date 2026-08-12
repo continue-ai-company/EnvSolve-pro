@@ -9,7 +9,7 @@ from typing import Iterator
 from envsolve.solver import CandidateValidation, DeploymentCandidate
 
 
-OPEN_PROGRAM_POLICY = "open-candidate-program-v1"
+OPEN_PROGRAM_POLICY = "open-candidate-program-v2"
 _IMPORTABLE_SUFFIXES = (".py", ".pyi", ".pyc", ".pyd", ".so", ".pth")
 _ALLOWED_BUILD_DRIVER_NAMES = {"setup.py"}
 _OUTPUT_REDIRECTION = re.compile(
@@ -17,7 +17,8 @@ _OUTPUT_REDIRECTION = re.compile(
 )
 _DIRECT_FILE_COMMAND = re.compile(
     r"(?:^|(?:&&|\|\||[;|])\s*)"
-    r"(?:touch|truncate|cp|mv|install|tee)\s+(?P<arguments>[^;&|]+)"
+    r"(?P<command>touch|truncate|cp|mv|install|tee)\s+"
+    r"(?P<arguments>[^;&|]+)"
 )
 _SYMLINK_COMMAND = re.compile(
     r"(?:^|(?:&&|\|\||[;|])\s*|\bthen\s+)\s*"
@@ -46,6 +47,26 @@ def _direct_import_artifact(value: str) -> str | None:
     return target if name.lower().endswith(_IMPORTABLE_SUFFIXES) else None
 
 
+def _is_repository_template_copy(command: str, arguments: str) -> bool:
+    if command != "cp":
+        return False
+    try:
+        tokens = shlex.split(arguments, posix=True)
+    except ValueError:
+        return False
+    operands = [token for token in tokens if not token.startswith("-")]
+    if len(operands) != 2:
+        return False
+    source = PurePosixPath(_normalized_shell_target(operands[0]))
+    destination = PurePosixPath(_normalized_shell_target(operands[1]))
+    return (
+        source.parent == destination.parent
+        and source.stem == destination.stem
+        and source.suffix.lower() not in _IMPORTABLE_SUFFIXES
+        and destination.suffix.lower() in _IMPORTABLE_SUFFIXES
+    )
+
+
 def _direct_import_artifact_write(script: str) -> tuple[str, str] | None:
     for line in script.splitlines():
         for match in _OUTPUT_REDIRECTION.finditer(line):
@@ -53,6 +74,11 @@ def _direct_import_artifact_write(script: str) -> tuple[str, str] | None:
             if target is not None:
                 return line.strip(), target
         for match in _DIRECT_FILE_COMMAND.finditer(line):
+            if _is_repository_template_copy(
+                match.group("command"),
+                match.group("arguments"),
+            ):
+                continue
             for token in re.findall(
                 r"\"[^\"\n]+\"|'[^'\n]+'|[^\s]+",
                 match.group("arguments"),
@@ -297,9 +323,12 @@ for commands that run after it.
 Environment-path configuration may expose real repository or installed artifacts,
 but must not point to synthetic modules or shadow the executable goal.
 Do not directly create or copy Python import artifacts such as `.py`, `.pyi`, `.pth`,
-or `.so` files, and do not create import aliases by symlinking repository paths into
-Python package search directories. Use repository build and package tools to
-materialize real artifacts; a temporary `setup.py` may be used only as a build driver.
+or `.so` files. The only direct-copy exception is a same-directory, same-stem target
+copied from a repository-tracked non-importable template; the target must already be
+ignored by the repository and remain byte-identical to that template. Do not create
+import aliases by symlinking repository paths into Python package search directories.
+Use repository build and package tools to materialize real artifacts; a temporary
+`setup.py` may be used only as a build driver.
 
 Shell syntax is not restricted to a command schema. Safety and correctness are
 decided by isolated execution, repository-effect audit, and executable postconditions.

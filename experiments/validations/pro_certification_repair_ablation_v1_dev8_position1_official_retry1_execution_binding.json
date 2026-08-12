@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position1-official-retry1",
+  "frozen_at": "2026-08-05T16:01:05Z",
+  "status": "frozen-before-retry-and-before-position-2-outcome",
+  "amendment": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_official_network_retry_amendment.json",
+    "sha256": "2faaae70b665de6931375d068aae86152dc1ad20d4bddae2868283ff0bd908a8"
+  },
+  "source_program": {
+    "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/scripts/generated.sh",
+    "sha256": "87098537cf3e713d005500829a674c2c68c31dcf420893c898e5823c6f7b54fa"
+  },
+  "execution": {
+    "run_id": "pro-cert-repair-v1-dev8-01O1-C-official-network-retry",
+    "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+    "runner": "deterministic",
+    "method": "official-evaluator-only-network-retry-v1",
+    "model": "gpt-5.5",
+    "seed": 1225942959,
+    "agent_or_model_reexecuted": false,
+    "command": [
+      "python3",
+      "experiments/run_case.py",
+      "--case-file",
+      "experiments/cases/dev_pro_certification_repair_ablation_v1_8_v1_0_1.jsonl",
+      "--case-id",
+      "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+      "--run-id",
+      "pro-cert-repair-v1-dev8-01O1-C-official-network-retry",
+      "--runner",
+      "deterministic",
+      "--method",
+      "official-evaluator-only-network-retry-v1",
+      "--model",
+      "gpt-5.5",
+      "--seed",
+      "1225942959",
+      "--config",
+      "experiments/configs/local_mac_pro_certification_repair_ablation_v1_dev8_position1_official_retry1.json",
+      "--protocol",
+      "experiments/protocols/envbench_python_public_goal_v2.json"
+    ]
+  },
+  "frozen_inputs": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_ablation_v1_dev8_position1_official_retry1.json",
+      "sha256": "82a3eb2b32f63ccebecf47717d7bde27f4f50b5e34c596f2f3b58e17179baf07"
+    },
+    "case_file": {
+      "path": "experiments/cases/dev_pro_certification_repair_ablation_v1_8_v1_0_1.jsonl",
+      "sha256": "1c3da3347271aee8d7bd8bd8ad8a6375e9759fc2fc1d219330db6af21d6e4b1c"
+    },
+    "run_case": {
+      "path": "experiments/run_case.py",
+      "sha256": "c4b5ab0e307fe893a9628443979dd2c499744f28af24d00dec75b844d6b7100b"
+    },
+    "deterministic_runner": {
+      "path": "envsolve_harness/runners/deterministic.py",
+      "sha256": "3d01eb0875826f47f96abc2eba23c2c98dbea6a8aca4592ea7a90b899a86140f"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    }
+  },
+  "analysis_rule": "The retry may replace only the infrastructure-unknown Official outcome. The frozen Integrity Fail remains unchanged."
+}

@@ -1,0 +1,49 @@
+{
+  "preregistration_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-namespace-consumed-replay-v1",
+  "created_at": "2026-08-07T02:48:48+00:00",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "purpose": "validate the generic boundary correction against the exact consumed B candidate without adding the replay to any treatment success or failure denominator",
+  "frozen_inputs": {
+    "repository": "cda-tum/mqt-bench",
+    "revision": "ae62809395e5b31b5f5b5886f3e5916193029cdd",
+    "tree": "386e97f6c830ba2c91856be80572e778a5e3c434",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "program_file_sha256": "cae99cf9af6a279d1fc28228f4026397411a93fe8d467a5fed25ebebe6e67dbc",
+    "program_canonical_sha256": "dacd54dae208da2af4cda94b1c8ac479bb63397f387fff015f5afd132af1eea2",
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "validator_sha256": "45dab272f181e7d2ae464af782eab07c99facf42e8feb1a12595b87a94400bf7",
+    "workspace_preconditions": [
+      {
+        "kind": "directory",
+        "path": "build_output",
+        "producer": "envbench-python-build-v1"
+      }
+    ]
+  },
+  "decision_rule": {
+    "pass": "the exact candidate completes, the trusted public goal reports zero missing imports, repository integrity passes, and the corrected local-distribution audit reports no novel violation",
+    "fail": "trusted execution completes but any goal, integrity, or provenance condition fails",
+    "censored": "candidate completion or the trusted goal report is absent because infrastructure did not complete"
+  },
+  "expected_mechanism_evidence": {
+    "required_post_provided_module": "mqt",
+    "required_novel_python_installation_violations": []
+  },
+  "outcome_policy": {
+    "algorithm_score": "excluded regardless of result",
+    "replacement_b_episode": "still requires a new full model episode under a separately frozen schedule",
+    "infrastructure_retry": "one byte-identical replay may be preregistered only if this attempt is censored"
+  },
+  "bindings": {
+    "implementation_validation": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_implementation_validation.json",
+      "sha256": "728504ea3377a41636c166d81c6cd8403dcf36e8a5038b891d9d14f597d7eafc"
+    },
+    "namespace_validity_amendment": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_validity_amendment.json",
+      "sha256": "b1cb782fbae859c8aad11be9eb6be355db8b395866749f97ee2a99ec786af6ba"
+    }
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-boundary-v2-implementation",
+  "freeze_type": "shared-measurement-boundary",
+  "frozen_at": "2026-08-06",
+  "base_source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "parent_design_freeze": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_design_freeze.json",
+    "sha256": "84bef012853fbcf5e5737cde4bdcec6f290a87ad8b6d2ca19d212297aed4b765"
+  },
+  "parent_implementation_freeze": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_implementation_freeze.json",
+    "sha256": "741481422cc9ddb755e3bff99e1f82ed43ea521121e207a370e0e832beb99bd0"
+  },
+  "scope": {
+    "boundary_version": "certification-repair-boundary-v2",
+    "algorithm_changed": false,
+    "applies_identically_to": [
+      "codex-cli-goal-aware-boundary-v2",
+      "envsolve-pro-one-shot-certification-boundary-v2",
+      "envsolve-pro-minimal-b-boundary-v2"
+    ],
+    "purpose": "Prevent verifier-control-flow interference while admitting revision-grounded repository runtime configuration."
+  },
+  "shared_boundary_delta": {
+    "trusted_goal_shell": "privileged clean Bash child without BASH_ENV, ENV, or imported candidate shell functions",
+    "public_goal_python_invocation": "command-python",
+    "candidate_policy": "open-candidate-program-v2",
+    "repository_policy": "clean-tracked-tree-and-provenance-derived-files-v6",
+    "repository_template_rule": "ignored Python target must be an exact byte copy of a tracked same-directory same-stem non-importable sibling at the exact revision",
+    "versioned_runner_entrypoints": true
+  },
+  "frozen_parent_core": {
+    "envsolve/runtime/goal_verifier.py": "20e097386341a67d7d53a7ce8d1d1833206b5284a73a2ed94fa475354d6cc904",
+    "envsolve_harness/codex/minimal_b_mcp.py": "de0031e6d8148fdcb61a7f804bfcfc41e75516014348f38419c59312b1e8ea4c",
+    "envsolve_harness/codex/one_shot_mcp.py": "da2375f71d0b97113da5b9a8de636d00bf8bcff249817de401d9ef2cfaa578e4",
+    "envsolve_harness/runners/codex_cli.py": "8a17bcc6580bd0cec81c7e0faf34311f3ecc20f9fee7bc0d7f277c1d25ba6dd5",
+    "envsolve_harness/runners/envsolve_pro_minimal_b.py": "ed51f8e793c6d731fc1a2a26ac61c6546dc06f501a9a920f2cabb383d7656b98",
+    "envsolve_harness/runners/envsolve_pro_one_shot.py": "2a00883b3b1027b4a20bcff4924a09b610fc10f20ea74932867e5294da423353"
+  },
+  "source_sha256": {
+    "envsolve_harness/adapters/envbench_goal.py": "71dc2f1ed518ae4b62d78817af91cf8746c8617092694843337ee49ab37249e3",
+    "envsolve_harness/integrity/repository.py": "81be285b990972c12f5ccdbe4609fcab68216563c5e8a676e841a5c6ddc7d6b9",
+    "envsolve_harness/scripts/open_program.py": "5eb897efb9d23e5a4f0acfb2503cf2b02d2d3555e3d305e669eeb438ea16affa",
+    "envsolve_harness/boundary_v2.py": "41f79b893bd790980eed6de705ef875cd5a97387af7bb297da4b0ac3dbde9d79",
+    "envsolve_harness/codex/minimal_b_mcp_boundary_v2_qualified.py": "99bcf795de09d0e4a8ad71b98d7be8837e148c54b4e5e1f69668b44cebae6f13",
+    "envsolve_harness/codex/one_shot_mcp_boundary_v2_qualified.py": "01948e816443df456b25e51767caa58fce60f6164d96523e328b057aa576a034",
+    "envsolve_harness/runners/certification_repair_boundary_v2.py": "87ec1f26e1083db79d11e5345d19f355966b0bc74f4515981a93d3f77e4583a2",
+    "experiments/qualify_certification_repair_boundary_v2.py": "d709a513313ca72cd1c5757ce4434360ebd13679c924ca319011dd51c14099ae",
+    "experiments/run_replay_ablation_boundary_v2_case.py": "27ee28d7c5a8cb4ed4c4a6e327398cb7cc4bbe576392dd772bfbfa266629c008",
+    "experiments/run_replay_ablation_boundary_v2_schedule.py": "9b1fce50006b7c83d8971efdfb76972aaed84d7dcac8a7182a19589a65a3f792"
+  },
+  "test_sha256": {
+    "tests/test_certification_repair_boundary_v2.py": "84eabd8e891c6ad1ef78245931ae09ce87a905ec810d0fdc20daae2bfae44be3",
+    "tests/test_certification_repair_boundary_qualification.py": "533adf006dbbdc5b73609f7652e482d0fb4ac61d72b8807e9ddbfdf9de757872",
+    "tests/test_certification_repair_boundary_v2_entrypoint.py": "e7cbe806cac25fb9d7352e46efbc75ff291c2005e78427b306589e815ccaac3e",
+    "tests/test_goal_contract_noninterference.py": "f39be7317609fba3c536866efb778d3796893f87eb145a82341355986940eb35",
+    "tests/test_harness_core.py": "58494dfff39f3b44ad14f1c2d675ffd010152efcce547639f65527deb011db54",
+    "tests/test_open_candidate_interface.py": "22c81cb5f6e0d6740c488dd4c713167c6131d8af423b1e14f30d5a2226f78d0c"
+  },
+  "qualification": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v2_linux_arm_qualification.json",
+    "sha256": "017dbdd80f3170b96491759827227372b360c282f5ed031aeaf5e3c0114830ff",
+    "mac_full_regression": "718-passed-8-skipped-75-subtests-passed",
+    "mac_real_docker": "2-passed",
+    "spark_focused": "61-passed-1-skipped",
+    "spark_real_docker": "2-passed",
+    "mac_spark_source_hash_parity": "23-of-23-files-match",
+    "ruff": "passed",
+    "git_diff_check": "passed"
+  },
+  "consumed_evidence": {
+    "validity_stop": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_validity_stop_amendment.json",
+      "sha256": "9db6bba77bb023d70ba5be8baf6e278fe5ae853ec66c28f302fbaf84362c3935"
+    },
+    "arm_c_rejection_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_readux_retry1_adjudication.json",
+      "sha256": "21bc7c5399575c2bffaa3af5f2bfa3143ae3ba72cf59aaf6fb6f3b15b643b98d"
+    },
+    "arm_a_provenance_control": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_readux_arm_a_provenance_result.json",
+      "sha256": "78f30aa21284d3e94b1c0f4175653d4b3418b0acd1b60fa8d672eed92a4cfd9d"
+    }
+  },
+  "claims_not_supported": [
+    "retryable-replay-improves-Official-Pass-at-1",
+    "boundary-v2-is-an-algorithmic-contribution",
+    "the-consumed-readux-pilot-estimates-any-treatment-effect",
+    "verifier-non-interference-beyond-the-frozen-shell-and-startup-hook-threat-model"
+  ],
+  "next_allowed_work": "freeze-an-outcome-blind-replacement-rule-for-consumed-identities-then-run-the-remaining-unopened-three-arm-development-cases-without-changing-boundary-v2"
+}

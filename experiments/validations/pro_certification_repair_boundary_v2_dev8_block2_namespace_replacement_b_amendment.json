@@ -1,0 +1,67 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-namespace-replacement-b-v1",
+  "created_at": "2026-08-07T03:05:14+00:00",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "decision": {
+    "action": "run one new full B one-shot-certification episode",
+    "reason": "the consumed B episode was censored by a generic boundary false positive that has now passed independent and exact-candidate validation",
+    "old_b_outcome": "exclude from algorithm success, failure, timing, and token denominators",
+    "new_b_outcome": "use as the effective B outcome if source, implementation, and artifact audits validate"
+  },
+  "replacement": {
+    "condition": "B-one-shot-certification",
+    "host": "mac",
+    "method": "envsolve-pro-one-shot-certification-boundary-v2",
+    "model": "gpt-5.5",
+    "new_run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-namespace-replacement1",
+    "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-infra-retry1",
+    "runner": "envsolve-pro-one-shot-certification-qualified-boundary-v2",
+    "seed": 1834703488
+  },
+  "frozen_inputs": {
+    "case_file": {
+      "path": "experiments/cases/dev_pro_certification_repair_boundary_v2_8.jsonl",
+      "sha256": "6e25d260a1128d7b5ecafb56187d6384bb54d58b4a640d8b498116df6f391b01"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v2_dev8.json",
+      "sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "repository": "cda-tum/mqt-bench",
+    "revision": "ae62809395e5b31b5f5b5886f3e5916193029cdd",
+    "tree": "386e97f6c830ba2c91856be80572e778a5e3c434",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "episode_timeout_seconds": 22400,
+    "implementation_sha256": {
+      "envsolve_harness/boundary_v2.py": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+      "envsolve_harness/codex/one_shot_mcp_boundary_v2_qualified.py": "08b88a5a8a310468315764f2625c1732a82f1aa370cd82c41124822359dd7224",
+      "envsolve_harness/runners/certification_repair_boundary_v2.py": "87ec1f26e1083db79d11e5345d19f355966b0bc74f4515981a93d3f77e4583a2",
+      "experiments/run_replay_ablation_boundary_v2_case.py": "27ee28d7c5a8cb4ed4c4a6e327398cb7cc4bbe576392dd772bfbfa266629c008",
+      "experiments/run_replay_ablation_boundary_v2_schedule.py": "9b1fce50006b7c83d8971efdfb76972aaed84d7dcac8a7182a19589a65a3f792"
+    }
+  },
+  "bindings": {
+    "consumed_replay_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_adjudication.json",
+      "sha256": "e5855a916b6320f82e35c9f4094f4259adb3bd1191c663ea06068440448448bd"
+    },
+    "implementation_validation": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_implementation_validation.json",
+      "sha256": "728504ea3377a41636c166d81c6cd8403dcf36e8a5038b891d9d14f597d7eafc"
+    },
+    "old_generation_result_sha256": "3c6bf38117cebb760ab052aea8843c30c3c80e75851e5e030dc85ee7e56b5295",
+    "old_status_sha256": "606cd7315fe0d62bcec505a65eecf287a8e71d46fc9f20b72dcf6e8012a71892"
+  },
+  "prohibitions": [
+    "Do not reuse the old model session, candidate, replay result, or final output.",
+    "Do not change the model, prompt, reasoning effort, runner, verifier, goal contract, seed, source, image, treatment interface, or resource policy.",
+    "Do not count the consumed boundary validation as a B treatment outcome.",
+    "Do not rerun A or C as part of this replacement episode."
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

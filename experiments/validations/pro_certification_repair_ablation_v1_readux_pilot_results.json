@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-certification-repair-ablation-v1-readux-diagnostic-pilot",
+  "completed_at": "2026-08-05T16:38:00Z",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8",
+  "scope": "Consumed one-repository three-arm diagnostic pilot; no algorithm effect estimate.",
+  "case": {
+    "repository": "ecds/readux",
+    "revision": "3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb"
+  },
+  "arms": {
+    "A": {
+      "condition": "A-strong-agent-control",
+      "generation_completed": false,
+      "official_evaluator_reached": false,
+      "official_outcome": "not-observed",
+      "integrity_pass": false,
+      "construction_public_goal_pass": true,
+      "commands": 28,
+      "wall_seconds": 1070.6778100829997,
+      "tokens": {
+        "input": 640570,
+        "cached_input": 580096,
+        "output": 12284,
+        "reasoning_output": 6768
+      },
+      "terminal_reason": "The post-state repository audit rejected config/settings/local.py copied from the tracked local.dst template."
+    },
+    "B": {
+      "condition": "B-one-shot-certification",
+      "generation_completed": false,
+      "official_evaluator_reached": false,
+      "official_outcome": "not-observed",
+      "integrity_pass": false,
+      "construction_public_goal_pass": true,
+      "executed_clean_replays": 0,
+      "candidate_validation_failures": 1,
+      "commands": 28,
+      "wall_seconds": 1120.675747375,
+      "tokens": {
+        "input": 1049723,
+        "cached_input": 948224,
+        "output": 15548,
+        "reasoning_output": 8856
+      },
+      "terminal_reason": "The only submitted program directly materialized apps/users/signals.py and was rejected before clean execution."
+    },
+    "C": {
+      "condition": "C-retryable-minimal-b",
+      "generation_completed": true,
+      "official_evaluator_reached": true,
+      "official_pass": true,
+      "integrity_pass": false,
+      "raw_replays": 3,
+      "raw_replay_statuses": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "infrastructure_censored_replays": 1,
+      "integrity_invalid_replays": 2,
+      "effective_replays": 0,
+      "valid_feedback_conditioned_repair": false,
+      "commands": 37,
+      "original_attempt_wall_seconds": 2153.311008125,
+      "tokens": {
+        "input": 2315320,
+        "cached_input": 2153472,
+        "output": 30053,
+        "reasoning_output": 17255
+      },
+      "official_metrics": {
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 963,
+        "warning_count": 4
+      },
+      "terminal_reason": "Official Pass was obtained by an integrity-invalid verifier-scoped empty-module injection."
+    }
+  },
+  "three_layer_diagnosis": {
+    "observation": "The trusted goal inherited candidate-defined shell functions, so its observation could be changed only during verifier execution.",
+    "constraint": "A final filesystem snapshot missed transient synthetic artifacts and could not represent their provenance over time.",
+    "operation": "The boundary rejected a real runtime configuration copied from a tracked project template while a transient fake module escaped the same boundary."
+  },
+  "decision": {
+    "positions_4_to_24_executed": false,
+    "early_stop_frozen_before_arm_B_outcome": true,
+    "algorithm_effect_claim": false,
+    "official_leaderboard_signal": "C Official Pass only",
+    "research_valid_successes": 0,
+    "next_changes": [
+      "make the executable goal non-interfering with candidate-defined shell functions",
+      "admit provenance-preserving runtime configuration without admitting synthetic import artifacts"
+    ],
+    "next_changes_are_repository_specific": false
+  },
+  "artifacts": {
+    "progress": {
+      "path": "experiments/runs/pro_certification_repair_ablation_v1_dev8-progress.json",
+      "sha256": "da394fceb7ef55b397e613abcf91f75ef21794b2a1d1203b38fd6099db9b0b7e"
+    },
+    "arm_A_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position2_constraint_boundary_adjudication.json",
+      "sha256": "7df855a49a169a36067823d6381e389d8b121ad6cad0126e32900e7d6c1de6fc"
+    },
+    "arm_B_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position3_adjudication.json",
+      "sha256": "a9593bad2f5051ace9b57a1573bfa7bbaf92ab50e5f78635cbba0b5d1f9a0604"
+    },
+    "arm_C_integrity_adjudication": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_integrity_adjudication.json",
+      "sha256": "f47bf003a3b8edd6adfce834aaa3c63d02598802472cc61564feac8e8de82543"
+    },
+    "arm_C_official_retry": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_official_retry1_result.json",
+      "sha256": "bf685f068b877aab390245d5e5434c5d69a2b9959f52a5d40cdc5df409ad0812"
+    },
+    "validity_stop": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_validity_stop_amendment.json",
+      "sha256": "9db6bba77bb023d70ba5be8baf6e278fe5ae853ec66c28f302fbaf84362c3935"
+    }
+  }
+}

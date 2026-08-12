@@ -1,0 +1,40 @@
+{
+  "adjudication_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block2-namespace-consumed-replay-v1",
+  "completed_at": "2026-08-07T03:05:14+00:00",
+  "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+  "decision": {
+    "boundary_correction_validated": true,
+    "consumed_b_algorithm_outcome": "excluded",
+    "replacement_b_episode_permitted": true
+  },
+  "evidence": {
+    "exact_candidate_file_sha256": "cae99cf9af6a279d1fc28228f4026397411a93fe8d467a5fed25ebebe6e67dbc",
+    "exact_candidate_canonical_sha256": "dacd54dae208da2af4cda94b1c8ac479bb63397f387fff015f5afd132af1eea2",
+    "clean_replay_passed": true,
+    "candidate_completed": true,
+    "goal_report_observed": true,
+    "post_provided_modules_contains_mqt": true,
+    "novel_python_installation_violations": [],
+    "duration_seconds": 489.6629236660083
+  },
+  "interpretation": {
+    "supported": "the generic PEP 420 correction removes the observed false rejection while retaining the independent synthetic negative control",
+    "not_supported": "the consumed replay does not establish B treatment success, model improvement, or optimality of the 213-character full-dependency candidate"
+  },
+  "bindings": {
+    "censored_attempt": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_result.json",
+      "sha256": "3228a6026f52dab1fd7f7c327ba43a05bdcbc53375f4fd7d6e4954a131916b58"
+    },
+    "network_amendment": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_network_amendment.json",
+      "sha256": "9c535877f69b161d9750cab8b75e38d1969ca678f89ea6d09a775693f2f71780"
+    },
+    "successful_retry": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_consumed_replay_retry1_result.json",
+      "sha256": "3c45709df97e7c49d6915f23b6c4f1740da73d014f9e122d319de1f6c673374d"
+    }
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

@@ -1,0 +1,99 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-boundary-v2-dev8-block3-spark-source-retry-v1",
+  "case_id": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+  "created_at": "2026-08-07T06:11:04+00:00",
+  "decision": {
+    "action": "rerun all three full episodes once after attested source installation",
+    "agent_execution_host": "mac",
+    "analysis": {
+      "original_attempts": "exclude from effect, success, token, and timing denominators",
+      "replacement_attempts": "use only if source identity, CLI identity, and run audits validate",
+      "resource_accounting": "report source acquisition and transfer separately"
+    },
+    "reason": "all three arms failed during exact-revision source acquisition before model execution",
+    "source_acquisition_host": "spark",
+    "source_policy": "transfer an attested bare Git object database for the exact preregistered revision without inspecting a repository worktree",
+    "treatment_order": [
+      "C-retryable-minimal-b",
+      "A-strong-agent-control",
+      "B-one-shot-certification"
+    ]
+  },
+  "frozen_inputs": {
+    "boundary_implementation_sha256": "a9d0618df0b793e825f88971277de73131dbb02c9a14352e356f2ffc37115bf5",
+    "case_file_sha256": "6e25d260a1128d7b5ecafb56187d6384bb54d58b4a640d8b498116df6f391b01",
+    "codex_cli_sha256": "e4432c0c085e4a2e5b9cf982e4dd2ebdb44ed33c422827b6e6c64353778e773b",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "config_sha256": "16b4bb5df65ca9be7ff51d2b46a3c073e9e492f37ef89b52ce188a608fda5e53",
+    "episode_timeout_seconds": 22400,
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "model": "gpt-5.5",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "reasoning_effort": "high",
+    "repository": "valory-xyz/trader",
+    "revision": "64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+    "seed": 2276368076
+  },
+  "observed_censoring": {
+    "arm_a": {
+      "generation_result_sha256": "d282e05a384bdf5046a18ae9d55a46b8c8d2c346a28f8c06a738927e0d99969f",
+      "manifest_sha256": "44011e8425f76a584f91107177d4d2ebb9403cc50e4de23a291f44c3f0cba823",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-08-A-strong-agent-control",
+      "signature": "github-connect-timeout-before-model"
+    },
+    "arm_b": {
+      "generation_result_sha256": "3a566d9c9f0e76279dca4e45406247ea6bee0b8a2bca669f57df6e644aed2baa",
+      "manifest_sha256": "c127075f119d370e0ca12bc4c99b25dcd9a4bd45f8c1c9b1afdcd2ab52de8eda",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-09-B-one-shot-certification",
+      "signature": "github-connect-timeout-before-model"
+    },
+    "arm_c": {
+      "generation_result_sha256": "33b7958fb667afc73db9ee38876c572062da996b8d17c682fed7167385b8dedc",
+      "manifest_sha256": "cc4cc9500c99aa002525ab160e19ac6a7498cc593aa9afe9bce88f83aea83276",
+      "model_started": false,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-07-C-retryable-minimal-b",
+      "signature": "github-receive-timeout-before-model"
+    }
+  },
+  "bindings": {
+    "failed_progress_sha256": "03e78ed9490c4532a8000a13a85fbcffc5762e9450fe0efec887575c38be568e",
+    "failed_schedule_sha256": "17f6c614fe5469912ad6b9f2e07e18fec532dff32f5a1abf47208840cce9587c",
+    "execution_binding_sha256": "2890ec8c08344b27e62e2413b45e2487370516938188cb16bd10dd6e927fc5b7"
+  },
+  "preflight": {
+    "agent_host_change": false,
+    "observed_at": "2026-08-07T06:00:00+00:00",
+    "source_host": "spark",
+    "spark_git_ls_remote_head_seconds": 1.574202,
+    "spark_git_ls_remote_head_status": "pass",
+    "transport": "ssh-over-tailscale"
+  },
+  "prohibitions": [
+    "Do not change prompt, model, CLI, reasoning effort, runner, verifier, boundary, goal contract, seed, treatment order, or resource policy.",
+    "Spark must not run an Agent episode or inspect repository worktree contents.",
+    "The transferred cache must resolve the exact revision and pass git fsck --full --strict on both hosts before installation.",
+    "Do not convert any original source-acquisition failure into an algorithm pass or failure.",
+    "Do not motivate an algorithm change from source transport behavior."
+  ],
+  "replacement_runs": [
+    {
+      "condition": "C-retryable-minimal-b",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-07-C-retryable-minimal-b-infra-retry1",
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-07-C-retryable-minimal-b"
+    },
+    {
+      "condition": "A-strong-agent-control",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-08-A-strong-agent-control-infra-retry1",
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-08-A-strong-agent-control"
+    },
+    {
+      "condition": "B-one-shot-certification",
+      "new_run_id": "pro-cert-repair-boundary-v2-dev8-09-B-one-shot-certification-infra-retry1",
+      "replaces_run_id": "pro-cert-repair-boundary-v2-dev8-09-B-one-shot-certification"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}

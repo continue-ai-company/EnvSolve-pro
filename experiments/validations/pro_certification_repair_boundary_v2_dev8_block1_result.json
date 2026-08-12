@@ -1,0 +1,92 @@
+{
+  "artifact_type": "certification-repair-boundary-v2-partial-block-result",
+  "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+  "conditions": {
+    "A": {
+      "audit_valid": true,
+      "commands": 25,
+      "evaluation_result_sha256": "341e974079d3a9f789431ab263ef26fc555c7a20efa3f8a43f6ac2891d773852",
+      "generation_result_sha256": "4d91b960c73179294da5d4801f21a1dc2f4edfccd16a2763f15db91884163969",
+      "generation_seconds": 1140.472425,
+      "input_tokens": 603274,
+      "manifest_sha256": "b6dbd0d63df513d5f401bf4ddbe964b57e7ccf610c36274d6b90c795e79987ce",
+      "official_error_count_non_scoring": 272,
+      "official_evaluation_seconds": 183.518576,
+      "official_issues_count": 0,
+      "official_state": "pass",
+      "output_tokens": 10099,
+      "run_id": "pro-cert-repair-boundary-v2-dev8-01-A-strong-agent-control-infra-retry1",
+      "script_sha256": "0291481288728ed2f9aa4f44f6c83a50cb024268a5e38215077bc6dd75f7c5d2"
+    },
+    "B": {
+      "audit_valid": true,
+      "commands": 8,
+      "evaluation_result_sha256": "9ebb5f3820847cb3574161b5aacd66f1e6b2aa6241b555f4fbbd35205a7844a6",
+      "first_clean_replay": "pass",
+      "generation_result_sha256": "ea99e0281537bb3db09b92132d50231554362295df14538d277312622cf2e0a7",
+      "generation_seconds": 772.850543,
+      "input_tokens": 224180,
+      "manifest_sha256": "c85ae3ae3ef496f6086d3a3be29eb5fb5bd80ce127cd3764b2796f295fc932fb",
+      "official_error_count_non_scoring": 272,
+      "official_evaluation_seconds": 294.682858,
+      "official_issues_count": 0,
+      "official_state": "pass",
+      "output_tokens": 3733,
+      "replay_count": 1,
+      "replay_trace_sha256": "a6d553abc94546c99d594d6ac24e36bccdd76c57a275bb8d43ef8f67c64dd3ab",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-02-B-one-shot-certification-infra-retry1",
+      "script_sha256": "13fb93290afb65ea4441027255ea1f0dfb1e368545fd51e58aae55755d919b0f"
+    },
+    "C": {
+      "audit_valid": true,
+      "commands": 22,
+      "first_clean_replay": "pass",
+      "generation_result_sha256": "07c10966574aef8500bde49fe48333261b1a4a421f92ae0386f805a86e098f56",
+      "generation_seconds": 1432.832009,
+      "input_tokens": 656309,
+      "manifest_sha256": "bd44cb5b18ea93ab523544b7aab1d1a788940d041a0a5c3c4c8b37c554011eee",
+      "official_attempts": [
+        "read-timeout",
+        "package-download-hash-mismatch",
+        "package-download-hash-mismatch"
+      ],
+      "official_state": "infrastructure_unknown",
+      "output_tokens": 10956,
+      "replay_count": 1,
+      "replay_trace_sha256": "1b0a2d511e7001450fa2f16fb14cda83e7d45272bd738032183379c8b9fb88df",
+      "run_id": "pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b",
+      "script_sha256": "07eb220d2e6d6239a54512b29da99a331bace47e8472591d18699878ca81f278",
+      "terminal_retry_result_sha256": "72a2c4599bb0cac39af5f563b8b21b9e37a9e721bd6399956cb616752f98316f"
+    }
+  },
+  "created_at": "2026-08-06T09:05:00+00:00",
+  "descriptive_resources": {
+    "B_relative_to_A": {
+      "commands_percent": -68.0,
+      "generation_seconds_percent": -32.23,
+      "input_tokens_percent": -62.84,
+      "official_evaluation_seconds_percent": 60.57,
+      "output_tokens_percent": -63.04
+    },
+    "caveat": "Source-cache state and network conditions differed; these are trajectory descriptions, not treatment-effect estimates.",
+    "C_to_B_generation_seconds_ratio": 1.854,
+    "C_to_B_input_tokens_ratio": 2.928
+  },
+  "frozen_input_bindings": {
+    "infrastructure_retry_amendment_sha256": "c0c80bfde0ea77d879a67565a822172966ebb1a2faee6bc83a2768e8e0ace2b3",
+    "package_integrity_validity_amendment_sha256": "3b357be6086d5dd7c3f98cd6619b33b93e7da0aa342b229c7620f00f4aacb436",
+    "retry_progress_sha256": "b36c32f8057defd3a73f1206f6c66e734bcfd46bd8cbe4fe4a7014ebb800c134",
+    "retry_schedule_sha256": "f49a7536e9e75e2bf4260fb3a5d3bc711f1badceb50008a815574da9318d87f7"
+  },
+  "mechanism": {
+    "A_vs_B_certification_outcome": "both observed arms passed; no success gain is identified in this case",
+    "B_first_replay_pass": true,
+    "C_first_replay_pass": true,
+    "feedback_conditioned_repair_activated": false,
+    "repair_opportunity_observed": false
+  },
+  "next_decision": "Continue the frozen schedule without an algorithm change.",
+  "schema_version": "1.0.0",
+  "status": "block-closed-with-one-infrastructure-unknown-arm",
+  "study_id": "envsolve-pro-certification-repair-boundary-v2-dev8"
+}
