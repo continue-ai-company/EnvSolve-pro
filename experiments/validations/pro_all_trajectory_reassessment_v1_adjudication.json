@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-all-trajectory-reassessment-v1",
+  "adjudicated_at": "2026-08-03T15:11:22+08:00",
+  "claim_scope": "consumed-development mechanism diagnosis; no generalization or leaderboard claim",
+  "implementation_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "coverage": {
+    "locally_synced_manifests": 620,
+    "envsolve_episode_logs": 278,
+    "envsolve_pro_episode_logs": 132,
+    "codex_container_command_traces": 86,
+    "legacy_agent_trajectories": 97,
+    "legacy_agent_trajectories_parsed": 24,
+    "repo2run_completed_readable_trajectories": 7,
+    "remote_only_artifacts_confirmed": false,
+    "remote_limitation": "Spark was not reachable during the final census."
+  },
+  "envsolve_all": {
+    "whole_program_actions": 1055,
+    "exact_unique_scripts": 1029,
+    "exact_script_repeats": 26,
+    "executable_verifications": 944,
+    "nonfresh_verifications": 11,
+    "command_failure_events": 676,
+    "executable_verifier_counterexamples": 803
+  },
+  "envsolve_pro": {
+    "whole_program_actions": 512,
+    "exact_unique_scripts": 502,
+    "exact_script_repeats": 10,
+    "executable_verifications": 475,
+    "nonfresh_verifications": 11,
+    "command_failure_events": 274,
+    "executable_verifier_counterexamples": 390,
+    "complete_finding_set_observations": 184,
+    "stagnant_complete_finding_transitions": 18,
+    "episodes_with_stagnation": 9
+  },
+  "codex": {
+    "container_commands": 2224,
+    "nonzero_commands": 234,
+    "timed_out_commands": 17,
+    "mutating_or_dependency_commands": 1158,
+    "mutating_or_dependency_timeouts": 15
+  },
+  "paired_mechanism_summary": {
+    "reliable_treatment_only_official_pass_observed": false,
+    "execution_feedback_v3": {
+      "eligible_pairs": 7,
+      "treatment_wins": 0,
+      "ties": 6,
+      "control_wins": 1,
+      "official_pass_treatment": 3,
+      "official_pass_control": 4
+    },
+    "bootstrap_frontier_v2": {
+      "eligible_pairs": 2,
+      "official_pass_treatment": 1,
+      "official_pass_control": 2
+    },
+    "postcondition_persistent": {
+      "eligible_pairs": 5,
+      "official_pass_persistent_explicit": 4,
+      "official_pass_fresh_explicit": 4,
+      "treatment_only_passes": 0
+    },
+    "candidate_retention": {
+      "eligible_pairs": 3,
+      "official_pass_retention": 1,
+      "official_pass_no_retention": 1,
+      "terminal_reach_retention": 2,
+      "terminal_reach_no_retention": 1
+    }
+  },
+  "hypothesis_decisions": {
+    "reject_as_next_core": [
+      "more-cross-candidate-failure-categories",
+      "hard-semantic-or-provenance-rules-above-public-goal",
+      "exact-script-no-good-as-primary-solver",
+      "multi-branch-physical-checkpoint-frontier",
+      "exit-status-only-retain-or-rollback",
+      "independent-session-whole-program-repair-loop"
+    ],
+    "retain_as_support": [
+      "public-executable-goal",
+      "terminal-only-official-evaluator",
+      "repository-effect-audit",
+      "immutable-trajectories",
+      "best-admissible-script-retention",
+      "fresh-final-certification",
+      "optional-bounded-checkpoint"
+    ],
+    "next_algorithm_hypothesis": "active-session verified-state ledger with open operations and fresh final certification",
+    "checkpoint_role": "bounded execution optimization, not core contribution"
+  },
+  "next_gate": {
+    "kind": "consumed-case mechanism observation",
+    "method": "frozen strong single-session goal-aware Codex",
+    "candidate_cases": [
+      "lark-parser/lark",
+      "mause/duckdb_engine",
+      "hazyresearch/meerkat",
+      "pysnmp/pysnmp",
+      "online-ml/river",
+      "Lightning-AI/litgpt"
+    ],
+    "official_feedback_reused_online": false,
+    "must_not_count_as_effectiveness_evidence": true
+  },
+  "source_hashes": {
+    "local_manifest_census": "0c733bfca30b76150ab757247c668af0dbf1299615ad3fa0fc01a4d675ac2004",
+    "local_envsolve_episode_summary": "1bc74e1415116f78e4c020657fd1e9c2f5ad292046c015ccf9cd132ca2ba1376",
+    "local_frontier_stagnation_summary": "ff4b66f49e8cb1bd26cd5aba0f7f6fc4145ed8ddcd6e5513b6e6cbaee61449ce",
+    "local_codex_trace_summary": "4f6f4b1485f4c7efa48f2f6a6e2426ee8dfd61622d4ae9c06c23c631320f5d30",
+    "local_codex_timeout_summary": "4d1627bf75cdd35ad251ecadc87ef280439c4bab2f6611092c43c763ed15bc3e",
+    "local_repo2run_action_summary": "8c9bf047fd12a1e71dd59c393becd6dbcdf730e3ca615368d1a8606a9e562c6c",
+    "execution_feedback_v3_adjudication": "f01ea79afabaff6d2c04874d3ad35fe561b38eee8f818ca96d37e47e2ad4fc6d",
+    "bootstrap_frontier_v2_results": "e3ca70929275b2e6bc05a4988ce61bdc7636d5d3f5bbba3dfce54e703369c819",
+    "postcondition_persistent_results": "eeda2578dfa42018aaaeb5bff5cb3bf6a1ae00895127bb2520a9fb473f2a1545",
+    "candidate_retention_results": "9245fd086778d19eadb729fee19af7b97541b0c2260118e202743661747479cf"
+  }
+}

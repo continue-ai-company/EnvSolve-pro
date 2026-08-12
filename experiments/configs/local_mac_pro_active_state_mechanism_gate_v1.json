@@ -1,0 +1,42 @@
+{
+  "paths": {
+    "runs": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-active-state-mechanism-gate-v1"
+  },
+  "benchmarks": {
+    "envbench": {
+      "adapter": "envbench",
+      "root": "/Users/admin/Documents/AnyDeploy/EnvBench",
+      "settings": {
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "deterministic_script": "evaluation/scripts/python_baseline.sh"
+      }
+    }
+  },
+  "solvers": {
+    "codex-cli": {
+      "root": "/Applications/ChatGPT.app/Contents/Resources/codex"
+    }
+  },
+  "generation": {
+    "timeout": 18000,
+    "model_request_timeout": 300,
+    "model_max_retries": 3,
+    "model_max_output_tokens": 32768,
+    "model_reasoning_effort": "high",
+    "model_max_requests": 100,
+    "model_max_total_tokens": 100000000,
+    "model_max_estimated_cost_usd": 1000.0,
+    "max_iterations": 30,
+    "envsolve_max_candidates": 3,
+    "envsolve_max_environments": 3,
+    "envsolve_max_commands": 3,
+    "bash_timeout": 1200
+  },
+  "evaluation": {
+    "create_container_timeout": 300,
+    "container_timeout": 1800,
+    "process_timeout": 3600,
+    "git_fetch_timeout": 600,
+    "max_workers": 1
+  }
+}

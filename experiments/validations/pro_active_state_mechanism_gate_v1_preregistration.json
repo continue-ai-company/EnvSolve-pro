@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-active-state-mechanism-gate-v1",
+  "frozen_at": "2026-08-03T15:15:52+08:00",
+  "claim_scope": "consumed-case mechanism observation only",
+  "motivation": "Test whether hard EnvBench failures expose useful within-session state transformations before implementing ActiveState v1.",
+  "scientific_boundary": {
+    "cases_are_consumed": true,
+    "official_pass_is_descriptive_only": true,
+    "may_support_generalization_claim": false,
+    "may_support_leaderboard_claim": false,
+    "official_evaluator_feedback_visible_online": false,
+    "algorithm_changes_during_schedule": false
+  },
+  "condition": {
+    "runner": "codex-cli",
+    "method": "codex-cli-goal-aware",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "agent_session": "single-active-session",
+    "construction_environment": "single-persistent-container",
+    "operation_interface": "open-container-terminal",
+    "public_goal_visible": true,
+    "final_program_certification": "fresh-checkout-terminal-evaluation"
+  },
+  "ordered_cases": [
+    "mause/duckdb_engine",
+    "hazyresearch/meerkat",
+    "pysnmp/pysnmp"
+  ],
+  "mechanism_observations": [
+    "useful_partial_state_after_nonzero-or-timeout",
+    "local-probe-changes-next-operation",
+    "postcondition-identifies-damage-not-shown-by-exit-status",
+    "same-session-repairs-failed-final-program",
+    "whole-plan-repetition-without-goal-delta"
+  ],
+  "proceed_rule": {
+    "active_state_v1_supported_if_any": [
+      "useful partial state would be discarded by whole-program fresh replay",
+      "a local probe changes the next operation within the same conversation",
+      "postconditions distinguish useful, damaged, and unknown state beyond exit status",
+      "fresh program certification fails and the same session repairs it"
+    ],
+    "active_state_v1_not_yet_supported_if": "hard failures show only missing planning knowledge with no state-continuity mechanism",
+    "strong_baseline_dominance_warning": "If the frozen strong Agent solves the hard cases directly, EnvSolve-Pro must show incremental value over this baseline."
+  },
+  "frozen_artifacts": {
+    "schedule": "experiments/schedules/pro_active_state_mechanism_gate_v1_mac.json",
+    "schedule_sha256": "4cb6fa2566c2c664d06c58862836c9b88f419547585621593e4ac51555cc87c8",
+    "config": "experiments/configs/local_mac_pro_active_state_mechanism_gate_v1.json",
+    "config_sha256": "75b7a6168143d2402006edd39250cb5407c1b3041f070e850fc6123963b6d76c",
+    "protocol": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "runner": "envsolve_harness/runners/codex_cli.py",
+    "runner_sha256": "bb03c90357b84ac7659740ff79933221f6e647d8731057b295eec63913c4492a"
+  }
+}

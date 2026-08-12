@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-active-state-mechanism-gate-v1-existing-trace-audit",
+  "audited_at": "2026-08-03T15:38:00+08:00",
+  "claim_scope": "post-hoc mechanism audit of consumed strong-agent traces",
+  "cases": [
+    {
+      "repository": "lark-parser/lark",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "official_pass": true,
+      "container_commands": 37,
+      "nonzero_commands": 4,
+      "trace_sha256": "98d424eab870011e8b0851c276a401f3f1753c13b6c8170e071349cca3d1416b",
+      "mechanism_observations": [
+        {
+          "sequences": [
+            16,
+            17,
+            18
+          ],
+          "observation": "A failed PyQt5 and QScintilla installation was followed by package-state inspection, a narrower stub installation, and a new Pyright probe.",
+          "supports": "local-probe-changes-next-operation"
+        },
+        {
+          "sequences": [
+            25,
+            26,
+            27,
+            29,
+            30,
+            31
+          ],
+          "observation": "The Agent built a conda branch, inspected the installed QScintilla layout after an import failure, identified an exact ARM64 Python build, installed it, and verified runtime imports plus Pyright.",
+          "supports": "active-session-state-transformation"
+        },
+        {
+          "sequences": [
+            34,
+            35,
+            36
+          ],
+          "observation": "The Agent inspected binding files, removed a conflicting stub package, and reran the complete public goal to zero findings.",
+          "supports": "verified-regression-repair"
+        }
+      ]
+    },
+    {
+      "repository": "flav-io/flavio",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "official_pass": true,
+      "container_commands": 34,
+      "nonzero_commands": 2,
+      "trace_sha256": "3de2e65b908a7795400b5b805a9e61d8f6acfc21eba35975637f02f48cf63b41",
+      "mechanism_observations": [
+        {
+          "sequences": [
+            6,
+            7,
+            8
+          ],
+          "observation": "The public goal exposed compatibility findings; direct import and analyzer probes separated package presence from static visibility.",
+          "supports": "postcondition-over-exit-status"
+        },
+        {
+          "sequences": [
+            20,
+            21,
+            22,
+            24,
+            25,
+            26
+          ],
+          "observation": "After one Python 3.8 pip branch failed, the Agent investigated package availability, created a separate conda state, probed its compatibility, and continued with targeted acquisition rather than replaying the first plan.",
+          "supports": "active-session-branch-and-probe"
+        }
+      ]
+    },
+    {
+      "repository": "pypose/pypose",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "official_pass": true,
+      "container_commands": 20,
+      "nonzero_commands": 1,
+      "timed_out_commands": 1,
+      "trace_sha256": "4832a7d9a7739a2ee9e8a508cf0f354f21318f91aa018e285eb78479b646a6a1",
+      "mechanism_observations": [
+        {
+          "sequences": [
+            15,
+            16
+          ],
+          "observation": "A large dependency installation timed out; the Agent deleted the environment and rebuilt a narrower one without first probing the partial state.",
+          "supports": "strong-agent-state-classification-is-not-systematic",
+          "does_not_support": "automatic-retention-of-timeout-state"
+        },
+        {
+          "sequences": [
+            17,
+            19,
+            20
+          ],
+          "observation": "A complete goal probe exposed the remaining closure, a small suffix installation repaired it, and the goal was rerun.",
+          "supports": "goal-delta-guided-suffix-repair"
+        }
+      ]
+    }
+  ],
+  "cross_case_judgment": {
+    "active_session_mechanism_exists_in_strong_baseline": true,
+    "strong_agent_already_performs_local_probe_and_branching": true,
+    "partial_state_retention_is_consistent": false,
+    "physical_checkpoint_required_by_evidence": false,
+    "fresh-certification-repair-in-same-session_tested": false,
+    "envsolve_pro_incremental_boundary": "Provide reliable postcondition state tracking and compact deltas without restricting the Agent's open planning space.",
+    "novelty_warning": "Local probing and stateful repair are baseline capabilities; they cannot be claimed as EnvSolve-Pro contributions."
+  }
+}

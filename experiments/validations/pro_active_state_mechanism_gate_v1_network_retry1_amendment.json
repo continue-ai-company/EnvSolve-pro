@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-active-state-mechanism-gate-v1",
+  "amended_at": "2026-08-03T15:22:00+08:00",
+  "reason": "The first duckdb_engine position produced no model response or container command because all three exact-revision Git fetch attempts failed in the HTTP/2 framing layer.",
+  "source_attempt": {
+    "run_id": "pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware",
+    "classification": "external-network-censored-zero-information",
+    "generation_completed": false,
+    "model_response_observed": false,
+    "container_command_count": 0,
+    "must_remain_immutable": true,
+    "must_not_count_as_method_failure": true
+  },
+  "retry_policy": {
+    "new_run_ids": true,
+    "case_order_unchanged": true,
+    "model_unchanged": true,
+    "runner_unchanged": true,
+    "protocol_unchanged": true,
+    "temporary_process_git_http_version": "HTTP/1.1",
+    "global_git_config_changed": false,
+    "algorithm_changed": false
+  },
+  "retry1_outcome": {
+    "run_id": "pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware-network-retry1",
+    "classification": "provider-connection-censored-zero-action",
+    "repository_fetch_completed": true,
+    "container_started": true,
+    "model_response_observed": false,
+    "container_command_count": 0,
+    "interrupted_after_seconds": 636.100812917,
+    "interruption_reason": "No first model tool action was observed after ten minutes during a known network fluctuation.",
+    "container_cleanup_confirmed": true,
+    "must_remain_immutable": true,
+    "must_not_count_as_method_failure": true,
+    "third_attempt_requires_new_run_id": true
+  },
+  "retry_schedule": {
+    "path": "experiments/schedules/pro_active_state_mechanism_gate_v1_mac_network_retry1.json",
+    "sha256": "1803ea1252bdb5057763c1de0b614a9073556c6e4f50a5a220550580f362d53d"
+  },
+  "retry2_schedule": {
+    "reason": "Retry1 was interrupted after ten minutes with no model response or tool action.",
+    "path": "experiments/schedules/pro_active_state_mechanism_gate_v1_duckdb_network_retry2.json",
+    "sha256": "977f036913ffe68413a5e72404395800e54119b6da121d506912b99b4ff8e1ce",
+    "case_order_changed": false,
+    "algorithm_changed": false
+  },
+  "retry2_outcome": {
+    "run_id": "pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware-network-retry2",
+    "classification": "provider-connection-censored-zero-action",
+    "repository_fetch_completed": true,
+    "container_started": true,
+    "model_response_observed": false,
+    "container_command_count": 0,
+    "interrupted_after_seconds": 384.726572125,
+    "container_cleanup_confirmed": true,
+    "must_not_count_as_method_failure": true,
+    "decision": "Stop immediate retries and resume only after provider connectivity changes."
+  }
+}

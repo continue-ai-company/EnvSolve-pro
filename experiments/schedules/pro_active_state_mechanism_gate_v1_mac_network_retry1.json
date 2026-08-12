@@ -1,0 +1,43 @@
+{
+  "case_file": "experiments/cases/dev_pro_execution_feedback_v3_screen8.jsonl",
+  "case_file_sha256": "b4b662dfc16f5bae6c0aef18dcdb643c03a66f9800ade06fcd3968271baf26d4",
+  "episode_timeout_seconds": 22800,
+  "episodes": [
+    {
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "condition": "frozen-strong-single-session-goal-aware-codex",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 1,
+      "run_id": "pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware-network-retry1",
+      "runner": "codex-cli",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "condition": "frozen-strong-single-session-goal-aware-codex",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 2,
+      "run_id": "pro-active-state-gate-v1-02-meerkat-codex-goal-aware-network-retry1",
+      "runner": "codex-cli",
+      "seed": 1
+    },
+    {
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "condition": "frozen-strong-single-session-goal-aware-codex",
+      "host": "mac",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.5",
+      "position": 3,
+      "run_id": "pro-active-state-gate-v1-03-pysnmp-codex-goal-aware-network-retry1",
+      "runner": "codex-cli",
+      "seed": 1
+    }
+  ],
+  "model": "gpt-5.5",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-active-state-mechanism-gate-v1-network-retry1"
+}
