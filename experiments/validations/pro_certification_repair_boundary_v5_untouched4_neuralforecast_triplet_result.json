@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T10:55:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+  "positions": [
+    10,
+    11,
+    12
+  ],
+  "official_outcomes": {
+    "A-strong-agent-control": true,
+    "B-one-shot-certification": true,
+    "C-retryable-minimal-b": true
+  },
+  "treatment_outcomes": {
+    "A-strong-agent-control": {
+      "agent_visible_clean_replays": 0,
+      "post_session_hidden_qualification": "pass",
+      "feedback_conditioned_repair": false,
+      "wall_time_seconds": 3134.033835457987,
+      "input_tokens": 706304,
+      "output_tokens": 10854,
+      "deployment_path": "complete-default-pytorch-with-cuda-dependencies"
+    },
+    "B-one-shot-certification": {
+      "clean_replay_count": 1,
+      "replay_statuses": [
+        "pass"
+      ],
+      "feedback_conditioned_repair": false,
+      "wall_time_seconds": 2213.5574877079925,
+      "input_tokens": 525059,
+      "output_tokens": 8496,
+      "deployment_path": "official-metric-minimal-direct-providers-without-transitive-dependencies"
+    },
+    "C-retryable-minimal-b": {
+      "clean_replay_count": 2,
+      "replay_statuses": [
+        "fail",
+        "pass"
+      ],
+      "feedback_conditioned_repair": true,
+      "repair_class": "uv-seeded-virtualenv-installation-provenance",
+      "wall_time_seconds": 1521.1602122499608,
+      "input_tokens": 592592,
+      "output_tokens": 7767,
+      "deployment_path": "complete-cpu-only-pytorch"
+    }
+  },
+  "mechanism_finding": "C produced a strict feedback-conditioned repair: its first clean replay passed the public goal but failed frozen provenance qualification, the same Agent session replaced uv's seeded virtual environment with native python -m venv, and the revised exact program passed clean replay and Official EnvBench.",
+  "effect_finding": "All three arms passed Official EnvBench. The retryable loop therefore produced no Official Pass@1 advantage on this case.",
+  "boundary_interpretation": "C repaired unowned files introduced by uv venv --seed, not a project dependency or an Official missing-import failure. This is valid mechanism evidence under boundary v5 but cannot support a benchmark-success claim.",
+  "benchmark_validity_finding": "B passed the frozen missing-import metric while pip reported absent transitive dependencies. Official EnvBench success must therefore be reported separately from complete runnable deployment.",
+  "path_quality_observation": "The independent Agents selected materially different paths before replay feedback: B minimized the measured goal, C built a complete CPU environment, and A built a complete default PyTorch environment with large CUDA dependencies. C was descriptively fastest, but this stochastic single-case ordering is not a causal treatment effect.",
+  "resource_observation": "Package resolution and binary transfer dominated wall time and network traffic. Construction and Official evaluation used distinct cache boundaries, so large artifacts were transferred repeatedly.",
+  "evidence": {
+    "position10_result_sha256": "92cebc1635c488f9b3d69587bcfb7a118fd152173084b8be4c3a9c8ff4934645",
+    "position11_result_sha256": "68c5de46143be2988fc6eea37dfc0b4c20225b29a68a400bed7297a5440f8529",
+    "position12_result_sha256": "1573726c11a27e6a57759d1358c31f54389959f2a69bbbdb77249fb0759fe896",
+    "progress_sha256": "7c41424b1de4fb72e97f050a7ba9af98ad563ae7bef05c30da940768d6b3db8d"
+  }
+}

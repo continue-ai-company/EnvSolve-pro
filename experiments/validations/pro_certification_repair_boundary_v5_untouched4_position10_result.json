@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T09:20:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 10,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-10-B-one-shot-certification",
+    "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+    "condition": "B-one-shot-certification",
+    "process_exit_code": 0,
+    "wall_time_seconds": 2213.5574877079925,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "pass",
+    "first_replay_bootstrap_seconds": 251.9534437499824,
+    "clean_replay_count": 1,
+    "program_revision_after_replay": false,
+    "feedback_conditioned_repair": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 279.137855052948,
+    "non_scoring_pyright_error_count": 393,
+    "non_scoring_pyright_warning_count": 328,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 26,
+    "construction_failed_commands": 2,
+    "submitted_program_sha256": "e57641fe9673d9c50e1716c5a59ceeb789145499f046f300aa87420330ae8cc9",
+    "script_sha256": "cd8f6c09a96d2f027889eccffe317403aa36e3a6a8b67e3e35d3ccd85b459103",
+    "token_usage": {
+      "input_tokens": 525059,
+      "cached_input_tokens": 457728,
+      "output_tokens": 8496,
+      "reasoning_output_tokens": 4314
+    }
+  },
+  "path_observation": "The Agent resolved a legacy pkg_resources build failure with Python 3.10, setuptools below 81, and no-build-isolation. It then identified fire and datasetsforecast as the final direct missing imports.",
+  "goal_boundary_observation": "The final program deliberately uses --no-deps for the project and direct provider packages. It is reproducible and satisfies the frozen EnvBench reportMissingImports goal, but pip reports absent transitive dependencies, so this artifact must not be described as a complete runnable NeuralForecast deployment.",
+  "mechanism_observation": "The sole clean replay passed, so B did not revise and no feedback-conditioned repair occurred. The case exposes a benchmark-to-deployment validity gap rather than a retry-loop gain.",
+  "infrastructure_observation": "The initial full dependency exploration transferred roughly 3.72 GB into the construction container. The Official evaluator used an independent cache boundary and transferred more than 1 GB while evaluating the submitted minimal program; evaluator container creation added roughly six minutes outside reported container execution time.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "f607e1eaf3b6b02737b517f882ee5d5b79ba00f8d90c9f4287ccb8cd706d133e",
+    "manifest_sha256": "368125bf5d7c7708cf4a9d6e4c31abe43a6f0835b42336248de6093052987e1e",
+    "generation_result_sha256": "c85a8a319b324c51060ee9866904f0cefdb829f6e77ac278c94547b04e204f02",
+    "container_commands_sha256": "c33b2958e819bc8051dac66c40ec3546301ceb43a4b4e0054ed8fc2f88d8aaa4",
+    "replay_trace_sha256": "1c2aa4bbb09c42cca67cdc7fa7a219c7cb1d8eb09a83286182ea093faab15aa9",
+    "certification_sha256": "007d02fa00097621165c1d693077eedade9d494927eb3a531873129028c39dd4",
+    "official_result_sha256": "8807775e2f32a1129dc1b0fc0e3bf1084fb7f6128414eca81d428f558d30001a",
+    "official_raw_result_sha256": "9c5d58a08a84db3016def9fb8c86b85cf45c25eadef697f7aa3bf8c2f1bc246e",
+    "progress_after_position_sha256": "7f7f1709f4fb387a9816e42eabc7605e49271c1db5e290786ed3b5aa4c5400ae"
+  }
+}

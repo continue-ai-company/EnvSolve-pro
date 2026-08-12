@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T05:17:20Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 2,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-02-B-one-shot-certification",
+    "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+    "condition": "B-one-shot-certification",
+    "process_exit_code": 0,
+    "wall_time_seconds": 905.3433055410278,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "pass",
+    "clean_replay_count": 1,
+    "program_revision_after_replay": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "non_scoring_pyright_error_count": 316,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 12,
+    "construction_failed_commands": 2,
+    "submitted_program_sha256": "c3025a81e02f454c9c5195d0c4a437dd060e769135bdd9230f4584c57cf93f33",
+    "script_sha256": "1890740bea4668390d4d3a0ec2a1988f45e93ddf13ab8a84530a15218fa82f99",
+    "token_usage": {
+      "input_tokens": 293137,
+      "cached_input_tokens": 250880,
+      "output_tokens": 5507,
+      "reasoning_output_tokens": 2729
+    }
+  },
+  "mechanism_observation": "The only Agent-visible clean replay passed on the first submitted program. This episode supports reproducible first-shot construction but provides no feedback-conditioned repair event.",
+  "evidence": {
+    "manifest_sha256": "59fa4870984da06f91069e77be912b5939b90b15131a2258544c98182feaa5c2",
+    "generation_result_sha256": "7e6df92f379fb952554b274ae253a85984ec91d573c2e7fdaa39aca0eda529e7",
+    "container_commands_sha256": "7b2e7565227d7116f5242bc93fe607b1444c12e2adc8e0306f756a236fe9a834",
+    "replay_trace_sha256": "9434938c1184464228338391d70f63557560033a1896d4d4542e45821981e4af",
+    "official_result_sha256": "57f5b1a928a1dbca964ec3a6fabcdef7fd11991016f81609ec8e72a6a01b45e4",
+    "progress_after_position_sha256": "aac91877496278dbdee0807ad2960c674aca122be64f9a88343ed80c291a36c8"
+  }
+}

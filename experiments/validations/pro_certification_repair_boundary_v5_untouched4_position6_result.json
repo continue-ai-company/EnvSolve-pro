@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T07:34:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 6,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-06-C-retryable-minimal-b",
+    "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+    "condition": "C-retryable-minimal-b",
+    "process_exit_code": 0,
+    "wall_time_seconds": 1228.7628938329872,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "clean_replay_count": 2,
+    "replay_statuses": [
+      "fail",
+      "pass"
+    ],
+    "first_replay_bootstrap_seconds": 235.57886558398604,
+    "second_replay_bootstrap_seconds": 234.43291425000643,
+    "program_revision_after_first_replay": true,
+    "feedback_conditioned_repair": true,
+    "repair_class": "python-installation-provenance-admissibility",
+    "first_program_sha256": "1baaa47ae77ff543bfb43513b2cdeaf183366443519de33c373e65f1d8cb1111",
+    "second_program_sha256": "ebe6ecba5e9c20f5a389fe3e991dd1760a8cfe8e988074a08f0d67f30007f48b",
+    "final_program_sha256": "ebe6ecba5e9c20f5a389fe3e991dd1760a8cfe8e988074a08f0d67f30007f48b",
+    "first_script_sha256": "d8f78315c8e797c6930713b5d3c645464869e9f2f46c73880fa3eb008707a4f1",
+    "second_script_sha256": "ee80ed4f742f970579ffeef6d3e8a9254115a697adcb48ff62af4a99d9223d50",
+    "final_script_sha256": "ee80ed4f742f970579ffeef6d3e8a9254115a697adcb48ff62af4a99d9223d50",
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 216.60530281066895,
+    "non_scoring_pyright_error_count": 1512,
+    "non_scoring_pyright_warning_count": 42,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 16,
+    "construction_failed_commands": 0,
+    "token_usage": {
+      "input_tokens": 564787,
+      "cached_input_tokens": 487936,
+      "output_tokens": 5768,
+      "reasoning_output_tokens": 2511
+    }
+  },
+  "first_replay_counterexample": {
+    "kind": "python-installation-provenance",
+    "summary": "Candidate introduced an inadmissible Python installation artifact.",
+    "distribution": "pip",
+    "origin_class": "conda-build-local-origin",
+    "goal_status": "not-observed-after-effect-audit-rejection"
+  },
+  "repair_delta": {
+    "changed_lines": 1,
+    "operation": "Force-reinstall pip from the standard package index after activating the new Conda environment.",
+    "project_dependency_set_changed": false,
+    "repository_configuration_changed": false
+  },
+  "mechanism_observation": "This is a strict feedback-conditioned repair event: the first fresh replay failed, the same Agent session received the executable counterexample, a different program passed a later fresh replay, and that exact program passed Official EnvBench.",
+  "claim_limit": "The repair resolves a frozen admissibility-boundary conflict rather than a missing project dependency. Because A and B also pass this case, the episode demonstrates loop operation but not an Official Pass@1 gain over the controls.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "f808c2f3e13aa540e00252989149fa81b4a17c022a5048448e21656c72aa87cf",
+    "manifest_sha256": "0fcda014a3c07d8552fa192a7b86ae19e09e65f9ba8a3fcb697828465be716d3",
+    "generation_result_sha256": "bed3a31cf1fd7e032e95a5905575fab0fbc14d739575a660c2dde1047350685d",
+    "container_commands_sha256": "97a41c548ac86eb5e264fc6b052d8921f03ce2c81e7c61b4d3bb813256150bef",
+    "replay_trace_sha256": "bd3586a6409e39ec1239feb782fdb912e9b5f3008e470a8c0a4da02b43c39d5c",
+    "certification_sha256": "a9032188f59059431597f3fc85dccd91d50503c592de192540feb0e8797deaeb",
+    "official_result_sha256": "bb3209e97b49af008122ef73d7044e3034f3e75e10fc8c9898aa7f6ef3e9720e",
+    "official_raw_result_sha256": "10ebf7ba68a86ffc4fd79b6f60c1c98463ec6ff0500fd5297afdb4b8759b46c2",
+    "progress_after_position_sha256": "c0425643f97b17bcecc74d738935f7657c39af9e34d31154c3dbee950c5f2dbb"
+  }
+}

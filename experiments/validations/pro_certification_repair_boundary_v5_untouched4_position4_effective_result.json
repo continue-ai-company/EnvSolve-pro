@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T06:48:15Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "effective_position": 4,
+  "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+  "condition": "A-strong-agent-control",
+  "adjudication": {
+    "classification": "single-effective-episode-with-exact-post-session-continuation",
+    "reason": "The coordinator was interrupted after the Agent wrote a schema-valid final submission but before hidden post-session qualification and Official evaluation completed.",
+    "model_reexecuted": false,
+    "program_edited": false,
+    "additional_pass_at_k_sample": false,
+    "qualification_feedback_returned_to_agent": false,
+    "interrupted_wrapper_counted_as_separate_effect_episode": false
+  },
+  "effective_episode": {
+    "original_run_id": "pro-cert-repair-boundary-v5-untouched4-04-A-strong-agent-control",
+    "continuation_run_id": "pro-cert-repair-boundary-v5-untouched4-04-A-strong-agent-control-submission-continuation1",
+    "original_wrapper_state": "interrupted",
+    "original_wrapper_wall_time_seconds": 744.0287697080057,
+    "agent_submission_complete": true,
+    "generation_completed_by_adjudication": true,
+    "candidate_program_accepted": true,
+    "qualification_status": "pass",
+    "qualification_certified": true,
+    "qualification_bootstrap_seconds": 384.0595604160335,
+    "official_evaluation_completed": true,
+    "official_evaluation_seconds": 276.8262369632721,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "non_scoring_pyright_error_count": 1510,
+    "non_scoring_pyright_warning_count": 42,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 17,
+    "construction_failed_commands": 1,
+    "agent_visible_clean_replays": 0,
+    "submitted_program_bytes": 441,
+    "submitted_program_sha256": "d69b1ed2d134ea6accd853c5741f2880cc04c2acdd7356ac16aac382198c989c",
+    "official_script_sha256": "d69b1ed2d134ea6accd853c5741f2880cc04c2acdd7356ac16aac382198c989c",
+    "token_usage": {
+      "status": "unknown",
+      "reason": "The interrupted wrapper did not persist a reliable aggregate token record; values are not imputed."
+    }
+  },
+  "trajectory_observation": "The strong Agent repaired one failed construction command within its active session and submitted a program that passed both a fresh hidden qualification and Official EnvBench without receiving clean-replay feedback. This is baseline Agent behavior, not evidence for the EnvSolve-Pro repair loop.",
+  "resource_observation": "The successful submitted program installs a broad TensorFlow nightly and test-tool dependency set. Success is primary; the observed replay time and dependency breadth remain secondary path-quality measurements.",
+  "official_artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "position4_execution_binding_sha256": "f15c931c8cb14500375d892ae7f0cf72b0c2602074c1c65d62e5a3c3ecd8d462",
+    "original_progress_sha256": "911186ba95d401bb4fdfd10a5b3fe2f26543d69adb616c5aadb373fcb29f2638",
+    "original_manifest_sha256": "96376b6aaa121d8de87d4a9d4ce13fa346833739cad0a5a6240d253d719c3b12",
+    "original_final_output_sha256": "07ed00019f51e7798bef10f4060182aeb1dbb160abe85e4df84748c90279928f",
+    "original_container_commands_sha256": "9eb4f3497abe0166121a547800ac5fbe101265cc8fe4ee43783daab464bc8456",
+    "original_heartbeat_sha256": "24a3f0110a3fed559ebf845cbee1e9b8c00c77c1bee29e17c1084b87a57cb11b",
+    "continuation_preregistration_sha256": "f2df249f18ba51e7fe01031eb8f01b66fd0a14134f8a6dec74d171b4adb050d3",
+    "qualification_result_sha256": "d9e1f4fb83d0239784048417ef272223adc3932842dfb2ab357988de181022a7",
+    "official_manifest_sha256": "9e73b760093803c68d56594c06bf1e74a0f6e9123e596c0af8841ec7022d54a5",
+    "official_attempt_sha256": "bd523c436beef5a0ad30d4e13ec6a3fb27ae16f6f03dd25b57c2a72b08c40828",
+    "official_result_sha256": "32860db6c6604f31af82ba2c822a7876a04d850d6975a0081c56e5cac889ed60",
+    "official_raw_result_sha256": "0b6e974c5722a3381917c8de9dda66fba0d56a208230eae741bed05275d2ff4e"
+  }
+}

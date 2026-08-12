@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T09:48:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 11,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-11-C-retryable-minimal-b",
+    "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+    "condition": "C-retryable-minimal-b",
+    "process_exit_code": 0,
+    "wall_time_seconds": 1521.1602122499608,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "fail",
+    "first_replay_bootstrap_seconds": 175.4789632500033,
+    "second_replay_status": "pass",
+    "second_replay_bootstrap_seconds": 186.62118670798372,
+    "clean_replay_count": 2,
+    "program_revision_after_replay": true,
+    "feedback_conditioned_repair": true,
+    "repair_class": "uv-seeded-virtualenv-installation-provenance",
+    "first_program_sha256": "685b3ae33fe84c8e57e4e814f2ef36a6fc29d89b435056f8409e3e75c2e923d0",
+    "final_program_sha256": "0f052ebfaf26d29a7162df096f00c6b8ebd6e172bc0f6c20a03d9528fd4a0124",
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 183.55270886421204,
+    "non_scoring_pyright_error_count": 393,
+    "non_scoring_pyright_warning_count": 328,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 18,
+    "construction_failed_commands": 3,
+    "script_sha256": "893a28050b6f093948f3d719ed8e04fbc6f1fca0dafbf39bd73cd24d6f44f50e",
+    "token_usage": {
+      "input_tokens": 592592,
+      "cached_input_tokens": 508928,
+      "output_tokens": 7767,
+      "reasoning_output_tokens": 4004
+    }
+  },
+  "path_observation": "The Agent built a complete CPU environment: Python 3.10, setuptools below 81, a CPU-only PyTorch wheel, project dev/aws/spark extras, datasetsforecast, and fire. It independently used the CPU index to avoid default CUDA dependency downloads.",
+  "repair_observation": "The first fresh replay passed the goal but failed the frozen Python-installation provenance audit because uv venv --seed introduced unowned _virtualenv.py and _virtualenv.pth artifacts. The same session replaced uv's seeded venv creation with the interpreter's native python -m venv; the second fresh replay and exact final Official evaluation passed.",
+  "effect_interpretation": "This is a strict feedback-conditioned repair, but the repaired defect concerns environment provenance rather than a missing project dependency. It demonstrates the loop mechanism and must not be presented as recovery from an Official EnvBench failure without comparison to the A control.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "0132bd0febe1b11d44d96e4dea4669c33557945c62f9f559ef171d1e1cdbfe14",
+    "manifest_sha256": "bc4112d058d1ece354ea145c924ca4c15e18a32c6bb04e18f412e03dfb1968a1",
+    "generation_result_sha256": "964914bbb41708e2915320b623e6319308d85bd3e16aab0c4c437b01d4d40359",
+    "container_commands_sha256": "b039e86229a5df82e0ab8e608729ab50383125a32042cf895d7aa4821858b2b2",
+    "replay_trace_sha256": "d7df5d9f59f5009943d7eebecd0c3aa8b94e9cbc3e819fe1b1eed1b172d343e1",
+    "certification_sha256": "7c8a56e49a34dd6fb8bd8292fcd983e51c4f4eda9a8829927bb50fc633a21ed0",
+    "official_result_sha256": "2680052c533fceeb5c73e0a79e7deb1e79964ca0b0f96f68af45bb3d9cbb605c",
+    "official_raw_result_sha256": "c8b85165b93f7580411de3ede3f21b416580c71cbf4b118c488b51996bed6514",
+    "progress_after_position_sha256": "b5e57a230a52d166182402c5070920980b16c801c1223bb45b0f4b56f13ffd16"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-08T03:45:33Z",
+  "status": "complete-before-case-opening",
+  "audit_scope": "Identity-only search; repository content, trajectories, and outcomes were not opened.",
+  "search_roots": [
+    "experiments/runs",
+    "/Users/admin/Documents/AnyDeploy/runs"
+  ],
+  "cases": [
+    {
+      "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+      "run_artifact_path_matches": 0
+    },
+    {
+      "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+      "run_artifact_path_matches": 0
+    },
+    {
+      "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+      "run_artifact_path_matches": 0
+    },
+    {
+      "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+      "run_artifact_path_matches": 0
+    }
+  ],
+  "decision": "All four inherited cases remain unopened and are eligible for the boundary-v5 mechanism gate."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-pro-boundary-v4-distutils-consumed-calibration-v1",
+  "preregistered_at": "2026-08-08T03:07:35Z",
+  "status": "frozen-before-execution",
+  "purpose": "Test whether boundary-v4 removes boundary-v3's location-dependent rejection without changing either submitted program.",
+  "claim_scope": "consumed-boundary-calibration-only-outcome-excluded",
+  "case": {
+    "repository": "pypa/distutils",
+    "revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+    "split_role": "consumed-development-case",
+    "workspace_directories": [
+      "build_output"
+    ]
+  },
+  "execution": {
+    "host": "local-mac",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "fresh_environment_per_program": true,
+    "model_calls": 0,
+    "agent_feedback": false,
+    "official_evaluator_calls": 0,
+    "timeout_seconds": 1800
+  },
+  "frozen_implementation": {
+    "boundary_path": "envsolve_harness/boundary_v4.py",
+    "boundary_sha256": "ad0ed8580bed77a48a04f8611d94e11d3df56257bf5c0848604bf6afacba6710",
+    "validator_path": "experiments/validate_boundary_v4_consumed_candidate.py",
+    "validator_sha256": "e2f2f07051e271ee6b35e7f5001bec65677931d922d51912fa84126b25f8fa93"
+  },
+  "programs": [
+    {
+      "label": "A-submitted-program",
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_submitted_program.sh",
+      "sha256": "75391a9f6d2f28b1655ab4d593dc72a7748a6b8f1ce909c83ee34a12d1df2769",
+      "boundary_v3_result": "rejected-only-for-build_output-native-extension",
+      "official_only_result": "pass"
+    },
+    {
+      "label": "C-accepted-program",
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-01-C-retryable-minimal-b/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/generation/minimal-b/programs/minimal-b-replay-0001.sh",
+      "sha256": "b62597dd9b4b37cdec21be9a78d9ef3e078fb035c8aa63c4fa765a90508afe88",
+      "boundary_v3_result": "qualified",
+      "official_result": "pass"
+    }
+  ],
+  "decision_rule": {
+    "calibration_pass": "Both exact programs qualify under boundary-v4, A records a repository native artifact derived from tracked distutils/tests/xxmodule.c, and C records the corresponding external import-root native artifact without an unowned-artifact violation.",
+    "calibration_fail": "Either exact program is rejected, or acceptance depends on repository-versus-external artifact location.",
+    "scientific_use": "A pass validates the measurement correction only. It cannot count as an A, B, or C benchmark success and cannot estimate treatment effect."
+  },
+  "antecedents": {
+    "boundary_v3_validity_stop_path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_boundary_validity_stop.json",
+    "boundary_v3_validity_stop_sha256": "e4ed5218ce8dbab22dbd549493bf683a1aac4a2f978711b2f9ca7a68e0759e24",
+    "official_only_diagnostic_preregistration_path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_boundary_diagnostic_preregistration.json",
+    "official_only_diagnostic_preregistration_sha256": "10ab6eb1a1117a8b1fb643cbeadeb1707236f491fa93e6071e570f3f6b3d39a3"
+  }
+}

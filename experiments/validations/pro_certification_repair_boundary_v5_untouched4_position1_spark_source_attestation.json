@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-08T03:59:42Z",
+  "status": "qualified-infrastructure-cache",
+  "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+  "repository": "adbar/trafilatura",
+  "revision": "b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+  "source_cache": {
+    "policy": "immutable-exact-revision-cache-v1",
+    "acquisition_host": "spark-f21c",
+    "acquisition_architecture": "aarch64",
+    "remote_path": "/home/avdpro/work/source-cache-transfer-v5/repositories/adbar__trafilatura/b5bfe43520623a5e42c6e4034878ec8dd7d9d242.git",
+    "local_path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/_source_cache/repositories/adbar__trafilatura/b5bfe43520623a5e42c6e4034878ec8dd7d9d242.git",
+    "commit": "b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+    "tree": "425e143c5f534abe8ad75b304daaf6d24aab78e2",
+    "fsck_on_spark": "pass",
+    "fsck_after_transfer_on_mac": "pass",
+    "receipt_sha256": "140b9ab3d2e1b2e04356cf81fcd9424dae823a2d63e642ec6e2438df6590349d"
+  },
+  "network_observations": [
+    {
+      "host": "mac",
+      "attempt": 1,
+      "result": "connect_timeout_to_github_443_before_agent_start"
+    },
+    {
+      "host": "spark-f21c",
+      "attempt": 1,
+      "result": "git_pack_tls_disconnect"
+    },
+    {
+      "host": "spark-f21c",
+      "attempt": 2,
+      "transport": "HTTP/1.1",
+      "result": "exact_revision_cache_acquired"
+    }
+  ],
+  "treatment_effect": "None. Source acquisition occurs before the Agent session and exposes no evaluator result, trajectory, repository-derived hint, or condition-specific information."
+}

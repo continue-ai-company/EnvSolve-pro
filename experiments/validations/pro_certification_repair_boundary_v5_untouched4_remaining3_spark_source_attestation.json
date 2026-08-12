@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "created_at": "2026-08-08T05:19:56Z",
+  "status": "qualified-infrastructure-caches",
+  "selection_was_frozen_before_acquisition": true,
+  "policy": "immutable-exact-revision-cache-v1",
+  "acquisition_host": "spark-f21c",
+  "acquisition_transport": "Git HTTP/1.1",
+  "transfer_destination": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/_source_cache/repositories",
+  "caches": [
+    {
+      "repository": "gpflow/gpflow",
+      "revision": "81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+      "tree": "2e7dc97460253a45bc645d3d3747144c422816c9",
+      "spark_fsck": "pass",
+      "mac_fsck": "pass",
+      "receipt_sha256": "d885c9caa3b67c2985cb264f5412e040cf0b91638865da6cddc90a7a739d6705"
+    },
+    {
+      "repository": "zappa/zappa",
+      "revision": "39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+      "tree": "ca263de8fa70036a0e0a782c0ed4f5da792bb570",
+      "spark_fsck": "pass",
+      "mac_fsck": "pass",
+      "receipt_sha256": "2fa743e95c77fa721c5b02f30b5827043e4dbe6ebb337df83b88a28d7ad25a75"
+    },
+    {
+      "repository": "nixtla/neuralforecast",
+      "revision": "90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+      "tree": "de39524b2bd42a4e5d716fd271f3b4abb42391bc",
+      "spark_fsck": "pass",
+      "mac_fsck": "pass",
+      "receipt_sha256": "49fd96d81cbc4b9030c3af9ade457af4377bba2e708877563dbe21caeaa867b1"
+    }
+  ],
+  "treatment_effect": "None. Cache acquisition exposes no evaluator output, Agent trajectory, condition-specific hint, or case-specific algorithm rule. Every arm receives an independent checkout of the same frozen Git object graph."
+}

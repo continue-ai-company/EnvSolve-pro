@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T07:34:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+  "positions": [
+    4,
+    5,
+    6
+  ],
+  "official_outcomes": {
+    "A-strong-agent-control": true,
+    "B-one-shot-certification": true,
+    "C-retryable-minimal-b": true
+  },
+  "treatment_outcomes": {
+    "A-strong-agent-control": {
+      "agent_visible_clean_replays": 0,
+      "post_session_hidden_qualification": "pass",
+      "feedback_conditioned_repair": false,
+      "token_usage": "unknown-after-wrapper-interruption"
+    },
+    "B-one-shot-certification": {
+      "clean_replay_count": 1,
+      "replay_statuses": [
+        "pass"
+      ],
+      "feedback_conditioned_repair": false,
+      "wall_time_seconds": 1153.9101196250413,
+      "input_tokens": 564040,
+      "output_tokens": 6141
+    },
+    "C-retryable-minimal-b": {
+      "clean_replay_count": 2,
+      "replay_statuses": [
+        "fail",
+        "pass"
+      ],
+      "feedback_conditioned_repair": true,
+      "repair_class": "python-installation-provenance-admissibility",
+      "wall_time_seconds": 1228.7628938329872,
+      "input_tokens": 564787,
+      "output_tokens": 5768
+    }
+  },
+  "mechanism_finding": "C produced the study's first strict feedback-conditioned repair: an initial fresh replay failed the frozen repository-effect boundary, the same Agent session changed the program, a later fresh replay passed, and the exact repaired program passed Official EnvBench.",
+  "effect_finding": "All three arms passed Official EnvBench. This case therefore demonstrates that the retryable loop can operate correctly, but it does not show an Official Pass@1 advantage over either control.",
+  "boundary_interpretation": "The repaired failure concerned pip installation provenance in a newly created Conda environment, not a missing project dependency. It is valid mechanism evidence under the preregistered v5 boundary and must not be presented as recovery from an Official EnvBench failure.",
+  "path_quality_observation": "B reached a reproducible direct-install solution in one replay. C used a Python 3.11 Conda environment and required two replays; its measured wall time was 74.85 seconds longer than B. Success remains primary and this is a secondary single-case efficiency observation.",
+  "cumulative_gate_state": {
+    "completed_effective_episodes": 6,
+    "planned_effective_episodes": 12,
+    "completed_cases": 2,
+    "all_arm_official_passes": 6,
+    "strict_feedback_conditioned_repair_events": 1,
+    "algorithm_change_allowed": false,
+    "next_action": "Continue the frozen schedule on zappa and neuralforecast before making an algorithm decision."
+  },
+  "evidence": {
+    "position4_effective_result_sha256": "df4d53d031936e0883deb3e08b066d81a3361696f8295589f955eda03752f519",
+    "position5_result_sha256": "fc4344ec923e90fae684150cee7a563ed8143f630f532ca75631d4f9b80e171d",
+    "position6_result_sha256": "d6eefb4859933f63f860a8c876e14021617ae58e3a8e9af3aa65c72e0787f4f7",
+    "progress_sha256": "c0425643f97b17bcecc74d738935f7657c39af9e34d31154c3dbee950c5f2dbb"
+  }
+}

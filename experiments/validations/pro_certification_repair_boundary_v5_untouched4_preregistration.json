@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "preregistered_at": "2026-08-08T03:45:33Z",
+  "status": "frozen-before-any-boundary-v5-untouched4-episode",
+  "claim_scope": "Repository-disjoint development mechanism gate under the frozen boundary-v5 measurement correction.",
+  "research_question": "Does Agent-visible clean replay improve Official EnvBench Pass@1 beyond the same strong Agent and the same public goal, and is any gain caused by feedback-conditioned repair rather than certification-aware construction alone?",
+  "selection": {
+    "policy": "Carry forward the four still-unopened repositories at case positions 2-5 and episode positions 4-15 from the outcome-blind boundary-v3 schedule; do not resample after the consumed distutils boundary calibration.",
+    "source_case_file": "experiments/cases/dev_pro_certification_repair_boundary_v3_untouched5.jsonl",
+    "source_case_file_sha256": "e652a29549de8d5943f180314bb39c5cd153a218b556a814c9744063107ac45d",
+    "source_schedule": "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+    "source_schedule_sha256": "15e289b8c065366b9810a68e1db1312b13d2169d5f0e955f50181a05492621c2",
+    "excluded_consumed_case": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+    "repository_content_or_outcome_used": false,
+    "identity_audit": {
+      "path": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_identity_audit.json",
+      "sha256": "24353c71110601f6b57d05874d5dd160d91240e95062656e684d00d56b72c2d8"
+    },
+    "identity_audit_result": "Zero run-artifact matches for all four selected case IDs."
+  },
+  "artifacts": {
+    "boundary_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_boundary_v5_implementation_freeze.json",
+      "sha256": "0c80b5550f4c148f4d997ba658f389d6fc38ad8fec92ea9ef5cc709c3814c99b"
+    },
+    "case_file": {
+      "path": "experiments/cases/dev_pro_certification_repair_boundary_v5_untouched4.jsonl",
+      "sha256": "9837040c1fa8bf527b129f3dab39df1863b173e1f3107b6cdfa68a8cf5c9fac7"
+    },
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_boundary_v5_untouched4.json",
+      "sha256": "c8a61139bb1521dccd6a4fd0e0659e2bdb2a3dc673fa9747638923a0e2af4724"
+    },
+    "goal_protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_boundary_v5_untouched4.json",
+      "sha256": "7f3042e4ed6e6fa4e10a82898127380419027cac0b1880051952811859ececa7"
+    }
+  },
+  "conditions": [
+    {
+      "arm": "A",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "runner": "codex-cli-qualified-boundary-v5",
+      "agent_visible_clean_replays": 0,
+      "post_session_qualification_feedback_returned_to_agent": false
+    },
+    {
+      "arm": "B",
+      "method": "envsolve-pro-one-shot-certification-boundary-v5",
+      "runner": "envsolve-pro-one-shot-certification-qualified-boundary-v5",
+      "maximum_agent_visible_clean_replays": 1,
+      "retry_after_replay": false
+    },
+    {
+      "arm": "C",
+      "method": "envsolve-pro-minimal-b-boundary-v5",
+      "runner": "envsolve-pro-minimal-b-qualified-boundary-v5",
+      "agent_visible_clean_replays_repeatable": true
+    }
+  ],
+  "controlled_factors": {
+    "agent": "Codex CLI",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "public_goal_contract": "identical across arms",
+    "official_evaluator_feedback_during_generation": false,
+    "candidate_program_policy": "identical boundary-v5 open candidate language",
+    "qualification_policy": "identical boundary-v5 committed-source provenance policy",
+    "seed": "identical within each repository",
+    "host": "mac for every Agent episode to avoid host-by-treatment confounding"
+  },
+  "resource_policy": {
+    "episode_timeout_seconds": 22400,
+    "interpretation": "Operational safety cap only; success is not stopped by token or estimated monetary cost.",
+    "token_cost_and_wall_time": "Measured and reported as secondary outcomes.",
+    "spark_role": "Independent frozen-code verification, source/cache infrastructure, and post-run analysis; no Agent arm is moved to Spark in this gate."
+  },
+  "analysis_policy": {
+    "all_12_episodes_before_algorithm_change": true,
+    "paired_by_repository": true,
+    "primary_metric": "Official EnvBench Pass@1",
+    "secondary_metrics": [
+      "protocol admissibility",
+      "first clean replay status",
+      "number of Agent-visible clean replays",
+      "program revisions",
+      "wall time",
+      "model tokens"
+    ],
+    "official_and_protocol_admissibility_reported_separately": true,
+    "infrastructure_unknown_excluded_from_effect_denominator": true,
+    "individual_case_rules_forbidden": true,
+    "consumed_distutils_calibration_excluded_from_effect_estimate": true
+  },
+  "mechanism_decision": {
+    "certification_aware_construction": "Compare paired A versus B Official Pass@1.",
+    "feedback_conditioned_repair": "Count only when C has a first replay Fail or Unknown, submits a different later program in the same Agent session, obtains a passing clean replay, and terminates with Official Pass.",
+    "dormant_loop": "If every C first replay passes, do not claim iterative repair and do not add structured state.",
+    "no_mechanism_gain": "If C does not improve over A/B or no valid feedback-conditioned repair occurs, reject the current Minimal B mechanism hypothesis for this gate.",
+    "next_algorithm_change": "Allowed only after all effective episodes finish and aggregate trajectory analysis identifies a repeated failure mode."
+  },
+  "validity_policy": {
+    "boundary_v5_is_frozen": true,
+    "boundary_or_runner_hash_change": "Stop the gate and preregister a new version before opening another case.",
+    "infrastructure_failure": "Record as Unknown, preserve artifacts, and use only a preregistered infrastructure retry with identical treatment semantics.",
+    "network_retry": "Allowed only for evidenced transport failure; no trajectory or outcome-dependent prompt changes.",
+    "schedule_order": "Preserve the inherited ABC, ABC, CAB, BCA rotations and per-repository seeds."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T05:35:56Z",
+  "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+  "status": "complete-triplet-descriptive-only",
+  "official_pass": {
+    "A": true,
+    "B": true,
+    "C": true
+  },
+  "first_clean_replay": {
+    "A": "not-agent-visible-post-session-qualification-pass",
+    "B": "pass",
+    "C": "pass"
+  },
+  "feedback_conditioned_repair_event": false,
+  "wall_time_seconds": {
+    "A": 655.1463360410416,
+    "B": 905.3433055410278,
+    "C": 989.3083759170258
+  },
+  "model_input_tokens": {
+    "A": 428486,
+    "B": 293137,
+    "C": 435860
+  },
+  "model_output_tokens": {
+    "A": 7102,
+    "B": 5507,
+    "C": 5242
+  },
+  "non_scoring_pyright_error_count": {
+    "A": 426,
+    "B": 316,
+    "C": 428
+  },
+  "interpretation": "All arms solve the case. B and C add clean replay latency but do not change Official success because their first submitted programs already replay successfully. This single triplet is not used to change the frozen algorithm.",
+  "result_records": {
+    "A": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position1_effective_result.json",
+    "B": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position2_result.json",
+    "C": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position3_result.json"
+  }
+}

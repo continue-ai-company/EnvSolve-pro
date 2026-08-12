@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-boundary-v5-distutils-consumed-calibration-adjudication-v1",
+  "completed_at": "2026-08-08T03:27:31Z",
+  "preregistration_path": "experiments/validations/pro_certification_repair_boundary_v5_distutils_consumed_calibration_preregistration.json",
+  "preregistration_sha256": "fd6fbff0c02980a1b23a5b39aa9e97b3b277d206e43e4c4410e4889d83316bd7",
+  "results": [
+    {
+      "label": "A-submitted-program",
+      "path": "experiments/validations/pro_certification_repair_boundary_v5_distutils_A_consumed_calibration_result.json",
+      "sha256": "2ae338a15b26f1756ca546efd38a231d98548a688806be457759072a0df77f9b",
+      "qualified": true,
+      "goal_status": "pass",
+      "report_missing_imports": 0,
+      "repository_valid": true,
+      "accepted_tracked_copy_count": 106,
+      "accepted_repository_native_count": 1,
+      "remaining_repository_violation_count": 0,
+      "post_local_distribution_valid": true,
+      "post_unowned_import_artifact_count": 0
+    },
+    {
+      "label": "C-accepted-program",
+      "path": "experiments/validations/pro_certification_repair_boundary_v5_distutils_C_consumed_calibration_result.json",
+      "sha256": "b4b1834f0bf01c9977c5266b292504daaa20e2f0c7aaef994d13ce5081470a56",
+      "qualified": true,
+      "goal_status": "pass",
+      "report_missing_imports": 0,
+      "repository_valid": true,
+      "accepted_tracked_copy_count": 0,
+      "accepted_repository_native_count": 0,
+      "remaining_repository_violation_count": 0,
+      "post_local_distribution_valid": true,
+      "post_unowned_import_artifact_count": 0,
+      "post_external_native_artifact_count": 1
+    }
+  ],
+  "decision": "calibration-pass",
+  "boundary_v5_status": "eligible-for-runner-integration-and-unseen-case-qualification",
+  "interpretation": "The same committed-source build provenance is accepted independently of whether artifacts remain in a repository build tree or an external effective import root.",
+  "scientific_scope": [
+    "This validates the measurement boundary, not an EnvSolve-Pro treatment effect.",
+    "The consumed pypa/distutils case is excluded from all benchmark estimates.",
+    "No model, repair feedback, or Official evaluator call was used in calibration.",
+    "Fresh unseen cases are required before any A/B/C comparison resumes."
+  ]
+}

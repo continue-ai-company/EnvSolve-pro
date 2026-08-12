@@ -1,0 +1,798 @@
+{
+  "boundary_implementation_sha256": "ad0ed8580bed77a48a04f8611d94e11d3df56257bf5c0848604bf6afacba6710",
+  "candidate_validation": {
+    "accepted": true,
+    "details": {
+      "interface": "open-candidate-program-v4",
+      "protected_configuration_history": "no-write-observed",
+      "safety_boundary": "fresh-container+effect-audit+postconditions",
+      "script_chars": 2371
+    },
+    "policy_id": "open-candidate-program-v4",
+    "reason": null
+  },
+  "canonical_program_sha256": "a11a821e498fa32f61f8f58d6b6e1386d4432106b412c54335dcb3275b6134bb",
+  "claim_scope": "consumed-boundary-validation-only-outcome-excluded",
+  "classification": "boundary-v4-not-qualified",
+  "completed_at": "2026-08-08T03:09:15.785547+00:00",
+  "environment_receipt": {
+    "created_at": "2026-08-08T03:09:18.757367+00:00",
+    "environment_id": "c7b8f7919282f94e08f8bde7280e189a52fffbb988161ed4d88bc7c1bf2ad094",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "provider_id": "docker-fresh-checkout-v1",
+    "repository": "pypa/distutils",
+    "revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0"
+  },
+  "goal_contract": {
+    "contract_id": "envbench-python-reportMissingImports-v3",
+    "sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463"
+  },
+  "mechanism_evidence": {
+    "candidate_completed": true,
+    "goal_report_observed": true,
+    "managed_dependency_provenance": {
+      "adapter": "open-aea-content-addressed-lock-v1",
+      "applicable": false,
+      "detection": {
+        "declaration_exit_code": 1,
+        "declaration_stderr_tail": "",
+        "declared_by": [],
+        "executable": null,
+        "inventory_exit_code": 0,
+        "inventory_stderr_tail": "",
+        "lock_paths": [],
+        "system_git": "/usr/bin/git"
+      },
+      "valid": false
+    }
+  },
+  "outcome": {
+    "bootstrap": {
+      "duration_seconds": 113.15572358301142,
+      "exit_code": 0,
+      "stderr": "/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.\n!!\n\n        ********************************************************************************\n        Please consider removing the following classifiers in favor of a SPDX license expression:\n\n        License :: OSI Approved :: MIT License\n\n        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.\n        ********************************************************************************\n\n!!\n  dist._finalize_license_expression()\n/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv/lib/python3.13/site-packages/setuptools/dist.py:765: SetuptoolsDeprecationWarning: License classifiers are deprecated.\n!!\n\n        ********************************************************************************\n        Please consider removing the following classifiers in favor of a SPDX license expression:\n\n        License :: OSI Approved :: MIT License\n\n        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.\n        ********************************************************************************\n\n!!\n  self._finalize_license_expression()\n/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv/lib/python3.13/site-packages/setuptools/_distutils/cmd.py:90: SetuptoolsDeprecationWarning: setup.py install is deprecated.\n!!\n\n        ********************************************************************************\n        Please avoid running ``setup.py`` directly.\n        Instead, use pypa/build, pypa/installer or other\n        standards-based tools.\n\n        This deprecation is overdue, please update your project and remove deprecated\n        calls to avoid build errors in the future.\n\n        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.\n        ********************************************************************************\n\n!!\n  self.initialize_options()\n",
+      "stdout": "ENVSOLVE_PYTHON_INSTALLATION_BASELINE_V2={\"provided_modules\": [\"conftest\", \"distutils\", \"docs\"], \"repository_native_artifacts\": [], \"repository_native_providers\": {\"xx\": [\"distutils/tests/xxmodule-3.8.c\", \"distutils/tests/xxmodule.c\"]}, \"trusted_virtualenv_build\": {\"applicable\": true, \"distribution_version\": \"20.31.2\", \"template_sha256\": \"0f20351ea7e90039c46d3fabdef991f28b1e3ff33eb13ee6f0d5cd21ea0e8b14\", \"valid\": true}, \"unowned_import_artifacts\": [{\"audit_kind\": \"unowned-import-artifact\", \"reason\": \"importable site-package artifact is not owned by an installed distribution\", \"relative_path\": \"distutils-precedence.pth\", \"site_root\": \"/opt/conda/lib/python3.13/site-packages\"}], \"valid\": false, \"violations\": [{\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"cffi\", \"origin\": \"/croot/cffi_1736182496610/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_cffi_backend\", \"cffi\"], \"undeclared_modules\": [\"_cffi_backend\", \"cffi\"], \"version\": \"1.17.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"archspec\", \"origin\": \"/croot/archspec_1709217642129/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"archspec\"], \"undeclared_modules\": [\"archspec\"], \"version\": \"0.2.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"idna\", \"origin\": \"/work/perseverance-python-buildout/croot/idna_1728406285595/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"idna\"], \"undeclared_modules\": [\"idna\"], \"version\": \"3.7\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda_package_streaming\", \"origin\": \"/croot/conda-package-streaming_1731366181612/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_package_streaming\"], \"undeclared_modules\": [\"conda_package_streaming\"], \"version\": \"0.11.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"PySocks\", \"origin\": \"/work/perseverance-python-buildout/croot/pysocks_1728406488267/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"socks\", \"sockshandler\"], \"undeclared_modules\": [\"socks\", \"sockshandler\"], \"version\": \"1.7.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pluggy\", \"origin\": \"/croot/pluggy_1733169620750/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pluggy\"], \"undeclared_modules\": [\"pluggy\"], \"version\": \"1.5.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"annotated-types\", \"origin\": \"/work/perseverance-python-buildout/croot/annotated-types_1728407282600/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"annotated_types\"], \"undeclared_modules\": [\"annotated_types\"], \"version\": \"0.6.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"tqdm\", \"origin\": \"/croot/tqdm_1738943461672/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"tqdm\"], \"undeclared_modules\": [\"tqdm\"], \"version\": \"4.67.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"frozendict\", \"origin\": \"/work/perseverance-python-buildout/croot/frozendict_1728480246023/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"frozendict\"], \"undeclared_modules\": [\"frozendict\"], \"version\": \"2.4.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-package-handling\", \"origin\": \"/croot/conda-package-handling_1731369021572/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_package_handling\"], \"undeclared_modules\": [\"conda_package_handling\"], \"version\": \"2.4.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"libmambapy\", \"origin\": \"/croot/mamba-split_1734469473285/work/libmambapy\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"libmambapy\"], \"undeclared_modules\": [\"libmambapy\"], \"version\": \"2.0.5\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"truststore\", \"origin\": \"/croot/truststore_1736550128580/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"truststore\"], \"undeclared_modules\": [\"truststore\"], \"version\": \"0.10.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"distro\", \"origin\": \"/work/perseverance-python-buildout/croot/distro_1728480038109/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"distro\"], \"undeclared_modules\": [\"distro\"], \"version\": \"1.9.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"certifi\", \"origin\": \"/croot/certifi_1745939213408/work/certifi\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"certifi\"], \"undeclared_modules\": [\"certifi\"], \"version\": \"2025.4.26\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"mdurl\", \"origin\": \"/work/perseverance-python-buildout/croot/mdurl_1728407610863/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"mdurl\"], \"undeclared_modules\": [\"mdurl\"], \"version\": \"0.1.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"boltons\", \"origin\": \"/croot/boltons_1737061692029/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"boltons\"], \"undeclared_modules\": [\"boltons\"], \"version\": \"24.1.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pydantic\", \"origin\": \"/croot/pydantic_1734736068201/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pydantic\"], \"undeclared_modules\": [\"pydantic\"], \"version\": \"2.10.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"ruamel.yaml\", \"origin\": \"/croot/ruamel.yaml_1745960308213/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"ruamel\"], \"undeclared_modules\": [\"ruamel\"], \"version\": \"0.18.10\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pycparser\", \"origin\": \"/tmp/build/80754af9/pycparser_1636541352034/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pycparser\"], \"undeclared_modules\": [\"pycparser\"], \"version\": \"2.21\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"platformdirs\", \"origin\": \"/croot/platformdirs_1744273047827/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"platformdirs\"], \"undeclared_modules\": [\"platformdirs\"], \"version\": \"4.3.7\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-anaconda-tos\", \"origin\": \"/croot/conda-anaconda-tos_1744823865095/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_anaconda_tos\"], \"undeclared_modules\": [\"conda_anaconda_tos\"], \"version\": \"0.1.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"packaging\", \"origin\": \"/croot/packaging_1734472115061/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"packaging\"], \"undeclared_modules\": [\"packaging\"], \"version\": \"24.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"jsonpatch\", \"origin\": \"/work/perseverance-python-buildout/croot/jsonpatch_1728480643704/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"jsonpatch\"], \"undeclared_modules\": [\"jsonpatch\"], \"version\": \"1.33\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"urllib3\", \"origin\": \"/croot/urllib3_1737133636136/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"urllib3\"], \"undeclared_modules\": [\"urllib3\"], \"version\": \"2.3.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"rich\", \"origin\": \"/croot/rich_1732638988216/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"rich\"], \"undeclared_modules\": [\"rich\"], \"version\": \"13.9.4\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"ruamel.yaml.clib\", \"origin\": \"/croot/ruamel.yaml.clib_1745937156736/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_ruamel_yaml\", \"ruamel\"], \"undeclared_modules\": [\"_ruamel_yaml\", \"ruamel\"], \"version\": \"0.2.12\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"markdown-it-py\", \"origin\": \"/work/perseverance-python-buildout/croot/markdown-it-py_1728408399614/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"markdown_it\"], \"undeclared_modules\": [\"markdown_it\"], \"version\": \"2.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pip\", \"origin\": \"/io/buildout/croot/pip_1739558191570/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pip\"], \"undeclared_modules\": [\"pip\"], \"version\": \"25.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"menuinst\", \"origin\": \"/croot/menuinst_1738943421398/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"menuinst\"], \"undeclared_modules\": [\"menuinst\"], \"version\": \"2.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"Pygments\", \"origin\": \"/croot/pygments_1744664115646/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pygments\"], \"undeclared_modules\": [\"pygments\"], \"version\": \"2.19.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-libmamba-solver\", \"origin\": \"/croot/conda-libmamba-solver_1745607008911/work/src\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_libmamba_solver\"], \"undeclared_modules\": [\"conda_libmamba_solver\"], \"version\": \"25.4.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"cryptography\", \"origin\": \"/croot/cryptography_1740577832525/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"cryptography\", \"rust\"], \"undeclared_modules\": [\"cryptography\", \"rust\"], \"version\": \"44.0.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"Brotli\", \"origin\": \"/croot/brotli-split_1736182465122/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_brotli\", \"brotli\"], \"undeclared_modules\": [\"_brotli\", \"brotli\"], \"version\": \"1.0.9\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"anaconda-anon-usage\", \"origin\": \"/croot/anaconda-anon-usage_1743190149852/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"anaconda_anon_usage\"], \"undeclared_modules\": [\"anaconda_anon_usage\"], \"version\": \"0.7.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pycosat\", \"origin\": \"/croot/pycosat_1736868411880/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pycosat\", \"test_pycosat\"], \"undeclared_modules\": [\"pycosat\", \"test_pycosat\"], \"version\": \"0.6.6\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"charset-normalizer\", \"origin\": \"/croot/charset-normalizer_1721748349566/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"charset_normalizer\"], \"undeclared_modules\": [\"charset_normalizer\"], \"version\": \"3.3.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"zstandard\", \"origin\": \"/croot/zstandard_1731356343166/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"zstandard\"], \"undeclared_modules\": [\"zstandard\"], \"version\": \"0.23.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pydantic_core\", \"origin\": \"/croot/pydantic-core_1734726049599/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pydantic_core\"], \"undeclared_modules\": [\"pydantic_core\"], \"version\": \"2.27.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-content-trust\", \"origin\": \"/work/perseverance-python-buildout/croot/conda-content-trust_1728507652179/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_content_trust\"], \"undeclared_modules\": [\"conda_content_trust\"], \"version\": \"0.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"typing_extensions\", \"origin\": \"/croot/typing_extensions_1734714855955/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"__pycache__\", \"typing_extensions\"], \"undeclared_modules\": [\"__pycache__\", \"typing_extensions\"], \"version\": \"4.12.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"requests\", \"origin\": \"/croot/requests_1731001047220/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"requests\"], \"undeclared_modules\": [\"requests\"], \"version\": \"2.32.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda\", \"origin\": \"/croot/conda_1743715298530/work/conda-src\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda\", \"conda_env\", \"tests\"], \"undeclared_modules\": [\"conda\", \"conda_env\", \"tests\"], \"version\": \"25.3.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-anaconda-telemetry\", \"origin\": \"/croot/conda-anaconda-telemetry_1744662545519/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_anaconda_telemetry\"], \"undeclared_modules\": [\"conda_anaconda_telemetry\"], \"version\": \"0.1.2\"}], \"virtualenv_runtime_artifacts\": {\"applicable\": false, \"distribution_version\": null, \"environment_root\": \"/opt/conda\", \"pairs\": [], \"valid\": false}}\nENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1=e5a7ddc60b1943209bc71cfae5a062a3\nENVSOLVE_PYTHON_INSTALLATION_POST_V2={\"provided_modules\": [\"build_output\", \"conftest\", \"distutils\", \"docs\"], \"repository_native_artifacts\": [], \"repository_native_providers\": {\"xx\": [\"distutils/tests/xxmodule-3.8.c\", \"distutils/tests/xxmodule.c\"]}, \"trusted_virtualenv_build\": {\"applicable\": true, \"distribution_version\": \"21.7.2\", \"template_sha256\": \"0278334cdcfab4c746b4416fbd5c2b6e7da937c81e132397d62c361d404ebe0e\", \"valid\": true}, \"unowned_import_artifacts\": [], \"valid\": true, \"violations\": [], \"virtualenv_runtime_artifacts\": {\"applicable\": false, \"distribution_version\": null, \"environment_root\": \"/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv\", \"pairs\": [], \"valid\": false}}\nENVSOLVE_MANAGED_DEPENDENCY_PROVENANCE_V1={\"adapter\": \"open-aea-content-addressed-lock-v1\", \"applicable\": false, \"detection\": {\"declaration_exit_code\": 1, \"declaration_stderr_tail\": \"\", \"declared_by\": [], \"executable\": null, \"inventory_exit_code\": 0, \"inventory_stderr_tail\": \"\", \"lock_paths\": [], \"system_git\": \"/usr/bin/git\"}, \"valid\": false}\nENVSOLVE_IMPORT_ALIAS_AUDIT_V1={\"provided_modules\": [\"conftest\", \"distutils\", \"docs\"], \"valid\": true, \"violations\": []}\nENVSOLVE_GOAL_REPORT_BEGIN_V1=e5a7ddc60b1943209bc71cfae5a062a3\n{\"details\": {\"criterion\": \"count(reportMissingImports) == 0\", \"issues_count\": 0, \"pyright_version\": \"pyright 1.1.411\"}, \"finding_set_complete\": true, \"findings\": [], \"schema\": \"envsolve-goal-report-v1\", \"status\": \"pass\"}\nENVSOLVE_GOAL_REPORT_END_V1=e5a7ddc60b1943209bc71cfae5a062a3\n"
+    },
+    "check_profile": "minimal-b-executable-goal-contract-boundary-v4",
+    "counterexamples": [],
+    "details": {
+      "evidence_scope_id": "goal-contract:envbench-python-reportMissingImports-v3:61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+      "goal_contract": {
+        "contract_id": "envbench-python-reportMissingImports-v3",
+        "description": "After the candidate configures the environment, run Pyright over the repository and require zero reportMissingImports diagnostics. All other Pyright diagnostic rules are outside this goal.",
+        "report_schema": "envsolve-goal-report-v1",
+        "sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463"
+      },
+      "repository_effect_audit": {
+        "accepted_managed_path_count": 0,
+        "accepted_managed_paths": [],
+        "accepted_managed_paths_truncated": false,
+        "accepted_native_artifact_count": 1,
+        "accepted_native_artifacts": [
+          {
+            "derivation": "tracked-native-provider-and-exported-initializer",
+            "module": "xx",
+            "path": "build_output/xx.cpython-313-aarch64-linux-gnu.so",
+            "sha256": "0e1da40c43afd17462597974ca703e3625451037b444ab113225cf7a90fb7dc8",
+            "source_paths": [
+              "distutils/tests/xxmodule-3.8.c",
+              "distutils/tests/xxmodule.c"
+            ]
+          }
+        ],
+        "allowed_generated_path_count": 22,
+        "allowed_generated_paths": [
+          ".envsolve-venv/",
+          "build_output/distutils.egg-info/",
+          "build_output/local-build/lib/distutils/command/command_template",
+          "build_output/local-build/lib/distutils/command/wininst-10.0-amd64.exe",
+          "build_output/local-build/lib/distutils/command/wininst-10.0.exe",
+          "build_output/local-build/lib/distutils/command/wininst-14.0-amd64.exe",
+          "build_output/local-build/lib/distutils/command/wininst-14.0.exe",
+          "build_output/local-build/lib/distutils/command/wininst-6.0.exe",
+          "build_output/local-build/lib/distutils/command/wininst-7.1.exe",
+          "build_output/local-build/lib/distutils/command/wininst-8.0.exe",
+          "build_output/local-build/lib/distutils/command/wininst-9.0-amd64.exe",
+          "build_output/local-build/lib/distutils/command/wininst-9.0.exe",
+          "build_output/local-build/lib/distutils/tests/Setup.sample",
+          "build_output/local-build/lib/distutils/tests/includetest.rst",
+          "build_output/local-build/lib/distutils/tests/xxmodule-3.8.c",
+          "build_output/local-build/lib/distutils/tests/xxmodule.c",
+          "build_output/local-dist/distutils-0.0.0+envsolve-py3-none-any.whl",
+          "build_output/temp/distutils/tests/xxmodule.o",
+          "distutils/__pycache__/",
+          "distutils/command/__pycache__/",
+          "distutils/compat/__pycache__/",
+          "distutils/tests/__pycache__/"
+        ],
+        "allowed_generated_paths_truncated": false,
+        "base_policy": "submitted-state-plus-content-provenance-v7",
+        "checked_out_revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+        "declared_generated_paths": [],
+        "disallowed_untracked_paths": [
+          "build_output/local-build/lib/distutils/__init__.py",
+          "build_output/local-build/lib/distutils/_collections.py",
+          "build_output/local-build/lib/distutils/_functools.py",
+          "build_output/local-build/lib/distutils/_itertools.py",
+          "build_output/local-build/lib/distutils/_log.py",
+          "build_output/local-build/lib/distutils/_macos_compat.py",
+          "build_output/local-build/lib/distutils/_modified.py",
+          "build_output/local-build/lib/distutils/_msvccompiler.py",
+          "build_output/local-build/lib/distutils/archive_util.py",
+          "build_output/local-build/lib/distutils/bcppcompiler.py",
+          "build_output/local-build/lib/distutils/ccompiler.py",
+          "build_output/local-build/lib/distutils/cmd.py",
+          "build_output/local-build/lib/distutils/command/__init__.py",
+          "build_output/local-build/lib/distutils/command/_framework_compat.py",
+          "build_output/local-build/lib/distutils/command/bdist.py",
+          "build_output/local-build/lib/distutils/command/bdist_dumb.py",
+          "build_output/local-build/lib/distutils/command/bdist_rpm.py",
+          "build_output/local-build/lib/distutils/command/build.py",
+          "build_output/local-build/lib/distutils/command/build_clib.py",
+          "build_output/local-build/lib/distutils/command/build_ext.py",
+          "build_output/local-build/lib/distutils/command/build_py.py",
+          "build_output/local-build/lib/distutils/command/build_scripts.py",
+          "build_output/local-build/lib/distutils/command/check.py",
+          "build_output/local-build/lib/distutils/command/clean.py",
+          "build_output/local-build/lib/distutils/command/config.py",
+          "build_output/local-build/lib/distutils/command/install.py",
+          "build_output/local-build/lib/distutils/command/install_data.py",
+          "build_output/local-build/lib/distutils/command/install_egg_info.py",
+          "build_output/local-build/lib/distutils/command/install_headers.py",
+          "build_output/local-build/lib/distutils/command/install_lib.py",
+          "build_output/local-build/lib/distutils/command/install_scripts.py",
+          "build_output/local-build/lib/distutils/command/register.py",
+          "build_output/local-build/lib/distutils/command/sdist.py",
+          "build_output/local-build/lib/distutils/command/upload.py",
+          "build_output/local-build/lib/distutils/compat/__init__.py",
+          "build_output/local-build/lib/distutils/compat/py38.py",
+          "build_output/local-build/lib/distutils/compat/py39.py",
+          "build_output/local-build/lib/distutils/config.py",
+          "build_output/local-build/lib/distutils/core.py",
+          "build_output/local-build/lib/distutils/cygwinccompiler.py",
+          "build_output/local-build/lib/distutils/debug.py",
+          "build_output/local-build/lib/distutils/dep_util.py",
+          "build_output/local-build/lib/distutils/dir_util.py",
+          "build_output/local-build/lib/distutils/dist.py",
+          "build_output/local-build/lib/distutils/errors.py",
+          "build_output/local-build/lib/distutils/extension.py",
+          "build_output/local-build/lib/distutils/fancy_getopt.py",
+          "build_output/local-build/lib/distutils/file_util.py",
+          "build_output/local-build/lib/distutils/filelist.py",
+          "build_output/local-build/lib/distutils/log.py",
+          "build_output/local-build/lib/distutils/msvc9compiler.py",
+          "build_output/local-build/lib/distutils/msvccompiler.py",
+          "build_output/local-build/lib/distutils/spawn.py",
+          "build_output/local-build/lib/distutils/sysconfig.py",
+          "build_output/local-build/lib/distutils/tests/__init__.py",
+          "build_output/local-build/lib/distutils/tests/compat/__init__.py",
+          "build_output/local-build/lib/distutils/tests/compat/py38.py",
+          "build_output/local-build/lib/distutils/tests/support.py",
+          "build_output/local-build/lib/distutils/tests/test_archive_util.py",
+          "build_output/local-build/lib/distutils/tests/test_bdist.py",
+          "build_output/local-build/lib/distutils/tests/test_bdist_dumb.py",
+          "build_output/local-build/lib/distutils/tests/test_bdist_rpm.py",
+          "build_output/local-build/lib/distutils/tests/test_build.py",
+          "build_output/local-build/lib/distutils/tests/test_build_clib.py",
+          "build_output/local-build/lib/distutils/tests/test_build_ext.py",
+          "build_output/local-build/lib/distutils/tests/test_build_py.py",
+          "build_output/local-build/lib/distutils/tests/test_build_scripts.py",
+          "build_output/local-build/lib/distutils/tests/test_ccompiler.py",
+          "build_output/local-build/lib/distutils/tests/test_check.py",
+          "build_output/local-build/lib/distutils/tests/test_clean.py",
+          "build_output/local-build/lib/distutils/tests/test_cmd.py",
+          "build_output/local-build/lib/distutils/tests/test_config.py",
+          "build_output/local-build/lib/distutils/tests/test_config_cmd.py",
+          "build_output/local-build/lib/distutils/tests/test_core.py",
+          "build_output/local-build/lib/distutils/tests/test_cygwinccompiler.py",
+          "build_output/local-build/lib/distutils/tests/test_dir_util.py",
+          "build_output/local-build/lib/distutils/tests/test_dist.py",
+          "build_output/local-build/lib/distutils/tests/test_extension.py",
+          "build_output/local-build/lib/distutils/tests/test_file_util.py",
+          "build_output/local-build/lib/distutils/tests/test_filelist.py",
+          "build_output/local-build/lib/distutils/tests/test_install.py",
+          "build_output/local-build/lib/distutils/tests/test_install_data.py",
+          "build_output/local-build/lib/distutils/tests/test_install_headers.py",
+          "build_output/local-build/lib/distutils/tests/test_install_lib.py",
+          "build_output/local-build/lib/distutils/tests/test_install_scripts.py",
+          "build_output/local-build/lib/distutils/tests/test_log.py",
+          "build_output/local-build/lib/distutils/tests/test_modified.py",
+          "build_output/local-build/lib/distutils/tests/test_msvc9compiler.py",
+          "build_output/local-build/lib/distutils/tests/test_msvccompiler.py",
+          "build_output/local-build/lib/distutils/tests/test_register.py",
+          "build_output/local-build/lib/distutils/tests/test_sdist.py",
+          "build_output/local-build/lib/distutils/tests/test_spawn.py",
+          "build_output/local-build/lib/distutils/tests/test_sysconfig.py",
+          "build_output/local-build/lib/distutils/tests/test_text_file.py",
+          "build_output/local-build/lib/distutils/tests/test_unixccompiler.py",
+          "build_output/local-build/lib/distutils/tests/test_upload.py",
+          "build_output/local-build/lib/distutils/tests/test_util.py",
+          "build_output/local-build/lib/distutils/tests/test_version.py",
+          "build_output/local-build/lib/distutils/tests/test_versionpredicate.py",
+          "build_output/local-build/lib/distutils/tests/unix_compat.py",
+          "build_output/local-build/lib/distutils/text_file.py",
+          "build_output/local-build/lib/distutils/unixccompiler.py",
+          "build_output/local-build/lib/distutils/util.py",
+          "build_output/local-build/lib/distutils/version.py",
+          "build_output/local-build/lib/distutils/versionpredicate.py",
+          "build_output/local-build/lib/distutils/zosccompiler.py"
+        ],
+        "expected_revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+        "managed_dependency_provenance": {
+          "adapter": "open-aea-content-addressed-lock-v1",
+          "applicable": false,
+          "detection": {
+            "declaration_exit_code": 1,
+            "declaration_stderr_tail": "",
+            "declared_by": [],
+            "executable": null,
+            "inventory_exit_code": 0,
+            "inventory_stderr_tail": "",
+            "lock_paths": [],
+            "system_git": "/usr/bin/git"
+          },
+          "valid": false
+        },
+        "native_build_policy": "tracked-native-provider-v1",
+        "native_providers": {
+          "xx": [
+            "distutils/tests/xxmodule-3.8.c",
+            "distutils/tests/xxmodule.c"
+          ]
+        },
+        "policy": "submitted-state-plus-native-build-provenance-v8",
+        "repository_derived_artifacts": [],
+        "tracked_changes": [],
+        "valid": false,
+        "violations": [
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_collections.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_functools.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_itertools.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_log.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_macos_compat.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_modified.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/_msvccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/archive_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/bcppcompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/ccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/cmd.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/_framework_compat.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/bdist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/bdist_dumb.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/bdist_rpm.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/build.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/build_clib.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/build_ext.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/build_py.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/build_scripts.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/check.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/clean.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/config.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/install.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/install_data.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/install_egg_info.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/install_headers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/install_lib.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/install_scripts.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/register.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/sdist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/command/upload.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/compat/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/compat/py38.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/compat/py39.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/config.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/core.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/cygwinccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/debug.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/dep_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/dir_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/dist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/errors.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/extension.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/fancy_getopt.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/file_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/filelist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/log.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/msvc9compiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/msvccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/spawn.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/sysconfig.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/compat/__init__.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/compat/py38.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/support.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_archive_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_bdist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_bdist_dumb.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_bdist_rpm.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_build.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_build_clib.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_build_ext.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_build_py.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_build_scripts.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_ccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_check.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_clean.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_cmd.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_config.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_config_cmd.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_core.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_cygwinccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_dir_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_dist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_extension.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_file_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_filelist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_install.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_install_data.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_install_headers.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_install_lib.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_install_scripts.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_log.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_modified.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_msvc9compiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_msvccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_register.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_sdist.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_spawn.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_sysconfig.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_text_file.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_unixccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_upload.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_version.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/test_versionpredicate.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/tests/unix_compat.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/text_file.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/unixccompiler.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/util.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/version.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/versionpredicate.py"
+          },
+          {
+            "detail": "untracked importable files and .pth files are prohibited",
+            "kind": "untracked_import_artifact",
+            "path": "build_output/local-build/lib/distutils/zosccompiler.py"
+          }
+        ]
+      }
+    },
+    "observations": [],
+    "passed": false,
+    "summary": "Candidate violated repository or workspace effect boundaries"
+  },
+  "repository": "pypa/distutils",
+  "revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+  "schema_version": "1.0.0",
+  "source_program_sha256": "75391a9f6d2f28b1655ab4d593dc72a7748a6b8f1ce909c83ee34a12d1df2769",
+  "validation_id": "envsolve-pro-boundary-v4-consumed-candidate-v1",
+  "validation_pass": false,
+  "workspace_preconditions": [
+    {
+      "kind": "directory",
+      "path": "build_output",
+      "producer": "envbench-python-build-v1"
+    }
+  ]
+}

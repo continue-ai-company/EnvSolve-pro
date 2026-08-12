@@ -1,0 +1,831 @@
+{
+  "boundary_implementation_sha256": "ac919e353ae5d6bb40c11797684ff9fc76a439fe5c06f7919303c9a792e778bf",
+  "candidate_validation": {
+    "accepted": true,
+    "details": {
+      "interface": "open-candidate-program-v5",
+      "protected_configuration_history": "no-write-observed",
+      "safety_boundary": "fresh-container+effect-audit+postconditions",
+      "script_chars": 2371
+    },
+    "policy_id": "open-candidate-program-v5",
+    "reason": null
+  },
+  "canonical_program_sha256": "a11a821e498fa32f61f8f58d6b6e1386d4432106b412c54335dcb3275b6134bb",
+  "claim_scope": "consumed-boundary-validation-only-outcome-excluded",
+  "classification": "boundary-v5-qualified",
+  "completed_at": "2026-08-08T03:21:29.774154+00:00",
+  "environment_receipt": {
+    "created_at": "2026-08-08T03:21:32.480527+00:00",
+    "environment_id": "f7401ecbed9c7fdcaf1b59d44da4ea310292641b779f55fb322239ee28cc32d3",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "provider_id": "docker-fresh-checkout-v1",
+    "repository": "pypa/distutils",
+    "revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0"
+  },
+  "goal_contract": {
+    "contract_id": "envbench-python-reportMissingImports-v3",
+    "sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463"
+  },
+  "mechanism_evidence": {
+    "candidate_completed": true,
+    "goal_report_observed": true,
+    "managed_dependency_provenance": {
+      "adapter": "open-aea-content-addressed-lock-v1",
+      "applicable": false,
+      "detection": {
+        "declaration_exit_code": 1,
+        "declaration_stderr_tail": "",
+        "declared_by": [],
+        "executable": null,
+        "inventory_exit_code": 0,
+        "inventory_stderr_tail": "",
+        "lock_paths": [],
+        "system_git": "/usr/bin/git"
+      },
+      "valid": false
+    }
+  },
+  "outcome": {
+    "bootstrap": {
+      "duration_seconds": 114.99526674998924,
+      "exit_code": 0,
+      "stderr": "/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.\n!!\n\n        ********************************************************************************\n        Please consider removing the following classifiers in favor of a SPDX license expression:\n\n        License :: OSI Approved :: MIT License\n\n        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.\n        ********************************************************************************\n\n!!\n  dist._finalize_license_expression()\n/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv/lib/python3.13/site-packages/setuptools/dist.py:765: SetuptoolsDeprecationWarning: License classifiers are deprecated.\n!!\n\n        ********************************************************************************\n        Please consider removing the following classifiers in favor of a SPDX license expression:\n\n        License :: OSI Approved :: MIT License\n\n        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.\n        ********************************************************************************\n\n!!\n  self._finalize_license_expression()\n/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv/lib/python3.13/site-packages/setuptools/_distutils/cmd.py:90: SetuptoolsDeprecationWarning: setup.py install is deprecated.\n!!\n\n        ********************************************************************************\n        Please avoid running ``setup.py`` directly.\n        Instead, use pypa/build, pypa/installer or other\n        standards-based tools.\n\n        This deprecation is overdue, please update your project and remove deprecated\n        calls to avoid build errors in the future.\n\n        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.\n        ********************************************************************************\n\n!!\n  self.initialize_options()\n",
+      "stdout": "ENVSOLVE_PYTHON_INSTALLATION_BASELINE_V2={\"provided_modules\": [\"conftest\", \"distutils\", \"docs\"], \"repository_native_artifacts\": [], \"repository_native_providers\": {\"xx\": [\"distutils/tests/xxmodule-3.8.c\", \"distutils/tests/xxmodule.c\"]}, \"repository_tracked_copies\": [], \"trusted_virtualenv_build\": {\"applicable\": true, \"distribution_version\": \"20.31.2\", \"template_sha256\": \"0f20351ea7e90039c46d3fabdef991f28b1e3ff33eb13ee6f0d5cd21ea0e8b14\", \"valid\": true}, \"unowned_import_artifacts\": [{\"audit_kind\": \"unowned-import-artifact\", \"reason\": \"importable site-package artifact is not owned by an installed distribution\", \"relative_path\": \"distutils-precedence.pth\", \"site_root\": \"/opt/conda/lib/python3.13/site-packages\"}], \"valid\": false, \"violations\": [{\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"cffi\", \"origin\": \"/croot/cffi_1736182496610/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_cffi_backend\", \"cffi\"], \"undeclared_modules\": [\"_cffi_backend\", \"cffi\"], \"version\": \"1.17.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"archspec\", \"origin\": \"/croot/archspec_1709217642129/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"archspec\"], \"undeclared_modules\": [\"archspec\"], \"version\": \"0.2.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"idna\", \"origin\": \"/work/perseverance-python-buildout/croot/idna_1728406285595/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"idna\"], \"undeclared_modules\": [\"idna\"], \"version\": \"3.7\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda_package_streaming\", \"origin\": \"/croot/conda-package-streaming_1731366181612/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_package_streaming\"], \"undeclared_modules\": [\"conda_package_streaming\"], \"version\": \"0.11.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"PySocks\", \"origin\": \"/work/perseverance-python-buildout/croot/pysocks_1728406488267/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"socks\", \"sockshandler\"], \"undeclared_modules\": [\"socks\", \"sockshandler\"], \"version\": \"1.7.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pluggy\", \"origin\": \"/croot/pluggy_1733169620750/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pluggy\"], \"undeclared_modules\": [\"pluggy\"], \"version\": \"1.5.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"annotated-types\", \"origin\": \"/work/perseverance-python-buildout/croot/annotated-types_1728407282600/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"annotated_types\"], \"undeclared_modules\": [\"annotated_types\"], \"version\": \"0.6.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"tqdm\", \"origin\": \"/croot/tqdm_1738943461672/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"tqdm\"], \"undeclared_modules\": [\"tqdm\"], \"version\": \"4.67.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"frozendict\", \"origin\": \"/work/perseverance-python-buildout/croot/frozendict_1728480246023/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"frozendict\"], \"undeclared_modules\": [\"frozendict\"], \"version\": \"2.4.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-package-handling\", \"origin\": \"/croot/conda-package-handling_1731369021572/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_package_handling\"], \"undeclared_modules\": [\"conda_package_handling\"], \"version\": \"2.4.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"libmambapy\", \"origin\": \"/croot/mamba-split_1734469473285/work/libmambapy\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"libmambapy\"], \"undeclared_modules\": [\"libmambapy\"], \"version\": \"2.0.5\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"truststore\", \"origin\": \"/croot/truststore_1736550128580/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"truststore\"], \"undeclared_modules\": [\"truststore\"], \"version\": \"0.10.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"distro\", \"origin\": \"/work/perseverance-python-buildout/croot/distro_1728480038109/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"distro\"], \"undeclared_modules\": [\"distro\"], \"version\": \"1.9.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"certifi\", \"origin\": \"/croot/certifi_1745939213408/work/certifi\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"certifi\"], \"undeclared_modules\": [\"certifi\"], \"version\": \"2025.4.26\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"mdurl\", \"origin\": \"/work/perseverance-python-buildout/croot/mdurl_1728407610863/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"mdurl\"], \"undeclared_modules\": [\"mdurl\"], \"version\": \"0.1.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"boltons\", \"origin\": \"/croot/boltons_1737061692029/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"boltons\"], \"undeclared_modules\": [\"boltons\"], \"version\": \"24.1.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pydantic\", \"origin\": \"/croot/pydantic_1734736068201/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pydantic\"], \"undeclared_modules\": [\"pydantic\"], \"version\": \"2.10.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"ruamel.yaml\", \"origin\": \"/croot/ruamel.yaml_1745960308213/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"ruamel\"], \"undeclared_modules\": [\"ruamel\"], \"version\": \"0.18.10\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pycparser\", \"origin\": \"/tmp/build/80754af9/pycparser_1636541352034/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pycparser\"], \"undeclared_modules\": [\"pycparser\"], \"version\": \"2.21\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"platformdirs\", \"origin\": \"/croot/platformdirs_1744273047827/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"platformdirs\"], \"undeclared_modules\": [\"platformdirs\"], \"version\": \"4.3.7\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-anaconda-tos\", \"origin\": \"/croot/conda-anaconda-tos_1744823865095/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_anaconda_tos\"], \"undeclared_modules\": [\"conda_anaconda_tos\"], \"version\": \"0.1.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"packaging\", \"origin\": \"/croot/packaging_1734472115061/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"packaging\"], \"undeclared_modules\": [\"packaging\"], \"version\": \"24.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"jsonpatch\", \"origin\": \"/work/perseverance-python-buildout/croot/jsonpatch_1728480643704/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"jsonpatch\"], \"undeclared_modules\": [\"jsonpatch\"], \"version\": \"1.33\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"urllib3\", \"origin\": \"/croot/urllib3_1737133636136/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"urllib3\"], \"undeclared_modules\": [\"urllib3\"], \"version\": \"2.3.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"rich\", \"origin\": \"/croot/rich_1732638988216/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"rich\"], \"undeclared_modules\": [\"rich\"], \"version\": \"13.9.4\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"ruamel.yaml.clib\", \"origin\": \"/croot/ruamel.yaml.clib_1745937156736/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_ruamel_yaml\", \"ruamel\"], \"undeclared_modules\": [\"_ruamel_yaml\", \"ruamel\"], \"version\": \"0.2.12\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"markdown-it-py\", \"origin\": \"/work/perseverance-python-buildout/croot/markdown-it-py_1728408399614/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"markdown_it\"], \"undeclared_modules\": [\"markdown_it\"], \"version\": \"2.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pip\", \"origin\": \"/io/buildout/croot/pip_1739558191570/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pip\"], \"undeclared_modules\": [\"pip\"], \"version\": \"25.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"menuinst\", \"origin\": \"/croot/menuinst_1738943421398/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"menuinst\"], \"undeclared_modules\": [\"menuinst\"], \"version\": \"2.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"Pygments\", \"origin\": \"/croot/pygments_1744664115646/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pygments\"], \"undeclared_modules\": [\"pygments\"], \"version\": \"2.19.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-libmamba-solver\", \"origin\": \"/croot/conda-libmamba-solver_1745607008911/work/src\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_libmamba_solver\"], \"undeclared_modules\": [\"conda_libmamba_solver\"], \"version\": \"25.4.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"cryptography\", \"origin\": \"/croot/cryptography_1740577832525/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"cryptography\", \"rust\"], \"undeclared_modules\": [\"cryptography\", \"rust\"], \"version\": \"44.0.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"Brotli\", \"origin\": \"/croot/brotli-split_1736182465122/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"_brotli\", \"brotli\"], \"undeclared_modules\": [\"_brotli\", \"brotli\"], \"version\": \"1.0.9\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"anaconda-anon-usage\", \"origin\": \"/croot/anaconda-anon-usage_1743190149852/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"anaconda_anon_usage\"], \"undeclared_modules\": [\"anaconda_anon_usage\"], \"version\": \"0.7.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pycosat\", \"origin\": \"/croot/pycosat_1736868411880/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pycosat\", \"test_pycosat\"], \"undeclared_modules\": [\"pycosat\", \"test_pycosat\"], \"version\": \"0.6.6\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"charset-normalizer\", \"origin\": \"/croot/charset-normalizer_1721748349566/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"charset_normalizer\"], \"undeclared_modules\": [\"charset_normalizer\"], \"version\": \"3.3.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"zstandard\", \"origin\": \"/croot/zstandard_1731356343166/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"zstandard\"], \"undeclared_modules\": [\"zstandard\"], \"version\": \"0.23.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"pydantic_core\", \"origin\": \"/croot/pydantic-core_1734726049599/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"pydantic_core\"], \"undeclared_modules\": [\"pydantic_core\"], \"version\": \"2.27.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-content-trust\", \"origin\": \"/work/perseverance-python-buildout/croot/conda-content-trust_1728507652179/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_content_trust\"], \"undeclared_modules\": [\"conda_content_trust\"], \"version\": \"0.2.0\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"typing_extensions\", \"origin\": \"/croot/typing_extensions_1734714855955/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"__pycache__\", \"typing_extensions\"], \"undeclared_modules\": [\"__pycache__\", \"typing_extensions\"], \"version\": \"4.12.2\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"requests\", \"origin\": \"/croot/requests_1731001047220/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"requests\"], \"undeclared_modules\": [\"requests\"], \"version\": \"2.32.3\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda\", \"origin\": \"/croot/conda_1743715298530/work/conda-src\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda\", \"conda_env\", \"tests\"], \"undeclared_modules\": [\"conda\", \"conda_env\", \"tests\"], \"version\": \"25.3.1\"}, {\"audit_kind\": \"undeclared-local-distribution\", \"distribution\": \"conda-anaconda-telemetry\", \"origin\": \"/croot/conda-anaconda-telemetry_1744662545519/work\", \"reason\": \"local distribution exposes modules not provided by the repository\", \"top_level_modules\": [\"conda_anaconda_telemetry\"], \"undeclared_modules\": [\"conda_anaconda_telemetry\"], \"version\": \"0.1.2\"}], \"virtualenv_runtime_artifacts\": {\"applicable\": false, \"distribution_version\": null, \"environment_root\": \"/opt/conda\", \"pairs\": [], \"valid\": false}}\nENVSOLVE_GOAL_CANDIDATE_COMPLETED_V1=2e2588befc1647f19543a8f20f895f5f\nENVSOLVE_PYTHON_INSTALLATION_POST_V2={\"provided_modules\": [\"build_output\", \"conftest\", \"distutils\", \"docs\"], \"repository_native_artifacts\": [], \"repository_native_providers\": {\"xx\": [\"distutils/tests/xxmodule-3.8.c\", \"distutils/tests/xxmodule.c\"]}, \"repository_tracked_copies\": [], \"trusted_virtualenv_build\": {\"applicable\": true, \"distribution_version\": \"21.7.2\", \"template_sha256\": \"0278334cdcfab4c746b4416fbd5c2b6e7da937c81e132397d62c361d404ebe0e\", \"valid\": true}, \"unowned_import_artifacts\": [], \"valid\": true, \"violations\": [], \"virtualenv_runtime_artifacts\": {\"applicable\": false, \"distribution_version\": null, \"environment_root\": \"/data/project/pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/.envsolve-venv\", \"pairs\": [], \"valid\": false}}\nENVSOLVE_MANAGED_DEPENDENCY_PROVENANCE_V1={\"adapter\": \"open-aea-content-addressed-lock-v1\", \"applicable\": false, \"detection\": {\"declaration_exit_code\": 1, \"declaration_stderr_tail\": \"\", \"declared_by\": [], \"executable\": null, \"inventory_exit_code\": 0, \"inventory_stderr_tail\": \"\", \"lock_paths\": [], \"system_git\": \"/usr/bin/git\"}, \"valid\": false}\nENVSOLVE_IMPORT_ALIAS_AUDIT_V1={\"provided_modules\": [\"conftest\", \"distutils\", \"docs\"], \"valid\": true, \"violations\": []}\nENVSOLVE_GOAL_REPORT_BEGIN_V1=2e2588befc1647f19543a8f20f895f5f\n{\"details\": {\"criterion\": \"count(reportMissingImports) == 0\", \"issues_count\": 0, \"pyright_version\": \"pyright 1.1.411\"}, \"finding_set_complete\": true, \"findings\": [], \"schema\": \"envsolve-goal-report-v1\", \"status\": \"pass\"}\nENVSOLVE_GOAL_REPORT_END_V1=2e2588befc1647f19543a8f20f895f5f\n"
+    },
+    "check_profile": "minimal-b-executable-goal-contract-boundary-v5",
+    "counterexamples": [],
+    "details": {
+      "adapter_schema": "envsolve-structured-finding-adapter-v3",
+      "completed": true,
+      "environment_fresh": true,
+      "evidence_scope_id": "goal-contract:envbench-python-reportMissingImports-v3:61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+      "finding_dispositions": {},
+      "finding_ids": [],
+      "finding_set_complete": true,
+      "goal_passed": true,
+      "infrastructure_error": null,
+      "report_details": {
+        "environment_fresh": true,
+        "evidence_scope_id": "goal-contract:envbench-python-reportMissingImports-v3:61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "finding_set_complete": true,
+        "goal_contract": {
+          "contract_id": "envbench-python-reportMissingImports-v3",
+          "description": "After the candidate configures the environment, run Pyright over the repository and require zero reportMissingImports diagnostics. All other Pyright diagnostic rules are outside this goal.",
+          "report_schema": "envsolve-goal-report-v1",
+          "sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463"
+        },
+        "goal_report": {
+          "details": {
+            "criterion": "count(reportMissingImports) == 0",
+            "issues_count": 0,
+            "pyright_version": "pyright 1.1.411"
+          },
+          "finding_set_complete": true,
+          "findings": [],
+          "schema": "envsolve-goal-report-v1",
+          "status": "pass"
+        },
+        "goal_report_details": {
+          "criterion": "count(reportMissingImports) == 0",
+          "issues_count": 0,
+          "pyright_version": "pyright 1.1.411"
+        },
+        "repository_effect_audit": {
+          "accepted_managed_path_count": 0,
+          "accepted_managed_paths": [],
+          "accepted_managed_paths_truncated": false,
+          "accepted_native_artifact_count": 1,
+          "accepted_native_artifacts": [
+            {
+              "derivation": "tracked-native-provider-and-exported-initializer",
+              "module": "xx",
+              "path": "build_output/xx.cpython-313-aarch64-linux-gnu.so",
+              "sha256": "0e1da40c43afd17462597974ca703e3625451037b444ab113225cf7a90fb7dc8",
+              "source_paths": [
+                "distutils/tests/xxmodule-3.8.c",
+                "distutils/tests/xxmodule.c"
+              ]
+            }
+          ],
+          "accepted_tracked_copies": [
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/__init__.py",
+              "sha256": "c4662e856c0b1b4ec9d10e3d0559c48cfcbac320dc77abde24c0c95fb9639723",
+              "source_path": "distutils/__init__.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_collections.py",
+              "sha256": "77b2ce3e34e50695072bb5ab92aa354eb8dea39b09f8e3512a9588cdf5334b42",
+              "source_path": "distutils/_collections.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_functools.py",
+              "sha256": "5f485bdd75cd97353428d985d6850eeab3297808b5db0c43e6d4896625dddd97",
+              "source_path": "distutils/_functools.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_itertools.py",
+              "sha256": "76105422dae92531705de0be45d7e453f60ff095d1a1497a565b91576a29f246",
+              "source_path": "distutils/_itertools.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_log.py",
+              "sha256": "8be94d4d37174bc4e65884c9e833831afb56e73e6d31ab6d250efa87cad9c505",
+              "source_path": "distutils/_log.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_macos_compat.py",
+              "sha256": "273506845e04e722084c76d468fa1b6445a318776badc355eb7cfce92e118c17",
+              "source_path": "distutils/_macos_compat.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_modified.py",
+              "sha256": "3ea3f841314af645bb91b0952dbcdc80b298a0423ba67b850e5a1b8d42c75260",
+              "source_path": "distutils/_modified.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/_msvccompiler.py",
+              "sha256": "99b8fe227a443940fd4774d3f0e3dc37eb35f6755ced2c4da1eabc734729c5f6",
+              "source_path": "distutils/_msvccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/archive_util.py",
+              "sha256": "84dc1e117d32470481bcaa3527228e7ea3f2404368ea8f7c847f7d8de5c66cac",
+              "source_path": "distutils/archive_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/bcppcompiler.py",
+              "sha256": "72230d1546ef72894553b0f9782d45847819e06e3ef5b859677a03e9b84066ae",
+              "source_path": "distutils/bcppcompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/ccompiler.py",
+              "sha256": "9186fcc3d663a93a60b174047e8442f6d599161f03d18c244281921d89146e8e",
+              "source_path": "distutils/ccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/cmd.py",
+              "sha256": "e33faad4207151e137712b1d4f4aaf222aa645bc8ad950dabd68a8f7a9fc5b78",
+              "source_path": "distutils/cmd.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/__init__.py",
+              "sha256": "7d5529b380c986f4a1300a1dd32ef1974da6e3a6ddeebdf58ab1213687cfaebb",
+              "source_path": "distutils/command/__init__.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/_framework_compat.py",
+              "sha256": "d2265d4896331915820afcd10ca13e474fbfc9a018bc531dd729576f67985ee8",
+              "source_path": "distutils/command/_framework_compat.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/bdist.py",
+              "sha256": "d5127472bcc6eab7f34feae1504e8011147fdb1e6e9210ab510269c1a941280e",
+              "source_path": "distutils/command/bdist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/bdist_dumb.py",
+              "sha256": "0941ea4885e64498c6adff98707b4621a9fbcaa9a3a036a4166c30ef82f5bd8c",
+              "source_path": "distutils/command/bdist_dumb.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/bdist_rpm.py",
+              "sha256": "5736605a4a52cfd226bb879e42fbd95a0b0b4abafc87b6ab463c9911980ee80c",
+              "source_path": "distutils/command/bdist_rpm.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/build.py",
+              "sha256": "7ad5cc9c1071d6e813de49c02d74f7c47d641efc44f83926a76a248f19d6a6e1",
+              "source_path": "distutils/command/build.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/build_clib.py",
+              "sha256": "298f780afe9da56c8e8d72ead70888a621a090cfc96a36d09659bfbe82f484db",
+              "source_path": "distutils/command/build_clib.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/build_ext.py",
+              "sha256": "39b376f70ecb09cf54a71266c058fa540660618362b7906cbd5b37a91a4443e3",
+              "source_path": "distutils/command/build_ext.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/build_py.py",
+              "sha256": "7c8d9f4853658504a2d2730a89308961617a5442b1f1a4ef88fdefcf38a90c99",
+              "source_path": "distutils/command/build_py.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/build_scripts.py",
+              "sha256": "098bc7df49cf62cd21154201b125e2e33b16e59699c5955a5a8749763cd6243a",
+              "source_path": "distutils/command/build_scripts.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/check.py",
+              "sha256": "79ea2aeb45e139f97b1fc7f2d1aab41fa4c2c99bcbf898675ed5c09ec6124204",
+              "source_path": "distutils/command/check.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/clean.py",
+              "sha256": "44575f130365259f92c3f50f3d8adcc6a6b45885fd347404f29bde4b805c4bc0",
+              "source_path": "distutils/command/clean.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/config.py",
+              "sha256": "061924e0a803f791d5eef88b0cf42a245ea460215b3257bedaa6414d35a53ead",
+              "source_path": "distutils/command/config.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/install.py",
+              "sha256": "15443364bffd763f06bae8c0e25df88d98901e77b0fa9ec1b5f7ba15373a3a13",
+              "source_path": "distutils/command/install.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/install_data.py",
+              "sha256": "825da1ddc3f0378877f3c04a0dacd3b4db7427c28ff525db6e007730d54b2d78",
+              "source_path": "distutils/command/install_data.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/install_egg_info.py",
+              "sha256": "4b2d9fb81aaf08695056125c52d7866dd1b4282c7604137b8c0cd610c03dae9f",
+              "source_path": "distutils/command/install_egg_info.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/install_headers.py",
+              "sha256": "bfe41c5648da597e727f4c5aba9f7f2b249a9d596677a2e1bb31211a99938935",
+              "source_path": "distutils/command/install_headers.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/install_lib.py",
+              "sha256": "c7fe942f37294d85cd10caca7b6e61ef8b4a96c68c7bb7b1bb65021cbe6d9689",
+              "source_path": "distutils/command/install_lib.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/install_scripts.py",
+              "sha256": "84260a2761b37ee64aed1812343715239ddcd68e14eeb1c314307de8def56741",
+              "source_path": "distutils/command/install_scripts.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/register.py",
+              "sha256": "1886de75a3c4b9525ab1a27a2cede2f4f275b648d00162859f6d28f49ce76b34",
+              "source_path": "distutils/command/register.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/sdist.py",
+              "sha256": "bc3c16e70f5ebf8ce72b46b238a606cac4b31d62e12f3ebf8da54a59dcc71847",
+              "source_path": "distutils/command/sdist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/command/upload.py",
+              "sha256": "eb9ce1bc7eb61bb43731d3b9217b4c5ad14d2cd49855e9e0921fcb3431a20678",
+              "source_path": "distutils/command/upload.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/compat/__init__.py",
+              "sha256": "02131d8b70335fad8a62735d382704b8d5cbb813b186f392407b5d8e2e20f33f",
+              "source_path": "distutils/compat/__init__.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/compat/py38.py",
+              "sha256": "30e44195423db57fe5d2600cfe9e82a8bbd8d7f01f20a7c8bee71ffa10b95748",
+              "source_path": "distutils/compat/py38.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/compat/py39.py",
+              "sha256": "84eb03ea5c192ea66832769c349dcfea7500f8b250844a55b584f3547d28f7a3",
+              "source_path": "distutils/compat/py39.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/config.py",
+              "sha256": "70274bec101abdd87fdad0d6d04669d6ba35bd37968456732d73753fa1c097a5",
+              "source_path": "distutils/config.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/core.py",
+              "sha256": "58f66badfda66ccf553e0e28fe38c044f5602f340d61dfdab4c4df36bd8fd6f2",
+              "source_path": "distutils/core.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/cygwinccompiler.py",
+              "sha256": "4813feddc00c5e99604e862675e621eab88adc9320ad93cd6bd76a3aa282899d",
+              "source_path": "distutils/cygwinccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/debug.py",
+              "sha256": "37a32b4c0a8aea5f52564ead5b0791d74f0f33c3a5eea3657f257e9c770b86c6",
+              "source_path": "distutils/debug.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/dep_util.py",
+              "sha256": "c4def9a7a6691e13221c473eae92f65e29494329c79c336269f1ed79a678b635",
+              "source_path": "distutils/dep_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/dir_util.py",
+              "sha256": "68ef7930b0eadbf070ecf221781f887a8605db173dc9fa3e08c9498363a5c106",
+              "source_path": "distutils/dir_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/dist.py",
+              "sha256": "44649f18c283ac82c6c2eca50dbc7b30bafe736f7c233c8224acf03b6cb5b4f6",
+              "source_path": "distutils/dist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/errors.py",
+              "sha256": "66d0709e10e9400d9bc486b33d7343436e6e371338a76a26b1a491369577ae91",
+              "source_path": "distutils/errors.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/extension.py",
+              "sha256": "ab083508d2603761aaedb1457d0cf62696fc2df2fe11cd854e58bc439aa1683e",
+              "source_path": "distutils/extension.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/fancy_getopt.py",
+              "sha256": "571c071edc898bc429f19c0ab89873c52917f71c2a0aaa80c6ae1df156e40166",
+              "source_path": "distutils/fancy_getopt.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/file_util.py",
+              "sha256": "dc0ffd832901047167d107fc13390961aa98ce641bf3e92a947421b1a9000af9",
+              "source_path": "distutils/file_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/filelist.py",
+              "sha256": "f0443c6d5f71dd7016f1d6ba088c8c1f9feaa3615fd052451f256988f60558c3",
+              "source_path": "distutils/filelist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/log.py",
+              "sha256": "57206ce63ef3e3e2ba5d310405385473d1f2329a0f2c6b50a4446a6f3e72970c",
+              "source_path": "distutils/log.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/msvc9compiler.py",
+              "sha256": "f985ea4abdbe393ca09ba49c1e6291ac8fe02d995464a128587b2e70d06d78bd",
+              "source_path": "distutils/msvc9compiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/msvccompiler.py",
+              "sha256": "2b84a7236e3c86fdfb970f10ba3b472ad1176d3756749c10e48cdaac2416f179",
+              "source_path": "distutils/msvccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/spawn.py",
+              "sha256": "79db6f515c1e1cf0fb04ccfe748f1f95d621f324e7ee775b66ad23c50403e38e",
+              "source_path": "distutils/spawn.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/sysconfig.py",
+              "sha256": "712468e7a083eaf6bf0b7872178d03862d75c6009995b106405be4a1a5388473",
+              "source_path": "distutils/sysconfig.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/__init__.py",
+              "sha256": "3fdad242b206e95927fa53994c400c0c186a1e5789568adec4d9bde0a376b8b8",
+              "source_path": "distutils/tests/__init__.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/compat/__init__.py",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "source_path": "distutils/tests/compat/__init__.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/compat/py38.py",
+              "sha256": "9b24a14132e5f839f202344326b3b8e0774b684a0590a21e45e1e2c9d0a21e0e",
+              "source_path": "distutils/tests/compat/py38.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/support.py",
+              "sha256": "b63b18b32c6fa532b836b902b1e876ba3bc320657431ffdbe522397cfd93d323",
+              "source_path": "distutils/tests/support.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_archive_util.py",
+              "sha256": "2ed5342457dcde9ec1426d0c40039f86eb8a7612bccbff6bce42d8484754890c",
+              "source_path": "distutils/tests/test_archive_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_bdist.py",
+              "sha256": "731aceb05e910420375daeeeb16fb9c50d289583a358d58443aba1a43215a3c2",
+              "source_path": "distutils/tests/test_bdist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_bdist_dumb.py",
+              "sha256": "cdd273c0d53b6bda76d5b2f371b9313c2faa083c1c34fb777e2a60216dafe7b7",
+              "source_path": "distutils/tests/test_bdist_dumb.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_bdist_rpm.py",
+              "sha256": "7e82ccbaf8b729d934eeadcd87a89fdbc046c40e4f73b1d51f70d40d4448a95b",
+              "source_path": "distutils/tests/test_bdist_rpm.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_build.py",
+              "sha256": "820550e8f79d0ab7d41ecb55d78e4520f36f9387aade6a5889727ef579ae9baa",
+              "source_path": "distutils/tests/test_build.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_build_clib.py",
+              "sha256": "c8c568cc567fc83585055421eefcf8d7e01afdc0e2cba0201fdbcd85320e7c2e",
+              "source_path": "distutils/tests/test_build_clib.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_build_ext.py",
+              "sha256": "08565987c56cce6bc02f0c98399750b04569f23f4b11ea331f58f994b91012fe",
+              "source_path": "distutils/tests/test_build_ext.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_build_py.py",
+              "sha256": "5e940a5e3c3048a4db5c4c96b4e45a19eec94b1b45fa2903aa9ea17f6e02acd5",
+              "source_path": "distutils/tests/test_build_py.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_build_scripts.py",
+              "sha256": "d925c1e81672e4accafa1faa59d4de75967ed79eb42b53cab42f3f4f09d13141",
+              "source_path": "distutils/tests/test_build_scripts.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_ccompiler.py",
+              "sha256": "795cd9644f09308725e0e8f08ae85d48da4d74a92700f3a79487b60e7157fb7f",
+              "source_path": "distutils/tests/test_ccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_check.py",
+              "sha256": "94fb8bd7753f7fefb9246c5bdd4fe278ba45f15334a5678197c4d166d2442d41",
+              "source_path": "distutils/tests/test_check.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_clean.py",
+              "sha256": "e84fc5c19026788fc630fc2b3b4c85f9192b552ddfd959ab7c3086a94c3b87ae",
+              "source_path": "distutils/tests/test_clean.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_cmd.py",
+              "sha256": "a82bd78d533965e4ed3dd338a04f9fc1c386f2e41e0eba9977ca2d987b4c5d82",
+              "source_path": "distutils/tests/test_cmd.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_config.py",
+              "sha256": "2d1ae9498d4a6322a012678ba1df2ca063f70ed7c86098ecd4fb7a957c6d55ce",
+              "source_path": "distutils/tests/test_config.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_config_cmd.py",
+              "sha256": "bdabcb9d1b5e328af7d50aaf740ee76c3eabfcd125f9ef3a255a449e0f6f759e",
+              "source_path": "distutils/tests/test_config_cmd.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_core.py",
+              "sha256": "2fb5ca540c5af8c1a8019780368a67b8af5f44a9de621912429830f1742f705f",
+              "source_path": "distutils/tests/test_core.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_cygwinccompiler.py",
+              "sha256": "ef9cba93e4c0373f3f96e4352c2cc2b1c1b565446b25b1b742cf9f749e5b31a3",
+              "source_path": "distutils/tests/test_cygwinccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_dir_util.py",
+              "sha256": "f2a26e49f0b527190d5c7f18d9ac32ab468e20a5671509cfa82e870c4b53b05e",
+              "source_path": "distutils/tests/test_dir_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_dist.py",
+              "sha256": "f5dcd58e425bc98c641fcd772ca18ba9b954cc030fb6fa1306fa153d5c25a7e1",
+              "source_path": "distutils/tests/test_dist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_extension.py",
+              "sha256": "d5b37b6d9774365abc7ff3bb0b9f58b9a0b31e81642e47f590073bdaf76960d5",
+              "source_path": "distutils/tests/test_extension.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_file_util.py",
+              "sha256": "417ea477e810a3d196eab3bc1cca0f3663bc16cd2aa58ec5a0a4651dd2cc1385",
+              "source_path": "distutils/tests/test_file_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_filelist.py",
+              "sha256": "0a8f1d0d6082e4afc3530e53e93432801b21fcf4150a83a561039cb25d9a8077",
+              "source_path": "distutils/tests/test_filelist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_install.py",
+              "sha256": "40d019cce16fb7a980035371377d709cde65d06f95f21371b339abb2cf473365",
+              "source_path": "distutils/tests/test_install.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_install_data.py",
+              "sha256": "b2b74dcf024e618223dfacc997ef6c27dc8cd62ea10a9dce1e85932e930b1dc5",
+              "source_path": "distutils/tests/test_install_data.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_install_headers.py",
+              "sha256": "3d5018a68fed625f7cd107fae033ce9a64afc9e7c81dd534e9fed5b09799ca41",
+              "source_path": "distutils/tests/test_install_headers.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_install_lib.py",
+              "sha256": "72ce7885a364344b1c5d9aeb6420a2c104d2f3a7d012a20c38ae588966a58e53",
+              "source_path": "distutils/tests/test_install_lib.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_install_scripts.py",
+              "sha256": "8188cc46065ba6546628645de7b8f788c10d802feccc6549a3a7906725ae4200",
+              "source_path": "distutils/tests/test_install_scripts.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_log.py",
+              "sha256": "8ac16d3ae7e5a02c84759690395edc554af8e86c2d755323e37986041e571fb9",
+              "source_path": "distutils/tests/test_log.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_modified.py",
+              "sha256": "18230a5e761d99ebde48a804e237a71416c79b3670ca06addbc9f7d4810d1be6",
+              "source_path": "distutils/tests/test_modified.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_msvc9compiler.py",
+              "sha256": "05393162b899b34804ba59e6fa839fb5787cb9ab5211967b0bb88b6847688a1d",
+              "source_path": "distutils/tests/test_msvc9compiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_msvccompiler.py",
+              "sha256": "55aeecd0e137bef59a25b846ea4f715e2230341fb2d8009cedb6d0ab15cacc97",
+              "source_path": "distutils/tests/test_msvccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_register.py",
+              "sha256": "9992d4aee69e04b1d5c9368fb98b9cf710afde3aea59a8a08a896a1c840337ea",
+              "source_path": "distutils/tests/test_register.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_sdist.py",
+              "sha256": "526067cda3efbc58907150d56d77845893a7ec5339360bf144a9df84abaf6f04",
+              "source_path": "distutils/tests/test_sdist.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_spawn.py",
+              "sha256": "29163619ab3b97e3633e29de955cc50225826dcecf7db0b2d8db85b2d06a52e4",
+              "source_path": "distutils/tests/test_spawn.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_sysconfig.py",
+              "sha256": "b84e5c48f26ef1ce1d06c2be4062db889f03e2693b8fceba12774a9fec3b1758",
+              "source_path": "distutils/tests/test_sysconfig.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_text_file.py",
+              "sha256": "2294d2feef9467af511fe7f3516cb688539396dcd88aef92b69c116836b35a28",
+              "source_path": "distutils/tests/test_text_file.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_unixccompiler.py",
+              "sha256": "37b904fa49fc81642f41da609c3a56a202d768d1bcbbcc0b0fa308ae5e04852e",
+              "source_path": "distutils/tests/test_unixccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_upload.py",
+              "sha256": "525730ebc4bd7e31ebef7727364a57546adf16cc4730ad81f800e86b71f2d484",
+              "source_path": "distutils/tests/test_upload.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_util.py",
+              "sha256": "1fadfe292ecd00129a0c228296505db23f7c8b8287ba3d80308f7baa7d9dd87f",
+              "source_path": "distutils/tests/test_util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_version.py",
+              "sha256": "6f450c74c441a1fcb2480854627ce2621226741dc2cec53bebde9baca0cfd173",
+              "source_path": "distutils/tests/test_version.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/test_versionpredicate.py",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "source_path": "distutils/tests/test_versionpredicate.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/tests/unix_compat.py",
+              "sha256": "cfea29e82da255d5f56aae4120147b72a3b18a3284f7b6a537026a1cd74ba682",
+              "source_path": "distutils/tests/unix_compat.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/text_file.py",
+              "sha256": "312ccfd649a31593b09eb750b2ac06dd958d6b6c10e0e5caef9277496397d398",
+              "source_path": "distutils/text_file.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/unixccompiler.py",
+              "sha256": "fcaf6121e1dead66f76f147a33a657838c3b29e426a71abf89157d32d82240d5",
+              "source_path": "distutils/unixccompiler.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/util.py",
+              "sha256": "3d4b34d3763d531251aa637c308b1bf2b8075f7dd76fa4ce13f5c2ca9b83d326",
+              "source_path": "distutils/util.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/version.py",
+              "sha256": "b5215886e2a3c689b990e34d07780e4cd7f9d9b391ab399437ae0bc454f94285",
+              "source_path": "distutils/version.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/versionpredicate.py",
+              "sha256": "b9bdea574226c33551f887beb3d3ad37a410f87bc350fc217ec8895873c053b5",
+              "source_path": "distutils/versionpredicate.py"
+            },
+            {
+              "derivation": "exact-committed-source-copy-with-path-preservation",
+              "path": "build_output/local-build/lib/distutils/zosccompiler.py",
+              "sha256": "98ec93617988c2ae5f13ad5eb5b8fd4260f6baede23c37ed04aa7d73539ab96d",
+              "source_path": "distutils/zosccompiler.py"
+            }
+          ],
+          "accepted_tracked_copies_truncated": false,
+          "accepted_tracked_copy_count": 106,
+          "allowed_generated_path_count": 22,
+          "allowed_generated_paths": [
+            ".envsolve-venv/",
+            "build_output/distutils.egg-info/",
+            "build_output/local-build/lib/distutils/command/command_template",
+            "build_output/local-build/lib/distutils/command/wininst-10.0-amd64.exe",
+            "build_output/local-build/lib/distutils/command/wininst-10.0.exe",
+            "build_output/local-build/lib/distutils/command/wininst-14.0-amd64.exe",
+            "build_output/local-build/lib/distutils/command/wininst-14.0.exe",
+            "build_output/local-build/lib/distutils/command/wininst-6.0.exe",
+            "build_output/local-build/lib/distutils/command/wininst-7.1.exe",
+            "build_output/local-build/lib/distutils/command/wininst-8.0.exe",
+            "build_output/local-build/lib/distutils/command/wininst-9.0-amd64.exe",
+            "build_output/local-build/lib/distutils/command/wininst-9.0.exe",
+            "build_output/local-build/lib/distutils/tests/Setup.sample",
+            "build_output/local-build/lib/distutils/tests/includetest.rst",
+            "build_output/local-build/lib/distutils/tests/xxmodule-3.8.c",
+            "build_output/local-build/lib/distutils/tests/xxmodule.c",
+            "build_output/local-dist/distutils-0.0.0+envsolve-py3-none-any.whl",
+            "build_output/temp/distutils/tests/xxmodule.o",
+            "distutils/__pycache__/",
+            "distutils/command/__pycache__/",
+            "distutils/compat/__pycache__/",
+            "distutils/tests/__pycache__/"
+          ],
+          "allowed_generated_paths_truncated": false,
+          "base_policy": "submitted-state-plus-native-build-provenance-v8",
+          "checked_out_revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+          "declared_generated_paths": [],
+          "disallowed_untracked_paths": [],
+          "expected_revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+          "managed_dependency_provenance": {
+            "adapter": "open-aea-content-addressed-lock-v1",
+            "applicable": false,
+            "detection": {
+              "declaration_exit_code": 1,
+              "declaration_stderr_tail": "",
+              "declared_by": [],
+              "executable": null,
+              "inventory_exit_code": 0,
+              "inventory_stderr_tail": "",
+              "lock_paths": [],
+              "system_git": "/usr/bin/git"
+            },
+            "valid": false
+          },
+          "native_build_policy": "tracked-native-provider-v1",
+          "native_providers": {
+            "xx": [
+              "distutils/tests/xxmodule-3.8.c",
+              "distutils/tests/xxmodule.c"
+            ]
+          },
+          "policy": "submitted-state-plus-build-provenance-v9",
+          "repository_derived_artifacts": [],
+          "tracked_changes": [],
+          "tracked_copy_policy": "exact-committed-source-copy-with-path-preservation-v1",
+          "valid": true,
+          "violations": []
+        },
+        "state_lineage_id": null
+      }
+    },
+    "observations": [],
+    "passed": true,
+    "summary": "structured verifier: goal=True, active=0, satisfied=0, unknown=0, inactive=0, bootstrap=0"
+  },
+  "repository": "pypa/distutils",
+  "revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+  "schema_version": "1.0.0",
+  "source_program_sha256": "75391a9f6d2f28b1655ab4d593dc72a7748a6b8f1ce909c83ee34a12d1df2769",
+  "validation_id": "envsolve-pro-boundary-v5-consumed-candidate-v1",
+  "validation_pass": true,
+  "workspace_preconditions": [
+    {
+      "kind": "directory",
+      "path": "build_output",
+      "producer": "envbench-python-build-v1"
+    }
+  ]
+}

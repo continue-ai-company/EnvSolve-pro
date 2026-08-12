@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T07:10:40Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 5,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-05-B-one-shot-certification",
+    "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+    "condition": "B-one-shot-certification",
+    "process_exit_code": 0,
+    "wall_time_seconds": 1153.9101196250413,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "pass",
+    "first_replay_bootstrap_seconds": 201.5604733750224,
+    "clean_replay_count": 1,
+    "program_revision_after_replay": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 186.29178404808044,
+    "non_scoring_pyright_error_count": 1790,
+    "non_scoring_pyright_warning_count": 62,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 15,
+    "construction_failed_commands": 2,
+    "submitted_program_sha256": "142193d9f27640f1fc4e3491a9beda851288926c398366586c4ac6f3873457dd",
+    "script_sha256": "ef2a1365e1835115200698122cb6094f8590e4f93c825eed0d781acc9679c44f",
+    "token_usage": {
+      "input_tokens": 564040,
+      "cached_input_tokens": 498176,
+      "output_tokens": 6141,
+      "reasoning_output_tokens": 3389
+    }
+  },
+  "mechanism_observation": "The only Agent-visible clean replay passed on the first submitted program, and the certified program was used unchanged for Official evaluation. This episode shows first-shot reproducibility but contains no feedback-conditioned repair event.",
+  "path_observation": "The Agent first installed project metadata, then diagnosed repository-wide test, documentation, notebook, and TensorFlow namespace imports. Its final program pins TensorFlow 2.20 and adds real development dependencies plus types-tensorflow.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "068acb4e1109be8d1c7353e4817a61250f2eb41dac8f974f9a8d1383cbce59f5",
+    "manifest_sha256": "9428f8e2a8effb23042d38f7314f6aa8a77f81202d4f33741c10f18f3fb248da",
+    "generation_result_sha256": "cccfee102c5485ad7a11f9a2e0d7ca00e2ae8aae4b1daf45fda8bb368da30562",
+    "container_commands_sha256": "f555976e02feaf3423e4431094e9f424d28e08db9942d548f0df5fda8af081a0",
+    "replay_trace_sha256": "ad6652631dc57c20e58752d6a96389d65f5c04044425d359b65af85bf6de0bea",
+    "certification_sha256": "7794145256c173d398b0806e4960073122d9852bcf490cec395dca7028e9645d",
+    "official_result_sha256": "be5df4b31ec58111a7455609e08b7094e4d7798102286f0d5d57e29b22aca7dd",
+    "official_raw_result_sha256": "f04985139df84c0013753eea83343f40ac5e83233c1484c641031e4c8c5178f5",
+    "progress_after_position_sha256": "6a10fa9c9286b087c65812636d01f03c061940d7c91ae0f1d8354ea77bc32388"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T08:40:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 9,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-09-B-one-shot-certification",
+    "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+    "condition": "B-one-shot-certification",
+    "process_exit_code": 0,
+    "wall_time_seconds": 999.6728195420001,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "pass",
+    "first_replay_bootstrap_seconds": 85.46130895795068,
+    "clean_replay_count": 1,
+    "program_revision_after_replay": false,
+    "feedback_conditioned_repair": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 84.79365587234497,
+    "non_scoring_pyright_error_count": 363,
+    "non_scoring_pyright_warning_count": 8,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 23,
+    "construction_failed_commands": 2,
+    "submitted_program_sha256": "95768c736cf19b38f59fcee57c6c2ff7b3ff5cc63a0146d12cfee4937c2db0fd",
+    "script_sha256": "b6a3dc71306f17c318743c946b91ad5c02617d4c1a4f03054d5ea3dddea31178",
+    "token_usage": {
+      "input_tokens": 1082597,
+      "cached_input_tokens": 989696,
+      "output_tokens": 13677,
+      "reasoning_output_tokens": 6585
+    }
+  },
+  "path_observation": "The independent B Agent diagnosed Python-version incompatibility, used temporary placeholders only as construction diagnostics, then rejected that path and submitted a real Zappa package build with Python 3.11, Django, and Flask.",
+  "boundary_observation": "The submitted and certified program contains no placeholder modules. The first fresh replay accepted repository-provenance build effects and passed the executable goal contract.",
+  "mechanism_observation": "The sole clean replay passed, so one-shot certification detected no defect and B had no opportunity to revise. This episode provides no feedback-conditioned repair evidence.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "4671759162a4b7dca7a00f0c3e36df0daf57535671c192f9059ad3af73877413",
+    "manifest_sha256": "6dd7a66a286fe75210f382dbf983297e31123ec0319fa0864484a4052f5a4f4b",
+    "generation_result_sha256": "4cefa321951254af4aa9d5bdd5d1e9786841bab680f88af271802f95ad86d772",
+    "container_commands_sha256": "9424c1d9a0f1cee3a00b73cab70bb02019536864a7f6391dfdb277c98bd91a9c",
+    "replay_trace_sha256": "b8b0032729ea823c6e62bdaf537bc9b06c8bd3decbd016ff3a292c46582d003d",
+    "certification_sha256": "ec5c31b94eba06a745a496e6541c1927012b6b4f38fb42b3566715e8b059bc70",
+    "official_result_sha256": "e04425b1c67c72467f5dc110bd4aec56981c71daad8816a1b772aba641f02569",
+    "official_raw_result_sha256": "4693ff1623420601620219b6e0f1988a920d3c5094fde18a8fc0d912aa71684b",
+    "progress_after_position_sha256": "9e466cdee194e8c5e885984d5dfa85ad8eb4831ab0a31b02a08e572fdaf34143"
+  }
+}

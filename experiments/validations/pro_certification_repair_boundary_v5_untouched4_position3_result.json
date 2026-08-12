@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T05:35:56Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 3,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-03-C-retryable-minimal-b",
+    "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+    "condition": "C-retryable-minimal-b",
+    "process_exit_code": 0,
+    "wall_time_seconds": 989.3083759170258,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "pass",
+    "clean_replay_count": 1,
+    "program_revision_after_first_replay": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "non_scoring_pyright_error_count": 428,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 12,
+    "construction_failed_commands": 2,
+    "submitted_program_sha256": "f6a169356b5f3d470f10fe90dbea0500230b52173874d5ca73411c5e9f5d25a3",
+    "script_sha256": "5c859567b0dd8818d07d1ba88510123b48c795f1d377f0cac1986a265f74b2b6",
+    "token_usage": {
+      "input_tokens": 435860,
+      "cached_input_tokens": 372736,
+      "output_tokens": 5242,
+      "reasoning_output_tokens": 2986
+    }
+  },
+  "mechanism_observation": "The first clean replay passed and C made no post-replay program revision. The repeatable repair loop was dormant on this case.",
+  "evidence": {
+    "manifest_sha256": "f92ec8d945b16b1c800f2dec10935b677c5dd05a491a03a021612732dc642df6",
+    "generation_result_sha256": "9054fd1e2722f0c4a75b1c3fd935192746587ed9efbd57b6458a3877490a968b",
+    "container_commands_sha256": "9cf16db27fd81576d5dee0cdb350e9ad89a51a52b3ee243c216ed327bb5762e0",
+    "replay_trace_sha256": "36fe495788b7f6865bf1cfdcd6ebdf9614c83a0be20b34efbff40de2e75a7a27",
+    "official_result_sha256": "015b2e1b18abb1d525bfda402ca9776b5944a4c3f74dad19c3fff01eb91370b1",
+    "progress_after_position_sha256": "a4cd46e330bf08550fa95ba715d07bf5714cf8ce59807d44ab63f879ecb68b83"
+  }
+}

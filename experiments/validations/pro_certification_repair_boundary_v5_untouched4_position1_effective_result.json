@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T05:00:16Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "effective_position": 1,
+  "original_launch": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control",
+    "classification": "infrastructure_unknown",
+    "reason": "GitHub connection timeout before Agent start",
+    "included_in_effect_denominator": false
+  },
+  "effective_episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control-network-retry1",
+    "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+    "condition": "A-strong-agent-control",
+    "process_exit_code": 0,
+    "wall_time_seconds": 655.1463360410416,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "qualification_status": "pass",
+    "qualification_certified": true,
+    "qualification_feedback_returned_to_agent": false,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "non_scoring_pyright_error_count": 426,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 14,
+    "construction_failed_commands": 1,
+    "agent_visible_clean_replays": 0,
+    "submitted_program_sha256": "22f552e7ce560639f22f30aadd5a3a976900612a47f0877ebd2860c11245da7a",
+    "script_sha256": "b8496bdbb50f87cbaba96d20cf4c353bec4769c76f798af4bad3e5ac9753bfb4",
+    "token_usage": {
+      "input_tokens": 428486,
+      "cached_input_tokens": 377344,
+      "output_tokens": 7102,
+      "reasoning_output_tokens": 4285
+    }
+  },
+  "trajectory_observation": "The strong Agent repaired one failed dependency-install command inside its construction container before submission. This is baseline Agent behavior, not evidence for the EnvSolve-Pro clean-replay mechanism.",
+  "evidence": {
+    "manifest_sha256": "846b0eeb23a2fca31f3d51cbf3681a3588d9e08f943c0c0224858349f492c9f5",
+    "generation_result_sha256": "83b383fa895d280e55a7dd07d84fc8a2763a3633562c2db62926cecbf1d384ad",
+    "container_commands_sha256": "33b2629293d836f8c2839910ef2d1e5a796972092846449165be25e887d10e84",
+    "qualification_result_sha256": "2c1e3009aaed6a14c1244956ad791d7cbfc534f900b5dec2d5feaf659199f207",
+    "official_result_sha256": "79fca2fb0c6ae83ba1d1b15ee47c2fa900220f4ccaa5ae9bb07a257da1f38733",
+    "retry_progress_sha256": "e2822352c9da7ecff2f3d6bcd1d5c5f8ea266b897d84b17252d9137de48cbc48"
+  }
+}

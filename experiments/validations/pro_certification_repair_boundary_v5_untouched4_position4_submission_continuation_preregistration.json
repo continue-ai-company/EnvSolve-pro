@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "continuation_id": "envsolve-pro-certification-repair-boundary-v5-untouched4-position4-submission-continuation1",
+  "created_at": "2026-08-08T06:30:29Z",
+  "status": "frozen-before-post-session-continuation",
+  "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+  "condition": "A-strong-agent-control",
+  "interruption": {
+    "original_run_id": "pro-cert-repair-boundary-v5-untouched4-04-A-strong-agent-control",
+    "original_position": 4,
+    "reason": "User-requested coordinator pause after the Agent had written a schema-valid final submission but before post-session qualification completed.",
+    "original_progress_sha256": "911186ba95d401bb4fdfd10a5b3fe2f26543d69adb616c5aadb373fcb29f2638",
+    "original_manifest_sha256": "96376b6aaa121d8de87d4a9d4ce13fa346833739cad0a5a6240d253d719c3b12",
+    "original_container_commands_sha256": "9eb4f3497abe0166121a547800ac5fbe101265cc8fe4ee43783daab464bc8456",
+    "original_heartbeat_sha256": "24a3f0110a3fed559ebf845cbee1e9b8c00c77c1bee29e17c1084b87a57cb11b",
+    "original_final_output_sha256": "07ed00019f51e7798bef10f4060182aeb1dbb160abe85e4df84748c90279928f",
+    "agent_submission_complete": true,
+    "post_session_qualification_complete": false,
+    "official_evaluator_reached": false
+  },
+  "frozen_submission": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position4_submitted_program.sh",
+    "sha256": "d69b1ed2d134ea6accd853c5741f2880cc04c2acdd7356ac16aac382198c989c",
+    "bytes": 441,
+    "extraction": "Exact bootstrap_script bytes from the original final-output.json; no normalization or edit.",
+    "model_reexecuted": false,
+    "program_revision_allowed": false
+  },
+  "continuation_steps": [
+    {
+      "step": 1,
+      "operation": "Run the exact submitted program in a fresh container under frozen boundary v5, with no feedback to any Agent.",
+      "tool": "experiments/validate_boundary_v5_consumed_candidate.py",
+      "tool_sha256": "a7b5145a5766c9811b676c142ce1d6638321b8c05f2a15c6d9e67f88468c52f9",
+      "output": "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position4_submission_qualification_result.json"
+    },
+    {
+      "step": 2,
+      "precondition": "Step 1 validation_pass is true.",
+      "operation": "Run Official EnvBench once on the same exact program without model execution.",
+      "tool": "experiments/evaluate_only.py",
+      "tool_sha256": "7d28a8c7b201a46c99e6ae68cde537b87229f824fd9fcd90a59eb2ce3cd84059",
+      "run_id": "pro-cert-repair-boundary-v5-untouched4-04-A-strong-agent-control-submission-continuation1"
+    }
+  ],
+  "frozen_inputs": {
+    "preregistration_sha256": "c35c513ddf717bd82a2ed2871d404cdb2738c7287871a1ebf92c47d5756b5d23",
+    "position4_execution_binding_sha256": "f15c931c8cb14500375d892ae7f0cf72b0c2602074c1c65d62e5a3c3ecd8d462",
+    "boundary_v5_sha256": "ac919e353ae5d6bb40c11797684ff9fc76a439fe5c06f7919303c9a792e778bf",
+    "boundary_freeze_sha256": "0c80b5550f4c148f4d997ba658f389d6fc38ad8fec92ea9ef5cc709c3814c99b",
+    "case_file_sha256": "9837040c1fa8bf527b129f3dab39df1863b173e1f3107b6cdfa68a8cf5c9fac7",
+    "config_sha256": "c8a61139bb1521dccd6a4fd0e0659e2bdb2a3dc673fa9747638923a0e2af4724",
+    "goal_protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4"
+  },
+  "analysis_policy": {
+    "effective_episode": "Original Agent session plus exact post-session continuation.",
+    "original_interrupted wrapper state": "Preserved and excluded as a separate operational event.",
+    "second Agent sample": false,
+    "qualification_feedback_returned_to_agent": false,
+    "official_result_used_only_if_submission_hash_matches": "d69b1ed2d134ea6accd853c5741f2880cc04c2acdd7356ac16aac382198c989c",
+    "token_usage": "Unknown if not recoverable from the interrupted wrapper; never imputed."
+  },
+  "prohibitions": [
+    "Do not rerun the Agent for this continuation.",
+    "Do not edit, normalize, minimize, or repair the frozen submission.",
+    "Do not expose qualification or Official results to any later arm.",
+    "Do not count the continuation as an additional Pass@k sample."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-boundary-v4-distutils-consumed-calibration-adjudication-v1",
+  "completed_at": "2026-08-08T03:14:20Z",
+  "preregistration_path": "experiments/validations/pro_certification_repair_boundary_v4_distutils_consumed_calibration_preregistration.json",
+  "preregistration_sha256": "582db329d5d9e775f34cb65dff22c9770b34e7a787a6e401da82f6751dd63965",
+  "a_result_path": "experiments/validations/pro_certification_repair_boundary_v4_distutils_A_consumed_calibration_result.json",
+  "a_result_sha256": "413e02f4a11034b8b2740c612621766152de55a0cbc2457b2e69c3ab2c90ffe3",
+  "decision": "calibration-fail-stop-before-c",
+  "boundary_v4_status": "rejected",
+  "observations": {
+    "candidate_policy_accepted": true,
+    "candidate_completed": true,
+    "trusted_goal_report_observed": true,
+    "goal_check_passed_before_effect_adjudication": true,
+    "accepted_native_artifact_count": 1,
+    "accepted_native_artifact": "build_output/xx.cpython-313-aarch64-linux-gnu.so",
+    "remaining_violation_count": 106,
+    "remaining_violation_class": "exact source copies emitted by the standard build command under build_output/local-build/lib/distutils"
+  },
+  "interpretation": "Boundary-v4 corrected native-extension location bias but retained suffix-based false rejections for standard build-tree copies of committed Python sources.",
+  "next_version_rule": "Adjudicate committed-source-derived build artifacts as one provenance class: exact Python source copies must preserve a committed source path suffix, while compiled extensions must match a module provider declared by committed native source.",
+  "anti_overfitting_constraints": [
+    "Do not whitelist pypa/distutils.",
+    "Do not whitelist build_output or local-build by name.",
+    "Do not accept modified source copies or renamed module paths.",
+    "Do not count this consumed calibration as benchmark evidence.",
+    "Do not execute C under the failed boundary-v4 preregistration."
+  ]
+}

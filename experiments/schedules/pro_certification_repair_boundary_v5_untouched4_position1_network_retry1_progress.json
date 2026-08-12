@@ -1,0 +1,39 @@
+{
+  "execution": {
+    "config": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/configs/local_mac_pro_certification_repair_boundary_v5_untouched4.json",
+    "config_sha256": "c8a61139bb1521dccd6a4fd0e0659e2bdb2a3dc673fa9747638923a0e2af4724",
+    "episode_runner_override": true,
+    "episode_timeout_seconds": 22400.0,
+    "protocol": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/protocols/envbench_python_public_goal_v2.json",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "provider": {
+      "provider_backed": false
+    },
+    "runner": "envsolve",
+    "timeout_source": "schedule"
+  },
+  "outcomes": [
+    {
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control-network-retry1/envbench-python-adbar__trafilatura__b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+      "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+      "duration_seconds": 655.1463360410416,
+      "finished_at": "2026-08-08T04:13:27.047888+00:00",
+      "method": "codex-cli-goal-aware-boundary-v5",
+      "model": "gpt-5.5",
+      "position": 1,
+      "process_exit_code": 0,
+      "reason": null,
+      "run_id": "pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control-network-retry1",
+      "runner": "codex-cli-qualified-boundary-v5",
+      "seed": 1141733264,
+      "started_at": "2026-08-08T04:02:31.917573+00:00",
+      "state": "process_finished",
+      "stderr_tail": "",
+      "stdout_tail": "artifacts=/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control-network-retry1/envbench-python-adbar__trafilatura__b5bfe43520623a5e42c6e4034878ec8dd7d9d242\ngeneration_completed=true\nevaluation_completed=true\nofficial_pass=true\nbenchmark=envbench\nraw_metrics={'exit_code': 0, 'issues_count': 0, 'error_count': 426, 'warning_count': 0, 'repo_name': 'adbar/trafilatura', 'commit_sha': 'b5bfe43520623a5e42c6e4034878ec8dd7d9d242'}\n"
+    }
+  ],
+  "schedule": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/schedules/pro_certification_repair_boundary_v5_untouched4_position1_network_retry1.json",
+  "schedule_sha256": "8a6c2bb6e8180dcc8efac6f5c3fe8c2a15a6c2b847cd783c01cf2813b62fc771",
+  "schema_version": "2.0.0",
+  "updated_at": "2026-08-08T04:13:27.047948+00:00"
+}

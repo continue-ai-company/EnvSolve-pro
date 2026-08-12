@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T08:21:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 8,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-08-A-strong-agent-control",
+    "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+    "condition": "A-strong-agent-control",
+    "process_exit_code": 0,
+    "wall_time_seconds": 1529.3748234590166,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "hidden_qualification_status": "pass",
+    "hidden_qualification_bootstrap_seconds": 122.29735008400166,
+    "qualification_feedback_returned_to_agent": false,
+    "program_revision_after_qualification": false,
+    "feedback_conditioned_repair": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 110.39934778213501,
+    "non_scoring_pyright_error_count": 357,
+    "non_scoring_pyright_warning_count": 0,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 28,
+    "construction_failed_commands": 3,
+    "submitted_program_sha256": "dbc210e0669c60238cd1d6e942af33bcd862e474889454b0a87988ba1d5b9981",
+    "script_sha256": "3ad1dc215cc1d5139bb8e0d3a7f93c4232f5c08af711a3fe5feb9410a7090b85",
+    "token_usage": {
+      "input_tokens": 1143878,
+      "cached_input_tokens": 1030144,
+      "output_tokens": 14408,
+      "reasoning_output_tokens": 7437
+    }
+  },
+  "path_observation": "The independent A episode first encountered unsupported host Python and legacy dependency conflicts, then converged on Python 3.11, setuptools 80.9.0, and the repository's own Zappa package command to generate the deployment-time modules.",
+  "boundary_observation": "The submitted program contains no placeholder modules. Its hidden post-session qualification executed the exact submitted program in fresh state, accepted only repository-provenance build effects, and passed before the independent Official evaluation.",
+  "mechanism_observation": "A passed without receiving replay feedback. Together with Zappa C's first-replay pass, this provides no success-rate evidence for retryable certification on this case, while showing substantially higher A wall time and token use in this single episode.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "6806f8e6a0414d93bb01ef630ad3adfa66cc729584892b19ddc453b39d17522a",
+    "manifest_sha256": "081e40a9ea378c6abb73225681171c048de88d451b0a1aefa5fd5dda8e5709e4",
+    "generation_result_sha256": "7598a2b6140425d173356192ff09debcbae89f75af99f3fe7b85616605291699",
+    "container_commands_sha256": "21232d967fbdb0080d0e4f3f41327b8d3db70700695e349f5be9a384e92dda16",
+    "qualification_sha256": "df34bda9eb677019088887179770d55af693fbcc1646e6ecad26f4490faacacf",
+    "official_result_sha256": "6defe74b2ce983335887c948db806bba572d4f5cd3d1b0e9578fc4168f0591cd",
+    "official_raw_result_sha256": "b87bc6a6361983d32511dcee5628f0bf0ece08a891bc30c6267bc578d1c23566",
+    "progress_after_position_sha256": "fb6abf88d7bd480e198420331e2ada13e93ebbae7a8a85814b7bd701cf8223c7"
+  }
+}

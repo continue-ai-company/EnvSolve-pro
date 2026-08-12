@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "binding_id": "envsolve-pro-certification-repair-boundary-v5-untouched4-position1-network-retry1-v1",
+  "created_at": "2026-08-08T03:59:42Z",
+  "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+  "condition": "A-strong-agent-control",
+  "execution": {
+    "position": 1,
+    "original_position": 1,
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control-network-retry1",
+    "runner": "codex-cli-qualified-boundary-v5",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "seed": 1141733264,
+    "host": "mac",
+    "host_python": "/opt/homebrew/Caskroom/miniconda/base/bin/python",
+    "host_python_version": "3.13.9",
+    "codex_cli_version": "codex-cli 0.147.0-alpha.6.5",
+    "docker_version": "29.6.1/29.6.1",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "source_cache": "qualified Spark-acquired exact-revision cache"
+  },
+  "frozen_inputs": {
+    "amendment_sha256": "bc265626e5647052f567ebc0a0bf517611dc705c33cf6651a3a0de7a00bd775a",
+    "preregistration_sha256": "c35c513ddf717bd82a2ed2871d404cdb2738c7287871a1ebf92c47d5756b5d23",
+    "boundary_freeze_sha256": "0c80b5550f4c148f4d997ba658f389d6fc38ad8fec92ea9ef5cc709c3814c99b",
+    "source_attestation_sha256": "5f040a048fae74f849831f82fe693e234b499dac9d0e6a1c03ce8459d2186af9",
+    "config_sha256": "c8a61139bb1521dccd6a4fd0e0659e2bdb2a3dc673fa9747638923a0e2af4724",
+    "goal_protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "retry_schedule_sha256": "8a6c2bb6e8180dcc8efac6f5c3fe8c2a15a6c2b847cd783c01cf2813b62fc771",
+    "runner_sha256": "8b16f80a6cc8fff34e6c4c9b104fb632442f125ae098db0f358585381848975a",
+    "case_entrypoint_sha256": "7fa3a9b32430930e16a8daa74bf2eec6a93899d766866450f697755086724b7e",
+    "schedule_entrypoint_sha256": "33c1e22b96c124dda646dd9d910107e3ea2f7dca2fe5cca775f1c8e0c887fe29"
+  }
+}

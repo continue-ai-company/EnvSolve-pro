@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-pro-boundary-v5-distutils-consumed-calibration-v1",
+  "preregistered_at": "2026-08-08T03:20:28Z",
+  "status": "frozen-before-execution",
+  "purpose": "Test a unified committed-source build-provenance boundary after boundary-v4's preregistered failure.",
+  "claim_scope": "consumed-boundary-calibration-only-outcome-excluded",
+  "case": {
+    "repository": "pypa/distutils",
+    "revision": "0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+    "split_role": "consumed-development-case",
+    "workspace_directories": [
+      "build_output"
+    ]
+  },
+  "execution": {
+    "host": "local-mac",
+    "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "fresh_environment_per_program": true,
+    "model_calls": 0,
+    "agent_feedback": false,
+    "official_evaluator_calls": 0,
+    "timeout_seconds": 1800,
+    "order": [
+      "A-submitted-program",
+      "C-accepted-program-only-if-A-qualifies"
+    ]
+  },
+  "frozen_implementation": {
+    "boundary_path": "envsolve_harness/boundary_v5.py",
+    "boundary_sha256": "ac919e353ae5d6bb40c11797684ff9fc76a439fe5c06f7919303c9a792e778bf",
+    "validator_path": "experiments/validate_boundary_v5_consumed_candidate.py",
+    "validator_sha256": "a7b5145a5766c9811b676c142ce1d6638321b8c05f2a15c6d9e67f88468c52f9"
+  },
+  "programs": [
+    {
+      "label": "A-submitted-program",
+      "path": "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_submitted_program.sh",
+      "sha256": "75391a9f6d2f28b1655ab4d593dc72a7748a6b8f1ce909c83ee34a12d1df2769",
+      "boundary_v3_result": "rejected-107-build-artifacts",
+      "boundary_v4_result": "rejected-106-tracked-source-copies-after-native-artifact-accepted",
+      "official_only_result": "pass"
+    },
+    {
+      "label": "C-accepted-program",
+      "path": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-01-C-retryable-minimal-b/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/generation/minimal-b/programs/minimal-b-replay-0001.sh",
+      "sha256": "b62597dd9b4b37cdec21be9a78d9ef3e078fb035c8aa63c4fa765a90508afe88",
+      "boundary_v3_result": "qualified",
+      "official_result": "pass"
+    }
+  ],
+  "decision_rule": {
+    "calibration_pass": "A and C both qualify. A must record exactly 106 accepted tracked source copies plus its accepted native extension, with zero remaining repository violations. C must retain a passing goal and zero novel unowned import artifacts.",
+    "calibration_fail": "A does not qualify, expected provenance evidence is absent, or C regresses.",
+    "scientific_use": "A pass validates boundary measurement only. Neither run contributes to A/B/C benchmark treatment estimates."
+  },
+  "anti_overfitting_constraints": [
+    "No repository-name or case-id conditions.",
+    "No build_output or local-build directory-name whitelist.",
+    "Python copies require exact committed bytes and a preserved committed source path suffix.",
+    "Native extensions require a committed native provider and matching initializer.",
+    "Modified, renamed, or source-less import artifacts remain rejected."
+  ],
+  "antecedent": {
+    "boundary_v4_adjudication_path": "experiments/validations/pro_certification_repair_boundary_v4_distutils_consumed_calibration_adjudication.json",
+    "boundary_v4_adjudication_sha256": "7e2762a8686fd609f9a350abd1e1731b0bdc8d4013f977ab629ff04b9c015c03"
+  }
+}

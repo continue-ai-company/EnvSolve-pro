@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T10:42:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 12,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-12-A-strong-agent-control",
+    "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+    "condition": "A-strong-agent-control",
+    "process_exit_code": 0,
+    "wall_time_seconds": 3134.033835457987,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "hidden_qualification_status": "pass",
+    "hidden_qualification_bootstrap_seconds": 1019.3235817910172,
+    "qualification_feedback_returned_to_agent": false,
+    "program_revision_after_qualification": false,
+    "feedback_conditioned_repair": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 813.2850260734558,
+    "non_scoring_pyright_error_count": 393,
+    "non_scoring_pyright_warning_count": 328,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 31,
+    "construction_failed_commands": 3,
+    "submitted_program_sha256": "030b4e375b1c4fc819e7544115d67efcd8f4a2e360a5f16d4290a206ef316304",
+    "script_sha256": "8244e07ae570fc52c35b0d308c1e0187f39c9f5f316c80618c6cc29e44388acc",
+    "token_usage": {
+      "input_tokens": 706304,
+      "cached_input_tokens": 643072,
+      "output_tokens": 10854,
+      "reasoning_output_tokens": 5946
+    }
+  },
+  "path_observation": "The independent A Agent resolved the legacy build with Python 3.10, setuptools below 80, no-build-isolation, the full dev/aws/spark extras, and the repository test-model requirements. It installed the default PyTorch distribution and therefore included large CUDA dependencies.",
+  "boundary_observation": "The exact submitted program passed a post-session fresh qualification without returning feedback to the Agent. Native python -m venv avoided the uv-seeded provenance defect observed by C.",
+  "effect_interpretation": "A and C both passed Official EnvBench. C's CPU-only path was substantially faster than A's default CUDA path, but that choice occurred before C received replay feedback and therefore is descriptive path-quality evidence, not a causal treatment effect.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "e566dbb6034e56cbaddb03b066496e69f6998d3d0141131c54f0f376ea4a44f6",
+    "manifest_sha256": "60d945c1a85d982f576b0b9b76b35b890799a0e985391fc7928e211527529f84",
+    "generation_result_sha256": "8079a194027ee5bb5dc0df4701f0536f441eb909e986d3d239cdbc3d5c6d5a20",
+    "container_commands_sha256": "5b268e1d7367b8ab1ad145b58f0e032a51a4d8e2537e78c73f897ce8e02dd75c",
+    "qualification_sha256": "0702e6518810e84ab7f83fa6dfe9836326bc69b44e5e85fa1c945987099778c3",
+    "official_result_sha256": "48711caa4c02de10e72a83d6a938af5266dbb7c9b83b931949d92fb41562a608",
+    "official_raw_result_sha256": "a6d32694f3765f188b00f62dcab83a8496fead4905d0e35b694b7cf186061c03",
+    "progress_after_position_sha256": "7c41424b1de4fb72e97f050a7ba9af98ad563ae7bef05c30da940768d6b3db8d"
+  }
+}

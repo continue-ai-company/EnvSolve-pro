@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "envsolve-pro-certification-repair-boundary-v5-dual-platform-2026-08-08",
+  "qualified_at": "2026-08-08T03:34:24Z",
+  "status": "pass-with-disclosed-non-v5-suite-order-dependence",
+  "boundary": {
+    "version": "certification-repair-boundary-v5",
+    "goal_contract": "envbench-python-reportMissingImports-v3",
+    "candidate_policy": "open-candidate-program-v5",
+    "repository_policy": "submitted-state-plus-build-provenance-v9",
+    "tracked_copy_policy": "exact-committed-source-copy-with-path-preservation-v1",
+    "native_build_policy": "tracked-native-provider-v1"
+  },
+  "source_snapshot": {
+    "mac_root": "/Users/admin/.codex/worktrees/4050/AnyDeploy",
+    "linux_arm_root": "/home/avdpro/work/EnvSolve-pro-boundary-v4-20260808-git",
+    "compared_file_count": 9,
+    "sha256_match": true,
+    "boundary_v5_sha256": "ac919e353ae5d6bb40c11797684ff9fc76a439fe5c06f7919303c9a792e778bf"
+  },
+  "machines": [
+    {
+      "host_role": "mac-development",
+      "operating_system": "macOS 26.5.2",
+      "kernel": "Darwin 25.5.0",
+      "architecture": "arm64",
+      "python": "3.13.9",
+      "verification": [
+        "24-passed-v4-v5-focused",
+        "759-passed-8-skipped-76-subtests-full-regression",
+        "boundary-v5-case-and-schedule-help-pass",
+        "ruff-pass"
+      ]
+    },
+    {
+      "host_role": "spark-linux-arm",
+      "operating_system": "Ubuntu 24.04",
+      "kernel": "Linux 6.14.0-1015-nvidia",
+      "architecture": "aarch64",
+      "gpu": "NVIDIA GB10",
+      "docker": "28.5.1",
+      "python": "3.12.3",
+      "verification": [
+        "24-passed-v4-v5-focused",
+        "758-passed-8-skipped-76-subtests-full-regression",
+        "boundary-v5-case-and-schedule-help-pass",
+        "all-nine-frozen-file-hashes-match-mac"
+      ],
+      "disclosed_residual": {
+        "test": "envsolve/tests/test_goal_contract.py::ExecutableGoalContractVerifierTests::test_rendered_shell_contract_executes",
+        "full_suite_result": "order-dependent-failure-with-passed-none",
+        "isolated_repetition": "10-of-10-pass",
+        "v5_code_path": false,
+        "qualification_effect": "does-not-fail-boundary-v5-focused-cross-platform-qualification"
+      }
+    }
+  ],
+  "consumed_calibration": {
+    "path": "experiments/validations/pro_certification_repair_boundary_v5_distutils_consumed_calibration_adjudication.json",
+    "sha256": "4348edf0a8ef1afabdcf4884d6d3b1a8ee7a05ccb54a1c187f1ba580d3fb4fdb",
+    "result": "pass",
+    "effect_estimate": "excluded"
+  },
+  "validated_properties": [
+    "candidate-operation-language-unchanged-from-frozen-v3",
+    "exact-committed-python-source-copies-require-path-preservation",
+    "modified-and-renamed-source-copies-remain-rejected",
+    "tracked-native-providers-are-location-independent",
+    "source-less-and-invalid-native-artifacts-remain-rejected",
+    "v5-runner-and-mcp-selection-is-version-explicit",
+    "mac-and-linux-arm-v5-source-snapshots-are-byte-identical"
+  ],
+  "algorithm_change": false,
+  "claim_boundary": "This qualifies a shared measurement and admissibility boundary. It is not an EnvBench effectiveness result and does not count the consumed pypa/distutils calibration toward A/B/C estimates."
+}

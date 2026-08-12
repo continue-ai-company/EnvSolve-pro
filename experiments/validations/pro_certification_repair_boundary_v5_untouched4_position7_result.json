@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T07:52:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "position": 7,
+  "episode": {
+    "run_id": "pro-cert-repair-boundary-v5-untouched4-07-C-retryable-minimal-b",
+    "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+    "condition": "C-retryable-minimal-b",
+    "process_exit_code": 0,
+    "wall_time_seconds": 863.6373511250131,
+    "generation_completed": true,
+    "candidate_program_accepted": true,
+    "first_replay_status": "pass",
+    "first_replay_bootstrap_seconds": 98.64617020799778,
+    "clean_replay_count": 1,
+    "program_revision_after_replay": false,
+    "feedback_conditioned_repair": false,
+    "qualification_certified": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_exit_code": 0,
+    "official_evaluation_seconds": 91.09668898582458,
+    "non_scoring_pyright_error_count": 357,
+    "non_scoring_pyright_warning_count": 0,
+    "non_scoring_missing_import_count": 0,
+    "construction_commands": 22,
+    "construction_failed_commands": 0,
+    "construction_internal_subcommand_failures_observed": 1,
+    "submitted_program_sha256": "18163f9c16825bff48fc6ac3e366071cbfd2750cc3cb9ae41e96d5c711d13595",
+    "script_sha256": "171ec7ede91b2c0b664f01cdedf0e9949d8f7ed0aea3930988840fb705b45593",
+    "token_usage": {
+      "input_tokens": 1046084,
+      "cached_input_tokens": 957440,
+      "output_tokens": 12677,
+      "reasoning_output_tokens": 6443
+    }
+  },
+  "path_observation": "After resolving Python and setuptools compatibility, the Agent found that zappa_settings and django_zappa_app are deployment-time generated modules. It used the repository's own Zappa CLI to build a real runtime package ZIP and exposed that ZIP through PYTHONPATH.",
+  "boundary_observation": "During construction-only diagnosis the Agent tested placeholder modules outside the repository, but that diagnostic program was never submitted. The certified and Official program contains no placeholder modules and instead executes the real Zappa packaging path.",
+  "mechanism_observation": "The first clean replay passed, so C's retry loop remained dormant. This episode supports openness to legitimate native build outputs but provides no feedback-conditioned repair evidence.",
+  "artifact_audit": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "evidence": {
+    "execution_binding_sha256": "3808edb861d85fa729138b77e56df313448f65f67bbc47a447232356ac2bdd9f",
+    "manifest_sha256": "4a7467af832f3a1658bc08af78263a8c4355cd11f7f32d3c9f38c38f3ebb9378",
+    "generation_result_sha256": "907ebeb7c78aad00e0efaf0405e91925569b61a3f0088dd2e37941a972c1b226",
+    "container_commands_sha256": "23fb715e1f9dd11ebf0e579d24789d0c0f0324f4a29feba775f223770d516089",
+    "replay_trace_sha256": "185142831fccdeefff4ffc53b7cd5db0d4a87a74b150ebd6e3744c6a6907c750",
+    "certification_sha256": "7641130944ef84598bd4f203d0c5f2e3a60e37c896ea00d30515f63241dede82",
+    "official_result_sha256": "d349cef6d70c82ba32ad843c2646aced4ab2d54afd7002d3410ae57711459caa",
+    "official_raw_result_sha256": "d490473638aada91fe396172cd17da780dbe1ad97ff9031dbfb6ae924423d02d",
+    "progress_after_position_sha256": "47786efe197c80b9128315035fd0839a089734e1ee282072c1cac122f53c0d48"
+  }
+}

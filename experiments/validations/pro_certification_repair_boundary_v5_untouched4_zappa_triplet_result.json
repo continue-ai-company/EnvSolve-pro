@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-08T08:40:00Z",
+  "study_id": "envsolve-pro-certification-repair-boundary-v5-untouched4",
+  "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+  "positions": [
+    7,
+    8,
+    9
+  ],
+  "official_outcomes": {
+    "A-strong-agent-control": true,
+    "B-one-shot-certification": true,
+    "C-retryable-minimal-b": true
+  },
+  "treatment_outcomes": {
+    "A-strong-agent-control": {
+      "agent_visible_clean_replays": 0,
+      "post_session_hidden_qualification": "pass",
+      "feedback_conditioned_repair": false,
+      "wall_time_seconds": 1529.3748234590166,
+      "input_tokens": 1143878,
+      "output_tokens": 14408
+    },
+    "B-one-shot-certification": {
+      "clean_replay_count": 1,
+      "replay_statuses": [
+        "pass"
+      ],
+      "feedback_conditioned_repair": false,
+      "wall_time_seconds": 999.6728195420001,
+      "input_tokens": 1082597,
+      "output_tokens": 13677
+    },
+    "C-retryable-minimal-b": {
+      "clean_replay_count": 1,
+      "replay_statuses": [
+        "pass"
+      ],
+      "feedback_conditioned_repair": false,
+      "wall_time_seconds": 863.6373511250131,
+      "input_tokens": 1046084,
+      "output_tokens": 12677
+    }
+  },
+  "mechanism_finding": "All three independent Agents discovered the repository's real Zappa package path. B and C passed their first clean replay, so retryable certification remained dormant and produced no repair event.",
+  "effect_finding": "All three arms passed Official EnvBench with zero missing-import issues. This case supplies no Official Pass@1 advantage for C over either control.",
+  "boundary_interpretation": "Construction trajectories used temporary placeholder modules for diagnosis, but no submitted program contained them. Every accepted final program generated zappa_settings and django_zappa_app through the repository's own deployment package command, demonstrating that boundary v5 admits legitimate dynamic build outputs while excluding metric-only placeholders.",
+  "path_quality_observation": "C was descriptively fastest and used the fewest tokens in this triplet, followed by B and A. Because these are single stochastic trajectories and success is tied, the ordering is retained as secondary evidence rather than a causal efficiency claim.",
+  "cumulative_gate_state": {
+    "completed_effective_episodes": 9,
+    "planned_effective_episodes": 12,
+    "completed_cases": 3,
+    "all_arm_official_passes": 9,
+    "strict_feedback_conditioned_repair_events": 1,
+    "algorithm_change_allowed": false,
+    "next_action": "Complete the frozen neuralforecast triplet before making an algorithm decision."
+  },
+  "evidence": {
+    "position7_result_sha256": "db130551481a7910ca50b8fcb0ce8aa53b57658e862095c26f2bb5b1abe5fbdf",
+    "position8_result_sha256": "bdae15e2eb5faa51bb5e77e95b8b92679d8f96031b57de74ba0c3583e9e36078",
+    "position9_result_sha256": "d14c392fd008904760f0408525fe26cabbbe29969e6269ffcf428ea8e25d6db5",
+    "progress_sha256": "9e466cdee194e8c5e885984d5dfa85ad8eb4831ab0a31b02a08e572fdaf34143"
+  }
+}
