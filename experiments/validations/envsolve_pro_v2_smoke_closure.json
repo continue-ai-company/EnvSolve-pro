@@ -1,0 +1,53 @@
+{
+  "schema": "envsolve-pro-v2-smoke-closure-v1",
+  "closed_at": "2026-08-10",
+  "effectiveness_claim_allowed": false,
+  "model": "deepseek/deepseek-v4-pro",
+  "api": "OpenRouter OpenAI-compatible Chat Completions",
+  "qualified_provider": "cloudflare",
+  "qualified_mechanisms": ["F", "S", "R", "minimal-H"],
+  "results": [
+    {
+      "case": "jazzband/tablib",
+      "arm": "F",
+      "generation": "pass",
+      "official": "pass",
+      "role": "control-path qualification"
+    },
+    {
+      "case": "jazzband/tablib",
+      "arm": "F+S+R",
+      "generation": "pass",
+      "clean_replay": "pass-first-attempt",
+      "official": "pass",
+      "role": "treatment-path qualification"
+    },
+    {
+      "case": "datactive/bigbang",
+      "arm": "F+S+R",
+      "generation": "noncompletion",
+      "clean_replay": "fail-dynamic-project-root-contract",
+      "official": "not-run",
+      "role": "consumed stress qualification"
+    }
+  ],
+  "qualified_infrastructure": [
+    "continuous tool session",
+    "same-session provider retry",
+    "process-tree cleanup after command timeout",
+    "single-episode package cache shared by construction and replay",
+    "partial resource accounting on terminal failure",
+    "clean replay with exact program hash",
+    "post-episode-only Official evaluation"
+  ],
+  "post_smoke_corrections": [
+    "declare the fresh repository root as the starting working directory with an unstable absolute path",
+    "raise the request-count safety cap from 60 to 120 while retaining the 18000-second wall-clock cap"
+  ],
+  "prohibited_followup": [
+    "rerun bigbang to demonstrate the corrections",
+    "infer an EnvSolve-Pro effectiveness gain from these consumed smoke cases",
+    "add any repository-specific or package-specific rule"
+  ],
+  "promotion_decision": "qualified-for-outcome-independent-dev-pilot-selection"
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "envsolve-pro-v2-consumed-smoke-preregistration-v1",
+  "frozen_at": "2026-08-10",
+  "purpose": "qualify the DeepSeek V4 Pro API, continuous tool session, clean replay, exact-hash certification, artifact capture, and Official evaluation path",
+  "effectiveness_claim_allowed": false,
+  "model": "deepseek/deepseek-v4-pro",
+  "api": "OpenRouter OpenAI-compatible Chat Completions",
+  "reasoning_effort": "xhigh",
+  "provider_routing": {
+    "order": ["together"],
+    "require_parameters": true,
+    "allow_fallbacks": false,
+    "pin_endpoint_before_first_episode": true,
+    "selection_record": "experiments/validations/envsolve_pro_v2_openrouter_provider_qualification.json"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "runner": "deepseek-free-agent",
+      "method": "free-feedback-search",
+      "mechanism": ["F", "minimal-H"]
+    },
+    {
+      "position": 2,
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "mechanism": ["F", "S", "R", "minimal-H"]
+    },
+    {
+      "position": 3,
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "mechanism": ["F", "S", "R", "minimal-H"]
+    }
+  ],
+  "execution_rule": "run positions in order with provider together fixed; one exact retry is allowed only for classified infrastructure failure",
+  "promotion_gate": [
+    "no credential appears in repository or run artifacts",
+    "provider model identity is DeepSeek V4 Pro",
+    "one conversation preserves tool feedback across requests",
+    "treatment replays use distinct clean environments",
+    "treatment accepts only an exact certified program hash",
+    "Official evaluation remains post-episode-only",
+    "historical frozen runner hashes remain unchanged"
+  ],
+  "next_if_pass": "freeze an outcome-independent 12-case Dev calibration batch before opening any new case"
+}

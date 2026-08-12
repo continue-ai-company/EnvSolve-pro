@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-consumed-smoke-pos1-official-uv",
+  "created_at": "2026-08-10T00:00:00+08:00",
+  "scope": "official-evaluation-infrastructure-only",
+  "source_run_id": "pro-v2-consumed-smoke-pos1-F-together",
+  "source_case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+  "source_script_sha256": "6e750cc4a7ec288be26059b69a852e8a94497320cc22e7a32b63207f042a2ada",
+  "observed_failure": {
+    "classification": "benchmark-host-infrastructure",
+    "evaluator_started": false,
+    "signature": "FileNotFoundError: [Errno 2] No such file or directory: 'uv'"
+  },
+  "repair": {
+    "action": "install uv in the experiment virtual environment and expose it on PATH",
+    "installed_version": "uv 0.12.3 (aarch64-unknown-linux-gnu)",
+    "model_reexecuted": false,
+    "bootstrap_modified": false,
+    "allowed_official_retries": 1,
+    "retry_run_id": "pro-v2-consumed-smoke-pos1-F-together-official-retry-1"
+  },
+  "claim_policy": "The retry may replace an infrastructure-censored official result, but it cannot be counted as an additional model attempt."
+}

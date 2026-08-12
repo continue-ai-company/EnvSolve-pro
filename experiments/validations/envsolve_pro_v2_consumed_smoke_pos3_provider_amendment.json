@@ -1,0 +1,120 @@
+{
+  "schema": "envsolve-pro-v2-consumed-smoke-provider-amendment-v1",
+  "recorded_at": "2026-08-10",
+  "effectiveness_claim_allowed": false,
+  "source_episode": {
+    "run_id": "pro-v2-consumed-smoke-pos3-FSR-together",
+    "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+    "provider": "Together",
+    "generation_completed": false,
+    "terminal_failure": "upstream-provider-shared-pool-429-after-one-runner-retry",
+    "trajectory_event_count": 96,
+    "trajectory_sha256": "0127b6605655dbf59565926c8d58b46975602dfdc513e72838577e59933dab6d",
+    "official_evaluator_executed": false
+  },
+  "implementation_findings": [
+    {
+      "finding": "timed-out persistent-shell commands left container descendants running",
+      "repair": "EnvSolve-Pro V2 now uses the already-qualified process-tree-safe shell",
+      "behavioral_scope": "command timeout cleanup only"
+    },
+    {
+      "finding": "construction and clean replay would redownload identical package artifacts",
+      "repair": "share a writable package cache only within one episode",
+      "behavioral_scope": "construction and clean replay; no cross-case sharing; Official unchanged"
+    },
+    {
+      "finding": "interrupted model episodes omitted partial usage from the result metadata",
+      "repair": "reconstruct model, provider, token, cost, tool, and replay progress from the append-only trajectory",
+      "behavioral_scope": "measurement only"
+    }
+  ],
+  "replacement_provider_qualification": {
+    "provider": "Cloudflare",
+    "provider_slug": "cloudflare",
+    "model": "deepseek/deepseek-v4-pro",
+    "reasoning_effort": "xhigh",
+    "require_parameters": true,
+    "allow_fallbacks": false,
+    "mac_forced_tool_call_probe": "pass",
+    "spark_forced_tool_call_probe": "pass",
+    "tool_name": "echo"
+  },
+  "authorized_smoke_replacement": {
+    "run_id": "pro-v2-consumed-smoke-pos3-FSR-cloudflare-retry1",
+    "model_restarts_from_a_new_session": true,
+    "reason": "the original continuous model session cannot be resumed after terminal provider failure",
+    "count_as_additional_model_attempt": true,
+    "count_in_effectiveness_results": false,
+    "preserve_source_episode": true
+  },
+  "replacement_attempt_outcome": {
+    "run_id": "pro-v2-consumed-smoke-pos3-FSR-cloudflare-retry1",
+    "provider": "Cloudflare",
+    "generation_completed": false,
+    "terminal_failure": "upstream-provider-shared-pool-429-after-one-runner-retry",
+    "trajectory_event_count": 100,
+    "trajectory_sha256": "020e8629242e5da62401ab5d4adc245474a47d1e68e5ef7057a973a4b52a483d",
+    "model_requests": 32,
+    "provider_attempts": 35,
+    "provider_error_count": 4,
+    "total_tokens": 789015,
+    "reported_openrouter_cost": 0.51938285,
+    "official_evaluator_executed": false
+  },
+  "revised_transport_policy": {
+    "provider": "Cloudflare",
+    "provider_slug": "cloudflare",
+    "provider_max_retries_per_request": 5,
+    "provider_retry_delays_seconds": [2, 10, 30, 60, 120],
+    "same_model": true,
+    "same_message_history": true,
+    "same_provider": true,
+    "agent_request_index_advanced_by_retry": false,
+    "retry_wait_is_measured_wall_time": true,
+    "rationale": "two independently qualified providers showed that a single two-second retry is insufficient for long shared-pool sessions"
+  },
+  "authorized_smoke_replacement_2": {
+    "run_id": "pro-v2-consumed-smoke-pos3-FSR-cloudflare-retry2",
+    "model_restarts_from_a_new_session": true,
+    "count_as_additional_model_attempt": true,
+    "count_in_effectiveness_results": false,
+    "preserve_all_prior_attempts": true,
+    "purpose": "qualify long-backoff transport, process-tree cleanup, run-local package cache, clean replay, and Official evaluation before Dev calibration"
+  },
+  "replacement_attempt_2_outcome": {
+    "run_id": "pro-v2-consumed-smoke-pos3-FSR-cloudflare-retry2",
+    "provider": "Cloudflare",
+    "generation_completed": false,
+    "terminal_failure": "agent-request-safety-cap-before-second-clean-replay",
+    "trajectory_event_count": 153,
+    "trajectory_sha256": "8aacc3a7aa49fc96a6b7e4597bb4066f9df19e079b332ff28c78bd530e0bd2f0",
+    "model_requests": 60,
+    "provider_attempts": 61,
+    "provider_error_count": 1,
+    "provider_recovery_in_same_session": true,
+    "total_tokens": 2002364,
+    "reported_openrouter_cost": 0.9447684,
+    "tool_counts": {
+      "envbench_shell": 91,
+      "submit_and_replay": 1
+    },
+    "clean_replay": {
+      "status": "fail",
+      "program_sha256": "9be27ae5a59817a04526555961a8a21e3c6ec7e19b133bde8b885ec7c3a6b2b7",
+      "bootstrap_seconds": 37.414319209288806,
+      "terminal_cause": "submitted program hardcoded the construction-only /data/project path",
+      "package_cache_size_mib": 213
+    },
+    "official_evaluator_executed": false
+  },
+  "generic_interface_correction": {
+    "candidate_contract": "fresh execution starts in the repository root, whose absolute path may differ across construction, replay, and Official evaluation",
+    "prompt_rule": "derive repository paths from the starting working directory and never hardcode /data/project",
+    "agent_request_safety_cap": 120,
+    "generation_wall_clock_safety_cap_seconds": 18000,
+    "scientific_scope": "protocol clarification and wide safety cap only; no package, repository, or failure-specific repair rule",
+    "same_case_rerun_allowed": false
+  },
+  "future_policy": "Freeze Cloudflare, the five-retry backoff, dynamic project-root contract, and 120-request safety cap before selecting or opening the Dev calibration batch; any later provider or transport-policy change requires another pre-episode amendment."
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "envsolve-pro-v2-openrouter-provider-qualification-v1",
+  "recorded_at": "2026-08-10",
+  "effectiveness_episode": false,
+  "model": "deepseek/deepseek-v4-pro",
+  "reasoning_effort": "xhigh",
+  "required_capability": "OpenAI-compatible forced function calling",
+  "public_endpoint_inventory": "https://openrouter.ai/api/v1/models/deepseek/deepseek-v4-pro/endpoints",
+  "observations": [
+    {
+      "route": "default-lowest-cost-without-fallback",
+      "provider": "CoreWeave",
+      "outcome": "infrastructure-failure",
+      "error_class": "provider-region-rejection",
+      "model_episode_consumed": false
+    },
+    {
+      "route": "ignore-coreweave-without-fallback",
+      "provider": "Parasail",
+      "outcome": "pass",
+      "returned_model": "deepseek/deepseek-v4-pro",
+      "finish_reason": "tool_calls",
+      "tool_name": "ping"
+    },
+    {
+      "route": "provider-order-parasail-without-fallback",
+      "provider": "Parasail",
+      "outcome": "pass",
+      "returned_model": "deepseek/deepseek-v4-pro",
+      "finish_reason": "tool_calls",
+      "tool_name": "ping"
+    },
+    {
+      "route": "provider-order-parasail-without-fallback-on-spark",
+      "provider": "Parasail",
+      "outcome": "infrastructure-failure-after-one-exact-retry",
+      "error_class": "upstream-shared-pool-rate-limit",
+      "model_episode_consumed": false
+    },
+    {
+      "route": "provider-order-together-without-fallback",
+      "provider": "Together",
+      "outcome": "pass",
+      "returned_model": "deepseek/deepseek-v4-pro",
+      "finish_reason": "tool_calls",
+      "tool_name": "ping"
+    }
+  ],
+  "decision": {
+    "provider_slug": "together",
+    "require_parameters": true,
+    "allow_fallbacks": false,
+    "rationale": "first endpoint after infrastructure exclusions that passed the pre-episode tool-call probe and did not exhibit a repeated region or shared-pool failure"
+  },
+  "scope": "all non-Codex API methods in the frozen EnvSolve-Pro v2 experiment family"
+}

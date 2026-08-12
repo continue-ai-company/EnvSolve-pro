@@ -1,0 +1,930 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+from typing import Any, Callable, Literal
+
+from envsolve.runtime.docker import DockerFreshEnvironmentProvider
+from envsolve.runtime.goal import ExecutableGoalContract
+from envsolve.runtime.workspace import WorkspacePrecondition
+from envsolve.solver import DeploymentCandidate
+from envsolve_harness.codex.container_mcp import (
+    ContainerMcpServer,
+)
+from envsolve_harness.execution.v2_container_shell import (
+    V2ProcessTreeSafePersistentContainerShell,
+)
+from envsolve_harness.codex.minimal_b_mcp import (
+    CleanReplayService,
+    canonical_script,
+    script_sha256,
+)
+from envsolve_harness.core.io import read_jsonl, write_json, write_text_atomic
+from envsolve_harness.core.models import Case, RunSpec, SolverResult
+from envsolve_harness.execution.batch import cleanup_case_containers
+from envsolve_harness.integrity.minimal import (
+    MinimalIntegrityGoalVerifier,
+    inspect_minimal_repository_integrity,
+)
+from envsolve_harness.replay_feedback import normalize_replay_feedback
+from envsolve_harness.runners.codex_cli import CodexCliRunner
+from envsolve_harness.scripts.minimal_integrity import (
+    MinimalIntegrityCandidateValidator,
+)
+from envsolve_harness.storage.artifacts import RunArtifacts
+from envsolve_harness.utils.provenance import sha256_file
+
+
+DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+ReplayMode = Literal["none", "soft"]
+ClientFactory = Callable[..., Any]
+_PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
+
+
+def _prepare_episode_package_cache(cache_root: Path) -> Path:
+    cache_root = cache_root.resolve()
+    cache_root.mkdir(parents=True, exist_ok=True)
+    # Docker user-namespace mappings must be able to create package-manager subdirs.
+    cache_root.chmod(0o777)
+    return cache_root
+
+
+class _EpisodePackageCacheRunCommand:
+    """Mount one run-local package cache into replay containers."""
+
+    def __init__(self, cache_root: Path, run_command: Callable[..., Any] = subprocess.run):
+        resolved = cache_root.resolve()
+        if resolved.exists():
+            if not resolved.is_dir():
+                raise ValueError(f"Episode package cache is not a directory: {resolved}")
+            self.cache_root = resolved
+        else:
+            self.cache_root = _prepare_episode_package_cache(resolved)
+        self.run_command = run_command
+
+    def __call__(self, command: list[str], **kwargs: Any) -> Any:
+        rewritten = list(command)
+        if len(rewritten) >= 2 and Path(rewritten[0]).name == "docker" and rewritten[1] == "create":
+            rewritten[2:2] = [
+                "--mount",
+                f"type=bind,src={self.cache_root},dst=/root/.cache",
+            ]
+        process = self.run_command(rewritten, **kwargs)
+        if (
+            len(rewritten) == 3
+            and Path(rewritten[0]).name == "docker"
+            and rewritten[1] == "start"
+            and process.returncode == 0
+        ):
+            ownership = self.run_command(
+                [
+                    rewritten[0],
+                    "exec",
+                    "--user",
+                    "0:0",
+                    rewritten[2],
+                    "chown",
+                    "0:0",
+                    "/root/.cache",
+                ],
+                **kwargs,
+            )
+            if ownership.returncode != 0:
+                return ownership
+        return process
+
+
+def _model_dump(value: Any) -> dict[str, Any]:
+    if hasattr(value, "model_dump"):
+        dumped = value.model_dump(mode="json")
+        if isinstance(dumped, dict):
+            return dumped
+    if isinstance(value, dict):
+        return value
+    raise ValueError(f"Provider response is not serializable: {type(value).__name__}")
+
+
+def _tool_call_dict(call: Any) -> dict[str, Any]:
+    function = call.function
+    return {
+        "id": str(call.id),
+        "type": "function",
+        "function": {
+            "name": str(function.name),
+            "arguments": str(function.arguments),
+        },
+    }
+
+
+def _usage_dict(response: Any) -> dict[str, Any]:
+    usage = getattr(response, "usage", None)
+    if usage is None:
+        return {}
+    return _model_dump(usage)
+
+
+def _accumulate_usage(total: dict[str, int | float], usage: dict[str, Any]) -> None:
+    for name in ("prompt_tokens", "completion_tokens", "total_tokens"):
+        value = usage.get(name)
+        if isinstance(value, int) and not isinstance(value, bool):
+            total[name] = total.get(name, 0) + value
+    cost = usage.get("cost")
+    if isinstance(cost, (int, float)) and not isinstance(cost, bool):
+        total["cost"] = float(total.get("cost", 0.0)) + float(cost)
+
+
+def _trajectory_progress(path: Path) -> dict[str, Any]:
+    progress: dict[str, Any] = {
+        "model_requests": 0,
+        "provider_attempts": 0,
+        "provider_error_count": 0,
+        "token_usage": {},
+        "tool_counts": {},
+        "replay_status_counts": {},
+    }
+    if not path.is_file():
+        return progress
+    usage_total: dict[str, int | float] = progress["token_usage"]
+    tool_counts: dict[str, int] = progress["tool_counts"]
+    replay_counts: dict[str, int] = progress["replay_status_counts"]
+    for event in read_jsonl(path):
+        request_index = event.get("request_index")
+        if isinstance(request_index, int) and not isinstance(request_index, bool):
+            progress["model_requests"] = max(progress["model_requests"], request_index)
+        event_name = event.get("event")
+        if event_name in {"provider_response", "provider_error"}:
+            progress["provider_attempts"] += 1
+        if event_name == "provider_error":
+            progress["provider_error_count"] += 1
+        elif event_name == "provider_response":
+            response = event.get("response")
+            usage = response.get("usage") if isinstance(response, dict) else None
+            if isinstance(usage, dict):
+                _accumulate_usage(usage_total, usage)
+        elif event_name == "tool_result":
+            tool_name = event.get("tool_name")
+            if isinstance(tool_name, str):
+                tool_counts[tool_name] = tool_counts.get(tool_name, 0) + 1
+            if tool_name == "submit_and_replay":
+                result = event.get("result")
+                status = result.get("status") if isinstance(result, dict) else None
+                if isinstance(status, str):
+                    replay_counts[status] = replay_counts.get(status, 0) + 1
+    return progress
+
+
+def _retryable_provider_error(exc: Exception) -> bool:
+    status = getattr(exc, "status_code", None)
+    if isinstance(status, int):
+        return status == 429 or status >= 500
+    return type(exc).__name__ in {
+        "APIConnectionError",
+        "APITimeoutError",
+        "EmptyProviderResponseError",
+        "InternalServerError",
+        "RateLimitError",
+    }
+
+
+class EmptyProviderResponseError(RuntimeError):
+    """The provider returned a successful envelope without a completion choice."""
+
+
+def _function_tool(name: str, description: str, parameters: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "type": "function",
+        "function": {
+            "name": name,
+            "description": description,
+            "parameters": parameters,
+        },
+    }
+
+
+class OpenRouterAgentRunner(CodexCliRunner):
+    """One continuous OpenAI-compatible tool session for F and F+S+R."""
+
+    runner_name = "openrouter-continuous-agent"
+    runner_version = "0.1.0"
+
+    def __init__(
+        self,
+        *,
+        harness_root: Path,
+        image: str,
+        timeout: int,
+        command_timeout: int,
+        container_create_timeout: int,
+        git_fetch_timeout: int,
+        max_iterations: int,
+        model_request_timeout: int,
+        model_max_retries: int,
+        model_max_output_tokens: int,
+        reasoning_effort: str,
+        replay_mode: ReplayMode,
+        workspace_preconditions: tuple[WorkspacePrecondition, ...],
+        goal_contract: ExecutableGoalContract,
+        client_factory: ClientFactory | None = None,
+    ) -> None:
+        if replay_mode not in {"none", "soft"}:
+            raise ValueError("Replay mode must be none or soft")
+        if max_iterations <= 0:
+            raise ValueError("Agent iterations must be positive")
+        if model_max_retries < 0:
+            raise ValueError("Provider retries cannot be negative")
+        super().__init__(
+            codex_executable=Path("/nonexistent/openrouter-agent"),
+            harness_root=harness_root,
+            image=image,
+            timeout=timeout,
+            command_timeout=command_timeout,
+            container_create_timeout=container_create_timeout,
+            git_fetch_timeout=git_fetch_timeout,
+            reasoning_effort=reasoning_effort,
+            workspace_preconditions=workspace_preconditions,
+            goal_contract=goal_contract,
+        )
+        self.max_iterations = max_iterations
+        self.model_request_timeout = model_request_timeout
+        self.model_max_retries = model_max_retries
+        self.model_max_output_tokens = model_max_output_tokens
+        self.replay_mode = replay_mode
+        self.client_factory = client_factory
+        self.validator = MinimalIntegrityCandidateValidator()
+
+    @property
+    def agent_interface(self) -> str:
+        return (
+            "free-feedback-search+soft-clean-replay-v1"
+            if self.replay_mode == "soft"
+            else "free-feedback-search-v1"
+        )
+
+    @staticmethod
+    def _now() -> str:
+        return datetime.now(timezone.utc).isoformat()
+
+    def _provider_policy(self) -> dict[str, Any]:
+        policy: dict[str, Any] = {
+            "require_parameters": True,
+            "allow_fallbacks": False,
+        }
+        order = [
+            item.strip()
+            for item in os.environ.get("OPENROUTER_PROVIDER_ORDER", "").split(",")
+            if item.strip()
+        ]
+        if order:
+            policy["order"] = order
+        return policy
+
+    def _create_container_with_package_cache(
+        self,
+        workspace: Path,
+        image_digest: str,
+        cache_root: Path,
+    ) -> str:
+        cache_root = _prepare_episode_package_cache(cache_root)
+        docker = os.environ.get("DOCKER_EXECUTABLE", "docker")
+        container_id = self._checked(
+            [
+                docker,
+                "create",
+                "--init",
+                "--entrypoint",
+                "/bin/bash",
+                "--mount",
+                f"type=bind,src={workspace},dst=/data/project",
+                "--mount",
+                f"type=bind,src={cache_root.resolve()},dst=/root/.cache",
+                "--workdir",
+                "/data/project",
+                image_digest,
+                "-lc",
+                "while true; do sleep 1000; done",
+            ],
+            timeout=self.container_create_timeout,
+        )
+        try:
+            self._checked(
+                [docker, "start", container_id],
+                timeout=self.container_create_timeout,
+            )
+            self._checked(
+                [
+                    docker,
+                    "exec",
+                    "--user",
+                    "0:0",
+                    container_id,
+                    "chown",
+                    "0:0",
+                    "/root/.cache",
+                ],
+                timeout=self.container_create_timeout,
+            )
+        except Exception:
+            subprocess.run(
+                [docker, "rm", "-f", container_id],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            raise
+        return container_id
+
+    def request_options(self, model: str, messages: list[dict[str, Any]]) -> dict[str, Any]:
+        return {
+            "model": model,
+            "messages": messages,
+            "tools": self._tools(),
+            "tool_choice": "auto",
+            "max_tokens": self.model_max_output_tokens,
+            "extra_body": {
+                "reasoning": {"effort": self.reasoning_effort},
+                "provider": self._provider_policy(),
+            },
+        }
+
+    def _tools(self) -> list[dict[str, Any]]:
+        tools = [
+            _function_tool(
+                "envbench_shell",
+                (
+                    "Execute Bash in the persistent construction container. Shell state, "
+                    "files, installed packages, and working directory persist."
+                ),
+                {
+                    "type": "object",
+                    "properties": {
+                        "command": {"type": "string"},
+                        "timeout_seconds": {"type": "integer", "minimum": 1},
+                    },
+                    "required": ["command"],
+                    "additionalProperties": False,
+                },
+            )
+        ]
+        if self.replay_mode == "soft":
+            tools.append(
+                _function_tool(
+                    "submit_and_replay",
+                    (
+                        "Run a complete bootstrap program in a new clean checkout and "
+                        "container, execute the trusted public goal, destroy that replay "
+                        "environment, and return advisory failure constraints plus raw evidence."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {"program": {"type": "string", "minLength": 1}},
+                        "required": ["program"],
+                        "additionalProperties": False,
+                    },
+                )
+            )
+        tools.append(
+            _function_tool(
+                "submit_bootstrap",
+                "Submit the final complete bootstrap program and a short summary.",
+                {
+                    "type": "object",
+                    "properties": {
+                        "program": {"type": "string", "minLength": 1},
+                        "summary": {"type": "string"},
+                    },
+                    "required": ["program", "summary"],
+                    "additionalProperties": False,
+                },
+            )
+        )
+        return tools
+
+    def _prompt(self, case: Case, goal_contract: ExecutableGoalContract | None = None) -> str:
+        contract = goal_contract or self.goal_contract
+        prompt = f"""\
+Set up the Python development environment for `{case.repository}` at exact revision
+`{case.revision}`. Work as a strong general-purpose coding agent in one continuous
+session. Use `envbench_shell` for repository inspection, installation, and ordinary
+execution feedback. The construction shell is persistent and starts at
+`/data/project` in the benchmark image.
+
+Infer the intended Python version, dependency manager, project install, and
+development dependencies from the repository. Diagnose failures through execution.
+Do not use the official evaluator or any post-episode result. Do not modify tracked
+source, tests, declarations, lockfiles, type-checker configuration, or
+benchmark-owned state. Do not use sudo or interactive commands.
+
+The public executable goal below is the only online success signal. It is not the
+official evaluator. You may execute an equivalent command during construction.
+
+Goal ID: {contract.contract_id}
+Goal description: {contract.description}
+Goal schema: {contract.report_schema}
+Goal SHA-256: {contract.sha256}
+
+<trusted_goal_program>
+{contract.program}
+</trusted_goal_program>
+
+	Finish by calling `submit_bootstrap` with one self-contained Bash program that can
+	be sourced from a fresh checkout in the same image. Keep only reproducible setup
+	commands; omit inspection, diagnostics, tests, and failed attempts. The program
+	must leave its selected Python environment active. In every fresh environment,
+	the current working directory is the repository root, but its absolute path may
+	differ from `/data/project`. Derive repository paths from the starting working
+	directory; do not hardcode the construction path in the submitted program. Once
+	the public goal is satisfied and the complete program is ready, submit it promptly.
+
+<candidate_contract>
+{self.validator.prompt_contract}
+</candidate_contract>
+"""
+        if self.replay_mode == "soft":
+            prompt += """\
+
+Before final submission, call `submit_and_replay` with the complete program. It
+creates no checkpoint and retains no environment state. Treat its normalized
+constraint as advisory evidence, inspect the accompanying raw evidence, repair the
+whole program in this same session, and repeat as needed. `submit_bootstrap` accepts
+only the exact hash of a program that passed a clean replay.
+"""
+        return prompt
+
+    def _client(self) -> Any:
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+        if not api_key:
+            raise RuntimeError("OPENROUTER_API_KEY is not set")
+        factory = self.client_factory
+        if factory is None:
+            from openai import OpenAI
+
+            factory = OpenAI
+        return factory(
+            api_key=api_key,
+            base_url=OPENROUTER_BASE_URL,
+            timeout=self.model_request_timeout,
+            max_retries=0,
+        )
+
+    def _append_event(self, path: Path, value: dict[str, Any]) -> None:
+        encoded = self._redact(json.dumps(value, ensure_ascii=True, sort_keys=True))
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as handle:
+            handle.write(encoded + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+
+    def _provider_request(
+        self,
+        client: Any,
+        options: dict[str, Any],
+        trajectory_path: Path,
+        request_index: int,
+    ) -> Any:
+        last_error: Exception | None = None
+        max_attempts = self.model_max_retries + 1
+        for attempt in range(1, max_attempts + 1):
+            try:
+                response = client.chat.completions.create(**options)
+                choices = getattr(response, "choices", None)
+                if not isinstance(choices, list) or not choices:
+                    raise EmptyProviderResponseError(
+                        "Provider response contains no choices"
+                    )
+                self._append_event(
+                    trajectory_path,
+                    {
+                        "schema": "envsolve-openrouter-event-v1",
+                        "event": "provider_response",
+                        "request_index": request_index,
+                        "attempt": attempt,
+                        "response": _model_dump(response),
+                    },
+                )
+                return response
+            except Exception as exc:
+                last_error = exc
+                retryable = _retryable_provider_error(exc)
+                should_retry = attempt < max_attempts and retryable
+                delay = (
+                    _PROVIDER_RETRY_DELAYS_SECONDS[
+                        min(attempt - 1, len(_PROVIDER_RETRY_DELAYS_SECONDS) - 1)
+                    ]
+                    if should_retry
+                    else None
+                )
+                self._append_event(
+                    trajectory_path,
+                    {
+                        "schema": "envsolve-openrouter-event-v1",
+                        "event": "provider_error",
+                        "request_index": request_index,
+                        "attempt": attempt,
+                        "retryable": retryable,
+                        "next_retry_delay_seconds": delay,
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                if should_retry and delay is not None:
+                    time.sleep(delay)
+                    continue
+                raise
+        raise RuntimeError(f"Provider request failed: {last_error}")
+
+    def _submit(
+        self,
+        arguments: dict[str, Any],
+        replay_service: CleanReplayService | None,
+    ) -> tuple[dict[str, Any], dict[str, str] | None]:
+        program = arguments.get("program")
+        summary = arguments.get("summary")
+        if not isinstance(program, str) or not isinstance(summary, str):
+            return {"accepted": False, "reason": "program and summary must be strings"}, None
+        canonical = canonical_script(program)
+        validation = self.validator.validate(
+            DeploymentCandidate(
+                candidate_id="openrouter-final-submission",
+                script=canonical,
+                rationale="continuous Agent final submission",
+            )
+        )
+        if not validation.accepted:
+            return {
+                "accepted": False,
+                "reason": validation.reason,
+                "policy_id": validation.policy_id,
+                "details": validation.details,
+            }, None
+        canonical = canonical_script(validation.normalized_script or canonical)
+        digest = script_sha256(canonical)
+        if replay_service is not None and digest not in {
+            item.get("program_sha256") for item in replay_service.certified_programs
+        }:
+            return {
+                "accepted": False,
+                "reason": "final program hash has not passed clean replay",
+                "program_sha256": digest,
+            }, None
+        submission = {"program": canonical, "summary": summary, "program_sha256": digest}
+        return {"accepted": True, "program_sha256": digest}, submission
+
+    def _agent_loop(
+        self,
+        *,
+        client: Any,
+        model: str,
+        prompt: str,
+        terminal_server: ContainerMcpServer,
+        replay_service: CleanReplayService | None,
+        trajectory_path: Path,
+    ) -> tuple[dict[str, str], dict[str, Any]]:
+        messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
+        usage_total: dict[str, int | float] = {}
+        tool_counts = {"envbench_shell": 0, "submit_and_replay": 0, "submit_bootstrap": 0}
+        replay_status_counts: dict[str, int] = {}
+        started = time.monotonic()
+
+        for request_index in range(1, self.max_iterations + 1):
+            if time.monotonic() - started > self.timeout:
+                raise RuntimeError("Agent exceeded the generation wall-clock safety cap")
+            options = self.request_options(model, messages)
+            response = self._provider_request(
+                client,
+                options,
+                trajectory_path,
+                request_index,
+            )
+            _accumulate_usage(usage_total, _usage_dict(response))
+            choices = getattr(response, "choices", None)
+            if not isinstance(choices, list) or not choices:
+                raise RuntimeError("Provider response contains no choices")
+            message = choices[0].message
+            tool_calls = list(getattr(message, "tool_calls", None) or [])
+            assistant_message: dict[str, Any] = {
+                "role": "assistant",
+                "content": getattr(message, "content", None),
+            }
+            if tool_calls:
+                assistant_message["tool_calls"] = [
+                    _tool_call_dict(call) for call in tool_calls
+                ]
+            messages.append(assistant_message)
+
+            if not tool_calls:
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Continue working with the available tools. Finish only by "
+                            "calling submit_bootstrap with the complete program."
+                        ),
+                    }
+                )
+                continue
+
+            for call in tool_calls:
+                name = str(call.function.name)
+                tool_counts[name] = tool_counts.get(name, 0) + 1
+                try:
+                    arguments = json.loads(str(call.function.arguments))
+                    if not isinstance(arguments, dict):
+                        raise ValueError("tool arguments must be an object")
+                except (json.JSONDecodeError, ValueError) as exc:
+                    payload = {"ok": False, "error": f"invalid tool arguments: {exc}"}
+                    submission = None
+                else:
+                    submission = None
+                    if name == "envbench_shell":
+                        request = {
+                            "jsonrpc": "2.0",
+                            "id": str(call.id),
+                            "method": "tools/call",
+                            "params": {"name": name, "arguments": arguments},
+                        }
+                        response_value = terminal_server.handle(request)
+                        if response_value is None or "result" not in response_value:
+                            payload = {"ok": False, "error": response_value}
+                        else:
+                            payload = response_value["result"]["structuredContent"]
+                    elif name == "submit_and_replay" and replay_service is not None:
+                        program = arguments.get("program")
+                        if not isinstance(program, str):
+                            payload = {"ok": False, "error": "program must be a string"}
+                        else:
+                            raw_replay = replay_service.submit(program)
+                            status = str(raw_replay.get("status", "unknown"))
+                            replay_status_counts[status] = replay_status_counts.get(status, 0) + 1
+                            payload = normalize_replay_feedback(raw_replay)
+                    elif name == "submit_bootstrap":
+                        payload, submission = self._submit(arguments, replay_service)
+                    else:
+                        payload = {"ok": False, "error": f"unknown tool: {name}"}
+
+                self._append_event(
+                    trajectory_path,
+                    {
+                        "schema": "envsolve-openrouter-event-v1",
+                        "event": "tool_result",
+                        "request_index": request_index,
+                        "tool_call_id": str(call.id),
+                        "tool_name": name,
+                        "result": payload,
+                    },
+                )
+                if submission is not None:
+                    return submission, {
+                        "model_requests": request_index,
+                        "token_usage": usage_total,
+                        "tool_counts": tool_counts,
+                        "replay_status_counts": replay_status_counts,
+                    }
+                messages.append(
+                    {
+                        "role": "tool",
+                        "tool_call_id": str(call.id),
+                        "name": name,
+                        "content": json.dumps(payload, ensure_ascii=True, sort_keys=True),
+                    }
+                )
+        raise RuntimeError("Agent exhausted the request safety cap without submission")
+
+    def run(self, case: Case, artifacts: RunArtifacts, run_spec: RunSpec) -> SolverResult:
+        started_at = self._now()
+        write_json(artifacts.status, {"state": "generating", "updated_at": started_at})
+        metadata: dict[str, Any] = {
+            "runner": self.runner_name,
+            "runner_version": self.runner_version,
+            "baseline_interface": self.agent_interface,
+            "mechanism_primitives": (
+                ["F", "S", "R", "minimal-H"]
+                if self.replay_mode == "soft"
+                else ["F", "minimal-H"]
+            ),
+            "model_reasoning_effort": self.reasoning_effort,
+            "provider_base_url": OPENROUTER_BASE_URL,
+            "provider_policy": self._provider_policy(),
+            "credential_present": bool(os.environ.get("OPENROUTER_API_KEY")),
+            "official_evaluator_access": "post-episode-only",
+            "resource_policy": {
+                "generation_wall_clock_safety_cap_seconds": self.timeout,
+                "container_command_safety_cap_seconds": self.command_timeout,
+                "agent_request_safety_cap": self.max_iterations,
+                "provider_max_retries_per_request": self.model_max_retries,
+                "provider_retry_delays_seconds": list(
+                    _PROVIDER_RETRY_DELAYS_SECONDS[: self.model_max_retries]
+                ),
+                "token_usage_is_hard_limit": False,
+                "cost_is_hard_limit": False,
+            },
+            "image_reference": self.image,
+            "goal_contract": {
+                "contract_id": self.goal_contract.contract_id,
+                "report_schema": self.goal_contract.report_schema,
+                "sha256": self.goal_contract.sha256,
+            },
+            "workspace_preconditions": [
+                item.to_dict() for item in self.workspace_preconditions
+            ],
+            "started_at": started_at,
+        }
+        if run_spec.model != DEEPSEEK_V4_PRO:
+            return self._finish(
+                artifacts,
+                SolverResult(
+                    False,
+                    run_spec.method,
+                    error=f"OpenRouter API experiments require model {DEEPSEEK_V4_PRO}",
+                    metadata=metadata,
+                ),
+                "Model identity rejected before provider access.\n",
+            )
+
+        workspace = artifacts.generation_dir / "workspace"
+        trajectory_path = artifacts.trajectory_jsonl
+        command_trace_path = artifacts.generation_dir / "container-commands.jsonl"
+        replay_root = artifacts.generation_dir / "clean-replay"
+        package_cache_root = artifacts.generation_dir / "package-cache"
+        control_root = artifacts.generation_dir / "openrouter-control"
+        prompt_path = control_root / "prompt.txt"
+        prompt = self._prompt(case, self.goal_contract)
+        write_text_atomic(prompt_path, prompt)
+        metadata["prompt"] = {
+            "path": str(prompt_path.relative_to(artifacts.root)),
+            "sha256": sha256_file(prompt_path),
+        }
+        container_id: str | None = None
+        terminal: V2ProcessTreeSafePersistentContainerShell | None = None
+        log_parts: list[str] = []
+        try:
+            acquisition_commands = self._acquire_repository(case, workspace)
+            self._materialize_workspace_preconditions(workspace)
+            metadata["repository_acquisition"] = {
+                "source": "github-exact-revision",
+                "commands": acquisition_commands,
+                "attempts": 3,
+            }
+            image_digest = self._image_digest()
+            metadata["image_digest"] = image_digest
+            container_id = self._create_container_with_package_cache(
+                workspace,
+                image_digest,
+                package_cache_root,
+            )
+            metadata["package_cache"] = {
+                "scope": "single-episode",
+                "cross_case_sharing": False,
+                "container_path": "/root/.cache",
+                "shared_phases": ["construction", "clean-replay"],
+                "path": str(package_cache_root.relative_to(artifacts.root)),
+            }
+            terminal = V2ProcessTreeSafePersistentContainerShell(
+                container_id,
+                "/data/project",
+                self.command_timeout,
+                16_000,
+                os.environ.get("DOCKER_EXECUTABLE", "docker"),
+            )
+            terminal_server = ContainerMcpServer(terminal, command_trace_path)
+
+            replay_service: CleanReplayService | None = None
+            if self.replay_mode == "soft":
+                provider = DockerFreshEnvironmentProvider(
+                    source_repository=workspace,
+                    worktrees_root=replay_root / "worktrees",
+                    repository=case.repository,
+                    revision=case.revision,
+                    image=image_digest,
+                    workspace_preconditions=self.workspace_preconditions,
+                    create_timeout=self.container_create_timeout,
+                    run_command=_EpisodePackageCacheRunCommand(package_cache_root),
+                )
+                verifier = MinimalIntegrityGoalVerifier(
+                    self.goal_contract,
+                    observation_timeout=self.command_timeout,
+                    effect_auditor=lambda worktree: inspect_minimal_repository_integrity(
+                        worktree,
+                        case.revision,
+                        self.workspace_preconditions,
+                    ),
+                )
+                replay_service = CleanReplayService(
+                    provider=provider,
+                    verifier=verifier,
+                    repository=case.repository,
+                    revision=case.revision,
+                    image_digest=image_digest,
+                    goal_contract_sha256=self.goal_contract.sha256,
+                    trace_path=replay_root / "replays.jsonl",
+                    certification_path=replay_root / "certification.json",
+                    programs_root=replay_root / "programs",
+                )
+                replay_service.validator = self.validator
+
+            client = self._client()
+            submission, loop_metadata = self._agent_loop(
+                client=client,
+                model=run_spec.model,
+                prompt=prompt,
+                terminal_server=terminal_server,
+                replay_service=replay_service,
+                trajectory_path=trajectory_path,
+            )
+            metadata.update(loop_metadata)
+            metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)
+            integrity = inspect_minimal_repository_integrity(
+                workspace,
+                case.revision,
+                self.workspace_preconditions,
+            )
+            metadata["repository_integrity"] = integrity.to_dict()
+            if not integrity.valid:
+                raise RuntimeError(
+                    f"construction environment violated minimal integrity: {integrity.violations}"
+                )
+            command_records = read_jsonl(command_trace_path) if command_trace_path.is_file() else []
+            metadata["container_command_trace"] = {
+                "path": str(command_trace_path.relative_to(artifacts.root)),
+                "sha256": (
+                    sha256_file(command_trace_path) if command_trace_path.is_file() else None
+                ),
+                "count": len(command_records),
+                "successful_count": sum(
+                    1
+                    for item in command_records
+                    if item.get("exit_code") == 0
+                    and not item.get("timed_out")
+                    and not item.get("infrastructure_error")
+                ),
+            }
+            metadata["submission"] = {
+                "summary": submission["summary"],
+                "program_sha256": submission["program_sha256"],
+                "certified_by_clean_replay": self.replay_mode == "soft",
+            }
+            if replay_service is not None:
+                metadata["clean_replay"] = {
+                    "count": replay_service.sequence,
+                    "certified_program_count": len(replay_service.certified_programs),
+                    "trace_path": str((replay_root / "replays.jsonl").relative_to(artifacts.root)),
+                    "certification_path": str(
+                        (replay_root / "certification.json").relative_to(artifacts.root)
+                    ),
+                }
+            write_text_atomic(artifacts.generated_script, submission["program"] + "\n")
+            result = SolverResult(
+                True,
+                run_spec.method,
+                script_path=str(artifacts.generated_script.relative_to(artifacts.root)),
+                trajectory_path=str(trajectory_path.relative_to(artifacts.root)),
+                metadata={**metadata, "finished_at": self._now()},
+            )
+            return self._finish(artifacts, result, "\n".join(log_parts))
+        except Exception as exc:
+            metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)
+            log_parts.append(f"{type(exc).__name__}: {self._redact(str(exc))}\n")
+            result = SolverResult(
+                False,
+                run_spec.method,
+                trajectory_path=(
+                    str(trajectory_path.relative_to(artifacts.root))
+                    if trajectory_path.is_file()
+                    else None
+                ),
+                error=f"{type(exc).__name__}: {self._redact(str(exc))}",
+                metadata={**metadata, "finished_at": self._now()},
+            )
+            return self._finish(artifacts, result, "\n".join(log_parts))
+        finally:
+            if terminal is not None:
+                terminal.close()
+            if container_id:
+                import subprocess
+
+                subprocess.run(
+                    [
+                        "docker",
+                        "exec",
+                        "--user",
+                        "0:0",
+                        container_id,
+                        "chown",
+                        "-R",
+                        f"{os.getuid()}:{os.getgid()}",
+                        "/data/project",
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                subprocess.run(
+                    ["docker", "rm", "-f", container_id],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+            cleanup_case_containers(artifacts.root)

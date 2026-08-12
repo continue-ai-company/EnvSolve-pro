@@ -1,0 +1,97 @@
+{
+  "analysis_rule": "paired pass-rate difference; exact McNemar only when both arms have Boolean Official outcomes; infrastructure censoring reported separately",
+  "config": {
+    "path": "experiments/configs/local_spark_envsolve_pro_v2_dev12.json",
+    "sha256": "ce3b7076caae2109a42ee4abb5de3555f85f900c8c4952285bc33693769962d0"
+  },
+  "diagnostic_metrics": [
+    "feedback-conditioned repair",
+    "first clean-replay failure",
+    "terminal class",
+    "wall clock",
+    "tokens",
+    "tool calls",
+    "replay count and time",
+    "network bytes when available",
+    "disk growth when available"
+  ],
+  "implementation": {
+    "envsolve_harness/integrity/minimal.py": "5f862991bfbb2c02e098e5b0d0cb8e5bb500ca59026d9484361fc2b5f0d7d97a",
+    "envsolve_harness/replay_feedback.py": "4b618f5aad62973e6983a61ea1e352091fc59eb02945307d2b6bc205a5e951d4",
+    "envsolve_harness/runners/openrouter_agent.py": "380796778775a5d58fb9e1de96cefbf5b705be1b5663283546a230af18c3b226",
+    "envsolve_harness/runners/registry.py": "f9dd3c698f1ae8d429187cf2e657c04313b51d0ecf8af601d8c99acbd80d72dc",
+    "envsolve_harness/scripts/minimal_integrity.py": "a94b693fa529eec2518675c31283de749a7a02fe52e9b0e9c3c3e6728fcd14b8",
+    "experiments/run_case.py": "b35e5770f9b5ada8846209deb0075ba1e64cb050346437695590229b1e26b8a2",
+    "experiments/run_schedule.py": "8debcb844ba6df2ebe6bb9dc90b3a325e020a8856b0198d074d8a72cec7a8683"
+  },
+  "order": {
+    "case_order": "ascending salted SHA256",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12.json",
+    "schedule_sha256": "def9e90337a0606ecd76be7563a1d2686fc2612727026234db2c20b6369a6ae4",
+    "within_pair_order": "salted SHA256 parity"
+  },
+  "paired_conditions": [
+    {
+      "arm": "A-F",
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "runner": "deepseek-free-agent"
+    },
+    {
+      "arm": "B-FSR",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "runner": "envsolve-pro-v2"
+    }
+  ],
+  "preregistered_at": "2026-08-10T08:46:54.129547+00:00",
+  "primary_metric": "EnvBench Official Pass@1",
+  "protocol": {
+    "path": "experiments/protocols/envbench_python_official_v1.json",
+    "sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "research_question": "Does same-session clean replay plus soft counterexample feedback improve Official Pass@1 over the same DeepSeek V4 Pro free Agent?",
+  "resource_policy": {
+    "agent_request_safety_cap": 120,
+    "generation_wall_clock_safety_cap_seconds": 18000,
+    "package_cache_scope": "single episode only",
+    "provider_max_retries_per_request": 5,
+    "success_priority": true,
+    "token_or_reported_cost_hard_threshold": false
+  },
+  "schema": "envsolve-pro-v2-dev12-preregistration-v1",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + 'select' + NUL + case_id)",
+    "audit": "experiments/validations/envsolve_pro_v2_dev12_preselection_audit.json",
+    "audit_sha256": "5565b0c53a0afcba3c71d171616a77c808035a1b306e5510050d2f6d2027c3e5",
+    "repository_content_or_outcome_used": false,
+    "reserve": "experiments/cases/dev_envsolve_pro_v2_reserve44.jsonl",
+    "reserve_sha256": "716ce34d6711be30fa3a44cf4e9b8dd7169dd042faa2d8a92ee83c7f302a97a7",
+    "salt": "envsolve-pro-v2-dev12-2026-08-10",
+    "selected": "experiments/cases/dev_envsolve_pro_v2_pilot12.jsonl",
+    "selected_sha256": "1116c703c6474b5be55dd26053945cbb267f26836ded004f9612161b71e070e0",
+    "take": 12
+  },
+  "shared_identity": {
+    "architecture": "linux/arm64",
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "model": "deepseek/deepseek-v4-pro",
+    "official_feedback": "post-episode-only",
+    "provider": "cloudflare",
+    "reasoning_effort": "xhigh"
+  },
+  "smoke_closure": {
+    "path": "experiments/validations/envsolve_pro_v2_smoke_closure.json",
+    "sha256": "c7eb56f91c1d2287ae149dc4ac19a6d45395e3facd8b14b73ae62819d3115301"
+  },
+  "source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "status": "frozen-before-first-dev12-episode",
+  "stopping_rule": "complete all 24 primary episodes; do not change method after opening the batch",
+  "study_id": "envsolve-pro-v2-dev12"
+}

@@ -1,0 +1,22 @@
+{
+  "protocol_id": "envbench-python-minimal-integrity-v1",
+  "schema_version": "1.0.0",
+  "benchmark": "envbench",
+  "language": "python",
+  "success": {
+    "all_of": [
+      {"metric": "exit_code", "operator": "eq", "value": 0},
+      {"metric": "issues_count", "operator": "lte", "value": 0}
+    ]
+  },
+  "integrity_rules": [
+    "provide_the_same_public_executable_goal_to_paired_methods",
+    "do_not_expose_post_hoc_official_evaluator_results_during_generation",
+    "preserve_exact_repository_revision_and_all_tracked_files",
+    "preserve_benchmark_adapter_owned_workspace_preconditions",
+    "execute_the_goal_as_trusted_harness_code_after_candidate_control_returns",
+    "isolate_every_clean_replay_in_a_fresh_checkout_and_container",
+    "treat_deployment_completeness_and_artifact_provenance_as_measured_outcomes_not_online_semantic_gates",
+    "record_model_provider_tools_image_timeouts_revision_goal_hash_and_resource_usage"
+  ]
+}

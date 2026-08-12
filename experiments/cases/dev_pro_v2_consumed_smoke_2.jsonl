@@ -1,0 +1,2 @@
+{"case_id":"envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97","repository":"jazzband/tablib","revision":"2121267b45fe54b47b9dd4c74c203bf82eff8b97","language":"python","split":"consumed-smoke","tags":["consumed-before-envsolve-pro-v2","not-for-effectiveness"]}
+{"case_id":"envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133","repository":"datactive/bigbang","revision":"42568c20e318bd351a1d42acda21895960646133","language":"python","split":"consumed-smoke","tags":["consumed-before-envsolve-pro-v2","not-for-effectiveness"]}
