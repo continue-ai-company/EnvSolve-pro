@@ -11,7 +11,7 @@ if str(WORKSPACE_ROOT) not in sys.path:
 
 from envsolve_harness.adapters.registry import create_benchmark_adapter
 from envsolve_harness.adapters.infrastructure import (
-    envbench_bootstrap_infrastructure_signature,
+    envbench_evaluation_infrastructure_signature,
 )
 from envsolve_harness.audit import audit_run
 from envsolve_harness.core.config import load_harness_config
@@ -83,12 +83,36 @@ def _prepare_evaluation_retry(
     if source_result.get("official_pass") is True:
         raise ValueError("A passing official evaluation is not retry-eligible")
     raw_relative = source_result.get("raw_result_path")
-    if not isinstance(raw_relative, str):
-        raise ValueError("Source run has no raw official result")
-    raw_records = read_jsonl(source_root / raw_relative)
-    if len(raw_records) != 1:
-        raise ValueError("Source run must contain exactly one raw official result")
-    signature = envbench_bootstrap_infrastructure_signature(raw_records[0])
+    source_raw_result_sha256: str | None = None
+    if isinstance(raw_relative, str):
+        source_raw_result_path = source_root / raw_relative
+        source_raw_result_sha256 = sha256_file(source_raw_result_path)
+        raw_records = read_jsonl(source_raw_result_path)
+        if len(raw_records) > 1:
+            raise ValueError("Source run contains multiple raw official results")
+        if raw_records:
+            source_evidence = raw_records[0]
+            source_evidence_path = source_raw_result_path
+            source_evidence_kind = "official-raw-result"
+        else:
+            adapter_result_path = source_root / "evaluation/result.json"
+            adapter_result = read_json(adapter_result_path)
+            evaluation_log_path = source_root / "logs/evaluation.log"
+            evaluation_log = evaluation_log_path.read_text(encoding="utf-8")
+            metadata = adapter_result.get("metadata") or {}
+            source_evidence = {
+                "exit_code": metadata.get("harness_process_exit_code"),
+                "pyright": {},
+                "container_logs": evaluation_log,
+                "adapter_result": adapter_result,
+            }
+            source_evidence_path = evaluation_log_path
+            source_evidence_kind = "adapter-result-with-evaluation-log"
+    else:
+        source_evidence_path = source_root / "evaluation/result.json"
+        source_evidence = read_json(source_evidence_path)
+        source_evidence_kind = "adapter-result"
+    signature = envbench_evaluation_infrastructure_signature(source_evidence)
     if signature is None:
         raise ValueError("Source official result is not an eligible infrastructure failure")
 
@@ -105,13 +129,15 @@ def _prepare_evaluation_retry(
         "source_method": source_run.get("method"),
         "source_script_sha256": source_script_sha256,
         "source_result_sha256": sha256_file(source_root / "evaluation/result.json"),
-        "source_raw_result_sha256": sha256_file(source_root / raw_relative),
+        "source_raw_result_sha256": source_raw_result_sha256,
+        "source_evidence_sha256": sha256_file(source_evidence_path),
+        "source_evidence_kind": source_evidence_kind,
         "infrastructure_signature": signature,
         "model_reexecuted": False,
         "max_retries": 1,
     }
     write_json(artifacts.root / "inputs/evaluation_retry.json", provenance)
-    write_json(artifacts.root / "inputs/source_raw_result.json", raw_records[0])
+    write_json(artifacts.root / "inputs/source_raw_result.json", source_evidence)
     write_text_atomic(artifacts.generated_script, script_path.read_text(encoding="utf-8"))
     solver = SolverResult(
         generation_completed=True,

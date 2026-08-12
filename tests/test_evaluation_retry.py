@@ -35,6 +35,194 @@ class EvaluationRetryTest(unittest.TestCase):
         return_value={"commit": "test"},
     )
     @mock.patch("envsolve_harness.adapters.envbench.subprocess.run")
+    def test_empty_raw_result_uses_evaluation_log_for_retry(
+        self,
+        run: mock.Mock,
+        git: mock.Mock,
+        image: mock.Mock,
+    ) -> None:
+        del git, image
+
+        def run_command(
+            command: list[str], *args: object, **kwargs: object
+        ) -> subprocess.CompletedProcess:
+            if not command or command[0] != "uv":
+                return REAL_SUBPROCESS_RUN(command, *args, **kwargs)
+            output_argument = next(
+                item for item in command if item.startswith("operation.dirs.json_results=")
+            )
+            output_dir = Path(output_argument.split("=", 1)[1])
+            output_dir.mkdir(parents=True, exist_ok=True)
+            write_text_atomic(output_dir / "results.jsonl", "")
+            return subprocess.CompletedProcess(
+                command,
+                1,
+                "",
+                "huggingface.co: ReadTimeoutError",
+            )
+
+        run.side_effect = run_command
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            envbench = workspace / "EnvBench"
+            (envbench / "evaluation/scripts").mkdir(parents=True)
+            (envbench / "env_setup_utils").mkdir(parents=True)
+            for relative in (
+                "evaluation/main.py",
+                "evaluation/scripts/python_build.sh",
+                "env_setup_utils/repo_downloader.py",
+            ):
+                (envbench / relative).write_text("# fixture\n", encoding="utf-8")
+            config = HarnessConfig(
+                workspace_root=workspace,
+                runs_root=workspace / "runs",
+                benchmarks={
+                    "envbench": BenchmarkConfig(
+                        "envbench", "envbench", envbench, {"image": "test:image"}
+                    )
+                },
+            )
+            protocol = ExperimentProtocol(
+                "test",
+                "1",
+                "envbench",
+                "python",
+                (SuccessCriteria("exit_code", "eq", 0),),
+                (),
+            )
+            case = Case("owner/repo@abc", "owner/repo", "abc")
+            source_spec = RunSpec("source-empty-raw", "free-feedback-search")
+            source = RunArtifacts.create(config.runs_root, source_spec.run_id, case.case_id)
+            initialize_manifest(source, config, case, source_spec, protocol)
+            write_text_atomic(source.generated_script, "python -m pip install -e .\n")
+            solver = SolverResult(
+                True,
+                source_spec.method,
+                script_path=str(source.generated_script.relative_to(source.root)),
+            )
+            write_json(source.solver_result, solver.to_dict())
+            update_manifest(source, solver=solver.to_dict())
+            first = EnvBenchEvaluator(config, protocol).evaluate(
+                case, source.generated_script, source, source_spec
+            )
+            self.assertFalse(first.evaluation_completed)
+            self.assertIsNotNone(first.raw_result_path)
+            self.assertEqual(
+                (source.root / str(first.raw_result_path)).read_text(encoding="utf-8"),
+                "",
+            )
+            self.assertTrue(audit_run(source.root).valid)
+
+            retry_spec = RunSpec("retry-empty-raw", "free-feedback-search")
+            retry = RunArtifacts.create(config.runs_root, retry_spec.run_id, case.case_id)
+            initialize_manifest(retry, config, case, retry_spec, protocol)
+            prepared = _prepare_evaluation_retry(
+                source.root,
+                source.bootstrap_script,
+                retry,
+                case.case_id,
+                retry_spec.method,
+            )
+
+            provenance = prepared.metadata["evaluation_retry"]
+            self.assertEqual(provenance["infrastructure_signature"], "read-timeout")
+            self.assertEqual(
+                provenance["source_evidence_kind"],
+                "adapter-result-with-evaluation-log",
+            )
+
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.docker_image_provenance",
+        return_value={"reference": "test:image"},
+    )
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.git_provenance",
+        return_value={"commit": "test"},
+    )
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.subprocess.run",
+        side_effect=FileNotFoundError(2, "No such file or directory", "uv"),
+    )
+    def test_missing_uv_adapter_result_is_retry_eligible(
+        self,
+        run: mock.Mock,
+        git: mock.Mock,
+        image: mock.Mock,
+    ) -> None:
+        del run, git, image
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            envbench = workspace / "EnvBench"
+            (envbench / "evaluation/scripts").mkdir(parents=True)
+            (envbench / "env_setup_utils").mkdir(parents=True)
+            for relative in (
+                "evaluation/main.py",
+                "evaluation/scripts/python_build.sh",
+                "env_setup_utils/repo_downloader.py",
+            ):
+                (envbench / relative).write_text("# fixture\n", encoding="utf-8")
+            config = HarnessConfig(
+                workspace_root=workspace,
+                runs_root=workspace / "runs",
+                benchmarks={
+                    "envbench": BenchmarkConfig(
+                        "envbench", "envbench", envbench, {"image": "test:image"}
+                    )
+                },
+            )
+            protocol = ExperimentProtocol(
+                "test",
+                "1",
+                "envbench",
+                "python",
+                (SuccessCriteria("exit_code", "eq", 0),),
+                (),
+            )
+            case = Case("owner/repo@abc", "owner/repo", "abc")
+            source_spec = RunSpec("source-missing-uv", "free-feedback-search")
+            source = RunArtifacts.create(config.runs_root, source_spec.run_id, case.case_id)
+            initialize_manifest(source, config, case, source_spec, protocol)
+            write_text_atomic(source.generated_script, "python -m pip install -e .\n")
+            solver = SolverResult(
+                True,
+                source_spec.method,
+                script_path=str(source.generated_script.relative_to(source.root)),
+            )
+            write_json(source.solver_result, solver.to_dict())
+            update_manifest(source, solver=solver.to_dict())
+            first = EnvBenchEvaluator(config, protocol).evaluate(
+                case, source.generated_script, source, source_spec
+            )
+            self.assertFalse(first.evaluation_completed)
+            self.assertIsNone(first.raw_result_path)
+            self.assertTrue(audit_run(source.root).valid)
+
+            retry_spec = RunSpec("retry-missing-uv", "free-feedback-search")
+            retry = RunArtifacts.create(config.runs_root, retry_spec.run_id, case.case_id)
+            initialize_manifest(retry, config, case, retry_spec, protocol)
+            prepared = _prepare_evaluation_retry(
+                source.root,
+                source.bootstrap_script,
+                retry,
+                case.case_id,
+                retry_spec.method,
+            )
+
+            provenance = prepared.metadata["evaluation_retry"]
+            self.assertEqual(
+                provenance["infrastructure_signature"], "evaluator-host-missing-uv"
+            )
+            self.assertEqual(provenance["source_evidence_kind"], "adapter-result")
+
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.docker_image_provenance",
+        return_value={"reference": "test:image"},
+    )
+    @mock.patch(
+        "envsolve_harness.adapters.envbench.git_provenance",
+        return_value={"commit": "test"},
+    )
+    @mock.patch("envsolve_harness.adapters.envbench.subprocess.run")
     def test_exact_script_retry_is_linked_single_and_auditable(
         self,
         run: mock.Mock,
