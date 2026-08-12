@@ -1,0 +1,120 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-03",
+  "recorded_at": "2026-08-10T15:39:10Z",
+  "case": {
+    "case_id": "envbench-python-nabla-ntnu__nablaweb@c0f51ad0cfbfb73de52fd041c002a5a3e4590c03",
+    "repository": "nabla-ntnu/nablaweb",
+    "revision": "c0f51ad0cfbfb73de52fd041c002a5a3e4590c03",
+    "architecture": "linux/arm64"
+  },
+  "effective_outcomes": [
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-05-A-F",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "generation_wall_clock_seconds": 2430.420552,
+      "episode_wall_clock_seconds": 2530.8348195729777,
+      "official_evaluation_seconds": 95.67973947525024,
+      "model_requests": 55,
+      "provider_attempts": 62,
+      "provider_errors": 7,
+      "prompt_tokens": 1373059,
+      "completion_tokens": 34023,
+      "total_tokens": 1407082,
+      "reported_provider_cost": 0.6633060999999999,
+      "shell_tool_calls": 100,
+      "shell_timeouts": 2,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 929.303378266748,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 1,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 879,
+      "submitted_program_sha256": "57f1363aadd13f16b9ab8c99a9f1a9ff26e03bc2d5e0a82396b70a2adfcc83ab",
+      "result_sha256": "f91c7143f9bb89ed81162362d0986061ddc8ff1ff088d1034819ab5eb41e2def",
+      "trajectory_sha256": "445696325e645d4d300390748aa3d2482a95fbd8135c5aa05a2f285dea02f96e",
+      "official_result_sha256": "e8893b0d44d4fd1690c1159d3d6572c61d4badf1734dfdaff7283bb51040a6ae",
+      "official_raw_result_sha256": "7d13b7d327ed548516b0695972fb89b47903ccf2d7f58cb3685087ae7ed0937a"
+    },
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-06-B-FSR",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "generation_wall_clock_seconds": 1596.409053,
+      "episode_wall_clock_seconds": 1692.7901597721502,
+      "official_evaluation_seconds": 91.65406012535095,
+      "model_requests": 46,
+      "provider_attempts": 50,
+      "provider_errors": 4,
+      "prompt_tokens": 960874,
+      "completion_tokens": 26628,
+      "total_tokens": 987502,
+      "reported_provider_cost": 0.5148073000000001,
+      "shell_tool_calls": 56,
+      "shell_timeouts": 1,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 398.0218652789481,
+      "clean_replay_calls": 3,
+      "final_submission_calls": 1,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 879,
+      "submitted_program_sha256": "e1e2d43a293d1293f70748a9bb578977615c5b2fe65d221f3be77e127cdde0a3",
+      "result_sha256": "ae5ec54d9f0f12dd6d1ca9770ec9910306ab484c64aea6456a2f076b2cdf3142",
+      "trajectory_sha256": "93a0052fd8008bfd28fe215c0e9997c4c3227310780b6c2d44ffaf65e05a32aa",
+      "replays_sha256": "db2d5b45951a41f9357a000fd0bbd7fcd87f9447509518d251c00d572cfd18a4",
+      "official_result_sha256": "d1b044d77ebed5c9807fdf7e200c2058d23d8a8a62dc6ceac95438d19b424679",
+      "official_raw_result_sha256": "8b980799c0e210750d096d0782ee4e7499f40323a7a86f7ba3d49f3e2dcf5139"
+    }
+  ],
+  "replay_sequence": [
+    {
+      "index": 1,
+      "program_sha256": "c3d36552b1bc672a901bb99987633bdda404cc241a5ea68b238f522c60bbcfb2",
+      "program_artifact_sha256": "ddf67bdc7e1a359d85987e825150967654581c5f41691523fbb9c651ed7ac436",
+      "pass": false,
+      "counterexample": "the Pipenv environment was not visible to the trusted evaluator Python, producing 806 reportMissingImports findings"
+    },
+    {
+      "index": 2,
+      "program_sha256": "734adbc2e01d90f28ac418767c0120bf2280d57d8d81e9395c4ba9ec54138bd5",
+      "program_artifact_sha256": "5e10147c3adf1585c2df4f4206503936dcbd31bba888e4ab6573f2c69dd9f8c2",
+      "pass": false,
+      "counterexample": "bootstrap exited with code 1 while parsing Pipfile.lock, so control never reached the executable goal"
+    },
+    {
+      "index": 3,
+      "program_sha256": "b902d5a113c4a8e4f01acebf536d5e5ae9851392f80296a3a82d7de2f45e7334",
+      "program_artifact_sha256": "e1e2d43a293d1293f70748a9bb578977615c5b2fe65d221f3be77e127cdde0a3",
+      "pass": true,
+      "note": "installed locked production and development dependencies into the pyenv Python visible to the trusted evaluator"
+    }
+  ],
+  "paired_result": {
+    "class": "both-pass",
+    "official_pass_difference_B_minus_A": 0,
+    "mechanism_activation": "B converted an evaluator-visibility failure and then a bootstrap parsing failure into a certified program within the same Agent session",
+    "feedback_conditioned_repair_observed": true,
+    "descriptive_resource_differences_B_vs_A": {
+      "model_requests_percent": -16.36363636363637,
+      "total_tokens_percent": -29.819157661031838,
+      "generation_wall_clock_percent": -34.31552199119159,
+      "episode_wall_clock_percent": -33.11336849483638,
+      "shell_tool_calls_percent": -43.99999999999999,
+      "reported_provider_cost_percent": -22.387672900942725
+    },
+    "supported_observation": "on this case, executable replay separated a locally usable Pipenv state from evaluator-visible dependency state and guided a two-stage repair; both arms ultimately passed Official evaluation",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate",
+      "EnvSolve-Pro reduces resources in expectation",
+      "the first replay counterexample alone implied the final operation",
+      "the non-scoring Official error_count of 879 indicates a deployment failure"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds"
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "envsolve-pro-v2-dev12-official-retry-terminal-adjudication-v1",
+  "adjudication_id": "envsolve-pro-v2-dev12-position7-official-retry1-terminal",
+  "recorded_at": "2026-08-12T03:01:20Z",
+  "case_id": "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+  "arm": "A-F",
+  "source_generation_run_id": "pro-v2-dev12-07-A-F-interruption-retry1",
+  "official_retry_run_id": "pro-v2-dev12-07-A-F-official-retry1",
+  "observation": {
+    "evaluation_completed_by_adapter": true,
+    "official_pass_field": false,
+    "bootstrap_exit_code": 1,
+    "pyright_executed": false,
+    "failure_stage": "bootstrap Python runtime download",
+    "failure_signature": "curl: (56) OpenSSL SSL_read: unexpected eof while reading",
+    "automatic_infrastructure_classifier": null,
+    "manual_classification": "evaluator-bootstrap-network-infrastructure",
+    "classification_basis": "The exact submitted script reached pyenv's download of the public Python 3.7.7 source archive and failed on a transport-level TLS EOF before runtime construction or Pyright. This is not an executable counterexample to the deployment program.",
+    "case_or_outcome_information_used_to_change_algorithm": false
+  },
+  "evidence": {
+    "artifact_root": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-07-A-F-official-retry1/envbench-python-wpi-lnl__lnldb__6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+    "manifest_sha256": "1a6c7c2311f2f6c2093ab53e85518fb55150dc554b1bef7b70dca32f909f68ce",
+    "evaluation_result_sha256": "350874fa17cf3452ead0d3b713d2a9c4f858b58fbf66f6ddc5aad202fbba2e54",
+    "official_raw_result_sha256": "390a56ff71a3e13bb4f1aded8acceaa6df086af7cd7c24f37a9479a3e24f6afe",
+    "evaluation_log_sha256": "6c150cbb785a51dbf953bd0391df0d13444ba7449e5ae2b68cfeeaa5b0711cb4",
+    "submitted_program_sha256": "d0f03caeb3b18d08d0833fde55ec046418cfb512b4effd63b2dff192295166f4"
+  },
+  "terminal_disposition": {
+    "official_retry_budget_exhausted": true,
+    "additional_full_episode_retry_allowed": false,
+    "additional_exact_script_retry_allowed": false,
+    "primary_pass_fail_eligible": false,
+    "trajectory_and_resource_analysis_eligible": true,
+    "paired_effect_status": "censored-unless-both-arm analysis explicitly handles missing Official outcome"
+  },
+  "follow_up": {
+    "generic_classifier_gap": "transport-level TLS EOF during bootstrap download is not recognized by envbench_evaluation_infrastructure_signature",
+    "algorithm_frozen_for_dev12": true,
+    "classifier_change_before_remaining_dev12": false
+  }
+}

@@ -1,5 +1,12 @@
 # EnvSolve-Pro Research Plan
 
+> **Current paper design (2026-08-11):** failures are classified by the
+> Observation--Constraint--Operation framework; deployment methods are described by
+> F (free search), C_h (hard constraints), C_s (soft constraints), and R (replay).
+> EnvSolve-Pro is F+C_s+R. The shared evaluation-integrity foundation E is not an
+> algorithm. Section 11 supersedes earlier method proposals retained below as auditable
+> development history. The running Dev-12 remains unchanged under its original freeze.
+
 ## 1. Objective
 
 EnvSolve-Pro studies automatic environment construction for unfamiliar repositories.
@@ -30,12 +37,13 @@ dollar cost is not a primary scientific variable.
 
 ### 2.2 Structure augments model reasoning
 
-Strong models retain access to bounded raw observations. The constraint layer is a
-provenance-aware external state, not the model's only context. Deterministic hard guards
-cover task boundaries, safety boundaries, and exact behavior contradicted by grounded
-execution evidence. Other constraints remain revisable beliefs or advice. The model may
-propose operations outside the current schema, and execution determines whether the
-state should expand.
+Strong models retain access to bounded raw observations. Soft constraints are
+provenance-aware advice, not the model's only context, and the model may reject their
+interpretation or propose operations outside the current schema. Evaluation integrity,
+including evaluator isolation and result-channel protection, is enforced by the shared E
+foundation for every method and is not part of EnvSolve-Pro. Hard compatibility rules
+that require, reject, or rewrite deployment actions belong to the distinct C_h method
+family and are evaluated through the frozen prior EnvSolve baseline.
 
 ### 2.3 Baseline first
 
@@ -51,13 +59,22 @@ cross-repository failure pattern or a repository-free counterexample before an
 outcome-blind Dev batch tests it. Consumed cases remain diagnostic only. Canary and
 Official Test stay untouched until the algorithm, baselines, and analysis are frozen.
 
-### 2.5 Parallel development platforms
+### 2.5 Primary execution platform
 
-Mac and DGX Spark may run Dev cases in parallel. Every trajectory records platform,
-architecture, image digest, network state, and provider. Host OS is not an algorithmic
-variable during development; paired comparisons should use the same execution image
-and platform where possible. Cross-platform consistency is tested separately after the
-mechanism stabilizes.
+DGX Spark is the primary execution host for new Dev censuses, construction containers,
+clean replay, and Official evaluation. Mac retains the local Agent session, experiment
+control, code editing, and lightweight regression tests; it is not a deployment host.
+Every compared arm uses the same Spark platform, image digest, network policy, and
+accelerator exposure. GPU access is an explicit experimental setting rather than an
+implicit host property: the frozen CPU-compatible census keeps it disabled, while CUDA
+support is evaluated later as a separately frozen platform treatment. The SSH transport
+is shared infrastructure and is not part of the EnvSolve-Pro algorithm.
+
+Spark is Linux ARM64, one of EnvBench's published container platforms. Development
+results therefore remain valid for the declared platform, but native-package failures
+are tagged as architecture-sensitive. Before leaderboard submission, all frozen methods
+and comparison arms must be rerun on the actual submission platform; cross-platform
+claims require agreement between ARM64 and AMD64 rather than extrapolation from either.
 
 ## 3. Audit of Inherited Assets
 
@@ -628,3 +645,275 @@ The Pilot-4 repositories are consumed. New qualification cases must be selected
 outcome-blind from repository-disjoint identities. Before opening them, the mechanism
 must show on consumed or synthetic traces that a falsified operation changes the next
 operation without blocking an easy valid first-round solution.
+
+## 9. Historical Minimal B Freeze
+
+The ActiveState and verified-frontier proposals above are not the current algorithm.
+They remain historical hypotheses and possible later treatments. The frozen next method
+contains exactly four runtime elements:
+
+1. one continuous strong-Agent session;
+2. one persistent construction environment with an unrestricted terminal;
+3. a callable `submit_and_replay` tool that creates a distinct clean environment and
+   returns validation, execution, public-goal, and effect-audit evidence to that session;
+4. acceptance only for the exact program that passed clean replay.
+
+The immediate controlled pair changes only element 3: the control receives one terminal
+post-session replay, while Minimal B may use replay feedback online and continue in the
+same session. Official evaluator output remains terminal-only. Source implementation,
+tests, and a machine-readable implementation freeze must be complete before selecting a
+new effectiveness batch.
+
+Minimal B v1.0.2 now passes this implementation gate. In a preregistered consumed-case
+smoke, one continuous session retained useful partial state after a timed-out install,
+produced an ordinary dependency-based program, certified it in a distinct clean
+environment, and then passed the terminal Official evaluator. The only replay passed, so
+this establishes live feasibility and admissibility, not replay-conditioned recovery or
+an effectiveness gain. The next experiment is the frozen repository-disjoint A/B pair;
+the method must not be changed from this consumed outcome.
+
+## 10. Frozen Paired Dev-5 Decision
+
+The repository-disjoint development pair is complete. Minimal B scored `5/5` Official
+Pass@1 and the otherwise matched strong Agent control scored `4/5`. Four pairs passed in
+both conditions and `datactive/bigbang` passed only under Minimal B. With one discordant
+pair, the exact two-sided McNemar test is `p = 1.0`. This is a positive direction, not a
+statistically reliable effect or a held-out claim.
+
+All five Minimal B episodes called clean replay exactly once and passed on that first
+call. The batch therefore did not exercise replay-failure-conditioned repair. The
+`bigbang` difference may come from certification-aware construction or run variance; it
+cannot yet be attributed to iterative repair. Minimal B is frozen as a new baseline, not
+declared the converged EnvSolve-Pro algorithm.
+
+Resource evidence also prevents a one-sided story. Across all five attempts Minimal B
+used `4.8%` more model tokens and `12.1%` fewer container commands. Across the four pairs
+with comparable coordinator timing it was `36.1%` slower. Peak memory, disk growth, and
+network bytes were not persisted and are reported as missing. The `bigbang` time pair is
+censored because its control used an amended exact-revision source cache after pre-Agent
+network failures.
+
+### 10.1 Measurement findings
+
+Two shared harness defects must be fixed before the next batch:
+
+1. command and Git timeouts terminate only the parent process, allowing transport or
+   installer children to survive and overlap later commands;
+2. source acquisition and resource telemetry are not yet controlled strongly enough for
+   clean efficiency comparisons.
+
+The infrastructure qualification will kill complete process groups, use the same
+immutable exact-revision cache policy for every condition, and report memory, disk, and
+network only when they can be measured symmetrically. These are measurement changes and
+will be applied identically to all methods; they are not part of the algorithm claim and
+do not block an Official Pass experiment.
+
+A post-hoc audit also found that both methods officially passed
+`castagnait/plugin.video.netflix` by resolving `setup` to an unrelated Pylint module that
+does not expose the imported `get_addon_data` symbol. Official Pass@1 remains the primary
+benchmark outcome. A separate, method-neutral diagnostic must distinguish module
+resolution from required-interface compatibility so that reproducibility claims do not
+silently exceed what the public goal verifies.
+
+### 10.2 Next causal gate
+
+The next outcome-blind development batch will use three arms with the same model,
+terminal, construction environment, public goal, and evaluator boundary:
+
+1. terminal post-hoc clean replay only;
+2. one clean-certification call with no second certificate after failure;
+3. callable clean replay with continuation after failure.
+
+Arm 1 versus 2 measures certification-aware construction. Arm 2 versus 3 isolates the
+algorithmic value of replay-conditioned repair. Mechanism activation is reported before
+aggregate success: number of first-replay failures, number followed by a second proposal,
+and number recovered in the same session. No structured state, checkpoint, hypothesis
+search, or minimization is added until this decomposition either validates the loop or
+identifies a repeated failure that requires one of those treatments.
+
+### 10.3 Certification-Repair Ablation v1 freeze
+
+The three-arm interface is now implemented and frozen. Arm B inherits Minimal B's goal
+verifier, integrity boundary, certificate binding, and clean-environment provider, but
+executes at most one replay. A second submission is recorded and rejected without
+provisioning an environment. The shared qualified infrastructure freeze passed `699`
+tests with `6` skips and `75` subtests, and the complete tree after adding Arm B passed
+`702` tests with `7` skips and `75` subtests. Linux ARM qualification on Spark passed
+`25` focused tests and `7` real-Docker tests.
+
+Before execution, eight repositories were selected from the untouched pool by a frozen
+salted repository hash, yielding 24 rotated episodes. The mechanism decision is fixed:
+only a C-arm first replay Fail/Unknown followed by a different passing replay and final
+Official Pass supports feedback-conditioned repair. The bilingual protocol is frozen in
+`PRO_CERTIFICATION_REPAIR_ABLATION_V1_PROTOCOL.md`.
+
+The effective-episode adjudication, reproducible analysis, and bilingual result report
+are frozen in `experiments/validations/pro_minimal_b_v1_paired_dev5_effective_episodes.json`,
+`experiments/validations/pro_minimal_b_v1_paired_dev5_results.json`, and
+`research/PRO_MINIMAL_B_V1_PAIRED_DEV5_RESULTS.md`.
+
+### 10.4 Boundary-v2 validity decision
+
+The first complete three-arm block cannot estimate an algorithm effect. Arm A reached
+the public construction goal with a legitimate runtime configuration copied from a
+tracked template, but the shared integrity rule rejected it. Arm B created an unrelated
+empty import module and was correctly rejected. Arm C received repeated replay feedback
+and eventually passed the public metric by redefining the shell behavior used to invoke
+Pyright. The batch stopped immediately; all three trajectories are consumed diagnostics.
+
+Boundary v2 makes only shared measurement corrections:
+
+1. trusted goal execution excludes candidate-defined shell functions and startup hooks;
+2. the public goal explicitly invokes the selected Python command rather than a shell
+   function;
+3. ignored runtime configuration is admitted only when its bytes match a tracked,
+   same-directory, same-stem template at the exact repository revision;
+4. versioned runners and entrypoints prevent later schedules from silently selecting the
+   old boundary.
+
+The exact Arm-C program now completes but fails real Pyright under the corrected boundary;
+the exact Arm-A workspace passes the provenance audit. Focused tests and real-Docker
+red-team tests pass on macOS and Spark Linux ARM, with byte-identical source snapshots.
+This is an infrastructure qualification, not an effectiveness result. Next, freeze the
+v2 source and analysis contract, replace consumed identities through the original
+outcome-blind sampling rule, and run the unopened three-arm cases without further method
+changes.
+
+### 10.5 Boundary-v2 Dev-8 preregistration
+
+The next effectiveness batch is frozen before any repository is opened. It carries
+forward the six identities attested as unexecuted and uninspected, then fills the two
+consumed slots with the next eligible identities under the original salted repository
+ranking. A manifest-only audit found no prior trajectory for any replacement candidate;
+repository contents, failures, and scores were not read.
+
+The resulting schedule contains eight repository blocks and 24 sequential episodes. All
+three arms use explicit boundary-v2 runners, the same strong model, the same Mac host, and
+the same broad operational limits. Spark remains a portability and infrastructure host;
+mixing it into only part of the causal batch would introduce a host-by-treatment
+confound. No algorithm or boundary change is allowed until all 24 scheduled outcomes are
+recorded or a preregistered structural-validity stop is triggered.
+
+### 10.6 Boundary-v3 and the Untouched Dev-5
+
+The structural-validity stop triggered in the third repository block. All arms found the
+repository-native package synchronization operation, but boundary v2 rejected its
+lock-derived Python outputs. The retryable arm additionally obtained a false certificate
+after creating and deleting temporary build configuration. The entire `trader` block is
+excluded from A/B/C effect estimates.
+
+Boundary v3 keeps the three reasoning interfaces fixed and changes only shared
+measurement. It qualifies the submitted program in a fresh environment, records
+prohibited configuration writes even when their final filesystem effects disappear, and
+admits generated dependencies only through repository declaration, revision-bound lock
+content, and package-manager verification. Standard `virtualenv` hooks require a
+pre-candidate template hash and version match. Construction residue remains trajectory
+evidence rather than the submitted artifact.
+
+The exact A program now passes the public goal and all provenance checks on Spark Linux
+ARM; the temporally hidden C program is rejected before execution. A byte-identical B
+program passed under the immediately preceding v3 implementation, while final-hash B
+attempts were censored by external package transport. Full regression reports 735 passed
+and 8 skipped tests plus 76 passing subtests. These results qualify the measurement
+boundary, not the algorithm.
+
+The first repository of the Untouched Dev-5 triggered another validity stop before its B
+arm. C and A both passed Official evaluation, but boundary v3 treated equivalent native
+builds differently according to whether their output was under `/tmp` or the repository.
+The original v3 audit also rejected 106 exact source copies emitted by A's standard build
+command. This case and both submitted programs are consumed measurement diagnostics; no
+method comparison is reported.
+
+### 10.7 Boundary-v5 freeze and resume rule
+
+Boundary v4 was preregistered as a minimal native-artifact correction. It accepted A's
+tracked-source native extension but failed calibration because the 106 exact build-tree
+source copies remained rejected. It is preserved as a failed measurement version.
+
+Boundary v5 replaces location and suffix exceptions with one committed-source provenance
+principle. Python build copies are accepted only when their bytes equal a committed source
+and their output path preserves that source path as a suffix. Native extensions are
+accepted only when committed native source declares the same module initializer and the
+artifact has a valid native format and initializer. Modified, renamed, direct, and
+source-less import artifacts remain rejected. The candidate operation language, Agent
+session, public goal, and Official evaluator are unchanged.
+
+The preregistered consumed calibration replayed the exact A and C programs with zero model
+calls or Official evaluator calls. A qualified with 106 committed-source copies and one
+native artifact; C qualified with the corresponding native artifact in an external import
+root. Both had zero missing imports and zero remaining violations. Mac full regression
+passed 759 tests; Spark Linux ARM passed all 24 focused v4/v5 tests with byte-identical
+sources. The calibration proves measurement consistency only.
+
+The implementation is frozen in
+`experiments/protocols/envsolve_pro_certification_repair_boundary_v5_implementation_freeze.json`.
+Effectiveness experiments may resume only on the four unopened repositories at case
+positions 2-5 of the boundary-v3 schedule, using versioned boundary-v5 A/B/C runners for
+the 12 episode positions 4-15. Host, model, prompt, public goal, Official evaluator, and
+analysis rules must be frozen before any repository is opened.
+
+## 11. Current V2 Paper Program
+
+Sections 4-10 preserve how the project reached the current design; they are not the
+current paper algorithm. The paper now separates three scientific objects:
+
+| Object | Values | Role |
+|---|---|---|
+| Failure taxonomy | Observation, Constraint, Operation | Explains the earliest decisive cause of failure. |
+| Deployment mechanisms | F, C_h, C_s, R | Explains how a deployer searches, constrains, and recovers. |
+| Shared foundation | E | Makes evaluation fair and auditable; never counts as an algorithmic treatment. |
+
+EnvSolve-Pro is F+C_s+R under E. F is unrestricted feedback search, C_s converts replay
+evidence into revisable obligations while retaining raw evidence, and R executes complete
+programs in independent clean environments and returns failures to the same active
+session. C_h is represented by frozen prior EnvSolve, whose encoded rules can reject or
+rewrite deployment choices. Session continuity is matched across controlled arms.
+
+### 11.1 Failure Study
+
+All scientifically valid consumed trajectories from EnvBench FreeAgent, Repo2Run,
+native Codex, prior EnvSolve, and EnvSolve-Pro enter retrospective taxonomy discovery.
+Each failed episode receives one evidence-anchored primary label for the earliest decisive
+Observation, Constraint, or Operation failure; infrastructure incidents are censored.
+A deterministic 20% sample stratified by system and primary category is independently
+re-annotated. Raw agreement, Cohen's kappa, and adjudicated labels are reported. This
+nonuniform corpus supports taxonomy discovery and cross-system profiles, not success-rate
+claims or causal attribution.
+
+### 11.2 Controlled Mechanism Study
+
+The currently running outcome-independent Dev-12 remains the preregistered F versus
+F+C_s+R pilot. Its implementation, prompt, schedule, model, and outcomes are unchanged;
+`envsolve_pro_v2_dev12_mechanism_semantics_amendment.json` only clarifies that the former
+minimal-H label denotes shared E. The frozen `B-FSR` run IDs remain stable, with S read as
+soft-constraint guidance C_s.
+
+After all 24 Dev-12 episodes finish, select a fresh Dev-16 from the frozen reserve by an
+outcome-independent identity hash before any arm is run. Use randomized within-case order
+for four conditions and the same DeepSeek V4 Pro backbone:
+
+1. F;
+2. F+R with bounded raw replay evidence and no normalized obligation;
+3. F+C_s+R, EnvSolve-Pro;
+4. frozen prior EnvSolve as the representative F+C_h+R system.
+
+The 64 episodes estimate R through F+R versus F and the incremental value of C_s through
+F+C_s+R versus F+R. EnvSolve-Pro versus prior EnvSolve is a system-level comparison, not
+a pure C_s-versus-C_h causal contrast. No other mechanism combination is searched in
+this paper.
+
+### 11.3 Confirmation and Claims
+
+Freeze the algorithm, prompt, tool schema, taxonomy, model/provider binding, and analysis
+code before Canary. The primary outcome is Official Pass@1. Mechanism outcomes include
+first complete-candidate latency, replay activation, feedback-conditioned repair, and
+paired failure-layer transitions. Resource outcomes are reported both unconditionally
+and conditional on success; tokens and monetary cost are measurements, not stopping
+thresholds. Infrastructure censoring is preserved separately.
+
+The untouched evaluation compares F and EnvSolve-Pro on Canary, then runs final DeepSeek
+V4 Pro systems on protected and official protocols. Repo2Run, EnvBench FreeAgent, and
+prior EnvSolve are same-backbone system baselines where their semantics can be preserved.
+Native Codex is an independent frontier reference. The first paper claims only fixed
+mechanisms and controlled evidence; automatic combination search remains Auto-EnvSolve,
+and learned deployment policies remain EnvSolve-RL.

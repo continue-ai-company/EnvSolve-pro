@@ -1,5 +1,10 @@
 # EnvSolve-Pro 研究计划
 
+> **当前论文设计（2026-08-11）：** 失败统一按 Observation--Constraint--Operation 三层分类；部署
+> 方法统一用 F（自由试错）、C_h（硬约束）、C_s（软约束）和 R（回退重放）描述。EnvSolve-Pro 是
+> F+C_s+R。所有方法共享的实验完整性底座 E 不属于算法。第 11 节优先于下文作为可审计研发历史保留
+> 的旧方法提案；正在运行的 Dev-12 继续受原冻结约束，不做任何方法改动。
+
 ## 1. 研究目标
 
 EnvSolve-Pro 研究陌生仓库的自动环境部署。核心问题保持不变：部署不是自由命令试错，而是一个
@@ -24,9 +29,10 @@ success-resource curves，不以美元价格作为核心变量。
 
 ### 2.2 结构增强而非替代模型推理
 
-强模型始终可以访问有界原始观测。约束层是带 provenance 的外部状态，不是唯一上下文。确定性 hard
-guard 只保护任务边界、安全边界和被执行证据直接反驳的精确行为；其余约束作为可质疑的 belief 或
-advice。模型可以提出 schema 未覆盖的操作，系统执行后再决定是否扩展状态。
+强模型始终可以访问有界原始观测。软约束是带 provenance 的 advice，不是模型的唯一上下文；模型可以
+推翻其解释，也可以提出 schema 未覆盖的操作。evaluator 隔离与结果通道保护等实验完整性由所有方法
+共享的 E 底座保证，不属于 EnvSolve-Pro。会强制、拒绝或改写部署动作的硬兼容规则属于独立的 C_h
+方法族，通过冻结的旧 EnvSolve baseline 评估。
 
 ### 2.3 Baseline-first
 
@@ -40,11 +46,17 @@ advice。模型可以提出 schema 未覆盖的操作，系统执行后再决定
 outcome-blind Dev batch 上验证。已经看过结果的 case 只能用于诊断，不能再次承担确认性证据。
 Canary 和 Official Test 在算法、baseline 与分析规则冻结前保持 untouched。
 
-### 2.5 开发阶段平台并行
+### 2.5 主执行平台
 
-Mac 和 DGX Spark 都可执行 Dev case，以提高实验吞吐。平台、架构、镜像 digest、网络状态和 provider
-必须记录在轨迹中。开发阶段不把 host OS 当作算法变量；同一 paired comparison 尽量在相同执行镜像和
-平台上完成。跨平台一致性在机制稳定后单独验证。
+新的 Dev census、构建容器、clean replay 和 Official evaluation 统一以 DGX Spark 为主执行端。
+Mac 只保留本地 Agent session、实验控制、代码编辑和轻量回归测试，不再作为部署执行端。所有被比较
+arm 必须使用相同的 Spark 平台、镜像 digest、网络策略和加速器暴露方式。GPU 不是主机带来的隐含优势，
+而是显式实验设置：冻结的 CPU-compatible census 继续关闭 GPU，CUDA 支持在后续作为单独冻结的平台
+treatment 评估。SSH transport 属于所有方法共享的实验基础设施，不属于 EnvSolve-Pro 算法。
+
+Spark 是 Linux ARM64，也是 EnvBench 发布的容器平台之一，因此开发结果对声明的平台有效；但涉及
+原生包的失败必须标记为架构敏感。正式提交榜单前，冻结后的全部方法和对照 arm 必须在真实提交平台
+重跑；只有 ARM64 与 AMD64 结论一致时，才能提出跨架构结论，不能从任一平台直接外推。
 
 ## 3. v1 资产审计
 
@@ -489,3 +501,211 @@ baseline、raw repair V2.4 与 structured V2.4 都得到 `4/4` Official Pass。S
 Pilot-4 四个仓库已经消费。新的资格 case 必须从 repository-disjoint identity 中 outcome-blind
 选择。打开新 case 前，机制要先在已消费或 synthetic 轨迹上证明：一次被证伪的操作能够改变下一次
 操作，同时不会阻断简单、合法的首轮解。
+
+## 9. 历史 Minimal B 冻结
+
+前文的 ActiveState 与 verified-frontier 提案不再是当前算法，只作为历史假设和后续可能的
+treatment 保留。冻结的下一版只包含四个运行时要素：
+
+1. 一个连续强 Agent session；
+2. 一个带开放终端的持久构建环境；
+3. 一个可调用的 `submit_and_replay` 工具，它创建独立干净环境，并把候选校验、执行、公开目标与
+   effect-audit 证据返回同一个 session；
+4. 只接受精确通过 clean replay 的程序。
+
+紧接着的受控配对只改变第 3 项：control 在 session 结束后得到一次不会返回结果的终局重放；
+Minimal B 可以在线使用重放反馈并在同一个 session 中继续。Official evaluator 输出仍然只在终局
+可见。选择新的效果 batch 前，必须先完成源码实现、测试和机器可读 implementation freeze。
+
+Minimal B v1.0.2 现已通过实现机制门。在一次预注册的已消费 case smoke 中，同一个连续 session 在
+安装超时后保留了有用的部分状态，生成正常依赖安装程序，在独立干净环境中完成认证，随后通过终局
+Official evaluator。唯一一次 replay 直接通过，因此它只证明在线机制与合法性边界可运行，尚未证明
+replay 失败后的修复能力或效果增益。下一步直接冻结 repository-disjoint A/B 配对，不能根据这个已
+消费结果修改方法。
+
+## 10. 冻结配对 Dev-5 裁决
+
+Repository-disjoint 开发配对已经完成。Minimal B 的 Official Pass@1 为 `5/5`，其他条件匹配的
+强 Agent control 为 `4/5`。四对双方通过，`datactive/bigbang` 仅 Minimal B 通过。只有一个
+discordant pair，精确双侧 McNemar 检验为 `p = 1.0`。这是正向信号，不是统计可靠的效果，更不是
+held-out 结论。
+
+5 个 Minimal B episode 都只调用了一次 clean replay，而且第一次直接通过。因此本批次没有真正
+触发“replay 失败后继续修复”。`bigbang` 差异可能来自面向认证的提前构建，也可能来自运行方差，
+目前不能归因于迭代修复。Minimal B 冻结为一个新 baseline，但不能宣布它已经是收敛的 EnvSolve-Pro
+算法。
+
+资源结果也不支持单方面包装。全部 5 次尝试中，Minimal B 多使用 `4.8%` model tokens，少执行
+`12.1%` 容器命令；在 4 对 coordinator timing 可比的 pair 中慢 `36.1%`。峰值内存、磁盘增长和
+网络字节没有被持久化，必须报告为缺失。`bigbang` 时间 pair 被删失，因为 control 在 Agent 前网络
+故障后按照 amendment 使用了 exact-revision 本地源码缓存。
+
+### 10.1 测量发现
+
+下一批前必须修复两个共享 harness 问题：
+
+1. 命令与 Git timeout 只终止父进程，transport 或 installer 子进程可能继续存活并与后续命令重叠；
+2. 源码获取与资源 telemetry 尚不足以支持干净的效率比较。
+
+基础设施资格验证将终止完整 process group，对所有条件统一使用 immutable exact-revision cache，
+内存、磁盘和网络只在三臂能够对称测量时报告。这些改动对所有方法完全相同，只属于测量修复，不属于
+算法贡献，也不阻塞 Official Pass 实验。
+
+事后审计还发现，两个方法在 `castagnait/plugin.video.netflix` 上都把 `setup` 解析到无关的 Pylint
+模块，而该模块并不提供代码实际导入的 `get_addon_data`。Official Pass@1 继续作为榜单主指标；同时
+必须加入方法无关的独立诊断，区分“模块可解析”和“所需接口兼容”，避免论文的复现主张超过公开目标
+实际验证的范围。
+
+### 10.2 下一因果门
+
+下一批 outcome-blind 开发实验使用三个条件，保持模型、终端、构建环境、公开目标和 evaluator 边界
+相同：
+
+1. 只做终局 post-hoc clean replay；
+2. 只能调用一次 clean certification，失败后不能再取得第二张证书；
+3. 可以反复 clean replay，并在失败后继续修复。
+
+条件 1 对 2 测量 certification-aware construction；条件 2 对 3 才隔离 replay-conditioned repair
+的算法价值。先报告机制是否激活，再报告总成功率：first replay 失败数、失败后产生第二份方案的数量、
+以及同 session 恢复数量。在这一分解验证循环或暴露重复失败模式之前，不增加结构化状态、checkpoint、
+假设搜索或最小化。
+
+### 10.3 认证—修复消融 v1 冻结
+
+三臂接口已经实现并冻结。B 继承 Minimal B 的目标 verifier、完整性边界、证书绑定和干净环境
+provider，但最多执行一次 replay；第二次提交会被记录并在创建环境前拒绝。共享 qualified
+infrastructure 冻结时全量回归通过 `699` 个测试；加入 B 后完整代码树通过 `702` 个测试、`7` 个
+skip 和 `75` 个 subtest。Spark Linux ARM 资格测试通过 `25` 个 focused test 和 `7` 个真实 Docker
+test。
+
+执行前用冻结 salt 对 untouched pool 的仓库 identity 做哈希，选出 8 个仓库并生成 24 条轮换
+episode。机制判据已经固定：只有 C 臂第一次 replay 为 Fail/Unknown、随后不同程序 replay 通过且
+最终 Official Pass，才能支持 feedback-conditioned repair。双语协议冻结在
+`PRO_CERTIFICATION_REPAIR_ABLATION_V1_PROTOCOL_ZH.md`。
+
+有效 episode 裁决、可复算分析与双语结果分别冻结在
+`experiments/validations/pro_minimal_b_v1_paired_dev5_effective_episodes.json`、
+`experiments/validations/pro_minimal_b_v1_paired_dev5_results.json` 和
+`research/PRO_MINIMAL_B_V1_PAIRED_DEV5_RESULTS_ZH.md`。
+
+### 10.4 Boundary-v2 有效性裁决
+
+第一个完整三臂 block 不能估计算法效果。A 组用 tracked 模板生成合法运行时配置并达到构建环境公开
+目标，却被共享完整性规则误拒；B 组创建无关空导入模块，被正确拒绝；C 组利用多次 replay 反馈，最终
+通过重定义 Pyright 调用时的 shell 行为让公开指标通过。批次随即停止，三条轨迹都只作为已消费诊断。
+
+Boundary v2 只做对三组共享的测量修复：
+
+1. 可信 goal 执行不继承候选定义的 shell function 和启动 hook；
+2. 公开 goal 显式调用所选 Python 命令，而不调用同名 shell function；
+3. 只有与指定 revision 中同目录、同 stem 的 tracked 模板字节完全一致，ignored 运行时配置才被接纳；
+4. 使用版本化 runner 与入口，防止后续 schedule 静默落回旧边界。
+
+旧 C 组的精确程序现在能够执行完成，但会在修正边界下被真实 Pyright 判定失败；旧 A 组的精确 workspace
+通过 provenance audit。Focused test 与真实 Docker 红队已在 macOS 和 Spark Linux ARM 通过，两个
+平台的源码快照逐文件一致。这只是基础设施资格，不是效果结果。下一步冻结 v2 源码与分析契约，通过
+原 outcome-blind 规则替换已消费 identity，然后在不再修改方法的前提下运行尚未打开的三臂 case。
+
+### 10.5 Boundary-v2 Dev-8 预注册
+
+下一批效果实验已在打开任何新仓库前冻结。实验沿用 6 个已证明“未执行、未检查”的 identity，再用原始
+盐化仓库排序中顺延的两个合格 identity 填补已消费位置。只读取 manifest 是否存在的审计表明，替代
+候选都没有既往轨迹；选择过程没有读取仓库内容、失败类型或分数。
+
+冻结 schedule 包含 8 个仓库 block、24 条顺序 episode。三臂使用明确的 boundary-v2 runner、同一
+强模型、同一 Mac 主机和相同宽松运行上限。Spark 继续承担可移植性和基础设施验证；只把部分因果实验
+放到 Spark 会引入 host-by-treatment 混杂。在 24 条结果全部记录完，或触发预注册的结构有效性早停
+之前，不允许修改算法或边界。
+
+### 10.6 Boundary-v3 与 Untouched Dev-5
+
+第三个仓库 block 触发了结构有效性早停。三臂都找到项目原生的包同步操作，但 boundary v2 把锁文件
+派生的 Python 输出判成违规；可重试组还在临时创建并删除构建配置后获得了假证书。因此整个
+`trader` block 排除在 A/B/C 效果估计之外。
+
+Boundary v3 保持三个推理接口不变，只修共享测量：在干净环境中资格验证最终提交程序；即使最终文件
+被删除，也记录受保护配置的违规写入；只有仓库声明、revision 锁内容和包管理器校验三者同时成立，
+才接纳生成依赖。标准 `virtualenv` hook 还必须匹配候选执行前记录的模板哈希和版本。构建容器残留
+继续保留为轨迹证据，不再冒充提交 artifact。
+
+A 的精确程序现已在 Spark Linux ARM 上同时通过公开目标和全部 provenance 检查；隐藏临时操作的
+C 程序在执行前被拒。B 的字节相同程序在紧邻的前一版 v3 中完整通过，最终哈希下的重复执行则都被
+外部包传输故障删失。完整回归为 735 passed、8 skipped，另有 76 个 subtest passed。这些结果只
+证明测量边界合格，不证明算法有效。
+
+Untouched Dev-5 的第一个仓库在 B 臂开始前再次触发 validity stop。C 和 A 都通过 Official evaluator，
+但 boundary v3 会因为等价原生构建位于 `/tmp` 还是仓库内部而给出不同判定；原 v3 审计还拒绝了 A 的
+标准 build 命令产生的 106 个提交源码精确副本。该 case 与两个提交程序都只作为已消费测量诊断，不报告
+方法效果。
+
+### 10.7 Boundary-v5 冻结与恢复规则
+
+Boundary v4 被预注册为最小原生产物修正。它正确接纳了 A 的 tracked-source 原生扩展，但 106 个精确
+build-tree 源码副本仍被拒，因此校准失败；该版本作为失败测量版本保留。
+
+Boundary v5 用一个统一的 committed-source provenance 原则替代位置和后缀例外。Python 构建副本只有
+在字节与提交源码完全一致、且输出路径保留源码路径后缀时才被接纳；原生扩展只有在提交原生源码声明同名
+初始化符号、artifact 具有合法原生格式和初始化符号时才被接纳。被修改、改名、直接生成或没有源码来源
+的 import artifact 仍被拒。候选操作语言、Agent session、公开目标和 Official evaluator 均未改变。
+
+预注册的已消费校准在不调用模型和 Official evaluator 的情况下，重放 A/C 两份精确程序。A 以 106 个
+提交源码副本和 1 个原生 artifact 通过；C 以外部 import root 中的对应原生 artifact 通过。两者 missing
+imports 和剩余 violation 都为 0。Mac 全量回归通过 759 个测试；Spark Linux ARM 在源码 hash 完全一致
+时通过全部 24 个 v4/v5 focused test。该校准只证明测量一致性。
+
+实现冻结在
+`experiments/protocols/envsolve_pro_certification_repair_boundary_v5_implementation_freeze.json`。
+效果实验只能在 boundary-v3 schedule 的 case positions 2-5 共 4 个尚未打开仓库上恢复，对应 episode
+positions 4-15 的 12 条运行，并使用明确版本化的 boundary-v5 A/B/C runner。打开任何仓库前，必须
+冻结 host、模型、prompt、公开目标、Official evaluator 和分析规则。
+
+## 11. 当前 V2 论文方案
+
+第 4-10 节保留项目如何走到当前设计的研发历史，不代表当前论文算法。论文现在严格区分三个科学对象：
+
+| 对象 | 取值 | 作用 |
+|---|---|---|
+| 失败分类 | 观测层、约束层、操作层 | 解释最早产生决定性影响的失败原因。 |
+| 部署机制 | F、C_h、C_s、R | 解释 deployer 如何搜索、约束和恢复。 |
+| 公共底座 | E | 保证实验公平可审计，永远不算算法 treatment。 |
+
+EnvSolve-Pro 是公共 E 下的 F+C_s+R。F 是开放的反馈试错；C_s 在保留原始证据的同时把 replay 结果
+转成可质疑的义务；R 在独立干净环境执行完整程序，并把失败返回同一个活跃 session。C_h 由冻结的旧
+EnvSolve 代表，其编码规则可以拒绝或改写部署选择。连续 session 在受控 arm 间保持一致。
+
+### 11.1 失败研究
+
+EnvBench FreeAgent、Repo2Run、原生 Codex、旧 EnvSolve 和 EnvSolve-Pro 的全部科研有效已消费轨迹
+进入回顾性 taxonomy discovery。每个失败 episode 按最早决定性原因标一个带 artifact 证据的观测层、
+约束层或操作层主标签；基础设施事故单独删失。按系统与主类别分层确定性抽取 20% 样本独立复标，报告
+原始一致性、Cohen's kappa 和 adjudication。该不均衡语料只支撑 taxonomy 与跨系统分布，不支撑
+成功率 claim 或因果归因。
+
+### 11.2 受控机制实验
+
+正在运行的 outcome-independent Dev-12 继续作为预注册的 F 对 F+C_s+R pilot。实现、prompt、schedule、
+模型和结果均不修改；`envsolve_pro_v2_dev12_mechanism_semantics_amendment.json` 只澄清原 minimal-H 标签
+表示公共 E。冻结的 `B-FSR` run ID 保持不变，其中 S 解释为软约束 C_s。
+
+Dev-12 的 24 个 episode 全部结束后，在运行任何 arm 前，仅按 outcome-independent identity 哈希从冻结
+reserve 中选择新的 Dev-16。四个条件使用相同 DeepSeek V4 Pro，并在 case 内随机运行顺序：
+
+1. F；
+2. F+R，只返回有界原始 replay 证据，不生成规范化义务；
+3. F+C_s+R，即 EnvSolve-Pro；
+4. 冻结旧 EnvSolve，作为代表性 F+C_h+R 系统。
+
+64 个 episode 用 F+R 对 F 估计 R，用 F+C_s+R 对 F+R 估计 C_s 的增量价值。EnvSolve-Pro 对旧
+EnvSolve 只是系统级比较，不是 C_s 对 C_h 的纯因果对照。第一篇不搜索其他机制组合。
+
+### 11.3 确认性实验与主张
+
+打开 Canary 前冻结算法、prompt、tool schema、taxonomy、model/provider binding 和分析代码。主指标是
+Official Pass@1；机制指标包括首次完整候选时延、replay 激活、feedback-conditioned repair 和配对错误
+层迁移。资源既报告无条件结果，也报告成功条件下结果；token 和美元价格只是测量，不是停止阈值。
+基础设施删失始终单独保留。
+
+Untouched evaluation 先在 Canary 比较 F 与 EnvSolve-Pro，再在 protected 和 official protocol 上运行
+最终 DeepSeek V4 Pro 系统。Repo2Run、EnvBench FreeAgent 和旧 EnvSolve 在能够保持原生语义时作为
+同 backbone 系统 baseline；原生 Codex 是独立 frontier reference。第一篇只主张固定机制与受控证据；
+自动组合搜索属于 Auto-EnvSolve，学习型部署策略属于 EnvSolve-RL。

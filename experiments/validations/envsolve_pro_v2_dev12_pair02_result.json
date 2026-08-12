@@ -1,0 +1,128 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-02",
+  "recorded_at": "2026-08-10T14:16:56Z",
+  "case": {
+    "case_id": "envbench-python-rcmdnk__homebrew-file@d8d6be39755166e696dbbc4f16eb2e20dd2ee97c",
+    "repository": "rcmdnk/homebrew-file",
+    "revision": "d8d6be39755166e696dbbc4f16eb2e20dd2ee97c",
+    "architecture": "linux/arm64"
+  },
+  "primary_outcome_semantics": "Official Pass@1 is measured only after the active Agent session ends; an infrastructure-censored evaluation may receive one exact-script retry without rerunning the model",
+  "effective_outcomes": [
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-03-B-FSR",
+      "official_evaluation_run_id": "pro-v2-dev12-03-B-FSR-official-retry1",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass-after-exact-script-infrastructure-retry",
+      "generation_wall_clock_seconds": 460.931581,
+      "official_evaluation_seconds": 30.191,
+      "model_requests": 31,
+      "provider_attempts": 33,
+      "provider_errors": 2,
+      "prompt_tokens": 540401,
+      "completion_tokens": 17415,
+      "total_tokens": 557816,
+      "reported_provider_cost": 0.3438726,
+      "shell_tool_calls": 43,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 49.324,
+      "clean_replay_calls": 3,
+      "final_submission_calls": 1,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 31,
+      "submitted_program_sha256": "ed7f96eb8f821daa977b44ca95b8581438af87dd505224f6ecf237559728e769",
+      "result_sha256": "a2faa57ba0a1995a0937e0a86cd8e072158e58c8fe79e9c59783590f8d3f9683",
+      "trajectory_sha256": "51a0c00e8be278fa9f5b9d016bc9767f07defd30ff18a0e33fc3b73d3997355f",
+      "replays_sha256": "0e84c62c6e744cd74357604c062f7c4ca83a570637af0c631a26acaac249f67c",
+      "official_result_sha256": "565f99f67994bba13d7ae330a86f6c176e8b306c040516f49cb3034522e72eb0",
+      "official_raw_result_sha256": "cd8821590f05d0e0fef8b204f4261aae247f464dc544cba3d3a5a8945ff27977"
+    },
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-04-A-F",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "generation_wall_clock_seconds": 1600.293796,
+      "episode_wall_clock_seconds": 1635.0941699407995,
+      "model_requests": 56,
+      "provider_attempts": 58,
+      "provider_errors": 2,
+      "prompt_tokens": 2257949,
+      "completion_tokens": 67053,
+      "total_tokens": 2325002,
+      "reported_provider_cost": 1.0613353,
+      "shell_tool_calls": 88,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 230.19,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 1,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 31,
+      "submitted_program_sha256": "f57d52e04dc00a995c75f1c64c43cd8edf71d3fd4d73cab443a2dd8dfbf9bde9",
+      "result_sha256": "6d539f36b81068eff633508ac4741e2c624a19bb0c3d78d946286c3898ab243e",
+      "trajectory_sha256": "f4bb3a43e38d07b7bf1d660692bb2113b4b7d914c6b7750b6fa5261772d4a9b6",
+      "official_result_sha256": "fa1cb94aeefbe4e960bb59ce2267cead7fedc3af76862d77dd618636a6534b85",
+      "official_raw_result_sha256": "4bdfc5790e141159edaf7af5a0fbb969b69556e3359a4dd85d115f4d6b7eddcb"
+    }
+  ],
+  "replay_sequence": [
+    {
+      "index": 1,
+      "program_sha256": "10b9a9f72ee8b2ffed38c0adb35333ba6de76dbd82a3e63e3f02f5e8055bf267",
+      "program_artifact_sha256": "5ae9e99499e472d76b871067d63cd6d7f00dda6215b0a75929da8bc28eb18b59",
+      "pass": false,
+      "counterexample": "six missing-import findings: pytest in five files and tomli in one file"
+    },
+    {
+      "index": 2,
+      "program_sha256": "dfa734f13a2081a00afa4e54a03565d36cf630543a77acc3e8f1463077f0a110",
+      "program_artifact_sha256": "6ef65b614f2ecb7f52d19ec8e8d9d1516d4f7da88ab324c19d521b0fc30a60dc",
+      "pass": true
+    },
+    {
+      "index": 3,
+      "program_sha256": "e8ef20f5838a8e156e6adb3d61802f5ec7a57ca40728b83a94d6d722d9108e14",
+      "program_artifact_sha256": "ed7f96eb8f821daa977b44ca95b8581438af87dd505224f6ecf237559728e769",
+      "pass": true,
+      "note": "final canonical replay before exact submission"
+    }
+  ],
+  "censored_attempts": [
+    {
+      "run_id": "pro-v2-dev12-03-B-FSR",
+      "scope": "post-episode-official-evaluation",
+      "terminal_class": "infrastructure-censored",
+      "reason": "files.pythonhosted.org read timeout while Poetry downloaded pbr",
+      "model_reexecuted_for_retry": false,
+      "censored_official_result_sha256": "d568daa7825c4a07a8e416cc4e67fb43344343a6bd16bc62bab141f15fbec1f3"
+    }
+  ],
+  "paired_result": {
+    "class": "both-pass",
+    "official_pass_difference_B_minus_A": 0,
+    "mechanism_activation": "B invoked clean replay three times and converted a first failed replay into two passing programs within the same Agent session",
+    "feedback_conditioned_repair_observed": true,
+    "descriptive_resource_differences_B_vs_A": {
+      "model_requests_percent": -44.642857142857146,
+      "total_tokens_percent": -76.00793461683044,
+      "generation_wall_clock_percent": -71.19706505442205,
+      "shell_tool_calls_percent": -51.13636363636363,
+      "reported_provider_cost_percent": -67.60000350501863
+    },
+    "supported_observation": "on this case, replay feedback exposed missing imports, the same session repaired the candidate, and both arms ultimately passed Official evaluation",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate",
+      "EnvSolve-Pro reduces resources in expectation",
+      "this one case represents the Dev-12 distribution",
+      "the non-scoring Official error_count of 31 indicates a deployment failure"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds"
+}

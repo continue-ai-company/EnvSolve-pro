@@ -1,0 +1,91 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-01",
+  "recorded_at": "2026-08-10T13:37:26Z",
+  "case": {
+    "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+    "repository": "tensorflow/model-analysis",
+    "revision": "807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+    "architecture": "linux/arm64"
+  },
+  "primary_outcome_semantics": "generation noncompletion produces no deployable artifact and therefore counts as Official Pass@1 false even though the post-episode evaluator is not invoked",
+  "effective_outcomes": [
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-01-B-FSR-infrastructure-retry2",
+      "official_pass": false,
+      "official_evaluator_executed": false,
+      "terminal_class": "algorithm-noncompletion",
+      "error": "Agent exhausted the request safety cap without submission",
+      "wall_clock_seconds": 6549.025997188874,
+      "model_requests": 120,
+      "provider_attempts": 134,
+      "provider_errors": 14,
+      "prompt_tokens": 9430754,
+      "completion_tokens": 84523,
+      "total_tokens": 9515277,
+      "reported_provider_cost": 3.62092635,
+      "shell_tool_calls": 189,
+      "shell_timeouts": 1,
+      "shell_infrastructure_errors": 0,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 0,
+      "result_sha256": "42fa53fbb0cf6d242d3fe4a4e2a9eace1664749479aeb2be787f065e11591938",
+      "trajectory_sha256": "3fbe55aa1dd88573476c18f5c2c41f245ccaf119e48ba489b3b8bed441d21b7b"
+    },
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-02-A-F-provider-retry1",
+      "official_pass": false,
+      "official_evaluator_executed": false,
+      "terminal_class": "algorithm-noncompletion",
+      "error": "Agent exhausted the request safety cap without submission",
+      "wall_clock_seconds": 4178.262279913761,
+      "model_requests": 120,
+      "provider_attempts": 130,
+      "provider_errors": 10,
+      "prompt_tokens": 7248507,
+      "completion_tokens": 63582,
+      "total_tokens": 7312089,
+      "reported_provider_cost": 2.547056350000001,
+      "shell_tool_calls": 119,
+      "shell_timeouts": 8,
+      "shell_infrastructure_errors": 0,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 0,
+      "result_sha256": "9abd6d80ff1070432774c1120a6211e141dc3f547de434cd70472c3f0a6d0bad",
+      "trajectory_sha256": "c3392c2739636798b475a41c014249fd7dcdea94998b08ebf8668806c8a66072"
+    }
+  ],
+  "censored_attempts": [
+    {
+      "run_id": "pro-v2-dev12-01-B-FSR",
+      "terminal_class": "infrastructure-censored",
+      "reason": "package-cache ownership defect before model access"
+    },
+    {
+      "run_id": "pro-v2-dev12-01-B-FSR-infrastructure-retry1",
+      "terminal_class": "infrastructure-censored",
+      "reason": "timed-out container subprocesses survived and contaminated later operations"
+    },
+    {
+      "run_id": "pro-v2-dev12-02-A-F",
+      "terminal_class": "provider-censored",
+      "reason": "successful provider envelope contained no completion choices and was not retried"
+    }
+  ],
+  "paired_result": {
+    "class": "both-fail",
+    "official_pass_difference_B_minus_A": 0,
+    "mechanism_activation": "B never invoked clean replay, so this pair does not estimate the effect of replay feedback after activation",
+    "supported_observation": "both interfaces failed to convert a long, partially successful ARM dependency investigation into a submitted bootstrap program",
+    "candidate_failure_axis": "operation-layer candidate formation and closure",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate",
+      "clean replay is ineffective after activation",
+      "this one case represents the Dev-12 distribution"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds"
+}

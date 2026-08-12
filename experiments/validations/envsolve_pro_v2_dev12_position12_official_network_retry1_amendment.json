@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-dev12-position12-official-network-retry1",
+  "recorded_at": "2026-08-12T05:21:13Z",
+  "status": "frozen-before-exact-script-retry",
+  "case_id": "envbench-python-quantumjot__btrack@5720808a3533a91b02cb521c787b8ac31d3df20d",
+  "censored_attempt": {
+    "run_id": "pro-v2-dev12-12-A-F",
+    "generation_completed": true,
+    "certified_by_clean_replay": false,
+    "evaluation_completed": false,
+    "official_pass": false,
+    "termination_scope": "official-bootstrap-package-download",
+    "infrastructure_signature": "read-timeout",
+    "failure": "files.pythonhosted.org read timeout while pip installed public build dependencies; Pyright did not run",
+    "submitted_program_sha256": "35fe8fceb58229501bb0b0dddba71c06f476c9d8d908f6df6f7fc6b9b391d80b",
+    "manifest_sha256": "76ed9540f2366b710b0f7608fa34ed4c1352f5f47a0bb780c127ed9e6da25996",
+    "generation_result_sha256": "840ffe1b28db5c9aa3ee91ce972030964e76924e6f41ecfa9bd00f52d9c7ef5e",
+    "trajectory_sha256": "86bc58a3528c2b85947250d4718c54cf7e22982aaec8e2ec3da6b94576d1a307",
+    "official_result_sha256": "ec567445535da8a676d8297fffe249beea68b62e9f0d948b5df922969658fd84",
+    "official_raw_result_sha256": "35495a256b9a7859d55b1af8bd060ff8886b8a7c47cc62aae73cb7401719564d",
+    "evaluation_log_sha256": "8c79a91799398cf3a5652cb4090323e3ca5da9b7aa34653c64bd543149a0291b",
+    "counts_toward_official_denominator": false
+  },
+  "retry": {
+    "allowed": true,
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "run_id": "pro-v2-dev12-12-A-F-official-retry1",
+    "source_run_id": "pro-v2-dev12-12-A-F",
+    "model_reexecuted": false,
+    "seed": 3633312293,
+    "maximum_semantics_identical_retries_after_this_attempt": 0,
+    "entrypoint": "experiments/evaluate_only.py",
+    "entrypoint_sha256": "6a3c8308e37952c00381dca83d90c678cd5f5db4c45eb58296e525c787c94e24"
+  },
+  "validity": {
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false,
+    "official_feedback_returned_to_agent": false,
+    "protected_sets_touched": false,
+    "source_run_audit_valid": true
+  }
+}

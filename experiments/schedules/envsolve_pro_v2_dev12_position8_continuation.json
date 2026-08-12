@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-dev12-position8-continuation",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_pilot12.jsonl",
+  "case_file_sha256": "1116c703c6474b5be55dd26053945cbb267f26836ded004f9612161b71e070e0",
+  "model": "deepseek/deepseek-v4-pro",
+  "provider": "cloudflare",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "cloudflare"
+  },
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "position": 1,
+      "original_position": 8,
+      "case_position": 4,
+      "pair_position": 2,
+      "pair_id": "dev12-case-04",
+      "case_id": "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+      "run_id": "pro-v2-dev12-08-B-FSR",
+      "model": "deepseek/deepseek-v4-pro",
+      "provider": "cloudflare",
+      "seed": 2392761330,
+      "arm": "B-FSR",
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "mechanisms": ["F", "S", "R", "minimal-H"]
+    }
+  ]
+}

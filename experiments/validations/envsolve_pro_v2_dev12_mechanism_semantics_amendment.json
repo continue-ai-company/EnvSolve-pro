@@ -1,0 +1,54 @@
+{
+  "schema": "envsolve-pro-v2-semantic-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-mechanism-semantics-2026-08-11",
+  "recorded_at": "2026-08-11T05:48:33Z",
+  "status": "interpretive-clarification-after-six-of-twenty-four-primary-episodes",
+  "original_preregistration": {
+    "path": "experiments/validations/envsolve_pro_v2_dev12_preregistration.json",
+    "sha256": "e83523dcdb46a5925dc61697ba3ba248e45da3bc56786ab3ea4cd123c91285c0",
+    "modified": false
+  },
+  "clarification": {
+    "failure_taxonomy": [
+      "Observation",
+      "Constraint",
+      "Operation"
+    ],
+    "infrastructure_is_censored_not_algorithmic": true,
+    "deployment_mechanisms": {
+      "F": "free feedback search",
+      "C_h": "hard-constraint deployment",
+      "C_s": "soft-constraint deployment",
+      "R": "clean replay and recovery"
+    },
+    "shared_foundation_E": "evaluator isolation, repository and goal integrity, result-channel protection, exact-script binding, and content-addressed artifacts",
+    "E_is_algorithmic_treatment": false,
+    "continuous_session_is_matched_execution_condition": true,
+    "arm_A_interpretation": "F under shared E",
+    "arm_B_interpretation": "F+C_s+R under shared E",
+    "legacy_run_label_note": "The frozen B-FSR run identifier is retained; S denotes soft-constraint guidance C_s. The preregistered minimal-H label denotes shared E and is excluded from the algorithm vector."
+  },
+  "validity": {
+    "algorithm_change": false,
+    "implementation_change": false,
+    "prompt_change": false,
+    "tool_schema_change": false,
+    "schedule_change": false,
+    "case_selection_change": false,
+    "model_or_provider_change": false,
+    "evaluator_change": false,
+    "outcome_reclassification": false
+  },
+  "future_design": {
+    "dev12_action": "complete the original 24 episodes unchanged",
+    "dev16_arms": [
+      "F",
+      "F+R",
+      "F+C_s+R",
+      "frozen prior EnvSolve as representative F+C_h+R system baseline"
+    ],
+    "dev16_selection": "outcome-independent identity hash from the frozen reserve before any new arm is run",
+    "episode_count": 64,
+    "exhaustive_combination_search": false
+  }
+}

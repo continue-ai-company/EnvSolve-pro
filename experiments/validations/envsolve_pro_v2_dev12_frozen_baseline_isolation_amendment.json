@@ -1,0 +1,39 @@
+{
+  "schema": "envsolve-pro-v2-dev12-frozen-baseline-isolation-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-frozen-baseline-isolation",
+  "recorded_at": "2026-08-10T10:14:49Z",
+  "trigger": "the full regression suite detected that V2 runner registration and provider preflight had changed two files protected by historical experiment freeze hashes",
+  "observed_before_change": {
+    "focused_v2_tests": "26 passed",
+    "full_suite": "799 passed, 2 failed, 11 skipped",
+    "failures": [
+      "historical registry freeze hash mismatch",
+      "historical schedule coordinator freeze hash mismatch"
+    ]
+  },
+  "repair": {
+    "behavior": "move V2 registration, case dispatch, and OpenRouter schedule preflight into V2-only entrypoints; restore both historical shared files byte-for-byte",
+    "algorithm_or_prompt_changed": false,
+    "model_or_provider_changed": false,
+    "case_specific_information_used": false,
+    "historical_files": {
+      "envsolve_harness/runners/registry.py": "4f1c556474423080eb95aa6591948d883fcfac9f6a26f85224a2704554518e7f",
+      "experiments/run_schedule.py": "24d70a1ab02ed0e92f6c3d5f5fbf0b792c32a4971eb5958e638f190b2569586a"
+    },
+    "v2_files": {
+      "envsolve_harness/runners/envsolve_pro_v2_registry.py": "2f70ae7bad85a4048d6e14082bb5b92e408516423575e936b069de628b4e78c4",
+      "experiments/run_envsolve_pro_v2_case.py": "c873e0f6c8cc34fee85b6f9dae52216e71f2bd4ecbc560c37e00142fa8bd1dd3",
+      "experiments/run_envsolve_pro_v2_schedule.py": "c31db54fba6d591fcd7f4a547545111d84d5e242bd8d8114c055d7c4a69045b5"
+    }
+  },
+  "execution_binding": {
+    "already_running_position1_retry": "continues with the pre-amendment process image; no behavior is changed in flight",
+    "position2_provider_retry_and_positions3_through_24": "must use experiments/run_envsolve_pro_v2_schedule.py",
+    "schedule_membership_order_model_prompt_tools_and_resource_caps": "unchanged"
+  },
+  "verification": {
+    "historical_freeze_tests": "2 passed",
+    "v2_entrypoint_and_provider_tests": "29 passed",
+    "full_suite": "802 passed, 11 skipped, 80 subtests passed"
+  }
+}

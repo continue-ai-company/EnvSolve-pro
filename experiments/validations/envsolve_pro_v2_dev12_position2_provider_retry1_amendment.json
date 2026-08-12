@@ -1,0 +1,50 @@
+{
+  "schema": "envsolve-pro-v2-dev12-provider-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-position2-provider-retry1",
+  "recorded_at": "2026-08-10T09:52:03Z",
+  "recorded_before_retry": true,
+  "original_episode": {
+    "position": 2,
+    "run_id": "pro-v2-dev12-02-A-F",
+    "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+    "model_requests": 115,
+    "provider_attempts": 126,
+    "provider_error_count": 11,
+    "official_evaluator_executed": false,
+    "terminal_class": "provider-censored",
+    "error": "OpenRouter Cloudflare returned a successful response envelope with no choices; the runner terminated instead of applying its generic provider retry policy",
+    "result_uri": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-02-A-F/envbench-python-tensorflow__model-analysis__807bd626f18613a5bfc8a5cc96cf29deee62f0ea/generation/result.json",
+    "result_sha256": "0b5db6457ff32e24d7d21415e35f4d125a8ca27699a59d45655497b89060c0bf",
+    "trajectory_sha256": "05fdf088fa0b1f5e2f3609ebab33c6cfd638ad966c5779264066570c93c5ffa6"
+  },
+  "repair": {
+    "scope": "OpenRouter response-envelope validation only",
+    "behavior": "treat a response with no completion choices as a retryable provider error under the already frozen retry count and delays",
+    "old_runner_sha256": "f7ab23d9bf5f44a95bb3325b5522611fca8d24f75d21f45382bba9f90cde51b4",
+    "new_runner_sha256": "5eb0f38fb263379db8387ea7872da67a25ed957242ac0443efa303f94bd2617b",
+    "algorithm_or_prompt_changed": false,
+    "model_or_provider_changed": false,
+    "case_specific_information_used": false
+  },
+  "verification": {
+    "focused_tests": "26 passed",
+    "empty_response_retry_regression": "pass"
+  },
+  "retry": {
+    "count_as_additional_model_attempt": false,
+    "effective_primary_outcome_if_provider_completes": true,
+    "maximum_additional_retry_for_this_failure": 1,
+    "run_id": "pro-v2-dev12-02-A-F-provider-retry1",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12_position2_provider_retry1.json",
+    "schedule_sha256": "d1759b8682eb3a291e2eb28148bf90f793bf553876080cb8d3cf113317a7f1e5"
+  },
+  "unchanged": [
+    "case and revision",
+    "A/B identity and within-pair order",
+    "DeepSeek V4 Pro model and Cloudflare provider",
+    "prompt and tool schemas",
+    "clean replay and Official protocols",
+    "resource safety caps",
+    "Dev-12 membership"
+  ]
+}

@@ -168,6 +168,39 @@ evaluator continuity 的因果证据。
 未来 RL 数据必须区分“具有官方因果证据的操作 violation”和“尚未证实的验证器拒绝”；后者只有
 通过反例资格验证后，才允许塑造策略。
 
+### 11. Minimal B 的认证与修复标签
+
+Minimal B Dev-5 要求把 clean-replay 轨迹至少拆成两种学习样本：`first_replay_pass` 表示 Agent 面向
+可认证交付物的一次构建，`replay_fail_then_repair` 才表示反例条件下的修复。当前 5 条 treatment
+全部属于前者，不能作为 repair policy 的正样本。
+
+每次提交必须保存规范化程序 hash、fresh environment receipt、replay 状态、失败后是否继续提案、
+最终 Official Pass，以及基础设施 censor。`plugin.video.netflix` 还说明 official goal 与
+required-interface compatibility 要保留独立标签；辅助语义标签不能覆盖榜单 reward。这样的数据格式让
+第二篇可以重新定义多轴 reward，而无需重跑第一篇的原始轨迹。
+
+### 12. Verifier 非干扰与来源标签
+
+Readux 三臂轨迹不能被压成一个终局 reward。C 组应保留
+`official_goal_pass=true`、`protocol_admissible=false` 与
+`verifier_interference=true`；A 组则保留 `construction_goal_pass=true`、
+`repository_configuration_provenance=tracked_exact_copy` 和旧策略误拒标签。RL 数据不得把 C 当成合法成功，
+也不得把 A 的合法配置动作当成负样本。
+
+第一篇保存原始观测、策略版本和修正后裁决，第二篇才可以在不重跑环境的前提下重建多轴 reward。公开
+榜单 reward、协议合法性与辅助语义兼容始终分开。
+
+### 13. EnvSolve-Pro V2 的最小学习接口
+
+第一篇当前不维护模型外的长期约束状态，因此后续 RL 不应假设一个尚未被证明必要的复杂表示。最小
+transition 以同一 session 中的事件序列为准：模型可见历史、shell 操作与结果、完整程序 hash、软反例
+及其原始证据、后续程序、clean replay、Official 终局和基础设施 mask。`replay_fail_then_repair` 是核心
+修复样本；`first_replay_pass` 只监督一次构建；provider retry 和网络删失不产生部署动作 reward。
+
+Dev-12 同模型 F 对 F+S+R 的轨迹将首先回答结构化软反例是否提供额外可学习信号。只有该信号跨 case
+重复出现后，第二篇才比较 raw-history、soft-constraint-conditioned imitation 与 RL，避免先造复杂状态、
+再用训练包装一个没有因果作用的接口。
+
 ## English Version
 
 ### 1. Core question
@@ -452,3 +485,79 @@ Pass with unknown or contradictory ABI coherence is not relabeled as benchmark f
 but it must not receive full reproduction-integrity reward. This representation lets
 EnvSolve-RL later learn a monotonic compatibility frontier without changing the first
 paper's frozen objective.
+
+### 15. Minimal B Certification and Repair Labels
+
+The Minimal B Dev-5 batch requires at least two clean-replay transition labels.
+`first_replay_pass` describes certification-aware one-shot construction;
+`replay_fail_then_repair` describes counterexample-conditioned recovery. All five current
+treatment trajectories are the former and must not be used as positive repair-policy
+examples.
+
+Each submission should retain the canonical program hash, fresh-environment receipt,
+replay result, whether another proposal followed failure, terminal Official Pass, and an
+infrastructure censor mask. The `plugin.video.netflix` audit additionally requires
+separate `official_goal_pass` and `required_interface_compatible` labels. Auxiliary
+semantic labels must not overwrite benchmark reward, allowing later multi-axis reward
+definitions without rerunning the first paper's trajectories.
+
+Certification-Repair Ablation v1 adds an explicit one-shot arm, enabling two distinct
+future learning contrasts: certification-aware construction from A versus B, and
+counterexample-conditioned recovery from B versus activated C transitions. Unactivated C
+episodes are not positive recovery demonstrations.
+
+### 16. Verifier Non-Interference and Provenance Labels
+
+The Readux three-arm trajectories must not collapse into one terminal reward. Arm C keeps
+`official_goal_pass=true`, `protocol_admissible=false`, and
+`verifier_interference=true`. Arm A keeps `construction_goal_pass=true`,
+`repository_configuration_provenance=tracked_exact_copy`, and the old-policy false-veto
+label. An RL learner must neither treat C as an admissible success nor learn A's legitimate
+configuration action as a negative example.
+
+The first paper therefore preserves raw observations, policy versions, and corrected
+adjudications. EnvSolve-RL can later rebuild multi-axis rewards without rerunning the
+environment, while keeping public benchmark reward, protocol validity, and auxiliary
+semantic compatibility distinct.
+
+### 17. Submitted-State and Operation-History Labels
+
+The `trader` calibration trajectory shows that identical terminal import visibility can
+arise from different causal operations. RL data must retain protected-configuration
+writes even when their files are later deleted, while separately labeling generated
+dependencies whose repository declaration and revision-bound lock are verified. A final
+state snapshot cannot replace the action history.
+
+The first paper now stores candidate hashes, pre-candidate runtime-template hashes,
+package-lock verification, submitted-program fresh replay, construction residue, and
+infrastructure censorship as separate fields. These permit EnvSolve-RL to learn operation
+preferences without turning a boundary false positive into negative deployment reward or
+turning a public-goal exploit into an admissible success.
+
+### 18. Build-Provenance Labels Across Verifier Versions
+
+Boundary-v5 adds two provenance labels that must remain outside the deployment reward:
+`committed_source_copy_valid` and `committed_native_provider_valid`. The failed v4
+calibration is `measurement_false_negative`, while the unchanged A program under v5 is a
+measurement correction, not a new successful policy action.
+
+Training data must retain the same program hash across both boundary versions so a learner
+cannot receive contradictory action rewards from a changing verifier. Repository location
+is context; verified source derivation is the label.
+
+### 19. Minimal Learning Interface from EnvSolve-Pro V2
+
+The first paper currently keeps no model-external long-term constraint state, so later RL
+should not assume a complex representation before its necessity is established. The
+minimal transition is the within-session event sequence: model-visible history, shell
+action and result, complete-program hash, soft counterexample with raw evidence, revised
+program, clean replay, terminal Official outcome, and infrastructure mask.
+`replay_fail_then_repair` is the core repair example; `first_replay_pass` supervises
+one-shot construction only; provider retries and network censoring produce no deployment
+action reward.
+
+The matched F versus F+S+R Dev-12 traces first test whether normalized soft
+counterexamples add a repeatable learnable signal. Only after that signal recurs across
+repositories should the second paper compare raw-history policies,
+soft-constraint-conditioned imitation, and RL. This avoids inventing a rich state and
+training around an interface with no demonstrated causal effect.

@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-v2-dev12-position10-retry1-zero-evaluation-preflight",
+  "recorded_at": "2026-08-12T04:20:02Z",
+  "case_id": "envbench-python-pypa__twine@6fbf880ee60915cf1666348c4bdd78a10415f2ac",
+  "source_run_id": "pro-v2-dev12-10-B-FSR",
+  "preflight_run_id": "pro-v2-dev12-10-B-FSR-official-retry1",
+  "disposition": "preserved-invalid-preflight-does-not-consume-official-retry",
+  "failure": {
+    "stage": "retry-source-evidence-preflight",
+    "exception": "ValueError: Source run must contain exactly one raw official result",
+    "cause": "EnvBench repository acquisition failed before producing a raw result record, leaving results.jsonl present but empty",
+    "official_evaluator_started": false,
+    "official_attempt_claim_created": false,
+    "source_script_executed": false,
+    "model_reexecuted": false
+  },
+  "preserved_artifacts": {
+    "case_input_sha256": "090c17e1be7d5ee43dfbfb08d0758892d9e87a21038b3b556ce3452c28c7d530",
+    "manifest_sha256": "443d08c2de71b215e45027185b542b68912a912c71f9f263e814714bb58833a4"
+  },
+  "generic_fix": {
+    "policy": "prefer-one-raw-record-otherwise-use-adapter-result-plus-original-evaluation-log",
+    "multiple_raw_records_rejected": true,
+    "ordinary_algorithm_failures_retryable": false,
+    "entrypoint_sha256": "6a3c8308e37952c00381dca83d90c678cd5f5db4c45eb58296e525c787c94e24",
+    "test_file_sha256": "af4a2a56c00110edc50881254f89e46a3019258b3d3148c1d03893fdbcf43372",
+    "verification": "803 passed, 12 skipped, 80 subtests passed"
+  },
+  "authorized_execution": {
+    "run_id": "pro-v2-dev12-10-B-FSR-official-retry1-execution1",
+    "maximum_official_evaluations": 1,
+    "maximum_additional_retries_after_execution": 0,
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "envsolve-pro-v2-dev12-retry-completion-adjudication-v1",
+  "adjudication_id": "envsolve-pro-v2-dev12-position7-retry1-completion",
+  "recorded_at": "2026-08-12T02:54:08Z",
+  "source_amendment": "experiments/validations/envsolve_pro_v2_dev12_position7_interruption_retry1_amendment.json",
+  "clarification": {
+    "original_position7_run": "pro-v2-dev12-07-A-F",
+    "original_position7_state": "external-interruption-censored",
+    "retry1_run": "pro-v2-dev12-07-A-F-interruption-retry1",
+    "retry1_generation_completed": true,
+    "retry1_model_requests": 71,
+    "retry1_provider_attempts": 80,
+    "retry1_final_submission_calls": 1,
+    "retry1_evaluation_completed": false,
+    "retry1_terminal_class": "official-host-infrastructure-censored",
+    "reason": "The retry1 episode completed generation before the second pause command reached the scheduler. Only its idle tmux shell remained. Official evaluation then failed before evaluator startup because uv was absent from the host PATH.",
+    "second_pause_did_not_interrupt_active_generation": true,
+    "second_pause_did_not_create_retry_eligibility": true
+  },
+  "evidence": {
+    "artifact_root": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-07-A-F-interruption-retry1/envbench-python-wpi-lnl__lnldb__6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+    "manifest_sha256": "f10316fd2da2d541b00942f9111de4ff8b4e7af5bf5a875daf6c1e6d110a7c02",
+    "generation_result_sha256": "c3a61ddd661ec83097da62ffcb29a0c81a4ea2f1407b0693dccce0c39a8fafa3",
+    "trajectory_sha256": "5e10e20fb038f5cc55f302e417d1cf09229c63ce3fb402b3e0903e486605d452",
+    "evaluation_result_sha256": "9b85d0401e4c87c9e9fa1395e1918165cc6411a0dd00cee447890ac66052b816",
+    "evaluation_log_sha256": "fa3d27e35baa5e3b947bf4680436591956f1e8c7d32226c190ec4b9e8100ec08",
+    "progress_sha256": "dd0a7070f5024f26950101c5e1b184fde8564d1f8466f4da8e0449e31969c94c"
+  },
+  "analysis_disposition": {
+    "retry1_generation_is_effective_agent_attempt": true,
+    "retry1_official_result_in_primary_denominator": false,
+    "allowed_next_action": "one exact-script Official infrastructure retry without model execution",
+    "full_episode_retry_allowed": false
+  }
+}

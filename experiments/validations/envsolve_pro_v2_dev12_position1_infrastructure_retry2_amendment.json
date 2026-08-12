@@ -1,0 +1,64 @@
+{
+  "schema": "envsolve-pro-v2-dev12-infrastructure-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-position1-infrastructure-retry2",
+  "recorded_at": "2026-08-10T10:34:03Z",
+  "recorded_before_retry": true,
+  "original_episode": {
+    "position": 1,
+    "run_id": "pro-v2-dev12-01-B-FSR-infrastructure-retry1",
+    "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+    "model_requests": 61,
+    "provider_attempts": 65,
+    "provider_error_count": 4,
+    "tool_calls": 102,
+    "clean_replays": 0,
+    "official_evaluator_executed": false,
+    "terminal_class": "infrastructure-censored",
+    "error": "container commands that reported timed_out left their subprocesses alive; a later command duplicated a live Conda installation in the same environment",
+    "evidence": {
+      "first_bazel_install_sequence": 101,
+      "first_bazel_install_timed_out": true,
+      "duplicate_bazel_install_sequence": 102,
+      "both_processes_observed_alive": true,
+      "trajectory_uri": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-01-B-FSR-infrastructure-retry1/envbench-python-tensorflow__model-analysis__807bd626f18613a5bfc8a5cc96cf29deee62f0ea/generation/trajectory.jsonl",
+      "trajectory_sha256": "e97f238f0db9eafd8e6e03e9539c23a77a3f7e200121f57ca06c5653a28f8713"
+    },
+    "termination": "coordinator interrupted after the generic defect was observed; the construction container was removed"
+  },
+  "repair": {
+    "scope": "EnvSolve-Pro V2 container command timeout cleanup only",
+    "behavior": "snapshot container PIDs before each command and, on timeout, remove every newly created PID even if it has reparented; preserve processes that predate the command",
+    "legacy_process_shell_changed": false,
+    "old_runner_sha256": "f7ab23d9bf5f44a95bb3325b5522611fca8d24f75d21f45382bba9f90cde51b4",
+    "new_runner_sha256": "9be436ccf9b31d3439add97a4c7119f64f06c6e94385860c1df974cc070a5572",
+    "v2_process_shell_sha256": "95925c4b711ebf6f319d221c87db6bb8c39655608c383ac7a2adb45c8ad0622a",
+    "algorithm_or_prompt_changed": false,
+    "model_or_provider_changed": false,
+    "case_specific_information_used": false
+  },
+  "verification": {
+    "mac_full_suite": "802 passed, 12 skipped, 80 subtests passed",
+    "spark_detached_process_integration": "1 passed",
+    "preserves_preexisting_background_service": true,
+    "kills_new_detached_term_ignoring_process": true
+  },
+  "retry": {
+    "count_as_additional_model_attempt": false,
+    "effective_primary_outcome_if_infrastructure_completes": true,
+    "maximum_additional_retry_for_this_distinct_failure": 1,
+    "run_id": "pro-v2-dev12-01-B-FSR-infrastructure-retry2",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12_position1_infrastructure_retry2.json",
+    "schedule_sha256": "ec8e2de050fe45d0051ac6b3713051f1eb94c98684d2787aa7f16e4e7879e2c4",
+    "entrypoint": "experiments/run_envsolve_pro_v2_schedule.py"
+  },
+  "future_binding": "the same V2 timeout cleanup applies to the position-2 provider retry and all remaining Dev-12 episodes",
+  "unchanged": [
+    "case and revision",
+    "A/B identity and within-pair order",
+    "DeepSeek V4 Pro model and Cloudflare provider",
+    "prompt and tool schemas",
+    "clean replay and Official protocols",
+    "resource safety caps",
+    "Dev-12 membership"
+  ]
+}

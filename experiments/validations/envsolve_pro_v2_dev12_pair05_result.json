@@ -1,0 +1,141 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-05",
+  "recorded_at": "2026-08-12T04:28:10Z",
+  "case": {
+    "case_id": "envbench-python-pypa__twine@6fbf880ee60915cf1666348c4bdd78a10415f2ac",
+    "repository": "pypa/twine",
+    "revision": "6fbf880ee60915cf1666348c4bdd78a10415f2ac",
+    "architecture": "linux/arm64"
+  },
+  "primary_outcome_semantics": "Official Pass@1 is measured only after the active Agent session ends; an infrastructure-censored repository-acquisition attempt may receive one exact-script retry without rerunning the model",
+  "effective_outcomes": [
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-09-A-F",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "generation_wall_clock_seconds": 696.256204,
+      "official_evaluation_seconds": 15.848366022109985,
+      "model_requests": 49,
+      "provider_attempts": 49,
+      "provider_errors": 0,
+      "prompt_tokens": 1118268,
+      "completion_tokens": 34775,
+      "total_tokens": 1153043,
+      "reported_provider_cost": 0.58428445,
+      "shell_tool_calls": 72,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 63.457519847899675,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 18,
+      "final_submission_request": 49,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 60,
+      "submitted_program_sha256": "b1c420ac8fff11051aeb6426ad4886f5f597fb568976e738853ebd2557f132ab",
+      "manifest_sha256": "e5832de64ae4875fb007bace3d10487afc2cbe2517f5d6aa011132812a589980",
+      "generation_result_sha256": "b7265f6c718d971c8b7b89bb053c6f02ae39f7a51afed235d870bd267cca42be",
+      "trajectory_sha256": "b445d353673ce092ecb354232f160ded0d791b33fe798a9bba0b130773d24ad5",
+      "official_result_sha256": "8ac286d7e2abded48affcaa1f456a497802982707aa27d3776ee3071e8f41f4e",
+      "official_raw_result_sha256": "6a0393112743b8eec472d1ae6323e12a12f83a322473e1bd30841224c258cfbf"
+    },
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-10-B-FSR",
+      "official_evaluation_run_id": "pro-v2-dev12-10-B-FSR-official-retry1-execution1",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass-after-exact-script-infrastructure-retry",
+      "generation_wall_clock_seconds": 222.418142,
+      "official_evaluation_seconds": 36.2551383972168,
+      "model_requests": 17,
+      "provider_attempts": 17,
+      "provider_errors": 0,
+      "prompt_tokens": 234043,
+      "completion_tokens": 10496,
+      "total_tokens": 244539,
+      "reported_provider_cost": 0.21249664999999998,
+      "shell_tool_calls": 25,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 26.623817598912865,
+      "clean_replay_calls": 1,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 11,
+      "first_clean_replay_request": 16,
+      "final_submission_request": 17,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 59,
+      "submitted_program_sha256": "a107f21a0baa73a7fb947d484ac57a882bc74227c89e4a8dfbf2b92ba2e847fe",
+      "source_manifest_sha256": "9f78232134d2392f88536a11f92c136ba7659b61381368babc6bde7394082988",
+      "generation_result_sha256": "291f6e7982f9528c2009ee72eac36b69f8397c10188b39b4998cf79d7dda61d4",
+      "trajectory_sha256": "ec9eddfc9e46bce1926111505b394e3df6b5bdae9f8e412d4ac6952f0edcf3e1",
+      "replays_sha256": "44e187a0c5a4826d685dd2465451169927bd3f53221078437ca1bb847c2357ee",
+      "official_retry_manifest_sha256": "7bffa2cef827dcc93a0ba1e9eb0326e714bc19e36ede8a00dcff662d3eeead69",
+      "official_result_sha256": "848c180d30161d820ad7906c1f4f390a6d4d1d75cf6d1e960162872a85374aed",
+      "official_raw_result_sha256": "3de63bd0666ac2baa2c240da123ca3cbf269bc0d80d8c9e86c2795198606fb2f",
+      "evaluation_retry_provenance_sha256": "b7d7418401d80ecf98a1139100c21b107d54b68bbe401b8267aecfcd091874cb"
+    }
+  ],
+  "replay_sequence": [
+    {
+      "index": 1,
+      "request": 16,
+      "program_sha256": "48d7b65f33db64376e23dd11acc590f21c3b24df8d53d75c0e6667284d82dbdf",
+      "program_artifact_sha256": "a107f21a0baa73a7fb947d484ac57a882bc74227c89e4a8dfbf2b92ba2e847fe",
+      "pass": true,
+      "note": "the first complete program passed the trusted goal in a fresh checkout and was submitted on the next request"
+    }
+  ],
+  "censored_attempts": [
+    {
+      "run_id": "pro-v2-dev12-10-B-FSR",
+      "scope": "post-episode-official-repository-acquisition",
+      "terminal_class": "infrastructure-censored",
+      "reason": "huggingface.co read timeout before EnvBench produced a raw result record",
+      "model_reexecuted_for_retry": false,
+      "censored_official_result_sha256": "c45a3f52dc5b263245d54e3174d69f5c9858065fa446ef779463c9d62cdfb8e6",
+      "censored_evaluation_log_sha256": "d9fc89bb59c93eac6ad5481eb94b61645daf31294e446f5a4468532a922d1dc7"
+    },
+    {
+      "run_id": "pro-v2-dev12-10-B-FSR-official-retry1",
+      "scope": "retry-source-evidence-preflight",
+      "terminal_class": "zero-evaluation-preflight-defect",
+      "reason": "the retry loader rejected an empty raw result file before starting the evaluator",
+      "official_evaluator_executed": false,
+      "counts_as_retry": false,
+      "adjudication": "experiments/validations/envsolve_pro_v2_dev12_position10_retry1_preflight_adjudication.json"
+    }
+  ],
+  "paired_result": {
+    "class": "both-pass",
+    "official_pass_difference_B_minus_A": 0,
+    "mechanism_activation": "B invoked clean replay once; the first complete program passed in a fresh environment and was submitted on the next model request",
+    "feedback_conditioned_repair_observed": false,
+    "certification_as_stopping_signal_observed": true,
+    "candidate_formation": {
+      "A": "first local goal pass at request 18; repeated local success checks and submitted at request 49",
+      "B": "first local goal pass at request 11; clean replay passed at request 16 and submission followed at request 17"
+    },
+    "descriptive_resource_differences_B_vs_A": {
+      "model_requests_percent": -65.3061224489796,
+      "total_tokens_percent": -78.79185771909634,
+      "generation_wall_clock_percent": -68.05512960283798,
+      "shell_tool_calls_percent": -65.27777777777779,
+      "reported_provider_cost_percent": -63.63130150049348
+    },
+    "supported_observation": "on this case, explicit fresh-environment certification was followed by immediate submission, while the free arm continued repeated local verification after already observing the public goal pass; both arms ultimately passed Official evaluation",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate",
+      "clean replay repaired a failed candidate on this case",
+      "EnvSolve-Pro reduces resources in expectation",
+      "all delay between local success and submission was causally unnecessary",
+      "the difference between non-scoring Official error counts 60 and 59 indicates a deployment-quality difference"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds"
+}

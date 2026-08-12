@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-dev12-position10-official-network-retry1",
+  "recorded_at": "2026-08-12T04:13:24Z",
+  "status": "frozen-before-exact-script-retry",
+  "case_id": "envbench-python-pypa__twine@6fbf880ee60915cf1666348c4bdd78a10415f2ac",
+  "censored_attempt": {
+    "run_id": "pro-v2-dev12-10-B-FSR",
+    "generation_completed": true,
+    "certified_by_clean_replay": true,
+    "clean_replay_count": 1,
+    "evaluation_completed": false,
+    "official_pass": false,
+    "termination_scope": "official-repository-acquisition",
+    "infrastructure_signature": "huggingface-read-timeout",
+    "failure": "huggingface.co read timeout while EnvBench acquired the repository; no Official result record was produced",
+    "submitted_program_sha256": "a107f21a0baa73a7fb947d484ac57a882bc74227c89e4a8dfbf2b92ba2e847fe",
+    "manifest_sha256": "9f78232134d2392f88536a11f92c136ba7659b61381368babc6bde7394082988",
+    "generation_result_sha256": "291f6e7982f9528c2009ee72eac36b69f8397c10188b39b4998cf79d7dda61d4",
+    "trajectory_sha256": "ec9eddfc9e46bce1926111505b394e3df6b5bdae9f8e412d4ac6952f0edcf3e1",
+    "replays_sha256": "44e187a0c5a4826d685dd2465451169927bd3f53221078437ca1bb847c2357ee",
+    "official_result_sha256": "c45a3f52dc5b263245d54e3174d69f5c9858065fa446ef779463c9d62cdfb8e6",
+    "evaluation_log_sha256": "d9fc89bb59c93eac6ad5481eb94b61645daf31294e446f5a4468532a922d1dc7",
+    "counts_toward_official_denominator": false
+  },
+  "retry": {
+    "allowed": true,
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "run_id": "pro-v2-dev12-10-B-FSR-official-retry1",
+    "source_run_id": "pro-v2-dev12-10-B-FSR",
+    "model_reexecuted": false,
+    "seed": 880978670,
+    "maximum_semantics_identical_retries_after_this_attempt": 0,
+    "entrypoint": "experiments/evaluate_only.py",
+    "entrypoint_sha256": "83d0a2ea60edf75a32db02265fdff9049b0a2c7ce98b0db0f33078b325510420"
+  },
+  "validity": {
+    "script_change": false,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "verifier_change": false,
+    "official_feedback_returned_to_agent": false,
+    "protected_sets_touched": false,
+    "source_run_audit_valid": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "envsolve-pro-v2-dev12-infrastructure-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-position1-infrastructure-retry1",
+  "recorded_at": "2026-08-10T08:52:10Z",
+  "recorded_before_retry": true,
+  "original_episode": {
+    "position": 1,
+    "run_id": "pro-v2-dev12-01-B-FSR",
+    "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+    "model_requests": 0,
+    "provider_attempts": 0,
+    "official_evaluator_executed": false,
+    "terminal_class": "infrastructure-censored",
+    "error": "host process attempted chmod after Docker root had taken ownership of the single-episode package-cache directory",
+    "result_uri": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-01-B-FSR/envbench-python-tensorflow__model-analysis__807bd626f18613a5bfc8a5cc96cf29deee62f0ea/generation/result.json",
+    "result_sha256": "5f9f317275833e7ecd0b8ccb81a73f8d32efafba94fa751007651319493e6c36"
+  },
+  "repair": {
+    "scope": "single-episode package-cache lifecycle only",
+    "behavior": "when the already prepared cache directory is reopened for replay, verify it is a directory and reuse it without a host chmod",
+    "old_runner_sha256": "380796778775a5d58fb9e1de96cefbf5b705be1b5663283546a230af18c3b226",
+    "new_runner_sha256": "f7ab23d9bf5f44a95bb3325b5522611fca8d24f75d21f45382bba9f90cde51b4",
+    "algorithm_or_prompt_changed": false,
+    "model_or_provider_changed": false,
+    "case_specific_information_used": false
+  },
+  "verification": {
+    "mac": "83 passed",
+    "spark_linux_arm": "83 passed, 8 subtests passed",
+    "spark_root_owned_cache_reopen": "pass"
+  },
+  "retry": {
+    "count_as_additional_model_attempt": false,
+    "effective_primary_outcome_if_infrastructure_completes": true,
+    "maximum_additional_retry_for_this_failure": 1,
+    "run_id": "pro-v2-dev12-01-B-FSR-infrastructure-retry1",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12_position1_infrastructure_retry1.json",
+    "schedule_sha256": "e5bcc83d7163a4090bad3e1d990580c09a40fe41000bc72a43223f160122b5c4"
+  },
+  "unchanged": [
+    "case and revision",
+    "A/B identity and within-pair order",
+    "DeepSeek V4 Pro model and Cloudflare provider",
+    "prompt and tool schemas",
+    "clean replay and Official protocols",
+    "resource safety caps",
+    "Dev-12 membership"
+  ]
+}

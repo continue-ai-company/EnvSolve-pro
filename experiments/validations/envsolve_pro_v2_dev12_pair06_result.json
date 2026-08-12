@@ -1,0 +1,139 @@
+{
+  "schema": "envsolve-pro-v2-dev12-pair-result-v1",
+  "study_id": "envsolve-pro-v2-dev12",
+  "pair_id": "dev12-case-06",
+  "recorded_at": "2026-08-12T05:28:18Z",
+  "case": {
+    "case_id": "envbench-python-quantumjot__btrack@5720808a3533a91b02cb521c787b8ac31d3df20d",
+    "repository": "quantumjot/btrack",
+    "revision": "5720808a3533a91b02cb521c787b8ac31d3df20d",
+    "architecture": "linux/arm64"
+  },
+  "primary_outcome_semantics": "Official Pass@1 is measured only after the active Agent session ends; an infrastructure-censored bootstrap may receive one exact-script retry without rerunning the model",
+  "effective_outcomes": [
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-dev12-11-B-FSR",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass",
+      "generation_wall_clock_seconds": 860.702272,
+      "official_evaluation_seconds": 141.01310276985168,
+      "model_requests": 41,
+      "provider_attempts": 41,
+      "provider_errors": 0,
+      "prompt_tokens": 933991,
+      "completion_tokens": 47001,
+      "total_tokens": 980992,
+      "reported_provider_cost": 0.560163,
+      "shell_tool_calls": 77,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 164.33775342116132,
+      "clean_replay_calls": 1,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 16,
+      "first_clean_replay_request": 40,
+      "final_submission_request": 41,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 283,
+      "submitted_program_sha256": "08baa0171d588e6c7685e09a30cd33b8c25dbd45bd812deb191fb4e096fe6c7a",
+      "manifest_sha256": "a4ba7226d9cce6b74af2bcc186dd53e11e2228cee8579fb027fb99e37d20ba91",
+      "generation_result_sha256": "7dea24baa5db7f15a60a16eec59f2ad43523baff5b0611bc5ca5a682830cc29f",
+      "trajectory_sha256": "7afeed75dfa0d04142613a0987b4bf3d2a8a8aa6990bba6160800f5f6b36feca",
+      "replays_sha256": "50cbce6b38ca049bca500556d3ae9b2170af0ba0ab5db0ff3846830cbeba9b06",
+      "official_result_sha256": "00eb1120cfc461d50c18453b3339bec2b38a6a5c639e9b6e087581c546bc8514",
+      "official_raw_result_sha256": "dc3f025f38c0b4da3e37caedbc241013e073a0c7530db46035ec4c3a84058a9f"
+    },
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-dev12-12-A-F",
+      "official_evaluation_run_id": "pro-v2-dev12-12-A-F-official-retry1",
+      "official_pass": true,
+      "official_evaluator_executed": true,
+      "terminal_class": "official-pass-after-exact-script-infrastructure-retry",
+      "generation_wall_clock_seconds": 1773.875034,
+      "official_evaluation_seconds": 200.33934450149536,
+      "model_requests": 56,
+      "provider_attempts": 59,
+      "provider_errors": 3,
+      "prompt_tokens": 2220908,
+      "completion_tokens": 81052,
+      "total_tokens": 2301960,
+      "reported_provider_cost": 1.1089124000000001,
+      "shell_tool_calls": 87,
+      "shell_timeouts": 0,
+      "shell_infrastructure_errors": 0,
+      "shell_duration_seconds": 365.6586940889247,
+      "clean_replay_calls": 0,
+      "final_submission_calls": 1,
+      "first_local_goal_pass_request": 24,
+      "final_submission_request": 56,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 291,
+      "submitted_program_sha256": "35fe8fceb58229501bb0b0dddba71c06f476c9d8d908f6df6f7fc6b9b391d80b",
+      "source_manifest_sha256": "76ed9540f2366b710b0f7608fa34ed4c1352f5f47a0bb780c127ed9e6da25996",
+      "generation_result_sha256": "840ffe1b28db5c9aa3ee91ce972030964e76924e6f41ecfa9bd00f52d9c7ef5e",
+      "trajectory_sha256": "86bc58a3528c2b85947250d4718c54cf7e22982aaec8e2ec3da6b94576d1a307",
+      "official_retry_manifest_sha256": "c43557227bd6c667cffe6bb000f1136d51e8a93a51ded0d6c5ef29b485fbcc36",
+      "official_result_sha256": "e4047f2f68170db9ed37da088113c4b647f32838ae638036c1051c46f8c69f5a",
+      "official_raw_result_sha256": "5e961f5a2f0a15a5d115a233b9e7ad44fffa973a54b664b47caa2d81a4844e8f",
+      "evaluation_retry_provenance_sha256": "2e2a8caa0e8a5d5267b986125c358233741be26d70010f51a8f22bf0543f3367"
+    }
+  ],
+  "replay_sequence": [
+    {
+      "index": 1,
+      "request": 40,
+      "program_sha256": "1750268e0b3f4b0c30ba03cda58e3c2c0a7c2cbae0ac6682733bbb46ceaadbd5",
+      "program_artifact_sha256": "08baa0171d588e6c7685e09a30cd33b8c25dbd45bd812deb191fb4e096fe6c7a",
+      "pass": true,
+      "note": "the first complete program passed the trusted goal in a fresh checkout and was submitted on the next request"
+    }
+  ],
+  "censored_attempts": [
+    {
+      "run_id": "pro-v2-dev12-12-A-F",
+      "scope": "post-episode-official-bootstrap",
+      "terminal_class": "infrastructure-censored",
+      "reason": "files.pythonhosted.org read timeout while pip installed public build dependencies before Pyright",
+      "model_reexecuted_for_retry": false,
+      "censored_official_result_sha256": "ec567445535da8a676d8297fffe249beea68b62e9f0d948b5df922969658fd84",
+      "censored_official_raw_result_sha256": "35495a256b9a7859d55b1af8bd060ff8886b8a7c47cc62aae73cb7401719564d",
+      "censored_evaluation_log_sha256": "8c79a91799398cf3a5652cb4090323e3ca5da9b7aa34653c64bd543149a0291b"
+    }
+  ],
+  "paired_result": {
+    "class": "both-pass",
+    "official_pass_difference_B_minus_A": 0,
+    "mechanism_activation": "B invoked clean replay once; its first complete program passed and was submitted on the next request",
+    "feedback_conditioned_repair_observed": false,
+    "certification_as_stopping_signal_observed": true,
+    "candidate_formation": {
+      "A": "first local goal pass at request 24; continued native-build and runtime-compatibility exploration before submitting at request 56",
+      "B": "first local goal pass at request 16; continued optional-dependency and runtime exploration before clean replay at request 40 and submission at request 41"
+    },
+    "descriptive_resource_differences_B_vs_A": {
+      "model_requests_percent": -26.785714285714285,
+      "total_tokens_percent": -57.38448973917879,
+      "generation_wall_clock_percent": -51.478979324763415,
+      "shell_tool_calls_percent": -11.494252873563218,
+      "reported_provider_cost_percent": -49.485369628836324
+    },
+    "deployment_path_difference": {
+      "A": "generated Eigen headers and an ARM-compatible native tracker library before installing Python dependencies",
+      "B": "installed Python project extras without generating the native tracker library",
+      "interpretation": "A produced more native deployment artifacts, but neither Official Pass nor this trajectory establishes complete runtime functionality"
+    },
+    "supported_observation": "on this case, both arms delayed submission long after first satisfying the public goal; once B finally invoked clean replay, certification was followed by immediate submission, while both programs ultimately passed Official evaluation",
+    "not_supported": [
+      "EnvSolve-Pro improves pass rate",
+      "clean replay repaired a failed candidate on this case",
+      "the current B interface causes early candidate formation",
+      "EnvSolve-Pro reduces resources in expectation",
+      "A achieved complete project reproduction",
+      "the non-scoring Official error counts indicate deployment failure or quality ordering"
+    ]
+  },
+  "diagnostic_cost_policy": "tokens, wall time, tool calls, and provider-reported cost are diagnostics and were not hard stopping thresholds"
+}

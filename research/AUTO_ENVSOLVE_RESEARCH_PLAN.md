@@ -209,6 +209,41 @@ Auto-EnvSolve 只有在完成这种反事实审计后，才能保留或晋级操
 不能用来证明规则。该事务既支持自动做加法，也支持自动做减法：没有官方因果相关性的规则应降级；
 已经复放验证相关性的规则保持冻结，并继续接受独立 control 的假阳性检验。
 
+### 13. Minimal B 的机制激活事务
+
+Minimal B Dev-5 为外层系统增加了一个必须显式判断的状态：方法组件存在，但关键 transition 没有发生。
+5 个 treatment 都有 callable clean replay，却全部在第一次 replay 通过；`5/5` 对 `4/5` 的正向差异
+不能证明 failure-conditioned repair。Auto-EnvSolve 不能仅凭 aggregate score 提升就保留“循环修复”
+解释，而必须分别统计 first-replay failure、继续提案和同 session recovery。
+
+这次结果还要求外层把三类 proposal 分开：算法 proposal、共享测量修复、以及 verifier scope 扩展。
+杀完整进程树和统一 source cache 属于测量修复；required-interface diagnostic 属于 benchmark 之外的辅助
+测量；只有“失败反馈是否改变后续操作”才是内层算法事务。任何 promotion 都必须先证明对应机制在新
+批次中被激活，再比较新旧版本，不能让一次 case 差异自动生成永久规则。
+
+### 14. 双轴边界事务
+
+Readux validity pilot 给出一个未来外层系统必须识别的回退条件：Official 指标上升，但上升来自候选
+改变 verifier；与此同时，共享完整性规则又误拒了合法仓库配置。Auto-EnvSolve 必须把
+`official_goal_pass` 与 `protocol_admissible` 作为独立轴。只要新版本通过破坏第二轴换取第一轴增益，
+就必须回退；测量修复也不能被计作内层算法提升。
+
+合格的外层 proposal 应同时带有两类固定证据：一个 verifier-interference 反例，以及一个来源明确的
+合法配置 non-regression control。只有二者通过，再在全新仓库 identity 上比较 Official Pass，才
+允许晋级内层版本。
+
+### 15. EnvSolve-Pro V2 提供的最小外层接口
+
+第一篇当前冻结的 F/S/R/minimal-H 把未来外层优化边界变得更清楚。Auto-EnvSolve 可以修改软反例的
+表示、replay 时机和恢复接口，但不能修改 Official evaluator、公开目标、数据划分或用单个生成 case
+验证自己的 proposal。每个外层事务必须从跨 case 轨迹统计开始，提出一个最小通用修改，在未参与生成
+proposal 的 shadow batch 上与旧版本配对；Official Pass 回归时回退，资源改善只有在成功率不降时才
+支持晋级。
+
+当前 append-only 轨迹已经区分模型请求、provider attempt、shell 操作、完整程序 hash、clean replay、
+Official 结果和基础设施删失。Dev-12 的版本冻结、身份盲选、成对顺序和基础设施 amendment 是未来外层
+系统应自动产生的第一组控制面样例，但本论文阶段仍由研究者执行，不能声称已经实现 Auto-EnvSolve。
+
 ## English Version
 
 ### 1. Core question
@@ -529,3 +564,82 @@ exercise. For strong agents, that often means action-level observation and suppr
 inside the first interactive session, not a larger state projection after candidate
 submission. Promotion still requires a minimal synthetic counterexample, an easy
 non-regression control, and outcome-blind repository-disjoint qualification.
+
+### 16. Minimal B Mechanism-Activation Transaction
+
+The Minimal B Dev-5 result adds a required outer-loop state: a component can be present
+without its defining transition being exercised. All five treatments exposed callable
+clean replay, but all passed their first replay. The `5/5` versus `4/5` direction therefore
+does not identify failure-conditioned repair. Auto-EnvSolve must record first-replay
+failures, continued proposals, and same-session recoveries before promoting that mechanism
+explanation from an aggregate score change.
+
+The result also separates three proposal classes. Process-tree termination and shared
+source caching are measurement repairs; required-interface checking is an auxiliary
+verifier-scope proposal; only a demonstrated change in post-counterexample action is an
+inner-algorithm transaction. Promotion requires activation on a new frozen batch and
+cannot turn a single repository difference into a permanent rule.
+
+The frozen Certification-Repair Ablation v1 provides the corresponding outer-loop
+transaction template: compare control, one-shot certification, and retryable replay on
+the same repositories; promote the retry mechanism only from first-failure-to-later-pass
+transitions, never from aggregate score direction alone.
+
+### 17. Two-Axis Boundary Transaction
+
+The Readux validity pilot supplies a mandatory rollback condition for the future outer
+loop: Official success increased because a candidate changed verifier behavior, while the
+same shared policy rejected legitimate repository-derived configuration. Auto-EnvSolve
+must retain `official_goal_pass` and `protocol_admissible` as independent axes. A version
+that gains on the first by regressing the second is rolled back, and a measurement repair
+is never counted as an inner-algorithm improvement.
+
+Every boundary proposal must carry two fixed tests: an adversarial verifier-interference
+counterexample and a provenance-grounded legitimate-configuration non-regression control.
+Only after both pass may the version be compared on fresh repository identities.
+
+### 18. Submitted-Program Boundary Transaction
+
+The `trader` calibration case adds a full rollback-and-repair transaction for the future
+outer harness. Boundary v2 rejected direct project-native package synchronization while
+accepting a trajectory that temporarily created protected build configuration and erased
+it before final-state inspection. Auto-EnvSolve must therefore compare versions on both
+operation history and the fresh state produced by the submitted program; final
+filesystem equality alone is insufficient.
+
+Boundary v3 is promoted as a measurement version, not an inner algorithm version. Its
+promotion evidence contains an adversarial historical program, a legitimate
+content-locked package-manager program, cross-platform mounted-worktree checks, frozen
+source hashes, and infrastructure censor masks. Future automatic boundary proposals must
+carry the same typed evidence bundle and must never learn repository-specific path
+allowlists from a consumed calibration case.
+
+### 19. Versioned Build-Provenance Transaction
+
+Boundary-v5 adds a concrete promotion example. A native-only proposal reduced one false
+rejection but failed its preregistered paired calibration because standard build-tree
+source copies remained invalid; the outer system must preserve that version as rejected,
+not patch its result in place. The promoted successor uses one repository-agnostic
+committed-source provenance rule and passes positive in-repository/external controls plus
+modified, renamed, and source-less negatives.
+
+Auto-EnvSolve should treat this as a versioned measurement transaction with immutable
+proposal, calibration, adjudication, rollback, and successor hashes. It is not an
+inner-algorithm reward event, and its consumed repository cannot enter the successor's
+effectiveness estimate.
+
+### 20. Minimal Outer Interface from EnvSolve-Pro V2
+
+The frozen F/S/R/minimal-H design makes the future outer optimization boundary explicit.
+Auto-EnvSolve may propose changes to soft-counterexample representation, replay timing,
+or recovery interfaces, but not to the Official evaluator, public goal, split identity,
+or a proposal's own generating cases. Each transaction begins with cross-case trajectory
+statistics, makes one minimal generic change, and compares old and new versions on a
+disjoint shadow batch. Any Official Pass regression triggers rollback; resource gains
+support promotion only when success does not decrease.
+
+The append-only trace now separates model requests, provider attempts, shell operations,
+complete-program hashes, clean replay, Official outcomes, and infrastructure censoring.
+The Dev-12 freeze, identity-only selection, paired order, and infrastructure amendment
+are concrete control-plane examples for the later outer system, but remain
+researcher-operated evidence rather than an Auto-EnvSolve result.

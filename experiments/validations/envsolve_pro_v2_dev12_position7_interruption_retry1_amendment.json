@@ -1,0 +1,61 @@
+{
+  "schema": "envsolve-pro-v2-dev12-interruption-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-position7-interruption-retry1",
+  "recorded_at": "2026-08-11T06:39:45Z",
+  "recorded_before_retry": true,
+  "original_episode": {
+    "position": 7,
+    "run_id": "pro-v2-dev12-07-A-F",
+    "case_id": "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+    "state": "interrupted",
+    "process_exit_code": -15,
+    "duration_seconds": 1372.0953366048634,
+    "model_requests": 28,
+    "provider_attempts": 29,
+    "provider_errors": 1,
+    "tool_results": 60,
+    "final_submission_calls": 0,
+    "clean_replay_reached": false,
+    "official_evaluator_executed": false,
+    "terminal_class": "external-interruption-censored",
+    "reason": "The user explicitly requested a pause. The coordinator recorded interruption and removed the active construction container.",
+    "algorithm_or_case_outcome_triggered": false,
+    "evidence": {
+      "artifact_root": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-07-A-F/envbench-python-wpi-lnl__lnldb__6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+      "manifest_sha256": "3afb28c9f940ac760949be9772b4d96c6ae9ff4c824c5335b4c75587b03b897c",
+      "trajectory_sha256": "0ad63882463a9996af8c95ff7dc04882fc34d969c2b6c0ec400156458aedada5",
+      "heartbeat_sha256": "399ab6ae00d84517330030d13616f295a536891407a1ac37d06d9322d226f691",
+      "progress_sha256_after_interruption": "7b423bc55ae15975020c448d3371a32a8fbd455ff483398dc56693817de2d301"
+    }
+  },
+  "analysis": {
+    "original_observation_in_primary_denominator": false,
+    "original_observation_retained_for_mechanism_analysis": true,
+    "effective_outcome": "replace the censored position-7 observation with retry1 only if retry1 reaches an algorithmic terminal outcome",
+    "partial_candidate_state_reused": false,
+    "interrupted_tokens_and_time_reported_separately": true
+  },
+  "retry": {
+    "run_id": "pro-v2-dev12-07-A-F-interruption-retry1",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12_position7_interruption_retry1.json",
+    "schedule_sha256": "c2d0a91b037bbe11c4cf4ab0377de82921092e48571cc8ef2e3dfd48f6b80857",
+    "entrypoint": "experiments/run_envsolve_pro_v2_schedule.py",
+    "fresh_episode_and_containers": true,
+    "same_case_and_revision": true,
+    "same_arm": true,
+    "same_runner_implementation": true,
+    "same_model": true,
+    "same_provider": true,
+    "same_seed": true,
+    "same_protocol": true,
+    "same_episode_timeout": true,
+    "algorithm_or_prompt_changed": false,
+    "case_specific_information_injected": false
+  },
+  "frozen_artifacts": {
+    "original_schedule_sha256": "def9e90337a0606ecd76be7563a1d2686fc2612727026234db2c20b6369a6ae4",
+    "case_file_sha256": "1116c703c6474b5be55dd26053945cbb267f26836ded004f9612161b71e070e0",
+    "config_sha256": "ce3b7076caae2109a42ee4abb5de3555f85f900c8c4952285bc33693769962d0",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  }
+}
