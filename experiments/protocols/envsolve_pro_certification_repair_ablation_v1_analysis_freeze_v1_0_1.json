@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-ablation-v1-analysis-v1.0.1",
+  "freeze_type": "source-bound-outcome-analysis",
+  "frozen_at": "2026-08-05",
+  "status": "frozen-before-position1-terminal-or-later-replay-outcome",
+  "supersedes": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_analysis_freeze.json",
+    "sha256": "d559f7e701ddc421d76275827e65c34b6e30dc2296261cf0c659368914700df7",
+    "reason": "The first live clean replay exposed a recorded task Fail caused solely by DNS resolution. The original analysis treated every Fail as a repair opportunity despite the preregistered infrastructure censor rule."
+  },
+  "triggering_adjudication": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_replay1_network_adjudication.json",
+    "sha256": "916d68d4d7d800ef087f9607fada0741d9e3854b38bc60cc14d14c064dbbc19f",
+    "classification": "infrastructure-censored-network-dns-failure"
+  },
+  "source_sha256": {
+    "envsolve_harness/certification_repair_analysis.py": "11e411d8c7604d3fbafdf351479cea821c771c6242d55b3fd3062e851e42ba87",
+    "experiments/analyze_pro_certification_repair_ablation_v1.py": "646744a178ecad5cb422462820878291343651e91b34a5a8a4423b8ced3eb017",
+    "tests/test_certification_repair_analysis.py": "00d364fae9e0b674a40c6742133d4d2bb2b285f938615d41b22b4b7c37ab928b"
+  },
+  "raw_trace_policy": {
+    "retain_all_submission_records": true,
+    "retain_all_executed_replays": true,
+    "report_raw_first_replay_status": true
+  },
+  "mechanism_trace_policy": {
+    "exclude_only_frozen-infrastructure-censored-replay-ids": true,
+    "first_replay": "first task-valid executed replay after censoring",
+    "repair_opportunity": "first task-valid replay is Fail or Unknown",
+    "activated_repair": "later task-valid replay certifies a different canonical program",
+    "repair_success": "activated repair followed by Official Pass"
+  },
+  "symmetric_scope": "The same infrastructure censor rule applies to A, B, and C. A B-arm infrastructure-censored sole replay requires an independently frozen replacement because B cannot execute a second replay.",
+  "algorithm_change": false,
+  "qualification": {
+    "focused_tests": "6-passed",
+    "ruff_0_16_1": "passed-with-repository-script-shebang-rules-ignored",
+    "git_diff_check": "passed"
+  }
+}

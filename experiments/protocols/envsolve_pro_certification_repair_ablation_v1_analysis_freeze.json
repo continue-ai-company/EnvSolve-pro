@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-ablation-v1-analysis",
+  "freeze_type": "source-bound-outcome-analysis",
+  "frozen_at": "2026-08-05",
+  "status": "frozen-before-any-completed-task-outcome",
+  "design_freeze": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_design_freeze.json",
+    "sha256": "84bef012853fbcf5e5737cde4bdcec6f290a87ad8b6d2ca19d212297aed4b765"
+  },
+  "preregistration": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_preregistration.json",
+    "sha256": "9273382b8ac4e363f754a8b3a94838a44446c904c26868af229e389f039887ee"
+  },
+  "source_sha256": {
+    "envsolve_harness/certification_repair_analysis.py": "325da51133c51cbc9436ce4bc278042d7139f718ff0c5f627e5a0a0cfc23f27c",
+    "experiments/analyze_pro_certification_repair_ablation_v1.py": "646744a178ecad5cb422462820878291343651e91b34a5a8a4423b8ced3eb017",
+    "tests/test_certification_repair_analysis.py": "28812cd0b0772320ab674cf66a1b5a083d1befbcfd32caa9e50c53e2d81a140c"
+  },
+  "official_analysis": {
+    "primary": "repository-paired-Official-Pass-at-1",
+    "comparisons": [
+      "B-versus-A-certification-aware-construction",
+      "C-versus-B-retryable-repair"
+    ],
+    "paired_test": "exact-two-sided-McNemar",
+    "episode_without-Official-Pass": 0
+  },
+  "mechanism_classification": {
+    "first_replay_pass": "first executed replay status equals pass",
+    "repair_opportunity": "C first executed replay status is fail or unknown",
+    "activated_repair": "repair opportunity followed by a later certified pass with a different canonical program hash",
+    "repair_success": "activated repair and final Official Pass",
+    "replay_limit_record": "not an executed replay"
+  },
+  "resource_analysis": {
+    "reported_pairwise": [
+      "input-tokens",
+      "total-tokens",
+      "commands",
+      "coordinator-wall-clock-when-comparable"
+    ],
+    "optional_missing_not_imputed": [
+      "peak-memory-bytes",
+      "disk-growth-bytes",
+      "network-bytes"
+    ]
+  },
+  "qualification": {
+    "focused_tests": "5-passed",
+    "ruff_0_16_1": "passed-with-repository-script-shebang-rules-ignored",
+    "entrypoint_help": "passed",
+    "git_diff_check": "passed"
+  },
+  "excluded_attempt_policy": "Only an effective-episode adjudication with a prior frozen infrastructure amendment may replace an attempt."
+}

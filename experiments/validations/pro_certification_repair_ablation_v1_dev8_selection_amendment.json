@@ -1,0 +1,97 @@
+{
+  "amendment_id": "envsolve-pro-certification-repair-ablation-v1-dev8-selection-v1-0-1",
+  "audit": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_preselection_consumed_repository_audit.json",
+    "sha256": "08b1b2512ded9ebf6a89e701d881ef30062c594dc136ac2a1c23a668ec5684a4"
+  },
+  "correction": {
+    "algorithm": "Remove every repository with a pre-study manifest, rank the remaining repositories by the original ascending salted SHA256, and take eight.",
+    "execution_host": "mac",
+    "position_4_reason": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_position4_coordinator_amendment.json",
+      "sha256": "17bb88ef97adb5daa21059b70b69f3fd14407c6395ad34fc3670ce223003bebc"
+    },
+    "position_4_run_id": "pro-cert-repair-v1-dev8-04R1-C-retryable-minimal-b",
+    "removed_stale_repositories": [
+      "alteryx/featuretools",
+      "rubisco-sfa/ilamb",
+      "starsimhub/starsim",
+      "wireless-innovation-forum/spectrum-access-system"
+    ],
+    "replacement_repositories_in_rank_order": [
+      "valory-xyz/trader",
+      "adbar/trafilatura",
+      "zappa/zappa",
+      "nixtla/neuralforecast"
+    ],
+    "replacement_slot_mapping": {
+      "3": "valory-xyz/trader",
+      "5": "adbar/trafilatura",
+      "7": "zappa/zappa",
+      "8": "nixtla/neuralforecast"
+    },
+    "retained_repositories": [
+      "basxsoftwareassociation/basxconnect",
+      "ecds/readux",
+      "gpflow/gpflow",
+      "pypa/distutils"
+    ],
+    "salt_unchanged": "envsolve-pro-certification-repair-ablation-v1-dev8-2026-08-05",
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+      "sha256": "c6e36ba47a18337eec611502c3438e59b2d0ee4c79ecb5f377cc6903e6f0f238"
+    },
+    "selected": {
+      "path": "experiments/cases/dev_pro_certification_repair_ablation_v1_8_v1_0_1.jsonl",
+      "sha256": "1c3da3347271aee8d7bd8bd8ad8a6375e9759fc2fc1d219330db6af21d6e4b1c"
+    },
+    "slot_mapping_rule": "Map replacement rank order to stale case-position order; retain all valid case positions and regenerate each replacement's condition rotation and seed from the frozen salt.",
+    "untouched_remaining": {
+      "path": "experiments/cases/train_untouched_after_pro_certification_repair_ablation_v1_37_v1_0_1.jsonl",
+      "sha256": "512954f013026c1a240192da2cd070a650564b06adab68b089f8040a118c0b00"
+    }
+  },
+  "execution_boundary": {
+    "positions_1_to_3": "original frozen schedule and progress",
+    "positions_4_to_24": "corrected v1.0.1 schedule and new progress",
+    "replacement_case_outcomes_observed_before_freeze": false,
+    "retained_position_1_outcome_used_for_correction": false
+  },
+  "frozen_at": "2026-08-05T15:55:33.536910+00:00",
+  "original_inputs": {
+    "preregistration": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_preregistration.json",
+      "sha256": "9273382b8ac4e363f754a8b3a94838a44446c904c26868af229e389f039887ee"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+      "sha256": "463cb342cd1c27850693f6bbe87e8b4f92c47841aafbcf88c074072fe283d37a"
+    },
+    "selected": {
+      "path": "experiments/cases/dev_pro_certification_repair_ablation_v1_8.jsonl",
+      "sha256": "bce8707d3abda53641733eb8e92bb1dd5b6b063c2c549d94bb4fae44b7e3a6d1"
+    }
+  },
+  "schema_version": "1.0.0",
+  "selection_information_not_used": [
+    "task outcome",
+    "official score",
+    "failure class",
+    "repository contents"
+  ],
+  "selection_information_used": [
+    "repository identity",
+    "existence of a pre-study manifest",
+    "the original frozen salt"
+  ],
+  "status": "frozen-after-retained-position-1-began-and-before-any-replacement-repository-episode",
+  "trigger": "The static 53-repository pool still contained repositories with pre-study run manifests.",
+  "unchanged": [
+    "three treatment arms",
+    "model and reasoning effort",
+    "official evaluator boundary",
+    "algorithm source hashes",
+    "timeouts",
+    "public goal"
+  ]
+}

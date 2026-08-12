@@ -1,0 +1,56 @@
+{
+  "execution": {
+    "config": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/configs/local_mac_pro_certification_repair_ablation_v1_dev8.json",
+    "config_sha256": "4005c7b10b2192f4836541affdbe532b145690295f0e08782d52b440384c33b3",
+    "episode_runner_override": true,
+    "episode_timeout_seconds": 22400.0,
+    "protocol": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/protocols/envbench_python_public_goal_v2.json",
+    "protocol_sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+    "provider": {
+      "provider_backed": false
+    },
+    "runner": "envsolve",
+    "timeout_source": "schedule"
+  },
+  "outcomes": [
+    {
+      "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+      "finished_at": "2026-08-05T15:29:41.326008+00:00",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 1,
+      "reason": "coordinator stopped before recording a terminal state",
+      "run_id": "pro-cert-repair-v1-dev8-01-C-retryable-minimal-b",
+      "runner": "envsolve-pro-minimal-b-qualified",
+      "seed": 1225942959,
+      "started_at": "2026-08-05T15:20:43.577422+00:00",
+      "state": "orphaned"
+    },
+    {
+      "artifact_interruption_recorded": true,
+      "artifact_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-04-C-retryable-minimal-b/envbench-python-basxsoftwareassociation__basxconnect__a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "cleaned_container_ids": [
+        "c1fdd1d737c216adb0edfe9172151e57381500ec1b57a1451d595547c1481753"
+      ],
+      "duration_seconds": 55.382682625,
+      "finished_at": "2026-08-05T15:30:38.172505+00:00",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.5",
+      "position": 4,
+      "process_exit_code": -15,
+      "reason": "coordinator interrupted",
+      "run_id": "pro-cert-repair-v1-dev8-04-C-retryable-minimal-b",
+      "runner": "envsolve-pro-minimal-b-qualified",
+      "seed": 1034689205,
+      "started_at": "2026-08-05T15:29:41.327176+00:00",
+      "state": "interrupted",
+      "stderr_tail": "",
+      "stdout_tail": ""
+    }
+  ],
+  "schedule": "/Users/admin/.codex/worktrees/4050/AnyDeploy/experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+  "schedule_sha256": "463cb342cd1c27850693f6bbe87e8b4f92c47841aafbcf88c074072fe283d37a",
+  "schema_version": "2.0.0",
+  "updated_at": "2026-08-05T15:30:38.172509+00:00"
+}

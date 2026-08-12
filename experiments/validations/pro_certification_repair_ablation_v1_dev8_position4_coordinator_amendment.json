@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position4-coordinator-retry1",
+  "frozen_at": "2026-08-05",
+  "status": "frozen-before-replacement-execution",
+  "preregistration": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_preregistration.json",
+    "sha256": "9273382b8ac4e363f754a8b3a94838a44446c904c26868af229e389f039887ee"
+  },
+  "affected_original_episode": {
+    "position": 4,
+    "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+    "condition": "C-retryable-minimal-b",
+    "runner": "envsolve-pro-minimal-b-qualified",
+    "method": "envsolve-pro-minimal-b-v1",
+    "model": "gpt-5.5",
+    "seed": 1034689205,
+    "run_id": "pro-cert-repair-v1-dev8-04-C-retryable-minimal-b"
+  },
+  "incident": {
+    "classification": "unsupported-concurrent-schedule-coordinator-interruption",
+    "cause": "A second coordinator sharing the same progress file marked the active first coordinator outcome orphaned and created a write race.",
+    "generation_started": true,
+    "clean_replay_executed": false,
+    "official_evaluator_started": false,
+    "process_exit_code": -15,
+    "container_cleanup": "pass",
+    "task_outcome_observed": false
+  },
+  "evidence": {
+    "progress_snapshot": {
+      "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_parallel_coordinator_interruption_snapshot.json",
+      "sha256": "0a2d6c9ac1b6b5a923f3a3289c0349d658a1fc88fa37a9166d730ac4e5a440b8"
+    },
+    "artifact_status": "interrupted-with-cleaned-container-id"
+  },
+  "replacement": {
+    "eligible": true,
+    "run_id": "pro-cert-repair-v1-dev8-04R1-C-retryable-minimal-b",
+    "fresh_workspace_and_container_required": true,
+    "execute_with_one-coordinator-only": true,
+    "unchanged_identity_fields": [
+      "case_id",
+      "condition",
+      "runner",
+      "method",
+      "model",
+      "seed"
+    ]
+  },
+  "position1_note": "The orphaned label in the second coordinator's progress snapshot is non-authoritative. Position 1's Agent process, run artifact, container, and first coordinator were not interrupted and remained healthy.",
+  "analysis_rule": "Exclude the interrupted original position 4. Use only the replacement episode if it completes without independently attributable infrastructure failure.",
+  "algorithm_change": false
+}

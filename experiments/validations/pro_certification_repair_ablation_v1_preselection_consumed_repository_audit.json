@@ -1,0 +1,166 @@
+{
+  "audit_id": "envsolve-pro-certification-repair-ablation-v1-dev8-preselection-consumption-audit",
+  "consumed_repositories": [
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c02-litgpt-codex-cli-native/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788/manifest.json",
+          "manifest_sha256": "c9f341ec34a5d33909a7d7c2125c015dba99e866fd36e2ae8af3ab98b3b376aa"
+        },
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c02-litgpt-exp/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788/manifest.json",
+          "manifest_sha256": "46c6481bd420e240725023510542f0bc3d986de9cba28f4ddd07f3b6e10aa3ae"
+        },
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c02-litgpt-raw/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788/manifest.json",
+          "manifest_sha256": "11f3f74d266c6d38f9787b3bad9f16423c10fe1f5a66c5f8575328dd1664d7d2"
+        }
+      ],
+      "prior_manifest_count": 3,
+      "repository": "Lightning-AI/litgpt"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-v0-discovery5-r1-freeagent/envbench-python-alteryx__featuretools__8c99ff7d62d723e90d406ac56bae22aad82e6a47/manifest.json",
+          "manifest_sha256": "f66d8824b15854ef2b7cbecab1c0b2eef2b197e9be3ad02e07100fbfd27153ae"
+        },
+        {
+          "manifest_path": "envsolve-v0-discovery5-r1-v0/envbench-python-alteryx__featuretools__8c99ff7d62d723e90d406ac56bae22aad82e6a47/manifest.json",
+          "manifest_sha256": "433c386e3ecd59bd12eb342b306fdeefbbd58b4d20b2679d948e7f72de3c3205"
+        },
+        {
+          "manifest_path": "envsolve-v0-round1-agent-state-qualification-v1/envbench-python-alteryx__featuretools__8c99ff7d62d723e90d406ac56bae22aad82e6a47/manifest.json",
+          "manifest_sha256": "ecebbccbbdefb5a4921865d52c3df78c64d4b6eb10228c30e57f4f60f1f7cb70"
+        }
+      ],
+      "prior_manifest_count": 3,
+      "repository": "alteryx/featuretools"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-v0-discovery5-r2-freeagent/envbench-python-avaiga__taipy-core__62f0d8521cbb80ae13654c53620ddc856ba86d33/manifest.json",
+          "manifest_sha256": "c5bf4d83e8daeddf1b9f9155fc4bd6d009ed43947b818c663f2bded04340c6c8"
+        },
+        {
+          "manifest_path": "envsolve-v0-discovery5-r2-v0/envbench-python-avaiga__taipy-core__62f0d8521cbb80ae13654c53620ddc856ba86d33/manifest.json",
+          "manifest_sha256": "68f5ca0afdb869ca4284e5f925c09f3cd0186d239f114427eeb968353fac279d"
+        },
+        {
+          "manifest_path": "envsolve-v0-r2-pyenv-v5-counterfactual-v1/envbench-python-avaiga__taipy-core__62f0d8521cbb80ae13654c53620ddc856ba86d33/manifest.json",
+          "manifest_sha256": "2e83559b9ad602682bf7a78b6f0bf5a011a203ee1902e41712bf94415f5f2faa"
+        },
+        {
+          "manifest_path": "envsolve-v0-r2-pyenv-v5-evalretry-v1/envbench-python-avaiga__taipy-core__62f0d8521cbb80ae13654c53620ddc856ba86d33/manifest.json",
+          "manifest_sha256": "553c3d3dd9e1f9f21b0ce5ca62c2c4af31df9711f33a583e7f2d0719efb3ed3c"
+        },
+        {
+          "manifest_path": "envsolve-v0-r2-pyenv-v5-unsandboxed-eval-v1/envbench-python-avaiga__taipy-core__62f0d8521cbb80ae13654c53620ddc856ba86d33/manifest.json",
+          "manifest_sha256": "387bdf8c73e783a1987ce76d193f257cc1e5f5db6b2de0b1c8cbdcb035239436"
+        }
+      ],
+      "prior_manifest_count": 5,
+      "repository": "avaiga/taipy-core"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-v0-discovery5-r1-freeagent/envbench-python-fhempy__fhempy__2c61a608c664b25c7b5ecdcba6195b521e7bc74a/manifest.json",
+          "manifest_sha256": "4cc60583828be1092e0480e1d13268d42c197b03ce818c7f1c76a1de6087ae32"
+        },
+        {
+          "manifest_path": "envsolve-v0-discovery5-r1-v0/envbench-python-fhempy__fhempy__2c61a608c664b25c7b5ecdcba6195b521e7bc74a/manifest.json",
+          "manifest_sha256": "d754438a5d4ca38ea1a6af6c3d1823a8d8bd1149e908aa877ab97e2fdab84973"
+        }
+      ],
+      "prior_manifest_count": 2,
+      "repository": "fhempy/fhempy"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c04-flask-security-exp/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59/manifest.json",
+          "manifest_sha256": "227c4516b62d2b35e43351b20508a7ad0daac638a3a53bc650507f156513e6be"
+        },
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c04-flask-security-raw/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59/manifest.json",
+          "manifest_sha256": "a3fee050779bef1a0ff94e720ec0ba7f6ef915304ab6b4f9776c7075fe8f95ec"
+        }
+      ],
+      "prior_manifest_count": 2,
+      "repository": "flask-middleware/flask-security"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c03-ilamb-exp/envbench-python-rubisco-sfa__ilamb__c0aecd5ea97c0817c1ef74935bc2d9aa3667195a/manifest.json",
+          "manifest_sha256": "a832436a262e9a1d8577c19d01effb19bdcef2e6f8c4c93922feef22577ca963"
+        },
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c03-ilamb-exp-replacement1/envbench-python-rubisco-sfa__ilamb__c0aecd5ea97c0817c1ef74935bc2d9aa3667195a/manifest.json",
+          "manifest_sha256": "4764fda039130323cc77cedd42c2710bc371022e58c48032281f4d11573e9d85"
+        },
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c03-ilamb-raw/envbench-python-rubisco-sfa__ilamb__c0aecd5ea97c0817c1ef74935bc2d9aa3667195a/manifest.json",
+          "manifest_sha256": "40cc33e3c93ae99c986d0a8f2fe9ff777cb319b7fe7758943994550b71a5143f"
+        }
+      ],
+      "prior_manifest_count": 3,
+      "repository": "rubisco-sfa/ilamb"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c05-starsim-exp/envbench-python-starsimhub__starsim__0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85/manifest.json",
+          "manifest_sha256": "2171f3937e3df0779fb2c8b262c2d728b4cddccca6599c93a7b9bd0b13777479"
+        },
+        {
+          "manifest_path": "envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c05-starsim-raw/envbench-python-starsimhub__starsim__0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85/manifest.json",
+          "manifest_sha256": "f26509495098038829e55ac163e04fec1930c37af2cc2f2216420196c6c13dbc"
+        }
+      ],
+      "prior_manifest_count": 2,
+      "repository": "starsimhub/starsim"
+    },
+    {
+      "evidence": [
+        {
+          "manifest_path": "envsolve-v0-discovery5-r2-freeagent/envbench-python-wireless-innovation-forum__spectrum-access-system__928c3150adf7b31e53a96b695bf1fbdd3284ecb2/manifest.json",
+          "manifest_sha256": "d7a278f24a1cff9d55419e007589c5d72f6ea277f05933d992f94c8f8b7467e6"
+        },
+        {
+          "manifest_path": "envsolve-v0-discovery5-r2-v0/envbench-python-wireless-innovation-forum__spectrum-access-system__928c3150adf7b31e53a96b695bf1fbdd3284ecb2/manifest.json",
+          "manifest_sha256": "c1ba7af32d66b43616c24276f97b8d25db80d73ad461cbe8058f97acdb8a8a0b"
+        },
+        {
+          "manifest_path": "envsolve-v0-r2-pyenv-v5-counterfactual-v1/envbench-python-wireless-innovation-forum__spectrum-access-system__928c3150adf7b31e53a96b695bf1fbdd3284ecb2/manifest.json",
+          "manifest_sha256": "6573566f5957cee0b6efaf8ac40c0ff36d7ef63c93d88a3479d2d9319bc33146"
+        },
+        {
+          "manifest_path": "envsolve-v0-r2-pyenv-v5-evalretry-v1/envbench-python-wireless-innovation-forum__spectrum-access-system__928c3150adf7b31e53a96b695bf1fbdd3284ecb2/manifest.json",
+          "manifest_sha256": "bdcbee295d0a4b3232d35a81456289d3a1f9d25e4884395139f6d31d39370ac5"
+        },
+        {
+          "manifest_path": "envsolve-v0-r2-pyenv-v5-unsandboxed-eval-v1/envbench-python-wireless-innovation-forum__spectrum-access-system__928c3150adf7b31e53a96b695bf1fbdd3284ecb2/manifest.json",
+          "manifest_sha256": "eb4e50dc7c03f653b8b19dc0f762de89bf947ace2492b02e29938e72cb112060"
+        }
+      ],
+      "prior_manifest_count": 5,
+      "repository": "wireless-innovation-forum/spectrum-access-system"
+    }
+  ],
+  "consumed_repository_count": 8,
+  "excluded_current_study_run_root": "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8",
+  "frozen_at": "2026-08-05T15:55:33.536910+00:00",
+  "identity_key": "case.repository",
+  "manifest_files_discovered_including_excluded_study": 653,
+  "runs_root": "/Users/admin/Documents/AnyDeploy/runs",
+  "schema_version": "1.0.0",
+  "source_pool": {
+    "path": "experiments/cases/train_untouched_after_pro_minimal_b_v1_paired_53.jsonl",
+    "sha256": "62932c34602538f0653c25cce71adc43aeb2d95113eb2bf6a48901a305e28115"
+  },
+  "source_repository_count": 53,
+  "source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba"
+}

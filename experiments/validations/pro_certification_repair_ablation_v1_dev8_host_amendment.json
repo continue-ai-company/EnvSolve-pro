@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-certification-repair-ablation-v1-dev8-host-2026-08-05",
+  "frozen_at": "2026-08-05",
+  "status": "frozen-before-any-affected-episode",
+  "preregistration": {
+    "path": "experiments/validations/pro_certification_repair_ablation_v1_dev8_preregistration.json",
+    "sha256": "9273382b8ac4e363f754a8b3a94838a44446c904c26868af229e389f039887ee"
+  },
+  "trigger": {
+    "spark_docker_and_linux_arm_qualification": "pass",
+    "spark_codex_cli_available": false,
+    "reason": "The frozen arms require the same native Codex session interface. Installing or authenticating a new Spark-side Agent, or adding a remote-container adapter after case selection, would change unqualified execution infrastructure."
+  },
+  "change": {
+    "field": "execution_host",
+    "from": "spark",
+    "to": "mac",
+    "affected_positions": [
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      16,
+      17,
+      18,
+      22,
+      23,
+      24
+    ],
+    "complete_repository_blocks_moved_together": true,
+    "schedule_file_modified": false
+  },
+  "unchanged": [
+    "case-selection",
+    "case-order",
+    "condition-order",
+    "model",
+    "reasoning-effort",
+    "runner-and-method",
+    "source-revision",
+    "timeouts",
+    "public-goal",
+    "official-evaluator-boundary",
+    "algorithm-source-hashes"
+  ],
+  "affected_case_outcomes_observed_before_freeze": false,
+  "scientific_effect": "All three arms for every repository remain co-located. Official Pass comparisons remain repository paired; host-level generalization is not claimed.",
+  "spark_evidence": {
+    "path": "experiments/validations/codex_qualified_infrastructure_v1_linux_arm_qualification.json",
+    "sha256": "f8b77f6d9e15a7e745c72bf6ee8091d27be327a4ac1e466f0c0f68893c6d7f1a"
+  }
+}

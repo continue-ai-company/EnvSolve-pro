@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-ablation-v1-implementation",
+  "freeze_type": "source-bound-causal-ablation",
+  "frozen_at": "2026-08-05",
+  "base_source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "design_freeze": {
+    "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_design_freeze.json",
+    "sha256": "84bef012853fbcf5e5737cde4bdcec6f290a87ad8b6d2ca19d212297aed4b765"
+  },
+  "qualified_infrastructure_freeze": {
+    "path": "experiments/protocols/codex_qualified_infrastructure_v1_freeze.json",
+    "sha256": "855a4f63cf6cd7bfefe2a571f9b1c1278b96eaecc8a4438d505216e7e9b4cf70"
+  },
+  "minimal_b_parent_freeze": {
+    "path": "experiments/protocols/envsolve_pro_minimal_b_v1_0_2_implementation_freeze.json",
+    "sha256": "bfca8d445f7cda6f8c46f580eb3cbb893d5622672bb3d75e3fdd553dd12740a2"
+  },
+  "implementation": {
+    "method": "envsolve-pro-one-shot-certification-v1",
+    "runner": "envsolve-pro-one-shot-certification-qualified",
+    "runner_version": "1.0.0",
+    "agent_interface": "continuous-agent+one-shot-clean-certification-mcp-v1",
+    "maximum_executed_clean_replays": 1,
+    "first_replay_result_returns_to_same_session": true,
+    "second_replay_submission": "rejected-without-provisioning-an-environment",
+    "final_acceptance": "canonical-final-program-matches-the-single-passing-certificate"
+  },
+  "orthogonality": {
+    "inherits_minimal_b_verifier": true,
+    "inherits_minimal_b_certificate_binding": true,
+    "inherits_minimal_b_candidate_validation": true,
+    "inherits_minimal_b_integrity_boundary": true,
+    "only_algorithmic_delta_from_minimal_b": "one executed replay maximum plus matching Agent instruction",
+    "frozen_control_or_minimal_b_source_modified": false,
+    "frozen_qualified_v1_source_modified": false
+  },
+  "source_sha256": {
+    "envsolve_harness/codex/one_shot_mcp.py": "da2375f71d0b97113da5b9a8de636d00bf8bcff249817de401d9ef2cfaa578e4",
+    "envsolve_harness/codex/one_shot_mcp_qualified.py": "5704aed47dc627d1715d2c3d9d556b85d5080c964432ddeca48e259d7908fa6b",
+    "envsolve_harness/runners/envsolve_pro_one_shot.py": "2a00883b3b1027b4a20bcff4924a09b610fc10f20ea74932867e5294da423353",
+    "experiments/run_replay_ablation_case.py": "aae5abeac27c54cc99b3b19a4f1710209e48bddc92e56a3c86cc0fcceb8d4066",
+    "experiments/run_replay_ablation_schedule.py": "8aec2149c3cf6460abd2b9b973f4adfe17f08c2e214163b320e27e78eae646d8"
+  },
+  "test_sha256": {
+    "tests/test_one_shot_mcp.py": "799d6e79d3d9de2a8c4252260cfdc25862925c7a2551921555e219cea9414a25",
+    "tests/test_envsolve_pro_one_shot_runner.py": "ae490166f7ae1da647b500283580d5997551defbef933bf7ac9b806c11283a45"
+  },
+  "qualification": {
+    "focused_regression_before_docker_test_addition": "17-passed-2-skipped",
+    "one_shot_real_docker_suite": "3-passed-including-one-real-container-test",
+    "full_harness_regression": "702-passed-7-skipped-75-subtests-passed",
+    "new_file_ruff_0_16_1": "passed-with-repository-script-shebang-rules-ignored",
+    "compileall": "passed",
+    "entrypoint_help": "passed",
+    "git_diff_check": "passed"
+  },
+  "claims_not_yet_supported": [
+    "one-shot-certification-improves-Official-Pass-at-1",
+    "retryable-clean-replay-improves-over-one-shot-certification",
+    "feedback-conditioned-repair-activates-on-a-real-EnvBench-case",
+    "resource-efficiency-improvement"
+  ],
+  "next_allowed_work": "select-and-freeze-the-outcome-independent-eight-repository-development-screen"
+}

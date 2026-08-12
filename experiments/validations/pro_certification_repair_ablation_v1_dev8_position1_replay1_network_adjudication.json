@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-certification-repair-ablation-v1-dev8-position1-replay1-network",
+  "adjudicated_at": "2026-08-05",
+  "episode": {
+    "position": 1,
+    "run_id": "pro-cert-repair-v1-dev8-01-C-retryable-minimal-b",
+    "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+    "condition": "C-retryable-minimal-b"
+  },
+  "replay": {
+    "replay_id": "minimal-b-replay-0001",
+    "program_sha256": "c0acfa25d704603baeb0d6f5800cdca9b7cf67d4d220ea5d5b7b8fd807f713a3",
+    "record_canonical_sha256": "6c236ac705c6211d3b905590455feb28da2014e052e0775ab07e2f9b28f26d30",
+    "bootstrap_stderr_sha256": "195cdf031642944574a4b5ff9bc69a4992082aa801f30ba1156fb24ecb3f6bc6",
+    "recorded_status": "fail"
+  },
+  "classification": "infrastructure-censored-network-dns-failure",
+  "evidence": {
+    "operation": "git clone https://github.com/ecds/python-edtf",
+    "message": "Could not resolve host: github.com",
+    "candidate_reached_public_goal": false,
+    "clean_replay_container_started": true
+  },
+  "mechanism_use": {
+    "counts_as_repair_opportunity": false,
+    "counts_as_first_task_valid_replay": false,
+    "raw_trace_retained": true
+  },
+  "official_use": "The episode may still contribute Official Pass if it completes; this replay makes mechanism and timing evidence infrastructure-censored.",
+  "policy_basis": "The preregistration excludes independently attributable network and harness failures from mechanism effects."
+}

@@ -1,0 +1,95 @@
+{
+  "analysis_policy": {
+    "all_24_episodes_before_algorithm_change": true,
+    "case_order": "frozen salted-hash order",
+    "case_replacement": false,
+    "condition_order": "frozen per-repository salted rotation",
+    "identical_infrastructure_retry_requires_frozen_amendment": true,
+    "individual_case_rules_forbidden": true,
+    "infrastructure_unknown_excluded_from_effect_denominator": true,
+    "official_and_integrity_outcomes_reported_separately": true,
+    "paired_by_repository": true
+  },
+  "artifacts": {
+    "config": {
+      "path": "experiments/configs/local_mac_pro_certification_repair_ablation_v1_dev8.json",
+      "sha256": "4005c7b10b2192f4836541affdbe532b145690295f0e08782d52b440384c33b3"
+    },
+    "design_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_design_freeze.json",
+      "sha256": "84bef012853fbcf5e5737cde4bdcec6f290a87ad8b6d2ca19d212297aed4b765"
+    },
+    "freeze_files": {
+      "experiments/configs/local_mac_pro_certification_repair_ablation_v1_dev8.json": "4005c7b10b2192f4836541affdbe532b145690295f0e08782d52b440384c33b3",
+      "experiments/protocols/codex_qualified_infrastructure_v1_freeze.json": "855a4f63cf6cd7bfefe2a571f9b1c1278b96eaecc8a4438d505216e7e9b4cf70",
+      "experiments/protocols/envbench_python_public_goal_v2.json": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490",
+      "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_design_freeze.json": "84bef012853fbcf5e5737cde4bdcec6f290a87ad8b6d2ca19d212297aed4b765",
+      "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_implementation_freeze.json": "741481422cc9ddb755e3bff99e1f82ed43ea521121e207a370e0e832beb99bd0",
+      "experiments/run_replay_ablation_case.py": "aae5abeac27c54cc99b3b19a4f1710209e48bddc92e56a3c86cc0fcceb8d4066",
+      "experiments/run_replay_ablation_schedule.py": "8aec2149c3cf6460abd2b9b973f4adfe17f08c2e214163b320e27e78eae646d8",
+      "experiments/tools/select_pro_certification_repair_ablation_v1_dev8.py": "7c2460b4e791b4f70af0a8aac5b11564842257c34f5d3e8bb4dd24b123cab3bc"
+    },
+    "implementation_freeze": {
+      "path": "experiments/protocols/envsolve_pro_certification_repair_ablation_v1_implementation_freeze.json",
+      "sha256": "741481422cc9ddb755e3bff99e1f82ed43ea521121e207a370e0e832beb99bd0"
+    },
+    "infrastructure_freeze": {
+      "path": "experiments/protocols/codex_qualified_infrastructure_v1_freeze.json",
+      "sha256": "855a4f63cf6cd7bfefe2a571f9b1c1278b96eaecc8a4438d505216e7e9b4cf70"
+    },
+    "protocol": {
+      "path": "experiments/protocols/envbench_python_public_goal_v2.json",
+      "sha256": "51e479df8ad47dbe110b222523cac394f5495285a87117830b19f59f050e4490"
+    },
+    "schedule": {
+      "path": "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+      "sha256": "463cb342cd1c27850693f6bbe87e8b4f92c47841aafbcf88c074072fe283d37a"
+    }
+  },
+  "claim_scope": "Repository-disjoint eight-case development mechanism gate.",
+  "conditions": [
+    {
+      "arm": "A",
+      "generation_clean_replays": 0,
+      "method": "codex-cli-goal-aware",
+      "runner": "codex-cli-qualified"
+    },
+    {
+      "arm": "B",
+      "maximum_executed_clean_replays": 1,
+      "method": "envsolve-pro-one-shot-certification-v1",
+      "runner": "envsolve-pro-one-shot-certification-qualified"
+    },
+    {
+      "arm": "C",
+      "clean_replays_repeatable": true,
+      "method": "envsolve-pro-minimal-b-v1",
+      "runner": "envsolve-pro-minimal-b-qualified"
+    }
+  ],
+  "mechanism_decision": {
+    "all_first_replays_pass": "No iterative-repair evidence; do not add structured state.",
+    "support_rule": "Arm C first replay Fail/Unknown, later different replay Pass, and final Official Pass."
+  },
+  "preregistered_at": "2026-08-05T15:18:19.519713+00:00",
+  "schema_version": "1.0.0",
+  "selection": {
+    "algorithm": "ascending SHA256(salt + NUL + repository)",
+    "failure_prescreen": false,
+    "remaining_case_file": "experiments/cases/train_untouched_after_pro_certification_repair_ablation_v1_45.jsonl",
+    "remaining_case_file_sha256": "21864e3896fba6f12e06fa3f0bd18deb2b5a0d7e1ba19f767903c3485680062c",
+    "repository_content_or_outcome_used_for_selection": false,
+    "salt": "envsolve-pro-certification-repair-ablation-v1-dev8-2026-08-05",
+    "selected_before_execution": true,
+    "selected_case_file": "experiments/cases/dev_pro_certification_repair_ablation_v1_8.jsonl",
+    "selected_case_file_sha256": "bce8707d3abda53641733eb8e92bb1dd5b6b063c2c549d94bb4fae44b7e3a6d1",
+    "selection_unit": "repository",
+    "source_case_file": "experiments/cases/train_untouched_after_pro_minimal_b_v1_paired_53.jsonl",
+    "source_case_file_sha256": "62932c34602538f0653c25cce71adc43aeb2d95113eb2bf6a48901a305e28115",
+    "source_rows": 53,
+    "take": 8
+  },
+  "source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "status": "frozen-before-execution",
+  "study_id": "envsolve-pro-certification-repair-ablation-v1-dev8"
+}

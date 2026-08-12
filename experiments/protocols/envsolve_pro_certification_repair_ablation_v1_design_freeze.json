@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "freeze_id": "envsolve-pro-certification-repair-ablation-v1-design",
+  "freeze_type": "causal-mechanism-design",
+  "frozen_at": "2026-08-05",
+  "source_revision": "6956d033d92beb2bf04ee8b904bc7045c02e24ba",
+  "research_question": "Does clean-environment success come from certification-aware construction or from feedback-conditioned repair after a failed replay?",
+  "evidence_trigger": {
+    "prior_study": "envsolve-pro-minimal-b-v1-paired-dev5",
+    "results_path": "experiments/validations/pro_minimal_b_v1_paired_dev5_results.json",
+    "results_sha256": "8a4708bcca2397b4ee0ffb663d5c37cd505a4dd978ea3b9f685c80b1c3865217",
+    "observation": "Minimal B passed 5/5 versus control 4/5, but all five Minimal B episodes passed their first clean replay."
+  },
+  "arms": [
+    {
+      "arm": "A",
+      "name": "strong-agent-control",
+      "runner": "codex-cli-qualified",
+      "method": "codex-cli-goal-aware",
+      "generation_clean_replays": 0
+    },
+    {
+      "arm": "B",
+      "name": "one-shot-certification",
+      "runner": "envsolve-pro-one-shot-certification-qualified",
+      "method": "envsolve-pro-one-shot-certification-v1",
+      "maximum_executed_clean_replays": 1,
+      "final_program_requires_passing_certificate": true
+    },
+    {
+      "arm": "C",
+      "name": "retryable-minimal-b",
+      "runner": "envsolve-pro-minimal-b-qualified",
+      "method": "envsolve-pro-minimal-b-v1",
+      "clean_replays_repeatable": true,
+      "final_program_requires_passing_certificate": true
+    }
+  ],
+  "shared_conditions": {
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "agent_sessions_per_attempt": 1,
+    "construction_environment": "persistent-within-session",
+    "candidate_interface": "open-self-contained-bash-program",
+    "public_goal_contract": "envbench-python-public-goal-v2",
+    "official_evaluator_access": "post-episode-only",
+    "cross_case_memory": false,
+    "model_token_hard_limit": false,
+    "model_cost_hard_limit": false,
+    "infrastructure_profile": "codex-qualified-infrastructure-v1"
+  },
+  "primary_metric": "repository-paired-Official-Pass-at-1",
+  "mechanism_metrics": {
+    "first_replay_pass": "first executed clean replay has status pass",
+    "repair_opportunity": "arm C first replay has status fail or unknown",
+    "activated_repair": "arm C later certifies a different program in the same Agent session",
+    "repair_success": "activated repair followed by Official Pass",
+    "certification_only_effect": "arm B versus arm A Official Pass",
+    "retry_effect": "arm C versus arm B Official Pass"
+  },
+  "support_rule": "Feedback-conditioned repair is supported only by an arm-C Fail-or-Unknown first replay followed by a different passing replay in the same session and final Official Pass.",
+  "negative_rule": "A treatment-only pass without the activated-repair trace pattern cannot be attributed to feedback-conditioned repair.",
+  "stop_rule": "If every arm-C episode passes its first replay, do not add structured state to explain iterative repair; analyze certification-aware construction instead.",
+  "development_screen": {
+    "source_case_file": "experiments/cases/train_untouched_after_pro_minimal_b_v1_paired_53.jsonl",
+    "source_case_file_sha256": "62932c34602538f0653c25cce71adc43aeb2d95113eb2bf6a48901a305e28115",
+    "source_rows": 53,
+    "take_repositories": 8,
+    "selection": "ascending-SHA256-of-frozen-salt-NUL-repository",
+    "salt": "envsolve-pro-certification-repair-ablation-v1-dev8-2026-08-05",
+    "repository_content_or_outcome_used_for_selection": false,
+    "episodes": 24,
+    "arm_order": "salted-rotation-per-repository",
+    "algorithm_change_before_all_episodes_finish": false,
+    "claim_scope": "development-mechanism-gate-only"
+  },
+  "secondary_metrics": [
+    "generation-completion",
+    "integrity-outcome",
+    "replay-count-and-status-sequence",
+    "commands",
+    "model-tokens",
+    "wall-clock-time",
+    "infrastructure-retries"
+  ],
+  "optional_resource_metrics": [
+    "peak-memory-bytes-when-symmetric",
+    "disk-growth-bytes-when-symmetric",
+    "network-bytes-when-symmetric"
+  ],
+  "excluded_treatments": [
+    "structured-state",
+    "compatibility-ledger",
+    "checkpointing",
+    "hypothesis-branching",
+    "bootstrap-minimization",
+    "cross-case-memory",
+    "online-official-evaluator-feedback",
+    "package-specific-heuristics",
+    "case-specific-rules"
+  ],
+  "human_protocols": {
+    "english": {
+      "path": "research/PRO_CERTIFICATION_REPAIR_ABLATION_V1_PROTOCOL.md",
+      "sha256": "a000cfdf034a57309074ff1bdf925a7ed4cbd253536ef2e1632e14cb500b1606"
+    },
+    "chinese": {
+      "path": "research/PRO_CERTIFICATION_REPAIR_ABLATION_V1_PROTOCOL_ZH.md",
+      "sha256": "b079e1e72d1d95aad3ce01cd1348ef0e51b7d298eecf88250bdfea9b4f9fb504"
+    }
+  },
+  "status": "frozen-before-case-selection-and-execution"
+}
