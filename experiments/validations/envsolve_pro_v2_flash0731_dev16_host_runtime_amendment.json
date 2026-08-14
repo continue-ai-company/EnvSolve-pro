@@ -1,0 +1,46 @@
+{
+  "schema": "envsolve-pro-v2-host-runtime-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-flash0731-dev16-host-runtime",
+  "recorded_at": "2026-08-14T03:50:06Z",
+  "recorded_before_first_episode": true,
+  "trigger": {
+    "qualification_run_id": "pro-v2-flash0731-qualification-01-B-FSR",
+    "observed_failure": "FileNotFoundError: [Errno 2] No such file or directory: 'uv'",
+    "scope": "Official adapter host launcher before evaluator execution",
+    "qualification_official_retry_passed": true
+  },
+  "runtime_freeze": {
+    "host_path_prefix": "/home/avdpro/work/EnvSolve-pro/.venv/bin",
+    "uv_path": "/home/avdpro/work/EnvSolve-pro/.venv/bin/uv",
+    "uv_version": "0.12.3",
+    "applies_to": [
+      "schedule coordinator",
+      "post-session Official adapter launcher"
+    ],
+    "does_not_modify": [
+      "construction container PATH",
+      "clean replay container PATH",
+      "bootstrap program",
+      "public goal",
+      "Official evaluator",
+      "model or provider routing"
+    ]
+  },
+  "paired_validity": {
+    "applied_identically_to_all_arms": true,
+    "algorithm_change": false,
+    "prompt_change": false,
+    "tool_schema_change": false,
+    "case_selection_change": false,
+    "schedule_order_change": false,
+    "seed_change": false,
+    "model_change": false,
+    "verifier_change": false
+  },
+  "frozen_inputs": {
+    "schedule_sha256": "66c482430cad1a9f39ea2a3d97cffcb86ce76716402fb193af0acda0ae2ea60e",
+    "config_sha256": "3e2fc938734a8fbfc98ac63a688e7469b18942a02e0eec40bd6fde0559f798dc",
+    "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+    "preregistration_sha256": "8ba3310336bca1c7ee47e30b578fc1ee4adaad29ac83d48ff88587abb56bf00a"
+  }
+}
