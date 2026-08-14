@@ -1,0 +1,49 @@
+{
+  "schema": "envsolve-pro-v2-official-network-retry-amendment-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "amendment_id": "flash0731-dev16-position3-official-network-retry1",
+  "registered_at": "2026-08-14T05:56:16Z",
+  "source_episode": {
+    "position": 3,
+    "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+    "arm": "B-FSR",
+    "run_id": "pro-v2-flash0731-dev16-03-B-FSR",
+    "generation_completed": true,
+    "submitted_program_sha256": "55b1753350072df48c8ddb905b88225a34e1d7726d07e3ed25452c6e63cb296d",
+    "clean_replay_passes": 2,
+    "official_evaluation_completed": false,
+    "termination": {
+      "kind": "infrastructure_unknown",
+      "scope": "evaluator_bootstrap",
+      "signature": "connection-error"
+    }
+  },
+  "retry": {
+    "run_id": "pro-v2-flash0731-dev16-03-B-FSR-official-retry1",
+    "mode": "exact-script-evaluation-only",
+    "execute_after_schedule_position": 4,
+    "model_reexecuted": false,
+    "script_changed": false,
+    "case_changed": false,
+    "algorithm_changed": false,
+    "evaluator_changed": false,
+    "host_changed": false,
+    "analysis_treatment": "replace the infrastructure-censored Official attempt for primary analysis while retaining both attempts",
+    "source_attempt_in_effect_denominator": false
+  },
+  "frozen_inputs": {
+    "script_sha256": "de7817213545b173188f14bb50f5cbd3870538f3c4b773909615cd9fb0c17c43",
+    "generation_result_sha256": "ebd93fda8e988687bb02002ca8943513d636776f98aa3a14dc094986d52e0f5a",
+    "trajectory_sha256": "070964a4aca745a82bb4424bfd4f8ca1b5b4b24260373bf5e2faff0788dafe79",
+    "replays_sha256": "ba9914a2b0aa6f4412cac8e422a3c90a3a46cb3d483d633e8dbb343117840e1b",
+    "certification_sha256": "f747ca6c4af50f1a8c2905ecd92907efdc43c38271b804b6eb706ce4c2dce243",
+    "censored_evaluation_result_sha256": "f6e16b3c3f0f8a6f7abaf1e9d0c29f0c2841104399cd5a16ee3ddbe7493b4c42",
+    "censored_official_raw_result_sha256": "c08ed95e00b5078a414f45e8e51f18807d48b9f7bb412dbe82ebcd6dfba44040",
+    "source_manifest_sha256": "6bd814a0b4c1fdf87cb721dc203c6f23f1f25314f8cb4e70ea858236509749d2",
+    "preregistration_sha256": "8ba3310336bca1c7ee47e30b578fc1ee4adaad29ac83d48ff88587abb56bf00a",
+    "schedule_sha256": "66c482430cad1a9f39ea2a3d97cffcb86ce76716402fb193af0acda0ae2ea60e",
+    "config_sha256": "3e2fc938734a8fbfc98ac63a688e7469b18942a02e0ec40bd6fde0559f798dc",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  },
+  "claim_boundary": "The retry may recover the missing Official outcome only; it cannot change or strengthen the generation evidence."
+}
