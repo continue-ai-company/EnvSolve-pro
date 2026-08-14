@@ -113,7 +113,7 @@ for t = 0, 1, ...:
 
 - **RQ1：** 不同部署范式的失败如何分布在三层框架中？
 - **RQ2：** 在模型和评测权限相同时，F+C_s+R 是否优于 F？增益是否真实来自 replay 失败后的继续修复？
-- **RQ3：** 在 DeepSeek V4 Pro 上，EnvSolve-Pro 与 Repo2Run、EnvBench Agent 和旧硬约束 EnvSolve
+- **RQ3：** 在固定 DeepSeek V4 Flash 0731 上，EnvSolve-Pro 与 Repo2Run、EnvBench Agent 和旧硬约束 EnvSolve
   相比如何，原生 Codex 给出的独立 frontier reference 位于哪里？
 - **RQ4：** 在成功率相同或更高时，方法是否减少时间、token、网络、磁盘或内存开销？
 
@@ -127,14 +127,16 @@ EnvBench 的 329 个 Python case 被额外划为 Dev 209、Canary 20 和 protect
 
 ### 5.3 比较方法
 
-当前 Dev-12 配对共享 E、`deepseek/deepseek-v4-pro`、Cloudflare endpoint、镜像、架构、公开目标、
+历史 Dev-12 配对共享 E、`deepseek/deepseek-v4-pro`、Cloudflare endpoint、镜像、架构、公开目标、
 安全 deadline、连续 session 权限和 Official evaluator：
 
 - **A：F**，同模型自由 Agent，没有 session 内 clean replay；
 - **B：F+C_s+R**，即 EnvSolve-Pro。
 
-Dev-12 按原预注册保持不变，只作为机制 pilot。完成后从冻结 reserve 中 outcome-independent 地选择新的
-Dev-16，比较 F、F+R、F+C_s+R，以及作为代表性 F+C_h+R 系统的冻结旧 EnvSolve，共 64 个 episode。
+Dev-12 按原预注册保持不变，只作为机制 pilot，不与新模型结果合并。固定模型
+`deepseek/deepseek-v4-flash-0731` 已在一个已消费 case 上通过 tool calling、连续 session、反馈修复和
+Official 资格检查。随后从冻结 reserve 中 outcome-independent 地选择新的 Dev-16，在同一 Flash 快照上
+比较 F、F+R、F+C_s+R，以及作为代表性 F+C_h+R 系统的冻结旧 EnvSolve，共 64 个 episode。
 F+R 对 F 隔离 replay，F+C_s+R 对 F+R 隔离软约束规范化。EnvSolve-Pro 对旧 EnvSolve 只能解释为
 软约束系统和硬约束系统的系统级比较，因为两者除约束机制外还有实现差异。外部比较还包括 EnvBench
 FreeAgent、Repo2Run 和原生 Codex，均保持原生语义。

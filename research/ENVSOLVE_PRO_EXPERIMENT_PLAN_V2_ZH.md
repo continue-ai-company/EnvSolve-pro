@@ -122,9 +122,9 @@ tracked source 或采用陌生包策略就拒绝动作。部署完整性作为�
 
 ### 5.1 同模型 API 比较
 
-除 Codex 外，所有模型方法统一使用：
+除 Codex 外，所有新模型实验统一使用：
 
-- OpenRouter 模型：`deepseek/deepseek-v4-pro`；
+- OpenRouter 固定模型：`deepseek/deepseek-v4-flash-0731`；
 - 原生接口支持时使用 `xhigh` reasoning effort；
 - OpenAI-compatible API：`https://openrouter.ai/api/v1`；
 - 不允许 model fallback；
@@ -133,6 +133,10 @@ tracked source 或采用陌生包策略就拒绝动作。部署完整性作为�
 
 OpenRouter key 只通过进程环境提供，绝不写入仓库文件、命令参数、artifact、日志或 schedule。每次运行
 记录 provider identity 和响应模型元数据。provider 故障只能按冻结规则进行一次语义完全相同的重试。
+
+此前 `deepseek/deepseek-v4-pro` Dev-12 保留为冻结的历史 pilot，不与 Flash 结果合并。实验不使用会
+漂移的 `flash-latest` alias。Flash 0731 已在已消费 case 上通过资格检查，覆盖 tool calling、53-request
+连续 session、clean-replay 反馈修复、精确 hash 提交和 Official evaluation。
 
 ### 5.2 Codex frontier baseline
 
@@ -152,14 +156,15 @@ Codex 保持原生 CLI 和原生 OpenAI 模型，不使用共享 API backbone。
 ### Stage Q：adapter 与测量资格检查
 
 - 使用两个已消费仓库；
-- 验证 DeepSeek V4 Pro slug、tool calling、provider 固定、token 统计、密钥脱敏、轨迹保存、干净重放、
-  Official 隔离和 Spark 执行；
+- 验证固定 DeepSeek V4 Flash 0731 slug、tool calling、provider 固定、token 统计、密钥脱敏、轨迹保存、
+  干净重放、Official 隔离和 Spark 执行；
 - 结果不得参与算法选择。
 
 ### Stage D1：小型 outcome-independent Dev pilot
 
 - 在任何新 arm 运行前，按标识符确定性哈希冻结 12 个仓库；
-- 主配对：DeepSeek V4 Pro 下的 API 自由 Agent F 与 EnvSolve-Pro F+C_s+R；
+- 已完成的 V4 Pro 配对只作为历史机制 pilot，不与新模型合并；
+- 新主配对：固定 DeepSeek V4 Flash 0731 下的 API 自由 Agent F 与 EnvSolve-Pro F+C_s+R；
 - 配对随机运行顺序，共享仓库、revision、基础镜像、架构、公开目标和基础设施规则；
 - 只诊断 terminal reach、首次 replay 失败、真实 repair activation 和无法解释的 regression，不做 SOTA
   声明。
@@ -169,8 +174,9 @@ Codex 保持原生 CLI 和原生 OpenAI 模型，不使用共享 API backbone。
 只有 D1 完整结束并通过完整性门槛后：
 
 - 在运行任何新 arm 前，从冻结 reserve 中仅按 identity 哈希选择新的 16-case Dev batch；
-- 在相同 DeepSeek V4 Pro backbone 下，以 case 内随机顺序比较 F、F+R 和 F+C_s+R；
-- 在相同 identity 上运行冻结的旧 EnvSolve，作为代表性 F+C_h+R 系统 baseline；
+- 在相同固定 DeepSeek V4 Flash 0731 backbone 下，以 case 内随机顺序比较 F、F+R 和 F+C_s+R；
+- 在相同 identity 上运行冻结的旧 EnvSolve，作为代表性 F+C_h+R 系统 baseline；所有 API arm 使用
+  相同 Flash 0731 快照；
 - 用 F+R 减 F 估计 replay 效应，用 F+C_s+R 减 F+R 估计软约束的增量效应；
 - EnvSolve-Pro 与旧 EnvSolve 只解释为软约束系统和硬约束系统的比较，不包装成 C_s 对 C_h 的纯因果
   效应。
@@ -190,7 +196,7 @@ D2 前收缩算法主张，而不是用更多 case 掩盖机制没有触发。
 - 在 protected 100-case split 上运行最终系统；
 - protected test 与 development 结果分开报告；
 - 所有主张和分析规则冻结后，再运行官方完整 329-case protocol 直接比较榜单；
-- Codex GPT-5.6 是原生 frontier 参考，DeepSeek V4 Pro 构成受控同模型矩阵。
+- Codex GPT-5.6 是原生 frontier 参考，固定 DeepSeek V4 Flash 0731 构成受控同模型矩阵。
 
 ## 7. 指标与统计
 

@@ -147,7 +147,7 @@ the loop.
 - **RQ2:** With model and evaluator access matched, does F+C_s+R outperform F, and is any
   gain caused by repair after replay failure?
 - **RQ3:** How does EnvSolve-Pro compare with Repo2Run, the EnvBench Agent, and
-  hard-constraint EnvSolve on DeepSeek V4 Pro, and where does native Codex place the
+  hard-constraint EnvSolve on pinned DeepSeek V4 Flash 0731, and where does native Codex place the
   independent frontier reference?
 - **RQ4:** At equal or higher success, does EnvSolve-Pro improve time, token, network,
   disk, or memory efficiency?
@@ -165,7 +165,7 @@ the protected and complete official protocols last.
 
 ### 5.3 Comparisons
 
-The current Dev-12 pair shares E, `deepseek/deepseek-v4-pro`, a fixed Cloudflare
+The historical Dev-12 pair shares E, `deepseek/deepseek-v4-pro`, a fixed Cloudflare
 endpoint, image, architecture, public goal, safety deadline, continuous-session access,
 and Official evaluator:
 
@@ -173,8 +173,11 @@ and Official evaluator:
 - **B: F+C_s+R**, EnvSolve-Pro.
 
 Dev-12 remains unchanged under its original preregistration and serves as a mechanism
-pilot. After it completes, a fresh Dev-16 is selected outcome-independently from the
-frozen reserve. It compares F, F+R, F+C_s+R, and frozen prior EnvSolve as the
+pilot. It is not pooled with new-model outcomes. Pinned
+`deepseek/deepseek-v4-flash-0731` has passed tool-calling, continuous-session,
+feedback-conditioned replay repair, and Official qualification on a consumed case.
+A fresh Dev-16 is selected outcome-independently from the frozen reserve. It compares
+F, F+R, F+C_s+R, and frozen prior EnvSolve on that same Flash snapshot as the
 representative F+C_h+R system, for 64 episodes. F+R versus F isolates replay; F+C_s+R
 versus F+R isolates soft normalization. EnvSolve-Pro versus prior EnvSolve is only a
 system-level soft-versus-hard comparison because the implementations differ beyond the

@@ -140,9 +140,9 @@ secondary axis, not a hard substitute for Official evaluation.
 
 ### 5.1 Same-backbone API comparisons
 
-All non-Codex model-backed methods use:
+All new non-Codex model-backed experiments use:
 
-- OpenRouter model: `deepseek/deepseek-v4-pro`;
+- OpenRouter model: pinned `deepseek/deepseek-v4-flash-0731`;
 - reasoning effort: `xhigh` when the native interface supports it;
 - OpenAI-compatible API base: `https://openrouter.ai/api/v1`;
 - no model fallback;
@@ -153,6 +153,12 @@ The OpenRouter key is supplied only through the process environment. Its value m
 never appear in a repository file, command argument, artifact, log, or schedule.
 Provider identity and response model metadata are recorded. A provider outage may
 trigger one exact semantic retry under the frozen infrastructure policy.
+
+The earlier `deepseek/deepseek-v4-pro` Dev-12 remains a frozen historical pilot and is
+not pooled with Flash outcomes. We do not use the moving `flash-latest` alias. Flash
+0731 passed a consumed-case qualification covering tool calling, a 53-request continuous
+session, feedback-conditioned clean-replay repair, exact-hash submission, and Official
+evaluation.
 
 ### 5.2 Codex frontier baseline
 
@@ -178,15 +184,18 @@ same-backbone causal control.
 ### Stage Q: adapter and measurement qualification
 
 - Use two already consumed repositories.
-- Verify the DeepSeek V4 Pro model slug, tool calling, provider pinning, token accounting,
-  secret redaction, trajectory preservation, clean replay, Official isolation, and Spark
-  execution.
+- Verify the pinned DeepSeek V4 Flash 0731 slug, tool calling, provider pinning,
+  token accounting, secret redaction, trajectory preservation, clean replay, Official
+  isolation, and Spark execution.
 - Outcomes cannot be used for algorithm selection.
 
 ### Stage D1: small outcome-independent Dev pilot
 
 - Freeze 12 repositories by a deterministic identifier hash before running any new arm.
-- Primary pair: API free agent F versus EnvSolve-Pro F+C_s+R, both on DeepSeek V4 Pro.
+- The completed V4 Pro pairs are retained as a historical mechanism pilot, not pooled
+  with the new model.
+- Primary new pair: API free agent F versus EnvSolve-Pro F+C_s+R, both on pinned
+  DeepSeek V4 Flash 0731.
 - Run order is paired and randomized; the same repository, revision, base image,
   architecture, public goal, and infrastructure rules are shared.
 - This stage diagnoses terminal reach, first-replay failures, actual repair activation,
@@ -198,10 +207,10 @@ Only after D1 completes and passes integrity gates:
 
 - select a fresh 16-case Dev batch from the frozen reserve by an outcome-independent
   identity hash before any new arm is run;
-- compare F, F+R, and F+C_s+R under a randomized within-case order and the same DeepSeek
-  V4 Pro backbone;
+- compare F, F+R, and F+C_s+R under a randomized within-case order and the same pinned
+  DeepSeek V4 Flash 0731 backbone;
 - run the frozen prior EnvSolve on the same identities as the representative
-  F+C_h+R system baseline;
+  F+C_h+R system baseline, with every API arm on the same Flash 0731 snapshot;
 - interpret F+R minus F as the replay effect, and F+C_s+R minus F+R as the incremental
   soft-constraint effect;
 - interpret EnvSolve-Pro versus prior EnvSolve only as a system-level soft-versus-hard
@@ -226,8 +235,8 @@ than hidden by more cases.
 - Report protected-test results separately from development results.
 - Run the official full 329-case protocol for direct leaderboard comparison after all
   claims and analysis rules are frozen.
-- Codex GPT-5.6 is reported as a native frontier reference; DeepSeek V4 Pro provides the
-  controlled same-backbone matrix.
+- Codex GPT-5.6 is reported as a native frontier reference; pinned DeepSeek V4 Flash
+  0731 provides the controlled same-backbone matrix.
 
 ## 7. Outcomes and Statistics
 

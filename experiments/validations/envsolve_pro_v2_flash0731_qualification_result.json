@@ -1,0 +1,111 @@
+{
+  "schema": "envsolve-pro-v2-model-qualification-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-qualification",
+  "recorded_at": "2026-08-14T03:39:32Z",
+  "qualification_pass": true,
+  "model": {
+    "id": "deepseek/deepseek-v4-flash-0731",
+    "provider": "cloudflare",
+    "moving_alias_used": false,
+    "tool_canary_pass": true
+  },
+  "episode": {
+    "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "arm": "B-FSR",
+    "source_run_id": "pro-v2-flash0731-qualification-01-B-FSR",
+    "official_run_id": "pro-v2-flash0731-qualification-01-B-FSR-official-retry1",
+    "generation_completed": true,
+    "certified_by_clean_replay": true,
+    "official_evaluation_completed": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_error_count_non_scoring": 153,
+    "generation_wall_clock_seconds": 648.627783,
+    "official_evaluation_seconds": 109.68977332115173,
+    "model_requests": 53,
+    "provider_attempts": 53,
+    "provider_errors": 0,
+    "prompt_tokens": 1129526,
+    "completion_tokens": 23957,
+    "total_tokens": 1153483,
+    "reported_provider_cost": 0.04470592,
+    "shell_tool_calls": 49,
+    "clean_replay_calls": 3,
+    "clean_replay_failures": 2,
+    "clean_replay_passes": 1,
+    "final_submission_request": 53,
+    "submitted_program_sha256": "f054e5f2d96c997140afe614c279b1a82e545d3220864d3bbf9ba0451ccd3bca"
+  },
+  "replay_sequence": [
+    {
+      "request": 35,
+      "status": "fail",
+      "program_sha256": "ccdae80ff5e2e53793785b35dd229ec032ed725a642741eab34bde23b9b8edea",
+      "bootstrap_exit_code": 1,
+      "summary": "candidate did not return control to the executable goal"
+    },
+    {
+      "request": 50,
+      "status": "fail",
+      "program_sha256": "59d277f38d07b3853a9e2768110e15ae8d60c7bc3170b6c84fefbe8c4a6d67fc",
+      "bootstrap_exit_code": 1,
+      "summary": "candidate did not return control to the executable goal"
+    },
+    {
+      "request": 52,
+      "status": "pass",
+      "program_sha256": "f054e5f2d96c997140afe614c279b1a82e545d3220864d3bbf9ba0451ccd3bca",
+      "bootstrap_exit_code": 0,
+      "summary": "fresh replay reached zero active missing-import obligations"
+    }
+  ],
+  "official_retry": {
+    "source_attempt_disposition": "evaluator-host-missing-uv preflight; evaluator never started",
+    "repair": "prepend the existing Spark .venv/bin to host PATH",
+    "model_reexecuted": false,
+    "script_changed": false,
+    "audit_valid": true
+  },
+  "same_case_v4_pro_b_reference": {
+    "run_id": "pro-v2-dev12-15-B-FSR",
+    "official_pass": true,
+    "model_requests": 15,
+    "total_tokens": 158559,
+    "generation_wall_clock_seconds": 172.381331,
+    "shell_tool_calls": 21,
+    "clean_replay_calls": 1,
+    "reported_provider_cost": 0.13444325
+  },
+  "flash_vs_pro_descriptive": {
+    "model_requests_ratio": 3.533333333333333,
+    "total_tokens_ratio": 7.274787303148986,
+    "generation_wall_clock_ratio": 3.7627495926458536,
+    "shell_tool_calls_ratio": 2.3333333333333335,
+    "reported_provider_cost_percent": -66.74736738363585,
+    "interpretation": "Flash 0731 was transport-stable and cheaper in reported dollars, but required substantially more reasoning and repair on this single consumed case; this is diagnostic, not a model-level effectiveness estimate"
+  },
+  "artifacts": {
+    "source_generation_result_sha256": "112b70536c02a36aa45d1ada3007f2b0fd64f200dccc977e9f389327a407f1f1",
+    "source_trajectory_sha256": "d2e247966925a2895c7ce2f45f0f8f90ec023ea6f61b1af8323543a1720036f8",
+    "source_replays_sha256": "f6cca8170798b171359b02313c279d9d3c550f43f40ecf4ccec5a9dc83cac1a7",
+    "source_certification_sha256": "93e82c68bccdb692db6f55311886f34e65ebbc3a3f8ae272ef6147440ee0d969",
+    "source_manifest_sha256": "dca946586d46dbfb7d0473e8fe6a3d7903e2d8d00d3c35060786e075373cf029",
+    "official_result_sha256": "cf910a54efc929acd1fb9e4c8ae88f909fcd9b6e177a6b291b76f064ef5fdb3a",
+    "official_raw_result_sha256": "872894e32097950569990feff8b47223677ff8c16eb3f265e4b6e92dfee86018",
+    "official_manifest_sha256": "b04d52d27800cf0efe8ad7de62f999f495cbaa84aadd01803e5a83c19ff7ca78",
+    "evaluation_retry_provenance_sha256": "4684d7c939088a9454b24380366c1daa20e69fffe9f91d56533a93c4ecfa512c"
+  },
+  "claim_boundary": {
+    "supported": [
+      "Flash 0731 supports the frozen continuous tool loop",
+      "Flash 0731 used clean replay feedback to repair two non-transferable candidates",
+      "the certified script passed the Official evaluator"
+    ],
+    "not_supported": [
+      "Flash 0731 is more efficient than V4 Pro",
+      "Flash 0731 has higher success probability than V4 Pro",
+      "the one-case resource ratios generalize",
+      "the non-scoring Pyright error count indicates deployment failure"
+    ]
+  }
+}
