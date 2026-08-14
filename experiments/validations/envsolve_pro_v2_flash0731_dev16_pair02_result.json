@@ -1,0 +1,140 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-02",
+  "recorded_at": "2026-08-14T06:39:32Z",
+  "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+  "host_architecture": "aarch64",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "cloudflare",
+  "pair_outcome": {
+    "official_comparison_available": true,
+    "official_result": "tie_pass_pass",
+    "official_pass_difference_b_minus_a": 0,
+    "infrastructure_censored": false,
+    "mechanism_activated": true,
+    "mechanism_note": "B-FSR certified an Official-sufficient program, improved its runtime compatibility, certified the changed program, and submitted the exact second hash"
+  },
+  "episodes": [
+    {
+      "position": 3,
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-03-B-FSR",
+      "official_run_id": "pro-v2-flash0731-dev16-03-B-FSR-official-retry1",
+      "generation_completed": true,
+      "model_requests": 120,
+      "provider_attempts": 121,
+      "provider_errors": 1,
+      "prompt_tokens": 6665297,
+      "completion_tokens": 56305,
+      "total_tokens": 6721602,
+      "reported_provider_cost": 0.28796003600000014,
+      "generation_wall_clock_seconds": 1366.999276,
+      "shell_tool_calls": 139,
+      "clean_replay_calls": 2,
+      "clean_replay_failures": 0,
+      "clean_replay_passes": 2,
+      "first_certification_request": 111,
+      "second_certification_request": 119,
+      "final_submission_request": 120,
+      "submitted_program_sha256": "55b1753350072df48c8ddb905b88225a34e1d7726d07e3ed25452c6e63cb296d",
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 86,
+      "official_evaluation_seconds": 38.15156149864197,
+      "source_official_attempt": {
+        "evaluation_completed": false,
+        "termination": "infrastructure_unknown/evaluator_bootstrap/connection-error",
+        "replacement_policy": "single-exact-script-infrastructure-retry-v1"
+      },
+      "artifact_sha256": {
+        "script": "de7817213545b173188f14bb50f5cbd3870538f3c4b773909615cd9fb0c17c43",
+        "generation_result": "ebd93fda8e988687bb02002ca8943513d636776f98aa3a14dc094986d52e0f5a",
+        "trajectory": "070964a4aca745a82bb4424bfd4f8ca1b5b4b24260373bf5e2faff0788dafe79",
+        "container_commands": "8b0319a3b3dc3f50877d244aa232024a400119e7f9a066f89ed5748cfa8dfe57",
+        "replays": "ba9914a2b0aa6f4412cac8e422a3c90a3a46cb3d483d633e8dbb343117840e1b",
+        "certification": "f747ca6c4af50f1a8c2905ecd92907efdc43c38271b804b6eb706ce4c2dce243",
+        "official_retry_result": "75352a390e2e62f6b12d06af0eb8657a5c7d9712d247d3c9a0d5e8793d6cd3d5",
+        "official_retry_raw_result": "9252b9f4236e07c40d81625e5a080ac8fd770b34f14d4e2dca40f6a59a8f4bea",
+        "official_retry_manifest": "243305492bd5097ddf3865ecec94b5c209bdb21ebf4bef6281ec1935938e13d4",
+        "official_retry_provenance": "4f1ea53eadf40635051648026da83939b25879e41a50464ad816dd9f707c9d57"
+      }
+    },
+    {
+      "position": 4,
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-04-A-F",
+      "official_run_id": "pro-v2-flash0731-dev16-04-A-F",
+      "generation_completed": true,
+      "model_requests": 117,
+      "provider_attempts": 117,
+      "provider_errors": 0,
+      "prompt_tokens": 7504560,
+      "completion_tokens": 96994,
+      "total_tokens": 7601554,
+      "reported_provider_cost": 0.3482376800000001,
+      "generation_wall_clock_seconds": 2483.069756,
+      "shell_tool_calls": 159,
+      "clean_replay_calls": 0,
+      "final_submission_request": 117,
+      "submitted_program_sha256": "6ff59f432f03bc63086108902e80f7c5b33142b2aabaf6759bca1e90b8d4ebc1",
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 79,
+      "official_evaluation_seconds": 18.118309020996094,
+      "artifact_sha256": {
+        "script": "9051d19511d3c61f25b108143654fbc3b4ceac9af8406ed6f8e251670206df3c",
+        "generation_result": "2ef00e480cbc7f78744b3bf04086f6a86e2dbb4e0f372c094f83300dad725e3e",
+        "trajectory": "2032c9943daaa62a0ee34162c29ad3d1fa5d02551ea43900401fcdd532b2d238",
+        "container_commands": "55ba2becd7d60c20c8ee5737bf9dc5d72b4cfa0336db0f9f0f4a921b35c3f178",
+        "official_result": "27a9960387d5f8660945f5346befe86d1714c2a698724971ba1f65347ffacbf6",
+        "official_raw_result": "5993cac9d479e3ba4e74fcbca706c12aa4cb98fd88ff12456dc16ca1ac8457ef",
+        "manifest": "246239bfac2fa297a5f19fb7512e3eb9298d16435bef120bea2b914010cac289"
+      }
+    }
+  ],
+  "resource_comparison": {
+    "b_minus_a_model_requests": 3,
+    "b_total_tokens_percent_vs_a": -11.575948812571745,
+    "b_generation_wall_clock_percent_vs_a": -44.947206066328484,
+    "b_shell_tool_calls_percent_vs_a": -12.578616352201255,
+    "b_reported_provider_cost_percent_vs_a": -17.309339988711148
+  },
+  "deployment_quality_diagnostic": {
+    "preregistered_primary_outcome": false,
+    "independently_verified_in_fresh_runtime": false,
+    "a_quality_flag": "incomplete-runtime-environment",
+    "a_evidence": [
+      {
+        "artifact": "A generation/container-commands.jsonl sequence 69",
+        "observation": "pydantic 2.10.6 made pydantic.v1 importable but vkbottle_types failed with missing pydantic.main.ModelMetaclass"
+      },
+      {
+        "artifact": "A scripts/generated.sh",
+        "observation": "the submitted program intentionally preserves pydantic 2 and installs the pydantic-1-only vkbottle-types package with --no-deps"
+      }
+    ],
+    "b_evidence": {
+      "artifact": "B generation/container-commands.jsonl sequence 139",
+      "observation": "the final construction environment imported vkbottle, fastapi, loguru, and pydantic 1.10.14 before the second clean replay"
+    },
+    "interpretation": "Both programs satisfy the Official missing-import objective; only descriptive trajectory evidence favors B on runtime completeness, so no quality-effect estimate is reported."
+  },
+  "schedule_progress_sha256": "97e64814e3aeebd4210d47ec3ecd138df2492bd29c87079343d139142d437c35",
+  "claim_boundary": {
+    "supported": [
+      "both arms achieved Official Pass on this case",
+      "B-FSR activated clean replay twice and submitted its second certified hash",
+      "B used fewer tokens, less wall time, fewer shell calls, and lower reported provider cost than A on this case",
+      "A submitted a program with a construction-observed runtime dependency conflict"
+    ],
+    "not_supported": [
+      "B-FSR has higher Official success probability than A-F",
+      "B-FSR always reduces resources",
+      "the deployment-quality diagnostic is a benchmark-level causal estimate",
+      "non-scoring Pyright error counts indicate Official failure"
+    ]
+  }
+}
