@@ -1,0 +1,137 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-03",
+  "recorded_at": "2026-08-14T08:02:00Z",
+  "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+  "host_architecture": "aarch64",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "cloudflare",
+  "pair_outcome": {
+    "official_comparison_available": true,
+    "official_result": "tie_pass_pass",
+    "official_pass_difference_b_minus_a": 0,
+    "infrastructure_censored": false,
+    "mechanism_activated": true,
+    "mechanism_note": "B-FSR used clean replay to reject an environment-state-dependent probe, observed a transient download failure, certified the repaired bootstrap on its third replay, and submitted the exact certified hash"
+  },
+  "episodes": [
+    {
+      "position": 5,
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-05-B-FSR",
+      "official_run_id": "pro-v2-flash0731-dev16-05-B-FSR",
+      "generation_completed": true,
+      "model_requests": 104,
+      "provider_attempts": 107,
+      "provider_errors": 3,
+      "prompt_tokens": 4091016,
+      "completion_tokens": 45413,
+      "total_tokens": 4136429,
+      "reported_provider_cost": 0.166789336,
+      "generation_wall_clock_seconds": 2353.170138,
+      "shell_tool_calls": 108,
+      "clean_replay_calls": 3,
+      "clean_replay_failures": 2,
+      "clean_replay_passes": 1,
+      "first_construction_goal_success_request": 84,
+      "first_replay_request": 96,
+      "first_replay_active_findings": 183,
+      "network_failed_replay_request": 99,
+      "certification_request": 102,
+      "final_submission_request": 104,
+      "submitted_program_sha256": "13f784a591edd4dc32161a3e9dfad0ef4878e21925fc5b828650d8a04ca1f9dd",
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 329,
+      "official_evaluation_seconds": 19.987518787384033,
+      "artifact_sha256": {
+        "script": "6aa00ce0ed25314758d81c96bae14dfef58eb971d5e59ec848697846b9122e5b",
+        "generation_result": "6a414888f09b35eee133229e7a5cdf627dbfad3cc74da77041ee3e0874ca7af7",
+        "trajectory": "b781efa318c190f9b64bce9a6b78fc412fd6a41656144c69f2d66e31211fa3c0",
+        "container_commands": "e0db807e00e1f28ebe01f8b8d78046cbfc2340dba167070ba51c2f9ef8d2c06d",
+        "replays": "c39e86fbc2208c7bb115e2b3f554c9259b6459e21090f246b391694b1d4abd58",
+        "certification": "7e7256eef3c33376fe1a14c2a7d6c455a5f84528f830d02bfa2f08808c95b92a",
+        "official_result": "b7d7bfd27d9a6f9a6f76e48705117fe313025cf51f3ade1e07bed6f92c8156d9",
+        "official_raw_result": "64e2037bc6f3a94461b087475d05a5e6687e0dc4e00fe7d397573af77b279d53",
+        "manifest": "1aeb3857d5141b5cd9fd6f9a090bbb397cba254c0204e6c0e5934d369698e42f"
+      }
+    },
+    {
+      "position": 6,
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-06-A-F",
+      "official_run_id": "pro-v2-flash0731-dev16-06-A-F",
+      "generation_completed": true,
+      "model_requests": 62,
+      "provider_attempts": 65,
+      "provider_errors": 3,
+      "prompt_tokens": 1990388,
+      "completion_tokens": 53140,
+      "total_tokens": 2043528,
+      "reported_provider_cost": 0.115537744,
+      "generation_wall_clock_seconds": 2563.435017,
+      "shell_tool_calls": 69,
+      "clean_replay_calls": 0,
+      "first_construction_goal_success_request": 37,
+      "first_self_managed_fresh_checkout_success_request": 52,
+      "final_submission_request": 62,
+      "submitted_program_sha256": "bd77b33e6e8d2e232fa0be523655fefd2e78d9a1baf74dd47424d211843c2da8",
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 329,
+      "official_evaluation_seconds": 29.636749505996704,
+      "artifact_sha256": {
+        "script": "c27c8c305b3f08cc3d23d6dbc6ced9e1fa696eedb2d0ac6717b5b18da2e0b539",
+        "generation_result": "4edc7371e53446d9a9d119375971d025db5249e85dc87996b4805992429ae243",
+        "trajectory": "ff9e017767912403c586aa3cb09efb737bcf42468de599d2d5a50691e8bcfb1d",
+        "container_commands": "5ad49b329c8e05ba7d25cee2bfcf18b420b5ef2e60571b9a57716333cb907ae6",
+        "official_result": "894cdc73b4b42003b3feed3a9f9da4e812863a951349d467f1efa97665c574f6",
+        "official_raw_result": "6649d1492683432e928b8ed47b13a0cc27c4598034cb3c0fa15a0abb70d2428e",
+        "manifest": "49c7527d7ced842b2f811065ac4b65ae0bf16ea1a47577c7fa2cec3ccb955ba8"
+      }
+    }
+  ],
+  "resource_comparison": {
+    "b_minus_a_model_requests": 42,
+    "b_total_tokens_percent_vs_a": 102.41606672382271,
+    "b_generation_wall_clock_percent_vs_a": -8.202465738572684,
+    "b_shell_tool_calls_percent_vs_a": 56.52173913043479,
+    "b_reported_provider_cost_percent_vs_a": 44.35917668601874
+  },
+  "replay_diagnostic": {
+    "preregistered_primary_outcome": false,
+    "first_replay_counterexample": "The construction probe reached zero missing imports only while a project venv was active; clean replay showed the trusted goal using the default interpreter and reported 183 active missing-import findings.",
+    "second_replay_observation": "The repaired program did not return control to the goal because a files.pythonhosted.org download timed out.",
+    "classification_limitation": "The clean-replay tool labeled the download timeout agent_repair with infrastructure_error=null, so one infrastructure-like event consumed the agent request budget.",
+    "third_replay_observation": "The retry-hardened program passed the trusted public goal in a fresh container and received a certificate."
+  },
+  "deployment_quality_diagnostic": {
+    "preregistered_primary_outcome": false,
+    "independently_verified_full_development_environment": false,
+    "a_quality_flag": "official-sufficient-runtime-plus-pytest-subset",
+    "b_quality_flag": "official-sufficient-runtime-plus-pytest-subset",
+    "a_evidence": "A used pipenv sync for locked runtime dependencies, then added pytest and pyright; it did not install the complete locked development set.",
+    "b_evidence": "B installed the locked runtime dependencies, the editable project, pytest, and pyright; it did not install the complete locked development set.",
+    "interpretation": "Both scripts are legitimate and satisfy the Official objective, but Official Pass does not establish that all historical development tools are reproducible after the locked sourcery release disappeared."
+  },
+  "schedule_progress_sha256": "8fdeaf72a09c37b68a7989dbecc2ce875b14ee1d879d9a10ea160832bf6df4f5",
+  "claim_boundary": {
+    "supported": [
+      "both arms achieved Official Pass on this case",
+      "B-FSR clean replay exposed and repaired an environment-state-dependent false positive before final submission",
+      "B-FSR used less generation wall time than A-F on this case",
+      "B-FSR used more model requests, tokens, shell calls, and reported provider cost than A-F on this case",
+      "both submitted programs restored an Official-sufficient dependency subset rather than the complete historical development toolchain"
+    ],
+    "not_supported": [
+      "B-FSR has higher Official success probability than A-F",
+      "the current B-FSR policy is more resource efficient than A-F",
+      "either submitted program reconstructs the complete historical development environment",
+      "the second replay failure is evidence of an algorithmic compatibility error",
+      "non-scoring Pyright error counts indicate Official failure"
+    ]
+  }
+}
