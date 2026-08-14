@@ -1,0 +1,63 @@
+{
+  "schema": "envsolve-pro-v2-dev12-interruption-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-position18-interruption-retry1",
+  "recorded_at": "2026-08-14T02:31:52Z",
+  "recorded_before_retry": true,
+  "original_episode": {
+    "position": 18,
+    "run_id": "pro-v2-dev12-18-A-F",
+    "case_id": "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+    "state": "interrupted",
+    "process_exit_code": -15,
+    "duration_seconds": 1734.420529753901,
+    "model_requests": 45,
+    "provider_attempts": 46,
+    "provider_errors": 2,
+    "tool_results": 58,
+    "final_submission_calls": 0,
+    "first_local_goal_pass_request": 23,
+    "clean_replay_reached": false,
+    "official_evaluator_executed": false,
+    "terminal_class": "external-interruption-censored",
+    "reason": "The user explicitly requested a pause. The coordinator recorded interruption and removed the active construction container while the provider was retrying request 45.",
+    "algorithm_or_case_outcome_triggered": false,
+    "evidence": {
+      "artifact_root": "spark:/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-18-A-F/envbench-python-Mirascope__mirascope__cd6bf0a92d2dae975081d6da8281097abb5810a1",
+      "manifest_sha256": "30f31f859c015a1e3467839cf2a0c7192324923f013f890b66598bf4d8532667",
+      "trajectory_sha256": "e5fd0cce81e9382db91086dd9a1318de928f896db331299b8bb35044f9f3a9cb",
+      "heartbeat_sha256": "5494148bf7013585ecf587dc8ddf42b6036ef0837092217613766aa191a6c57a",
+      "progress_sha256_after_interruption": "c8b321a78e6bfa90db2406cf0baa6496c369f591c005ba927a21795b080c45e5"
+    }
+  },
+  "analysis": {
+    "original_observation_in_primary_denominator": false,
+    "original_observation_retained_for_mechanism_analysis": true,
+    "effective_outcome": "replace the censored position-18 observation with retry1 only if retry1 reaches an algorithmic terminal outcome",
+    "partial_candidate_state_reused": false,
+    "prior_model_context_reused": false,
+    "interrupted_tokens_and_time_reported_separately": true
+  },
+  "retry": {
+    "run_id": "pro-v2-dev12-18-A-F-interruption-retry1",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12_position18_interruption_retry1.json",
+    "schedule_sha256": "f6e77b5352546f3b7b7009dd3b9d759207ce392052522d744b92d8aab84a793f",
+    "entrypoint": "experiments/run_envsolve_pro_v2_schedule.py",
+    "fresh_episode_and_containers": true,
+    "same_case_and_revision": true,
+    "same_arm": true,
+    "same_runner_implementation": true,
+    "same_model": true,
+    "same_provider": true,
+    "same_seed": true,
+    "same_protocol": true,
+    "same_episode_timeout": true,
+    "algorithm_or_prompt_changed": false,
+    "case_specific_information_injected": false
+  },
+  "frozen_artifacts": {
+    "original_schedule_sha256": "def9e90337a0606ecd76be7563a1d2686fc2612727026234db2c20b6369a6ae4",
+    "case_file_sha256": "1116c703c6474b5be55dd26053945cbb267f26836ded004f9612161b71e070e0",
+    "config_sha256": "ce3b7076caae2109a42ee4abb5de3555f85f900c8c4952285bc33693769962d0",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af"
+  }
+}
