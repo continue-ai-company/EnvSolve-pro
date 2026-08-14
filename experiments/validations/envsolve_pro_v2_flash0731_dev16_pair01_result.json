@@ -1,0 +1,85 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-01",
+  "recorded_at": "2026-08-14T05:26:35Z",
+  "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+  "host_architecture": "aarch64",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "cloudflare",
+  "pair_outcome": {
+    "official_comparison_available": false,
+    "reason": "both arms exhausted the generation request safety cap without submission",
+    "infrastructure_censored": false,
+    "algorithm_effect_estimable": false,
+    "mechanism_note": "B-FSR never invoked clean replay, so C_s and R were not activated"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-01-B-FSR",
+      "generation_completed": false,
+      "failure_class": "generation_request_cap_without_submission",
+      "model_requests": 120,
+      "provider_attempts": 122,
+      "provider_errors": 2,
+      "prompt_tokens": 7232457,
+      "completion_tokens": 40355,
+      "total_tokens": 7272812,
+      "reported_provider_cost": 0.28396242,
+      "generation_wall_clock_seconds": 1802.526644,
+      "shell_tool_calls": 134,
+      "clean_replay_calls": 0,
+      "official_evaluator_started": false,
+      "submitted_program_sha256": null,
+      "artifact_sha256": {
+        "generation_result": "4d9b45277d89ecd6efb2e12dcea0212854b8fbca2eb1726f2babda06c93004f0",
+        "trajectory": "3ab76c154a93dbbc074285d165ec1478a5f67cee421cfee1b053ad54283d4304",
+        "container_commands": "dbcfbe379a67b29c6ac771344bbd837744025eb69633e1b71f6dd85943eb682b",
+        "manifest": "8ac208d8d2f671bbe430e2cea46f9337449694e09856d8b391084b2d3c4778bc",
+        "status": "08fb2bacfb0f00c93066e038a6e82c8af4ae27ae6a70ade157ff3854708826f4"
+      }
+    },
+    {
+      "position": 2,
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-02-A-F",
+      "generation_completed": false,
+      "failure_class": "generation_request_cap_without_submission",
+      "model_requests": 120,
+      "provider_attempts": 120,
+      "provider_errors": 0,
+      "prompt_tokens": 7039120,
+      "completion_tokens": 45452,
+      "total_tokens": 7084572,
+      "reported_provider_cost": 0.28223484800000004,
+      "generation_wall_clock_seconds": 2230.840515,
+      "shell_tool_calls": 120,
+      "clean_replay_calls": 0,
+      "official_evaluator_started": false,
+      "submitted_program_sha256": null,
+      "artifact_sha256": {
+        "generation_result": "393fd13f10dce543883d3a0dc000f90f5f8a96821dfc6a31f9371dcc190ba587",
+        "trajectory": "31f382a61fe6f19043ff5e27dbe040e3339f9be54f55de4f169092c5f6db27e0",
+        "container_commands": "024dd239df822a7bc0d3f024dcc845101b057614bbfe1bfe35afc6b7e98a4271",
+        "manifest": "ba7044acc620275510fc215bb4e5d05061510e291f75773de050f196ab9f44d4",
+        "status": "d7a9ea58b1d499b12c7b02bec9113413c6cb9b1b495dfefb9e73386a173a6154"
+      }
+    }
+  ],
+  "schedule_progress_sha256": "794b6a7e1077e391289133687301e4e03bc41bb8f735e38e64b105e5653bc8a9",
+  "interpretation": {
+    "supported": [
+      "both frozen arms failed before submission on this case",
+      "B-FSR did not activate its clean-replay mechanism",
+      "request-cap exhaustion is a deployment-policy failure rather than an Official evaluator failure"
+    ],
+    "not_supported": [
+      "A-F is more effective than B-FSR",
+      "B-FSR is more effective than A-F",
+      "Flash 0731 is unsuitable for the full Dev16 study",
+      "the failure generalizes beyond this aarch64 case execution"
+    ]
+  }
+}
