@@ -135,8 +135,9 @@ EnvBench 的 329 个 Python case 被额外划为 Dev 209、Canary 20 和 protect
 
 Dev-12 按原预注册保持不变，只作为机制 pilot，不与新模型结果合并。固定模型
 `deepseek/deepseek-v4-flash-0731` 已在一个已消费 case 上通过 tool calling、连续 session、反馈修复和
-Official 资格检查。随后从冻结 reserve 中 outcome-independent 地选择新的 Dev-16，在同一 Flash 快照上
-比较 F、F+R、F+C_s+R，以及作为代表性 F+C_h+R 系统的冻结旧 EnvSolve，共 64 个 episode。
+Official 资格检查。随后在任何 Flash treatment 运行前，从已用于 taxonomy 的 reserve 中仅按 identity
+选择 Dev-16；它对 Flash treatment 未运行，但不是仓库级未见。在同一 Flash 快照上比较 F、F+R、
+F+C_s+R，以及作为代表性 F+C_h+R 系统的冻结旧 EnvSolve，共 64 个 episode。
 F+R 对 F 隔离 replay，F+C_s+R 对 F+R 隔离软约束规范化。EnvSolve-Pro 对旧 EnvSolve 只能解释为
 软约束系统和硬约束系统的系统级比较，因为两者除约束机制外还有实现差异。外部比较还包括 EnvBench
 FreeAgent、Repo2Run 和原生 Codex，均保持原生语义。
@@ -160,7 +161,8 @@ Official 前硬边界失败和 6 个基础设施删失。重复机制包括干�
 首次 replay 认证。最清楚的终止轨迹中，两臂使用近似依赖策略：EnvSolve-Pro 在 replay 后于第 15 次请求
 提交，F 却对已满足目标反复检查到第 43 次；但前一条修复轨迹中 EnvSolve-Pro 的 token 与生成时间均多
 约 61%，并且它还有两次未形成 replay 候选。因此当前证据支持修复与终止机制，不支持通过率或无条件效率
-优势。剩余 Dev-12 和新的 Dev-16 必须检验可重复性；若不能，我们将收缩主张，而不是继续增加规则。
+优势。剩余 Dev-12 和 treatment-unrun Dev-16 必须检验可重复性；若不能，我们将收缩主张，而不是
+继续增加规则。
 
 ## 7. 局限
 

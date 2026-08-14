@@ -173,7 +173,8 @@ Codex 保持原生 CLI 和原生 OpenAI 模型，不使用共享 API backbone。
 
 只有 D1 完整结束并通过完整性门槛后：
 
-- 在运行任何新 arm 前，从冻结 reserve 中仅按 identity 哈希选择新的 16-case Dev batch；
+- 在运行任何 Flash arm 前，从已用于 taxonomy 的 reserve 中仅按 identity 哈希选择 16-case Dev
+  batch；这些 case 对 Flash treatment 未运行，但不是仓库级未见；
 - 在相同固定 DeepSeek V4 Flash 0731 backbone 下，以 case 内随机顺序比较 F、F+R 和 F+C_s+R；
 - 在相同 identity 上运行冻结的旧 EnvSolve，作为代表性 F+C_h+R 系统 baseline；所有 API arm 使用
   相同 Flash 0731 快照；

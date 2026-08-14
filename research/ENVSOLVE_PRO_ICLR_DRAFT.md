@@ -176,8 +176,9 @@ Dev-12 remains unchanged under its original preregistration and serves as a mech
 pilot. It is not pooled with new-model outcomes. Pinned
 `deepseek/deepseek-v4-flash-0731` has passed tool-calling, continuous-session,
 feedback-conditioned replay repair, and Official qualification on a consumed case.
-A fresh Dev-16 is selected outcome-independently from the frozen reserve. It compares
-F, F+R, F+C_s+R, and frozen prior EnvSolve on that same Flash snapshot as the
+A Dev-16 is selected by identity only from the taxonomy-consumed reserve before any
+Flash treatment runs. It is treatment-unrun but not repository-unseen. It compares F,
+F+R, F+C_s+R, and frozen prior EnvSolve on that same Flash snapshot as the
 representative F+C_h+R system, for 64 episodes. F+R versus F isolates replay; F+C_s+R
 versus F+R isolates soft normalization. EnvSolve-Pro versus prior EnvSolve is only a
 system-level soft-versus-hard comparison because the implementations differ beyond the
@@ -211,8 +212,8 @@ EnvSolve-Pro submitted at request 15 after replay, whereas F repeated an already
 goal until request 43. Yet a preceding repair cost EnvSolve-Pro about 61% more tokens and
 generation time, and it twice failed to form a replay candidate. The evidence therefore
 supports repair and stopping mechanisms, not a pass-rate or unconditional efficiency
-advantage. The remaining Dev-12 and fresh Dev-16 must test reproducibility; otherwise we
-will narrow the claim rather than add rules.
+advantage. The remaining Dev-12 and treatment-unrun Dev-16 must test reproducibility;
+otherwise we will narrow the claim rather than add rules.
 
 ## 7. Limitations
 

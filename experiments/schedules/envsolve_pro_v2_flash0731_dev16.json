@@ -1,0 +1,624 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+  "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "case_position": 1,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-01",
+      "pair_position": 1,
+      "position": 1,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-01-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 2835684515
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "case_position": 1,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-01",
+      "pair_position": 2,
+      "position": 2,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-02-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 2835684515
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "case_position": 2,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-02",
+      "pair_position": 1,
+      "position": 3,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-03-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 463121450
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "case_position": 2,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-02",
+      "pair_position": 2,
+      "position": 4,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-04-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 463121450
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "case_position": 3,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-03",
+      "pair_position": 1,
+      "position": 5,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-05-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 2121979159
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "case_position": 3,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-03",
+      "pair_position": 2,
+      "position": 6,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-06-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 2121979159
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "case_position": 4,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-04",
+      "pair_position": 1,
+      "position": 7,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-07-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 1988885819
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "case_position": 4,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-04",
+      "pair_position": 2,
+      "position": 8,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-08-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 1988885819
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-neptune-ai__neptune-client@b8d45806f7d0a96beb45ab09d7ddec693253a9e7",
+      "case_position": 5,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-05",
+      "pair_position": 1,
+      "position": 9,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-09-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 3582760183
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-neptune-ai__neptune-client@b8d45806f7d0a96beb45ab09d7ddec693253a9e7",
+      "case_position": 5,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-05",
+      "pair_position": 2,
+      "position": 10,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-10-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 3582760183
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-johnsnowlabs__nlu@506860e546076b353969b5a3216c05d080ad923e",
+      "case_position": 6,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-06",
+      "pair_position": 1,
+      "position": 11,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-11-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 1591567786
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-johnsnowlabs__nlu@506860e546076b353969b5a3216c05d080ad923e",
+      "case_position": 6,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-06",
+      "pair_position": 2,
+      "position": 12,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-12-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 1591567786
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+      "case_position": 7,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-07",
+      "pair_position": 1,
+      "position": 13,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-13-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 3830948119
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+      "case_position": 7,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-07",
+      "pair_position": 2,
+      "position": 14,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-14-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 3830948119
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "case_position": 8,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-08",
+      "pair_position": 1,
+      "position": 15,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-15-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 959268847
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "case_position": 8,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-08",
+      "pair_position": 2,
+      "position": 16,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-16-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 959268847
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+      "case_position": 9,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-09",
+      "pair_position": 1,
+      "position": 17,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-17-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 1883563614
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+      "case_position": 9,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-09",
+      "pair_position": 2,
+      "position": 18,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-18-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 1883563614
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "case_position": 10,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-10",
+      "pair_position": 1,
+      "position": 19,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-19-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 3639764844
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "case_position": 10,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-10",
+      "pair_position": 2,
+      "position": 20,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-20-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 3639764844
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "case_position": 11,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-11",
+      "pair_position": 1,
+      "position": 21,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-21-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 3916710716
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "case_position": 11,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-11",
+      "pair_position": 2,
+      "position": 22,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-22-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 3916710716
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+      "case_position": 12,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-12",
+      "pair_position": 1,
+      "position": 23,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-23-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 2820794273
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+      "case_position": 12,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-12",
+      "pair_position": 2,
+      "position": 24,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-24-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 2820794273
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "case_position": 13,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-13",
+      "pair_position": 1,
+      "position": 25,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-25-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 291976752
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "case_position": 13,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-13",
+      "pair_position": 2,
+      "position": 26,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-26-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 291976752
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "case_position": 14,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-14",
+      "pair_position": 1,
+      "position": 27,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-27-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 3639248023
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "case_position": 14,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-14",
+      "pair_position": 2,
+      "position": 28,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-28-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 3639248023
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "case_position": 15,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-15",
+      "pair_position": 1,
+      "position": 29,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-29-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 2813064237
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "case_position": 15,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-15",
+      "pair_position": 2,
+      "position": 30,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-30-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 2813064237
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "case_position": 16,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-16",
+      "pair_position": 1,
+      "position": 31,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-31-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 1299350259
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "case_position": 16,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-16",
+      "pair_position": 2,
+      "position": 32,
+      "provider": "cloudflare",
+      "run_id": "pro-v2-flash0731-dev16-32-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 1299350259
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "taxonomy-consumed-flash-treatment-unrun-development",
+  "provider": "cloudflare",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "cloudflare"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-flash0731-dev16"
+}

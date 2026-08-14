@@ -1,0 +1,46 @@
+{
+  "budget_policy": "token and cost are reported diagnostics, not success-stopping thresholds",
+  "claim_boundary": "development same-model effect only; repository-level generalization requires untouched Canary and protected test",
+  "diagnostic_outcomes": [
+    "terminal class",
+    "first replay failure",
+    "feedback-conditioned repair",
+    "wall time",
+    "token usage",
+    "tool calls",
+    "reported provider cost"
+  ],
+  "execution": {
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_flash0731_dev16.json",
+    "config_sha256": "3e2fc938734a8fbfc98ac63a688e7469b18942a02e0eec40bd6fde0559f798dc",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "model_fallback": false,
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "provider": "cloudflare",
+    "qualification_sha256": "c1cf54b7e4c0321de13d21027427304d70c9509fdbd68c2e0d77d4568d64772f",
+    "runner_sha256": "c50804145a373add5095127610b286cc423b6ba0fa4db0270abd514953441b13"
+  },
+  "population_role": "taxonomy-consumed-flash-treatment-unrun-development",
+  "preregistered_at": "2026-08-14T03:47:15.813935+00:00",
+  "primary_outcome": "Official Pass@1",
+  "research_question": "Does F+S+R improve Official Pass@1 over F on the same pinned Flash 0731 model?",
+  "schedule": {
+    "episode_count": 32,
+    "paired_randomized_order": true,
+    "path": "experiments/schedules/envsolve_pro_v2_flash0731_dev16.json",
+    "sha256": "66c482430cad1a9f39ea2a3d97cffcb86ce76716402fb193af0acda0ae2ea60e"
+  },
+  "schema": "envsolve-pro-v2-flash0731-dev16-preregistration-v1",
+  "selection": {
+    "audit": "experiments/validations/envsolve_pro_v2_flash0731_dev16_selection.json",
+    "audit_sha256": "5eaa638acc521837e5753a4f94d3314186dd7da38e7c4c4a138097d04cb17d23",
+    "remaining": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+    "remaining_sha256": "845b96d1a4de73f6126bacd0bfbdb2f96962fd6b6fe970e98f367971a4b9d92a",
+    "selected": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+    "selected_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090"
+  },
+  "source_revision": "a91c9fdff377946cc7b63821c14679ba4845e584",
+  "status": "frozen-before-first-episode",
+  "study_id": "envsolve-pro-v2-flash0731-dev16"
+}

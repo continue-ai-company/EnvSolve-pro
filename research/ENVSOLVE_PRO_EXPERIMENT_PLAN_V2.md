@@ -205,8 +205,9 @@ same-backbone causal control.
 
 Only after D1 completes and passes integrity gates:
 
-- select a fresh 16-case Dev batch from the frozen reserve by an outcome-independent
-  identity hash before any new arm is run;
+- select 16 cases from the taxonomy-consumed reserve by an outcome-independent identity
+  hash before any Flash arm is run; these cases are Flash-treatment-unrun, not
+  repository-unseen;
 - compare F, F+R, and F+C_s+R under a randomized within-case order and the same pinned
   DeepSeek V4 Flash 0731 backbone;
 - run the frozen prior EnvSolve on the same identities as the representative
