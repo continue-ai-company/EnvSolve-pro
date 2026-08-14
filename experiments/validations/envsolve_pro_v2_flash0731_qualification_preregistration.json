@@ -1,0 +1,75 @@
+{
+  "schema": "envsolve-pro-v2-model-qualification-preregistration-v1",
+  "study_id": "envsolve-pro-v2-flash0731-qualification",
+  "recorded_at": "2026-08-14T02:52:17Z",
+  "recorded_before_full_episode": true,
+  "decision": {
+    "selected_model_id": "deepseek/deepseek-v4-flash-0731",
+    "moving_alias_rejected": "~deepseek/deepseek-v4-flash-latest",
+    "provider": "cloudflare",
+    "reason": "use the stable pinned Flash revision for subsequent experiments after community reports of instability in V4 Pro",
+    "old_dev12_disposition": "retain as a frozen V4 Pro pilot; never pool its outcomes with Flash 0731"
+  },
+  "catalog_qualification": {
+    "source": "https://openrouter.ai/api/v1/models",
+    "name": "DeepSeek: DeepSeek V4 Flash 0731",
+    "created": 1785478908,
+    "context_length": 1048576,
+    "provider_max_completion_tokens": 393216,
+    "required_supported_parameters": [
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "tool_choice",
+      "tools"
+    ],
+    "all_required_parameters_present": true
+  },
+  "tool_canary": {
+    "executed_at": "2026-08-14T02:50:43Z",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "Cloudflare",
+    "finish_reason": "tool_calls",
+    "tool_name": "echo_probe",
+    "arguments": {
+      "value": "flash-qualified"
+    },
+    "prompt_tokens": 381,
+    "completion_tokens": 72,
+    "total_tokens": 453,
+    "raw_response_sha256": "1ac89e2cc5e06544f73c2871f4346b94cb510c647d4e40015384613b47dc28bc",
+    "result": "pass"
+  },
+  "full_episode": {
+    "population_role": "consumed-development-mechanism-qualification",
+    "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "selection_reason": "previously consumed Dev-12 case with a completed V4 Pro pair; excluded from unseen effectiveness evidence",
+    "arm": "B-FSR",
+    "run_id": "pro-v2-flash0731-qualification-01-B-FSR",
+    "required_gates": [
+      "at least one successful provider response",
+      "at least one valid environment tool call",
+      "a complete submitted bootstrap program",
+      "an exact-hash clean replay certificate",
+      "Official evaluator completion"
+    ],
+    "qualification_pass": null
+  },
+  "frozen_inputs": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_qualification.json",
+    "schedule_sha256": "147596eea5ed8985eafb235279697c75868997d988a4172463729110e05e055f",
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_flash0731_qualification.json",
+    "config_sha256": "53c3b9a8c9ac4cc84dccaf11f048fd51ceeababcba8a623847ff9f1e23736762",
+    "case_file_sha256": "1116c703c6474b5be55dd26053945cbb267f26836ded004f9612161b71e070e0",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "runner_sha256": "c50804145a373add5095127610b286cc423b6ba0fa4db0270abd514953441b13",
+    "runner_test_sha256": "b5a556e3b528ba25b5abf7725143449f28fee55ae55520fca6e121696eb69590"
+  },
+  "validity": {
+    "effectiveness_claim_allowed": false,
+    "case_specific_prompt_or_algorithm_changes_allowed": false,
+    "qualification_result_may_select_cases_for_primary_batch": false,
+    "next_step_if_pass": "freeze a complete Flash 0731 A/B development batch before executing its first episode",
+    "next_step_if_fail": "diagnose model or provider compatibility without using the result as algorithm evidence"
+  }
+}

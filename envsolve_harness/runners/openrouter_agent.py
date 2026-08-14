@@ -40,6 +40,8 @@ from envsolve_harness.utils.provenance import sha256_file
 
 
 DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
+DEEPSEEK_V4_FLASH_0731 = "deepseek/deepseek-v4-flash-0731"
+SUPPORTED_DEEPSEEK_MODELS = frozenset({DEEPSEEK_V4_PRO, DEEPSEEK_V4_FLASH_0731})
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 ReplayMode = Literal["none", "soft"]
 ClientFactory = Callable[..., Any]
@@ -732,13 +734,16 @@ only the exact hash of a program that passed a clean replay.
             ],
             "started_at": started_at,
         }
-        if run_spec.model != DEEPSEEK_V4_PRO:
+        if run_spec.model not in SUPPORTED_DEEPSEEK_MODELS:
             return self._finish(
                 artifacts,
                 SolverResult(
                     False,
                     run_spec.method,
-                    error=f"OpenRouter API experiments require model {DEEPSEEK_V4_PRO}",
+                    error=(
+                        "OpenRouter API experiments require a frozen qualified model: "
+                        f"{', '.join(sorted(SUPPORTED_DEEPSEEK_MODELS))}"
+                    ),
                     metadata=metadata,
                 ),
                 "Model identity rejected before provider access.\n",

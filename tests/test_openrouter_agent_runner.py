@@ -11,8 +11,10 @@ from envsolve.runtime import ExecutableGoalContract
 from envsolve_harness.codex.minimal_b_mcp import script_sha256
 from envsolve_harness.replay_feedback import normalize_replay_feedback
 from envsolve_harness.runners.openrouter_agent import (
+    DEEPSEEK_V4_FLASH_0731,
     DEEPSEEK_V4_PRO,
     OpenRouterAgentRunner,
+    SUPPORTED_DEEPSEEK_MODELS,
     _EpisodePackageCacheRunCommand,
     _trajectory_progress,
 )
@@ -216,6 +218,22 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(
             options["extra_body"]["provider"],
             {"require_parameters": True, "allow_fallbacks": False},
+        )
+
+    def test_flash_0731_is_pinned_without_enabling_moving_aliases(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "soft")
+            options = runner.request_options(
+                DEEPSEEK_V4_FLASH_0731,
+                [{"role": "user", "content": "x"}],
+            )
+
+        self.assertEqual(options["model"], "deepseek/deepseek-v4-flash-0731")
+        self.assertIn(DEEPSEEK_V4_PRO, SUPPORTED_DEEPSEEK_MODELS)
+        self.assertIn(DEEPSEEK_V4_FLASH_0731, SUPPORTED_DEEPSEEK_MODELS)
+        self.assertNotIn(
+            "~deepseek/deepseek-v4-flash-latest",
+            SUPPORTED_DEEPSEEK_MODELS,
         )
 
     def test_prompt_defines_a_path_independent_submission_contract(self) -> None:
