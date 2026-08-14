@@ -1,0 +1,55 @@
+{
+  "schema": "envsolve-pro-v2-dev12-provider-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-dev12-position18-interruption-retry1-provider-retry1",
+  "recorded_at": "2026-08-14T02:40:59Z",
+  "recorded_before_retry": true,
+  "censored_episode": {
+    "original_position": 18,
+    "run_id": "pro-v2-dev12-18-A-F-interruption-retry1",
+    "case_id": "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+    "duration_seconds": 6.693204453680664,
+    "request_indices_attempted": 1,
+    "provider_attempts": 1,
+    "successful_model_responses": 0,
+    "tool_results": 0,
+    "official_evaluator_executed": false,
+    "terminal_class": "operator-credential-provider-censored",
+    "error": "OpenRouter rejected an expired credential with HTTP 401 User not found before routing a model request",
+    "algorithm_or_case_outcome_triggered": false,
+    "result_sha256": "0adca33d4b9f7085cabbdc18cbf05728785224e14bf48a16594512a4cd3c9ec3",
+    "trajectory_sha256": "cd28cbf78530842ef366201bb142c037aa1fd3e848ca7ee3f161b267637be88a",
+    "manifest_sha256": "3821367ea6f2fd79f7eb23d10fc7fa52c357b100419e38dae9a583b9974b4d14",
+    "progress_sha256": "c4a937e1646f121b9db9e54269e2f58116e7342bbd89c4f694fff30e68668778"
+  },
+  "adjudication": {
+    "cause": "the launcher selected a stale OpenRouter credential from local shell history instead of the credential retained by the successful frozen Spark session",
+    "valid_credential_check": "the recovered Spark credential returned HTTP 200 from OpenRouter /api/v1/key",
+    "model_catalog_check": "OpenRouter /api/v1/models still lists deepseek/deepseek-v4-pro; the new deepseek/deepseek-v4-pro-0813 GA snapshot is separate",
+    "model_name_failure": false,
+    "counts_as_model_attempt": false,
+    "counts_in_primary_denominator": false
+  },
+  "retry": {
+    "run_id": "pro-v2-dev12-18-A-F-interruption-retry1-provider-retry1",
+    "schedule": "experiments/schedules/envsolve_pro_v2_dev12_position18_interruption_retry1_provider_retry1.json",
+    "schedule_sha256": "246cd9425cfe0ae1ef6bbabbc55014018a9901186f06eb11b1f8f40ec5411c45",
+    "fresh_episode_and_containers": true,
+    "same_case_and_revision": true,
+    "same_arm": true,
+    "same_runner_implementation": true,
+    "same_model_id": "deepseek/deepseek-v4-pro",
+    "same_provider": "cloudflare",
+    "same_seed": true,
+    "same_protocol": true,
+    "same_episode_timeout": true,
+    "algorithm_or_prompt_changed": false,
+    "case_specific_information_injected": false,
+    "maximum_additional_retry_for_this_failure": 1
+  },
+  "model_release_boundary": {
+    "new_model_id_observed": "deepseek/deepseek-v4-pro-0813",
+    "new_model_release_class": "GA",
+    "new_model_used_in_this_retry": false,
+    "policy": "complete the frozen Dev-12 batch with deepseek/deepseek-v4-pro; evaluate the 0813 GA snapshot only in a separately frozen batch"
+  }
+}
