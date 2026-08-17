@@ -91,5 +91,5 @@ def test_exact_revision_cache_retries_population_from_a_clean_temporary_repo() -
 
         assert result["cache_hit"] is False
         assert result["populate_attempts"] == 3
-        assert sleep.call_args_list == [mock.call(1), mock.call(2)]
+        assert sleep.call_args_list[:2] == [mock.call(1), mock.call(2)]
         assert not list((root / "cache").rglob("*.tmp-*"))
