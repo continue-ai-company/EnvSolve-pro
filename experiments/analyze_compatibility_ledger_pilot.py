@@ -395,6 +395,36 @@ def _apply_cross_arm_validity(records: list[dict[str, Any]]) -> None:
                     item["censored"] = True
 
 
+def _apply_replacement_schedules(
+    episodes: list[dict[str, Any]],
+    replacement_schedules: list[Path],
+) -> list[dict[str, Any]]:
+    replacements: dict[int, dict[str, Any]] = {}
+    valid_positions = {int(item["position"]) for item in episodes}
+    for path in replacement_schedules:
+        replacement_episodes = read_json(path.resolve()).get("episodes")
+        if not isinstance(replacement_episodes, list) or len(replacement_episodes) != 1:
+            raise ValueError(
+                f"Replacement schedule must contain exactly one episode: {path}"
+            )
+        replacement = replacement_episodes[0]
+        if not isinstance(replacement, dict):
+            raise ValueError(f"Replacement episode must be an object: {path}")
+        original_position = replacement.get("original_position")
+        if not isinstance(original_position, int):
+            raise ValueError(
+                f"Replacement episode must declare original_position: {path}"
+            )
+        if original_position not in valid_positions:
+            raise ValueError(
+                f"Replacement targets unknown position {original_position}: {path}"
+            )
+        if original_position in replacements:
+            raise ValueError(f"Duplicate replacement for position {original_position}")
+        replacements[original_position] = replacement
+    return [replacements.get(int(item["position"]), item) for item in episodes]
+
+
 def _arm_summary(records: list[dict[str, Any]], arm: str) -> dict[str, Any]:
     selected = [item for item in records if item["arm"] == arm and not item["censored"]]
     return {
@@ -552,7 +582,12 @@ def _adjudicate(records: list[dict[str, Any]], pairs: list[dict[str, Any]]) -> d
 def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze the frozen ledger pilot.")
     parser.add_argument("--schedule", type=Path, required=True)
-    parser.add_argument("--replacement-schedule", type=Path, required=True)
+    parser.add_argument(
+        "--replacement-schedule",
+        action="append",
+        type=Path,
+        required=True,
+    )
     parser.add_argument("--run-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
@@ -563,11 +598,9 @@ def main() -> int:
     )
     args = parser.parse_args()
     schedule = read_json(args.schedule.resolve())
-    replacement = read_json(args.replacement_schedule.resolve())["episodes"][0]
-    specs = [
-        replacement if int(item["position"]) == 1 else item
-        for item in schedule["episodes"]
-    ]
+    specs = _apply_replacement_schedules(
+        schedule["episodes"], args.replacement_schedule
+    )
     retry_runs = {}
     for value in args.official_retry:
         source, separator, retry = value.partition("=")

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from experiments.analyze_compatibility_ledger_pilot import (
+    _apply_replacement_schedules,
     _apply_cross_arm_validity,
     _adjudicate,
     _candidate_event,
@@ -103,6 +104,72 @@ def test_cross_arm_validity_accepts_matching_execution_identity() -> None:
 
     assert not any(item["censored"] for item in records)
     assert not any(item["validity_errors"] for item in records)
+
+
+def test_replacement_schedules_target_declared_original_positions(
+    tmp_path: Path,
+) -> None:
+    episodes = [
+        {"position": position, "run_id": f"original-{position}"}
+        for position in range(1, 4)
+    ]
+    paths = []
+    for position in (1, 3):
+        path = tmp_path / f"replacement-{position}.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "episodes": [
+                        {
+                            "position": 1,
+                            "original_position": position,
+                            "run_id": f"replacement-{position}",
+                        }
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+        paths.append(path)
+
+    result = _apply_replacement_schedules(episodes, paths)
+
+    assert [item["run_id"] for item in result] == [
+        "replacement-1",
+        "original-2",
+        "replacement-3",
+    ]
+
+
+def test_replacement_schedules_reject_duplicate_original_positions(
+    tmp_path: Path,
+) -> None:
+    episodes = [{"position": 1, "run_id": "original-1"}]
+    paths = []
+    for index in range(2):
+        path = tmp_path / f"replacement-{index}.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "episodes": [
+                        {
+                            "position": 1,
+                            "original_position": 1,
+                            "run_id": f"replacement-{index}",
+                        }
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+        paths.append(path)
+
+    try:
+        _apply_replacement_schedules(episodes, paths)
+    except ValueError as error:
+        assert str(error) == "Duplicate replacement for position 1"
+    else:
+        raise AssertionError("duplicate replacement was accepted")
 
 
 def test_candidate_boundary_requires_a_hash_matched_certificate() -> None:
