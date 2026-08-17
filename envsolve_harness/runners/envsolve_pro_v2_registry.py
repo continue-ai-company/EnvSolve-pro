@@ -64,3 +64,9 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-fsr-minimal-h",
             _factory("soft"),
         )
+    if "envsolve-pro-v2-incumbent" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-incumbent",
+            "envsolve-pro-goal-triggered-certified-incumbent",
+            _factory("incumbent"),
+        )

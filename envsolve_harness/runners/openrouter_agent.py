@@ -4,9 +4,11 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import shlex
 import subprocess
 import time
 from typing import Any, Callable, Literal
+import uuid
 
 from envsolve.runtime.docker import DockerFreshEnvironmentProvider
 from envsolve.runtime.goal import ExecutableGoalContract
@@ -44,8 +46,9 @@ DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
 DEEPSEEK_V4_FLASH_0731 = "deepseek/deepseek-v4-flash-0731"
 SUPPORTED_DEEPSEEK_MODELS = frozenset({DEEPSEEK_V4_PRO, DEEPSEEK_V4_FLASH_0731})
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-ReplayMode = Literal["none", "soft"]
+ReplayMode = Literal["none", "soft", "incumbent"]
 ClientFactory = Callable[..., Any]
+GoalObserver = Callable[[], dict[str, Any]]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
 
 
@@ -210,7 +213,7 @@ def _function_tool(name: str, description: str, parameters: dict[str, Any]) -> d
 
 
 class OpenRouterAgentRunner(CodexCliRunner):
-    """One continuous OpenAI-compatible tool session for F and F+S+R."""
+    """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
     runner_version = "0.2.0"
@@ -235,8 +238,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
         goal_contract: ExecutableGoalContract,
         client_factory: ClientFactory | None = None,
     ) -> None:
-        if replay_mode not in {"none", "soft"}:
-            raise ValueError("Replay mode must be none or soft")
+        if replay_mode not in {"none", "soft", "incumbent"}:
+            raise ValueError("Replay mode must be none, soft, or incumbent")
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
         if model_max_retries < 0:
@@ -274,11 +277,19 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def agent_interface(self) -> str:
-        return (
-            "free-feedback-search+soft-clean-replay-v1"
-            if self.replay_mode == "soft"
-            else "free-feedback-search-v1"
-        )
+        if self.replay_mode == "incumbent":
+            return "free-feedback-search+goal-triggered-certified-incumbent-v1"
+        if self.replay_mode == "soft":
+            return "free-feedback-search+soft-clean-replay-v1"
+        return "free-feedback-search-v1"
+
+    @property
+    def replay_enabled(self) -> bool:
+        return self.replay_mode in {"soft", "incumbent"}
+
+    @property
+    def incumbent_enabled(self) -> bool:
+        return self.replay_mode == "incumbent"
 
     @staticmethod
     def _now() -> str:
@@ -385,7 +396,23 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 },
             )
         ]
-        if self.replay_mode == "soft":
+        if self.incumbent_enabled:
+            tools.append(
+                _function_tool(
+                    "observe_goal",
+                    (
+                        "Run the trusted public goal in the current persistent shell. "
+                        "Use this only to confirm a state that you believe is satisfying; "
+                        "a pass triggers immediate candidate compilation and certification."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": False,
+                    },
+                )
+            )
+        if self.replay_enabled:
             tools.append(
                 _function_tool(
                     "submit_and_replay",
@@ -468,7 +495,179 @@ constraint as advisory evidence, inspect the accompanying raw evidence, repair t
 whole program in this same session, and repeat as needed. `submit_bootstrap` accepts
 only the exact hash of a program that passed a clean replay.
 """
+        elif self.incumbent_enabled:
+            prompt += """\
+
+When execution evidence indicates that the whole public goal should pass, call
+`observe_goal`. Do not use it as a general diagnostic probe. After its first Pass,
+immediately compile the current environment into one complete bootstrap program and
+call `submit_and_replay`. A replay-passed program becomes the harness-managed
+incumbent: it remains available if the provider or a safety cap later stops the
+session. You may continue in this same session only when there is a material runtime
+or reproducibility improvement to make. Replace the incumbent only by clean-replaying
+the improved complete program. `submit_bootstrap` accepts only a certified hash.
+The incumbent stores the program and certificate, never a container checkpoint.
+"""
         return prompt
+
+    def _active_goal_command(self, nonce: str) -> tuple[str, str, str]:
+        report_path = f"/tmp/envsolve-active-goal-{nonce}.json"
+        begin = f"ENVSOLVE_ACTIVE_GOAL_BEGIN_V1={nonce}"
+        end = f"ENVSOLVE_ACTIVE_GOAL_END_V1={nonce}"
+        delimiter = f"ENVSOLVE_ACTIVE_GOAL_PY_{nonce}"
+        summary_program = "\n".join(
+            [
+                "import json",
+                "from pathlib import Path",
+                "import sys",
+                "value = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))",
+                "findings = value.get('findings')",
+                "if not isinstance(findings, list):",
+                "    raise ValueError('goal report findings must be an array')",
+                "result = {",
+                "    'schema': value.get('schema'),",
+                "    'status': value.get('status'),",
+                "    'finding_set_complete': value.get('finding_set_complete'),",
+                "    'finding_count': len(findings),",
+                "    'details': value.get('details', {}),",
+                "    'goal_exit_code': int(sys.argv[2]),",
+                "}",
+                "print(json.dumps(result, ensure_ascii=True, sort_keys=True))",
+            ]
+        )
+        protected_prefixes = " ".join(
+            shlex.quote(prefix)
+            for prefix in self.goal_contract.protected_environment_prefixes
+        )
+        protected_check = (
+            f"for prefix in {protected_prefixes}; do "
+            "while IFS='=' read -r name _; do "
+            'case "$name" in "$prefix"*) exit 252 ;; esac; '
+            "done < <(/usr/bin/env); done"
+            if protected_prefixes
+            else ":"
+        )
+        lines = [
+            'case "$-" in *e*) ENVSOLVE_OBSERVER_HAD_ERREXIT=1 ;; *) '
+            "ENVSOLVE_OBSERVER_HAD_ERREXIT=0 ;; esac",
+            "set +e",
+            "(",
+            protected_check,
+            "ENVSOLVE_PROTECTED_STATUS=$?",
+            f"export ENVSOLVE_PROJECT_ROOT={shlex.quote('/data/project')}",
+            f"export ENVSOLVE_GOAL_REPORT={shlex.quote(report_path)}",
+            'rm -f "$ENVSOLVE_GOAL_REPORT"',
+            'if [ "$ENVSOLVE_PROTECTED_STATUS" -eq 0 ]; then',
+            "(",
+            "set -e",
+            self.goal_contract.program.rstrip(),
+            ")",
+            "ENVSOLVE_GOAL_EXIT_CODE=$?",
+            "else",
+            "ENVSOLVE_GOAL_EXIT_CODE=$ENVSOLVE_PROTECTED_STATUS",
+            "fi",
+            f"printf '%s\\n' {shlex.quote(begin)}",
+            'if [ -f "$ENVSOLVE_GOAL_REPORT" ]; then',
+            'command python - "$ENVSOLVE_GOAL_REPORT" "$ENVSOLVE_GOAL_EXIT_CODE" '
+            f"<<'{delimiter}'",
+            summary_program,
+            delimiter,
+            "fi",
+            f"printf '%s\\n' {shlex.quote(end)}",
+            'rm -f "$ENVSOLVE_GOAL_REPORT"',
+            ")",
+            'if [ "$ENVSOLVE_OBSERVER_HAD_ERREXIT" -eq 1 ]; then set -e; fi',
+            "true",
+        ]
+        return "\n".join(lines), begin + "\n", "\n" + end
+
+    def _observe_active_goal(
+        self,
+        terminal_server: ContainerMcpServer,
+    ) -> dict[str, Any]:
+        nonce = uuid.uuid4().hex
+        command, begin, end = self._active_goal_command(nonce)
+        response = terminal_server.handle(
+            {
+                "jsonrpc": "2.0",
+                "id": f"active-goal-{nonce}",
+                "method": "tools/call",
+                "params": {
+                    "name": "envbench_shell",
+                    "arguments": {
+                        "command": command,
+                        "timeout_seconds": self.command_timeout,
+                    },
+                },
+            }
+        )
+        if response is None or "result" not in response:
+            return {
+                "status": "unknown",
+                "reason": "active goal observer returned no tool result",
+            }
+        result = response["result"].get("structuredContent")
+        if not isinstance(result, dict):
+            return {
+                "status": "unknown",
+                "reason": "active goal observer returned malformed tool output",
+            }
+        output = result.get("output")
+        infrastructure_error = result.get("infrastructure_error")
+        if infrastructure_error or result.get("timed_out") or not isinstance(output, str):
+            return {
+                "status": "unknown",
+                "reason": infrastructure_error or "active goal observation did not complete",
+                "duration_seconds": result.get("duration_seconds"),
+            }
+        if output.count(begin) != 1 or output.count(end) != 1:
+            return {
+                "status": "unknown",
+                "reason": "active goal observation produced no unique compact report",
+                "duration_seconds": result.get("duration_seconds"),
+                "output_truncated": result.get("output_truncated", False),
+            }
+        encoded = output.split(begin, 1)[1].split(end, 1)[0].strip()
+        try:
+            report = json.loads(encoded)
+        except json.JSONDecodeError as exc:
+            return {
+                "status": "unknown",
+                "reason": f"active goal compact report is invalid JSON: {exc}",
+                "duration_seconds": result.get("duration_seconds"),
+            }
+        if not isinstance(report, dict):
+            return {
+                "status": "unknown",
+                "reason": "active goal compact report must be an object",
+                "duration_seconds": result.get("duration_seconds"),
+            }
+        status = report.get("status")
+        finding_count = report.get("finding_count")
+        valid = (
+            report.get("schema") == self.goal_contract.report_schema
+            and status in {"pass", "fail", "unknown"}
+            and isinstance(report.get("finding_set_complete"), bool)
+            and isinstance(finding_count, int)
+            and not isinstance(finding_count, bool)
+            and finding_count >= 0
+            and isinstance(report.get("details"), dict)
+            and isinstance(report.get("goal_exit_code"), int)
+            and not isinstance(report.get("goal_exit_code"), bool)
+            and not (status == "pass" and finding_count != 0)
+            and not (status == "pass" and report.get("goal_exit_code") != 0)
+        )
+        if not valid:
+            return {
+                "status": "unknown",
+                "reason": "active goal compact report failed schema validation",
+                "duration_seconds": result.get("duration_seconds"),
+            }
+        return {
+            **report,
+            "duration_seconds": result.get("duration_seconds"),
+            "output_truncated": result.get("output_truncated", False),
+        }
 
     def _client(self) -> Any:
         api_key = os.environ.get("OPENROUTER_API_KEY")
@@ -597,26 +796,101 @@ only the exact hash of a program that passed a clean replay.
         terminal_server: ContainerMcpServer,
         replay_service: CleanReplayService | None,
         trajectory_path: Path,
+        goal_observer: GoalObserver | None = None,
     ) -> tuple[dict[str, str], dict[str, Any]]:
         messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
         usage_total: dict[str, int | float] = {}
         tool_counts = {"envbench_shell": 0, "submit_and_replay": 0, "submit_bootstrap": 0}
+        if self.incumbent_enabled:
+            tool_counts["observe_goal"] = 0
         replay_status_counts: dict[str, int] = {}
+        incumbent: dict[str, str] | None = None
+        incumbent_updates: list[dict[str, Any]] = []
+        first_goal_pass_request: int | None = None
         started = time.monotonic()
+
+        def loop_metadata(
+            request_index: int,
+            *,
+            termination_reason: str | None = None,
+            termination_error: str | None = None,
+            fallback_used: bool = False,
+        ) -> dict[str, Any]:
+            metadata: dict[str, Any] = {
+                "model_requests": request_index,
+                "token_usage": usage_total,
+                "tool_counts": tool_counts,
+                "replay_status_counts": replay_status_counts,
+            }
+            if self.incumbent_enabled:
+                metadata["certified_incumbent"] = {
+                    "update_count": len(incumbent_updates),
+                    "updates": incumbent_updates,
+                    "first_goal_pass_request": first_goal_pass_request,
+                    "fallback_used": fallback_used,
+                    "final_program_sha256": (
+                        incumbent.get("program_sha256") if incumbent is not None else None
+                    ),
+                }
+                if termination_reason is not None:
+                    metadata["agent_termination"] = {
+                        "reason": termination_reason,
+                        "error": termination_error,
+                        "certified_incumbent_available": incumbent is not None,
+                        "fallback_used": fallback_used,
+                    }
+            return metadata
+
+        def fallback_submission(
+            request_index: int,
+            reason: str,
+            error: str | None = None,
+        ) -> tuple[dict[str, str], dict[str, Any]] | None:
+            if not self.incumbent_enabled or incumbent is None:
+                return None
+            return incumbent, loop_metadata(
+                request_index,
+                termination_reason=reason,
+                termination_error=error,
+                fallback_used=True,
+            )
 
         for request_index in range(1, self.max_iterations + 1):
             if time.monotonic() - started > self.timeout:
+                fallback = fallback_submission(
+                    request_index - 1,
+                    "generation-wall-clock-safety-cap",
+                )
+                if fallback is not None:
+                    return fallback
                 raise RuntimeError("Agent exceeded the generation wall-clock safety cap")
             options = self.request_options(model, messages)
-            response = self._provider_request(
-                client,
-                options,
-                trajectory_path,
-                request_index,
-            )
+            try:
+                response = self._provider_request(
+                    client,
+                    options,
+                    trajectory_path,
+                    request_index,
+                )
+            except Exception as exc:
+                fallback = fallback_submission(
+                    request_index,
+                    "provider-request-failure",
+                    f"{type(exc).__name__}: {self._redact(str(exc))}",
+                )
+                if fallback is not None:
+                    return fallback
+                raise
             _accumulate_usage(usage_total, _usage_dict(response))
             choices = getattr(response, "choices", None)
             if not isinstance(choices, list) or not choices:
+                fallback = fallback_submission(
+                    request_index,
+                    "malformed-provider-response",
+                    "Provider response contains no choices",
+                )
+                if fallback is not None:
+                    return fallback
                 raise RuntimeError("Provider response contains no choices")
             message = choices[0].message
             tool_calls = list(getattr(message, "tool_calls", None) or [])
@@ -631,17 +905,25 @@ only the exact hash of a program that passed a clean replay.
             messages.append(assistant_message)
 
             if not tool_calls:
+                continuation = (
+                    "A clean-replay-certified incumbent is saved. Continue only for a "
+                    "material improvement, certify any replacement, or submit an exact "
+                    "certified program."
+                    if incumbent is not None
+                    else (
+                        "Continue working with the available tools. Finish only by "
+                        "calling submit_bootstrap with the complete program."
+                    )
+                )
                 messages.append(
                     {
                         "role": "user",
-                        "content": (
-                            "Continue working with the available tools. Finish only by "
-                            "calling submit_bootstrap with the complete program."
-                        ),
+                        "content": continuation,
                     }
                 )
                 continue
 
+            certification_prompt_due = False
             for call in tool_calls:
                 name = str(call.function.name)
                 tool_counts[name] = tool_counts.get(name, 0) + 1
@@ -666,6 +948,19 @@ only the exact hash of a program that passed a clean replay.
                             payload = {"ok": False, "error": response_value}
                         else:
                             payload = response_value["result"]["structuredContent"]
+                    elif name == "observe_goal" and goal_observer is not None:
+                        payload = goal_observer()
+                        if payload.get("status") == "pass":
+                            if first_goal_pass_request is None:
+                                first_goal_pass_request = request_index
+                            certification_prompt_due = True
+                            payload = {
+                                **payload,
+                                "next_action": (
+                                    "Compile the current environment into a complete "
+                                    "bootstrap program and call submit_and_replay now."
+                                ),
+                            }
                     elif name == "submit_and_replay" and replay_service is not None:
                         program = arguments.get("program")
                         if not isinstance(program, str):
@@ -675,6 +970,54 @@ only the exact hash of a program that passed a clean replay.
                             status = str(raw_replay.get("status", "unknown"))
                             replay_status_counts[status] = replay_status_counts.get(status, 0) + 1
                             payload = normalize_replay_feedback(raw_replay)
+                            if status == "pass" and self.incumbent_enabled:
+                                canonical = canonical_script(program)
+                                digest = script_sha256(canonical)
+                                certified_digest = raw_replay.get("program_sha256")
+                                certified_hashes = {
+                                    item.get("program_sha256")
+                                    for item in replay_service.certified_programs
+                                }
+                                if digest == certified_digest and digest in certified_hashes:
+                                    incumbent = {
+                                        "program": canonical,
+                                        "summary": (
+                                            "Harness fallback to the latest clean-replay-"
+                                            f"certified incumbent from request {request_index}."
+                                        ),
+                                        "program_sha256": digest,
+                                    }
+                                    update = {
+                                        "request_index": request_index,
+                                        "program_sha256": digest,
+                                        "replay_id": raw_replay.get("replay_id"),
+                                        "trigger": (
+                                            "observed-goal-pass"
+                                            if first_goal_pass_request is not None
+                                            else "clean-replay-pass"
+                                        ),
+                                    }
+                                    incumbent_updates.append(update)
+                                    payload = {
+                                        **payload,
+                                        "incumbent_update": {
+                                            "accepted": True,
+                                            **update,
+                                        },
+                                    }
+                                else:
+                                    payload = {
+                                        **payload,
+                                        "incumbent_update": {
+                                            "accepted": False,
+                                            "reason": (
+                                                "replay certificate did not match the "
+                                                "canonical candidate program"
+                                            ),
+                                            "candidate_program_sha256": digest,
+                                            "certified_program_sha256": certified_digest,
+                                        },
+                                    }
                     elif name == "submit_bootstrap":
                         payload, submission = self._submit(arguments, replay_service)
                     else:
@@ -692,12 +1035,12 @@ only the exact hash of a program that passed a clean replay.
                     },
                 )
                 if submission is not None:
-                    return submission, {
-                        "model_requests": request_index,
-                        "token_usage": usage_total,
-                        "tool_counts": tool_counts,
-                        "replay_status_counts": replay_status_counts,
-                    }
+                    return submission, loop_metadata(
+                        request_index,
+                        termination_reason=(
+                            "agent-submission" if self.incumbent_enabled else None
+                        ),
+                    )
                 messages.append(
                     {
                         "role": "tool",
@@ -706,6 +1049,24 @@ only the exact hash of a program that passed a clean replay.
                         "content": json.dumps(payload, ensure_ascii=True, sort_keys=True),
                     }
                 )
+            if certification_prompt_due:
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "The trusted global goal passes in the active environment. "
+                            "Before any further quality work, compile the complete current "
+                            "setup and call submit_and_replay so this feasible solution is "
+                            "preserved as the certified incumbent."
+                        ),
+                    }
+                )
+        fallback = fallback_submission(
+            self.max_iterations,
+            "agent-request-safety-cap",
+        )
+        if fallback is not None:
+            return fallback
         raise RuntimeError("Agent exhausted the request safety cap without submission")
 
     def run(self, case: Case, artifacts: RunArtifacts, run_spec: RunSpec) -> SolverResult:
@@ -716,9 +1077,13 @@ only the exact hash of a program that passed a clean replay.
             "runner_version": self.runner_version,
             "baseline_interface": self.agent_interface,
             "mechanism_primitives": (
-                ["F", "S", "R", "minimal-H"]
-                if self.replay_mode == "soft"
-                else ["F", "minimal-H"]
+                ["F", "goal-observation", "S", "R", "certified-incumbent", "minimal-H"]
+                if self.incumbent_enabled
+                else (
+                    ["F", "S", "R", "minimal-H"]
+                    if self.replay_mode == "soft"
+                    else ["F", "minimal-H"]
+                )
             ),
             "model_reasoning_effort": self.reasoning_effort,
             "provider_base_url": OPENROUTER_BASE_URL,
@@ -806,7 +1171,7 @@ only the exact hash of a program that passed a clean replay.
             terminal_server = ContainerMcpServer(terminal, command_trace_path)
 
             replay_service: CleanReplayService | None = None
-            if self.replay_mode == "soft":
+            if self.replay_enabled:
                 provider = DockerFreshEnvironmentProvider(
                     source_repository=workspace,
                     worktrees_root=replay_root / "worktrees",
@@ -840,6 +1205,35 @@ only the exact hash of a program that passed a clean replay.
                 replay_service.validator = self.validator
 
             client = self._client()
+            goal_observer: GoalObserver | None = None
+            if self.incumbent_enabled:
+                def observe_goal() -> dict[str, Any]:
+                    observation = self._observe_active_goal(terminal_server)
+                    if observation.get("status") != "pass":
+                        return observation
+                    integrity = inspect_minimal_repository_integrity(
+                        workspace,
+                        case.revision,
+                        self.workspace_preconditions,
+                    )
+                    if integrity.valid:
+                        return {
+                            **observation,
+                            "repository_integrity_valid": True,
+                        }
+                    return {
+                        **observation,
+                        "goal_status": "pass",
+                        "status": "fail",
+                        "repository_integrity_valid": False,
+                        "repository_integrity": integrity.to_dict(),
+                        "reason": (
+                            "the live goal passes but the construction state violates "
+                            "the minimal repository-integrity boundary"
+                        ),
+                    }
+
+                goal_observer = observe_goal
             submission, loop_metadata = self._agent_loop(
                 client=client,
                 model=run_spec.model,
@@ -847,6 +1241,7 @@ only the exact hash of a program that passed a clean replay.
                 terminal_server=terminal_server,
                 replay_service=replay_service,
                 trajectory_path=trajectory_path,
+                goal_observer=goal_observer,
             )
             metadata.update(loop_metadata)
             metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)
@@ -875,11 +1270,18 @@ only the exact hash of a program that passed a clean replay.
                     and not item.get("infrastructure_error")
                 ),
             }
-            metadata["submission"] = {
+            submission_metadata: dict[str, Any] = {
                 "summary": submission["summary"],
                 "program_sha256": submission["program_sha256"],
-                "certified_by_clean_replay": self.replay_mode == "soft",
+                "certified_by_clean_replay": self.replay_enabled,
             }
+            if self.incumbent_enabled:
+                submission_metadata["selected_by"] = (
+                    "certified-incumbent-fallback"
+                    if metadata.get("certified_incumbent", {}).get("fallback_used")
+                    else "agent-submission"
+                )
+            metadata["submission"] = submission_metadata
             if replay_service is not None:
                 metadata["clean_replay"] = {
                     "count": replay_service.sequence,

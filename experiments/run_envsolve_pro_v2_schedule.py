@@ -25,7 +25,13 @@ from experiments.run_schedule import (
 )
 
 
-OPENROUTER_API_RUNNERS = frozenset({"deepseek-free-agent", "envsolve-pro-v2"})
+OPENROUTER_API_RUNNERS = frozenset(
+    {
+        "deepseek-free-agent",
+        "envsolve-pro-v2",
+        "envsolve-pro-v2-incumbent",
+    }
+)
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 

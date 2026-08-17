@@ -19,6 +19,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         registered = set(registered_solver_runners())
         self.assertIn("deepseek-free-agent", registered)
         self.assertIn("envsolve-pro-v2", registered)
+        self.assertIn("envsolve-pro-v2-incumbent", registered)
 
     def test_openrouter_preflight_requires_only_the_openrouter_key(self) -> None:
         identities = [{"runner": "envsolve-pro-v2"}]

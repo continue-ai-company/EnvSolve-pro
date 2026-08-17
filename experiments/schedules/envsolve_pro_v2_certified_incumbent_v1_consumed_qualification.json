@@ -1,0 +1,76 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+  "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "C-GCI",
+      "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "case_position": 3,
+      "mechanisms": [
+        "F",
+        "goal-observation",
+        "S",
+        "R",
+        "certified-incumbent",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-goal-triggered-certified-incumbent",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "position": 1,
+      "provider": "deepinfra",
+      "run_id": "pro-v2-certified-incumbent-v1-consumed-01-C-GCI",
+      "runner": "envsolve-pro-v2-incumbent",
+      "seed": 2121979159
+    },
+    {
+      "arm": "C-GCI",
+      "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+      "case_position": 7,
+      "mechanisms": [
+        "F",
+        "goal-observation",
+        "S",
+        "R",
+        "certified-incumbent",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-goal-triggered-certified-incumbent",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "position": 2,
+      "provider": "deepinfra",
+      "run_id": "pro-v2-certified-incumbent-v1-consumed-02-C-GCI",
+      "runner": "envsolve-pro-v2-incumbent",
+      "seed": 3830948119
+    },
+    {
+      "arm": "C-GCI",
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "case_position": 8,
+      "mechanisms": [
+        "F",
+        "goal-observation",
+        "S",
+        "R",
+        "certified-incumbent",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-goal-triggered-certified-incumbent",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "position": 3,
+      "provider": "deepinfra",
+      "run_id": "pro-v2-certified-incumbent-v1-consumed-03-C-GCI",
+      "runner": "envsolve-pro-v2-incumbent",
+      "seed": 959268847
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "consumed-design-cases-mechanism-qualification-only",
+  "provider": "deepinfra",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "deepinfra"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-certified-incumbent-v1-consumed-qualification"
+}

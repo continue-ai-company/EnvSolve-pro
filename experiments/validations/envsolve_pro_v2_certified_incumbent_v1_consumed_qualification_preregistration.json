@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-pro-v2-certified-incumbent-v1-consumed-qualification",
+  "recorded_at": "2026-08-17T14:59:37Z",
+  "status": "frozen-before-model-execution",
+  "research_role": "mechanism qualification on already consumed design cases; not a held-out effect estimate",
+  "evidence_basis": "experiments/validations/envsolve_pro_v2_flash0731_dev16_aggregate.json",
+  "treatment": {
+    "arm": "C-GCI",
+    "runner": "envsolve-pro-v2-incumbent",
+    "method": "envsolve-pro-goal-triggered-certified-incumbent",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "deepinfra",
+    "provider_fallbacks": false,
+    "mechanisms": [
+      "continuous free-feedback search",
+      "trusted active-state goal observation",
+      "same-session program compilation",
+      "fresh clean replay",
+      "latest-certified-program incumbent",
+      "incumbent fallback on provider or safety-cap termination",
+      "minimal evaluator and repository-integrity boundary"
+    ],
+    "state_retained": "canonical bootstrap program, certificate, and trajectory metadata only",
+    "container_checkpoint_retained": false
+  },
+  "algorithm_invariants": [
+    "A-F and B-FSR runner identities and prompts remain unchanged",
+    "a live goal pass alone never becomes a final submission",
+    "only a clean-replay-passed canonical program can become the incumbent",
+    "a later program replaces the incumbent only after its own clean replay passes",
+    "provider failure and request or wall-clock safety caps may select the latest incumbent without another model decision",
+    "no official evaluator result is visible before generation terminates",
+    "no cross-case package cache, case-specific package rule, or container filesystem checkpoint is used"
+  ],
+  "schedule": {
+    "path": "experiments/schedules/envsolve_pro_v2_certified_incumbent_v1_consumed_qualification.json",
+    "sha256": "8b1ec9eeda72566c23b0371a0a6e91a8a9c72cb08174c9a148b5b66ef1ade6ce",
+    "episode_timeout_seconds": 23000,
+    "episode_count": 3,
+    "order_frozen": true
+  },
+  "case_selection": [
+    {
+      "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "reason": "pair03 exposed a live-state to reproducible-program gap that clean replay repaired"
+    },
+    {
+      "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+      "reason": "pair07 exposed a long post-feasibility tail and ad hoc self-managed replay"
+    },
+    {
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "reason": "pair08 exposed the distinction between early benchmark feasibility and later runtime-quality work"
+    }
+  ],
+  "selection_validity": {
+    "selected_using_prior_outcomes": true,
+    "all_cases_previously_consumed": true,
+    "protected_or_unconsumed_case_count": 0,
+    "allowed_claim": "implementation and mechanism qualification only",
+    "forbidden_claim": "generalization, success-rate improvement, or SOTA"
+  },
+  "qualification_questions": [
+    "Does the Agent call observe_goal when it believes the full goal is feasible?",
+    "Does a Pass cause same-session compilation and clean replay of a complete program?",
+    "Does every stored incumbent hash have a matching clean-replay certificate?",
+    "Does final generation preserve a certified program even when the Agent continues quality work?",
+    "Does the submitted or fallback program pass the EnvBench Official evaluator?",
+    "How do requests, tokens, shell work, replay time, and post-goal tail compare descriptively with the frozen A-F and B-FSR trajectories?"
+  ],
+  "qualification_acceptance": {
+    "implementation": [
+      "all incumbent updates are certificate-backed and hash-consistent",
+      "the selected final script is certified",
+      "no tracked repository or evaluator mutation is accepted",
+      "fallback behavior is covered by deterministic tests even if no live provider interruption occurs"
+    ],
+    "mechanism": [
+      "at least one episode activates observe_goal and stores an incumbent",
+      "any episode that reaches an observed Pass either stores an incumbent or records a replay failure explaining why",
+      "Official outcomes and deployment-quality diagnostics are reported separately"
+    ],
+    "not_a_requirement": [
+      "lower resource use on every case",
+      "an induced provider failure",
+      "higher success rate on this selected three-case batch"
+    ]
+  },
+  "stopping_and_change_policy": {
+    "run_exactly_three_scheduled_episodes": true,
+    "algorithm_changes_during_batch": false,
+    "on_implementation_defect": "stop, mark affected episodes invalid, fix under a new code hash, and preregister a replacement qualification",
+    "after_batch": "adjudicate mechanism behavior before touching the remaining eight unrun Dev16 cases"
+  },
+  "frozen_code_sha256": {
+    "envsolve_harness/runners/openrouter_agent.py": "59404da1870df379b28620d49cdb538b9d7e40aa571364140eae9ba5dce02a29",
+    "envsolve_harness/runners/envsolve_pro_v2_registry.py": "e44d6c05003d409c1ab3e479283a7b7ef409476dc459fa5c12dcc6e5c153321f",
+    "experiments/run_envsolve_pro_v2_schedule.py": "413866c6778040022b90c6ba9ec525f31844b140501ec70be74c5aee40107e4b"
+  },
+  "infrastructure": {
+    "host": "Spark linux/arm64",
+    "exact_revision_source_cache": true,
+    "independent_checkout_without_hardlinks": true,
+    "single_episode_package_cache": true,
+    "cross_episode_package_cache": false,
+    "official_source_preseed": true,
+    "single_exact_script_retry_for_classified_infrastructure_failure": true,
+    "model_reexecution_for_official_retry": false
+  }
+}
