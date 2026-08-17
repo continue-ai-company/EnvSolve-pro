@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-17T15:06:59Z",
+  "status": "completed-before-any-model-execution",
+  "treatment": "envsolve-pro-goal-triggered-certified-incumbent",
+  "superseded_code_commit": "ae6cbcd",
+  "removed_component": "explicit observe_goal tool and active-state goal wrapper",
+  "reason": "The wrapper duplicated the public goal already available to the Agent, still required an Agent decision to invoke it, and therefore did not guarantee earlier feasibility detection.",
+  "retained_algorithm": [
+    "the continuous Agent calls the existing clean-replay tool as soon as it believes a complete program is feasible",
+    "a clean-replay Pass stores the canonical program and certificate as the latest incumbent",
+    "the Agent may continue same-session quality improvement",
+    "only a later clean-replay Pass replaces the incumbent",
+    "provider failure or a request/wall safety cap selects the latest incumbent"
+  ],
+  "complexity_effect": {
+    "lines_removed_from_the_initial_preexecution_implementation": 327,
+    "new_tool_surface_vs_B-FSR": false,
+    "container_checkpoint": false,
+    "case_specific_rules": false
+  },
+  "validity": {
+    "model_calls_before_simplification": 0,
+    "case_outcomes_observed_between_versions": 0,
+    "qualification_schedule_case_ids_changed": false,
+    "qualification_schedule_order_changed": false,
+    "qualification_preregistration_amended": true
+  }
+}

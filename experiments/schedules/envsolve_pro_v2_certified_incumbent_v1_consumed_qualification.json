@@ -9,7 +9,6 @@
       "case_position": 3,
       "mechanisms": [
         "F",
-        "goal-observation",
         "S",
         "R",
         "certified-incumbent",
@@ -29,7 +28,6 @@
       "case_position": 7,
       "mechanisms": [
         "F",
-        "goal-observation",
         "S",
         "R",
         "certified-incumbent",
@@ -49,7 +47,6 @@
       "case_position": 8,
       "mechanisms": [
         "F",
-        "goal-observation",
         "S",
         "R",
         "certified-incumbent",

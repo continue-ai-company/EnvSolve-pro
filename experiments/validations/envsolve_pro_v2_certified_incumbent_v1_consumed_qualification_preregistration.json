@@ -2,7 +2,9 @@
   "schema_version": "1.0.0",
   "preregistration_id": "envsolve-pro-v2-certified-incumbent-v1-consumed-qualification",
   "recorded_at": "2026-08-17T14:59:37Z",
+  "amended_at": "2026-08-17T15:06:59Z",
   "status": "frozen-before-model-execution",
+  "preexecution_amendment": "Removed the redundant active-state observe_goal wrapper before any model execution; the clean replay's trusted goal result is the sole certification trigger.",
   "research_role": "mechanism qualification on already consumed design cases; not a held-out effect estimate",
   "evidence_basis": "experiments/validations/envsolve_pro_v2_flash0731_dev16_aggregate.json",
   "treatment": {
@@ -14,8 +16,7 @@
     "provider_fallbacks": false,
     "mechanisms": [
       "continuous free-feedback search",
-      "trusted active-state goal observation",
-      "same-session program compilation",
+      "same-session candidate compilation at first believed feasibility",
       "fresh clean replay",
       "latest-certified-program incumbent",
       "incumbent fallback on provider or safety-cap termination",
@@ -26,7 +27,7 @@
   },
   "algorithm_invariants": [
     "A-F and B-FSR runner identities and prompts remain unchanged",
-    "a live goal pass alone never becomes a final submission",
+    "construction-state success alone never becomes a final submission",
     "only a clean-replay-passed canonical program can become the incumbent",
     "a later program replaces the incumbent only after its own clean replay passes",
     "provider failure and request or wall-clock safety caps may select the latest incumbent without another model decision",
@@ -35,7 +36,7 @@
   ],
   "schedule": {
     "path": "experiments/schedules/envsolve_pro_v2_certified_incumbent_v1_consumed_qualification.json",
-    "sha256": "8b1ec9eeda72566c23b0371a0a6e91a8a9c72cb08174c9a148b5b66ef1ade6ce",
+    "sha256": "0f6b88827d9e6b03f432d3379d71bb596188f6a0b7378edac6d533b20b2a5277",
     "episode_timeout_seconds": 23000,
     "episode_count": 3,
     "order_frozen": true
@@ -62,8 +63,7 @@
     "forbidden_claim": "generalization, success-rate improvement, or SOTA"
   },
   "qualification_questions": [
-    "Does the Agent call observe_goal when it believes the full goal is feasible?",
-    "Does a Pass cause same-session compilation and clean replay of a complete program?",
+    "Does the Agent clean-replay a complete program as soon as it believes the full goal is feasible?",
     "Does every stored incumbent hash have a matching clean-replay certificate?",
     "Does final generation preserve a certified program even when the Agent continues quality work?",
     "Does the submitted or fallback program pass the EnvBench Official evaluator?",
@@ -77,8 +77,8 @@
       "fallback behavior is covered by deterministic tests even if no live provider interruption occurs"
     ],
     "mechanism": [
-      "at least one episode activates observe_goal and stores an incumbent",
-      "any episode that reaches an observed Pass either stores an incumbent or records a replay failure explaining why",
+      "at least one episode obtains a clean-replay Pass and stores an incumbent",
+      "every clean-replay Pass either stores a hash-matched incumbent or records why the certificate was rejected",
       "Official outcomes and deployment-quality diagnostics are reported separately"
     ],
     "not_a_requirement": [
@@ -94,7 +94,7 @@
     "after_batch": "adjudicate mechanism behavior before touching the remaining eight unrun Dev16 cases"
   },
   "frozen_code_sha256": {
-    "envsolve_harness/runners/openrouter_agent.py": "59404da1870df379b28620d49cdb538b9d7e40aa571364140eae9ba5dce02a29",
+    "envsolve_harness/runners/openrouter_agent.py": "1c2ae6e5b8b66076ac6cc07b2101a01f24b99e992944d32c3ea5351024bf8cf1",
     "envsolve_harness/runners/envsolve_pro_v2_registry.py": "e44d6c05003d409c1ab3e479283a7b7ef409476dc459fa5c12dcc6e5c153321f",
     "experiments/run_envsolve_pro_v2_schedule.py": "413866c6778040022b90c6ba9ec525f31844b140501ec70be74c5aee40107e4b"
   },

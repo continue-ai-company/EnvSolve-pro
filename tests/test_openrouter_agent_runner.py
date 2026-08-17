@@ -245,7 +245,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             {"require_parameters": True, "allow_fallbacks": False},
         )
 
-    def test_incumbent_treatment_adds_only_goal_observation_to_replay_tools(self) -> None:
+    def test_incumbent_treatment_reuses_the_frozen_replay_tool_surface(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "incumbent")
             names = [item["function"]["name"] for item in runner._tools()]
@@ -257,50 +257,12 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             names,
             [
                 "envbench_shell",
-                "observe_goal",
                 "submit_and_replay",
                 "submit_bootstrap",
             ],
         )
         self.assertIn("harness-managed", prompt)
         self.assertIn("never a container checkpoint", prompt)
-
-    def test_active_goal_observer_accepts_a_compact_valid_report(self) -> None:
-        class GoalTerminal:
-            def handle(self, request: dict[str, object]) -> dict[str, object]:
-                del request
-                return {
-                    "result": {
-                        "structuredContent": {
-                            "exit_code": 0,
-                            "output": (
-                                "noise\nBEGIN\n"
-                                '{"details":{"issues_count":0},'
-                                '"finding_count":0,"finding_set_complete":true,'
-                                '"goal_exit_code":0,'
-                                '"schema":"envsolve-goal-report-v1",'
-                                '"status":"pass"}\nEND\n'
-                            ),
-                            "duration_seconds": 2.5,
-                            "timed_out": False,
-                            "output_truncated": False,
-                            "infrastructure_error": None,
-                        }
-                    }
-                }
-
-        with tempfile.TemporaryDirectory() as directory:
-            runner = self._runner(Path(directory), "incumbent")
-            with mock.patch.object(
-                runner,
-                "_active_goal_command",
-                return_value=("command", "BEGIN\n", "\nEND"),
-            ):
-                result = runner._observe_active_goal(GoalTerminal())  # type: ignore[arg-type]
-
-        self.assertEqual(result["status"], "pass")
-        self.assertEqual(result["finding_count"], 0)
-        self.assertEqual(result["duration_seconds"], 2.5)
 
     def test_flash_0731_is_pinned_without_enabling_moving_aliases(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -447,21 +409,12 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         program = "python -m venv .venv\nsource .venv/bin/activate"
         client = FakeClient(
             [
-                FakeResponse(tool_call("1", "observe_goal", {})),
                 FakeResponse(
-                    tool_call("2", "submit_and_replay", {"program": program})
+                    tool_call("1", "submit_and_replay", {"program": program})
                 ),
             ]
         )
         replay = FakeReplayService(program)
-        observed = {
-            "schema": "envsolve-goal-report-v1",
-            "status": "pass",
-            "finding_set_complete": True,
-            "finding_count": 0,
-            "details": {"issues_count": 0},
-            "goal_exit_code": 0,
-        }
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "incumbent")
             submission, metadata = runner._agent_loop(
@@ -471,13 +424,15 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
                 replay_service=replay,  # type: ignore[arg-type]
                 trajectory_path=Path(directory) / "trajectory.jsonl",
-                goal_observer=lambda: observed,
             )
 
         self.assertEqual(submission["program_sha256"], script_sha256(program))
         self.assertTrue(metadata["certified_incumbent"]["fallback_used"])
         self.assertEqual(metadata["certified_incumbent"]["update_count"], 1)
-        self.assertEqual(metadata["certified_incumbent"]["first_goal_pass_request"], 1)
+        self.assertEqual(
+            metadata["certified_incumbent"]["first_certification_request"],
+            1,
+        )
         self.assertEqual(
             metadata["agent_termination"]["reason"],
             "provider-request-failure",
@@ -485,8 +440,8 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         second_messages = client.chat.completions.requests[1]["messages"]
         self.assertTrue(
             any(
-                item.get("role") == "user"
-                and "preserved as the certified incumbent" in str(item.get("content"))
+                item.get("role") == "tool"
+                and "incumbent_update" in str(item.get("content"))
                 for item in second_messages
             )
         )
@@ -495,15 +450,14 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         program = "python -m venv .venv\nsource .venv/bin/activate"
         client = FakeClient(
             [
-                FakeResponse(tool_call("1", "observe_goal", {})),
                 FakeResponse(
-                    tool_call("2", "submit_and_replay", {"program": program})
+                    tool_call("1", "submit_and_replay", {"program": program})
                 ),
             ]
         )
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "incumbent")
-            runner.max_iterations = 2
+            runner.max_iterations = 1
             submission, metadata = runner._agent_loop(
                 client=client,
                 model=DEEPSEEK_V4_PRO,
@@ -511,14 +465,10 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
                 replay_service=FakeReplayService(program),  # type: ignore[arg-type]
                 trajectory_path=Path(directory) / "trajectory.jsonl",
-                goal_observer=lambda: {
-                    "status": "pass",
-                    "finding_count": 0,
-                },
             )
 
         self.assertEqual(submission["program_sha256"], script_sha256(program))
-        self.assertEqual(metadata["model_requests"], 2)
+        self.assertEqual(metadata["model_requests"], 1)
         self.assertEqual(
             metadata["agent_termination"]["reason"],
             "agent-request-safety-cap",
