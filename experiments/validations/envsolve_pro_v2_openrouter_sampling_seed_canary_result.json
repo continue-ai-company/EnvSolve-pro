@@ -1,0 +1,281 @@
+{
+  "schema": "envsolve-pro-v2-sampling-seed-canary-result-v1",
+  "study_id": "envsolve-pro-v2-openrouter-sampling-seed-canary",
+  "completed_at": "2026-08-17T16:15:30.223622+00:00",
+  "request": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": [
+      "deepinfra"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true,
+    "tools": "omitted",
+    "max_tokens": 256,
+    "reasoning_effort": "xhigh",
+    "temperature": "provider default",
+    "prompt_sha256": "8b3959f5e6ea506c66ab33eb2ad58b896fba1774b1b5c69250b0dfdfbb78d1d2"
+  },
+  "summary": {
+    "completed_requests": 6,
+    "requested_seed_bound_records": 6,
+    "same_seed_unique_semantic_fingerprints": 3,
+    "same_seed_repeatability_observed": false,
+    "different_seed_unique_semantic_fingerprints": 3,
+    "different_seed_variation_observed": true
+  },
+  "trials": [
+    {
+      "trial_id": "same-seed-1",
+      "condition": "same-seed",
+      "requested_seed": 271828,
+      "attempts": 1,
+      "response_id": "gen-1786983323-t5uBuADCJEgT3UJREbfi",
+      "served_model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "usage": {
+        "completion_tokens": 193,
+        "prompt_tokens": 46,
+        "total_tokens": 239,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": 0,
+          "reasoning_tokens": 127,
+          "rejected_prediction_tokens": null,
+          "image_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost": 3.842e-05,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 3.842e-05,
+          "upstream_inference_prompt_cost": 3.68e-06,
+          "upstream_inference_completions_cost": 3.474e-05
+        }
+      },
+      "semantic_payload": {
+        "content": "{\"items\":[\"absquatulation\",\"flibbertigibbet\",\"pettifogger\",\"rapscallion\",\"skulduggery\",\"collywobbles\"]}",
+        "reasoning": "We need to output exactly one compact JSON object with key \"items\" and value as array of six distinct uncommon English nouns. No markdown. So output like {\"items\": [\"noun1\", ...]}. Choose uncommon nouns. Examples: \"quagmire\", \"snickerdoodle\", \"fopdoodle\", \"brouhaha\", \"widdershins\" (that's adverb/adjective but can be noun? Better stick to nouns). Let's pick: \"absquatulation\", \"flibbertigibbet\" (noun), \"pettifogger\", \"rapscallion\", \"skulduggery\", \"collywobbles\". Ensure they are distinct. So output that.",
+        "refusal": null,
+        "tool_calls": null,
+        "finish_reason": "stop"
+      },
+      "semantic_sha256": "1bbc6b8c2504cdde372a88dc980d2dff306744c9f5709213f1a610faf8c2d6b4"
+    },
+    {
+      "trial_id": "same-seed-2",
+      "condition": "same-seed",
+      "requested_seed": 271828,
+      "attempts": 1,
+      "response_id": "gen-1786983331-XamctLwYhkkaEeLARaIA",
+      "served_model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "usage": {
+        "completion_tokens": 76,
+        "prompt_tokens": 46,
+        "total_tokens": 122,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": 0,
+          "reasoning_tokens": 46,
+          "rejected_prediction_tokens": null,
+          "image_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost": 1.736e-05,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.736e-05,
+          "upstream_inference_prompt_cost": 3.68e-06,
+          "upstream_inference_completions_cost": 1.368e-05
+        }
+      },
+      "semantic_payload": {
+        "content": "{\"items\":[\"quagmire\",\"surreptitiousness\",\"obfuscation\",\"limerence\",\"tintinnabulation\",\"perspicacity\"]}",
+        "reasoning": "We need to output exactly one compact JSON object with key \"items\". The value is an array of six distinct, uncommon English nouns. No markdown or explanation. Ensure it's compact JSON.",
+        "refusal": null,
+        "tool_calls": null,
+        "finish_reason": "stop"
+      },
+      "semantic_sha256": "0eb148d2abb1ef3c14ae07b0eb8d3c8c77bc9d6e7ae6d93dba8134a95f5d0ae5"
+    },
+    {
+      "trial_id": "same-seed-3",
+      "condition": "same-seed",
+      "requested_seed": 271828,
+      "attempts": 1,
+      "response_id": "gen-1786983333-jDy5fGJO5XDwHte3dJVK",
+      "served_model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 46,
+        "total_tokens": 302,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": 0,
+          "reasoning_tokens": 210,
+          "rejected_prediction_tokens": null,
+          "image_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost": 4.976e-05,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 4.976e-05,
+          "upstream_inference_prompt_cost": 3.68e-06,
+          "upstream_inference_completions_cost": 4.608e-05
+        }
+      },
+      "semantic_payload": {
+        "content": null,
+        "reasoning": "We need to output exactly one compact JSON object with key \"items\". The value is an array of six distinct, uncommon English nouns. No markdown or explanation. Ensure the JSON is valid. Let's choose uncommon nouns: e.g., \"quagmire\", \"snickerdoodle\", \"fopdoodle\", \"brouhaha\", \"widdershins\" (that's an adverb? but noun? Actually \"widdershins\" is an adverb, but maybe as noun? better avoid). Let's pick clear uncommon nouns: \"periphrasis\", \"gobemouche\", \"flibbertigibbet\", \"antediluvian\" (that's adjective? as noun? maybe), \"loquacious\" is adjective. Let's think of nouns: \"pettifogger\" (noun), \"gobbledygook\" (noun), \"rhabdomancy\" (noun), \"macguffin\" (noun), \"tsundoku\" (noun, Japanese for buying books and not reading), \"sonder\" (noun, coined recently). But we need distinct and uncommon. I'll choose: \"pettifogger\", \"gobbledygook\", \"rhabd",
+        "refusal": null,
+        "tool_calls": null,
+        "finish_reason": "length"
+      },
+      "semantic_sha256": "5608a12cf27c47e18b6f1fa4a1698d142163e04f994fd1e1aa8aa3277047f276"
+    },
+    {
+      "trial_id": "different-seed-1",
+      "condition": "different-seed",
+      "requested_seed": 314159,
+      "attempts": 1,
+      "response_id": "gen-1786983339-PHRnWiCJwImhbSr7l3T7",
+      "served_model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "usage": {
+        "completion_tokens": 64,
+        "prompt_tokens": 46,
+        "total_tokens": 110,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": 0,
+          "reasoning_tokens": 38,
+          "rejected_prediction_tokens": null,
+          "image_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost": 1.52e-05,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.52e-05,
+          "upstream_inference_prompt_cost": 3.68e-06,
+          "upstream_inference_completions_cost": 1.152e-05
+        }
+      },
+      "semantic_payload": {
+        "content": "{\"items\":[\"quagmire\",\"firkin\",\"gambrel\",\"narthex\",\"seltzer\",\"wimple\"]}",
+        "reasoning": "We need to output a JSON object with key \"items\" containing an array of six distinct uncommon English nouns. Keep it compact. No markdown. Just JSON.",
+        "refusal": null,
+        "tool_calls": null,
+        "finish_reason": "stop"
+      },
+      "semantic_sha256": "e6ba47385eb5a7db14801703a53c97b790fc50b6be340abe9ea6ede6950116ed"
+    },
+    {
+      "trial_id": "different-seed-2",
+      "condition": "different-seed",
+      "requested_seed": 161803,
+      "attempts": 1,
+      "response_id": "gen-1786983341-lZpPEDzQa6zZlRU89vRI",
+      "served_model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "usage": {
+        "completion_tokens": 57,
+        "prompt_tokens": 46,
+        "total_tokens": 103,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": 0,
+          "reasoning_tokens": 29,
+          "rejected_prediction_tokens": null,
+          "image_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost": 1.394e-05,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 1.394e-05,
+          "upstream_inference_prompt_cost": 3.68e-06,
+          "upstream_inference_completions_cost": 1.026e-05
+        }
+      },
+      "semantic_payload": {
+        "content": "{\"items\":[\"quincunx\",\"sesquipedalian\",\"olla\",\"xystus\",\"tittle\",\"widdershins\"]}",
+        "reasoning": "We need to output a JSON object with key \"items\" and an array of six distinct uncommon English nouns. No markdown.",
+        "refusal": null,
+        "tool_calls": null,
+        "finish_reason": "stop"
+      },
+      "semantic_sha256": "539d33c83c60962d8e5eb3f77ad71c09eb599391eb1d5eef214bbecb58a8dd3c"
+    },
+    {
+      "trial_id": "different-seed-3",
+      "condition": "different-seed",
+      "requested_seed": 141421,
+      "attempts": 1,
+      "response_id": "gen-1786983343-e0iRPzMw5TUNwZaVRINP",
+      "served_model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "usage": {
+        "completion_tokens": 131,
+        "prompt_tokens": 46,
+        "total_tokens": 177,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": 0,
+          "reasoning_tokens": 92,
+          "rejected_prediction_tokens": null,
+          "image_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost": 2.726e-05,
+        "is_byok": false,
+        "cost_details": {
+          "upstream_inference_cost": 2.726e-05,
+          "upstream_inference_prompt_cost": 3.68e-06,
+          "upstream_inference_completions_cost": 2.358e-05
+        }
+      },
+      "semantic_payload": {
+        "content": "{\"items\":[\"gambrel\",\"sardonyx\",\"vetch\",\"cwm\",\"futhorc\",\"xylotomy\"]}",
+        "reasoning": "We need to return exactly one compact JSON object with key \"items\" and value an array of six distinct, uncommon English nouns. No markdown, no explanation. Just the JSON. Ensure nouns are uncommon. Examples: \"quagmire\", \"eldritch\", but need nouns. Let's pick: \"gambrel\", \"sardonyx\", \"vetch\", \"cwm\", \"futhorc\", \"xylotomy\". Check distinct and uncommon. Output as JSON.",
+        "refusal": null,
+        "tool_calls": null,
+        "finish_reason": "stop"
+      },
+      "semantic_sha256": "a5a020b80935a8f90907d94930dde2b9acf3ba8b2494c911f73988a98a3c5238"
+    }
+  ],
+  "claim_boundary": "This canary measures parameter acceptance and observed single-turn repeatability only. It does not guarantee deterministic multi-turn agent trajectories or replace independent experimental repetitions."
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "envsolve-pro-v2-sampling-seed-canary-adjudication-v1",
+  "study_id": "envsolve-pro-v2-openrouter-sampling-seed-canary",
+  "adjudicated_at": "2026-08-18T01:00:00+08:00",
+  "status": "seed-forwarding-qualified-same-seed-repeatability-rejected",
+  "scope": "Evaluation-protocol qualification; no EnvBench case was executed or consumed.",
+  "observations": {
+    "completed_requests": 6,
+    "requested_seed_bound_records": 6,
+    "provider": "DeepInfra",
+    "served_model": "deepseek/deepseek-v4-flash-0731",
+    "same_seed_repetitions": 3,
+    "same_seed_unique_semantic_fingerprints": 3,
+    "same_seed_complete_responses": 2,
+    "same_seed_unique_complete_contents": 2,
+    "same_seed_length_terminated_responses": 1,
+    "different_seed_repetitions": 3,
+    "different_seed_unique_semantic_fingerprints": 3,
+    "total_tokens": 1053,
+    "reported_provider_cost": 0.00016194
+  },
+  "adjudication": {
+    "seed_parameter_forwarding": "qualified",
+    "bitwise_or_semantic_same_seed_determinism": "not observed",
+    "reason": "The two normally completed repetitions at seed 271828 produced different content, and the third repetition terminated at the output-length limit.",
+    "seed_effect_estimation": "not attempted; this six-request canary cannot estimate how much variation the seed parameter controls relative to provider-side nondeterminism"
+  },
+  "formal_evaluation_policy": [
+    "Record and forward the requested seed for every model request in an episode.",
+    "Treat the seed as a logged randomization covariate, not as a deterministic paired-counterfactual guarantee.",
+    "Use multiple independent repetitions per case and arm.",
+    "Randomize or counterbalance arm order within each case to reduce provider-time and cache-order confounding.",
+    "Keep model, provider policy, prompt contract, image, evaluator, and resource safety caps fixed within a comparison block.",
+    "Report outcome distributions and uncertainty; do not infer resource or success effects from a single trajectory."
+  ],
+  "claim_boundary": {
+    "supported": [
+      "The corrected runner forwards a non-null RunSpec seed to every model request in the continuous episode.",
+      "The frozen DeepInfra endpoint accepted all six seeded canary requests.",
+      "Same-seed semantic repeatability was absent in this canary."
+    ],
+    "not_supported": [
+      "OpenRouter ignored the seed parameter.",
+      "The seed parameter has no statistical influence.",
+      "Different seeds are sufficient to create independent samples.",
+      "A same-seed A/B run is a deterministic counterfactual pair.",
+      "The canary says anything about EnvSolve-Pro deployment success."
+    ]
+  },
+  "next_decision": "Freeze this protocol correction, leave all remaining unconsumed Dev cases untouched, and preregister a repeated consumed-case pre-candidate compatibility treatment before further live evaluation.",
+  "provenance": {
+    "runner_sha256": "487e7d3bd62c710c687dff100a4a2d378f496c6ed209030ef20e06f1de48c0aa",
+    "runner_test_sha256": "06f85de94df884a8a742192b75a21e0791879947b0123058da5c63b9706daa25",
+    "canary_script_sha256": "86429f68ed61a351d50d61d1a2fcd0aff5c1b9d4a7",
+    "preregistration_sha256": "715cc823faab0ae077f459aa4ae693a0aa60fb7d123e9cd802eea4f294731103",
+    "raw_result_sha256": "ec80d50b2857760ef9eccda94a2e432354f57db9e7f676f4f4647c11b4bcc7e5"
+  }
+}
