@@ -24,6 +24,7 @@ from envsolve_harness.adapters.infrastructure import (
 )
 from envsolve_harness.adapters.envbench_goal import envbench_python_goal_contract
 from envsolve_harness.execution.batch import cleanup_case_containers
+from envsolve_harness.execution.source_cache import ExactRevisionSourceCache
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import ensure_manifest, update_manifest
 from envsolve_harness.utils.provenance import (
@@ -87,6 +88,14 @@ class EnvBenchEvaluator:
         if not isinstance(image, str) or not image:
             raise ValueError("EnvBench benchmark settings require a non-empty image")
         self.image = image
+        preseed_source_cache = self.benchmark.settings.get(
+            "preseed_source_cache", False
+        )
+        if not isinstance(preseed_source_cache, bool):
+            raise ValueError(
+                "EnvBench preseed_source_cache setting must be a boolean"
+            )
+        self.preseed_source_cache = preseed_source_cache
 
     @property
     def benchmark_id(self) -> str:
@@ -160,6 +169,27 @@ class EnvBenchEvaluator:
         json_results = artifacts.evaluation_dir / "json"
         repo_data = artifacts.evaluation_dir / "repos"
         temp_dir = artifacts.evaluation_dir / "tmp"
+        repository_acquisition: dict[str, Any] | None = None
+        repository_acquisition_error: str | None = None
+        if self.preseed_source_cache:
+            destination = (
+                repo_data
+                / f"{case.repository.replace('/', '__')}@{case.revision}"
+            )
+            try:
+                repository_acquisition = ExactRevisionSourceCache(
+                    self.config.runs_root / "_source_cache/envbench-python",
+                    self.config.git_fetch_timeout,
+                ).acquire(
+                    repository=case.repository,
+                    revision=case.revision,
+                    destination=destination,
+                )
+            except (OSError, RuntimeError, subprocess.TimeoutExpired) as exc:
+                repository_acquisition_error = (
+                    "Official repository cache acquisition failed: "
+                    f"{type(exc).__name__}: {exc}"
+                )
         command = [
             "uv", "run", "python", "evaluation/main.py",
             "language=python",
@@ -185,38 +215,47 @@ class EnvBenchEvaluator:
         stderr = ""
         adapter_error: str | None = None
         termination: dict[str, Any] | None = None
-        try:
-            process_env = os.environ.copy()
-            process_env["ENVBENCH_GIT_FETCH_TIMEOUT_SECONDS"] = str(
-                self.config.git_fetch_timeout
-            )
-            process = _run_envbench_process(
-                command,
-                cwd=self.benchmark.root,
-                timeout=self.config.evaluation_process_timeout,
-                env=process_env,
-            )
-            process_returncode = process.returncode
-            stdout = process.stdout
-            stderr = process.stderr
-        except subprocess.TimeoutExpired as exc:
-            stdout = _timeout_output(exc.stdout)
-            stderr = _timeout_output(exc.stderr)
-            adapter_error = (
-                "Evaluation process exceeded hard budget "
-                f"of {self.config.evaluation_process_timeout} seconds"
-            )
-            cleaned_container_ids = cleanup_case_containers(artifacts.root)
+        if repository_acquisition_error is not None:
+            adapter_error = repository_acquisition_error
             termination = {
-                "kind": "budget_exhausted",
-                "scope": "evaluation_process",
-                "limit_seconds": self.config.evaluation_process_timeout,
-                "cleaned_container_ids": list(cleaned_container_ids),
+                "kind": "infrastructure_unknown",
+                "scope": "evaluator_repository_acquisition",
+                "signature": "source-cache-acquisition-failed",
             }
-            stderr = f"{stderr}\n{adapter_error}".strip()
-        except OSError as exc:
-            adapter_error = f"{type(exc).__name__}: {exc}"
             stderr = adapter_error
+        else:
+            try:
+                process_env = os.environ.copy()
+                process_env["ENVBENCH_GIT_FETCH_TIMEOUT_SECONDS"] = str(
+                    self.config.git_fetch_timeout
+                )
+                process = _run_envbench_process(
+                    command,
+                    cwd=self.benchmark.root,
+                    timeout=self.config.evaluation_process_timeout,
+                    env=process_env,
+                )
+                process_returncode = process.returncode
+                stdout = process.stdout
+                stderr = process.stderr
+            except subprocess.TimeoutExpired as exc:
+                stdout = _timeout_output(exc.stdout)
+                stderr = _timeout_output(exc.stderr)
+                adapter_error = (
+                    "Evaluation process exceeded hard budget "
+                    f"of {self.config.evaluation_process_timeout} seconds"
+                )
+                cleaned_container_ids = cleanup_case_containers(artifacts.root)
+                termination = {
+                    "kind": "budget_exhausted",
+                    "scope": "evaluation_process",
+                    "limit_seconds": self.config.evaluation_process_timeout,
+                    "cleaned_container_ids": list(cleaned_container_ids),
+                }
+                stderr = f"{stderr}\n{adapter_error}".strip()
+            except OSError as exc:
+                adapter_error = f"{type(exc).__name__}: {exc}"
+                stderr = adapter_error
         write_text_atomic(
             artifacts.evaluation_log,
             f"$ {' '.join(command)}\n\n[stdout]\n{stdout}\n[stderr]\n{stderr}",
@@ -329,11 +368,12 @@ class EnvBenchEvaluator:
             raw_result_path=str(result_path.relative_to(artifacts.root)) if result_path.exists() else None,
             metadata={
                 "adapter": "envbench",
-                "adapter_version": "0.7.0",
+                "adapter_version": "0.8.0",
                 "harness_process_exit_code": process_returncode,
                 "identity_matches": identity_matches,
                 "adapter_error": adapter_error,
                 "termination": termination,
+                "repository_acquisition": repository_acquisition,
                 "started_at": started_at,
                 "finished_at": datetime.now(timezone.utc).isoformat(),
             },
@@ -365,6 +405,7 @@ class EnvBenchEvaluator:
                     "container": self.config.container_timeout,
                     "git_fetch": self.config.git_fetch_timeout,
                 },
+                "repository_acquisition": repository_acquisition,
             },
             result=result.to_dict(),
         )

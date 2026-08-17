@@ -5,7 +5,8 @@
       "root": "EnvBench",
       "settings": {
         "deterministic_script": "evaluation/scripts/python_baseline.sh",
-        "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "preseed_source_cache": true
       }
     }
   },
