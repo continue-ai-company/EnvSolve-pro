@@ -194,6 +194,21 @@ def _retryable_provider_error(exc: Exception) -> bool:
     }
 
 
+def _request_contract(options: dict[str, Any]) -> dict[str, Any]:
+    extra_body = options.get("extra_body")
+    if not isinstance(extra_body, dict):
+        extra_body = {}
+    return {
+        "model": options.get("model"),
+        "seed": options.get("seed"),
+        "seed_forwarded": "seed" in options,
+        "max_tokens": options.get("max_tokens"),
+        "tool_choice": options.get("tool_choice"),
+        "reasoning": extra_body.get("reasoning"),
+        "provider": extra_body.get("provider"),
+    }
+
+
 class EmptyProviderResponseError(RuntimeError):
     """The provider returned a successful envelope without a completion choice."""
 
@@ -213,7 +228,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.2.0"
+    runner_version = "0.3.0"
 
     def __init__(
         self,
@@ -361,8 +376,14 @@ class OpenRouterAgentRunner(CodexCliRunner):
             raise
         return container_id
 
-    def request_options(self, model: str, messages: list[dict[str, Any]]) -> dict[str, Any]:
-        return {
+    def request_options(
+        self,
+        model: str,
+        messages: list[dict[str, Any]],
+        *,
+        seed: int | None = None,
+    ) -> dict[str, Any]:
+        options: dict[str, Any] = {
             "model": model,
             "messages": messages,
             "tools": self._tools(),
@@ -373,6 +394,9 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "provider": self._provider_policy(),
             },
         }
+        if seed is not None:
+            options["seed"] = seed
+        return options
 
     def _tools(self) -> list[dict[str, Any]]:
         tools = [
@@ -538,6 +562,7 @@ incumbent stores the program and certificate, never a container checkpoint.
                         "event": "provider_response",
                         "request_index": request_index,
                         "attempt": attempt,
+                        "request_contract": _request_contract(options),
                         "response": _model_dump(response),
                     },
                 )
@@ -562,6 +587,7 @@ incumbent stores the program and certificate, never a container checkpoint.
                         "attempt": attempt,
                         "retryable": retryable,
                         "next_retry_delay_seconds": delay,
+                        "request_contract": _request_contract(options),
                         "error": f"{type(exc).__name__}: {exc}",
                     },
                 )
@@ -617,6 +643,7 @@ incumbent stores the program and certificate, never a container checkpoint.
         terminal_server: ContainerMcpServer,
         replay_service: CleanReplayService | None,
         trajectory_path: Path,
+        seed: int | None = None,
     ) -> tuple[dict[str, str], dict[str, Any]]:
         messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
         usage_total: dict[str, int | float] = {}
@@ -682,7 +709,7 @@ incumbent stores the program and certificate, never a container checkpoint.
                 if fallback is not None:
                     return fallback
                 raise RuntimeError("Agent exceeded the generation wall-clock safety cap")
-            options = self.request_options(model, messages)
+            options = self.request_options(model, messages, seed=seed)
             try:
                 response = self._provider_request(
                     client,
@@ -878,6 +905,12 @@ incumbent stores the program and certificate, never a container checkpoint.
             "model_reasoning_effort": self.reasoning_effort,
             "provider_base_url": OPENROUTER_BASE_URL,
             "provider_policy": self._provider_policy(),
+            "sampling_control": {
+                "requested_seed": run_spec.seed,
+                "forwarded_to_every_model_request": run_spec.seed is not None,
+                "scope": "all-model-requests-in-episode",
+                "determinism_guaranteed": False,
+            },
             "credential_present": bool(os.environ.get("OPENROUTER_API_KEY")),
             "official_evaluator_access": "post-episode-only",
             "resource_policy": {
@@ -1002,6 +1035,7 @@ incumbent stores the program and certificate, never a container checkpoint.
                 terminal_server=terminal_server,
                 replay_service=replay_service,
                 trajectory_path=trajectory_path,
+                seed=run_spec.seed,
             )
             metadata.update(loop_metadata)
             metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)

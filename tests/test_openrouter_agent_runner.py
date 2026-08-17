@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 from types import SimpleNamespace
@@ -16,6 +17,7 @@ from envsolve_harness.runners.openrouter_agent import (
     OpenRouterAgentRunner,
     SUPPORTED_DEEPSEEK_MODELS,
     _EpisodePackageCacheRunCommand,
+    _request_contract,
     _trajectory_progress,
 )
 
@@ -280,6 +282,37 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             SUPPORTED_DEEPSEEK_MODELS,
         )
 
+    def test_request_options_forward_seed_only_when_configured(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "soft")
+            seeded = runner.request_options(
+                DEEPSEEK_V4_FLASH_0731,
+                [{"role": "user", "content": "x"}],
+                seed=12345,
+            )
+            unseeded = runner.request_options(
+                DEEPSEEK_V4_FLASH_0731,
+                [{"role": "user", "content": "x"}],
+            )
+
+        self.assertEqual(seeded["seed"], 12345)
+        self.assertNotIn("seed", unseeded)
+        self.assertEqual(
+            _request_contract(seeded),
+            {
+                "model": DEEPSEEK_V4_FLASH_0731,
+                "seed": 12345,
+                "seed_forwarded": True,
+                "max_tokens": 4096,
+                "tool_choice": "auto",
+                "reasoning": {"effort": "xhigh"},
+                "provider": {
+                    "require_parameters": True,
+                    "allow_fallbacks": False,
+                },
+            },
+        )
+
     def test_prompt_defines_a_path_independent_submission_contract(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "soft")
@@ -327,12 +360,16 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             ) as sleep:
                 response = runner._provider_request(
                     client,
-                    {"model": DEEPSEEK_V4_PRO},
+                    {"model": DEEPSEEK_V4_PRO, "seed": 31415},
                     trajectory,
                     request_index=7,
                 )
 
             progress = _trajectory_progress(trajectory)
+            events = [
+                json.loads(line)
+                for line in trajectory.read_text(encoding="utf-8").splitlines()
+            ]
 
         self.assertIsInstance(response, FakeResponse)
         self.assertEqual(completions.calls, 3)
@@ -340,6 +377,13 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(progress["model_requests"], 7)
         self.assertEqual(progress["provider_attempts"], 3)
         self.assertEqual(progress["provider_error_count"], 2)
+        self.assertEqual(
+            [event["request_contract"]["seed"] for event in events],
+            [31415, 31415, 31415],
+        )
+        self.assertTrue(
+            all(event["request_contract"]["seed_forwarded"] for event in events)
+        )
 
     def test_empty_provider_response_uses_frozen_backoff(self) -> None:
         class EmptyResponse:
@@ -396,6 +440,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 terminal_server=terminal,  # type: ignore[arg-type]
                 replay_service=replay,  # type: ignore[arg-type]
                 trajectory_path=Path(directory) / "trajectory.jsonl",
+                seed=9173,
             )
 
         self.assertEqual(submission["program_sha256"], script_sha256(program))
@@ -404,6 +449,10 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(metadata["tool_counts"]["submit_and_replay"], 1)
         second_messages = client.chat.completions.requests[1]["messages"]
         self.assertTrue(any(item.get("role") == "tool" for item in second_messages))
+        self.assertEqual(
+            [request["seed"] for request in client.chat.completions.requests],
+            [9173, 9173, 9173],
+        )
 
     def test_incumbent_survives_a_later_provider_failure(self) -> None:
         program = "python -m venv .venv\nsource .venv/bin/activate"

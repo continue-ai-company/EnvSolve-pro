@@ -1,0 +1,56 @@
+{
+  "schema": "envsolve-pro-v2-sampling-seed-canary-preregistration-v1",
+  "study_id": "envsolve-pro-v2-openrouter-sampling-seed-canary",
+  "registered_at": "2026-08-18T00:30:00+08:00",
+  "purpose": "Qualify the sampling-control protocol before any further deployment treatment evaluation.",
+  "claim_scope": "Protocol qualification only; no deployment-algorithm, generalization, or effect-size claim.",
+  "request": {
+    "api": "https://openrouter.ai/api/v1",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": [
+      "deepinfra"
+    ],
+    "allow_fallbacks": false,
+    "require_parameters": true,
+    "tools": "omitted",
+    "max_tokens": 256,
+    "reasoning_effort": "xhigh",
+    "temperature": "provider default",
+    "prompt_sha256": "8b3959f5e6ea506c66ab33eb2ad58b896fba1774b1b5c69250b0dfdfbb78d1d2"
+  },
+  "trials": [
+    {
+      "condition": "same-seed",
+      "seed": 271828,
+      "repetitions": 3
+    },
+    {
+      "condition": "different-seed",
+      "seeds": [
+        314159,
+        161803,
+        141421
+      ],
+      "repetitions_per_seed": 1
+    }
+  ],
+  "semantic_fingerprint": [
+    "assistant content",
+    "assistant reasoning",
+    "assistant refusal",
+    "assistant tool calls",
+    "choice finish reason"
+  ],
+  "outcomes": {
+    "parameter_acceptance": "All completed requests must accept and retain the requested seed in the local request record.",
+    "same_seed_repeatability": "Report the number of unique semantic fingerprints among the three seed-271828 responses.",
+    "different_seed_variation": "Report the number of unique semantic fingerprints among the three distinct-seed responses.",
+    "provider_identity": "Record the provider and served-model identity returned by OpenRouter when available."
+  },
+  "decision_rule": {
+    "forwarding_qualified": "The seed parameter is accepted by all six requests and each result is bound to its requested seed.",
+    "empirical_repeatability_observed": "The three same-seed semantic fingerprints are identical.",
+    "formal_evaluation_policy": "Use multiple independent seeds and randomized or counterbalanced arm order regardless of canary repeatability."
+  },
+  "output": "experiments/validations/envsolve_pro_v2_openrouter_sampling_seed_canary_result.json"
+}
