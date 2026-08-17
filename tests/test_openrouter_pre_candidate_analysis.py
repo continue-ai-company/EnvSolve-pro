@@ -27,6 +27,17 @@ def _event(request: int, command: str, output: str, exit_code: int = 0) -> str:
     )
 
 
+def _replay_event(request: int, status: str) -> str:
+    return json.dumps(
+        {
+            "event": "tool_result",
+            "request_index": request,
+            "tool_name": "submit_and_replay",
+            "result": {"status": status},
+        }
+    )
+
+
 def test_pre_candidate_analysis_stops_at_first_satisfying_goal() -> None:
     records = [
         _event(1, "ls", "files"),
@@ -49,6 +60,8 @@ def test_pre_candidate_analysis_stops_at_first_satisfying_goal() -> None:
 
     pre = result["pre_candidate"]
     assert result["first_satisfying_request"] == 11
+    assert result["first_candidate_request"] == 11
+    assert result["first_candidate_source"] == "observed-zero-missing-imports"
     assert result["first_satisfying_shell_action"] == 11
     assert result["shell_actions_total"] == 12
     assert pre["shell_actions"] == 11
@@ -102,3 +115,21 @@ def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
         )
         is None
     )
+
+
+def test_clean_replay_pass_bounds_pre_candidate_actions_without_shell_zero() -> None:
+    records = [
+        _event(1, "goal", '{"issues_count": 4}'),
+        _event(2, "pip install alpha", "installed"),
+        _replay_event(3, "pass"),
+        _event(4, "pytest", "passed"),
+    ]
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "trajectory.jsonl"
+        path.write_text("\n".join(records) + "\n", encoding="utf-8")
+        result = analyze_trajectory(path)
+
+    assert result["first_satisfying_request"] is None
+    assert result["first_candidate_request"] == 3
+    assert result["first_candidate_source"] == "clean-replay-pass"
+    assert result["pre_candidate"]["shell_actions"] == 2

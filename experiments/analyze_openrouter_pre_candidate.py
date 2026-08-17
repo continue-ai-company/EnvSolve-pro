@@ -83,8 +83,24 @@ def _goal_issue_count(command: str, output: object) -> int | None:
 
 
 def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
+    events = _read_jsonl(path)
     shell_actions: list[dict[str, Any]] = []
-    for event in _read_jsonl(path):
+    candidate_events: list[tuple[int, str]] = []
+    for event in events:
+        if event.get("event") == "tool_result":
+            result = event.get("result")
+            request_index = event.get("request_index")
+            if isinstance(result, dict) and isinstance(request_index, int):
+                if (
+                    event.get("tool_name") == "submit_and_replay"
+                    and result.get("status") == "pass"
+                ):
+                    candidate_events.append((request_index, "clean-replay-pass"))
+                elif (
+                    event.get("tool_name") == "submit_bootstrap"
+                    and result.get("accepted") is True
+                ):
+                    candidate_events.append((request_index, "accepted-submission"))
         if event.get("event") != "tool_result" or event.get("tool_name") != "envbench_shell":
             continue
         result = event.get("result")
@@ -111,8 +127,21 @@ def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
         ),
         None,
     )
-    end = first_satisfying_position + 1 if first_satisfying_position is not None else len(shell_actions)
-    prefix = shell_actions[:end]
+    first_satisfying_request = (
+        shell_actions[first_satisfying_position]["request_index"]
+        if first_satisfying_position is not None
+        else None
+    )
+    if isinstance(first_satisfying_request, int):
+        candidate_events.append((first_satisfying_request, "observed-zero-missing-imports"))
+    first_candidate = min(candidate_events, default=None)
+    prefix = [
+        action
+        for action in shell_actions
+        if first_candidate is None
+        or not isinstance(action["request_index"], int)
+        or action["request_index"] <= first_candidate[0]
+    ]
     goal_checks = [item for item in prefix if item["goal_issue_count"] is not None]
     issue_counts = [int(item["goal_issue_count"]) for item in goal_checks]
 
@@ -150,19 +179,16 @@ def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
     def count_matching(pattern: re.Pattern[str]) -> int:
         return sum(bool(pattern.search(item["command"])) for item in prefix)
 
-    first_request = (
-        shell_actions[first_satisfying_position]["request_index"]
-        if first_satisfying_position is not None
-        else None
-    )
     return {
         "run_id": run_id,
         "trajectory": str(path),
         "shell_actions_total": len(shell_actions),
-        "first_satisfying_request": first_request,
+        "first_satisfying_request": first_satisfying_request,
         "first_satisfying_shell_action": (
             first_satisfying_position + 1 if first_satisfying_position is not None else None
         ),
+        "first_candidate_request": first_candidate[0] if first_candidate else None,
+        "first_candidate_source": first_candidate[1] if first_candidate else None,
         "pre_candidate": {
             "shell_actions": len(prefix),
             "failed_shell_actions": sum(
@@ -217,6 +243,9 @@ def main() -> int:
         "episode_count": len(episodes),
         "episodes_reaching_satisfying_state": sum(
             episode["first_satisfying_request"] is not None for episode in episodes
+        ),
+        "episodes_reaching_candidate_boundary": sum(
+            episode["first_candidate_request"] is not None for episode in episodes
         ),
         "aggregate": {
             "pre_candidate_shell_actions": sum(item["shell_actions"] for item in pre),
