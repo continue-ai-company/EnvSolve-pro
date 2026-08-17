@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "preregistration_id": "envsolve-pro-v2-flash0731-dev16-pair08",
+  "recorded_at": "2026-08-17T13:53:13Z",
+  "status": "frozen-before-source-acquisition-or-model-execution",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-08",
+  "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+  "selection": {
+    "selection_file": "experiments/validations/envsolve_pro_v2_flash0731_dev16_selection.json",
+    "selection_file_sha256": "5eaa638acc521837e5753a4f94d3314186dd7da38e7c4c4a138097d04cb17d23",
+    "selection_uses_case_identity_only": true,
+    "selected_before_flash_treatment": true,
+    "outcome_used_to_select_pair08": false
+  },
+  "schedule": {
+    "path": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair08_deepinfra_cached.json",
+    "sha256": "4d1baf82bfa7bce1d454389d5fa2e90032a0773fd0a092a71b493102efa61b76",
+    "order": [
+      "A-F",
+      "B-FSR"
+    ],
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "deepinfra",
+    "provider_fallbacks": false,
+    "seed": 959268847,
+    "episode_timeout_seconds": 23000
+  },
+  "arms": {
+    "A-F": {
+      "runner": "deepseek-free-agent",
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ]
+    },
+    "B-FSR": {
+      "runner": "envsolve-pro-v2",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ]
+    }
+  },
+  "outcomes": {
+    "primary": "EnvBench Official Pass after the frozen episode and any policy-eligible exact-script infrastructure retry",
+    "secondary": [
+      "model requests",
+      "total tokens",
+      "generation wall clock",
+      "shell calls and shell duration",
+      "clean replay activation and result",
+      "requests from first observed satisfying state to submission"
+    ],
+    "secondary_resource_metrics_are_descriptive": true,
+    "non_scoring_pyright_errors_are_not_success_criteria": true,
+    "deployment_completeness_is_reported_as_a_separate_diagnostic": true
+  },
+  "infrastructure_policy": {
+    "exact_revision_source_cache_allowed": true,
+    "source_cache_semantics": "independent checkout without hardlinks, exact commit and tree verified",
+    "source_prefetch_before_A_allowed": true,
+    "source_prefetch_may_not_execute_the_model_bootstrap_or_official_goal": true,
+    "cross_episode_package_cache": false,
+    "official_source_preseed": true,
+    "single_exact_script_retry_for_classified_infrastructure_failure": true,
+    "model_reexecution_for_official_retry": false
+  },
+  "stopping_rule": {
+    "pair08_is_the_last_pair_before_algorithm_freeze": true,
+    "do_not_add_or_replace_cases_based_on_pair08_outcome": true,
+    "after_pair08": "aggregate the eight frozen pairs, identify the dominant contradictions, and freeze the next minimal algorithm"
+  },
+  "validity": {
+    "algorithm_change_since_pair07": false,
+    "prompt_change_since_pair07": false,
+    "goal_change_since_pair07": false,
+    "upstream_evaluator_change_since_pair07": false,
+    "case_specific_rule_added": false,
+    "protected_sets_touched": false
+  }
+}

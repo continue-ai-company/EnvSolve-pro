@@ -1,0 +1,180 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-07",
+  "recorded_at": "2026-08-17T13:53:13Z",
+  "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+  "repository": "microsoftgraph/msgraph-sdk-python-core",
+  "revision": "e36c17424c9d443bdfeafc32f32682529ce25f95",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "deepinfra",
+  "host_architecture": "linux/arm64",
+  "effective_episodes": [
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-13-A-F",
+      "official_run_id": "pro-v2-flash0731-dev16-13-A-F-official-retry1",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "terminal_class": "official-pass-after-exact-script-infrastructure-retry",
+      "model_requests": 81,
+      "provider_attempts": 83,
+      "provider_errors": 2,
+      "prompt_tokens": 3646228,
+      "completion_tokens": 68797,
+      "total_tokens": 3715025,
+      "reported_provider_cost": 0.09277725199999998,
+      "generation_wall_clock_seconds": 2302.34141,
+      "shell_tool_calls": 100,
+      "shell_duration_seconds": 351.070109768305,
+      "clean_replay_calls": 0,
+      "first_observed_zero_missing_imports_request": 47,
+      "final_submission_request": 81,
+      "post_goal_model_requests": 34,
+      "submitted_program_sha256": "27355d6056f27b9f092526fd2b4734319e21252fa02b601acc93e62b9bbba144",
+      "generated_script_sha256": "cce84adf77a166a62e7ecbe36690fe190902c66db36081e87b47d4eb49539fc5",
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 50,
+      "official_warning_count_non_scoring": 0,
+      "official_execution_seconds": 81.99813032150269,
+      "source_cache_hit": true,
+      "source_run_audit_valid": true,
+      "source_artifact_sha256": {
+        "generation_result": "e8653fdc61c219ae3a4a5e4f521d448731ca4d3c6b0a86d70ece31ffa32b856c",
+        "trajectory": "b71b67fc05b9d8f23cc55671bdd8120c7fc7879e28c5f86c9a32c86a7a5a1954",
+        "container_commands": "26e9cde513f97e2889a221b2038f163c8ab9679d7022023a808050abf6add67f",
+        "manifest": "e8b8f693f927d8f390a9fdb839562337807830ac1993507f34c0f13bf380d9be"
+      },
+      "official_retry_artifact_sha256": {
+        "manifest": "2610ffb0b41d6cc438766dec9bb4db10ec5ac9711308a806e33f7ba753638795",
+        "official_result": "6afbe3e34025da929214bd1d97128dafe98c70d29b1d42fe76ed3ea13100acbb",
+        "official_raw_result": "cacf9517b0afcda61a98bf41ea46386aaf5833bccc0da7359cbe04b14b54ec94",
+        "evaluation_log": "dba47cfa6d3e3a733437a29e4bfad6f0b55c6acd7822ec25179dfc1021273dd8",
+        "evaluation_retry_provenance": "e7981d3d6f369c80897208d9045df269ee3bb5cbdd82f974c22259b311649a38"
+      }
+    },
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-14-B-FSR",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "terminal_class": "official-pass",
+      "model_requests": 34,
+      "provider_attempts": 34,
+      "provider_errors": 0,
+      "prompt_tokens": 501304,
+      "completion_tokens": 21690,
+      "total_tokens": 522994,
+      "reported_provider_cost": 0.016008264,
+      "generation_wall_clock_seconds": 991.188791,
+      "shell_tool_calls": 32,
+      "shell_duration_seconds": 115.52802903717384,
+      "clean_replay_calls": 1,
+      "clean_replay_statuses": [
+        "pass"
+      ],
+      "first_observed_zero_missing_imports_request": 30,
+      "clean_replay_request": 33,
+      "final_submission_request": 34,
+      "post_goal_model_requests": 4,
+      "submitted_program_sha256": "c1086d1f9a69a029dc72910588a40f493ad3b95a80b514dd2f6729c725749560",
+      "certified_by_clean_replay": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 48,
+      "official_warning_count_non_scoring": 0,
+      "official_execution_seconds": 62.60071873664856,
+      "source_cache_hit": true,
+      "official_source_cache_hit": true,
+      "audit_valid": true,
+      "artifact_sha256": {
+        "generation_result": "61a7e50717d7a8697012f54f3e804e97165ba6e728a6fbcb1287e0e7f971f724",
+        "trajectory": "7569ca66de86c7fcb6646154a2f1acba169845393bfd5d18f2dd64396cb17fd1",
+        "container_commands": "aaafef4314b756d4a345ad4db01c67612b1698363a72d8231f97f6e1be27f8b4",
+        "manifest": "80237afeb9adb14214aeb2f7af04a56e4a20a65c06470993af28543d507395b9",
+        "official_result": "cb034ec153ed26b3f319de244704e494a263cd222860648d75c41029dba47e47",
+        "official_raw_result": "b722da2ee56dc5dc3d40b0f75db1a0de8f80cfd666c88dad05142c1f83a57760"
+      }
+    }
+  ],
+  "pair_outcome": {
+    "official_comparison_available": true,
+    "official_result": "tie_pass_pass",
+    "official_pass_difference_b_minus_a": 0,
+    "infrastructure_censored": false,
+    "mechanism_activated": true,
+    "mechanism_note": "B-FSR clean replay passed at request 33 and the same program was submitted at request 34",
+    "feedback_conditioned_repair_observed": false,
+    "certification_as_stopping_signal_observed": true
+  },
+  "resource_comparison": {
+    "descriptive_only": true,
+    "b_minus_a_model_requests": -47,
+    "b_model_requests_percent_vs_a": -58.0246913580247,
+    "b_total_tokens_percent_vs_a": -85.9221943324742,
+    "b_generation_wall_clock_percent_vs_a": -56.948661623559985,
+    "b_shell_tool_calls_percent_vs_a": -68.0,
+    "b_shell_duration_percent_vs_a": -67.09260463289831,
+    "b_reported_provider_cost_percent_vs_a": -82.7454859301071,
+    "official_wall_clock_comparison_valid": false,
+    "official_wall_clock_limitation": "A's first Official attempt was infrastructure-censored and its registered retry ran later"
+  },
+  "candidate_formation_diagnostic": {
+    "A": "first observed zero missing imports at request 47; then performed ad hoc fresh-directory and fresh-environment checks before submission at request 81",
+    "B": "first observed zero missing imports at request 30; invoked one standard clean replay at request 33 and submitted at request 34",
+    "interpretation": "a strong free agent spontaneously recreated replay semantics, but the standard replay primitive compressed 34 post-goal model requests to four"
+  },
+  "deployment_quality_diagnostic": {
+    "preregistered_primary_outcome": false,
+    "independently_verified_complete_environment": false,
+    "A_quality_flag": "official-sufficient-with-extracted-legacy-wheel-modules",
+    "B_quality_flag": "official-sufficient-with-minimal-compatibility-namespace",
+    "interpretation": "both programs satisfy the Official missing-import objective, but B's compatibility namespace does not establish runtime completeness for stale sample APIs"
+  },
+  "source_cache": {
+    "source": "immutable-exact-revision-cache-v1",
+    "commit": "e36c17424c9d443bdfeafc32f32682529ce25f95",
+    "tree": "a003d5997ac307507a4c3036422aceed27abea71",
+    "agent_checkout_cache_hit_A": false,
+    "agent_checkout_cache_hit_B": true,
+    "official_preseed_cache_hit_A": true,
+    "official_preseed_cache_hit_B": true,
+    "independent_no_hardlinks": true
+  },
+  "censored_attempts": [
+    {
+      "run_id": "pro-v2-flash0731-dev16-13-A-F",
+      "scope": "post-session-official-bootstrap-build-dependency-download",
+      "terminal_class": "infrastructure-censored-read-timeout",
+      "reason": "files.pythonhosted.org timed out while pip downloaded setuptools for an isolated build environment before repository dependencies or Pyright completed",
+      "model_reexecuted_for_retry": false,
+      "official_result_sha256": "26c9490d889554f56300344297f78763d057712ab5f51eeee9feab6e03dfbdc0",
+      "official_raw_result_sha256": "6899c210a93a59d33e4705b0fce0bc9c6ce75e3ab9a7a75583b71aa540e87914",
+      "evaluation_log_sha256": "0d0c4eb264004f257c0d54e2491b3181459f394a21e746f36d6be5d2e897f7cd"
+    }
+  ],
+  "provenance": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair07_deepinfra_cached.json",
+    "schedule_sha256": "79d48e839bed8218fef77c5b98dc7bcc3b7e222aad81cf6bb83ea36dfa0cc344",
+    "schedule_progress_sha256": "1cc8d1c6bb75b7cb44a16cc73a5dacc5399516c641c16c5772aa8c6bfb7d0b04",
+    "official_retry_amendment": "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair07_A_official_retry1_amendment.json",
+    "official_source_cache_amendment": "experiments/validations/envsolve_pro_v2_flash0731_dev16_official_source_cache_amendment.json"
+  },
+  "claim_boundary": {
+    "supported": [
+      "both frozen arms achieved Official Pass on this case",
+      "B-FSR clean replay acted as a successful stopping certificate without requiring repair",
+      "B-FSR used fewer model requests, tokens, shell calls, shell time, and generation wall time in this paired realization",
+      "the free agent independently recreated clean replay behavior but did so through a longer ad hoc path",
+      "Official Pass did not establish runtime completeness for either compatibility strategy"
+    ],
+    "not_supported": [
+      "B-FSR has higher Official success probability than A-F",
+      "B-FSR is uniformly more resource efficient than A-F",
+      "clean replay solves compatibility search failures",
+      "B-FSR produced the more complete deployment",
+      "the non-scoring Pyright error-count difference is an algorithm effect"
+    ]
+  }
+}
