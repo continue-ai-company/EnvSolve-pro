@@ -1,0 +1,109 @@
+{
+  "schema": "envsolve-pro-v2-pre-candidate-adjudication-v1",
+  "study_id": "envsolve-pro-v2-consumed14-pre-candidate-analysis",
+  "adjudicated_at": "2026-08-18T03:10:00+08:00",
+  "status": "dominant-gap-refined-to-sparse-global-feedback-with-unretained-compatibility-progress",
+  "claim_scope": "Consumed-development trajectory diagnosis only; no held-out, leaderboard, or treatment-effect claim.",
+  "cohort": {
+    "episodes": 14,
+    "cases": 7,
+    "arms": [
+      "A-F",
+      "B-FSR"
+    ],
+    "excluded_pair": "flash0731-dev16-case-05 because both arms were provider-censored",
+    "sampling_limitation": "Historical schedule seeds were not forwarded to model requests, so arm differences are descriptive realizations rather than deterministic counterfactual pairs."
+  },
+  "measurement": {
+    "boundary": "The first observed zero-missing-import state, clean-replay pass, or accepted submission; otherwise the complete failed episode.",
+    "global_probe": "An executed Pyright reportMissingImports probe with an explicit count, diagnostic listing, or empty filtered summary.",
+    "local_probe": "Runtime, test, import, or other command that does not establish the complete public compatibility objective.",
+    "analysis_sha256": "425fa086d9ff76dedfe6800504498966c0bee25115b7515f15e435f7e0a03474",
+    "analysis_implementation_sha256": "ba0ba6bd82a0a4897a5c112b6af7d7ad48c8dc5a20c222c0f56288346a07b0ba",
+    "analysis_test_sha256": "14114d7b467ff44da7b34917ed706a9bdb88317869ce1125e18e6746bc642626"
+  },
+  "aggregate": {
+    "episodes_reaching_candidate_boundary": 12,
+    "episodes_without_candidate_boundary": 2,
+    "pre_candidate_shell_actions": 898,
+    "failed_shell_actions": 58,
+    "failed_shell_action_share": 0.06458797327394209,
+    "exact_repeated_non_goal_command_executions": 3,
+    "exact_repeat_share": 0.00334075723830735,
+    "package_operations": 95,
+    "environment_operations": 88,
+    "runtime_or_test_probes": 397,
+    "global_goal_checks": 50,
+    "shell_actions_per_global_goal_check": 17.96,
+    "comparable_goal_transitions": 36,
+    "improving_goal_transitions": 23,
+    "stagnant_goal_transitions": 9,
+    "regressing_goal_transitions": 4,
+    "stagnant_or_regressing_share": 0.3611111111111111
+  },
+  "diagnostic_examples": [
+    {
+      "run_id": "pro-v2-flash0731-dev16-01-B-FSR",
+      "trajectory": "438 -> 3 -> 1 -> 1 -> 27 -> 27 -> 12 missing imports",
+      "outcome": "request cap without a candidate",
+      "interpretation": "The agent reached a near-feasible state, later regressed, and did not recover the best observed compatibility state before termination."
+    },
+    {
+      "run_id": "pro-v2-flash0731-dev16-08-A-F",
+      "trajectory": "242 -> 6 -> 1 -> 6 -> 6 -> 0 missing imports",
+      "outcome": "candidate formed and the Official evaluator passed",
+      "interpretation": "A temporary compatibility regression can lie on a successful path, so a hard monotonic-state rule would be unsound."
+    },
+    {
+      "run_id": "pro-v2-flash0731-dev16-05-B-FSR",
+      "trajectory": "zero missing imports in the mutable construction environment, followed later by a clean-replay counterexample",
+      "outcome": "repaired candidate eventually passed clean replay and Official evaluation",
+      "interpretation": "Compatibility observation and state-to-program certification solve different failure stages and should remain separate."
+    },
+    {
+      "run_id": "pro-v2-flash0731-dev16-16-B-FSR",
+      "trajectory": "61 -> 26 -> 2 -> 2 -> 2 -> 2 -> 0 missing imports",
+      "outcome": "candidate formed and the Official evaluator passed",
+      "interpretation": "Repeated unchanged global states expose a useful stopping or strategy-switch signal without implying which package operation to choose."
+    }
+  ],
+  "hypothesis_decisions": {
+    "rejected_as_primary_gap": [
+      "literal command forgetting or exact-command repetition",
+      "insufficient post-candidate replay rules",
+      "a need to forbid all compatibility regressions",
+      "a need for package-specific operation mappings"
+    ],
+    "retained_support_components": [
+      "continuous strong-agent session",
+      "minimal integrity boundary",
+      "clean replay after candidate formation",
+      "certified incumbent as an orthogonal safety ablation"
+    ],
+    "next_hypothesis": "During the continuous active session, a machine-maintained compatibility-delta ledger can make sparse global evidence persistent without constraining the strong agent's operation space."
+  },
+  "minimal_treatment": {
+    "name": "active-session-compatibility-delta-ledger",
+    "observation_layer": "An explicit tool executes the trusted public goal in the current construction environment and returns the complete unresolved-import set plus a compact interpreter/environment fingerprint.",
+    "constraint_layer": "The harness records resolved and introduced obligations and retains nondominated observed obligation sets. The ledger is monotonic in accumulated evidence, not in permitted environment states.",
+    "operation_layer": "The same model session keeps unrestricted shell control. The ledger supplies no package mapping, command ranking, blocking rule, rollback, or container checkpoint.",
+    "candidate_boundary": "When the observed unresolved set is empty, compile a complete bootstrap program and use the existing clean-replay interface.",
+    "difference_from_archived_frontiers": "The treatment changes only in-session feedback. It does not restart independent model sessions, generate whole-program candidates per round, impose a finite candidate frontier, or add cross-candidate semantic rules."
+  },
+  "claim_boundary": {
+    "supported": [
+      "Global compatibility feedback was sparse relative to local operations in these trajectories.",
+      "More than one third of comparable global transitions were stagnant or regressing.",
+      "Exact command repetition was rare and does not explain the observed search cost.",
+      "Both harmful drift and useful temporary regression occurred, motivating informative rather than hard monotonicity."
+    ],
+    "not_supported": [
+      "A compatibility ledger improves Official Pass, time, tokens, or memory.",
+      "Every local operation should trigger an automatic global goal execution.",
+      "Fewer missing imports always identifies a higher-quality deployment path.",
+      "The historical arm trajectories estimate a causal treatment effect.",
+      "The proposed treatment generalizes beyond consumed development cases."
+    ]
+  },
+  "next_decision": "Implement the ledger as one optional in-session tool, qualify its invariants offline, then preregister a counterbalanced repeated pilot on consumed cases before touching any remaining Dev case."
+}
