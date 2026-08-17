@@ -13,6 +13,12 @@ from typing import Any
 ISSUE_COUNT = re.compile(r'"issues_count"\s*:\s*(\d+)')
 TOTAL_COUNT = re.compile(r"\btotal\s*:\s*(\d+)\b", re.IGNORECASE)
 LINE_COUNT = re.compile(r"^\s*count\s*[:=]?\s*(\d+)\s*$", re.IGNORECASE | re.MULTILINE)
+MISSING_COUNT = re.compile(r"\bmissing\s*imports?\s*[:=]?\s*(\d+)\b", re.IGNORECASE)
+PYRIGHT_EXECUTION = re.compile(
+    r"(?:python\S*\s+-m\s+pyright\b|npx\s+pyright\b|"
+    r"(?:^|[;&|]\s*|timeout\s+\d+\s+)(?:/\S+/)?pyright\s)",
+    re.IGNORECASE,
+)
 PACKAGE_OPERATION = re.compile(
     r"(?:^|[;&|]\s*|\s)(?:python\S*\s+-m\s+)?pip\s+(?:install|uninstall)|"
     r"(?:^|[;&|]\s*|\s)(?:uv\s+pip|conda|mamba|apt(?:-get)?)\s+install",
@@ -49,9 +55,9 @@ def _goal_issue_count(command: str, output: object) -> int | None:
     matches = ISSUE_COUNT.findall(output)
     if matches:
         return int(matches[-1])
-    if "reportMissingImports" not in command:
+    if "reportMissingImports" not in command or not PYRIGHT_EXECUTION.search(command):
         return None
-    for pattern in (TOTAL_COUNT, LINE_COUNT):
+    for pattern in (TOTAL_COUNT, LINE_COUNT, MISSING_COUNT):
         matches = pattern.findall(output)
         if matches:
             return int(matches[-1])
@@ -70,7 +76,8 @@ def _goal_issue_count(command: str, output: object) -> int | None:
         marker in output
         for marker in ("Traceback", "JSONDecodeError", "command not found")
     )
-    if filtered_output and not parse_failed:
+    has_summary_evidence = "summary" in output or "filesAnalyzed" in output
+    if filtered_output and has_summary_evidence and not parse_failed:
         return 0
     return None
 
