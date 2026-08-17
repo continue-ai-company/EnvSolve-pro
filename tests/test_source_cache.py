@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
+from unittest import mock
 
 from envsolve_harness.execution.process import checked_output
 from envsolve_harness.execution.source_cache import ExactRevisionSourceCache
@@ -58,3 +59,37 @@ def test_exact_revision_cache_reuses_git_objects_but_not_worktree_state() -> Non
             (root / "first" / "value.txt").stat().st_ino
             != (root / "second" / "value.txt").stat().st_ino
         )
+        assert first["populate_attempts"] == 1
+        assert second["populate_attempts"] == 0
+
+
+def test_exact_revision_cache_retries_population_from_a_clean_temporary_repo() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        remote, revision = _make_repository(root)
+        cache = ExactRevisionSourceCache(root / "cache", timeout=10)
+        populate = cache._populate
+        attempt = 0
+
+        def flaky_populate(*args: object, **kwargs: object) -> dict[str, object]:
+            nonlocal attempt
+            attempt += 1
+            if attempt < 3:
+                raise RuntimeError("transient TLS fetch failure")
+            return populate(*args, **kwargs)  # type: ignore[arg-type]
+
+        with (
+            mock.patch.object(cache, "_populate", side_effect=flaky_populate),
+            mock.patch("envsolve_harness.execution.source_cache.time.sleep") as sleep,
+        ):
+            result = cache.acquire(
+                repository="owner/repository",
+                revision=revision,
+                destination=root / "checkout",
+                remote_url=str(remote),
+            )
+
+        assert result["cache_hit"] is False
+        assert result["populate_attempts"] == 3
+        assert sleep.call_args_list == [mock.call(1), mock.call(2)]
+        assert not list((root / "cache").rglob("*.tmp-*"))

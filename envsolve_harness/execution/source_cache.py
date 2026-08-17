@@ -3,6 +3,8 @@ from __future__ import annotations
 import fcntl
 import os
 import shutil
+import subprocess
+import time
 import uuid
 from pathlib import Path
 from typing import Any
@@ -16,6 +18,7 @@ class ExactRevisionSourceCache:
     """Immutable Git-object cache with an independent checkout per episode."""
 
     cache_version = "immutable-exact-revision-cache-v1"
+    populate_attempts = 3
 
     def __init__(self, root: Path, timeout: int) -> None:
         if timeout <= 0:
@@ -118,6 +121,29 @@ class ExactRevisionSourceCache:
                 shutil.rmtree(temporary)
         return self._validate_existing(cache_path, repository, revision)
 
+    def _populate_with_retries(
+        self,
+        cache_path: Path,
+        repository: str,
+        revision: str,
+        remote_url: str,
+    ) -> tuple[dict[str, Any], int]:
+        last_error: Exception | None = None
+        for attempt in range(1, self.populate_attempts + 1):
+            try:
+                return (
+                    self._populate(cache_path, repository, revision, remote_url),
+                    attempt,
+                )
+            except (OSError, RuntimeError, subprocess.TimeoutExpired) as exc:
+                last_error = exc
+                if attempt < self.populate_attempts:
+                    time.sleep(2 ** (attempt - 1))
+        raise RuntimeError(
+            f"Source-cache population failed after {self.populate_attempts} attempts: "
+            f"{last_error}"
+        ) from last_error
+
     def acquire(
         self,
         *,
@@ -135,11 +161,16 @@ class ExactRevisionSourceCache:
         with lock_path.open("a+") as lock:
             fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
             cache_hit = cache_path.is_dir()
-            receipt = (
-                self._validate_existing(cache_path, repository, revision)
-                if cache_hit
-                else self._populate(cache_path, repository, revision, source_url)
-            )
+            if cache_hit:
+                receipt = self._validate_existing(cache_path, repository, revision)
+                populate_attempts = 0
+            else:
+                receipt, populate_attempts = self._populate_with_retries(
+                    cache_path,
+                    repository,
+                    revision,
+                    source_url,
+                )
 
         checked_output(
             [
@@ -168,6 +199,7 @@ class ExactRevisionSourceCache:
         return {
             "source": self.cache_version,
             "cache_hit": cache_hit,
+            "populate_attempts": populate_attempts,
             "cache_path": str(cache_path),
             "repository": repository,
             "revision": revision,

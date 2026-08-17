@@ -1,0 +1,57 @@
+{
+  "schema": "envsolve-pro-v2-source-cache-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-flash0731-dev16-pair06-source-retry1",
+  "recorded_at": "2026-08-17T04:58:17Z",
+  "recorded_before_retry": true,
+  "trigger": {
+    "arm": "A-F",
+    "run_id": "pro-v2-flash0731-dev16-11-A-F",
+    "stage": "repository acquisition before the first model request",
+    "error": "Git fetch failed with a transient GnuTLS decode error and early EOF",
+    "successful_provider_responses": 0,
+    "official_evaluator_executed": false,
+    "generation_result_sha256": "df2f3927f5f38930e378944298ea47d872ffa06a3bea34e90f5b74690077aa26",
+    "manifest_sha256": "40ef471eec484c8b8bf04024253adc7890d018da525c10499a97d715ef2d905b"
+  },
+  "paired_stop": {
+    "arm": "B-FSR",
+    "run_id": "pro-v2-flash0731-dev16-12-B-FSR",
+    "reason": "the pair was already invalid after A failed, so B was stopped during repository acquisition before any model event",
+    "successful_provider_responses": 0,
+    "trajectory_events": 0,
+    "manifest_sha256": "7cad88bae1f363788a1585dbc932b3d44e4a63a2fc6909da1067234831deb184"
+  },
+  "repair": {
+    "scope": "immutable source-cache population on cache miss",
+    "old_source_cache_sha256": "d7195c13689a73e00d39c5fa77499fde888ad66dc83f9d3070af24e4dc40f116",
+    "new_source_cache_sha256": "c8d4fe1bed231f544381ccdf274c49ce57be8298fce96605a6c0d32ac1cbcc13",
+    "behavior": "retry exact-revision population up to three times with one- and two-second backoff, recreating and deleting the temporary bare repository on every attempt",
+    "cache_hit_network_behavior_changed": false,
+    "agent_visible_repository_changed": false,
+    "algorithm_or_prompt_changed": false,
+    "case_specific_information_used": false
+  },
+  "verification": {
+    "retry_regression": "first two simulated population attempts fail and the third produces one fsck-valid immutable cache",
+    "focused_tests": "19 passed",
+    "full_suite": "811 passed, 12 skipped, 80 subtests passed"
+  },
+  "retry": {
+    "restart_both_arms_from_clean_state": true,
+    "original_attempts_retained": true,
+    "original_attempts_excluded_from_primary_outcome_and_resources": true,
+    "maximum_source_retry_for_pair": 1,
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair06_deepinfra_source_retry1.json",
+    "schedule_sha256": "deebfbaba552bffcbb4992119bb0bdb74c2a5812623053f327ce4dfecbde422f"
+  },
+  "unchanged": [
+    "case and exact revision",
+    "A-F then B-FSR order",
+    "DeepSeek V4 Flash 0731 model",
+    "DeepInfra provider with fallback disabled",
+    "prompt and tool schemas",
+    "clean replay and Official protocols",
+    "generation safety caps",
+    "Dev16 membership"
+  ]
+}
