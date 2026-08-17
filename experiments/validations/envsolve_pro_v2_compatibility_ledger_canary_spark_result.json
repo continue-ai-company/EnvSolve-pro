@@ -1,0 +1,1463 @@
+{
+  "envbench": {
+    "metadata": {
+      "best_anchor": {
+        "environment": {
+          "conda_prefix": null,
+          "cwd": "/data/project",
+          "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+          "python_base_prefix": "/opt/conda",
+          "python_distribution_count": 55,
+          "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+          "python_executable": "/opt/conda/bin/python",
+          "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+          "python_prefix": "/opt/conda",
+          "python_version": "3.13.2",
+          "virtual_env": null
+        },
+        "obligation_count": 91,
+        "obligation_set_sha256": "db5df28d6e7421fc66b81ad5803d1f7cdba3e3451932b557dbf6c82b42ca7853",
+        "observation_index": 1
+      },
+      "complete_observation_count": 1,
+      "frontier_size": 1,
+      "goal_pass_observation_count": 0,
+      "observation_count": 1,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "projection_transport": "zlib-base64-json-v1",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {
+        "initial": 1
+      }
+    },
+    "observation": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "current": {
+        "obligation_count": 91,
+        "obligation_set_sha256": "db5df28d6e7421fc66b81ad5803d1f7cdba3e3451932b557dbf6c82b42ca7853",
+        "obligations": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "braces.views"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "ckeditor.fields"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.apps"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.conf"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.admin.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.admin.views.decorators"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.admin.widgets"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.admin"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.decorators"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.forms"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.mixins"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.signals"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.validators"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.auth.views"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.contenttypes.fields"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.contenttypes.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.flatpages.admin"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.flatpages.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.messages.api"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.sites.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.contrib.syndication.views"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.exceptions"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.files.base"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.files.storage"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.files.uploadedfile"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.mail"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.management"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.management.base"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.paginator"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.validators"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.core.wsgi"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.db"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.db.migrations.operations.special"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.db.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.db.models.deletion"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.db.models.functions"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.db.models.signals"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.dispatch"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.forms"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.forms.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.forms.widgets"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.http"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.shortcuts"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.template"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.template.defaultfilters"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.template.loader"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.template.response"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.test"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.urls"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.datastructures"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.decorators"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.encoding"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.html"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.safestring"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.text"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.timezone"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.utils.translation"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.decorators.csrf"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.generic"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.generic.base"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.generic.dates"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.generic.detail"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.generic.edit"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.generic.list"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django.views.static"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "django_nyt.urls"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "easy_thumbnails.conf"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "easy_thumbnails.templatetags.thumbnail"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "faker"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "filebrowser.sites"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "haystack"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "haystack.forms"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "haystack.query"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "haystack.views"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "hitcount.views"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "image_cropping"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "image_cropping.fields"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "markdown_deux"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "mptt.fields"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "mptt.models"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "rest_framework"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "rest_framework.response"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "wand.image"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "wiki.urls"
+          }
+        ]
+      },
+      "delta_from_previous": {
+        "classification": "initial",
+        "introduced": [],
+        "resolved": []
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 91,
+            "obligation_set_sha256": "db5df28d6e7421fc66b81ad5803d1f7cdba3e3451932b557dbf6c82b42ca7853",
+            "observation_index": 1
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 91,
+          "obligation_set_sha256": "db5df28d6e7421fc66b81ad5803d1f7cdba3e3451932b557dbf6c82b42ca7853",
+          "obligations": [
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "braces.views"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "ckeditor.fields"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.apps"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.conf"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.admin.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.admin.views.decorators"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.admin.widgets"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.admin"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.decorators"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.forms"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.mixins"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.signals"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.validators"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.auth.views"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.contenttypes.fields"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.contenttypes.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.flatpages.admin"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.flatpages.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.messages.api"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.sites.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.contrib.syndication.views"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.exceptions"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.files.base"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.files.storage"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.files.uploadedfile"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.mail"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.management"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.management.base"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.paginator"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.validators"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.core.wsgi"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.db"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.db.migrations.operations.special"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.db.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.db.models.deletion"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.db.models.functions"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.db.models.signals"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.dispatch"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.forms"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.forms.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.forms.widgets"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.http"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.shortcuts"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.template"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.template.defaultfilters"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.template.loader"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.template.response"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.test"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.urls"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.datastructures"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.decorators"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.encoding"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.html"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.safestring"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.text"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.timezone"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.utils.translation"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.decorators.csrf"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.generic"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.generic.base"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.generic.dates"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.generic.detail"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.generic.edit"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.generic.list"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django.views.static"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "django_nyt.urls"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "easy_thumbnails.conf"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "easy_thumbnails.templatetags.thumbnail"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "faker"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "filebrowser.sites"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "haystack"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "haystack.forms"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "haystack.query"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "haystack.views"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "hitcount.views"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "image_cropping"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "image_cropping.fields"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "markdown_deux"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "mptt.fields"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "mptt.models"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "rest_framework"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "rest_framework.response"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "wand.image"
+            },
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "wiki.urls"
+            }
+          ],
+          "observation_index": 1
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_status": "fail",
+      "measurement": {
+        "raw_finding_count": 806,
+        "unique_obligation_count": 91
+      },
+      "observation_index": 1,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    }
+  },
+  "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+  "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+  "platform": "docker",
+  "qualification": {
+    "environment_fingerprint_changed": true,
+    "no_container_checkpoint_stored": true,
+    "no_operation_constraints_added": true,
+    "real_envbench_observation_complete": true,
+    "synthetic_candidate_ready": true,
+    "synthetic_delta_improved": true,
+    "synthetic_initial_fail": true
+  },
+  "recorded_at": "2026-08-17T16:58:12.975289+00:00",
+  "schema": "envsolve-compatibility-ledger-canary-result-v1",
+  "synthetic": {
+    "after": {
+      "advisory_only": true,
+      "candidate_ready": true,
+      "current": {
+        "obligation_count": 0,
+        "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "obligations": []
+      },
+      "delta_from_previous": {
+        "classification": "improved",
+        "introduced": [],
+        "resolved": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "envsolve_ledger_canary"
+          }
+        ]
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 0,
+            "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "observation_index": 2
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 0,
+          "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "obligations": [],
+          "observation_index": 2
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_status": "pass",
+      "measurement": {
+        "raw_finding_count": 0,
+        "unique_obligation_count": 0
+      },
+      "observation_index": 2,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "before": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "current": {
+        "obligation_count": 1,
+        "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+        "obligations": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "envsolve_ledger_canary"
+          }
+        ]
+      },
+      "delta_from_previous": {
+        "classification": "initial",
+        "introduced": [],
+        "resolved": []
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 1,
+            "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+            "observation_index": 1
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 1,
+          "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+          "obligations": [
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "envsolve_ledger_canary"
+            }
+          ],
+          "observation_index": 1
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_status": "fail",
+      "measurement": {
+        "raw_finding_count": 1,
+        "unique_obligation_count": 1
+      },
+      "observation_index": 1,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "metadata": {
+      "best_anchor": {
+        "environment": {
+          "conda_prefix": null,
+          "cwd": "/data/project",
+          "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+          "python_base_prefix": "/opt/conda",
+          "python_distribution_count": 55,
+          "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+          "python_executable": "/opt/conda/bin/python",
+          "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+          "python_prefix": "/opt/conda",
+          "python_version": "3.13.2",
+          "virtual_env": null
+        },
+        "obligation_count": 0,
+        "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "observation_index": 2
+      },
+      "complete_observation_count": 2,
+      "frontier_size": 1,
+      "goal_pass_observation_count": 1,
+      "observation_count": 2,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "projection_transport": "zlib-base64-json-v1",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {
+        "improved": 1,
+        "initial": 1
+      }
+    },
+    "mutation": {
+      "exit_code": 0,
+      "infrastructure_error": null,
+      "timed_out": false
+    }
+  },
+  "workspace": "/home/avdpro/work/EnvSolve-pro/runs/envsolve-pro-v2-dev12/pro-v2-dev12-05-A-F/envbench-python-nabla-ntnu__nablaweb__c0f51ad0cfbfb73de52fd041c002a5a3e4590c03/generation/workspace"
+}

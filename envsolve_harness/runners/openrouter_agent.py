@@ -12,6 +12,7 @@ from envsolve.runtime.docker import DockerFreshEnvironmentProvider
 from envsolve.runtime.goal import ExecutableGoalContract
 from envsolve.runtime.workspace import WorkspacePrecondition
 from envsolve.solver import DeploymentCandidate
+from envsolve_harness.compatibility_ledger import CompatibilityLedgerService
 from envsolve_harness.codex.container_mcp import (
     ContainerMcpServer,
 )
@@ -44,7 +45,7 @@ DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
 DEEPSEEK_V4_FLASH_0731 = "deepseek/deepseek-v4-flash-0731"
 SUPPORTED_DEEPSEEK_MODELS = frozenset({DEEPSEEK_V4_PRO, DEEPSEEK_V4_FLASH_0731})
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-ReplayMode = Literal["none", "soft", "incumbent"]
+ReplayMode = Literal["none", "soft", "incumbent", "ledger"]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
 
@@ -228,7 +229,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.3.0"
+    runner_version = "0.4.0"
 
     def __init__(
         self,
@@ -250,8 +251,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
         goal_contract: ExecutableGoalContract,
         client_factory: ClientFactory | None = None,
     ) -> None:
-        if replay_mode not in {"none", "soft", "incumbent"}:
-            raise ValueError("Replay mode must be none, soft, or incumbent")
+        if replay_mode not in {"none", "soft", "incumbent", "ledger"}:
+            raise ValueError("Replay mode must be none, soft, incumbent, or ledger")
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
         if model_max_retries < 0:
@@ -289,6 +290,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def agent_interface(self) -> str:
+        if self.compatibility_ledger_enabled:
+            return "free-feedback-search+compatibility-delta-ledger+soft-clean-replay-v1"
         if self.replay_mode == "incumbent":
             return "free-feedback-search+goal-triggered-certified-incumbent-v1"
         if self.replay_mode == "soft":
@@ -297,11 +300,25 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def replay_enabled(self) -> bool:
-        return self.replay_mode in {"soft", "incumbent"}
+        return self.replay_mode in {"soft", "incumbent", "ledger"}
 
     @property
     def incumbent_enabled(self) -> bool:
         return self.replay_mode == "incumbent"
+
+    @property
+    def compatibility_ledger_enabled(self) -> bool:
+        return self.replay_mode == "ledger"
+
+    @property
+    def mechanism_primitives(self) -> list[str]:
+        if self.compatibility_ledger_enabled:
+            return ["F", "compatibility-delta-ledger", "S", "R", "minimal-H"]
+        if self.incumbent_enabled:
+            return ["F", "S", "R", "certified-incumbent", "minimal-H"]
+        if self.replay_mode == "soft":
+            return ["F", "S", "R", "minimal-H"]
+        return ["F", "minimal-H"]
 
     @staticmethod
     def _now() -> str:
@@ -434,6 +451,24 @@ class OpenRouterAgentRunner(CodexCliRunner):
                     },
                 )
             )
+        if self.compatibility_ledger_enabled:
+            tools.insert(
+                1,
+                _function_tool(
+                    "check_compatibility",
+                    (
+                        "Execute the trusted public goal in the current environment and "
+                        "return a machine-maintained delta from the previous observation "
+                        "plus the nondominated compatibility evidence frontier. This is "
+                        "advisory and never blocks shell operations."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": False,
+                    },
+                ),
+            )
         tools.append(
             _function_tool(
                 "submit_bootstrap",
@@ -491,7 +526,7 @@ Goal SHA-256: {contract.sha256}
 {self.validator.prompt_contract}
 </candidate_contract>
 """
-        if self.replay_mode == "soft":
+        if self.replay_mode in {"soft", "ledger"}:
             prompt += """\
 
 Before final submission, call `submit_and_replay` with the complete program. It
@@ -511,6 +546,17 @@ may continue in this same session only when there is a material runtime or
 reproducibility improvement to make. Replace the incumbent only by clean-replaying
 the improved complete program. `submit_bootstrap` accepts only a certified hash. The
 incumbent stores the program and certificate, never a container checkpoint.
+"""
+        if self.compatibility_ledger_enabled:
+            prompt += """\
+
+Use `check_compatibility` after a material batch of environment changes and before
+abandoning a near-feasible approach. It executes the complete public goal in the
+current shell context, reports resolved and introduced obligations, and remembers
+nondominated observations. A regression is evidence, not a forbidden state: continue
+any exploration you judge useful. The ledger never selects packages, blocks commands,
+or restores environments. When it reports `candidate_ready`, compile the current work
+into a complete program and call `submit_and_replay` promptly.
 """
         return prompt
 
@@ -643,11 +689,17 @@ incumbent stores the program and certificate, never a container checkpoint.
         terminal_server: ContainerMcpServer,
         replay_service: CleanReplayService | None,
         trajectory_path: Path,
+        compatibility_service: CompatibilityLedgerService | None = None,
         seed: int | None = None,
     ) -> tuple[dict[str, str], dict[str, Any]]:
         messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
         usage_total: dict[str, int | float] = {}
-        tool_counts = {"envbench_shell": 0, "submit_and_replay": 0, "submit_bootstrap": 0}
+        tool_counts = {
+            "envbench_shell": 0,
+            "check_compatibility": 0,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 0,
+        }
         replay_status_counts: dict[str, int] = {}
         incumbent: dict[str, str] | None = None
         incumbent_updates: list[dict[str, Any]] = []
@@ -792,6 +844,8 @@ incumbent stores the program and certificate, never a container checkpoint.
                             payload = {"ok": False, "error": response_value}
                         else:
                             payload = response_value["result"]["structuredContent"]
+                    elif name == "check_compatibility" and compatibility_service is not None:
+                        payload = compatibility_service.check(str(call.id))
                     elif name == "submit_and_replay" and replay_service is not None:
                         program = arguments.get("program")
                         if not isinstance(program, str):
@@ -893,15 +947,7 @@ incumbent stores the program and certificate, never a container checkpoint.
             "runner": self.runner_name,
             "runner_version": self.runner_version,
             "baseline_interface": self.agent_interface,
-            "mechanism_primitives": (
-                ["F", "S", "R", "certified-incumbent", "minimal-H"]
-                if self.incumbent_enabled
-                else (
-                    ["F", "S", "R", "minimal-H"]
-                    if self.replay_mode == "soft"
-                    else ["F", "minimal-H"]
-                )
-            ),
+            "mechanism_primitives": self.mechanism_primitives,
             "model_reasoning_effort": self.reasoning_effort,
             "provider_base_url": OPENROUTER_BASE_URL,
             "provider_policy": self._provider_policy(),
@@ -965,6 +1011,7 @@ incumbent stores the program and certificate, never a container checkpoint.
         }
         container_id: str | None = None
         terminal: V2ProcessTreeSafePersistentContainerShell | None = None
+        compatibility_service: CompatibilityLedgerService | None = None
         log_parts: list[str] = []
         try:
             repository_acquisition = self._acquire_repository(case, workspace)
@@ -1027,6 +1074,12 @@ incumbent stores the program and certificate, never a container checkpoint.
                 )
                 replay_service.validator = self.validator
 
+            compatibility_service = (
+                CompatibilityLedgerService(self.goal_contract, terminal_server)
+                if self.compatibility_ledger_enabled
+                else None
+            )
+
             client = self._client()
             submission, loop_metadata = self._agent_loop(
                 client=client,
@@ -1034,6 +1087,7 @@ incumbent stores the program and certificate, never a container checkpoint.
                 prompt=prompt,
                 terminal_server=terminal_server,
                 replay_service=replay_service,
+                compatibility_service=compatibility_service,
                 trajectory_path=trajectory_path,
                 seed=run_spec.seed,
             )
@@ -1064,6 +1118,8 @@ incumbent stores the program and certificate, never a container checkpoint.
                     and not item.get("infrastructure_error")
                 ),
             }
+            if compatibility_service is not None:
+                metadata["compatibility_ledger"] = compatibility_service.metadata()
             submission_metadata: dict[str, Any] = {
                 "summary": submission["summary"],
                 "program_sha256": submission["program_sha256"],
@@ -1095,6 +1151,8 @@ incumbent stores the program and certificate, never a container checkpoint.
             )
             return self._finish(artifacts, result, "\n".join(log_parts))
         except Exception as exc:
+            if compatibility_service is not None:
+                metadata["compatibility_ledger"] = compatibility_service.metadata()
             metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)
             log_parts.append(f"{type(exc).__name__}: {self._redact(str(exc))}\n")
             result = SolverResult(

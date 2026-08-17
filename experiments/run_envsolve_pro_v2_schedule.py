@@ -30,6 +30,7 @@ OPENROUTER_API_RUNNERS = frozenset(
         "deepseek-free-agent",
         "envsolve-pro-v2",
         "envsolve-pro-v2-incumbent",
+        "envsolve-pro-v2-ledger",
     }
 )
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"

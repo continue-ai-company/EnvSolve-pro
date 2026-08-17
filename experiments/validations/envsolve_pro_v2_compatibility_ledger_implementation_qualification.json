@@ -1,0 +1,77 @@
+{
+  "algorithm_contract": {
+    "constraint": "retain compatibility deltas and nondominated evidence without selecting or blocking operations",
+    "observation": "execute the trusted public goal in the active construction shell and project its complete finding set",
+    "operation": "leave the continuous Agent free to choose the next environment change; clean-replay only complete candidate programs"
+  },
+  "canary": {
+    "envbench": {
+      "goal_status": "fail",
+      "obligation_set_sha256": "db5df28d6e7421fc66b81ad5803d1f7cdba3e3451932b557dbf6c82b42ca7853",
+      "raw_finding_count": 806,
+      "unique_obligation_count": 91
+    },
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "platform": "Spark Linux/ARM64 Docker",
+    "qualification_checks_passed": 7,
+    "qualification_checks_total": 7,
+    "synthetic_transition": {
+      "candidate_ready_after": true,
+      "classification": "improved",
+      "raw_finding_count": [
+        1,
+        0
+      ],
+      "unique_obligation_count": [
+        1,
+        0
+      ]
+    }
+  },
+  "claim_boundary": {
+    "establishes": [
+      "the ledger observes the active persistent-shell environment",
+      "complete goal findings survive the bounded container bridge",
+      "set-valued compatibility deltas and candidate readiness are computed correctly",
+      "the treatment adds neither operation constraints nor container checkpoints"
+    ],
+    "does_not_establish": [
+      "higher Official Pass rate",
+      "lower time or token use",
+      "generalization to frozen unconsumed Dev cases"
+    ]
+  },
+  "implementation_sha256": {
+    "envsolve_harness/compatibility_ledger.py": "cc17c95b42b2b2270b2609c5159d6b33538a419158b5c0aeb97be0c92a2a0a43",
+    "envsolve_harness/runners/envsolve_pro_v2_registry.py": "18ada4ef8ac1e18f2d9eee2ae8e48d46088f386eaf597b5e6095551746e0ac7c",
+    "envsolve_harness/runners/openrouter_agent.py": "3a0a291a0d95670aa3be4169d2fff57218f4ff8be3bc2cde58373b35ccd7d970",
+    "experiments/check_compatibility_ledger_canary.py": "48f53d13633d23f150df0a74014cbc6bde7360e300c9e1c3b6e857361381819a",
+    "experiments/run_envsolve_pro_v2_schedule.py": "b4b2cc6e32547ee27f905891732f388e54c7d406de8d804c120abfa13ab7feda"
+  },
+  "invariants": {
+    "agent_session_continuous": true,
+    "clean_replay_required_for_submission": true,
+    "container_checkpoint_stored": false,
+    "goal_observation_is_complete_or_rejected": true,
+    "operation_constraints_added": false,
+    "raw_diagnostic_count_preserved": true,
+    "unresolved_state_uses_set_inclusion_not_scalar_count": true
+  },
+  "result_artifacts": {
+    "commands_sha256": "752470674fcd64b324c11158d329860e7c4a41585fa833ea98a1526660408ebe",
+    "result_sha256": "253acefcadac8b521c8dd9777af58d260f8e639e5cdba101d3c07c448014775b"
+  },
+  "schema": "envsolve-pro-v2-implementation-qualification-v1",
+  "status": "implementation-qualified-effect-untested",
+  "tests": {
+    "mac": {
+      "passed": 828,
+      "skipped": 12,
+      "subtests_passed": 80
+    },
+    "spark_linux_arm64_targeted": {
+      "passed": 28
+    }
+  }
+}

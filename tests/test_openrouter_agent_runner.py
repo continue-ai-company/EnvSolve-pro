@@ -124,6 +124,24 @@ class FakeReplayService:
         }
 
 
+class FakeCompatibilityService:
+    def __init__(self) -> None:
+        self.call_ids: list[str] = []
+
+    def check(self, call_id: str) -> dict[str, object]:
+        self.call_ids.append(call_id)
+        return {
+            "schema": "envsolve-compatibility-delta-ledger-v1",
+            "ok": True,
+            "candidate_ready": False,
+            "delta_from_previous": {"classification": "initial"},
+            "operation_constraints_added": False,
+        }
+
+    def metadata(self) -> dict[str, object]:
+        return {"observation_count": len(self.call_ids)}
+
+
 class OpenRouterAgentRunnerTest(unittest.TestCase):
     def test_episode_package_cache_is_added_only_to_docker_create(self) -> None:
         calls: list[list[str]] = []
@@ -265,6 +283,66 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         )
         self.assertIn("harness-managed", prompt)
         self.assertIn("never a container checkpoint", prompt)
+
+    def test_ledger_treatment_adds_only_advisory_compatibility_tool(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "ledger")
+            names = [item["function"]["name"] for item in runner._tools()]
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            names,
+            [
+                "envbench_shell",
+                "check_compatibility",
+                "submit_and_replay",
+                "submit_bootstrap",
+            ],
+        )
+        self.assertIn("A regression is evidence, not a forbidden state", prompt)
+        self.assertIn("never selects packages, blocks commands", prompt)
+
+    def test_ledger_tool_feedback_remains_in_the_continuous_agent_loop(self) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        responses = [
+            FakeResponse(tool_call("1", "check_compatibility", {})),
+            FakeResponse(tool_call("2", "submit_and_replay", {"program": program})),
+            FakeResponse(
+                tool_call(
+                    "3",
+                    "submit_bootstrap",
+                    {"program": program, "summary": "created environment"},
+                )
+            ),
+        ]
+        client = FakeClient(responses)
+        compatibility = FakeCompatibilityService()
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "ledger")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(compatibility.call_ids, ["1"])
+        self.assertEqual(metadata["tool_counts"]["check_compatibility"], 1)
+        self.assertEqual(submission["program_sha256"], script_sha256(program))
+        second_messages = client.chat.completions.requests[1]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "tool"
+                and item.get("name") == "check_compatibility"
+                and "operation_constraints_added" in str(item.get("content"))
+                for item in second_messages
+            )
+        )
 
     def test_flash_0731_is_pinned_without_enabling_moving_aliases(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
