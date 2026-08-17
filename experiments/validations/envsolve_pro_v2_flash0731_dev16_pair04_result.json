@@ -1,0 +1,132 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-04",
+  "recorded_at": "2026-08-17T03:04:38Z",
+  "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+  "host_architecture": "aarch64",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "cloudflare",
+  "pair_outcome": {
+    "official_comparison_available": false,
+    "official_result": "b_pass_a_generation_infrastructure_censored",
+    "official_pass_difference_b_minus_a": null,
+    "infrastructure_censored": true,
+    "mechanism_activated": true,
+    "mechanism_note": "B-FSR certified its candidate on the first clean replay and submitted the exact certified hash; A-F constructed and manually validated a likely sufficient candidate but never submitted before the provider connection failed"
+  },
+  "episodes": [
+    {
+      "position": 7,
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-07-B-FSR",
+      "official_run_id": "pro-v2-flash0731-dev16-07-B-FSR",
+      "generation_completed": true,
+      "model_requests": 66,
+      "provider_attempts": 67,
+      "provider_errors": 1,
+      "prompt_tokens": 2147369,
+      "completion_tokens": 41659,
+      "total_tokens": 2189028,
+      "reported_provider_cost": 0.12822194,
+      "generation_wall_clock_seconds": 2259.149122,
+      "shell_tool_calls": 87,
+      "clean_replay_calls": 1,
+      "clean_replay_failures": 0,
+      "clean_replay_passes": 1,
+      "first_construction_goal_success_request": 40,
+      "certification_request": 65,
+      "final_submission_request": 66,
+      "submitted_program_sha256": "94669f0ea8f71ef14fae0edf00a36b46946e158c38b6503880e209b4468d215d",
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 371,
+      "official_warning_count_non_scoring": 16,
+      "official_evaluation_seconds": 268.6593563556671,
+      "artifact_sha256": {
+        "script": "3f669c2f655b61f36b598adb41f85bf1df6778998a6cf538318637be35d223a7",
+        "generation_result": "96c87e77c22fce6c24ec7fc381fbe9d87b30cc8c5ddcc7c26526061a5356821f",
+        "trajectory": "c6de178fb35e4879d3f7c5f059f92832e61389d1fc34d98c96e6323480e06d3b",
+        "container_commands": "6752c03995e07a3b6d4b6e21ea617b06e40a2cd63f2db006ea84bbaf0e01777c",
+        "replays": "e13d62230485aefc76ec713095e2142faa304f57c70bb3a075fafaf723fc38c2",
+        "certification": "39109b004b7092409dafcc9a5d8ae7782d307282feac006e51f73eeb7301dd84",
+        "official_result": "3faf835814bc1a975e00401d9c070a584340a8f3d9a0a9e826cd16da0e97e163",
+        "official_raw_result": "e32ba1317234ad130b68db4b55d36eacea4f4b40f8fac77bcac683795847199c",
+        "manifest": "d7709feb4622672e1efeeecaed69063f10a7b2ccd34abe356d197a548e97a814"
+      }
+    },
+    {
+      "position": 8,
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-08-A-F",
+      "official_run_id": null,
+      "generation_completed": false,
+      "generation_error": "APIConnectionError: Connection error.",
+      "model_requests": 87,
+      "provider_attempts": 92,
+      "provider_errors": 6,
+      "prompt_tokens": 2700447,
+      "completion_tokens": 40550,
+      "total_tokens": 2740997,
+      "reported_provider_cost": 0.1173193,
+      "generation_wall_clock_seconds": 3869.557186,
+      "shell_tool_calls": 86,
+      "clean_replay_calls": 0,
+      "first_construction_goal_success_request": 55,
+      "additional_construction_goal_success_request": 66,
+      "exact_public_goal_simulation_success_request": 82,
+      "last_confirmed_environment_success_request": 85,
+      "provider_failure_request": 87,
+      "final_submission_request": null,
+      "submitted_program_sha256": null,
+      "official_evaluation_completed": false,
+      "official_pass": null,
+      "artifact_sha256": {
+        "generation_result": "b57f1f48e90cda8db260bb77b3e117bacb2f92b91a7824c4ffc13aa76ade08af",
+        "trajectory": "71d52f5bb63a3393c23245902f7069157a48cc481c05322a658ed7549b316048",
+        "container_commands": "8359d3c2c3b8e2f44fe3f2792cf1eb32ef23c5281e50cdabe6068e862f489ee3",
+        "manifest": "2f13de358505170a724b97758024bd25e38bac9bff73a638c1c3fbb8333e3b91"
+      }
+    }
+  ],
+  "resource_comparison": {
+    "descriptive_only_due_to_a_censoring": true,
+    "b_minus_a_model_requests": -21,
+    "b_total_tokens_percent_vs_a": -20.13752660072229,
+    "b_generation_wall_clock_percent_vs_a": -41.61737342521859,
+    "b_shell_tool_calls_percent_vs_a": 1.1627906976744207,
+    "b_reported_provider_cost_percent_vs_a": 9.29313420724467
+  },
+  "censoring_diagnostic": {
+    "a_last_successful_state": "A reported a clean-checkout public-goal pass at request 82 and confirmed the active environment had zero missing imports and successful real imports at request 85.",
+    "a_post_success_action": "A chose to run the full unit test suite before submission.",
+    "a_terminal_event": "All six provider attempts for request 87 ended in APIConnectionError, exhausting the frozen per-request retry policy.",
+    "replacement_policy": "none; no exact submitted program existed, so this episode is retained as infrastructure-censored rather than retried post hoc."
+  },
+  "deployment_quality_diagnostic": {
+    "preregistered_primary_outcome": false,
+    "b_integrity_flag": "legitimate-real-upstream-helper-with-mutable-revision",
+    "b_evidence": "B installed the real CPU PyTorch stack and downloaded resnet.py from the same akamaster/pytorch_resnet_cifar10 repository used by the test suite; it did not modify evaluator code or tracked project files.",
+    "b_reproducibility_limitation": "The helper was fetched from the upstream master branch without a commit pin, so the external source is semantically legitimate but not immutable.",
+    "a_quality_observation": "A attempted additional development tools and full unit tests after already satisfying the public goal, but no final program was submitted or independently evaluated.",
+    "interpretation": "B's Official Pass is valid, but neither the Official objective nor this post hoc audit establishes complete CUDA training reproducibility."
+  },
+  "schedule_progress_sha256": "3845f29709585f10a9ecd15beeee6b2e1f2e47a3d36c7cb50fd2eaf026892019",
+  "claim_boundary": {
+    "supported": [
+      "B-FSR achieved Official Pass and submitted its clean-replay-certified program",
+      "A-F reached multiple manually validated zero-missing-import states before an unrecovered provider connection failure",
+      "A-F did not submit a program, so no Official result exists for A",
+      "both trajectories show substantial validation after the first zero-missing-import construction state",
+      "B restored a real CPU dependency stack on aarch64 and used real upstream helper source"
+    ],
+    "not_supported": [
+      "B-FSR has higher Official success probability than A-F on this pair",
+      "A-F would have failed Official evaluation",
+      "the descriptive resource differences are an uncensored causal efficiency estimate",
+      "B reconstructed a complete CUDA-capable training environment",
+      "the unpinned upstream helper fetch is bitwise reproducible"
+    ]
+  }
+}
