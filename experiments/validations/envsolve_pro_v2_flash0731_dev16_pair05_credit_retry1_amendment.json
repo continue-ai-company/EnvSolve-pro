@@ -58,7 +58,7 @@
     "replacement_attempts_become_pair_outcome_if_completed": true,
     "maximum_credit_retry_for_pair": 1,
     "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair05_credit_retry1.json",
-    "schedule_sha256": "1a1e1dff8dd7e42dacb16ba82022d2b2be128a96873cac285f2e3af869fe9a4b"
+    "schedule_sha256": "9466de2d7ae6b13f47cc056edb29a46f4e175774497d44cec3c22c11fd882653"
   },
   "unchanged": [
     "case and exact revision",
