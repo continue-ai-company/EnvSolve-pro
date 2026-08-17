@@ -1,0 +1,50 @@
+{
+  "schema": "envsolve-pro-v2-official-source-cache-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-flash0731-dev16-official-source-cache",
+  "recorded_at": "2026-08-17T07:43:16Z",
+  "recorded_before_first_affected_agent_episode": true,
+  "trigger": {
+    "case_position": 6,
+    "repository": "johnsnowlabs/nlu",
+    "revision": "506860e546076b353969b5a3216c05d080ad923e",
+    "observation": "agent construction used the exact-revision cache, but each post-session Official evaluation fetched the same large repository again",
+    "observed_official_fetch_seconds_A_rounded": 900,
+    "observed_official_fetch_seconds_B_rounded": 600,
+    "algorithm_outcome_used_to_design_change": false
+  },
+  "change": {
+    "config_setting": "benchmarks.envbench.settings.preseed_source_cache=true",
+    "source": "immutable-exact-revision-cache-v1",
+    "checkout": "independent-no-hardlinks",
+    "scope": "Official repository acquisition only",
+    "behavior": "create the path EnvBench already expects from the exact cache before launching upstream evaluation",
+    "upstream_envbench_code_changed": false,
+    "upstream_validation_retained": "EnvBench opens the checkout, resets and cleans it, and checks out the requested commit",
+    "package_cache_scope_changed": false,
+    "agent_observations_changed": false,
+    "official_bootstrap_or_pyright_changed": false,
+    "adapter_version": "0.8.0",
+    "adapter_sha256": "cba12ac512454109ced1e92dfe97e88bd32de5e86ff58511c212e3f1cffe823e",
+    "source_cache_sha256": "c8d4fe1bed231f544381ccdf274c49ce57be8298fce96605a6c0d32ac1cbcc13",
+    "config_sha256": "8d92448a908eba3b8d4e3806ef0c42c381a300482d6b6214393376a78c59cee4"
+  },
+  "application": {
+    "pair06_agent_episodes_affected": false,
+    "pair06_B_exact_script_official_retry_affected": true,
+    "first_fully_affected_pair": "flash0731-dev16-case-07",
+    "apply_identically_to_both_arms_in_all_future_pairs": true,
+    "next_schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair07_deepinfra_cached.json",
+    "next_schedule_sha256": "dd6df9ea635df762c2abd2df9312878c9e0e2e1996f85018fda780cffe2b189e"
+  },
+  "validity": {
+    "case_membership_or_order_changed": false,
+    "arm_order_changed": false,
+    "algorithm_or_prompt_changed": false,
+    "tool_schema_changed": false,
+    "model_or_provider_changed": false,
+    "seed_changed": false,
+    "repository_commit_or_tree_changed": false,
+    "official_success_criteria_changed": false,
+    "protected_sets_touched": false
+  }
+}
