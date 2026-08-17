@@ -1,0 +1,39 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+  "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "case_position": 1,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "original_position": 1,
+      "pair_id": "compatibility-ledger-pilot-paz-r1",
+      "pair_position": 1,
+      "position": 1,
+      "provider": "deepinfra",
+      "replication": 1,
+      "retry_of": "pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR",
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1",
+      "runner": "envsolve-pro-v2",
+      "seed": 9090782
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "exact-identity-infrastructure-replacement-not-an-additional-replication",
+  "provider": "deepinfra",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "deepinfra"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-position1-deepinfra-retry1"
+}

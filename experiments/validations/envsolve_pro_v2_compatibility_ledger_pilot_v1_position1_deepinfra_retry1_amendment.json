@@ -1,0 +1,47 @@
+{
+  "amendment_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-position1-deepinfra-retry1",
+  "censored_attempt": {
+    "actual_provider": "cloudflare",
+    "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+    "container_command_trace_sha256": "2ca0051e728344189f640576b174996d753c8a6e82b32962509aa4656828fc7a",
+    "generation_completed": false,
+    "model_requests_completed": 9,
+    "official_evaluation_executed": false,
+    "original_position": 1,
+    "progress_sha256": "22e587177f33b5e8b80514e6aeeb3b9037f18f75a603cc22608cfbcd78c54e03",
+    "requested_provider": "deepinfra",
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR",
+    "state": "interrupted-and-censored-provider-contract-mismatch",
+    "trajectory_sha256": "f6ef81179bd4b39a0ff98e4865c4bba11d3ae143cfc8afa6db028f9864927c1f"
+  },
+  "cause": "The long-lived tmux server retained OPENROUTER_PROVIDER_ORDER=cloudflare. Exporting deepinfra only in the SSH client shell did not replace the pane environment inherited from that server.",
+  "claim_policy": {
+    "censored_attempt_included_in_cost_accounting": true,
+    "censored_attempt_included_in_effect_estimate": false,
+    "censored_attempt_retained": true,
+    "replacement_counts_as_additional_replication": false
+  },
+  "correction": {
+    "algorithm_changed": false,
+    "arm_changed": false,
+    "case_changed": false,
+    "model_changed": false,
+    "provider_changed_from_preregistration": false,
+    "runtime_change": "source the credential file and export OPENROUTER_PROVIDER_ORDER=deepinfra inside the tmux pane command itself",
+    "seed_changed": false
+  },
+  "execution_order": [
+    "run the exact position-1 replacement",
+    "verify recorded provider order and returned provider are DeepInfra",
+    "resume original frozen schedule at position 2"
+  ],
+  "original_preregistration": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_preregistration.json",
+  "recorded_at": "2026-08-17T17:16:38Z",
+  "replacement": {
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1",
+    "schedule": "experiments/schedules/envsolve_pro_v2_compatibility_ledger_pilot_v1_position1_deepinfra_retry1.json",
+    "schedule_sha256": "a47c332f4b330142e23da54882f6f15a3ac5c4dfa80c8e4c01679144ae990666"
+  },
+  "schema_version": "1.0.0",
+  "status": "frozen-before-replacement-model-execution"
+}
