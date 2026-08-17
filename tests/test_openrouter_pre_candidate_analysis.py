@@ -4,7 +4,10 @@ import json
 from pathlib import Path
 import tempfile
 
-from experiments.analyze_openrouter_pre_candidate import analyze_trajectory
+from experiments.analyze_openrouter_pre_candidate import (
+    _goal_issue_count,
+    analyze_trajectory,
+)
 
 
 def _event(request: int, command: str, output: str, exit_code: int = 0) -> str:
@@ -78,3 +81,15 @@ def test_pre_candidate_analysis_retains_full_failed_episode() -> None:
     assert result["first_satisfying_request"] is None
     assert result["pre_candidate"]["shell_actions"] == 3
     assert result["pre_candidate"]["goal_transitions"]["stagnant"] == 1
+
+
+def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
+    command = (
+        "python -m pyright --outputjson | python -c \""
+        "[print(x) for x in d.get('generalDiagnostics', []) "
+        "if x.get('rule') == 'reportMissingImports']\""
+    )
+    assert _goal_issue_count(command, "count 2\n") == 2
+    assert _goal_issue_count(command, "N unique: 0 total: 0\n") == 0
+    assert _goal_issue_count(command, "summary {'errorCount': 48}\n") == 0
+    assert _goal_issue_count("pytest", "summary {'errorCount': 0}\n") is None

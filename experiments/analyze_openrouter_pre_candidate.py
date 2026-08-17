@@ -11,6 +11,8 @@ from typing import Any
 
 
 ISSUE_COUNT = re.compile(r'"issues_count"\s*:\s*(\d+)')
+TOTAL_COUNT = re.compile(r"\btotal\s*:\s*(\d+)\b", re.IGNORECASE)
+LINE_COUNT = re.compile(r"^\s*count\s*[:=]?\s*(\d+)\s*$", re.IGNORECASE | re.MULTILINE)
 PACKAGE_OPERATION = re.compile(
     r"(?:^|[;&|]\s*|\s)(?:python\S*\s+-m\s+)?pip\s+(?:install|uninstall)|"
     r"(?:^|[;&|]\s*|\s)(?:uv\s+pip|conda|mamba|apt(?:-get)?)\s+install",
@@ -41,11 +43,36 @@ def _normalize_command(command: str) -> str:
     return " ".join(command.split())
 
 
-def _goal_issue_count(output: object) -> int | None:
+def _goal_issue_count(command: str, output: object) -> int | None:
     if not isinstance(output, str):
         return None
     matches = ISSUE_COUNT.findall(output)
-    return int(matches[-1]) if matches else None
+    if matches:
+        return int(matches[-1])
+    if "reportMissingImports" not in command:
+        return None
+    for pattern in (TOTAL_COUNT, LINE_COUNT):
+        matches = pattern.findall(output)
+        if matches:
+            return int(matches[-1])
+    diagnostic_lines = [
+        line
+        for line in output.splitlines()
+        if "could not be resolved" in line or "reportMissingImports" in line
+    ]
+    if diagnostic_lines:
+        return len(diagnostic_lines)
+    filtered_output = any(
+        marker in command
+        for marker in ("if x.get('rule')", 'if x.get("rule")', "grep")
+    )
+    parse_failed = any(
+        marker in output
+        for marker in ("Traceback", "JSONDecodeError", "command not found")
+    )
+    if filtered_output and not parse_failed:
+        return 0
+    return None
 
 
 def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
@@ -65,7 +92,7 @@ def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
                 "exit_code": result.get("exit_code"),
                 "timed_out": bool(result.get("timed_out")),
                 "infrastructure_error": result.get("infrastructure_error"),
-                "goal_issue_count": _goal_issue_count(result.get("output")),
+                "goal_issue_count": _goal_issue_count(command, result.get("output")),
             }
         )
 
