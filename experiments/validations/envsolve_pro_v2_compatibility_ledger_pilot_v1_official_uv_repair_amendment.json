@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-official-uv-repair",
+  "recorded_at": "2026-08-17T21:33:50Z",
+  "status": "frozen-before-host-path-repair-and-exact-script-retry",
+  "trigger": {
+    "position": 3,
+    "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER",
+    "generation_completed": true,
+    "certified_by_clean_replay": true,
+    "evaluation_completed": false,
+    "official_pass": false,
+    "evaluator_started": false,
+    "termination_scope": "official-adapter-host-launch",
+    "infrastructure_signature": "evaluator-host-missing-uv",
+    "failure": "FileNotFoundError: [Errno 2] No such file or directory: 'uv'",
+    "model_requests": 33,
+    "provider_errors": 0,
+    "submitted_program_sha256": "335897e2d133caace55cad85f734f6e78dc82c5755c1cb0bbf0f79d6fee95101",
+    "bootstrap_script_sha256": "ebd0252062ed56c897b402db49c36fff80a3a02790200e034a02ced3632e6e28",
+    "generation_result_sha256": "8b3bba58331f67db57ca3fa957aa7e93478d2609a381a136a6e3ec3762e56682",
+    "trajectory_sha256": "97c6eee541a56205b282eeed3d4051f56c30d6b526de1337da297c9725a08f3d",
+    "replays_sha256": "427b4af148440751accd995c43ee33e253408da4d1874fbfa2d12735c5bad826",
+    "certification_sha256": "b743ee33d4853a641b48b4667e25ac314245ba85d8cc4b6133a57da17f76add3",
+    "official_result_sha256": "5edef5c852c2ca0b308f03260a0f047976704736f5c3bd7fc3b02f5a6cb09765",
+    "evaluation_log_sha256": "a166333424c05a54a8adc75df37137f02fac157add2598550e42e33ff1f927d3",
+    "manifest_sha256": "c9b44a2456dbf59d426ebda0b102a91971a2aa898f5ceffe03207836723d444f",
+    "source_run_audit_valid": true,
+    "counts_toward_official_denominator": false
+  },
+  "repair": {
+    "scope": "Official host process executable lookup only",
+    "action": "link the existing qualified uv executable at /usr/local/bin/uv, which is already in the frozen coordinator PATH",
+    "source_uv_path": "/home/avdpro/work/EnvSolve-pro/.venv/bin/uv",
+    "exposed_uv_path": "/usr/local/bin/uv",
+    "uv_version": "0.12.3",
+    "package_install_required": false,
+    "agent_container_changed": false,
+    "bootstrap_script_changed": false,
+    "harness_code_changed": false,
+    "evaluator_changed": false,
+    "remaining_episode_identity_changed": false
+  },
+  "retry": {
+    "allowed": true,
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER-official-retry1",
+    "source_run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER",
+    "model_reexecuted": false,
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "seed": 3617590772,
+    "maximum_semantics_identical_retries_after_this_attempt": 0,
+    "entrypoint": "experiments/evaluate_only.py",
+    "entrypoint_sha256": "49cb506f37724238b611bcc079a30ca9ebcc7d0bd02bc8ce620f9bd0ba3fea46"
+  },
+  "remaining_schedule": {
+    "positions": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "generation_continues_unchanged": true,
+    "first_official_attempt_uses_repaired_host_lookup": true,
+    "reason": "The host executable repair is independent of case, arm, model output, and Official outcome."
+  },
+  "analysis": {
+    "original_position_3_official_attempt": "infrastructure-censored and retained",
+    "effective_position_3_official_outcome": "the unique audit-valid exact-script retry",
+    "future_successful_generations": "their first Official attempt remains the effective outcome",
+    "generation_and_resource_metrics": "always taken from the original model episode"
+  },
+  "validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "model_change": false,
+    "provider_change": false,
+    "seed_change": false,
+    "script_change": false,
+    "verifier_change": false,
+    "official_feedback_returned_to_agent": false,
+    "protected_sets_touched": false,
+    "outcome_driven_model_retry": false
+  }
+}
