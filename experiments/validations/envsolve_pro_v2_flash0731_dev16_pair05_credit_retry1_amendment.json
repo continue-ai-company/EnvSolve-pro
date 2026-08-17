@@ -1,0 +1,73 @@
+{
+  "schema": "envsolve-pro-v2-flash0731-provider-credit-retry-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-flash0731-dev16-pair05-credit-retry1",
+  "recorded_at": "2026-08-17T03:36:56Z",
+  "recorded_before_retry": true,
+  "trigger": {
+    "provider_error": "OpenRouter HTTP 402 insufficient credits for the frozen maximum response size",
+    "provider_credit_restored_before_retry": true,
+    "outcome_independent": true,
+    "original_pair_official_evaluator_executed": false
+  },
+  "original_attempts": [
+    {
+      "position": 9,
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-09-B-FSR",
+      "successful_provider_responses_before_402": 11,
+      "tool_results_before_402": 17,
+      "generation_completed": false,
+      "submitted_program": false,
+      "generation_result_sha256": "3910ef1729aa1880daf88f7af676fb44c2eb7c1614fe6aa30c537ba4529c93a4",
+      "trajectory_sha256": "ed098b21e5b10b03440d7db1684188511c0d5d2ad785cb452c4c6f3c6fc21929"
+    },
+    {
+      "position": 10,
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-10-A-F",
+      "successful_provider_responses_before_402": 0,
+      "tool_results_before_402": 0,
+      "generation_completed": false,
+      "submitted_program": false,
+      "generation_result_sha256": "ad5f46909fe70f9a1b361d44b5fbc63977122269a70750073dcc3e0939a880ea",
+      "trajectory_sha256": "a874be9402b5b7973d6528400c43b18abb151155c6a5467103f986bbb8aefcf7"
+    }
+  ],
+  "transparent_infrastructure_change": {
+    "reason": "avoid repeated public Git downloads for an already acquired exact repository revision",
+    "old_runner_sha256": "c50804145a373add5095127610b286cc423b6ba0fa4db0270abd514953441b13",
+    "new_runner_sha256": "6cc0441edc125a6f5e1f28ba0953733c7e808a15e9efe85a0d1b9d80d64988fb",
+    "behavior": "fetch an exact repository revision once into an immutable Git object cache and create an independent no-hardlinks checkout for every episode",
+    "algorithm_changed": false,
+    "prompt_changed": false,
+    "tool_schema_changed": false,
+    "agent_visible_repository_changed": false,
+    "cross_episode_modified_workspace_shared": false,
+    "case_specific_information_used": false,
+    "verification": {
+      "mac_full_suite": "810 passed, 12 skipped, 80 subtests passed",
+      "spark_focused_suite": "18 passed"
+    }
+  },
+  "retry_policy": {
+    "restart_both_arms_from_clean_state": true,
+    "preserve_pair_order": true,
+    "preserve_seed": true,
+    "original_attempts_retained": true,
+    "original_attempts_excluded_from_primary_outcome_and_resource_comparison": true,
+    "replacement_attempts_become_pair_outcome_if_completed": true,
+    "maximum_credit_retry_for_pair": 1,
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair05_credit_retry1.json",
+    "schedule_sha256": "1a1e1dff8dd7e42dacb16ba82022d2b2be128a96873cac285f2e3af869fe9a4b"
+  },
+  "unchanged": [
+    "case and exact revision",
+    "B-FSR then A-F order",
+    "DeepSeek V4 Flash 0731 model",
+    "Cloudflare provider with fallback disabled",
+    "prompt and tool schemas",
+    "clean replay and Official protocols",
+    "generation safety caps",
+    "Dev16 membership"
+  ]
+}
