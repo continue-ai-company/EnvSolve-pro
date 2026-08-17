@@ -1,0 +1,217 @@
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+from datetime import datetime, timezone
+import json
+from pathlib import Path
+import re
+from statistics import median
+from typing import Any
+
+
+ISSUE_COUNT = re.compile(r'"issues_count"\s*:\s*(\d+)')
+PACKAGE_OPERATION = re.compile(
+    r"(?:^|[;&|]\s*|\s)(?:python\S*\s+-m\s+)?pip\s+(?:install|uninstall)|"
+    r"(?:^|[;&|]\s*|\s)(?:uv\s+pip|conda|mamba|apt(?:-get)?)\s+install",
+    re.IGNORECASE,
+)
+ENVIRONMENT_OPERATION = re.compile(
+    r"(?:python\S*\s+-m\s+venv|virtualenv|pyenv\s+(?:install|local|shell)|"
+    r"conda\s+create|source\s+\S*(?:activate|bin/activate)|VIRTUAL_ENV=|PATH=)",
+    re.IGNORECASE,
+)
+RUNTIME_PROBE = re.compile(
+    r"(?:pytest|pyright|mypy|python\S*\s+(?:-c|-m\s+(?:pytest|compileall))|"
+    r"importlib\.import_module)",
+    re.IGNORECASE,
+)
+
+
+def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        value = json.loads(line)
+        if isinstance(value, dict):
+            records.append(value)
+    return records
+
+
+def _normalize_command(command: str) -> str:
+    return " ".join(command.split())
+
+
+def _goal_issue_count(output: object) -> int | None:
+    if not isinstance(output, str):
+        return None
+    matches = ISSUE_COUNT.findall(output)
+    return int(matches[-1]) if matches else None
+
+
+def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
+    shell_actions: list[dict[str, Any]] = []
+    for event in _read_jsonl(path):
+        if event.get("event") != "tool_result" or event.get("tool_name") != "envbench_shell":
+            continue
+        result = event.get("result")
+        if not isinstance(result, dict):
+            continue
+        command = str(result.get("command", ""))
+        shell_actions.append(
+            {
+                "request_index": event.get("request_index"),
+                "command": command,
+                "normalized_command": _normalize_command(command),
+                "exit_code": result.get("exit_code"),
+                "timed_out": bool(result.get("timed_out")),
+                "infrastructure_error": result.get("infrastructure_error"),
+                "goal_issue_count": _goal_issue_count(result.get("output")),
+            }
+        )
+
+    first_satisfying_position = next(
+        (
+            position
+            for position, action in enumerate(shell_actions)
+            if action["goal_issue_count"] == 0
+        ),
+        None,
+    )
+    end = first_satisfying_position + 1 if first_satisfying_position is not None else len(shell_actions)
+    prefix = shell_actions[:end]
+    goal_checks = [item for item in prefix if item["goal_issue_count"] is not None]
+    issue_counts = [int(item["goal_issue_count"]) for item in goal_checks]
+
+    best: int | None = None
+    previous: int | None = None
+    transitions = Counter()
+    best_progression: list[int] = []
+    for count in issue_counts:
+        if previous is not None:
+            if count < previous:
+                transitions["improving"] += 1
+            elif count > previous:
+                transitions["regressing"] += 1
+            else:
+                transitions["stagnant"] += 1
+        if best is None or count < best:
+            best = count
+            transitions["new_best"] += 1
+        best_progression.append(best)
+        previous = count
+
+    check_positions = [prefix.index(item) + 1 for item in goal_checks]
+    check_gaps = [
+        current - previous_position
+        for previous_position, current in zip([0, *check_positions[:-1]], check_positions)
+    ]
+    normalized_commands = [
+        item["normalized_command"]
+        for item in prefix
+        if item["goal_issue_count"] is None
+    ]
+    command_counts = Counter(normalized_commands)
+    repeated_command_executions = sum(count - 1 for count in command_counts.values())
+
+    def count_matching(pattern: re.Pattern[str]) -> int:
+        return sum(bool(pattern.search(item["command"])) for item in prefix)
+
+    first_request = (
+        shell_actions[first_satisfying_position]["request_index"]
+        if first_satisfying_position is not None
+        else None
+    )
+    return {
+        "run_id": run_id,
+        "trajectory": str(path),
+        "shell_actions_total": len(shell_actions),
+        "first_satisfying_request": first_request,
+        "first_satisfying_shell_action": (
+            first_satisfying_position + 1 if first_satisfying_position is not None else None
+        ),
+        "pre_candidate": {
+            "shell_actions": len(prefix),
+            "failed_shell_actions": sum(
+                item["exit_code"] not in (0, None) for item in prefix
+            ),
+            "timed_out_shell_actions": sum(item["timed_out"] for item in prefix),
+            "infrastructure_error_actions": sum(
+                item["infrastructure_error"] is not None for item in prefix
+            ),
+            "exact_repeated_non_goal_command_executions": repeated_command_executions,
+            "package_operations": count_matching(PACKAGE_OPERATION),
+            "environment_operations": count_matching(ENVIRONMENT_OPERATION),
+            "runtime_or_test_probes": count_matching(RUNTIME_PROBE),
+            "goal_checks": len(goal_checks),
+            "goal_issue_counts": issue_counts,
+            "goal_best_progression": best_progression,
+            "goal_transitions": dict(sorted(transitions.items())),
+            "shell_actions_per_goal_check": (
+                len(prefix) / len(goal_checks) if goal_checks else None
+            ),
+            "median_shell_gap_between_goal_checks": (
+                median(check_gaps) if check_gaps else None
+            ),
+            "maximum_shell_gap_between_goal_checks": max(check_gaps, default=None),
+        },
+    }
+
+
+def _find_trajectory(runs_root: Path, run_id: str) -> Path:
+    matches = sorted((runs_root / run_id).glob("*/generation/trajectory.jsonl"))
+    if len(matches) != 1:
+        raise ValueError(f"Expected one trajectory for {run_id}, found {len(matches)}")
+    return matches[0]
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--runs-root", type=Path, required=True)
+    parser.add_argument("--run-id", action="append", required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+
+    episodes = [
+        analyze_trajectory(_find_trajectory(args.runs_root, run_id), run_id)
+        for run_id in args.run_id
+    ]
+    pre = [episode["pre_candidate"] for episode in episodes]
+    result = {
+        "schema": "envsolve-pro-v2-pre-candidate-trajectory-analysis-v1",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "claim_scope": "Consumed-development trajectory diagnosis only.",
+        "episode_count": len(episodes),
+        "episodes_reaching_satisfying_state": sum(
+            episode["first_satisfying_request"] is not None for episode in episodes
+        ),
+        "aggregate": {
+            "pre_candidate_shell_actions": sum(item["shell_actions"] for item in pre),
+            "failed_shell_actions": sum(item["failed_shell_actions"] for item in pre),
+            "exact_repeated_non_goal_command_executions": sum(
+                item["exact_repeated_non_goal_command_executions"] for item in pre
+            ),
+            "package_operations": sum(item["package_operations"] for item in pre),
+            "environment_operations": sum(item["environment_operations"] for item in pre),
+            "runtime_or_test_probes": sum(item["runtime_or_test_probes"] for item in pre),
+            "goal_checks": sum(item["goal_checks"] for item in pre),
+            "improving_goal_transitions": sum(
+                item["goal_transitions"].get("improving", 0) for item in pre
+            ),
+            "stagnant_goal_transitions": sum(
+                item["goal_transitions"].get("stagnant", 0) for item in pre
+            ),
+            "regressing_goal_transitions": sum(
+                item["goal_transitions"].get("regressing", 0) for item in pre
+            ),
+        },
+        "episodes": episodes,
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(
+        json.dumps(result, ensure_ascii=True, indent=2) + "\n", encoding="utf-8"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
