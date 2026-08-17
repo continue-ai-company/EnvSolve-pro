@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-position7-deepinfra-retry1",
+  "recorded_at": "2026-08-17T22:32:17Z",
+  "status": "frozen-before-replacement-model-execution",
+  "censored_attempt": {
+    "original_position": 7,
+    "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER",
+    "state": "provider-terminal-infrastructure-censored",
+    "generation_completed": false,
+    "model_requests_completed": 4,
+    "provider_error_attempts": 10,
+    "terminal_provider_errors": 1,
+    "official_evaluation_executed": false,
+    "requested_provider": "deepinfra",
+    "returned_provider_before_failure": "DeepInfra",
+    "infrastructure_signature": "deepinfra-upstream-shared-pool-engine-overloaded",
+    "terminal_request_index": 5,
+    "terminal_attempt": 6,
+    "generation_result_sha256": "13042a5ae5b2c45eec342d453c3cf7a02983b045421c464d0bbed4157ca875fa",
+    "trajectory_sha256": "7f39f99167b79f702d6abc0af722d61f0b2ab4e4640935465206ad515c6452aa",
+    "container_command_trace_sha256": "2ae7cfdf9e8c3b4e0544263d8b6b985f369d454dd0afe51164c070cc4b30d66f",
+    "manifest_sha256": "1935733dbb1ed4bb9b55af86ad17d0549d89ec6a617693576d51439f289d3a28",
+    "status_sha256": "2273627225baf175f061847ae36b71db61431a02999a8a75c85d74acbcd27d48",
+    "source_run_audit_valid": true
+  },
+  "replacement": {
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1",
+    "retry_of": "pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER",
+    "schedule": "experiments/schedules/envsolve_pro_v2_compatibility_ledger_pilot_v1_position7_deepinfra_retry1.json",
+    "schedule_sha256": "ef272a405112335fb2348949e50ae5ac98591001ddd4b4bcc3d701992eb7a371",
+    "population_role": "exact-identity-infrastructure-replacement-not-an-additional-replication",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "deepinfra",
+    "seed": 2491577399,
+    "arm": "D-LEDGER",
+    "runner": "envsolve-pro-v2-ledger",
+    "method": "envsolve-pro-active-compatibility-ledger"
+  },
+  "execution_policy": {
+    "start_after_original_position_8_finishes": true,
+    "reason": "preserve the frozen single-episode concurrency and allow the shared provider pool to cool down",
+    "algorithm_changed": false,
+    "arm_changed": false,
+    "case_changed": false,
+    "model_changed": false,
+    "provider_changed": false,
+    "seed_changed": false,
+    "prompt_changed": false,
+    "safety_caps_changed": false,
+    "outcome_driven_retry": false,
+    "maximum_replacements_after_this_attempt": 0
+  },
+  "claim_policy": {
+    "censored_attempt_retained": true,
+    "censored_attempt_included_in_provider_cost_accounting": true,
+    "censored_attempt_included_in_effect_estimate": false,
+    "replacement_counts_as_additional_replication": false
+  },
+  "original_preregistration": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_preregistration.json"
+}
