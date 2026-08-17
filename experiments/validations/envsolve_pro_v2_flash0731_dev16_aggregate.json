@@ -1,0 +1,184 @@
+{
+  "schema": "envsolve-pro-v2-paired-study-aggregate-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "recorded_at": "2026-08-17T14:45:36Z",
+  "status": "eight-pair-design-cohort-complete-next-treatment-frozen",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "deepinfra",
+  "host_architecture": "linux/arm64",
+  "arms": {
+    "A-F": "continuous strong-agent free feedback search with minimal evaluator-integrity boundary",
+    "B-FSR": "A-F plus agent-invoked clean replay and replay feedback"
+  },
+  "cohort": {
+    "frozen_pairs": 8,
+    "scheduled_arm_episodes": 16,
+    "pair_result_files": [
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair01_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair02_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair03_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair04_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair05_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair06_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair07_result.json",
+      "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair08_result.json"
+    ],
+    "uncensored_end_to_end_pairs": 6,
+    "uncensored_end_to_end_outcomes": {
+      "A-F": {
+        "official_pass": 5,
+        "generation_cap_without_submission": 1
+      },
+      "B-FSR": {
+        "official_pass": 5,
+        "generation_cap_without_submission": 1
+      }
+    },
+    "matched_official_comparisons": 5,
+    "matched_official_results": {
+      "tie_pass_pass": 5,
+      "A-F_wins": 0,
+      "B-FSR_wins": 0
+    },
+    "censored_pairs": {
+      "count": 2,
+      "pair04": "B-FSR Official Pass; A-F reached repeated satisfying live states but provider failure occurred before submission",
+      "pair05": "both arms provider-censored; no terminal algorithm comparison"
+    }
+  },
+  "mechanism_activation": {
+    "B-FSR_pairs_with_clean_replay": 6,
+    "B-FSR_pairs_without_clean_replay": 2,
+    "pairs_with_replay_exposing_a_state_to_program_failure": 1,
+    "state_to_program_failure_pair": "flash0731-dev16-case-03",
+    "pairs_where_replay_primarily_certified_an_already_satisfying_candidate": 5,
+    "interpretation": "clean replay is useful after a candidate program exists, but the frozen B policy does not address compatibility search before candidate formation"
+  },
+  "matched_pass_resource_diagnostics": {
+    "pairs": [
+      2,
+      3,
+      6,
+      7,
+      8
+    ],
+    "descriptive_only": true,
+    "model_requests": {
+      "A-F_total": 349,
+      "B-FSR_total": 338,
+      "B-FSR_pooled_percent_vs_A-F": -3.151862464183386,
+      "B-FSR_lower_on_pairs": 2,
+      "B-FSR_higher_on_pairs": 3,
+      "median_pair_percent": 2.564102564102555
+    },
+    "total_tokens": {
+      "A-F_total": 15362907,
+      "B-FSR_total": 12895766,
+      "B-FSR_pooled_percent_vs_A-F": -16.059076579712418,
+      "B-FSR_lower_on_pairs": 4,
+      "B-FSR_higher_on_pairs": 1,
+      "median_pair_percent": -11.575948812571745
+    },
+    "generation_wall_clock_seconds": {
+      "A-F_total": 10283.804767,
+      "B-FSR_total": 7387.858564,
+      "B-FSR_pooled_percent_vs_A-F": -28.160260415414395,
+      "B-FSR_lower_on_pairs": 4,
+      "B-FSR_higher_on_pairs": 1,
+      "median_pair_percent": -20.236163885829928
+    },
+    "shell_tool_calls": {
+      "A-F_total": 415,
+      "B-FSR_total": 355,
+      "B-FSR_pooled_percent_vs_A-F": -14.457831325301207,
+      "B-FSR_lower_on_pairs": 3,
+      "B-FSR_higher_on_pairs": 2,
+      "median_pair_percent": -12.578616352201255
+    },
+    "reported_provider_cost": {
+      "A-F_total": 0.6197762160000001,
+      "B-FSR_total": 0.5176372360000001,
+      "B-FSR_pooled_percent_vs_A-F": -16.479977347178476,
+      "B-FSR_lower_on_pairs": 4,
+      "B-FSR_higher_on_pairs": 1,
+      "median_pair_percent": -17.309339988711148,
+      "paper_role": "descriptive implementation-era metric, not a problem definition or hard budget"
+    },
+    "interpretation": "pooled resources favor B-FSR on several axes, but effects are heterogeneous, the sample is small, and the large pair07 reduction drives part of the aggregate; these statistics motivate rather than establish an efficiency claim"
+  },
+  "failure_and_path_observations": [
+    {
+      "stage": "observation",
+      "class": "local-progress-without-global-feasibility",
+      "evidence": "pair01 exhausted both 120-request caps without a candidate while exploring Python, TensorFlow, Keras, platform, and import branches",
+      "implication": "the agent needs a compact global obligation view before candidate formation"
+    },
+    {
+      "stage": "constraint",
+      "class": "state-to-program-gap",
+      "evidence": "pair03 B's first clean replay rejected a live-state success that depended on the construction environment",
+      "implication": "a satisfying mutable environment is not yet a reproducible deployment program"
+    },
+    {
+      "stage": "operation",
+      "class": "post-feasibility-search-tail",
+      "evidence": "all inspected successful trajectories continued after first observed feasibility; later work sometimes improved runtime compatibility or reproducibility",
+      "implication": "immediate stopping can discard quality improvements, while unprotected continuation can lose a feasible solution to provider failure or a safety cap"
+    },
+    {
+      "stage": "evaluation",
+      "class": "official-objective-underdetermines-deployment-quality",
+      "evidence": "Official Pass accepted paths ranging from synthetic compatibility modules to fuller CPU or historical-Python environments",
+      "implication": "Official success and deployment completeness must remain separate evaluation axes"
+    },
+    {
+      "stage": "infrastructure",
+      "class": "provider-and-network-censoring",
+      "evidence": "pair04 A and pair05 were provider-censored; several Official attempts required policy-registered exact-script retries",
+      "implication": "algorithm failure must be separated from censored execution without giving retries access to new model decisions"
+    }
+  ],
+  "frozen_conclusions": {
+    "primary": "the current dominant algorithmic gap is not a lack of additional cross-candidate rules; it is the absence of a harness-managed feasible incumbent while the continuous agent continues quality search",
+    "secondary": "before any candidate exists, hard cases can drift among locally useful probes without preserving a compact global compatibility frontier",
+    "quality_boundary": "Official Pass is the primary benchmark outcome, while runtime completeness and path quality are independent diagnostics",
+    "baseline_disposition": "freeze A-F and B-FSR unchanged as baselines"
+  },
+  "next_minimal_treatment": {
+    "name": "goal-triggered-certified-incumbent",
+    "scope": "post-feasibility only",
+    "mechanism": [
+      "observe trusted global goal status in the active construction session",
+      "on the first satisfying observation, ask the same agent to compile the current work into a complete bootstrap program",
+      "clean-replay the program in a fresh environment",
+      "store each replay-passed program and certificate as the current incumbent",
+      "allow the same agent session to continue optional quality improvement",
+      "replace the incumbent only with a later replay-passed program",
+      "on provider failure or request/wall safety cap, submit the latest certified incumbent"
+    ],
+    "not_in_this_treatment": [
+      "container filesystem checkpoints",
+      "cross-case learned rules",
+      "case-specific package knowledge",
+      "pre-candidate obligation-frontier control",
+      "automatic optimization of the inner harness"
+    ],
+    "rationale": "this is the smallest mechanism that preserves success without forbidding the strong agent from improving deployment quality"
+  },
+  "claim_boundary": {
+    "supported": [
+      "A-F and B-FSR tied at five Official Passes and one pre-submission failure on the six uncensored end-to-end pairs",
+      "all five matched Official comparisons were Pass/Pass ties",
+      "clean replay caught one state-to-program failure and otherwise mostly certified already satisfying candidates",
+      "B-FSR resource differences were heterogeneous across matched successful pairs",
+      "the next treatment is motivated by observed post-feasibility tails and censoring risk"
+    ],
+    "not_supported": [
+      "B-FSR improves Official success probability",
+      "B-FSR is uniformly more efficient",
+      "the next treatment will improve benchmark success before it is evaluated",
+      "deployment completeness can be inferred from Official Pass",
+      "these eight design pairs are a held-out test set"
+    ]
+  }
+}
