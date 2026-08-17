@@ -1,0 +1,63 @@
+{
+  "analysis_contract_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-analysis-contract",
+  "candidate_boundary": {
+    "event": "the earliest submit_and_replay tool result whose status is pass and whose certificate program hash matches the submitted canonical program",
+    "formed": "a candidate boundary exists",
+    "not_formed": "generation terminates without such a boundary"
+  },
+  "censoring": {
+    "algorithm_or_model_failure": "valid outcome when the provider contract remains intact, including request-cap exhaustion without a candidate",
+    "infrastructure_failure": "exclude from arm outcome counts and preserve separately, including coordinator interruption, provider-contract mismatch, or terminal provider failure after internal retries",
+    "outcome_driven_retry": false
+  },
+  "efficiency_signal": {
+    "comparable_pair": "both arms form a certified candidate and both receive Official Pass",
+    "criterion": "at least two of the four median paired D-over-B ratios are at most 0.85, and every defined median ratio is at most 1.15",
+    "metrics": [
+      "model_requests_through_candidate_boundary",
+      "interactive_tool_steps_through_candidate_boundary",
+      "total_tokens_through_candidate_boundary",
+      "seconds_from_generation_start_to_candidate_certificate"
+    ],
+    "paired_ratio": "D-LEDGER value divided by B-FSR value within the same case-replication pair",
+    "zero_denominator": "metric is undefined for that pair and is not imputed"
+  },
+  "event_counting": {
+    "compatibility_check": "one check_compatibility tool_result",
+    "interactive_tool_step": "one envbench_shell or check_compatibility tool_result; replay and final submission are reported separately",
+    "model_request": "one successful provider_response; failed provider attempts are separately reported",
+    "through_boundary": "request_index less than or equal to the candidate-boundary request_index"
+  },
+  "mechanism_measurement": {
+    "candidate_ready_latency": "difference in request_index from candidate_ready=true to the next submit_and_replay call, when one exists",
+    "complete_observation": "check_compatibility result has ok=true and finding_set_complete=true",
+    "delta_classes": [
+      "initial",
+      "stagnant",
+      "improved",
+      "regressed",
+      "mixed"
+    ],
+    "unknown_observation": "check_compatibility result has ok=false"
+  },
+  "official_outcome": {
+    "candidate_not_formed_without_infrastructure_censoring": "Official failure for pass-count analysis",
+    "pass": "manifest.result.official_pass is true after completed official evaluation"
+  },
+  "preregistration": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_preregistration.json",
+  "recorded_at": "2026-08-17T17:29:21Z",
+  "resource_extraction": {
+    "model_tokens": "sum provider response usage through the boundary, retaining prompt, completion, reasoning, total, cache, and cost fields separately",
+    "time": "certificate.certified_at minus solver.metadata.started_at; total generation and official evaluation time are additional outcomes",
+    "treatment_measurement_cost": "compatibility-check tool steps, hidden goal executions, and subsequent context tokens remain charged to D-LEDGER"
+  },
+  "schema_version": "1.0.0",
+  "status": "frozen-before-any-valid-pilot-terminal-outcome",
+  "validity_checks": [
+    "recorded request provider order equals [deepinfra] for every provider response",
+    "returned provider is DeepInfra for every provider response",
+    "model is exactly deepseek/deepseek-v4-flash-0731",
+    "image digest and goal-contract hash match across arms",
+    "repository integrity audit is valid whenever generation completes"
+  ]
+}
