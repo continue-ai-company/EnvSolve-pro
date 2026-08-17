@@ -1,12 +1,56 @@
 from __future__ import annotations
 
 from experiments.analyze_compatibility_ledger_pilot import (
+    _apply_cross_arm_validity,
     _adjudicate,
     _candidate_event,
     _pairs,
     _terminal_provider_failure,
     _usage,
 )
+
+
+def test_cross_arm_validity_censors_both_records_on_identity_mismatch() -> None:
+    records = [
+        {
+            "pair_id": "pair-1",
+            "censored": False,
+            "validity_errors": [],
+            "execution_identity": {
+                "image_digest": digest,
+                "goal_contract_sha256": "goal",
+            },
+        }
+        for digest in ("sha256:a", "sha256:b")
+    ]
+
+    _apply_cross_arm_validity(records)
+
+    assert all(item["censored"] for item in records)
+    assert all(
+        item["validity_errors"] == ["cross-arm-image-digest-mismatch"]
+        for item in records
+    )
+
+
+def test_cross_arm_validity_accepts_matching_execution_identity() -> None:
+    records = [
+        {
+            "pair_id": "pair-1",
+            "censored": False,
+            "validity_errors": [],
+            "execution_identity": {
+                "image_digest": "sha256:image",
+                "goal_contract_sha256": "goal",
+            },
+        }
+        for _ in range(2)
+    ]
+
+    _apply_cross_arm_validity(records)
+
+    assert not any(item["censored"] for item in records)
+    assert not any(item["validity_errors"] for item in records)
 
 
 def test_candidate_boundary_requires_a_hash_matched_certificate() -> None:

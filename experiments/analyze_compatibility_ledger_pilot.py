@@ -182,7 +182,24 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
     }
     complete = solver.get("generation_completed") is not None
     terminal_provider_failure = _terminal_provider_failure(events)
-    censored = not manifest_path.is_file() or not complete or terminal_provider_failure
+    image_digest = metadata.get("image_digest")
+    goal_contract = metadata.get("goal_contract")
+    goal_contract = goal_contract if isinstance(goal_contract, dict) else {}
+    goal_contract_sha256 = goal_contract.get("sha256")
+    repository_integrity = metadata.get("repository_integrity")
+    repository_integrity = (
+        repository_integrity if isinstance(repository_integrity, dict) else {}
+    )
+    repository_integrity_invalid = (
+        solver.get("generation_completed") is True
+        and repository_integrity.get("valid") is not True
+    )
+    censored = (
+        not manifest_path.is_file()
+        or not complete
+        or terminal_provider_failure
+        or repository_integrity_invalid
+    )
     errors = []
     if provider_events and recorded_orders != {tuple(EXPECTED_PROVIDER_ORDER)}:
         errors.append("provider-order-mismatch")
@@ -196,6 +213,14 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
         errors.append("manifest-missing")
     if not complete:
         errors.append("episode-incomplete")
+    if not isinstance(image_digest, str) or not image_digest:
+        errors.append("image-digest-missing")
+        censored = True
+    if not isinstance(goal_contract_sha256, str) or not goal_contract_sha256:
+        errors.append("goal-contract-hash-missing")
+        censored = True
+    if repository_integrity_invalid:
+        errors.append("repository-integrity-invalid")
 
     official = result.get("official_pass")
     if not censored and official is not True:
@@ -241,6 +266,11 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
             "returned": sorted(str(item) for item in returned_providers),
             "models": sorted(str(item) for item in returned_models),
         },
+        "execution_identity": {
+            "image_digest": image_digest,
+            "goal_contract_sha256": goal_contract_sha256,
+            "repository_integrity_valid": repository_integrity.get("valid"),
+        },
         "mechanism": {
             "check_count": len(checks),
             "complete_check_count": sum(
@@ -258,6 +288,25 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
             "ledger_metadata": ledger,
         },
     }
+
+
+def _apply_cross_arm_validity(records: list[dict[str, Any]]) -> None:
+    for pair_id in {item["pair_id"] for item in records}:
+        pair = [item for item in records if item["pair_id"] == pair_id]
+        for field, error in (
+            ("image_digest", "cross-arm-image-digest-mismatch"),
+            ("goal_contract_sha256", "cross-arm-goal-contract-hash-mismatch"),
+        ):
+            values = {
+                item["execution_identity"].get(field)
+                for item in pair
+                if item["execution_identity"].get(field)
+            }
+            if len(pair) != 2 or len(values) != 1:
+                for item in pair:
+                    if error not in item["validity_errors"]:
+                        item["validity_errors"].append(error)
+                    item["censored"] = True
 
 
 def _arm_summary(records: list[dict[str, Any]], arm: str) -> dict[str, Any]:
@@ -428,6 +477,7 @@ def main() -> int:
         for item in schedule["episodes"]
     ]
     records = [_episode(args.run_root.resolve(), item) for item in specs]
+    _apply_cross_arm_validity(records)
     pairs = _pairs(records)
     output = {
         "schema": "envsolve-pro-v2-compatibility-ledger-pilot-analysis-v1",
