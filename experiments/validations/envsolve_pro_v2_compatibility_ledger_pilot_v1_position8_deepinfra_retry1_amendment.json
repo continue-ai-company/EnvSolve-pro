@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-position8-deepinfra-retry1",
+  "recorded_at": "2026-08-17T22:35:24Z",
+  "status": "frozen-before-replacement-model-execution",
+  "censored_attempt": {
+    "original_position": 8,
+    "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR",
+    "state": "provider-terminal-infrastructure-censored",
+    "generation_completed": false,
+    "model_requests_completed": 2,
+    "provider_error_attempts": 9,
+    "terminal_provider_errors": 1,
+    "official_evaluation_executed": false,
+    "requested_provider": "deepinfra",
+    "returned_provider_before_failure": "DeepInfra",
+    "infrastructure_signature": "deepinfra-upstream-shared-pool-engine-overloaded",
+    "terminal_request_index": 3,
+    "terminal_attempt": 6,
+    "generation_result_sha256": "7f8521343a5b0a53bc4eb1420e1bc1794f409458c779676a031c5b96d425c6d8",
+    "trajectory_sha256": "5016b66e4056a1507563004d481e2a250be9e40f3a9352840676bfe7a3a25090",
+    "container_command_trace_sha256": "b0620856360a3421b6d04dc569ab0aeb82020e1a58a44ab1e7e1745554a47618",
+    "manifest_sha256": "a5e81308b18b91918998f4c634eb47521271a2dd2bf6661d2518927cebf7dfe1",
+    "status_sha256": "49b61c0a080f16e123ca0c5222201de67e839fdee335d8f1f762ceb25550863d",
+    "source_run_audit_valid": true
+  },
+  "replacement": {
+    "run_id": "pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1",
+    "retry_of": "pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR",
+    "schedule": "experiments/schedules/envsolve_pro_v2_compatibility_ledger_pilot_v1_position8_deepinfra_retry1.json",
+    "schedule_sha256": "bf249c8588175dd1c46efb01493bf918e358f0f91dc17afa31c81af9fa3e207b",
+    "population_role": "exact-identity-infrastructure-replacement-not-an-additional-replication",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "deepinfra",
+    "seed": 3521147861,
+    "arm": "B-FSR",
+    "runner": "envsolve-pro-v2",
+    "method": "envsolve-pro-fsr-minimal-h"
+  },
+  "execution_policy": {
+    "start_after_position_7_replacement_finishes": true,
+    "reason": "preserve the frozen order and single-episode concurrency after the shared provider pool cools down",
+    "algorithm_changed": false,
+    "arm_changed": false,
+    "case_changed": false,
+    "model_changed": false,
+    "provider_changed": false,
+    "seed_changed": false,
+    "prompt_changed": false,
+    "safety_caps_changed": false,
+    "outcome_driven_retry": false,
+    "maximum_replacements_after_this_attempt": 0
+  },
+  "claim_policy": {
+    "censored_attempt_retained": true,
+    "censored_attempt_included_in_provider_cost_accounting": true,
+    "censored_attempt_included_in_effect_estimate": false,
+    "replacement_counts_as_additional_replication": false
+  },
+  "original_preregistration": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_preregistration.json"
+}
