@@ -34,7 +34,7 @@
     "first_fully_affected_pair": "flash0731-dev16-case-07",
     "apply_identically_to_both_arms_in_all_future_pairs": true,
     "next_schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair07_deepinfra_cached.json",
-    "next_schedule_sha256": "dd6df9ea635df762c2abd2df9312878c9e0e2e1996f85018fda780cffe2b189e"
+    "next_schedule_sha256": "79d48e839bed8218fef77c5b98dc7bcc3b7e222aad81cf6bb83ea36dfa0cc344"
   },
   "validity": {
     "case_membership_or_order_changed": false,
