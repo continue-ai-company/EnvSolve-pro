@@ -1,0 +1,142 @@
+{
+  "algorithm_revision": {
+    "commit": "4113b2a",
+    "name": "active-session compatibility-delta ledger",
+    "status": "implementation-qualified-effect-untested"
+  },
+  "arms": {
+    "B-FSR": {
+      "mechanisms": [
+        "continuous free-feedback search",
+        "Agent-authored complete bootstrap program",
+        "fresh clean replay",
+        "minimal evaluator and repository-integrity boundary"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "runner": "envsolve-pro-v2"
+    },
+    "D-LEDGER": {
+      "difference_from_control": "one advisory check_compatibility tool and its concise prompt contract",
+      "mechanisms": [
+        "all B-FSR mechanisms",
+        "trusted active-environment goal observation",
+        "set-valued compatibility delta",
+        "nondominated compatibility evidence retained in the same Agent session"
+      ],
+      "method": "envsolve-pro-active-compatibility-ledger",
+      "runner": "envsolve-pro-v2-ledger"
+    }
+  },
+  "case_selection": [
+    {
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "prior_evidence": "both historical V2 arms exhausted the request cap without forming a candidate; sparse global feedback showed large nonmonotonic transitions",
+      "role": "candidate-formation stress case"
+    },
+    {
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "prior_evidence": "historical trajectories showed a long 61-to-26-to-2-to-2-to-2-to-2-to-0 compatibility path",
+      "role": "stagnation and strategy-switch stress case"
+    }
+  ],
+  "claim_boundary": {
+    "allowed": "mechanism qualification and directional evidence on consumed design cases",
+    "forbidden": [
+      "held-out generalization",
+      "success-rate superiority",
+      "SOTA",
+      "a deterministic paired counterfactual from provider seeds"
+    ]
+  },
+  "comparison_invariants": [
+    "same pinned DeepSeek model, DeepInfra provider, Docker image, goal contract, clean replay, minimal boundary, and safety caps",
+    "the Official evaluator is unavailable until model generation terminates",
+    "each episode has a fresh construction container and episode-local package cache",
+    "no cross-case package mapping, operation ranking, rollback, or container checkpoint is used",
+    "B-FSR may execute the same public goal through its unrestricted shell; D-LEDGER changes how the resulting state is measured and retained",
+    "tokens and cost are measured outcomes, not optimization cutoffs; shared high safety caps only prevent unbounded execution"
+  ],
+  "design": {
+    "arm_order": "counterbalanced within case and replication",
+    "case_count": 2,
+    "concurrency": 1,
+    "episode_count": 8,
+    "independent_replications_per_case_arm": 2,
+    "provider_seed_interpretation": "logged randomization covariate; determinism is not assumed",
+    "seed_count": 8
+  },
+  "frozen_artifacts": {
+    "config": {
+      "path": "experiments/configs/local_spark_envsolve_pro_v2_compatibility_ledger_pilot_v1.json",
+      "sha256": "d720303ad884030e9ad2c83828e23389738ead614d7e709543f604cf9c22ab1e"
+    },
+    "implementation_sha256": {
+      "envsolve_harness/compatibility_ledger.py": "cc17c95b42b2b2270b2609c5159d6b33538a419158b5c0aeb97be0c92a2a0a43",
+      "envsolve_harness/runners/envsolve_pro_v2_registry.py": "18ada4ef8ac1e18f2d9eee2ae8e48d46088f386eaf597b5e6095551746e0ac7c",
+      "envsolve_harness/runners/openrouter_agent.py": "3a0a291a0d95670aa3be4169d2fff57218f4ff8be3bc2cde58373b35ccd7d970",
+      "experiments/run_envsolve_pro_v2_schedule.py": "b4b2cc6e32547ee27f905891732f388e54c7d406de8d804c120abfa13ab7feda"
+    },
+    "schedule": {
+      "path": "experiments/schedules/envsolve_pro_v2_compatibility_ledger_pilot_v1.json",
+      "sha256": "e7dcbd00664001c5f4e7148a3cb59f1d8dafd3671d0c029c540516a4ad56591c"
+    }
+  },
+  "hypothesis": "Sparse global goal observations become more useful when a continuous Agent receives explicit set-valued compatibility deltas and retains nondominated evidence; this should improve candidate formation or shorten nonprogressing search without restricting useful temporary regressions.",
+  "mechanism_acceptance": {
+    "complete_observation_rate_minimum": 0.75,
+    "every_treatment_episode_calls_check_compatibility": true,
+    "minimum_comparable_transitions_across_treatment": 2,
+    "minimum_noninitial_delta_transitions_across_treatment": 1,
+    "operation_constraints_added": 0,
+    "stored_container_checkpoints": 0
+  },
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "outcomes": {
+    "primary": [
+      "generation candidate formed and clean-replay certified",
+      "EnvBench Official Pass"
+    ],
+    "secondary": [
+      "model requests before first certified candidate",
+      "shell actions before first certified candidate",
+      "generation and replay wall time",
+      "input, output, reasoning, and total tokens",
+      "provider-reported cost when available"
+    ],
+    "treatment_mechanism": [
+      "check_compatibility call count",
+      "complete versus unknown observations",
+      "initial, stagnant, improved, regressed, and mixed transitions",
+      "raw finding count and unique obligation count",
+      "candidate_ready to clean-replay transition"
+    ]
+  },
+  "preregistration_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1",
+  "promotion_rule": {
+    "ambiguous": "mechanism acceptance passes but directional criteria do not; retain the implementation unchanged and preregister a broader consumed-case study before deciding",
+    "negative": "mechanism acceptance fails, or D-LEDGER has lower candidate formation or Official Pass count than B-FSR, or more than one paired treatment-only loss; do not expose frozen Dev cases",
+    "positive_directional_signal": [
+      "D-LEDGER candidate-formation count is at least B-FSR",
+      "D-LEDGER Official Pass count is at least B-FSR",
+      "no more than one paired treatment-only loss",
+      "at least one paired treatment-only win, or at least 15 percent lower median pre-candidate resource use among comparable successful pairs"
+    ],
+    "scope": "promotion to a broader consumed-case experiment, never a paper-level effect claim"
+  },
+  "provider": {
+    "fallbacks": false,
+    "name": "deepinfra",
+    "route": "OpenRouter"
+  },
+  "recorded_at": "2026-08-17T17:06:50Z",
+  "schema_version": "1.0.0",
+  "status": "frozen-before-model-execution",
+  "stopping_and_retry_policy": {
+    "algorithm_changes_during_batch": false,
+    "infrastructure_failure": "mark the episode censored; any exact-identity retry requires a pre-execution amendment and must retain the failed attempt",
+    "interim_outcome_tuning": false,
+    "model_or_algorithm_failure": "record as an outcome and continue the frozen schedule",
+    "outcome_driven_retry": false,
+    "run_all_scheduled_episodes": true
+  }
+}
