@@ -1,0 +1,57 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-05",
+  "recorded_at": "2026-08-17T04:46:50Z",
+  "case_id": "envbench-python-neptune-ai__neptune-client@b8d45806f7d0a96beb45ab09d7ddec693253a9e7",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "cloudflare",
+  "pair_outcome": {
+    "official_comparison_available": false,
+    "infrastructure_censored": true,
+    "algorithm_effect_estimable": false,
+    "reason": "the original attempts ended on provider credit exhaustion and the preregistered replacement attempts both ended on repeated empty provider responses"
+  },
+  "replacement_attempts": [
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-09-B-FSR-credit-retry1",
+      "generation_completed": false,
+      "terminal_class": "provider-censored-empty-response",
+      "successful_provider_responses": 32,
+      "provider_errors": 10,
+      "shell_tool_calls": 43,
+      "clean_replay_calls": 0,
+      "submitted_program": false,
+      "wall_clock_seconds": 2624.603535291739,
+      "generation_result_sha256": "723277268a4f3ab3a76a4af16a78be7b2d4e4f2c825bb71d1c657555bc4fe8df",
+      "trajectory_sha256": "00419c05631a874904329b6e993ca6b72295d91521ca898f2fb5c16faee64b34",
+      "container_commands_sha256": "327dfccdab4048679480e3bedf7af33c162a71a80cd295543f74f6e1828402d4",
+      "manifest_sha256": "a4b113eeb0b6a1c27891f12ecc5761324fe27665e0e12238cb2a11a47688e9d4"
+    },
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-10-A-F-credit-retry1",
+      "generation_completed": false,
+      "terminal_class": "provider-censored-empty-response",
+      "successful_provider_responses": 0,
+      "provider_errors": 6,
+      "shell_tool_calls": 0,
+      "submitted_program": false,
+      "wall_clock_seconds": 295.8128079129383,
+      "generation_result_sha256": "429506ae662e54f186c762d75936e4026543d295981b6f5a07075ca2c89ddd8f",
+      "trajectory_sha256": "cfd18f0f4216866b2438519e7b59079e4f93d980b7f493760f3ab2b11091d461",
+      "manifest_sha256": "c68d4c699bb43d0ae314198c91567a066fad0bff8be562bf3bae92462afa0588"
+    }
+  ],
+  "algorithm_diagnostic": {
+    "primary_outcome": false,
+    "observation": "Before provider censoring, B-FSR repeatedly expanded installation to optional Neptune integrations and twice consumed the 600-second command cap without proposing a replay candidate.",
+    "interpretation": "This is evidence of delayed candidate formation and scope expansion, but provider censoring prevents a terminal algorithm judgment for this pair."
+  },
+  "disposition": {
+    "additional_pair05_retry": false,
+    "exclude_from_primary_paired_outcome": true,
+    "retain_for_provider_and_candidate-formation_diagnostics": true
+  }
+}

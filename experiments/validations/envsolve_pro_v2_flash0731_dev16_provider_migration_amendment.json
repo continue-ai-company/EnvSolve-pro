@@ -1,0 +1,58 @@
+{
+  "schema": "envsolve-pro-v2-provider-migration-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-flash0731-dev16-cloudflare-to-deepinfra",
+  "recorded_at": "2026-08-17T04:49:47Z",
+  "recorded_before_first_deepinfra_dev16_episode": true,
+  "trigger": {
+    "pair05_disposition": "infrastructure-censored",
+    "cloudflare_same_shape_probe": "1 of 5 valid tool responses",
+    "selection_criterion": "provider transport stability only",
+    "dev16_algorithm_outcome_used": false
+  },
+  "migration": {
+    "from_provider": "cloudflare",
+    "to_provider": "deepinfra",
+    "first_affected_case_position": 6,
+    "first_affected_global_episode_position": 11,
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "model_fallback": false,
+    "provider_order": [
+      "deepinfra"
+    ],
+    "deepinfra_same_shape_probe": "5 of 5 valid tool responses"
+  },
+  "qualification": {
+    "case_role": "consumed-development-provider-qualification",
+    "result": "experiments/validations/envsolve_pro_v2_flash0731_deepinfra_qualification_result.json",
+    "result_sha256": "d8aa531b6d07dd5909e11ffe9066796c4f1567fcad6fa1f1127baf3e22f2f30d",
+    "official_pass": true,
+    "model_requests": 21,
+    "provider_errors": 0,
+    "clean_replay_calls": 1,
+    "exact_certified_hash_submitted": true
+  },
+  "paired_validity": {
+    "same_provider_for_both_arms_within_every_pair": true,
+    "case_membership_changed": false,
+    "case_order_changed": false,
+    "arm_order_changed": false,
+    "algorithm_changed": false,
+    "prompt_changed": false,
+    "tool_schema_changed": false,
+    "goal_or_evaluator_changed": false,
+    "resource_safety_caps_changed": false
+  },
+  "analysis_boundary": {
+    "provider_is_a_recorded_stratum": true,
+    "cloudflare_and_deepinfra_are_not_assumed_behaviorally_identical": true,
+    "primary_effect_remains_within-case_b_minus_a": true,
+    "report_provider-stratified_results": true,
+    "report_sensitivity_excluding_cloudflare_pairs": true,
+    "pair05_excluded_as_infrastructure-censored": true
+  },
+  "next_schedule": {
+    "pair_id": "flash0731-dev16-case-06",
+    "path": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair06_deepinfra.json",
+    "sha256": "f59c837ceeb74123e2cbc7ee102b17520ebb628394be023924bfe173a76b071d"
+  }
+}

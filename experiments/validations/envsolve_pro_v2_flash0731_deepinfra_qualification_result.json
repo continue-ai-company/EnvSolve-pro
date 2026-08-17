@@ -1,0 +1,69 @@
+{
+  "schema": "envsolve-pro-v2-provider-qualification-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-deepinfra-qualification",
+  "recorded_at": "2026-08-17T04:46:50Z",
+  "qualification_pass": true,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "deepinfra",
+  "fallback_allowed": false,
+  "episode": {
+    "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "population_role": "consumed-development-provider-qualification",
+    "run_id": "pro-v2-flash0731-deepinfra-qualification-01-B-FSR",
+    "generation_completed": true,
+    "evaluation_completed": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "official_error_count_non_scoring": 130,
+    "official_warning_count_non_scoring": 8,
+    "wall_clock_seconds": 310.7752781258896,
+    "model_requests": 21,
+    "provider_attempts": 21,
+    "provider_errors": 0,
+    "prompt_tokens": 187946,
+    "completion_tokens": 5136,
+    "total_tokens": 193082,
+    "shell_tool_calls": 19,
+    "clean_replay_calls": 1,
+    "clean_replay_statuses": [
+      "pass"
+    ],
+    "submitted_program_sha256": "1c4ae5ff2d547546068e1d69607bf467a4765c5dd4b7d1c231222a97cabdcf04",
+    "certified_by_clean_replay": true
+  },
+  "source_cache": {
+    "source": "immutable-exact-revision-cache-v1",
+    "cache_hit": false,
+    "commit": "32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "tree": "c6511ec037ee3a110f43a689a4ccb95323cd977c",
+    "fsck": "pass",
+    "checkout": "independent-no-hardlinks"
+  },
+  "artifacts": {
+    "generation_result_sha256": "b39db2cd3eb48ba009f55f970fdcdd860e3a2d8b132694fbd86a5d3afff4eae9",
+    "trajectory_sha256": "86decf857f3a592c70a855c88ca6eb012f6861ca246cc28d4206a70101a4aff0",
+    "replays_sha256": "afdf144acc4961c155a9d11f877db676756db70ce1426e0c4b2c9899beabf8ca",
+    "certification_sha256": "38beaedd40480f79539e2f2a4e51fe0203c95eeecff09d2374793789058f3a5f",
+    "evaluation_result_sha256": "66de66fd3249d6e09db0d1524972a4789f26f27be37612d0cd0aa11a56e402bd",
+    "manifest_sha256": "c06de1cd9a6305dd0320a6dd1d5db8700c3f1e85c8824b316f7f138751678a8b"
+  },
+  "pass_criteria": {
+    "response_model_pinned": true,
+    "continuous_tool_session": true,
+    "clean_replay_invoked": true,
+    "exact_certified_hash_submitted": true,
+    "official_evaluator_completed": true
+  },
+  "claim_boundary": {
+    "supported": [
+      "DeepInfra can serve the pinned Flash 0731 model with the frozen tool interface",
+      "the full B-FSR and Official evaluation chain completed on a consumed case",
+      "this qualification episode had no provider errors"
+    ],
+    "not_supported": [
+      "DeepInfra is always stable",
+      "DeepInfra is behaviorally identical to Cloudflare",
+      "this consumed-case result estimates an algorithm effect"
+    ]
+  }
+}

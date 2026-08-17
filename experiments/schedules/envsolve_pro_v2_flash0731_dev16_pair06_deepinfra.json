@@ -1,0 +1,54 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+  "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-johnsnowlabs__nlu@506860e546076b353969b5a3216c05d080ad923e",
+      "case_position": 6,
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-06",
+      "pair_position": 1,
+      "position": 1,
+      "provider": "deepinfra",
+      "run_id": "pro-v2-flash0731-dev16-11-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 1591567786
+    },
+    {
+      "arm": "B-FSR",
+      "case_id": "envbench-python-johnsnowlabs__nlu@506860e546076b353969b5a3216c05d080ad923e",
+      "case_position": 6,
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "flash0731-dev16-case-06",
+      "pair_position": 2,
+      "position": 2,
+      "provider": "deepinfra",
+      "run_id": "pro-v2-flash0731-dev16-12-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 1591567786
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "taxonomy-consumed-flash-treatment-unrun-development",
+  "provider": "deepinfra",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "deepinfra"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-flash0731-dev16"
+}
