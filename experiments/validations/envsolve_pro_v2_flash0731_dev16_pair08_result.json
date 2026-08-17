@@ -1,0 +1,170 @@
+{
+  "schema": "envsolve-pro-v2-paired-episode-result-v1",
+  "study_id": "envsolve-pro-v2-flash0731-dev16",
+  "pair_id": "flash0731-dev16-case-08",
+  "recorded_at": "2026-08-17T14:40:57Z",
+  "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+  "repository": "internetarchive/brozzler",
+  "revision": "8d7507f37757b6b9caf6f0d948666c7e5f972894",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "deepinfra",
+  "host_architecture": "linux/arm64",
+  "effective_episodes": [
+    {
+      "arm": "A-F",
+      "run_id": "pro-v2-flash0731-dev16-15-A-F",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "terminal_class": "official-pass",
+      "model_requests": 36,
+      "provider_attempts": 44,
+      "provider_errors": 8,
+      "prompt_tokens": 670528,
+      "completion_tokens": 12856,
+      "total_tokens": 683384,
+      "reported_provider_cost": 0.021091168,
+      "generation_wall_clock_seconds": 843.58158,
+      "shell_tool_calls": 35,
+      "shell_duration_seconds": 210.8426687195897,
+      "clean_replay_calls": 0,
+      "first_observed_zero_missing_imports_request": 20,
+      "final_submission_request": 36,
+      "post_goal_model_requests": 16,
+      "submitted_program_sha256": "c6b266b702fb2566cbc4a581de0b8960d12b534ca48099da7e7efcf3d3d4b905",
+      "generated_script_sha256": "d905c16e8afe0310dcbffc7e4f09c26b1bf79557f9a60f15a50b6a0412f52130",
+      "program_hash_normalization": "submitted_program_sha256 excludes the generated script's single trailing newline",
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 357,
+      "official_warning_count_non_scoring": 9,
+      "official_execution_seconds": 137.35429501533508,
+      "source_cache_hit": true,
+      "official_source_cache_hit": true,
+      "artifact_sha256": {
+        "generation_result": "16ced6889a3ebe6e759fdd551788426b8ce7555fca8b07f5485794b96fab100b",
+        "trajectory": "6de120146bfed6e5afca543d211d452abe83de4f5ce520e55b7f2b6b4bcdcc13",
+        "container_commands": "82ca71d02dfeec429988f70d5f0a06ecc5d12fe4e7bf0b9b9e55615902cf8778",
+        "manifest": "bfafa9efcb844cb830744615463a40f7e58cdbaf7b62abeedc52073df65672de",
+        "official_result": "2324f514ef8979b6c8ef9bd118707d349245fd5d0f22f640d6e4fdfbcb71ab7d",
+        "official_raw_result": "3af3a45c3b25d708ffe72512c31ef23b93b462d3af5fe4fefb4cc90510f9e5bd"
+      }
+    },
+    {
+      "arm": "B-FSR",
+      "run_id": "pro-v2-flash0731-dev16-16-B-FSR",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "terminal_class": "official-pass",
+      "model_requests": 39,
+      "provider_attempts": 44,
+      "provider_errors": 5,
+      "prompt_tokens": 639409,
+      "completion_tokens": 16602,
+      "total_tokens": 656011,
+      "reported_provider_cost": 0.019619991999999996,
+      "generation_wall_clock_seconds": 1008.337833,
+      "shell_tool_calls": 37,
+      "shell_duration_seconds": 236.49180097179487,
+      "clean_replay_calls": 1,
+      "clean_replay_statuses": [
+        "pass"
+      ],
+      "clean_replay_seconds": 55.76485593384132,
+      "first_observed_zero_missing_imports_request": 35,
+      "clean_replay_request": 38,
+      "final_submission_request": 39,
+      "post_goal_model_requests": 4,
+      "submitted_program_sha256": "268064599402cac1b3d2ce2dced9d76d2c305fb095cc3992536478a9ba8ff62b",
+      "generated_script_sha256": "111b6315cc0d8598423a94f84e184936bbd9531e4de55516dd2fd76cd6740f73",
+      "program_hash_normalization": "submitted_program_sha256 excludes the generated script's single trailing newline",
+      "certified_by_clean_replay": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 357,
+      "official_warning_count_non_scoring": 9,
+      "official_execution_seconds": 213.8109495639801,
+      "source_cache_hit": true,
+      "official_source_cache_hit": true,
+      "artifact_sha256": {
+        "generation_result": "50084b4bab6eff6dad2cb5899c874832c04442786e46ee6f43e75bd18e1f1bc3",
+        "trajectory": "1f9adf67677ba6a197a7774ab7c05c3ad2767ddf6d6490365e70c957e686dd42",
+        "container_commands": "db7b015bccf1b2b2b375f265c67d425a04dc00d95c5e652c026799f12d1dd601",
+        "manifest": "b46caf0c8c68d1025499f937c300288e31016e9e28781cf5af68ca05332c6870",
+        "official_result": "25d61cc1b5c99b6a1107fb62483978edb7f90b59f7d54b87ea3e2f2a964248d3",
+        "official_raw_result": "d4225e1159c9bf694c59ba517616d170d8e621300d1cbc68635b1ccced191678",
+        "clean_replay_certification": "d76596c87f4e74dc59bd0944e9133808f98ac357873c2818ef67fb65bdfd3bcc",
+        "clean_replay_trace": "54ed8e75bc2c2676a7e8bf4bdf450b7cec4978553df957363a43e895061bb428"
+      }
+    }
+  ],
+  "pair_outcome": {
+    "official_comparison_available": true,
+    "official_result": "tie_pass_pass",
+    "official_pass_difference_b_minus_a": 0,
+    "infrastructure_censored": false,
+    "mechanism_activated": true,
+    "mechanism_note": "B-FSR clean replay passed at request 38 and the same normalized program was submitted at request 39",
+    "feedback_conditioned_repair_observed": false,
+    "certification_as_stopping_signal_observed": true
+  },
+  "resource_comparison": {
+    "descriptive_only": true,
+    "b_minus_a_model_requests": 3,
+    "b_model_requests_percent_vs_a": 8.333333333333325,
+    "b_total_tokens_percent_vs_a": -4.005507884293458,
+    "b_generation_wall_clock_percent_vs_a": 19.53056549670038,
+    "b_shell_tool_calls_percent_vs_a": 5.714285714285716,
+    "b_shell_duration_percent_vs_a": 12.16505767450573,
+    "b_reported_provider_cost_percent_vs_a": -6.975317820236415,
+    "b_official_execution_percent_vs_a": 55.66382510289098,
+    "b_complete_episode_duration_percent_vs_a": 24.56309026450456,
+    "interpretation": "B used slightly fewer tokens and reported provider cost, but more requests, shell work, generation time, Official execution time, and total episode time in this realization"
+  },
+  "candidate_formation_diagnostic": {
+    "A": "first observed zero missing imports at request 20; then spent 16 requests checking runtime imports and compiling a reproducible Python 3.11 venv program before submission",
+    "B": "first observed zero missing imports at request 35 after resolving Python-version, PATH, gunicorn.six, pipes, and pkg_resources constraints; clean replay passed at request 38 and submission followed at request 39",
+    "interpretation": "clean replay certified B's final program and compressed its post-goal tail, but it did not improve success or total efficiency because B reached a satisfying live state later than A"
+  },
+  "deployment_quality_diagnostic": {
+    "preregistered_primary_outcome": false,
+    "independently_verified_complete_environment": false,
+    "A_quality_flag": "official-pass-plus-selected-runtime-import-repair",
+    "B_quality_flag": "official-pass-plus-clean-replay-of-real-package-environment",
+    "interpretation": "both programs install real project dependencies without compatibility stubs; A additionally investigated selected runtime imports, while B established reproducibility of the submitted program; neither diagnostic proves full application runtime completeness"
+  },
+  "source_cache": {
+    "source": "immutable-exact-revision-cache-v1",
+    "commit": "8d7507f37757b6b9caf6f0d948666c7e5f972894",
+    "tree": "40177729e0be8df455ff9fac92a5d7871b3566c6",
+    "prefetch_receipt_sha256": "9d5b9ad9197e814d0b3273842b337b463340431345757b98adf571638fa6a038",
+    "agent_checkout_cache_hit_A": true,
+    "agent_checkout_cache_hit_B": true,
+    "official_preseed_cache_hit_A": true,
+    "official_preseed_cache_hit_B": true,
+    "independent_no_hardlinks": true
+  },
+  "provenance": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair08_deepinfra_cached.json",
+    "schedule_sha256": "4d1baf82bfa7bce1d454389d5fa2e90032a0773fd0a092a71b493102efa61b76",
+    "schedule_progress_sha256": "7e85b84c981cf0f0ec6feb6e08bbf0aefd5558950a6ebdc189cbf9298e18e134",
+    "preregistration": "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair08_preregistration.json",
+    "source_prefetch_record": "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair08_source_prefetch.json"
+  },
+  "claim_boundary": {
+    "supported": [
+      "both frozen arms achieved Official Pass on this case",
+      "B-FSR clean replay certified the submitted program without requiring repair",
+      "B-FSR had a four-request post-goal tail while A-F had a sixteen-request post-goal tail",
+      "B-FSR used slightly fewer tokens and reported provider cost in this paired realization",
+      "A-F used fewer requests, shell calls, shell time, generation time, Official execution time, and total episode time",
+      "the first satisfying live state need not be the endpoint because A-F used later work to improve selected runtime compatibility"
+    ],
+    "not_supported": [
+      "B-FSR has higher Official success probability than A-F",
+      "B-FSR is uniformly more resource efficient than A-F",
+      "clean replay accelerates pre-candidate compatibility search",
+      "either arm produced a fully application-complete deployment",
+      "the non-scoring Pyright error counts measure deployment quality"
+    ]
+  }
+}
