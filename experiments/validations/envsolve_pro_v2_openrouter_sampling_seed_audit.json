@@ -1,0 +1,53 @@
+{
+  "schema": "envsolve-pro-v2-sampling-seed-audit-v1",
+  "audit_id": "envsolve-pro-v2-openrouter-sampling-seed-audit",
+  "recorded_at": "2026-08-17T15:31:00Z",
+  "status": "confirmed-protocol-defect-before-held-out-evaluation",
+  "scope": "OpenRouterAgentRunner experiments through the certified-incumbent consumed-case qualification batch",
+  "finding": {
+    "summary": "The schedule seed is recorded as episode identity metadata but is not forwarded to OpenRouter model requests.",
+    "schedule_behavior": "experiments/run_envsolve_pro_v2_schedule.py passes each non-null schedule seed to run_envsolve_pro_v2_case.py with --seed.",
+    "run_identity_behavior": "experiments/run_case.py stores the value in RunSpec and the run manifest.",
+    "request_behavior": "OpenRouterAgentRunner.request_options sends model, messages, tools, tool_choice, max_tokens, reasoning, and provider policy, but no seed; _agent_loop does not otherwise consume RunSpec.seed.",
+    "observed_consequence": "The recorded seed fixes episode identity and schedule order only. It does not control model sampling."
+  },
+  "provider_capability": {
+    "openrouter_chat_api": {
+      "supports_seed_parameter": true,
+      "source": "https://openrouter.ai/docs/api/api-reference/chat/send-chat-completion-request"
+    },
+    "frozen_model_endpoint": {
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "DeepInfra",
+      "declares_seed_in_supported_parameters": true,
+      "source": "https://openrouter.ai/api/v1/models/deepseek/deepseek-v4-flash-0731/endpoints"
+    },
+    "limitation": "Provider parameter support does not by itself prove bitwise deterministic multi-turn agent trajectories; an empirical canary is still required."
+  },
+  "validity_impact": {
+    "still_supported": [
+      "Each artifact remains bound to its recorded case, model, provider policy, runner, program, and evaluator result.",
+      "The frozen A-F and B-FSR runs remain descriptive paired realizations on the same cases.",
+      "Mechanism events such as clean-replay failure, certification, and hash-matched submission remain directly observable.",
+      "The consumed-case certified-incumbent batch can qualify implementation invariants and mechanism activation."
+    ],
+    "not_supported": [
+      "A-F and B-FSR are deterministic same-seed counterfactual trajectories.",
+      "A single paired realization estimates a stable treatment effect on success or resource use.",
+      "Re-running an episode with its recorded seed will reproduce the same model decisions under the current runner."
+    ]
+  },
+  "current_batch_policy": {
+    "batch": "envsolve-pro-v2-certified-incumbent-v1-consumed-qualification",
+    "action": "Do not modify or restart the frozen three-episode batch after execution has begun.",
+    "claim_boundary": "Use it only for implementation and mechanism qualification, never for a generalization or effect-size claim."
+  },
+  "required_before_formal_evaluation": [
+    "Forward RunSpec.seed to every OpenRouter chat-completion request for the episode.",
+    "Record the requested seed in generation metadata and the redacted request contract.",
+    "Run a fixed-prompt, fixed-tool-free DeepInfra canary to measure same-seed repeatability and different-seed variation.",
+    "Use multiple independent episode seeds and randomized or counterbalanced arm order even if the canary is deterministic.",
+    "Report seed support and observed repeatability separately from statistical replication."
+  ],
+  "algorithm_scope": "This is an evaluation-protocol correction, not an additional EnvSolve-Pro deployment mechanism."
+}
