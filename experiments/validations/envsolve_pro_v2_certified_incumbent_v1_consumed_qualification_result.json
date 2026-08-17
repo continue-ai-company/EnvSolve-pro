@@ -1,0 +1,259 @@
+{
+  "schema": "envsolve-pro-v2-certified-incumbent-qualification-result-v1",
+  "qualification_id": "envsolve-pro-v2-certified-incumbent-v1-consumed-qualification",
+  "recorded_at": "2026-08-17T16:01:53Z",
+  "status": "implementation-and-safety-primitive-qualified-central-effect-not-established",
+  "research_role": "mechanism qualification on three already consumed design cases; not a held-out effect estimate",
+  "treatment": {
+    "arm": "C-GCI",
+    "runner": "envsolve-pro-v2-incumbent",
+    "method": "envsolve-pro-goal-triggered-certified-incumbent",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "deepinfra",
+    "provider_fallbacks": false,
+    "core_mechanism": "Store every clean-replay-passed complete bootstrap program as the latest certified incumbent and return it if a later provider or safety-cap termination prevents normal submission.",
+    "container_checkpoint_retained": false
+  },
+  "batch_outcome": {
+    "scheduled_episodes": 3,
+    "completed_episodes": 3,
+    "official_passes": 3,
+    "clean_replay_passes": 3,
+    "clean_replay_failures": 0,
+    "certified_incumbent_updates": 3,
+    "hash_consistent_certified_submissions": 3,
+    "fallback_activations": 0,
+    "episodes_with_post_certification_quality_search": 0,
+    "episodes_with_more_than_one_incumbent": 0,
+    "normal_agent_submissions": 3,
+    "total_model_requests": 68,
+    "total_provider_attempts": 72,
+    "total_provider_errors": 4,
+    "total_tokens": 1179505,
+    "reported_provider_cost": 0.038702696,
+    "generation_wall_clock_seconds": 2494.709802,
+    "complete_episode_wall_clock_seconds": 2676.993682640139,
+    "shell_tool_calls": 62,
+    "shell_duration_seconds": 219.26171197090298,
+    "clean_replay_bootstrap_seconds": 212.88132187351586
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "run_id": "pro-v2-certified-incumbent-v1-consumed-01-C-GCI",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 396,
+      "official_warning_count_non_scoring": 0,
+      "first_observed_zero_missing_imports_request": 7,
+      "first_certification_request": 10,
+      "intervening_model_requests_before_certification": 2,
+      "final_submission_request": 11,
+      "post_certification_quality_requests": 0,
+      "incumbent_updates": 1,
+      "fallback_used": false,
+      "model_requests": 11,
+      "provider_attempts": 11,
+      "provider_errors": 0,
+      "prompt_tokens": 116356,
+      "completion_tokens": 4428,
+      "total_tokens": 120784,
+      "reported_provider_cost": 0.005042864,
+      "generation_wall_clock_seconds": 232.126447,
+      "complete_episode_wall_clock_seconds": 249.25157424807549,
+      "shell_tool_calls": 9,
+      "shell_duration_seconds": 24.22393184993416,
+      "clean_replay_seconds": 8.137735093943775,
+      "official_execution_seconds": 14.614866733551025,
+      "program_sha256": "93615a125e91470129008d9a3411451f5c9121b630f08bed876e20087a5d539f",
+      "deployment_quality": "real editable project installation plus pytest; Official-sufficient but not independently verified as the complete historical development toolchain",
+      "artifact_sha256": {
+        "script": "c276c44f6abf762a22b5797401684119a90671ec9ff4e63129fe14c9d4a816a3",
+        "generation_result": "b5c60ecd48491f995b90db23f5814bb6ae2a967f0a7fd047ce26afe23aef52d0",
+        "trajectory": "4e067c044ad7f93b78ab8030bb29b427d139857e6398e2f7ab7d124de99bc1aa",
+        "container_commands": "38a1123ff3e6be75e1f77eb9cbed59fb0194fe80f6b32c53a29d3d25166fbfc3",
+        "clean_replay_trace": "ea7bc71bbaf62cb5ccc93e5c35921023e32d6935a488c6ad1bb0d9377bd830a0",
+        "clean_replay_certification": "ea8a466d0e8518b800dd897124c8bbd3fd7f92bf313718d2d80548500857d1f9",
+        "official_result": "4dfb6ce4e9d7cfa9039534bf70709a32c4148bad6030e63a5b5c992dd05dc83e",
+        "manifest": "d237f48eb1e292ca7c43ada101c6d03a11620e78bf3b378f9441f0abc635d7aa"
+      }
+    },
+    {
+      "position": 2,
+      "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+      "run_id": "pro-v2-certified-incumbent-v1-consumed-02-C-GCI",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 50,
+      "official_warning_count_non_scoring": 0,
+      "first_observed_zero_missing_imports_request": 23,
+      "first_certification_request": 24,
+      "intervening_model_requests_before_certification": 0,
+      "final_submission_request": 25,
+      "post_certification_quality_requests": 0,
+      "incumbent_updates": 1,
+      "fallback_used": false,
+      "model_requests": 25,
+      "provider_attempts": 28,
+      "provider_errors": 3,
+      "prompt_tokens": 438472,
+      "completion_tokens": 18287,
+      "total_tokens": 456759,
+      "reported_provider_cost": 0.01502222,
+      "generation_wall_clock_seconds": 1474.187749,
+      "complete_episode_wall_clock_seconds": 1544.3427638299763,
+      "shell_tool_calls": 23,
+      "shell_duration_seconds": 65.67679635481909,
+      "clean_replay_seconds": 175.6560230627656,
+      "official_execution_seconds": 67.79447889328003,
+      "program_sha256": "c93e394ba6b2151a30d3e16f0ff2962fa4425096694ca23094cbc23a5a316be1",
+      "deployment_quality": "complete requirements-dev installation, editable current project, and real legacy msgraph-core 0.2.2 package files extracted as an environment compatibility artifact; no synthetic namespace stub",
+      "artifact_sha256": {
+        "script": "cd32b2e76650d6992ef1fbc40adf462a1176fe7b0f1617f921b74b043c8f76dd",
+        "generation_result": "d312fbfa9a4ba5fceaf4d93feaa8182a2889bf450dc4467e2e7b267a38d76af4",
+        "trajectory": "d753ef451d9ce93753cc59a929bbcc531151f9869c6ea50bf7f49ba7307de1b1",
+        "container_commands": "07dac4902068e1122ffc7e312c76664642f9c9861453c77d7db77f8ccd9d62c3",
+        "clean_replay_trace": "9f5060bc5b905995e7e0cdfc52ae4a8499cb2a806c5d04cade103b0c7a4da216",
+        "clean_replay_certification": "3f71ce4e35643201cbb201dc60f26f11bd59c18231e07a9061e05b6ed7b4b43c",
+        "official_result": "0ffd622b191bdb7a756c65e85ec94453c95081ec17b66d8bface3810dc8430c3",
+        "manifest": "10920523e0c5c423b73b3e29d1c1e8135694245f9b5a72a42b0c6337d5c10a10"
+      }
+    },
+    {
+      "position": 3,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "run_id": "pro-v2-certified-incumbent-v1-consumed-03-C-GCI",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_error_count_non_scoring": 357,
+      "official_warning_count_non_scoring": 9,
+      "first_observed_zero_missing_imports_request": 29,
+      "first_certification_request": 31,
+      "intervening_model_requests_before_certification": 1,
+      "final_submission_request": 32,
+      "post_certification_quality_requests": 0,
+      "incumbent_updates": 1,
+      "fallback_used": false,
+      "model_requests": 32,
+      "provider_attempts": 33,
+      "provider_errors": 1,
+      "prompt_tokens": 582255,
+      "completion_tokens": 19707,
+      "total_tokens": 601962,
+      "reported_provider_cost": 0.018637612,
+      "generation_wall_clock_seconds": 788.395606,
+      "complete_episode_wall_clock_seconds": 883.3993445620872,
+      "shell_tool_calls": 30,
+      "shell_duration_seconds": 129.36098376614973,
+      "clean_replay_seconds": 29.08756371680647,
+      "official_execution_seconds": 92.39615368843079,
+      "program_sha256": "9b789af89f28fd081dd1debf7b208bd3e9204b1259518e51fdc299e7bac2da2e",
+      "deployment_quality": "real Python 3.12 virtual environment with project, testing, dashboard, and archival extras; replay preserved unresolved pywb/Jinja2 dependency-conflict warnings, so runtime consistency is not established by Official Pass",
+      "artifact_sha256": {
+        "script": "93b312aa3e84ccb1b381a9fa71cc647998876de9ebbb057720de55cb65fd0ed7",
+        "generation_result": "deca4eb9ced8640d7b6f7f2119faebc15edb7aa076fbf3dc25ac3ca70eae2956",
+        "trajectory": "7a625ebc383b7b8ce37ed30193ef91b06af3c7d9c7f19ff39cbd88a1a10a76d0",
+        "container_commands": "f5640a415ab5d5346d0e2c0a99e1187c7dcd41cfc82edf5e544c74d41eac75cf",
+        "clean_replay_trace": "b0cf48b9a840c889a3753ba30d844dcadfe15ac38f793b4f6b3f7ba1d8270914",
+        "clean_replay_certification": "743b8f441531be8f2b5d9fa695a7564da3587c8ecb229921f67cd59d7512739a",
+        "official_result": "62f5dea42875dea165c1d1301c9f1203460dd050de9b13528f619311512c8aba",
+        "manifest": "821e45d2efb4efe36029c11c9e27a6505071207a4c1c0a1a36ea3f0af713a41c"
+      }
+    }
+  ],
+  "historical_descriptive_context": {
+    "causal_comparison": false,
+    "limitations": [
+      "All three qualification cases were selected using prior trajectories.",
+      "The runner did not forward recorded schedule seeds to OpenRouter, so historical and current episodes are not controlled same-seed samples.",
+      "The historical pymarkdown pair used a different provider than the current DeepInfra run.",
+      "Single trajectories cannot estimate stable success or resource effects."
+    ],
+    "rows": [
+      {
+        "case": "pymarkdown",
+        "A_F": {"official_pass": true, "model_requests": 62, "total_tokens": 2043528, "generation_seconds": 2563.435017, "shell_calls": 69},
+        "B_FSR": {"official_pass": true, "model_requests": 104, "total_tokens": 4136429, "generation_seconds": 2353.170138, "shell_calls": 108},
+        "C_GCI": {"official_pass": true, "model_requests": 11, "total_tokens": 120784, "generation_seconds": 232.126447, "shell_calls": 9}
+      },
+      {
+        "case": "msgraph-sdk-python-core",
+        "A_F": {"official_pass": true, "model_requests": 81, "total_tokens": 3715025, "generation_seconds": 2302.34141, "shell_calls": 100},
+        "B_FSR": {"official_pass": true, "model_requests": 34, "total_tokens": 522994, "generation_seconds": 991.188791, "shell_calls": 32},
+        "C_GCI": {"official_pass": true, "model_requests": 25, "total_tokens": 456759, "generation_seconds": 1474.187749, "shell_calls": 23}
+      },
+      {
+        "case": "brozzler",
+        "A_F": {"official_pass": true, "model_requests": 36, "total_tokens": 683384, "generation_seconds": 843.58158, "shell_calls": 35},
+        "B_FSR": {"official_pass": true, "model_requests": 39, "total_tokens": 656011, "generation_seconds": 1008.337833, "shell_calls": 37},
+        "C_GCI": {"official_pass": true, "model_requests": 32, "total_tokens": 601962, "generation_seconds": 788.395606, "shell_calls": 30}
+      }
+    ],
+    "interpretation": "C used fewer requests and tokens than the historical B realization on all three selected cases, but generation time was not uniformly lower and none of these differences is a treatment-effect estimate."
+  },
+  "qualification_adjudication": {
+    "implementation_invariants_passed": true,
+    "mechanism_activation_passed": true,
+    "all_incumbent_updates_certificate_backed": true,
+    "all_final_scripts_certified": true,
+    "repository_or_evaluator_mutation_accepted": false,
+    "fallback_deterministic_tests_passed": true,
+    "fallback_live_activation_observed": false,
+    "post_certification_search_observed": false,
+    "central_increment_over_B_established": false,
+    "adjudication": "Freeze certified incumbent as a small robustness primitive. Do not treat this selected batch as evidence that it improves EnvBench success or efficiency over B-FSR, and do not make it the paper's central algorithmic contribution."
+  },
+  "scientific_findings": [
+    "The harness can preserve only clean-replay-passed programs, and the submitted hashes matched their certificates in all three episodes.",
+    "Agent-triggered certification was prompt-guided rather than mechanically immediate: zero, one, or two model requests intervened between the first observed satisfying construction state and clean replay.",
+    "Every episode submitted immediately after its first certificate, so the intended certified-incumbent protection during continued quality search was not exercised live.",
+    "Most work still occurred before the first certifiable candidate, especially while resolving package-version, interpreter, namespace, and environment-activation conflicts.",
+    "Official Pass remained compatible with materially different deployment completeness and unresolved runtime dependency warnings."
+  ],
+  "sampling_seed_validity": {
+    "audit": "experiments/validations/envsolve_pro_v2_openrouter_sampling_seed_audit.json",
+    "schedule_seed_forwarded_to_provider": false,
+    "effect": "Treat historical resource comparisons as descriptive trajectories only.",
+    "required_before_unconsumed_evaluation": "Forward seed, record it in request metadata, verify endpoint repeatability with a canary, and use replicated randomized or counterbalanced episodes."
+  },
+  "next_decision": {
+    "remaining_unconsumed_dev16_cases_touched": false,
+    "certified_incumbent_role": "retain as a safety primitive and orthogonal ablation",
+    "next_algorithmic_target": "pre-candidate compatibility search, where the agent must resolve interacting interpreter, package, namespace, build, and activation constraints before any replayable candidate exists",
+    "change_policy": "Do not spend the remaining unconsumed Dev16 cases comparing B-FSR with an unactivated safety primitive. First repair the evaluation seed protocol and preregister a minimal pre-candidate treatment on consumed cases."
+  },
+  "provenance": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_certified_incumbent_v1_consumed_qualification.json",
+    "schedule_sha256": "0f6b88827d9e6b03f432d3379d71bb596188f6a0b7378edac6d533b20b2a5277",
+    "preregistration": "experiments/validations/envsolve_pro_v2_certified_incumbent_v1_consumed_qualification_preregistration.json",
+    "preregistration_sha256": "28ff03a1bbae917f0eab2e7b408877dcf58c1401f3b9f1a88e938971ee8c1f8c",
+    "preexecution_simplification": "experiments/validations/envsolve_pro_v2_certified_incumbent_v1_preexecution_simplification.json",
+    "preexecution_simplification_sha256": "0cec55cc1a3072efa19d75fef54ca48e9c171f4d6141a851b9859edb112a182d",
+    "schedule_progress_sha256": "0d21d01a2935c3abb58e295c1a715c6e4175e5ebea9040547e45e4bea507ddd2",
+    "frozen_code_sha256": {
+      "envsolve_harness/runners/openrouter_agent.py": "1c2ae6e5b8b66076ac6cc07b2101a01f24b99e992944d32c3ea5351024bf8cf1",
+      "envsolve_harness/runners/envsolve_pro_v2_registry.py": "e44d6c05003d409c1ab3e479283a7b7ef409476dc459fa5c12dcc6e5c153321f",
+      "experiments/run_envsolve_pro_v2_schedule.py": "413866c6778040022b90c6ba9ec525f31844b140501ec70be74c5aee40107e4b"
+    },
+    "host": "Spark linux/arm64",
+    "test_evidence": "817 passed, 12 skipped, 7 warnings, 80 subtests passed; targeted incumbent tests 21 passed locally and on Spark"
+  },
+  "claim_boundary": {
+    "supported": [
+      "The certified-incumbent implementation maintained a certificate-backed, hash-matched final program on all three qualification episodes.",
+      "All three selected consumed cases achieved Official Pass.",
+      "Fallback behavior works in deterministic provider-failure and request-cap tests.",
+      "The selected trajectories reinforce that pre-candidate compatibility search dominates much of the work.",
+      "Official benchmark success and deployment/runtime completeness are distinct evaluation axes."
+    ],
+    "not_supported": [
+      "C-GCI improves Official success probability over A-F or B-FSR.",
+      "C-GCI is uniformly more resource efficient than A-F or B-FSR.",
+      "The incumbent fallback improves live outcomes, because no live fallback occurred.",
+      "The incumbent enables safer post-certification quality search, because no episode continued quality search after certification.",
+      "These selected consumed cases provide held-out generalization or SOTA evidence.",
+      "The recorded schedule seed made the model trajectories deterministic."
+    ]
+  }
+}
