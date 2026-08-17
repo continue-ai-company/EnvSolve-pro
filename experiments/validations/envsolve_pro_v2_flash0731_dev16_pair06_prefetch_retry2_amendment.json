@@ -1,0 +1,47 @@
+{
+  "schema": "envsolve-pro-v2-large-source-prefetch-amendment-v1",
+  "amendment_id": "envsolve-pro-v2-flash0731-dev16-pair06-prefetch-retry2",
+  "recorded_at": "2026-08-17T05:39:38Z",
+  "recorded_before_retry": true,
+  "trigger": {
+    "repository": "johnsnowlabs/nlu",
+    "revision": "506860e546076b353969b5a3216c05d080ad923e",
+    "github_reported_repository_size_kib": 496718,
+    "observed_behavior": "a valid but incomplete first fetch reached the frozen 900-second limit while data was still increasing",
+    "source_retry1_successful_provider_responses": 0,
+    "source_retry1_tool_events": 0,
+    "official_evaluator_executed": false
+  },
+  "prefetch": {
+    "scope": "repository acquisition before any model-backed episode",
+    "timeout_seconds": 3600,
+    "source": "immutable-exact-revision-cache-v1",
+    "cache_hit": false,
+    "populate_attempts": 1,
+    "cache_size_mib_rounded": 361,
+    "commit": "506860e546076b353969b5a3216c05d080ad923e",
+    "tree": "14ef97f46bc6f22192231c8a29e793158a9ab0b4",
+    "fsck": "pass",
+    "receipt_sha256": "3636db64cfee48902708e83b7871505ef82ed1a6827ec49c0875751d7ff14983",
+    "agent_or_evaluator_executed": false,
+    "case_content_used_for_algorithm_change": false
+  },
+  "retry": {
+    "restart_both_arms_from_independent_local_cache_checkouts": true,
+    "expected_repository_acquisition": "cache_hit=true for both arms",
+    "all_prior_attempts_retained": true,
+    "all_prior_attempts_excluded_from_primary_outcome_and_resources": true,
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_dev16_pair06_deepinfra_source_retry2.json",
+    "schedule_sha256": "6c7a94294f14fa800ab7f5410b160dd3688ad452228fb7882c2cba4599b56baf"
+  },
+  "unchanged": [
+    "case and exact revision",
+    "A-F then B-FSR order",
+    "DeepSeek V4 Flash 0731 model",
+    "DeepInfra provider with fallback disabled",
+    "prompt and tool schemas",
+    "clean replay and Official protocols",
+    "generation safety caps",
+    "Dev16 membership"
+  ]
+}
