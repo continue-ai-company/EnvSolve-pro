@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-flash0731-deepinfra-qualification",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_pilot12.jsonl",
+  "case_file_sha256": "1116c703c6474b5be55dd26053945cbb267f26836ded004f9612161b71e070e0",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "deepinfra",
+  "population_role": "consumed-development-provider-qualification",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "deepinfra"
+  },
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "position": 1,
+      "case_position": 8,
+      "pair_position": 1,
+      "pair_id": "flash0731-deepinfra-qualification-case-01",
+      "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+      "run_id": "pro-v2-flash0731-deepinfra-qualification-01-B-FSR",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 4257815818,
+      "arm": "B-FSR",
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "envsolve-pro-v2-provider-qualification-preregistration-v1",
+  "study_id": "envsolve-pro-v2-flash0731-deepinfra-qualification",
+  "recorded_at": "2026-08-17T04:40:28Z",
+  "recorded_before_episode": true,
+  "trigger": {
+    "cloudflare_pair05_credit_retry_b_terminal": "six consecutive empty provider responses after 32 successful responses",
+    "cloudflare_pair05_credit_retry_a_terminal": "six consecutive empty provider responses before the first successful response",
+    "cloudflare_same_shape_probe": "1 of 5 requests returned a valid choice and tool call",
+    "selection_uses_dev16_outcome": false
+  },
+  "candidate_provider": {
+    "name": "deepinfra",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "fallback_allowed": false,
+    "same_shape_probe": "5 of 5 requests returned one valid choice and one tool call",
+    "probe_max_output_tokens": 32768,
+    "probe_reasoning_effort": "xhigh",
+    "probe_case_information": false
+  },
+  "qualification_episode": {
+    "population_role": "consumed-development-provider-qualification",
+    "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+    "arm": "B-FSR",
+    "run_id": "pro-v2-flash0731-deepinfra-qualification-01-B-FSR",
+    "schedule": "experiments/schedules/envsolve_pro_v2_flash0731_deepinfra_qualification.json",
+    "schedule_sha256": "3872bfbcbec68a0b70ca87699e162a20c0531fc71705c8a91a2f2ace92acf1db",
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_flash0731_qualification.json",
+    "config_sha256": "53c3b9a8c9ac4cc84dccaf11f048fd51ceeababcba8a623847ff9f1e23736762",
+    "runner_sha256": "6cc0441edc125a6f5e1f28ba0953733c7e808a15e9efe85a0d1b9d80d64988fb"
+  },
+  "pass_criteria": [
+    "the response model remains deepseek/deepseek-v4-flash-0731",
+    "the continuous session executes tool calls",
+    "B-FSR invokes clean replay at least once",
+    "the final submitted program is bound to a certified exact hash",
+    "the Official evaluator completes"
+  ],
+  "decision_rule": {
+    "on_pass": "record a provider migration amendment before any further Dev16 episode",
+    "on_failure": "do not consume another Dev16 episode and evaluate a different provider on the same consumed qualification case",
+    "qualification_result_excluded_from_algorithm_effect_estimates": true
+  },
+  "unchanged": [
+    "model slug",
+    "prompt and tool schemas",
+    "B-FSR algorithm",
+    "clean replay and Official protocols",
+    "generation safety caps",
+    "Dev16 case membership and order"
+  ]
+}
