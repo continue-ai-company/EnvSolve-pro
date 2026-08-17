@@ -29,6 +29,9 @@ def _factory(replay_mode: ReplayMode):
             raise ValueError("OpenRouter Agent requires a benchmark execution image")
         return OpenRouterAgentRunner(
             harness_root=config.workspace_root,
+            source_cache_root=(
+                config.runs_root / "_source_cache/envbench-python"
+            ),
             image=image,
             timeout=config.generation_timeout,
             command_timeout=config.bash_timeout,

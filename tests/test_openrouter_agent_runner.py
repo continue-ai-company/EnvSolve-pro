@@ -173,6 +173,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
     def _runner(self, root: Path, replay_mode: str) -> OpenRouterAgentRunner:
         return OpenRouterAgentRunner(
             harness_root=root,
+            source_cache_root=root / "source-cache",
             image="sha256:image",
             timeout=120,
             command_timeout=30,
@@ -191,6 +192,30 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 "printf '{}\\n' > \"$ENVSOLVE_GOAL_REPORT\"",
             ),
         )
+
+    def test_repository_acquisition_uses_exact_revision_cache(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "none")
+            destination = root / "workspace"
+            case = SimpleNamespace(repository="owner/repo", revision="abc123")
+            receipt = {
+                "source": "immutable-exact-revision-cache-v1",
+                "cache_hit": True,
+            }
+            with mock.patch(
+                "envsolve_harness.runners.openrouter_agent.ExactRevisionSourceCache"
+            ) as cache_type:
+                cache_type.return_value.acquire.return_value = receipt
+                result = runner._acquire_repository(case, destination)  # type: ignore[arg-type]
+
+        cache_type.assert_called_once_with((root / "source-cache").resolve(), 20)
+        cache_type.return_value.acquire.assert_called_once_with(
+            repository="owner/repo",
+            revision="abc123",
+            destination=destination,
+        )
+        self.assertEqual(result, receipt)
 
     def test_control_and_treatment_differ_only_by_replay_capability(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

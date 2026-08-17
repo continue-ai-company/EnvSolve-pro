@@ -26,6 +26,7 @@ from envsolve_harness.codex.minimal_b_mcp import (
 from envsolve_harness.core.io import read_jsonl, write_json, write_text_atomic
 from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.execution.batch import cleanup_case_containers
+from envsolve_harness.execution.source_cache import ExactRevisionSourceCache
 from envsolve_harness.integrity.minimal import (
     MinimalIntegrityGoalVerifier,
     inspect_minimal_repository_integrity,
@@ -212,12 +213,13 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible tool session for F and F+S+R."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.1.0"
+    runner_version = "0.2.0"
 
     def __init__(
         self,
         *,
         harness_root: Path,
+        source_cache_root: Path,
         image: str,
         timeout: int,
         command_timeout: int,
@@ -252,12 +254,23 @@ class OpenRouterAgentRunner(CodexCliRunner):
             goal_contract=goal_contract,
         )
         self.max_iterations = max_iterations
+        self.source_cache_root = source_cache_root.resolve()
         self.model_request_timeout = model_request_timeout
         self.model_max_retries = model_max_retries
         self.model_max_output_tokens = model_max_output_tokens
         self.replay_mode = replay_mode
         self.client_factory = client_factory
         self.validator = MinimalIntegrityCandidateValidator()
+
+    def _acquire_repository(self, case: Case, destination: Path) -> dict[str, Any]:
+        return ExactRevisionSourceCache(
+            self.source_cache_root,
+            self.git_fetch_timeout,
+        ).acquire(
+            repository=case.repository,
+            revision=case.revision,
+            destination=destination,
+        )
 
     @property
     def agent_interface(self) -> str:
@@ -766,13 +779,9 @@ only the exact hash of a program that passed a clean replay.
         terminal: V2ProcessTreeSafePersistentContainerShell | None = None
         log_parts: list[str] = []
         try:
-            acquisition_commands = self._acquire_repository(case, workspace)
+            repository_acquisition = self._acquire_repository(case, workspace)
             self._materialize_workspace_preconditions(workspace)
-            metadata["repository_acquisition"] = {
-                "source": "github-exact-revision",
-                "commands": acquisition_commands,
-                "attempts": 3,
-            }
+            metadata["repository_acquisition"] = repository_acquisition
             image_digest = self._image_digest()
             metadata["image_digest"] = image_digest
             container_id = self._create_container_with_package_cache(
