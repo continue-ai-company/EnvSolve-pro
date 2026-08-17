@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-17T13:56:00Z",
+  "status": "completed-before-model-execution",
+  "preregistration": "experiments/validations/envsolve_pro_v2_flash0731_dev16_pair08_preregistration.json",
+  "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+  "repository_acquisition": {
+    "source": "immutable-exact-revision-cache-v1",
+    "cache_hit": false,
+    "populate_attempts": 1,
+    "repository": "internetarchive/brozzler",
+    "revision": "8d7507f37757b6b9caf6f0d948666c7e5f972894",
+    "commit": "8d7507f37757b6b9caf6f0d948666c7e5f972894",
+    "tree": "40177729e0be8df455ff9fac92a5d7871b3566c6",
+    "fsck": "pass",
+    "checkout": "independent-no-hardlinks",
+    "receipt_sha256": "9d5b9ad9197e814d0b3273842b337b463340431345757b98adf571638fa6a038"
+  },
+  "execution_boundary": {
+    "model_called": false,
+    "bootstrap_executed": false,
+    "trusted_goal_executed": false,
+    "official_evaluator_executed": false,
+    "case_outcome_observed": false,
+    "algorithm_or_prompt_changed": false
+  }
+}
