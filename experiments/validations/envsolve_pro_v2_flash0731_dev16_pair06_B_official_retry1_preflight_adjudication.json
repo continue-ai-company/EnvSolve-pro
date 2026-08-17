@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "adjudication_id": "envsolve-pro-v2-flash0731-dev16-pair06-B-official-retry1-preflight",
+  "recorded_at": "2026-08-17T07:32:15Z",
+  "recorded_before_launcher_retry": true,
+  "case_id": "envbench-python-johnsnowlabs__nlu@506860e546076b353969b5a3216c05d080ad923e",
+  "attempt": {
+    "run_id": "pro-v2-flash0731-dev16-12-B-FSR-source-retry2-official-retry1",
+    "source_run_id": "pro-v2-flash0731-dev16-12-B-FSR-source-retry2",
+    "failure": "FileNotFoundError: [Errno 2] No such file or directory: 'uv'",
+    "scope": "official-adapter-host-launch-before-evaluator-execution",
+    "evaluator_started": false,
+    "container_created": false,
+    "raw_official_result_created": false,
+    "repository_cache_hit": true,
+    "repository_commit": "506860e546076b353969b5a3216c05d080ad923e",
+    "repository_tree": "14ef97f46bc6f22192231c8a29e793158a9ab0b4",
+    "manifest_sha256": "45348553c7f98944f57cadb0f5bcc5bd8e9f01353b077bfba958b8f8c80df808",
+    "adapter_result_sha256": "c57df3245492ea86411150c1e9856dabd6aa9a120fb644bcc69490f86c762f34",
+    "evaluation_log_sha256": "05e9cb148bf7ee48405fb4ed03b57d710c2c938227bf0be768159363e8c8cc44",
+    "evaluation_retry_provenance_sha256": "56fa2dc0d529501a1486d71fb77d68f5798f205911758422a76d0101edd09fdc"
+  },
+  "adjudication": {
+    "terminal_class": "host-launcher-preflight",
+    "counts_as_exact_script_infrastructure_retry": false,
+    "basis": "single-exact-script-infrastructure-retry-v1 ignores a completed attempt whose raw result is absent, process exit code is absent, and adapter error is missing uv",
+    "model_reexecuted": false,
+    "official_feedback_observed": false
+  },
+  "launcher_retry": {
+    "run_id": "pro-v2-flash0731-dev16-12-B-FSR-source-retry2-official-retry1-path-retry1",
+    "host_path_prefix": "/home/avdpro/work/EnvSolve-pro/.venv/bin",
+    "uv_path": "/home/avdpro/work/EnvSolve-pro/.venv/bin/uv",
+    "uv_version": "0.12.3",
+    "path_already_frozen_before_dev16": true,
+    "host_runtime_amendment": "experiments/validations/envsolve_pro_v2_flash0731_dev16_host_runtime_amendment.json",
+    "model_reexecuted": false,
+    "maximum_semantics_identical_retries_after_this_attempt": 0
+  },
+  "validity": {
+    "bootstrap_script_change": false,
+    "algorithm_change": false,
+    "model_or_provider_change": false,
+    "repository_change": false,
+    "upstream_evaluator_change": false,
+    "official_feedback_returned_to_agent": false
+  }
+}
