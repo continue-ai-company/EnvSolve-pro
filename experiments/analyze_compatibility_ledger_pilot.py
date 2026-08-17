@@ -15,7 +15,12 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from envsolve_harness.core.io import read_json, write_json
+from envsolve_harness.adapters.infrastructure import (
+    envbench_evaluation_infrastructure_signature,
+)
+from envsolve_harness.audit import audit_run
 from envsolve_harness.storage.artifacts import safe_name
+from envsolve_harness.utils.provenance import sha256_file
 
 
 EXPECTED_MODEL = "deepseek/deepseek-v4-flash-0731"
@@ -111,7 +116,67 @@ def _terminal_provider_failure(events: list[dict[str, Any]]) -> bool:
     )
 
 
-def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
+def _official_result(
+    run_root: Path,
+    case_root: Path,
+    spec: dict[str, Any],
+    retry_run_id: str | None,
+) -> tuple[dict[str, Any], dict[str, Any], list[str]]:
+    source_manifest = read_json(case_root / "manifest.json")
+    source_result = source_manifest.get("result")
+    source_result = source_result if isinstance(source_result, dict) else {}
+    source_signature = envbench_evaluation_infrastructure_signature(source_result)
+    provenance = {
+        "source": "original-model-episode",
+        "artifact_root": str(case_root.resolve()),
+        "original_infrastructure_signature": source_signature,
+        "retry_run_id": retry_run_id,
+    }
+    if retry_run_id is None:
+        return source_result, provenance, []
+
+    retry_root = run_root / safe_name(retry_run_id) / safe_name(spec["case_id"])
+    retry_manifest_path = retry_root / "manifest.json"
+    if not retry_manifest_path.is_file():
+        return {}, provenance, ["official-retry-manifest-missing"]
+    retry_manifest = read_json(retry_manifest_path)
+    retry_solver = retry_manifest.get("solver")
+    retry_solver = retry_solver if isinstance(retry_solver, dict) else {}
+    retry_metadata = retry_solver.get("metadata")
+    retry_metadata = retry_metadata if isinstance(retry_metadata, dict) else {}
+    retry_binding = retry_metadata.get("evaluation_retry")
+    retry_binding = retry_binding if isinstance(retry_binding, dict) else {}
+    retry_result = retry_manifest.get("result")
+    retry_result = retry_result if isinstance(retry_result, dict) else {}
+    errors = []
+    if source_signature is None:
+        errors.append("official-retry-source-not-infrastructure-censored")
+    if retry_binding.get("source_run_id") != spec["run_id"]:
+        errors.append("official-retry-source-run-mismatch")
+    if retry_binding.get("source_case_id") != spec["case_id"]:
+        errors.append("official-retry-source-case-mismatch")
+    source_script = case_root / "scripts/bootstrap.sh"
+    if not source_script.is_file():
+        errors.append("official-retry-source-script-missing")
+    elif retry_binding.get("source_script_sha256") != sha256_file(source_script):
+        errors.append("official-retry-script-hash-mismatch")
+    retry_audit = audit_run(retry_root)
+    if not retry_audit.valid:
+        errors.append("official-retry-audit-invalid")
+    provenance = {
+        **provenance,
+        "source": "exact-script-infrastructure-retry",
+        "artifact_root": str(retry_root.resolve()),
+        "retry_audit_valid": retry_audit.valid,
+    }
+    return retry_result, provenance, errors
+
+
+def _episode(
+    run_root: Path,
+    spec: dict[str, Any],
+    retry_run_id: str | None = None,
+) -> dict[str, Any]:
     case_root = run_root / safe_name(spec["run_id"]) / safe_name(spec["case_id"])
     manifest_path = case_root / "manifest.json"
     manifest = read_json(manifest_path) if manifest_path.is_file() else {}
@@ -119,8 +184,9 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
     solver = solver if isinstance(solver, dict) else {}
     metadata = solver.get("metadata")
     metadata = metadata if isinstance(metadata, dict) else {}
-    result = manifest.get("result") if isinstance(manifest, dict) else None
-    result = result if isinstance(result, dict) else {}
+    result, official_provenance, official_retry_errors = _official_result(
+        run_root, case_root, spec, retry_run_id
+    ) if manifest_path.is_file() else ({}, {}, [])
     trajectory = case_root / str(
         solver.get("trajectory_path") or "generation/trajectory.jsonl"
     )
@@ -194,11 +260,20 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
         solver.get("generation_completed") is True
         and repository_integrity.get("valid") is not True
     )
+    official_infrastructure_signature = (
+        envbench_evaluation_infrastructure_signature(result) if result else None
+    )
+    official_evaluation_incomplete = (
+        solver.get("generation_completed") is True
+        and result.get("evaluation_completed") is not True
+    )
     censored = (
         not manifest_path.is_file()
         or not complete
         or terminal_provider_failure
         or repository_integrity_invalid
+        or official_evaluation_incomplete
+        or bool(official_retry_errors)
     )
     errors = []
     if provider_events and recorded_orders != {tuple(EXPECTED_PROVIDER_ORDER)}:
@@ -221,6 +296,13 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
         censored = True
     if repository_integrity_invalid:
         errors.append("repository-integrity-invalid")
+    if official_evaluation_incomplete:
+        errors.append("official-evaluation-incomplete")
+    if official_infrastructure_signature is not None:
+        errors.append(
+            f"official-infrastructure:{official_infrastructure_signature}"
+        )
+    errors.extend(official_retry_errors)
 
     official = result.get("official_pass")
     if not censored and official is not True:
@@ -243,6 +325,10 @@ def _episode(run_root: Path, spec: dict[str, Any]) -> dict[str, Any]:
         "candidate_request_index": boundary,
         "official_evaluation_completed": result.get("evaluation_completed"),
         "official_pass": official,
+        "official_evaluation": {
+            **official_provenance,
+            "infrastructure_signature": official_infrastructure_signature,
+        },
         "pre_candidate": through,
         "total": {
             "model_requests": len(provider_responses),
@@ -469,6 +555,12 @@ def main() -> int:
     parser.add_argument("--replacement-schedule", type=Path, required=True)
     parser.add_argument("--run-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--official-retry",
+        action="append",
+        default=[],
+        metavar="SOURCE_RUN_ID=RETRY_RUN_ID",
+    )
     args = parser.parse_args()
     schedule = read_json(args.schedule.resolve())
     replacement = read_json(args.replacement_schedule.resolve())["episodes"][0]
@@ -476,7 +568,20 @@ def main() -> int:
         replacement if int(item["position"]) == 1 else item
         for item in schedule["episodes"]
     ]
-    records = [_episode(args.run_root.resolve(), item) for item in specs]
+    retry_runs = {}
+    for value in args.official_retry:
+        source, separator, retry = value.partition("=")
+        if not separator or not source or not retry or source in retry_runs:
+            raise ValueError(f"Invalid or duplicate --official-retry mapping: {value}")
+        retry_runs[source] = retry
+    records = [
+        _episode(
+            args.run_root.resolve(),
+            item,
+            retry_runs.get(item["run_id"]),
+        )
+        for item in specs
+    ]
     _apply_cross_arm_validity(records)
     pairs = _pairs(records)
     output = {

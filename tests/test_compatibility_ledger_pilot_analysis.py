@@ -1,13 +1,65 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from experiments.analyze_compatibility_ledger_pilot import (
     _apply_cross_arm_validity,
     _adjudicate,
     _candidate_event,
+    _episode,
     _pairs,
     _terminal_provider_failure,
     _usage,
 )
+from envsolve_harness.storage.artifacts import safe_name
+
+
+def test_episode_censors_official_host_launcher_failure(tmp_path: Path) -> None:
+    spec = {
+        "position": 3,
+        "run_id": "run-3",
+        "case_id": "case@revision",
+        "pair_id": "pair-1",
+        "replication": 1,
+        "arm": "D-LEDGER",
+    }
+    root = tmp_path / safe_name(spec["run_id"]) / safe_name(spec["case_id"])
+    (root / "generation").mkdir(parents=True)
+    (root / "generation/trajectory.jsonl").write_text("", encoding="utf-8")
+    manifest = {
+        "solver": {
+            "generation_completed": True,
+            "metadata": {
+                "image_digest": "sha256:image",
+                "goal_contract": {"sha256": "goal"},
+                "repository_integrity": {"valid": True},
+            },
+        },
+        "result": {
+            "evaluation_completed": False,
+            "official_pass": False,
+            "metadata": {
+                "adapter_error": (
+                    "FileNotFoundError: [Errno 2] "
+                    "No such file or directory: 'uv'"
+                )
+            },
+        },
+    }
+    (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    result = _episode(tmp_path, spec)
+
+    assert result["censored"] is True
+    assert "official-evaluation-incomplete" in result["validity_errors"]
+    assert (
+        "official-infrastructure:evaluator-host-missing-uv"
+        in result["validity_errors"]
+    )
+    assert result["official_evaluation"]["original_infrastructure_signature"] == (
+        "evaluator-host-missing-uv"
+    )
 
 
 def test_cross_arm_validity_censors_both_records_on_identity_mismatch() -> None:
