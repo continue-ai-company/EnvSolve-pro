@@ -1,0 +1,140 @@
+{
+  "algorithm_candidate": {
+    "name": "deterministic identity-bound observation with delta evidence frontier",
+    "status": "design-frozen-before-implementation",
+    "treatment_only_changes": [
+      "one complete observation before the first model request",
+      "one complete observation after every 16 completed shell operations",
+      "one complete observation before replay when the construction state changed since the latest observation",
+      "delta-ledger feedback injected into the same continuous model session"
+    ]
+  },
+  "arms": {
+    "B-FSR": {
+      "method": "envsolve-pro-fsr-minimal-h",
+      "runner": "envsolve-pro-v2"
+    },
+    "E-SCHEDULED": {
+      "difference_from_control": "deterministic observation schedule and evidence deltas; no additional callable tool",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "runner": "envsolve-pro-v2-scheduled-observation"
+    }
+  },
+  "cadence_derivation": {
+    "choice": 16,
+    "frozen_before_implementation": true,
+    "historical_consumed_episode_count": 14,
+    "historical_global_check_count": 50,
+    "historical_shell_action_count": 898,
+    "natural_interval": 17.96,
+    "rule": "round the consumed-14 natural interval once to a power-of-two engineering cadence; do not tune on qualification outcomes"
+  },
+  "case_selection": [
+    {
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "prior_evidence": "candidate noncompletion, compatibility regression, and late correction of environment identity",
+      "role": "hard observation-and-recovery stress case"
+    },
+    {
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "prior_evidence": "one historical B-FSR global goal check across 132 pre-candidate shell actions and a candidate only at request 111",
+      "role": "extreme sparse-observation stress case"
+    },
+    {
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "prior_evidence": "a successful historical path temporarily regressed from 1 to 6 missing imports before reaching zero",
+      "role": "non-interference control against hard monotonicity"
+    },
+    {
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "prior_evidence": "a long 61-to-26-to-2-to-2-to-2-to-2-to-0 compatibility path and one optional-ledger episode with zero tool calls",
+      "role": "stagnation and deterministic-dose control"
+    }
+  ],
+  "claim_boundary": {
+    "allowed": "mechanism qualification and directional evidence on consumed design cases",
+    "forbidden": [
+      "held-out generalization",
+      "success-rate superiority",
+      "SOTA",
+      "a deterministic paired counterfactual from provider seeds"
+    ]
+  },
+  "comparison_invariants": [
+    "same pinned DeepSeek model, DeepInfra provider, Docker image, public goal, clean replay, minimal integrity foundation, and safety caps",
+    "same continuous Agent session and unrestricted shell operation space",
+    "the Official evaluator is unavailable until model generation terminates",
+    "each episode has a fresh construction container and episode-local package cache",
+    "no package mapping, action ranking, hard monotonic rule, rollback, container checkpoint, or cross-case memory",
+    "tokens, time, network, disk, and memory are measured outcomes rather than optimization cutoffs"
+  ],
+  "design": {
+    "arm_order": "counterbalanced within case and replication",
+    "case_count": 4,
+    "concurrency": 1,
+    "episode_count": 16,
+    "independent_replications_per_case_arm": 2,
+    "provider_seed_interpretation": "logged randomization covariate; determinism is not assumed",
+    "selection_policy": "all repositories were consumed before treatment design; cases were selected for complementary historical observation strata without treatment outcomes"
+  },
+  "mechanism_acceptance": {
+    "complete_observation_rate_minimum": 0.75,
+    "every_treatment_episode_follows_schedule": true,
+    "operation_constraints_added": 0,
+    "optional_compatibility_tool_exposed": false,
+    "stored_container_checkpoints": 0
+  },
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "outcomes": {
+    "primary": [
+      "generation candidate formed and clean-replay certified",
+      "EnvBench Official Pass"
+    ],
+    "secondary": [
+      "model requests and shell actions before first certified candidate",
+      "candidate-ready-to-first-replay latency",
+      "generation and replay wall time",
+      "input, output, reasoning, and total tokens",
+      "network, disk, and peak memory when directly measurable"
+    ],
+    "treatment_mechanism": [
+      "scheduled trigger count and schedule compliance",
+      "complete versus unknown observations",
+      "initial, stagnant, improved, regressed, and mixed transitions",
+      "raw finding count and unique obligation count",
+      "pre-replay dirty-state observation count",
+      "evidence injection into the same model session"
+    ]
+  },
+  "preregistration_id": "envsolve-pro-v2-scheduled-observation-qualification-v1-design",
+  "promotion_rule": {
+    "ambiguous": "mechanism acceptance passes but directional criteria do not; retain the version unchanged and run a broader consumed-case study before deciding",
+    "negative": "mechanism acceptance fails, Official Pass count is lower than B-FSR, or more than one paired treatment-only loss occurs; do not expose frozen Dev cases",
+    "positive_directional_signal": [
+      "E-SCHEDULED Official Pass count is at least B-FSR",
+      "no more than one paired treatment-only loss",
+      "at least one paired treatment-only win, or a preregistered success-conditional efficiency improvement"
+    ],
+    "scope": "promotion to frozen Dev evaluation, never a paper-level effect claim"
+  },
+  "provider": {
+    "fallbacks": false,
+    "name": "deepinfra",
+    "route": "OpenRouter"
+  },
+  "recorded_at": "2026-08-18T01:13:19Z",
+  "schedule": {
+    "path": "experiments/schedules/envsolve_pro_v2_scheduled_observation_qualification_v1.json",
+    "sha256": "254cb7fb754948d35749e19ae5caa2efb0ab25b8a03c66d45e257d8f22f89b2a"
+  },
+  "schema_version": "1.0.0",
+  "status": "frozen-before-implementation-and-model-execution",
+  "stopping_and_retry_policy": {
+    "algorithm_changes_during_batch": false,
+    "infrastructure_failure": "mark censored; any exact-identity retry requires a pre-execution amendment retaining the failed attempt",
+    "interim_outcome_tuning": false,
+    "model_or_algorithm_failure": "record as an outcome and continue the frozen schedule",
+    "outcome_driven_retry": false,
+    "run_all_scheduled_episodes": true
+  }
+}
