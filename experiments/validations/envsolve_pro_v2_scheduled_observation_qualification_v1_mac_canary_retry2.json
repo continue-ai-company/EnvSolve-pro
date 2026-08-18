@@ -1,0 +1,130 @@
+{
+  "envbench": {
+    "metadata": {
+      "best_anchor": null,
+      "complete_observation_count": 0,
+      "frontier_size": 0,
+      "goal_pass_observation_count": 0,
+      "observation_count": 1,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "max_projection_transport_bytes": 3000000,
+        "projection_chunk_chars": 12000,
+        "projection_transport": "zlib-base64-json-chunked-v2",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {}
+    },
+    "observation": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "environment": {},
+      "execution": {
+        "duration_seconds": 287.43794075003825,
+        "exit_code": 0,
+        "infrastructure_error": null,
+        "output_truncated": false,
+        "timed_out": false
+      },
+      "finding_set_complete": false,
+      "goal_status": "unknown",
+      "ledger_updated": false,
+      "observation_index": 1,
+      "ok": false,
+      "operation_constraints_added": false,
+      "reason": "compatibility probe produced no valid projection",
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    }
+  },
+  "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+  "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+  "platform": "docker",
+  "qualification": {
+    "environment_fingerprint_changed": false,
+    "no_container_checkpoint_stored": true,
+    "no_operation_constraints_added": true,
+    "real_envbench_observation_complete": false,
+    "synthetic_candidate_ready": false,
+    "synthetic_delta_improved": false,
+    "synthetic_initial_fail": false
+  },
+  "recorded_at": "2026-08-18T02:41:55.342422+00:00",
+  "schema": "envsolve-compatibility-ledger-canary-result-v1",
+  "synthetic": {
+    "after": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "environment": {},
+      "execution": {
+        "duration_seconds": 0.1683413329301402,
+        "exit_code": 0,
+        "infrastructure_error": null,
+        "output_truncated": false,
+        "timed_out": false
+      },
+      "finding_set_complete": false,
+      "goal_status": "unknown",
+      "ledger_updated": false,
+      "observation_index": 2,
+      "ok": false,
+      "operation_constraints_added": false,
+      "reason": "compatibility probe produced no valid projection",
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "before": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "environment": {},
+      "execution": {
+        "duration_seconds": 0.3034122089156881,
+        "exit_code": 0,
+        "infrastructure_error": null,
+        "output_truncated": false,
+        "timed_out": false
+      },
+      "finding_set_complete": false,
+      "goal_status": "unknown",
+      "ledger_updated": false,
+      "observation_index": 1,
+      "ok": false,
+      "operation_constraints_added": false,
+      "reason": "compatibility probe produced no valid projection",
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "metadata": {
+      "best_anchor": null,
+      "complete_observation_count": 0,
+      "frontier_size": 0,
+      "goal_pass_observation_count": 0,
+      "observation_count": 2,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "max_projection_transport_bytes": 3000000,
+        "projection_chunk_chars": 12000,
+        "projection_transport": "zlib-base64-json-chunked-v2",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {}
+    },
+    "mutation": {
+      "exit_code": 0,
+      "infrastructure_error": null,
+      "timed_out": false
+    }
+  },
+  "workspace": "/Users/admin/.codex/worktrees/4050/AnyDeploy"
+}

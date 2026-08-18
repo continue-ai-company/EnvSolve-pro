@@ -12,7 +12,11 @@ from envsolve.runtime.docker import DockerFreshEnvironmentProvider
 from envsolve.runtime.goal import ExecutableGoalContract
 from envsolve.runtime.workspace import WorkspacePrecondition
 from envsolve.solver import DeploymentCandidate
-from envsolve_harness.compatibility_ledger import CompatibilityLedgerService
+from envsolve_harness.compatibility_ledger import (
+    CompatibilityLedgerService,
+    ScheduledCompatibilityObserver,
+    model_visible_scheduled_observation,
+)
 from envsolve_harness.codex.container_mcp import (
     ContainerMcpServer,
 )
@@ -45,7 +49,7 @@ DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
 DEEPSEEK_V4_FLASH_0731 = "deepseek/deepseek-v4-flash-0731"
 SUPPORTED_DEEPSEEK_MODELS = frozenset({DEEPSEEK_V4_PRO, DEEPSEEK_V4_FLASH_0731})
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-ReplayMode = Literal["none", "soft", "incumbent", "ledger"]
+ReplayMode = Literal["none", "soft", "incumbent", "ledger", "scheduled"]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
 
@@ -150,12 +154,14 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
         "token_usage": {},
         "tool_counts": {},
         "replay_status_counts": {},
+        "scheduled_observation_counts": {},
     }
     if not path.is_file():
         return progress
     usage_total: dict[str, int | float] = progress["token_usage"]
     tool_counts: dict[str, int] = progress["tool_counts"]
     replay_counts: dict[str, int] = progress["replay_status_counts"]
+    scheduled_counts: dict[str, int] = progress["scheduled_observation_counts"]
     for event in read_jsonl(path):
         request_index = event.get("request_index")
         if isinstance(request_index, int) and not isinstance(request_index, bool):
@@ -179,6 +185,10 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
                 status = result.get("status") if isinstance(result, dict) else None
                 if isinstance(status, str):
                     replay_counts[status] = replay_counts.get(status, 0) + 1
+        elif event_name == "compatibility_observation":
+            trigger = event.get("trigger")
+            if isinstance(trigger, str):
+                scheduled_counts[trigger] = scheduled_counts.get(trigger, 0) + 1
     return progress
 
 
@@ -229,7 +239,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.4.0"
+    runner_version = "0.5.0"
 
     def __init__(
         self,
@@ -251,8 +261,10 @@ class OpenRouterAgentRunner(CodexCliRunner):
         goal_contract: ExecutableGoalContract,
         client_factory: ClientFactory | None = None,
     ) -> None:
-        if replay_mode not in {"none", "soft", "incumbent", "ledger"}:
-            raise ValueError("Replay mode must be none, soft, incumbent, or ledger")
+        if replay_mode not in {"none", "soft", "incumbent", "ledger", "scheduled"}:
+            raise ValueError(
+                "Replay mode must be none, soft, incumbent, ledger, or scheduled"
+            )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
         if model_max_retries < 0:
@@ -290,6 +302,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def agent_interface(self) -> str:
+        if self.scheduled_observation_enabled:
+            return (
+                "free-feedback-search+scheduled-compatibility-observation+"
+                "delta-evidence-frontier+soft-clean-replay-v1"
+            )
         if self.compatibility_ledger_enabled:
             return "free-feedback-search+compatibility-delta-ledger+soft-clean-replay-v1"
         if self.replay_mode == "incumbent":
@@ -300,7 +317,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def replay_enabled(self) -> bool:
-        return self.replay_mode in {"soft", "incumbent", "ledger"}
+        return self.replay_mode in {"soft", "incumbent", "ledger", "scheduled"}
 
     @property
     def incumbent_enabled(self) -> bool:
@@ -311,7 +328,17 @@ class OpenRouterAgentRunner(CodexCliRunner):
         return self.replay_mode == "ledger"
 
     @property
+    def scheduled_observation_enabled(self) -> bool:
+        return self.replay_mode == "scheduled"
+
+    @property
+    def compatibility_observation_enabled(self) -> bool:
+        return self.compatibility_ledger_enabled or self.scheduled_observation_enabled
+
+    @property
     def mechanism_primitives(self) -> list[str]:
+        if self.scheduled_observation_enabled:
+            return ["F", "scheduled-O", "delta-C", "R", "minimal-H"]
         if self.compatibility_ledger_enabled:
             return ["F", "compatibility-delta-ledger", "S", "R", "minimal-H"]
         if self.incumbent_enabled:
@@ -526,7 +553,7 @@ Goal SHA-256: {contract.sha256}
 {self.validator.prompt_contract}
 </candidate_contract>
 """
-        if self.replay_mode in {"soft", "ledger"}:
+        if self.replay_mode in {"soft", "ledger", "scheduled"}:
             prompt += """\
 
 Before final submission, call `submit_and_replay` with the complete program. It
@@ -556,7 +583,17 @@ current shell context, reports resolved and introduced obligations, and remember
 nondominated observations. A regression is evidence, not a forbidden state: continue
 any exploration you judge useful. The ledger never selects packages, blocks commands,
 or restores environments. When it reports `candidate_ready`, compile the current work
-into a complete program and call `submit_and_replay` promptly.
+	into a complete program and call `submit_and_replay` promptly.
+"""
+        elif self.scheduled_observation_enabled:
+            prompt += """\
+
+The harness automatically executes the complete public goal before your first
+request, after every 16 completed shell operations, and before clean replay when
+the construction state changed after the latest observation. Scheduled feedback
+reports complete identity-bound obligations and their delta in this same session.
+It is advisory evidence: temporary regression remains allowed, and the harness
+never selects packages, blocks commands, or restores an environment.
 """
         return prompt
 
@@ -690,8 +727,13 @@ into a complete program and call `submit_and_replay` promptly.
         replay_service: CleanReplayService | None,
         trajectory_path: Path,
         compatibility_service: CompatibilityLedgerService | None = None,
+        scheduled_observer: ScheduledCompatibilityObserver | None = None,
         seed: int | None = None,
     ) -> tuple[dict[str, str], dict[str, Any]]:
+        if self.scheduled_observation_enabled != (scheduled_observer is not None):
+            raise ValueError(
+                "Scheduled replay mode and scheduled observer must be configured together"
+            )
         messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
         usage_total: dict[str, int | float] = {}
         tool_counts = {
@@ -705,6 +747,45 @@ into a complete program and call `submit_and_replay` promptly.
         incumbent_updates: list[dict[str, Any]] = []
         first_certification_request: int | None = None
         started = time.monotonic()
+
+        def record_scheduled_observation(
+            observation: dict[str, Any],
+            request_index: int,
+            parent_tool_call_id: str | None = None,
+        ) -> None:
+            event = {
+                "schema": "envsolve-openrouter-event-v1",
+                "event": "compatibility_observation",
+                "request_index": request_index,
+                "observation_number": observation["observation_number"],
+                "trigger": observation["trigger"],
+                "shell_operations_completed": observation[
+                    "shell_operations_completed"
+                ],
+                "feedback_delivery": observation["feedback_delivery"],
+                "result": observation["result"],
+            }
+            if parent_tool_call_id is not None:
+                event["parent_tool_call_id"] = parent_tool_call_id
+            self._append_event(trajectory_path, event)
+
+        if scheduled_observer is not None:
+            initial_observation = scheduled_observer.observe_initial()
+            record_scheduled_observation(initial_observation, 0)
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Harness-scheduled advisory compatibility observation before "
+                        "the first model request:\n"
+                        + json.dumps(
+                            model_visible_scheduled_observation(initial_observation),
+                            ensure_ascii=True,
+                            sort_keys=True,
+                        )
+                    ),
+                }
+            )
 
         def loop_metadata(
             request_index: int,
@@ -736,6 +817,8 @@ into a complete program and call `submit_and_replay` promptly.
                         "certified_incumbent_available": incumbent is not None,
                         "fallback_used": fallback_used,
                     }
+            if scheduled_observer is not None:
+                metadata["scheduled_observation"] = scheduled_observer.metadata()
             return metadata
 
         def fallback_submission(
@@ -844,6 +927,28 @@ into a complete program and call `submit_and_replay` promptly.
                             payload = {"ok": False, "error": response_value}
                         else:
                             payload = response_value["result"]["structuredContent"]
+                        if scheduled_observer is not None:
+                            scheduled = scheduled_observer.after_shell_operation()
+                            if scheduled is not None:
+                                record_scheduled_observation(
+                                    scheduled,
+                                    request_index,
+                                    str(call.id),
+                                )
+                                if isinstance(payload, dict):
+                                    payload = {
+                                        **payload,
+                                        "scheduled_compatibility_observation": (
+                                            model_visible_scheduled_observation(scheduled)
+                                        ),
+                                    }
+                                else:
+                                    payload = {
+                                        "shell_result": payload,
+                                        "scheduled_compatibility_observation": (
+                                            model_visible_scheduled_observation(scheduled)
+                                        ),
+                                    }
                     elif name == "check_compatibility" and compatibility_service is not None:
                         payload = compatibility_service.check(str(call.id))
                     elif name == "submit_and_replay" and replay_service is not None:
@@ -851,10 +956,30 @@ into a complete program and call `submit_and_replay` promptly.
                         if not isinstance(program, str):
                             payload = {"ok": False, "error": "program must be a string"}
                         else:
+                            pre_replay_observation = (
+                                scheduled_observer.before_replay()
+                                if scheduled_observer is not None
+                                else None
+                            )
+                            if pre_replay_observation is not None:
+                                record_scheduled_observation(
+                                    pre_replay_observation,
+                                    request_index,
+                                    str(call.id),
+                                )
                             raw_replay = replay_service.submit(program)
                             status = str(raw_replay.get("status", "unknown"))
                             replay_status_counts[status] = replay_status_counts.get(status, 0) + 1
                             payload = normalize_replay_feedback(raw_replay)
+                            if pre_replay_observation is not None:
+                                payload = {
+                                    **payload,
+                                    "scheduled_compatibility_observation": (
+                                        model_visible_scheduled_observation(
+                                            pre_replay_observation
+                                        )
+                                    ),
+                                }
                             if status == "pass" and self.incumbent_enabled:
                                 canonical = canonical_script(program)
                                 digest = script_sha256(canonical)
@@ -1012,6 +1137,7 @@ into a complete program and call `submit_and_replay` promptly.
         container_id: str | None = None
         terminal: V2ProcessTreeSafePersistentContainerShell | None = None
         compatibility_service: CompatibilityLedgerService | None = None
+        scheduled_observer: ScheduledCompatibilityObserver | None = None
         log_parts: list[str] = []
         try:
             repository_acquisition = self._acquire_repository(case, workspace)
@@ -1076,7 +1202,13 @@ into a complete program and call `submit_and_replay` promptly.
 
             compatibility_service = (
                 CompatibilityLedgerService(self.goal_contract, terminal_server)
-                if self.compatibility_ledger_enabled
+                if self.compatibility_observation_enabled
+                else None
+            )
+            scheduled_observer = (
+                ScheduledCompatibilityObserver(compatibility_service)
+                if self.scheduled_observation_enabled
+                and compatibility_service is not None
                 else None
             )
 
@@ -1088,6 +1220,7 @@ into a complete program and call `submit_and_replay` promptly.
                 terminal_server=terminal_server,
                 replay_service=replay_service,
                 compatibility_service=compatibility_service,
+                scheduled_observer=scheduled_observer,
                 trajectory_path=trajectory_path,
                 seed=run_spec.seed,
             )
@@ -1120,6 +1253,8 @@ into a complete program and call `submit_and_replay` promptly.
             }
             if compatibility_service is not None:
                 metadata["compatibility_ledger"] = compatibility_service.metadata()
+            if scheduled_observer is not None:
+                metadata["scheduled_observation"] = scheduled_observer.metadata()
             submission_metadata: dict[str, Any] = {
                 "summary": submission["summary"],
                 "program_sha256": submission["program_sha256"],
@@ -1153,6 +1288,8 @@ into a complete program and call `submit_and_replay` promptly.
         except Exception as exc:
             if compatibility_service is not None:
                 metadata["compatibility_ledger"] = compatibility_service.metadata()
+            if scheduled_observer is not None:
+                metadata["scheduled_observation"] = scheduled_observer.metadata()
             metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)
             log_parts.append(f"{type(exc).__name__}: {self._redact(str(exc))}\n")
             result = SolverResult(

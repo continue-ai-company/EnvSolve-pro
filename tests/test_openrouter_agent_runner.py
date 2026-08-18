@@ -9,6 +9,7 @@ import unittest
 from unittest import mock
 
 from envsolve.runtime import ExecutableGoalContract
+from envsolve_harness.compatibility_ledger import ScheduledCompatibilityObserver
 from envsolve_harness.codex.minimal_b_mcp import script_sha256
 from envsolve_harness.replay_feedback import normalize_replay_feedback
 from envsolve_harness.runners.openrouter_agent import (
@@ -133,13 +134,19 @@ class FakeCompatibilityService:
         return {
             "schema": "envsolve-compatibility-delta-ledger-v1",
             "ok": True,
+            "finding_set_complete": True,
+            "goal_status": "fail",
             "candidate_ready": False,
+            "current": {"obligation_count": 1},
             "delta_from_previous": {"classification": "initial"},
             "operation_constraints_added": False,
         }
 
     def metadata(self) -> dict[str, object]:
-        return {"observation_count": len(self.call_ids)}
+        return {
+            "observation_count": len(self.call_ids),
+            "complete_observation_count": len(self.call_ids),
+        }
 
 
 class OpenRouterAgentRunnerTest(unittest.TestCase):
@@ -304,6 +311,25 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertIn("A regression is evidence, not a forbidden state", prompt)
         self.assertIn("never selects packages, blocks commands", prompt)
 
+    def test_scheduled_treatment_keeps_the_control_tool_surface(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            control = self._runner(Path(directory), "soft")
+            treatment = self._runner(Path(directory), "scheduled")
+            control_names = [item["function"]["name"] for item in control._tools()]
+            treatment_names = [item["function"]["name"] for item in treatment._tools()]
+            prompt = treatment._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(treatment_names, control_names)
+        self.assertNotIn("check_compatibility", treatment_names)
+        self.assertIn("after every 16 completed shell operations", prompt)
+        self.assertIn("temporary regression remains allowed", prompt)
+        self.assertEqual(
+            treatment.mechanism_primitives,
+            ["F", "scheduled-O", "delta-C", "R", "minimal-H"],
+        )
+
     def test_ledger_tool_feedback_remains_in_the_continuous_agent_loop(self) -> None:
         program = "python -m venv .venv\nsource .venv/bin/activate"
         responses = [
@@ -342,6 +368,90 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 and "operation_constraints_added" in str(item.get("content"))
                 for item in second_messages
             )
+        )
+
+    def test_scheduled_feedback_is_injected_at_all_frozen_triggers(self) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        responses = [
+            FakeResponse(tool_call("1", "envbench_shell", {"command": "true"})),
+            FakeResponse(tool_call("2", "envbench_shell", {"command": "true"})),
+            FakeResponse(tool_call("3", "envbench_shell", {"command": "true"})),
+            FakeResponse(tool_call("4", "submit_and_replay", {"program": program})),
+            FakeResponse(
+                tool_call(
+                    "5",
+                    "submit_bootstrap",
+                    {"program": program, "summary": "created environment"},
+                )
+            ),
+        ]
+        client = FakeClient(responses)
+        compatibility = FakeCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility, cadence=2)  # type: ignore[arg-type]
+        with tempfile.TemporaryDirectory() as directory:
+            trajectory = Path(directory) / "trajectory.jsonl"
+            runner = self._runner(Path(directory), "scheduled")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=trajectory,
+            )
+            events = [
+                json.loads(line)
+                for line in trajectory.read_text(encoding="utf-8").splitlines()
+            ]
+
+        self.assertEqual(
+            compatibility.call_ids,
+            [
+                "scheduled-initial-1",
+                "scheduled-periodic-2",
+                "scheduled-pre-replay-dirty-3",
+            ],
+        )
+        self.assertEqual(submission["program_sha256"], script_sha256(program))
+        schedule = metadata["scheduled_observation"]
+        self.assertTrue(schedule["schedule_compliant"])
+        self.assertEqual(
+            schedule["trigger_counts"],
+            {"initial": 1, "periodic": 1, "pre-replay-dirty": 1},
+        )
+        self.assertEqual(metadata["tool_counts"]["check_compatibility"], 0)
+        first_messages = client.chat.completions.requests[0]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "user"
+                and '\"trigger\": \"initial\"' in str(item.get("content"))
+                for item in first_messages
+            )
+        )
+        periodic_messages = client.chat.completions.requests[2]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "tool"
+                and "scheduled_compatibility_observation" in str(item.get("content"))
+                for item in periodic_messages
+            )
+        )
+        replay_messages = client.chat.completions.requests[4]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "tool"
+                and "pre-replay-dirty" in str(item.get("content"))
+                for item in replay_messages
+            )
+        )
+        observations = [
+            item for item in events if item.get("event") == "compatibility_observation"
+        ]
+        self.assertEqual(
+            [item["trigger"] for item in observations],
+            ["initial", "periodic", "pre-replay-dirty"],
         )
 
     def test_flash_0731_is_pinned_without_enabling_moving_aliases(self) -> None:

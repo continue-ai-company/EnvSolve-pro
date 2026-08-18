@@ -1,0 +1,289 @@
+{
+  "envbench": {
+    "metadata": {
+      "best_anchor": null,
+      "complete_observation_count": 0,
+      "frontier_size": 0,
+      "goal_pass_observation_count": 0,
+      "observation_count": 1,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "projection_transport": "zlib-base64-json-v1",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {}
+    },
+    "observation": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "environment": {},
+      "execution": {
+        "duration_seconds": 259.37662458291743,
+        "exit_code": 0,
+        "infrastructure_error": null,
+        "output_truncated": true,
+        "timed_out": false
+      },
+      "finding_set_complete": false,
+      "goal_status": "unknown",
+      "ledger_updated": false,
+      "observation_index": 1,
+      "ok": false,
+      "operation_constraints_added": false,
+      "reason": "compatibility probe produced no valid projection",
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    }
+  },
+  "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+  "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+  "platform": "docker",
+  "qualification": {
+    "environment_fingerprint_changed": true,
+    "no_container_checkpoint_stored": true,
+    "no_operation_constraints_added": true,
+    "real_envbench_observation_complete": false,
+    "synthetic_candidate_ready": true,
+    "synthetic_delta_improved": true,
+    "synthetic_initial_fail": true
+  },
+  "recorded_at": "2026-08-18T01:40:22.338573+00:00",
+  "schema": "envsolve-compatibility-ledger-canary-result-v1",
+  "synthetic": {
+    "after": {
+      "advisory_only": true,
+      "candidate_ready": true,
+      "current": {
+        "obligation_count": 0,
+        "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "obligations": []
+      },
+      "delta_from_previous": {
+        "classification": "improved",
+        "introduced": [],
+        "resolved": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "envsolve_ledger_canary"
+          }
+        ]
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 0,
+            "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "observation_index": 2
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 0,
+          "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "obligations": [],
+          "observation_index": 2
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_status": "pass",
+      "measurement": {
+        "raw_finding_count": 0,
+        "unique_obligation_count": 0
+      },
+      "observation_index": 2,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "before": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "current": {
+        "obligation_count": 1,
+        "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+        "obligations": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "envsolve_ledger_canary"
+          }
+        ]
+      },
+      "delta_from_previous": {
+        "classification": "initial",
+        "introduced": [],
+        "resolved": []
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 1,
+            "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+            "observation_index": 1
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 1,
+          "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+          "obligations": [
+            {
+              "domain": "module",
+              "predicate": "present",
+              "required": true,
+              "subject": "envsolve_ledger_canary"
+            }
+          ],
+          "observation_index": 1
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_status": "fail",
+      "measurement": {
+        "raw_finding_count": 1,
+        "unique_obligation_count": 1
+      },
+      "observation_index": 1,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "metadata": {
+      "best_anchor": {
+        "environment": {
+          "conda_prefix": null,
+          "cwd": "/data/project",
+          "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+          "python_base_prefix": "/opt/conda",
+          "python_distribution_count": 55,
+          "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+          "python_executable": "/opt/conda/bin/python",
+          "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+          "python_prefix": "/opt/conda",
+          "python_version": "3.13.2",
+          "virtual_env": null
+        },
+        "obligation_count": 0,
+        "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "observation_index": 2
+      },
+      "complete_observation_count": 2,
+      "frontier_size": 1,
+      "goal_pass_observation_count": 1,
+      "observation_count": 2,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "projection_transport": "zlib-base64-json-v1",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {
+        "improved": 1,
+        "initial": 1
+      }
+    },
+    "mutation": {
+      "exit_code": 0,
+      "infrastructure_error": null,
+      "timed_out": false
+    }
+  },
+  "workspace": "/Users/admin/.codex/worktrees/4050/AnyDeploy"
+}

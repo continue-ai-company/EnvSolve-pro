@@ -76,3 +76,9 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-active-compatibility-ledger",
             _factory("ledger"),
         )
+    if "envsolve-pro-v2-scheduled-observation" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-scheduled-observation",
+            "envsolve-pro-scheduled-compatibility-observation",
+            _factory("scheduled"),
+        )
