@@ -1,0 +1,64 @@
+{
+  "analysis": {
+    "implementation": "experiments/analyze_scheduled_observation_qualification.py",
+    "sha256": "9e6d22e6935c6b3b9b6b4fa493fbeb484898661a5a180fd22aed37a984d41490"
+  },
+  "arms": {
+    "control": "B-FSR",
+    "treatment": "E-SCHEDULED"
+  },
+  "candidate_boundary": "the first submit_and_replay tool result whose exact program hash matches a clean-replay pass certificate",
+  "censoring": [
+    "missing manifest or generation completion",
+    "terminal provider failure without a response for the request",
+    "missing image or goal identity",
+    "repository-integrity failure",
+    "incomplete Official evaluation",
+    "recognized Official infrastructure failure",
+    "invalid exact-script Official retry binding"
+  ],
+  "efficiency_signal": {
+    "comparison_population": "pairs where both arms formed a replay-certified candidate and passed Official",
+    "metrics": [
+      "model requests to first certificate",
+      "interactive Agent shell steps to first certificate",
+      "total tokens to first certificate",
+      "seconds to first certificate"
+    ],
+    "rule": "median E-SCHEDULED/B-FSR ratio is at most 0.85 on at least two metrics and at most 1.15 on every available metric"
+  },
+  "frozen_inputs": {
+    "config": {
+      "path": "experiments/configs/local_spark_envsolve_pro_v2_scheduled_observation_qualification_v1.json",
+      "sha256": "ead2564cf6d377a7fad215d1491d7c1c34a533c24e8cbe1a40817854ab3b2c75"
+    },
+    "design_preregistration": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_design_preregistration.json",
+    "schedule": {
+      "path": "experiments/schedules/envsolve_pro_v2_scheduled_observation_qualification_v1.json",
+      "sha256": "254cb7fb754948d35749e19ae5caa2efb0ab25b8a03c66d45e257d8f22f89b2a"
+    }
+  },
+  "mechanism_acceptance": {
+    "complete_observation_rate_minimum": 0.75,
+    "event_source": "recompute from append-only compatibility_observation and tool_result trajectory events rather than trusting summary metadata",
+    "expected_treatment_episode_count": 8,
+    "initial_observation_before_first_provider_event": true,
+    "no_container_checkpoint": true,
+    "no_operation_constraint": true,
+    "no_optional_check_compatibility_call": true,
+    "periodic_observation_shell_positions": "16, 32, 48, ... through the number of completed Agent envbench_shell calls",
+    "pre_replay_observation": "required exactly when at least one Agent shell operation completed after the latest scheduled observation",
+    "same_active_session_delivery": true
+  },
+  "outcome_adjudication_order": [
+    "incomplete-or-censored if any of 16 effective episodes is censored",
+    "negative-mechanism-not-qualified if mechanism acceptance fails",
+    "positive-directional-promote-to-frozen-dev-evaluation if treatment Official Pass count is not lower, paired treatment-only losses are at most one, and there is a treatment-only win or efficiency signal",
+    "negative-directional-do-not-expose-frozen-dev if treatment Official Pass count is lower or paired treatment-only losses exceed one",
+    "otherwise ambiguous-preregister-broader-consumed-study-unchanged"
+  ],
+  "recorded_at": "2026-08-18T02:59:31Z",
+  "replacement_policy": "an infrastructure-censored position may be retried only after a pre-execution amendment freezes the exact identity; the original attempt remains in the record",
+  "schema": "envsolve-pro-v2-scheduled-observation-analysis-contract-v1",
+  "status": "frozen-before-qualification-model-execution"
+}

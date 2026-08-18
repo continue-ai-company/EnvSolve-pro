@@ -1,0 +1,64 @@
+{
+  "algorithm_revision": {
+    "commit": "8e8df1c",
+    "name": "deterministic identity-bound scheduled observation",
+    "status": "mac-qualified-frozen-before-spark-portability-and-model-execution"
+  },
+  "canary_history": [
+    {
+      "decision": "failed-output-truncated-before-projection-marker",
+      "path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_mac_canary.json",
+      "sha256": "1ff60ad38d7fcc4d3db3c27f40d71faa748425d7829c5e1d086a74b36423ca50"
+    },
+    {
+      "decision": "failed-projection-payload-exceeded-shell-output-bound",
+      "path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_mac_canary_retry1.json",
+      "sha256": "36261d0f07470735cc5bcad5ad28852d93ddd4f0e063929c910d64b79d0908ed"
+    },
+    {
+      "decision": "failed-chunk-bridge-added-terminal-newline-and-hash-correctly-rejected",
+      "path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_mac_canary_retry2.json",
+      "sha256": "a9100e60bf1da19a881f5d0955360ec524a288a32721f18a4399a5d1b552a035"
+    },
+    {
+      "decision": "passed-chunked-complete-machine-observation",
+      "path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_mac_canary_retry3.json",
+      "sha256": "a4c5c5a779ec2fb20df1e919ff6dd7a45bbb3cb2ffa8aeed4eeabf6a89cd019c"
+    },
+    {
+      "decision": "passed-final-code-with-bounded-model-projection",
+      "path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_mac_canary_retry4.json",
+      "sha256": "2f0960cd2873007b59f48aec8c0aebb9caeb9a255a3ed855fba96fa2fe94543e"
+    }
+  ],
+  "frozen_implementation_sha256": {
+    "envsolve_harness/compatibility_ledger.py": "e9272fd4b61fe1e6b38d902e2d90b581e5be00a3511698c0b2740a29fc22c141",
+    "envsolve_harness/runners/envsolve_pro_v2_registry.py": "9aecc3bc373b9b285f33a3a76d8c1c6ef51f13dd1f795c32424a6a736b7c33f5",
+    "envsolve_harness/runners/openrouter_agent.py": "b052d65d87d7e32f3800a69f9d67c91b2ec3b0384efc325a64c6fe91f0bc49d0",
+    "experiments/analyze_scheduled_observation_qualification.py": "9e6d22e6935c6b3b9b6b4fa493fbeb484898661a5a180fd22aed37a984d41490",
+    "experiments/run_envsolve_pro_v2_schedule.py": "9fdd0c091fe26d10d79c37e668fccf5d23d18d1046127feaf9050b05f966555f"
+  },
+  "frozen_test_sha256": {
+    "tests/test_compatibility_ledger.py": "c7c360b4aab921e6bbe2c64a342fb3d80c7b9772cb460823d3fc3fc26b493e0b",
+    "tests/test_openrouter_agent_runner.py": "6563f9718d2f209c0e99c5178eecd7ae58aa0a1fe37619c688603ad23dbd6224",
+    "tests/test_scheduled_observation_qualification_analysis.py": "b56b0473d56918685f15b45ef95e5f32533b55d9c2c937322b2050e2bff7328f"
+  },
+  "implementation_invariants": {
+    "complete_machine_evidence_retained_in_trajectory": true,
+    "model_visible_obligations_per_section_maximum": 128,
+    "observation_cadence_shell_operations": 16,
+    "operation_constraints_added": 0,
+    "optional_compatibility_tool_exposed": false,
+    "stored_container_checkpoints": 0
+  },
+  "mac_qualification": {
+    "architecture": "linux/aarch64 Docker on macOS host",
+    "final_canary_all_checks_passed": true,
+    "full_regression": "850 passed, 12 skipped, 7 warnings, 80 subtests passed",
+    "initial_envbench_raw_finding_count": 15618,
+    "initial_envbench_unique_obligation_count": 1596
+  },
+  "recorded_at": "2026-08-18T02:59:31Z",
+  "schema": "envsolve-pro-v2-scheduled-observation-implementation-freeze-v1",
+  "status": "frozen-no-algorithm-change-during-qualification"
+}
