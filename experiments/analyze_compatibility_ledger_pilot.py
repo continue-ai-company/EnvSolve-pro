@@ -116,6 +116,47 @@ def _terminal_provider_failure(events: list[dict[str, Any]]) -> bool:
     )
 
 
+def _candidate_ready_to_replay(events: list[dict[str, Any]]) -> dict[str, Any]:
+    replay_requests = sorted(
+        int(event["request_index"])
+        for event in events
+        if event.get("event") == "tool_result"
+        and event.get("tool_name") == "submit_and_replay"
+        and isinstance(event.get("request_index"), int)
+    )
+    measurements = []
+    without_later_replay = 0
+    for event in events:
+        result = event.get("result")
+        request_index = event.get("request_index")
+        if (
+            event.get("event") != "tool_result"
+            or event.get("tool_name") != "check_compatibility"
+            or not isinstance(result, dict)
+            or result.get("candidate_ready") is not True
+            or not isinstance(request_index, int)
+        ):
+            continue
+        next_replay = next(
+            (item for item in replay_requests if item >= request_index),
+            None,
+        )
+        if next_replay is None:
+            without_later_replay += 1
+            continue
+        measurements.append(
+            {
+                "candidate_ready_request_index": request_index,
+                "next_replay_request_index": next_replay,
+                "request_delta": next_replay - request_index,
+            }
+        )
+    return {
+        "measurements": measurements,
+        "without_later_replay_count": without_later_replay,
+    }
+
+
 def _official_result(
     run_root: Path,
     case_root: Path,
@@ -368,6 +409,7 @@ def _episode(
             "candidate_ready_count": sum(
                 item.get("candidate_ready") is True for item in checks
             ),
+            "candidate_ready_to_replay": _candidate_ready_to_replay(events),
             "operation_constraint_violations": sum(
                 item.get("operation_constraints_added") is not False for item in checks
             ),

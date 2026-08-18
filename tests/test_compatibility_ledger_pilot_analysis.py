@@ -8,6 +8,7 @@ from experiments.analyze_compatibility_ledger_pilot import (
     _apply_cross_arm_validity,
     _adjudicate,
     _candidate_event,
+    _candidate_ready_to_replay,
     _episode,
     _pairs,
     _terminal_provider_failure,
@@ -240,6 +241,40 @@ def test_terminal_provider_failure_requires_no_later_success() -> None:
         )
         is False
     )
+
+
+def test_candidate_ready_to_replay_measures_next_replay_request() -> None:
+    events = [
+        {
+            "event": "tool_result",
+            "tool_name": "check_compatibility",
+            "request_index": 7,
+            "result": {"candidate_ready": True},
+        },
+        {
+            "event": "tool_result",
+            "tool_name": "submit_and_replay",
+            "request_index": 11,
+            "result": {"status": "pass"},
+        },
+        {
+            "event": "tool_result",
+            "tool_name": "check_compatibility",
+            "request_index": 13,
+            "result": {"candidate_ready": True},
+        },
+    ]
+
+    assert _candidate_ready_to_replay(events) == {
+        "measurements": [
+            {
+                "candidate_ready_request_index": 7,
+                "next_replay_request_index": 11,
+                "request_delta": 4,
+            }
+        ],
+        "without_later_replay_count": 1,
+    }
 
 
 def _record(pair: int, arm: str) -> dict[str, object]:
