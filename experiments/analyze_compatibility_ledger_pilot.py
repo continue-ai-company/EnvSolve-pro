@@ -45,6 +45,18 @@ def _events(path: Path) -> list[dict[str, Any]]:
     return result
 
 
+def _certification_evidence(result: dict[str, Any]) -> dict[str, Any] | None:
+    raw_evidence = result.get("raw_evidence")
+    for evidence in (raw_evidence, result):
+        if not isinstance(evidence, dict):
+            continue
+        certificate = evidence.get("certificate")
+        digest = evidence.get("program_sha256")
+        if isinstance(certificate, dict) and isinstance(digest, str):
+            return evidence
+    return None
+
+
 def _candidate_event(events: list[dict[str, Any]]) -> dict[str, Any] | None:
     for event in events:
         if event.get("event") != "tool_result":
@@ -54,10 +66,11 @@ def _candidate_event(events: list[dict[str, Any]]) -> dict[str, Any] | None:
         result = event.get("result")
         if not isinstance(result, dict) or result.get("status") != "pass":
             continue
-        certificate = result.get("certificate")
-        if not isinstance(certificate, dict):
+        evidence = _certification_evidence(result)
+        if evidence is None:
             continue
-        digest = result.get("program_sha256")
+        certificate = evidence["certificate"]
+        digest = evidence["program_sha256"]
         if digest and digest == certificate.get("program_sha256"):
             return event
     return None
@@ -243,11 +256,11 @@ def _episode(
     candidate = _candidate_event(events)
     boundary = candidate.get("request_index") if candidate is not None else None
     boundary = boundary if isinstance(boundary, int) else None
-    certificate = (
-        candidate.get("result", {}).get("certificate", {})
-        if candidate is not None
-        else {}
-    )
+    candidate_result = candidate.get("result") if candidate is not None else None
+    candidate_result = candidate_result if isinstance(candidate_result, dict) else {}
+    certification_evidence = _certification_evidence(candidate_result) or {}
+    certificate = certification_evidence.get("certificate")
+    certificate = certificate if isinstance(certificate, dict) else {}
     started_at = metadata.get("started_at")
     certified_at = (
         certificate.get("certified_at") if isinstance(certificate, dict) else None

@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-compatibility-ledger-pilot-v1-candidate-boundary-analysis-repair",
+  "recorded_at": "2026-08-18T00:53:52Z",
+  "status": "frozen-before-corrected-analysis-execution",
+  "trigger": {
+    "invalid_output": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_result_invalid_candidate_boundary_v1.json",
+    "invalid_output_sha256": "2c462349fb27f32d12c0080494a3f522072068c1d5590be2d8d9a4b85fd2e247",
+    "analysis_commit": "32111d4",
+    "analysis_implementation_sha256": "fd443ea717714499943b7ee5664e75564fc0717b69cb9faa7e63eba1ef532c9e",
+    "observed_impossibility": "the invalid output reports zero candidates in both arms although audit-valid submit_and_replay pass events exist",
+    "root_cause": "the analyzer reads replay program_sha256 and certificate from result, while normalized soft replay feedback stores both fields in result.raw_evidence"
+  },
+  "repair_contract": {
+    "candidate_definition_changed": false,
+    "analysis_thresholds_changed": false,
+    "episode_selection_changed": false,
+    "replacement_selection_changed": false,
+    "official_outcomes_changed": false,
+    "model_reexecuted": false,
+    "evaluator_reexecuted": false,
+    "allowed_change": "read the same program_sha256 and certificate fields from either the legacy result level or normalized result.raw_evidence, then apply the frozen exact-hash candidate definition",
+    "required_regression_test": "a normalized replay pass is a candidate only when raw_evidence.program_sha256 equals raw_evidence.certificate.program_sha256",
+    "invalid_output_policy": "retain for audit but never use for claims"
+  },
+  "analysis_contract": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_analysis_contract.json",
+  "corrected_output": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_result.json"
+}

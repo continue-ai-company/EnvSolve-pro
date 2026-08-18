@@ -200,6 +200,44 @@ def test_candidate_boundary_requires_a_hash_matched_certificate() -> None:
     assert _candidate_event(events) is events[1]
 
 
+def test_candidate_boundary_reads_normalized_raw_replay_evidence() -> None:
+    events = [
+        {
+            "event": "tool_result",
+            "tool_name": "submit_and_replay",
+            "request_index": 3,
+            "result": {
+                "status": "pass",
+                "raw_evidence": {
+                    "program_sha256": "candidate",
+                    "certificate": {"program_sha256": "candidate"},
+                },
+            },
+        }
+    ]
+
+    assert _candidate_event(events) is events[0]
+
+
+def test_candidate_boundary_rejects_mismatched_normalized_certificate() -> None:
+    events = [
+        {
+            "event": "tool_result",
+            "tool_name": "submit_and_replay",
+            "request_index": 3,
+            "result": {
+                "status": "pass",
+                "raw_evidence": {
+                    "program_sha256": "candidate",
+                    "certificate": {"program_sha256": "different"},
+                },
+            },
+        }
+    ]
+
+    assert _candidate_event(events) is None
+
+
 def test_usage_stops_at_the_frozen_candidate_boundary() -> None:
     events = [
         {
