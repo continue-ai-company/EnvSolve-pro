@@ -1,9 +1,9 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-11）：** 失败统一按 Observation--Constraint--Operation 三层分类；部署
-> 方法统一用 F（自由试错）、C_h（硬约束）、C_s（软约束）和 R（回退重放）描述。EnvSolve-Pro 是
-> F+C_s+R。所有方法共享的实验完整性底座 E 不属于算法。第 11 节优先于下文作为可审计研发历史保留
-> 的旧方法提案；正在运行的 Dev-12 继续受原冻结约束，不做任何方法改动。
+> **当前论文设计（2026-08-18）：** 失败统一按 Observation--Constraint--Operation 三层分类。可选
+> ledger pilot 已完成；尽管 Official 方向为 3/4 对 2/4，但机制未通过资格。下一个 EnvSolve-Pro 候选
+> 组合了同 session 自由操作 F、确定性环境身份绑定观测 O、增量证据前沿 C 和干净重放 R。所有方法共享
+> 的实验完整性底座 E 不属于算法。第 11 节优先于下文保留的可审计研发历史。
 
 ## 1. 研究目标
 
@@ -661,17 +661,18 @@ positions 4-15 的 12 条运行，并使用明确版本化的 boundary-v5 A/B/C 
 
 ## 11. 当前 V2 论文方案
 
-第 4-10 节保留项目如何走到当前设计的研发历史，不代表当前论文算法。论文现在严格区分三个科学对象：
+第 4-10 节保留研发历史，不代表当前论文算法。论文严格区分三个科学对象：
 
 | 对象 | 取值 | 作用 |
 |---|---|---|
 | 失败分类 | 观测层、约束层、操作层 | 解释最早产生决定性影响的失败原因。 |
-| 部署机制 | F、C_h、C_s、R | 解释 deployer 如何搜索、约束和恢复。 |
+| 部署机制 | F、定时 O、增量 C、R | 规定搜索、测量、状态与重放。 |
 | 公共底座 | E | 保证实验公平可审计，永远不算算法 treatment。 |
 
-EnvSolve-Pro 是公共 E 下的 F+C_s+R。F 是开放的反馈试错；C_s 在保留原始证据的同时把 replay 结果
-转成可质疑的义务；R 在独立干净环境执行完整程序，并把失败返回同一个活跃 session。C_h 由冻结的旧
-EnvSolve 代表，其编码规则可以拒绝或改写部署选择。连续 session 在受控 arm 间保持一致。
+EnvSolve-Pro 在一个持续存在的构建环境中保留同一个强 Agent session。Agent 具有自由 shell 操作能力 F；
+harness 按冻结节奏执行与环境身份绑定的完整公开目标观测 O；将完整 finding 集合转成已解决和新引入的
+义务，同时维护非支配证据前沿 C；完整部署程序只通过独立干净环境重放 R 获得认证。证据可以单调积累，
+环境状态和 Agent 的操作空间都不要求单调。E 隔离 Official evaluator，并审计环境身份和仓库完整性。
 
 ### 11.1 失败研究
 
@@ -681,37 +682,50 @@ EnvBench FreeAgent、Repo2Run、原生 Codex、旧 EnvSolve 和 EnvSolve-Pro 的
 原始一致性、Cohen's kappa 和 adjudication。该不均衡语料只支撑 taxonomy 与跨系统分布，不支撑
 成功率 claim 或因果归因。
 
-### 11.2 受控机制实验
+### 11.2 可选 Ledger Pilot 的结论
 
-正在运行的 outcome-independent Dev-12 继续作为预注册的 F 对 F+C_s+R pilot。实现、prompt、schedule、
-模型和结果均不修改；`envsolve_pro_v2_dev12_mechanism_semantics_amendment.json` 只澄清原 minimal-H 标签
-表示公共 E。冻结的 `B-FSR` run ID 保持不变，其中 S 解释为软约束 C_s。
+冻结的已消费 case pilot 比较 B-FSR（F+R）与 D-LEDGER。D 额外向 Agent 提供一个可选的环境身份绑定
+compatibility 工具和增量 ledger。两个仓库、两个 arm、每个 arm 两次重复；按预注册规则替换基础设施删失
+位置后，共得到八个有效 episode。所有 episode 均通过 provider、image、goal、仓库完整性和审计检查。
 
-目前已运行十二对中的八对。六对具备双臂可观测的 Official 结果，两臂均为 5/6；另外两对作为删失的
-机制证据保留。B 已产生三条 feedback-conditioned repair 和三条首次 replay 认证。最新双方通过的配对
-使用近似的依赖策略，但 B 在认证后立即提交，A 则对已经满足的目标反复检查到第 43 次请求；相反，前一条
-修复轨迹中 B 的 token 与生成时间均比 A 多约 61%。这些 pilot 观察支持修复与终止机制真实激活，但既不
-建立通过率优势，也不建立无条件效率优势。
+D 形成并通过 Official 的候选为 3/4，B 为 2/4；D 有一个独占成功，且没有独占失败。关键 Paz 轨迹先
+观测到 16 个义务，随后降到 0，修复了一次干净重放依赖冲突，并在第 84 次请求通过 Official；其配对 B
+用完 120 次请求仍未进入重放。但是另一个成功的 D episode 一次都没有调用 ledger，因此 treatment 没有
+满足预注册的机制激活标准。在双方均成功的可比配对上，D/B 的中位数比值分别为：请求数 1.30、交互步骤
+1.28、token 1.46、获得证书时间 1.11。
 
-Dev-12 的 24 个 episode 全部结束后，在运行任何 arm 前，仅按 outcome-independent identity 哈希从冻结
-reserve 中选择新的 Dev-16。四个条件使用相同 DeepSeek V4 Pro，并在 case 内随机运行顺序：
+机器判定为 `negative-mechanism-not-qualified`。这否定的是“可选工具”实现，不是否定观测假设。完整且
+绑定环境身份的观测能够揭露虚假进展，也可能促使 Agent 从修当前环境转向修可重放程序；但如果由 Agent
+自行决定何时观测，treatment 剂量就不稳定，而且往往代价较高。
 
-1. F；
-2. F+R，只返回有界原始 replay 证据，不生成规范化义务；
-3. F+C_s+R，即 EnvSolve-Pro；
-4. 冻结旧 EnvSolve，作为代表性 F+C_h+R 系统。
+### 11.3 确定性观测 V2
 
-64 个 episode 用 F+R 对 F 估计 R，用 F+C_s+R 对 F+R 估计 C_s 的增量价值。EnvSolve-Pro 对旧
-EnvSolve 只是系统级比较，不是 C_s 对 C_h 的纯因果对照。第一篇不搜索其他机制组合。
+下一个候选算法只改变观测调度：
 
-### 11.3 确认性实验与主张
+1. 第一次模型请求前执行一次完整、绑定环境身份的观测；
+2. 每完成 16 次 shell 操作，再自动执行一次；
+3. 干净重放前，若环境在上次观测后发生过变化，则补一次观测；
+4. 把既有增量 ledger 反馈注入同一个连续 session；
+5. 永不阻断 shell 操作或重放，不替 Agent 选择包，不恢复容器，不使用跨 case 记忆。
 
-打开 Canary 前冻结算法、prompt、tool schema、taxonomy、model/provider binding 和分析代码。主指标是
-Official Pass@1；机制指标包括首次完整候选时延、replay 激活、feedback-conditioned repair 和配对错误
-层迁移。资源既报告无条件结果，也报告成功条件下结果；token 和美元价格只是测量，不是停止阈值。
-基础设施删失始终单独保留。
+节奏来自已消费 14 条轨迹的自然全局检查间隔：898 次 shell 操作对应 50 次全局检查，平均 17.96，预先
+一次性取整为 16，而不是按最新 pilot 结果调参。移除可选 `check_compatibility` 工具，使每个 treatment
+episode 接受相同机制剂量。ledger 表示、Agent、干净重放、模型/provider、安全上限和公共 E 均保持不变。
 
-Untouched evaluation 先在 Canary 比较 F 与 EnvSolve-Pro，再在 protected 和 official protocol 上运行
-最终 DeepSeek V4 Pro 系统。Repo2Run、EnvBench FreeAgent 和旧 EnvSolve 在能够保持原生语义时作为
-同 backbone 系统 baseline；原生 Codex 是独立 frontier reference。第一篇只主张固定机制与受控证据；
-自动组合搜索属于 Auto-EnvSolve，学习型部署策略属于 EnvSolve-RL。
+预注册一个 16-episode 已消费 qualification：四个此前已消费仓库、两个 arm、两次重复，并平衡运行顺序。
+当前两个压力 case 可继续作为设计 case；另外两个 identity 在实现前从不同的历史观测失败层中冻结。机制
+合格要求：每个 treatment episode 都遵守调度，至少 75% 的观测完整，不增加任何操作约束，也不创建
+checkpoint。晋级还要求 Official Pass 数不下降、最多一个 treatment 独占失败，并且至少出现一个
+treatment 独占成功或一个预注册的成功条件效率信号。token、时间、网络、磁盘和内存只作为结果测量，
+不作为优化停止阈值。
+
+### 11.4 确认性实验与主张
+
+V2 通过已消费 qualification 前，不再打开冻结 Dev identity。通过后，在 Canary 前冻结算法、prompt、
+tool schema、taxonomy、model/provider binding 和分析代码。主指标是 Official Pass@1；机制指标包括观测
+调度符合率、状态增量、候选就绪到首次重放时延、首次重放修复和配对失败层迁移。资源既报告无条件结果，
+也报告成功条件下结果；基础设施删失始终单独保留。
+
+最终系统比较包括 Repo2Run、EnvBench FreeAgent、旧硬约束 EnvSolve，以及能保持原生语义时的同 backbone
+自由搜索 control；原生 Codex 是独立 frontier reference。第一篇只主张固定三层算法和受控证据。
+harness 自动搜索属于 Auto-EnvSolve，学习型部署策略属于 EnvSolve-RL。

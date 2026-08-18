@@ -1,11 +1,12 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-11):** failures are classified by the
-> Observation--Constraint--Operation framework; deployment methods are described by
-> F (free search), C_h (hard constraints), C_s (soft constraints), and R (replay).
-> EnvSolve-Pro is F+C_s+R. The shared evaluation-integrity foundation E is not an
-> algorithm. Section 11 supersedes earlier method proposals retained below as auditable
-> development history. The running Dev-12 remains unchanged under its original freeze.
+> **Current paper design (2026-08-18):** failures are classified by the
+> Observation--Constraint--Operation framework. The optional-ledger pilot is complete
+> and did not qualify its mechanism despite a 3/4 versus 2/4 Official direction. The
+> next EnvSolve-Pro candidate combines free same-session operation F, deterministic
+> identity-bound observation O, a delta evidence frontier C, and clean replay R. The
+> shared evaluation-integrity foundation E is not an algorithm. Section 11 supersedes
+> earlier proposals retained below as auditable development history.
 
 ## 1. Objective
 
@@ -854,20 +855,22 @@ analysis rules must be frozen before any repository is opened.
 
 ## 11. Current V2 Paper Program
 
-Sections 4-10 preserve how the project reached the current design; they are not the
-current paper algorithm. The paper now separates three scientific objects:
+Sections 4-10 preserve research history; they are not the current paper algorithm. The
+paper separates three scientific objects:
 
 | Object | Values | Role |
 |---|---|---|
-| Failure taxonomy | Observation, Constraint, Operation | Explains the earliest decisive cause of failure. |
-| Deployment mechanisms | F, C_h, C_s, R | Explains how a deployer searches, constrains, and recovers. |
-| Shared foundation | E | Makes evaluation fair and auditable; never counts as an algorithmic treatment. |
+| Failure taxonomy | Observation, Constraint, Operation | Explains the earliest decisive failure. |
+| Deployment mechanism | F, scheduled O, delta C, R | Specifies search, measurement, state, and replay. |
+| Shared foundation | E | Makes results fair and auditable; never counts as a treatment. |
 
-EnvSolve-Pro is F+C_s+R under E. F is unrestricted feedback search, C_s converts replay
-evidence into revisable obligations while retaining raw evidence, and R executes complete
-programs in independent clean environments and returns failures to the same active
-session. C_h is represented by frozen prior EnvSolve, whose encoded rules can reject or
-rewrite deployment choices. Session continuity is matched across controlled arms.
+EnvSolve-Pro keeps one strong Agent in a persistent construction session. The Agent has
+free shell control (F). The harness executes the same identity-bound public goal on a
+frozen schedule (O), converts complete finding sets into resolved and introduced
+obligations while retaining a nondominated evidence frontier (C), and certifies complete
+programs only through independent clean replay (R). Accumulated evidence is monotonic;
+the environment and Agent action space are not. E isolates the Official evaluator and
+audits identity and repository integrity.
 
 ### 11.1 Failure Study
 
@@ -880,49 +883,67 @@ re-annotated. Raw agreement, Cohen's kappa, and adjudicated labels are reported.
 nonuniform corpus supports taxonomy discovery and cross-system profiles, not success-rate
 claims or causal attribution.
 
-### 11.2 Controlled Mechanism Study
+### 11.2 Optional-Ledger Pilot Decision
 
-The currently running outcome-independent Dev-12 remains the preregistered F versus
-F+C_s+R pilot. Its implementation, prompt, schedule, model, and outcomes are unchanged;
-`envsolve_pro_v2_dev12_mechanism_semantics_amendment.json` only clarifies that the former
-minimal-H label denotes shared E. The frozen `B-FSR` run IDs remain stable, with S read as
-soft-constraint guidance C_s.
+The frozen consumed-case pilot compared B-FSR (F+R) with D-LEDGER, which added one
+optional identity-bound compatibility tool and delta ledger. Two repositories, two arms,
+and two replications produced eight valid episodes after preregistered infrastructure
+replacements. All episodes passed provider, image, goal, repository-integrity, and audit
+checks.
 
-Eight of twelve pairs have now run. Six are pairwise Official-observable, with both arms
-at 5/6; the other two are retained as censored mechanism evidence. B has produced three
-feedback-conditioned repairs and three first-replay certifications. The newest both-pass
-pair used nearly identical dependency strategies, but B submitted immediately after
-certification while A repeated an already satisfied goal until request 43. Conversely,
-the preceding repair pair cost B about 61% more tokens and generation time than A. These
-pilot observations support repair and stopping mechanisms, but establish neither a
-pass-rate nor an unconditional efficiency advantage.
+D formed and officially passed 3/4 candidates versus B's 2/4, with one D-only win and no
+D-only loss. The decisive Paz trajectory observed 16 obligations, later observed zero,
+repaired one clean-replay dependency conflict, and passed Official at request 84; its
+paired B trajectory used all 120 requests without replay. However, one successful D
+episode never called the ledger. The treatment therefore failed its preregistered
+mechanism-activation criterion. On comparable successful pairs, median D-over-B ratios
+were 1.30 requests, 1.28 interactive steps, 1.46 tokens, and 1.11 time to certificate.
 
-After all 24 Dev-12 episodes finish, select a fresh Dev-16 from the frozen reserve by an
-outcome-independent identity hash before any arm is run. Use randomized within-case order
-for four conditions and the same DeepSeek V4 Pro backbone:
+The machine decision is `negative-mechanism-not-qualified`. It rejects the optional-tool
+implementation, not the observation hypothesis. Complete, identity-bound observations
+can expose false progress and can precede a successful shift from environment repair to
+replayable-program repair, but voluntary scheduling makes the treatment inconsistent and
+often expensive.
 
-1. F;
-2. F+R with bounded raw replay evidence and no normalized obligation;
-3. F+C_s+R, EnvSolve-Pro;
-4. frozen prior EnvSolve as the representative F+C_h+R system.
+### 11.3 Deterministic Observation V2
 
-The 64 episodes estimate R through F+R versus F and the incremental value of C_s through
-F+C_s+R versus F+R. EnvSolve-Pro versus prior EnvSolve is a system-level comparison, not
-a pure C_s-versus-C_h causal contrast. No other mechanism combination is searched in
-this paper.
+The next candidate changes only observation scheduling:
 
-### 11.3 Confirmation and Claims
+1. run one complete identity-bound observation before the first model request;
+2. run another after every 16 completed shell operations;
+3. before clean replay, observe again only if the environment changed since the latest
+   observation;
+4. inject the existing delta-ledger feedback into the same continuous session;
+5. never block shell operations or replay, select packages, restore a container, or use
+   cross-case memory.
 
-Freeze the algorithm, prompt, tool schema, taxonomy, model/provider binding, and analysis
-code before Canary. The primary outcome is Official Pass@1. Mechanism outcomes include
-first complete-candidate latency, replay activation, feedback-conditioned repair, and
-paired failure-layer transitions. Resource outcomes are reported both unconditionally
-and conditional on success; tokens and monetary cost are measurements, not stopping
-thresholds. Infrastructure censoring is preserved separately.
+The cadence is frozen from the consumed-14 natural global-check interval of 17.96 shell
+actions, rounded once to 16; it is not tuned on the new pilot outcome. The optional
+`check_compatibility` tool is removed so every treatment episode receives the same
+mechanism dose. Existing ledger representation, Agent, clean replay, model/provider,
+safety caps, and E remain unchanged.
 
-The untouched evaluation compares F and EnvSolve-Pro on Canary, then runs final DeepSeek
-V4 Pro systems on protected and official protocols. Repo2Run, EnvBench FreeAgent, and
-prior EnvSolve are same-backbone system baselines where their semantics can be preserved.
-Native Codex is an independent frontier reference. The first paper claims only fixed
-mechanisms and controlled evidence; automatic combination search remains Auto-EnvSolve,
-and learned deployment policies remain EnvSolve-RL.
+Preregister a 16-episode consumed qualification: four previously consumed repositories,
+two arms, and two replications with counterbalanced order. The two current stress cases
+remain eligible as design cases; two additional identities are frozen before
+implementation from distinct prior observation-failure strata. Mechanism qualification
+requires schedule compliance in every treatment episode, at least 75% complete
+observations, zero operation constraints, and zero checkpoints. Promotion additionally
+requires no lower Official Pass count, at most one paired treatment-only loss, and either
+one treatment-only win or a preregistered success-conditional efficiency signal. Tokens,
+time, network, disk, and memory remain outcomes rather than optimization cutoffs.
+
+### 11.4 Confirmation and Claims
+
+Do not open another frozen Dev identity until V2 passes the consumed qualification. Then
+freeze algorithm, prompt, tool schema, taxonomy, model/provider binding, and analysis code
+before Canary. The primary outcome is Official Pass@1. Mechanism outcomes include
+observation schedule compliance, state deltas, candidate-ready-to-replay latency,
+first-replay repair, and paired failure-layer transitions. Resource outcomes are reported
+unconditionally and conditional on success; infrastructure censoring remains separate.
+
+Final system comparisons include Repo2Run, EnvBench FreeAgent, prior hard-constraint
+EnvSolve, and same-backbone free-search controls where native semantics can be preserved;
+native Codex is an independent frontier reference. The first paper claims only a fixed
+three-layer algorithm and controlled evidence. Harness search remains Auto-EnvSolve, and
+learned policies remain EnvSolve-RL.

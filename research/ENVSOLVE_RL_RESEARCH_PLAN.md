@@ -561,3 +561,18 @@ counterexamples add a repeatable learnable signal. Only after that signal recurs
 repositories should the second paper compare raw-history policies,
 soft-constraint-conditioned imitation, and RL. This avoids inventing a rich state and
 training around an interface with no demonstrated causal effect.
+
+### 20. Scheduled-Observation Transition Contract
+
+The optional-ledger pilot must not be treated as a homogeneous treatment dataset: one
+successful episode received zero ledger calls. Future training records therefore include
+the scheduled trigger, actual observation time, environment identity, complete obligation
+set, resolved and introduced deltas, shell-action interval, candidate-ready time, replay
+counterexample, exact program hash, and Official outcome. Provider retries and censored
+infrastructure events remain masked from deployment-policy reward.
+
+Deterministic observation creates comparable state-action transitions without prescribing
+the action. This is the minimal interface EnvSolve-RL can reuse to test whether a learned
+policy observes or repairs more efficiently than a strong free Agent. Optional-dose v1
+episodes remain useful observational trajectories, but not causal positive labels for the
+constraint-conditioned policy.

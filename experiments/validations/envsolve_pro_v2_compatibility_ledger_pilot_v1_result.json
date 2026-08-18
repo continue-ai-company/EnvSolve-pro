@@ -1,0 +1,1589 @@
+{
+  "adjudication": {
+    "decision": "negative-mechanism-not-qualified",
+    "directional": {
+      "arms": {
+        "B-FSR": {
+          "candidate_formed": 2,
+          "official_pass": 2,
+          "valid_episode_count": 4
+        },
+        "D-LEDGER": {
+          "candidate_formed": 3,
+          "official_pass": 3,
+          "valid_episode_count": 4
+        }
+      },
+      "efficiency_signal": false,
+      "median_paired_resource_ratios_D_over_B": {
+        "interactive_tool_steps": 1.2803418803418802,
+        "model_requests": 1.3047138047138047,
+        "seconds_to_certificate": 1.1090499896324197,
+        "total_tokens": 1.4606966535644506
+      },
+      "treatment_only_official_losses": 0,
+      "treatment_only_official_wins": 1
+    },
+    "mechanism_acceptance": {
+      "changed_transition_count": 3,
+      "check_count": 6,
+      "comparable_transition_count": 3,
+      "complete_check_rate": 1.0,
+      "passed": false,
+      "transition_counts": {
+        "improved": 2,
+        "initial": 3,
+        "mixed": 1
+      },
+      "treatment_episode_count": 4
+    }
+  },
+  "analysis_contract": "experiments/validations/envsolve_pro_v2_compatibility_ledger_pilot_v1_analysis_contract.json",
+  "episodes": [
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": false,
+      "candidate_request_index": null,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": null
+      },
+      "generation_completed": false,
+      "generation_error": "RuntimeError: Agent exhausted the request safety cap without submission",
+      "mechanism": {
+        "candidate_ready_count": 0,
+        "candidate_ready_to_replay": {
+          "measurements": [],
+          "without_later_replay_count": 0
+        },
+        "check_count": 0,
+        "complete_check_count": 0,
+        "ledger_metadata": {},
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": null,
+      "official_pass": false,
+      "pair_id": "compatibility-ledger-pilot-paz-r1",
+      "position": 1,
+      "pre_candidate": {
+        "completion_tokens": 91680,
+        "cost": 0.14793932800000004,
+        "interactive_tool_steps": 119,
+        "model_requests": 120,
+        "prompt_tokens": 5568568,
+        "reasoning_tokens": 73750,
+        "seconds_to_certificate": null,
+        "total_tokens": 5660248
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1",
+      "total": {
+        "generation_seconds": 5368.675027,
+        "interactive_tool_steps": 119,
+        "model_requests": 120,
+        "official_evaluation_seconds": null,
+        "provider_errors": 16,
+        "token_usage": null
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "D-LEDGER",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-02-paz-r1-D-LEDGER/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": false,
+      "candidate_request_index": null,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": null
+      },
+      "generation_completed": false,
+      "generation_error": "RuntimeError: Agent exhausted the request safety cap without submission",
+      "mechanism": {
+        "candidate_ready_count": 0,
+        "candidate_ready_to_replay": {
+          "measurements": [],
+          "without_later_replay_count": 0
+        },
+        "check_count": 2,
+        "complete_check_count": 2,
+        "ledger_metadata": {
+          "best_anchor": {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 77,
+              "python_distributions_sha256": "9fdb130ad5a8abe8ee7c80aec700825d390dff7f039a13e9d979a8ea247472ca",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "29a528d7834e6f41c4ed12b08a936385a104df6e2d0800e2b57dcd4d9e8c7b35",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 50,
+            "obligation_set_sha256": "c30c767c736c39775d140a9f957e5c0677de6aa68462e0c639a33c042cfeb6c3",
+            "observation_index": 1
+          },
+          "complete_observation_count": 2,
+          "frontier_size": 2,
+          "goal_pass_observation_count": 0,
+          "observation_count": 2,
+          "operation_constraints_added": false,
+          "probe_execution": {
+            "environment_fingerprint_timing": "after-goal-execution",
+            "filesystem_effects_persist": true,
+            "goal_instrumentation_may_modify_environment": true,
+            "max_projection_bytes": 2000000,
+            "projection_transport": "zlib-base64-json-v1",
+            "scope": "persistent-construction-shell-subshell",
+            "shell_variable_effects_persist": false
+          },
+          "schema": "envsolve-compatibility-delta-ledger-v1",
+          "stores_container_checkpoint": false,
+          "transition_counts": {
+            "initial": 1,
+            "mixed": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-02-paz-r1-D-LEDGER/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": null,
+      "official_pass": false,
+      "pair_id": "compatibility-ledger-pilot-paz-r1",
+      "position": 2,
+      "pre_candidate": {
+        "completion_tokens": 200660,
+        "cost": 0.153778752,
+        "interactive_tool_steps": 119,
+        "model_requests": 120,
+        "prompt_tokens": 4962999,
+        "reasoning_tokens": 187713,
+        "seconds_to_certificate": null,
+        "total_tokens": 5163659
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-02-paz-r1-D-LEDGER",
+      "total": {
+        "generation_seconds": 9139.503177,
+        "interactive_tool_steps": 119,
+        "model_requests": 120,
+        "official_evaluation_seconds": null,
+        "provider_errors": 21,
+        "token_usage": null
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "D-LEDGER",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 32,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_ready_count": 1,
+        "candidate_ready_to_replay": {
+          "measurements": [
+            {
+              "candidate_ready_request_index": 27,
+              "next_replay_request_index": 32,
+              "request_delta": 5
+            }
+          ],
+          "without_later_replay_count": 0
+        },
+        "check_count": 2,
+        "complete_check_count": 2,
+        "ledger_metadata": {
+          "best_anchor": {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "e84e95c4ba5845f34e11b7df8a7171d2c67725a7ae663ddda5b48d894c4df7cf",
+              "python_base_prefix": "/root/.pyenv/versions/3.12.0",
+              "python_distribution_count": 63,
+              "python_distributions_sha256": "5e0a7729955ef3112d0e48c037f4cde8c39e2e45c7a29a1f637d2b6b13d9524a",
+              "python_executable": "/data/project/venv/bin/python",
+              "python_path_sha256": "11117cebca7d02ee6725ba2b641de0b248948406c9a84bb0d4c32befcfdf729a",
+              "python_prefix": "/data/project/venv",
+              "python_version": "3.12.0",
+              "virtual_env": "/data/project/venv"
+            },
+            "obligation_count": 0,
+            "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "observation_index": 2
+          },
+          "complete_observation_count": 2,
+          "frontier_size": 1,
+          "goal_pass_observation_count": 1,
+          "observation_count": 2,
+          "operation_constraints_added": false,
+          "probe_execution": {
+            "environment_fingerprint_timing": "after-goal-execution",
+            "filesystem_effects_persist": true,
+            "goal_instrumentation_may_modify_environment": true,
+            "max_projection_bytes": 2000000,
+            "projection_transport": "zlib-base64-json-v1",
+            "scope": "persistent-construction-shell-subshell",
+            "shell_variable_effects_persist": false
+          },
+          "schema": "envsolve-compatibility-delta-ledger-v1",
+          "stores_container_checkpoint": false,
+          "transition_counts": {
+            "improved": 1,
+            "initial": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER-official-retry1/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": "evaluator-host-missing-uv",
+        "retry_audit_valid": true,
+        "retry_run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER-official-retry1",
+        "source": "exact-script-infrastructure-retry"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "compatibility-ledger-pilot-brozzler-r1",
+      "position": 3,
+      "pre_candidate": {
+        "completion_tokens": 14254,
+        "cost": 0.014293432,
+        "interactive_tool_steps": 40,
+        "model_requests": 32,
+        "prompt_tokens": 519742,
+        "reasoning_tokens": 7813,
+        "seconds_to_certificate": 461.765625,
+        "total_tokens": 533996
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER",
+      "total": {
+        "generation_seconds": 471.216648,
+        "interactive_tool_steps": 40,
+        "model_requests": 33,
+        "official_evaluation_seconds": 82.83724999427795,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 14998,
+          "cost": 0.015191512,
+          "prompt_tokens": 550798,
+          "total_tokens": 565796
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-04-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 27,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_ready_count": 0,
+        "candidate_ready_to_replay": {
+          "measurements": [],
+          "without_later_replay_count": 0
+        },
+        "check_count": 0,
+        "complete_check_count": 0,
+        "ledger_metadata": {},
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-04-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "compatibility-ledger-pilot-brozzler-r1",
+      "position": 4,
+      "pre_candidate": {
+        "completion_tokens": 13804,
+        "cost": 0.010203872,
+        "interactive_tool_steps": 26,
+        "model_requests": 27,
+        "prompt_tokens": 364163,
+        "reasoning_tokens": 9262,
+        "seconds_to_certificate": 693.550201,
+        "total_tokens": 377967
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-04-brozzler-r1-B-FSR",
+      "total": {
+        "generation_seconds": 703.663814,
+        "interactive_tool_steps": 26,
+        "model_requests": 28,
+        "official_evaluation_seconds": 59.000725984573364,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 14445,
+          "cost": 0.01099098,
+          "prompt_tokens": 390582,
+          "total_tokens": 405027
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-05-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 33,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_ready_count": 0,
+        "candidate_ready_to_replay": {
+          "measurements": [],
+          "without_later_replay_count": 0
+        },
+        "check_count": 0,
+        "complete_check_count": 0,
+        "ledger_metadata": {},
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-05-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "compatibility-ledger-pilot-brozzler-r2",
+      "position": 5,
+      "pre_candidate": {
+        "completion_tokens": 23751,
+        "cost": 0.01559534,
+        "interactive_tool_steps": 45,
+        "model_requests": 33,
+        "prompt_tokens": 565438,
+        "reasoning_tokens": 15875,
+        "seconds_to_certificate": 831.51359,
+        "total_tokens": 589189
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-05-brozzler-r2-B-FSR",
+      "total": {
+        "generation_seconds": 854.816836,
+        "interactive_tool_steps": 45,
+        "model_requests": 34,
+        "official_evaluation_seconds": 95.11994481086731,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 24816,
+          "cost": 0.016425455999999998,
+          "prompt_tokens": 597175,
+          "total_tokens": 621991
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "D-LEDGER",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-06-brozzler-r2-D-LEDGER/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 47,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_ready_count": 0,
+        "candidate_ready_to_replay": {
+          "measurements": [],
+          "without_later_replay_count": 0
+        },
+        "check_count": 0,
+        "complete_check_count": 0,
+        "ledger_metadata": {
+          "best_anchor": null,
+          "complete_observation_count": 0,
+          "frontier_size": 0,
+          "goal_pass_observation_count": 0,
+          "observation_count": 0,
+          "operation_constraints_added": false,
+          "probe_execution": {
+            "environment_fingerprint_timing": "after-goal-execution",
+            "filesystem_effects_persist": true,
+            "goal_instrumentation_may_modify_environment": true,
+            "max_projection_bytes": 2000000,
+            "projection_transport": "zlib-base64-json-v1",
+            "scope": "persistent-construction-shell-subshell",
+            "shell_variable_effects_persist": false
+          },
+          "schema": "envsolve-compatibility-delta-ledger-v1",
+          "stores_container_checkpoint": false,
+          "transition_counts": {}
+        },
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-06-brozzler-r2-D-LEDGER/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "compatibility-ledger-pilot-brozzler-r2",
+      "position": 6,
+      "pre_candidate": {
+        "completion_tokens": 32501,
+        "cost": 0.022354484000000004,
+        "interactive_tool_steps": 46,
+        "model_requests": 47,
+        "prompt_tokens": 856339,
+        "reasoning_tokens": 23592,
+        "seconds_to_certificate": 1290.758647,
+        "total_tokens": 888840
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-06-brozzler-r2-D-LEDGER",
+      "total": {
+        "generation_seconds": 1370.143244,
+        "interactive_tool_steps": 46,
+        "model_requests": 48,
+        "official_evaluation_seconds": 63.61732220649719,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 33428,
+          "cost": 0.023402656000000004,
+          "prompt_tokens": 894389,
+          "total_tokens": 927817
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "D-LEDGER",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": true,
+      "candidate_request_index": 83,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "candidate_ready_count": 1,
+        "candidate_ready_to_replay": {
+          "measurements": [
+            {
+              "candidate_ready_request_index": 72,
+              "next_replay_request_index": 81,
+              "request_delta": 9
+            }
+          ],
+          "without_later_replay_count": 0
+        },
+        "check_count": 2,
+        "complete_check_count": 2,
+        "ledger_metadata": {
+          "best_anchor": {
+            "environment": {
+              "conda_prefix": "/opt/conda/envs/paz",
+              "cwd": "/data/project",
+              "path_sha256": "028e117bd69356ae049df03195921333e4076f1210d10b67fa0ba907b2c4fa8f",
+              "python_base_prefix": "/opt/conda/envs/paz",
+              "python_distribution_count": 90,
+              "python_distributions_sha256": "079fe6e2ff669b24d333ecd32b52b05651c5845700baf91b528dbacac2c5d9a7",
+              "python_executable": "/opt/conda/envs/paz/bin/python",
+              "python_path_sha256": "452392fa9e0174e7c30b8c5b6541ceb8a1d3dfa0012050ccba73302c74f281ef",
+              "python_prefix": "/opt/conda/envs/paz",
+              "python_version": "3.10.20",
+              "virtual_env": null
+            },
+            "obligation_count": 0,
+            "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "observation_index": 2
+          },
+          "complete_observation_count": 2,
+          "frontier_size": 1,
+          "goal_pass_observation_count": 1,
+          "observation_count": 2,
+          "operation_constraints_added": false,
+          "probe_execution": {
+            "environment_fingerprint_timing": "after-goal-execution",
+            "filesystem_effects_persist": true,
+            "goal_instrumentation_may_modify_environment": true,
+            "max_projection_bytes": 2000000,
+            "projection_transport": "zlib-base64-json-v1",
+            "scope": "persistent-construction-shell-subshell",
+            "shell_variable_effects_persist": false
+          },
+          "schema": "envsolve-compatibility-delta-ledger-v1",
+          "stores_container_checkpoint": false,
+          "transition_counts": {
+            "improved": 1,
+            "initial": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "compatibility-ledger-pilot-paz-r2",
+      "position": 7,
+      "pre_candidate": {
+        "completion_tokens": 97427,
+        "cost": 0.073783372,
+        "interactive_tool_steps": 94,
+        "model_requests": 83,
+        "prompt_tokens": 3177475,
+        "reasoning_tokens": 80990,
+        "seconds_to_certificate": 3711.477155,
+        "total_tokens": 3274902
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1",
+      "total": {
+        "generation_seconds": 3728.448127,
+        "interactive_tool_steps": 94,
+        "model_requests": 84,
+        "official_evaluation_seconds": 310.1791801452637,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 98423,
+          "cost": 0.075303388,
+          "prompt_tokens": 3251783,
+          "total_tokens": 3350206
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": false,
+      "candidate_request_index": null,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": null
+      },
+      "generation_completed": false,
+      "generation_error": "RuntimeError: Agent exhausted the request safety cap without submission",
+      "mechanism": {
+        "candidate_ready_count": 0,
+        "candidate_ready_to_replay": {
+          "measurements": [],
+          "without_later_replay_count": 0
+        },
+        "check_count": 0,
+        "complete_check_count": 0,
+        "ledger_metadata": {},
+        "operation_constraint_violations": 0,
+        "unknown_check_count": 0
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": null,
+      "official_pass": false,
+      "pair_id": "compatibility-ledger-pilot-paz-r2",
+      "position": 8,
+      "pre_candidate": {
+        "completion_tokens": 68320,
+        "cost": 0.095865408,
+        "interactive_tool_steps": 120,
+        "model_requests": 120,
+        "prompt_tokens": 4738780,
+        "reasoning_tokens": 54228,
+        "seconds_to_certificate": null,
+        "total_tokens": 4807100
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1",
+      "total": {
+        "generation_seconds": 3431.919981,
+        "interactive_tool_steps": 120,
+        "model_requests": 120,
+        "official_evaluation_seconds": null,
+        "provider_errors": 2,
+        "token_usage": null
+      },
+      "validity_errors": []
+    }
+  ],
+  "pairs": [
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-04-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 27,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "candidate_ready_count": 0,
+          "candidate_ready_to_replay": {
+            "measurements": [],
+            "without_later_replay_count": 0
+          },
+          "check_count": 0,
+          "complete_check_count": 0,
+          "ledger_metadata": {},
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-04-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "compatibility-ledger-pilot-brozzler-r1",
+        "position": 4,
+        "pre_candidate": {
+          "completion_tokens": 13804,
+          "cost": 0.010203872,
+          "interactive_tool_steps": 26,
+          "model_requests": 27,
+          "prompt_tokens": 364163,
+          "reasoning_tokens": 9262,
+          "seconds_to_certificate": 693.550201,
+          "total_tokens": 377967
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-04-brozzler-r1-B-FSR",
+        "total": {
+          "generation_seconds": 703.663814,
+          "interactive_tool_steps": 26,
+          "model_requests": 28,
+          "official_evaluation_seconds": 59.000725984573364,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 14445,
+            "cost": 0.01099098,
+            "prompt_tokens": 390582,
+            "total_tokens": 405027
+          }
+        },
+        "validity_errors": []
+      },
+      "D-LEDGER": {
+        "arm": "D-LEDGER",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 32,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "candidate_ready_count": 1,
+          "candidate_ready_to_replay": {
+            "measurements": [
+              {
+                "candidate_ready_request_index": 27,
+                "next_replay_request_index": 32,
+                "request_delta": 5
+              }
+            ],
+            "without_later_replay_count": 0
+          },
+          "check_count": 2,
+          "complete_check_count": 2,
+          "ledger_metadata": {
+            "best_anchor": {
+              "environment": {
+                "conda_prefix": null,
+                "cwd": "/data/project",
+                "path_sha256": "e84e95c4ba5845f34e11b7df8a7171d2c67725a7ae663ddda5b48d894c4df7cf",
+                "python_base_prefix": "/root/.pyenv/versions/3.12.0",
+                "python_distribution_count": 63,
+                "python_distributions_sha256": "5e0a7729955ef3112d0e48c037f4cde8c39e2e45c7a29a1f637d2b6b13d9524a",
+                "python_executable": "/data/project/venv/bin/python",
+                "python_path_sha256": "11117cebca7d02ee6725ba2b641de0b248948406c9a84bb0d4c32befcfdf729a",
+                "python_prefix": "/data/project/venv",
+                "python_version": "3.12.0",
+                "virtual_env": "/data/project/venv"
+              },
+              "obligation_count": 0,
+              "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "observation_index": 2
+            },
+            "complete_observation_count": 2,
+            "frontier_size": 1,
+            "goal_pass_observation_count": 1,
+            "observation_count": 2,
+            "operation_constraints_added": false,
+            "probe_execution": {
+              "environment_fingerprint_timing": "after-goal-execution",
+              "filesystem_effects_persist": true,
+              "goal_instrumentation_may_modify_environment": true,
+              "max_projection_bytes": 2000000,
+              "projection_transport": "zlib-base64-json-v1",
+              "scope": "persistent-construction-shell-subshell",
+              "shell_variable_effects_persist": false
+            },
+            "schema": "envsolve-compatibility-delta-ledger-v1",
+            "stores_container_checkpoint": false,
+            "transition_counts": {
+              "improved": 1,
+              "initial": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER-official-retry1/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": "evaluator-host-missing-uv",
+          "retry_audit_valid": true,
+          "retry_run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER-official-retry1",
+          "source": "exact-script-infrastructure-retry"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "compatibility-ledger-pilot-brozzler-r1",
+        "position": 3,
+        "pre_candidate": {
+          "completion_tokens": 14254,
+          "cost": 0.014293432,
+          "interactive_tool_steps": 40,
+          "model_requests": 32,
+          "prompt_tokens": 519742,
+          "reasoning_tokens": 7813,
+          "seconds_to_certificate": 461.765625,
+          "total_tokens": 533996
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-03-brozzler-r1-D-LEDGER",
+        "total": {
+          "generation_seconds": 471.216648,
+          "interactive_tool_steps": 40,
+          "model_requests": 33,
+          "official_evaluation_seconds": 82.83724999427795,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 14998,
+            "cost": 0.015191512,
+            "prompt_tokens": 550798,
+            "total_tokens": 565796
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "compatibility-ledger-pilot-brozzler-r1",
+      "resource_ratios_D_over_B": {
+        "interactive_tool_steps": 1.5384615384615385,
+        "model_requests": 1.1851851851851851,
+        "seconds_to_certificate": 0.6657998575073587,
+        "total_tokens": 1.4128111713456466
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-05-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 33,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "candidate_ready_count": 0,
+          "candidate_ready_to_replay": {
+            "measurements": [],
+            "without_later_replay_count": 0
+          },
+          "check_count": 0,
+          "complete_check_count": 0,
+          "ledger_metadata": {},
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-05-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "compatibility-ledger-pilot-brozzler-r2",
+        "position": 5,
+        "pre_candidate": {
+          "completion_tokens": 23751,
+          "cost": 0.01559534,
+          "interactive_tool_steps": 45,
+          "model_requests": 33,
+          "prompt_tokens": 565438,
+          "reasoning_tokens": 15875,
+          "seconds_to_certificate": 831.51359,
+          "total_tokens": 589189
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-05-brozzler-r2-B-FSR",
+        "total": {
+          "generation_seconds": 854.816836,
+          "interactive_tool_steps": 45,
+          "model_requests": 34,
+          "official_evaluation_seconds": 95.11994481086731,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 24816,
+            "cost": 0.016425455999999998,
+            "prompt_tokens": 597175,
+            "total_tokens": 621991
+          }
+        },
+        "validity_errors": []
+      },
+      "D-LEDGER": {
+        "arm": "D-LEDGER",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-06-brozzler-r2-D-LEDGER/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 47,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "candidate_ready_count": 0,
+          "candidate_ready_to_replay": {
+            "measurements": [],
+            "without_later_replay_count": 0
+          },
+          "check_count": 0,
+          "complete_check_count": 0,
+          "ledger_metadata": {
+            "best_anchor": null,
+            "complete_observation_count": 0,
+            "frontier_size": 0,
+            "goal_pass_observation_count": 0,
+            "observation_count": 0,
+            "operation_constraints_added": false,
+            "probe_execution": {
+              "environment_fingerprint_timing": "after-goal-execution",
+              "filesystem_effects_persist": true,
+              "goal_instrumentation_may_modify_environment": true,
+              "max_projection_bytes": 2000000,
+              "projection_transport": "zlib-base64-json-v1",
+              "scope": "persistent-construction-shell-subshell",
+              "shell_variable_effects_persist": false
+            },
+            "schema": "envsolve-compatibility-delta-ledger-v1",
+            "stores_container_checkpoint": false,
+            "transition_counts": {}
+          },
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-06-brozzler-r2-D-LEDGER/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "compatibility-ledger-pilot-brozzler-r2",
+        "position": 6,
+        "pre_candidate": {
+          "completion_tokens": 32501,
+          "cost": 0.022354484000000004,
+          "interactive_tool_steps": 46,
+          "model_requests": 47,
+          "prompt_tokens": 856339,
+          "reasoning_tokens": 23592,
+          "seconds_to_certificate": 1290.758647,
+          "total_tokens": 888840
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-06-brozzler-r2-D-LEDGER",
+        "total": {
+          "generation_seconds": 1370.143244,
+          "interactive_tool_steps": 46,
+          "model_requests": 48,
+          "official_evaluation_seconds": 63.61732220649719,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 33428,
+            "cost": 0.023402656000000004,
+            "prompt_tokens": 894389,
+            "total_tokens": 927817
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "compatibility-ledger-pilot-brozzler-r2",
+      "resource_ratios_D_over_B": {
+        "interactive_tool_steps": 1.0222222222222221,
+        "model_requests": 1.4242424242424243,
+        "seconds_to_certificate": 1.552300121757481,
+        "total_tokens": 1.5085821357832545
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": false,
+        "candidate_request_index": null,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": null
+        },
+        "generation_completed": false,
+        "generation_error": "RuntimeError: Agent exhausted the request safety cap without submission",
+        "mechanism": {
+          "candidate_ready_count": 0,
+          "candidate_ready_to_replay": {
+            "measurements": [],
+            "without_later_replay_count": 0
+          },
+          "check_count": 0,
+          "complete_check_count": 0,
+          "ledger_metadata": {},
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": null,
+        "official_pass": false,
+        "pair_id": "compatibility-ledger-pilot-paz-r1",
+        "position": 1,
+        "pre_candidate": {
+          "completion_tokens": 91680,
+          "cost": 0.14793932800000004,
+          "interactive_tool_steps": 119,
+          "model_requests": 120,
+          "prompt_tokens": 5568568,
+          "reasoning_tokens": 73750,
+          "seconds_to_certificate": null,
+          "total_tokens": 5660248
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-01-paz-r1-B-FSR-infra-retry1",
+        "total": {
+          "generation_seconds": 5368.675027,
+          "interactive_tool_steps": 119,
+          "model_requests": 120,
+          "official_evaluation_seconds": null,
+          "provider_errors": 16,
+          "token_usage": null
+        },
+        "validity_errors": []
+      },
+      "D-LEDGER": {
+        "arm": "D-LEDGER",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-02-paz-r1-D-LEDGER/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": false,
+        "candidate_request_index": null,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": null
+        },
+        "generation_completed": false,
+        "generation_error": "RuntimeError: Agent exhausted the request safety cap without submission",
+        "mechanism": {
+          "candidate_ready_count": 0,
+          "candidate_ready_to_replay": {
+            "measurements": [],
+            "without_later_replay_count": 0
+          },
+          "check_count": 2,
+          "complete_check_count": 2,
+          "ledger_metadata": {
+            "best_anchor": {
+              "environment": {
+                "conda_prefix": null,
+                "cwd": "/data/project",
+                "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+                "python_base_prefix": "/opt/conda",
+                "python_distribution_count": 77,
+                "python_distributions_sha256": "9fdb130ad5a8abe8ee7c80aec700825d390dff7f039a13e9d979a8ea247472ca",
+                "python_executable": "/opt/conda/bin/python",
+                "python_path_sha256": "29a528d7834e6f41c4ed12b08a936385a104df6e2d0800e2b57dcd4d9e8c7b35",
+                "python_prefix": "/opt/conda",
+                "python_version": "3.13.2",
+                "virtual_env": null
+              },
+              "obligation_count": 50,
+              "obligation_set_sha256": "c30c767c736c39775d140a9f957e5c0677de6aa68462e0c639a33c042cfeb6c3",
+              "observation_index": 1
+            },
+            "complete_observation_count": 2,
+            "frontier_size": 2,
+            "goal_pass_observation_count": 0,
+            "observation_count": 2,
+            "operation_constraints_added": false,
+            "probe_execution": {
+              "environment_fingerprint_timing": "after-goal-execution",
+              "filesystem_effects_persist": true,
+              "goal_instrumentation_may_modify_environment": true,
+              "max_projection_bytes": 2000000,
+              "projection_transport": "zlib-base64-json-v1",
+              "scope": "persistent-construction-shell-subshell",
+              "shell_variable_effects_persist": false
+            },
+            "schema": "envsolve-compatibility-delta-ledger-v1",
+            "stores_container_checkpoint": false,
+            "transition_counts": {
+              "initial": 1,
+              "mixed": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-02-paz-r1-D-LEDGER/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": null,
+        "official_pass": false,
+        "pair_id": "compatibility-ledger-pilot-paz-r1",
+        "position": 2,
+        "pre_candidate": {
+          "completion_tokens": 200660,
+          "cost": 0.153778752,
+          "interactive_tool_steps": 119,
+          "model_requests": 120,
+          "prompt_tokens": 4962999,
+          "reasoning_tokens": 187713,
+          "seconds_to_certificate": null,
+          "total_tokens": 5163659
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-02-paz-r1-D-LEDGER",
+        "total": {
+          "generation_seconds": 9139.503177,
+          "interactive_tool_steps": 119,
+          "model_requests": 120,
+          "official_evaluation_seconds": null,
+          "provider_errors": 21,
+          "token_usage": null
+        },
+        "validity_errors": []
+      },
+      "comparable_success": false,
+      "complete": true,
+      "pair_id": "compatibility-ledger-pilot-paz-r1",
+      "resource_ratios_D_over_B": {},
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": false,
+        "candidate_request_index": null,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": null
+        },
+        "generation_completed": false,
+        "generation_error": "RuntimeError: Agent exhausted the request safety cap without submission",
+        "mechanism": {
+          "candidate_ready_count": 0,
+          "candidate_ready_to_replay": {
+            "measurements": [],
+            "without_later_replay_count": 0
+          },
+          "check_count": 0,
+          "complete_check_count": 0,
+          "ledger_metadata": {},
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": null,
+        "official_pass": false,
+        "pair_id": "compatibility-ledger-pilot-paz-r2",
+        "position": 8,
+        "pre_candidate": {
+          "completion_tokens": 68320,
+          "cost": 0.095865408,
+          "interactive_tool_steps": 120,
+          "model_requests": 120,
+          "prompt_tokens": 4738780,
+          "reasoning_tokens": 54228,
+          "seconds_to_certificate": null,
+          "total_tokens": 4807100
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-08-paz-r2-B-FSR-infra-retry1",
+        "total": {
+          "generation_seconds": 3431.919981,
+          "interactive_tool_steps": 120,
+          "model_requests": 120,
+          "official_evaluation_seconds": null,
+          "provider_errors": 2,
+          "token_usage": null
+        },
+        "validity_errors": []
+      },
+      "D-LEDGER": {
+        "arm": "D-LEDGER",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": true,
+        "candidate_request_index": 83,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "candidate_ready_count": 1,
+          "candidate_ready_to_replay": {
+            "measurements": [
+              {
+                "candidate_ready_request_index": 72,
+                "next_replay_request_index": 81,
+                "request_delta": 9
+              }
+            ],
+            "without_later_replay_count": 0
+          },
+          "check_count": 2,
+          "complete_check_count": 2,
+          "ledger_metadata": {
+            "best_anchor": {
+              "environment": {
+                "conda_prefix": "/opt/conda/envs/paz",
+                "cwd": "/data/project",
+                "path_sha256": "028e117bd69356ae049df03195921333e4076f1210d10b67fa0ba907b2c4fa8f",
+                "python_base_prefix": "/opt/conda/envs/paz",
+                "python_distribution_count": 90,
+                "python_distributions_sha256": "079fe6e2ff669b24d333ecd32b52b05651c5845700baf91b528dbacac2c5d9a7",
+                "python_executable": "/opt/conda/envs/paz/bin/python",
+                "python_path_sha256": "452392fa9e0174e7c30b8c5b6541ceb8a1d3dfa0012050ccba73302c74f281ef",
+                "python_prefix": "/opt/conda/envs/paz",
+                "python_version": "3.10.20",
+                "virtual_env": null
+              },
+              "obligation_count": 0,
+              "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "observation_index": 2
+            },
+            "complete_observation_count": 2,
+            "frontier_size": 1,
+            "goal_pass_observation_count": 1,
+            "observation_count": 2,
+            "operation_constraints_added": false,
+            "probe_execution": {
+              "environment_fingerprint_timing": "after-goal-execution",
+              "filesystem_effects_persist": true,
+              "goal_instrumentation_may_modify_environment": true,
+              "max_projection_bytes": 2000000,
+              "projection_transport": "zlib-base64-json-v1",
+              "scope": "persistent-construction-shell-subshell",
+              "shell_variable_effects_persist": false
+            },
+            "schema": "envsolve-compatibility-delta-ledger-v1",
+            "stores_container_checkpoint": false,
+            "transition_counts": {
+              "improved": 1,
+              "initial": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "unknown_check_count": 0
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-formal-bd04578/runs/envsolve-pro-v2-compatibility-ledger-pilot-v1/pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "compatibility-ledger-pilot-paz-r2",
+        "position": 7,
+        "pre_candidate": {
+          "completion_tokens": 97427,
+          "cost": 0.073783372,
+          "interactive_tool_steps": 94,
+          "model_requests": 83,
+          "prompt_tokens": 3177475,
+          "reasoning_tokens": 80990,
+          "seconds_to_certificate": 3711.477155,
+          "total_tokens": 3274902
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-compatibility-ledger-pilot-v1-07-paz-r2-D-LEDGER-infra-retry1",
+        "total": {
+          "generation_seconds": 3728.448127,
+          "interactive_tool_steps": 94,
+          "model_requests": 84,
+          "official_evaluation_seconds": 310.1791801452637,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 98423,
+            "cost": 0.075303388,
+            "prompt_tokens": 3251783,
+            "total_tokens": 3350206
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": false,
+      "complete": true,
+      "pair_id": "compatibility-ledger-pilot-paz-r2",
+      "resource_ratios_D_over_B": {},
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": true
+    }
+  ],
+  "schema": "envsolve-pro-v2-compatibility-ledger-pilot-analysis-v1"
+}

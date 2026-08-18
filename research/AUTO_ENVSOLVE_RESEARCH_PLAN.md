@@ -643,3 +643,18 @@ complete-program hashes, clean replay, Official outcomes, and infrastructure cen
 The Dev-12 freeze, identity-only selection, paired order, and infrastructure amendment
 are concrete control-plane examples for the later outer system, but remain
 researcher-operated evidence rather than an Auto-EnvSolve result.
+
+### 21. Deterministic-Dose Promotion Interface
+
+The optional-ledger pilot adds a stricter outer-loop rule: a component cannot be promoted
+when the treatment merely makes it available. One of four treatment episodes never
+called the tool, so its `3/4` versus `2/4` direction is not a qualified mechanism result.
+Auto-EnvSolve must require a versioned intervention schedule, per-episode dose-compliance
+evidence, and a minimum complete-observation rate before comparing outcomes.
+
+The successor transaction changes one dimension only: optional observation becomes
+initial, periodic, and pre-replay observation at a frozen cadence. The outer optimizer
+may later propose another cadence or representation, but it must preserve free Agent
+operations, replay semantics, evaluator isolation, and the fixed shadow batch while that
+proposal is judged. Analysis-pipeline corrections are separately versioned measurement
+repairs and never receive algorithmic reward.
