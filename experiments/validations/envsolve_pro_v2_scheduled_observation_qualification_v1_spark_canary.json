@@ -1,0 +1,508 @@
+{
+  "envbench": {
+    "metadata": {
+      "best_anchor": {
+        "environment": {
+          "conda_prefix": null,
+          "cwd": "/data/project",
+          "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+          "python_base_prefix": "/opt/conda",
+          "python_distribution_count": 55,
+          "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+          "python_executable": "/opt/conda/bin/python",
+          "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+          "python_prefix": "/opt/conda",
+          "python_version": "3.13.2",
+          "virtual_env": null
+        },
+        "obligation_count": 17,
+        "obligation_set_sha256": "858cfe7a465f4cc4bf5500447ed3eb12c124676b548b0256dbe1bd70a1cf8bfe",
+        "observation_index": 1
+      },
+      "complete_observation_count": 1,
+      "frontier_size": 1,
+      "goal_pass_observation_count": 0,
+      "observation_count": 1,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "max_projection_transport_bytes": 3000000,
+        "projection_chunk_chars": 12000,
+        "projection_transport": "zlib-base64-json-chunked-v2",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {
+        "initial": 1
+      }
+    },
+    "observation": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "current": {
+        "obligation_count": 17,
+        "obligation_set_sha256": "858cfe7a465f4cc4bf5500447ed3eb12c124676b548b0256dbe1bd70a1cf8bfe",
+        "obligations": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "env_setup_utils.repo_downloader"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "inference.src.async_bash_executor"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "inference.src.env_setup_runner"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "inference.src.toolkits.bash_terminal_py"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "inference.src.utils"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langchain_core.callbacks"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langchain_core.messages"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langchain_core.outputs"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langchain_core.runnables"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langchain_core.tools"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langchain_openai"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langgraph.graph"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langgraph.managed"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "langgraph.prebuilt"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "openai"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "pytest"
+          },
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "tomli"
+          }
+        ]
+      },
+      "delta_from_previous": {
+        "classification": "initial",
+        "introduced": [],
+        "resolved": []
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 17,
+            "obligation_set_sha256": "858cfe7a465f4cc4bf5500447ed3eb12c124676b548b0256dbe1bd70a1cf8bfe",
+            "observation_index": 1
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 17,
+          "obligation_set_sha256": "858cfe7a465f4cc4bf5500447ed3eb12c124676b548b0256dbe1bd70a1cf8bfe",
+          "observation_index": 1
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_output": {
+        "stderr": {
+          "byte_count": 622,
+          "sha256": "0d23b744700739c8f2abcc8c2f5c59f5dfc247eb32c85ef493855f1cae5946ad",
+          "tail": "WARNING: The directory '/root/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\n",
+          "truncated": false
+        },
+        "stdout": {
+          "byte_count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tail": "",
+          "truncated": false
+        }
+      },
+      "goal_status": "fail",
+      "measurement": {
+        "raw_finding_count": 32,
+        "unique_obligation_count": 17
+      },
+      "observation_index": 1,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    }
+  },
+  "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+  "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+  "platform": "docker",
+  "qualification": {
+    "environment_fingerprint_changed": true,
+    "no_container_checkpoint_stored": true,
+    "no_operation_constraints_added": true,
+    "real_envbench_observation_complete": true,
+    "synthetic_candidate_ready": true,
+    "synthetic_delta_improved": true,
+    "synthetic_initial_fail": true
+  },
+  "recorded_at": "2026-08-18T03:13:05.585792+00:00",
+  "schema": "envsolve-compatibility-ledger-canary-result-v1",
+  "synthetic": {
+    "after": {
+      "advisory_only": true,
+      "candidate_ready": true,
+      "current": {
+        "obligation_count": 0,
+        "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "obligations": []
+      },
+      "delta_from_previous": {
+        "classification": "improved",
+        "introduced": [],
+        "resolved": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "envsolve_ledger_canary"
+          }
+        ]
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 0,
+            "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "observation_index": 2
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 0,
+          "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "observation_index": 2
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_output": {
+        "stderr": {
+          "byte_count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tail": "",
+          "truncated": false
+        },
+        "stdout": {
+          "byte_count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tail": "",
+          "truncated": false
+        }
+      },
+      "goal_status": "pass",
+      "measurement": {
+        "raw_finding_count": 0,
+        "unique_obligation_count": 0
+      },
+      "observation_index": 2,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "before": {
+      "advisory_only": true,
+      "candidate_ready": false,
+      "current": {
+        "obligation_count": 1,
+        "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+        "obligations": [
+          {
+            "domain": "module",
+            "predicate": "present",
+            "required": true,
+            "subject": "envsolve_ledger_canary"
+          }
+        ]
+      },
+      "delta_from_previous": {
+        "classification": "initial",
+        "introduced": [],
+        "resolved": []
+      },
+      "environment": {
+        "conda_prefix": null,
+        "cwd": "/data/project",
+        "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+        "python_base_prefix": "/opt/conda",
+        "python_distribution_count": 55,
+        "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+        "python_executable": "/opt/conda/bin/python",
+        "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+        "python_prefix": "/opt/conda",
+        "python_version": "3.13.2",
+        "virtual_env": null
+      },
+      "finding_set_complete": true,
+      "frontier": {
+        "anchors": [
+          {
+            "environment": {
+              "conda_prefix": null,
+              "cwd": "/data/project",
+              "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+              "python_base_prefix": "/opt/conda",
+              "python_distribution_count": 55,
+              "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+              "python_executable": "/opt/conda/bin/python",
+              "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+              "python_prefix": "/opt/conda",
+              "python_version": "3.13.2",
+              "virtual_env": null
+            },
+            "obligation_count": 1,
+            "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+            "observation_index": 1
+          }
+        ],
+        "best_anchor": {
+          "environment": {
+            "conda_prefix": null,
+            "cwd": "/data/project",
+            "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+            "python_base_prefix": "/opt/conda",
+            "python_distribution_count": 55,
+            "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+            "python_executable": "/opt/conda/bin/python",
+            "python_path_sha256": "fcbefbee97c6705a2635dd57a43c1943940082d57f45c2079f10710e57dfdf71",
+            "python_prefix": "/opt/conda",
+            "python_version": "3.13.2",
+            "virtual_env": null
+          },
+          "obligation_count": 1,
+          "obligation_set_sha256": "b550d3e11d1aa7c1ab70c18c639cc3fd91942ac8bbe215ffd7a1ab080f2db984",
+          "observation_index": 1
+        },
+        "changed": true,
+        "current_is_dominated": false,
+        "size": 1
+      },
+      "goal_output": {
+        "stderr": {
+          "byte_count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tail": "",
+          "truncated": false
+        },
+        "stdout": {
+          "byte_count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tail": "",
+          "truncated": false
+        }
+      },
+      "goal_status": "fail",
+      "measurement": {
+        "raw_finding_count": 1,
+        "unique_obligation_count": 1
+      },
+      "observation_index": 1,
+      "ok": true,
+      "operation_constraints_added": false,
+      "schema": "envsolve-compatibility-delta-ledger-v1"
+    },
+    "metadata": {
+      "best_anchor": {
+        "environment": {
+          "conda_prefix": null,
+          "cwd": "/data/project",
+          "path_sha256": "cd7d3d93abefd9cffc6311e9429f43f34de7ab562f6a1a197015c284c30df15c",
+          "python_base_prefix": "/opt/conda",
+          "python_distribution_count": 55,
+          "python_distributions_sha256": "d25baa58180e817c5b7a38a739c1b275ad03f5e423e570cb5723a4b97407d966",
+          "python_executable": "/opt/conda/bin/python",
+          "python_path_sha256": "18216ab1cd94b8697fd9e0e2dbe707a74feb2577887413158df8bb8a9bf17c9c",
+          "python_prefix": "/opt/conda",
+          "python_version": "3.13.2",
+          "virtual_env": null
+        },
+        "obligation_count": 0,
+        "obligation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "observation_index": 2
+      },
+      "complete_observation_count": 2,
+      "frontier_size": 1,
+      "goal_pass_observation_count": 1,
+      "observation_count": 2,
+      "operation_constraints_added": false,
+      "probe_execution": {
+        "environment_fingerprint_timing": "after-goal-execution",
+        "filesystem_effects_persist": true,
+        "goal_instrumentation_may_modify_environment": true,
+        "max_projection_bytes": 2000000,
+        "max_projection_transport_bytes": 3000000,
+        "projection_chunk_chars": 12000,
+        "projection_transport": "zlib-base64-json-chunked-v2",
+        "scope": "persistent-construction-shell-subshell",
+        "shell_variable_effects_persist": false
+      },
+      "schema": "envsolve-compatibility-delta-ledger-v1",
+      "stores_container_checkpoint": false,
+      "transition_counts": {
+        "improved": 1,
+        "initial": 1
+      }
+    },
+    "mutation": {
+      "exit_code": 0,
+      "infrastructure_error": null,
+      "timed_out": false
+    }
+  },
+  "workspace": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324"
+}

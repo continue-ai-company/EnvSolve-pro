@@ -1,0 +1,24 @@
+{
+  "algorithm_changed": false,
+  "canary": {
+    "all_seven_qualification_checks_passed": true,
+    "command_trace_path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_spark_canary.commands.jsonl",
+    "command_trace_sha256": "9b510a253a98693b9ba42d6941f3b87bfa948abd2f98b09f4ca838a0a18283c6",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "result_path": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_spark_canary.json",
+    "result_sha256": "380188f5c536d058fd044e0cd69a9b61c6b8a9c5b597d8c960b835a5e87c62a6"
+  },
+  "decision": "qualified-for-frozen-model-execution-on-spark",
+  "frozen_head": "ca9232407bfd085a906b08a8fb7740f5e8095dd7",
+  "platform": {
+    "architecture": "aarch64",
+    "host": "spark-f21c",
+    "role": "primary qualification server"
+  },
+  "recorded_at": "2026-08-18T03:13:05.585792+00:00",
+  "schema": "envsolve-pro-v2-scheduled-observation-spark-portability-v1",
+  "tests": {
+    "command": "python -m pytest tests/test_compatibility_ledger.py tests/test_openrouter_agent_runner.py tests/test_scheduled_observation_qualification_analysis.py -q",
+    "result": "34 passed in 0.32s"
+  }
+}
