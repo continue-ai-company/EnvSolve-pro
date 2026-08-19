@@ -1,0 +1,45 @@
+{
+  "schema": "envsolve-pro-v2-consumed-bad-case-profile-preregistration-v1",
+  "study_id": "envsolve-pro-v2-bad-case-profile-v1",
+  "status": "preregistered-before-execution",
+  "purpose": "Remove old-model, hard-boundary, and Mac-to-Spark adapter confounding before selecting the next EnvSolve-Pro mechanism.",
+  "claim_scope": "Consumed development cases only. This study diagnoses whether previously observed failure mechanisms remain active under the current minimal harness; it cannot support held-out, leaderboard, generalization, or SOTA claims.",
+  "arms": {
+    "A-F": "One continuous DeepSeek session with unrestricted execution feedback and the existing minimal integrity boundary, without clean replay.",
+    "B-FSR": "The same session, model, prompt, target image, and minimal boundary, plus repeatedly callable clean replay whose feedback returns to the active session."
+  },
+  "fixed_cases": [
+    {"case_id":"envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68","stratum":"old remote-replay checkout ownership drift"},
+    {"case_id":"envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d","stratum":"checkout ownership drift plus deployment-completeness concern"},
+    {"case_id":"envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629","stratum":"old hard-boundary false rejection"},
+    {"case_id":"envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416","stratum":"old hard-boundary false rejection"},
+    {"case_id":"envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1","stratum":"hard-boundary false rejection plus metric-aligned incomplete deployment"},
+    {"case_id":"envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784","stratum":"dependency-index resolution failure"}
+  ],
+  "execution": {
+    "host": "Spark Linux aarch64",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "replications_per_arm_case": 1,
+    "pairing": "The two arms use the same recorded seed within each case; provider determinism is not assumed.",
+    "order": "Arm order alternates by case.",
+    "official_evaluator_access": "post-episode-only",
+    "official_network_retry": "At most one evaluator-only retry of the exact submitted script after a recognized infrastructure failure; the model episode is not rerun."
+  },
+  "measurements": [
+    "candidate formation and terminal stage",
+    "clean-replay activation, first failure, feedback-conditioned program change, and certification",
+    "EnvBench Official Pass@1 after infrastructure censoring",
+    "earliest decisive Observation-Constraint-Operation failure",
+    "model requests, shell operations, tokens, and wall-clock time as descriptive metrics",
+    "deployment-completeness concerns reported separately from Official success"
+  ],
+  "interpretation_rules": [
+    "If both arms solve an ownership or old hard-boundary case, that historical failure is attributed to the old harness/backend combination and cannot motivate a new EnvSolve-Pro algorithm rule.",
+    "A B-FSR-only Official success supports clean replay only when the trajectory contains replay feedback followed by a materially changed program and certification.",
+    "Failure before any replay is candidate-formation or search failure, not evidence against replay feedback.",
+    "A dependency-download failure repaired inside the active session is algorithm behavior; the same failure after session termination is infrastructure-censored only under the existing recognized signature policy.",
+    "One realization per arm is insufficient for an effect-size or success-rate claim; any candidate mechanism selected after this study must receive a separate repeated qualification."
+  ],
+  "decision": "Use the resulting trajectories to remove obsolete failure mechanisms from the design target and identify the earliest repeated active failure. Do not implement or promote a new treatment from a single case-specific repair."
+}
