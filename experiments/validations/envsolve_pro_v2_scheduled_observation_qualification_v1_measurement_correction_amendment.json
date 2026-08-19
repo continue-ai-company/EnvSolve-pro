@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-scheduled-observation-qualification-v1-measurement-correction",
+  "recorded_at": "2026-08-19T09:12:36Z",
+  "status": "recorded-before-corrected-reanalysis",
+  "study_id": "envsolve-pro-v2-scheduled-observation-qualification-v1",
+  "trigger": {
+    "original_decision": "incomplete-or-censored",
+    "affected_original_position": 14,
+    "validity_error": "official-retry-source-not-infrastructure-censored",
+    "source_evaluation_completed": false,
+    "source_adapter_termination": {
+      "kind": "infrastructure_unknown",
+      "scope": "evaluator_bootstrap",
+      "signature": "read-timeout"
+    },
+    "exact_script_retry_audit_valid": true,
+    "exact_script_retry_official_pass": true
+  },
+  "measurement_bug": "The evaluation-only entrypoint classified the source from its raw log evidence and accepted the read-timeout retry, while the analyzer passed the structured adapter result to the same classifier. The classifier did not read its own structured termination record, so execution and analysis disagreed on identical evidence.",
+  "correction": {
+    "scope": "shared EnvBench evaluation infrastructure classification only",
+    "accept_recorded_network_censoring_only_when": [
+      "evaluation_completed is false",
+      "termination.kind is infrastructure_unknown",
+      "termination.scope is evaluator_bootstrap",
+      "termination.signature is a known network signature",
+      "adapter_error exactly names the same signature"
+    ],
+    "algorithm_changed": false,
+    "prompt_changed": false,
+    "episode_changed": false,
+    "official_outcome_changed": false,
+    "resource_metric_changed": false,
+    "adjudication_rule_changed": false
+  },
+  "evidence_policy": {
+    "preserve_original_analysis_result": true,
+    "rerun_the_same_analysis_command_after_tests_pass": true,
+    "git_commit_precedes_corrected_reanalysis": true,
+    "new_hash_or_gate_added": false
+  }
+}

@@ -1,0 +1,3847 @@
+{
+  "adjudication": {
+    "decision": "incomplete-or-censored",
+    "directional": {
+      "arms": {
+        "B-FSR": {
+          "candidate_formed": 8,
+          "official_pass": 8,
+          "valid_episode_count": 8
+        },
+        "E-SCHEDULED": {
+          "candidate_formed": 7,
+          "official_pass": 7,
+          "valid_episode_count": 7
+        }
+      },
+      "efficiency_signal": false,
+      "median_paired_resource_ratios_E_over_B": {
+        "interactive_tool_steps": 0.9523809523809523,
+        "model_requests": 1.0,
+        "seconds_to_certificate": 1.1535486111697122,
+        "total_tokens": 0.9568034682584131
+      },
+      "treatment_only_official_losses": 0,
+      "treatment_only_official_wins": 0
+    },
+    "mechanism_acceptance": {
+      "complete_observation_rate": 1.0,
+      "observation_count": 30,
+      "passed": false,
+      "schedule_compliant_episode_count": 7,
+      "treatment_episode_count": 7
+    }
+  },
+  "analysis_contract": "experiments/validations/envsolve_pro_v2_scheduled_observation_qualification_v1_analysis_contract.json",
+  "episodes": [
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-01-paz-r1-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": true,
+      "candidate_request_index": 75,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 104,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-01-paz-r1-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-paz-r1",
+      "position": 1,
+      "pre_candidate": {
+        "completion_tokens": 99990,
+        "cost": 0.072565704,
+        "interactive_tool_steps": 104,
+        "model_requests": 75,
+        "prompt_tokens": 2931617,
+        "reasoning_tokens": 88913,
+        "seconds_to_certificate": 4652.897031,
+        "total_tokens": 3031607
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-01-paz-r1-B-FSR",
+      "total": {
+        "generation_seconds": 4686.788846,
+        "interactive_tool_steps": 104,
+        "model_requests": 76,
+        "official_evaluation_seconds": 474.11645913124084,
+        "provider_errors": 5,
+        "token_usage": {
+          "completion_tokens": 101250,
+          "cost": 0.074053784,
+          "prompt_tokens": 3002679,
+          "total_tokens": 3103929
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-02-paz-r1-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": true,
+      "candidate_request_index": 109,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 8,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 8,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 8,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 6,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 8,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 58,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 58,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 15,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 32,
+              "transition": "improved",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 71,
+              "observation_number": 4,
+              "ok": true,
+              "shell_operations_completed": 48,
+              "transition": "regressed",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 71,
+              "observation_number": 5,
+              "ok": true,
+              "shell_operations_completed": 64,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 71,
+              "observation_number": 6,
+              "ok": true,
+              "shell_operations_completed": 80,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 69,
+              "observation_number": 7,
+              "ok": true,
+              "shell_operations_completed": 96,
+              "transition": "improved",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 8,
+              "ok": true,
+              "shell_operations_completed": 108,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 108,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 6,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 108,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 6,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-02-paz-r1-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-paz-r1",
+      "position": 2,
+      "pre_candidate": {
+        "completion_tokens": 137671,
+        "cost": 0.15301134000000002,
+        "interactive_tool_steps": 108,
+        "model_requests": 109,
+        "prompt_tokens": 6218050,
+        "reasoning_tokens": 118844,
+        "seconds_to_certificate": 7332.132617,
+        "total_tokens": 6355721
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-02-paz-r1-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 7585.12017,
+        "interactive_tool_steps": 108,
+        "model_requests": 110,
+        "official_evaluation_seconds": 343.498416185379,
+        "provider_errors": 21,
+        "token_usage": {
+          "completion_tokens": 139443,
+          "cost": 0.15547945200000002,
+          "prompt_tokens": 6328268,
+          "total_tokens": 6467711
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+      "candidate_formed": true,
+      "candidate_request_index": 18,
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 3,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 3,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 3,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 1,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 3,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 18,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "improved",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 20,
+              "transition": "stagnant",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 20,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 1,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 20,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 1,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r1",
+      "position": 3,
+      "pre_candidate": {
+        "completion_tokens": 7854,
+        "cost": 0.006526263999999999,
+        "interactive_tool_steps": 20,
+        "model_requests": 18,
+        "prompt_tokens": 202966,
+        "reasoning_tokens": 5055,
+        "seconds_to_certificate": 345.400461,
+        "total_tokens": 210820
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1",
+      "total": {
+        "generation_seconds": 371.05741,
+        "interactive_tool_steps": 20,
+        "model_requests": 20,
+        "official_evaluation_seconds": 25.179996967315674,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 9398,
+          "cost": 0.007778999999999999,
+          "prompt_tokens": 246076,
+          "total_tokens": 255474
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+      "candidate_formed": true,
+      "candidate_request_index": 17,
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 21,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r1",
+      "position": 4,
+      "pre_candidate": {
+        "completion_tokens": 4823,
+        "cost": 0.005379852,
+        "interactive_tool_steps": 21,
+        "model_requests": 17,
+        "prompt_tokens": 201190,
+        "reasoning_tokens": 1980,
+        "seconds_to_certificate": 225.992489,
+        "total_tokens": 206013
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR-infra-retry1",
+      "total": {
+        "generation_seconds": 234.242826,
+        "interactive_tool_steps": 21,
+        "model_requests": 18,
+        "official_evaluation_seconds": 54.304871797561646,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 5395,
+          "cost": 0.005907868,
+          "prompt_tokens": 220020,
+          "total_tokens": 225415
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR-infra-retry1/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "candidate_formed": true,
+      "candidate_request_index": 25,
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 31,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR-infra-retry1/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r1",
+      "position": 5,
+      "pre_candidate": {
+        "completion_tokens": 14703,
+        "cost": 0.0159675,
+        "interactive_tool_steps": 31,
+        "model_requests": 25,
+        "prompt_tokens": 462448,
+        "reasoning_tokens": 11131,
+        "seconds_to_certificate": 2221.385968,
+        "total_tokens": 477151
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR-infra-retry1",
+      "total": {
+        "generation_seconds": 2230.376014,
+        "interactive_tool_steps": 31,
+        "model_requests": 26,
+        "official_evaluation_seconds": 1593.4995012283325,
+        "provider_errors": 4,
+        "token_usage": {
+          "completion_tokens": 15407,
+          "cost": 0.01692366,
+          "prompt_tokens": 498416,
+          "total_tokens": 513823
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-06-pytorch-metric-learning-r1-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "candidate_formed": true,
+      "candidate_request_index": 25,
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 3,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 3,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 3,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 1,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 3,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 25,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 25,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 24,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 24,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 1,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 24,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 1,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-06-pytorch-metric-learning-r1-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r1",
+      "position": 6,
+      "pre_candidate": {
+        "completion_tokens": 13599,
+        "cost": 0.011587243999999997,
+        "interactive_tool_steps": 24,
+        "model_requests": 25,
+        "prompt_tokens": 330102,
+        "reasoning_tokens": 9255,
+        "seconds_to_certificate": 2786.874947,
+        "total_tokens": 343701
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-06-pytorch-metric-learning-r1-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 2808.928094,
+        "interactive_tool_steps": 24,
+        "model_requests": 26,
+        "official_evaluation_seconds": 2457.8643651008606,
+        "provider_errors": 8,
+        "token_usage": {
+          "completion_tokens": 14378,
+          "cost": 0.013915063999999996,
+          "prompt_tokens": 357447,
+          "total_tokens": 371825
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-07-brozzler-r1-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 31,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 4,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 4,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 4,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 2,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 4,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 32,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 32,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 43,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 32,
+              "transition": "regressed",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 4,
+              "ok": true,
+              "shell_operations_completed": 43,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 43,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 2,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 43,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 2,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-07-brozzler-r1-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-brozzler-r1",
+      "position": 7,
+      "pre_candidate": {
+        "completion_tokens": 30101,
+        "cost": 0.023695220000000006,
+        "interactive_tool_steps": 43,
+        "model_requests": 31,
+        "prompt_tokens": 694383,
+        "reasoning_tokens": 24569,
+        "seconds_to_certificate": 1663.267193,
+        "total_tokens": 724484
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-07-brozzler-r1-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 1693.42224,
+        "interactive_tool_steps": 43,
+        "model_requests": 32,
+        "official_evaluation_seconds": 87.91873717308044,
+        "provider_errors": 10,
+        "token_usage": {
+          "completion_tokens": 31179,
+          "cost": 0.027142460000000007,
+          "prompt_tokens": 735048,
+          "total_tokens": 766227
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-08-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 44,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 43,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-08-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-brozzler-r1",
+      "position": 8,
+      "pre_candidate": {
+        "completion_tokens": 24522,
+        "cost": 0.027601048000000003,
+        "interactive_tool_steps": 43,
+        "model_requests": 44,
+        "prompt_tokens": 790165,
+        "reasoning_tokens": 14615,
+        "seconds_to_certificate": 1604.803105,
+        "total_tokens": 814687
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 1,
+      "run_id": "pro-v2-scheduled-observation-q-v1-08-brozzler-r1-B-FSR",
+      "total": {
+        "generation_seconds": 1636.434236,
+        "interactive_tool_steps": 43,
+        "model_requests": 45,
+        "official_evaluation_seconds": 59.29108548164368,
+        "provider_errors": 13,
+        "token_usage": {
+          "completion_tokens": 25531,
+          "cost": 0.028494508,
+          "prompt_tokens": 826711,
+          "total_tokens": 852242
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-09-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 27,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 2,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 32,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-09-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-brozzler-r2",
+      "position": 9,
+      "pre_candidate": {
+        "completion_tokens": 18781,
+        "cost": 0.016212963999999996,
+        "interactive_tool_steps": 32,
+        "model_requests": 27,
+        "prompt_tokens": 455112,
+        "reasoning_tokens": 12935,
+        "seconds_to_certificate": 900.6284,
+        "total_tokens": 473893
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-09-brozzler-r2-B-FSR",
+      "total": {
+        "generation_seconds": 923.343473,
+        "interactive_tool_steps": 32,
+        "model_requests": 28,
+        "official_evaluation_seconds": 92.8453688621521,
+        "provider_errors": 1,
+        "token_usage": {
+          "completion_tokens": 19340,
+          "cost": 0.017487519999999996,
+          "prompt_tokens": 490471,
+          "total_tokens": 509811
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-10-brozzler-r2-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "candidate_formed": true,
+      "candidate_request_index": 35,
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 4,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 4,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 4,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 2,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 4,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 32,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 32,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 32,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 32,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 4,
+              "ok": true,
+              "shell_operations_completed": 33,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 2,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 33,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 2,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 2,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 33,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 2,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-10-brozzler-r2-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-brozzler-r2",
+      "position": 10,
+      "pre_candidate": {
+        "completion_tokens": 17817,
+        "cost": 0.018723924000000003,
+        "interactive_tool_steps": 33,
+        "model_requests": 35,
+        "prompt_tokens": 630479,
+        "reasoning_tokens": 12891,
+        "seconds_to_certificate": 1038.91864,
+        "total_tokens": 648296
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-10-brozzler-r2-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 1117.712505,
+        "interactive_tool_steps": 33,
+        "model_requests": 38,
+        "official_evaluation_seconds": 92.43950939178467,
+        "provider_errors": 12,
+        "token_usage": {
+          "completion_tokens": 20468,
+          "cost": 0.021417168,
+          "prompt_tokens": 738871,
+          "total_tokens": 759339
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-11-pytorch-metric-learning-r2-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "candidate_formed": true,
+      "candidate_request_index": 22,
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 3,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 3,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 3,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 1,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 3,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 25,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 25,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 29,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 29,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 1,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 29,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 1,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-11-pytorch-metric-learning-r2-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r2",
+      "position": 11,
+      "pre_candidate": {
+        "completion_tokens": 17743,
+        "cost": 0.013275628000000003,
+        "interactive_tool_steps": 29,
+        "model_requests": 22,
+        "prompt_tokens": 311982,
+        "reasoning_tokens": 14638,
+        "seconds_to_certificate": 1023.539231,
+        "total_tokens": 329725
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-11-pytorch-metric-learning-r2-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 1036.420717,
+        "interactive_tool_steps": 29,
+        "model_requests": 23,
+        "official_evaluation_seconds": 237.53337216377258,
+        "provider_errors": 3,
+        "token_usage": {
+          "completion_tokens": 18535,
+          "cost": 0.014102540000000004,
+          "prompt_tokens": 337330,
+          "total_tokens": 355865
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-12-pytorch-metric-learning-r2-B-FSR/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "candidate_formed": true,
+      "candidate_request_index": 24,
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 34,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-12-pytorch-metric-learning-r2-B-FSR/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r2",
+      "position": 12,
+      "pre_candidate": {
+        "completion_tokens": 8775,
+        "cost": 0.012979883999999999,
+        "interactive_tool_steps": 34,
+        "model_requests": 24,
+        "prompt_tokens": 335836,
+        "reasoning_tokens": 5412,
+        "seconds_to_certificate": 1839.276043,
+        "total_tokens": 344611
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-12-pytorch-metric-learning-r2-B-FSR",
+      "total": {
+        "generation_seconds": 1873.375965,
+        "interactive_tool_steps": 34,
+        "model_requests": 25,
+        "official_evaluation_seconds": 1326.353307723999,
+        "provider_errors": 0,
+        "token_usage": {
+          "completion_tokens": 9208,
+          "cost": 0.013683055999999999,
+          "prompt_tokens": 360445,
+          "total_tokens": 369653
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-13-vkbottle-r2-B-FSR/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+      "candidate_formed": true,
+      "candidate_request_index": 49,
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 2,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 47,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-13-vkbottle-r2-B-FSR/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r2",
+      "position": 13,
+      "pre_candidate": {
+        "completion_tokens": 20381,
+        "cost": 0.022450547999999997,
+        "interactive_tool_steps": 47,
+        "model_requests": 49,
+        "prompt_tokens": 867197,
+        "reasoning_tokens": 11426,
+        "seconds_to_certificate": 1292.231235,
+        "total_tokens": 887578
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-13-vkbottle-r2-B-FSR",
+      "total": {
+        "generation_seconds": 1327.302581,
+        "interactive_tool_steps": 47,
+        "model_requests": 50,
+        "official_evaluation_seconds": 76.03075504302979,
+        "provider_errors": 6,
+        "token_usage": {
+          "completion_tokens": 21015,
+          "cost": 0.023872187999999996,
+          "prompt_tokens": 901973,
+          "total_tokens": 922988
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-14-vkbottle-r2-E-SCHEDULED/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+      "candidate_formed": true,
+      "candidate_request_index": 34,
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "censored": true,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 4,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 4,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 4,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 2,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 4,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 18,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 18,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "stagnant",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 1,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 32,
+              "transition": "mixed",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 4,
+              "ok": true,
+              "shell_operations_completed": 43,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 43,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 2,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 43,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 2,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-14-vkbottle-r2-E-SCHEDULED-official-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_audit_valid": true,
+        "retry_run_id": "pro-v2-scheduled-observation-q-v1-14-vkbottle-r2-E-SCHEDULED-official-retry1",
+        "source": "exact-script-infrastructure-retry"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r2",
+      "position": 14,
+      "pre_candidate": {
+        "completion_tokens": 31590,
+        "cost": 0.025416183999999994,
+        "interactive_tool_steps": 43,
+        "model_requests": 34,
+        "prompt_tokens": 897684,
+        "reasoning_tokens": 23592,
+        "seconds_to_certificate": 1155.568335,
+        "total_tokens": 929274
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-14-vkbottle-r2-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 1174.453927,
+        "interactive_tool_steps": 43,
+        "model_requests": 35,
+        "official_evaluation_seconds": 40.00372934341431,
+        "provider_errors": 4,
+        "token_usage": {
+          "completion_tokens": 32310,
+          "cost": 0.026444279999999994,
+          "prompt_tokens": 941888,
+          "total_tokens": 974198
+        }
+      },
+      "validity_errors": [
+        "official-retry-source-not-infrastructure-censored"
+      ]
+    },
+    {
+      "arm": "E-SCHEDULED",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-15-paz-r2-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": true,
+      "candidate_request_index": 62,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 5,
+        "complete_observation_rate": 1.0,
+        "event_observation_count": 5,
+        "metadata": {
+          "cadence_shell_operations": 16,
+          "complete_observation_count": 5,
+          "complete_observation_rate": 1.0,
+          "expected_periodic_observation_count": 3,
+          "feedback_delivery": "same-active-model-session",
+          "observation_count": 5,
+          "observation_summaries": [
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 58,
+              "observation_number": 1,
+              "ok": true,
+              "shell_operations_completed": 0,
+              "transition": "initial",
+              "trigger": "initial"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 45,
+              "observation_number": 2,
+              "ok": true,
+              "shell_operations_completed": 16,
+              "transition": "improved",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 15,
+              "observation_number": 3,
+              "ok": true,
+              "shell_operations_completed": 32,
+              "transition": "improved",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": false,
+              "finding_set_complete": true,
+              "goal_status": "fail",
+              "obligation_count": 10,
+              "observation_number": 4,
+              "ok": true,
+              "shell_operations_completed": 48,
+              "transition": "improved",
+              "trigger": "periodic"
+            },
+            {
+              "candidate_ready": true,
+              "finding_set_complete": true,
+              "goal_status": "pass",
+              "obligation_count": 0,
+              "observation_number": 5,
+              "ok": true,
+              "shell_operations_completed": 61,
+              "transition": "improved",
+              "trigger": "pre-replay-dirty"
+            }
+          ],
+          "operation_constraints_added": false,
+          "optional_compatibility_tool_exposed": false,
+          "pre_replay_observations_required": 1,
+          "replay_requests": 1,
+          "schedule_compliant": true,
+          "schema": "envsolve-scheduled-compatibility-observation-v1",
+          "shell_operations_completed": 61,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 3,
+            "pre-replay-dirty": 1
+          }
+        },
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": true,
+        "schedule_errors": [],
+        "shell_operation_count": 61,
+        "stores_container_checkpoint": false,
+        "trigger_counts": {
+          "initial": 1,
+          "periodic": 3,
+          "pre-replay-dirty": 1
+        }
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-15-paz-r2-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-paz-r2",
+      "position": 15,
+      "pre_candidate": {
+        "completion_tokens": 74647,
+        "cost": 0.056156651999999994,
+        "interactive_tool_steps": 61,
+        "model_requests": 62,
+        "prompt_tokens": 2051980,
+        "reasoning_tokens": 63381,
+        "seconds_to_certificate": 6157.908678,
+        "total_tokens": 2126627
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-15-paz-r2-E-SCHEDULED",
+      "total": {
+        "generation_seconds": 6210.269231,
+        "interactive_tool_steps": 61,
+        "model_requests": 63,
+        "official_evaluation_seconds": 644.4174456596375,
+        "provider_errors": 39,
+        "token_usage": {
+          "completion_tokens": 76343,
+          "cost": 0.05779191599999999,
+          "prompt_tokens": 2117552,
+          "total_tokens": 2193895
+        }
+      },
+      "validity_errors": []
+    },
+    {
+      "arm": "B-FSR",
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-16-paz-r2-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+      "candidate_formed": true,
+      "candidate_request_index": 119,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "censored": false,
+      "execution_identity": {
+        "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+        "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+        "repository_integrity_valid": true
+      },
+      "generation_completed": true,
+      "generation_error": null,
+      "mechanism": {
+        "complete_observation_count": 0,
+        "complete_observation_rate": null,
+        "event_observation_count": 0,
+        "metadata": {},
+        "operation_constraint_violations": 0,
+        "optional_tool_call_count": 0,
+        "replay_count": 1,
+        "schedule_compliant": false,
+        "schedule_errors": [
+          "container-checkpoint-stored",
+          "dirty-replay-missing-current-observation",
+          "initial-observation-count-mismatch",
+          "metadata-cadence-mismatch",
+          "metadata-observation-count-mismatch",
+          "metadata-schedule-noncompliant",
+          "operation-constraints-added",
+          "periodic-observation-schedule-mismatch",
+          "pre-replay-dirty-trigger-mismatch"
+        ],
+        "shell_operation_count": 118,
+        "stores_container_checkpoint": null,
+        "trigger_counts": {}
+      },
+      "official_evaluation": {
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-16-paz-r2-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "infrastructure_signature": null,
+        "original_infrastructure_signature": null,
+        "retry_run_id": null,
+        "source": "original-model-episode"
+      },
+      "official_evaluation_completed": true,
+      "official_pass": true,
+      "pair_id": "scheduled-observation-qualification-paz-r2",
+      "position": 16,
+      "pre_candidate": {
+        "completion_tokens": 94485,
+        "cost": 0.11502906000000002,
+        "interactive_tool_steps": 118,
+        "model_requests": 119,
+        "prompt_tokens": 4949560,
+        "reasoning_tokens": 78481,
+        "seconds_to_certificate": 9029.990457,
+        "total_tokens": 5044045
+      },
+      "provider": {
+        "models": [
+          "deepseek/deepseek-v4-flash-0731"
+        ],
+        "recorded_orders": [
+          [
+            "deepinfra"
+          ]
+        ],
+        "returned": [
+          "DeepInfra"
+        ]
+      },
+      "replication": 2,
+      "run_id": "pro-v2-scheduled-observation-q-v1-16-paz-r2-B-FSR",
+      "total": {
+        "generation_seconds": 9048.489914,
+        "interactive_tool_steps": 118,
+        "model_requests": 120,
+        "official_evaluation_seconds": 375.75480461120605,
+        "provider_errors": 41,
+        "token_usage": {
+          "completion_tokens": 95799,
+          "cost": 0.11662906800000002,
+          "prompt_tokens": 5025586,
+          "total_tokens": 5121385
+        }
+      },
+      "validity_errors": []
+    }
+  ],
+  "pairs": [
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-08-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 44,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 43,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-08-brozzler-r1-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-brozzler-r1",
+        "position": 8,
+        "pre_candidate": {
+          "completion_tokens": 24522,
+          "cost": 0.027601048000000003,
+          "interactive_tool_steps": 43,
+          "model_requests": 44,
+          "prompt_tokens": 790165,
+          "reasoning_tokens": 14615,
+          "seconds_to_certificate": 1604.803105,
+          "total_tokens": 814687
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-08-brozzler-r1-B-FSR",
+        "total": {
+          "generation_seconds": 1636.434236,
+          "interactive_tool_steps": 43,
+          "model_requests": 45,
+          "official_evaluation_seconds": 59.29108548164368,
+          "provider_errors": 13,
+          "token_usage": {
+            "completion_tokens": 25531,
+            "cost": 0.028494508,
+            "prompt_tokens": 826711,
+            "total_tokens": 852242
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-07-brozzler-r1-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 31,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 4,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 4,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 4,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 2,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 4,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 32,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 32,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 43,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 32,
+                "transition": "regressed",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 4,
+                "ok": true,
+                "shell_operations_completed": 43,
+                "transition": "improved",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 1,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 43,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 2,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 43,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 2,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-07-brozzler-r1-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-brozzler-r1",
+        "position": 7,
+        "pre_candidate": {
+          "completion_tokens": 30101,
+          "cost": 0.023695220000000006,
+          "interactive_tool_steps": 43,
+          "model_requests": 31,
+          "prompt_tokens": 694383,
+          "reasoning_tokens": 24569,
+          "seconds_to_certificate": 1663.267193,
+          "total_tokens": 724484
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-07-brozzler-r1-E-SCHEDULED",
+        "total": {
+          "generation_seconds": 1693.42224,
+          "interactive_tool_steps": 43,
+          "model_requests": 32,
+          "official_evaluation_seconds": 87.91873717308044,
+          "provider_errors": 10,
+          "token_usage": {
+            "completion_tokens": 31179,
+            "cost": 0.027142460000000007,
+            "prompt_tokens": 735048,
+            "total_tokens": 766227
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-brozzler-r1",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 1.0,
+        "model_requests": 0.7045454545454546,
+        "seconds_to_certificate": 1.0364306922250128,
+        "total_tokens": 0.889278950075305
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-09-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 27,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 2,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 32,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-09-brozzler-r2-B-FSR/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-brozzler-r2",
+        "position": 9,
+        "pre_candidate": {
+          "completion_tokens": 18781,
+          "cost": 0.016212963999999996,
+          "interactive_tool_steps": 32,
+          "model_requests": 27,
+          "prompt_tokens": 455112,
+          "reasoning_tokens": 12935,
+          "seconds_to_certificate": 900.6284,
+          "total_tokens": 473893
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-09-brozzler-r2-B-FSR",
+        "total": {
+          "generation_seconds": 923.343473,
+          "interactive_tool_steps": 32,
+          "model_requests": 28,
+          "official_evaluation_seconds": 92.8453688621521,
+          "provider_errors": 1,
+          "token_usage": {
+            "completion_tokens": 19340,
+            "cost": 0.017487519999999996,
+            "prompt_tokens": 490471,
+            "total_tokens": 509811
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-10-brozzler-r2-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "candidate_formed": true,
+        "candidate_request_index": 35,
+        "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 4,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 4,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 4,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 2,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 4,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 32,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 32,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 32,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 32,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 4,
+                "ok": true,
+                "shell_operations_completed": 33,
+                "transition": "improved",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 2,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 33,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 2,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 2,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 33,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 2,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-10-brozzler-r2-E-SCHEDULED/envbench-python-internetarchive__brozzler__8d7507f37757b6b9caf6f0d948666c7e5f972894",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-brozzler-r2",
+        "position": 10,
+        "pre_candidate": {
+          "completion_tokens": 17817,
+          "cost": 0.018723924000000003,
+          "interactive_tool_steps": 33,
+          "model_requests": 35,
+          "prompt_tokens": 630479,
+          "reasoning_tokens": 12891,
+          "seconds_to_certificate": 1038.91864,
+          "total_tokens": 648296
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-10-brozzler-r2-E-SCHEDULED",
+        "total": {
+          "generation_seconds": 1117.712505,
+          "interactive_tool_steps": 33,
+          "model_requests": 38,
+          "official_evaluation_seconds": 92.43950939178467,
+          "provider_errors": 12,
+          "token_usage": {
+            "completion_tokens": 20468,
+            "cost": 0.021417168,
+            "prompt_tokens": 738871,
+            "total_tokens": 759339
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-brozzler-r2",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 1.03125,
+        "model_requests": 1.2962962962962963,
+        "seconds_to_certificate": 1.1535486111697122,
+        "total_tokens": 1.3680218952379546
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-01-paz-r1-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": true,
+        "candidate_request_index": 75,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 104,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-01-paz-r1-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-paz-r1",
+        "position": 1,
+        "pre_candidate": {
+          "completion_tokens": 99990,
+          "cost": 0.072565704,
+          "interactive_tool_steps": 104,
+          "model_requests": 75,
+          "prompt_tokens": 2931617,
+          "reasoning_tokens": 88913,
+          "seconds_to_certificate": 4652.897031,
+          "total_tokens": 3031607
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-01-paz-r1-B-FSR",
+        "total": {
+          "generation_seconds": 4686.788846,
+          "interactive_tool_steps": 104,
+          "model_requests": 76,
+          "official_evaluation_seconds": 474.11645913124084,
+          "provider_errors": 5,
+          "token_usage": {
+            "completion_tokens": 101250,
+            "cost": 0.074053784,
+            "prompt_tokens": 3002679,
+            "total_tokens": 3103929
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-02-paz-r1-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": true,
+        "candidate_request_index": 109,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 8,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 8,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 8,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 6,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 8,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 58,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 58,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 15,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 32,
+                "transition": "improved",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 71,
+                "observation_number": 4,
+                "ok": true,
+                "shell_operations_completed": 48,
+                "transition": "regressed",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 71,
+                "observation_number": 5,
+                "ok": true,
+                "shell_operations_completed": 64,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 71,
+                "observation_number": 6,
+                "ok": true,
+                "shell_operations_completed": 80,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 69,
+                "observation_number": 7,
+                "ok": true,
+                "shell_operations_completed": 96,
+                "transition": "improved",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 8,
+                "ok": true,
+                "shell_operations_completed": 108,
+                "transition": "improved",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 1,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 108,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 6,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 108,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 6,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-02-paz-r1-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-paz-r1",
+        "position": 2,
+        "pre_candidate": {
+          "completion_tokens": 137671,
+          "cost": 0.15301134000000002,
+          "interactive_tool_steps": 108,
+          "model_requests": 109,
+          "prompt_tokens": 6218050,
+          "reasoning_tokens": 118844,
+          "seconds_to_certificate": 7332.132617,
+          "total_tokens": 6355721
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-02-paz-r1-E-SCHEDULED",
+        "total": {
+          "generation_seconds": 7585.12017,
+          "interactive_tool_steps": 108,
+          "model_requests": 110,
+          "official_evaluation_seconds": 343.498416185379,
+          "provider_errors": 21,
+          "token_usage": {
+            "completion_tokens": 139443,
+            "cost": 0.15547945200000002,
+            "prompt_tokens": 6328268,
+            "total_tokens": 6467711
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-paz-r1",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 1.0384615384615385,
+        "model_requests": 1.4533333333333334,
+        "seconds_to_certificate": 1.5758209494320528,
+        "total_tokens": 2.096485791199189
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-16-paz-r2-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": true,
+        "candidate_request_index": 119,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 118,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-16-paz-r2-B-FSR/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-paz-r2",
+        "position": 16,
+        "pre_candidate": {
+          "completion_tokens": 94485,
+          "cost": 0.11502906000000002,
+          "interactive_tool_steps": 118,
+          "model_requests": 119,
+          "prompt_tokens": 4949560,
+          "reasoning_tokens": 78481,
+          "seconds_to_certificate": 9029.990457,
+          "total_tokens": 5044045
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-16-paz-r2-B-FSR",
+        "total": {
+          "generation_seconds": 9048.489914,
+          "interactive_tool_steps": 118,
+          "model_requests": 120,
+          "official_evaluation_seconds": 375.75480461120605,
+          "provider_errors": 41,
+          "token_usage": {
+            "completion_tokens": 95799,
+            "cost": 0.11662906800000002,
+            "prompt_tokens": 5025586,
+            "total_tokens": 5121385
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-15-paz-r2-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+        "candidate_formed": true,
+        "candidate_request_index": 62,
+        "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 5,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 5,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 5,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 3,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 5,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 58,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 45,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "improved",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 15,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 32,
+                "transition": "improved",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 10,
+                "observation_number": 4,
+                "ok": true,
+                "shell_operations_completed": 48,
+                "transition": "improved",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 5,
+                "ok": true,
+                "shell_operations_completed": 61,
+                "transition": "improved",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 1,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 61,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 3,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 61,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 3,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-15-paz-r2-E-SCHEDULED/envbench-python-oarriaga__paz__cede0aee7b0ce78357f884b916f96803f1cea202",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-paz-r2",
+        "position": 15,
+        "pre_candidate": {
+          "completion_tokens": 74647,
+          "cost": 0.056156651999999994,
+          "interactive_tool_steps": 61,
+          "model_requests": 62,
+          "prompt_tokens": 2051980,
+          "reasoning_tokens": 63381,
+          "seconds_to_certificate": 6157.908678,
+          "total_tokens": 2126627
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-15-paz-r2-E-SCHEDULED",
+        "total": {
+          "generation_seconds": 6210.269231,
+          "interactive_tool_steps": 61,
+          "model_requests": 63,
+          "official_evaluation_seconds": 644.4174456596375,
+          "provider_errors": 39,
+          "token_usage": {
+            "completion_tokens": 76343,
+            "cost": 0.05779191599999999,
+            "prompt_tokens": 2117552,
+            "total_tokens": 2193895
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-paz-r2",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 0.5169491525423728,
+        "model_requests": 0.5210084033613446,
+        "seconds_to_certificate": 0.6819396661960393,
+        "total_tokens": 0.42161142495754894
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR-infra-retry1/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "candidate_formed": true,
+        "candidate_request_index": 25,
+        "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 31,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR-infra-retry1/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r1",
+        "position": 5,
+        "pre_candidate": {
+          "completion_tokens": 14703,
+          "cost": 0.0159675,
+          "interactive_tool_steps": 31,
+          "model_requests": 25,
+          "prompt_tokens": 462448,
+          "reasoning_tokens": 11131,
+          "seconds_to_certificate": 2221.385968,
+          "total_tokens": 477151
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR-infra-retry1",
+        "total": {
+          "generation_seconds": 2230.376014,
+          "interactive_tool_steps": 31,
+          "model_requests": 26,
+          "official_evaluation_seconds": 1593.4995012283325,
+          "provider_errors": 4,
+          "token_usage": {
+            "completion_tokens": 15407,
+            "cost": 0.01692366,
+            "prompt_tokens": 498416,
+            "total_tokens": 513823
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-06-pytorch-metric-learning-r1-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "candidate_formed": true,
+        "candidate_request_index": 25,
+        "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 3,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 3,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 3,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 1,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 3,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 25,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 25,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 24,
+                "transition": "improved",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 1,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 24,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 1,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 24,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 1,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-06-pytorch-metric-learning-r1-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r1",
+        "position": 6,
+        "pre_candidate": {
+          "completion_tokens": 13599,
+          "cost": 0.011587243999999997,
+          "interactive_tool_steps": 24,
+          "model_requests": 25,
+          "prompt_tokens": 330102,
+          "reasoning_tokens": 9255,
+          "seconds_to_certificate": 2786.874947,
+          "total_tokens": 343701
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-06-pytorch-metric-learning-r1-E-SCHEDULED",
+        "total": {
+          "generation_seconds": 2808.928094,
+          "interactive_tool_steps": 24,
+          "model_requests": 26,
+          "official_evaluation_seconds": 2457.8643651008606,
+          "provider_errors": 8,
+          "token_usage": {
+            "completion_tokens": 14378,
+            "cost": 0.013915063999999996,
+            "prompt_tokens": 357447,
+            "total_tokens": 371825
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r1",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 0.7741935483870968,
+        "model_requests": 1.0,
+        "seconds_to_certificate": 1.254565837340339,
+        "total_tokens": 0.720319144254125
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-12-pytorch-metric-learning-r2-B-FSR/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "candidate_formed": true,
+        "candidate_request_index": 24,
+        "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 34,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-12-pytorch-metric-learning-r2-B-FSR/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r2",
+        "position": 12,
+        "pre_candidate": {
+          "completion_tokens": 8775,
+          "cost": 0.012979883999999999,
+          "interactive_tool_steps": 34,
+          "model_requests": 24,
+          "prompt_tokens": 335836,
+          "reasoning_tokens": 5412,
+          "seconds_to_certificate": 1839.276043,
+          "total_tokens": 344611
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-12-pytorch-metric-learning-r2-B-FSR",
+        "total": {
+          "generation_seconds": 1873.375965,
+          "interactive_tool_steps": 34,
+          "model_requests": 25,
+          "official_evaluation_seconds": 1326.353307723999,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 9208,
+            "cost": 0.013683055999999999,
+            "prompt_tokens": 360445,
+            "total_tokens": 369653
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-11-pytorch-metric-learning-r2-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "candidate_formed": true,
+        "candidate_request_index": 22,
+        "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 3,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 3,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 3,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 1,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 3,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 25,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 25,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "stagnant",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 29,
+                "transition": "improved",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 1,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 29,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 1,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 29,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 1,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-11-pytorch-metric-learning-r2-E-SCHEDULED/envbench-python-kevinmusgrave__pytorch-metric-learning__adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r2",
+        "position": 11,
+        "pre_candidate": {
+          "completion_tokens": 17743,
+          "cost": 0.013275628000000003,
+          "interactive_tool_steps": 29,
+          "model_requests": 22,
+          "prompt_tokens": 311982,
+          "reasoning_tokens": 14638,
+          "seconds_to_certificate": 1023.539231,
+          "total_tokens": 329725
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-11-pytorch-metric-learning-r2-E-SCHEDULED",
+        "total": {
+          "generation_seconds": 1036.420717,
+          "interactive_tool_steps": 29,
+          "model_requests": 23,
+          "official_evaluation_seconds": 237.53337216377258,
+          "provider_errors": 3,
+          "token_usage": {
+            "completion_tokens": 18535,
+            "cost": 0.014102540000000004,
+            "prompt_tokens": 337330,
+            "total_tokens": 355865
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-pytorch-metric-learning-r2",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 0.8529411764705882,
+        "model_requests": 0.9166666666666666,
+        "seconds_to_certificate": 0.5564902750163206,
+        "total_tokens": 0.9568034682584131
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "candidate_formed": true,
+        "candidate_request_index": 17,
+        "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 21,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-vkbottle-r1",
+        "position": 4,
+        "pre_candidate": {
+          "completion_tokens": 4823,
+          "cost": 0.005379852,
+          "interactive_tool_steps": 21,
+          "model_requests": 17,
+          "prompt_tokens": 201190,
+          "reasoning_tokens": 1980,
+          "seconds_to_certificate": 225.992489,
+          "total_tokens": 206013
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR-infra-retry1",
+        "total": {
+          "generation_seconds": 234.242826,
+          "interactive_tool_steps": 21,
+          "model_requests": 18,
+          "official_evaluation_seconds": 54.304871797561646,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 5395,
+            "cost": 0.005907868,
+            "prompt_tokens": 220020,
+            "total_tokens": 225415
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": {
+        "arm": "E-SCHEDULED",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "candidate_formed": true,
+        "candidate_request_index": 18,
+        "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 3,
+          "complete_observation_rate": 1.0,
+          "event_observation_count": 3,
+          "metadata": {
+            "cadence_shell_operations": 16,
+            "complete_observation_count": 3,
+            "complete_observation_rate": 1.0,
+            "expected_periodic_observation_count": 1,
+            "feedback_delivery": "same-active-model-session",
+            "observation_count": 3,
+            "observation_summaries": [
+              {
+                "candidate_ready": false,
+                "finding_set_complete": true,
+                "goal_status": "fail",
+                "obligation_count": 18,
+                "observation_number": 1,
+                "ok": true,
+                "shell_operations_completed": 0,
+                "transition": "initial",
+                "trigger": "initial"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 2,
+                "ok": true,
+                "shell_operations_completed": 16,
+                "transition": "improved",
+                "trigger": "periodic"
+              },
+              {
+                "candidate_ready": true,
+                "finding_set_complete": true,
+                "goal_status": "pass",
+                "obligation_count": 0,
+                "observation_number": 3,
+                "ok": true,
+                "shell_operations_completed": 20,
+                "transition": "stagnant",
+                "trigger": "pre-replay-dirty"
+              }
+            ],
+            "operation_constraints_added": false,
+            "optional_compatibility_tool_exposed": false,
+            "pre_replay_observations_required": 1,
+            "replay_requests": 1,
+            "schedule_compliant": true,
+            "schema": "envsolve-scheduled-compatibility-observation-v1",
+            "shell_operations_completed": 20,
+            "stores_container_checkpoint": false,
+            "trigger_counts": {
+              "initial": 1,
+              "periodic": 1,
+              "pre-replay-dirty": 1
+            }
+          },
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 1,
+          "schedule_compliant": true,
+          "schedule_errors": [],
+          "shell_operation_count": 20,
+          "stores_container_checkpoint": false,
+          "trigger_counts": {
+            "initial": 1,
+            "periodic": 1,
+            "pre-replay-dirty": 1
+          }
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-vkbottle-r1",
+        "position": 3,
+        "pre_candidate": {
+          "completion_tokens": 7854,
+          "cost": 0.006526263999999999,
+          "interactive_tool_steps": 20,
+          "model_requests": 18,
+          "prompt_tokens": 202966,
+          "reasoning_tokens": 5055,
+          "seconds_to_certificate": 345.400461,
+          "total_tokens": 210820
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 1,
+        "run_id": "pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1",
+        "total": {
+          "generation_seconds": 371.05741,
+          "interactive_tool_steps": 20,
+          "model_requests": 20,
+          "official_evaluation_seconds": 25.179996967315674,
+          "provider_errors": 0,
+          "token_usage": {
+            "completion_tokens": 9398,
+            "cost": 0.007778999999999999,
+            "prompt_tokens": 246076,
+            "total_tokens": 255474
+          }
+        },
+        "validity_errors": []
+      },
+      "comparable_success": true,
+      "complete": true,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r1",
+      "resource_ratios_E_over_B": {
+        "interactive_tool_steps": 0.9523809523809523,
+        "model_requests": 1.0588235294117647,
+        "seconds_to_certificate": 1.528371418574004,
+        "total_tokens": 1.0233334789552115
+      },
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    },
+    {
+      "B-FSR": {
+        "arm": "B-FSR",
+        "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-13-vkbottle-r2-B-FSR/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+        "candidate_formed": true,
+        "candidate_request_index": 49,
+        "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+        "censored": false,
+        "execution_identity": {
+          "goal_contract_sha256": "61d400b53e4c5a407bf3fd309f62b8d3f9fe3bc452400c39880f7d969d774463",
+          "image_digest": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+          "repository_integrity_valid": true
+        },
+        "generation_completed": true,
+        "generation_error": null,
+        "mechanism": {
+          "complete_observation_count": 0,
+          "complete_observation_rate": null,
+          "event_observation_count": 0,
+          "metadata": {},
+          "operation_constraint_violations": 0,
+          "optional_tool_call_count": 0,
+          "replay_count": 2,
+          "schedule_compliant": false,
+          "schedule_errors": [
+            "container-checkpoint-stored",
+            "dirty-replay-missing-current-observation",
+            "initial-observation-count-mismatch",
+            "metadata-cadence-mismatch",
+            "metadata-observation-count-mismatch",
+            "metadata-schedule-noncompliant",
+            "operation-constraints-added",
+            "periodic-observation-schedule-mismatch",
+            "pre-replay-dirty-trigger-mismatch"
+          ],
+          "shell_operation_count": 47,
+          "stores_container_checkpoint": null,
+          "trigger_counts": {}
+        },
+        "official_evaluation": {
+          "artifact_root": "/home/avdpro/work/EnvSolve-pro-scheduled-ca92324/runs/envsolve-pro-v2-scheduled-observation-qualification-v1/pro-v2-scheduled-observation-q-v1-13-vkbottle-r2-B-FSR/envbench-python-vkbottle__vkbottle__150c039c231785322a0e01cac40cc860b9ab74e5",
+          "infrastructure_signature": null,
+          "original_infrastructure_signature": null,
+          "retry_run_id": null,
+          "source": "original-model-episode"
+        },
+        "official_evaluation_completed": true,
+        "official_pass": true,
+        "pair_id": "scheduled-observation-qualification-vkbottle-r2",
+        "position": 13,
+        "pre_candidate": {
+          "completion_tokens": 20381,
+          "cost": 0.022450547999999997,
+          "interactive_tool_steps": 47,
+          "model_requests": 49,
+          "prompt_tokens": 867197,
+          "reasoning_tokens": 11426,
+          "seconds_to_certificate": 1292.231235,
+          "total_tokens": 887578
+        },
+        "provider": {
+          "models": [
+            "deepseek/deepseek-v4-flash-0731"
+          ],
+          "recorded_orders": [
+            [
+              "deepinfra"
+            ]
+          ],
+          "returned": [
+            "DeepInfra"
+          ]
+        },
+        "replication": 2,
+        "run_id": "pro-v2-scheduled-observation-q-v1-13-vkbottle-r2-B-FSR",
+        "total": {
+          "generation_seconds": 1327.302581,
+          "interactive_tool_steps": 47,
+          "model_requests": 50,
+          "official_evaluation_seconds": 76.03075504302979,
+          "provider_errors": 6,
+          "token_usage": {
+            "completion_tokens": 21015,
+            "cost": 0.023872187999999996,
+            "prompt_tokens": 901973,
+            "total_tokens": 922988
+          }
+        },
+        "validity_errors": []
+      },
+      "E-SCHEDULED": null,
+      "comparable_success": false,
+      "complete": false,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r2",
+      "resource_ratios_E_over_B": {},
+      "treatment_only_official_loss": false,
+      "treatment_only_official_win": false
+    }
+  ],
+  "schema": "envsolve-pro-v2-scheduled-observation-qualification-analysis-v1"
+}

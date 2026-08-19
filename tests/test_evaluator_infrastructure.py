@@ -23,6 +23,47 @@ REAL_SUBPROCESS_RUN = subprocess.run
 
 
 class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
+    def test_classifies_adapter_recorded_bootstrap_network_censoring(self) -> None:
+        self.assertEqual(
+            envbench_evaluation_infrastructure_signature(
+                {
+                    "evaluation_completed": False,
+                    "metadata": {
+                        "adapter_error": (
+                            "EnvBench bootstrap was censored by infrastructure "
+                            "failure: read-timeout"
+                        ),
+                        "termination": {
+                            "kind": "infrastructure_unknown",
+                            "scope": "evaluator_bootstrap",
+                            "signature": "read-timeout",
+                        },
+                    },
+                }
+            ),
+            "read-timeout",
+        )
+
+    def test_rejects_inconsistent_adapter_recorded_network_censoring(self) -> None:
+        self.assertIsNone(
+            envbench_evaluation_infrastructure_signature(
+                {
+                    "evaluation_completed": False,
+                    "metadata": {
+                        "adapter_error": (
+                            "EnvBench bootstrap was censored by infrastructure "
+                            "failure: connection-error"
+                        ),
+                        "termination": {
+                            "kind": "infrastructure_unknown",
+                            "scope": "evaluator_bootstrap",
+                            "signature": "read-timeout",
+                        },
+                    },
+                }
+            )
+        )
+
     def test_classifies_missing_official_launcher_on_evaluator_host(self) -> None:
         self.assertEqual(
             envbench_evaluation_infrastructure_signature(

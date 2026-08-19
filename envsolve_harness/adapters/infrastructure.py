@@ -41,6 +41,7 @@ _NETWORK_FAILURES = tuple(
         ),
     )
 )
+_NETWORK_SIGNATURES = frozenset(name for name, _pattern in _NETWORK_FAILURES)
 
 _TERMINAL_BOOTSTRAP_FAILURES = tuple(
     re.compile(pattern, re.IGNORECASE)
@@ -99,6 +100,20 @@ def envbench_evaluation_infrastructure_signature(
 
     metadata = evidence.get("metadata")
     adapter_error = metadata.get("adapter_error") if isinstance(metadata, dict) else None
+    termination = metadata.get("termination") if isinstance(metadata, dict) else None
+    if (
+        evidence.get("evaluation_completed") is False
+        and isinstance(termination, dict)
+        and termination.get("kind") == "infrastructure_unknown"
+        and termination.get("scope") == "evaluator_bootstrap"
+        and termination.get("signature") in _NETWORK_SIGNATURES
+        and adapter_error
+        == (
+            "EnvBench bootstrap was censored by infrastructure failure: "
+            f"{termination.get('signature')}"
+        )
+    ):
+        return str(termination["signature"])
     if (
         isinstance(adapter_error, str)
         and re.fullmatch(
