@@ -1,7 +1,7 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：活跃设计；Dev-12 继续受原预注册约束
-日期：2026-08-11
+状态：算法选择进行中；定时观测未获晋级
+日期：2026-08-19
 
 ## 1. 研究主线
 
@@ -19,6 +19,13 @@
 
 EnvSolve-Pro 不搜索 harness 设计。跨 case 修改 harness、机制组合搜索、版本晋升和自动回退属于
 Auto-EnvSolve；模型训练属于 EnvSolve-RL。
+
+### 2026-08-19 算法选择修正
+
+预注册的定时观测资格实验已完成 16 条有效 episode。B-FSR 与 E-SCHEDULED 都是 8/8 Official Pass。
+机制本身稳定执行，但没有 treatment 独占成功，也没有预注册效率信号。因此固定 cadence 被冻结为负候选，
+不作为 EnvSolve-Pro treatment；不再调 cadence，也不为该候选打开冻结 Dev identity。下一个方法假设必须
+针对既有固定 baseline bad-case 语料中的决定性失败，并在运行新 treatment 前写清楚。
 
 ## 2. 部署机制与公共实验底座
 
@@ -159,6 +166,15 @@ Codex 保持原生 CLI 和原生 OpenAI 模型，不使用共享 API backbone。
 - 验证固定 DeepSeek V4 Flash 0731 slug、tool calling、provider 固定、token 统计、密钥脱敏、轨迹保存、
   干净重放、Official 隔离和 Spark 执行；
 - 结果不得参与算法选择。
+
+### Stage M：已消费 case 的机制选择
+
+- 可选观测 pilot 否定了由 Agent 自愿调用工具是一种稳定机制；
+- 确定性观测实验实现 34/34 完整观测、8/8 treatment 调度合规，但两臂均 8/8 Official Pass，效率条件
+  为 false；
+- 决策：不晋级、不调整定时观测，只把它保留为观测基础设施和负 treatment 结果；
+- 下一输入：冻结 baseline bad-case census，按最早决定性的观测层、约束层、操作层失败分析，而不是按
+  最后一条错误字符串选 case。
 
 ### Stage D1：小型 outcome-independent Dev pilot
 

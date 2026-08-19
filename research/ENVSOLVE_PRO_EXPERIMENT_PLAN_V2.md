@@ -1,7 +1,7 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: active design; Dev-12 execution is frozen under its original preregistration
-Date: 2026-08-11
+Status: active method selection; scheduled observation was not promoted
+Date: 2026-08-19
 
 ## 1. Research Thesis
 
@@ -23,6 +23,16 @@ The first paper studies this problem with three contributions:
 EnvSolve-Pro does not search over harness designs. Cross-case harness mutation,
 mechanism-combination search, version promotion, and automatic rollback belong to
 Auto-EnvSolve. Model training belongs to EnvSolve-RL.
+
+### 2026-08-19 method-selection correction
+
+The preregistered scheduled-observation qualification completed with 16 valid episodes.
+Both B-FSR and E-SCHEDULED passed Official 8/8. The mechanism itself was reliable, but
+there was no treatment-only win and no preregistered efficiency signal. Fixed cadence is
+therefore frozen as a negative candidate and is not the EnvSolve-Pro treatment. We will
+not tune the cadence or expose frozen Dev identities for this candidate. The next method
+hypothesis must target a decisive failure found in the already fixed baseline bad-case
+corpus and must be stated before running a new treatment.
 
 ## 2. Deployment Mechanisms and Experimental Foundation
 
@@ -188,6 +198,17 @@ same-backbone causal control.
   token accounting, secret redaction, trajectory preservation, clean replay, Official
   isolation, and Spark execution.
 - Outcomes cannot be used for algorithm selection.
+
+### Stage M: consumed-case mechanism selection
+
+- The optional-observation pilot rejected voluntary tool use as an unreliable mechanism.
+- The deterministic-observation study verified 34/34 complete observations and 8/8
+  compliant treatment episodes, but both arms passed 8/8 and the efficiency criterion
+  was false.
+- Decision: do not promote or tune scheduled observation; retain it only as observation
+  infrastructure and a negative treatment result.
+- Next input: the frozen baseline bad-case census, analyzed by earliest decisive
+  Observation--Constraint--Operation failure rather than by final error strings.
 
 ### Stage D1: small outcome-independent Dev pilot
 

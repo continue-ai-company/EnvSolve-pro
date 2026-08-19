@@ -1,6 +1,6 @@
 # EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-18
+Status: working ICLR paper draft, 2026-08-19; final algorithm treatment is not yet selected
 
 ## Abstract
 
@@ -13,21 +13,22 @@ constraint solving**.
 
 We first instrument deployment trajectories and organize failures into three causal
 layers: Observation, Constraint, and Operation. The resulting evidence suggests that a
-major bottleneck is not insufficient package knowledge, but delayed or incomplete
-observations of the state in which the submitted program must work. We then introduce
-EnvSolve-Pro, a minimal algorithm that keeps a free Agent in one continuous session,
-performs complete identity-bound observations on a fixed schedule, tracks how
-compatibility obligations change, and certifies complete programs by clean replay. The
-harness supplies evidence but does not choose packages, block operations, or restore
-checkpoints.
+major bottleneck is not insufficient package knowledge, but failures to turn executable
+state evidence into a reproducible next repair. We retain a minimal scaffold: a free
+Agent in one continuous session and exact clean replay of complete programs. We tested
+fixed-schedule identity-bound observation as the first incremental treatment. It was
+executed reliably but did not improve Official success or satisfy the preregistered
+efficiency criterion, so it is not the final EnvSolve-Pro algorithm.
 
 We evaluate the method with same-model paired experiments, external deployment
 baselines, and an independent strong-Agent frontier. Official Pass@1 is primary;
 mechanism activation, failure-layer transitions, and success-conditional resource use
 explain where gains come from. A preregistered optional-observation pilot improved from
 2/4 to 3/4 passes but failed mechanism qualification because one treatment episode
-never used the observation tool. This negative result motivates the deterministic
-observation schedule evaluated by the current study.
+never used the observation tool. A subsequent 16-episode deterministic-observation
+qualification achieved 8/8 Official passes in both treatment and control. This second
+negative result rules out observation cadence alone as the core contribution and sends
+method selection back to causal analysis of genuine baseline failures.
 
 ## 1. Problem
 
@@ -92,7 +93,12 @@ capable Agent.
 The framework is causal across layers: an operation cannot repair a constraint that was
 never inferred, and a constraint cannot be inferred from a fact that was never observed.
 
-## 3. EnvSolve-Pro
+## 3. Candidate Mechanism Study
+
+The mechanism below is a preregistered rejected candidate, not the final EnvSolve-Pro
+method. It remains useful as evidence that complete observation can be implemented
+without restricting a strong Agent, but cadence alone does not establish an algorithmic
+gain.
 
 ### 3.1 Shared evaluation foundation
 
@@ -157,15 +163,15 @@ return only the exact replay-certified program hash
 The method has no package-rule library, physical checkpoint, cross-case memory, learned
 policy, or harness self-modification.
 
-## 4. Contributions
+## 4. Target Contributions
 
 1. **Failure taxonomy and instrumentation.** We provide auditable cross-system
    trajectories and an Observation-Constraint-Operation taxonomy for identifying the
    earliest decisive cause of deployment failure.
-2. **A minimal deployment algorithm.** We introduce EnvSolve-Pro, which combines
-   deterministic identity-bound observation, a stateful evidence frontier, free
-   same-session operation, and clean replay without encoding package choices or blocking
-   capable Agents.
+2. **A minimal deployment algorithm.** The final EnvSolve-Pro treatment will target one
+   empirically dominant Observation--Constraint--Operation failure while preserving free
+   same-session operation and clean replay. Fixed-cadence observation has been excluded
+   by the mechanism study rather than retained as unsupported method complexity.
 3. **Controlled empirical evidence.** We measure same-model causal gains, strong- and
    weaker-model performance, Official success, failure-distribution shifts, and resource
    Pareto behavior against free-search, hard-constraint, replay-based, Repo2Run,
@@ -185,16 +191,16 @@ failure-profile claims, not comparative success rates.
 
 ### 5.2 Mechanism qualification
 
-The current qualification compares a same-backbone free-search plus clean-replay control
-with EnvSolve-Pro on four previously consumed repositories, two repetitions, and
-counterbalanced order, for 16 episodes. Every treatment episode must follow the frozen
-observation schedule; at least 75% of scheduled observations must be complete; the
-harness must impose zero operation constraints and create zero checkpoints.
+The completed qualification compared a same-backbone free-search plus clean-replay
+control with scheduled observation on four previously consumed repositories, two
+repetitions, and counterbalanced order, for 16 episodes. Every treatment episode followed
+the frozen observation schedule, every observation was complete, and the harness imposed
+zero operation constraints and created zero checkpoints.
 
-Promotion requires no lower Official Pass count, at most one paired treatment-only loss,
+Promotion required no lower Official Pass count, at most one paired treatment-only loss,
 and either one treatment-only win or a preregistered success-conditional efficiency
-signal. This small experiment qualifies the mechanism; it is not the final effect-size
-estimate.
+signal. The first two conditions held but the third did not, so the candidate was not
+promoted.
 
 ### 5.3 Confirmation and baselines
 
@@ -233,10 +239,20 @@ tool. On comparable successful pairs, the treatment used median ratios of 1.30 r
 The result supports the value of complete identity-bound observation in at least one bad
 case, but rejects voluntary tool use as a stable mechanism.
 
-EnvSolve-Pro is falsified or narrowed if deterministic scheduling still fails to produce
-stable complete observations, lowers Official success, creates treatment-only losses, or
-shows no reproducible repair or efficiency signal. We will report such outcomes rather
-than add case-specific rules.
+The deterministic study completed with 16 valid episodes. Both B-FSR and E-SCHEDULED
+formed replay-certified candidates and passed Official in 8/8 episodes. All 34 scheduled
+observations were complete and all eight treatment episodes were schedule compliant,
+with no operation constraint or checkpoint. The median treatment/control ratios were
+0.958 requests, 0.934 shell steps, 0.990 tokens, and 1.095 seconds to certificate. There
+was no treatment-only win or loss, and the preregistered efficiency signal was false.
+The machine decision was `ambiguous-preregister-broader-consumed-study-unchanged`.
+
+This result rejects two claims: that strong Agents need a fixed observation cadence to
+succeed on these cases, and that reliable mechanism activation is itself evidence of
+benefit. The four consumed repositories were ceiling cases for both arms, so they cannot
+identify a success-rate improvement. We therefore freeze this result, do not tune the
+cadence, and return to the fixed baseline bad-case corpus to choose one simple treatment
+that targets a demonstrated Observation--Constraint--Operation failure.
 
 ## 7. Scope and Limitations
 

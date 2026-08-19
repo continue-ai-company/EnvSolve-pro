@@ -1,6 +1,6 @@
 # EnvSolve-Pro：面向仓库部署的部分可观测状态化约束求解
 
-状态：ICLR 工作论文稿，2026-08-18
+状态：ICLR 工作论文稿，2026-08-19；最终算法 treatment 尚未选定
 
 ## 摘要
 
@@ -9,15 +9,16 @@
 我们把仓库部署定义为**部分可观测状态化约束求解**。
 
 我们首先记录可审计部署轨迹，并把失败组织为三个因果层：观测层、约束层和操作层。已有证据表明，主要
-瓶颈不只是缺少依赖知识，而是提交程序真正需要工作的状态被过晚或不完整地观测。我们据此提出
-EnvSolve-Pro：在一个连续 session 中保留自由 Agent，按固定节奏执行完整且绑定环境身份的观测，跟踪兼容
-义务如何变化，并通过干净重放认证完整程序。harness 只提供证据，不替 Agent 选择包、阻断操作或恢复
-checkpoint。
+瓶颈不只是缺少依赖知识，而是没有把可执行状态证据转化为下一次可重现修复。我们保留一个最小底座：
+自由 Agent 的连续 session，以及对完整程序的精确干净重放。第一个增量 treatment 是固定节奏、绑定环境
+身份的完整观测。它能够稳定执行，但没有提升 Official 成功率，也没有达到预注册效率条件，因此不是最终
+EnvSolve-Pro 算法。
 
 我们使用同模型配对实验、外部部署 baseline 和独立强 Agent 前沿进行评估。Official Pass@1 是主指标；
 机制激活、失败层迁移和成功条件下的资源使用解释增益来源。一个预注册的可选观测 pilot 从 2/4 提高到
-3/4，但因为一条 treatment 轨迹完全没有使用观测工具而未通过机制资格。这一负结果直接导向当前研究所
-评估的确定性观测节奏。
+3/4，但因为一条 treatment 轨迹完全没有使用观测工具而未通过机制资格。后续 16-episode 确定性观测实验
+中 treatment 与 control 都是 8/8 Official Pass。第二个负结果排除了“仅靠固定观测节奏”作为核心贡献，
+方法选择重新回到真实 baseline bad case 的因果失败分析。
 
 ## 1. 问题定义
 
@@ -69,7 +70,10 @@ Agent 无法预先读出完整兼容性状态。依赖求解、构建隔离、Py
 
 三个层次存在因果关系：没有观测到的事实无法形成约束，没有形成的约束也无法被操作准确修复。
 
-## 3. EnvSolve-Pro
+## 3. 候选机制研究
+
+下面的机制是预注册后被否定的候选，不是最终 EnvSolve-Pro 方法。它证明完整观测可以在不限制强 Agent
+的情况下稳定执行，但固定 cadence 本身不能证明算法增益。
 
 ### 3.1 公共评估底座
 
@@ -125,12 +129,13 @@ while 尚无重放认证程序且安全上限未耗尽:
 
 该方法不包含包规则库、物理 checkpoint、跨 case 记忆、学习策略或 harness 自修改。
 
-## 4. 三个贡献
+## 4. 目标贡献
 
 1. **失败分类与观测系统。** 我们提供跨系统可审计轨迹，以及观测层、约束层、操作层 taxonomy，用于识别
    环境部署失败最早的决定性原因。
-2. **最小部署算法。** 我们提出 EnvSolve-Pro，把确定性的环境身份绑定观测、状态化证据前沿、同 session
-   自由操作和干净重放组合起来，同时不编码包选择，也不阻断强 Agent。
+2. **最小部署算法。** 最终 EnvSolve-Pro treatment 将只针对一个经实证确认的观测层、约束层或操作层
+   主导失败，同时保留同 session 自由操作与干净重放。固定 cadence 已被机制实验排除，不会作为无证据
+   支持的方法复杂度继续保留。
 3. **受控实证。** 我们比较同模型因果增益、强弱模型表现、Official 成功率、失败分布迁移和资源 Pareto
    行为，并与自由搜索、硬约束、重放式方法、Repo2Run、EnvBench 和原生 coding Agent 对照。
 
@@ -145,12 +150,12 @@ EnvBench FreeAgent、Repo2Run、原生 Codex、旧硬约束 EnvSolve 和 EnvSolv
 
 ### 5.2 机制资格实验
 
-当前 qualification 在四个此前已消费仓库上比较“同 backbone 自由搜索 + 干净重放”control 与
-EnvSolve-Pro，每个 arm 两次重复，并平衡顺序，共 16 个 episode。每个 treatment episode 必须遵守冻结
-观测节奏；至少 75% 的计划观测必须完整；harness 必须施加零操作约束并创建零 checkpoint。
+已完成的 qualification 在四个此前已消费仓库上比较“同 backbone 自由搜索 + 干净重放”control 与
+定时观测，每个 arm 两次重复并平衡顺序，共 16 个 episode。每个 treatment 都遵守冻结观测节奏，全部
+观测完整，harness 施加零操作约束并创建零 checkpoint。
 
 晋级要求 Official Pass 数不下降、最多一个 treatment 独占失败，并且至少出现一个 treatment 独占成功
-或一个预注册的成功条件效率信号。这个小实验只判断机制是否合格，不估计最终效果大小。
+或预注册的成功条件效率信号。前两项满足，第三项不满足，因此该候选没有晋级。
 
 ### 5.3 确认性实验与 baseline
 
@@ -179,8 +184,16 @@ treatment 的 Official 通过数为 3/4，重放 control 为 2/4，有一个 tre
 1.28、1.46 和 1.11。结果说明完整的环境身份绑定观测至少能解决一个 bad case，但否定了“由 Agent 自愿
 调用工具”是一种稳定机制。
 
-如果确定性调度仍不能稳定产生完整观测、降低 Official 成功率、制造 treatment 独占失败，或没有可复现
-的修复或效率信号，EnvSolve-Pro 的主张就应被证伪或收窄，而不是继续加入 case-specific 规则。
+确定性实验最终得到 16 条有效 episode。B-FSR 和 E-SCHEDULED 都形成了干净重放认证候选，并分别
+8/8 Official Pass。34 次计划观测全部完整，8 条 treatment 全部遵守调度，且没有操作约束或 checkpoint。
+treatment/control 的中位数比值为：请求 0.958、shell 0.934、Token 0.990、证书时间 1.095。没有任何
+treatment 独占成功或独占失败，预注册效率信号为 false；机器判定是
+`ambiguous-preregister-broader-consumed-study-unchanged`。
+
+该结果否定两个说法：强 Agent 在这些 case 上必须依赖固定观测节奏才能成功；机制稳定激活本身就代表
+算法有效。这四个已消费仓库对两臂都是 ceiling case，无法识别成功率增益。我们因此冻结结果，不调观测
+间隔，回到固定 baseline bad-case 语料，只选择一个针对真实观测层、约束层或操作层决定性失败的简单
+treatment。
 
 ## 7. 范围与局限
 
