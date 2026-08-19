@@ -1,0 +1,30 @@
+{
+  "schema": "envsolve-pro-v2-launcher-amendment-v1",
+  "study_id": "envsolve-pro-v2-bad-case-profile-v1",
+  "status": "recorded-before-retry-execution",
+  "failed_attempt": {
+    "entrypoint": "experiments/run_schedule.py",
+    "lane_progress_files": [
+      "experiments/runs/envsolve_pro_v2_bad_case_profile_v1_lane1_progress.json",
+      "experiments/runs/envsolve_pro_v2_bad_case_profile_v1_lane2_progress.json"
+    ],
+    "outcome": "All 12 positions exited during argparse because the generic child entrypoint does not register EnvSolve-Pro V2 runners.",
+    "model_requests": 0,
+    "official_evaluations": 0,
+    "case_artifacts_created": 0,
+    "scientific_outcome_available": false
+  },
+  "retry": {
+    "entrypoint": "experiments/run_envsolve_pro_v2_schedule.py",
+    "schedule_change": false,
+    "case_change": false,
+    "runner_change": false,
+    "model_or_provider_change": false,
+    "run_id_change": false,
+    "lane_progress_files": [
+      "experiments/runs/envsolve_pro_v2_bad_case_profile_v1_lane1_retry1_progress.json",
+      "experiments/runs/envsolve_pro_v2_bad_case_profile_v1_lane2_retry1_progress.json"
+    ]
+  },
+  "interpretation": "The failed launcher attempts are excluded as pre-execution orchestration errors and provide no algorithm or infrastructure outcome."
+}
