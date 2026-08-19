@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-scheduled-observation-qualification-v1-infrastructure-retry1",
+  "recorded_at": "2026-08-19T02:19:35Z",
+  "status": "recorded-before-replacement-model-or-official-evaluation-execution",
+  "study_id": "envsolve-pro-v2-scheduled-observation-qualification-v1",
+  "failure_scenario": "Without predeclared exact-identity replacements, selectively retrying infrastructure-censored episodes after observing outcomes could change the paired sample and bias the mechanism estimate.",
+  "ordering_evidence": "This amendment and its schedules are committed to Git before any listed retry starts; no additional hash or gate is introduced.",
+  "censored_attempts": [
+    {
+      "original_position": 3,
+      "run_id": "pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED",
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "arm": "E-SCHEDULED",
+      "generation_completed": false,
+      "infrastructure_signature": "terminal-provider-api-connection-error",
+      "replacement_schedule": "experiments/schedules/envsolve_pro_v2_scheduled_observation_qualification_v1_position3_provider_retry1.json"
+    },
+    {
+      "original_position": 4,
+      "run_id": "pro-v2-scheduled-observation-q-v1-04-vkbottle-r1-B-FSR",
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "arm": "B-FSR",
+      "generation_completed": false,
+      "infrastructure_signature": "deepinfra-upstream-shared-pool-engine-overloaded",
+      "replacement_schedule": "experiments/schedules/envsolve_pro_v2_scheduled_observation_qualification_v1_position4_provider_retry1.json"
+    },
+    {
+      "original_position": 5,
+      "run_id": "pro-v2-scheduled-observation-q-v1-05-pytorch-metric-learning-r1-B-FSR",
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "arm": "B-FSR",
+      "generation_completed": false,
+      "infrastructure_signature": "deepinfra-upstream-shared-pool-engine-overloaded",
+      "replacement_schedule": "experiments/schedules/envsolve_pro_v2_scheduled_observation_qualification_v1_position5_provider_retry1.json"
+    },
+    {
+      "original_position": 14,
+      "run_id": "pro-v2-scheduled-observation-q-v1-14-vkbottle-r2-E-SCHEDULED",
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "arm": "E-SCHEDULED",
+      "generation_completed": true,
+      "evaluation_completed": false,
+      "infrastructure_signature": "evaluator-bootstrap-pypi-read-timeout",
+      "official_retry_run_id": "pro-v2-scheduled-observation-q-v1-14-vkbottle-r2-E-SCHEDULED-official-retry1",
+      "model_reexecuted": false
+    }
+  ],
+  "execution_policy": {
+    "algorithm_changed": false,
+    "prompt_changed": false,
+    "case_changed": false,
+    "arm_changed": false,
+    "model_changed": false,
+    "provider_changed": false,
+    "seed_changed": false,
+    "episode_timeout_changed": false,
+    "official_evaluator_changed": false,
+    "run_replacements_sequentially": true,
+    "maximum_replacements_per_censored_position": 1,
+    "maximum_exact_script_official_retries_for_position_14": 1
+  },
+  "analysis_policy": {
+    "retain_original_attempts": true,
+    "exclude_original_censored_attempts_from_effect_estimate": true,
+    "replacement_is_not_an_additional_replication": true,
+    "position_14_generation_metrics_come_from_original_episode": true,
+    "position_14_official_outcome_comes_from_exact_script_retry": true,
+    "provider_failures_remain_available_for_infrastructure_cost_reporting": true
+  }
+}

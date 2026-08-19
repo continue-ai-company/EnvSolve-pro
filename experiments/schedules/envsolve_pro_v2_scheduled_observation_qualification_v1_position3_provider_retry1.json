@@ -1,0 +1,40 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+  "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "E-SCHEDULED",
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "case_position": 2,
+      "mechanisms": [
+        "F",
+        "scheduled-O",
+        "delta-C",
+        "R",
+        "minimal-H"
+      ],
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "original_position": 3,
+      "pair_id": "scheduled-observation-qualification-vkbottle-r1",
+      "pair_position": 1,
+      "position": 1,
+      "provider": "deepinfra",
+      "replication": 1,
+      "retry_of": "pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED",
+      "run_id": "pro-v2-scheduled-observation-q-v1-03-vkbottle-r1-E-SCHEDULED-infra-retry1",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "seed": 511618860
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "exact-identity-infrastructure-replacement-not-an-additional-replication",
+  "provider": "deepinfra",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "deepinfra"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-scheduled-observation-qualification-v1-position3-provider-retry1"
+}
