@@ -1,0 +1,29 @@
+{
+  "schema": "envsolve-pro-v2-bad-case-profile-provider-correction-amendment-v1",
+  "study_id": "envsolve-pro-v2-bad-case-profile-v1",
+  "recorded_at": "2026-08-20T03:50:00Z",
+  "recorded_after_invalid_attempt_before_replacement": true,
+  "invalid_attempt": {
+    "run_id": "pro-v2-bad-profile-v1-03-graphium-A-F-source-retry1",
+    "intended_provider": "deepinfra",
+    "observed_provider": "cloudflare",
+    "cause": "The Spark shell environment overrode OPENROUTER_PROVIDER_ORDER after the original source-acquisition failure.",
+    "outcome": "The Agent exhausted 120 requests without submission.",
+    "analysis_treatment": "Exclude from the preregistered paired outcome and resource comparison. Retain the complete trajectory as a protocol-deviation diagnostic only."
+  },
+  "replacement": {
+    "run_id": "pro-v2-bad-profile-v1-03-graphium-A-F-source-retry2-deepinfra",
+    "provider": "deepinfra",
+    "provider_override": "Set OPENROUTER_PROVIDER_ORDER=deepinfra in the episode process after loading the secret environment.",
+    "unchanged": [
+      "case and exact revision",
+      "A-F runner and method",
+      "DeepSeek V4 Flash 0731 model",
+      "seed",
+      "prompt, tools, minimal integrity boundary, and Official protocol",
+      "immutable source cache containing no model trajectory or evaluator result"
+    ],
+    "qualification": "Provider determinism is not assumed. This is the sole provider-compliant replacement for the pre-model source-acquisition failure; the Cloudflare trajectory is not pooled with it."
+  },
+  "claim_boundary": "The correction restores the preregistered provider identity. It does not convert either replacement into a held-out or repeated-effect estimate."
+}
