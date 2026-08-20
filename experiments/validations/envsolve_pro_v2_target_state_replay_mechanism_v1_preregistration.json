@@ -1,0 +1,78 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-mechanism-preregistration-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-mechanism-v1",
+  "status": "preregistered-before-execution",
+  "purpose": "Test whether whole-program replay from the target cache state exposes an executable counterexample to the same active Agent session before final submission.",
+  "claim_scope": "Mechanism diagnosis on three previously consumed development cases. Results cannot support held-out, leaderboard, generalization, effect-size, or SOTA claims.",
+  "treatment": {
+    "name": "same-session-target-state-counterexample-replay",
+    "description": "A free continuous Agent constructs one complete bootstrap program, invokes clean replay in a fresh checkout and container without the construction package cache, receives the first replay failure as advisory evidence in the same session, and may revise and replay the whole program.",
+    "excluded_mechanisms": [
+      "cross-case package rules",
+      "scheduled observation",
+      "compatibility ledger",
+      "checkpoint search",
+      "cross-case memory",
+      "additional hard constraints"
+    ]
+  },
+  "fixed_cases": [
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "seed": 410001,
+      "diagnostic_question": "Does target-state replay still reproduce Git ownership failure and return it early enough for the same session to add the missing reproducible operation?"
+    },
+    {
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "seed": 410002,
+      "diagnostic_question": "Does cold target-state replay replace the old construction-cache false pass with a dependency-resolution counterexample, and can the same session repair it?"
+    },
+    {
+      "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784",
+      "seed": 410006,
+      "diagnostic_question": "Does target-state replay agree with Official evaluation, or does the prior dependency-index mismatch recur under a fresh cache state?"
+    }
+  ],
+  "execution": {
+    "host": "Spark Linux aarch64",
+    "runner": "envsolve-pro-v2",
+    "method": "envsolve-pro-fsr-minimal-h",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_order_override": "deepinfra",
+    "replications_per_case": 1,
+    "official_evaluator_access": "post-episode-only",
+    "source_cache_policy": "The exact Git revision may be copied from the earlier profile to avoid source-network confounding. No prior candidate program, construction package cache, trajectory, replay artifact, or evaluator output is reused.",
+    "parallelism": "At most two simultaneous episodes on Spark.",
+    "timeout_disclosure": "The local mechanism configuration uses a 2400-second container timeout and is not a standard-timeout leaderboard run."
+  },
+  "measurements": [
+    "ordered clean-replay outcomes",
+    "first replay failure and normalized evidence",
+    "program change after replay failure",
+    "final replay status and Official Pass@1",
+    "replay-to-Official agreement",
+    "model requests, shell operations, tokens, and wall-clock time as descriptive metrics"
+  ],
+  "decision_rules": [
+    "Mechanism activation requires a replay failure followed by a materially changed complete program in the same session.",
+    "Target-state fidelity fails if a deterministic construction-cache mismatch still produces replay pass followed by Official failure.",
+    "Graphium or cvxportfolio replay failure followed by same-session repair is positive mechanism evidence, not an effectiveness estimate.",
+    "A network or package-index failure may reveal target-state uncertainty but is not labeled as an algorithmic failure unless it is reproducible or causally resolved in-session.",
+    "Pass counts from these selected consumed cases are never used for promotion; a positive mechanism result must be followed by an outcome-independent preregistered qualification batch."
+  ],
+  "planned_runs": [
+    {
+      "run_id": "pro-v2-target-replay-mech-v1-01-basxconnect-B-FSR",
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68"
+    },
+    {
+      "run_id": "pro-v2-target-replay-mech-v1-02-graphium-B-FSR",
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d"
+    },
+    {
+      "run_id": "pro-v2-target-replay-mech-v1-03-cvxportfolio-B-FSR",
+      "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784"
+    }
+  ]
+}
