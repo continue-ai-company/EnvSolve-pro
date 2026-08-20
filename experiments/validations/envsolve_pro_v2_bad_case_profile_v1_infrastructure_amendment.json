@@ -1,0 +1,38 @@
+{
+  "schema": "envsolve-pro-v2-bad-case-profile-infrastructure-amendment-v1",
+  "study_id": "envsolve-pro-v2-bad-case-profile-v1",
+  "recorded_at": "2026-08-20T02:44:40Z",
+  "recorded_before_retries": true,
+  "graphium_source_retry": {
+    "source_run_id": "pro-v2-bad-profile-v1-03-graphium-A-F",
+    "failure_stage": "repository acquisition before the first model request",
+    "failure": "Git fetch ended with a transient GnuTLS termination, early EOF, and invalid index-pack output after three acquisition attempts.",
+    "model_requests": 0,
+    "official_evaluator_executed": false,
+    "analysis_treatment": "Exclude the source-acquisition attempt and run one replacement A-F episode after the immutable source cache became available.",
+    "replacement_run_id": "pro-v2-bad-profile-v1-03-graphium-A-F-source-retry1",
+    "unchanged": [
+      "case and exact revision",
+      "A-F runner and method",
+      "DeepSeek V4 Flash 0731 model through DeepInfra",
+      "seed",
+      "prompt, tools, minimal integrity boundary, and Official protocol"
+    ],
+    "qualification": "Provider determinism is not assumed. The replacement supplies the missing A-F realization; it does not recreate a hidden deterministic model trajectory.",
+    "source_cache_information": "The cache contains only the exact Git revision and no prior candidate, command trajectory, replay feedback, or evaluator result."
+  },
+  "django_machina_official_retry": {
+    "source_run_id": "pro-v2-bad-profile-v1-07-django-machina-A-F",
+    "generation_completed": true,
+    "failure_stage": "Official evaluator bootstrap after model termination",
+    "recognized_signature": "connection-timeout",
+    "analysis_treatment": "Replace the censored Official outcome with at most one evaluation-only retry of the exact submitted script.",
+    "retry_run_id": "pro-v2-bad-profile-v1-07-django-machina-A-F-official-retry1",
+    "model_reexecuted": false,
+    "script_changed": false,
+    "case_changed": false,
+    "algorithm_changed": false,
+    "evaluator_changed": false
+  },
+  "claim_boundary": "The retries recover missing algorithm and Official observations only. Original infrastructure failures remain preserved and are excluded from success-rate and resource comparisons."
+}
