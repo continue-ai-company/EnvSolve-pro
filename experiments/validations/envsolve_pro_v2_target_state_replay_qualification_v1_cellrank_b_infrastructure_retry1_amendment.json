@@ -1,0 +1,38 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-qualification-infrastructure-amendment-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-qualification-v1",
+  "recorded_at": "2026-08-20T10:40:29Z",
+  "status": "recorded-before-replacement-model-execution",
+  "affected_episode": {
+    "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+    "arm": "B-FCsR",
+    "original_run_id": "pro-v2-target-replay-qual-v1-08-cellrank-B-FCsR",
+    "replacement_run_id": "pro-v2-target-replay-qual-v1-08-cellrank-B-FCsR-infra-retry1"
+  },
+  "observed_failure": {
+    "stage": "provider request before first clean replay",
+    "last_completed_model_request": 53,
+    "next_request_without_terminal_event": 54,
+    "trajectory_event_count": 132,
+    "trajectory_stale_seconds_at_adjudication": 1303.109117269516,
+    "configured_model_request_timeout_seconds": 600,
+    "runner_process_state": "alive and blocked in poll",
+    "provider_socket_state": "CLOSE-WAIT with unread bytes after the peer closed",
+    "clean_replay_count": 0,
+    "candidate_submitted": false,
+    "classification": "infrastructure-censored provider transport hang"
+  },
+  "adjudication": {
+    "original_episode_eligible_for_paired_outcome": false,
+    "reason": "The provider transport stopped before returning or rejecting request 54 and exceeded the declared request timeout. No Official or clean-replay outcome exists.",
+    "replacement_episode_eligible_if_complete": true,
+    "replacement_policy": [
+      "Use the same case, B-FCsR arm, model, DeepInfra-only provider policy, seed, image, prompt, evaluator, and broad safety limits.",
+      "Start a new construction container and model session because the original active session cannot be resumed through the runner interface.",
+      "Reuse only the immutable exact-revision source cache; do not reuse the original construction package cache, program, trajectory, replay evidence, or evaluator result.",
+      "Make no algorithm, prompt, configuration, or case-specific rule change before the replacement completes.",
+      "Report the original episode's consumed resources separately as infrastructure overhead, not as treatment outcome or replacement resources."
+    ]
+  },
+  "scope": "This amendment handles one observed infrastructure failure. It does not alter case selection, treatment definition, stopping rules, or promotion criteria."
+}

@@ -423,7 +423,7 @@ feedback-conditioned repair 和三条首次 replay 认证。第五、六、八�
 
 ## 12. 目标状态重放机制检查与资格实验
 
-### 10.1 已消费机制结果
+### 12.1 已消费机制结果
 
 正式效果实验前，我们在 basxconnect、Graphium 和 cvxportfolio 上检查了隔离缓存后的目标状态实现。
 三个 case 的 replay 与 Official 全部一致。basxconnect 在 Git ownership 反例后修改程序；Graphium 在
@@ -431,7 +431,7 @@ feedback-conditioned repair 和三条首次 replay 认证。第五、六、八�
 cvxportfolio 第一次 replay 通过。结果记录在
 `experiments/validations/envsolve_pro_v2_target_state_replay_mechanism_v1_result.json`。
 
-### 10.2 Qualification 设计
+### 12.2 Qualification 设计
 
 下一轮在与新 treatment 结果无关的 case batch 上比较两臂：
 

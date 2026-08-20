@@ -91,7 +91,8 @@ return failure
 ```
 
 算法保存程序和执行证据，不保存容器 checkpoint。核心选择是把修复 loop 放在哪里：放在活跃推理
-session 内，针对真正交付的完整程序，并从该程序实际面对的初始状态执行。
+session 内，针对真正交付的完整程序，并从该程序实际面对的初始状态执行。harness 提供的是目标状态
+反例 oracle，而不是修复策略；更强的模型扩展操作层能力，不会被 harness 限制动作空间。
 
 ## 4. 三项贡献
 
@@ -125,6 +126,10 @@ Control 是只使用普通执行反馈的连续自由 Agent session；treatment 
 系统级 baseline 包括 EnvBench baseline、Repo2Run、冻结的旧 EnvSolve，以及作为独立能力上界参考的
 原生 Codex。强弱 backbone 用于判断可执行反例是在增强模型，还是会被模型进步吞噬。开发数据只选择固定
 机制和协议，held-out 数据估计效果；本文不训练模型参数。
+
+Repo2Run 本身也是状态化 loop，而不是 one-shot baseline：它保留模型对话和构建容器，反复调用测试，
+对部分失败的状态变换进行回退，并序列化成功命令历史。本文检验的边界更窄：Repo2Run 在累积构建状态
+通过时终止，但不会从独立目标初态执行完整的序列化交付程序，再把反例返回仍然活跃的推理 session。
 
 Official 成功与部署完整性分开。EnvBench 的 import-oriented 目标按官方定义报告；compatibility shim、
 不可获得的硬件 runtime 和更广泛行为覆盖另行审计。

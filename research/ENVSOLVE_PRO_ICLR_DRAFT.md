@@ -123,7 +123,8 @@ return failure
 The algorithm stores programs and execution evidence, not container checkpoints. Its
 central choice is where the repair loop runs: inside the active reasoning session,
 against the complete deliverable, from the state that the deliverable will actually
-face.
+face. The harness supplies a target-state counterexample oracle, not a repair policy;
+stronger models enlarge the Operation layer instead of being constrained by it.
 
 ## 4. Contributions
 
@@ -169,6 +170,13 @@ and native Codex as an independent capability frontier. Strong and weaker backbo
 whether executable counterexamples complement model capability or are absorbed by model
 progress. Development data selects the fixed mechanism and protocol; held-out data
 estimates performance. No model parameter is trained in this paper.
+
+Repo2Run is itself a stateful loop rather than a one-shot baseline: it preserves a model
+dialogue and construction container, invokes tests repeatedly, rolls back some failed
+state-changing commands, and serializes successful command history. The specific boundary
+tested here is narrower. Repo2Run terminates on success in the accumulated construction
+state; it does not execute the complete serialized deliverable from an independent target
+initial state and return that counterexample to the still-active reasoning session.
 
 Official success and deployment completeness are distinct. EnvBench's import-oriented
 goal is reported as defined, while compatibility shims, unavailable hardware runtimes,

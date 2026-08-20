@@ -527,7 +527,7 @@ and two candidate-formation failures remain. Four frozen pairs remain.
 
 ## 12. Target-State Replay Mechanism Check and Qualification
 
-### 10.1 Consumed mechanism result
+### 12.1 Consumed mechanism result
 
 The cache-isolated target-state implementation was checked on basxconnect, Graphium, and
 cvxportfolio before any effectiveness run. Replay and Official agreed in 3/3 cases.
@@ -537,7 +537,7 @@ counterexamples; one additional replay failed because of network acquisition bef
 next replay passed. Cvxportfolio passed its first replay. The mechanism result is recorded
 in `experiments/validations/envsolve_pro_v2_target_state_replay_mechanism_v1_result.json`.
 
-### 10.2 Qualification design
+### 12.2 Qualification design
 
 The next qualification compares two arms on a case batch selected independently of the
 new treatment outcomes:
