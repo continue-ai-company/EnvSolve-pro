@@ -1,0 +1,167 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-qualification-preregistration-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-qualification-v1",
+  "recorded_at": "2026-08-20T06:39:02Z",
+  "status": "preregistered-before-source-acquisition-or-model-execution",
+  "research_question": "Does same-session whole-program replay from the target initial cache state improve Official Pass@1 over the same free continuous Agent without replay?",
+  "claim_scope": "Outcome-independent development qualification for selecting whether the minimal replay treatment merits scaling. The cases are not a held-out test set and cannot support generalization, leaderboard, effect-size, or SOTA claims.",
+  "selection": {
+    "source": "The pre-existing identity-only EnvSolve-Pro V2 Flash 0731 Dev16 order recorded on 2026-08-14, before the target-state cache-isolation repair and its mechanism results.",
+    "source_file": "experiments/validations/envsolve_pro_v2_flash0731_dev16_selection.json",
+    "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+    "positions": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "outcome_or_failure_class_used": false,
+    "repository_unseen": false,
+    "current_treatment_previously_run": false,
+    "protected_test_overlap": 0,
+    "rationale": "Continue the already recorded order after the completed first eight pairs; do not replace a case based on difficulty, trajectory, or either arm's outcome."
+  },
+  "arms": {
+    "A-F": {
+      "runner": "deepseek-free-agent",
+      "method": "free-feedback-search",
+      "mechanisms": [
+        "continuous free execution-feedback search",
+        "minimal evaluator-integrity boundary"
+      ]
+    },
+    "B-FCsR": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "mechanisms": [
+        "the complete A-F mechanism",
+        "Agent-invoked whole-program replay from a fresh checkout and container",
+        "no reuse of the construction package cache",
+        "raw replay evidence plus an advisory case-local contradiction returned to the same active session",
+        "final submission restricted to a replay-passed complete program"
+      ]
+    }
+  },
+  "three_layer_interpretation": {
+    "observation": "Identity-bound construction and target-state replay evidence describing what occurred.",
+    "constraint": "The case-local contradiction between the current complete bootstrap program and the target initial state; raw evidence remains visible and the Agent may reinterpret it.",
+    "operation": "The unrestricted strong Agent chooses how to revise the environment and complete program in the same session."
+  },
+  "excluded_mechanisms": [
+    "cross-case package or repair rules",
+    "scheduled compatibility observation",
+    "compatibility ledger",
+    "container checkpoints",
+    "certified-incumbent fallback",
+    "cross-case memory",
+    "additional hard operation constraints"
+  ],
+  "shared_execution_identity": {
+    "host": "Spark Linux aarch64",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "reasoning_effort": "xhigh",
+    "same_seed_within_pair": true,
+    "official_evaluator_access": "post-episode-only",
+    "source_cache_policy": "An immutable exact-revision Git source cache may be reused to remove source-network acquisition noise. No candidate program, construction package cache, trajectory, replay artifact, or evaluator result may cross episodes.",
+    "package_cache_policy": "Each construction episode has a private package cache; each B replay starts with the benchmark image's default empty cache.",
+    "parallelism": "At most two episodes at once, with each pair kept sequential in its preregistered within-pair order.",
+    "timeout_disclosure": "The development configuration uses a 2400-second evaluator container timeout and is not a standard-timeout leaderboard run.",
+    "success_priority": true,
+    "token_or_reported_cost_hard_threshold": false
+  },
+  "fixed_pairs": [
+    {
+      "pair": 1,
+      "original_dev16_position": 9,
+      "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+      "seed": 1883563614,
+      "arm_order": [
+        "A-F",
+        "B-FCsR"
+      ],
+      "run_ids": [
+        "pro-v2-target-replay-qual-v1-01-probatus-A-F",
+        "pro-v2-target-replay-qual-v1-02-probatus-B-FCsR"
+      ]
+    },
+    {
+      "pair": 2,
+      "original_dev16_position": 10,
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "seed": 3639764844,
+      "arm_order": [
+        "A-F",
+        "B-FCsR"
+      ],
+      "run_ids": [
+        "pro-v2-target-replay-qual-v1-03-pika-A-F",
+        "pro-v2-target-replay-qual-v1-04-pika-B-FCsR"
+      ]
+    },
+    {
+      "pair": 3,
+      "original_dev16_position": 11,
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "seed": 3916710716,
+      "arm_order": [
+        "B-FCsR",
+        "A-F"
+      ],
+      "run_ids": [
+        "pro-v2-target-replay-qual-v1-05-importlib-metadata-B-FCsR",
+        "pro-v2-target-replay-qual-v1-06-importlib-metadata-A-F"
+      ]
+    },
+    {
+      "pair": 4,
+      "original_dev16_position": 12,
+      "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+      "seed": 2820794273,
+      "arm_order": [
+        "A-F",
+        "B-FCsR"
+      ],
+      "run_ids": [
+        "pro-v2-target-replay-qual-v1-07-cellrank-A-F",
+        "pro-v2-target-replay-qual-v1-08-cellrank-B-FCsR"
+      ]
+    }
+  ],
+  "outcomes": {
+    "primary": "EnvBench Official Pass@1",
+    "paired_analysis": "Report the 2x2 paired outcome table. Use exact McNemar only when every pair has two Boolean Official outcomes; otherwise report infrastructure censoring separately.",
+    "mechanism": [
+      "clean replay activation",
+      "ordered replay outcomes",
+      "feedback-conditioned complete-program repair",
+      "final replay-to-Official agreement"
+    ],
+    "failure_analysis": [
+      "Observation-layer failure",
+      "Constraint-layer failure",
+      "Operation-layer failure",
+      "Evaluation underdetermination",
+      "Infrastructure censoring"
+    ],
+    "resources_descriptive_only": [
+      "model requests",
+      "total tokens",
+      "generation wall clock",
+      "shell operations",
+      "replay count and duration",
+      "construction package-cache size"
+    ],
+    "non_scoring_error_count_is_not_a_success_criterion": true,
+    "deployment_completeness_is_separate_from_official_success": true
+  },
+  "stopping_and_decision_rules": [
+    "Run all eight arm episodes unless an external infrastructure failure makes an episode censored; never replace a case based on an observed outcome.",
+    "A provider or Official-network retry may reuse only the exact generated program and may not invoke the model again unless separately preregistered as a censored infrastructure retry.",
+    "Promote target-state replay to a larger development batch only if it does not reduce paired Official success and either creates at least one B-only Official pass or repeatedly catches a state-to-program defect that would otherwise reach Official evaluation.",
+    "A 4-pair tie with replay used only as certification is insufficient evidence of success improvement; retain A and B as baselines and return to failure analysis.",
+    "Resource reductions are secondary and cannot compensate for lower Official success.",
+    "No conclusion from this batch may be described as held-out generalization or SOTA."
+  ]
+}
