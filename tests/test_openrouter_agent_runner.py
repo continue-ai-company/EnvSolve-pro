@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import subprocess
 from types import SimpleNamespace
 import tempfile
 import unittest
@@ -17,7 +18,6 @@ from envsolve_harness.runners.openrouter_agent import (
     DEEPSEEK_V4_PRO,
     OpenRouterAgentRunner,
     SUPPORTED_DEEPSEEK_MODELS,
-    _EpisodePackageCacheRunCommand,
     _request_contract,
     _trajectory_progress,
 )
@@ -150,52 +150,46 @@ class FakeCompatibilityService:
 
 
 class OpenRouterAgentRunnerTest(unittest.TestCase):
-    def test_episode_package_cache_is_added_only_to_docker_create(self) -> None:
-        calls: list[list[str]] = []
-
-        def run(command: list[str], **kwargs: object) -> SimpleNamespace:
-            del kwargs
-            calls.append(command)
-            return SimpleNamespace(returncode=0, stdout="", stderr="")
-
+    def test_construction_container_keeps_the_episode_package_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            cache_root = Path(directory) / "cache"
-            adapter = _EpisodePackageCacheRunCommand(cache_root, run)
-            adapter(["git", "status"])
-            adapter(["docker", "image", "inspect", "image"])
-            adapter(["docker", "create", "image"])
-            adapter(["docker", "start", "container-1"])
+            root = Path(directory)
+            workspace = root / "workspace"
+            workspace.mkdir()
+            cache_root = root / "cache"
+            runner = self._runner(root, "soft")
+            checked = mock.Mock(side_effect=["container-1", "", ""])
+            runner._checked = checked  # type: ignore[method-assign]
+
+            container_id = runner._create_container_with_package_cache(
+                workspace,
+                "sha256:image",
+                cache_root,
+            )
             cache_mode = cache_root.stat().st_mode & 0o777
 
-        self.assertEqual(calls[0], ["git", "status"])
-        self.assertEqual(calls[1], ["docker", "image", "inspect", "image"])
-        self.assertEqual(calls[2][0:2], ["docker", "create"])
-        self.assertIn("dst=/root/.cache", calls[2][3])
-        self.assertEqual(calls[3], ["docker", "start", "container-1"])
-        self.assertEqual(
-            calls[4],
-            [
-                "docker",
-                "exec",
-                "--user",
-                "0:0",
-                "container-1",
-                "chown",
-                "0:0",
-                "/root/.cache",
-            ],
+        create_command = checked.call_args_list[0].args[0]
+        self.assertEqual(container_id, "container-1")
+        self.assertIn(
+            f"type=bind,src={cache_root.resolve()},dst=/root/.cache",
+            create_command,
         )
         self.assertEqual(cache_mode, 0o777)
 
-    def test_existing_episode_cache_is_reused_without_chmod(self) -> None:
+    def test_replay_provider_does_not_reuse_construction_package_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            cache_root = Path(directory) / "cache"
-            cache_root.mkdir()
-            with mock.patch.object(Path, "chmod") as chmod:
-                adapter = _EpisodePackageCacheRunCommand(cache_root)
+            root = Path(directory)
+            workspace = root / "workspace"
+            workspace.mkdir()
+            runner = self._runner(root, "soft")
+            provider = runner._create_replay_provider(
+                workspace,
+                root / "clean-replay",
+                "sha256:image",
+                SimpleNamespace(repository="owner/repo", revision="abc"),
+            )
 
-        self.assertEqual(adapter.cache_root, cache_root.resolve())
-        chmod.assert_not_called()
+        self.assertIs(provider.run_command, subprocess.run)
+        self.assertEqual(provider.source_repository, workspace.resolve())
 
     def _runner(self, root: Path, replay_mode: str) -> OpenRouterAgentRunner:
         return OpenRouterAgentRunner(
@@ -510,6 +504,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
 
         self.assertIn("absolute path may", prompt)
         self.assertIn("do not hardcode the construction path", prompt)
+        self.assertIn("does not reuse the construction package cache", prompt)
         self.assertIn("submit it promptly", prompt)
 
     def test_provider_order_is_explicitly_injected(self) -> None:

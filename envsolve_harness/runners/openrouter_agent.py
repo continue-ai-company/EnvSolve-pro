@@ -62,51 +62,6 @@ def _prepare_episode_package_cache(cache_root: Path) -> Path:
     return cache_root
 
 
-class _EpisodePackageCacheRunCommand:
-    """Mount one run-local package cache into replay containers."""
-
-    def __init__(self, cache_root: Path, run_command: Callable[..., Any] = subprocess.run):
-        resolved = cache_root.resolve()
-        if resolved.exists():
-            if not resolved.is_dir():
-                raise ValueError(f"Episode package cache is not a directory: {resolved}")
-            self.cache_root = resolved
-        else:
-            self.cache_root = _prepare_episode_package_cache(resolved)
-        self.run_command = run_command
-
-    def __call__(self, command: list[str], **kwargs: Any) -> Any:
-        rewritten = list(command)
-        if len(rewritten) >= 2 and Path(rewritten[0]).name == "docker" and rewritten[1] == "create":
-            rewritten[2:2] = [
-                "--mount",
-                f"type=bind,src={self.cache_root},dst=/root/.cache",
-            ]
-        process = self.run_command(rewritten, **kwargs)
-        if (
-            len(rewritten) == 3
-            and Path(rewritten[0]).name == "docker"
-            and rewritten[1] == "start"
-            and process.returncode == 0
-        ):
-            ownership = self.run_command(
-                [
-                    rewritten[0],
-                    "exec",
-                    "--user",
-                    "0:0",
-                    rewritten[2],
-                    "chown",
-                    "0:0",
-                    "/root/.cache",
-                ],
-                **kwargs,
-            )
-            if ownership.returncode != 0:
-                return ownership
-        return process
-
-
 def _model_dump(value: Any) -> dict[str, Any]:
     if hasattr(value, "model_dump"):
         dumped = value.model_dump(mode="json")
@@ -420,6 +375,23 @@ class OpenRouterAgentRunner(CodexCliRunner):
             raise
         return container_id
 
+    def _create_replay_provider(
+        self,
+        workspace: Path,
+        replay_root: Path,
+        image_digest: str,
+        case: Case,
+    ) -> DockerFreshEnvironmentProvider:
+        return DockerFreshEnvironmentProvider(
+            source_repository=workspace,
+            worktrees_root=replay_root / "worktrees",
+            repository=case.repository,
+            revision=case.revision,
+            image=image_digest,
+            workspace_preconditions=self.workspace_preconditions,
+            create_timeout=self.container_create_timeout,
+        )
+
     def request_options(
         self,
         model: str,
@@ -557,7 +529,8 @@ Goal SHA-256: {contract.sha256}
             prompt += """\
 
 Before final submission, call `submit_and_replay` with the complete program. It
-creates no checkpoint and retains no environment state. Treat its normalized
+creates no checkpoint, does not reuse the construction package cache, and retains
+no construction environment state. Treat its normalized
 constraint as advisory evidence, inspect the accompanying raw evidence, repair the
 whole program in this same session, and repeat as needed. `submit_bootstrap` accepts
 only the exact hash of a program that passed a clean replay.
@@ -1154,7 +1127,8 @@ never selects packages, blocks commands, or restores an environment.
                 "scope": "single-episode",
                 "cross_case_sharing": False,
                 "container_path": "/root/.cache",
-                "shared_phases": ["construction", "clean-replay"],
+                "shared_phases": ["construction"],
+                "clean_replay_policy": "fresh-container-default-cache",
                 "path": str(package_cache_root.relative_to(artifacts.root)),
             }
             terminal = V2ProcessTreeSafePersistentContainerShell(
@@ -1168,15 +1142,11 @@ never selects packages, blocks commands, or restores an environment.
 
             replay_service: CleanReplayService | None = None
             if self.replay_enabled:
-                provider = DockerFreshEnvironmentProvider(
-                    source_repository=workspace,
-                    worktrees_root=replay_root / "worktrees",
-                    repository=case.repository,
-                    revision=case.revision,
-                    image=image_digest,
-                    workspace_preconditions=self.workspace_preconditions,
-                    create_timeout=self.container_create_timeout,
-                    run_command=_EpisodePackageCacheRunCommand(package_cache_root),
+                provider = self._create_replay_provider(
+                    workspace,
+                    replay_root,
+                    image_digest,
+                    case,
                 )
                 verifier = MinimalIntegrityGoalVerifier(
                     self.goal_contract,
