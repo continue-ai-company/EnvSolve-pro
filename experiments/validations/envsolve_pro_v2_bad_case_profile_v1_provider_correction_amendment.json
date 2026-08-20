@@ -1,7 +1,7 @@
 {
   "schema": "envsolve-pro-v2-bad-case-profile-provider-correction-amendment-v1",
   "study_id": "envsolve-pro-v2-bad-case-profile-v1",
-  "recorded_at": "2026-08-20T03:50:00Z",
+  "recorded_at": "2026-08-20T03:49:14Z",
   "recorded_after_invalid_attempt_before_replacement": true,
   "invalid_attempt": {
     "run_id": "pro-v2-bad-profile-v1-03-graphium-A-F-source-retry1",
