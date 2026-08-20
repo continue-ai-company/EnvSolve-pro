@@ -1,0 +1,130 @@
+{
+  "schema": "envsolve-pro-v2-consumed-bad-case-profile-result-v1",
+  "study_id": "envsolve-pro-v2-bad-case-profile-v1",
+  "status": "complete",
+  "claim_scope": "Six consumed development cases, one realization per arm. Mechanism diagnosis only; no held-out, effect-size, leaderboard, generalization, or SOTA claim.",
+  "primary_arms": {
+    "A-F": {
+      "official_passes": 5,
+      "cases": 6,
+      "model_requests": 323,
+      "total_tokens": 8306050
+    },
+    "B-FSR": {
+      "official_passes": 4,
+      "cases": 6,
+      "model_requests": 220,
+      "total_tokens": 3671843,
+      "clean_replays": 9
+    }
+  },
+  "paired_outcomes": {
+    "B_only_pass": 1,
+    "A_only_pass": 2,
+    "both_pass": 3,
+    "both_fail": 0
+  },
+  "pairs": [
+    {
+      "case": "basxsoftwareassociation/basxconnect",
+      "A_official_pass": false,
+      "B_official_pass": true,
+      "A_requests": 34,
+      "B_requests": 12,
+      "A_tokens": 510232,
+      "B_tokens": 108866,
+      "earliest_decisive_layer": "operation",
+      "mechanism": "A observed and repaired Git checkout ownership in construction but omitted safe.directory from the delivered program. B replay reproduced that omission, returned the failure to the same session, and the next program added the missing operation before passing replay and Official."
+    },
+    {
+      "case": "datamol-io/graphium",
+      "A_official_pass": true,
+      "B_official_pass": false,
+      "A_requests": 90,
+      "B_requests": 66,
+      "A_tokens": 3848278,
+      "B_tokens": 1608877,
+      "earliest_decisive_layer": "observation",
+      "mechanism": "B repaired checkout ownership, then received a false clean-replay Pass from an environment that inherited the construction package cache. The exact program failed cold Official dependency resolution. A spent a longer search constructing a cold-reproducible CPU environment and passed Official.",
+      "deployment_completeness": "Both paths used a PopTorch compatibility artifact because the Graphcore SDK is unavailable on Linux aarch64; A supplied a larger behavioral surface, while neither result establishes IPU execution."
+    },
+    {
+      "case": "dbiir/uer-py",
+      "A_official_pass": true,
+      "B_official_pass": true,
+      "A_requests": 63,
+      "B_requests": 60,
+      "A_tokens": 1283601,
+      "B_tokens": 908081,
+      "earliest_decisive_layer": null,
+      "mechanism": "B replay exposed that the distribution torchcrf did not provide the required lowercase torchcrf import; replacing it with pytorch-crf produced a passing replay. A independently found the same provider mapping before submission."
+    },
+    {
+      "case": "ellmetha/django-machina",
+      "A_official_pass": true,
+      "B_official_pass": true,
+      "A_requests": 45,
+      "B_requests": 30,
+      "A_tokens": 1023405,
+      "B_tokens": 371205,
+      "earliest_decisive_layer": null,
+      "mechanism": "The original A Official attempt was infrastructure-censored by a connection timeout; the preregistered exact-script evaluator-only retry passed. The historical hard-boundary failure is not active under either minimal arm."
+    },
+    {
+      "case": "dtmilano/androidviewclient",
+      "A_official_pass": true,
+      "B_official_pass": true,
+      "A_requests": 50,
+      "B_requests": 33,
+      "A_tokens": 1051396,
+      "B_tokens": 511367,
+      "earliest_decisive_layer": null,
+      "mechanism": "The historical hard-boundary rejection is absent under both minimal arms.",
+      "deployment_completeness": "Both successful programs add compatibility implementations for unavailable legacy GUI and Android SDK imports. Official success and broader runtime completeness must be reported separately."
+    },
+    {
+      "case": "cvxgrp/cvxportfolio",
+      "A_official_pass": true,
+      "B_official_pass": false,
+      "A_requests": 41,
+      "B_requests": 19,
+      "A_tokens": 589138,
+      "B_tokens": 163447,
+      "earliest_decisive_layer": "unresolved",
+      "mechanism": "B replay passed with the construction cache mounted, while cold Official build isolation returned no setuptools distribution. A passed Official. The replay-to-target mismatch is observed, but the terminal package-index cause remains ambiguous without deterministic reproduction."
+    }
+  ],
+  "infrastructure_and_protocol_corrections": [
+    "The original Graphium A source-acquisition failure occurred before any model request and was excluded.",
+    "A first Graphium replacement accidentally used Cloudflare and was excluded as a provider protocol deviation.",
+    "The provider-compliant Graphium replacement used DeepInfra and supplies the primary A outcome.",
+    "The original django-machina A Official connection timeout was replaced by one exact-script evaluator-only retry, which passed."
+  ],
+  "joint_success_resource_diagnostic": {
+    "cases": [
+      "dbiir/uer-py",
+      "ellmetha/django-machina",
+      "dtmilano/androidviewclient"
+    ],
+    "A_model_requests": 158,
+    "B_model_requests": 123,
+    "A_total_tokens": 3358402,
+    "B_total_tokens": 1790653,
+    "interpretation": "B used fewer resources in all three joint-success realizations, but the sample is selected on joint success and has one realization per arm; this is descriptive, not an efficiency effect estimate."
+  },
+  "clean_replay_diagnostic": {
+    "feedback_conditioned_program_changes": 3,
+    "feedback_conditioned_official_passes": 2,
+    "replay_pass_official_fail": 2,
+    "graphium_cached_lines_in_passing_replay": 41,
+    "graphium_cached_lines_in_official": 0,
+    "implementation_cause": "The old replay provider mounted the run-local construction package cache into replay containers. EnvBench Official mounts the repository only."
+  },
+  "decision": {
+    "rejected_claim": "The old B-FSR arm does not improve Official Pass@1 over A-F in this profile.",
+    "retained_mechanism": "A same-session full-program replay can expose a missing deployment operation and induce a useful repair.",
+    "next_treatment": "Execute the complete program in a fresh environment with target-state cache semantics, return the first executable counterexample to the same active Agent session, and repeat. Do not add cross-case package rules, scheduled observation, checkpoints, or new hard operation constraints.",
+    "implementation": "Commit 448de40 removes construction-package-cache reuse from clean replay while preserving construction caching.",
+    "next_evidence": "Use these consumed cases only for a mechanism check, then preregister a separate outcome-independent qualification batch before any effectiveness claim."
+  }
+}
