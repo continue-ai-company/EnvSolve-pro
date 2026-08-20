@@ -1,9 +1,10 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-18）：** 失败统一按 Observation--Constraint--Operation 三层分类。可选
-> ledger pilot 已完成；尽管 Official 方向为 3/4 对 2/4，但机制未通过资格。下一个 EnvSolve-Pro 候选
-> 组合了同 session 自由操作 F、确定性环境身份绑定观测 O、增量证据前沿 C 和干净重放 R。所有方法共享
-> 的实验完整性底座 E 不属于算法。第 11 节优先于下文保留的可审计研发历史。
+> **当前论文设计（2026-08-20）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前选定
+> 的 EnvSolve-Pro 候选只包含一个自由连续 Agent session，以及可反复调用的完整程序目标状态重放。
+> 重放失败在同一 session 内成为 case-local 软约束。定时观测、ledger、checkpoint、跨 case 规则和硬
+> 动作策略均被排除。所有方法共享的实验完整性底座 E 不属于算法。第 12 节优先于下文保留的可审计研发
+> 历史。
 
 ## 1. 研究目标
 
@@ -729,3 +730,41 @@ tool schema、taxonomy、model/provider binding 和分析代码。主指标是 O
 最终系统比较包括 Repo2Run、EnvBench FreeAgent、旧硬约束 EnvSolve，以及能保持原生语义时的同 backbone
 自由搜索 control；原生 Codex 是独立 frontier reference。第一篇只主张固定三层算法和受控证据。
 harness 自动搜索属于 Auto-EnvSolve，学习型部署策略属于 EnvSolve-RL。
+
+## 12. 目标状态重放候选
+
+确定性观测资格实验在 ceiling case 上打平，因此没有晋级。随后六 case bad-profile 研究发现了更基础的
+实现问题：旧 replay 环境继承构建 package cache，导致两份重放通过的程序在冷 Official 中失败。因此
+当前主要矛盾是对交付程序的观测不真实，而不是约束库规则不足。
+
+### 12.1 最小算法
+
+当前候选只保留：
+
+1. 一个连续的自由搜索 Agent session；
+2. 由 Agent 提出的完整部署程序；
+3. 不复用构建缓存，从目标初始状态执行完整程序；
+4. 把第一个可执行反例作为 advisory evidence 返回同一 session；
+5. 重复执行，直到完整程序通过或宽松安全上限耗尽。
+
+观测层提供绑定环境身份的执行证据；约束层保存当前程序与目标状态之间的 case-local 矛盾；操作层仍由
+Agent 自由决定。方法不包含 package 规则、定时 observer、checkpoint、跨 case 记忆或新增硬 gate。
+
+### 12.2 已消费机制检查
+
+在 Spark 上使用 DeepInfra 的 DeepSeek V4 Flash，预注册的 basxconnect、Graphium 和 cvxportfolio 检查
+已经完成。三个 case 的最终重放都与 Official 一致，且全部 Official 通过。basxconnect 和 Graphium 都
+经历了失败重放、同 session 修改程序、后续重放通过和 Official 通过。Graphium 的五次重放依次暴露无效
+torchvision 版本、缺失 Git ownership、遗漏测试依赖、一次网络失败，最后通过，直接取代旧版构建缓存
+导致的假通过。
+
+三条轨迹共使用 139 次模型请求、137 次 shell 操作和 3,133,930 tokens。Graphium 单例使用 82 次请求、
+约一小时生成时间和 1.2 GiB 构建缓存。因此机制在这些经过选择的 case 上能够工作且符合目标状态，但尚未
+证明成功率或效率增益。
+
+### 12.3 下一步证据
+
+打开下一个仓库前，先选择并预注册 outcome-independent qualification batch。在相同 host、镜像、prompt
+内容、evaluator 和宽松安全上限下，比较同模型自由搜索与目标状态重放 treatment。主指标是 Official
+Pass@1；机制激活和 replay/Official 一致性解释因果；请求、Token、时间、流量、存储和部署完整性分别
+报告。只有完成该比较后，方法才能进入更广泛的强弱模型与外部 baseline 实验。

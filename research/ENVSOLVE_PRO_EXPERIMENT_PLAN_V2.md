@@ -1,7 +1,7 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: active method selection; scheduled observation was not promoted
-Date: 2026-08-19
+Status: target-state replay selected; independent qualification pending
+Date: 2026-08-20
 
 ## 1. Research Thesis
 
@@ -33,6 +33,21 @@ therefore frozen as a negative candidate and is not the EnvSolve-Pro treatment. 
 not tune the cadence or expose frozen Dev identities for this candidate. The next method
 hypothesis must target a decisive failure found in the already fixed baseline bad-case
 corpus and must be stated before running a new treatment.
+
+### 2026-08-20 method-selection decision
+
+The fixed bad-case profile showed that the old replay arm inherited the construction
+package cache and could certify programs that failed cold Official evaluation. The
+selected treatment is now F + C_s + R in its minimal form: the same free Agent submits a
+complete program; R executes it from the target initial state without the construction
+cache; a failed execution becomes a case-local soft counterexample C_s in that same
+session. Scheduled observation, delta ledgers, checkpoints, cross-case rules, and new
+hard constraints are excluded.
+
+A preregistered three-case consumed mechanism check passed its activation and fidelity
+questions: 2/3 cases repaired a failed replay in-session, all three final replays agreed
+with Official, and all three passed. This does not estimate effectiveness. The next run
+must be an outcome-independent same-model F versus F+C_s+R qualification.
 
 ## 2. Deployment Mechanisms and Experimental Foundation
 
@@ -509,3 +524,34 @@ followed by immediate submission; pair eight most cleanly attributes the resourc
 termination because the two final dependency strategies are nearly identical. This still
 does not establish an expected efficiency gain: pair seven shows repair can be expensive,
 and two candidate-formation failures remain. Four frozen pairs remain.
+
+## 12. Target-State Replay Mechanism Check and Qualification
+
+### 10.1 Consumed mechanism result
+
+The cache-isolated target-state implementation was checked on basxconnect, Graphium, and
+cvxportfolio before any effectiveness run. Replay and Official agreed in 3/3 cases.
+Basxconnect changed its program after a Git ownership counterexample. Graphium changed
+its program after an invalid wheel version, Git ownership, and omitted test-dependency
+counterexamples; one additional replay failed because of network acquisition before the
+next replay passed. Cvxportfolio passed its first replay. The mechanism result is recorded
+in `experiments/validations/envsolve_pro_v2_target_state_replay_mechanism_v1_result.json`.
+
+### 10.2 Qualification design
+
+The next qualification compares two arms on a case batch selected independently of the
+new treatment outcomes:
+
+- **F control:** one continuous free Agent session with ordinary construction feedback;
+- **F+C_s+R treatment:** the same session and permissions plus repeatedly callable
+  target-state whole-program replay.
+
+No A rerun is inferred from historical outcomes. Each new episode receives its actual
+Official result. Provider, model, host, image, prompt content, source access, evaluator,
+and broad safety limits are matched. Selection, execution order, infrastructure
+censoring, and analysis rules are recorded before repositories are opened.
+
+Promotion requires valid mechanism use, replay/Official agreement, and no evidence of a
+success regression. Official Pass@1 remains the primary comparative outcome; this small
+qualification selects whether to scale, not the final effect size. Resource use is
+reported as an outcome and cannot override a success loss.

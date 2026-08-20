@@ -1,12 +1,13 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-18):** failures are classified by the
-> Observation--Constraint--Operation framework. The optional-ledger pilot is complete
-> and did not qualify its mechanism despite a 3/4 versus 2/4 Official direction. The
-> next EnvSolve-Pro candidate combines free same-session operation F, deterministic
-> identity-bound observation O, a delta evidence frontier C, and clean replay R. The
-> shared evaluation-integrity foundation E is not an algorithm. Section 11 supersedes
-> earlier proposals retained below as auditable development history.
+> **Current paper design (2026-08-20):** failures are classified by the
+> Observation--Constraint--Operation framework. The selected EnvSolve-Pro candidate is
+> one free continuous Agent session plus repeatedly callable whole-program replay from
+> the target initial state. Replay failures become case-local soft constraints in the
+> same session. Scheduled observation, ledgers, checkpoints, cross-case rules, and hard
+> action policies are excluded. The shared evaluation-integrity foundation E is not an
+> algorithm. Section 12 supersedes earlier proposals retained below as auditable
+> development history.
 
 ## 1. Objective
 
@@ -947,3 +948,53 @@ EnvSolve, and same-backbone free-search controls where native semantics can be p
 native Codex is an independent frontier reference. The first paper claims only a fixed
 three-layer algorithm and controlled evidence. Harness search remains Auto-EnvSolve, and
 learned policies remain EnvSolve-RL.
+
+## 12. Target-State Replay Candidate
+
+The deterministic-observation qualification ended in a ceiling tie and was not promoted.
+The subsequent six-case bad-profile study found a more basic defect: the old replay
+environment inherited the construction package cache, so two replay-passing programs
+failed cold Official evaluation. The active contradiction was therefore inaccurate
+Observation of the deliverable, not an insufficient constraint library.
+
+### 12.1 Minimal Algorithm
+
+The current candidate retains only:
+
+1. one continuous free-search Agent session;
+2. a complete deployment program proposed by that Agent;
+3. execution of the whole program from the target initial state without construction
+   cache reuse;
+4. return of the first executable counterexample to the same session as advisory
+   evidence; and
+5. repetition until one complete program passes or broad safety limits expire.
+
+The observation layer supplies identity-bound execution evidence. The constraint layer
+holds case-local contradictions between the current program and target state. The
+operation layer remains the unrestricted Agent. No package rule, scheduled observer,
+checkpoint, cross-case memory, or additional hard gate is part of the method.
+
+### 12.2 Consumed Mechanism Check
+
+The preregistered basxconnect, Graphium, and cvxportfolio check completed on Spark with
+DeepSeek V4 Flash through DeepInfra. Final replay and Official outcomes agreed in all
+three cases, and all three passed Official. Basxconnect and Graphium produced a failed
+replay, a materially changed program in the same session, a later replay pass, and an
+Official pass. Graphium's five-replay sequence exposed an invalid torchvision version,
+missing Git ownership setup, omitted test dependencies, one network failure, and then a
+pass. This directly replaces the old construction-cache false pass.
+
+The batch used 139 model requests, 137 shell operations, and 3,133,930 tokens. Graphium
+alone used 82 requests, about one hour of generation, and a 1.2 GiB construction cache.
+The mechanism is therefore operational and target-state-faithful on these selected
+cases, but neither success-rate nor efficiency gain has been established.
+
+### 12.3 Next Evidence
+
+Before opening another repository, select and preregister an outcome-independent
+qualification batch. Compare same-model free search with the target-state replay
+treatment under the same host, image, prompt content, evaluator, and broad safety limits.
+Official Pass@1 is primary. Mechanism activation and replay/Official agreement explain
+causality; requests, tokens, wall time, traffic, storage, and deployment completeness are
+separate outcomes. Only after this comparison may the method advance to broader strong-
+and weaker-model and external-baseline evaluation.

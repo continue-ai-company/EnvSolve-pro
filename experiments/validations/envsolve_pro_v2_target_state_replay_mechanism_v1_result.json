@@ -1,0 +1,96 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-mechanism-result-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-mechanism-v1",
+  "status": "complete",
+  "claim_scope": "Three selected, previously consumed development cases with one realization each. This is a mechanism and target-state-fidelity check, not an effectiveness, held-out, leaderboard, generalization, or SOTA result.",
+  "treatment": "One free continuous Agent session with repeatedly callable whole-program replay in a fresh checkout and container that does not reuse the construction package cache.",
+  "aggregate": {
+    "cases": 3,
+    "official_passes": 3,
+    "replay_official_agreements": 3,
+    "feedback_conditioned_repairs": 2,
+    "model_requests": 139,
+    "provider_attempts": 141,
+    "provider_errors": 2,
+    "shell_operations": 137,
+    "total_tokens": 3133930,
+    "clean_replays": 8,
+    "clean_replay_failures": 5,
+    "clean_replay_passes": 3
+  },
+  "cases": [
+    {
+      "case": "basxsoftwareassociation/basxconnect",
+      "run_id": "pro-v2-target-replay-mech-v1-01-basxconnect-B-FSR",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "model_requests": 30,
+      "provider_errors": 0,
+      "shell_operations": 27,
+      "total_tokens": 421939,
+      "generation_wall_clock_seconds": 475.056777,
+      "evaluation_wall_clock_seconds": 73.10739,
+      "construction_cache_size": "68 MiB",
+      "replay_sequence": [
+        "fail: bootstrap execution exposed Git dubious ownership",
+        "pass: goal verification"
+      ],
+      "feedback_conditioned_repair": true,
+      "causal_interpretation": "The first replay showed that the interactive repair was missing from the complete program. The same session added a repository-root-relative safe.directory operation, and the changed program passed replay and Official."
+    },
+    {
+      "case": "datamol-io/graphium",
+      "run_id": "pro-v2-target-replay-mech-v1-02-graphium-B-FSR",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "model_requests": 82,
+      "provider_errors": 2,
+      "shell_operations": 76,
+      "total_tokens": 2317227,
+      "generation_wall_clock_seconds": 3602.289875,
+      "evaluation_wall_clock_seconds": 333.093217,
+      "construction_cache_size": "1.2 GiB",
+      "replay_sequence": [
+        "fail: bootstrap requested unavailable torchvision 0.23.0+cpu",
+        "fail: editable install exposed Git dubious ownership",
+        "fail: goal verification exposed omitted ipdb and pytest-family dependencies",
+        "fail: Conda HTTP 000 during dependency acquisition",
+        "pass: goal verification"
+      ],
+      "feedback_conditioned_repair": true,
+      "causal_interpretation": "Cold target-state replay exposed three successive program defects that the old construction-cache-backed replay had hidden. The fourth failure was network-related and is not treated as a compatibility rule. The fifth program passed replay and Official.",
+      "path_quality": "During construction, an unconstrained torchvision install began resolving torch 2.13 and CUDA/cuDNN artifacts after the Agent had established a CPU torch environment. The Agent noticed and repaired the regression, but the discarded path contributed substantial traffic and a 1.2 GiB construction cache.",
+      "deployment_completeness": "The submitted ARM CPU environment provides a PopTorch compatibility module because the Graphcore SDK is unavailable on Linux aarch64. Official success does not establish IPU runtime behavior."
+    },
+    {
+      "case": "cvxgrp/cvxportfolio",
+      "run_id": "pro-v2-target-replay-mech-v1-03-cvxportfolio-B-FSR",
+      "official_pass": true,
+      "official_issues_count": 0,
+      "model_requests": 27,
+      "provider_errors": 0,
+      "shell_operations": 34,
+      "total_tokens": 394764,
+      "generation_wall_clock_seconds": 701.361814,
+      "evaluation_wall_clock_seconds": 213.57019,
+      "construction_cache_size": "177 MiB",
+      "replay_sequence": [
+        "pass: goal verification"
+      ],
+      "feedback_conditioned_repair": false,
+      "causal_interpretation": "The first target-state replay and Official evaluation agreed. The earlier package-index failure did not recur and remains an unresolved historical environment or network event rather than evidence for a package-specific algorithm rule."
+    }
+  ],
+  "decision": {
+    "mechanism_activation": "passed",
+    "target_state_fidelity": "passed-on-this-selected-consumed-check",
+    "retained_algorithm": "Free same-session search plus repeated whole-program target-state counterexample replay.",
+    "not_supported": [
+      "an effectiveness or success-rate gain",
+      "an efficiency gain",
+      "held-out generalization",
+      "leaderboard or SOTA claims"
+    ],
+    "next_experiment": "Preregister an outcome-independent qualification batch before opening its repositories. Compare the same model and foundation with and without repeated target-state replay; report Official Pass@1 first and path quality separately."
+  }
+}

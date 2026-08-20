@@ -1,7 +1,7 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：算法选择进行中；定时观测未获晋级
-日期：2026-08-19
+状态：目标状态重放已选定；独立资格实验待完成
+日期：2026-08-20
 
 ## 1. 研究主线
 
@@ -26,6 +26,17 @@ Auto-EnvSolve；模型训练属于 EnvSolve-RL。
 机制本身稳定执行，但没有 treatment 独占成功，也没有预注册效率信号。因此固定 cadence 被冻结为负候选，
 不作为 EnvSolve-Pro treatment；不再调 cadence，也不为该候选打开冻结 Dev identity。下一个方法假设必须
 针对既有固定 baseline bad-case 语料中的决定性失败，并在运行新 treatment 前写清楚。
+
+### 2026-08-20 算法选择结论
+
+固定 bad-case profile 表明，旧 replay 臂继承了构建 package cache，会认证在冷 Official 中失败的程序。
+当前选择最小形式的 F + C_s + R：同一个自由 Agent 提交完整程序；R 在不使用构建缓存的目标初始状态中
+执行；失败在同一 session 中成为 case-local 软反例 C_s。定时观测、增量 ledger、checkpoint、跨 case
+规则和新的硬约束全部排除。
+
+三个已消费 case 的预注册机制检查通过激活与保真问题：2/3 case 在 session 内修复失败重放，三个最终
+重放全部与 Official 一致且全部通过。这不能估计效果。下一步必须在 outcome-independent batch 上进行
+同模型 F 对 F+C_s+R 资格实验。
 
 ## 2. 部署机制与公共实验底座
 
@@ -409,3 +420,27 @@ error count 相同。不可变记录为
 feedback-conditioned repair 和三条首次 replay 认证。第五、六、八对独立显示 clean replay 一旦成功就
 会立即提交；第八对的最终依赖策略近似，因此最清楚地把资源差异归因于终止行为。这仍不建立期望效率
 增益：第七对说明修复可能很昂贵，同时还有两次候选形成失败。剩余四个冻结配对尚未运行。
+
+## 12. 目标状态重放机制检查与资格实验
+
+### 10.1 已消费机制结果
+
+正式效果实验前，我们在 basxconnect、Graphium 和 cvxportfolio 上检查了隔离缓存后的目标状态实现。
+三个 case 的 replay 与 Official 全部一致。basxconnect 在 Git ownership 反例后修改程序；Graphium 在
+无效 wheel 版本、Git ownership 和遗漏测试依赖反例后修改程序，另有一次网络获取失败，随后通过；
+cvxportfolio 第一次 replay 通过。结果记录在
+`experiments/validations/envsolve_pro_v2_target_state_replay_mechanism_v1_result.json`。
+
+### 10.2 Qualification 设计
+
+下一轮在与新 treatment 结果无关的 case batch 上比较两臂：
+
+- **F control：** 一个使用普通构建反馈的连续自由 Agent session；
+- **F+C_s+R treatment：** 相同 session 和权限，加上可反复调用的目标状态完整程序重放。
+
+不能用历史结果代替新的 A 运行。每个新 episode 都获取自身 Official 结果。Provider、模型、host、镜像、
+prompt 内容、源码权限、evaluator 和宽松安全上限保持匹配；在打开仓库前记录选择、顺序、基础设施删失和
+分析规则。
+
+晋级要求机制有效使用、replay/Official 一致，且没有成功率退化证据。Official Pass@1 仍是主比较指标；
+小规模 qualification 只决定是否扩大实验，不估计最终 effect size。资源只作为结果，不能覆盖成功损失。
