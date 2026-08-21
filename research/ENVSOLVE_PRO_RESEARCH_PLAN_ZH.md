@@ -762,9 +762,22 @@ torchvision 版本、缺失 Git ownership、遗漏测试依赖、一次网络失
 约一小时生成时间和 1.2 GiB 构建缓存。因此机制在这些经过选择的 case 上能够工作且符合目标状态，但尚未
 证明成功率或效率增益。
 
-### 12.3 下一步证据
+### 12.3 Outcome-Independent 资格实验
 
-打开下一个仓库前，先选择并预注册 outcome-independent qualification batch。在相同 host、镜像、prompt
-内容、evaluator 和宽松安全上限下，比较同模型自由搜索与目标状态重放 treatment。主指标是 Official
-Pass@1；机制激活和 replay/Official 一致性解释因果；请求、Token、时间、流量、存储和部署完整性分别
-报告。只有完成该比较后，方法才能进入更广泛的强弱模型与外部 baseline 实验。
+四对 case 在下载源码和执行模型前，从已有随机 Dev16 顺序的第 9--12 位固定。同模型自由搜索 Official
+通过 2/4，目标状态重放通过 3/4；配对表为 2 对都通过、1 对只有 B 通过、0 对只有 A 通过、1 对都失败，
+精确 McNemar 为 `p=1.0`。原 cellrank B 受到一次已披露的研究者中断。主分析使用在替代执行前写明的
+replacement；排除整个 cellrank pair 的敏感性结果为 2/3 对 3/3。
+
+因果证据比成功数差异更窄。probatus 只有 B 通过，但首次 replay 就通过，随机搜索路径仍是合理解释。
+`importlib_metadata` 的两次失败重放依次揭露完整程序缺陷，第三份修改后的程序通过 replay 和 Official。
+cellrank B 在形成候选前耗尽 120 次请求，因此 replay 从未激活；B 的总时间和 Token 也更高。
+
+预注册晋级条件只在开发决策意义上满足：保持最小机制不变，扩大到下一组固定 Dev case。当前证据不能支持
+效果、效率、held-out 或 SOTA 主张。
+
+### 12.4 下一步证据
+
+在 Dev16 接下来的固定位置上继续同一 A/B 比较。两臂只共享源码缓存，每个 episode 使用私有 package
+cache。新轨迹用于估计机制激活、候选形成失败、反馈修复和无条件资源，不加入 case-specific 规则或其他
+正交 treatment。只有更大的开发集结果继续支持固定算法，才进入强弱 backbone 和外部 baseline 实验。

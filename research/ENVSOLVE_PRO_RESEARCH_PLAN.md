@@ -989,12 +989,31 @@ alone used 82 requests, about one hour of generation, and a 1.2 GiB construction
 The mechanism is therefore operational and target-state-faithful on these selected
 cases, but neither success-rate nor efficiency gain has been established.
 
-### 12.3 Next Evidence
+### 12.3 Outcome-Independent Qualification
 
-Before opening another repository, select and preregister an outcome-independent
-qualification batch. Compare same-model free search with the target-state replay
-treatment under the same host, image, prompt content, evaluator, and broad safety limits.
-Official Pass@1 is primary. Mechanism activation and replay/Official agreement explain
-causality; requests, tokens, wall time, traffic, storage, and deployment completeness are
-separate outcomes. Only after this comparison may the method advance to broader strong-
-and weaker-model and external-baseline evaluation.
+Four pairs were fixed from positions 9--12 of the pre-existing randomized Dev16 schedule
+before source acquisition or model execution. Same-model free search passed Official
+2/4 and target-state replay passed 3/4. The paired table is two both-pass, one B-only,
+zero A-only, and one both-fail; exact McNemar is `p=1.0`. A disclosed researcher
+interruption affected the original cellrank B episode. Using the replacement specified
+before replacement execution gives the primary table; excluding the entire cellrank pair
+gives 2/3 versus 3/3.
+
+The causal evidence is narrower than the score difference. Probatus was B-only but passed
+its first replay, so stochastic search variation remains a plausible cause. In
+importlib_metadata, two failed replays exposed successive complete-program defects and a
+third changed program passed replay and Official. Cellrank B exhausted 120 requests before
+candidate formation, so replay never activated. Aggregate B time and tokens were higher.
+
+The preregistered promotion condition is met only as a development decision: keep the
+minimal mechanism unchanged and scale it to the next fixed Dev batch. No effect,
+efficiency, held-out, or SOTA claim is licensed.
+
+### 12.4 Next Evidence
+
+Run the unchanged A/B comparison on the next fixed Dev16 positions, preserving source-only
+cache reuse across arms and private package caches per episode. Use the new trajectories
+to estimate mechanism activation, candidate-formation failure, replay-conditioned repair,
+and unconditional resources. Do not add case-specific rules or other orthogonal treatments.
+Only after a larger development result supports the fixed algorithm should the study move
+to strong/weak backbone and external-baseline evaluation.

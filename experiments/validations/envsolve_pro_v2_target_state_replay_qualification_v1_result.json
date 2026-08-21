@@ -1,0 +1,328 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-qualification-result-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-qualification-v1",
+  "recorded_at": "2026-08-21T02:53:06Z",
+  "status": "complete-with-forensic-correction",
+  "claim_scope": "Outcome-independent development qualification of whether the minimal target-state replay treatment merits a larger development batch. This is not a held-out, confirmatory, leaderboard, effect-size, or SOTA result.",
+  "execution_identity": {
+    "host": "Spark Linux aarch64",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "official_evaluator_access": "post-episode-only",
+    "evaluator_timeout_seconds": 2400
+  },
+  "selection_provenance": {
+    "preregistration": "experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_preregistration.json",
+    "clarification": "The recorded positions 9-12 refer to the pre-existing randomized order in experiments/schedules/envsolve_pro_v2_flash0731_dev16.json. The preregistration's source_file field names the associated identity selection rather than the ordering artifact. Exact case IDs, seeds, arm orders, and run IDs were unambiguous and matched the pre-existing schedule; no case changed after outcomes were observed.",
+    "outcome_or_failure_class_used_for_selection": false
+  },
+  "arms": {
+    "A-F": "One continuous free Agent session with ordinary execution feedback and the shared minimal evaluator-integrity boundary.",
+    "B-FCsR": "The same mechanism plus repeatedly callable whole-program replay from the target initial state, with raw counterexamples returned to the same active session and final delivery restricted to a replay-passed program."
+  },
+  "primary_fixed_replacement_analysis": {
+    "pairs": 4,
+    "official_pass": {
+      "A-F": {
+        "passed": 2,
+        "total": 4
+      },
+      "B-FCsR": {
+        "passed": 3,
+        "total": 4
+      }
+    },
+    "paired_table": {
+      "both_pass": 2,
+      "A_only": 0,
+      "B_only": 1,
+      "both_fail": 1
+    },
+    "exact_mcnemar_two_sided_p": 1.0,
+    "interpretation": "The one-discordant-pair table is descriptive and cannot estimate a stable effect. The B-only probatus pass used a first-pass replay and does not isolate replay-conditioned repair from stochastic trajectory variation."
+  },
+  "sensitivity_excluding_operator_affected_cellrank_pair": {
+    "pairs": 3,
+    "official_pass": {
+      "A-F": {
+        "passed": 2,
+        "total": 3
+      },
+      "B-FCsR": {
+        "passed": 3,
+        "total": 3
+      }
+    },
+    "paired_table": {
+      "both_pass": 2,
+      "A_only": 0,
+      "B_only": 1,
+      "both_fail": 0
+    },
+    "interpretation": "The direction is unchanged, but three pairs remain too small for an effectiveness claim."
+  },
+  "episodes": [
+    {
+      "pair": 1,
+      "case": "probatus",
+      "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-qual-v1-01-probatus-A-F",
+      "generation_completed": true,
+      "official_pass": false,
+      "failure_layer": "Operation",
+      "failure_summary": "The delivered script created a uv virtual environment and then invoked its missing pip module. Construction residue had hidden the incomplete state transition.",
+      "resources": {
+        "model_requests": 23,
+        "provider_attempts": 23,
+        "provider_errors": 0,
+        "total_tokens": 316698,
+        "shell_operations": 22,
+        "generation_seconds": 575.637,
+        "official_evaluation_seconds": 0.871,
+        "construction_cache_du": "2.0G"
+      }
+    },
+    {
+      "pair": 1,
+      "case": "probatus",
+      "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-qual-v1-02-probatus-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "pass"
+      ],
+      "mechanism_interpretation": "First-replay certification, not feedback-conditioned repair. The B-only Official pass is treatment-level evidence but its causal path may be ordinary model variance.",
+      "resources": {
+        "model_requests": 24,
+        "provider_attempts": 24,
+        "provider_errors": 0,
+        "total_tokens": 400208,
+        "shell_operations": 33,
+        "generation_seconds": 1363.52,
+        "official_evaluation_seconds": 778.972,
+        "construction_cache_du": "819M"
+      }
+    },
+    {
+      "pair": 2,
+      "case": "pika",
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-qual-v1-03-pika-A-F",
+      "generation_completed": true,
+      "official_pass": true,
+      "resources": {
+        "model_requests": 50,
+        "provider_attempts": 50,
+        "provider_errors": 0,
+        "total_tokens": 1331996,
+        "shell_operations": 73,
+        "generation_seconds": 896.518,
+        "official_evaluation_seconds": 26.756,
+        "construction_cache_du": "13M"
+      }
+    },
+    {
+      "pair": 2,
+      "case": "pika",
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-qual-v1-04-pika-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "pass"
+      ],
+      "mechanism_interpretation": "First-replay certification; both arms passed.",
+      "resources": {
+        "model_requests": 30,
+        "provider_attempts": 31,
+        "provider_errors": 1,
+        "total_tokens": 446975,
+        "shell_operations": 36,
+        "generation_seconds": 799.754,
+        "official_evaluation_seconds": 20.004,
+        "construction_cache_du": "9M"
+      }
+    },
+    {
+      "pair": 3,
+      "case": "importlib_metadata",
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-qual-v1-05-importlib-metadata-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "feedback_conditioned_repair": true,
+      "mechanism_interpretation": "Replay first exposed unavailable setuptools in build isolation and a missing required build_output directory; the next program passed the executable goal but still omitted build_output; the third materially changed program satisfied both and passed Official.",
+      "resources": {
+        "model_requests": 35,
+        "provider_attempts": 35,
+        "provider_errors": 0,
+        "total_tokens": 626819,
+        "shell_operations": 30,
+        "generation_seconds": 1103.774,
+        "official_evaluation_seconds": 72.693,
+        "replay_bootstrap_seconds": [
+          286.273,
+          71.825,
+          83.084
+        ],
+        "construction_cache_du": "56M"
+      }
+    },
+    {
+      "pair": 3,
+      "case": "importlib_metadata",
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-qual-v1-06-importlib-metadata-A-F",
+      "generation_completed": true,
+      "official_pass": true,
+      "resources": {
+        "model_requests": 68,
+        "provider_attempts": 71,
+        "provider_errors": 3,
+        "total_tokens": 2248804,
+        "shell_operations": 87,
+        "generation_seconds": 2673.383,
+        "official_evaluation_seconds": 53.918,
+        "construction_cache_du": "28M"
+      }
+    },
+    {
+      "pair": 4,
+      "case": "cellrank",
+      "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-qual-v1-07-cellrank-A-F",
+      "generation_completed": true,
+      "official_pass": false,
+      "failure_layer": "Operation",
+      "failure_summary": "The program masked a failed PETSc/SLEPc installation with shell success coercion, so the fresh final environment lacked petsc4py and slepc4py.",
+      "resources": {
+        "model_requests": 59,
+        "provider_attempts": 61,
+        "provider_errors": 2,
+        "total_tokens": 1504816,
+        "shell_operations": 58,
+        "generation_seconds": 1978.233,
+        "official_evaluation_seconds": 480.068,
+        "construction_cache_du": "383M"
+      }
+    },
+    {
+      "pair": 4,
+      "case": "cellrank",
+      "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-qual-v1-08-cellrank-B-FCsR-infra-retry1",
+      "generation_completed": false,
+      "official_pass": false,
+      "official_evaluation_executed": false,
+      "failure_layer": "Operation",
+      "failure_summary": "The replacement active session exhausted 120 model requests without submitting a candidate, so target-state replay never entered the control loop.",
+      "resources": {
+        "model_requests": 120,
+        "provider_attempts": 127,
+        "provider_errors": 7,
+        "total_tokens": 4477271,
+        "shell_operations": 120,
+        "generation_seconds": 7417.834,
+        "construction_cache_du": "503M"
+      }
+    }
+  ],
+  "mechanism_outcomes": {
+    "eligible_B_episodes": 4,
+    "B_episodes_forming_a_candidate": 3,
+    "B_episodes_invoking_replay": 3,
+    "total_completed_replays": 5,
+    "first_replay_passes": 2,
+    "feedback_conditioned_repairs": 1,
+    "final_replay_official_agreement": {
+      "agreed": 3,
+      "eligible_completed_candidates": 3
+    },
+    "interpretation": "Target-state replay is executable and can repair a complete-program defect, but it cannot help before the Agent forms a candidate."
+  },
+  "resource_aggregates": {
+    "all_four_pairs": {
+      "A-F": {
+        "model_requests": 200,
+        "provider_attempts": 205,
+        "provider_errors": 5,
+        "total_tokens": 5402314,
+        "shell_operations": 240,
+        "generation_seconds": 6123.771
+      },
+      "B-FCsR": {
+        "model_requests": 209,
+        "provider_attempts": 217,
+        "provider_errors": 8,
+        "total_tokens": 5951273,
+        "shell_operations": 219,
+        "generation_seconds": 10684.882,
+        "completed_replays": 5
+      },
+      "interpretation": "There is no unconditional efficiency gain: the cellrank candidate-formation failure makes B slower and more token-intensive overall."
+    },
+    "joint_success_cases_descriptive_only": {
+      "cases": [
+        "pika",
+        "importlib_metadata"
+      ],
+      "A-F": {
+        "model_requests": 118,
+        "total_tokens": 3580800,
+        "shell_operations": 160,
+        "generation_seconds": 3569.901
+      },
+      "B-FCsR": {
+        "model_requests": 65,
+        "total_tokens": 1073794,
+        "shell_operations": 66,
+        "generation_seconds": 1903.528
+      },
+      "interpretation": "This selected-on-joint-success slice is descriptive and cannot support an efficiency effect claim."
+    }
+  },
+  "operator_interruption": {
+    "run_id": "pro-v2-target-replay-qual-v1-08-cellrank-B-FCsR",
+    "eligibility": "censored-and-excluded",
+    "correction_record": "experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_cellrank_b_forensic_correction.json",
+    "completed_provider_responses": 58,
+    "provider_errors": 1,
+    "completed_tool_results": 73,
+    "total_tokens": 1836586,
+    "last_operation": "submit_and_replay",
+    "first_replay_was_in_flight": true,
+    "interpretation": "The episode was interrupted by the researcher during its first clean replay. It is not a provider-infrastructure failure or an algorithmic terminal outcome and its resources are not included in treatment aggregates."
+  },
+  "decision": {
+    "promotion_rule_satisfied": true,
+    "action": "Advance the unchanged minimal target-state replay treatment to the next fixed larger development batch while retaining A-F as the control.",
+    "reason": "B did not reduce paired success, produced one B-only Official pass, and importlib_metadata independently demonstrated fail-fail-pass complete-program repair.",
+    "limits": [
+      "Do not attribute the probatus B-only pass specifically to replay-conditioned repair.",
+      "Do not claim an effectiveness or efficiency improvement from four development pairs.",
+      "Do not add case-specific rules, checkpoints, cross-case memory, or harder operation constraints before the larger fixed batch.",
+      "Report the cellrank-pair exclusion sensitivity in every summary of this batch."
+    ]
+  },
+  "artifact_audit": {
+    "eligible_episode_artifacts": 8,
+    "valid": 8,
+    "errors": 0,
+    "warnings": 0
+  }
+}

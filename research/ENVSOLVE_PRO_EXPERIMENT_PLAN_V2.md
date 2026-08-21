@@ -1,7 +1,7 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: target-state replay selected; independent qualification pending
-Date: 2026-08-20
+Status: target-state replay qualified for larger development evaluation
+Date: 2026-08-21
 
 ## 1. Research Thesis
 
@@ -46,8 +46,10 @@ hard constraints are excluded.
 
 A preregistered three-case consumed mechanism check passed its activation and fidelity
 questions: 2/3 cases repaired a failed replay in-session, all three final replays agreed
-with Official, and all three passed. This does not estimate effectiveness. The next run
-must be an outcome-independent same-model F versus F+C_s+R qualification.
+with Official, and all three passed. The following outcome-independent four-pair
+development qualification produced Official 2/4 for F and 3/4 for F+C_s+R, with one
+feedback-conditioned repair and one treatment candidate-formation failure. This qualifies
+the unchanged treatment for a larger development batch, not an effectiveness claim.
 
 ## 2. Deployment Mechanisms and Experimental Foundation
 
@@ -537,21 +539,33 @@ counterexamples; one additional replay failed because of network acquisition bef
 next replay passed. Cvxportfolio passed its first replay. The mechanism result is recorded
 in `experiments/validations/envsolve_pro_v2_target_state_replay_mechanism_v1_result.json`.
 
-### 12.2 Qualification design
+### 12.2 Qualification result
 
-The next qualification compares two arms on a case batch selected independently of the
-new treatment outcomes:
+The qualification compared two arms on four cases selected independently of the new
+treatment outcomes:
 
 - **F control:** one continuous free Agent session with ordinary construction feedback;
 - **F+C_s+R treatment:** the same session and permissions plus repeatedly callable
   target-state whole-program replay.
 
-No A rerun is inferred from historical outcomes. Each new episode receives its actual
-Official result. Provider, model, host, image, prompt content, source access, evaluator,
-and broad safety limits are matched. Selection, execution order, infrastructure
-censoring, and analysis rules are recorded before repositories are opened.
+Provider, model, host, image, prompt content, source access, evaluator, and broad safety
+limits were matched. F passed 2/4 and F+C_s+R passed 3/4. Importlib_metadata produced a
+Fail-Fail-Pass replay repair; probatus produced a B-only first-replay pass; cellrank B
+failed before candidate formation. A forensic correction reclassified the original
+cellrank B as researcher-interrupted rather than infrastructure-censored. The primary
+analysis uses its pre-specified replacement and the required sensitivity excludes the
+whole pair.
 
-Promotion requires valid mechanism use, replay/Official agreement, and no evidence of a
-success regression. Official Pass@1 remains the primary comparative outcome; this small
-qualification selects whether to scale, not the final effect size. Resource use is
-reported as an outcome and cannot override a success loss.
+The result meets the promotion rule only for scaling development evidence. Aggregate
+treatment time and tokens were higher, and the four pairs cannot estimate effectiveness.
+The complete record is
+`experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_result.json`.
+
+### 12.3 Next fixed development batch
+
+Keep the algorithm, prompt, provider binding, and broad safety limits unchanged. Continue
+the pre-existing randomized Dev16 order with the next fixed positions. Report actual
+Official Pass@1, candidate formation, ordered replay outcomes, feedback-conditioned
+repair, replay/Official agreement, and unconditional resources. This remains development
+mechanism evaluation; external baselines and backbone comparisons begin only after the
+fixed method has enough development evidence.

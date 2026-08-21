@@ -1,0 +1,45 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-qualification-forensic-correction-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-qualification-v1",
+  "recorded_at": "2026-08-21T02:32:09Z",
+  "status": "corrected-after-replacement-completion-before-result-aggregation",
+  "supersedes": "experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_cellrank_b_infrastructure_retry1_amendment.json",
+  "correction": {
+    "incorrect_live_diagnosis": "provider transport hang during request 54",
+    "corrected_diagnosis": "researcher interruption while the first target-state clean replay was executing",
+    "cause_of_error": "A CLOSE-WAIT API socket was mistaken for the active operation. The lifecycle status did not expose the in-flight tool, and the trajectory was not re-read after the last provider response before termination.",
+    "operator_action": "The runner process group and its construction container were terminated after the incorrect diagnosis. The orphaned replay container was identified from its mounted minimal-b-replay-0001 worktree and removed after forensic inspection."
+  },
+  "forensic_evidence": {
+    "trajectory_event_count": 132,
+    "completed_provider_responses": 58,
+    "provider_errors": 1,
+    "completed_tool_results": 73,
+    "last_event": "provider_response",
+    "last_request_index": 58,
+    "last_tool_name": "submit_and_replay",
+    "last_tool_program_present": true,
+    "replay_container_mount": "generation/clean-replay/worktrees/minimal-b-replay-0001-c6ff87667cdd417b8d78f862aa57baf4",
+    "clean_replay_record_written": false,
+    "interpretation": "The replay tool had accepted a complete program and was still running. Absence of a replay JSONL record reflects interruption before tool completion, not absence of candidate formation."
+  },
+  "eligibility": {
+    "original_episode": "censored-by-researcher-interruption",
+    "replacement_episode": "eligible-under-the-policy-recorded-before-replacement-execution",
+    "replacement_rationale": [
+      "The replacement case, arm, model, provider, seed, image, prompt, evaluator, limits, and run ID were written before the replacement model session began.",
+      "No algorithm, prompt, configuration, package rule, or case selection changed between the interrupted episode and replacement.",
+      "No program, package cache, trajectory, replay evidence, or evaluator result crossed into the replacement; only the immutable exact-revision source cache was reused.",
+      "Because the original interruption was operator-caused rather than external infrastructure, every reported aggregate must also include a sensitivity analysis that excludes the entire cellrank pair."
+    ]
+  },
+  "required_reporting": {
+    "primary_fixed_replacement_analysis": "Use the completed replacement as the preregistered arm outcome and report the operator interruption separately.",
+    "sensitivity_analysis": "Exclude both cellrank arms and report the remaining three complete pairs.",
+    "forbidden_claims": [
+      "that the original episode failed because of provider infrastructure",
+      "that the original episode exhausted requests or failed before candidate formation",
+      "that the four-pair batch is a clean held-out or confirmatory effect estimate"
+    ]
+  }
+}

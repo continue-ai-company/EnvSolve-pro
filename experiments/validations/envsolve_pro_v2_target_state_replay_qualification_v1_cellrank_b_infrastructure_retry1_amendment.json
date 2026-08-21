@@ -2,7 +2,8 @@
   "schema": "envsolve-pro-v2-target-state-replay-qualification-infrastructure-amendment-v1",
   "study_id": "envsolve-pro-v2-target-state-replay-qualification-v1",
   "recorded_at": "2026-08-20T10:40:29Z",
-  "status": "recorded-before-replacement-model-execution",
+  "status": "superseded-after-forensic-audit",
+  "superseded_by": "experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_cellrank_b_forensic_correction.json",
   "affected_episode": {
     "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
     "arm": "B-FCsR",

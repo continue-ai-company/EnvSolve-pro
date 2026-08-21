@@ -1,7 +1,7 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：目标状态重放已选定；独立资格实验待完成
-日期：2026-08-20
+状态：目标状态重放已获得扩大开发集验证资格
+日期：2026-08-21
 
 ## 1. 研究主线
 
@@ -35,8 +35,9 @@ Auto-EnvSolve；模型训练属于 EnvSolve-RL。
 规则和新的硬约束全部排除。
 
 三个已消费 case 的预注册机制检查通过激活与保真问题：2/3 case 在 session 内修复失败重放，三个最终
-重放全部与 Official 一致且全部通过。这不能估计效果。下一步必须在 outcome-independent batch 上进行
-同模型 F 对 F+C_s+R 资格实验。
+重放全部与 Official 一致且全部通过。随后四对 outcome-independent 开发 case 中，F 的 Official 为
+2/4，F+C_s+R 为 3/4，包含一次反馈修复和一次 treatment 候选形成失败。这只批准保持 treatment 不变并
+扩大开发集实验，不能估计效果。
 
 ## 2. 部署机制与公共实验底座
 
@@ -431,16 +432,24 @@ feedback-conditioned repair 和三条首次 replay 认证。第五、六、八�
 cvxportfolio 第一次 replay 通过。结果记录在
 `experiments/validations/envsolve_pro_v2_target_state_replay_mechanism_v1_result.json`。
 
-### 12.2 Qualification 设计
+### 12.2 Qualification 结果
 
-下一轮在与新 treatment 结果无关的 case batch 上比较两臂：
+资格实验在四个与新 treatment 结果无关的 case 上比较两臂：
 
 - **F control：** 一个使用普通构建反馈的连续自由 Agent session；
 - **F+C_s+R treatment：** 相同 session 和权限，加上可反复调用的目标状态完整程序重放。
 
-不能用历史结果代替新的 A 运行。每个新 episode 都获取自身 Official 结果。Provider、模型、host、镜像、
-prompt 内容、源码权限、evaluator 和宽松安全上限保持匹配；在打开仓库前记录选择、顺序、基础设施删失和
-分析规则。
+两臂匹配 Provider、模型、host、镜像、prompt 内容、源码权限、evaluator 和宽松安全上限。F 通过 2/4，
+F+C_s+R 通过 3/4。`importlib_metadata` 产生 Fail-Fail-Pass 修复；probatus 产生首次重放即通过的 B-only
+结果；cellrank B 在形成候选前失败。法证纠正把原 cellrank B 从基础设施删失改判为研究者中断。主分析
+使用预先规定的 replacement，必要敏感性分析排除整个 pair。
 
-晋级要求机制有效使用、replay/Official 一致，且没有成功率退化证据。Official Pass@1 仍是主比较指标；
-小规模 qualification 只决定是否扩大实验，不估计最终 effect size。资源只作为结果，不能覆盖成功损失。
+该结果只满足扩大开发证据的晋级条件。treatment 的总时间和 Token 更高，四对 case 不能估计真实效果。
+完整记录位于
+`experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_result.json`。
+
+### 12.3 下一组固定开发实验
+
+保持算法、prompt、provider 绑定和宽松安全上限不变，继续已有随机 Dev16 顺序中的下一组固定位置。报告
+真实 Official Pass@1、候选形成、重放序列、反馈修复、replay/Official 一致和无条件资源。这仍是开发期
+机制验证；只有固定方法积累足够开发证据后，才开始外部 baseline 与 backbone 比较。

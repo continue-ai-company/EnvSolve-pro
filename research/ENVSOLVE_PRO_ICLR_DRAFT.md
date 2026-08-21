@@ -1,7 +1,7 @@
 # EnvSolve-Pro: Target-State Counterexample Replay for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-20; method selected, independent
-qualification pending
+Status: working ICLR paper draft, 2026-08-21; minimal method qualified for a larger
+development experiment
 
 ## Abstract
 
@@ -21,15 +21,15 @@ counterexample is returned to the same session as a soft constraint; the Agent r
 the whole program and repeats. The method adds no package-rule library, checkpoint
 search, cross-case memory, or hard action policy.
 
-A preregistered mechanism check on three previously consumed failures produced
-replay/Official agreement in all three cases and feedback-conditioned repair in two.
-In the hardest case, cold replay successively exposed an invalid wheel version, missing
-repository ownership setup, and omitted test dependencies that construction-cache-backed
-replay had hidden. These results establish mechanism operation, not effectiveness.
-The confirmatory study will compare same-model free search and EnvSolve-Pro on an
-outcome-independent batch, then evaluate external baselines and strong and weaker model
-backbones. Official Pass@1 is primary; time, tokens, traffic, storage, and deployment
-completeness are separate outcomes.
+A preregistered three-case mechanism check showed replay/Official agreement in all cases
+and feedback-conditioned repair in two. A subsequent outcome-independent four-pair
+development qualification yielded Official Pass@1 of 2/4 for free search and 3/4 for
+EnvSolve-Pro. One treatment episode repaired two successive complete-program defects;
+another failed before forming any replayable candidate. The result qualifies larger
+development evaluation but is too small for an effectiveness claim. We next scale the
+same-model comparison, then evaluate external baselines and strong and weaker backbones.
+Official Pass@1 is primary; time, tokens, traffic, storage, and deployment completeness
+are separate outcomes.
 
 ## 1. Problem
 
@@ -190,16 +190,22 @@ inherited the construction package cache. This rejected the old implementation a
 localized the failure to Observation fidelity rather than missing package rules.
 
 After replay cache isolation, a preregistered three-case mechanism check achieved 3/3
-replay/Official agreement. Basxconnect repaired a missing Git ownership operation after
-one failed replay. Graphium repaired three successive program defects across cold
-replays and then passed Official; cvxportfolio passed its first replay and Official.
-Two of three cases therefore exercised feedback-conditioned repair.
+replay/Official agreement and two feedback-conditioned repairs. Because those were
+selected consumed failures, they established mechanism operation but not effectiveness.
 
-This is selected consumed evidence. It establishes that the mechanism can activate and
-that replay now matches the target cache state. It does not establish an expected
-success-rate or efficiency gain. Graphium required 82 requests, 2.32M tokens, about one
-hour of generation, and a 1.2 GiB construction cache, showing that successful repair can
-still follow an expensive path.
+The next four pairs were fixed from a pre-existing randomized development order before
+source acquisition or model execution. Free search passed 2/4 and target-state replay
+passed 3/4; excluding one pair affected by a disclosed researcher interruption gives 2/3
+and 3/3. The sole treatment-only pass was a first-replay pass and may reflect stochastic
+search variation. In contrast, importlib_metadata directly exercised the proposed loop:
+two failed target-state replays exposed different complete-program defects, the same
+session revised the program, and the third replay and Official evaluation passed.
+Cellrank shows the current boundary: its replacement treatment session exhausted 120
+requests before submitting a candidate, so replay never entered the control loop.
+
+Across all four primary pairs, the treatment used more time and tokens because of that
+candidate-formation failure. The result therefore supports scaling the unchanged minimal
+mechanism on development data, not a success-rate or efficiency claim.
 
 ## 7. Falsification and Scope
 

@@ -1,6 +1,6 @@
 # EnvSolve-Pro：面向仓库部署的目标状态反例重放
 
-状态：ICLR 工作稿，2026-08-20；方法已选定，独立资格实验待完成
+状态：ICLR 工作稿，2026-08-21；最小方法已通过扩大开发集实验的资格验证
 
 ## 摘要
 
@@ -13,11 +13,11 @@
 反例作为软约束返回同一 session，Agent 修改整段程序并继续。方法不加入 package 规则库、checkpoint
 搜索、跨 case 记忆或硬动作策略。
 
-在三个已消费失败 case 上，预注册机制检查得到 3/3 replay/Official 一致和 2/3 反馈修复。最困难的
-Graphium 中，冷重放依次暴露了无效 wheel 版本、缺失仓库 ownership 设置和遗漏测试依赖，而旧版复用
-构建缓存的重放隐藏了这些问题。这些结果只证明机制可以工作，不证明效果。后续确认实验将在独立 batch
-上比较同模型自由搜索与 EnvSolve-Pro，再评估外部 baseline 以及强弱模型。Official Pass@1 是主指标；
-时间、Token、流量、存储和部署完整性分别报告。
+三个已消费失败 case 的预注册机制检查得到 3/3 replay/Official 一致和 2/3 反馈修复。随后在四对
+outcome-independent 开发 case 上，自由搜索的 Official Pass@1 为 2/4，EnvSolve-Pro 为 3/4。一条
+treatment 轨迹连续修复了两个完整程序缺陷，另一条则在形成可重放候选前失败。样本太小，尚不能证明
+效果，只能批准扩大开发集验证。下一步保持算法不变，扩大同模型比较，再评估外部 baseline 与强弱模型。
+Official Pass@1 是主指标；时间、Token、流量、存储和部署完整性分别报告。
 
 ## 1. 问题
 
@@ -140,13 +140,17 @@ Official 成功与部署完整性分开。EnvBench 的 import-oriented 目标按
 Official 中失败，因为 replay 继承了构建 package cache。这个结果否定了旧实现，并把问题定位为观测
 保真度，而不是缺少更多 package 规则。
 
-隔离 replay cache 后，预注册三 case 机制检查得到 3/3 replay/Official 一致。basxconnect 在一次失败
-重放后补回 Git ownership 操作；Graphium 通过多次冷重放修复三个连续程序缺陷，最后通过 Official；
-cvxportfolio 第一次重放和 Official 都通过。因此 2/3 case 真实触发了反馈修复。
+隔离 replay cache 后，预注册三 case 机制检查得到 3/3 replay/Official 一致和两次反馈修复。由于这些
+是经过选择的已消费失败，它们只证明机制能够工作，不能证明效果。
 
-这些是经过选择的已消费证据，只说明机制能够激活且 replay 现在匹配目标缓存状态，不能说明期望成功率
-或效率增益。Graphium 使用 82 次请求、232 万 Token、约 1 小时生成时间和 1.2 GiB 构建缓存，说明修复
-成功仍可能对应昂贵路径。
+下一组四对 case 在下载源码和执行模型前，从已有随机开发集顺序中固定。自由搜索通过 2/4，目标状态重放
+通过 3/4；排除一对受到已披露研究者中断影响的 case 后，分别为 2/3 和 3/3。唯一 B-only Pass 首次重放
+即通过，可能只是随机搜索路径差异。相比之下，`importlib_metadata` 直接触发了本文 loop：两次目标状态
+重放依次揭露不同的完整程序缺陷，同一 session 修改程序，第三次重放和 Official 均通过。`cellrank`
+则暴露当前边界：替代 treatment 在 120 次请求内未形成候选，重放根本没有进入控制回路。
+
+由于该候选形成失败，treatment 在四对主分析中的总时间和 Token 反而更高。因此当前结果只支持保持最小
+机制不变并扩大开发集验证，不支持成功率或效率增益结论。
 
 ## 7. 证伪条件与范围
 
