@@ -1,0 +1,168 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_dev16.jsonl",
+  "case_file_sha256": "c8a2cf57c990ec12f6ed442ad72fdb6bc34a6c5bfe6517dbc028d3b1c49ca090",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "position": 1,
+      "pair_id": "target-replay-dev-v2-case-13",
+      "pair_position": 1,
+      "case_position": 13,
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "arm": "A-F",
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "runner": "deepseek-free-agent",
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 291976752,
+      "run_id": "pro-v2-target-replay-dev-v2-01-rstcheck-A-F"
+    },
+    {
+      "position": 2,
+      "pair_id": "target-replay-dev-v2-case-13",
+      "pair_position": 2,
+      "case_position": 13,
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "arm": "B-FCsR",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 291976752,
+      "run_id": "pro-v2-target-replay-dev-v2-02-rstcheck-B-FCsR"
+    },
+    {
+      "position": 3,
+      "pair_id": "target-replay-dev-v2-case-14",
+      "pair_position": 1,
+      "case_position": 14,
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "arm": "A-F",
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "runner": "deepseek-free-agent",
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 3639248023,
+      "run_id": "pro-v2-target-replay-dev-v2-03-plasmapy-A-F"
+    },
+    {
+      "position": 4,
+      "pair_id": "target-replay-dev-v2-case-14",
+      "pair_position": 2,
+      "case_position": 14,
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "arm": "B-FCsR",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 3639248023,
+      "run_id": "pro-v2-target-replay-dev-v2-04-plasmapy-B-FCsR"
+    },
+    {
+      "position": 5,
+      "pair_id": "target-replay-dev-v2-case-15",
+      "pair_position": 1,
+      "case_position": 15,
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "arm": "A-F",
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "runner": "deepseek-free-agent",
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 2813064237,
+      "run_id": "pro-v2-target-replay-dev-v2-05-pygeo-A-F"
+    },
+    {
+      "position": 6,
+      "pair_id": "target-replay-dev-v2-case-15",
+      "pair_position": 2,
+      "case_position": 15,
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "arm": "B-FCsR",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 2813064237,
+      "run_id": "pro-v2-target-replay-dev-v2-06-pygeo-B-FCsR"
+    },
+    {
+      "position": 7,
+      "pair_id": "target-replay-dev-v2-case-16",
+      "pair_position": 1,
+      "case_position": 16,
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "arm": "A-F",
+      "mechanisms": [
+        "F",
+        "minimal-H"
+      ],
+      "runner": "deepseek-free-agent",
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 1299350259,
+      "run_id": "pro-v2-target-replay-dev-v2-07-starsim-A-F"
+    },
+    {
+      "position": 8,
+      "pair_id": "target-replay-dev-v2-case-16",
+      "pair_position": 2,
+      "case_position": 16,
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "arm": "B-FCsR",
+      "mechanisms": [
+        "F",
+        "S",
+        "R",
+        "minimal-H"
+      ],
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 1299350259,
+      "run_id": "pro-v2-target-replay-dev-v2-08-starsim-B-FCsR"
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "development-mechanism-scaling",
+  "provider": "deepinfra",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "deepinfra"
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-target-state-replay-development-v2"
+}
