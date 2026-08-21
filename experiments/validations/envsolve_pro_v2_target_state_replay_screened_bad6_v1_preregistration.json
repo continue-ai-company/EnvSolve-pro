@@ -1,0 +1,82 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-screened-badcase-preregistration-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-screened-bad6-v1",
+  "recorded_at": "2026-08-21T05:52:42Z",
+  "status": "preregistered-before-new-source-acquisition-or-model-execution",
+  "research_question": "Within an independently screened stratum of historical Codex Official failures, does the unchanged minimal target-state replay treatment improve matched DeepSeek Official Pass@1 or induce feedback-conditioned repair relative to a continuous DeepSeek free Agent?",
+  "claim_scope": "Failure-enriched development stress test. It can diagnose treatment headroom and failure-layer transitions, but cannot support held-out generalization, an overall EnvBench rate, leaderboard performance, effect size for the full population, or SOTA.",
+  "prior_evidence": "experiments/validations/envsolve_pro_v2_target_state_replay_development_v2_result.json",
+  "selection": {
+    "record": "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+    "case_file": "experiments/cases/dev_envsolve_pro_v2_target_state_replay_screened_bad6_v1.jsonl",
+    "cases": 6,
+    "all_eligible_cases_included": true,
+    "new_treatment_outcome_used": false,
+    "repository_contents_reopened_for_selection": false
+  },
+  "arms": {
+    "A-F": "One continuous DeepSeek Agent session with ordinary construction feedback and the shared minimal evaluator-integrity boundary.",
+    "B-FCsR": "The identical DeepSeek Agent interface plus repeatedly callable whole-program replay from the target initial state, with raw replay counterexamples returned to the same session and final delivery restricted to a replay-passed program."
+  },
+  "historical_screen_role": {
+    "identity": "Codex CLI gpt-5.5 with goal-aware boundary-v5",
+    "use": "Case selection only",
+    "forbidden_interpretation": "Historical Codex outcomes are neither matched controls nor entries in the new paired outcome table."
+  },
+  "shared_execution": {
+    "host": "Spark Linux aarch64",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "reasoning_effort": "xhigh",
+    "same_seed_within_pair": true,
+    "arm_order": "Counterbalanced across six pairs: three A-first and three B-first.",
+    "parallelism": "Two lanes, one episode per lane at a time; each pair remains sequential within its lane.",
+    "official_evaluator_access": "post-episode-only",
+    "source_cache_policy": "Reuse only an exact-revision source cache across arms. Do not transfer a candidate program, construction package cache, trajectory, replay artifact, or evaluator result.",
+    "package_cache_policy": "Each construction episode has a private package cache; every B replay uses the target image's default empty package cache.",
+    "success_priority": true,
+    "token_or_reported_cost_hard_threshold": false,
+    "broad_safety_limits": {
+      "model_requests": 120,
+      "generation_seconds": 18000,
+      "evaluator_container_seconds": 2400,
+      "episode_process_seconds": 23000
+    }
+  },
+  "outcomes": {
+    "primary": "EnvBench Official Pass@1 in the six-case screened stratum",
+    "paired": "Report the complete 2x2 paired table and exact two-sided McNemar result; do not infer missing outcomes from generation, replay, or diagnostics.",
+    "mechanism": [
+      "candidate formation",
+      "ordered replay outcomes",
+      "first failed replay and subsequent complete-program change",
+      "repair type: compatibility, workspace, network robustness, or unresolved",
+      "final replay-to-Official agreement"
+    ],
+    "failure": "For every failed arm, assign the earliest decisive Observation, Constraint, or Operation layer using only that arm's trajectory; infrastructure remains separate.",
+    "resources_descriptive_only": [
+      "model requests and provider attempts",
+      "total tokens",
+      "generation and evaluator wall time",
+      "shell operations",
+      "replay count and duration",
+      "construction package-cache size",
+      "paired differences and medians"
+    ],
+    "deployment_completeness": "Report placeholder modules, source copying, version overlays, no-deps installs, and unavailable hardware runtimes separately from Official success."
+  },
+  "analysis_rules": [
+    "Complete all twelve episodes unless an external infrastructure event makes an episode ineligible; never replace or remove a case because of an observed A or B outcome.",
+    "A candidate-formation failure is an algorithm outcome, not infrastructure censoring.",
+    "A B-only Official pass that passed its first replay is treatment-level evidence but does not isolate replay-conditioned repair from stochastic search.",
+    "A replay-conditioned repair requires a failed target-state replay, a materially changed later complete program in the same session, and a later replay and Official pass.",
+    "A network-acquisition repair and a compatibility repair are reported as different mechanism transitions.",
+    "Resource totals must be accompanied by paired differences and medians; aggregate improvement cannot establish typical efficiency.",
+    "Do not modify the algorithm, add a package or network rule, or change the failure taxonomy during this batch.",
+    "Interpret this batch together with the random Dev qualification and expansion; do not pool their success rates without preserving the screened population label."
+  ],
+  "schedule": "experiments/schedules/envsolve_pro_v2_target_state_replay_screened_bad6_v1.json",
+  "config": "experiments/configs/local_spark_envsolve_pro_v2_target_state_replay_screened_bad6_v1.json",
+  "protocol": "experiments/protocols/envbench_python_official_v1.json"
+}

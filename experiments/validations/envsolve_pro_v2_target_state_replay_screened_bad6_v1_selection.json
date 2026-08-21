@@ -1,0 +1,109 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-screened-badcase-selection-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-screened-bad6-v1",
+  "recorded_at": "2026-08-21T05:52:42Z",
+  "status": "selected-before-new-source-acquisition-or-model-execution",
+  "purpose": "Construct a failure-enriched development stress test after random Dev scaling produced a ceiling batch.",
+  "screening_baseline": {
+    "identity": "codex-cli-qualified-boundary-v5",
+    "model": "gpt-5.5",
+    "role": "Independent historical screen only; it is not an arm or control in the new experiment.",
+    "source": "research/PRO_DEV_BAD_CASE_CENSUS_V1_CASEBOOK.md"
+  },
+  "selection_rule": [
+    "Start from every case listed as a confirmed Official failure in the pre-existing Dev bad-case census casebook.",
+    "Exclude failures whose recorded cause is unresolved or likely an intermittent empty package-index candidate set.",
+    "Exclude repositories already executed under an F+C_s+R target-replay treatment.",
+    "Include every remaining eligible case; do not rank by expected repairability, difficulty, treatment behavior, or repository contents."
+  ],
+  "screened_official_failures": [
+    "Quantum-Accelerators/quacc",
+    "ajenti/ajenti",
+    "andrew-codechimp/HA-Battery-Notes",
+    "basxsoftwareassociation/basxconnect",
+    "bradenm/micropy-cli",
+    "castagnait/plugin.video.netflix",
+    "claritychallenge/clarity",
+    "cvxgrp/cvxportfolio",
+    "datamol-io/graphium",
+    "econ-ark/hark",
+    "emi-group/evox"
+  ],
+  "exclusions": [
+    {
+      "repository": "castagnait/plugin.video.netflix",
+      "reason": "The census attributes the terminal event to an unresolved upstream index condition and forbids using it to motivate an algorithm rule."
+    },
+    {
+      "repository": "cvxgrp/cvxportfolio",
+      "reason": "The census attributes the terminal event to an unresolved upstream index condition; the repository was also already used by the consumed F+C_s+R mechanism check."
+    },
+    {
+      "repository": "emi-group/evox",
+      "reason": "The census attributes the terminal event to an unresolved upstream index condition and forbids using it to motivate an algorithm rule."
+    },
+    {
+      "repository": "basxsoftwareassociation/basxconnect",
+      "reason": "Already executed under the consumed F+C_s+R bad-case profile and cache-isolated target-replay mechanism check."
+    },
+    {
+      "repository": "datamol-io/graphium",
+      "reason": "Already executed under the consumed F+C_s+R bad-case profile and cache-isolated target-replay mechanism check."
+    }
+  ],
+  "included": [
+    {
+      "pair": 1,
+      "repository": "Quantum-Accelerators/quacc",
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "historical_failure_layer": "Operation",
+      "historical_subtype": "native/system dependency realization",
+      "baseline_evidence": "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_resume_block1_result.json"
+    },
+    {
+      "pair": 2,
+      "repository": "ajenti/ajenti",
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "historical_failure_layer": "Constraint",
+      "historical_subtype": "build-backend and isolation compatibility",
+      "baseline_evidence": "runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-4-lane1-7-A-spark-source-retry1"
+    },
+    {
+      "pair": 3,
+      "repository": "claritychallenge/clarity",
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "historical_failure_layer": "Observation/Operation",
+      "historical_subtype": "clean-replay checkout ownership drift",
+      "baseline_evidence": "experiments/validations/pro_dev_bad_case_census_v1_0_49_clarity_result.json"
+    },
+    {
+      "pair": 4,
+      "repository": "andrew-codechimp/HA-Battery-Notes",
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "historical_failure_layer": "Constraint",
+      "historical_subtype": "transitive build-time dependency",
+      "baseline_evidence": "experiments/validations/pro_dev_bad_case_census_v1_0_5_spark_lane1_position9_result.json"
+    },
+    {
+      "pair": 5,
+      "repository": "econ-ark/hark",
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "historical_failure_layer": "Observation/Operation",
+      "historical_subtype": "clean-replay checkout ownership drift",
+      "baseline_evidence": "experiments/validations/pro_dev_bad_case_census_v1_0_97_hark_result.json"
+    },
+    {
+      "pair": 6,
+      "repository": "bradenm/micropy-cli",
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "historical_failure_layer": "Constraint/Operation",
+      "historical_subtype": "known unsatisfied project-local import without an admissible realization",
+      "baseline_evidence": "experiments/validations/pro_dev_bad_case_census_v1_0_19_micropy_cli_terminal_result.json"
+    }
+  ],
+  "claim_boundary": [
+    "The cases were screened by an independent prior baseline, but their failure taxonomy also informed method development; this is a development stress test, not held-out evidence.",
+    "The new causal comparison is matched DeepSeek A-F versus DeepSeek B-FCsR. Historical Codex outcomes cannot be placed in the paired result table.",
+    "Results estimate behavior only in this failure-enriched stratum and cannot be converted into an overall Dev or EnvBench success rate."
+  ]
+}
