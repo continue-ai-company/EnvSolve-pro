@@ -1,6 +1,6 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：目标状态重放已获得扩大开发集验证资格
+状态：目标状态重放已通过机制验证；下一步效果实验必须面向预先声明的强 baseline Official bad-case 分层
 日期：2026-08-21
 
 ## 1. 研究主线
@@ -38,6 +38,12 @@ Auto-EnvSolve；模型训练属于 EnvSolve-RL。
 重放全部与 Official 一致且全部通过。随后四对 outcome-independent 开发 case 中，F 的 Official 为
 2/4，F+C_s+R 为 3/4，包含一次反馈修复和一次 treatment 候选形成失败。这只批准保持 treatment 不变并
 扩大开发集实验，不能估计效果。
+
+保持 treatment 不变的扩展现已在 Dev16 最后四个固定位完成。两臂都是 4/4；三条 treatment 首次 replay
+通过，`pygeo` 修复一次网络获取 timeout 后通过。treatment 资源总量更低，但配对中位数没有显示一般性的
+请求或时间收益。合并 outcome-independent 证据为 F 6/8、F+C_s+R 7/8，只有一对 discordant
+（`p=1.0`）。随机 Dev 扩展到此停止；下一组必须从既有 census 中预先固定强 baseline Official failure
+分层，且不能使用 treatment 结果选样。
 
 ## 2. 部署机制与公共实验底座
 
@@ -448,8 +454,20 @@ F+C_s+R 通过 3/4。`importlib_metadata` 产生 Fail-Fail-Pass 修复；probatu
 完整记录位于
 `experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_result.json`。
 
-### 12.3 下一组固定开发实验
+### 12.3 固定开发扩展结果
 
-保持算法、prompt、provider 绑定和宽松安全上限不变，继续已有随机 Dev16 顺序中的下一组固定位置。报告
-真实 Official Pass@1、候选形成、重放序列、反馈修复、replay/Official 一致和无条件资源。这仍是开发期
-机制验证；只有固定方法积累足够开发证据后，才开始外部 baseline 与 backbone 比较。
+已有随机 Dev16 顺序最后四位得到 4/4 对 4/4 的 ceiling tie。四条 B 候选全部通过 Official，并与最终
+replay 一致；rstcheck、plasmapy 和 starsim 首次 replay 通过；`pygeo` 在 package 下载 timeout 后修改
+完整程序并于第二次 replay 通过，属于网络鲁棒性修复，不是兼容性修复。
+
+B 的请求、Token、命令和生成时间总量更低，但配对中位数没有显示典型请求或时间增益，总量差异由
+`pygeo` 主导。qualification 与 expansion 合并后，F 为 6/8，F+C_s+R 为 7/8，精确 McNemar 为
+`p=1.0`。不可变结果位于
+`experiments/validations/envsolve_pro_v2_target_state_replay_development_v2_result.json`。
+
+### 12.4 下一组效果实验
+
+算法保持不变。当前机制大多只是认证首次通过程序，不再用随机 Dev batch 消耗样本。下一组从既有跨方法
+census 中定义固定分层：强匹配 baseline 已到达 Official evaluation，并因算法性而非基础设施原因失败。
+选样不能使用本文 treatment 的任何结果；执行前预注册 case identity、baseline 证据、失败分层、抽样规则
+和所有排除项。这才是第一组能检验“自由搜索确实有提升空间时，目标状态反例能否提高成功率”的实验。

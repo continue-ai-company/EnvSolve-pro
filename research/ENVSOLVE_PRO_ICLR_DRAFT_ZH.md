@@ -1,6 +1,6 @@
 # EnvSolve-Pro：面向仓库部署的目标状态反例重放
 
-状态：ICLR 工作稿，2026-08-21；最小方法已通过扩大开发集实验的资格验证
+状态：ICLR 工作稿，2026-08-21；目标状态重放已通过机制验证，但仍缺少效果估计
 
 ## 摘要
 
@@ -13,11 +13,12 @@
 反例作为软约束返回同一 session，Agent 修改整段程序并继续。方法不加入 package 规则库、checkpoint
 搜索、跨 case 记忆或硬动作策略。
 
-三个已消费失败 case 的预注册机制检查得到 3/3 replay/Official 一致和 2/3 反馈修复。随后在四对
-outcome-independent 开发 case 上，自由搜索的 Official Pass@1 为 2/4，EnvSolve-Pro 为 3/4。一条
-treatment 轨迹连续修复了两个完整程序缺陷，另一条则在形成可重放候选前失败。样本太小，尚不能证明
-效果，只能批准扩大开发集验证。下一步保持算法不变，扩大同模型比较，再评估外部 baseline 与强弱模型。
-Official Pass@1 是主指标；时间、Token、流量、存储和部署完整性分别报告。
+三个已消费失败 case 的预注册机制检查得到 3/3 replay/Official 一致和 2/3 反馈修复。随后八对
+outcome-independent 开发 case 中，自由搜索通过 6/8，EnvSolve-Pro 通过 7/8，但只有一对结果不同
+（`p=1.0`）。形成候选的七条 treatment 轨迹最终 replay 与 Official 全部一致；两条轨迹修复了失败的
+完整程序，但五条首次 replay 即通过，后四对更是 4/4 ceiling tie。当前证据证明机制保真，不能证明效果
+或效率增益。下一步在预先声明的强 baseline Official bad-case 分层上比较，再评估外部 baseline 与强弱
+模型。Official Pass@1 是主指标；时间、Token、流量、存储和部署完整性分别报告。
 
 ## 1. 问题
 
@@ -151,6 +152,17 @@ Official 中失败，因为 replay 继承了构建 package cache。这个结果�
 
 由于该候选形成失败，treatment 在四对主分析中的总时间和 Token 反而更高。因此当前结果只支持保持最小
 机制不变并扩大开发集验证，不支持成功率或效率增益结论。
+
+保持机制不变后，我们又在下载源码和执行模型前固定 Dev16 第 13--16 位。两臂四个 case 全部通过。
+三条 treatment 首次 replay 即通过；`pygeo` 第一次 replay 因 package metadata 网络 timeout 失败，同一
+session 为完整程序加入有界 retry 与 backoff，随后 replay 和 Official 通过。这属于部署鲁棒性修复，
+不是新的兼容性推断。
+
+第二批 treatment 的资源总量更低，但不是稳定的效率效应。B-A 生成时间差为
+`+332, -71, -2,017, +314` 秒，总量下降主要由 `pygeo` 驱动，配对中位数反而慢 121 秒。合并两组
+outcome-independent 实验后，A 为 `6/8`、B 为 `7/8`：6 对都通过、1 对只有 B 通过、0 对只有 A
+通过、1 对都失败，精确 McNemar 仍为 `p=1.0`。继续随机扩展 Dev 已经不能高效检验核心主张。下一步
+必须从既有 census 中预先固定强 baseline 的 Official bad-case 分层，不能在看过 treatment 行为后挑 case。
 
 ## 7. 证伪条件与范围
 

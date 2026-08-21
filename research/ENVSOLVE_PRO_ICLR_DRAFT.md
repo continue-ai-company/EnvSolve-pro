@@ -1,7 +1,7 @@
 # EnvSolve-Pro: Target-State Counterexample Replay for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-21; minimal method qualified for a larger
-development experiment
+Status: working ICLR paper draft, 2026-08-21; target-state replay is mechanism-qualified,
+but an effectiveness estimate is still missing
 
 ## Abstract
 
@@ -22,14 +22,15 @@ the whole program and repeats. The method adds no package-rule library, checkpoi
 search, cross-case memory, or hard action policy.
 
 A preregistered three-case mechanism check showed replay/Official agreement in all cases
-and feedback-conditioned repair in two. A subsequent outcome-independent four-pair
-development qualification yielded Official Pass@1 of 2/4 for free search and 3/4 for
-EnvSolve-Pro. One treatment episode repaired two successive complete-program defects;
-another failed before forming any replayable candidate. The result qualifies larger
-development evaluation but is too small for an effectiveness claim. We next scale the
-same-model comparison, then evaluate external baselines and strong and weaker backbones.
-Official Pass@1 is primary; time, tokens, traffic, storage, and deployment completeness
-are separate outcomes.
+and feedback-conditioned repair in two. Across eight subsequent outcome-independent
+development pairs, free search passed 6/8 and EnvSolve-Pro passed 7/8, with only one
+discordant pair (`p=1.0`). Final replay and Official outcomes agreed in all seven treatment
+episodes that formed candidates. Two trajectories repaired failed complete programs, but
+five passed their first replay and the second four-pair batch was a 4/4 ceiling tie. The
+evidence establishes mechanism fidelity, not an effectiveness or efficiency gain. We next
+test a predeclared stratum of strong-baseline Official failures, then evaluate external
+baselines and strong and weaker backbones. Official Pass@1 is primary; time, tokens,
+traffic, storage, and deployment completeness are separate outcomes.
 
 ## 1. Problem
 
@@ -206,6 +207,22 @@ requests before submitting a candidate, so replay never entered the control loop
 Across all four primary pairs, the treatment used more time and tokens because of that
 candidate-formation failure. The result therefore supports scaling the unchanged minimal
 mechanism on development data, not a success-rate or efficiency claim.
+
+The unchanged mechanism was then run on Dev16 positions 13--16, also fixed before source
+acquisition or model execution. Both arms passed all four cases. Three treatment programs
+passed their first replay. Pygeo failed its first replay on a package-metadata network
+timeout, revised the complete program with bounded retry and backoff, and then passed
+replay and Official. This is a deployment-robustness repair rather than a new compatibility
+inference.
+
+The second batch used fewer aggregate treatment resources, but the result is not a stable
+efficiency effect. B minus A generation time was `+332, -71, -2,017, +314` seconds, so the
+aggregate reduction was dominated by pygeo while the paired median was 121 seconds slower.
+Combining both outcome-independent batches gives A `6/8` and B `7/8`, with six both-pass,
+one B-only, zero A-only, and one both-fail pair; exact McNemar remains `p=1.0`. Random Dev
+scaling is therefore no longer informative. The next development evidence must come from
+a fixed strong-baseline Official bad-case stratum selected from the pre-existing census,
+not from cases chosen after observing treatment behavior.
 
 ## 7. Falsification and Scope
 

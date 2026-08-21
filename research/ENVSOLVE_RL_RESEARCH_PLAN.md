@@ -576,3 +576,18 @@ the action. This is the minimal interface EnvSolve-RL can reuse to test whether 
 policy observes or repairs more efficiently than a strong free Agent. Optional-dose v1
 episodes remain useful observational trajectories, but not causal positive labels for the
 constraint-conditioned policy.
+
+### 21. Repair-Type and Paired-Cost Labels
+
+The target-state replay development expansion adds a second activated transition type.
+`importlib_metadata` is a complete-program compatibility/workspace repair, while `pygeo`
+is a network-acquisition robustness repair after a pip timeout. Both end in replay and
+Official success, but they should not share an undifferentiated positive repair label.
+First-replay passes remain certification examples rather than recovery demonstrations.
+
+Training records should preserve `repair_type`, failed phase, external-host involvement,
+program revision, replay order, and terminal outcome. Resource supervision must use paired
+per-repository differences or distributions rather than aggregate batch reward: the pygeo
+outlier lowered total requests, tokens, and time even though the treatment's median paired
+generation time increased. This prevents a future policy from learning that long retry
+logic or a single easy stopping path is universally efficient.

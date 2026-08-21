@@ -658,3 +658,19 @@ may later propose another cadence or representation, but it must preserve free A
 operations, replay semantics, evaluator isolation, and the fixed shadow batch while that
 proposal is judged. Analysis-pipeline corrections are separately versioned measurement
 repairs and never receive algorithmic reward.
+
+### 22. Ceiling-Batch and Heterogeneous-Efficiency Transaction
+
+The target-state replay development expansion adds a negative outer-loop decision that
+must be reproducible. A 4/4 versus 4/4 ceiling batch preserved success and produced one
+feedback-conditioned network repair, but it supplied no effectiveness contrast. Aggregate
+treatment resources fell sharply while paired medians did not improve because one pygeo
+trajectory dominated the totals. Auto-EnvSolve must therefore reject both "run more random
+cases" and "promote for aggregate efficiency" as next-version decisions.
+
+Future version selection must inspect paired dispersion, mechanism activation, and failure
+strata before choosing a shadow batch. Ceiling-heavy sampling triggers a switch to an
+outcome-blind stratum of pre-existing strong-baseline Official failures. Compatibility
+repair, acquisition-robustness repair, and first-replay certification remain separate
+transition classes; no class can be converted into a permanent rule from one generating
+repository.

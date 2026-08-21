@@ -1,6 +1,6 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-20):** failures are classified by the
+> **Current paper design (2026-08-21):** failures are classified by the
 > Observation--Constraint--Operation framework. The selected EnvSolve-Pro candidate is
 > one free continuous Agent session plus repeatedly callable whole-program replay from
 > the target initial state. Replay failures become case-local soft constraints in the
@@ -1009,11 +1009,19 @@ The preregistered promotion condition is met only as a development decision: kee
 minimal mechanism unchanged and scale it to the next fixed Dev batch. No effect,
 efficiency, held-out, or SOTA claim is licensed.
 
-### 12.4 Next Evidence
+### 12.4 Development Expansion and Next Evidence
 
-Run the unchanged A/B comparison on the next fixed Dev16 positions, preserving source-only
-cache reuse across arms and private package caches per episode. Use the new trajectories
-to estimate mechanism activation, candidate-formation failure, replay-conditioned repair,
-and unconditional resources. Do not add case-specific rules or other orthogonal treatments.
-Only after a larger development result supports the fixed algorithm should the study move
-to strong/weak backbone and external-baseline evaluation.
+The unchanged A/B comparison on Dev16 positions 13--16 completed as a 4/4 versus 4/4
+ceiling tie. All final replays agreed with Official. Three B programs passed their first
+replay; pygeo repaired a network-acquisition timeout and then passed. Aggregate B resources
+were lower, but paired request and generation-time medians did not improve; pygeo dominated
+the totals. Combined with qualification, A is 6/8 and B is 7/8 with only one discordance
+and exact McNemar `p=1.0`.
+
+This result closes random Dev scaling rather than licensing an algorithm patch. Keep the
+minimal method fixed and construct the next batch from pre-existing strong-baseline
+Official failures in the census. Freeze the sampling rule and baseline evidence before
+opening treatment outcomes. Do not add a pygeo network rule, package rules, checkpoints,
+or other orthogonal treatments. External baselines and strong/weak backbone comparisons
+follow only after this bad-case effectiveness test determines whether replay improves
+success where the matched control has headroom.

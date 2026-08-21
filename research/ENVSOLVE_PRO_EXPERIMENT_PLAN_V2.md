@@ -1,6 +1,7 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: target-state replay qualified for larger development evaluation
+Status: target-state replay mechanism-qualified; next effectiveness study must target a
+predeclared strong-baseline Official bad-case stratum
 Date: 2026-08-21
 
 ## 1. Research Thesis
@@ -50,6 +51,14 @@ with Official, and all three passed. The following outcome-independent four-pair
 development qualification produced Official 2/4 for F and 3/4 for F+C_s+R, with one
 feedback-conditioned repair and one treatment candidate-formation failure. This qualifies
 the unchanged treatment for a larger development batch, not an effectiveness claim.
+
+That unchanged expansion is now complete on the final four fixed Dev16 positions. Both
+arms passed 4/4; three treatment episodes passed their first replay, and pygeo repaired a
+network-acquisition timeout before passing. Aggregate treatment resources were lower but
+paired medians did not show a general request or time gain. Combined outcome-independent
+evidence is F 6/8 versus F+C_s+R 7/8 with one discordant pair (`p=1.0`). Random Dev scaling
+now stops: the next study must draw a fixed stratum of strong-baseline Official failures
+from the pre-existing census without using treatment outcomes.
 
 ## 2. Deployment Mechanisms and Experimental Foundation
 
@@ -561,11 +570,27 @@ treatment time and tokens were higher, and the four pairs cannot estimate effect
 The complete record is
 `experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_result.json`.
 
-### 12.3 Next fixed development batch
+### 12.3 Fixed development expansion result
 
-Keep the algorithm, prompt, provider binding, and broad safety limits unchanged. Continue
-the pre-existing randomized Dev16 order with the next fixed positions. Report actual
-Official Pass@1, candidate formation, ordered replay outcomes, feedback-conditioned
-repair, replay/Official agreement, and unconditional resources. This remains development
-mechanism evaluation; external baselines and backbone comparisons begin only after the
-fixed method has enough development evidence.
+The final four positions of the pre-existing randomized Dev16 order produced a 4/4 versus
+4/4 ceiling tie. All four B candidates passed Official and agreed with their final replay.
+Rstcheck, plasmapy, and starsim passed their first replay. Pygeo changed its complete
+program after a package-download timeout and passed its second replay, demonstrating a
+network-robustness repair rather than a compatibility repair.
+
+B used fewer aggregate requests, tokens, commands, and generation seconds, but paired
+medians show no typical request or time improvement; the total reduction is dominated by
+pygeo. Across qualification plus expansion, F is 6/8 and F+C_s+R is 7/8 with exact
+McNemar `p=1.0`. The immutable result is
+`experiments/validations/envsolve_pro_v2_target_state_replay_development_v2_result.json`.
+
+### 12.4 Next effectiveness batch
+
+Keep the algorithm unchanged. Do not spend another random Dev batch on a mechanism that
+mostly certifies first-pass programs. Instead, use the pre-existing cross-method census to
+define a fixed stratum where a strong matched baseline reached Official evaluation and
+failed for an algorithmic, non-infrastructure reason. Selection must not use any outcome
+from this treatment. Preregister case identities, baseline evidence, failure strata,
+sampling rule, and all exclusions before execution. This is the first batch capable of
+testing whether target-state counterexamples improve success where free search actually
+has room to improve.

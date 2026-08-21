@@ -1,6 +1,6 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-20）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前选定
+> **当前论文设计（2026-08-21）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前选定
 > 的 EnvSolve-Pro 候选只包含一个自由连续 Agent session，以及可反复调用的完整程序目标状态重放。
 > 重放失败在同一 session 内成为 case-local 软约束。定时观测、ledger、checkpoint、跨 case 规则和硬
 > 动作策略均被排除。所有方法共享的实验完整性底座 E 不属于算法。第 12 节优先于下文保留的可审计研发
@@ -776,8 +776,14 @@ cellrank B 在形成候选前耗尽 120 次请求，因此 replay 从未激活�
 预注册晋级条件只在开发决策意义上满足：保持最小机制不变，扩大到下一组固定 Dev case。当前证据不能支持
 效果、效率、held-out 或 SOTA 主张。
 
-### 12.4 下一步证据
+### 12.4 开发扩展与下一步证据
 
-在 Dev16 接下来的固定位置上继续同一 A/B 比较。两臂只共享源码缓存，每个 episode 使用私有 package
-cache。新轨迹用于估计机制激活、候选形成失败、反馈修复和无条件资源，不加入 case-specific 规则或其他
-正交 treatment。只有更大的开发集结果继续支持固定算法，才进入强弱 backbone 和外部 baseline 实验。
+Dev16 第 13--16 位的同一 A/B 比较已经完成，结果为 4/4 对 4/4 ceiling tie。最终 replay 与 Official
+全部一致；三条 B 程序首次 replay 通过，`pygeo` 修复一次网络获取 timeout 后通过。B 的资源总量更低，
+但请求和生成时间的配对中位数没有改善，总量由 `pygeo` 主导。与 qualification 合并后，A 为 6/8、B
+为 7/8，只有一对 discordance，精确 McNemar 为 `p=1.0`。
+
+这个结果关闭随机 Dev 扩展，不批准算法补丁。保持最小方法不变，从既有 census 的强 baseline Official
+failure 中构造下一组，并在查看 treatment 结果前冻结抽样规则和 baseline 证据。不添加 `pygeo` 网络规则、
+package 规则、checkpoint 或其他正交 treatment。只有 bad-case 效果实验确认 matched control 有提升空间时
+replay 能提高成功率，才进入外部 baseline 与强弱 backbone 比较。

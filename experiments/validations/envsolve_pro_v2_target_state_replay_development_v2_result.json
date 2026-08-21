@@ -1,0 +1,399 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-development-result-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-development-v2",
+  "recorded_at": "2026-08-21T05:24:40Z",
+  "status": "complete",
+  "claim_scope": "Outcome-independent development mechanism scaling on the final four positions of a pre-existing randomized Dev16 order. This is not held-out, leaderboard, effect-size, or SOTA evidence.",
+  "execution_identity": {
+    "host": "Spark Linux aarch64",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "official_evaluator_access": "post-episode-only",
+    "evaluator_timeout_seconds": 2400
+  },
+  "selection_provenance": {
+    "preregistration": "experiments/validations/envsolve_pro_v2_target_state_replay_development_v2_preregistration.json",
+    "source_order": "experiments/schedules/envsolve_pro_v2_flash0731_dev16.json",
+    "fixed_positions": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "outcome_or_failure_class_used_for_selection": false,
+    "case_replacement_after_observing_outcomes": false
+  },
+  "arms": {
+    "A-F": "One continuous free Agent session with ordinary execution feedback and the shared minimal evaluator-integrity boundary.",
+    "B-FCsR": "The same interface plus repeatedly callable whole-program replay from the target initial state, raw replay counterexamples returned to the same active session, and delivery restricted to a replay-passed program."
+  },
+  "primary_analysis": {
+    "pairs": 4,
+    "official_pass": {
+      "A-F": {
+        "passed": 4,
+        "total": 4
+      },
+      "B-FCsR": {
+        "passed": 4,
+        "total": 4
+      }
+    },
+    "paired_table": {
+      "both_pass": 4,
+      "A_only": 0,
+      "B_only": 0,
+      "both_fail": 0
+    },
+    "exact_mcnemar_two_sided_p": 1.0,
+    "interpretation": "This is a ceiling batch. It supports replay reliability and mechanism activation but contains no discordant Official outcome from which to estimate a success effect."
+  },
+  "episodes": [
+    {
+      "pair": 1,
+      "case": "rstcheck",
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-dev-v2-01-rstcheck-A-F",
+      "generation_completed": true,
+      "official_pass": true,
+      "resources": {
+        "model_requests": 15,
+        "provider_attempts": 15,
+        "provider_errors": 0,
+        "total_tokens": 207241,
+        "shell_operations": 14,
+        "generation_seconds": 309.008,
+        "official_evaluation_seconds": 77.099,
+        "construction_cache_du": "70M"
+      }
+    },
+    {
+      "pair": 1,
+      "case": "rstcheck",
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-dev-v2-02-rstcheck-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "pass"
+      ],
+      "mechanism_interpretation": "First-replay certification; both arms passed.",
+      "resources": {
+        "model_requests": 22,
+        "provider_attempts": 22,
+        "provider_errors": 0,
+        "total_tokens": 314720,
+        "shell_operations": 20,
+        "generation_seconds": 640.599,
+        "official_evaluation_seconds": 80.09,
+        "replay_bootstrap_seconds": [
+          129.098
+        ],
+        "construction_cache_du": "70M"
+      }
+    },
+    {
+      "pair": 2,
+      "case": "plasmapy",
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-dev-v2-03-plasmapy-A-F",
+      "generation_completed": true,
+      "official_pass": true,
+      "resources": {
+        "model_requests": 34,
+        "provider_attempts": 41,
+        "provider_errors": 7,
+        "total_tokens": 717022,
+        "shell_operations": 33,
+        "generation_seconds": 1062.328,
+        "official_evaluation_seconds": 515.491,
+        "construction_cache_du": "253M"
+      }
+    },
+    {
+      "pair": 2,
+      "case": "plasmapy",
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-dev-v2-04-plasmapy-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "pass"
+      ],
+      "mechanism_interpretation": "First-replay certification; both arms passed.",
+      "resources": {
+        "model_requests": 28,
+        "provider_attempts": 30,
+        "provider_errors": 2,
+        "total_tokens": 567235,
+        "shell_operations": 26,
+        "generation_seconds": 990.883,
+        "official_evaluation_seconds": 223.163,
+        "replay_bootstrap_seconds": [
+          221.616
+        ],
+        "construction_cache_du": "254M"
+      }
+    },
+    {
+      "pair": 3,
+      "case": "pygeo",
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-dev-v2-05-pygeo-A-F",
+      "generation_completed": true,
+      "official_pass": true,
+      "resources": {
+        "model_requests": 86,
+        "provider_attempts": 91,
+        "provider_errors": 5,
+        "total_tokens": 3269045,
+        "shell_operations": 115,
+        "generation_seconds": 3222.781,
+        "official_evaluation_seconds": 208.727,
+        "construction_cache_du": "118M"
+      }
+    },
+    {
+      "pair": 3,
+      "case": "pygeo",
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-dev-v2-06-pygeo-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "fail",
+        "pass"
+      ],
+      "feedback_conditioned_repair": true,
+      "repair_class": "network-acquisition robustness",
+      "mechanism_interpretation": "The first target-state replay failed on a files.pythonhosted.org metadata read timeout. The same session added bounded pip timeout, retry, and backoff behavior to the complete program; the second replay and Official evaluation passed. This demonstrates feedback-conditioned robustness repair, not a newly inferred compatibility condition.",
+      "resources": {
+        "model_requests": 40,
+        "provider_attempts": 40,
+        "provider_errors": 0,
+        "total_tokens": 649678,
+        "shell_operations": 37,
+        "generation_seconds": 1205.31,
+        "official_evaluation_seconds": 105.393,
+        "replay_bootstrap_seconds": [
+          21.416,
+          340.949
+        ],
+        "construction_cache_du": "170M"
+      }
+    },
+    {
+      "pair": 4,
+      "case": "starsim",
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "arm": "A-F",
+      "run_id": "pro-v2-target-replay-dev-v2-07-starsim-A-F",
+      "generation_completed": true,
+      "official_pass": true,
+      "resources": {
+        "model_requests": 22,
+        "provider_attempts": 22,
+        "provider_errors": 0,
+        "total_tokens": 272674,
+        "shell_operations": 28,
+        "generation_seconds": 618.675,
+        "official_evaluation_seconds": 122.974,
+        "construction_cache_du": "336M"
+      }
+    },
+    {
+      "pair": 4,
+      "case": "starsim",
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "arm": "B-FCsR",
+      "run_id": "pro-v2-target-replay-dev-v2-08-starsim-B-FCsR",
+      "generation_completed": true,
+      "official_pass": true,
+      "replay_statuses": [
+        "pass"
+      ],
+      "mechanism_interpretation": "First-replay certification; both arms passed.",
+      "resources": {
+        "model_requests": 39,
+        "provider_attempts": 40,
+        "provider_errors": 1,
+        "total_tokens": 565883,
+        "shell_operations": 37,
+        "generation_seconds": 932.367,
+        "official_evaluation_seconds": 193.362,
+        "replay_bootstrap_seconds": [
+          174.353
+        ],
+        "construction_cache_du": "178M"
+      }
+    }
+  ],
+  "mechanism_outcomes": {
+    "eligible_B_episodes": 4,
+    "B_episodes_forming_a_candidate": 4,
+    "B_episodes_invoking_replay": 4,
+    "total_completed_replays": 5,
+    "first_replay_passes": 3,
+    "feedback_conditioned_repairs": 1,
+    "compatibility_repairs": 0,
+    "network_robustness_repairs": 1,
+    "final_replay_official_agreement": {
+      "agreed": 4,
+      "eligible_completed_candidates": 4
+    },
+    "interpretation": "Replay was target-state faithful and repaired one executable acquisition failure, but three of four treatment episodes used replay only as first-pass certification."
+  },
+  "resource_analysis": {
+    "unconditional_totals": {
+      "A-F": {
+        "model_requests": 157,
+        "provider_attempts": 169,
+        "provider_errors": 12,
+        "total_tokens": 4465982,
+        "shell_operations": 190,
+        "generation_seconds": 5212.792,
+        "official_evaluation_seconds": 924.289
+      },
+      "B-FCsR": {
+        "model_requests": 129,
+        "provider_attempts": 132,
+        "provider_errors": 3,
+        "total_tokens": 2097516,
+        "shell_operations": 120,
+        "generation_seconds": 3769.16,
+        "official_evaluation_seconds": 602.008,
+        "completed_replays": 5
+      },
+      "B_minus_A_percent_of_A": {
+        "model_requests": -17.834,
+        "provider_attempts": -21.893,
+        "provider_errors": -75.0,
+        "total_tokens": -53.033,
+        "shell_operations": -36.842,
+        "generation_seconds": -27.694,
+        "official_evaluation_seconds": -34.868
+      }
+    },
+    "paired_B_minus_A": {
+      "model_requests": {
+        "differences": [
+          7,
+          -6,
+          -46,
+          17
+        ],
+        "median": 0.5
+      },
+      "total_tokens": {
+        "differences": [
+          107479,
+          -149787,
+          -2619367,
+          293209
+        ],
+        "median": -21154
+      },
+      "shell_operations": {
+        "differences": [
+          6,
+          -7,
+          -78,
+          9
+        ],
+        "median": -0.5
+      },
+      "generation_seconds": {
+        "differences": [
+          331.591,
+          -71.445,
+          -2017.47,
+          313.692
+        ],
+        "median": 121.124
+      }
+    },
+    "interpretation": "B has lower aggregate resource totals, but the paired request and generation-time medians do not improve. The aggregate reduction is dominated by pygeo and cannot support a general efficiency claim."
+  },
+  "deployment_completeness_audit": {
+    "role": "Non-scoring secondary outcome; Official Pass remains the primary benchmark outcome.",
+    "findings": [
+      "Both rstcheck programs and both plasmapy programs install the project and development requirements rather than replacing missing imports with placeholders.",
+      "Both pygeo programs combine real dependency installation with placeholders for optional native or unavailable modules; they are Official-valid but do not establish a complete functional pygeo runtime.",
+      "The starsim A program aliases three legacy module names to starsim, whereas B installs the real stisim and hpvsim distributions before restoring the target checkout. Both pass Official, but B provides the more complete dependency state."
+    ],
+    "interpretation": "Official success does not identify a unique deployment quality level. Completeness must remain a separate reported axis rather than a post-hoc success override."
+  },
+  "combined_outcome_independent_development_evidence": {
+    "sources": [
+      "experiments/validations/envsolve_pro_v2_target_state_replay_qualification_v1_result.json",
+      "experiments/validations/envsolve_pro_v2_target_state_replay_development_v2_result.json"
+    ],
+    "pairs": 8,
+    "official_pass": {
+      "A-F": {
+        "passed": 6,
+        "total": 8
+      },
+      "B-FCsR": {
+        "passed": 7,
+        "total": 8
+      }
+    },
+    "paired_table": {
+      "both_pass": 6,
+      "A_only": 0,
+      "B_only": 1,
+      "both_fail": 1
+    },
+    "exact_mcnemar_two_sided_p": 1.0,
+    "candidate_formation": {
+      "B_formed_candidate": 7,
+      "B_eligible": 8
+    },
+    "completed_replays": 10,
+    "first_replay_passes": 5,
+    "feedback_conditioned_repairs": 2,
+    "final_replay_official_agreement": {
+      "agreed": 7,
+      "eligible_completed_candidates": 7
+    },
+    "interpretation": "The combined development evidence establishes mechanism fidelity and two qualitatively different repair examples, but still has only one discordant pair and no convincing success effect."
+  },
+  "decision": {
+    "preregistered_retention_rule_satisfied": true,
+    "algorithm_change_licensed_by_this_batch": false,
+    "action": "Retain the minimal target-state replay mechanism as a research candidate, stop spending random Dev cases on ceiling-heavy scaling, and use the pre-existing baseline census to preregister a fixed strong-baseline Official bad-case stratum before the next same-model comparison.",
+    "reason": "The batch preserved success, replay and Official agreed in all four treatment candidates, and one feedback-conditioned repair occurred. It did not produce a success difference or a robust paired efficiency effect.",
+    "limits": [
+      "Do not claim a success-rate effect, held-out generalization, leaderboard improvement, or SOTA.",
+      "Do not claim general efficiency from aggregate totals dominated by pygeo.",
+      "Do not treat the pygeo network repair as evidence of compatibility reasoning.",
+      "Do not add a network rule or any case-specific compatibility rule from this consumed batch.",
+      "Do not choose the next bad cases based on which cases this treatment already repaired."
+    ]
+  },
+  "artifact_audit": {
+    "eligible_episode_artifacts": 8,
+    "valid": 8,
+    "errors": 0,
+    "warnings": 0,
+    "synced_research_artifacts": {
+      "files": 153,
+      "disk_usage": "19M",
+      "excluded_reconstructable_data": [
+        "source cache",
+        "construction package caches",
+        "construction workspaces",
+        "clean-replay worktrees",
+        "evaluator repository worktrees"
+      ]
+    }
+  }
+}
