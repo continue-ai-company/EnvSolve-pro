@@ -1,0 +1,44 @@
+{
+  "schema": "envsolve-pro-v2-certified-incumbent-untouched8-estimand-amendment-v1",
+  "study_id": "envsolve-pro-v2-certified-incumbent-untouched8-v1",
+  "recorded_at": "2026-08-23",
+  "timing": "After pair 1 completed and before positions 3-16 executed.",
+  "status": "descriptive-clarification-no-execution-change",
+  "reason": "The preregistration's single-change sentence described incumbent storage and fallback but omitted that the C prompt also asks the Agent to compile and replay a complete program as soon as it believes the public goal is feasible.",
+  "pair1_exposure_before_clarification": {
+    "case": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+    "C_GCI_official_pass": true,
+    "B_FSR_official_pass": true,
+    "C_first_replay": "pass",
+    "B_replay_sequence": ["fail", "pass"],
+    "C_fallback_used": false
+  },
+  "corrected_estimand": "The experiment compares soft replay B-FSR with the bundled C-GCI policy: goal-triggered candidate compilation, clean-replay certification, certified-program retention, and fallback selection after provider or safety-cap termination.",
+  "arm_difference": [
+    "C explicitly asks the same Agent to compile and replay a complete bootstrap as soon as feasibility is believed.",
+    "Every C clean-replay Pass becomes the latest harness-managed certified incumbent.",
+    "C may return that incumbent after provider failure or a request or wall-clock safety cap.",
+    "B exposes the same shell, replay, and final-submission tools but has no incumbent state or fallback and uses the softer before-final-submission replay instruction."
+  ],
+  "claims_allowed": [
+    "End-to-end and resource differences between the complete B-FSR and C-GCI policies.",
+    "Trajectory analysis of earlier candidate compilation, replay repair, incumbent updates, fallback activation, and submission."
+  ],
+  "claims_forbidden": [
+    "A difference is caused by incumbent fallback alone.",
+    "A difference is caused by retention alone rather than the combined goal-triggered certification policy.",
+    "Pair 1 or the full development batch establishes held-out generalization or SOTA."
+  ],
+  "unchanged": [
+    "implementation",
+    "prompts",
+    "case identities and order",
+    "seeds",
+    "model and provider",
+    "schedule",
+    "budgets",
+    "Official evaluation policy",
+    "analysis of eligible non-submission as deployment failure"
+  ],
+  "continuation": "Run positions 3-16 unchanged and report the amendment beside the original preregistration."
+}
