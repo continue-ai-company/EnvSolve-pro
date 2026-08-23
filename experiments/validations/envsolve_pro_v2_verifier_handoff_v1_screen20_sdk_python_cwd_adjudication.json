@@ -1,0 +1,70 @@
+{
+  "case_id": "envbench-python-injectivelabs__sdk-python@a93aab1257174769db96e208ac61464999323b32",
+  "decision": "official-pass-with-observation-semantic-false-regression",
+  "experimental_role": "screen-success-excluded-from-failure-only-pair",
+  "official": {
+    "evaluation_completed": true,
+    "issues_count": 0,
+    "pass": true
+  },
+  "resources": {
+    "clean_replays": 1,
+    "model_requests": 46,
+    "replay_bootstrap_seconds": 62.60952128563076,
+    "shell_operations": 63,
+    "total_tokens": 2001524
+  },
+  "scheduled_observations": [
+    {
+      "candidate_ready": false,
+      "classification": "initial",
+      "cwd": "/data/project",
+      "obligation_count": 19,
+      "python_executable": "/opt/conda/bin/python",
+      "request_index": 0
+    },
+    {
+      "candidate_ready": false,
+      "classification": "stagnant",
+      "cwd": "/data/project",
+      "obligation_count": 19,
+      "python_executable": "/opt/conda/bin/python",
+      "request_index": 10
+    },
+    {
+      "candidate_ready": false,
+      "classification": "regressed",
+      "cwd": "/tmp/inj",
+      "obligation_count": 183,
+      "python_executable": "/opt/conda/bin/python",
+      "request_index": 21
+    },
+    {
+      "candidate_ready": false,
+      "classification": "improved",
+      "cwd": "/data/project",
+      "obligation_count": 5,
+      "python_executable": "/opt/conda/bin/python",
+      "request_index": 34
+    },
+    {
+      "candidate_ready": true,
+      "classification": "improved",
+      "cwd": "/data/project",
+      "obligation_count": 0,
+      "python_executable": "/opt/conda/bin/python",
+      "request_index": 45
+    }
+  ],
+  "three_layer_diagnosis": {
+    "constraint": "The stable obligation semantics remained missing module paths; no new dependency rule is supported.",
+    "observation": "The trusted goal inherited the Agent shell cwd, so a temporary cd changed Pyright resolution and produced a false regression.",
+    "operation": "Directory changes are legitimate search operations; the verifier should normalize its own goal cwd instead of constraining the Agent."
+  },
+  "treatment_status": {
+    "current_runner": "0.6.1-frozen-through-screen-and-pair",
+    "future_change": "Run scheduled goals from the project-root cwd while preserving the active environment, then add a cwd-invariance regression test.",
+    "implemented_in_current_screen": false
+  },
+  "validity_note": "The Official Pass is valid. A protobuf runtime import incompatibility is retained as a separate deployment-completeness warning and does not alter the preregistered outcome."
+}

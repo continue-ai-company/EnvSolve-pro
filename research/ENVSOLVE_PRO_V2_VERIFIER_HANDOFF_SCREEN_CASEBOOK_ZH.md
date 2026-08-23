@@ -175,3 +175,51 @@ generation 使用 78 次模型请求、4,258,047 个 Token、98 次 shell 操作
 Sentry 不进入 failure-only 配对集。与 Heltour、TKP 不同，它从首次 Pass 到提交程序只相差 4 次
 请求。这说明 handoff 的激活空间和潜在效率收益在不同 case 间高度异质；必须报告配对结果的
 总体与分布，不能只展示最大节省案例。
+
+## Case VH-005：`injectivelabs/sdk-python@a93aab12`
+
+**Screen 结果：** EnvBench Official Pass。
+
+**研究用途：** 观测语义导致的假回退证据，以及新的部署质量警告；它不是 bad case，也不是
+treatment 的因果结果。
+
+### 发生了什么
+
+初始和第 10 次请求的固定观测都在 `/data/project` 下使用 `/opt/conda/bin/python`，报告 19 个
+missing-import 约束。Agent 为检查历史包 wheel，把持久 shell 的当前目录切到 `/tmp/inj`。第 21
+次请求的观测随即报告 183 个约束，并把状态标为回退；但解释器和已安装环境并未改变。Agent 立刻
+回到 `/data/project` 执行同一个目标，又得到原来的 19 个约束。
+
+随后 Agent 解决了真实兼容问题：第 34 次请求的观测降至 5 个约束，第 45 次请求降至 0。第一次
+clean replay 通过，第 46 次请求提交程序，EnvBench Official 以 0 个计分 issue 通过。generation
+使用 46 次模型请求、2,001,524 个 Token、63 次 shell 操作和一次成功 replay；replay bootstrap
+约耗时 63 秒。
+
+### 三层诊断
+
+**观测层：** trusted goal 虽然接收项目根目录的绝对路径，但实际仍从 Agent shell 的当前目录
+执行。Pyright 的配置与模块解析因此受到无关临时 `cd` 的影响。183 个约束是假观测回退，不是
+部署环境真的退化。
+
+**约束层：** 真实约束始终是缺失模块路径，不需要新增依赖规则；错误 delta 来自前后观测上下文
+不一致。
+
+**操作层：** Agent 切换目录检查文件是合法的自由探索操作。禁止 Agent 离开项目根目录会不必要
+地限制强模型能力。正确修复是让 verifier 始终从项目根目录运行公开目标，同时保留当前激活的
+解释器和环境。
+
+### 部署质量警告
+
+Agent 选择的旧版 `injective-py` 能让 Pyright 静态解析模块，但其生成的 protobuf 模块与已安装的
+protobuf runtime 不兼容。Agent 已实际观察到运行时 import 失败，并正确指出它不属于 EnvBench
+的 `reportMissingImports` 目标。Official Pass 完全有效，但不能证明部署具有完整运行语义。与
+TKP 一样，完整性应作为独立报告轴，不能事后增加项目特定 gate。
+
+### 对实验的影响
+
+SDK Python 不进入预注册的 failure-only 配对集。当前 screen 和 pair 继续冻结 runner 0.6.1。
+配对实验完成后，下一版 runner 应固定从 `/data/project` 执行观测目标，并增加“Agent 临时切换
+目录、环境不变”的回归测试。这是观测语义修正，不是新的部署约束。
+
+机器可读证据：
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_sdk_python_cwd_adjudication.json`。

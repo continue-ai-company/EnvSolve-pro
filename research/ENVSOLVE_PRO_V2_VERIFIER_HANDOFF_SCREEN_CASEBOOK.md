@@ -217,3 +217,65 @@ gap from first Pass to submitted program was only four requests. This is evidenc
 that handoff opportunity and potential efficiency gain are heterogeneous across
 cases; aggregate and distributional paired results are required, rather than a
 maximum-saving anecdote.
+
+## Case VH-005: `injectivelabs/sdk-python@a93aab12`
+
+**Screen outcome:** EnvBench Official Pass.
+
+**Research role:** Observation-semantic false-regression evidence and an additional
+deployment-quality warning. It is not a bad case and not a causal treatment result.
+
+### What Happened
+
+The initial and request-10 scheduled observations both reported 19 missing-import
+obligations under `/opt/conda/bin/python` from `/data/project`. While investigating
+historical package wheels, the Agent changed its persistent shell directory to
+`/tmp/inj`. The request-21 observation then reported 183 obligations and labelled
+the transition a regression, although the interpreter and installed environment had
+not changed. Immediately returning to `/data/project` restored the original
+19-obligation result in the Agent's own probe.
+
+The Agent subsequently resolved the real compatibility problems. The trusted
+observations contracted to 5 obligations at request 34 and zero at request 45. The
+first clean replay passed, the program was submitted at request 46, and EnvBench
+Official passed with zero scored issues. Generation used 46 model requests,
+2,001,524 total tokens, 63 shell operations, and one passing clean replay. The
+replay bootstrap took approximately 63 seconds.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** the trusted goal receives an absolute project-root argument,
+but executes from the Agent shell's current directory. Pyright configuration and
+module resolution are therefore affected by an unrelated temporary `cd`. The 183
+obligations were an observation false regression, not a deployment-state regression.
+
+**Constraint layer:** the true obligations remained missing module paths. No new
+dependency rule was needed; the erroneous delta came from inconsistent observation
+context.
+
+**Operation layer:** changing directories for investigation is a legitimate Agent
+operation. Requiring the Agent never to leave the project root would unnecessarily
+restrict free search. The verifier should instead run the public goal from a stable
+project-root working directory while preserving the active interpreter and
+environment.
+
+### Deployment-Quality Warning
+
+The selected old `injective-py` distribution satisfied Pyright resolution, but its
+generated protobuf modules were incompatible with the installed protobuf runtime.
+The Agent observed this runtime import failure and correctly noted that it was
+outside EnvBench's `reportMissingImports` objective. The Official Pass is valid, but
+it does not establish runtime-complete deployment. As in TKP, completeness remains
+a separate reporting axis rather than a retroactive case-specific gate.
+
+### Experimental Consequence
+
+SDK Python is excluded from the preregistered failure-only paired set. Runner 0.6.1
+remains frozen for the current screen and pair. After the pair completes, the next
+runner version should execute scheduled goals from `/data/project` and add a
+regression test in which the Agent temporarily changes directory without changing
+the environment. This is an observation-semantic correction, not a new deployment
+constraint.
+
+Machine-readable evidence:
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_sdk_python_cwd_adjudication.json`.
