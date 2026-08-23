@@ -170,3 +170,50 @@ TKP is excluded from the preregistered failure-only paired set. Together with
 Heltour, it shows that verified-sufficient states can precede delivery by many model
 steps. The request-32-to-request-46 gap is only treatment headroom, not a causal
 saving estimate. The stub-based path is retained for later completeness analysis.
+
+## Case VH-004: `getsentry/sentry-python@ec7172e1`
+
+**Screen outcome:** EnvBench Official Pass.
+
+**Research role:** Version-compatibility convergence and low handoff-headroom
+evidence, not a bad case and not a causal treatment result.
+
+### What Happened
+
+The base interpreter initially exposed 215 missing-import obligations. The Agent
+created a Python 3.11 virtual environment, installed broad integration extras, and
+then activated that environment in the persistent session. Scheduled observations
+recorded the following contraction:
+
+`215 -> 215 -> 215 -> 19 -> 9 -> 1 -> 0`.
+
+After basic package coverage, the remaining obligations were legacy or
+version-sensitive module paths. The Agent consulted repository `tox.ini` evidence,
+selected compatible dependency versions, and handled the final
+`pytest_chalice.handlers` path. The first complete Pass appeared at request 74. The
+Agent issued its first clean replay at request 77; it passed, the program was
+submitted at request 78, and EnvBench Official passed.
+
+Generation used 78 model requests, 4,258,047 total tokens, 98 shell operations, and
+one passing clean replay in approximately 65 minutes. The complete case, including
+Official evaluation, took approximately 76 minutes.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** executable observations separated interpreter activation
+from dependency installation and exposed monotonically shrinking residuals.
+
+**Constraint layer:** module-path obligations remained stable while their causes
+changed from package absence to version/API incompatibility. Project-specific
+package rules were unnecessary.
+
+**Operation layer:** the Agent used repository evidence to choose versions and
+resolve the residuals, then produced a replayable program on its first attempt.
+
+### Experimental Consequence
+
+Sentry is excluded from the failure-only paired set. Unlike Heltour and TKP, the
+gap from first Pass to submitted program was only four requests. This is evidence
+that handoff opportunity and potential efficiency gain are heterogeneous across
+cases; aggregate and distributional paired results are required, rather than a
+maximum-saving anecdote.

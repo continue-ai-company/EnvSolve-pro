@@ -140,3 +140,38 @@ Official Pass。整个 generation 使用 46 次模型请求、1,263,597 个 Toke
 TKP 不进入预注册的 failure-only 配对集。它与 Heltour 共同证明，验证充分状态可能比最终交付
 早很多模型步骤。第 32 到第 46 次请求之间的差距只能算 treatment 的潜在作用空间，不能当作
 因果节省量。stub 路径将保留给后续完整性分析。
+
+## Case VH-004：`getsentry/sentry-python@ec7172e1`
+
+**Screen 结果：** EnvBench Official Pass。
+
+**研究用途：** 版本兼容收敛和较小 handoff 作用空间证据；它不是 bad case，也不是 treatment
+的因果结果。
+
+### 发生了什么
+
+基础解释器最初暴露 215 个 missing-import 约束。Agent 创建 Python 3.11 虚拟环境、安装大量
+integration extras，并在持久 session 中激活该环境。固定观测记录到以下收敛序列：
+
+`215 -> 215 -> 215 -> 19 -> 9 -> 1 -> 0`。
+
+基础包覆盖后，剩余约束主要是旧式或版本敏感的模块路径。Agent 读取仓库 `tox.ini`，选择兼容
+依赖版本，并处理最后的 `pytest_chalice.handlers` 路径。第 74 次请求首次完整 Pass；第 77 次
+请求进行第一次 clean replay 并通过，第 78 次请求提交程序，EnvBench Official Pass。
+
+generation 使用 78 次模型请求、4,258,047 个 Token、98 次 shell 操作和一次成功 clean replay，
+约耗时 65 分钟；包含 Official evaluation 的完整 case 约耗时 76 分钟。
+
+### 三层诊断
+
+**观测层：** 可执行观测区分了解释器激活和依赖安装，并暴露持续缩小的残余约束。
+
+**约束层：** 模块路径约束保持稳定，但原因从包缺失变成版本/API 不兼容；不需要项目特定包规则。
+
+**操作层：** Agent 利用仓库证据选择版本、解决残余约束，并在第一次 replay 就生成可重放程序。
+
+### 对实验的影响
+
+Sentry 不进入 failure-only 配对集。与 Heltour、TKP 不同，它从首次 Pass 到提交程序只相差 4 次
+请求。这说明 handoff 的激活空间和潜在效率收益在不同 case 间高度异质；必须报告配对结果的
+总体与分布，不能只展示最大节省案例。
