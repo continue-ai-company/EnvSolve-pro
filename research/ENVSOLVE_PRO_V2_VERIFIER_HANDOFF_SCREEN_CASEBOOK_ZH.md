@@ -62,3 +62,40 @@ handoff transition 本身预计无法修复它，也不能把它从配对实验�
 
 机器可读证据：
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_platformio_boundary_adjudication.json`。
+
+## Case VH-002：`lichess4545/heltour@1d5fd89`
+
+**Screen 结果：** EnvBench Official Pass。
+
+**研究用途：** 机制激活和效率候选证据；它不是 bad case，也不是 treatment 的因果结果。
+
+### 发生了什么
+
+第 16 次请求后的固定验证首次完整 Pass，初始 77 个 missing-import 约束已全部解决。但控制组
+Agent 没有提交，而是继续修改和探查环境；第 32 次请求的观测回退为 12 个缺失约束。Agent 在
+第 48 次请求恢复为 Pass，随后进入交付：
+
+1. 第一次 clean replay 失败；
+2. 同一个活跃模型 session 修复 bootstrap 程序；
+3. 第二次 clean replay 通过；
+4. EnvBench Official 最终以 0 个计分 issue 通过。
+
+完整控制组 episode 使用 52 次模型请求、1,401,571 个 Token、49 次 shell 操作和两次 clean
+replay，generation 约耗时 27 分钟。
+
+### 三层诊断
+
+**观测层：** 可执行验证器在第 16 次请求已经暴露充分状态，随后也观察到了回退，所需信号实际
+存在。
+
+**约束层：** 完整的零约束报告已经足以作为 handoff 条件，不需要继续增加跨候选约束。
+
+**操作层：** 控制策略在已经验证充分后仍继续改变环境，没有切换到“生成程序并在新环境重放”，
+因此产生额外工作并一度破坏已满足状态。
+
+### 对实验的影响
+
+Heltour 仍是 screen success，不进入预注册的 failure-only 配对集。第 16 到第 52 次请求之间的
+差距说明 treatment 存在潜在作用空间，但它只能算上界：在第 16 次请求强制 handoff 后，clean
+replay 仍可能失败并需要修复。只有 fresh paired episode 才能声称节省请求、Token 或时间。该
+case 将留给与主要 Pass@1 实验分离的“成功条件下效率分析”。

@@ -76,3 +76,47 @@ even though the handoff transition alone is not expected to repair it.
 
 Machine-readable evidence:
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_platformio_boundary_adjudication.json`.
+
+## Case VH-002: `lichess4545/heltour@1d5fd89`
+
+**Screen outcome:** EnvBench Official Pass.
+
+**Research role:** Mechanism-activation and efficiency evidence, not a bad case and
+not a causal treatment result.
+
+### What Happened
+
+The scheduled verifier first reported a complete Pass after request 16: all 77
+initial missing-import obligations had been resolved. The control Agent did not
+submit. It continued changing and probing the environment, and the request-32
+observation regressed to 12 missing obligations. The Agent recovered to Pass at
+request 48, then attempted delivery:
+
+1. clean replay 1 failed;
+2. the same active model session repaired the bootstrap program;
+3. clean replay 2 passed; and
+4. EnvBench Official passed with zero scored issues.
+
+The completed control episode used 52 model requests, 1,401,571 total tokens, 49
+shell operations, and two clean replays. Generation took approximately 27 minutes.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** the executable verifier exposed a sufficient state at
+request 16 and later exposed the regression. The necessary signal existed.
+
+**Constraint layer:** the complete zero-obligation report was already an adequate
+handoff condition. No additional cross-candidate constraint was needed.
+
+**Operation layer:** the control policy continued environment mutation after a
+verified sufficient state instead of switching to program materialization and
+fresh replay. This created avoidable work and a temporary regression.
+
+### Experimental Consequence
+
+Heltour remains a screen success and is excluded from the preregistered failure-only
+paired set. The request-16-to-request-52 gap identifies treatment headroom, but it
+is only an upper bound: a forced handoff at request 16 might still fail clean replay
+and require repair. A fresh paired episode is required before claiming saved
+requests, tokens, or time. The case is retained for a later success-conditioned
+efficiency analysis that is separate from the primary Pass@1 experiment.
