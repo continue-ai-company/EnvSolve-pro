@@ -1,0 +1,37 @@
+{
+  "schema": "envsolve-pro-v2-analysis-semantics-correction-v1",
+  "recorded_at": "2026-08-23",
+  "status": "historical-candidate-boundary-counts-require-reanalysis",
+  "trigger": {
+    "study_id": "envsolve-pro-v2-certified-incumbent-untouched8-v1",
+    "run_id": "pro-v2-incumbent-untouched8-v1-12-qibolab-C-GCI",
+    "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+    "evidence": "The construction environment reached zero reportMissingImports at request 93, but the Agent made no submit_and_replay or submit_bootstrap call in 120 requests and the episode failed before Official evaluation."
+  },
+  "defect": "envsolve-pro-v2-pre-candidate-trajectory-analysis-v1 treated an observed zero-missing-import state as candidate formation. A compatible construction state, a proposed complete deployment program, and a replay-certified program are distinct events.",
+  "affected_artifacts": [
+    "experiments/validations/envsolve_pro_v2_consumed14_pre_candidate_analysis.json",
+    "experiments/validations/envsolve_pro_v2_consumed14_pre_candidate_adjudication.json"
+  ],
+  "invalidated_claims": [
+    "The v1 episodes_reaching_candidate_boundary count measures program formation.",
+    "A first_candidate_source value of observed-zero-missing-imports proves that a complete program was proposed."
+  ],
+  "retained_claims": [
+    "The historical goal-check counts and missing-import transitions describe construction-state observations.",
+    "Sparse global feedback and stagnant or regressing observed goal states remain descriptive trajectory evidence."
+  ],
+  "correction": {
+    "implementation": "experiments/analyze_openrouter_pre_candidate.py",
+    "schema": "envsolve-pro-v2-pre-candidate-trajectory-analysis-v2",
+    "separate_events": [
+      "first_satisfying_request",
+      "first_candidate_request",
+      "first_certification_request"
+    ],
+    "candidate_definition": "The first submit_and_replay or submit_bootstrap tool result, independent of whether certification succeeds.",
+    "certification_definition": "The first clean-replay pass or accepted bootstrap submission.",
+    "required_follow_up": "Rerun schema v2 against the raw historical trajectories before citing candidate-formation or goal-to-candidate delay counts."
+  },
+  "claim_scope": "Analysis correction only. It does not change the frozen online method or convert the consumed Qibolab episode into confirmatory evidence."
+}

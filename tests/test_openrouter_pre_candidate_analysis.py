@@ -38,7 +38,7 @@ def _replay_event(request: int, status: str) -> str:
     )
 
 
-def test_pre_candidate_analysis_stops_at_first_satisfying_goal() -> None:
+def test_goal_satisfaction_does_not_imply_candidate_formation() -> None:
     records = [
         _event(1, "ls", "files"),
         _event(2, "python -m venv .venv", ""),
@@ -60,11 +60,13 @@ def test_pre_candidate_analysis_stops_at_first_satisfying_goal() -> None:
 
     pre = result["pre_candidate"]
     assert result["first_satisfying_request"] == 11
-    assert result["first_candidate_request"] == 11
-    assert result["first_candidate_source"] == "observed-zero-missing-imports"
+    assert result["first_candidate_request"] is None
+    assert result["first_candidate_source"] is None
+    assert result["first_certification_request"] is None
+    assert result["goal_satisfied_without_candidate"] is True
     assert result["first_satisfying_shell_action"] == 11
     assert result["shell_actions_total"] == 12
-    assert pre["shell_actions"] == 11
+    assert pre["shell_actions"] == 12
     assert pre["goal_issue_counts"] == [10, 5, 5, 7, 0]
     assert pre["goal_best_progression"] == [10, 5, 5, 5, 0]
     assert pre["goal_transitions"] == {
@@ -77,7 +79,7 @@ def test_pre_candidate_analysis_stops_at_first_satisfying_goal() -> None:
     assert pre["exact_repeated_non_goal_command_executions"] == 1
     assert pre["package_operations"] == 3
     assert pre["environment_operations"] == 1
-    assert pre["runtime_or_test_probes"] == 1
+    assert pre["runtime_or_test_probes"] == 2
 
 
 def test_pre_candidate_analysis_retains_full_failed_episode() -> None:
@@ -131,5 +133,26 @@ def test_clean_replay_pass_bounds_pre_candidate_actions_without_shell_zero() -> 
 
     assert result["first_satisfying_request"] is None
     assert result["first_candidate_request"] == 3
-    assert result["first_candidate_source"] == "clean-replay-pass"
+    assert result["first_candidate_source"] == "submit-and-replay"
+    assert result["first_certification_request"] == 3
+    assert result["first_certification_source"] == "clean-replay-pass"
+    assert result["pre_candidate"]["shell_actions"] == 2
+
+
+def test_goal_to_candidate_delay_is_measured_separately() -> None:
+    records = [
+        _event(1, "goal", '{"issues_count": 0}'),
+        _event(2, "pytest", "passed"),
+        _replay_event(4, "fail"),
+    ]
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "trajectory.jsonl"
+        path.write_text("\n".join(records) + "\n", encoding="utf-8")
+        result = analyze_trajectory(path)
+
+    assert result["first_satisfying_request"] == 1
+    assert result["first_candidate_request"] == 4
+    assert result["first_certification_request"] is None
+    assert result["goal_to_candidate_request_delta"] == 3
+    assert result["goal_satisfied_without_candidate"] is False
     assert result["pre_candidate"]["shell_actions"] == 2
