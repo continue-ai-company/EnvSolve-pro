@@ -1,0 +1,99 @@
+{
+  "schema": "envsolve-pro-v2-certified-incumbent-untouched8-preregistration-v1",
+  "study_id": "envsolve-pro-v2-certified-incumbent-untouched8-v1",
+  "recorded_at": "2026-08-23",
+  "status": "recorded-before-execution",
+  "research_role": "Prospective development comparison on eight identity-selected Dev cases not previously executed by either study arm.",
+  "research_question": "Does preserving the first clean-replay-certified complete program improve end-to-end deployment success over soft target-state replay alone?",
+  "motivation": {
+    "bad6_observation": "Soft target-state replay repaired post-candidate target-state failures, but multiple Agents reached the public goal and still ended without a submission.",
+    "prior_qualification": "The certified-incumbent implementation was safety-qualified on three consumed cases, but its effect relative to soft replay was not established.",
+    "single_change": "C stores every clean-replay-passed complete program and may return the latest one after provider or safety-cap termination; B requires an explicit final Agent submission."
+  },
+  "selection": {
+    "source": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+    "rule": "Take the first eight rows in the pre-existing source order.",
+    "source_order_predates_hypothesis": true,
+    "cases": 8,
+    "case_ids": [
+      "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "envbench-python-basxsoftwareassociation__bread@b26203df8f81fcbf5f299dfe07dc808309349ecd",
+      "envbench-python-strinking__futaba@2e4d7874f0b99176f7595f776dfebf2eac26afbb",
+      "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+      "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+      "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "envbench-python-postgrespro__mamonsu@31a59811d7f66f01c90d77b9df34f3077a12dd8b",
+      "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139"
+    ],
+    "local_terminal_evidence_matches_in_remaining28": 0,
+    "spark_run_manifest_matches_in_remaining28": 0,
+    "outcomes_used": false,
+    "failure_classes_used": false,
+    "repository_contents_used": false,
+    "protected_test_cases_used": false
+  },
+  "arms": {
+    "B-FSR": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "description": "One continuous Agent session with advisory whole-program target-state replay."
+    },
+    "C-GCI": {
+      "runner": "envsolve-pro-v2-incumbent",
+      "method": "envsolve-pro-goal-triggered-certified-incumbent",
+      "description": "B plus harness retention of the latest clean-replay-certified complete program."
+    }
+  },
+  "shared_execution": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "same_seed_within_pair": true,
+    "seed_assignment": "620001 through 620008 in source order, assigned before execution.",
+    "episode_order": "Alternating C-first and B-first pairs fixed before execution.",
+    "official_evaluator_feedback": "Exactly once after generation; never returned to the Agent.",
+    "container_checkpoint": false,
+    "cross_case_memory": false,
+    "package_specific_rules": false,
+    "budget_role": "Request, Token, time, and resource settings are safety caps and outcome measurements, not success objectives."
+  },
+  "outcomes": {
+    "primary": "End-to-end EnvBench Official success over all eight scheduled pairs; a scientifically eligible episode that forms no submission is a deployment failure.",
+    "paired": "Both pass, C-only pass, B-only pass, and both fail counts, with an exact two-sided McNemar test reported descriptively.",
+    "mechanism": [
+      "candidate formation",
+      "clean replay attempts and fail-to-pass repairs",
+      "first certification request",
+      "normal submission versus incumbent fallback",
+      "post-certification requests",
+      "final replay and Official agreement"
+    ],
+    "resources": [
+      "model requests and provider attempts",
+      "input, output, cached, reasoning, and total Token",
+      "shell operations",
+      "generation and end-to-end time",
+      "replay count and replay time"
+    ],
+    "quality_diagnostics": [
+      "tracked and untracked repository changes",
+      "synthetic modules or stubs",
+      "editable project installation",
+      "dependency and runtime completeness"
+    ]
+  },
+  "analysis_policy": [
+    "Execute all eight pairs before changing either arm.",
+    "Report every scheduled episode, including non-submission and infrastructure censoring.",
+    "Do not add a package or repository-specific rule from any observed case.",
+    "Treat Official success, deployment completeness, path quality, and resources as separate axes.",
+    "Use this batch for development evidence only; final generalization claims require a later untouched test cohort and external baselines."
+  ],
+  "interpretation": {
+    "positive_mechanism_evidence": "C rescues a B non-submission or preserves a certified candidate after continued exploration without introducing a C-only failure mechanism.",
+    "negative_mechanism_evidence": "C and B form and submit the same candidates with no incumbent activation, or C loses a case because its intervention changes useful Agent behavior.",
+    "no_hard_gate": "The decision will use paired outcomes and trajectory explanation together; no post-hoc scalar threshold determines retention."
+  },
+  "schedule": "experiments/schedules/envsolve_pro_v2_certified_incumbent_untouched8_v1.json",
+  "config": "experiments/configs/local_spark_envsolve_pro_v2_certified_incumbent_untouched8_v1.json"
+}

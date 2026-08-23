@@ -612,8 +612,18 @@ available for target-state replay. The Agent may continue optional completeness 
 but it cannot lose the preserved candidate. This mechanism adds no package rule, cross-case
 memory, checkpoint, or hard gate.
 
-Before implementation, specify how existing verifier output identifies a candidate, how
-optional completeness exploration remains separate from the primary candidate, and how the
-episode selects a replayed candidate at termination. First test representation with
-repository-free controls and consumed trajectories, then select a new fixed development
-batch. Bad-6 remains diagnostic and cannot validate the new treatment.
+The repository audit found that this minimal mechanism already exists as the certified-
+incumbent runner. It stores only a clean-replay-passed bootstrap and its certificate, has
+deterministic fallback tests, and passed a three-case consumed implementation qualification;
+that study did not establish an effect over soft replay. No additional algorithm code is
+needed before the next experiment.
+
+The prospective comparison is therefore B-FSR versus C-GCI on the first eight identities in
+the pre-existing `dev_envsolve_pro_v2_flash0731_remaining28.jsonl` order. A current audit found
+no terminal validation record or Spark run manifest for any of the 28 identities. The eight
+pairs use the same model, provider, and seed within pair, alternate arm order, and differ only
+in certified-incumbent retention and fallback. Primary analysis counts eligible
+non-submission as deployment failure; completeness, path quality, and resources remain
+separate axes. The design is recorded in
+`experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_preregistration.json`.
+Bad-6 remains diagnostic and cannot validate the new treatment.

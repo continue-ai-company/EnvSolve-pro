@@ -485,6 +485,14 @@ Official `4/4` 一致。HARK 给出目标状态反例导致 B-only Pass 的干�
 可以继续探索完整性，但不能丢失已保存候选。该机制不添加 package 规则、跨 case 记忆、checkpoint 或
 hard gate。
 
-下一步在实现前先写清三件事：候选如何从已有 verifier 输出识别、可选完整性探索如何与主候选分离、
-episode 结束时如何选择已重放候选。先用 repository-free 控制和已消费轨迹做表示检查，再选新的固定
-development batch。Bad-6 只用于诊断，不能再次承担效果验证。
+代码审计发现，这个最小机制已经以 certified-incumbent runner 存在：它只保存 clean replay 通过的
+bootstrap 及证书，具备确定性的 fallback 测试，也完成过 3 个已消费 case 的实现资格检查；但那组实验
+没有建立它相对 soft replay 的效果。因此下一实验前不再增加算法代码。
+
+前瞻比较改为在预先存在的 `dev_envsolve_pro_v2_flash0731_remaining28.jsonl` 顺序前 8 个 identity 上做
+B-FSR 对 C-GCI。当前审计确认 28 个 identity 在本地 terminal validation 记录和 Spark run manifest 中
+均无命中。8 个 pair 内模型、provider、seed 相同，arm 顺序交替，唯一差异是 certified incumbent 的
+保留与 fallback。主分析把科学上有效但未提交的 episode 计为部署失败；完整性、路径质量和资源继续单独
+评价。设计记录在
+`experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_preregistration.json`。
+Bad-6 只用于诊断，不能再次承担新 treatment 的效果验证。
