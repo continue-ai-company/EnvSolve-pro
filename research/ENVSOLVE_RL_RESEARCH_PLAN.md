@@ -201,6 +201,17 @@ Dev-12 同模型 F 对 F+S+R 的轨迹将首先回答结构化软反例是否提
 重复出现后，第二篇才比较 raw-history、soft-constraint-conditioned imitation 与 RL，避免先造复杂状态、
 再用训练包装一个没有因果作用的接口。
 
+### 14. 已认证程序与 Wrapper 冲突标签
+
+PlatformIO screen 轨迹要求将一次 episode 至少拆成四个标签：Agent 最终程序是否有效、fresh replay
+是否通过、wrapper 是否准入、Official 是否通过。该程序 clean replay 和 Official counterfactual 都
+Pass，但 wrapper 因 construction workspace 的临时状态记 Fail；因此它不能给部署 policy 负 reward。
+
+训练数据应保留原始 screen Fail、construction cleanup 动作、wrapper violation、replay certificate 和
+counterfactual Official Pass。未来 reward view 可以把它标为 `measurement_false_negative`，但不能覆盖
+原始终局，也不能把 counterfactual 当作在线反馈。这样同一条轨迹既能监督安全边界修正，又不会错误惩罚
+已经正确生成部署程序的策略。
+
 ## English Version
 
 ### 1. Core question
@@ -622,3 +633,18 @@ state, but it is not evidence that every local zero count should terminate. Labe
 distinguish a trusted complete-root goal report from partial probes and model assertions.
 Program delivery is rewarded only after clean target-state replay; optional completeness
 and resource objectives remain auxiliary once that certificate exists.
+
+### 24. Certified-Program and Wrapper-Conflict Labels
+
+The PlatformIO screen trajectory requires at least four episode labels: final Agent
+program validity, fresh-replay outcome, wrapper admissibility, and Official outcome. The
+program passed clean replay and an Official counterfactual, while the wrapper recorded a
+failure from temporary construction state. It must not provide negative deployment-policy
+reward.
+
+Training data retain the original screen failure, construction cleanup actions, wrapper
+violation, replay certificate, and counterfactual Official pass. A derived reward view may
+label it `measurement_false_negative`, but it may neither overwrite the raw terminal nor
+treat counterfactual evaluation as online feedback. The same trajectory can then supervise
+boundary correction without punishing a policy that generated a correct deployment
+program.

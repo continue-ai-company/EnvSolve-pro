@@ -244,6 +244,18 @@ proposal 的 shadow batch 上与旧版本配对；Official Pass 回归时回退�
 Official 结果和基础设施删失。Dev-12 的版本冻结、身份盲选、成对顺序和基础设施 amendment 是未来外层
 系统应自动产生的第一组控制面样例，但本论文阶段仍由研究者执行，不能声称已经实现 Auto-EnvSolve。
 
+### 16. 已认证程序与 Wrapper 结果不一致事务
+
+PlatformIO screen 失败提供了一类新的外层事务：Agent 的最终程序同时通过 fresh clean replay 和
+Official counterfactual，但共享 wrapper 因原 construction workspace 中一个临时目录被删除而记录
+Pass@1 Fail。Auto-EnvSolve 必须把 `agent_program_valid`、`clean_replay_pass`、
+`wrapper_admissible` 和 `official_outcome` 分开比较，不能从单一终局标签生成算法 patch。
+
+这类 proposal 的目标应是确定哪个状态对最终交付具有权威性，同时保留原 construction audit 作为
+诊断证据。晋级需要至少一个真实 tampering 反例、一个合法 cleanup control，以及未参与 proposal
+生成的 repository-disjoint shadow batch。修复 wrapper false negative 属于 measurement version，
+不能冒充内层部署策略提升。
+
 ## English Version
 
 ### 1. Core question
@@ -707,3 +719,18 @@ full-goal Pass to cumulative-program delivery. Future outer-loop records should 
 versions. A proposal that merely renames prompt guidance as a trigger must not receive
 mechanism credit; activation requires an observable controller transition and a submitted
 program. This remains future outer-loop evidence, not part of the first paper's method.
+
+### 25. Certified-Program and Wrapper-Outcome Transaction
+
+The PlatformIO screen failure adds a distinct outer-loop transaction. The Agent's final
+program passed both fresh clean replay and an Official counterfactual, while the shared
+wrapper recorded Pass@1 failure because a temporary construction-workspace directory had
+been removed. Auto-EnvSolve must compare `agent_program_valid`, `clean_replay_pass`,
+`wrapper_admissible`, and `official_outcome` separately rather than proposing an
+algorithm patch from one terminal label.
+
+The proposal should establish which state is authoritative for delivery while retaining
+the construction audit as diagnostic evidence. Promotion requires a real tampering
+negative, a legitimate cleanup control, and a repository-disjoint shadow batch that did
+not generate the proposal. Correcting a wrapper false negative is a measurement-version
+change, never an inner deployment-policy gain.
