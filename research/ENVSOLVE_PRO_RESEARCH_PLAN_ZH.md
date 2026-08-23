@@ -1,6 +1,6 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-21）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前选定
+> **当前论文设计（2026-08-23）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前选定
 > 的 EnvSolve-Pro 候选只包含一个自由连续 Agent session，以及可反复调用的完整程序目标状态重放。
 > 重放失败在同一 session 内成为 case-local 软约束。定时观测、ledger、checkpoint、跨 case 规则和硬
 > 动作策略均被排除。所有方法共享的实验完整性底座 E 不属于算法。第 12 节优先于下文保留的可审计研发
@@ -12,8 +12,8 @@ EnvSolve-Pro 研究陌生仓库的自动环境部署。核心问题保持不变�
 **部分可观测的状态化约束求解过程**。系统仍采用三层闭环：
 
 1. **观测层：发生了什么？** 保真记录仓库证据、执行结果、环境身份和不确定性。
-2. **约束层：现在缺什么、冲突在哪里？** 维护带证据来源的事实、假设、冲突和未解决义务。
-3. **操作层：怎样改变环境来解除冲突？** 由强模型提出完整部署方案，系统验证执行边界和状态转移。
+2. **约束层：现在缺什么、冲突在哪里？** 同一活跃 session 根据目标状态反例维护 case-local 软约束。
+3. **操作层：怎样改变环境来解除冲突？** 由强模型自由修改完整部署程序，并在目标初始状态重放。
 
 EnvSolve-Pro 从冻结的 EnvSolve v1 代码和历史继续开发。旧仓库
 `hongleo-Lee/EnvSolve` 已在提交 `07a208f` 以标签
@@ -787,3 +787,20 @@ Dev16 第 13--16 位的同一 A/B 比较已经完成，结果为 4/4 对 4/4 cei
 failure 中构造下一组，并在查看 treatment 结果前冻结抽样规则和 baseline 证据。不添加 `pygeo` 网络规则、
 package 规则、checkpoint 或其他正交 treatment。只有 bad-case 效果实验确认 matched control 有提升空间时
 replay 能提高成功率，才进入外部 baseline 与强弱 backbone 比较。
+
+### 12.5 Bad-6 失败富集压力测试
+
+预先固定的强 baseline Official-failure Bad-6 已完成 12 条科研有效 episode。端到端结果是自由 Agent
+`2/6`、目标状态重放 `4/6`；配对表为 2 对都通过、2 对只有 B 通过、0 对只有 A 通过、2 对都失败，
+精确 McNemar `p=0.5`。B 的 4 个候选执行 7 次重放，其中 3 个为 Fail→Pass；最终重放和 Official 在
+4/4 上一致。HARK 是最干净的因果救援：内部 fresh replay 暴露与 A 的 Official 完全相同的 Git ownership
+错误，同一 session 增加 safe-directory 操作后通过 replay 和 Official。
+
+该批没有证明显著性、泛化、效率或 SOTA。B 比 A 多用 5.8% Token 和 10.4% 端到端时间。更关键的是，
+quacc B 在候选前搜索膨胀；ajenti 两组都已经达到 0 missing imports，却继续追求更广的 runtime completeness
+而没有提交。micropy-cli A 也多次达到公开目标但未交付。下一主要矛盾因此是**成功候选保留与停止决策**，
+不是 package 规则不足。
+
+下一版只讨论一个简单的成功优先假设：首次得到可执行 Official-equivalent 候选时先保存并进入目标重放，
+后续完整性或成本探索不能抹掉已有候选。Official success、部署完整性和路径成本保持独立评价轴。该假设
+不能在已消费 Bad-6 上调 package 规则，必须在新的固定 development batch 上验证。

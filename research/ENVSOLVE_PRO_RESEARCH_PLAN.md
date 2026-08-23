@@ -1,6 +1,6 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-21):** failures are classified by the
+> **Current paper design (2026-08-23):** failures are classified by the
 > Observation--Constraint--Operation framework. The selected EnvSolve-Pro candidate is
 > one free continuous Agent session plus repeatedly callable whole-program replay from
 > the target initial state. Replay failures become case-local soft constraints in the
@@ -17,10 +17,10 @@ stateful constraint-solving process**, organized as a three-layer loop:
 
 1. **Observation: what happened?** Preserve repository evidence, execution outcomes,
    environment identity, and uncertainty.
-2. **Constraint: what is missing or conflicting?** Maintain provenance-linked facts,
-   hypotheses, contradictions, and unresolved obligations.
-3. **Operation: how can the environment resolve them?** Let a strong model propose a
-   complete deployment program, then validate execution boundaries and state transitions.
+2. **Constraint: what is missing or conflicting?** The same active session retains
+   case-local soft constraints grounded in target-state counterexamples.
+3. **Operation: how can the environment resolve them?** A strong model freely revises
+   the complete deployment program, which is replayed from the target initial state.
 
 EnvSolve-Pro inherits the complete EnvSolve v1 code and Git history. The original
 `hongleo-Lee/EnvSolve` repository is archived at commit `07a208f` under tag
@@ -1025,3 +1025,26 @@ opening treatment outcomes. Do not add a pygeo network rule, package rules, chec
 or other orthogonal treatments. External baselines and strong/weak backbone comparisons
 follow only after this bad-case effectiveness test determines whether replay improves
 success where the matched control has headroom.
+
+### 12.5 Failure-Enriched Bad-6 Stress Test
+
+The preregistered strong-baseline Official-failure Bad-6 completed with 12 scientifically
+eligible episodes. End-to-end success was `2/6` for the free Agent and `4/6` for target-state
+replay: two both-pass, two B-only, zero A-only, and two both-fail pairs, with exact McNemar
+`p=0.5`. Four B candidates executed seven replays, including three Fail-to-Pass repairs;
+final replay and Official agreed on 4/4. HARK is the cleanest causal rescue: internal fresh
+replay exposed the same Git ownership failure as A's Official run, and the same session
+added the safe-directory operation before passing replay and Official.
+
+This batch establishes neither significance, generalization, efficiency, nor SOTA. B used
+5.8% more tokens and 10.4% more endpoint time. More importantly, quacc B expanded search
+before candidate formation; both ajenti arms had already reached zero missing imports but
+continued pursuing broader runtime completeness without submission. Micropy-cli A likewise
+reached the public objective repeatedly but did not deliver. The next bottleneck is therefore
+**successful-candidate retention and stopping**, not an insufficient package rule set.
+
+The next version considers one simple success-first hypothesis: preserve the first executable
+Official-equivalent candidate and send it to target replay before optional completeness or cost
+exploration can erase it. Official success, deployment completeness, and path cost remain
+separate outcomes. No package rule may be tuned on consumed Bad-6 cases; the hypothesis requires
+a new fixed development batch.

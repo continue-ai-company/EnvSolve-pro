@@ -674,3 +674,21 @@ outcome-blind stratum of pre-existing strong-baseline Official failures. Compati
 repair, acquisition-robustness repair, and first-replay certification remain separate
 transition classes; no class can be converted into a permanent rule from one generating
 repository.
+
+### 23. Candidate-Retention Transaction from Bad-6
+
+Bad-6 identifies a future outer-loop optimization unit that is simpler than adding
+compatibility rules. In ajenti, both inner methods reached the public executable goal and
+then failed to deliver while pursuing broader runtime completeness. Quacc B failed before
+candidate formation, while HARK showed that replay works once a candidate exists. A future
+Auto-EnvSolve proposal may therefore change only candidate retention and stopping behavior:
+preserve the first goal-passing candidate, expose it to target replay, and keep optional
+completeness exploration on a separate path.
+
+The comparison record should retain first goal-pass time, preserved candidate, replay
+outcome, later exploratory actions, final selected program, Official outcome, completeness
+flags, and resources. Promotion remains success-first: path-quality or resource improvement
+cannot compensate for an Official regression, and a successful candidate must not be
+discarded because a later exploratory path failed. This is a generic harness transaction,
+not a repository-specific package rule and not part of the first EnvSolve-Pro algorithm
+until a new disjoint development batch validates it.

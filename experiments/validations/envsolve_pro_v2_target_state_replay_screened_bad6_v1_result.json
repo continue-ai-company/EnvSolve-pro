@@ -1,0 +1,218 @@
+{
+  "schema": "envsolve-pro-v2-target-state-replay-screened-bad6-result-v1",
+  "study_id": "envsolve-pro-v2-target-state-replay-screened-bad6-v1",
+  "recorded_at": "2026-08-23",
+  "status": "complete-development-stress-test",
+  "claim_scope": "Failure-enriched development evidence for the minimal target-state replay treatment. This is not held-out, confirmatory, population-rate, leaderboard, statistical-significance, generalization, or SOTA evidence.",
+  "selection": {
+    "source": "Historical gpt-5.5 Codex Official-failure census only",
+    "selection_file": "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+    "preregistration": "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_preregistration.json",
+    "cases": 6,
+    "episodes": 12,
+    "outcome_used_after_schedule_fixation": false
+  },
+  "execution_identity": {
+    "host": "Spark Linux aarch64",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "official_evaluator_access": "post-episode-only",
+    "artifact_integrity_valid": 12,
+    "scientifically_eligible": 12
+  },
+  "arms": {
+    "A-F": "One continuous free Agent session with ordinary execution feedback and the shared minimal evaluator-integrity boundary.",
+    "B-FCsR": "The same free Agent interface plus repeatedly callable whole-program replay from the target initial state; raw replay counterexamples return to the same active session, and only a replay-passed program can be delivered.",
+    "shared_minimal_H": "Evaluator and repository integrity boundary shared by both arms; it is experimental harness infrastructure, not a deployment strategy."
+  },
+  "primary_end_to_end_result": {
+    "endpoint": "A scheduled episode succeeds only if it forms a candidate and that candidate passes the EnvBench Official evaluator. Scientifically eligible non-submission is deployment failure, not censoring.",
+    "A-F": {
+      "passed": 2,
+      "total": 6
+    },
+    "B-FCsR": {
+      "passed": 4,
+      "total": 6
+    },
+    "paired_table": {
+      "both_pass": 2,
+      "A_only": 0,
+      "B_only": 2,
+      "both_fail": 2
+    },
+    "exact_mcnemar_two_sided_p": 0.5,
+    "interpretation": "The direction is promising but six development pairs cannot establish a stable effect, statistical significance, or generalization."
+  },
+  "secondary_endpoints": {
+    "candidate_formation": {
+      "A-F": {
+        "formed": 4,
+        "total": 6
+      },
+      "B-FCsR": {
+        "formed": 4,
+        "total": 6
+      }
+    },
+    "official_attempt_only": {
+      "note": "This excludes scientifically valid episodes that never submitted, so it is diagnostic rather than the primary deployment endpoint.",
+      "A-F": {
+        "passed": 2,
+        "attempted": 4
+      },
+      "B-FCsR": {
+        "passed": 4,
+        "attempted": 4
+      }
+    },
+    "replay": {
+      "B_candidates": 4,
+      "B_candidates_invoking_replay": 4,
+      "completed_replays": 7,
+      "first_replay_passes": 1,
+      "fail_then_pass_repairs": 3,
+      "final_replay_official_agreement": {
+        "agreed": 4,
+        "eligible": 4
+      }
+    }
+  },
+  "pairs": [
+    {
+      "case": "quacc",
+      "A_end_to_end_pass": false,
+      "B_end_to_end_pass": false,
+      "A_outcome": "Candidate formed; Official bootstrap failed while downloading and extracting pyright after a 30-second UV network timeout.",
+      "B_outcome": "No candidate or replay; search expanded through optional scientific packages and native builds until request 120.",
+      "dominant_failure": "Candidate-formation search explosion in B; network acquisition robustness in A. Replay is unreachable before submission."
+    },
+    {
+      "case": "ajenti",
+      "A_end_to_end_pass": false,
+      "B_end_to_end_pass": false,
+      "A_outcome": "Reached zero reportMissingImports at requests 103-104 and again at 112-120, but continued rebuilding and never submitted.",
+      "B_outcome": "Reached zero reportMissingImports at request 100 and in a fresh bootstrap at request 120, but continued investigating runtime PluginManager completeness and never submitted.",
+      "dominant_failure": "Termination and candidate delivery, not dependency discovery. Official success and broader runtime completeness were conflated."
+    },
+    {
+      "case": "clarity",
+      "A_end_to_end_pass": true,
+      "B_end_to_end_pass": true,
+      "B_replay_statuses": [
+        "pass"
+      ],
+      "dominant_failure": null,
+      "mechanism_interpretation": "First-replay certification only; no feedback-conditioned repair and no success gain."
+    },
+    {
+      "case": "HA-Battery-Notes",
+      "A_end_to_end_pass": true,
+      "B_end_to_end_pass": true,
+      "B_replay_statuses": [
+        "fail",
+        "pass"
+      ],
+      "replay_counterexample": "The fresh build of ulid-transform could not obtain Cython in isolated build dependencies.",
+      "repair": "Preinstall build prerequisites and install requirements without build isolation.",
+      "mechanism_interpretation": "Clean feedback-conditioned repair, but A already passed, so it demonstrates mechanism execution rather than endpoint gain."
+    },
+    {
+      "case": "hark",
+      "A_end_to_end_pass": false,
+      "B_end_to_end_pass": true,
+      "B_replay_statuses": [
+        "fail",
+        "pass"
+      ],
+      "replay_counterexample": "Fresh-checkout editable build failed because Git rejected the repository as dubious ownership.",
+      "repair": "Add the current repository root to Git safe.directory before installation.",
+      "mechanism_interpretation": "Clean causal rescue: A encountered the same hidden target-state error only in terminal Official evaluation, while B observed and repaired it inside the active session."
+    },
+    {
+      "case": "micropy-cli",
+      "A_end_to_end_pass": false,
+      "B_end_to_end_pass": true,
+      "B_replay_statuses": [
+        "fail",
+        "pass"
+      ],
+      "replay_counterexample": "cachier 2.3.0 conflicted with setuptools 65.5.1 during fresh dependency resolution.",
+      "repair": "Revise the dependency set, including setuptools 80.9.0, typer plus rich-click, and a wider pytest range.",
+      "path_quality_note": "The delivered program also created an untracked micropy/cli.py compatibility shim that re-exported the real app and empty MicroPython .pyi stubs. It passed the preregistered minimal integrity boundary and Official, so the primary result remains Pass, but environment purity and deployment completeness must be reported separately.",
+      "mechanism_interpretation": "B formed and replay-repaired a candidate while A did not submit; only the dependency-conflict repair is directly attributable to replay."
+    }
+  ],
+  "resource_aggregates": {
+    "A-F": {
+      "model_requests": 416,
+      "provider_attempts": 438,
+      "provider_errors": 22,
+      "total_tokens": 16127687,
+      "tool_results": 450,
+      "generation_seconds": 16685.225,
+      "endpoint_seconds": 19137.926
+    },
+    "B-FCsR": {
+      "model_requests": 448,
+      "provider_attempts": 464,
+      "provider_errors": 16,
+      "total_tokens": 17066670,
+      "tool_results": 446,
+      "generation_seconds": 20405.058,
+      "endpoint_seconds": 21124.493
+    },
+    "B_relative_to_A": {
+      "model_requests_percent": 7.7,
+      "total_tokens_percent": 5.8,
+      "tool_results_percent": -0.9,
+      "endpoint_seconds_percent": 10.4
+    },
+    "interpretation": "The treatment improved success on this failure-enriched batch but did not reduce aggregate resources. Resource metrics are outcomes, not hard success thresholds."
+  },
+  "failure_decomposition": {
+    "post_candidate_target_state_repair": {
+      "supported": true,
+      "evidence": [
+        "HA-Battery-Notes fail-to-pass replay",
+        "hark fail-to-pass replay and B-only Official pass",
+        "micropy-cli dependency conflict fail-to-pass replay"
+      ]
+    },
+    "pre_candidate_search_and_termination": {
+      "solved": false,
+      "evidence": [
+        "quacc B exhausted 120 requests without candidate",
+        "ajenti A and B reached the Official objective but did not submit",
+        "micropy-cli A reached zero missing imports but did not submit"
+      ]
+    },
+    "path_quality": {
+      "separate_from_official_success": true,
+      "evidence": [
+        "micropy-cli untracked compatibility shim and empty stubs",
+        "quacc A synthetic torch import stub",
+        "large variation in complete-environment choices and resource cost"
+      ]
+    }
+  },
+  "scientific_decision": {
+    "retain_minimal_target_state_replay": true,
+    "effectiveness_claim_ready": false,
+    "next_algorithmic_question": "How should an Agent preserve the first executable Official-equivalent candidate while continuing optional completeness exploration, so candidate delivery and target-state repair become a single success-first loop?",
+    "restrictions": [
+      "Do not tune package-specific rules on these consumed cases.",
+      "Do not promote typed persistent state, checkpoints, hypothesis search, or minimization into the core method without orthogonal evidence.",
+      "Do not treat Official pass, environment purity, completeness, and resource cost as one hidden scalar."
+    ]
+  },
+  "sources": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_target_state_replay_screened_bad6_v1.json",
+    "lane_progress": [
+      "experiments/runs/envsolve_pro_v2_target_state_replay_screened_bad6_v1_lane1_progress.json",
+      "experiments/runs/envsolve_pro_v2_target_state_replay_screened_bad6_v1_lane2_progress.json"
+    ],
+    "run_root": "runs/envsolve-pro-v2-target-state-replay-screened-bad6-v1"
+  }
+}

@@ -10,6 +10,7 @@ from envsolve_harness.core.io import write_json
 from envsolve_harness.eligibility import EligibilityReport
 from envsolve_harness.results_v2 import (
     _generation_result_resources,
+    _paired_aggregate_v2,
     summarize_schedule,
 )
 from envsolve_harness.storage.artifacts import safe_name
@@ -18,6 +19,39 @@ from experiments.summarize_schedule_v2 import _attach_coordinator_progress
 
 
 class ResultSummarizerV2Test(unittest.TestCase):
+    def test_string_pair_id_and_end_to_end_non_submission(self) -> None:
+        runs = [
+            {
+                "pair_id": "owner-repo-abc",
+                "method": "treatment",
+                "scientifically_eligible": True,
+                "official_pass": True,
+            },
+            {
+                "pair_id": "owner-repo-abc",
+                "method": "control",
+                "scientifically_eligible": True,
+                "official_pass": None,
+            },
+        ]
+
+        official_only = _paired_aggregate_v2(
+            runs,
+            "treatment",
+            "control",
+            missing_official_as_failure=False,
+        )
+        end_to_end = _paired_aggregate_v2(
+            runs,
+            "treatment",
+            "control",
+            missing_official_as_failure=True,
+        )
+
+        self.assertEqual(official_only["censored_pairs"], 1)
+        self.assertEqual(end_to_end["eligible_pairs"], 1)
+        self.assertEqual(end_to_end["treatment_only_pass"], 1)
+
     def test_reads_codex_cli_resources_from_generation_result(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -91,6 +125,60 @@ class ResultSummarizerV2Test(unittest.TestCase):
         self.assertEqual(resources["candidates"], 1)
         self.assertEqual(resources["rounds_started"], 1)
         self.assertEqual(resources["elapsed_scope"], "generation")
+
+    def test_recovers_failed_episode_resources_from_trajectory(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_json(
+                root / "generation" / "result.json",
+                {
+                    "metadata": {
+                        "started_at": "2026-07-30T07:13:34Z",
+                        "finished_at": "2026-07-30T07:17:57Z",
+                    }
+                },
+            )
+            trajectory = root / "generation" / "trajectory.jsonl"
+            trajectory.write_text(
+                "\n".join(
+                    [
+                        '{"event":"provider_response","request_index":1,'
+                        '"response":{"usage":{"prompt_tokens":100,'
+                        '"completion_tokens":20,"prompt_tokens_details":'
+                        '{"cached_tokens":40},"completion_tokens_details":'
+                        '{"reasoning_tokens":5}}}}',
+                        '{"event":"tool_result","request_index":1,'
+                        '"result":{"exit_code":0}}',
+                        '{"event":"provider_error","request_index":2}',
+                        '{"event":"provider_response","request_index":2,'
+                        '"response":{"usage":{"prompt_tokens":150,'
+                        '"completion_tokens":30}}}',
+                        '{"event":"tool_result","request_index":2,'
+                        '"result":{"exit_code":1}}',
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            resources = _generation_result_resources(root)
+
+        assert resources is not None
+        self.assertEqual(resources["requests_started"], 2)
+        self.assertEqual(resources["provider_attempts_started"], 3)
+        self.assertEqual(resources["provider_retries"], 1)
+        self.assertEqual(resources["provider_retry_recoveries"], 1)
+        self.assertEqual(resources["commands"], 2)
+        self.assertEqual(resources["successful_commands"], 1)
+        self.assertEqual(resources["input_tokens"], 250)
+        self.assertEqual(resources["output_tokens"], 50)
+        self.assertEqual(resources["cache_read_tokens"], 40)
+        self.assertEqual(resources["reasoning_output_tokens"], 5)
+        self.assertEqual(resources["total_tokens"], 300)
+        self.assertEqual(
+            resources["source"],
+            "generation/result.json+trajectory.jsonl",
+        )
 
     @mock.patch(
         "envsolve_harness.results.assess_scientific_eligibility",

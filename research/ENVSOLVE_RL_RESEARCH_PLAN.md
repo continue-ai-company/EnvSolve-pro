@@ -591,3 +591,19 @@ per-repository differences or distributions rather than aggregate batch reward: 
 outlier lowered total requests, tokens, and time even though the treatment's median paired
 generation time increased. This prevents a future policy from learning that long retry
 logic or a single easy stopping path is universally efficient.
+
+### 22. Candidate-Retention and Stopping Labels
+
+Bad-6 adds a learning signal that is distinct from compatibility repair. Ajenti A and B,
+and micropy-cli A, observed an executable public-goal pass but did not deliver before the
+episode ended. HARK B instead formed a candidate, consumed a target-state counterexample,
+revised the program, and passed. Future trajectories should therefore preserve the first
+goal-pass event, candidate program, whether it was retained, subsequent completeness
+exploration, replay outcome, final selection, and Official result.
+
+These records support separate labels for `candidate_formed`, `candidate_retained`,
+`premature_continuation`, `replay_repair`, and `candidate_lost_before_delivery`. The primary
+reward remains end-to-end deployment success. Completeness and resource cost are auxiliary
+objectives only after a successful candidate exists, preventing a learned policy from
+sacrificing an Official-pass path for speculative completeness or a cheaper but failing
+path.

@@ -1,8 +1,8 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: target-state replay mechanism-qualified; next effectiveness study must target a
-predeclared strong-baseline Official bad-case stratum
-Date: 2026-08-21
+Status: failure-enriched Bad-6 development study complete; the next hypothesis targets
+successful-candidate retention and stopping
+Date: 2026-08-23
 
 ## 1. Research Thesis
 
@@ -594,3 +594,26 @@ from this treatment. Preregister case identities, baseline evidence, failure str
 sampling rule, and all exclusions before execution. This is the first batch capable of
 testing whether target-state counterexamples improve success where free search actually
 has room to improve.
+
+## 13. Bad-6 Result and Next Experiment
+
+Bad-6 is complete. End-to-end Official Pass@1 is `2/6` for F and `4/6` for F+C_s+R;
+all discordance favors treatment, but exact McNemar is `p=0.5`. Candidate formation is
+`4/6` in both arms. All four B candidates replayed, and final replay agreed with Official
+on `4/4`. HARK gives a clean target-state-counterexample chain ending in a B-only Pass,
+while HA-Battery-Notes demonstrates repair when both arms pass. Micropy-cli's B-only Pass
+also uses an untracked compatibility shim; its primary Official label remains Pass while
+path quality is flagged separately.
+
+Resources did not improve: B used 5.8% more tokens and 10.4% more endpoint time. Failure
+analysis changes the next study from "more replay cases" to a candidate-delivery treatment:
+when the public goal first passes executably, preserve the candidate and make it immediately
+available for target-state replay. The Agent may continue optional completeness exploration,
+but it cannot lose the preserved candidate. This mechanism adds no package rule, cross-case
+memory, checkpoint, or hard gate.
+
+Before implementation, specify how existing verifier output identifies a candidate, how
+optional completeness exploration remains separate from the primary candidate, and how the
+episode selects a replayed candidate at termination. First test representation with
+repository-free controls and consumed trajectories, then select a new fixed development
+batch. Bad-6 remains diagnostic and cannot validate the new treatment.

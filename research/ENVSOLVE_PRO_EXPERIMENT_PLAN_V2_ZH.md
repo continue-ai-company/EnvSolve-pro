@@ -1,7 +1,7 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：目标状态重放已通过机制验证；下一步效果实验必须面向预先声明的强 baseline Official bad-case 分层
-日期：2026-08-21
+状态：Bad-6 失败富集开发实验完成；下一算法假设聚焦成功候选保留与停止决策
+日期：2026-08-23
 
 ## 1. 研究主线
 
@@ -471,3 +471,20 @@ B 的请求、Token、命令和生成时间总量更低，但配对中位数没�
 census 中定义固定分层：强匹配 baseline 已到达 Official evaluation，并因算法性而非基础设施原因失败。
 选样不能使用本文 treatment 的任何结果；执行前预注册 case identity、baseline 证据、失败分层、抽样规则
 和所有排除项。这才是第一组能检验“自由搜索确实有提升空间时，目标状态反例能否提高成功率”的实验。
+
+## 13. Bad-6 结果与下一实验
+
+Bad-6 已完成。端到端 Official Pass@1 为 F `2/6`、F+C_s+R `4/6`，配对 discordance 全部朝向
+treatment，但 exact McNemar `p=0.5`。候选形成率两组均为 `4/6`；B 的 4 个候选全部重放，最终与
+Official `4/4` 一致。HARK 给出目标状态反例导致 B-only Pass 的干净因果链，HA-Battery-Notes 给出双方
+都通过时的修复链。micropy-cli 的 B-only Pass 同时带有未跟踪兼容 shim，主 Official 标签保持 Pass，
+路径质量单独标红。
+
+资源没有改善：B 比 A 多用 5.8% Token 和 10.4% 端到端时间。失败分析把下一实验从“再加重放 case”
+改为“候选交付 treatment”：当公开目标首次可执行通过时，系统保存候选并立即允许目标状态重放；Agent
+可以继续探索完整性，但不能丢失已保存候选。该机制不添加 package 规则、跨 case 记忆、checkpoint 或
+hard gate。
+
+下一步在实现前先写清三件事：候选如何从已有 verifier 输出识别、可选完整性探索如何与主候选分离、
+episode 结束时如何选择已重放候选。先用 repository-free 控制和已消费轨迹做表示检查，再选新的固定
+development batch。Bad-6 只用于诊断，不能再次承担效果验证。
