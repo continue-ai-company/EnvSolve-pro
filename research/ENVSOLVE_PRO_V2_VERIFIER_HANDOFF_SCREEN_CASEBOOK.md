@@ -120,3 +120,53 @@ is only an upper bound: a forced handoff at request 16 might still fail clean re
 and require repair. A fresh paired episode is required before claiming saved
 requests, tokens, or time. The case is retained for a later success-conditioned
 efficiency analysis that is separate from the primary Pass@1 experiment.
+
+## Case VH-003: `transientskp/tkp@8a19cd23`
+
+**Screen outcome:** EnvBench Official Pass.
+
+**Research role:** Independent handoff-headroom replication and deployment-quality
+warning, not a bad case and not a causal treatment result.
+
+### What Happened
+
+The initial and request-16 observations both reported 38 missing obligations under
+the base interpreter. The Agent had created `/data/venv`, but had not activated it
+in the persistent construction session. It later switched to
+`/opt/conda/envs/testenv/bin/python`; the request-32 observation then reported a
+complete Pass with zero obligations.
+
+The control Agent continued for nine more requests before its first clean replay at
+request 41. That replay failed. After same-session repair, a second replay passed at
+request 45, the program was submitted at request 46, and EnvBench Official passed.
+The completed generation used 46 model requests, 1,263,597 total tokens, 43 shell
+operations, and two clean replays in approximately 18 minutes.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** the verifier correctly distinguished an installed but
+inactive environment from the interpreter actually used by the persistent session.
+After activation, it immediately exposed the sufficient state.
+
+**Constraint layer:** the zero-obligation report was again sufficient to request a
+handoff; no project-specific dependency rule was needed.
+
+**Operation layer:** the Agent first omitted environment activation, then delayed
+program materialization after Pass, and finally repaired a replay failure. The
+feedback loop corrected all three transitions.
+
+### Deployment-Quality Warning
+
+The certified program created local modules for unavailable `casacore`, `ndimage`,
+and legacy `exceptions` imports. This satisfies the Official missing-import
+criterion and passed the current minimal boundary, but it does not establish full
+runtime equivalence with the real libraries. The Official result remains valid;
+deployment completeness must be reported as a separate evaluation axis rather than
+being retroactively added as a case-specific hard constraint.
+
+### Experimental Consequence
+
+TKP is excluded from the preregistered failure-only paired set. Together with
+Heltour, it shows that verified-sufficient states can precede delivery by many model
+steps. The request-32-to-request-46 gap is only treatment headroom, not a causal
+saving estimate. The stub-based path is retained for later completeness analysis.

@@ -99,3 +99,44 @@ Heltour 仍是 screen success，不进入预注册的 failure-only 配对集。�
 差距说明 treatment 存在潜在作用空间，但它只能算上界：在第 16 次请求强制 handoff 后，clean
 replay 仍可能失败并需要修复。只有 fresh paired episode 才能声称节省请求、Token 或时间。该
 case 将留给与主要 Pass@1 实验分离的“成功条件下效率分析”。
+
+## Case VH-003：`transientskp/tkp@8a19cd23`
+
+**Screen 结果：** EnvBench Official Pass。
+
+**研究用途：** 独立复现 handoff 的潜在作用空间，并暴露部署质量问题；它不是 bad case，也不是
+treatment 的因果结果。
+
+### 发生了什么
+
+初始观测和第 16 次请求观测都在基础解释器下报告 38 个缺失约束。Agent 虽然创建了
+`/data/venv`，但没有在持久 construction session 中激活。随后它切换到
+`/opt/conda/envs/testenv/bin/python`，第 32 次请求观测立即变为完整 Pass、0 个缺失约束。
+
+控制组 Agent 又继续了 9 次请求，才在第 41 次请求进行第一次 clean replay；该 replay 失败。
+同一 session 修复后，第 45 次请求的第二次 replay 通过，第 46 次请求提交程序，EnvBench
+Official Pass。整个 generation 使用 46 次模型请求、1,263,597 个 Token、43 次 shell 操作和
+两次 clean replay，约耗时 18 分钟。
+
+### 三层诊断
+
+**观测层：** 验证器正确区分了“已经安装但未激活的环境”和持久 session 真正使用的解释器；
+激活后，它立即暴露充分状态。
+
+**约束层：** 零约束报告再次足以触发 handoff，不需要项目特定依赖规则。
+
+**操作层：** Agent 先遗漏环境激活，Pass 后又延迟生成可重放程序，最后修复 replay 失败；执行
+反馈循环依次纠正了这三个状态变换。
+
+### 部署质量警告
+
+认证程序为无法安装的 `casacore`、`ndimage` 和旧式 `exceptions` import 创建了本地模块。该
+方案满足 Official missing-import 指标，并通过当前 minimal boundary，但不能证明与真实依赖
+具有完整运行语义。Official 结果仍然有效；部署完整性应作为独立评价轴，而不能事后加入项目
+特定硬约束。
+
+### 对实验的影响
+
+TKP 不进入预注册的 failure-only 配对集。它与 Heltour 共同证明，验证充分状态可能比最终交付
+早很多模型步骤。第 32 到第 46 次请求之间的差距只能算 treatment 的潜在作用空间，不能当作
+因果节省量。stub 路径将保留给后续完整性分析。
