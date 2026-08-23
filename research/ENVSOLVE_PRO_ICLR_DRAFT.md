@@ -1,7 +1,7 @@
-# EnvSolve-Pro: Target-State Counterexample Replay for Repository Deployment
+# EnvSolve-Pro: Verifier-Triggered Replay for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-23; target-state replay is mechanism-qualified,
-and a prompt-guided incumbent treatment has been prospectively falsified
+Status: working ICLR paper draft, 2026-08-23; verifier-triggered handoff is qualified on
+consumed evidence, and prospective effectiveness remains untested
 
 ## Abstract
 
@@ -15,24 +15,19 @@ We first instrument end-to-end deployment trajectories and classify the earliest
 decisive failure into three causal layers: Observation, Constraint, and Operation. The
 analysis reveals a recurring gap between constructing a working state and delivering a
 program that reconstructs that state. We therefore propose EnvSolve-Pro, a minimal
-algorithm that keeps a capable Agent free in one continuous session but executes each
-complete candidate program from the target initial state. The first executable
-counterexample is returned to the same session as a soft constraint; the Agent revises
-the whole program and repeats. The method adds no package-rule library, checkpoint
-search, cross-case memory, or hard action policy.
+algorithm that keeps a capable Agent free in one continuous session, periodically
+measures the complete public goal, and turns the first trusted Pass into an executable
+handoff to programization and clean replay. A replay counterexample returns to the same
+session as a soft constraint. The method adds no package-rule library, checkpoint search,
+cross-case memory, or hard action policy.
 
-A preregistered mechanism check established replay/Official agreement and
-feedback-conditioned repair. A subsequent failure-enriched study found two treatment-only
-successes in six pairs but also exposed repeated candidate non-delivery. We then tested the
-simplest repair, prompt-guided early programization plus a certified incumbent, on six
-prospective development pairs. The control passed 6/6; the treatment passed 5/6 and used
-more resources on common successes. Its failed trajectory reached a trusted goal Pass but
-never delivered a program, so retention could not activate. This negative result separates
-state sufficiency from program delivery and motivates a narrower algorithm: a verifier-
-triggered transition from Pass to programization and replay in the same active session.
+A preregistered consumed-case qualification exercised the complete transition: trusted
+Pass, controller handoff, clean-replay failure, same-session repair, replay Pass, and
+Official Pass. Both arms passed, so this result establishes mechanism operation rather
+than effectiveness; its shorter post-Pass tail is descriptive. The next test is a fixed
+prospective bad-case comparison with identical tools and prompts before the trigger.
 Official Pass@1 is primary; time, tokens, traffic, storage, and deployment completeness
-remain separate outcomes. Confirmatory and external-baseline evaluation follows only after
-this final mechanism is fixed.
+remain separate outcomes.
 
 ## 1. Problem
 
@@ -88,13 +83,15 @@ operations; operations create the next state and therefore the next observation.
 
 ## 3. EnvSolve-Pro
 
-EnvSolve-Pro combines free feedback search with target-state counterexample replay.
+EnvSolve-Pro combines free feedback search, trusted goal observation, and target-state
+counterexample replay.
 
 ### Observation Layer
 
-The Agent receives ordinary construction feedback and raw replay evidence tied to the
-repository revision, base image, and fresh execution. Replay observes the complete
-program rather than a selected command or the accumulated construction state.
+The Agent receives ordinary construction feedback. At a fixed command schedule, the
+harness measures the complete public goal in the same construction environment. Replay
+evidence is tied to the repository revision, base image, and fresh execution, and observes
+the complete program rather than a selected command or accumulated construction state.
 
 ### Constraint Layer
 
@@ -105,16 +102,22 @@ package.
 
 ### Operation Layer
 
-The Agent freely inspects the repository, changes the construction environment, and
-rewrites the complete program. A candidate is returned only after that exact program
-passes replay from the target state.
+The Agent freely inspects the repository and changes the construction environment. A
+complete goal Pass triggers one controller transition: the next model action must express
+the current solution as a complete program and replay it. A replay failure restores free
+repair in the same session. A candidate is returned only after that exact program passes
+from the target state.
 
 ```text
 start one continuous Agent session in a construction environment
 
 while no replay-passing program exists and broad safety limits remain:
     Agent freely observes and changes the construction environment
-    Agent proposes a complete deployment program P
+    periodically measure the complete public goal
+    if the Agent submits voluntarily or the goal first passes:
+        obtain the complete deployment program P
+    else:
+        continue
     y <- execute P and the public goal from the target initial state
     if y passes:
         return P
@@ -123,20 +126,20 @@ while no replay-passing program exists and broad safety limits remain:
 return failure
 ```
 
-The algorithm stores programs and execution evidence, not container checkpoints. Its
-central choice is where the repair loop runs: inside the active reasoning session,
-against the complete deliverable, from the state that the deliverable will actually
-face. The harness supplies a target-state counterexample oracle, not a repair policy;
-stronger models enlarge the Operation layer instead of being constrained by it.
+The algorithm stores programs and execution evidence, not container checkpoints. The
+controller decides only when verified sufficiency must become a replay attempt; it does
+not decide how to repair the environment. The repair loop remains inside the active
+reasoning session and operates on the complete deliverable from its actual initial state.
+Stronger models therefore enlarge the Operation layer instead of being restricted by it.
 
 ## 4. Contributions
 
 1. **Causal failure analysis.** An auditable trajectory representation and
    Observation--Constraint--Operation taxonomy for comparing deployment approaches by
    the earliest cause of failure.
-2. **A minimal deployment algorithm.** Target-state counterexample replay turns
-   non-reproducible interactive success into an iterative, same-session constraint
-   solving loop without restricting a strong Agent's action space.
+2. **A minimal deployment algorithm.** Verifier-triggered target-state replay turns
+   verified interactive sufficiency into a reproducible program and returns executable
+   counterexamples without restricting a strong Agent's repair policy.
 3. **Controlled empirical evaluation.** Same-model causal comparisons, external
    baselines, strong and weaker backbones, Official success, failure transitions, and
    success-preserving resource outcomes.
@@ -154,11 +157,12 @@ success claims.
 
 ### 5.2 Same-Model Causal Test
 
-The control is one continuous free Agent session with ordinary execution feedback. The
-treatment adds only repeatedly callable target-state replay whose failure returns to the
-same session. Model, prompt content, base image, repository access, construction
-environment, Official evaluator, and broad safety limits are matched. Cases are selected
-without treatment outcomes and fixed before repositories are opened.
+Both arms use one continuous free Agent session, the same scheduled full-goal observation,
+and repeatedly callable clean replay. The treatment adds one executable transition: after
+the first trusted complete Pass, the next model action must programize and replay. Before
+that trigger, tools and initial prompts are exactly equal. Model, base image, repository
+access, construction environment, Official evaluator, and broad safety limits are matched.
+Cases are selected without treatment outcomes and fixed before repositories are opened.
 
 The primary metric is Official Pass@1. Mechanism outcomes include first-replay failure,
 feedback-conditioned program change, repair success, and replay/Official agreement.
@@ -187,53 +191,30 @@ and broader behavioral coverage are audited separately.
 
 ## 6. Current Evidence
 
-The initial six-case consumed profile found that free search passed 5/6 while the old
-replay arm passed 4/6. Two replay-certified programs failed Official because replay had
-inherited the construction package cache. This rejected the old implementation and
-localized the failure to Observation fidelity rather than missing package rules.
+Trajectory instrumentation first exposed an Observation failure in the evaluator loop:
+replay inherited the construction cache, allowing two replay-certified programs to fail
+Official. Isolating the target state restored replay/Official agreement and produced
+same-session repairs, establishing faithful executable feedback rather than a package rule.
 
-After replay cache isolation, a preregistered three-case mechanism check achieved 3/3
-replay/Official agreement and two feedback-conditioned repairs. Because those were
-selected consumed failures, they established mechanism operation but not effectiveness.
+Across two outcome-independent development batches, free search passed `6/8` and
+target-state replay passed `7/8` (exact McNemar `p=1.0`). A failure-enriched Bad-6 then
+produced `2/6` versus `4/6` and three replay Fail-to-Pass repairs, but also revealed a
+repeated Operation failure: the Agent could reach the public goal without delivering a
+candidate. These studies motivate the handoff but do not establish a general success gain.
 
-The next four pairs were fixed from a pre-existing randomized development order before
-source acquisition or model execution. Free search passed 2/4 and target-state replay
-passed 3/4; excluding one pair affected by a disclosed researcher interruption gives 2/3
-and 3/3. The sole treatment-only pass was a first-replay pass and may reflect stochastic
-search variation. In contrast, importlib_metadata directly exercised the proposed loop:
-two failed target-state replays exposed different complete-program defects, the same
-session revised the program, and the third replay and Official evaluation passed.
-Cellrank shows the current boundary: its replacement treatment session exhausted 120
-requests before submitting a candidate, so replay never entered the control loop.
+A prospective six-pair attempt to solve candidate non-delivery with prompt-guided early
+programization and incumbent retention regressed from `6/6` to `5/6` and consumed more
+resources on common successes. The failed trajectory reached a trusted complete Pass but
+never proposed a program, so retention could not activate. We reject that bundled method
+and isolate one missing transition: verified state sufficiency must cause a replay attempt.
 
-Across all four primary pairs, the treatment used more time and tokens because of that
-candidate-formation failure. The result therefore supports scaling the unchanged minimal
-mechanism on development data, not a success-rate or efficiency claim.
-
-The unchanged mechanism was then run on Dev16 positions 13--16, also fixed before source
-acquisition or model execution. Both arms passed all four cases. Three treatment programs
-passed their first replay. Pygeo failed its first replay on a package-metadata network
-timeout, revised the complete program with bounded retry and backoff, and then passed
-replay and Official. This is a deployment-robustness repair rather than a new compatibility
-inference.
-
-The second batch used fewer aggregate treatment resources, but the result is not a stable
-efficiency effect. B minus A generation time was `+332, -71, -2,017, +314` seconds, so the
-aggregate reduction was dominated by pygeo while the paired median was 121 seconds slower.
-Combining both outcome-independent batches gives A `6/8` and B `7/8`, with six both-pass,
-one B-only, zero A-only, and one both-fail pair; exact McNemar remains `p=1.0`. Random Dev
-scaling is therefore no longer informative. The next development evidence must come from
-a fixed strong-baseline Official bad-case stratum selected from the pre-existing census,
-not from cases chosen after observing treatment behavior.
-
-The resulting Bad-6 stress test gave free search `2/6` and target-state replay `4/6`, with
-two treatment-only successes and exact McNemar `p=0.5`. Replay produced three Fail-to-Pass
-repairs, but candidate non-delivery remained common. A separate prospective six-pair test
-therefore evaluated prompt-guided early programization plus certified-incumbent retention.
-It regressed from control `6/6` to `5/6`; no fallback activated, and the treatment used
-21.4% more tokens on the five common successes. In the decisive failure, the construction
-state passed the trusted goal but the Agent never proposed a program. We reject this bundled
-treatment and localize the missing operation to an executable verifier-triggered handoff.
+On the already consumed qibolab case, the resulting verifier handoff completed the full
+mechanism chain. Control and treatment both passed Official. Treatment reached a trusted
+Pass, was handed off once, failed clean replay on a dependency conflict, repaired it in
+the same session, and passed the next replay and Official. It used 66 versus 84 requests
+and 2.59M versus 5.49M tokens, but these are descriptive values from one consumed pair.
+Runner 0.6.1 also removes a pre-trigger prompt difference discovered in this qualification;
+the prospective comparison will begin with identical tools and prompts across arms.
 
 ## 7. Falsification and Scope
 

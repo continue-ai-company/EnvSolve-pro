@@ -1,13 +1,14 @@
 # EnvSolve-Pro Research Plan
 
 > **Current paper design (2026-08-23):** failures are classified by the
-> Observation--Constraint--Operation framework. The selected EnvSolve-Pro candidate is
-> one free continuous Agent session plus repeatedly callable whole-program replay from
-> the target initial state. Replay failures become case-local soft constraints in the
-> same session. Scheduled observation, ledgers, checkpoints, cross-case rules, and hard
-> action policies are excluded. The shared evaluation-integrity foundation E is not an
-> algorithm. Section 12 supersedes earlier proposals retained below as auditable
-> development history.
+> Observation--Constraint--Operation framework. EnvSolve-Pro keeps one free continuous
+> Agent session, measures the complete public goal at a fixed schedule, and turns the
+> first trusted Pass into an executable handoff: programize the current solution and
+> replay it from the target initial state. Replay failures become case-local soft
+> constraints in the same session. Package rules, ledgers, checkpoints, cross-case
+> memory, and hard action policies are excluded. The shared evaluation-integrity
+> foundation E is not an algorithm. Section 12 supersedes earlier proposals retained
+> below as auditable development history.
 
 ## 1. Objective
 
@@ -949,7 +950,7 @@ native Codex is an independent frontier reference. The first paper claims only a
 three-layer algorithm and controlled evidence. Harness search remains Auto-EnvSolve, and
 learned policies remain EnvSolve-RL.
 
-## 12. Target-State Replay Candidate
+## 12. Verifier-Triggered Target-State Replay Candidate
 
 The deterministic-observation qualification ended in a ceiling tie and was not promoted.
 The subsequent six-case bad-profile study found a more basic defect: the old replay
@@ -962,17 +963,20 @@ Observation of the deliverable, not an insufficient constraint library.
 The current candidate retains only:
 
 1. one continuous free-search Agent session;
-2. a complete deployment program proposed by that Agent;
-3. execution of the whole program from the target initial state without construction
+2. fixed-schedule, trusted measurement of the complete public goal in the construction
+   state;
+3. an executable transition from the first complete Pass to immediate programization;
+4. execution of the whole program from the target initial state without construction
    cache reuse;
-4. return of the first executable counterexample to the same session as advisory
+5. return of the first executable counterexample to the same session as advisory
    evidence; and
-5. repetition until one complete program passes or broad safety limits expire.
+6. repetition until one complete program passes or broad safety limits expire.
 
 The observation layer supplies identity-bound execution evidence. The constraint layer
 holds case-local contradictions between the current program and target state. The
-operation layer remains the unrestricted Agent. No package rule, scheduled observer,
-checkpoint, cross-case memory, or additional hard gate is part of the method.
+operation layer remains the unrestricted Agent; the controller only schedules measurement
+and executes the Pass-to-replay transition. No package rule, ledger, checkpoint, cross-case
+memory, or additional hard action policy is part of the method.
 
 ### 12.2 Consumed Mechanism Check
 
@@ -1068,5 +1072,18 @@ The next minimal method gives the controller exactly one new responsibility: aft
 trusted full-goal Pass, transition the same active session into programization and clean
 replay. Search and replay repair stay open-ended; package choice, interpreter choice, and
 completeness remain Agent decisions. The method adds no package rules, cross-case memory,
-physical checkpoint, candidate graph, or self-modification. It must first be qualified on
-consumed evidence, then compared prospectively with B-FSR.
+physical checkpoint, candidate graph, or self-modification.
+
+The preregistered consumed qibolab qualification completed the entire transition. Both
+arms passed Official. The scheduled control first passed at request 72, then spent 11 more
+requests and 10 shell operations before producing a candidate. The treatment passed at
+request 64, triggered handoff once, submitted on request 65, received a clean-replay
+dependency conflict, repaired it in the same session, and passed replay on request 66 and
+Official evaluation. This qualifies the mechanism, not its effectiveness. Its lower
+requests, tokens, and time are descriptive results from one consumed pair.
+
+Runner 0.6.0 also exposed a causal-design confound: the treatment prompt announced the
+future handoff before it activated. Runner 0.6.1 removes that disclosure and makes tools
+and initial prompts exactly equal across arms; the controller instruction appears only
+after a trusted Pass. The next evidence is a fixed prospective bad-case comparison against
+B-FSR. No qibolab-specific rule or other treatment is licensed by this qualification.

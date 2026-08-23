@@ -339,11 +339,16 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             ["F", "scheduled-O", "delta-C", "R", "minimal-H"],
         )
 
-    def test_verifier_handoff_reuses_tools_and_changes_only_control_transition(self) -> None:
+    def test_verifier_handoff_keeps_the_pre_trigger_interface_identical(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            runner = self._runner(Path(directory), "handoff")
+            root = Path(directory)
+            control = self._runner(root, "scheduled")
+            runner = self._runner(root, "handoff")
             names = [item["function"]["name"] for item in runner._tools()]
-            prompt = runner._prompt(
+            control_prompt = control._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+            treatment_prompt = runner._prompt(
                 SimpleNamespace(repository="owner/repo", revision="abc")
             )
 
@@ -351,7 +356,8 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             names,
             ["envbench_shell", "submit_and_replay", "submit_bootstrap"],
         )
-        self.assertIn("from free search to programization", prompt)
+        self.assertEqual(treatment_prompt, control_prompt)
+        self.assertNotIn("from free search to programization", treatment_prompt)
         self.assertEqual(
             runner.mechanism_primitives,
             [

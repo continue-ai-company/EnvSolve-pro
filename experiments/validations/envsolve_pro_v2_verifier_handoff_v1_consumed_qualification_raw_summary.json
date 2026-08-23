@@ -1,0 +1,249 @@
+{
+  "analysis_implementation": {
+    "cli": {
+      "path": "experiments/summarize_schedule_v2.py",
+      "sha256": "903a02a0c59af03a174b227e7a83136367ce17664cef70e33c469de29b19dacb"
+    },
+    "frozen_base_summarizer": {
+      "path": "envsolve_harness/results.py",
+      "sha256": "79086e254ffa5340683b670a7c7b68b52140efd2e49c9242fbd5d79231f470b2"
+    },
+    "summarizer": {
+      "path": "envsolve_harness/results_v2.py",
+      "sha256": "117cef503e9e0050c1c8a3a09f8cc3e918bc232fd619b03efdb30611ffa225cc"
+    }
+  },
+  "coordinator_progress": {
+    "aggregate_by_method": {
+      "envsolve-pro-scheduled-compatibility-observation": {
+        "endpoint_wall_clock_seconds": 3098.2584805628285,
+        "process_finished": 1,
+        "runs": 1
+      },
+      "envsolve-pro-verifier-triggered-handoff": {
+        "endpoint_wall_clock_seconds": 2149.168540759012,
+        "process_finished": 1,
+        "runs": 1
+      }
+    },
+    "runs": [
+      {
+        "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+        "duration_seconds": 3098.2584805628285,
+        "finished_at": "2026-08-23T09:48:03.652862+00:00",
+        "method": "envsolve-pro-scheduled-compatibility-observation",
+        "position": 1,
+        "process_exit_code": 0,
+        "run_id": "pro-v2-verifier-handoff-v1-consumed-01-qibolab-S-OBS",
+        "seed": 630001,
+        "started_at": "2026-08-23T08:56:25.391195+00:00",
+        "state": "process_finished"
+      },
+      {
+        "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+        "duration_seconds": 2149.168540759012,
+        "finished_at": "2026-08-23T09:32:25.377732+00:00",
+        "method": "envsolve-pro-verifier-triggered-handoff",
+        "position": 2,
+        "process_exit_code": 0,
+        "run_id": "pro-v2-verifier-handoff-v1-consumed-02-qibolab-H-VH",
+        "seed": 630001,
+        "started_at": "2026-08-23T08:56:36.204853+00:00",
+        "state": "process_finished"
+      }
+    ],
+    "sources": [
+      {
+        "path": "experiments/runs/envsolve_pro_v2_verifier_handoff_v1_control_progress.json",
+        "sha256": "f568e7af55554505dcbe86f3b926a9abf4c515c8dfd2295645e795aed3f7f38e"
+      },
+      {
+        "path": "experiments/runs/envsolve_pro_v2_verifier_handoff_v1_treatment_progress.json",
+        "sha256": "c51c66699c1ef7995ee5d433b450d80849efc85f237ef19b9cdca513d1c88647"
+      }
+    ]
+  },
+  "descriptive": {
+    "artifact_integrity_valid": 2,
+    "official_fail": 0,
+    "official_pass": 2,
+    "runs": 2
+  },
+  "paired_end_to_end_scientific": {
+    "both_pass": 1,
+    "censored_pairs": 0,
+    "control_method": "envsolve-pro-scheduled-compatibility-observation",
+    "control_only_pass": 0,
+    "eligible_pairs": 1,
+    "missing_official_result": "deployment_failure",
+    "neither_pass": 0,
+    "pairs": 1,
+    "treatment_method": "envsolve-pro-verifier-triggered-handoff",
+    "treatment_only_pass": 0
+  },
+  "paired_scientific": {
+    "both_pass": 1,
+    "censored_pairs": 0,
+    "control_method": "envsolve-pro-scheduled-compatibility-observation",
+    "control_only_pass": 0,
+    "eligible_pairs": 1,
+    "neither_pass": 0,
+    "pairs": 1,
+    "treatment_method": "envsolve-pro-verifier-triggered-handoff",
+    "treatment_only_pass": 0
+  },
+  "resource_schema_version": "2.0.0",
+  "runs": [
+    {
+      "artifact_bundle_sha256": "bdb7c433e0385f42979f0bd3b3a580d12f876007a3cf5564a9723aec13acda21",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "c2a75435fbb3e929beec8f585528e54ad4192e1f0be0666be702f6d099497d11",
+        "evaluation/official_attempt.json": "2c348c1a8b56d02dc55a019e3cb785c9c914fd6495e0a40b75bc8ac52c9c44da",
+        "evaluation/result.json": "e20e091967dc6bf35020fcc0137dc980287db7005c05baed38989baa4f6c313c",
+        "generation/result.json": "608816767de9e45250153b619397e6d4621610a786ba9a0a17ba5b88dc3eb808",
+        "generation/trajectory.jsonl": "fe7937006f58341aa3bfd7ea83b52d3a5034b0f2f6676308f66c8712308aa031",
+        "inputs/case.json": "363149130dcfd5abe7ab1deb85c23c7c1ead376663ef2a2bb256d4ce4906ad86",
+        "manifest.json": "916ec2958a9214d369d678aedbb16237fe159dfd1e3fd4e9c5076b1ace64f3c8",
+        "runtime/heartbeat.jsonl": "548e7f983bad390fd9b44073290f953da590c65126edb2b987396dc7f3b8f114",
+        "scripts/bootstrap.sh": "9a086863c427bfe4b2167f901603ac744f4d131e80ada865eca8a73810502bf8",
+        "status.json": "30e277e01a1125a8ca535f767015442ef95a3081d0af817ebe105d74d6f2f2f5"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-v2-verifier-handoff-v1-consumed-01-qibolab-S-OBS/envbench-python-qiboteam__qibolab__5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": true,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_eligible",
+        "eligible": true,
+        "exclusion_reasons": [],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "official_pass": true,
+      "pair_id": "verifier-handoff-consumed-qibolab",
+      "pair_index": null,
+      "position": 1,
+      "resources": {
+        "budget_commands": null,
+        "cache_read_tokens": 5056000,
+        "cache_write_input_tokens": null,
+        "cached_input_tokens": 5056000,
+        "candidates": null,
+        "commands": 130,
+        "elapsed_scope": "generation",
+        "elapsed_wall_clock_seconds": 2685.793874,
+        "environments": null,
+        "input_tokens": 5391982,
+        "output_tokens": 100985,
+        "provider_attempts_in_progress": null,
+        "provider_attempts_started": 85,
+        "provider_retries": 1,
+        "provider_retry_recoveries": 1,
+        "reasoning_output_tokens": 78898,
+        "requests_started": 84,
+        "rounds_started": null,
+        "source": "generation/result.json+trajectory.jsonl",
+        "successful_commands": 125,
+        "total_tokens": 5492967
+      },
+      "run_id": "pro-v2-verifier-handoff-v1-consumed-01-qibolab-S-OBS",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": true,
+      "seed": 630001
+    },
+    {
+      "artifact_bundle_sha256": "037838fb290e4013bb5c566ec40cac40bfd35bf6ebd5de4c91b4cfb0e78d237e",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "e8e3563e60c981ae3c5ee3c7051453c8adb2ed570dd1352c633aa27ab177f2ae",
+        "evaluation/official_attempt.json": "7f8e6e5ad038e940d551592d5c6b7bd2c9dac6b28ba022f9fe2a1979dfbc413c",
+        "evaluation/result.json": "5efb9170c7ad03b6689d88efdd8687d13c871ca4d1b798ff0ee5ab3f1524e8c4",
+        "generation/result.json": "a0eb5e8e45cfda4651d77811c04a2ad02eb14b3ab569a91ababa89c60c6f65b5",
+        "generation/trajectory.jsonl": "c2c27a77f960455fb569f551cabc2d3130342a429c21b541571eaaa74082493c",
+        "inputs/case.json": "363149130dcfd5abe7ab1deb85c23c7c1ead376663ef2a2bb256d4ce4906ad86",
+        "manifest.json": "069c8bb9edd474bb9fc5e07bc99ed8f261ec9e52c633285d9d04e36c8a3bf670",
+        "runtime/heartbeat.jsonl": "8b05c51a2c739cd833f9541a5c2c2bc00d5214665c775d366fff11e8ebf84fd6",
+        "scripts/bootstrap.sh": "438802982c315aa944d2047168f399fb1c7e236f58701b974b67a5b722abf52a",
+        "status.json": "587641f545837809ac69272cfc05d01c239e02abbeade1bb583bae966d953bc8"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-v2-verifier-handoff-v1-consumed-02-qibolab-H-VH/envbench-python-qiboteam__qibolab__5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": true,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_eligible",
+        "eligible": true,
+        "exclusion_reasons": [],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-verifier-triggered-handoff",
+      "official_pass": true,
+      "pair_id": "verifier-handoff-consumed-qibolab",
+      "pair_index": null,
+      "position": 2,
+      "resources": {
+        "budget_commands": null,
+        "cache_read_tokens": 2371072,
+        "cache_write_input_tokens": null,
+        "cached_input_tokens": 2371072,
+        "candidates": null,
+        "commands": 98,
+        "elapsed_scope": "generation",
+        "elapsed_wall_clock_seconds": 1803.223209,
+        "environments": null,
+        "input_tokens": 2545020,
+        "output_tokens": 48477,
+        "provider_attempts_in_progress": null,
+        "provider_attempts_started": 66,
+        "provider_retries": 0,
+        "provider_retry_recoveries": 0,
+        "reasoning_output_tokens": 32620,
+        "requests_started": 66,
+        "rounds_started": null,
+        "source": "generation/result.json+trajectory.jsonl",
+        "successful_commands": 89,
+        "total_tokens": 2593497
+      },
+      "run_id": "pro-v2-verifier-handoff-v1-consumed-02-qibolab-H-VH",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": true,
+      "seed": 630001
+    }
+  ],
+  "schedule": {
+    "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+    "case_file_sha256": "845b96d1a4de73f6126bacd0bfbdb2f96962fd6b6fe970e98f367971a4b9d92a",
+    "path": "envsolve_pro_v2_verifier_handoff_v1_consumed_qualification.json",
+    "sha256": "b3680f98407e1ae96e80d80d22c2ecf97643a0db1ace1301d07b94d49231740d"
+  },
+  "schema_version": "1.1.0",
+  "scientific": {
+    "eligible_runs": 2,
+    "excluded_runs": 0,
+    "official_fail": 0,
+    "official_pass": 2
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "envsolve-pro-v2-verifier-handoff-consumed-qualification-result-v1",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-consumed-qualification",
+  "recorded_at": "2026-08-23T10:00:00Z",
+  "status": "positive-mechanism-qualification-consumed-development-only",
+  "claim_scope": "This selected consumed qibolab pair qualifies the controller transition. It does not estimate success-rate, efficiency, held-out, or SOTA effects.",
+  "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "deepinfra-via-openrouter",
+  "arms": {
+    "control": "continuous free Agent plus scheduled trusted observation and clean replay",
+    "treatment": "the same components plus a verifier-triggered transition from candidate_ready to programization"
+  },
+  "official": {
+    "control_pass": true,
+    "treatment_pass": true,
+    "paired_outcome": "both-pass"
+  },
+  "mechanism": {
+    "control": {
+      "first_scheduled_pass_request": 72,
+      "first_scheduled_pass_shell_operations": 96,
+      "first_candidate_request": 83,
+      "shell_operations_at_candidate": 106,
+      "pass_to_candidate_request_delta": 11,
+      "pass_to_candidate_shell_delta": 10,
+      "clean_replay_attempts": 1,
+      "clean_replay_statuses": ["pass"]
+    },
+    "treatment": {
+      "first_scheduled_pass_request": 64,
+      "first_scheduled_pass_shell_operations": 80,
+      "handoff_request": 64,
+      "first_candidate_request": 65,
+      "pass_to_candidate_request_delta": 1,
+      "pass_to_candidate_shell_delta": 0,
+      "clean_replay_attempts": 2,
+      "clean_replay_statuses": ["fail", "pass"],
+      "first_replay_counterexample": "qibo==0.2.16 conflicts with the explicitly pinned networkx==3.0",
+      "same_session_repair": "the second program removed the incompatible networkx pin and passed clean replay"
+    },
+    "qualification_checks": {
+      "candidate_ready_triggered_once": true,
+      "next_request_required_submit_and_replay": true,
+      "complete_candidate_produced": true,
+      "clean_replay_executed": true,
+      "replay_failure_returned_to_same_session": true,
+      "free_repair_restored_after_failure": true,
+      "repaired_program_passed_replay": true,
+      "replay_pass_returned_without_second_submission_request": true
+    }
+  },
+  "resources": {
+    "control": {
+      "model_requests": 84,
+      "total_tokens": 5492967,
+      "recorded_container_commands": 130,
+      "generation_wall_clock_seconds": 2685.793874,
+      "endpoint_wall_clock_seconds": 3098.2584805628285,
+      "pass_to_certification_requests": 11,
+      "pass_to_certification_tokens": 1139973,
+      "program_lines": 141,
+      "program_bytes": 4252,
+      "official_evaluation_seconds": 408.8503415584564
+    },
+    "treatment": {
+      "model_requests": 66,
+      "total_tokens": 2593497,
+      "recorded_container_commands": 98,
+      "generation_wall_clock_seconds": 1803.223209,
+      "endpoint_wall_clock_seconds": 2149.168540759012,
+      "pass_to_certification_requests": 2,
+      "pass_to_certification_tokens": 151463,
+      "program_lines": 123,
+      "program_bytes": 3770,
+      "official_evaluation_seconds": 341.8143892288208
+    },
+    "descriptive_treatment_reduction_percent": {
+      "model_requests": 21.429,
+      "total_tokens": 52.785,
+      "recorded_container_commands": 24.615,
+      "generation_wall_clock": 32.861,
+      "endpoint_wall_clock": 30.633,
+      "pass_to_certification_tokens": 86.713,
+      "program_bytes": 11.336,
+      "official_evaluation_time": 16.396
+    }
+  },
+  "causal_limits": [
+    "The case was selected from already consumed development evidence because it contained the original Pass-without-candidate failure.",
+    "The two provider trajectories are not deterministic despite a shared requested seed.",
+    "Runner 0.6.0 disclosed the future handoff in the treatment initial prompt, so pre-trigger resource differences are not an isolated handoff effect.",
+    "Only the treatment's observed trigger, forced candidate formation, failed-replay repair, and replay pass qualify the mechanism. All resource differences are descriptive."
+  ],
+  "post_qualification_correction": {
+    "runner_version": "0.6.1",
+    "change": "control and treatment now have identical tools and initial prompt; the controller-specific instruction is injected only after candidate_ready",
+    "evidence": "deterministic prompt-parity and handoff transition regression tests",
+    "live_effect_claim": false
+  },
+  "decision": {
+    "verifier_handoff_mechanism": "qualified",
+    "prompt_guided_incumbent_predecessor": "rejected",
+    "next_step": "preregister a fixed prospective bad-case comparison using runner 0.6.1; do not tune on this qibolab outcome"
+  },
+  "artifacts": {
+    "preregistration": "experiments/validations/envsolve_pro_v2_verifier_handoff_v1_consumed_qualification_preregistration.json",
+    "raw_summary": "experiments/validations/envsolve_pro_v2_verifier_handoff_v1_consumed_qualification_raw_summary.json",
+    "pre_candidate_analysis": "experiments/validations/envsolve_pro_v2_verifier_handoff_v1_consumed_qualification_pre_candidate_analysis.json",
+    "control_progress": "experiments/runs/envsolve_pro_v2_verifier_handoff_v1_control_progress.json",
+    "treatment_progress": "experiments/runs/envsolve_pro_v2_verifier_handoff_v1_treatment_progress.json"
+  }
+}

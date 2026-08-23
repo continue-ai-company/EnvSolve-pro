@@ -1,10 +1,10 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-23）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前选定
-> 的 EnvSolve-Pro 候选只包含一个自由连续 Agent session，以及可反复调用的完整程序目标状态重放。
-> 重放失败在同一 session 内成为 case-local 软约束。定时观测、ledger、checkpoint、跨 case 规则和硬
-> 动作策略均被排除。所有方法共享的实验完整性底座 E 不属于算法。第 12 节优先于下文保留的可审计研发
-> 历史。
+> **当前论文设计（2026-08-23）：** 失败统一按 Observation--Constraint--Operation 三层分类。
+> EnvSolve-Pro 保留一个自由连续 Agent session，按固定节奏测量完整公开目标，并把首次可信 Pass 转成
+> 可执行交接：整理当前解法并从目标初始状态重放。重放失败在同一 session 内成为 case-local 软约束。
+> Package 规则、ledger、checkpoint、跨 case memory 和硬动作策略均被排除。所有方法共享的实验完整性
+> 底座 E 不属于算法。第 12 节优先于下文保留的可审计研发历史。
 
 ## 1. 研究目标
 
@@ -731,7 +731,7 @@ tool schema、taxonomy、model/provider binding 和分析代码。主指标是 O
 自由搜索 control；原生 Codex 是独立 frontier reference。第一篇只主张固定三层算法和受控证据。
 harness 自动搜索属于 Auto-EnvSolve，学习型部署策略属于 EnvSolve-RL。
 
-## 12. 目标状态重放候选
+## 12. 验证器触发的目标状态重放候选
 
 确定性观测资格实验在 ceiling case 上打平，因此没有晋级。随后六 case bad-profile 研究发现了更基础的
 实现问题：旧 replay 环境继承构建 package cache，导致两份重放通过的程序在冷 Official 中失败。因此
@@ -742,13 +742,15 @@ harness 自动搜索属于 Auto-EnvSolve，学习型部署策略属于 EnvSolve-
 当前候选只保留：
 
 1. 一个连续的自由搜索 Agent session；
-2. 由 Agent 提出的完整部署程序；
-3. 不复用构建缓存，从目标初始状态执行完整程序；
-4. 把第一个可执行反例作为 advisory evidence 返回同一 session；
-5. 重复执行，直到完整程序通过或宽松安全上限耗尽。
+2. 按固定节奏在构建状态中可信测量完整公开目标；
+3. 首次完整 Pass 后立即触发程序化的可执行状态转换；
+4. 不复用构建缓存，从目标初始状态执行完整程序；
+5. 把第一个可执行反例作为 advisory evidence 返回同一 session；
+6. 重复执行，直到完整程序通过或宽松安全上限耗尽。
 
 观测层提供绑定环境身份的执行证据；约束层保存当前程序与目标状态之间的 case-local 矛盾；操作层仍由
-Agent 自由决定。方法不包含 package 规则、定时 observer、checkpoint、跨 case 记忆或新增硬 gate。
+Agent 自由决定，controller 只负责定时测量和执行 Pass 到 replay 的转换。方法不包含 package 规则、
+ledger、checkpoint、跨 case memory 或新增硬动作策略。
 
 ### 12.2 已消费机制检查
 
@@ -818,5 +820,14 @@ retention 又太晚，无法补救。
 
 下一最小方法只给控制器增加一个职责：可信完整目标 Pass 后，在同一活跃 session 中切换到程序化和 clean
 replay。自由搜索与 replay 修复仍开放；package、解释器和完整性仍由 Agent 决定。方法不增加 package
-规则、跨 case memory、物理 checkpoint、候选图或自修改。先在已消费证据上做机制资格验证，再与 B-FSR
-做新的 prospective 比较。
+规则、跨 case memory、物理 checkpoint、候选图或自修改。
+
+预注册的已消费 qibolab 资格实验完成了整条状态转换。两组都通过 Official。Scheduled control 在
+request 72 首次 Pass，之后又花 11 次请求和 10 次 shell 操作才形成候选；treatment 在 request 64
+Pass，只触发一次 handoff，request 65 提交，clean replay 暴露依赖冲突，同一 session 修复后在
+request 66 通过 replay 和 Official。这证明机制可执行，不证明效果；更低的请求、Token 和时间只是一对
+已消费样本的描述性结果。
+
+Runner 0.6.0 还暴露了一个因果设计混杂：treatment prompt 在触发前提前说明了 handoff。Runner 0.6.1
+删除该说明，使两组在触发前的工具和初始 prompt 完全相同；controller 指令只在可信 Pass 后出现。下一步
+是在固定 prospective bad-case 上与 B-FSR 比较，本次资格实验不允许导出 qibolab 专用规则或其他 treatment。

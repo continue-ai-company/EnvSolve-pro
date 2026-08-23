@@ -207,7 +207,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.6.0"
+    runner_version = "0.6.1"
 
     def __init__(
         self,
@@ -568,7 +568,7 @@ Goal SHA-256: {contract.sha256}
 {self.validator.prompt_contract}
 </candidate_contract>
 """
-        if self.replay_mode in {"soft", "ledger", "scheduled"}:
+        if self.replay_mode in {"soft", "ledger", "scheduled", "handoff"}:
             prompt += """\
 
 Before final submission, call `submit_and_replay` with the complete program. It
@@ -610,16 +610,6 @@ the construction state changed after the latest observation. Scheduled feedback
 reports complete identity-bound obligations and their delta in this same session.
 It is advisory evidence: temporary regression remains allowed, and the harness
 never selects packages, blocks commands, or restores an environment.
-"""
-            if self.verifier_handoff_enabled:
-                prompt += """\
-
-When a scheduled trusted observation reports `candidate_ready`, the controller
-transitions this same session from free search to programization. Your next action
-must compile all reproducible setup operations into one complete program and call
-`submit_and_replay`; optional completeness work waits. A replay failure returns its
-exact evidence and restores free repair. A replay pass is returned directly as the
-final certified program, without a second model submission request.
 """
         return prompt
 

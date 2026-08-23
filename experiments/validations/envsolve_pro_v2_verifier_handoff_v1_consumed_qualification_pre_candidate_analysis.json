@@ -1,0 +1,101 @@
+{
+  "schema": "envsolve-pro-v2-pre-candidate-trajectory-analysis-v2",
+  "created_at": "2026-08-23T09:49:14.492874+00:00",
+  "claim_scope": "Consumed-development trajectory diagnosis only.",
+  "episode_count": 2,
+  "episodes_reaching_satisfying_state": 2,
+  "episodes_reaching_candidate_boundary": 2,
+  "episodes_reaching_certification_boundary": 2,
+  "episodes_satisfying_goal_without_candidate": 0,
+  "aggregate": {
+    "pre_candidate_shell_actions": 186,
+    "failed_shell_actions": 14,
+    "exact_repeated_non_goal_command_executions": 0,
+    "package_operations": 19,
+    "environment_operations": 50,
+    "runtime_or_test_probes": 71,
+    "goal_checks": 4,
+    "improving_goal_transitions": 2,
+    "stagnant_goal_transitions": 0,
+    "regressing_goal_transitions": 0
+  },
+  "episodes": [
+    {
+      "run_id": "pro-v2-verifier-handoff-v1-consumed-01-qibolab-S-OBS",
+      "trajectory": "runs/envsolve-pro-v2-verifier-handoff-v1-consumed-qualification/pro-v2-verifier-handoff-v1-consumed-01-qibolab-S-OBS/envbench-python-qiboteam__qibolab__5e8ed94a7336734a9babca39ba58f1c557865d0e/generation/trajectory.jsonl",
+      "shell_actions_total": 106,
+      "first_satisfying_request": 72,
+      "first_satisfying_shell_action": 96,
+      "first_candidate_request": 83,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 83,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 11,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 106,
+        "failed_shell_actions": 5,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 15,
+        "environment_operations": 41,
+        "runtime_or_test_probes": 41,
+        "goal_checks": 3,
+        "goal_issue_counts": [
+          6,
+          2,
+          0
+        ],
+        "goal_best_progression": [
+          6,
+          2,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 2,
+          "new_best": 3
+        },
+        "shell_actions_per_goal_check": 35.333333333333336,
+        "median_shell_gap_between_goal_checks": 21,
+        "maximum_shell_gap_between_goal_checks": 65
+      }
+    },
+    {
+      "run_id": "pro-v2-verifier-handoff-v1-consumed-02-qibolab-H-VH",
+      "trajectory": "runs/envsolve-pro-v2-verifier-handoff-v1-consumed-qualification/pro-v2-verifier-handoff-v1-consumed-02-qibolab-H-VH/envbench-python-qiboteam__qibolab__5e8ed94a7336734a9babca39ba58f1c557865d0e/generation/trajectory.jsonl",
+      "shell_actions_total": 80,
+      "first_satisfying_request": 61,
+      "first_satisfying_shell_action": 77,
+      "first_candidate_request": 65,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 66,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 4,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 80,
+        "failed_shell_actions": 9,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 4,
+        "environment_operations": 9,
+        "runtime_or_test_probes": 30,
+        "goal_checks": 1,
+        "goal_issue_counts": [
+          0
+        ],
+        "goal_best_progression": [
+          0
+        ],
+        "goal_transitions": {
+          "new_best": 1
+        },
+        "shell_actions_per_goal_check": 80.0,
+        "median_shell_gap_between_goal_checks": 77,
+        "maximum_shell_gap_between_goal_checks": 77
+      }
+    }
+  ]
+}
