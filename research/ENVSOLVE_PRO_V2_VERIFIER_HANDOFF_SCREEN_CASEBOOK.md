@@ -279,3 +279,70 @@ constraint.
 
 Machine-readable evidence:
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_sdk_python_cwd_adjudication.json`.
+
+## Case VH-006: `marimo-team/marimo@537b2309`
+
+**Screen outcome:** Agent noncompletion, Official Pass@1 = 0.
+
+**Research role:** A scientifically eligible bad case exposing replay-feasibility,
+operation-ordering, and late-delivery failures.
+
+### What Happened
+
+The initial trusted goal reported 91 missing-import obligations. The Agent built a
+Python 3.12 environment and first reached a complete construction-state Pass at
+request 64. It voluntarily attempted clean replay at request 69. Three successive
+programs all timed out during bootstrap at approximately 1,800 seconds; none reached
+the trusted goal in the replay environment.
+
+The Agent then measured cold installation directly. A broad dependency command took
+1,870 seconds and produced a 7.5 GB environment because `langchain`, `pymde`, and
+other transitive dependencies upgraded Torch to a CUDA build, pulling approximately
+2.9 GB of NVIDIA libraries. At request 116, the Agent verified that a pip constraint
+could preserve `torch==2.13.0+cpu`. Its final construction command completed and a
+request-120 probe reported zero missing imports under the resulting environment.
+However, this final program was never clean-replayed or submitted. Generation ended
+with `Agent exhausted the request safety cap without submission`.
+
+The episode used 120 model requests, 7,256,220 total tokens, 117 shell operations,
+and three unknown clean replays over approximately 4 hours 38 minutes. No provider
+error occurred.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** clean replay faithfully exposed a deployment fact hidden by
+the warm construction cache: the cumulative program could not complete inside the
+fixed command window. Later scheduled construction observations were polluted by
+temporary working-directory and PATH changes, but those false regressions were not
+the earliest decisive cause because replay had already exposed the real timeout.
+
+**Constraint layer:** the stable public obligations were known, and the replay
+counterexample added a deployment-feasibility condition: satisfying all imports with
+an unconstrained CUDA dependency closure was not replayable. The harness did not
+convert this into a package-specific rule, and the Agent eventually inferred the CPU
+compatibility condition from execution evidence.
+
+**Operation layer:** the cumulative program installed the broad dependency set before
+preserving the CPU Torch condition. Repeating nearly the same cold closure consumed
+most of the episode. The Agent found a plausible order-and-version repair only at the
+end and spent the final request probing the construction state rather than replaying
+and submitting the deliverable. The primary subtype is therefore
+`operation / replay-feasibility-and-late-delivery`.
+
+### Experimental Consequence
+
+Marimo must enter the complete preregistered bad-case set. The request cap is a matched
+experimental safety condition, not a claim that Token or request count defines the
+deployment problem. The late CPU-constrained program is diagnostic evidence only:
+without a clean replay, it cannot retroactively change the failure. A verifier handoff
+would have triggered at request 64 rather than the control's first replay at request
+69, but whether those five requests and an earlier counterexample change the terminal
+outcome is unknown and requires the fresh paired episode.
+
+This case motivates a possible later treatment that maintains replay feasibility while
+constructing the operation sequence. It does not yet justify a package rule, automatic
+dependency minimizer, or new gate; those would require recurrence across the frozen
+bad-case set.
+
+Machine-readable evidence:
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_marimo_adjudication.json`.

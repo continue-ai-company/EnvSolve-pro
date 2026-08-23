@@ -1,0 +1,71 @@
+{
+  "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+  "decision": "scientifically-eligible-agent-noncompletion",
+  "experimental_role": "screen-failure-included-in-failure-only-pair",
+  "generation": {
+    "completed": false,
+    "error": "RuntimeError: Agent exhausted the request safety cap without submission",
+    "finished_at": "2026-08-23T16:12:29.344522+00:00",
+    "started_at": "2026-08-23T11:34:23.945712+00:00"
+  },
+  "official": {
+    "evaluation_completed": false,
+    "pass_at_1": false,
+    "reason": "no submitted clean-replay-certified program"
+  },
+  "replays": [
+    {
+      "bootstrap_exit_code": 124,
+      "bootstrap_seconds": 1800.102649605833,
+      "phase": "bootstrap-execution",
+      "program_chars": 2084,
+      "request_index": 69,
+      "status": "unknown"
+    },
+    {
+      "bootstrap_exit_code": 124,
+      "bootstrap_seconds": 1800.1032490441576,
+      "phase": "bootstrap-execution",
+      "program_chars": 2042,
+      "request_index": 78,
+      "status": "unknown"
+    },
+    {
+      "bootstrap_exit_code": 124,
+      "bootstrap_seconds": 1800.0646293694153,
+      "phase": "bootstrap-execution",
+      "program_chars": 2387,
+      "request_index": 86,
+      "status": "unknown"
+    }
+  ],
+  "resources": {
+    "model_requests": 120,
+    "provider_errors": 0,
+    "shell_operations": 117,
+    "total_tokens": 7256220
+  },
+  "terminal_evidence": {
+    "construction_goal_at_request_120": "zero-reportMissingImports",
+    "cpu_constraint_verified_at_request_116": "torch==2.13.0+cpu remained installed",
+    "final_program_clean_replayed": false,
+    "final_program_submitted": false,
+    "first_trusted_construction_pass_request": 64,
+    "first_voluntary_replay_request": 69,
+    "unconstrained_cold_environment_size_gb": 7.5,
+    "unconstrained_cold_install_seconds": 1870,
+    "unconstrained_nvidia_libraries_gb": 2.9
+  },
+  "three_layer_diagnosis": {
+    "constraint": "Replay added a feasibility condition: the import-complete program also had to avoid an unconstrained CUDA dependency closure that exceeded the target command window.",
+    "observation": "Clean replay exposed the real cold-install timeout; later cwd and PATH-sensitive construction observations were secondary false regressions.",
+    "operation": "The Agent repeatedly installed the broad closure before preserving CPU Torch, found a plausible ordering repair late, and exhausted the request cap before replaying or submitting it."
+  },
+  "treatment_status": {
+    "control_first_replay_request": 69,
+    "counterfactual_claim_permitted": false,
+    "fresh_pair_required": true,
+    "handoff_would_trigger_at_request": 64
+  },
+  "validity_note": "The request cap is a matched experimental safety condition. Token use is an outcome, not a success threshold. The un-replayed final construction program cannot retroactively replace the frozen failure."
+}

@@ -223,3 +223,51 @@ SDK Python 不进入预注册的 failure-only 配对集。当前 screen 和 pair
 
 机器可读证据：
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_sdk_python_cwd_adjudication.json`。
+
+## Case VH-006：`marimo-team/marimo@537b2309`
+
+**Screen 结果：** Agent 未完成，Official Pass@1 = 0。
+
+**研究用途：** 科学有效 bad case，暴露 clean replay 可行性、操作顺序和过晚交付三类问题。
+
+### 发生了什么
+
+初始 trusted goal 报告 91 个 missing-import 约束。Agent 构建 Python 3.12 环境，并在第 64 次请求
+首次让 construction state 完整 Pass；控制组在第 69 次请求主动进行第一次 clean replay。连续三份
+程序都在 bootstrap 阶段约 1800 秒超时，没有进入 replay 环境中的 trusted goal。
+
+Agent 随后直接测量冷安装。宽依赖命令耗时 1870 秒，并产生 7.5 GB 环境：`langchain`、`pymde`
+等传递依赖把 Torch 升级为 CUDA build，额外拉入约 2.9 GB NVIDIA 库。第 116 次请求证明 pip
+constraint 可以保留 `torch==2.13.0+cpu`；最终 construction 命令完成，第 120 次请求在该环境中
+得到 0 个 missing import。但这份最终程序没有经过 clean replay，也没有提交。Generation 以
+`Agent exhausted the request safety cap without submission` 终止。
+
+整个 episode 使用 120 次模型请求、7,256,220 个 Token、117 次 shell 操作和三次 Unknown replay，
+约耗时 4 小时 38 分钟；没有 provider error。
+
+### 三层诊断
+
+**观测层：** clean replay 忠实暴露了暖 construction cache 隐藏的事实：累计程序无法在固定命令
+窗口内完成。后续固定观测确实受到临时 cwd 和 PATH 变化污染并产生假回退，但它不是最早决定性原因，
+因为真实 replay 超时已经先出现。
+
+**约束层：** 公开目标约束一直清楚；replay 反例又增加了部署可行性条件：用无约束 CUDA 依赖闭包
+满足全部 import，无法在目标环境中重放。Harness 没有加入项目特定包规则，Agent 最终从执行证据推断
+出 CPU 兼容条件。
+
+**操作层：** 累计程序先安装宽依赖集合，之后才试图保留 CPU Torch；多次重复近似相同的冷安装闭包
+耗掉大部分 episode。Agent 直到最后才找到可能的顺序和版本修复，又把最后一次请求用于验证当前环境，
+没有重放并提交最终程序。因此主 subtype 为 `operation / replay-feasibility-and-late-delivery`。
+
+### 对实验的影响
+
+Marimo 必须进入完整预注册 bad-case 集。120-request 上限是各组匹配的实验安全条件，不代表 Token 或
+请求数定义了部署问题。最后的 CPU-constrained 程序只属于诊断证据：没有 clean replay，不能事后把
+失败改成成功。Verifier handoff 会在第 64 次请求触发，而控制组第 69 次请求才首次 replay；提前 5 次
+请求和更早获得反例能否改变终局仍未知，必须由 fresh paired episode 回答。
+
+这个 case 可以启发后续研究“在构造操作序列时持续维护 replay 可行性”，但单个 case 尚不足以加入包
+规则、自动依赖最小化器或新 gate；必须等待冻结 bad-case 集中的重复证据。
+
+机器可读证据：
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_marimo_adjudication.json`。
