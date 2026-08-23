@@ -1,0 +1,49 @@
+{
+  "schema": "envsolve-pro-v2-verifier-handoff-consumed-qualification-preregistration-v1",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-consumed-qualification",
+  "recorded_at": "2026-08-23T08:24:22Z",
+  "status": "recorded-before-implementation-and-live-qualification",
+  "research_role": "mechanism qualification on already consumed development evidence; no unseen or effectiveness claim",
+  "falsified_predecessor": "envsolve-pro-goal-triggered-certified-incumbent",
+  "concrete_failure": "In prospective qibolab C, the active construction state produced a complete trusted-goal-equivalent Pass at request 93, but the Agent never proposed a complete program and exhausted 120 requests. No clean replay occurred, so incumbent retention and fallback could not activate.",
+  "why_existing_mechanisms_are_insufficient": {
+    "git_and_versions": "They identify code and artifacts but do not transition a live Agent from search to program delivery.",
+    "primary_keys_transactions_and_uniqueness": "They protect stored records but cannot cause candidate formation inside the model session.",
+    "types": "They validate interface shapes but not whether the Agent invokes the replay tool after a verified success state.",
+    "ordinary_tests": "Existing tests prove replay, certification, and fallback behavior after a candidate exists; they do not make a live session form that candidate.",
+    "prompt_guidance": "The prospective failure directly shows that a written instruction is not a reliable executable trigger."
+  },
+  "single_mechanism_change": "When an existing harness-scheduled trusted complete-goal observation reports candidate_ready, the next request in the same active session is a controller-owned programization request that requires submit_and_replay. A replay Pass returns the certified program immediately; a replay Fail returns the exact counterexample and restores free repair.",
+  "unchanged": [
+    "free shell operation space before the trigger and after replay failure",
+    "trusted public goal",
+    "clean target-state replay semantics",
+    "candidate integrity policy",
+    "official evaluator isolation",
+    "continuous model session",
+    "existing 16-shell scheduled observation cadence during qualification"
+  ],
+  "excluded_mechanisms": [
+    "package or repository-specific rules",
+    "cross-case memory",
+    "physical environment checkpoints",
+    "candidate graphs",
+    "compatibility action filters",
+    "harness self-modification"
+  ],
+  "deterministic_tests": [
+    "candidate_ready observation produces one explicit handoff event",
+    "the next provider request requires submit_and_replay",
+    "clean replay Pass returns the certified program without another model request",
+    "clean replay Fail returns feedback and restores automatic tool choice",
+    "partial, failed, or unknown observations do not trigger handoff",
+    "soft replay and prior scheduled-observation runners remain behaviorally unchanged"
+  ],
+  "consumed_live_qualification": {
+    "primary_case": "qibolab, because it contains the directly observed Pass-without-candidate failure",
+    "control": "existing scheduled-observation runner with the same observation cadence",
+    "treatment": "scheduled observation plus verifier-triggered programization and replay handoff",
+    "promotion_evidence": "The trigger must activate, produce a complete candidate, execute replay, and preserve same-session repair after any replay failure. Official outcome and resources are descriptive only."
+  },
+  "decision_policy": "If the trigger does not activate on the consumed failure, does not produce a candidate, or introduces a new inability to repair replay failure, reject the mechanism before opening new prospective cases."
+}
