@@ -1,0 +1,66 @@
+{
+  "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+  "decision": "scientifically-eligible-official-fail",
+  "experimental_role": "screen-failure-included-in-failure-only-pair",
+  "generation": {
+    "completed": true,
+    "finished_at": "2026-08-23T16:29:08.384219+00:00",
+    "started_at": "2026-08-23T16:12:46.734405+00:00"
+  },
+  "official": {
+    "bootstrap_exit_code": 1,
+    "evaluation_completed": true,
+    "failure": "cf_units wheel build could not open the configured UDUNITS2_XML_PATH",
+    "issues_count": 0,
+    "pass_at_1": false,
+    "pyright_executed": false
+  },
+  "replay": {
+    "bootstrap_seconds": 217.13928933162242,
+    "request_index": 24,
+    "status": "pass"
+  },
+  "resources": {
+    "model_requests": 25,
+    "provider_errors": 0,
+    "shell_operations": 32,
+    "total_tokens": 504687
+  },
+  "scheduled_observations": [
+    {
+      "candidate_ready": false,
+      "classification": "initial",
+      "obligation_count": 28,
+      "request_index": 0
+    },
+    {
+      "candidate_ready": false,
+      "classification": "improved",
+      "obligation_count": 14,
+      "request_index": 10
+    },
+    {
+      "candidate_ready": true,
+      "classification": "improved",
+      "obligation_count": 0,
+      "request_index": 23
+    }
+  ],
+  "terminal_evidence": {
+    "fallback_postcondition_checked": false,
+    "provider_failure_suppressed": true,
+    "required_operation": "install udunits2 and expose an existing UDUNITS2 XML file"
+  },
+  "three_layer_diagnosis": {
+    "constraint": "The required XML-file existence condition was known but was not retained as an enforced postcondition in the delivered program.",
+    "observation": "One passing replay sampled only the successful provider branch and did not establish all-path postcondition enforcement.",
+    "operation": "The program suppressed failure of a required provider operation and replaced a missing path with another unchecked path."
+  },
+  "treatment_status": {
+    "control_first_replay_request": 24,
+    "fresh_pair_required": true,
+    "handoff_would_trigger_at_request": 23,
+    "official_retry_allowed": false
+  },
+  "validity_note": "This is a scientifically valid Official failure. Network variability may have triggered the provider branch, but the delivered program masked that required-operation failure; a later exact-script success cannot replace Pass@1."
+}

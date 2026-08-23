@@ -346,3 +346,72 @@ bad-case set.
 
 Machine-readable evidence:
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_marimo_adjudication.json`.
+
+## Case VH-007: `rubisco-sfa/ilamb@c0aecd5e`
+
+**Screen outcome:** Clean replay Pass, EnvBench Official Fail.
+
+**Research role:** A scientifically eligible bad case exposing masked provider failure
+and incomplete postcondition enforcement inside the delivered operation sequence.
+
+### What Happened
+
+The initial trusted goal reported 28 obligations. The Agent installed ILAMB's
+scientific stack, discovered that `cf_units` required the UDUNITS2 XML database on
+Linux ARM, and reached zero construction obligations at request 23. Its first clean
+replay passed in 217 seconds, it submitted at request 25, and generation completed.
+
+Official executed the same program but failed before Pyright. The relevant program
+logic was:
+
+```bash
+conda install -y -n base -c conda-forge udunits2 >/dev/null 2>&1 || true
+export UDUNITS2_XML_PATH="$PPREFIX/share/udunits/udunits2.xml"
+[ -f "$UDUNITS2_XML_PATH" ] || \
+  export UDUNITS2_XML_PATH=/opt/conda/share/udunits/udunits2.xml
+```
+
+The provider operation did not produce UDUNITS2 in the Official container, but the
+program suppressed its failure and never checked that the fallback path existed.
+Building `cf_units` then failed with `Can't open UDUNITS2_XML_PATH file`. Official
+reported bootstrap exit code 1. Its `issues_count=0` is not a Pass because Pyright
+never ran.
+
+The episode used 25 model requests, 504,687 total tokens, 32 shell operations, and
+one passing clean replay. Generation took approximately 16 minutes; Official failed
+after approximately 6 minutes. No provider-model error occurred.
+
+### Three-Layer Diagnosis
+
+**Observation layer:** replay and Official executed the same program but sampled
+different outcomes of a provider-dependent operation. A single successful replay
+proved one executable path, not that every required postcondition was enforced. This
+is partial execution coverage rather than evidence that the target image or goal was
+different.
+
+**Constraint layer:** the requirement was already known and concrete: a real
+UDUNITS2 XML file must exist before building `cf_units`. The final program represented
+it only as two candidate paths and did not retain existence as an enforced
+postcondition.
+
+**Operation layer:** `|| true` converted a required provider operation into an
+unchecked optional action, and the fallback assignment changed a string without
+creating the required file. The earliest decisive cause is therefore
+`operation / masked-required-provider-failure`.
+
+### Experimental Consequence
+
+ILAMB remains an Official Pass@1 failure and enters the complete bad-case set. The
+episode has a scientifically valid Agent outcome, so the preregistered infrastructure
+retry rule does not apply. A later exact-script success under better network conditions
+would be a counterfactual, not a replacement outcome.
+
+Verifier handoff would trigger at request 23 and the control replayed at request 24,
+leaving almost no pre-replay headroom. A fresh pair must still be run, but this case is
+unlikely to be solved merely by moving the same replay one request earlier. The broader
+hypothesis is that replay feedback should expose and preserve required operation
+postconditions; one case does not justify a hard syntactic rule against shell failure
+handling.
+
+Machine-readable evidence:
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_ilamb_adjudication.json`.

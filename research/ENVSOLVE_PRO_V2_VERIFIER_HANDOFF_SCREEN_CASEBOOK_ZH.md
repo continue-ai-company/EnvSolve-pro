@@ -271,3 +271,55 @@ Marimo 必须进入完整预注册 bad-case 集。120-request 上限是各组匹
 
 机器可读证据：
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_marimo_adjudication.json`。
+
+## Case VH-007：`rubisco-sfa/ilamb@c0aecd5e`
+
+**Screen 结果：** clean replay Pass，EnvBench Official Fail。
+
+**研究用途：** 科学有效 bad case，暴露交付操作序列中的 provider 失败掩盖和后置条件执行不完整。
+
+### 发生了什么
+
+初始 trusted goal 报告 28 个约束。Agent 安装 ILAMB 科学计算栈，发现 Linux ARM 上 `cf_units`
+需要 UDUNITS2 XML 数据库，并在第 23 次请求让 construction obligations 降至 0。第一次 clean
+replay 在 217 秒内通过，第 25 次请求提交，generation 正常完成。
+
+Official 执行同一程序，却在 Pyright 之前失败。相关逻辑是：
+
+```bash
+conda install -y -n base -c conda-forge udunits2 >/dev/null 2>&1 || true
+export UDUNITS2_XML_PATH="$PPREFIX/share/udunits/udunits2.xml"
+[ -f "$UDUNITS2_XML_PATH" ] || \
+  export UDUNITS2_XML_PATH=/opt/conda/share/udunits/udunits2.xml
+```
+
+Official 容器中的 provider 操作没有产生 UDUNITS2，但程序吞掉失败，也没有检查 fallback 文件是否
+真实存在。随后构建 `cf_units` 报错 `Can't open UDUNITS2_XML_PATH file`，Official bootstrap exit
+code 为 1。`issues_count=0` 不能算 Pass，因为 Pyright 根本没有运行。
+
+该 episode 使用 25 次模型请求、504,687 个 Token、32 次 shell 操作和一次成功 clean replay。
+Generation 约 16 分钟，Official 约 6 分钟后失败；没有模型 provider error。
+
+### 三层诊断
+
+**观测层：** replay 与 Official 执行同一程序，但 provider-dependent 操作产生了不同结果。一次成功
+replay 只证明一条执行路径，不代表程序强制保证所有必需后置条件。这是执行覆盖部分可观测，不是目标
+镜像或 goal 不一致的证据。
+
+**约束层：** 必要条件其实已经明确：构建 `cf_units` 前必须存在真实 UDUNITS2 XML 文件。最终程序
+只保存了两个候选路径，没有把“文件存在”保留成必须执行检查的后置条件。
+
+**操作层：** `|| true` 把必需 provider 操作变成未检查的可选动作；fallback 只改变字符串，并没有
+创建所需文件。因此最早决定性原因是 `operation / masked-required-provider-failure`。
+
+### 对实验的影响
+
+ILAMB 保留为 Official Pass@1 Fail，进入完整 bad-case 集。该 episode 已有科学有效 Agent 结果，不满足
+预注册的基础设施重试条件；即使之后同一脚本在更好网络下通过，也只能是 counterfactual，不能替换结果。
+
+Verifier handoff 会在第 23 次请求触发，控制组第 24 次请求已经 replay，几乎没有提前空间。Fresh pair
+仍必须运行，但仅仅把同一次 replay 提前一个请求不太可能解决该失败。更一般的假设是 replay 反馈应暴露
+并保留必需操作的后置条件；单个 case 不足以引入禁止 shell failure handling 的硬语法规则。
+
+机器可读证据：
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_screen20_ilamb_adjudication.json`。
