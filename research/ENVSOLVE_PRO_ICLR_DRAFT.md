@@ -75,8 +75,9 @@ satisfied CPU/runtime condition during a later install.
 ### 2.3 Operation: How should the state change?
 
 An Operation failure occurs when the selected transformation cannot satisfy the active
-condition, is ordered incorrectly, or is absent from the delivered program. A hard
-harness rule may also cause an Operation failure by rejecting a valid repair.
+condition, is ordered incorrectly, or is absent from the delivered program. Harness
+rejections follow the same causal rule: an incorrect admissibility requirement is a
+Constraint failure, while violating a correct requirement is an Operation failure.
 
 The layers form a causal loop: observations induce constraints; constraints guide
 operations; operations create the next state and therefore the next observation.
