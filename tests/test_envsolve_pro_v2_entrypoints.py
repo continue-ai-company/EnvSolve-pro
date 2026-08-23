@@ -22,6 +22,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         self.assertIn("envsolve-pro-v2-incumbent", registered)
         self.assertIn("envsolve-pro-v2-ledger", registered)
         self.assertIn("envsolve-pro-v2-scheduled-observation", registered)
+        self.assertIn("envsolve-pro-v2-verifier-handoff", registered)
 
     def test_openrouter_preflight_requires_only_the_openrouter_key(self) -> None:
         identities = [{"runner": "envsolve-pro-v2"}]

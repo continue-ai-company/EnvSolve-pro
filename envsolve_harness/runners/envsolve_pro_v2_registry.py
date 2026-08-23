@@ -82,3 +82,9 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-scheduled-compatibility-observation",
             _factory("scheduled"),
         )
+    if "envsolve-pro-v2-verifier-handoff" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-verifier-handoff",
+            "envsolve-pro-verifier-triggered-handoff",
+            _factory("handoff"),
+        )

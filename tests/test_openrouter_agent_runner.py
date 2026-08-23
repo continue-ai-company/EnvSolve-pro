@@ -149,6 +149,21 @@ class FakeCompatibilityService:
         }
 
 
+class CandidateReadyCompatibilityService(FakeCompatibilityService):
+    def check(self, call_id: str) -> dict[str, object]:
+        self.call_ids.append(call_id)
+        return {
+            "schema": "envsolve-compatibility-delta-ledger-v1",
+            "ok": True,
+            "finding_set_complete": True,
+            "goal_status": "pass",
+            "candidate_ready": True,
+            "current": {"obligation_count": 0},
+            "delta_from_previous": {"classification": "improved"},
+            "operation_constraints_added": False,
+        }
+
+
 class OpenRouterAgentRunnerTest(unittest.TestCase):
     def test_construction_container_keeps_the_episode_package_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -323,6 +338,169 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             treatment.mechanism_primitives,
             ["F", "scheduled-O", "delta-C", "R", "minimal-H"],
         )
+
+    def test_verifier_handoff_reuses_tools_and_changes_only_control_transition(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "handoff")
+            names = [item["function"]["name"] for item in runner._tools()]
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            names,
+            ["envbench_shell", "submit_and_replay", "submit_bootstrap"],
+        )
+        self.assertIn("from free search to programization", prompt)
+        self.assertEqual(
+            runner.mechanism_primitives,
+            [
+                "F",
+                "scheduled-O",
+                "verifier-triggered-programization",
+                "R",
+                "minimal-H",
+            ],
+        )
+
+    def test_candidate_ready_forces_replay_and_returns_pass_without_second_request(
+        self,
+    ) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        client = FakeClient(
+            [FakeResponse(tool_call("1", "submit_and_replay", {"program": program}))]
+        )
+        compatibility = CandidateReadyCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility)
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "handoff")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(submission["program_sha256"], script_sha256(program))
+        self.assertEqual(metadata["model_requests"], 1)
+        self.assertEqual(metadata["tool_counts"]["submit_and_replay"], 1)
+        self.assertEqual(metadata["verifier_handoff"]["trigger_count"], 1)
+        self.assertEqual(metadata["verifier_handoff"]["forced_model_requests"], 1)
+        self.assertEqual(
+            metadata["verifier_handoff"]["termination_reason"],
+            "verifier-triggered-replay-pass",
+        )
+        self.assertEqual(
+            [item["transition"] for item in metadata["verifier_handoff"]["events"]],
+            ["candidate-ready", "clean-replay-pass-returned"],
+        )
+        self.assertEqual(
+            client.chat.completions.requests[0]["tool_choice"],
+            {"type": "function", "function": {"name": "submit_and_replay"}},
+        )
+        self.assertTrue(
+            any(
+                item.get("role") == "user"
+                and "candidate_ready=true" in str(item.get("content"))
+                for item in client.chat.completions.requests[0]["messages"]
+            )
+        )
+
+    def test_failed_forced_replay_restores_free_tool_choice(self) -> None:
+        first_program = "false"
+        second_program = "python -m venv .venv\nsource .venv/bin/activate"
+
+        class FailThenPassReplay(FakeReplayService):
+            def __init__(self) -> None:
+                super().__init__(second_program)
+                self.calls = 0
+
+            def submit(self, program: str) -> dict[str, object]:
+                self.calls += 1
+                if self.calls == 1:
+                    return {
+                        "status": "fail",
+                        "phase": "clean-replay",
+                        "replay_id": "replay-1",
+                        "program_sha256": script_sha256(program),
+                        "verification": {
+                            "summary": "bootstrap failed",
+                            "bootstrap": {
+                                "exit_code": 1,
+                                "stdout": "",
+                                "stderr": "failed",
+                                "duration_seconds": 1.0,
+                            },
+                            "counterexamples": {"json": "[]", "truncated": False},
+                            "details": {"json": "{}", "truncated": False},
+                        },
+                    }
+                return super().submit(program)
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call("1", "submit_and_replay", {"program": first_program})
+                ),
+                FakeResponse(tool_call("2", "envbench_shell", {"command": "true"})),
+                FakeResponse(
+                    tool_call("3", "submit_and_replay", {"program": second_program})
+                ),
+            ]
+        )
+        compatibility = CandidateReadyCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility)
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "handoff")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FailThenPassReplay(),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(submission["program_sha256"], script_sha256(second_program))
+        self.assertEqual(
+            client.chat.completions.requests[0]["tool_choice"],
+            {"type": "function", "function": {"name": "submit_and_replay"}},
+        )
+        self.assertEqual(client.chat.completions.requests[1]["tool_choice"], "auto")
+        self.assertEqual(client.chat.completions.requests[2]["tool_choice"], "auto")
+        self.assertIn(
+            "replay-returned-for-free-repair",
+            [item["transition"] for item in metadata["verifier_handoff"]["events"]],
+        )
+
+    def test_incomplete_goal_observation_does_not_force_handoff(self) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        client = FakeClient(
+            [FakeResponse(tool_call("1", "submit_and_replay", {"program": program}))]
+        )
+        compatibility = FakeCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility)
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "handoff")
+            _, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(client.chat.completions.requests[0]["tool_choice"], "auto")
+        self.assertEqual(metadata["verifier_handoff"]["trigger_count"], 0)
 
     def test_ledger_tool_feedback_remains_in_the_continuous_agent_loop(self) -> None:
         program = "python -m venv .venv\nsource .venv/bin/activate"
@@ -670,13 +848,14 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             "provider-request-failure",
         )
         second_messages = client.chat.completions.requests[1]["messages"]
-        self.assertTrue(
-            any(
-                item.get("role") == "tool"
-                and "incumbent_update" in str(item.get("content"))
-                for item in second_messages
-            )
+        incumbent_message = next(
+            item
+            for item in second_messages
+            if item.get("role") == "tool"
+            and "incumbent_update" in str(item.get("content"))
         )
+        incumbent_payload = json.loads(str(incumbent_message["content"]))
+        self.assertTrue(incumbent_payload["incumbent_update"]["accepted"])
 
     def test_incumbent_is_returned_at_the_request_safety_cap(self) -> None:
         program = "python -m venv .venv\nsource .venv/bin/activate"

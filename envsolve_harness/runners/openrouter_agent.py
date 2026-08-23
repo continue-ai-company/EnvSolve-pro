@@ -49,7 +49,14 @@ DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
 DEEPSEEK_V4_FLASH_0731 = "deepseek/deepseek-v4-flash-0731"
 SUPPORTED_DEEPSEEK_MODELS = frozenset({DEEPSEEK_V4_PRO, DEEPSEEK_V4_FLASH_0731})
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-ReplayMode = Literal["none", "soft", "incumbent", "ledger", "scheduled"]
+ReplayMode = Literal[
+    "none",
+    "soft",
+    "incumbent",
+    "ledger",
+    "scheduled",
+    "handoff",
+]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
 
@@ -110,6 +117,7 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
         "tool_counts": {},
         "replay_status_counts": {},
         "scheduled_observation_counts": {},
+        "verifier_handoff_counts": {},
     }
     if not path.is_file():
         return progress
@@ -117,6 +125,7 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
     tool_counts: dict[str, int] = progress["tool_counts"]
     replay_counts: dict[str, int] = progress["replay_status_counts"]
     scheduled_counts: dict[str, int] = progress["scheduled_observation_counts"]
+    handoff_counts: dict[str, int] = progress["verifier_handoff_counts"]
     for event in read_jsonl(path):
         request_index = event.get("request_index")
         if isinstance(request_index, int) and not isinstance(request_index, bool):
@@ -144,6 +153,10 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
             trigger = event.get("trigger")
             if isinstance(trigger, str):
                 scheduled_counts[trigger] = scheduled_counts.get(trigger, 0) + 1
+        elif event_name == "verifier_handoff":
+            transition = event.get("transition")
+            if isinstance(transition, str):
+                handoff_counts[transition] = handoff_counts.get(transition, 0) + 1
     return progress
 
 
@@ -194,7 +207,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.5.0"
+    runner_version = "0.6.0"
 
     def __init__(
         self,
@@ -216,9 +229,16 @@ class OpenRouterAgentRunner(CodexCliRunner):
         goal_contract: ExecutableGoalContract,
         client_factory: ClientFactory | None = None,
     ) -> None:
-        if replay_mode not in {"none", "soft", "incumbent", "ledger", "scheduled"}:
+        if replay_mode not in {
+            "none",
+            "soft",
+            "incumbent",
+            "ledger",
+            "scheduled",
+            "handoff",
+        }:
             raise ValueError(
-                "Replay mode must be none, soft, incumbent, ledger, or scheduled"
+                "Replay mode must be none, soft, incumbent, ledger, scheduled, or handoff"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -257,6 +277,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def agent_interface(self) -> str:
+        if self.verifier_handoff_enabled:
+            return (
+                "free-feedback-search+scheduled-trusted-goal-observation+"
+                "verifier-triggered-programization+soft-clean-replay-v1"
+            )
         if self.scheduled_observation_enabled:
             return (
                 "free-feedback-search+scheduled-compatibility-observation+"
@@ -272,7 +297,13 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def replay_enabled(self) -> bool:
-        return self.replay_mode in {"soft", "incumbent", "ledger", "scheduled"}
+        return self.replay_mode in {
+            "soft",
+            "incumbent",
+            "ledger",
+            "scheduled",
+            "handoff",
+        }
 
     @property
     def incumbent_enabled(self) -> bool:
@@ -284,7 +315,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def scheduled_observation_enabled(self) -> bool:
-        return self.replay_mode == "scheduled"
+        return self.replay_mode in {"scheduled", "handoff"}
+
+    @property
+    def verifier_handoff_enabled(self) -> bool:
+        return self.replay_mode == "handoff"
 
     @property
     def compatibility_observation_enabled(self) -> bool:
@@ -292,6 +327,14 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def mechanism_primitives(self) -> list[str]:
+        if self.verifier_handoff_enabled:
+            return [
+                "F",
+                "scheduled-O",
+                "verifier-triggered-programization",
+                "R",
+                "minimal-H",
+            ]
         if self.scheduled_observation_enabled:
             return ["F", "scheduled-O", "delta-C", "R", "minimal-H"]
         if self.compatibility_ledger_enabled:
@@ -568,6 +611,16 @@ reports complete identity-bound obligations and their delta in this same session
 It is advisory evidence: temporary regression remains allowed, and the harness
 never selects packages, blocks commands, or restores an environment.
 """
+            if self.verifier_handoff_enabled:
+                prompt += """\
+
+When a scheduled trusted observation reports `candidate_ready`, the controller
+transitions this same session from free search to programization. Your next action
+must compile all reproducible setup operations into one complete program and call
+`submit_and_replay`; optional completeness work waits. A replay failure returns its
+exact evidence and restores free repair. A replay pass is returned directly as the
+final certified program, without a second model submission request.
+"""
         return prompt
 
     def _client(self) -> Any:
@@ -719,6 +772,9 @@ never selects packages, blocks commands, or restores an environment.
         incumbent: dict[str, str] | None = None
         incumbent_updates: list[dict[str, Any]] = []
         first_certification_request: int | None = None
+        handoff_pending = False
+        handoff_forced_requests = 0
+        handoff_events: list[dict[str, Any]] = []
         started = time.monotonic()
 
         def record_scheduled_observation(
@@ -742,6 +798,58 @@ never selects packages, blocks commands, or restores an environment.
                 event["parent_tool_call_id"] = parent_tool_call_id
             self._append_event(trajectory_path, event)
 
+        def schedule_verifier_handoff(
+            observation: dict[str, Any],
+            request_index: int,
+        ) -> bool:
+            nonlocal handoff_pending
+            if not self.verifier_handoff_enabled or handoff_pending:
+                return False
+            result = observation.get("result")
+            if not isinstance(result, dict):
+                return False
+            candidate_ready = (
+                result.get("ok") is True
+                and result.get("finding_set_complete") is True
+                and result.get("goal_status") == "pass"
+                and result.get("candidate_ready") is True
+            )
+            if not candidate_ready:
+                return False
+            handoff_pending = True
+            handoff_event = {
+                "transition": "candidate-ready",
+                "request_index": request_index,
+                "observation_number": observation.get("observation_number"),
+                "observation_trigger": observation.get("trigger"),
+                "shell_operations_completed": observation.get(
+                    "shell_operations_completed"
+                ),
+            }
+            handoff_events.append(handoff_event)
+            self._append_event(
+                trajectory_path,
+                {
+                    "schema": "envsolve-openrouter-event-v1",
+                    "event": "verifier_handoff",
+                    **handoff_event,
+                },
+            )
+            return True
+
+        def handoff_message(observation: dict[str, Any]) -> dict[str, str]:
+            return {
+                "role": "user",
+                "content": (
+                    "The harness trusted verifier has reported a complete public-goal "
+                    "Pass (candidate_ready=true) in the active construction state. "
+                    "Before any optional completeness work, compile the reproducible "
+                    "operations that produced this state into one cumulative bootstrap "
+                    "program and call submit_and_replay now. If replay fails, its exact "
+                    "evidence will return to this same session for free repair."
+                ),
+            }
+
         if scheduled_observer is not None:
             initial_observation = scheduled_observer.observe_initial()
             record_scheduled_observation(initial_observation, 0)
@@ -759,6 +867,8 @@ never selects packages, blocks commands, or restores an environment.
                     ),
                 }
             )
+            if schedule_verifier_handoff(initial_observation, 0):
+                messages.append(handoff_message(initial_observation))
 
         def loop_metadata(
             request_index: int,
@@ -790,6 +900,17 @@ never selects packages, blocks commands, or restores an environment.
                         "certified_incumbent_available": incumbent is not None,
                         "fallback_used": fallback_used,
                     }
+            if self.verifier_handoff_enabled:
+                metadata["verifier_handoff"] = {
+                    "trigger_count": sum(
+                        item.get("transition") == "candidate-ready"
+                        for item in handoff_events
+                    ),
+                    "forced_model_requests": handoff_forced_requests,
+                    "pending_at_termination": handoff_pending,
+                    "events": handoff_events,
+                    "termination_reason": termination_reason,
+                }
             if scheduled_observer is not None:
                 metadata["scheduled_observation"] = scheduled_observer.metadata()
             return metadata
@@ -818,6 +939,12 @@ never selects packages, blocks commands, or restores an environment.
                     return fallback
                 raise RuntimeError("Agent exceeded the generation wall-clock safety cap")
             options = self.request_options(model, messages, seed=seed)
+            if self.verifier_handoff_enabled and handoff_pending:
+                options["tool_choice"] = {
+                    "type": "function",
+                    "function": {"name": "submit_and_replay"},
+                }
+                handoff_forced_requests += 1
             try:
                 response = self._provider_request(
                     client,
@@ -876,6 +1003,7 @@ never selects packages, blocks commands, or restores an environment.
                 )
                 continue
 
+            handoff_triggered_this_response: dict[str, Any] | None = None
             for call in tool_calls:
                 name = str(call.function.name)
                 tool_counts[name] = tool_counts.get(name, 0) + 1
@@ -922,6 +1050,11 @@ never selects packages, blocks commands, or restores an environment.
                                             model_visible_scheduled_observation(scheduled)
                                         ),
                                     }
+                                if schedule_verifier_handoff(
+                                    scheduled,
+                                    request_index,
+                                ):
+                                    handoff_triggered_this_response = scheduled
                     elif name == "check_compatibility" and compatibility_service is not None:
                         payload = compatibility_service.check(str(call.id))
                     elif name == "submit_and_replay" and replay_service is not None:
@@ -999,6 +1132,64 @@ never selects packages, blocks commands, or restores an environment.
                                             "certified_program_sha256": certified_digest,
                                         },
                                     }
+                            if self.verifier_handoff_enabled:
+                                if status == "pass":
+                                    auto_payload, auto_submission = self._submit(
+                                        {
+                                            "program": program,
+                                            "summary": (
+                                                "Trusted verifier-triggered handoff returned "
+                                                "the clean-replay-certified program."
+                                            ),
+                                        },
+                                        replay_service,
+                                    )
+                                    if auto_submission is not None:
+                                        submission = auto_submission
+                                        handoff_pending = False
+                                        handoff_events.append(
+                                            {
+                                                "transition": "clean-replay-pass-returned",
+                                                "request_index": request_index,
+                                                "replay_id": raw_replay.get("replay_id"),
+                                                "program_sha256": auto_submission.get(
+                                                    "program_sha256"
+                                                ),
+                                            }
+                                        )
+                                        payload = {
+                                            **payload,
+                                            "verifier_handoff": {
+                                                "returned": True,
+                                                "reason": "clean-replay-pass",
+                                            },
+                                        }
+                                    else:
+                                        handoff_pending = False
+                                        handoff_events.append(
+                                            {
+                                                "transition": "certified-program-return-failed",
+                                                "request_index": request_index,
+                                                "reason": auto_payload.get("reason"),
+                                            }
+                                        )
+                                        payload = {
+                                            **payload,
+                                            "verifier_handoff": {
+                                                "returned": False,
+                                                "reason": auto_payload.get("reason"),
+                                            },
+                                        }
+                                elif handoff_pending:
+                                    handoff_pending = False
+                                    handoff_events.append(
+                                        {
+                                            "transition": "replay-returned-for-free-repair",
+                                            "request_index": request_index,
+                                            "replay_id": raw_replay.get("replay_id"),
+                                            "replay_status": status,
+                                        }
+                                    )
                     elif name == "submit_bootstrap":
                         payload, submission = self._submit(arguments, replay_service)
                     else:
@@ -1019,7 +1210,13 @@ never selects packages, blocks commands, or restores an environment.
                     return submission, loop_metadata(
                         request_index,
                         termination_reason=(
-                            "agent-submission" if self.incumbent_enabled else None
+                            "agent-submission"
+                            if self.incumbent_enabled
+                            else (
+                                "verifier-triggered-replay-pass"
+                                if self.verifier_handoff_enabled
+                                else None
+                            )
                         ),
                     )
                 messages.append(
@@ -1030,6 +1227,8 @@ never selects packages, blocks commands, or restores an environment.
                         "content": json.dumps(payload, ensure_ascii=True, sort_keys=True),
                     }
                 )
+            if handoff_triggered_this_response is not None:
+                messages.append(handoff_message(handoff_triggered_this_response))
         fallback = fallback_submission(
             self.max_iterations,
             "agent-request-safety-cap",
