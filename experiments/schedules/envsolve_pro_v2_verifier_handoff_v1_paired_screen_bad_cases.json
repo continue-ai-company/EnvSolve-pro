@@ -1,0 +1,87 @@
+{
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+  "case_file_sha256": "845b96d1a4de73f6126bacd0bfbdb2f96962fd6b6fe970e98f367971a4b9d92a",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "S-OBS",
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "pair_id": "verifier-handoff-screen-01-platformio-core",
+      "pair_index": 1,
+      "pair_position": 1,
+      "position": 1,
+      "run_id": "pro-v2-handoff-v1-paired-01-platformio-core-S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "seed": 650001
+    },
+    {
+      "arm": "H-VH",
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "method": "envsolve-pro-verifier-triggered-handoff",
+      "pair_id": "verifier-handoff-screen-01-platformio-core",
+      "pair_index": 1,
+      "pair_position": 2,
+      "position": 2,
+      "run_id": "pro-v2-handoff-v1-paired-02-platformio-core-H-VH",
+      "runner": "envsolve-pro-v2-verifier-handoff",
+      "seed": 650001
+    },
+    {
+      "arm": "H-VH",
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "method": "envsolve-pro-verifier-triggered-handoff",
+      "pair_id": "verifier-handoff-screen-02-marimo",
+      "pair_index": 2,
+      "pair_position": 1,
+      "position": 3,
+      "run_id": "pro-v2-handoff-v1-paired-03-marimo-H-VH",
+      "runner": "envsolve-pro-v2-verifier-handoff",
+      "seed": 650002
+    },
+    {
+      "arm": "S-OBS",
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "pair_id": "verifier-handoff-screen-02-marimo",
+      "pair_index": 2,
+      "pair_position": 2,
+      "position": 4,
+      "run_id": "pro-v2-handoff-v1-paired-04-marimo-S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "seed": 650002
+    },
+    {
+      "arm": "S-OBS",
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "pair_id": "verifier-handoff-screen-03-ilamb",
+      "pair_index": 3,
+      "pair_position": 1,
+      "position": 5,
+      "run_id": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "seed": 650003
+    },
+    {
+      "arm": "H-VH",
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "method": "envsolve-pro-verifier-triggered-handoff",
+      "pair_id": "verifier-handoff-screen-03-ilamb",
+      "pair_index": 3,
+      "pair_position": 2,
+      "position": 6,
+      "run_id": "pro-v2-handoff-v1-paired-06-ilamb-H-VH",
+      "runner": "envsolve-pro-v2-verifier-handoff",
+      "seed": 650003
+    }
+  ],
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "schema_version": "1.0.0",
+  "source_screen_study_id": "envsolve-pro-v2-verifier-handoff-v1-prospective-screen20",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-paired-screen-bad-cases"
+}

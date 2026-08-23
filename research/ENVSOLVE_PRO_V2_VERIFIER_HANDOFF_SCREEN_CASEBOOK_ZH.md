@@ -5,6 +5,28 @@
 本文档记录预注册 20-case 开发集 screen 中具有研究价值的失败，用于失败分类和算法诊断，
 不作为未见测试集效果结论。任何 counterfactual 评测都不能覆盖原始 Pass@1 结果。
 
+## Screen 收口
+
+20 个预注册 case 全部得到科学有效结果：17 个 Official Pass、3 个 Official Pass@1 Fail，0 个
+censored case。两个通过结果在 evaluator read timeout 后使用了预注册的“原脚本 Official-only
+retry”；模型和部署程序均未重跑。
+
+机械选择出的完整 bad-case 集是 PlatformIO、Marimo 和 ILAMB。它们的最早决定性原因包括一个
+约束层失败（`construction-state-ownership-conflict`）和两个操作层失败
+（`replay-feasibility-and-late-delivery`、`masked-required-provider-failure`）。Screen 还在 SDK
+Python 上发现了通用的观测层 cwd 缺陷，但该 episode 随后恢复并通过 Official，因此它是诊断
+证据而非 bad case。以上数量只描述这个开发期 screen，不能当成总体错误分布或未见集结果。
+
+最后一个 `section-properties` 在第 32 次请求首次将 missing-import 约束降到 0，一次 clean replay
+通过，第 34 次请求提交并 Official Pass；但直接 import 仍发现 `pypardiso` 缺少 MKL runtime、
+无法正常使用。它与其他通过案例共同说明：Official 成功和部署完整性必须作为两个独立评价轴，
+不能据此事后增加 case-specific gate。
+
+机器可读的 screen 收口证据：
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_prospective_screen20_result.json`。
+覆盖每个 bad case 两个 fresh arm 的配对日程：
+`experiments/schedules/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases.json`。
+
 ## Case VH-001：`platformio/platformio-core@7cf8d1d`
 
 **Screen 结果：** Agent 未完成，Official Pass@1 = 0。

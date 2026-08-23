@@ -6,6 +6,34 @@ This casebook records high-value failures from the preregistered 20-case develop
 screen. It supports failure taxonomy and algorithm diagnosis. It is not a held-out
 effectiveness result, and counterfactual evaluations never replace Pass@1 outcomes.
 
+## Screen Closure
+
+All 20 scheduled cases produced scientifically eligible outcomes: 17 Official Passes
+and three Official Pass@1 failures, with no censored case. Two passing outcomes used
+the preregistered exact-script Official-only retry after evaluator read timeouts; the
+model and deployment program were not rerun.
+
+The complete mechanically selected bad-case set is PlatformIO, Marimo, and ILAMB.
+Their earliest decisive causes span one constraint-layer failure
+(`construction-state-ownership-conflict`) and two operation-layer failures
+(`replay-feasibility-and-late-delivery` and `masked-required-provider-failure`). The
+screen also exposed a general observation-layer cwd defect on SDK Python, but that
+episode recovered and passed Official, so it is diagnostic evidence rather than a
+bad case. These counts describe this development screen only; they are not an
+estimated population distribution or a held-out result.
+
+The final `section-properties` episode passed after request 32 first reached zero
+missing-import obligations, one clean replay passed, and request 34 submitted the
+program. Its direct import probe still found `pypardiso` unusable without an MKL
+runtime. Together with other passing cases, this confirms that Official success and
+deployment completeness must remain separate reported axes rather than motivating a
+post-hoc case-specific gate.
+
+Machine-readable closure evidence:
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_prospective_screen20_result.json`.
+The paired schedule contains both fresh arms for every bad case:
+`experiments/schedules/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases.json`.
+
 ## Case VH-001: `platformio/platformio-core@7cf8d1d`
 
 **Screen outcome:** Agent noncompletion, Official Pass@1 = 0.
