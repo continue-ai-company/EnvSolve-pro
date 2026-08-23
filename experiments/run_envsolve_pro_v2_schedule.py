@@ -32,6 +32,7 @@ OPENROUTER_API_RUNNERS = frozenset(
         "envsolve-pro-v2-incumbent",
         "envsolve-pro-v2-ledger",
         "envsolve-pro-v2-scheduled-observation",
+        "envsolve-pro-v2-verifier-handoff",
     }
 )
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"

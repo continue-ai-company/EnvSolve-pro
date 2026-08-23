@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-consumed-qualification",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+  "case_file_sha256": "845b96d1a4de73f6126bacd0bfbdb2f96962fd6b6fe970e98f367971a4b9d92a",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "pair_id": "verifier-handoff-consumed-qibolab",
+      "pair_position": 1,
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "arm": "S-OBS",
+      "mechanisms": ["F", "scheduled-O", "delta-C", "R", "minimal-H"],
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 630001,
+      "run_id": "pro-v2-verifier-handoff-v1-consumed-01-qibolab-S-OBS"
+    },
+    {
+      "position": 2,
+      "pair_id": "verifier-handoff-consumed-qibolab",
+      "pair_position": 2,
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "arm": "H-VH",
+      "mechanisms": ["F", "scheduled-O", "verifier-triggered-programization", "R", "minimal-H"],
+      "runner": "envsolve-pro-v2-verifier-handoff",
+      "method": "envsolve-pro-verifier-triggered-handoff",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "provider": "deepinfra",
+      "seed": 630001,
+      "run_id": "pro-v2-verifier-handoff-v1-consumed-02-qibolab-H-VH"
+    }
+  ]
+}
