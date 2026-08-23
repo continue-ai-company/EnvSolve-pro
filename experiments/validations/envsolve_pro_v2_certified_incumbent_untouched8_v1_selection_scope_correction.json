@@ -1,0 +1,50 @@
+{
+  "schema": "envsolve-pro-v2-certified-incumbent-selection-scope-correction-v1",
+  "study_id": "envsolve-pro-v2-certified-incumbent-untouched8-v1",
+  "recorded_at": "2026-08-23T05:28:45Z",
+  "timing": "After positions 1-10 completed, while position 11 was active, and before positions 12-16 executed.",
+  "status": "selection-scope-correction-no-execution-change",
+  "reason": "The preregistration checked local terminal logs and Spark run manifests but did not query the repository's machine-readable historical trajectory registry. That registry shows that two of the eight selected identities had been executed before this study.",
+  "evidence": {
+    "historical_registry": "experiments/validations/pro_bootstrap_frontier_v2_consumed_replay.json",
+    "futaba_prior_runs": [
+      "pro-p0-v1-c04-envsolve-v1-frozen"
+    ],
+    "flask_security_prior_runs": [
+      "pro-goal-anchor-qv1-c04-flask-security-exp",
+      "pro-goal-anchor-qv1-c04-flask-security-raw"
+    ],
+    "flask_security_current_acquisition_failure": "Both scheduled arms ended before Agent execution because the remote repository returned `upload-pack: not our ref` for revision ec70c1deac0530edfa8c4f4d1b545d0b5613af59."
+  },
+  "prospective_primary_cases": [
+    "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+    "envbench-python-basxsoftwareassociation__bread@b26203df8f81fcbf5f299dfe07dc808309349ecd",
+    "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+    "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+    "envbench-python-postgrespro__mamonsu@31a59811d7f66f01c90d77b9df34f3077a12dd8b",
+    "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139"
+  ],
+  "consumed_descriptive_cases": [
+    "envbench-python-strinking__futaba@2e4d7874f0b99176f7595f776dfebf2eac26afbb"
+  ],
+  "infrastructure_censored_cases": [
+    "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59"
+  ],
+  "corrected_analysis": [
+    "The primary prospective paired analysis contains the six cases with no prior trajectory evidence found in the historical registry or other result-bearing validation files.",
+    "Futaba is reported as consumed descriptive evidence and cannot support unseen-development claims.",
+    "Flask-Security is reported as an input-acquisition censoring and cannot be counted as an algorithm failure.",
+    "No replacement case is selected after observing positions 1-10; post-hoc replacement would change the sampling rule after outcomes were visible.",
+    "The original eight-pair schedule and every observed episode remain reported for provenance."
+  ],
+  "unchanged": [
+    "implementation",
+    "prompts",
+    "scheduled identities and order",
+    "seeds",
+    "model and provider",
+    "budgets",
+    "Official evaluation policy"
+  ],
+  "claim_correction": "The study is a prospective six-pair development comparison plus one consumed descriptive pair and one unavailable-revision censoring, not an untouched eight-pair comparison."
+}
