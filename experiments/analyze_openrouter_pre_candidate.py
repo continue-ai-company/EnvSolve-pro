@@ -13,7 +13,14 @@ from typing import Any
 ISSUE_COUNT = re.compile(r'"issues_count"\s*:\s*(\d+)')
 TOTAL_COUNT = re.compile(r"\btotal\s*:\s*(\d+)\b", re.IGNORECASE)
 LINE_COUNT = re.compile(r"^\s*count\s*[:=]?\s*(\d+)\s*$", re.IGNORECASE | re.MULTILINE)
-MISSING_COUNT = re.compile(r"\bmissing\s*imports?\s*[:=]?\s*(\d+)\b", re.IGNORECASE)
+MISSING_COUNT = re.compile(
+    r"\b(?:total\s+)?missing\s*imports?(?:\s*\([^)]*\))?\s*[:=]?\s*(\d+)\b",
+    re.IGNORECASE,
+)
+REPORT_MISSING_COUNT = re.compile(
+    r"\breportMissingImports(?:\s+count)?\s*[:=]?\s*(\d+)\b",
+    re.IGNORECASE,
+)
 PYRIGHT_EXECUTION = re.compile(
     r"(?:python\S*\s+-m\s+pyright\b|npx\s+pyright\b|"
     r"(?:^|[;&|]\s*|timeout\s+\d+\s+)(?:/\S+/)?pyright\s)",
@@ -57,7 +64,7 @@ def _goal_issue_count(command: str, output: object) -> int | None:
         return int(matches[-1])
     if "reportMissingImports" not in command or not PYRIGHT_EXECUTION.search(command):
         return None
-    for pattern in (TOTAL_COUNT, LINE_COUNT, MISSING_COUNT):
+    for pattern in (TOTAL_COUNT, LINE_COUNT, MISSING_COUNT, REPORT_MISSING_COUNT):
         matches = pattern.findall(output)
         if matches:
             return int(matches[-1])
