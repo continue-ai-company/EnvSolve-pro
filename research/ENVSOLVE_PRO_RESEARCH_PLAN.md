@@ -1048,3 +1048,25 @@ Official-equivalent candidate and send it to target replay before optional compl
 exploration can erase it. Official success, deployment completeness, and path cost remain
 separate outcomes. No package rule may be tuned on consumed Bad-6 cases; the hypothesis requires
 a new fixed development batch.
+
+### 12.6 Certified-Incumbent Falsification and Verifier-Triggered Handoff
+
+That hypothesis was tested without changing the scheduled episodes. After correcting the
+selection claim with the historical registry, the primary prospective set contains six
+pairs. B-FSR passed `6/6`; C-GCI passed `5/6`, with qibolab B-only. No C episode activated
+fallback. C also consumed more resources both unconditionally and on the five common
+successes. Certified-incumbent retention is therefore removed from the core method and
+retained only as a later orthogonal safety ablation.
+
+The decisive qibolab trajectory reached a trusted full-goal Pass but never formed a
+candidate. This separates two states that prior analysis had conflated: **the environment
+is sufficient** and **a replayable cumulative program has been delivered**. Prompting the
+Agent to stop did not reliably cause the transition, while post-replay retention began too
+late to help.
+
+The next minimal method gives the controller exactly one new responsibility: after a
+trusted full-goal Pass, transition the same active session into programization and clean
+replay. Search and replay repair stay open-ended; package choice, interpreter choice, and
+completeness remain Agent decisions. The method adds no package rules, cross-case memory,
+physical checkpoint, candidate graph, or self-modification. It must first be qualified on
+consumed evidence, then compared prospectively with B-FSR.

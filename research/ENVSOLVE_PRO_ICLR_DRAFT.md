@@ -1,7 +1,7 @@
 # EnvSolve-Pro: Target-State Counterexample Replay for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-21; target-state replay is mechanism-qualified,
-but an effectiveness estimate is still missing
+Status: working ICLR paper draft, 2026-08-23; target-state replay is mechanism-qualified,
+and a prompt-guided incumbent treatment has been prospectively falsified
 
 ## Abstract
 
@@ -21,16 +21,18 @@ counterexample is returned to the same session as a soft constraint; the Agent r
 the whole program and repeats. The method adds no package-rule library, checkpoint
 search, cross-case memory, or hard action policy.
 
-A preregistered three-case mechanism check showed replay/Official agreement in all cases
-and feedback-conditioned repair in two. Across eight subsequent outcome-independent
-development pairs, free search passed 6/8 and EnvSolve-Pro passed 7/8, with only one
-discordant pair (`p=1.0`). Final replay and Official outcomes agreed in all seven treatment
-episodes that formed candidates. Two trajectories repaired failed complete programs, but
-five passed their first replay and the second four-pair batch was a 4/4 ceiling tie. The
-evidence establishes mechanism fidelity, not an effectiveness or efficiency gain. We next
-test a predeclared stratum of strong-baseline Official failures, then evaluate external
-baselines and strong and weaker backbones. Official Pass@1 is primary; time, tokens,
-traffic, storage, and deployment completeness are separate outcomes.
+A preregistered mechanism check established replay/Official agreement and
+feedback-conditioned repair. A subsequent failure-enriched study found two treatment-only
+successes in six pairs but also exposed repeated candidate non-delivery. We then tested the
+simplest repair, prompt-guided early programization plus a certified incumbent, on six
+prospective development pairs. The control passed 6/6; the treatment passed 5/6 and used
+more resources on common successes. Its failed trajectory reached a trusted goal Pass but
+never delivered a program, so retention could not activate. This negative result separates
+state sufficiency from program delivery and motivates a narrower algorithm: a verifier-
+triggered transition from Pass to programization and replay in the same active session.
+Official Pass@1 is primary; time, tokens, traffic, storage, and deployment completeness
+remain separate outcomes. Confirmatory and external-baseline evaluation follows only after
+this final mechanism is fixed.
 
 ## 1. Problem
 
@@ -223,6 +225,15 @@ one B-only, zero A-only, and one both-fail pair; exact McNemar remains `p=1.0`. 
 scaling is therefore no longer informative. The next development evidence must come from
 a fixed strong-baseline Official bad-case stratum selected from the pre-existing census,
 not from cases chosen after observing treatment behavior.
+
+The resulting Bad-6 stress test gave free search `2/6` and target-state replay `4/6`, with
+two treatment-only successes and exact McNemar `p=0.5`. Replay produced three Fail-to-Pass
+repairs, but candidate non-delivery remained common. A separate prospective six-pair test
+therefore evaluated prompt-guided early programization plus certified-incumbent retention.
+It regressed from control `6/6` to `5/6`; no fallback activated, and the treatment used
+21.4% more tokens on the five common successes. In the decisive failure, the construction
+state passed the trusted goal but the Agent never proposed a program. We reject this bundled
+treatment and localize the missing operation to an executable verifier-triggered handoff.
 
 ## 7. Falsification and Scope
 

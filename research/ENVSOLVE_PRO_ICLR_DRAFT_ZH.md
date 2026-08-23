@@ -1,6 +1,7 @@
 # EnvSolve-Pro：面向仓库部署的目标状态反例重放
 
-状态：ICLR 工作稿，2026-08-21；目标状态重放已通过机制验证，但仍缺少效果估计
+状态：ICLR 工作稿，2026-08-23；目标状态重放已通过机制验证，prompt 引导的 incumbent treatment
+已被 prospective 开发实验否决
 
 ## 摘要
 
@@ -13,12 +14,13 @@
 反例作为软约束返回同一 session，Agent 修改整段程序并继续。方法不加入 package 规则库、checkpoint
 搜索、跨 case 记忆或硬动作策略。
 
-三个已消费失败 case 的预注册机制检查得到 3/3 replay/Official 一致和 2/3 反馈修复。随后八对
-outcome-independent 开发 case 中，自由搜索通过 6/8，EnvSolve-Pro 通过 7/8，但只有一对结果不同
-（`p=1.0`）。形成候选的七条 treatment 轨迹最终 replay 与 Official 全部一致；两条轨迹修复了失败的
-完整程序，但五条首次 replay 即通过，后四对更是 4/4 ceiling tie。当前证据证明机制保真，不能证明效果
-或效率增益。下一步在预先声明的强 baseline Official bad-case 分层上比较，再评估外部 baseline 与强弱
-模型。Official Pass@1 是主指标；时间、Token、流量、存储和部署完整性分别报告。
+预注册机制检查证明了 replay/Official 一致和反馈驱动修复。随后的失败富集实验出现两条 treatment-only
+成功，也暴露了反复发生的候选不交付。我们因此在 6 对 prospective development case 上检验最简单的
+修法：prompt 引导的提前程序化加 certified incumbent。Control 为 6/6，treatment 为 5/6，并在共同
+成功 case 上消耗更多资源。失败轨迹已经达到可信目标 Pass，却始终没有交付程序，retention 因而无法
+激活。这个负结果区分了状态充分与程序交付，并把算法收窄为：在同一活跃 session 中，由 verifier 触发
+从 Pass 到程序化和 replay 的转换。Official Pass@1 是主指标；时间、Token、流量、存储和部署完整性
+分别报告。只有该最终机制固定后，才进入确认性和外部 baseline 评测。
 
 ## 1. 问题
 
@@ -163,6 +165,13 @@ session 为完整程序加入有界 retry 与 backoff，随后 replay 和 Offici
 outcome-independent 实验后，A 为 `6/8`、B 为 `7/8`：6 对都通过、1 对只有 B 通过、0 对只有 A
 通过、1 对都失败，精确 McNemar 仍为 `p=1.0`。继续随机扩展 Dev 已经不能高效检验核心主张。下一步
 必须从既有 census 中预先固定强 baseline 的 Official bad-case 分层，不能在看过 treatment 行为后挑 case。
+
+随后的 Bad-6 压力测试中，自由搜索为 `2/6`，目标状态重放为 `4/6`，有 2 条 treatment-only
+成功，exact McNemar 为 `p=0.5`。Replay 产生 3 次 Fail→Pass 修复，但候选不交付仍反复出现。因此另一组
+6 对 prospective case 检验了 prompt 引导的提前程序化和 certified-incumbent retention。结果从 control
+`6/6` 退化到 `5/6`；没有 fallback 激活，且 treatment 在 5 对共同成功 case 上多用 21.4% Token。
+决定性失败中，构建状态已经通过可信目标，Agent 却没有提出程序。我们否决该 bundled treatment，并把
+缺失操作定位为可执行的 verifier-triggered handoff。
 
 ## 7. 证伪条件与范围
 

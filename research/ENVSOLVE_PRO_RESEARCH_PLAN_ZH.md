@@ -804,3 +804,19 @@ quacc B 在候选前搜索膨胀；ajenti 两组都已经达到 0 missing import
 下一版只讨论一个简单的成功优先假设：首次得到可执行 Official-equivalent 候选时先保存并进入目标重放，
 后续完整性或成本探索不能抹掉已有候选。Official success、部署完整性和路径成本保持独立评价轴。该假设
 不能在已消费 Bad-6 上调 package 规则，必须在新的固定 development batch 上验证。
+
+### 12.6 Certified-Incumbent 证伪与验证器触发交接
+
+该假设已经在不改变调度 episode 的条件下完成检验。用历史 registry 修正 selection claim 后，主分析
+包含 6 对 prospective case。B-FSR 为 `6/6`，C-GCI 为 `5/6`，qibolab 是 B-only；C 没有一次
+fallback 激活。C 在全部样本和 5 对共同成功样本上都消耗更多资源。因此 certified-incumbent retention
+退出核心方法，只作为未来正交安全 ablation 保留。
+
+决定性的 qibolab 轨迹达到可信完整目标 Pass，却始终没有形成候选。这说明此前混淆了两个状态：
+**环境已经充分**与**可重放的累计程序已经交付**。Prompt 不能稳定触发状态转换，而 replay 后才开始的
+retention 又太晚，无法补救。
+
+下一最小方法只给控制器增加一个职责：可信完整目标 Pass 后，在同一活跃 session 中切换到程序化和 clean
+replay。自由搜索与 replay 修复仍开放；package、解释器和完整性仍由 Agent 决定。方法不增加 package
+规则、跨 case memory、物理 checkpoint、候选图或自修改。先在已消费证据上做机制资格验证，再与 B-FSR
+做新的 prospective 比较。

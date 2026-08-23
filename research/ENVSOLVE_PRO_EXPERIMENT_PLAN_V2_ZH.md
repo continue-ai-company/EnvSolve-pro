@@ -1,6 +1,6 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：Bad-6 失败富集开发实验完成；下一算法假设聚焦成功候选保留与停止决策
+状态：certified-incumbent 开发 treatment 已否决；下一假设聚焦验证器触发的程序化交接与重放
 日期：2026-08-23
 
 ## 1. 研究主线
@@ -496,3 +496,31 @@ B-FSR 对 C-GCI。当前审计确认 28 个 identity 在本地 terminal validati
 评价。设计记录在
 `experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_preregistration.json`。
 Bad-6 只用于诊断，不能再次承担新 treatment 的效果验证。
+
+## 14. Certified-Incumbent 结果与交接假设
+
+原调度全部执行完成，但历史 registry 审计在最后三对执行前修正了 claim scope。主分析包含 6 对
+prospective case；Futaba 作为已消费描述性证据；revision 不可获取的 Flask-Security 记源码获取删失。
+看到结果后没有选择 replacement。
+
+B-FSR 为 `6/6`，bundled C-GCI 为 `5/6`，唯一 discordant pair 是 qibolab，方向有利于 B。
+C 没有一次 incumbent fallback。即便只看 5 对共同成功 case，C 仍多用 21.4% Token 和 19.9%
+生成时间。因此否决该 treatment 作为 EnvSolve-Pro 核心算法，不在这些 case 上继续调参。
+
+Qibolab 精确定位了下一处矛盾。C 在第 93 次请求得到完整根目录的公开目标 Pass，却继续做可选环境工作，
+直到第 120 次请求触发安全上限仍没有提出程序。Incumbent retention 只能在 replay 之后开始，因此无法
+解决候选不交付；prompt 引导不是可执行 trigger。
+
+下一候选只改变三层之间的交接：
+
+1. **观测层：** 在活跃构建状态中识别可信完整目标 Pass。
+2. **约束层：** 把当前状态标记为足以立即交付程序，完整性和成本仍是可选质量目标。
+3. **操作层：** 在进一步可选探索前，让同一活跃 session 汇总累计 bootstrap 并调用 clean replay。
+4. Replay 失败则返回反例并恢复自由修复；replay 通过则以认证程序终止。
+
+这是验证器触发的程序化，不是 package 规则或动作过滤。搜索和修复时操作空间仍然自由。打开下一组
+prospective case 前，先在已消费轨迹和确定性测试上验证 trigger 识别、单次阶段转换、反例回传和通过后
+终止，再预注册一组新的固定 development comparison 与 B-FSR 比较。
+
+完整结果：
+`experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_result.json`。

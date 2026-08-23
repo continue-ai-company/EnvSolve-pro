@@ -1,7 +1,7 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: failure-enriched Bad-6 development study complete; the next hypothesis targets
-successful-candidate retention and stopping
+Status: certified-incumbent development treatment rejected; the next hypothesis targets
+verifier-triggered programization and replay handoff
 Date: 2026-08-23
 
 ## 1. Research Thesis
@@ -627,3 +627,39 @@ non-submission as deployment failure; completeness, path quality, and resources 
 separate axes. The design is recorded in
 `experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_preregistration.json`.
 Bad-6 remains diagnostic and cannot validate the new treatment.
+
+## 14. Certified-Incumbent Result and Handoff Hypothesis
+
+The unchanged schedule completed, but a registry audit corrected its claim scope before
+the final three pairs ran. The primary comparison is six prospective pairs, with Futaba
+reported as consumed descriptive evidence and unavailable-revision Flask-Security as
+source-acquisition censoring. No replacement was selected after outcomes were visible.
+
+B-FSR passed `6/6`; bundled C-GCI passed `5/6`. Qibolab was the only discordant pair and
+favored B. C never used incumbent fallback. Even on the five both-pass pairs, C used 21.4%
+more tokens and 19.9% more generation time. The treatment is therefore rejected as the
+core EnvSolve-Pro algorithm, not retuned on these cases.
+
+Qibolab identifies the next narrow contradiction. C reached a complete full-root public
+goal pass at request 93, yet continued optional environment work until its 120-request
+safety cap without proposing a program. Incumbent retention starts only after replay, so
+it cannot repair candidate non-delivery. Prompt guidance is not an executable trigger.
+
+The next candidate changes only the handoff between the three layers:
+
+1. **Observation:** detect a trusted full-goal Pass in the active construction state.
+2. **Constraint:** mark the current state as sufficient for immediate program delivery,
+   while leaving completeness and cost as optional quality objectives.
+3. **Operation:** ask the same active session to compile the cumulative bootstrap and
+   invoke clean replay before further optional exploration.
+4. A replay failure returns its counterexample and reopens free repair; a replay pass
+   terminates with the certified program.
+
+This is verifier-triggered programization, not a package rule or action filter. The
+operation space remains free during search and repair. Before opening another prospective
+batch, qualify trigger detection, one-time phase transition, replay feedback return, and
+termination on consumed trajectories and deterministic tests. Then preregister a new fixed
+development comparison against B-FSR.
+
+Complete result:
+`experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_result.json`.

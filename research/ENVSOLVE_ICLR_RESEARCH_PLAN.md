@@ -238,6 +238,13 @@ continued pursuing runtime completeness and never delivered. B consumed 5.8% mor
 Bad-6. Current evidence therefore supports neither significance, population effect, efficiency, nor SOTA, and locates the
 next bottleneck at successful-candidate retention and stopping.
 
+We tested the simplest retention policy on a separate prospective six-pair development set. The control passed `6/6`,
+while prompt-guided programization plus a certified incumbent passed `5/6` and used more resources even on common successes.
+The failed treatment reached a trusted goal Pass but never delivered a program, so no incumbent existed. This negative result
+separates **state sufficiency** from **program delivery** and rules out prompt guidance plus post-replay retention as the core
+solution. The next candidate is a verifier-triggered transition from a trusted Pass to programization and replay in the same
+active session; its effect remains untested.
+
 ## 7. Limitations
 
 Current results come from small, failure-enriched development batches. Model, provider, ARM64 platform, and network state
@@ -250,5 +257,6 @@ Final conclusions require unseen cases, multiple model strengths, external basel
 Repository deployment is difficult not because Agents need more commands, but because hidden compatibility conditions must
 be inferred under partial observability and compiled into a program that rebuilds from the target initial state. EnvSolve-Pro
 connects free Agent reasoning to target-state execution through a minimal three-layer loop. Development evidence demonstrates
-real repairs and clearly exposes the unresolved candidate-formation problem. The next step is to test a success-first
-candidate-retention mechanism without adding case-specific rules, then proceed to confirmatory evaluation after fixation.
+real replay repairs and shows that verified state sufficiency does not reliably cause program delivery. A prompt-guided
+incumbent treatment failed this test. The unresolved algorithmic step is therefore an executable, verifier-triggered handoff
+from Observation to programization, without constraining free search or adding case-specific rules.

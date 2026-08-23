@@ -1,0 +1,62 @@
+{
+  "execution": {
+    "config": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/experiments/configs/local_spark_envsolve_pro_v2_certified_incumbent_untouched8_v1.json",
+    "config_sha256": "07d7b35b28dc693a294523b0295072977376f1fd8778ef7a325acbaa05c11fa8",
+    "episode_runner_override": true,
+    "episode_timeout_seconds": 23000.0,
+    "protocol": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/experiments/protocols/envbench_python_official_v1.json",
+    "protocol_sha256": "f495b4949c8b1fd7b45b63dd1fb8ab47869867b977fc74b0d30e733b42cc92af",
+    "provider": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "credential_variable": "OPENROUTER_API_KEY",
+      "provider_backed": true,
+      "provider_order": [
+        "deepinfra"
+      ]
+    },
+    "runner": "envsolve",
+    "timeout_source": "schedule"
+  },
+  "outcomes": [
+    {
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-01-mflowgen-C-GCI/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "duration_seconds": 245.84626785945147,
+      "finished_at": "2026-08-23T04:15:48.300988+00:00",
+      "method": "envsolve-pro-goal-triggered-certified-incumbent",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "position": 1,
+      "process_exit_code": 0,
+      "reason": null,
+      "run_id": "pro-v2-incumbent-untouched8-v1-01-mflowgen-C-GCI",
+      "runner": "envsolve-pro-v2-incumbent",
+      "seed": 620001,
+      "started_at": "2026-08-23T04:11:42.450543+00:00",
+      "state": "process_finished",
+      "stderr_tail": "",
+      "stdout_tail": "artifacts=/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-01-mflowgen-C-GCI/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3\ngeneration_completed=true\nevaluation_completed=true\nofficial_pass=true\nbenchmark=envbench\nraw_metrics={'exit_code': 0, 'issues_count': 0, 'error_count': 52, 'warning_count': 183, 'repo_name': 'mflowgen/mflowgen', 'commit_sha': '354619ca1c2a0f47b5db5f348fa5a7a12bc868d3'}\n"
+    },
+    {
+      "artifact_root": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-02-mflowgen-B-FSR/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "duration_seconds": 239.83418006636202,
+      "finished_at": "2026-08-23T04:23:24.853589+00:00",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "position": 2,
+      "process_exit_code": 0,
+      "reason": null,
+      "run_id": "pro-v2-incumbent-untouched8-v1-02-mflowgen-B-FSR",
+      "runner": "envsolve-pro-v2",
+      "seed": 620001,
+      "started_at": "2026-08-23T04:19:25.006129+00:00",
+      "state": "process_finished",
+      "stderr_tail": "",
+      "stdout_tail": "artifacts=/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-02-mflowgen-B-FSR/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3\ngeneration_completed=true\nevaluation_completed=true\nofficial_pass=true\nbenchmark=envbench\nraw_metrics={'exit_code': 0, 'issues_count': 0, 'error_count': 52, 'warning_count': 182, 'repo_name': 'mflowgen/mflowgen', 'commit_sha': '354619ca1c2a0f47b5db5f348fa5a7a12bc868d3'}\n"
+    }
+  ],
+  "schedule": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/experiments/schedules/envsolve_pro_v2_certified_incumbent_untouched8_v1.json",
+  "schedule_sha256": "1b4eb81d6fce6b0f06b0fb37e4e9127bec35fc8d2184ef00a128932331175348",
+  "schema_version": "2.0.0",
+  "updated_at": "2026-08-23T04:23:24.853600+00:00"
+}

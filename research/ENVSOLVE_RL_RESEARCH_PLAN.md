@@ -607,3 +607,18 @@ reward remains end-to-end deployment success. Completeness and resource cost are
 objectives only after a successful candidate exists, preventing a learned policy from
 sacrificing an Official-pass path for speculative completeness or a cheaper but failing
 path.
+
+### 23. State-Sufficiency to Program-Delivery Labels
+
+The prospective incumbent study shows that `goal_pass` and `candidate_formed` are separate
+transitions. In qibolab, the active state reached a full trusted goal Pass, but the Agent
+continued optional work until termination without proposing a program. The training record
+must therefore preserve `goal_pass_request`, `candidate_request`,
+`goal_to_candidate_delay`, `goal_pass_without_candidate`, `certification_request`, and
+`fallback_activated` rather than treating terminal failure as generic bad search.
+
+This trajectory is negative supervision for continuation after a verified sufficient
+state, but it is not evidence that every local zero count should terminate. Labels must
+distinguish a trusted complete-root goal report from partial probes and model assertions.
+Program delivery is rewarded only after clean target-state replay; optional completeness
+and resource objectives remain auxiliary once that certificate exists.

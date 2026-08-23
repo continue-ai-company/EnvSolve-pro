@@ -692,3 +692,18 @@ cannot compensate for an Official regression, and a successful candidate must no
 discarded because a later exploratory path failed. This is a generic harness transaction,
 not a repository-specific package rule and not part of the first EnvSolve-Pro algorithm
 until a new disjoint development batch validates it.
+
+### 24. Negative Retention Transaction
+
+The prospective retention study is a required rollback example for the outer loop. The
+bundled treatment regressed from control `6/6` to `5/6`, increased common-success cost,
+and never activated fallback. Auto-EnvSolve should therefore reject that version rather
+than preserve it because the mechanism was plausible or passed unit tests.
+
+The qibolab trace adds a sharper proposal unit: change only the transition from a trusted
+full-goal Pass to cumulative-program delivery. Future outer-loop records should compare
+`first_goal_pass`, `first_program_proposal`, `first_clean_replay`,
+`goal_to_candidate_delay`, `goal_pass_without_candidate`, and `fallback_activated` across
+versions. A proposal that merely renames prompt guidance as a trigger must not receive
+mechanism credit; activation requires an observable controller transition and a submitted
+program. This remains future outer-loop evidence, not part of the first paper's method.

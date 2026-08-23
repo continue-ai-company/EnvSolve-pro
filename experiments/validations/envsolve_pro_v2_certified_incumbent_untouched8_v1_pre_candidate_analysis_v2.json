@@ -1,0 +1,635 @@
+{
+  "schema": "envsolve-pro-v2-pre-candidate-trajectory-analysis-v2",
+  "created_at": "2026-08-23T08:17:47.134296+00:00",
+  "claim_scope": "Consumed-development trajectory diagnosis only.",
+  "episode_count": 14,
+  "episodes_reaching_satisfying_state": 12,
+  "episodes_reaching_candidate_boundary": 13,
+  "episodes_reaching_certification_boundary": 13,
+  "episodes_satisfying_goal_without_candidate": 1,
+  "aggregate": {
+    "pre_candidate_shell_actions": 569,
+    "failed_shell_actions": 49,
+    "exact_repeated_non_goal_command_executions": 2,
+    "package_operations": 71,
+    "environment_operations": 84,
+    "runtime_or_test_probes": 215,
+    "goal_checks": 57,
+    "improving_goal_transitions": 25,
+    "stagnant_goal_transitions": 13,
+    "regressing_goal_transitions": 6
+  },
+  "episodes": [
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-01-mflowgen-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-01-mflowgen-C-GCI/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3/generation/trajectory.jsonl",
+      "shell_actions_total": 15,
+      "first_satisfying_request": 10,
+      "first_satisfying_shell_action": 10,
+      "first_candidate_request": 16,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 16,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 6,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 15,
+        "failed_shell_actions": 2,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 4,
+        "environment_operations": 2,
+        "runtime_or_test_probes": 7,
+        "goal_checks": 3,
+        "goal_issue_counts": [
+          4,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          4,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 1,
+          "new_best": 2,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 5.0,
+        "median_shell_gap_between_goal_checks": 5,
+        "maximum_shell_gap_between_goal_checks": 6
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-02-mflowgen-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-02-mflowgen-B-FSR/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3/generation/trajectory.jsonl",
+      "shell_actions_total": 22,
+      "first_satisfying_request": 18,
+      "first_satisfying_shell_action": 18,
+      "first_candidate_request": 22,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 24,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 4,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 21,
+        "failed_shell_actions": 3,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 3,
+        "environment_operations": 2,
+        "runtime_or_test_probes": 9,
+        "goal_checks": 4,
+        "goal_issue_counts": [
+          3,
+          1,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          3,
+          1,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 2,
+          "new_best": 3,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 5.25,
+        "median_shell_gap_between_goal_checks": 4.0,
+        "maximum_shell_gap_between_goal_checks": 10
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-03-bread-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-03-bread-B-FSR/envbench-python-basxsoftwareassociation__bread__b26203df8f81fcbf5f299dfe07dc808309349ecd/generation/trajectory.jsonl",
+      "shell_actions_total": 22,
+      "first_satisfying_request": 12,
+      "first_satisfying_shell_action": 12,
+      "first_candidate_request": 17,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 25,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 5,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 16,
+        "failed_shell_actions": 2,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 6,
+        "environment_operations": 2,
+        "runtime_or_test_probes": 9,
+        "goal_checks": 2,
+        "goal_issue_counts": [
+          9,
+          0
+        ],
+        "goal_best_progression": [
+          9,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 1,
+          "new_best": 2
+        },
+        "shell_actions_per_goal_check": 8.0,
+        "median_shell_gap_between_goal_checks": 6.0,
+        "maximum_shell_gap_between_goal_checks": 9
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-04-bread-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-04-bread-C-GCI/envbench-python-basxsoftwareassociation__bread__b26203df8f81fcbf5f299dfe07dc808309349ecd/generation/trajectory.jsonl",
+      "shell_actions_total": 27,
+      "first_satisfying_request": null,
+      "first_satisfying_shell_action": null,
+      "first_candidate_request": 28,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 29,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": null,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 27,
+        "failed_shell_actions": 5,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 1,
+        "package_operations": 0,
+        "environment_operations": 9,
+        "runtime_or_test_probes": 15,
+        "goal_checks": 0,
+        "goal_issue_counts": [],
+        "goal_best_progression": [],
+        "goal_transitions": {},
+        "shell_actions_per_goal_check": null,
+        "median_shell_gap_between_goal_checks": null,
+        "maximum_shell_gap_between_goal_checks": null
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-05-futaba-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-05-futaba-C-GCI/envbench-python-strinking__futaba__2e4d7874f0b99176f7595f776dfebf2eac26afbb/generation/trajectory.jsonl",
+      "shell_actions_total": 32,
+      "first_satisfying_request": 28,
+      "first_satisfying_shell_action": 28,
+      "first_candidate_request": 33,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 33,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 5,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 32,
+        "failed_shell_actions": 2,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 3,
+        "environment_operations": 6,
+        "runtime_or_test_probes": 14,
+        "goal_checks": 3,
+        "goal_issue_counts": [
+          159,
+          2,
+          0
+        ],
+        "goal_best_progression": [
+          159,
+          2,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 2,
+          "new_best": 3
+        },
+        "shell_actions_per_goal_check": 10.666666666666666,
+        "median_shell_gap_between_goal_checks": 11,
+        "maximum_shell_gap_between_goal_checks": 15
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-06-futaba-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-06-futaba-B-FSR/envbench-python-strinking__futaba__2e4d7874f0b99176f7595f776dfebf2eac26afbb/generation/trajectory.jsonl",
+      "shell_actions_total": 31,
+      "first_satisfying_request": 19,
+      "first_satisfying_shell_action": 27,
+      "first_candidate_request": 23,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 25,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 4,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 30,
+        "failed_shell_actions": 3,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 2,
+        "environment_operations": 2,
+        "runtime_or_test_probes": 10,
+        "goal_checks": 3,
+        "goal_issue_counts": [
+          2,
+          636,
+          0
+        ],
+        "goal_best_progression": [
+          2,
+          2,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 1,
+          "new_best": 2,
+          "regressing": 1
+        },
+        "shell_actions_per_goal_check": 10.0,
+        "median_shell_gap_between_goal_checks": 10,
+        "maximum_shell_gap_between_goal_checks": 16
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-09-pajbot-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-09-pajbot-C-GCI/envbench-python-pajbot__pajbot__a0d969a570c7bd06fcf1829b6f3465c1b250f0a3/generation/trajectory.jsonl",
+      "shell_actions_total": 51,
+      "first_satisfying_request": 21,
+      "first_satisfying_shell_action": 28,
+      "first_candidate_request": 43,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 43,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 22,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 51,
+        "failed_shell_actions": 2,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 5,
+        "environment_operations": 8,
+        "runtime_or_test_probes": 20,
+        "goal_checks": 9,
+        "goal_issue_counts": [
+          1,
+          0,
+          1,
+          0,
+          3,
+          1,
+          0,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 4,
+          "new_best": 2,
+          "regressing": 2,
+          "stagnant": 2
+        },
+        "shell_actions_per_goal_check": 5.666666666666667,
+        "median_shell_gap_between_goal_checks": 3,
+        "maximum_shell_gap_between_goal_checks": 24
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-10-pajbot-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-10-pajbot-B-FSR/envbench-python-pajbot__pajbot__a0d969a570c7bd06fcf1829b6f3465c1b250f0a3/generation/trajectory.jsonl",
+      "shell_actions_total": 40,
+      "first_satisfying_request": 29,
+      "first_satisfying_shell_action": 35,
+      "first_candidate_request": 35,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 35,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 6,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 40,
+        "failed_shell_actions": 2,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 8,
+        "environment_operations": 7,
+        "runtime_or_test_probes": 6,
+        "goal_checks": 3,
+        "goal_issue_counts": [
+          1,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          1,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 1,
+          "new_best": 2,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 13.333333333333334,
+        "median_shell_gap_between_goal_checks": 10,
+        "maximum_shell_gap_between_goal_checks": 25
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-11-qibolab-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-11-qibolab-B-FSR/envbench-python-qiboteam__qibolab__5e8ed94a7336734a9babca39ba58f1c557865d0e/generation/trajectory.jsonl",
+      "shell_actions_total": 72,
+      "first_satisfying_request": 45,
+      "first_satisfying_shell_action": 58,
+      "first_candidate_request": 59,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 59,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 14,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 72,
+        "failed_shell_actions": 5,
+        "timed_out_shell_actions": 1,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 2,
+        "environment_operations": 24,
+        "runtime_or_test_probes": 34,
+        "goal_checks": 6,
+        "goal_issue_counts": [
+          10,
+          8,
+          0,
+          2,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          10,
+          8,
+          0,
+          0,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 3,
+          "new_best": 3,
+          "regressing": 1,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 12.0,
+        "median_shell_gap_between_goal_checks": 9.0,
+        "maximum_shell_gap_between_goal_checks": 37
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-12-qibolab-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-12-qibolab-C-GCI/envbench-python-qiboteam__qibolab__5e8ed94a7336734a9babca39ba58f1c557865d0e/generation/trajectory.jsonl",
+      "shell_actions_total": 165,
+      "first_satisfying_request": 93,
+      "first_satisfying_shell_action": 134,
+      "first_candidate_request": null,
+      "first_candidate_source": null,
+      "first_certification_request": null,
+      "first_certification_source": null,
+      "goal_to_candidate_request_delta": null,
+      "goal_satisfied_without_candidate": true,
+      "pre_candidate": {
+        "shell_actions": 165,
+        "failed_shell_actions": 14,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 1,
+        "package_operations": 19,
+        "environment_operations": 7,
+        "runtime_or_test_probes": 49,
+        "goal_checks": 8,
+        "goal_issue_counts": [
+          117,
+          11,
+          6,
+          3,
+          2,
+          0,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          117,
+          11,
+          6,
+          3,
+          2,
+          0,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 5,
+          "new_best": 6,
+          "stagnant": 2
+        },
+        "shell_actions_per_goal_check": 20.625,
+        "median_shell_gap_between_goal_checks": 4.5,
+        "maximum_shell_gap_between_goal_checks": 64
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-13-mamonsu-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-13-mamonsu-C-GCI/envbench-python-postgrespro__mamonsu__31a59811d7f66f01c90d77b9df34f3077a12dd8b/generation/trajectory.jsonl",
+      "shell_actions_total": 17,
+      "first_satisfying_request": 15,
+      "first_satisfying_shell_action": 15,
+      "first_candidate_request": 18,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 18,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 3,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 17,
+        "failed_shell_actions": 3,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 3,
+        "environment_operations": 0,
+        "runtime_or_test_probes": 7,
+        "goal_checks": 4,
+        "goal_issue_counts": [
+          7,
+          1,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          7,
+          1,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 2,
+          "new_best": 3,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 4.25,
+        "median_shell_gap_between_goal_checks": 2.5,
+        "maximum_shell_gap_between_goal_checks": 10
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-14-mamonsu-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-14-mamonsu-B-FSR/envbench-python-postgrespro__mamonsu__31a59811d7f66f01c90d77b9df34f3077a12dd8b/generation/trajectory.jsonl",
+      "shell_actions_total": 25,
+      "first_satisfying_request": null,
+      "first_satisfying_shell_action": null,
+      "first_candidate_request": 26,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 26,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": null,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 25,
+        "failed_shell_actions": 1,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 6,
+        "environment_operations": 1,
+        "runtime_or_test_probes": 11,
+        "goal_checks": 3,
+        "goal_issue_counts": [
+          1,
+          1,
+          1
+        ],
+        "goal_best_progression": [
+          1,
+          1,
+          1
+        ],
+        "goal_transitions": {
+          "new_best": 1,
+          "stagnant": 2
+        },
+        "shell_actions_per_goal_check": 8.333333333333334,
+        "median_shell_gap_between_goal_checks": 8,
+        "maximum_shell_gap_between_goal_checks": 13
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-15-qiita-B-FSR",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-15-qiita-B-FSR/envbench-python-qiita-spots__qiita__13eafdf1a2eb0c8b5d4019ad294b7490cd396139/generation/trajectory.jsonl",
+      "shell_actions_total": 19,
+      "first_satisfying_request": 16,
+      "first_satisfying_shell_action": 15,
+      "first_candidate_request": 21,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 21,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 5,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 19,
+        "failed_shell_actions": 2,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 6,
+        "environment_operations": 2,
+        "runtime_or_test_probes": 6,
+        "goal_checks": 2,
+        "goal_issue_counts": [
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "new_best": 1,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 9.5,
+        "median_shell_gap_between_goal_checks": 8.5,
+        "maximum_shell_gap_between_goal_checks": 15
+      }
+    },
+    {
+      "run_id": "pro-v2-incumbent-untouched8-v1-16-qiita-C-GCI",
+      "trajectory": "/home/avdpro/work/EnvSolve-pro-cache-isolation-448de40-retry1/runs/envsolve-pro-v2-certified-incumbent-untouched8-v1/pro-v2-incumbent-untouched8-v1-16-qiita-C-GCI/envbench-python-qiita-spots__qiita__13eafdf1a2eb0c8b5d4019ad294b7490cd396139/generation/trajectory.jsonl",
+      "shell_actions_total": 39,
+      "first_satisfying_request": 32,
+      "first_satisfying_shell_action": 32,
+      "first_candidate_request": 40,
+      "first_candidate_source": "submit-and-replay",
+      "first_certification_request": 40,
+      "first_certification_source": "clean-replay-pass",
+      "goal_to_candidate_request_delta": 8,
+      "goal_satisfied_without_candidate": false,
+      "pre_candidate": {
+        "shell_actions": 39,
+        "failed_shell_actions": 3,
+        "timed_out_shell_actions": 0,
+        "infrastructure_error_actions": 0,
+        "exact_repeated_non_goal_command_executions": 0,
+        "package_operations": 4,
+        "environment_operations": 12,
+        "runtime_or_test_probes": 18,
+        "goal_checks": 7,
+        "goal_issue_counts": [
+          192,
+          632,
+          2097,
+          2089,
+          2082,
+          0,
+          0
+        ],
+        "goal_best_progression": [
+          192,
+          192,
+          192,
+          192,
+          192,
+          0,
+          0
+        ],
+        "goal_transitions": {
+          "improving": 3,
+          "new_best": 2,
+          "regressing": 2,
+          "stagnant": 1
+        },
+        "shell_actions_per_goal_check": 5.571428571428571,
+        "median_shell_gap_between_goal_checks": 4,
+        "maximum_shell_gap_between_goal_checks": 14
+      }
+    }
+  ]
+}

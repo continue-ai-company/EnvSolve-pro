@@ -210,6 +210,12 @@ HARK 提供最干净的因果案例：A 只在 Official fresh checkout 中遇到
 而没有提交。B 在 Bad-6 上多用 5.8% Token 和 10.4% 端到端时间。因此当前证据不支持显著性、总体效果、
 效率或 SOTA 声明，并把下一主要矛盾定位为成功候选保留与停止决策。
 
+我们在另一组 6 对 prospective development case 上检验了最简单的保留策略。Control 为 `6/6`，prompt
+引导的程序化加 certified incumbent 为 `5/6`，并且在共同成功 case 上仍消耗更多资源。失败 treatment
+虽然达到可信目标 Pass，却没有交付程序，因此根本没有 incumbent。这个负结果区分了**状态已经充分**与
+**程序已经交付**，否决了 prompt 引导加 replay 后 retention 作为核心方案。下一候选是在同一活跃 session
+中，由 verifier 把可信 Pass 转换为程序化和 replay 阶段；其效果尚未验证。
+
 ## 7. 局限性
 
 当前结果来自小型、失败富集的 development batch；模型、provider、ARM64 平台和网络状态都可能影响轨迹。
@@ -220,5 +226,6 @@ EnvBench 的 missing-import 目标不能代表完整可执行部署。软约束�
 
 仓库部署的核心困难不是生成更多命令，而是在部分观测下发现隐藏兼容条件，并把反例转化为能够从目标
 初始状态重建的程序。EnvSolve-Pro 用一个最小三层闭环连接强 Agent 的自由推理与目标状态执行。开发证据
-证明该机制能够产生真实修复，也清楚暴露了它尚未解决的候选形成问题。下一步是在不增加 case 特定规则的
-前提下，验证一个成功优先的候选保留机制，并在算法确定后进入确认性评测。
+证明 replay 能产生真实修复，也说明“状态已经充分”不会稳定地导致“程序已经交付”。Prompt 引导的
+incumbent treatment 已被该检验否决。尚未解决的算法步骤是在不限制自由搜索、不增加 case 特定规则的
+前提下，用可执行 verifier trigger 把观测层的 Pass 交接到程序化阶段。

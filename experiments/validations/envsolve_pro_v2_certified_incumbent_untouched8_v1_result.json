@@ -1,0 +1,195 @@
+{
+  "schema": "envsolve-pro-v2-certified-incumbent-development-result-v1",
+  "study_id": "envsolve-pro-v2-certified-incumbent-untouched8-v1",
+  "recorded_at": "2026-08-23T08:24:22Z",
+  "status": "negative-treatment-result-central-handoff-gap-localized",
+  "research_role": "prospective six-pair development comparison plus one consumed descriptive pair and one unavailable-revision censoring; not held-out, confirmatory, or SOTA evidence",
+  "arms": {
+    "B-FSR": "one continuous free-search Agent session with advisory complete-program clean replay",
+    "C-GCI": "B-FSR plus prompt-guided early programization, retention of each clean-replay-passed program, and certified-incumbent fallback"
+  },
+  "analysis_scope": {
+    "scheduled_pairs": 8,
+    "prospective_primary_pairs": 6,
+    "consumed_descriptive_pairs": 1,
+    "infrastructure_censored_pairs": 1,
+    "post_outcome_replacements": 0,
+    "selection_correction": "experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_selection_scope_correction.json"
+  },
+  "primary_end_to_end_result": {
+    "B_FSR": {
+      "official_passes": 6,
+      "pairs": 6,
+      "rate": 1.0
+    },
+    "C_GCI": {
+      "official_passes": 5,
+      "pairs": 6,
+      "rate": 0.8333333333333334
+    },
+    "paired_table": {
+      "both_pass": 5,
+      "B_only_pass": 1,
+      "C_only_pass": 0,
+      "neither_pass": 0
+    },
+    "exact_two_sided_mcnemar_p": 1.0,
+    "interpretation": "The small development batch does not establish a population effect, but it falsifies the claim that the bundled C-GCI policy is a non-regressive improvement over B-FSR."
+  },
+  "primary_resources": {
+    "all_six_pairs": {
+      "B_FSR": {
+        "model_requests": 196,
+        "total_tokens": 3777670,
+        "shell_commands": 200,
+        "generation_seconds": 5887.209222,
+        "endpoint_seconds": 6867.730850756168
+      },
+      "C_GCI": {
+        "model_requests": 271,
+        "total_tokens": 9398011,
+        "shell_commands": 314,
+        "generation_seconds": 7546.696266,
+        "endpoint_seconds": 8065.538205515593
+      },
+      "C_relative_change_percent": {
+        "model_requests": 38.3,
+        "total_tokens": 148.8,
+        "shell_commands": 57.0,
+        "generation_seconds": 28.2,
+        "endpoint_seconds": 17.4
+      }
+    },
+    "five_both_pass_pairs": {
+      "B_FSR": {
+        "model_requests": 136,
+        "total_tokens": 1809293,
+        "shell_commands": 128,
+        "generation_seconds": 2276.506543,
+        "endpoint_seconds": 2894.591623129323
+      },
+      "C_GCI": {
+        "model_requests": 151,
+        "total_tokens": 2196482,
+        "shell_commands": 149,
+        "generation_seconds": 2729.121745,
+        "endpoint_seconds": 3244.7190855145454
+      },
+      "C_relative_change_percent": {
+        "model_requests": 11.0,
+        "total_tokens": 21.4,
+        "shell_commands": 16.4,
+        "generation_seconds": 19.9,
+        "endpoint_seconds": 12.1
+      }
+    }
+  },
+  "primary_cases": [
+    {
+      "case": "mflowgen",
+      "B_FSR": "Official Pass",
+      "C_GCI": "Official Pass"
+    },
+    {
+      "case": "bread",
+      "B_FSR": "Official Pass",
+      "C_GCI": "Official Pass"
+    },
+    {
+      "case": "pajbot",
+      "B_FSR": "Official Pass",
+      "C_GCI": "Official Pass"
+    },
+    {
+      "case": "qibolab",
+      "B_FSR": "Official Pass",
+      "C_GCI": "deployment failure before candidate formation"
+    },
+    {
+      "case": "mamonsu",
+      "B_FSR": "Official Pass",
+      "C_GCI": "Official Pass"
+    },
+    {
+      "case": "qiita",
+      "B_FSR": "Official Pass",
+      "C_GCI": "Official Pass"
+    }
+  ],
+  "mechanism_evidence": {
+    "B_candidates_formed": 6,
+    "B_candidates_certified": 6,
+    "C_candidates_formed": 5,
+    "C_candidates_certified": 5,
+    "C_live_fallback_activations": 0,
+    "C_goal_pass_without_candidate": 1,
+    "C_goal_to_candidate_request_deltas_when_observed": [
+      6,
+      22,
+      3,
+      8
+    ],
+    "B_goal_to_candidate_request_deltas_when_observed": [
+      4,
+      5,
+      6,
+      14,
+      5
+    ],
+    "observation_note": "Construction-time full-root goal passes were directly recognizable in five episodes per arm. Bread C and Mamonsu B formed replay-certified candidates without a parser-recognized construction-time full-root pass."
+  },
+  "decisive_qibolab_trajectory": {
+    "B_FSR": {
+      "first_observed_full_goal_pass_request": 45,
+      "first_candidate_request": 59,
+      "first_certification_request": 59,
+      "official_result": "Pass",
+      "total_tokens": 1968377
+    },
+    "C_GCI": {
+      "first_observed_full_goal_pass_request": 93,
+      "first_candidate_request": null,
+      "first_certification_request": null,
+      "terminal": "120-request safety cap without submission",
+      "total_tokens": 7201529
+    },
+    "observation_layer": "The active environment produced a complete full-root zero-missing-import observation at request 93.",
+    "constraint_layer": "The prompt did not convert that verified success into a durable case-local obligation to deliver the current sufficient state before optional exploration.",
+    "operation_layer": "The Agent continued broad dependency, hardware, stub, and runtime-completeness work until the request cap and never invoked complete-program replay.",
+    "causal_boundary": "The incumbent machinery could act only after a clean replay pass. Since no candidate was proposed, no incumbent existed and fallback could not rescue the episode."
+  },
+  "adjudication": {
+    "C_GCI_as_core_algorithm": "reject",
+    "certified_incumbent_as_orthogonal_safety_primitive": "retain for later ablation only",
+    "clean_target_state_replay": "retain as an activated component with prior Fail-to-Pass evidence",
+    "next_algorithmic_hypothesis": "A trusted full-goal Pass should trigger a controller-owned programization and replay phase inside the same active Agent session. Search and repair remain free; the controller owns only the transition from a verified sufficient construction state to a complete replayable program.",
+    "why_this_is_not_another_compatibility_rule": "The intervention does not prescribe packages, interpreters, commands, or repository-specific repairs. It repairs a generic control-flow failure between Observation, Constraint, and Operation.",
+    "implementation_boundary": "Do not add package rules, cross-case memory, physical checkpoints, candidate graphs, or harness self-modification. First qualify the handoff on consumed traces, then preregister a new fixed development comparison."
+  },
+  "descriptive_and_censored": {
+    "futaba": "Consumed descriptive pair; both arms passed Official and cannot support unseen-development claims.",
+    "flask_security": "Both arms ended before Agent execution because the remote repository no longer served the requested commit; report as source-acquisition censoring, not algorithm failure."
+  },
+  "claim_boundary": {
+    "supported": [
+      "C-GCI did not improve success or resources over B-FSR in the prospective six-pair development comparison.",
+      "A verified satisfying construction state can be lost before candidate formation and replay.",
+      "Prompt guidance plus post-replay incumbent retention is not a reliable executable goal trigger.",
+      "Official success, deployment completeness, and resource cost must remain separate outcomes."
+    ],
+    "not_supported": [
+      "The next verifier-triggered handoff improves success.",
+      "Any arm is SOTA on EnvBench.",
+      "The result generalizes to protected test cases, other backbones, or native Codex.",
+      "Certified-incumbent fallback improves live outcomes."
+    ]
+  },
+  "evidence": {
+    "raw_schedule_summary": "experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_raw_summary.json",
+    "handoff_analysis": "experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_pre_candidate_analysis_v2.json",
+    "schedule": "experiments/schedules/envsolve_pro_v2_certified_incumbent_untouched8_v1.json",
+    "preregistration": "experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_preregistration.json",
+    "estimand_amendment": "experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_estimand_amendment.json",
+    "analysis_semantics_correction": "experiments/validations/envsolve_pro_v2_pre_candidate_boundary_semantics_correction.json"
+  }
+}
