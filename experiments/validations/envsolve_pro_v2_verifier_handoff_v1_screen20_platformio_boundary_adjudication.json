@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-prospective-screen20",
+  "recorded_at": "2026-08-23",
+  "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+  "screen_outcome": {
+    "run_id": "pro-v2-handoff-v1-screen20-02-platformio-core-S-OBS",
+    "generation_completed": false,
+    "evaluation_completed": false,
+    "official_pass_at_1": false,
+    "terminal_outcome": "agent_noncompletion",
+    "bad_case": true,
+    "failure": "construction environment violated minimal integrity because harness-owned build_output was absent"
+  },
+  "causal_trace": {
+    "construction_commands": [
+      {
+        "sequence": 35,
+        "observation": "Agent removed the active project-local venv312 environment after reaching zero missing imports."
+      },
+      {
+        "sequence": 36,
+        "observation": "Agent explicitly removed build_output while cleaning the construction workspace."
+      },
+      {
+        "sequence": 39,
+        "observation": "The next scheduled observation still referenced /data/project/venv312/bin/python and could not execute its trusted goal."
+      }
+    ],
+    "clean_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "goal_passed": true,
+      "missing_imports": 0,
+      "repository_effect_audit_valid": true
+    }
+  },
+  "official_counterfactual": {
+    "role": "descriptive failure-classification evidence only; it does not replace the screen outcome",
+    "run_id": "pro-v2-handoff-v1-screen20-02-platformio-core-certified-replay-official-counterfactual",
+    "model_reexecuted": false,
+    "script_source": "the screen run's certified minimal-b-replay-0001.sh",
+    "evaluation_completed": true,
+    "official_pass": true,
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 944,
+      "warning_count": 0
+    }
+  },
+  "classification": {
+    "primary_layer": "constraint",
+    "proposed_subtype": "construction-state-ownership-conflict",
+    "secondary_layer": "observation",
+    "secondary_subtype": "hidden-ownership-and-stale-execution-path",
+    "legacy_taxonomy_v1_0_1_mapping": {
+      "layer": "unresolved",
+      "subtype": "novel-mechanism-held-for-taxonomy-v2"
+    },
+    "rationale": "The submitted deployment program is sufficient under clean replay and EnvBench Official. The terminal failure is caused by a shared harness constraint over mutable construction state, with ownership exposed only after the cleanup action."
+  },
+  "experiment_treatment": {
+    "include_in_complete_bad_case_set": true,
+    "retry_or_replace_screen_episode": false,
+    "counterfactual_counts_as_screen_pass": false,
+    "runner_change_before_paired_stage": false,
+    "expected_pair_value": "Tests whether the shared boundary dominates both arms; it is retained even though verifier-triggered handoff alone is not expected to repair it."
+  },
+  "spark_artifact_roots": {
+    "screen": "/home/avdpro/work/EnvSolve-pro-handoff-screen-b5210a5/runs/envsolve-pro-v2-verifier-handoff-v1-prospective-screen20/pro-v2-handoff-v1-screen20-02-platformio-core-S-OBS/envbench-python-platformio__platformio-core__7cf8d1d6961761eab681d49eea7fbafae0889186",
+    "official_counterfactual": "/home/avdpro/work/EnvSolve-pro-handoff-screen-b5210a5/runs/envsolve-pro-v2-verifier-handoff-v1-prospective-screen20/pro-v2-handoff-v1-screen20-02-platformio-core-certified-replay-official-counterfactual/envbench-python-platformio__platformio-core__7cf8d1d6961761eab681d49eea7fbafae0889186"
+  }
+}
