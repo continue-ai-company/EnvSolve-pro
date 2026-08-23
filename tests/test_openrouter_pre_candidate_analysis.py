@@ -111,6 +111,15 @@ def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
     assert _goal_issue_count(command, "missing imports: 748\n") == 748
     assert _goal_issue_count(command, "total missing imports (full): 0\n") == 0
     assert _goal_issue_count(command, "reportMissingImports count: 0\n") == 0
+    assert (
+        _goal_issue_count(
+            "python -m pyright src tests --outputjson | python -c "
+            "\"[print(x) for x in d if x.get('rule') == "
+            "'reportMissingImports']\"",
+            "total missing imports: 0\n",
+        )
+        is None
+    )
     assert _goal_issue_count("pytest", "summary {'errorCount': 0}\n") is None
     assert (
         _goal_issue_count(

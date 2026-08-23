@@ -26,6 +26,11 @@ PYRIGHT_EXECUTION = re.compile(
     r"(?:^|[;&|]\s*|timeout\s+\d+\s+)(?:/\S+/)?pyright\s)",
     re.IGNORECASE,
 )
+EXPLICIT_PARTIAL_PYRIGHT_SCOPE = re.compile(
+    r"(?:python\S*\s+-m\s+pyright|(?:^|[;&|]\s*|timeout\s+\d+\s+)"
+    r"(?:/\S+/)?pyright)\s+(?:src|tests|examples|capi|doc)(?:\s|$)",
+    re.IGNORECASE,
+)
 PACKAGE_OPERATION = re.compile(
     r"(?:^|[;&|]\s*|\s)(?:python\S*\s+-m\s+)?pip\s+(?:install|uninstall)|"
     r"(?:^|[;&|]\s*|\s)(?:uv\s+pip|conda|mamba|apt(?:-get)?)\s+install",
@@ -63,6 +68,8 @@ def _goal_issue_count(command: str, output: object) -> int | None:
     if matches:
         return int(matches[-1])
     if "reportMissingImports" not in command or not PYRIGHT_EXECUTION.search(command):
+        return None
+    if EXPLICIT_PARTIAL_PYRIGHT_SCOPE.search(command):
         return None
     for pattern in (TOTAL_COUNT, LINE_COUNT, MISSING_COUNT, REPORT_MISSING_COUNT):
         matches = pattern.findall(output)
