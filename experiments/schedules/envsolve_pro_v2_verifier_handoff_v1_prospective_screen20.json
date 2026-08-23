@@ -1,0 +1,214 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-prospective-screen20",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+  "case_file_sha256": "845b96d1a4de73f6126bacd0bfbdb2f96962fd6b6fe970e98f367971a4b9d92a",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "source_position": 9,
+      "case_id": "envbench-python-pgeu__pgeu-system@dd0bd79ae43b3a0cb1b604bd7f5cae0081e5a4dc",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640001,
+      "run_id": "pro-v2-handoff-v1-screen20-01-pgeu-system-S-OBS"
+    },
+    {
+      "position": 2,
+      "source_position": 10,
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640002,
+      "run_id": "pro-v2-handoff-v1-screen20-02-platformio-core-S-OBS"
+    },
+    {
+      "position": 3,
+      "source_position": 11,
+      "case_id": "envbench-python-ansible__ansible-zuul-jobs@33dd767b8609db931003583faa1eb47ac9fabfc1",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640003,
+      "run_id": "pro-v2-handoff-v1-screen20-03-ansible-zuul-jobs-S-OBS"
+    },
+    {
+      "position": 4,
+      "source_position": 12,
+      "case_id": "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640004,
+      "run_id": "pro-v2-handoff-v1-screen20-04-qibo-S-OBS"
+    },
+    {
+      "position": 5,
+      "source_position": 13,
+      "case_id": "envbench-python-lichess4545__heltour@1d5fd89ae12e2e27cfa278c5cbaf0aa47325f030",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640005,
+      "run_id": "pro-v2-handoff-v1-screen20-05-heltour-S-OBS"
+    },
+    {
+      "position": 6,
+      "source_position": 14,
+      "case_id": "envbench-python-ucoproject__uco@9f168313453bb577141248e3968198bc00e7d39b",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640006,
+      "run_id": "pro-v2-handoff-v1-screen20-06-uco-S-OBS"
+    },
+    {
+      "position": 7,
+      "source_position": 15,
+      "case_id": "envbench-python-transientskp__tkp@8a19cd23c7141c66c1ee8e42295957bbcf809531",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640007,
+      "run_id": "pro-v2-handoff-v1-screen20-07-tkp-S-OBS"
+    },
+    {
+      "position": 8,
+      "source_position": 16,
+      "case_id": "envbench-python-getsentry__sentry-python@ec7172e15311b88695827a76ca7fa83fba2efff4",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640008,
+      "run_id": "pro-v2-handoff-v1-screen20-08-sentry-python-S-OBS"
+    },
+    {
+      "position": 9,
+      "source_position": 17,
+      "case_id": "envbench-python-injectivelabs__sdk-python@a93aab1257174769db96e208ac61464999323b32",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640009,
+      "run_id": "pro-v2-handoff-v1-screen20-09-sdk-python-S-OBS"
+    },
+    {
+      "position": 10,
+      "source_position": 18,
+      "case_id": "envbench-python-fatal1ty__mashumaro@e945ee4319db49da9f7b8ede614e988cc8c8956b",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640010,
+      "run_id": "pro-v2-handoff-v1-screen20-10-mashumaro-S-OBS"
+    },
+    {
+      "position": 11,
+      "source_position": 19,
+      "case_id": "envbench-python-m-o-a-t__moat-mqtt@fcd0f9bf07548604d19d159ffb5fc543e78ce597",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640011,
+      "run_id": "pro-v2-handoff-v1-screen20-11-moat-mqtt-S-OBS"
+    },
+    {
+      "position": 12,
+      "source_position": 20,
+      "case_id": "envbench-python-litex-hub__litex-boards@75ef26b8e54b7b0c1c5e2fba63336f0752b96c2b",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640012,
+      "run_id": "pro-v2-handoff-v1-screen20-12-litex-boards-S-OBS"
+    },
+    {
+      "position": 13,
+      "source_position": 21,
+      "case_id": "envbench-python-flairNLP__fundus@c91ce6ef6625c9ab2711e696643c3a5014695e66",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640013,
+      "run_id": "pro-v2-handoff-v1-screen20-13-fundus-S-OBS"
+    },
+    {
+      "position": 14,
+      "source_position": 22,
+      "case_id": "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640014,
+      "run_id": "pro-v2-handoff-v1-screen20-14-python-control-S-OBS"
+    },
+    {
+      "position": 15,
+      "source_position": 23,
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640015,
+      "run_id": "pro-v2-handoff-v1-screen20-15-marimo-S-OBS"
+    },
+    {
+      "position": 16,
+      "source_position": 24,
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640016,
+      "run_id": "pro-v2-handoff-v1-screen20-16-ilamb-S-OBS"
+    },
+    {
+      "position": 17,
+      "source_position": 25,
+      "case_id": "envbench-python-miurahr__aqtinstall@ac7da38299fc56ae4818ff1c19b96e4e2d6f36c8",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640017,
+      "run_id": "pro-v2-handoff-v1-screen20-17-aqtinstall-S-OBS"
+    },
+    {
+      "position": 18,
+      "source_position": 26,
+      "case_id": "envbench-python-sublimelinter__sublimelinter@621ba9bf8d4ed4084902b8840bb1ae7d31e6a8fb",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640018,
+      "run_id": "pro-v2-handoff-v1-screen20-18-sublimelinter-S-OBS"
+    },
+    {
+      "position": 19,
+      "source_position": 27,
+      "case_id": "envbench-python-piskvorky__smart_open@5a826134eb23c86087d06db3b78b25484e7e2e6d",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640019,
+      "run_id": "pro-v2-handoff-v1-screen20-19-smart-open-S-OBS"
+    },
+    {
+      "position": 20,
+      "source_position": 28,
+      "case_id": "envbench-python-robbievanleeuwen__section-properties@0a41ea141394ccca9df1625e1d44ea132a2ccf37",
+      "arm": "S-OBS",
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "seed": 640020,
+      "run_id": "pro-v2-handoff-v1-screen20-20-section-properties-S-OBS"
+    }
+  ]
+}

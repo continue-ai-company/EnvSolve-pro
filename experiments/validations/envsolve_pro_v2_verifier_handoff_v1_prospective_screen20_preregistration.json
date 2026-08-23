@@ -1,0 +1,70 @@
+{
+  "schema": "envsolve-pro-v2-verifier-handoff-prospective-screen-preregistration-v1",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-prospective-screen20",
+  "recorded_at": "2026-08-23",
+  "status": "recorded-before-screen-source-acquisition-or-model-execution",
+  "research_role": "Development-only independent control screen that defines the complete bad-case set for a later verifier-handoff comparison; it is not an effectiveness estimate.",
+  "scientific_question": "Among the remaining V2 treatment-unopened development cases, which cases fail under the current scheduled-observation and clean-replay control when judged by EnvBench Official?",
+  "selection": {
+    "source": "experiments/cases/dev_envsolve_pro_v2_flash0731_remaining28.jsonl",
+    "rule": "Use every row from source positions 9 through 28 in the pre-existing order after positions 1 through 8 were used by the prior incumbent study.",
+    "cases": 20,
+    "outcomes_used": false,
+    "failure_classes_used": false,
+    "verifier_handoff_outcomes_used": false,
+    "repository_contents_reopened_for_selection": false
+  },
+  "exposure_scope": {
+    "v2_treatment_unopened": true,
+    "historically_unseen": false,
+    "reason": "Several repository identities occurred in earlier EnvSolve, Codex, Repo2Run, or trajectory-analysis studies. This batch can support prospective development decisions for the new handoff but cannot support a fully unseen or held-out claim."
+  },
+  "screen_arm": {
+    "runner": "envsolve-pro-v2-scheduled-observation",
+    "runner_version": "0.6.1",
+    "method": "envsolve-pro-scheduled-compatibility-observation",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "mechanisms": [
+      "one continuous free Agent session",
+      "fixed 16-shell complete-goal observations",
+      "repeatedly callable clean target-state replay",
+      "no verifier-triggered handoff"
+    ]
+  },
+  "matched_limits": {
+    "model_requests": 120,
+    "total_tokens": 100000000,
+    "generation_seconds": 18000,
+    "episode_seconds": 23000,
+    "interpretation": "These are broad execution safety limits. Token, time, and resource use are outcomes, not success thresholds."
+  },
+  "screen_outcome": {
+    "primary": "EnvBench Official Pass or Fail for every scientifically eligible episode",
+    "censoring": "Source acquisition, provider outage, researcher interruption, or other infrastructure failure is not an algorithm failure.",
+    "retry": "An identity-preserving retry is allowed only when no scientifically valid Agent outcome exists; cases are never replaced after outcomes are observed."
+  },
+  "bad_case_derivation": {
+    "rule": "After all 20 screen positions are adjudicated, include every scientifically eligible Official Fail and no Official Pass.",
+    "minimum_or_maximum": "None. The observed number of eligible failures is the bad-case set size.",
+    "zero_failure_decision": "If no eligible failure exists, report that this model and control have no measured headroom in this development pool and do not run a success-effect comparison on post-hoc cases."
+  },
+  "prospective_pair_stage": {
+    "timing": "The paired schedule is created only after applying the recorded screen rule and before any handoff episode is run.",
+    "episodes": "Fresh control and verifier-handoff episodes for every screen failure; screen outcomes are not reused as the paired control outcome.",
+    "matching": "Same model, provider policy, initial prompt, tools, base image, source-cache policy, broad limits, and requested seed within each pair.",
+    "ordering": "Alternate control-first and treatment-first by bad-case source order.",
+    "primary_metric": "Paired EnvBench Official Pass@1 with the exact discordant-pair table.",
+    "mechanism_metrics": [
+      "trusted Pass occurrence",
+      "Pass-to-candidate requests and shell operations",
+      "handoff activation",
+      "first clean-replay outcome",
+      "same-session replay repair",
+      "replay and Official agreement"
+    ],
+    "resource_metrics": "Requests, tokens, wall time, network, storage, and program size are secondary and interpreted only after success."
+  },
+  "algorithm_change_policy": "Runner 0.6.1 is used unchanged throughout screen and pair stages. No case-specific package rule, checkpoint, cross-case memory, candidate graph, new hard action policy, or prompt change is allowed between stages.",
+  "claim_boundary": "The screen and paired rerun are development evidence for selecting the fixed EnvSolve-Pro mechanism. Held-out effectiveness, external-baseline superiority, strong-model robustness, and SOTA remain separate future tests."
+}
