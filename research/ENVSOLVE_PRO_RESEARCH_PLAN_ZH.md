@@ -240,6 +240,9 @@ taxonomy，并证明目标可见性是反复出现的因果差异；同 backbone
 `experiments/validations/pro_cross_method_census_v1_causal_annotations.json` 和
 `experiments/validations/pro_cross_method_census_v1_causal_annotation_summary.json`。任何可靠性或分布性
 结论前仍须完成独立第二标注。
+全量盲标包与一致率实现分别为
+`experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json` 和
+`experiments/compare_causal_annotations.py`；盲标包刻意不包含首轮 label、subtype、rationale 或证据措辞。
 
 完整普查得到一个比继续增加依赖规则更简单的主要矛盾：**可执行任务目标没有成为持续可见、具有权威性
 的状态变量**。原生 Agent 经常在没有执行计分目标时优化仓库测试或文档等代理目标。causal-v3 虽然运行

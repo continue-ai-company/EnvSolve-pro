@@ -1,0 +1,1790 @@
+{
+  "schema": "envsolve-pro-blinded-causal-annotation-packet-v1",
+  "study_id": "envsolve-pro-cross-method-census-v1",
+  "annotation_role": "independent-second-reviewer",
+  "claim_scope": "Consumed-development taxonomy reliability only",
+  "instructions": [
+    "Inspect the full generation and evaluation trajectory before assigning a label.",
+    "Label the earliest unsupported transition that changed the outcome, not the terminal error message.",
+    "Use observation when a target-relevant fact was absent, unobserved, or not carried into replay.",
+    "Use constraint when observed evidence was not converted into, retained as, or reconciled with a deployment requirement.",
+    "Use operation when a represented requirement was not translated into an effective state-changing action and revalidation.",
+    "Use protocol_censored when the candidate interface or adapter cannot validly represent the method behavior.",
+    "Use infrastructure_unknown when an external execution incident plausibly determines the outcome.",
+    "Use unresolved when the available trajectory does not support one primary cause.",
+    "Provide at least one raw artifact path and a concise anchor for every annotation.",
+    "Do not inspect the first-reviewer annotation or summary until this packet is complete."
+  ],
+  "allowed_primary_layers": [
+    "observation",
+    "constraint",
+    "operation",
+    "protocol_censored",
+    "infrastructure_unknown",
+    "unresolved"
+  ],
+  "coverage": {
+    "matrix_rows": 48,
+    "non_success_rows": 38,
+    "packet_rows": 38
+  },
+  "records": [
+    {
+      "annotation_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+      "case_index": 1,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+        "error_count": 137,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "conan-io/conan-package-tools",
+        "warning_count": 40
+      },
+      "missing_import_modules": [
+        "conans.client.loader_parse"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 2,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+      "case_index": 1,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+        "error_count": 393,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "conan-io/conan-package-tools",
+        "warning_count": 40
+      },
+      "missing_import_modules": [
+        "conans.client.loader_parse"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 3,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 1,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+        "error_count": 136,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "conan-io/conan-package-tools",
+        "warning_count": 40
+      },
+      "missing_import_modules": [
+        "conans.client.loader_parse"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 4,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+      "case_index": 3,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+        "error_count": 236,
+        "exit_code": 0,
+        "issues_count": 34,
+        "repo_name": "rollbar/pyrollbar",
+        "warning_count": 27
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "aiocontextvars",
+        "bottle",
+        "django.core.urlresolvers",
+        "falcon",
+        "google.appengine.api.urlfetch",
+        "pylons",
+        "pyramid_debugtoolbar",
+        "rest_framework.request",
+        "rest_framework.views",
+        "sanic.request",
+        "tornado.httpclient",
+        "tornado.httpserver",
+        "treq",
+        "twisted.internet",
+        "twisted.internet.ssl",
+        "twisted.python",
+        "twisted.test",
+        "twisted.trial",
+        "twisted.web.client",
+        "twisted.web.iweb",
+        "uvicorn"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 5,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "case_index": 3,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+        "error_count": 450,
+        "exit_code": 0,
+        "issues_count": 280,
+        "repo_name": "rollbar/pyrollbar",
+        "warning_count": 29
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "aiocontextvars",
+        "bottle",
+        "django",
+        "django.conf",
+        "django.conf.urls",
+        "django.contrib.auth.models",
+        "django.core.exceptions",
+        "django.core.management",
+        "django.core.urlresolvers",
+        "django.http",
+        "django.http.request",
+        "django.template",
+        "django.test",
+        "django.urls",
+        "django.utils.deprecation",
+        "django.utils.functional",
+        "django.views",
+        "falcon",
+        "fastapi",
+        "fastapi.requests",
+        "fastapi.routing",
+        "fastapi.testclient",
+        "flask",
+        "google.appengine.api.urlfetch",
+        "httpx",
+        "pydantic",
+        "pylons",
+        "pyramid.httpexceptions",
+        "pyramid.request",
+        "pyramid.settings",
+        "pyramid.threadlocal",
+        "pyramid.tweens",
+        "pyramid.util",
+        "pyramid_debugtoolbar",
+        "rest_framework.request",
+        "rest_framework.views",
+        "sanic.request",
+        "starlette",
+        "starlette.applications",
+        "starlette.authentication",
+        "starlette.datastructures",
+        "starlette.middleware",
+        "starlette.requests",
+        "starlette.responses",
+        "starlette.routing",
+        "starlette.testclient",
+        "starlette.types",
+        "tornado.httpclient",
+        "tornado.httpserver",
+        "treq",
+        "twisted.internet",
+        "twisted.internet.ssl",
+        "twisted.python",
+        "twisted.test",
+        "twisted.trial",
+        "twisted.web.client",
+        "twisted.web.iweb",
+        "uvicorn",
+        "werkzeug.local",
+        "werkzeug.wrappers",
+        "zope.interface"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+        "evaluation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 6,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 3,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+        "error_count": 445,
+        "exit_code": 0,
+        "issues_count": 280,
+        "repo_name": "rollbar/pyrollbar",
+        "warning_count": 29
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "aiocontextvars",
+        "bottle",
+        "django",
+        "django.conf",
+        "django.conf.urls",
+        "django.contrib.auth.models",
+        "django.core.exceptions",
+        "django.core.management",
+        "django.core.urlresolvers",
+        "django.http",
+        "django.http.request",
+        "django.template",
+        "django.test",
+        "django.urls",
+        "django.utils.deprecation",
+        "django.utils.functional",
+        "django.views",
+        "falcon",
+        "fastapi",
+        "fastapi.requests",
+        "fastapi.routing",
+        "fastapi.testclient",
+        "flask",
+        "google.appengine.api.urlfetch",
+        "httpx",
+        "pydantic",
+        "pylons",
+        "pyramid.httpexceptions",
+        "pyramid.request",
+        "pyramid.settings",
+        "pyramid.threadlocal",
+        "pyramid.tweens",
+        "pyramid.util",
+        "pyramid_debugtoolbar",
+        "rest_framework.request",
+        "rest_framework.views",
+        "sanic.request",
+        "starlette",
+        "starlette.applications",
+        "starlette.authentication",
+        "starlette.datastructures",
+        "starlette.middleware",
+        "starlette.requests",
+        "starlette.responses",
+        "starlette.routing",
+        "starlette.testclient",
+        "starlette.types",
+        "tornado.httpclient",
+        "tornado.httpserver",
+        "treq",
+        "twisted.internet",
+        "twisted.internet.ssl",
+        "twisted.python",
+        "twisted.test",
+        "twisted.trial",
+        "twisted.web.client",
+        "twisted.web.iweb",
+        "uvicorn",
+        "werkzeug.local",
+        "werkzeug.wrappers",
+        "zope.interface"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 7,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c04-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c04-codex-cli-native",
+      "case_index": 4,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "3cafd155bbc35918cfce442f9cef445eaa97f13c",
+        "error_count": 2487,
+        "exit_code": 0,
+        "issues_count": 29,
+        "repo_name": "spotify/luigi",
+        "warning_count": 13
+      },
+      "missing_import_modules": [
+        "dill",
+        "hive_metastore",
+        "hive_metastore.ttypes",
+        "mechanize",
+        "pyftpdlib.authorizers",
+        "pyftpdlib.handlers",
+        "pyftpdlib.servers",
+        "pykube.config",
+        "pykube.http",
+        "pykube.objects",
+        "pymssql",
+        "pysftp",
+        "pyspark",
+        "pyspark.sql",
+        "redis",
+        "sendgrid",
+        "thrift.protocol",
+        "thrift.transport",
+        "ujson"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c04-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c04-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 8,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c04-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c04-envsolve-pro-causal-v3",
+      "case_index": 4,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c04-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c04-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 9,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 4,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 10,
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 5,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+        "error_count": 148,
+        "exit_code": 0,
+        "issues_count": 5,
+        "repo_name": "r-anime/holo",
+        "warning_count": 42
+      },
+      "missing_import_modules": [
+        "bs4",
+        "feedparser",
+        "praw",
+        "pygubu",
+        "unidecode"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 11,
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "case_index": 6,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "target_bootstrap",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "vacanza/python-holidays",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+        "evaluation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 12,
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c06-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c06-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 6,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+        "error_count": 481,
+        "exit_code": 0,
+        "issues_count": 12,
+        "repo_name": "vacanza/python-holidays",
+        "warning_count": 7
+      },
+      "missing_import_modules": [
+        "git",
+        "github",
+        "github.GithubException",
+        "hijridate",
+        "hijridate.ummalqura",
+        "lingva.extract",
+        "numpy",
+        "pytest",
+        "sphinx.writers.html",
+        "sphinx_rtd_theme"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c06-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c06-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 13,
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c07-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c07-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 7,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d00a0405c88f212cf448cad6729a7cfda369f420",
+        "error_count": 162,
+        "exit_code": 0,
+        "issues_count": 14,
+        "repo_name": "benthayer/git-gud",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "pytest"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c07-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c07-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 14,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c08-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c08-codex-cli-native",
+      "case_index": 8,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "070b339b67d64773fbfdf296a52a334fa27af2ac",
+        "error_count": 1774,
+        "exit_code": 0,
+        "issues_count": 11,
+        "repo_name": "langchain-ai/langgraph",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "graphs_reqs_a.graphs_submod.agent",
+        "graphs_submod.agent",
+        "langchain_community.adapters.openai",
+        "langchain_community.retrievers",
+        "langchain_community.tools.tavily_search",
+        "langchain_community.vectorstores",
+        "numexpr",
+        "utils.greeter"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c08-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c08-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 15,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c08-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c08-envsolve-pro-causal-v3",
+      "case_index": 8,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "070b339b67d64773fbfdf296a52a334fa27af2ac",
+        "error_count": 2030,
+        "exit_code": 0,
+        "issues_count": 11,
+        "repo_name": "langchain-ai/langgraph",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "langchain.chains.openai_functions",
+        "langchain_core.pydantic_v1"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c08-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c08-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 16,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c08-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c08-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 8,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c08-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c08-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 17,
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c09-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c09-envsolve-pro-causal-v3",
+      "case_index": 9,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c09-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c09-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 18,
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1-infra-retry1",
+      "case_index": 9,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "target_bootstrap",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "4079fbd595d0e25504e977df0b22883507b2492e",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "calliope-project/calliope",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1-infra-retry1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 19,
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+      "case_index": 10,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d5533d17175561528757245784b79c41b0578dfc",
+        "error_count": 59,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "censys/censys-python",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "sphinx_rtd_theme"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 20,
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c10-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c10-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 10,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d5533d17175561528757245784b79c41b0578dfc",
+        "error_count": 59,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "censys/censys-python",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "sphinx_rtd_theme"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c10-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c10-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 21,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c11-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c11-codex-cli-native",
+      "case_index": 11,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "9dd62db0137dfe554fc550b57c58b0be521a1749",
+        "error_count": 2942,
+        "exit_code": 0,
+        "issues_count": 11,
+        "repo_name": "mirageoscience/geoapps",
+        "warning_count": 1
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "geoapps.drivers",
+        "nonexisting",
+        "nonexisting.nope",
+        "os.nonexisting",
+        "ruamel.yaml",
+        "sphinx.environment",
+        "urllib2"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c11-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c11-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 22,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+      "case_index": 11,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 23,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c11-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c11-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 11,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c11-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c11-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 24,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c12-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c12-codex-cli-native",
+      "case_index": 12,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "0d7823073f9307cfeaad370ad41207354dfe9713",
+        "error_count": 144,
+        "exit_code": 0,
+        "issues_count": 14,
+        "repo_name": "sphinx-gallery/sphinx-gallery",
+        "warning_count": 10
+      },
+      "missing_import_modules": [
+        "Image",
+        "memory_profiler",
+        "pypandoc",
+        "pyvista"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c12-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c12-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 25,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c12-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c12-envsolve-pro-causal-v3",
+      "case_index": 12,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c12-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c12-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 26,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 12,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "target_bootstrap",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "0d7823073f9307cfeaad370ad41207354dfe9713",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "sphinx-gallery/sphinx-gallery",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 27,
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c13-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c13-codex-cli-native",
+      "case_index": 13,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "81413717d8526a4890b5af05d1a27c747088b31d",
+        "error_count": 598,
+        "exit_code": 0,
+        "issues_count": 6,
+        "repo_name": "rlberry-py/rlberry",
+        "warning_count": 15
+      },
+      "missing_import_modules": [
+        "mushroom_rl.algorithms.value",
+        "mushroom_rl.core",
+        "mushroom_rl.environments",
+        "mushroom_rl.policy",
+        "mushroom_rl.utils.dataset",
+        "mushroom_rl.utils.parameters"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c13-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c13-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 28,
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c13-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c13-envsolve-pro-causal-v3",
+      "case_index": 13,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c13-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c13-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 29,
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c13-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c13-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 13,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c13-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c13-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 30,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+      "case_index": 14,
+      "model": "gpt-5.5",
+      "terminal_stage": "target_bootstrap",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "theislab/scvelo",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 31,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+      "case_index": 14,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "target_bootstrap",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "theislab/scvelo",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 32,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 14,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "target_bootstrap",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "theislab/scvelo",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 33,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+      "case_index": 15,
+      "model": "gpt-5.5",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 34,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c15-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c15-envsolve-pro-causal-v3",
+      "case_index": 15,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+        "error_count": 17,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "astropy/extension-helpers",
+        "warning_count": 1
+      },
+      "missing_import_modules": [
+        ".version"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c15-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c15-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 35,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c15-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c15-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 15,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "candidate_formation",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c15-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c15-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 36,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c16-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c16-codex-cli-native",
+      "case_index": 16,
+      "model": "gpt-5.5",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "7b724925badfe7133979c3d4d90a15054cdebabd",
+        "error_count": 9,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "nonebot/nonebot2",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "tomli"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c16-codex-cli-native",
+        "evaluation_run_id": "pro-cross-method-v1-c16-codex-cli-native",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 37,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c16-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c16-envsolve-pro-causal-v3",
+      "case_index": 16,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c16-envsolve-pro-causal-v3",
+        "evaluation_run_id": "pro-cross-method-v1-c16-envsolve-pro-causal-v3",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    },
+    {
+      "annotation_index": 38,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c16-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c16-repo2run-reproduced-open-final-adapter-v1",
+      "case_index": 16,
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal_stage": "public_goal_residual",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "7b724925badfe7133979c3d4d90a15054cdebabd",
+        "error_count": 76,
+        "exit_code": 0,
+        "issues_count": 10,
+        "repo_name": "nonebot/nonebot2",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "fastapi.responses",
+        "fastapi.staticfiles",
+        "quart.ctx",
+        "quart.datastructures",
+        "quart.globals",
+        "starlette.websockets",
+        "uvicorn",
+        "websockets.exceptions",
+        "websockets.legacy.client"
+      ],
+      "artifact_lookup": {
+        "generation_run_id": "pro-cross-method-v1-c16-repo2run-reproduced-open-final-adapter-v1",
+        "evaluation_run_id": "pro-cross-method-v1-c16-repo2run-reproduced-open-final-adapter-v1",
+        "inspect_when_present": [
+          "generation/result.json",
+          "generation/trajectory.jsonl",
+          "generation/trajectory.json",
+          "generation/episode.jsonl",
+          "logs/solver.log",
+          "scripts/generated.sh",
+          "evaluation/result.json"
+        ]
+      },
+      "annotation": {
+        "primary_layer": null,
+        "subtype": null,
+        "evidence": [],
+        "rationale": null,
+        "confidence": null
+      }
+    }
+  ]
+}

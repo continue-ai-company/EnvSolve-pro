@@ -306,6 +306,10 @@ package-index incidents. The annotations and generated summary are
 `experiments/validations/pro_cross_method_census_v1_causal_annotation_summary.json`.
 An independent second annotation is still required before any reliability or
 distributional claim.
+The blinded all-row packet and agreement implementation are
+`experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json` and
+`experiments/compare_causal_annotations.py`; the packet intentionally contains no first-
+reviewer label, subtype, rationale, or evidence anchor.
 
 The completed census identifies one simpler contradiction than another dependency rule:
 the executable task goal is not a continuously visible, authoritative state variable.

@@ -219,6 +219,10 @@ source import, whereas causal-v3 represented that exact import but mapped it to 
 ineffective unpinned install. All three had the same Official residual; the earliest
 failures were Observation, Observation, and Operation.
 
+A label-blinded packet covers all 38 non-success rows for independent second review.
+Agreement and Cohen's kappa remain unreported until that annotation is complete; the
+single-reviewer counts above are not taxonomy reliability evidence.
+
 Trajectory instrumentation first exposed an Observation failure in the evaluator loop:
 replay inherited the construction cache, allowing two replay-certified programs to fail
 Official. Isolating the target state restored replay/Official agreement and produced
