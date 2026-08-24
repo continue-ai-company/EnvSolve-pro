@@ -195,6 +195,15 @@ and broader behavioral coverage are audited separately.
 
 ## 6. Current Evidence
 
+An attempt-level reconstruction currently contains 48 method--case rows. The first
+full-trajectory adjudication covers 17 of 38 non-success rows: seven Observation, three
+Constraint, two Operation, three infrastructure-unknown, and two protocol-censored.
+These provisional consumed-data counts are not prevalence estimates. They do establish
+that terminal errors are not causal labels. On the same Conan case, native Codex and
+Repo2Run never observed a conditional source import, whereas causal-v3 represented that
+exact import but mapped it to an ineffective unpinned install. All three had the same
+Official residual; the earliest failures were Observation, Observation, and Operation.
+
 Trajectory instrumentation first exposed an Observation failure in the evaluator loop:
 replay inherited the construction cache, allowing two replay-certified programs to fail
 Official. Isolating the target state restored replay/Official agreement and produced

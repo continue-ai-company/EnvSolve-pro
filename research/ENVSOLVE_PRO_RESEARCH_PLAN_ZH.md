@@ -230,6 +230,15 @@ taxonomy，并证明目标可见性是反复出现的因果差异；同 backbone
 `experiments/validations/pro_cross_method_census_v1_evidence_matrix.json` 和
 `experiments/validations/pro_cross_method_census_v1_attempt_adjudication.json`。
 
+机械终止阶段现已与因果标签分离。临时单审阅标注已为 38 条非成功记录中的 17 条建立证据链接：观测
+7 条、约束 3 条、操作 2 条、基础设施未知 3 条、协议截断 2 条。同一个 Conan Official 残余在 Codex
+和 Repo2Run 中属于观测失败，在 causal-v3 中却属于操作失败：只有 causal-v3 表示了精确的条件导入
+缺失，但其动作没有满足对应的版本化 API 要求。target-bootstrap 记录也进一步分成未观测目标状态和
+包索引事故。标注底稿与自动汇总分别为
+`experiments/validations/pro_cross_method_census_v1_causal_annotations.json` 和
+`experiments/validations/pro_cross_method_census_v1_causal_annotation_summary.json`。剩余记录必须继续
+审阅，并在任何分布性结论前完成独立第二标注。
+
 完整普查得到一个比继续增加依赖规则更简单的主要矛盾：**可执行任务目标没有成为持续可见、具有权威性
 的状态变量**。原生 Agent 经常在没有执行计分目标时优化仓库测试或文档等代理目标。causal-v3 虽然运行
 丰富的内部 verifier，但语义推断可能移除真实目标义务，也可能保留不计分义务。c14 的 Codex

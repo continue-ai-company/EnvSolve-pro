@@ -290,6 +290,19 @@ by the later matched experiment. The evidence matrix and retry adjudication are
 `experiments/validations/pro_cross_method_census_v1_evidence_matrix.json` and
 `experiments/validations/pro_cross_method_census_v1_attempt_adjudication.json`.
 
+Mechanical terminal stages are now separated from causal labels. A provisional
+single-reviewer pass has evidence-linked annotations for 17 of 38 non-success rows:
+Observation 7, Constraint 3, Operation 2, infrastructure unknown 3, and protocol
+censored 2. The same Conan Official residual is Observation for Codex and Repo2Run but
+Operation for causal-v3: only causal-v3 represented the exact missing conditional import,
+then chose an action that did not satisfy its versioned API requirement. Target-bootstrap
+rows likewise split between unobserved target state and package-index incidents. The
+annotations and generated summary are
+`experiments/validations/pro_cross_method_census_v1_causal_annotations.json` and
+`experiments/validations/pro_cross_method_census_v1_causal_annotation_summary.json`.
+The remaining rows require trajectory review and an independent second annotation before
+any distributional claim.
+
 The completed census identifies one simpler contradiction than another dependency rule:
 the executable task goal is not a continuously visible, authoritative state variable.
 Native agents often optimize repository tests or documentation proxies without executing

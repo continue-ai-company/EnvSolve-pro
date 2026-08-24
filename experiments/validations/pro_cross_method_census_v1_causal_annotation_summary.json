@@ -1,0 +1,51 @@
+{
+  "schema": "envsolve-pro-causal-annotation-summary-v1",
+  "study_id": "envsolve-pro-cross-method-census-v1",
+  "annotation_status": "provisional-single-reviewer",
+  "claim_scope": "Consumed-development diagnosis only. These annotations are neither held-out evidence nor an effectiveness estimate.",
+  "coverage": {
+    "matrix_rows": 48,
+    "non_success_rows": 38,
+    "annotated_rows": 17,
+    "remaining_non_success_rows": 21
+  },
+  "primary_layer_counts": {
+    "constraint": 3,
+    "infrastructure_unknown": 3,
+    "observation": 7,
+    "operation": 2,
+    "protocol_censored": 2
+  },
+  "by_method": {
+    "codex-cli-native": {
+      "observation": 3,
+      "protocol_censored": 1
+    },
+    "envsolve-pro-causal": {
+      "constraint": 2,
+      "infrastructure_unknown": 2,
+      "operation": 2
+    },
+    "repo2run": {
+      "constraint": 1,
+      "infrastructure_unknown": 1,
+      "observation": 4,
+      "protocol_censored": 1
+    }
+  },
+  "by_terminal_stage": {
+    "candidate_formation": {
+      "constraint": 1,
+      "protocol_censored": 2
+    },
+    "public_goal_residual": {
+      "constraint": 2,
+      "observation": 4,
+      "operation": 2
+    },
+    "target_bootstrap": {
+      "infrastructure_unknown": 3,
+      "observation": 3
+    }
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "schema": "envsolve-pro-causal-annotations-v1",
+  "study_id": "envsolve-pro-cross-method-census-v1",
+  "recorded_at": "2026-08-24",
+  "status": "provisional-single-reviewer",
+  "purpose": "Separate the mechanically observed terminal stage from the primary causal failure layer using full-trajectory evidence.",
+  "claim_scope": "Consumed-development diagnosis only. These annotations are neither held-out evidence nor an effectiveness estimate.",
+  "primary_labels": {
+    "observation": "A target-relevant fact was unavailable, unobserved, or not carried into replay.",
+    "constraint": "Observed evidence was not converted into, retained as, or reconciled with a deployment requirement.",
+    "operation": "The represented requirement was not translated into an effective environment-changing action and revalidation.",
+    "protocol_censored": "The method produced behavior that the benchmark candidate interface or adapter could not validly submit; no O/C/O attribution is made.",
+    "infrastructure_unknown": "External execution infrastructure plausibly determined the outcome; no O/C/O attribution is made.",
+    "unresolved": "The available trajectory does not yet support a unique primary cause."
+  },
+  "adjudication_rules": [
+    "Official failure is an outcome, not by itself an algorithmic cause.",
+    "Assign observation, constraint, or operation only when the trajectory identifies the earliest unsupported transition in that pipeline.",
+    "Use protocol_censored when the submitted interface cannot represent the method behavior; do not count adapter rejection as an algorithm failure.",
+    "Use infrastructure_unknown when a transient external service can explain the terminal outcome and no controlled retry isolates it.",
+    "Passing rows are not assigned a failure layer."
+  ],
+  "records": [
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "observation",
+      "subtype": "conditional-source-import-omitted-by-internal-verification",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c01-codex-cli-native",
+          "relative_path": "generation/trajectory.jsonl",
+          "anchor": "Agent enumerated test imports and verified top-level conans imports, but did not exercise cpt/packager.py's conditional conans.client.loader_parse import"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c01-codex-cli-native",
+          "relative_path": "evaluation/result.json",
+          "anchor": "Official Pyright retained conans.client.loader_parse as the sole missing module"
+        }
+      ],
+      "rationale": "The target-relevant conditional source import never entered the Agent's internal verification evidence, so no version-compatibility requirement could be formed for it.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "operation",
+      "subtype": "versioned-api-constraint-mapped-to-unpinned-package-install",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+          "relative_path": "generation/result.json",
+          "anchor": "constraint frontier explicitly retained conans.client.loader_parse, while the selected action only ran 'pip install conan' and ended with 62 unresolved constraints"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+          "relative_path": "evaluation/result.json",
+          "anchor": "Official Pyright still reported conans.client.loader_parse as missing"
+        }
+      ],
+      "rationale": "The relevant compatibility requirement was observed and represented, but the chosen action did not select a Conan version that still provides the required API. The earliest unsupported transition is requirement-to-action.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "observation",
+      "subtype": "conditional-source-import-absent-from-react-feedback",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "generation/trajectory.json",
+          "anchor": "trajectory contains no loader_parse observation"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "scripts/generated.sh",
+          "anchor": "program installs the repository's broad conan>=1.7,<2 requirement without an API-compatible pin"
+        }
+      ],
+      "rationale": "Repo2Run never received evidence for the conditional source import, so its otherwise plausible dependency installation could not express the hidden version-compatibility requirement.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "observation",
+      "subtype": "internal-test-objective-under-covered-optional-source-integrations",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c03-codex-cli-native",
+          "relative_path": "generation/trajectory.jsonl",
+          "anchor": "Agent inspected optional framework tests whose imports are guarded by installed-package checks and selected only a subset of integrations"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c03-codex-cli-native",
+          "relative_path": "evaluation/result.json",
+          "anchor": "Official static goal reported 34 issues across optional and compatibility imports that runnable tests did not require"
+        }
+      ],
+      "rationale": "The Agent optimized a runnable-test view in which absent optional frameworks cause skips. The target's all-source import-resolution obligation was not part of its observed verification goal.",
+      "confidence": "medium"
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "operation",
+      "subtype": "large-explicit-frontier-not-realized-by-selected-candidate",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+          "relative_path": "generation/result.json",
+          "anchor": "selected candidate ended with 289 unresolved constraints after five candidates"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+          "relative_path": "scripts/generated.sh",
+          "anchor": "returned program only creates a venv, upgrades packaging tools, and installs the base project"
+        }
+      ],
+      "rationale": "The exact missing integrations were already represented in the frontier, but candidate selection failed to emit an action program that satisfies them. The failure is downstream of observation and constraint formation.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "observation",
+      "subtype": "react-feedback-under-covered-optional-source-integrations",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "scripts/generated.sh",
+          "anchor": "distilled program installs only the base editable project despite the repository's many optional integration modules"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "evaluation/result.json",
+          "anchor": "Official static goal reported 280 issues, including optional framework imports absent from the ReAct feedback"
+        }
+      ],
+      "rationale": "Repo2Run's execution feedback did not expose the target requirement that every optional integration import resolve, so the final program had no evidence basis for those dependencies.",
+      "confidence": "medium"
+    },
+    {
+      "case_index": 4,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+      "terminal_stage": "candidate_formation",
+      "primary_layer": "protocol_censored",
+      "subtype": "private-source-edit-actions-not-representable-as-open-environment-program",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "generation/result.json",
+          "anchor": "trajectory is not replayable; two /home/tools/code_edit.py actions remained unsupported"
+        }
+      ],
+      "rationale": "Repo2Run completed its native process but used private source-edit actions that the environment-only open-program adapter could not submit. This run measures an interface mismatch, not a deployment-layer failure.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 5,
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "constraint",
+      "subtype": "observed-dependency-declarations-not-bound-as-requirements",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "generation/trajectory.json",
+          "anchor": "Agent read requirements.txt and received praw, beautifulsoup4, feedparser, requests, Unidecode, PyYAML, and python-dateutil"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "scripts/generated.sh",
+          "anchor": "final program only re-reads requirements.txt and src; it performs no dependency installation"
+        }
+      ],
+      "rationale": "The dependency facts were present in the observation history but were never promoted to requirements that the final deployment program had to satisfy.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 6,
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "terminal_stage": "target_bootstrap",
+      "primary_layer": "infrastructure_unknown",
+      "subtype": "package-index-returned-no-setuptools-distribution",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+          "relative_path": "logs/evaluation.log",
+          "anchor": "pip 26.1.2 downloaded successfully, followed by 'No matching distribution found for setuptools'"
+        }
+      ],
+      "rationale": "The same package index served pip immediately before reporting no setuptools versions. Without a controlled network retry, this target-bootstrap outcome cannot be attributed to observation, constraint, or operation logic.",
+      "confidence": "high-for-exclusion"
+    },
+    {
+      "case_index": 9,
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1-infra-retry1",
+      "terminal_stage": "target_bootstrap",
+      "primary_layer": "infrastructure_unknown",
+      "subtype": "isolated-build-index-returned-no-setuptools-distribution",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1-infra-retry1",
+          "relative_path": "logs/evaluation.log",
+          "anchor": "pip build-dependency subprocess reported no setuptools versions after earlier package installation completed"
+        }
+      ],
+      "rationale": "The byte-identical evaluation retry reached package installation but failed on an implausibly empty setuptools index result. The available evidence does not isolate the deployment program from external package-service behavior.",
+      "confidence": "medium-for-exclusion"
+    },
+    {
+      "case_index": 10,
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+      "terminal_stage": "public_goal_residual",
+      "primary_layer": "constraint",
+      "subtype": "live-obligation-deactivated-before-target-replay",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+          "relative_path": "generation/result.json",
+          "anchor": "internal stop reported goal=True, active=0, satisfied=41, inactive=1 after one candidate"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+          "relative_path": "evaluation/result.json",
+          "anchor": "Official evaluation retained exactly one missing import: sphinx_rtd_theme"
+        }
+      ],
+      "rationale": "The internal state declared the goal satisfied by removing the last live obligation from the active frontier, while target replay immediately exposed one residual module. This is a requirement-state lifecycle error.",
+      "confidence": "medium"
+    },
+    {
+      "case_index": 11,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+      "terminal_stage": "candidate_formation",
+      "primary_layer": "constraint",
+      "subtype": "execution-counterexamples-not-promoted-to-active-requirements",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+          "relative_path": "generation/result.json",
+          "anchor": "8 candidates attempted, 8 verifier failures, constraints_updated=0"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+          "relative_path": "generation/episode.jsonl",
+          "anchor": "candidate-0008 again attempted a Miniforge prefix that failed with 'prefix already exists'; its frontier still contained no causal roots"
+        }
+      ],
+      "rationale": "Execution observed actionable counterexamples, but the active constraint state remained unchanged. Later candidates therefore repeated an already demonstrated conflict. The earliest broken transition is evidence-to-requirement, not command execution itself.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 12,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+      "terminal_stage": "target_bootstrap",
+      "primary_layer": "observation",
+      "subtype": "fresh-checkout-git-ownership-precondition-unobserved",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "logs/evaluation.log",
+          "anchor": "editable-build Git introspection failed with 'detected dubious ownership in repository at /data/project'"
+        }
+      ],
+      "rationale": "The submitted program did not account for a Git ownership fact that appears in the fresh Official target checkout. The target-state precondition was absent before constraint and action selection.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 14,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+      "terminal_stage": "target_bootstrap",
+      "primary_layer": "observation",
+      "subtype": "evaluator-owned-workspace-directory-unobserved",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c14-codex-cli-native",
+          "relative_path": "evaluation/json/results.jsonl",
+          "anchor": "editable build failed because both scvelo and evaluator-owned build_output were discovered as top-level packages"
+        },
+        {
+          "run_id": "pro-cross-method-v1-c14-codex-cli-native",
+          "relative_path": "scripts/generated.sh",
+          "anchor": "the submitted program installs the project without handling build_output"
+        }
+      ],
+      "rationale": "The active Agent environment did not expose the target workspace shape created by the evaluator, so the final program could not account for build_output before package discovery.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 14,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "envsolve-pro-causal",
+      "generation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+      "terminal_stage": "target_bootstrap",
+      "primary_layer": "infrastructure_unknown",
+      "subtype": "package-index-returned-no-setuptools-distribution",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+          "relative_path": "logs/evaluation.log",
+          "anchor": "program explicitly moved build_output aside, then package-tool upgrade failed because the index returned no setuptools distribution"
+        }
+      ],
+      "rationale": "This program represented and acted on the evaluator-owned build_output precondition. Its earlier termination on an implausibly empty setuptools result is not sufficient evidence of an O/C/O defect.",
+      "confidence": "high-for-exclusion"
+    },
+    {
+      "case_index": 14,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "repo2run",
+      "generation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+      "terminal_stage": "target_bootstrap",
+      "primary_layer": "observation",
+      "subtype": "evaluator-owned-workspace-directory-unobserved",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+          "relative_path": "logs/evaluation.log",
+          "anchor": "editable build failed because both scvelo and evaluator-owned build_output were discovered as top-level packages"
+        }
+      ],
+      "rationale": "The distilled deployment program did not include the target-only build_output precondition, so it failed before the environment could be evaluated.",
+      "confidence": "high"
+    },
+    {
+      "case_index": 15,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "codex-cli-native",
+      "generation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+      "terminal_stage": "candidate_formation",
+      "primary_layer": "protocol_censored",
+      "subtype": "legitimate-generated-import-artifact-rejected-by-integrity-boundary",
+      "evidence": [
+        {
+          "run_id": "pro-cross-method-v1-c15-codex-cli-native",
+          "relative_path": "generation/result.json",
+          "anchor": "Agent verification passed, but repository integrity rejected generated extension_helpers/version.py as an untracked import artifact"
+        }
+      ],
+      "rationale": "The boundary rejected a file generated by the package build process after the Agent reported a working environment. Until that boundary decision is independently validated, the run is protocol-censored rather than an Agent deployment failure.",
+      "confidence": "high"
+    }
+  ]
+}
