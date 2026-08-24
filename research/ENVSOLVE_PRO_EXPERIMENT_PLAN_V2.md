@@ -663,3 +663,43 @@ development comparison against B-FSR.
 
 Complete result:
 `experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_result.json`.
+
+## 15. Rejected Handoff and Replay Obligation Ledger
+
+The complete three-case bad-set pair rejects verifier-triggered handoff as a primary
+success mechanism. Official Pass@1 is `3/3` for scheduled-observation control and `2/3`
+for handoff; protocol-compliant success is `2/3` versus `1/3`, with no treatment-only
+Pass. PlatformIO supplies one success-conditional efficiency signal, not a success gain.
+Runner 0.6.3 prospectively fixes the repeated cwd observation defect and adds the shared,
+narrow import-provider integrity boundary; neither correction changes frozen outcomes.
+
+The next candidate is a **Replay Obligation Ledger (ROL)**. In plain terms, every clean
+replay failure adds a case-local item to a deployment-program to-do list. A later partial
+observation may add evidence but cannot erase older items; only a complete replay finding
+set or replay Pass can retire them. The active Agent receives the current list and its
+delta but remains free to choose every repair operation.
+
+The three layers are deliberately small:
+
+1. **Observation:** project an exact replay into complete Pass, complete goal failure,
+   partial bootstrap/integrity failure, or Unknown, retaining executable evidence.
+2. **Constraint:** preserve unresolved structural obligations across candidates under
+   partial observability; complete evidence replaces the visible set and Pass clears it.
+3. **Operation:** return active obligations to the same session without selecting a
+   package, filtering commands, restoring a checkpoint, or forcing submission.
+
+ROL is tested as one orthogonal treatment over the fixed Base B: continuous Agent session,
+scheduled project-root goal observation, and repeatedly callable clean replay. Control
+receives the existing normalized replay evidence; treatment additionally receives the
+stateful active-obligation list and introduced/resolved/preserved delta. Prompt, tools,
+model, provider, image, source access, evaluator, and broad safety limits are otherwise
+matched.
+
+Deterministic tests and consumed design cases qualify extraction and conservative update
+semantics only. PlatformIO, Marimo, ILAMB, and qibolab cannot estimate effectiveness. The
+first effectiveness batch must be mechanically selected from the pre-existing bad-case
+census, exclude all mechanism-design cases, cover multiple failure strata, and be fixed
+before treatment execution. Official Pass@1 is primary. Requests, tokens, wall time,
+traffic, replay count, and constraint-resolution transitions are secondary. Strong and
+weaker backbones use the same algorithm after the mechanism is fixed; they test whether
+stateful executable memory complements model capability rather than defining two methods.

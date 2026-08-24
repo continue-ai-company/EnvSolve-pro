@@ -120,6 +120,13 @@ class FakeReplayService:
                 },
                 "counterexamples": {"json": "[]", "truncated": False},
                 "details": {"json": "{}", "truncated": False},
+                "obligation_snapshot": {
+                    "schema": "envsolve-replay-obligation-snapshot-v1",
+                    "coverage": "complete-pass",
+                    "verification_passed": True,
+                    "finding_set_complete": True,
+                    "obligations": [],
+                },
             },
             "certificate": {"program_sha256": script_sha256(program)},
         }
@@ -367,6 +374,81 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 "R",
                 "minimal-H",
             ],
+        )
+
+    def test_stateful_replay_keeps_tools_free_and_adds_only_advisory_memory(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            control = self._runner(Path(directory), "scheduled")
+            treatment = self._runner(Path(directory), "stateful")
+            control_names = [item["function"]["name"] for item in control._tools()]
+            treatment_names = [
+                item["function"]["name"] for item in treatment._tools()
+            ]
+            prompt = treatment._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+            control_prompt = control._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(treatment_names, control_names)
+        self.assertEqual(prompt, control_prompt)
+        self.assertNotIn("replay_obligation_ledger", prompt)
+        self.assertEqual(
+            treatment.mechanism_primitives,
+            [
+                "F",
+                "scheduled-O",
+                "replay-obligation-ledger",
+                "R",
+                "minimal-H",
+            ],
+        )
+
+    def test_stateful_replay_feedback_reaches_same_session_and_metadata(self) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call("1", "submit_and_replay", {"program": program})
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "submit_bootstrap",
+                        {"program": program, "summary": "done"},
+                    )
+                ),
+            ]
+        )
+        compatibility = FakeCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility)
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "stateful")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        second_messages = client.chat.completions.requests[1]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "tool"
+                and "replay_obligation_ledger" in str(item.get("content"))
+                for item in second_messages
+            )
+        )
+        self.assertEqual(submission["program_sha256"], script_sha256(program))
+        self.assertEqual(metadata["replay_obligation_ledger"]["replay_count"], 1)
+        self.assertEqual(
+            metadata["replay_obligation_ledger"]["active_obligation_count"],
+            0,
         )
 
     def test_candidate_ready_forces_replay_and_returns_pass_without_second_request(

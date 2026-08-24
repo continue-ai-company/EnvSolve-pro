@@ -88,3 +88,9 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-verifier-triggered-handoff",
             _factory("handoff"),
         )
+    if "envsolve-pro-v2-stateful-replay" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-stateful-replay",
+            "envsolve-pro-stateful-replay-obligation-ledger",
+            _factory("stateful"),
+        )

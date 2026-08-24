@@ -37,6 +37,10 @@ from envsolve_harness.integrity.minimal import (
     inspect_minimal_repository_integrity,
 )
 from envsolve_harness.replay_feedback import normalize_replay_feedback
+from envsolve_harness.replay_obligation_ledger import (
+    ObligationSnapshotCleanReplayService,
+    ReplayObligationLedger,
+)
 from envsolve_harness.runners.codex_cli import CodexCliRunner
 from envsolve_harness.scripts.minimal_integrity import (
     MinimalIntegrityCandidateValidator,
@@ -56,6 +60,7 @@ ReplayMode = Literal[
     "ledger",
     "scheduled",
     "handoff",
+    "stateful",
 ]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
@@ -207,7 +212,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.6.3"
+    runner_version = "0.7.0"
 
     def __init__(
         self,
@@ -236,9 +241,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "ledger",
             "scheduled",
             "handoff",
+            "stateful",
         }:
             raise ValueError(
-                "Replay mode must be none, soft, incumbent, ledger, scheduled, or handoff"
+                "Replay mode must be none, soft, incumbent, ledger, scheduled, "
+                "handoff, or stateful"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -282,6 +289,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "free-feedback-search+scheduled-trusted-goal-observation+"
                 "verifier-triggered-programization+soft-clean-replay-v1"
             )
+        if self.stateful_replay_constraints_enabled:
+            return (
+                "free-feedback-search+scheduled-compatibility-observation+"
+                "stateful-replay-obligation-ledger+soft-clean-replay-v1"
+            )
         if self.scheduled_observation_enabled:
             return (
                 "free-feedback-search+scheduled-compatibility-observation+"
@@ -303,6 +315,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "ledger",
             "scheduled",
             "handoff",
+            "stateful",
         }
 
     @property
@@ -315,11 +328,15 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def scheduled_observation_enabled(self) -> bool:
-        return self.replay_mode in {"scheduled", "handoff"}
+        return self.replay_mode in {"scheduled", "handoff", "stateful"}
 
     @property
     def verifier_handoff_enabled(self) -> bool:
         return self.replay_mode == "handoff"
+
+    @property
+    def stateful_replay_constraints_enabled(self) -> bool:
+        return self.replay_mode == "stateful"
 
     @property
     def compatibility_observation_enabled(self) -> bool:
@@ -332,6 +349,14 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "F",
                 "scheduled-O",
                 "verifier-triggered-programization",
+                "R",
+                "minimal-H",
+            ]
+        if self.stateful_replay_constraints_enabled:
+            return [
+                "F",
+                "scheduled-O",
+                "replay-obligation-ledger",
                 "R",
                 "minimal-H",
             ]
@@ -568,7 +593,13 @@ Goal SHA-256: {contract.sha256}
 {self.validator.prompt_contract}
 </candidate_contract>
 """
-        if self.replay_mode in {"soft", "ledger", "scheduled", "handoff"}:
+        if self.replay_mode in {
+            "soft",
+            "ledger",
+            "scheduled",
+            "handoff",
+            "stateful",
+        }:
             prompt += """\
 
 Before final submission, call `submit_and_replay` with the complete program. It
@@ -765,6 +796,11 @@ never selects packages, blocks commands, or restores an environment.
         handoff_pending = False
         handoff_forced_requests = 0
         handoff_events: list[dict[str, Any]] = []
+        replay_obligation_ledger = (
+            ReplayObligationLedger()
+            if self.stateful_replay_constraints_enabled
+            else None
+        )
         started = time.monotonic()
 
         def record_scheduled_observation(
@@ -901,6 +937,10 @@ never selects packages, blocks commands, or restores an environment.
                     "events": handoff_events,
                     "termination_reason": termination_reason,
                 }
+            if replay_obligation_ledger is not None:
+                metadata["replay_obligation_ledger"] = (
+                    replay_obligation_ledger.metadata()
+                )
             if scheduled_observer is not None:
                 metadata["scheduled_observation"] = scheduled_observer.metadata()
             return metadata
@@ -1067,6 +1107,13 @@ never selects packages, blocks commands, or restores an environment.
                             status = str(raw_replay.get("status", "unknown"))
                             replay_status_counts[status] = replay_status_counts.get(status, 0) + 1
                             payload = normalize_replay_feedback(raw_replay)
+                            if replay_obligation_ledger is not None:
+                                payload = {
+                                    **payload,
+                                    "replay_obligation_ledger": (
+                                        replay_obligation_ledger.update(raw_replay)
+                                    ),
+                                }
                             if pre_replay_observation is not None:
                                 payload = {
                                     **payload,
@@ -1346,7 +1393,7 @@ never selects packages, blocks commands, or restores an environment.
                         self.workspace_preconditions,
                     ),
                 )
-                replay_service = CleanReplayService(
+                replay_service = ObligationSnapshotCleanReplayService(
                     provider=provider,
                     verifier=verifier,
                     repository=case.repository,

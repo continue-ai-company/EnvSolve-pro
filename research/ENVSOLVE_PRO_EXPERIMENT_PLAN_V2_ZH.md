@@ -524,3 +524,35 @@ prospective case 前，先在已消费轨迹和确定性测试上验证 trigger 
 
 完整结果：
 `experiments/validations/envsolve_pro_v2_certified_incumbent_untouched8_v1_result.json`。
+
+## 15. 否决 Handoff 与 Replay Obligation Ledger
+
+完整三 case bad-set 配对否决 verifier-triggered handoff 作为主要成功机制。定时观测 control 与
+handoff 的 Official Pass@1 分别为 `3/3`、`2/3`；协议合规成功为 `2/3`、`1/3`，且没有
+treatment-only Pass。PlatformIO 只提供一条成功条件下的效率信号，不是成功率增益。Runner 0.6.3
+面向未来修复重复 cwd 观测缺陷，并加入共享、窄范围的 import-provider 完整性边界；两者都不改写冻结
+结果。
+
+下一候选是 **Replay Obligation Ledger（ROL，重放待办表）**。通俗地说，每次 clean replay 失败，
+系统都把“当前完整部署程序还必须满足什么”加入 case 内待办表。后续局部观测可以增加证据，但不能随意
+删除旧待办；只有完整 replay finding set 或 replay Pass 才能消掉它。活跃 Agent 会看到当前待办及其
+变化，但每个修复操作仍由 Agent 自由决定。
+
+三层结构保持最小：
+
+1. **观测层：** 把一次真实 replay 投影为完整 Pass、完整目标失败、局部 bootstrap/完整性失败或
+   Unknown，同时保留可执行证据。
+2. **约束层：** 在部分可观测条件下跨候选保留未解决结构约束；完整证据替换当前可见集合，Pass 清空。
+3. **操作层：** 把 active obligations 返回同一 session，不选 package、不筛命令、不恢复 checkpoint、
+   不强迫提交。
+
+ROL 作为固定 Base B 上的单一正交 treatment：连续 Agent session、从项目根执行的定时目标观测，以及
+可反复调用的 clean replay。Control 获得现有 normalized replay evidence；treatment 额外获得状态化
+active-obligation list，以及 introduced/resolved/preserved delta。Prompt、工具、模型、provider、镜像、
+源码权限、evaluator 和宽松安全上限其余完全匹配。
+
+确定性测试和已消费设计 case 只验证提取与保守更新语义。PlatformIO、Marimo、ILAMB、qibolab 不能
+估计效果。首个 effectiveness batch 必须从既有 bad-case census 机械选出，排除全部机制设计 case，
+覆盖多个失败分层，并在 treatment 执行前固定。Official Pass@1 为主指标；请求、Token、时间、流量、
+replay 次数和 constraint-resolution transition 为次指标。机制固定后，强弱 backbone 使用完全相同算法，
+用于检验状态化可执行记忆是否补充模型能力，而不是定义两套方法。
