@@ -1,23 +1,22 @@
-# EnvSolve-Pro：面向仓库部署的状态化约束求解
+# EnvSolve-Pro：面向仓库部署的部分可观测状态化约束求解
 
-状态：ICLR 工作稿，2026-08-24；prospective 开发期 pilot 已否决 verifier-triggered handoff
-作为提高成功率的核心机制
+状态：ICLR 工作稿，2026-08-24；同模型机制实验与 held-out 结果待完成
 
 ## 摘要
 
 部署陌生仓库不只是生成命令。Agent 只能看到当前操作暴露出的部分兼容事实，操作又会改变环境，而且交互
 工作区中的成功未必能从干净 checkout 中重现。我们将仓库部署定义为**部分可观测的状态化约束求解**。
 
-我们首先记录端到端部署轨迹，并把最早决定性失败分为观测层、约束层和操作层。分析发现，一个反复出现的
+我们记录端到端部署轨迹，并把最早决定性失败分为观测层、约束层和操作层。分析发现，一个反复出现的
 问题是：Agent 会优化仓库测试等代理信号而不是计分的公开目标，而且构造可用状态也不等于交付一段能重建
 该状态的程序。EnvSolve-Pro 让能力强的 Agent 在一个连续 session 中自由行动，向它暴露完整公开目标，
 并允许它从目标初始状态重放完整部署程序。重放反例作为 case-local 证据返回同一 session。方法不加入
 package 规则库、checkpoint 搜索、跨 case 记忆、定时修复策略或硬动作规则。
 
-预注册的三 case 开发期 pilot 检验“可信构建 Pass 后强制程序化能否提高成功率”。结果不支持该假设：
-Official 为 control `3/3`、treatment `2/3`；独立协议合规审计为 `2/3` 对 `1/3`，且没有
-treatment-only Pass。因此我们否决 forced handoff 作为核心成功机制，只把它保留为成功率不下降后再检验
-的效率 treatment。Official Pass@1 是主指标；时间、Token、流量、存储、部署完整性与协议合规分别报告。
+已消费开发轨迹支持因果 taxonomy，并产生同 session Fail-to-Pass 修复，但不能证明泛化。最终实验先在
+同一模型下拆分自由搜索、公开目标可见性和目标状态重放，再在 held-out case 上与 EnvBench baseline、
+Repo2Run、旧 EnvSolve 和原生 coding Agent 比较。Official Pass@1 是主指标；只有成功率不下降后才比较
+时间、Token、流量与存储。
 
 ## 1. 问题
 
@@ -98,7 +97,7 @@ return failure
 算法保存程序和执行证据，不保存容器 checkpoint；既不决定怎样修环境，也不在 construction Pass 后
 强迫模型执行某个动作。修复 loop 仍在活跃推理 session 内，针对真正交付的完整程序，并从该程序实际
 面对的初始状态执行。更强模型扩展的是操作层能力，不会被 harness 限制修复策略。Verifier-triggered
-handoff 只作为已被否决的成功率 treatment，以及未来可能的成功条件效率 ablation 保留。
+handoff 是已被否决的 treatment，不属于本文方法。
 
 ## 4. 三项贡献
 
@@ -125,19 +124,11 @@ handoff 只作为已被否决的成功率 treatment，以及未来可能的成�
 只是 advisory，所有改变环境的操作仍由模型决定。历史 `deepseek-free-agent` 实际已经收到公开目标，
 因此过去写成 `A-F` 对 replay 的结果只能估计第二个对比，分析中应重标为 `F+O` 对 `F+O+R`。
 
-### 5.3 已否决的 handoff treatment
-
-两组都使用连续自由 Agent session、相同的定时完整目标观测和可反复调用的干净重放。被检验的
-treatment 只增加一个可执行转换：首次可信完整 Pass 后，下一次模型动作必须程序化并重放。触发前两组
-工具和初始 prompt 完全相同。模型、基础镜像、仓库权限、构建环境、Official evaluator 和宽松安全上限
-保持一致。Case 在查看 treatment 结果和打开仓库之前确定。第 6 节报告其负结果；该 treatment 不再是
-本文核心算法。
-
 主指标是 Official Pass@1。机制指标包括首次重放失败、反馈后程序变化、修复成功和 replay/Official
 一致性。资源指标包括请求、Token、时间、网络流量、存储和首次认证时间；同时报告无条件结果和成功条件
 下结果。
 
-### 5.4 系统与模型比较
+### 5.3 系统与模型比较
 
 系统级 baseline 包括 EnvBench baseline、Repo2Run、冻结的旧 EnvSolve，以及作为独立能力上界参考的
 原生 Codex。强弱 backbone 用于判断可执行反例是在增强模型，还是会被模型进步吞噬。开发数据只选择固定
@@ -152,53 +143,35 @@ Official 成功与部署完整性分开。EnvBench 的 import-oriented 目标按
 
 ## 6. 当前证据
 
-attempt 级重建包含 48 个 method--case row。临时单审阅裁决已覆盖全部 38 条非成功记录。25 条可归因于
-算法的记录中，观测失败 14 条、约束失败 7 条、操作失败 4 条；另有 9 条基础设施未知和 4 条协议截断，
-不进入这个分母。这些已消费开发数据上的计数既不能估计总体分布，也不能比较方法效果，但足以证明终止
-报错不是因果标签。在同一个 Conan case 上，原生 Codex 与 Repo2Run 都没有观测到一个条件源代码导入；
-causal-v3 则已经表示了这个精确导入，却把它映射为无效的未固定版本安装。三者具有相同 Official 残余，
-但最早失败分别属于观测、观测和操作。
+### 6.1 失败 taxonomy
 
-不含首轮标签的二次标注包已覆盖全部 38 条非成功记录。独立标注真正完成前不报告一致率和 Cohen's kappa；
-上面的单审阅计数不能充当 taxonomy 可靠性证据。
+attempt 级重建包含 48 个 method--case row 和 38 条非成功记录。临时单审阅将 25 条可归因于算法的失败
+分为观测 14 条、约束 7 条、操作 4 条；另有 9 条基础设施未知和 4 条协议截断。这些已消费开发数据计数
+既不能估计总体分布，也不能比较方法效果。它们说明终止报错不是因果标签：同一个 Official residual，
+可能源于某个系统从未观测必要事实，也可能源于另一个系统已经观测事实却选择了无效操作。
 
-轨迹系统首先发现 replay 继承构建缓存，导致两份已认证程序在 Official 中失败。这是观测层错误，而非
-缺少 package 规则。隔离目标状态后，replay/Official 恢复一致，并出现同 session 修复。
+不含首轮标签的证据包覆盖全部 38 条非成功记录。独立复标完成前不报告一致率；临时计数不能充当 taxonomy
+可靠性证据。
 
-两个 outcome-independent 开发 batch 中，自由搜索为 `6/8`，目标状态重放为 `7/8`（exact McNemar
-`p=1.0`）。失败富集 Bad-6 为 `2/6` 对 `4/6`，并产生 3 次 replay Fail-to-Pass 修复，但也反复出现一种
-操作层失败：Agent 已达到公开目标，却没有交付候选。这些结果提出 handoff 假设，但没有证明普遍成功增益。
+### 6.2 目标状态重放
 
-随后 6 对 prospective 实验用 prompt 引导提前程序化和 incumbent retention 解决候选不交付，结果从
-`6/6` 退化到 `5/6`，共同成功样本上资源也更多。失败轨迹已经可信完整 Pass，却没有提出程序，因此
-retention 无法激活。我们否决这套 bundled 方法，只保留一个缺失转换：状态充分后必须触发 replay。
+早期轨迹系统发现 replay 继承构建缓存，导致通过认证的程序在 Official 中失败。隔离目标初始状态后，
+replay/Official 恢复一致，并暴露出没有进入最终程序的修复。两个 outcome-independent 开发 batch 中，
+goal-aware 自由搜索为 `6/8`，目标状态重放为 `7/8`；失败富集诊断为 `2/6` 对 `4/6`，并产生三次
+replay Fail-to-Pass 修复。这些是已消费开发 case 上的机制发现，不是总体成功率估计。
 
-在已消费 qibolab 上，verifier handoff 跑通完整机制链。Control 和 treatment 都通过 Official；treatment
-在可信 Pass 后只触发一次 handoff，clean replay 因依赖冲突失败，同一 session 修复后下一次 replay 与
-Official 均通过。它使用 66 对 84 次请求、2.59M 对 5.49M Token，但这些只是一对已消费样本的描述性值。
-资格实验还发现触发前 prompt 不一致；Runner 0.6.1 已使两组在触发前拥有相同工具和 prompt，下一轮
-prospective 比较因此从该公平接口开始。
+### 6.3 用证伪保持简单
 
-固定实验覆盖 20-case 开发 screen 机械选出的全部 3 个失败。Official 上 control 为 `3/3`，handoff
-为 `2/3`，唯一 discordant pair 支持 control。Marimo 两组都通过手工创建占位模块获得 Official Pass，
-预注册 allowed-action 审计将两者都计为算法失败，因此协议合规成功为 `2/3` 对 `1/3`。两个评价轴都
-没有 treatment-only Pass。PlatformIO 只提供一条成功条件下的效率信号：handoff 将 35 次请求和
-1.03M Token 降到 16 次请求和 0.23M Token，不能据此挽救成功率假设。
-
-Pilot 暴露出两个更早且重复出现的原因。即使解释器和已安装 distributions 相同，trusted goal 观测仍会
-随 Agent 的持久 cwd 改变；clean replay 还暴露出最终程序没有保留必需 provider 操作后置条件的问题。
-所以下一版最小方法只针对 project-root-invariant observation 和 evidence-to-program postconditions；
-forced handoff 不再进入核心主张。
-
-观测缺陷已面向未来修复：trusted goal 固定从项目根运行，同时保留当前激活解释器环境。另一个最小
-完整性边界会报告“候选新增、位于 `site-packages`、公开名称且没有 installed-distribution owner”的
-provider。它们是未来各组共享的协议修复，不能算作 EnvSolve-Pro 的算法增益。
+控制性更强的 treatment 没有保留。Prompt 引导提前程序化加 incumbent retention 从 `6/6` 退化到
+`5/6`；prospective forced-handoff pilot 从 `3/3` 退化到 `2/3`，没有 treatment-only Official Pass。
+因此 harness 不应替强 Agent 选择下一步操作。保留的方法只增加公开目标观测与完整程序目标状态重放。
+固定的 `F`、`F+O`、`F+O+R` 实验先隔离这两个增量，再进入 held-out 评测。
 
 ## 7. 证伪条件与范围
 
-Forced-handoff 的成功率主张已被 prospective 开发期 pilot 否决，不再继续。若独立同模型实验没有
-Official 增益、重放失败不改变后续程序、匹配目标状态后 replay 仍与 Official 分离，或增益在强模型上
-消失，剩余核心主张都会被削弱。若成功率提高但资源增长过大，我们只报告 tradeoff，不声称效率提升。
+若独立同模型实验没有 Official 增益、重放失败不改变后续程序、匹配目标状态后 replay 仍与 Official
+分离，或增益在强模型上消失，剩余核心主张都会被削弱。若成功率提高但资源增长过大，我们只报告
+tradeoff，不声称效率提升。
 
 第一篇论文研究固定部署算法。harness 自优化属于 Auto-EnvSolve，策略学习属于 EnvSolve-RL；未来复用
 本文轨迹，不会改变本论文的方法和结论边界。

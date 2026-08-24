@@ -1,7 +1,6 @@
-# EnvSolve-Pro: Stateful Constraint Solving for Repository Deployment
+# EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-24; the prospective development pilot rejects
-verifier-triggered handoff as the primary success-rate mechanism
+Status: working ICLR paper draft, 2026-08-24; final same-model and held-out results pending
 
 ## Abstract
 
@@ -11,23 +10,22 @@ environment, and a successful interactive workspace may not be reproducible from
 clean checkout. We formulate repository deployment as **partially observable stateful
 constraint solving**.
 
-We first instrument end-to-end deployment trajectories and classify the earliest
-decisive failure into three causal layers: Observation, Constraint, and Operation. The
-analysis reveals two recurring gaps: Agents optimize repository-level proxy signals instead
-of the scored public goal, and a working construction state does not imply a program that
-reconstructs it. EnvSolve-Pro keeps a capable Agent free in one continuous session, exposes
-the complete public goal, and lets it replay the complete deployment program from the target
-initial state. Replay counterexamples return to the same session as case-local evidence.
-The method adds no package-rule library, checkpoint search, cross-case memory, scheduled
-repair policy, or hard action rule.
+We instrument end-to-end deployment trajectories and classify the earliest decisive
+failure into three causal layers: Observation, Constraint, and Operation. The analysis
+reveals two recurring gaps: Agents optimize repository-level proxy signals instead of the
+scored public goal, and a working construction state does not imply a program that
+reconstructs it. EnvSolve-Pro therefore keeps a capable Agent free in one continuous
+session, exposes the complete public goal, and lets it replay the complete deployment
+program from the target initial state. Replay counterexamples return to the same session
+as case-local evidence. The method adds no package-rule library, checkpoint search,
+cross-case memory, scheduled repair policy, or hard action rule.
 
-A preregistered three-case development pilot tested whether forcing programization after
-a trusted construction Pass improves success. It did not: control achieved `3/3` Official
-Passes versus `2/3`, and `2/3` versus `1/3` under a separate protocol-compliance audit.
-There was no treatment-only Pass. We therefore reject forced handoff as the primary
-success mechanism and retain it only as an efficiency treatment to be tested after
-success is preserved. Official Pass@1 remains primary; time, tokens, traffic, storage,
-deployment completeness, and protocol compliance remain separate outcomes.
+Consumed-development trajectories support the causal taxonomy and show same-session
+Fail-to-Pass repairs, but do not establish generalization. The final evaluation separates
+free search, public-goal visibility, and target-state replay under the same model, then
+compares EnvSolve-Pro with EnvBench baselines, Repo2Run, prior EnvSolve, and native coding
+Agents on held-out cases. Official Pass@1 is primary; resource use is evaluated only after
+success is preserved.
 
 ## 1. Problem
 
@@ -130,9 +128,8 @@ The algorithm stores programs and execution evidence, not container checkpoints.
 not decide how to repair the environment or force a model action after a construction
 Pass. The repair loop remains inside the active reasoning session and operates on the
 complete deliverable from its actual initial state. Stronger models therefore enlarge the
-Operation layer instead of being restricted by it. Verifier-triggered handoff is retained
-only as a rejected success-rate treatment and a possible success-conditional efficiency
-ablation.
+Operation layer instead of being restricted by it. The tested verifier-triggered handoff
+is rejected and is not part of the method.
 
 ## 4. Contributions
 
@@ -170,24 +167,13 @@ decisions. The historical `deepseek-free-agent` control already received the pub
 so earlier `A-F` versus replay results estimate only the second contrast and are relabeled
 `F+O` versus `F+O+R` in analysis.
 
-### 5.3 Rejected Handoff Treatment
-
-Both arms use one continuous free Agent session, the same scheduled full-goal observation,
-and repeatedly callable clean replay. The tested treatment added one executable transition:
-after the first trusted complete Pass, the next model action had to programize and replay.
-Before that trigger, tools and initial prompts were exactly equal. Model, base image,
-repository access, construction environment, Official evaluator, and broad safety limits
-were matched. Cases were selected without treatment outcomes and fixed before repositories
-were opened. Section 6 reports the negative result; this treatment is not the proposed core
-algorithm.
-
 The primary metric is Official Pass@1. Mechanism outcomes include first-replay failure,
 feedback-conditioned program change, repair success, and replay/Official agreement.
 Resource outcomes include requests, tokens, wall time, network traffic, storage, and
 time to the first replay-certified program. They are reported unconditionally and
 conditional on success.
 
-### 5.4 System and Model Comparisons
+### 5.3 System and Model Comparisons
 
 System-level comparisons include EnvBench baselines, Repo2Run, frozen prior EnvSolve,
 and native Codex as an independent capability frontier. Strong and weaker backbones test
@@ -208,72 +194,43 @@ and broader behavioral coverage are audited separately.
 
 ## 6. Current Evidence
 
-An attempt-level reconstruction contains 48 method--case rows. A provisional
-single-reviewer adjudication covers all 38 non-success rows. Of the 25 rows with an
-algorithmically attributable cause, 14 are Observation, seven Constraint, and four
-Operation failures; nine infrastructure-unknown and four protocol-censored rows are
-excluded from that denominator. These consumed-development counts are neither prevalence
-nor effectiveness estimates. They do establish that terminal errors are not causal
-labels. On the same Conan case, native Codex and Repo2Run never observed a conditional
-source import, whereas causal-v3 represented that exact import but mapped it to an
-ineffective unpinned install. All three had the same Official residual; the earliest
-failures were Observation, Observation, and Operation.
+### 6.1 Failure Taxonomy
 
-A label-blinded packet covers all 38 non-success rows for independent second review.
-Agreement and Cohen's kappa remain unreported until that annotation is complete; the
-single-reviewer counts above are not taxonomy reliability evidence.
+An attempt-level reconstruction contains 48 method--case rows and 38 non-success rows.
+A provisional single-reviewer annotation assigns 25 algorithmically attributable failures
+to Observation (14), Constraint (7), or Operation (4); nine infrastructure-unknown and four
+protocol-censored rows are excluded. These consumed-development counts are not prevalence
+or effectiveness estimates. They show why terminal errors are insufficient: the same
+Official residual can arise because one system never observes a necessary fact while
+another observes it but selects an ineffective operation.
 
-Trajectory instrumentation first exposed an Observation failure in the evaluator loop:
-replay inherited the construction cache, allowing two replay-certified programs to fail
-Official. Isolating the target state restored replay/Official agreement and produced
-same-session repairs, establishing faithful executable feedback rather than a package rule.
+A label-blinded evidence packet covers all 38 non-success rows. Agreement remains
+unreported until independent review is complete; provisional counts are not reliability
+evidence.
 
-Across two outcome-independent development batches, free search passed `6/8` and
-target-state replay passed `7/8` (exact McNemar `p=1.0`). A failure-enriched Bad-6 then
-produced `2/6` versus `4/6` and three replay Fail-to-Pass repairs, but also revealed a
-repeated Operation failure: the Agent could reach the public goal without delivering a
-candidate. These studies motivate the handoff but do not establish a general success gain.
+### 6.2 Target-State Replay
 
-A prospective six-pair attempt to solve candidate non-delivery with prompt-guided early
-programization and incumbent retention regressed from `6/6` to `5/6` and consumed more
-resources on common successes. The failed trajectory reached a trusted complete Pass but
-never proposed a program, so retention could not activate. We reject that bundled method
-and isolate one missing transition: verified state sufficiency must cause a replay attempt.
+Early instrumentation found that replay inherited construction cache state, causing
+replay-certified programs to fail Official evaluation. Isolating the target initial state
+restored replay/Official agreement and exposed repairs that had been omitted from delivered
+programs. Across two outcome-independent development batches, goal-aware free search
+passed `6/8` and target-state replay passed `7/8`. A failure-enriched diagnostic produced
+`2/6` versus `4/6` and three replay Fail-to-Pass repairs. These are mechanism-discovery
+results on consumed development cases, not a general success estimate.
 
-On the already consumed qibolab case, the resulting verifier handoff completed the full
-mechanism chain. Control and treatment both passed Official. Treatment reached a trusted
-Pass, was handed off once, failed clean replay on a dependency conflict, repaired it in
-the same session, and passed the next replay and Official. It used 66 versus 84 requests
-and 2.59M versus 5.49M tokens, but these are descriptive values from one consumed pair.
-Runner 0.6.1 also removes a pre-trigger prompt difference discovered in this qualification;
-the prospective comparison therefore began with identical tools and prompts across arms.
+### 6.3 Simplicity by Falsification
 
-That fixed comparison covered all three mechanically selected failures from a 20-case
-development screen. Control passed `3/3` and handoff `2/3` on Official Pass@1; the one
-discordant pair favored control. Both Marimo arms obtained Official Pass by creating
-manual placeholder modules, so a preregistered allowed-action audit counts both as
-algorithm failures; protocol-compliant success is `2/3` versus `1/3`. There was no
-treatment-only Pass on either axis. PlatformIO provides one success-conditional efficiency
-signal: handoff reduced 35 requests and 1.03M tokens to 16 requests and 0.23M tokens.
-This does not rescue the success-rate hypothesis.
-
-The pilot exposes two earlier, repeated causes. Trusted goal observations changed when
-the Agent's persistent working directory changed, even with the same interpreter and
-installed distributions. Clean replay also exposed required provider operations whose
-postconditions were not preserved in the delivered program. The next minimal method
-revision therefore targets project-root-invariant observation and evidence-to-program
-postconditions. Forced handoff is no longer part of the core claim.
-
-The observation defect is corrected prospectively by executing the trusted goal from the
-project root while retaining the active interpreter environment. A separate minimal
-integrity boundary now reports candidate-introduced public `site-packages` providers that
-lack installed-distribution ownership. These protocol corrections are shared by future
-arms and are not counted as an EnvSolve-Pro algorithmic gain.
+More controlling treatments were not retained. Prompt-guided early programization plus
+incumbent retention regressed from `6/6` to `5/6`; a prospective forced-handoff pilot
+regressed from `3/3` to `2/3`, with no treatment-only Official Pass. This evidence argues
+against making the harness choose the strong Agent's next operation. The retained method
+adds only public-goal observation and complete-program target-state replay. The fixed
+`F`, `F+O`, and `F+O+R` experiment now isolates those two additions before held-out
+evaluation.
 
 ## 7. Falsification and Scope
 
-The forced-handoff success claim is rejected by the prospective development pilot and is
-not carried forward. The remaining core claim is weakened if outcome-independent
+The core claim is weakened if outcome-independent
 same-model experiments show no Official gain, if replay failures do not change subsequent
 programs, if replay and Official diverge under matched target state, or if gains disappear
 for strong models.
