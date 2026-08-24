@@ -1,0 +1,115 @@
+{
+  "schema": "envsolve-pro-for-mechanism-design-v1",
+  "study_id": "envsolve-pro-for-v1-consumed6",
+  "recorded_at": "2026-08-24",
+  "purpose": "Development-only decomposition of public-goal visibility and target-state replay under one model.",
+  "claim_scope": {
+    "allowed": [
+      "mechanism execution",
+      "within-case causal trajectory comparison",
+      "development mechanism selection"
+    ],
+    "not_allowed": [
+      "held-out generalization",
+      "population success rate",
+      "leaderboard improvement",
+      "SOTA"
+    ]
+  },
+  "hypotheses": [
+    {
+      "contrast": "F+O minus F",
+      "question": "Does exposing the executable public goal reduce Observation failures caused by optimizing repository-level proxy signals?"
+    },
+    {
+      "contrast": "F+O+R minus F+O",
+      "question": "After the goal is visible, does complete-program target-state replay reduce deliverable and Operation failures?"
+    }
+  ],
+  "arms": {
+    "F": {
+      "runner": "deepseek-repository-agent",
+      "method": "free-feedback-search-repository-signals",
+      "mechanisms": ["free same-session search", "repository feedback"]
+    },
+    "F+O": {
+      "runner": "deepseek-goal-aware-agent",
+      "method": "free-feedback-search-public-goal",
+      "mechanisms": ["free same-session search", "executable public goal"]
+    },
+    "F+O+R": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "mechanisms": [
+        "free same-session search",
+        "executable public goal",
+        "advisory replay constraint",
+        "repeated complete-program target-state replay"
+      ]
+    }
+  },
+  "shared_execution": {
+    "model": "deepseek-v4-flash",
+    "provider": "DeepSeek first-party API",
+    "host": "DGX Spark",
+    "official_evaluator_access": "post-episode-only",
+    "resource_metrics": "reported as outcomes, not success thresholds"
+  },
+  "selection_rule": {
+    "population": "Consumed cross-method census cases only",
+    "evidence_source": "experiments/validations/pro_cross_method_census_v1_causal_annotations.json",
+    "requirements": [
+      "Selection uses no outcome from the new F, F+O, or F+O+R arms.",
+      "At least one prior method has an algorithmically attributable O/C/O failure.",
+      "The six-case set jointly covers Observation, Constraint, and Operation failures.",
+      "Cases remain development diagnostics and cannot support a generalization claim."
+    ]
+  },
+  "cases": [
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "prior_layers": ["observation", "operation"]
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "prior_layers": ["observation", "operation"]
+    },
+    {
+      "case_index": 8,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "prior_layers": ["observation", "operation"]
+    },
+    {
+      "case_index": 11,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "prior_layers": ["observation", "constraint", "operation"]
+    },
+    {
+      "case_index": 12,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "prior_layers": ["observation"]
+    },
+    {
+      "case_index": 16,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "prior_layers": ["constraint"]
+    }
+  ],
+  "primary_outcome": "Official Pass@1",
+  "secondary_outcomes": [
+    "candidate formation",
+    "replay Fail-to-Pass repair",
+    "replay and Official agreement",
+    "requests",
+    "tokens",
+    "wall time",
+    "commands"
+  ],
+  "decision_rule": "Prefer the simplest arm that improves paired Official success. Do not promote an added mechanism for efficiency alone when it loses any paired success.",
+  "protected_unseen_cases": [
+    "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+    "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb"
+  ]
+}

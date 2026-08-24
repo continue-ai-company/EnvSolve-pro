@@ -1,14 +1,13 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-23):** failures are classified by the
+> **Current paper design (2026-08-24):** failures are classified by the
 > Observation--Constraint--Operation framework. EnvSolve-Pro keeps one free continuous
-> Agent session, measures the complete public goal at a fixed schedule, and turns the
-> first trusted Pass into an executable handoff: programize the current solution and
-> replay it from the target initial state. Replay failures become case-local soft
-> constraints in the same session. Package rules, ledgers, checkpoints, cross-case
-> memory, and hard action policies are excluded. The shared evaluation-integrity
-> foundation E is not an algorithm. Section 12 supersedes earlier proposals retained
-> below as auditable development history.
+> Agent session, exposes the complete public goal, and lets the Agent repeatedly replay
+> a complete program from the target initial state. Replay failures become case-local
+> soft constraints in the same session. Scheduled observation, forced handoff, ledgers,
+> package rules, checkpoints, cross-case memory, and hard action policies are excluded
+> from the core method. The shared evaluation-integrity foundation E is not an algorithm.
+> Section 12 retains superseded proposals as auditable development history.
 
 ## 1. Objective
 
@@ -1024,7 +1023,7 @@ cases, but neither success-rate nor efficiency gain has been established.
 ### 12.3 Outcome-Independent Qualification
 
 Four pairs were fixed from positions 9--12 of the pre-existing randomized Dev16 schedule
-before source acquisition or model execution. Same-model free search passed Official
+before source acquisition or model execution. Same-model goal-aware free search passed Official
 2/4 and target-state replay passed 3/4. The paired table is two both-pass, one B-only,
 zero A-only, and one both-fail; exact McNemar is `p=1.0`. A disclosed researcher
 interruption affected the original cellrank B episode. Using the replacement specified
@@ -1061,7 +1060,7 @@ success where the matched control has headroom.
 ### 12.5 Failure-Enriched Bad-6 Stress Test
 
 The preregistered strong-baseline Official-failure Bad-6 completed with 12 scientifically
-eligible episodes. End-to-end success was `2/6` for the free Agent and `4/6` for target-state
+eligible episodes. End-to-end success was `2/6` for the goal-aware free Agent and `4/6` for target-state
 replay: two both-pass, two B-only, zero A-only, and two both-fail pairs, with exact McNemar
 `p=0.5`. Four B candidates executed seven replays, including three Fail-to-Pass repairs;
 final replay and Official agreed on 4/4. HARK is the cleanest causal rescue: internal fresh
@@ -1080,6 +1079,19 @@ Official-equivalent candidate and send it to target replay before optional compl
 exploration can erase it. Official success, deployment completeness, and path cost remain
 separate outcomes. No package rule may be tuned on consumed Bad-6 cases; the hypothesis requires
 a new fixed development batch.
+
+### 12.5.1 Mechanism-label correction
+
+Code review after the causal census found that the historical `deepseek-free-agent`
+prompt included the complete executable public goal. Its `A-F` label was therefore
+incorrect: the arm implemented `F+O`, while target-state replay implemented `F+O+R` with
+advisory replay constraints. All existing paired results remain valid for the replay
+contrast, but none estimates the effect of public-goal visibility. The runner now exposes
+three distinct future arms: repository-feedback `F`, goal-aware `F+O`, and replay
+`F+O+R`. This is an experimental-interface correction, not an algorithmic success claim.
+The consumed six-case diagnostic design and balanced three-arm schedule are recorded in
+`experiments/validations/envsolve_pro_for_v1_consumed6_design.json` and
+`experiments/schedules/envsolve_pro_for_v1_consumed6.json`.
 
 ### 12.6 Certified-Incumbent Falsification and Verifier-Triggered Handoff
 

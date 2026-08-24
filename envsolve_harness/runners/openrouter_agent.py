@@ -261,6 +261,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
         model_max_output_tokens: int,
         reasoning_effort: str,
         replay_mode: ReplayMode,
+        public_goal_visible: bool = True,
         workspace_preconditions: tuple[WorkspacePrecondition, ...],
         goal_contract: ExecutableGoalContract,
         client_factory: ClientFactory | None = None,
@@ -282,6 +283,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
             raise ValueError("Agent iterations must be positive")
         if model_max_retries < 0:
             raise ValueError("Provider retries cannot be negative")
+        if not public_goal_visible and replay_mode != "none":
+            raise ValueError("Clean replay requires a model-visible public goal")
         super().__init__(
             codex_executable=Path("/nonexistent/openrouter-agent"),
             harness_root=harness_root,
@@ -300,6 +303,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
         self.model_max_retries = model_max_retries
         self.model_max_output_tokens = model_max_output_tokens
         self.replay_mode = replay_mode
+        self.public_goal_visible = public_goal_visible
         self.client_factory = client_factory
         self.validator = MinimalIntegrityCandidateValidator()
 
@@ -315,6 +319,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def agent_interface(self) -> str:
+        if not self.public_goal_visible:
+            return "free-repository-feedback-search-v1"
         if self.verifier_handoff_enabled:
             return (
                 "free-feedback-search+scheduled-trusted-goal-observation+"
@@ -375,6 +381,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def mechanism_primitives(self) -> list[str]:
+        if not self.public_goal_visible:
+            return ["F", "minimal-H"]
         if self.verifier_handoff_enabled:
             return [
                 "F",
@@ -398,8 +406,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
         if self.incumbent_enabled:
             return ["F", "S", "R", "certified-incumbent", "minimal-H"]
         if self.replay_mode == "soft":
-            return ["F", "S", "R", "minimal-H"]
-        return ["F", "minimal-H"]
+            return ["F", "public-O", "soft-C", "R", "minimal-H"]
+        return ["F", "public-O", "minimal-H"]
 
     @staticmethod
     def _now() -> str:
@@ -602,6 +610,9 @@ development dependencies from the repository. Diagnose failures through executio
 Do not use the official evaluator or any post-episode result. Do not modify tracked
 source, tests, declarations, lockfiles, type-checker configuration, or
 benchmark-owned state. Do not use sudo or interactive commands.
+"""
+        if self.public_goal_visible:
+            prompt += f"""\
 
 The public executable goal below is the only online success signal. It is not the
 official evaluator. You may execute an equivalent command during construction.
@@ -614,6 +625,15 @@ Goal SHA-256: {contract.sha256}
 <trusted_goal_program>
 {contract.program}
 </trusted_goal_program>
+"""
+        else:
+            prompt += """\
+
+The benchmark's public scoring goal and terminal Official evaluator are unavailable
+during construction. Use repository-owned declarations, documentation, tests, and
+ordinary execution feedback to infer a complete development environment.
+"""
+        prompt += f"""\
 
 	Finish by calling `submit_bootstrap` with one self-contained Bash program that can
 	be sourced from a fresh checkout in the same image. Keep only reproducible setup

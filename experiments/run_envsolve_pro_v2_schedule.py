@@ -28,6 +28,8 @@ from experiments.run_schedule import (
 
 PROVIDER_API_RUNNERS = frozenset(
     {
+        "deepseek-repository-agent",
+        "deepseek-goal-aware-agent",
         "deepseek-free-agent",
         "envsolve-pro-v2",
         "envsolve-pro-v2-incumbent",

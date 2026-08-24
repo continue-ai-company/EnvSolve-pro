@@ -13,12 +13,13 @@ constraint solving**.
 
 We first instrument end-to-end deployment trajectories and classify the earliest
 decisive failure into three causal layers: Observation, Constraint, and Operation. The
-analysis reveals a recurring gap between constructing a working state and delivering a
-program that reconstructs that state. EnvSolve-Pro keeps a capable Agent free in one
-continuous session, measures the complete public goal, and replays the complete deployment
-program from the target initial state. Replay counterexamples return to the same session
-as case-local evidence. The method adds no package-rule library, checkpoint search,
-cross-case memory, or hard repair policy.
+analysis reveals two recurring gaps: Agents optimize repository-level proxy signals instead
+of the scored public goal, and a working construction state does not imply a program that
+reconstructs it. EnvSolve-Pro keeps a capable Agent free in one continuous session, exposes
+the complete public goal, and lets it replay the complete deployment program from the target
+initial state. Replay counterexamples return to the same session as case-local evidence.
+The method adds no package-rule library, checkpoint search, cross-case memory, scheduled
+repair policy, or hard action rule.
 
 A preregistered three-case development pilot tested whether forcing programization after
 a trusted construction Pass improves success. It did not: control achieved `3/3` Official
@@ -88,8 +89,8 @@ counterexample replay.
 
 ### Observation Layer
 
-The Agent receives ordinary construction feedback. At a fixed command schedule, the
-harness measures the complete public goal in the same construction environment. Replay
+The Agent receives ordinary construction feedback and an executable description of the
+complete public goal. It may measure that goal while constructing the environment. Replay
 evidence is tied to the repository revision, base image, and fresh execution, and observes
 the complete program rather than a selected command or accumulated construction state.
 
@@ -112,7 +113,7 @@ start one continuous Agent session in a construction environment
 
 while no replay-passing program exists and broad safety limits remain:
     Agent freely observes and changes the construction environment
-    periodically measure the complete public goal
+    use repository feedback and the executable public goal
     if the Agent proposes a complete deployment program:
         obtain the complete deployment program P
     else:
@@ -140,8 +141,8 @@ ablation.
    the earliest cause of failure.
 2. **A minimal deployment algorithm.** Same-session target-state replay tests the complete
    deliverable and returns executable counterexamples without prescribing a strong
-   Agent's repair policy; the evidence-to-program constraint update is the remaining
-   algorithmic object under development.
+   Agent's repair policy. Public-goal residuals are case-local soft constraints; the Agent
+   remains the operation policy.
 3. **Controlled empirical evaluation.** Same-model causal comparisons, external
    baselines, strong and weaker backbones, Official success, failure transitions, and
    success-preserving resource outcomes.
@@ -157,7 +158,19 @@ secondary mechanism tags. A stratified sample is independently re-annotated and
 agreement is reported. Consumed trajectories support taxonomy discovery, not comparative
 success claims.
 
-### 5.2 Same-Model Handoff Test
+### 5.2 Same-Model Mechanism Decomposition
+
+The main causal experiment separates three interfaces under the same model and execution
+conditions: free search with repository feedback (`F`), free search plus an executable
+public goal (`F+O`), and the same goal-aware session plus repeatedly callable target-state
+replay (`F+O+R`). The first contrast tests the dominant Observation hypothesis; the second
+tests whether complete-program counterexamples add value after the goal is already visible.
+All replay residuals are advisory, and all environment-changing operations remain model
+decisions. The historical `deepseek-free-agent` control already received the public goal,
+so earlier `A-F` versus replay results estimate only the second contrast and are relabeled
+`F+O` versus `F+O+R` in analysis.
+
+### 5.3 Rejected Handoff Treatment
 
 Both arms use one continuous free Agent session, the same scheduled full-goal observation,
 and repeatedly callable clean replay. The tested treatment added one executable transition:
@@ -174,7 +187,7 @@ Resource outcomes include requests, tokens, wall time, network traffic, storage,
 time to the first replay-certified program. They are reported unconditionally and
 conditional on success.
 
-### 5.3 System and Model Comparisons
+### 5.4 System and Model Comparisons
 
 System-level comparisons include EnvBench baselines, Repo2Run, frozen prior EnvSolve,
 and native Codex as an independent capability frontier. Strong and weaker backbones test

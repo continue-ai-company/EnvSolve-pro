@@ -15,7 +15,7 @@ from envsolve_harness.runners.registry import (
 )
 
 
-def _factory(replay_mode: ReplayMode):
+def _factory(replay_mode: ReplayMode, *, public_goal_visible: bool = True):
     def create(
         config: HarnessConfig,
         protocol: ExperimentProtocol,
@@ -43,6 +43,7 @@ def _factory(replay_mode: ReplayMode):
             model_max_output_tokens=config.model_max_output_tokens,
             reasoning_effort="xhigh",
             replay_mode=replay_mode,
+            public_goal_visible=public_goal_visible,
             workspace_preconditions=workspace_preconditions_for(config, protocol),
             goal_contract=goal_contract_for(config, protocol),
         )
@@ -52,6 +53,18 @@ def _factory(replay_mode: ReplayMode):
 
 def register_envsolve_pro_v2_runners() -> None:
     registered = set(registered_solver_runners())
+    if "deepseek-repository-agent" not in registered:
+        register_solver_runner(
+            "deepseek-repository-agent",
+            "free-feedback-search-repository-signals",
+            _factory("none", public_goal_visible=False),
+        )
+    if "deepseek-goal-aware-agent" not in registered:
+        register_solver_runner(
+            "deepseek-goal-aware-agent",
+            "free-feedback-search-public-goal",
+            _factory("none"),
+        )
     if "deepseek-free-agent" not in registered:
         register_solver_runner(
             "deepseek-free-agent",

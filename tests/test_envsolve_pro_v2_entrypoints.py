@@ -17,6 +17,8 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         register_envsolve_pro_v2_runners()
 
         registered = set(registered_solver_runners())
+        self.assertIn("deepseek-repository-agent", registered)
+        self.assertIn("deepseek-goal-aware-agent", registered)
         self.assertIn("deepseek-free-agent", registered)
         self.assertIn("envsolve-pro-v2", registered)
         self.assertIn("envsolve-pro-v2-incumbent", registered)

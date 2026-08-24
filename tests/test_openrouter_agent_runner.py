@@ -215,7 +215,13 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertIs(provider.run_command, subprocess.run)
         self.assertEqual(provider.source_repository, workspace.resolve())
 
-    def _runner(self, root: Path, replay_mode: str) -> OpenRouterAgentRunner:
+    def _runner(
+        self,
+        root: Path,
+        replay_mode: str,
+        *,
+        public_goal_visible: bool = True,
+    ) -> OpenRouterAgentRunner:
         return OpenRouterAgentRunner(
             harness_root=root,
             source_cache_root=root / "source-cache",
@@ -230,6 +236,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             model_max_output_tokens=4096,
             reasoning_effort="xhigh",
             replay_mode=replay_mode,  # type: ignore[arg-type]
+            public_goal_visible=public_goal_visible,
             workspace_preconditions=(),
             goal_contract=ExecutableGoalContract(
                 "goal",
@@ -237,6 +244,46 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                 "printf '{}\\n' > \"$ENVSOLVE_GOAL_REPORT\"",
             ),
         )
+
+    def test_repository_feedback_control_does_not_receive_public_goal(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(
+                Path(directory),
+                "none",
+                public_goal_visible=False,
+            )
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertNotIn("<trusted_goal_program>", prompt)
+        self.assertNotIn(runner.goal_contract.program, prompt)
+        self.assertIn("repository-owned", prompt)
+        self.assertEqual(runner.mechanism_primitives, ["F", "minimal-H"])
+        self.assertEqual(runner.agent_interface, "free-repository-feedback-search-v1")
+
+    def test_goal_visibility_is_isolated_from_clean_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            blind = self._runner(root, "none", public_goal_visible=False)
+            visible = self._runner(root, "none")
+            replay = self._runner(root, "soft")
+
+            self.assertEqual(blind._tools(), visible._tools())
+            self.assertIn("<trusted_goal_program>", visible._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            ))
+            self.assertEqual(
+                visible.mechanism_primitives,
+                ["F", "public-O", "minimal-H"],
+            )
+            self.assertEqual(
+                replay.mechanism_primitives,
+                ["F", "public-O", "soft-C", "R", "minimal-H"],
+            )
+
+        with self.assertRaisesRegex(ValueError, "model-visible public goal"):
+            self._runner(root, "soft", public_goal_visible=False)
 
     def test_repository_acquisition_uses_exact_revision_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

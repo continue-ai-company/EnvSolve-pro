@@ -1,10 +1,10 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-23）：** 失败统一按 Observation--Constraint--Operation 三层分类。
-> EnvSolve-Pro 保留一个自由连续 Agent session，按固定节奏测量完整公开目标，并把首次可信 Pass 转成
-> 可执行交接：整理当前解法并从目标初始状态重放。重放失败在同一 session 内成为 case-local 软约束。
-> Package 规则、ledger、checkpoint、跨 case memory 和硬动作策略均被排除。所有方法共享的实验完整性
-> 底座 E 不属于算法。第 12 节优先于下文保留的可审计研发历史。
+> **当前论文设计（2026-08-24）：** 失败统一按 Observation--Constraint--Operation 三层分类。
+> EnvSolve-Pro 保留一个自由连续 Agent session，暴露完整公开目标，并让 Agent 反复从目标初始状态重放
+> 完整程序。重放失败在同一 session 内成为 case-local 软约束。定时观测、强制 handoff、ledger、
+> package 规则、checkpoint、跨 case memory 和硬动作策略均被排除在核心方法之外。所有方法共享的实验
+> 完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计研发历史。
 
 ## 1. 研究目标
 
@@ -785,7 +785,7 @@ torchvision 版本、缺失 Git ownership、遗漏测试依赖、一次网络失
 
 ### 12.3 Outcome-Independent 资格实验
 
-四对 case 在下载源码和执行模型前，从已有随机 Dev16 顺序的第 9--12 位固定。同模型自由搜索 Official
+四对 case 在下载源码和执行模型前，从已有随机 Dev16 顺序的第 9--12 位固定。同模型 goal-aware 自由搜索 Official
 通过 2/4，目标状态重放通过 3/4；配对表为 2 对都通过、1 对只有 B 通过、0 对只有 A 通过、1 对都失败，
 精确 McNemar 为 `p=1.0`。原 cellrank B 受到一次已披露的研究者中断。主分析使用在替代执行前写明的
 replacement；排除整个 cellrank pair 的敏感性结果为 2/3 对 3/3。
@@ -811,7 +811,7 @@ replay 能提高成功率，才进入外部 baseline 与强弱 backbone 比较�
 
 ### 12.5 Bad-6 失败富集压力测试
 
-预先固定的强 baseline Official-failure Bad-6 已完成 12 条科研有效 episode。端到端结果是自由 Agent
+预先固定的强 baseline Official-failure Bad-6 已完成 12 条科研有效 episode。端到端结果是 goal-aware 自由 Agent
 `2/6`、目标状态重放 `4/6`；配对表为 2 对都通过、2 对只有 B 通过、0 对只有 A 通过、2 对都失败，
 精确 McNemar `p=0.5`。B 的 4 个候选执行 7 次重放，其中 3 个为 Fail→Pass；最终重放和 Official 在
 4/4 上一致。HARK 是最干净的因果救援：内部 fresh replay 暴露与 A 的 Official 完全相同的 Git ownership
@@ -825,6 +825,17 @@ quacc B 在候选前搜索膨胀；ajenti 两组都已经达到 0 missing import
 下一版只讨论一个简单的成功优先假设：首次得到可执行 Official-equivalent 候选时先保存并进入目标重放，
 后续完整性或成本探索不能抹掉已有候选。Official success、部署完整性和路径成本保持独立评价轴。该假设
 不能在已消费 Bad-6 上调 package 规则，必须在新的固定 development batch 上验证。
+
+### 12.5.1 机制标签纠正
+
+完成因果普查后的代码复核发现，历史 `deepseek-free-agent` prompt 实际包含完整可执行公开目标。因此
+`A-F` 标签不准确：该组实现的是 `F+O`，目标状态重放组实现的是带 advisory replay 约束的 `F+O+R`。
+已有配对结果仍可用于估计 replay 的增量，但完全不能估计“公开目标可见”本身的作用。Runner 现在为后续
+实验明确提供三组：只有仓库反馈的 `F`、goal-aware 的 `F+O`、以及 replay 的 `F+O+R`。这是实验接口
+纠偏，不是算法效果主张。
+已消费 6-case 诊断设计和三臂平衡 schedule 分别记录在
+`experiments/validations/envsolve_pro_for_v1_consumed6_design.json` 与
+`experiments/schedules/envsolve_pro_for_v1_consumed6.json`。
 
 ### 12.6 Certified-Incumbent 证伪与验证器触发交接
 
