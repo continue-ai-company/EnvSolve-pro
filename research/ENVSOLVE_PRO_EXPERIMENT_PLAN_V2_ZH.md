@@ -556,3 +556,9 @@ active-obligation list，以及 introduced/resolved/preserved delta。Prompt、�
 覆盖多个失败分层，并在 treatment 执行前固定。Official Pass@1 为主指标；请求、Token、时间、流量、
 replay 次数和 constraint-resolution transition 为次指标。机制固定后，强弱 backbone 使用完全相同算法，
 用于检验状态化可执行记忆是否补充模型能力，而不是定义两套方法。
+
+首轮 ROL 对照统一使用 DeepSeek 官方直连接口和正式模型 ID `deepseek-v4-flash`；官方将其
+底层版本标为 `DeepSeek-V4-Flash-0731`。Control 与 treatment 使用相同 endpoint、思考模式、
+reasoning effort 和请求上限。Direct API 未声明支持 seed，因此预注册 seed 只保留为 episode
+身份，不在任一臂转发。此次 provider 迁移不改变 prompt、tool、replay、ledger、evaluator 或
+case 选择机制。

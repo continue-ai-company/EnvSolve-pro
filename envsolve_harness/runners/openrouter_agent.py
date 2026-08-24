@@ -51,8 +51,16 @@ from envsolve_harness.utils.provenance import sha256_file
 
 DEEPSEEK_V4_PRO = "deepseek/deepseek-v4-pro"
 DEEPSEEK_V4_FLASH_0731 = "deepseek/deepseek-v4-flash-0731"
-SUPPORTED_DEEPSEEK_MODELS = frozenset({DEEPSEEK_V4_PRO, DEEPSEEK_V4_FLASH_0731})
+DEEPSEEK_DIRECT_V4_FLASH = "deepseek-v4-flash"
+SUPPORTED_DEEPSEEK_MODELS = frozenset(
+    {
+        DEEPSEEK_V4_PRO,
+        DEEPSEEK_V4_FLASH_0731,
+        DEEPSEEK_DIRECT_V4_FLASH,
+    }
+)
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+DEEPSEEK_DIRECT_BASE_URL = "https://api.deepseek.com"
 ReplayMode = Literal[
     "none",
     "soft",
@@ -182,7 +190,7 @@ def _request_contract(options: dict[str, Any]) -> dict[str, Any]:
     extra_body = options.get("extra_body")
     if not isinstance(extra_body, dict):
         extra_body = {}
-    return {
+    contract = {
         "model": options.get("model"),
         "seed": options.get("seed"),
         "seed_forwarded": "seed" in options,
@@ -190,6 +198,29 @@ def _request_contract(options: dict[str, Any]) -> dict[str, Any]:
         "tool_choice": options.get("tool_choice"),
         "reasoning": extra_body.get("reasoning"),
         "provider": extra_body.get("provider"),
+    }
+    thinking = extra_body.get("thinking")
+    if thinking is not None:
+        contract["thinking"] = thinking
+        contract["reasoning_effort"] = options.get("reasoning_effort")
+    return contract
+
+
+def is_deepseek_direct_model(model: str) -> bool:
+    return model == DEEPSEEK_DIRECT_V4_FLASH
+
+
+def provider_connection(model: str) -> dict[str, str]:
+    if is_deepseek_direct_model(model):
+        return {
+            "provider": "deepseek-direct",
+            "base_url": DEEPSEEK_DIRECT_BASE_URL,
+            "credential_variable": "DEEPSEEK_API_KEY",
+        }
+    return {
+        "provider": "openrouter",
+        "base_url": OPENROUTER_BASE_URL,
+        "credential_variable": "OPENROUTER_API_KEY",
     }
 
 
@@ -212,7 +243,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.7.0"
+    runner_version = "0.7.1"
 
     def __init__(
         self,
@@ -473,12 +504,16 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "tools": self._tools(),
             "tool_choice": "auto",
             "max_tokens": self.model_max_output_tokens,
-            "extra_body": {
+        }
+        if is_deepseek_direct_model(model):
+            options["reasoning_effort"] = self.reasoning_effort
+            options["extra_body"] = {"thinking": {"type": "enabled"}}
+        else:
+            options["extra_body"] = {
                 "reasoning": {"effort": self.reasoning_effort},
                 "provider": self._provider_policy(),
-            },
-        }
-        if seed is not None:
+            }
+        if seed is not None and not is_deepseek_direct_model(model):
             options["seed"] = seed
         return options
 
@@ -644,10 +679,12 @@ never selects packages, blocks commands, or restores an environment.
 """
         return prompt
 
-    def _client(self) -> Any:
-        api_key = os.environ.get("OPENROUTER_API_KEY")
+    def _client(self, model: str) -> Any:
+        connection = provider_connection(model)
+        credential_variable = connection["credential_variable"]
+        api_key = os.environ.get(credential_variable)
         if not api_key:
-            raise RuntimeError("OPENROUTER_API_KEY is not set")
+            raise RuntimeError(f"{credential_variable} is not set")
         factory = self.client_factory
         if factory is None:
             from openai import OpenAI
@@ -655,7 +692,7 @@ never selects packages, blocks commands, or restores an environment.
             factory = OpenAI
         return factory(
             api_key=api_key,
-            base_url=OPENROUTER_BASE_URL,
+            base_url=connection["base_url"],
             timeout=self.model_request_timeout,
             max_retries=0,
         )
@@ -1008,6 +1045,9 @@ never selects packages, blocks commands, or restores an environment.
                 "role": "assistant",
                 "content": getattr(message, "content", None),
             }
+            reasoning_content = getattr(message, "reasoning_content", None)
+            if isinstance(reasoning_content, str):
+                assistant_message["reasoning_content"] = reasoning_content
             if tool_calls:
                 assistant_message["tool_calls"] = [
                     _tool_call_dict(call) for call in tool_calls
@@ -1277,21 +1317,38 @@ never selects packages, blocks commands, or restores an environment.
     def run(self, case: Case, artifacts: RunArtifacts, run_spec: RunSpec) -> SolverResult:
         started_at = self._now()
         write_json(artifacts.status, {"state": "generating", "updated_at": started_at})
+        connection = provider_connection(run_spec.model)
         metadata: dict[str, Any] = {
             "runner": self.runner_name,
             "runner_version": self.runner_version,
             "baseline_interface": self.agent_interface,
             "mechanism_primitives": self.mechanism_primitives,
             "model_reasoning_effort": self.reasoning_effort,
-            "provider_base_url": OPENROUTER_BASE_URL,
-            "provider_policy": self._provider_policy(),
+            "provider": connection["provider"],
+            "provider_base_url": connection["base_url"],
+            "provider_policy": (
+                self._provider_policy()
+                if connection["provider"] == "openrouter"
+                else {"route": "first-party-direct"}
+            ),
             "sampling_control": {
                 "requested_seed": run_spec.seed,
-                "forwarded_to_every_model_request": run_spec.seed is not None,
+                "forwarded_to_every_model_request": (
+                    run_spec.seed is not None
+                    and not is_deepseek_direct_model(run_spec.model)
+                ),
+                "provider_support": (
+                    "not-documented"
+                    if is_deepseek_direct_model(run_spec.model)
+                    else "qualified-by-provider-canary"
+                ),
                 "scope": "all-model-requests-in-episode",
                 "determinism_guaranteed": False,
             },
-            "credential_present": bool(os.environ.get("OPENROUTER_API_KEY")),
+            "credential_variable": connection["credential_variable"],
+            "credential_present": bool(
+                os.environ.get(connection["credential_variable"])
+            ),
             "official_evaluator_access": "post-episode-only",
             "resource_policy": {
                 "generation_wall_clock_safety_cap_seconds": self.timeout,
@@ -1322,7 +1379,7 @@ never selects packages, blocks commands, or restores an environment.
                     False,
                     run_spec.method,
                     error=(
-                        "OpenRouter API experiments require a frozen qualified model: "
+                        "Provider API experiments require a qualified DeepSeek model: "
                         f"{', '.join(sorted(SUPPORTED_DEEPSEEK_MODELS))}"
                     ),
                     metadata=metadata,
@@ -1418,7 +1475,7 @@ never selects packages, blocks commands, or restores an environment.
                 else None
             )
 
-            client = self._client()
+            client = self._client(run_spec.model)
             submission, loop_metadata = self._agent_loop(
                 client=client,
                 model=run_spec.model,

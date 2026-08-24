@@ -59,6 +59,30 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         )
         self.assertNotIn("must-not-be-recorded", repr(metadata))
 
+    def test_deepseek_direct_preflight_and_metadata_use_direct_key(self) -> None:
+        identities = [
+            {
+                "runner": "envsolve-pro-v2-stateful-replay",
+                "model": "deepseek-v4-flash",
+            }
+        ]
+        with self.assertRaisesRegex(RuntimeError, "DEEPSEEK_API_KEY"):
+            _validate_provider_environment(identities, {})
+
+        _validate_provider_environment(
+            identities,
+            {"DEEPSEEK_API_KEY": "present-not-recorded"},
+        )
+        self.assertEqual(
+            _provider_execution_metadata(identities, {}),
+            {
+                "provider_backed": True,
+                "provider": "deepseek-direct",
+                "base_url": "https://api.deepseek.com",
+                "credential_variable": "DEEPSEEK_API_KEY",
+            },
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

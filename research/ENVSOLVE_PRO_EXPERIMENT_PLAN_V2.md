@@ -703,3 +703,10 @@ before treatment execution. Official Pass@1 is primary. Requests, tokens, wall t
 traffic, replay count, and constraint-resolution transitions are secondary. Strong and
 weaker backbones use the same algorithm after the mechanism is fixed; they test whether
 stateful executable memory complements model capability rather than defining two methods.
+
+The first ROL comparison uses the first-party DeepSeek endpoint and the official model ID
+`deepseek-v4-flash`, which the provider identifies as `DeepSeek-V4-Flash-0731`. Control
+and treatment share the same endpoint, thinking mode, reasoning effort, and request caps.
+The Direct API does not document a seed parameter, so the preregistered seed remains an
+episode identifier but is not forwarded in either arm. This provider migration changes no
+prompt, tool, replay, ledger, evaluator, or case-selection mechanism.

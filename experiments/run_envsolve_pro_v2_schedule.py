@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 from envsolve_harness.core.config import load_harness_config
 from envsolve_harness.execution.batch import cleanup_case_containers, mark_case_interrupted
 from envsolve_harness.execution.schedule import ScheduleProgress, run_scheduled_process
+from envsolve_harness.runners.openrouter_agent import provider_connection
 from envsolve_harness.storage.artifacts import safe_name
 from envsolve_harness.utils.provenance import sha256_file
 from experiments.run_schedule import (
@@ -25,7 +26,7 @@ from experiments.run_schedule import (
 )
 
 
-OPENROUTER_API_RUNNERS = frozenset(
+PROVIDER_API_RUNNERS = frozenset(
     {
         "deepseek-free-agent",
         "envsolve-pro-v2",
@@ -33,6 +34,7 @@ OPENROUTER_API_RUNNERS = frozenset(
         "envsolve-pro-v2-ledger",
         "envsolve-pro-v2-scheduled-observation",
         "envsolve-pro-v2-verifier-handoff",
+        "envsolve-pro-v2-stateful-replay",
     }
 )
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
@@ -42,13 +44,25 @@ def _validate_provider_environment(
     identities: Sequence[dict[str, object]],
     environ: Mapping[str, str] | None = None,
 ) -> None:
-    provider_backed = any(
-        str(identity["runner"]) in OPENROUTER_API_RUNNERS for identity in identities
-    )
     environment = os.environ if environ is None else environ
-    if provider_backed and not environment.get("OPENROUTER_API_KEY", "").strip():
+    missing = sorted(
+        {
+            provider_connection(str(identity.get("model", "")))[
+                "credential_variable"
+            ]
+            for identity in identities
+            if str(identity["runner"]) in PROVIDER_API_RUNNERS
+            and not environment.get(
+                provider_connection(str(identity.get("model", "")))[
+                    "credential_variable"
+                ],
+                "",
+            ).strip()
+        }
+    )
+    if missing:
         raise RuntimeError(
-            "OPENROUTER_API_KEY is required by pending EnvSolve-Pro V2 episodes; "
+            f"{', '.join(missing)} required by pending EnvSolve-Pro V2 episodes; "
             "no schedule progress was recorded"
         )
 
@@ -57,22 +71,37 @@ def _provider_execution_metadata(
     identities: Sequence[dict[str, object]],
     environ: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
-    provider_backed = any(
-        str(identity["runner"]) in OPENROUTER_API_RUNNERS for identity in identities
-    )
+    provider_identities = [
+        identity
+        for identity in identities
+        if str(identity["runner"]) in PROVIDER_API_RUNNERS
+    ]
+    provider_backed = bool(provider_identities)
     if not provider_backed:
         return {"provider_backed": False}
     environment = os.environ if environ is None else environ
+    connections = {
+        tuple(sorted(provider_connection(str(identity.get("model", ""))).items()))
+        for identity in provider_identities
+    }
+    routes = [dict(items) for items in sorted(connections)]
     provider_order = [
         item.strip()
         for item in environment.get("OPENROUTER_PROVIDER_ORDER", "").split(",")
         if item.strip()
     ]
+    if len(routes) == 1 and routes[0]["provider"] == "openrouter":
+        return {
+            "provider_backed": True,
+            "credential_variable": "OPENROUTER_API_KEY",
+            "base_url": OPENROUTER_BASE_URL,
+            "provider_order": provider_order,
+        }
+    if len(routes) == 1:
+        return {"provider_backed": True, **routes[0]}
     return {
         "provider_backed": True,
-        "credential_variable": "OPENROUTER_API_KEY",
-        "base_url": OPENROUTER_BASE_URL,
-        "provider_order": provider_order,
+        "routes": routes,
     }
 
 

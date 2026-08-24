@@ -14,6 +14,8 @@ from envsolve_harness.compatibility_ledger import ScheduledCompatibilityObserver
 from envsolve_harness.codex.minimal_b_mcp import script_sha256
 from envsolve_harness.replay_feedback import normalize_replay_feedback
 from envsolve_harness.runners.openrouter_agent import (
+    DEEPSEEK_DIRECT_BASE_URL,
+    DEEPSEEK_DIRECT_V4_FLASH,
     DEEPSEEK_V4_FLASH_0731,
     DEEPSEEK_V4_PRO,
     OpenRouterAgentRunner,
@@ -287,6 +289,60 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             options["extra_body"]["provider"],
             {"require_parameters": True, "allow_fallbacks": False},
         )
+
+    def test_deepseek_direct_uses_first_party_route_and_thinking_parameters(self) -> None:
+        created: dict[str, object] = {}
+
+        def factory(**options: object) -> object:
+            created.update(options)
+            return object()
+
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "stateful")
+            runner.client_factory = factory
+            options = runner.request_options(
+                DEEPSEEK_DIRECT_V4_FLASH,
+                [{"role": "user", "content": "x"}],
+                seed=12345,
+            )
+            with mock.patch.dict(
+                os.environ,
+                {"DEEPSEEK_API_KEY": "present-not-recorded"},
+                clear=True,
+            ):
+                runner._client(DEEPSEEK_DIRECT_V4_FLASH)
+
+        self.assertEqual(created["base_url"], DEEPSEEK_DIRECT_BASE_URL)
+        self.assertEqual(created["api_key"], "present-not-recorded")
+        self.assertEqual(options["model"], DEEPSEEK_DIRECT_V4_FLASH)
+        self.assertEqual(options["reasoning_effort"], "xhigh")
+        self.assertNotIn("seed", options)
+        self.assertEqual(
+            options["extra_body"],
+            {"thinking": {"type": "enabled"}},
+        )
+        self.assertNotIn("provider", options["extra_body"])
+
+    def test_reasoning_content_is_preserved_across_direct_tool_turns(self) -> None:
+        response = FakeResponse(tool_call("1", "submit_bootstrap", {
+            "program": "python -m pip install -e .",
+            "summary": "done",
+        }))
+        response.choices[0].message.reasoning_content = "inspect then submit"
+        client = FakeClient([response])
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "none")
+            runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_DIRECT_V4_FLASH,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=None,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        assistant = client.chat.completions.requests[0]["messages"][1]
+        self.assertEqual(assistant["reasoning_content"], "inspect then submit")
 
     def test_incumbent_treatment_reuses_the_frozen_replay_tool_surface(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
