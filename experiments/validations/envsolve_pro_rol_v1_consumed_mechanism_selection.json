@@ -1,0 +1,110 @@
+{
+  "schema": "envsolve-pro-rol-consumed-mechanism-selection-v1",
+  "study_id": "envsolve-pro-rol-v1-consumed-mechanism-development",
+  "recorded_at": "2026-08-24",
+  "purpose": "Development-only test of whether replay-obligation memory helps an otherwise identical active Agent preserve unresolved clean-replay requirements under partial observability.",
+  "claim_scope": {
+    "allowed": [
+      "mechanism execution",
+      "within-case causal trajectory comparison",
+      "failure-mode diagnosis"
+    ],
+    "not_allowed": [
+      "held-out generalization",
+      "population success rate",
+      "leaderboard improvement",
+      "SOTA"
+    ]
+  },
+  "selection_rule": {
+    "evidence_cutoff": "2026-08-24",
+    "requirements": [
+      "The case was consumed before ROL was implemented.",
+      "A protocol-valid historical trajectory contains clean replay failure followed by clean replay pass.",
+      "The selected set covers distinct observation, constraint, or operation failure strata.",
+      "Selection does not use any ROL treatment outcome."
+    ],
+    "source_case_file": "experiments/cases/dev_pro_bad_case_census_v1_209.jsonl"
+  },
+  "arms": {
+    "scheduled_control": {
+      "runner": "envsolve-pro-v2-scheduled-observation",
+      "method": "envsolve-pro-scheduled-compatibility-observation",
+      "description": "Continuous Agent session with the same prompt, tools, clean replay, scheduled observations, and minimal integrity boundary, but without replay-obligation memory."
+    },
+    "stateful_rol": {
+      "runner": "envsolve-pro-v2-stateful-replay",
+      "method": "envsolve-pro-stateful-replay-obligation-ledger",
+      "description": "The scheduled control plus advisory active obligations and introduced/resolved/preserved deltas returned after replay to the same session."
+    }
+  },
+  "shared_execution": {
+    "model": "deepseek-v4-flash",
+    "provider": "DeepSeek first-party API",
+    "config": "experiments/configs/spark_envsolve_pro_rol_v1_deepseek_direct.json",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "official_evaluator_access": "post-episode-only",
+    "candidate_order": "alternated by case",
+    "resource_metrics": "reported as outcomes, not success thresholds"
+  },
+  "cases": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "seed": 640001,
+      "historical_replay_pattern": [
+        "partial bootstrap failure",
+        "complete goal failure with missing imports",
+        "pass"
+      ],
+      "stratum": "observation completeness across partial and complete replay evidence",
+      "arm_order": [
+        "scheduled_control",
+        "stateful_rol"
+      ]
+    },
+    {
+      "position": 2,
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "seed": 640002,
+      "historical_replay_pattern": [
+        "dependency-version conflict",
+        "pass"
+      ],
+      "stratum": "constraint conflict",
+      "arm_order": [
+        "stateful_rol",
+        "scheduled_control"
+      ]
+    },
+    {
+      "position": 3,
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "seed": 640003,
+      "historical_replay_pattern": [
+        "fresh-checkout Git ownership failure",
+        "pass"
+      ],
+      "stratum": "operation mismatch between construction and target environment",
+      "arm_order": [
+        "scheduled_control",
+        "stateful_rol"
+      ]
+    }
+  ],
+  "deferred_consumed_cases": [
+    {
+      "case": "HA-Battery-Notes",
+      "reason": "Useful build-isolation repair, but both historical arms already passed Official; retain as a later no-success-gain mechanism check."
+    },
+    {
+      "case": "micropy-cli",
+      "reason": "Historical pass included a path-purity ambiguity; defer until deployment completeness is scored independently."
+    }
+  ],
+  "protected_unseen_cases": [
+    "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+    "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb"
+  ],
+  "safety_note": "This record adds no new hash, frozen contract, or gate. Existing repository-integrity and evaluator-isolation protections remain unchanged."
+}

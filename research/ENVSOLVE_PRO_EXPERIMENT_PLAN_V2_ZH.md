@@ -551,11 +551,18 @@ ROL 作为固定 Base B 上的单一正交 treatment：连续 Agent session、�
 active-obligation list，以及 introduced/resolved/preserved delta。Prompt、工具、模型、provider、镜像、
 源码权限、evaluator 和宽松安全上限其余完全匹配。
 
-确定性测试和已消费设计 case 只验证提取与保守更新语义。PlatformIO、Marimo、ILAMB、qibolab 不能
-估计效果。首个 effectiveness batch 必须从既有 bad-case census 机械选出，排除全部机制设计 case，
-覆盖多个失败分层，并在 treatment 执行前固定。Official Pass@1 为主指标；请求、Token、时间、流量、
-replay 次数和 constraint-resolution transition 为次指标。机制固定后，强弱 backbone 使用完全相同算法，
-用于检验状态化可执行记忆是否补充模型能力，而不是定义两套方法。
+确定性测试和已消费 case 只能验证提取与保守更新语义。回顾性曝光审计在 209 个 census case 中为
+207 个找到了执行证据，因此不能再把另一个开发 batch 重新标成“未见”。首轮真实 ROL 对照明确是
+**已消费的机制开发 batch**，且选择不使用任何 ROL 结果：PlatformIO 检验局部证据到完整证据的
+状态转换，qibolab 检验依赖版本冲突，HARK 检验 construction 与 target 环境之间的操作差异。选择记录为
+`experiments/validations/envsolve_pro_rol_v1_consumed_mechanism_selection.json`。
+
+Official Pass@1 仍是端到端指标；请求数、Token、时间、流量、replay 次数和 obligation transition 是
+诊断性结果。这个三 case 对照可以判断 ROL 是否改变轨迹，但不能估计泛化或总体成功率。
+`fonttools/fontbakery` 与 `vertica/verticapy` 是仅剩两个没有发现执行证据的 case，在机制和分析策略固定前
+保持未打开。两个 case 也只能作为确认性检查；排行榜与 SOTA 结论必须依赖官方隐藏测试集或新收集的
+外部样本。机制固定后，强弱 backbone 使用完全相同算法，用于检验状态化可执行记忆是否补充模型能力，
+而不是定义两套方法。
 
 首轮 ROL 对照统一使用 DeepSeek 官方直连接口和正式模型 ID `deepseek-v4-flash`；官方将其
 底层版本标为 `DeepSeek-V4-Flash-0731`。Control 与 treatment 使用相同 endpoint、思考模式、

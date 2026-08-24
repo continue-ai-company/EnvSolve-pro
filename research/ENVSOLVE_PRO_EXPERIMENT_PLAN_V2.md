@@ -695,14 +695,24 @@ stateful active-obligation list and introduced/resolved/preserved delta. Prompt,
 model, provider, image, source access, evaluator, and broad safety limits are otherwise
 matched.
 
-Deterministic tests and consumed design cases qualify extraction and conservative update
-semantics only. PlatformIO, Marimo, ILAMB, and qibolab cannot estimate effectiveness. The
-first effectiveness batch must be mechanically selected from the pre-existing bad-case
-census, exclude all mechanism-design cases, cover multiple failure strata, and be fixed
-before treatment execution. Official Pass@1 is primary. Requests, tokens, wall time,
-traffic, replay count, and constraint-resolution transitions are secondary. Strong and
-weaker backbones use the same algorithm after the mechanism is fixed; they test whether
-stateful executable memory complements model capability rather than defining two methods.
+Deterministic tests and consumed cases qualify extraction and conservative update semantics
+only. The retrospective exposure audit found execution evidence for 207 of the 209 census
+cases, so relabeling another development batch as unseen would be invalid. The first live
+ROL comparison is therefore an explicitly consumed mechanism-development batch selected
+without ROL outcomes: PlatformIO tests partial-to-complete observation, qibolab tests a
+dependency-version conflict, and HARK tests a construction-to-target operation mismatch.
+The selection record is
+`experiments/validations/envsolve_pro_rol_v1_consumed_mechanism_selection.json`.
+
+Official Pass@1 remains the end-to-end endpoint, while requests, tokens, wall time, traffic,
+replay count, and obligation transitions are diagnostic outcomes. This three-case comparison
+can show whether ROL changes trajectories; it cannot estimate generalization or a population
+success rate. `fonttools/fontbakery` and `vertica/verticapy`, the only two cases without
+discovered execution evidence, remain unopened until the mechanism and analysis policy are
+fixed. Two cases are still only a confirmation check; leaderboard and SOTA claims require
+the official hidden test split or a newly collected external sample. Strong and weaker
+backbones use the same fixed algorithm to test whether stateful executable memory complements
+model capability rather than defining two methods.
 
 The first ROL comparison uses the first-party DeepSeek endpoint and the official model ID
 `deepseek-v4-flash`, which the provider identifies as `DeepSeek-V4-Flash-0731`. Control
