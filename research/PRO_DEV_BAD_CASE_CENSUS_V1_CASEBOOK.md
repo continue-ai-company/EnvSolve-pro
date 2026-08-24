@@ -4,6 +4,26 @@ Status: live A-only census record, 2026-08-10
 
 This casebook preserves high-value counterexamples from the frozen 209-case Dev census. Official outcome is primary. Advisory qualification is recorded separately. Infrastructure-censored attempts are not algorithm failures.
 
+## Exposure correction (2026-08-24)
+
+The earlier pending-state summary was incomplete because it considered the A-only census
+more narrowly than the full research history. A cross-store audit of local artifacts,
+historical artifacts, committed result records, and Spark artifacts found prior execution
+evidence for 203 of the 205 cases in the pending-census file. The only cases for which no
+execution evidence was found are `fonttools/fontbakery` (position 70) and
+`vertica/verticapy` (position 196). They are reserved and must not be used for ROL
+mechanism development.
+
+The four recently resumed A cases were already exposed before ROL and are development
+evidence only. BayBE, PortingDB, and pywal16 pass Official. Reddit2telegram's first
+Official attempt was censored by package-index DNS failure; one exact-script,
+evaluation-only retry passes Official. The updated A snapshot is 54 terminal episodes:
+32 passes and 11 failures among 43 non-censored Official-primary outcomes, 6 terminal
+infrastructure-censored cases, and 5 pre-Official algorithm failures. This correction
+supersedes the stale Pending adjudication and Current census snapshot text below without
+rewriting the historical record. The machine-readable evidence is
+`experiments/validations/envsolve_pro_v2_case_exposure_audit_20260824.json`.
+
 ## Confirmed Official failures
 
 | Case | Terminal mechanism | Current taxonomy hypothesis | Why it matters |

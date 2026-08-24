@@ -4,6 +4,21 @@
 
 本文档保存冻结的 209-case Dev census 中最有研究价值的反例。Official 结果是主指标，advisory qualification 单独记录；被基础设施故障截断的尝试不算算法失败。
 
+## 暴露集更正（2026-08-24）
+
+此前的 pending 状态只检查了 A-only census，没有覆盖完整研究历史，因此并不可靠。对本地
+artifact、历史 artifact、已提交结果记录和 Spark artifact 做跨存储审计后发现：pending-census
+文件的 205 个 case 中，203 个已经存在执行证据。仅 `fonttools/fontbakery`（位置 70）和
+`vertica/verticapy`（位置 196）没有发现执行证据；二者保留，不能用于 ROL 机制开发。
+
+最近恢复的 4 个 A case 在 ROL 之前都已经暴露，只能作为开发证据。BayBE、PortingDB 和
+pywal16 均通过 Official。Reddit2telegram 首次 Official 被包索引 DNS 故障截断；同一脚本只重跑
+evaluation 后通过 Official。更新后的 A 快照为 54 个终局 episode：43 个非基础设施截断的
+Official-primary 结果中 32 个 Pass、11 个 Fail，另有 6 个终局基础设施截断和 5 个 Official 前
+算法失败。本更正取代下文已经过时的“等待裁决”和“当前 census 快照”，但不改写历史记录。
+机器可读证据位于
+`experiments/validations/envsolve_pro_v2_case_exposure_audit_20260824.json`。
+
 ## 已确认的 Official 失败
 
 | Case | 终端机制 | 当前分类假设 | 研究价值 |

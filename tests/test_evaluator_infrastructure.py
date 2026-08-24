@@ -149,6 +149,26 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
             )
         )
 
+    def test_classifies_exhausted_package_index_dns_before_pip_terminal_error(
+        self,
+    ) -> None:
+        self.assertEqual(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "Retrying after NewConnectionError: [Errno -2] "
+                        "Name or service not known: /simple/wheel/\n"
+                        "ERROR: Could not find a version that satisfies the "
+                        "requirement wheel\n"
+                        "ERROR: No matching distribution found for wheel\n"
+                    ),
+                    "pyright": {},
+                }
+            ),
+            "package-index-dns-exhaustion",
+        )
+
     def test_does_not_censor_a_named_requirement_with_a_bad_hash(self) -> None:
         self.assertIsNone(
             envbench_bootstrap_infrastructure_signature(

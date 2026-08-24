@@ -1,0 +1,73 @@
+{
+  "schema": "envsolve-pro-v2-case-exposure-audit-v1",
+  "recorded_at": "2026-08-24",
+  "purpose": "Separate mechanism-development cases from cases that still have no discovered execution outcome or trajectory before the ROL study.",
+  "universe": {
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+    "case_count": 205
+  },
+  "evidence_sources": [
+    {
+      "kind": "run-artifacts",
+      "location": "runs/"
+    },
+    {
+      "kind": "historical-run-artifacts",
+      "location": "/Users/admin/Documents/AnyDeploy/runs"
+    },
+    {
+      "kind": "committed-result-and-adjudication-records",
+      "location": "experiments/validations/ and research/"
+    },
+    {
+      "kind": "remote-run-artifacts",
+      "location": "avdpro@100.81.196.23:/home/avdpro/work"
+    }
+  ],
+  "exposure_definition": "A case is exposed when an Agent or deployment method executed on it, an Official evaluation ran, or a committed result/adjudication reveals its trajectory or outcome. Selection or preregistration without execution is not by itself outcome exposure.",
+  "counts": {
+    "locally_artifact_exposed": 171,
+    "additional_committed_result_exposed": 30,
+    "additional_remote_only_exposed": 2,
+    "total_exposed": 203,
+    "no_execution_evidence_found": 2
+  },
+  "no_execution_evidence_found": [
+    {
+      "position": 70,
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f"
+    },
+    {
+      "position": 196,
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb"
+    }
+  ],
+  "rol_census_correction": [
+    {
+      "case_id": "envbench-python-emdgroup__baybe@8afb0ff99655d34176fa7dc52ec488e3773103d3",
+      "pre_rol_exposure": "A generation started on 2026-08-10; earlier P6 operation trajectories also exist.",
+      "latest_official_outcome": "pass"
+    },
+    {
+      "case_id": "envbench-python-fedora-python__portingdb@6c7f97e01d35594833856bab7e187999fc78fea2",
+      "pre_rol_exposure": "A generation started on 2026-08-10.",
+      "latest_official_outcome": "pass"
+    },
+    {
+      "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+      "pre_rol_exposure": "P6 runtime/full trajectories and Official evaluations existed before ROL.",
+      "latest_official_outcome": "pass"
+    },
+    {
+      "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+      "pre_rol_exposure": "Multiple P6 operation, replay, calibration, and Official trajectories existed before ROL.",
+      "latest_official_outcome": "pass after one exact-script retry of an infrastructure-censored package-index DNS failure"
+    }
+  ],
+  "research_decision": {
+    "mechanism_development": "Use only already exposed confirmed bad cases to diagnose and revise ROL.",
+    "protected_evidence": "Do not execute fontbakery or verticapy until the ROL mechanism and analysis policy are fixed.",
+    "claim_boundary": "The four corrected census outcomes are development evidence only and cannot estimate ROL generalization."
+  },
+  "limitations": "This is a best-available exposure audit over the listed local, committed, and Spark evidence stores. It is an evidence record, not a new execution gate or frozen contract."
+}

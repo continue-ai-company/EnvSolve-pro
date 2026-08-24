@@ -35,6 +35,56 @@ def _inside(root: Path, path: Path) -> bool:
         return False
 
 
+def _official_primary_advisory_submission_valid(
+    solver_metadata: dict[str, Any], manifest: dict[str, Any]
+) -> bool:
+    if (
+        solver_metadata.get("runner")
+        != "codex-cli-boundary-v5-official-primary-remote-docker"
+    ):
+        return False
+    primary = solver_metadata.get("official_primary_submission")
+    candidate = solver_metadata.get("candidate_validation")
+    construction = solver_metadata.get("construction_workspace_integrity")
+    qualification = solver_metadata.get("submission_qualification")
+    integrity = solver_metadata.get("repository_integrity")
+    script = manifest.get("script")
+    if not all(
+        isinstance(item, dict)
+        for item in (
+            primary,
+            candidate,
+            construction,
+            qualification,
+            integrity,
+            script,
+        )
+    ):
+        return False
+    violations = integrity.get("violations")
+    return (
+        primary.get("eligible") is True
+        and primary.get("qualification_is_advisory") is True
+        and primary.get("qualification_feedback_returned_to_agent") is False
+        and primary.get("program_sha256") == script.get("sha256")
+        and candidate.get("accepted") is True
+        and (candidate.get("details") or {}).get(
+            "protected_configuration_history"
+        )
+        == "no-write-observed"
+        and construction.get("valid") is True
+        and qualification.get("certified") is False
+        and qualification.get("status") == "fail"
+        and qualification.get("feedback_returned_to_agent") is False
+        and integrity.get("valid") is False
+        and isinstance(violations, list)
+        and len(violations) == 1
+        and isinstance(violations[0], dict)
+        and violations[0].get("kind")
+        == "submitted_program_qualification_failed"
+    )
+
+
 def audit_run(run_root: Path) -> AuditReport:
     root = run_root.resolve()
     report = AuditReport()
@@ -107,7 +157,11 @@ def audit_run(run_root: Path) -> AuditReport:
         integrity = solver_metadata.get("repository_integrity")
         integrity_valid = isinstance(integrity, dict) and integrity.get("valid") is True
         report.checks["repository_integrity"] = integrity_valid
-        if not integrity_valid:
+        advisory_valid = _official_primary_advisory_submission_valid(
+            solver_metadata, manifest
+        )
+        report.checks["official_primary_advisory_submission"] = advisory_valid
+        if not integrity_valid and not advisory_valid:
             report.error("Successful solver result lacks a valid repository integrity report")
 
     if audit_requirements.get("evaluation_retry") is True:

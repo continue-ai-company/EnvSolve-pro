@@ -16,6 +16,12 @@ _NETWORK_FAILURES = tuple(
         ),
         ("dns-temporary-failure", r"Temporary failure in name resolution"),
         ("dns-resolution-failure", r"Could not resolve host"),
+        (
+            "package-index-dns-exhaustion",
+            r"(?:Temporary failure in name resolution|Name or service not known|"
+            r"Could not resolve host)[\s\S]{0,12000}"
+            r"No matching distribution found",
+        ),
         ("tls-timeout", r"TLSV?\s+handshake.*timed out"),
         (
             "git-rpc-tls-truncation",
@@ -70,7 +76,7 @@ def envbench_bootstrap_infrastructure_signature(raw: dict[str, Any]) -> str | No
     if not isinstance(logs, str):
         return None
     network_matches = [
-        (match.start(), name)
+        (match.end(), name)
         for name, pattern in _NETWORK_FAILURES
         for match in pattern.finditer(logs)
     ]
