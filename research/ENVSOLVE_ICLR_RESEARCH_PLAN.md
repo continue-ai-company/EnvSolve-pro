@@ -225,6 +225,15 @@ not comparable success-rate estimates because model capability, public-goal visi
 to expose contrasting trajectories and motivate the three-layer taxonomy; causal effectiveness is measured only in the
 matched same-backbone study.
 
+| Retrospective method | Pass | Public-goal residual | Target bootstrap | Candidate formation | Infrastructure Unknown |
+|---|---:|---:|---:|---:|---:|
+| Native Codex | 6 | 8 | 1 | 1 | 0 |
+| Earlier causal-v3 | 3 | 5 | 2 | 1 | 5 |
+| Reproduced Repo2Run | 1 | 7 | 3 | 5 | 0 |
+
+This table reports mechanically observed terminal stages, not causal failure layers. Observation, Constraint, and Operation
+labels require full-trajectory adjudication of the earliest repair opportunity.
+
 Outcome-independent target-replay development evidence covers eight pairs: free Agent passed `6/8`, while EnvSolve-Pro
 passed `7/8`, with one discordant pair (`p=1.0`). These cases established executability but were mostly too easy to identify
 an effect.

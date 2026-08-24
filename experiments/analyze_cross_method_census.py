@@ -176,6 +176,31 @@ def _terminal(
     return "evaluation_missing"
 
 
+def _terminal_stage(
+    generation: dict[str, Any] | None,
+    evaluation: dict[str, Any] | None,
+) -> str:
+    terminal = _terminal(generation, evaluation)
+    if terminal == "infrastructure_unknown":
+        return "infrastructure_unknown"
+    if generation is None or generation.get("generation_completed") is not True:
+        return "candidate_formation"
+    if evaluation is None or evaluation.get("evaluation_completed") is not True:
+        return "evaluation_unknown"
+    if evaluation.get("official_pass") is True:
+        return "success"
+    raw = evaluation.get("raw_metrics")
+    if not isinstance(raw, dict):
+        return "official_failure_unparsed"
+    exit_code = raw.get("exit_code")
+    if isinstance(exit_code, int) and exit_code != 0:
+        return "target_bootstrap"
+    issues_count = raw.get("issues_count")
+    if isinstance(issues_count, int) and issues_count > 0:
+        return "public_goal_residual"
+    return "official_failure_unparsed"
+
+
 def _final_program(root: Path) -> dict[str, Any] | None:
     path = root / "scripts/generated.sh"
     if not path.is_file():
@@ -267,6 +292,7 @@ def collect_episode(
         "evaluation_artifact_root": str(evaluation_root),
         "artifact_exists": generation_root.is_dir() or evaluation_root.is_dir(),
         "terminal": _terminal(generation, evaluation),
+        "terminal_stage": _terminal_stage(generation, evaluation),
         "generation_completed": (
             generation.get("generation_completed")
             if generation is not None
@@ -304,6 +330,11 @@ def aggregate(records: Iterable[dict[str, Any]]) -> dict[str, Any]:
             "official_passes": sum(item["official_pass"] is True for item in items),
             "terminal_counts": dict(
                 sorted(Counter(str(item["terminal"]) for item in items).items())
+            ),
+            "terminal_stage_counts": dict(
+                sorted(
+                    Counter(str(item["terminal_stage"]) for item in items).items()
+                )
             ),
         }
         for method, items in sorted(by_method.items())

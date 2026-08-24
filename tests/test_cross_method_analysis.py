@@ -112,6 +112,7 @@ def test_analyze_builds_measurement_matrix_without_causal_labels(
     assert result["aggregate"]["method-v1"]["official_passes"] == 0
     record = result["records"][0]
     assert record["terminal"] == "official_fail"
+    assert record["terminal_stage"] == "public_goal_residual"
     assert record["official_metrics"]["issues_count"] == 1
     assert record["missing_import_modules"] == ["missing_package"]
     assert record["resources"]["generation_wall_seconds"] == 12
@@ -180,6 +181,7 @@ def test_analyze_can_join_generation_and_evaluation_only_retry(
 
     record = result["records"][0]
     assert record["terminal"] == "official_pass"
+    assert record["terminal_stage"] == "success"
     assert record["generation_run_id"] == generation_run_id
     assert record["evaluation_run_id"] == evaluation_run_id
     assert record["resources"]["generation_wall_seconds"] == 7

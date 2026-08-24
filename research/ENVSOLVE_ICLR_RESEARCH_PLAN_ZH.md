@@ -200,6 +200,15 @@ episode 上为 6/15，旧 causal-v3 为 3/10，复现 Repo2Run 为 1/11。模型
 不同，因此这些数值不能作为可比成功率；它们只用于暴露不同轨迹并建立三层 taxonomy。算法效果只由后续
 同 backbone 的 matched study 估计。
 
+| 回顾性方法 | Pass | 公开目标 residual | 目标环境 bootstrap | 候选形成 | 基础设施 Unknown |
+|---|---:|---:|---:|---:|---:|
+| 原生 Codex | 6 | 8 | 1 | 1 | 0 |
+| 旧 causal-v3 | 3 | 5 | 2 | 1 | 5 |
+| 复现 Repo2Run | 1 | 7 | 3 | 5 | 0 |
+
+该表是机械观测到的 terminal stage，不是因果失败层。Observation、Constraint、Operation 标签仍需根据
+完整轨迹裁决最早可修复机会。
+
 目标状态重放的 outcome-independent 开发证据累计 8 对：自由 Agent 为 `6/8`，EnvSolve-Pro 为 `7/8`，
 只有一个 discordant pair（`p=1.0`）。这些 case 证明机制可执行，但大多过于容易，无法识别效果。
 
