@@ -1,0 +1,630 @@
+{
+  "counts": {
+    "official_only_retries": 1,
+    "pairs": 3,
+    "protocol_invalid_runs": 2,
+    "scheduled_runs": 6
+  },
+  "official_paired": {
+    "both_pass": 2,
+    "censored_pairs": 0,
+    "control_only_pass": 1,
+    "control_passes": 3,
+    "eligible_pairs": 3,
+    "neither_pass": 0,
+    "pairs": 3,
+    "treatment_only_pass": 0,
+    "treatment_passes": 2
+  },
+  "paired_schedule": "/tmp/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases.json",
+  "pairs": [
+    {
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "control": {
+        "arm": "S-OBS",
+        "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 1210.954802,
+          "model_requests": 35,
+          "official_seconds": 26.895358562469482,
+          "replay_status_counts": {
+            "fail": 2,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 28293,
+            "prompt_tokens": 998121,
+            "total_tokens": 1026414
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 36,
+            "submit_and_replay": 3,
+            "submit_bootstrap": 2
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "verifier-handoff-screen-01-platformio-core",
+        "pair_index": 1,
+        "pair_position": 1,
+        "position": 1,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-handoff-v1-paired-01-platformio-core-S-OBS",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "verifier-handoff-screen-01-platformio-core",
+      "pair_index": 1,
+      "treatment": {
+        "arm": "H-VH",
+        "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 174.389353,
+          "model_requests": 16,
+          "official_seconds": 31.82116985321045,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 5332,
+            "prompt_tokens": 221355,
+            "total_tokens": 226687
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 21,
+            "submit_and_replay": 1,
+            "submit_bootstrap": 0
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "program_sha256": "9536f2e86741d686c3af15f86213a18609aa83b46559619c6b0d87d7dbfc6e0d",
+                "replay_id": "minimal-b-replay-0001",
+                "request_index": 16,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 0,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 0
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "verifier-handoff-screen-01-platformio-core",
+        "pair_index": 1,
+        "pair_position": 2,
+        "position": 2,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-handoff-v1-paired-02-platformio-core-H-VH",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "control": {
+        "arm": "S-OBS",
+        "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+        "final_class": "protocol_invalid",
+        "metrics": {
+          "generation_seconds": 3991.644426,
+          "model_requests": 33,
+          "official_seconds": 1606.0758337974548,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 17600,
+            "prompt_tokens": 994496,
+            "total_tokens": 1012096
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 40,
+            "submit_and_replay": 1,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "verifier-handoff-screen-02-marimo",
+        "pair_index": 2,
+        "pair_position": 2,
+        "position": 4,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": "manual-site-packages-stub-provider",
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-handoff-v1-paired-04-marimo-S-OBS",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "verifier-handoff-screen-02-marimo",
+      "pair_index": 2,
+      "treatment": {
+        "arm": "H-VH",
+        "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+        "final_class": "protocol_invalid",
+        "metrics": {
+          "generation_seconds": 10435.482593,
+          "model_requests": 88,
+          "official_seconds": 1492.882004737854,
+          "replay_status_counts": {
+            "fail": 4,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 56665,
+            "prompt_tokens": 3731768,
+            "total_tokens": 3788433
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 83,
+            "submit_and_replay": 5,
+            "submit_bootstrap": 0
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 6,
+                "observation_trigger": "periodic",
+                "request_index": 80,
+                "shell_operations_completed": 80,
+                "transition": "candidate-ready"
+              },
+              {
+                "replay_id": "minimal-b-replay-0001",
+                "replay_status": "fail",
+                "request_index": 81,
+                "transition": "replay-returned-for-free-repair"
+              },
+              {
+                "program_sha256": "970fd678a4949cc700001ef7d9a0d33bccd7f0327fd11728ca0c46f27778c96e",
+                "replay_id": "minimal-b-replay-0005",
+                "request_index": 88,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 1,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 1
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "verifier-handoff-screen-02-marimo",
+        "pair_index": 2,
+        "pair_position": 1,
+        "position": 3,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": "manual-site-packages-stub-provider",
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-handoff-v1-paired-03-marimo-H-VH",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "control": {
+        "arm": "S-OBS",
+        "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 948.714414,
+          "model_requests": 28,
+          "official_seconds": 119.35697388648987,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 14716,
+            "prompt_tokens": 526286,
+            "total_tokens": 541002
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 34,
+            "submit_and_replay": 1,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": {
+          "artifact_root": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS-official-retry1/envbench-python-rubisco-sfa__ilamb__c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+          "evaluation_completed": true,
+          "infrastructure_signature": "read-timeout",
+          "model_reexecuted": false,
+          "official_pass": true,
+          "run_id": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS-official-retry1"
+        },
+        "official_scientifically_eligible": true,
+        "pair_id": "verifier-handoff-screen-03-ilamb",
+        "pair_index": 3,
+        "pair_position": 1,
+        "position": 5,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS",
+        "source_scientifically_eligible": true,
+        "source_terminal": "infrastructure_unknown"
+      },
+      "pair_id": "verifier-handoff-screen-03-ilamb",
+      "pair_index": 3,
+      "treatment": {
+        "arm": "H-VH",
+        "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+        "final_class": "official_fail",
+        "metrics": {
+          "generation_seconds": 751.31807,
+          "model_requests": 21,
+          "official_seconds": 49.018075942993164,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 5330,
+            "prompt_tokens": 302367,
+            "total_tokens": 307697
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 20,
+            "submit_and_replay": 1,
+            "submit_bootstrap": 0
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "program_sha256": "1fcc9b2323555dbbd6d05002fd22ea76ee8becb31c3581d1279fcd4812c345a6",
+                "replay_id": "minimal-b-replay-0001",
+                "request_index": 21,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 0,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 0
+          }
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "verifier-handoff-screen-03-ilamb",
+        "pair_index": 3,
+        "pair_position": 2,
+        "position": 6,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-handoff-v1-paired-06-ilamb-H-VH",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_fail"
+      }
+    }
+  ],
+  "protocol_compliant_paired": {
+    "both_pass": 1,
+    "censored_pairs": 0,
+    "control_only_pass": 1,
+    "control_passes": 2,
+    "eligible_pairs": 3,
+    "neither_pass": 1,
+    "pairs": 3,
+    "treatment_only_pass": 0,
+    "treatment_passes": 1
+  },
+  "records": [
+    {
+      "arm": "S-OBS",
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 1210.954802,
+        "model_requests": 35,
+        "official_seconds": 26.895358562469482,
+        "replay_status_counts": {
+          "fail": 2,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 28293,
+          "prompt_tokens": 998121,
+          "total_tokens": 1026414
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 36,
+          "submit_and_replay": 3,
+          "submit_bootstrap": 2
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "verifier-handoff-screen-01-platformio-core",
+      "pair_index": 1,
+      "pair_position": 1,
+      "position": 1,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-handoff-v1-paired-01-platformio-core-S-OBS",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "H-VH",
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 174.389353,
+        "model_requests": 16,
+        "official_seconds": 31.82116985321045,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 5332,
+          "prompt_tokens": 221355,
+          "total_tokens": 226687
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 21,
+          "submit_and_replay": 1,
+          "submit_bootstrap": 0
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "program_sha256": "9536f2e86741d686c3af15f86213a18609aa83b46559619c6b0d87d7dbfc6e0d",
+              "replay_id": "minimal-b-replay-0001",
+              "request_index": 16,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 0,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 0
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "verifier-handoff-screen-01-platformio-core",
+      "pair_index": 1,
+      "pair_position": 2,
+      "position": 2,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-handoff-v1-paired-02-platformio-core-H-VH",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "H-VH",
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "final_class": "protocol_invalid",
+      "metrics": {
+        "generation_seconds": 10435.482593,
+        "model_requests": 88,
+        "official_seconds": 1492.882004737854,
+        "replay_status_counts": {
+          "fail": 4,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 56665,
+          "prompt_tokens": 3731768,
+          "total_tokens": 3788433
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 83,
+          "submit_and_replay": 5,
+          "submit_bootstrap": 0
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 6,
+              "observation_trigger": "periodic",
+              "request_index": 80,
+              "shell_operations_completed": 80,
+              "transition": "candidate-ready"
+            },
+            {
+              "replay_id": "minimal-b-replay-0001",
+              "replay_status": "fail",
+              "request_index": 81,
+              "transition": "replay-returned-for-free-repair"
+            },
+            {
+              "program_sha256": "970fd678a4949cc700001ef7d9a0d33bccd7f0327fd11728ca0c46f27778c96e",
+              "replay_id": "minimal-b-replay-0005",
+              "request_index": 88,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 1,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 1
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "verifier-handoff-screen-02-marimo",
+      "pair_index": 2,
+      "pair_position": 1,
+      "position": 3,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": "manual-site-packages-stub-provider",
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-handoff-v1-paired-03-marimo-H-VH",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "S-OBS",
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "final_class": "protocol_invalid",
+      "metrics": {
+        "generation_seconds": 3991.644426,
+        "model_requests": 33,
+        "official_seconds": 1606.0758337974548,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 17600,
+          "prompt_tokens": 994496,
+          "total_tokens": 1012096
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 40,
+          "submit_and_replay": 1,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "verifier-handoff-screen-02-marimo",
+      "pair_index": 2,
+      "pair_position": 2,
+      "position": 4,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": "manual-site-packages-stub-provider",
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-handoff-v1-paired-04-marimo-S-OBS",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "S-OBS",
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 948.714414,
+        "model_requests": 28,
+        "official_seconds": 119.35697388648987,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 14716,
+          "prompt_tokens": 526286,
+          "total_tokens": 541002
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 34,
+          "submit_and_replay": 1,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": {
+        "artifact_root": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS-official-retry1/envbench-python-rubisco-sfa__ilamb__c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+        "evaluation_completed": true,
+        "infrastructure_signature": "read-timeout",
+        "model_reexecuted": false,
+        "official_pass": true,
+        "run_id": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS-official-retry1"
+      },
+      "official_scientifically_eligible": true,
+      "pair_id": "verifier-handoff-screen-03-ilamb",
+      "pair_index": 3,
+      "pair_position": 1,
+      "position": 5,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-handoff-v1-paired-05-ilamb-S-OBS",
+      "source_scientifically_eligible": true,
+      "source_terminal": "infrastructure_unknown"
+    },
+    {
+      "arm": "H-VH",
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "final_class": "official_fail",
+      "metrics": {
+        "generation_seconds": 751.31807,
+        "model_requests": 21,
+        "official_seconds": 49.018075942993164,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 5330,
+          "prompt_tokens": 302367,
+          "total_tokens": 307697
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 20,
+          "submit_and_replay": 1,
+          "submit_bootstrap": 0
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "program_sha256": "1fcc9b2323555dbbd6d05002fd22ea76ee8becb31c3581d1279fcd4812c345a6",
+              "replay_id": "minimal-b-replay-0001",
+              "request_index": 21,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 0,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 0
+        }
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "verifier-handoff-screen-03-ilamb",
+      "pair_index": 3,
+      "pair_position": 2,
+      "position": 6,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-handoff-v1-paired-06-ilamb-H-VH",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_fail"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verifier-handoff-v1-paired-screen-bad-cases"
+}

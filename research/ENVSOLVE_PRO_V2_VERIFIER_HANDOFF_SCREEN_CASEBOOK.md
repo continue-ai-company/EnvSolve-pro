@@ -34,6 +34,35 @@ Machine-readable closure evidence:
 The paired schedule contains both fresh arms for every bad case:
 `experiments/schedules/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases.json`.
 
+## Paired Result
+
+All six fresh runs completed. On EnvBench Official Pass@1, the scheduled-observation
+control passed `3/3` cases and verifier handoff passed `2/3`; there was one control-only
+Pass and no treatment-only Pass. Protocol-compliant success was `2/3` versus `1/3`
+because both Marimo arms created manual placeholder modules under `site-packages` and
+are algorithm failures on the allowed-action axis, despite both receiving Official Pass.
+
+PlatformIO is the only concordant, protocol-valid success pair. Handoff used 16 rather
+than 35 model requests, 226,687 rather than 1,026,414 tokens, and 174 rather than 1,211
+generation seconds. This is an efficiency signal from one development pair, not a
+success-rate result. On ILAMB, the control passed through the preregistered exact-script
+Official-only retry after a classified evaluator read timeout; handoff failed Official
+and was ineligible for retry under the frozen classifier.
+
+The prospective pilot therefore falsifies verifier-triggered handoff as the primary
+success-rate mechanism. It may remain an optional efficiency treatment after a trusted
+replay Pass, but the next algorithm must address two earlier causes: trusted goal
+observations must be invariant to the Agent's current working directory, and clean-replay
+counterexamples must be converted into executable program postconditions without
+restricting the Agent's repair policy. The Marimo pair additionally justifies an
+integrity check on import-provider provenance; it does not justify package-specific
+rules.
+
+Machine-readable paired evidence:
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases_result.json`.
+Protocol adjudication:
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_marimo_protocol_adjudication.json`.
+
 ## Case VH-001: `platformio/platformio-core@7cf8d1d`
 
 **Screen outcome:** Agent noncompletion, Official Pass@1 = 0.

@@ -10,6 +10,7 @@ from envsolve_harness.audit import AuditReport
 from envsolve_harness.core.io import write_json
 from envsolve_harness.storage.artifacts import safe_name
 from envsolve_harness.verifier_handoff_screen import (
+    adjudicate_paired_schedule,
     adjudicate_screen,
     build_paired_schedule,
 )
@@ -136,3 +137,135 @@ def test_builds_alternating_fresh_pair_schedule() -> None:
     assert episodes[0]["seed"] == episodes[1]["seed"]
     assert episodes[2]["seed"] == episodes[3]["seed"]
     assert len({item["run_id"] for item in episodes}) == 4
+
+
+def test_adjudicates_official_and_protocol_compliant_pair_tables() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        schedule = root / "schedule.json"
+        runs_root = root / "runs"
+        episodes = []
+        source_runs = []
+        for pair_index in range(1, 4):
+            for arm, method in (
+                ("S-OBS", "envsolve-pro-scheduled-compatibility-observation"),
+                ("H-VH", "envsolve-pro-verifier-triggered-handoff"),
+            ):
+                position = len(episodes) + 1
+                run_id = f"pair-{pair_index}-{arm}"
+                case_id = f"envbench-python-owner__repo{pair_index}@abc"
+                episodes.append(
+                    {
+                        "position": position,
+                        "pair_index": pair_index,
+                        "pair_id": f"pair-{pair_index}",
+                        "pair_position": 1 if arm == "S-OBS" else 2,
+                        "arm": arm,
+                        "case_id": case_id,
+                        "run_id": run_id,
+                        "method": method,
+                        "seed": 650000 + pair_index,
+                    }
+                )
+                terminal = "official_pass"
+                if pair_index == 3 and arm == "S-OBS":
+                    terminal = "infrastructure_unknown"
+                if pair_index == 3 and arm == "H-VH":
+                    terminal = "official_fail"
+                source_runs.append(
+                    {
+                        **_run(position, terminal),
+                        "pair_index": pair_index,
+                        "case_id": case_id,
+                        "run_id": run_id,
+                        "method": method,
+                        "seed": 650000 + pair_index,
+                    }
+                )
+        write_json(schedule, {"study_id": "paired", "episodes": episodes})
+        retry_id = "pair-3-S-OBS-official-retry1"
+        retry_root = runs_root / safe_name(retry_id) / safe_name(
+            str(episodes[4]["case_id"])
+        )
+        write_json(
+            retry_root / "manifest.json",
+            {
+                "run": {
+                    "run_id": retry_id,
+                    "method": episodes[4]["method"],
+                    "seed": episodes[4]["seed"],
+                },
+                "case": {"case_id": episodes[4]["case_id"]},
+                "result": {"evaluation_completed": True, "official_pass": True},
+            },
+        )
+        write_json(
+            retry_root / "inputs" / "evaluation_retry.json",
+            {
+                "policy": "single-exact-script-infrastructure-retry-v1",
+                "source_run_id": episodes[4]["run_id"],
+                "source_case_id": episodes[4]["case_id"],
+                "source_method": episodes[4]["method"],
+                "model_reexecuted": False,
+                "infrastructure_signature": "read-timeout",
+            },
+        )
+        with (
+            mock.patch(
+                "envsolve_harness.verifier_handoff_screen.summarize_schedule",
+                return_value={"runs": source_runs},
+            ),
+            mock.patch(
+                "envsolve_harness.verifier_handoff_screen.audit_run",
+                return_value=AuditReport(valid=True),
+            ),
+        ):
+            result = adjudicate_paired_schedule(
+                schedule,
+                runs_root,
+                official_retries={episodes[4]["run_id"]: retry_id},
+                protocol_invalid={
+                    episodes[2]["run_id"]: "manual-site-packages-stub-provider",
+                    episodes[3]["run_id"]: "manual-site-packages-stub-provider",
+                },
+            )
+
+    assert result["official_paired"] == {
+        "pairs": 3,
+        "eligible_pairs": 3,
+        "censored_pairs": 0,
+        "control_passes": 3,
+        "treatment_passes": 2,
+        "both_pass": 2,
+        "control_only_pass": 1,
+        "treatment_only_pass": 0,
+        "neither_pass": 0,
+    }
+    assert result["protocol_compliant_paired"] == {
+        "pairs": 3,
+        "eligible_pairs": 3,
+        "censored_pairs": 0,
+        "control_passes": 2,
+        "treatment_passes": 1,
+        "both_pass": 1,
+        "control_only_pass": 1,
+        "treatment_only_pass": 0,
+        "neither_pass": 1,
+    }
+
+
+def test_rejects_unknown_protocol_invalid_run() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        schedule = root / "schedule.json"
+        write_json(schedule, {"study_id": "paired", "episodes": []})
+        with mock.patch(
+            "envsolve_harness.verifier_handoff_screen.summarize_schedule",
+            return_value={"runs": []},
+        ):
+            with pytest.raises(ValueError, match="unknown runs"):
+                adjudicate_paired_schedule(
+                    schedule,
+                    root / "runs",
+                    protocol_invalid={"not-scheduled": "reason"},
+                )

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from pathlib import Path
 import re
 from typing import Any, Mapping
@@ -24,6 +25,40 @@ _SCIENTIFIC_FAILURE_TERMINALS = frozenset(
 
 def _run_root(runs_root: Path, run_id: str, case_id: str) -> Path:
     return runs_root.resolve() / safe_name(run_id) / safe_name(case_id)
+
+
+def _run_metrics(
+    runs_root: Path,
+    run_id: str,
+    case_id: str,
+) -> dict[str, Any] | None:
+    root = _run_root(runs_root, run_id, case_id)
+    generation_path = root / "generation" / "result.json"
+    manifest_path = root / "manifest.json"
+    if not generation_path.is_file() or not manifest_path.is_file():
+        return None
+    generation = read_json(generation_path).get("metadata") or {}
+    manifest_result = read_json(manifest_path).get("result") or {}
+    token_usage = generation.get("token_usage") or {}
+    started_at = generation.get("started_at")
+    finished_at = generation.get("finished_at")
+    generation_seconds: float | None = None
+    if isinstance(started_at, str) and isinstance(finished_at, str):
+        generation_seconds = (
+            datetime.fromisoformat(finished_at) - datetime.fromisoformat(started_at)
+        ).total_seconds()
+    return {
+        "generation_seconds": generation_seconds,
+        "official_seconds": manifest_result.get("execution_time"),
+        "model_requests": generation.get("model_requests"),
+        "token_usage": {
+            key: token_usage.get(key)
+            for key in ("prompt_tokens", "completion_tokens", "total_tokens")
+        },
+        "tool_counts": generation.get("tool_counts"),
+        "replay_status_counts": generation.get("replay_status_counts"),
+        "verifier_handoff": generation.get("verifier_handoff"),
+    }
 
 
 def _adjudicate_official_retry(
@@ -173,6 +208,192 @@ def adjudicate_screen(
         },
         "records": records,
         "bad_case_ids": bad_case_ids,
+    }
+
+
+def _paired_counts(
+    pairs: list[dict[str, Any]],
+    outcome_key: str,
+) -> dict[str, int]:
+    counts = {
+        "pairs": len(pairs),
+        "eligible_pairs": 0,
+        "censored_pairs": 0,
+        "control_passes": 0,
+        "treatment_passes": 0,
+        "both_pass": 0,
+        "control_only_pass": 0,
+        "treatment_only_pass": 0,
+        "neither_pass": 0,
+    }
+    for pair in pairs:
+        control = pair["control"][outcome_key]
+        treatment = pair["treatment"][outcome_key]
+        if not isinstance(control, bool) or not isinstance(treatment, bool):
+            counts["censored_pairs"] += 1
+            continue
+        counts["eligible_pairs"] += 1
+        counts["control_passes"] += int(control)
+        counts["treatment_passes"] += int(treatment)
+        if control and treatment:
+            counts["both_pass"] += 1
+        elif control:
+            counts["control_only_pass"] += 1
+        elif treatment:
+            counts["treatment_only_pass"] += 1
+        else:
+            counts["neither_pass"] += 1
+    return counts
+
+
+def adjudicate_paired_schedule(
+    schedule_path: Path,
+    runs_root: Path,
+    *,
+    official_retries: Mapping[str, str] | None = None,
+    protocol_invalid: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    schedule = read_json(schedule_path.resolve())
+    episodes = schedule.get("episodes")
+    if not isinstance(episodes, list):
+        raise ValueError("Paired schedule must contain an episode list")
+    summary = summarize_schedule(schedule_path, runs_root)
+    retry_ids = dict(official_retries or {})
+    invalid_reasons = dict(protocol_invalid or {})
+    expected_run_ids = {str(run["run_id"]) for run in summary["runs"]}
+    unknown_retry_sources = sorted(set(retry_ids) - expected_run_ids)
+    if unknown_retry_sources:
+        raise ValueError(
+            f"Official retries name unknown source runs: {unknown_retry_sources}"
+        )
+    unknown_invalid_runs = sorted(set(invalid_reasons) - expected_run_ids)
+    if unknown_invalid_runs:
+        raise ValueError(
+            f"Protocol-invalid reasons name unknown runs: {unknown_invalid_runs}"
+        )
+
+    episode_by_run_id = {str(item["run_id"]): item for item in episodes}
+    records: list[dict[str, Any]] = []
+    for source in summary["runs"]:
+        terminal = str(source["descriptive_terminal"])
+        if terminal in {"missing_artifacts", "incomplete"}:
+            raise ValueError(
+                f"Paired schedule is incomplete at position "
+                f"{source.get('position')}: {terminal}"
+            )
+        run_id = str(source["run_id"])
+        episode = episode_by_run_id[run_id]
+        retry = None
+        if run_id in retry_ids:
+            retry = _adjudicate_official_retry(
+                source, retry_ids.pop(run_id), runs_root
+            )
+
+        eligible = bool(source["scientifically_eligible"])
+        if retry is not None:
+            official_pass: bool | None = bool(retry["official_pass"])
+            official_eligible = eligible
+            final_class = "official_pass" if official_pass else "official_fail"
+        elif eligible and terminal == "official_pass":
+            official_pass = True
+            official_eligible = True
+            final_class = "official_pass"
+        elif eligible and terminal in _SCIENTIFIC_FAILURE_TERMINALS:
+            official_pass = False
+            official_eligible = True
+            final_class = (
+                "official_fail" if terminal == "official_fail" else "agent_noncompletion"
+            )
+        else:
+            official_pass = None
+            official_eligible = False
+            final_class = "infrastructure_or_measurement_censored"
+
+        protocol_reason = invalid_reasons.pop(run_id, None)
+        protocol_pass = False if protocol_reason is not None else official_pass
+        if protocol_reason is not None:
+            final_class = "protocol_invalid"
+        records.append(
+            {
+                "position": source.get("position"),
+                "pair_index": episode.get("pair_index"),
+                "pair_id": episode.get("pair_id"),
+                "pair_position": episode.get("pair_position"),
+                "arm": episode.get("arm"),
+                "case_id": source["case_id"],
+                "source_run_id": run_id,
+                "source_terminal": terminal,
+                "source_artifact_integrity_valid": source[
+                    "artifact_integrity_valid"
+                ],
+                "source_scientifically_eligible": eligible,
+                "official_retry": retry,
+                "official_scientifically_eligible": official_eligible,
+                "official_pass": official_pass,
+                "protocol_invalid_reason": protocol_reason,
+                "protocol_compliant_pass": protocol_pass,
+                "final_class": final_class,
+                "metrics": _run_metrics(
+                    runs_root, run_id, str(source["case_id"])
+                ),
+            }
+        )
+
+    if retry_ids:
+        raise AssertionError(f"Unconsumed retry mappings: {sorted(retry_ids)}")
+    if invalid_reasons:
+        raise AssertionError(
+            f"Unconsumed protocol-invalid reasons: {sorted(invalid_reasons)}"
+        )
+
+    grouped: dict[int, dict[str, Any]] = {}
+    for record in records:
+        pair_index = record.get("pair_index")
+        arm = record.get("arm")
+        if not isinstance(pair_index, int) or arm not in {"S-OBS", "H-VH"}:
+            raise ValueError(
+                f"Run {record['source_run_id']} has invalid pair identity"
+            )
+        pair = grouped.setdefault(
+            pair_index,
+            {
+                "pair_index": pair_index,
+                "pair_id": record.get("pair_id"),
+                "case_id": record["case_id"],
+            },
+        )
+        key = "control" if arm == "S-OBS" else "treatment"
+        if key in pair:
+            raise ValueError(f"Pair {pair_index} repeats {key} arm")
+        pair[key] = record
+
+    pairs = [grouped[index] for index in sorted(grouped)]
+    for pair in pairs:
+        if "control" not in pair or "treatment" not in pair:
+            raise ValueError(f"Pair {pair['pair_index']} lacks an arm")
+        if pair["control"]["case_id"] != pair["treatment"]["case_id"]:
+            raise ValueError(f"Pair {pair['pair_index']} mixes cases")
+
+    return {
+        "schema_version": "1.0.0",
+        "study_id": schedule.get("study_id"),
+        "paired_schedule": str(schedule_path),
+        "counts": {
+            "scheduled_runs": len(records),
+            "pairs": len(pairs),
+            "official_only_retries": sum(
+                item["official_retry"] is not None for item in records
+            ),
+            "protocol_invalid_runs": sum(
+                item["protocol_invalid_reason"] is not None for item in records
+            ),
+        },
+        "official_paired": _paired_counts(pairs, "official_pass"),
+        "protocol_compliant_paired": _paired_counts(
+            pairs, "protocol_compliant_pass"
+        ),
+        "records": records,
+        "pairs": pairs,
     }
 
 

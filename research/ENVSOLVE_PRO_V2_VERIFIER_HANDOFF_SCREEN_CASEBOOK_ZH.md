@@ -27,6 +27,29 @@ Python 上发现了通用的观测层 cwd 缺陷，但该 episode 随后恢复�
 覆盖每个 bad case 两个 fresh arm 的配对日程：
 `experiments/schedules/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases.json`。
 
+## 配对结果
+
+6 个 fresh run 全部完成。按 EnvBench Official Pass@1，定时观测 control 为 `3/3`，verifier
+handoff 为 `2/3`；出现 1 个 control-only Pass，没有 treatment-only Pass。按协议合规成功，
+结果为 `2/3` 对 `1/3`：Marimo 两组都在 `site-packages` 中手工创建占位模块，虽然 Official
+均判 Pass，但在 allowed-action 轴上都属于算法失败。
+
+PlatformIO 是唯一双方通过且协议合规的配对。Handoff 使用 16 而非 35 次模型请求、226,687
+而非 1,026,414 Token，generation 用时 174 而非 1,211 秒。这只是一对开发样本的效率信号，
+不是成功率结论。ILAMB control 在 evaluator read timeout 后使用预注册的原脚本 Official-only
+retry 并通过；handoff Official Fail，且按冻结 classifier 不满足 retry 条件。
+
+因此，这轮 prospective pilot 证伪了“verifier-triggered handoff 是提高成功率的核心机制”。它
+可以保留为 trusted replay Pass 后的可选效率 treatment，但下一版算法必须解决两个更早的问题：
+trusted goal 观测不能随 Agent 当前 cwd 改变；clean replay 反例必须转成部署程序可执行的后置
+条件，同时不限制 Agent 的自由修复策略。Marimo 配对还证明需要审计 import provider 的来源，
+但不支持加入项目或 package 特定规则。
+
+机器可读配对证据：
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_paired_screen_bad_cases_result.json`。
+协议裁决：
+`experiments/validations/envsolve_pro_v2_verifier_handoff_v1_marimo_protocol_adjudication.json`。
+
 ## Case VH-001：`platformio/platformio-core@7cf8d1d`
 
 **Screen 结果：** Agent 未完成，Official Pass@1 = 0。

@@ -1,7 +1,7 @@
-# EnvSolve-Pro: Verifier-Triggered Replay for Repository Deployment
+# EnvSolve-Pro: Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-23; verifier-triggered handoff is qualified on
-consumed evidence, and prospective effectiveness remains untested
+Status: working ICLR paper draft, 2026-08-24; the prospective development pilot rejects
+verifier-triggered handoff as the primary success-rate mechanism
 
 ## Abstract
 
@@ -14,20 +14,19 @@ constraint solving**.
 We first instrument end-to-end deployment trajectories and classify the earliest
 decisive failure into three causal layers: Observation, Constraint, and Operation. The
 analysis reveals a recurring gap between constructing a working state and delivering a
-program that reconstructs that state. We therefore propose EnvSolve-Pro, a minimal
-algorithm that keeps a capable Agent free in one continuous session, periodically
-measures the complete public goal, and turns the first trusted Pass into an executable
-handoff to programization and clean replay. A replay counterexample returns to the same
-session as a soft constraint. The method adds no package-rule library, checkpoint search,
-cross-case memory, or hard action policy.
+program that reconstructs that state. EnvSolve-Pro keeps a capable Agent free in one
+continuous session, measures the complete public goal, and replays the complete deployment
+program from the target initial state. Replay counterexamples return to the same session
+as case-local evidence. The method adds no package-rule library, checkpoint search,
+cross-case memory, or hard repair policy.
 
-A preregistered consumed-case qualification exercised the complete transition: trusted
-Pass, controller handoff, clean-replay failure, same-session repair, replay Pass, and
-Official Pass. Both arms passed, so this result establishes mechanism operation rather
-than effectiveness; its shorter post-Pass tail is descriptive. The next test is a fixed
-prospective bad-case comparison with identical tools and prompts before the trigger.
-Official Pass@1 is primary; time, tokens, traffic, storage, and deployment completeness
-remain separate outcomes.
+A preregistered three-case development pilot tested whether forcing programization after
+a trusted construction Pass improves success. It did not: control achieved `3/3` Official
+Passes versus `2/3`, and `2/3` versus `1/3` under a separate protocol-compliance audit.
+There was no treatment-only Pass. We therefore reject forced handoff as the primary
+success mechanism and retain it only as an efficiency treatment to be tested after
+success is preserved. Official Pass@1 remains primary; time, tokens, traffic, storage,
+deployment completeness, and protocol compliance remain separate outcomes.
 
 ## 1. Problem
 
@@ -103,11 +102,10 @@ package.
 
 ### Operation Layer
 
-The Agent freely inspects the repository and changes the construction environment. A
-complete goal Pass triggers one controller transition: the next model action must express
-the current solution as a complete program and replay it. A replay failure restores free
-repair in the same session. A candidate is returned only after that exact program passes
-from the target state.
+The Agent freely inspects the repository and changes the construction environment. It may
+express the current solution as a complete program and invoke clean replay repeatedly. A
+replay failure returns evidence to the same session, without prescribing the next action.
+A candidate is returned only after that exact program passes from the target state.
 
 ```text
 start one continuous Agent session in a construction environment
@@ -115,7 +113,7 @@ start one continuous Agent session in a construction environment
 while no replay-passing program exists and broad safety limits remain:
     Agent freely observes and changes the construction environment
     periodically measure the complete public goal
-    if the Agent submits voluntarily or the goal first passes:
+    if the Agent proposes a complete deployment program:
         obtain the complete deployment program P
     else:
         continue
@@ -127,20 +125,23 @@ while no replay-passing program exists and broad safety limits remain:
 return failure
 ```
 
-The algorithm stores programs and execution evidence, not container checkpoints. The
-controller decides only when verified sufficiency must become a replay attempt; it does
-not decide how to repair the environment. The repair loop remains inside the active
-reasoning session and operates on the complete deliverable from its actual initial state.
-Stronger models therefore enlarge the Operation layer instead of being restricted by it.
+The algorithm stores programs and execution evidence, not container checkpoints. It does
+not decide how to repair the environment or force a model action after a construction
+Pass. The repair loop remains inside the active reasoning session and operates on the
+complete deliverable from its actual initial state. Stronger models therefore enlarge the
+Operation layer instead of being restricted by it. Verifier-triggered handoff is retained
+only as a rejected success-rate treatment and a possible success-conditional efficiency
+ablation.
 
 ## 4. Contributions
 
 1. **Causal failure analysis.** An auditable trajectory representation and
    Observation--Constraint--Operation taxonomy for comparing deployment approaches by
    the earliest cause of failure.
-2. **A minimal deployment algorithm.** Verifier-triggered target-state replay turns
-   verified interactive sufficiency into a reproducible program and returns executable
-   counterexamples without restricting a strong Agent's repair policy.
+2. **A minimal deployment algorithm.** Same-session target-state replay tests the complete
+   deliverable and returns executable counterexamples without prescribing a strong
+   Agent's repair policy; the evidence-to-program constraint update is the remaining
+   algorithmic object under development.
 3. **Controlled empirical evaluation.** Same-model causal comparisons, external
    baselines, strong and weaker backbones, Official success, failure transitions, and
    success-preserving resource outcomes.
@@ -156,14 +157,16 @@ secondary mechanism tags. A stratified sample is independently re-annotated and
 agreement is reported. Consumed trajectories support taxonomy discovery, not comparative
 success claims.
 
-### 5.2 Same-Model Causal Test
+### 5.2 Same-Model Handoff Test
 
 Both arms use one continuous free Agent session, the same scheduled full-goal observation,
-and repeatedly callable clean replay. The treatment adds one executable transition: after
-the first trusted complete Pass, the next model action must programize and replay. Before
-that trigger, tools and initial prompts are exactly equal. Model, base image, repository
-access, construction environment, Official evaluator, and broad safety limits are matched.
-Cases are selected without treatment outcomes and fixed before repositories are opened.
+and repeatedly callable clean replay. The tested treatment added one executable transition:
+after the first trusted complete Pass, the next model action had to programize and replay.
+Before that trigger, tools and initial prompts were exactly equal. Model, base image,
+repository access, construction environment, Official evaluator, and broad safety limits
+were matched. Cases were selected without treatment outcomes and fixed before repositories
+were opened. Section 6 reports the negative result; this treatment is not the proposed core
+algorithm.
 
 The primary metric is Official Pass@1. Mechanism outcomes include first-replay failure,
 feedback-conditioned program change, repair success, and replay/Official agreement.
@@ -215,13 +218,31 @@ Pass, was handed off once, failed clean replay on a dependency conflict, repaire
 the same session, and passed the next replay and Official. It used 66 versus 84 requests
 and 2.59M versus 5.49M tokens, but these are descriptive values from one consumed pair.
 Runner 0.6.1 also removes a pre-trigger prompt difference discovered in this qualification;
-the prospective comparison will begin with identical tools and prompts across arms.
+the prospective comparison therefore began with identical tools and prompts across arms.
+
+That fixed comparison covered all three mechanically selected failures from a 20-case
+development screen. Control passed `3/3` and handoff `2/3` on Official Pass@1; the one
+discordant pair favored control. Both Marimo arms obtained Official Pass by creating
+manual placeholder modules, so a preregistered allowed-action audit counts both as
+algorithm failures; protocol-compliant success is `2/3` versus `1/3`. There was no
+treatment-only Pass on either axis. PlatformIO provides one success-conditional efficiency
+signal: handoff reduced 35 requests and 1.03M tokens to 16 requests and 0.23M tokens.
+This does not rescue the success-rate hypothesis.
+
+The pilot exposes two earlier, repeated causes. Trusted goal observations changed when
+the Agent's persistent working directory changed, even with the same interpreter and
+installed distributions. Clean replay also exposed required provider operations whose
+postconditions were not preserved in the delivered program. The next minimal method
+revision therefore targets project-root-invariant observation and evidence-to-program
+postconditions. Forced handoff is no longer part of the core claim.
 
 ## 7. Falsification and Scope
 
-The core claim is weakened if outcome-independent same-model experiments show no
-Official gain, if replay failures do not change subsequent programs, if replay and
-Official diverge under matched target state, or if gains disappear for strong models.
+The forced-handoff success claim is rejected by the prospective development pilot and is
+not carried forward. The remaining core claim is weakened if outcome-independent
+same-model experiments show no Official gain, if replay failures do not change subsequent
+programs, if replay and Official diverge under matched target state, or if gains disappear
+for strong models.
 A success gain accompanied by prohibitive resource growth is reported as a tradeoff, not
 an efficiency improvement.
 
