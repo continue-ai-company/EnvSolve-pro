@@ -1,17 +1,33 @@
 from __future__ import annotations
 
+import json
+import os
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
+import venv
+import zipfile
 
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.goal import ExecutableGoalContract
-from envsolve.solver import DeploymentCandidate
+from envsolve.solver import (
+    CommandResult,
+    DeploymentCandidate,
+    ExecutableVerification,
+    FeedbackChannel,
+)
 from envsolve_harness.integrity.minimal import (
     MinimalIntegrityGoalVerifier,
+    _PROVIDER_AUDIT_SCHEMA,
+    _PROVIDER_BASELINE_MARKER,
+    _PROVIDER_POST_MARKER,
+    _novel_unowned_provider_violations,
+    _provider_audit_command,
     inspect_minimal_repository_integrity,
 )
+from envsolve.runtime.integrity import marked_json_payload
 from envsolve_harness.scripts.minimal_integrity import MinimalIntegrityCandidateValidator
 
 
@@ -21,6 +37,8 @@ class MinimalIntegrityTest(unittest.TestCase):
 
         self.assertIn("current working directory", contract)
         self.assertIn("absolute path is not stable", contract)
+        self.assertIn("placeholder import providers", contract)
+        self.assertIn("auditable repository provider", contract)
 
     def test_candidate_policy_allows_deployment_artifacts(self) -> None:
         validation = MinimalIntegrityCandidateValidator().validate(
@@ -61,7 +79,7 @@ class MinimalIntegrityTest(unittest.TestCase):
         self.assertFalse(modified.valid)
         self.assertEqual(modified.tracked_changes, ("tracked.py",))
 
-    def test_goal_verifier_removes_import_provenance_as_a_hard_gate(self) -> None:
+    def test_goal_verifier_adds_only_narrow_provider_provenance_boundary(self) -> None:
         verifier = MinimalIntegrityGoalVerifier(
             ExecutableGoalContract(
                 "goal",
@@ -70,14 +88,172 @@ class MinimalIntegrityTest(unittest.TestCase):
             )
         )
         command, _, _ = verifier._command(
-            DeploymentCandidate("candidate", "true", "test"),
+            DeploymentCandidate(
+                "candidate",
+                "printf 'candidate-sentinel\\n'",
+                "test",
+            ),
             DockerEnvironmentHandle("container", Path("/tmp/worktree"), "/data/project"),
             "nonce",
         )
 
-        self.assertIn('"performed": false', command)
-        self.assertIn("deployment provenance is a measured outcome", command)
+        self.assertLess(
+            command.index(_PROVIDER_BASELINE_MARKER),
+            command.index("candidate-sentinel"),
+        )
+        self.assertLess(
+            command.index("candidate-sentinel"),
+            command.index(_PROVIDER_POST_MARKER),
+        )
+        self.assertIn("packages_distributions", command)
+        self.assertIn("module.startswith", command)
         self.assertNotIn("importlib.util.find_spec", command)
+
+    def test_provider_delta_rejects_only_new_unowned_artifacts(self) -> None:
+        existing = {
+            "module": "base_helper",
+            "artifact_path": "/opt/site-packages/base_helper.py",
+            "artifact_sha256": "a" * 64,
+        }
+        stub = {
+            "module": "gfosd",
+            "artifact_path": "/tmp/venv/site-packages/gfosd/__init__.py",
+            "artifact_sha256": "b" * 64,
+            "artifact_kind": "package",
+            "artifact_bytes": 20,
+        }
+        baseline = {
+            "schema": _PROVIDER_AUDIT_SCHEMA,
+            "unowned_public_site_providers": [existing],
+        }
+        post = {
+            "schema": _PROVIDER_AUDIT_SCHEMA,
+            "unowned_public_site_providers": [existing, stub],
+        }
+
+        self.assertEqual(
+            _novel_unowned_provider_violations(baseline, post),
+            [stub],
+        )
+
+    def test_provider_audit_detects_manual_package_in_real_venv(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            environment = root / "venv"
+            venv.EnvBuilder(with_pip=True).create(environment)
+            python = environment / "bin" / "python"
+            wheel = root / "owned_provider-1.0-py3-none-any.whl"
+            with zipfile.ZipFile(wheel, "w") as archive:
+                archive.writestr("owned_provider/__init__.py", "VALUE = 1\n")
+                archive.writestr(
+                    "owned_provider-1.0.dist-info/METADATA",
+                    "Metadata-Version: 2.1\nName: owned-provider\nVersion: 1.0\n",
+                )
+                archive.writestr(
+                    "owned_provider-1.0.dist-info/WHEEL",
+                    "Wheel-Version: 1.0\nGenerator: envsolve-test\n"
+                    "Root-Is-Purelib: true\nTag: py3-none-any\n",
+                )
+                archive.writestr("owned_provider-1.0.dist-info/RECORD", "")
+            subprocess.run(
+                [str(python), "-m", "pip", "install", "--no-index", str(wheel)],
+                capture_output=True,
+                text=True,
+                timeout=30,
+                check=True,
+            )
+            site_root = Path(
+                subprocess.run(
+                    [str(python), "-c", "import site; print(site.getsitepackages()[0])"],
+                    capture_output=True,
+                    text=True,
+                    check=True,
+                ).stdout.strip()
+            )
+            package = site_root / "gfosd"
+            package.mkdir()
+            (package / "__init__.py").write_text(
+                '"""Stub for gfosd."""\n',
+                encoding="utf-8",
+            )
+            environment_vars = dict(os.environ)
+            environment_vars["PATH"] = (
+                f"{environment / 'bin'}{os.pathsep}{environment_vars.get('PATH', '')}"
+            )
+            completed = subprocess.run(
+                ["bash", "-c", _provider_audit_command(_PROVIDER_POST_MARKER)],
+                env=environment_vars,
+                capture_output=True,
+                text=True,
+                timeout=30,
+                check=True,
+            )
+
+        report = marked_json_payload(completed.stdout, _PROVIDER_POST_MARKER)
+        self.assertIsNotNone(report)
+        self.assertEqual(report["schema"], _PROVIDER_AUDIT_SCHEMA)
+        self.assertEqual(
+            [
+                item["module"]
+                for item in report["unowned_public_site_providers"]
+            ],
+            ["gfosd"],
+        )
+        self.assertNotIn(
+            "owned_provider",
+            [
+                item["module"]
+                for item in report["unowned_public_site_providers"]
+            ],
+        )
+
+    def test_passing_goal_becomes_counterexample_for_new_unowned_provider(self) -> None:
+        baseline = {
+            "schema": _PROVIDER_AUDIT_SCHEMA,
+            "unowned_public_site_providers": [],
+        }
+        stub = {
+            "module": "tikz",
+            "artifact_path": "/tmp/venv/site-packages/tikz/__init__.py",
+            "artifact_sha256": "c" * 64,
+        }
+        post = {
+            "schema": _PROVIDER_AUDIT_SCHEMA,
+            "unowned_public_site_providers": [stub],
+        }
+        stdout = "\n".join(
+            (
+                _PROVIDER_BASELINE_MARKER + json.dumps(baseline),
+                _PROVIDER_POST_MARKER + json.dumps(post),
+            )
+        )
+        passed = ExecutableVerification(
+            verifier="goal",
+            check_profile="goal-v1",
+            channel=FeedbackChannel.INTERNAL_EXECUTION,
+            passed=True,
+            bootstrap=CommandResult(0, stdout, "", 1.0),
+            summary="pass",
+        )
+        verifier = MinimalIntegrityGoalVerifier(
+            ExecutableGoalContract("goal", "test", "true")
+        )
+
+        with mock.patch(
+            "envsolve.runtime.goal_verifier.ExecutableGoalContractVerifier.verify",
+            return_value=passed,
+        ):
+            outcome = verifier.verify(
+                DeploymentCandidate("candidate", "true", "test"),
+                object(),
+            )
+
+        self.assertFalse(outcome.passed)
+        self.assertEqual(outcome.counterexamples[0].kind, "import-provider-provenance")
+        self.assertEqual(
+            outcome.details["import_provider_provenance"]["violations"],
+            [stub],
+        )
 
 
 if __name__ == "__main__":

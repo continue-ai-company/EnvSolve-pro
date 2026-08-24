@@ -18,8 +18,10 @@ construction, replay, and evaluation. Do not terminate or replace the controllin
 shell with `exit`, `return`, or `exec`. Do not modify tracked source, tests,
 dependency declarations, lockfiles, type-checker configuration, or benchmark-owned
 state. You may create ordinary environment, build, cache, and compatibility
-artifacts when they are part of the deployment itself. The trusted goal and
-official evaluator remain outside your control.
+artifacts when they are part of the deployment itself. Do not manually place
+placeholder import providers in `site-packages`; install a distribution or use an
+auditable repository provider. The trusted goal and official evaluator remain
+outside your control.
 """.strip()
 
     def __init__(self, max_chars: int = 100_000) -> None:

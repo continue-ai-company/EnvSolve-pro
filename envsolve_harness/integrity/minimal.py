@@ -11,10 +11,129 @@ from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.goal_verifier import ExecutableGoalContractVerifier
 from envsolve.runtime.integrity import (
     IMPORT_ALIAS_AUDIT_MARKER,
+    marked_json_payload,
     python_import_alias_audit_command,
 )
-from envsolve.solver import DeploymentCandidate
+from envsolve.solver import (
+    CounterexampleEvidence,
+    DeploymentCandidate,
+    ExecutableVerification,
+    FeedbackChannel,
+)
 from envsolve.runtime.workspace import WorkspacePrecondition
+
+
+_PROVIDER_BASELINE_MARKER = "ENVSOLVE_IMPORT_PROVIDER_BASELINE_V1="
+_PROVIDER_POST_MARKER = "ENVSOLVE_IMPORT_PROVIDER_POST_V1="
+_PROVIDER_AUDIT_SCHEMA = "envsolve-import-provider-provenance-v1"
+_UNOWNED_PROVIDER_AUDIT = r"""\
+import hashlib
+from importlib import metadata
+import json
+from pathlib import Path
+import site
+import sysconfig
+
+marker = __import__("sys").argv[1]
+owners = metadata.packages_distributions()
+roots = set()
+try:
+    roots.update(site.getsitepackages())
+except Exception:
+    pass
+try:
+    roots.add(site.getusersitepackages())
+except Exception:
+    pass
+for key in ("purelib", "platlib"):
+    value = sysconfig.get_paths().get(key)
+    if value:
+        roots.add(value)
+
+artifacts = []
+seen = set()
+for encoded_root in sorted(roots):
+    root = Path(encoded_root)
+    if not root.is_dir():
+        continue
+    for path in root.iterdir():
+        proof = None
+        kind = None
+        if path.is_file() and path.suffix in {".py", ".pyi", ".so", ".pyd"}:
+            module = path.name.split(".", 1)[0]
+            proof = path
+            kind = "module-file"
+        elif path.is_dir() and (path / "__init__.py").is_file():
+            module = path.name
+            proof = path / "__init__.py"
+            kind = "package"
+        else:
+            continue
+        if not module.isidentifier() or module.startswith("_") or owners.get(module):
+            continue
+        try:
+            resolved = proof.resolve(strict=True)
+            payload = resolved.read_bytes()
+        except (OSError, RuntimeError):
+            continue
+        identity = (module, str(resolved), hashlib.sha256(payload).hexdigest())
+        if identity in seen:
+            continue
+        seen.add(identity)
+        artifacts.append({
+            "module": module,
+            "artifact_kind": kind,
+            "artifact_path": str(resolved),
+            "artifact_sha256": identity[2],
+            "artifact_bytes": len(payload),
+            "reason": "public site-packages provider has no distribution owner",
+        })
+
+print(marker + json.dumps({
+    "schema": "envsolve-import-provider-provenance-v1",
+    "unowned_public_site_providers": sorted(
+        artifacts, key=lambda item: (item["module"], item["artifact_path"])
+    ),
+}, sort_keys=True))
+"""
+
+
+def _provider_audit_command(marker: str) -> str:
+    return (
+        f"command python -I -c {shlex.quote(_UNOWNED_PROVIDER_AUDIT)} "
+        f"{shlex.quote(marker)}"
+    )
+
+
+def _novel_unowned_provider_violations(
+    baseline: dict[str, Any],
+    post: dict[str, Any],
+) -> list[dict[str, Any]]:
+    for report in (baseline, post):
+        if report.get("schema") != _PROVIDER_AUDIT_SCHEMA or not isinstance(
+            report.get("unowned_public_site_providers"), list
+        ):
+            raise ValueError("import provider provenance report is malformed")
+
+    def identity(item: Any) -> tuple[str, str, str]:
+        if not isinstance(item, dict):
+            raise ValueError("import provider provenance item is malformed")
+        module = item.get("module")
+        path = item.get("artifact_path")
+        digest = item.get("artifact_sha256")
+        values = (module, path, digest)
+        if not all(isinstance(value, str) and value for value in values):
+            raise ValueError("import provider provenance identity is malformed")
+        return str(module), str(path), str(digest)
+
+    known = {
+        identity(item) for item in baseline["unowned_public_site_providers"]
+    }
+    return [
+        item
+        for item in post["unowned_public_site_providers"]
+        if identity(item) not in known
+    ]
 
 
 @dataclass(frozen=True)
@@ -125,9 +244,9 @@ def inspect_minimal_repository_integrity(
 
 
 class MinimalIntegrityGoalVerifier(ExecutableGoalContractVerifier):
-    """Run the shared trusted goal without imposing import-provenance semantics."""
+    """Run the shared goal and reject newly unowned site-package providers."""
 
-    check_profile = "executable-goal-minimal-integrity-v1"
+    check_profile = "executable-goal-minimal-integrity-v2"
 
     def _command(
         self,
@@ -139,6 +258,30 @@ class MinimalIntegrityGoalVerifier(ExecutableGoalContractVerifier):
             candidate,
             handle,
             nonce,
+        )
+        baseline_path = f"/tmp/envsolve-import-provider-baseline-{nonce}.jsonl"
+        command = (
+            f"{_provider_audit_command(_PROVIDER_BASELINE_MARKER)} "
+            f"> {shlex.quote(baseline_path)}\n{command}"
+        )
+        completion_line = f"printf '%s\\n' {shlex.quote(completion_marker)}"
+        if command.count(completion_line) != 1:
+            raise RuntimeError("cannot instrument import provider post-audit")
+        post_audit = _provider_audit_command(_PROVIDER_POST_MARKER)
+        command = command.replace(
+            completion_line,
+            "\n".join(
+                (
+                    f"if {post_audit}; then :; else :; fi",
+                    (
+                        f"if [ -f {shlex.quote(baseline_path)} ]; then "
+                        f"cat {shlex.quote(baseline_path)}; fi"
+                    ),
+                    f"rm -f {shlex.quote(baseline_path)}",
+                    completion_line,
+                )
+            ),
+            1,
         )
         legacy_audit = python_import_alias_audit_command(handle.container_workdir)
         if command.count(legacy_audit) != 1:
@@ -158,4 +301,65 @@ class MinimalIntegrityGoalVerifier(ExecutableGoalContractVerifier):
             command.replace(legacy_audit, replacement, 1),
             completion_marker,
             report_begin,
+        )
+
+    def verify(
+        self,
+        candidate: DeploymentCandidate,
+        environment: Any,
+    ) -> ExecutableVerification:
+        outcome = super().verify(candidate, environment)
+        if outcome.passed is not True:
+            return outcome
+        baseline = marked_json_payload(
+            outcome.bootstrap.stdout,
+            _PROVIDER_BASELINE_MARKER,
+        )
+        post = marked_json_payload(
+            outcome.bootstrap.stdout,
+            _PROVIDER_POST_MARKER,
+        )
+        if baseline is None or post is None:
+            return self._unknown(
+                outcome.bootstrap,
+                "Import provider provenance audit did not complete",
+                {
+                    "import_provider_provenance": {
+                        "baseline_present": baseline is not None,
+                        "post_present": post is not None,
+                    }
+                },
+            )
+        try:
+            violations = _novel_unowned_provider_violations(baseline, post)
+        except ValueError as exc:
+            return self._unknown(
+                outcome.bootstrap,
+                "Import provider provenance audit was malformed",
+                {"import_provider_provenance_error": str(exc)},
+            )
+        if not violations:
+            return outcome
+        audit = {
+            "valid": False,
+            "scope": "candidate-introduced-public-site-packages-providers",
+            "violations": violations,
+        }
+        return ExecutableVerification(
+            verifier="envsolve-minimal-integrity-verifier",
+            check_profile=self.check_profile,
+            channel=FeedbackChannel.INTERNAL_EXECUTION,
+            passed=False,
+            bootstrap=outcome.bootstrap,
+            summary=(
+                "Candidate introduced a site-packages import provider without "
+                "installed-distribution ownership"
+            ),
+            counterexamples=(
+                CounterexampleEvidence("import-provider-provenance", audit),
+            ),
+            details={
+                "goal_verification": outcome.details,
+                "import_provider_provenance": audit,
+            },
         )

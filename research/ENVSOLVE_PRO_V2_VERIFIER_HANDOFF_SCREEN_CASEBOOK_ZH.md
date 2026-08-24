@@ -50,6 +50,12 @@ trusted goal 观测不能随 Agent 当前 cwd 改变；clean replay 反例必须
 协议裁决：
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_marimo_protocol_adjudication.json`。
 
+Runner 0.6.3 只面向未来实现两项通用修复。Trusted goal 固定从项目根执行，同时保留并记录当前
+激活的解释器环境；clean replay 通过 nonce 隔离的前后 inventory 做差分，只对“候选新增、位于
+`site-packages`、公开名称且没有 installed-distribution owner”的 provider 返回反例。审计未完成
+记为 Unknown，不记成 Agent 失败。这是共享评测完整性修复，不是算法 treatment，也不会重算 runner
+0.6.1 的结果。
+
 ## Case VH-001：`platformio/platformio-core@7cf8d1d`
 
 **Screen 结果：** Agent 未完成，Official Pass@1 = 0。

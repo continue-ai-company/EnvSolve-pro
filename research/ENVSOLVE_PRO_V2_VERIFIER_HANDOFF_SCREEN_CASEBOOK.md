@@ -63,6 +63,14 @@ Machine-readable paired evidence:
 Protocol adjudication:
 `experiments/validations/envsolve_pro_v2_verifier_handoff_v1_marimo_protocol_adjudication.json`.
 
+Runner 0.6.3 implements the two generic corrections prospectively. Trusted goal
+observations execute from the project root while preserving and recording the active
+interpreter environment. Clean replay also compares nonce-isolated pre/post inventories
+and returns a counterexample only for a candidate-introduced public `site-packages`
+provider with no installed-distribution owner. Audit noncompletion is Unknown, not an
+Agent failure. This is a shared integrity correction, not an algorithm treatment, and it
+does not rescore runner 0.6.1 outcomes.
+
 ## Case VH-001: `platformio/platformio-core@7cf8d1d`
 
 **Screen outcome:** Agent noncompletion, Official Pass@1 = 0.

@@ -207,7 +207,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.6.2"
+    runner_version = "0.6.3"
 
     def __init__(
         self,

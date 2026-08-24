@@ -35,5 +35,19 @@
     "ordinary_tests": "The EnvBench Python goal checks reportMissingImports and does not execute the fabricated APIs."
   },
   "future_generic_boundary": "For modules that resolve a previously active missing-import obligation, report provider provenance after clean replay. A provider created manually in site-packages with no repository, base-image, or installed-distribution provenance is not a protocol-compliant satisfaction.",
+  "implemented_boundary": {
+    "runner_version": "0.6.3",
+    "scope": "candidate-introduced public site-packages providers without installed-distribution ownership",
+    "mechanism": "compare nonce-isolated pre-candidate and post-candidate provider inventories in the active Python environment",
+    "excluded_from_gate": [
+      "providers owned by installed distributions",
+      "private interpreter and environment-tool artifacts",
+      "artifacts already present before the candidate",
+      "repository source providers outside site-packages"
+    ],
+    "failure_semantics": "A novel unowned provider returns an executable replay counterexample; an incomplete audit returns unknown rather than an Agent failure.",
+    "project_specific_rules": false,
+    "retroactive_rescoring": false
+  },
   "scope": "This adjudication does not alter the frozen runner or Official result. It changes only the protocol-compliant interpretation and motivates a generic next-runner boundary test."
 }

@@ -236,6 +236,12 @@ postconditions were not preserved in the delivered program. The next minimal met
 revision therefore targets project-root-invariant observation and evidence-to-program
 postconditions. Forced handoff is no longer part of the core claim.
 
+The observation defect is corrected prospectively by executing the trusted goal from the
+project root while retaining the active interpreter environment. A separate minimal
+integrity boundary now reports candidate-introduced public `site-packages` providers that
+lack installed-distribution ownership. These protocol corrections are shared by future
+arms and are not counted as an EnvSolve-Pro algorithmic gain.
+
 ## 7. Falsification and Scope
 
 The forced-handoff success claim is rejected by the prospective development pilot and is

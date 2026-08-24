@@ -171,6 +171,10 @@ Pilot 暴露出两个更早且重复出现的原因。即使解释器和已安�
 所以下一版最小方法只针对 project-root-invariant observation 和 evidence-to-program postconditions；
 forced handoff 不再进入核心主张。
 
+观测缺陷已面向未来修复：trusted goal 固定从项目根运行，同时保留当前激活解释器环境。另一个最小
+完整性边界会报告“候选新增、位于 `site-packages`、公开名称且没有 installed-distribution owner”的
+provider。它们是未来各组共享的协议修复，不能算作 EnvSolve-Pro 的算法增益。
+
 ## 7. 证伪条件与范围
 
 Forced-handoff 的成功率主张已被 prospective 开发期 pilot 否决，不再继续。若独立同模型实验没有
