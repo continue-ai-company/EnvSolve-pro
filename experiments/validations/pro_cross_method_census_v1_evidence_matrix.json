@@ -1,0 +1,2326 @@
+{
+  "schema": "envsolve-pro-cross-method-evidence-matrix-v1",
+  "study_id": "envsolve-pro-cross-method-census-v1",
+  "recorded_at": "2026-08-24",
+  "claim_scope": "Consumed-development trajectory evidence for failure taxonomy and method-profile analysis only; unmatched model, objective visibility, and censoring prevent direct effectiveness, leaderboard, or SOTA claims.",
+  "attempt_adjudication": "experiments/validations/pro_cross_method_census_v1_attempt_adjudication.json",
+  "aggregate": {
+    "codex-cli-native": {
+      "artifact_cases": 16,
+      "expected_cases": 16,
+      "official_passes": 6,
+      "officially_evaluated": 15,
+      "terminal_counts": {
+        "generation_failed": 1,
+        "official_fail": 9,
+        "official_pass": 6
+      }
+    },
+    "envsolve-pro-causal-v3": {
+      "artifact_cases": 16,
+      "expected_cases": 16,
+      "official_passes": 3,
+      "officially_evaluated": 10,
+      "terminal_counts": {
+        "generation_failed": 1,
+        "infrastructure_unknown": 5,
+        "official_fail": 7,
+        "official_pass": 3
+      }
+    },
+    "repo2run-reproduced-open": {
+      "artifact_cases": 16,
+      "expected_cases": 16,
+      "official_passes": 1,
+      "officially_evaluated": 11,
+      "terminal_counts": {
+        "generation_failed": 5,
+        "official_fail": 10,
+        "official_pass": 1
+      }
+    }
+  },
+  "coverage": {
+    "method_case_rows": 48,
+    "officially_evaluated": 36,
+    "official_passes": 10,
+    "official_failures": 26,
+    "infrastructure_unknown": 5,
+    "generation_failed": 7
+  },
+  "records": [
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+        "error_count": 137,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "conan-io/conan-package-tools",
+        "warning_count": 40
+      },
+      "missing_import_modules": [
+        "conans.client.loader_parse"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c01-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 13,
+        "path": "scripts/generated.sh",
+        "sha256": "692fcdfdf1d251be58cd41bbcc5731a463fae04004cb5d19ce9ff055f9a1884f"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 249344,
+          "input_tokens": 290710,
+          "output_tokens": 5310,
+          "reasoning_output_tokens": 3095
+        },
+        "container_commands": 12,
+        "generation_wall_seconds": 529.498192,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+        "error_count": 393,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "conan-io/conan-package-tools",
+        "warning_count": 40
+      },
+      "missing_import_modules": [
+        "conans.client.loader_parse"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c01-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 12,
+        "path": "scripts/generated.sh",
+        "sha256": "b9c82b964c1c9131ba08398d331628aead24183770eba886dd20a3229ee31e76"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 1857.140831,
+        "structured_usage": {
+          "cache_read_tokens": 768,
+          "candidates": 8,
+          "commands": 8,
+          "elapsed_wall_clock_seconds": 1857.177349,
+          "environments": 8,
+          "estimated_cost_usd": 0.078734304,
+          "input_tokens": 75158,
+          "output_tokens": 53301,
+          "request_errors": 0,
+          "requests_started": 8,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 8,
+          "total_tokens": 128459
+        }
+      }
+    },
+    {
+      "case_index": 1,
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+        "error_count": 136,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "conan-io/conan-package-tools",
+        "warning_count": 40
+      },
+      "missing_import_modules": [
+        "conans.client.loader_parse"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c01-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 24,
+        "path": "scripts/generated.sh",
+        "sha256": "d1ddde58ba67b5566f1a5af094afd104551e96849d4a3de40298a3e58dd28a81"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 237.893831,
+        "structured_usage": {
+          "cache_read_tokens": 35456,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 220.137784,
+          "environments": 0,
+          "estimated_cost_usd": 0.021433958,
+          "input_tokens": 81056,
+          "output_tokens": 1689,
+          "request_errors": 1,
+          "requests_started": 9,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 9,
+          "total_tokens": 82745
+        }
+      }
+    },
+    {
+      "case_index": 2,
+      "case_id": "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "5282a3d1471d091da24f77adc75018dbc94cc912",
+        "error_count": 84,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "jaraco/irc",
+        "warning_count": 1
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c02-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c02-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 7,
+        "path": "scripts/generated.sh",
+        "sha256": "29034f245138e8ff202315e0fa07f623207c71650c09e045524f5f28177beef5"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 384512,
+          "input_tokens": 456275,
+          "output_tokens": 5682,
+          "reasoning_output_tokens": 3232
+        },
+        "container_commands": 23,
+        "generation_wall_seconds": 476.425051,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 2,
+      "case_id": "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "5282a3d1471d091da24f77adc75018dbc94cc912",
+        "error_count": 83,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "jaraco/irc",
+        "warning_count": 1
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c02-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c02-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 8,
+        "path": "scripts/generated.sh",
+        "sha256": "04992ed94af148d354f6026e5bd6919e1d73a311b6de2f99cdfe944fc76d9c72"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 258.94957,
+        "structured_usage": {
+          "cache_read_tokens": 0,
+          "candidates": 2,
+          "commands": 2,
+          "elapsed_wall_clock_seconds": 258.987229,
+          "environments": 2,
+          "estimated_cost_usd": 0.006772515,
+          "input_tokens": 12081,
+          "output_tokens": 1744,
+          "request_errors": 0,
+          "requests_started": 2,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 2,
+          "total_tokens": 13825
+        }
+      }
+    },
+    {
+      "case_index": 2,
+      "case_id": "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "5282a3d1471d091da24f77adc75018dbc94cc912",
+        "error_count": 83,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "jaraco/irc",
+        "warning_count": 1
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c02-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c02-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 13,
+        "path": "scripts/generated.sh",
+        "sha256": "5fa7b41426ac7348d24f4a2536b28f54570847be85dd4602395c04baff55b2e7"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 178.903378,
+        "structured_usage": {
+          "cache_read_tokens": 26048,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 155.273044,
+          "environments": 0,
+          "estimated_cost_usd": 0.008211959,
+          "input_tokens": 42293,
+          "output_tokens": 1208,
+          "request_errors": 1,
+          "requests_started": 6,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 6,
+          "total_tokens": 43501
+        }
+      }
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+        "error_count": 236,
+        "exit_code": 0,
+        "issues_count": 34,
+        "repo_name": "rollbar/pyrollbar",
+        "warning_count": 27
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "aiocontextvars",
+        "bottle",
+        "django.core.urlresolvers",
+        "falcon",
+        "google.appengine.api.urlfetch",
+        "pylons",
+        "pyramid_debugtoolbar",
+        "rest_framework.request",
+        "rest_framework.views",
+        "sanic.request",
+        "tornado.httpclient",
+        "tornado.httpserver",
+        "treq",
+        "twisted.internet",
+        "twisted.internet.ssl",
+        "twisted.python",
+        "twisted.test",
+        "twisted.trial",
+        "twisted.web.client",
+        "twisted.web.iweb",
+        "uvicorn"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c03-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 21,
+        "path": "scripts/generated.sh",
+        "sha256": "64c4d741c2547cb2051690bc5af733596a50b4e10f1d7ce502d0410303cee322"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 564224,
+          "input_tokens": 637286,
+          "output_tokens": 7463,
+          "reasoning_output_tokens": 4404
+        },
+        "container_commands": 29,
+        "generation_wall_seconds": 324.178133,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+        "error_count": 450,
+        "exit_code": 0,
+        "issues_count": 280,
+        "repo_name": "rollbar/pyrollbar",
+        "warning_count": 29
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "aiocontextvars",
+        "bottle",
+        "django",
+        "django.conf",
+        "django.conf.urls",
+        "django.contrib.auth.models",
+        "django.core.exceptions",
+        "django.core.management",
+        "django.core.urlresolvers",
+        "django.http",
+        "django.http.request",
+        "django.template",
+        "django.test",
+        "django.urls",
+        "django.utils.deprecation",
+        "django.utils.functional",
+        "django.views",
+        "falcon",
+        "fastapi",
+        "fastapi.requests",
+        "fastapi.routing",
+        "fastapi.testclient",
+        "flask",
+        "google.appengine.api.urlfetch",
+        "httpx",
+        "pydantic",
+        "pylons",
+        "pyramid.httpexceptions",
+        "pyramid.request",
+        "pyramid.settings",
+        "pyramid.threadlocal",
+        "pyramid.tweens",
+        "pyramid.util",
+        "pyramid_debugtoolbar",
+        "rest_framework.request",
+        "rest_framework.views",
+        "sanic.request",
+        "starlette",
+        "starlette.applications",
+        "starlette.authentication",
+        "starlette.datastructures",
+        "starlette.middleware",
+        "starlette.requests",
+        "starlette.responses",
+        "starlette.routing",
+        "starlette.testclient",
+        "starlette.types",
+        "tornado.httpclient",
+        "tornado.httpserver",
+        "treq",
+        "twisted.internet",
+        "twisted.internet.ssl",
+        "twisted.python",
+        "twisted.test",
+        "twisted.trial",
+        "twisted.web.client",
+        "twisted.web.iweb",
+        "uvicorn",
+        "werkzeug.local",
+        "werkzeug.wrappers",
+        "zope.interface"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "final_program": {
+        "nonblank_line_count": 6,
+        "path": "scripts/generated.sh",
+        "sha256": "8b188c06f661047df896fcf481ab9703d8125032da45354916890af523ad99c7"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 2410.471953,
+        "structured_usage": {
+          "cache_read_tokens": 14848,
+          "candidates": 8,
+          "commands": 8,
+          "elapsed_wall_clock_seconds": 2410.508615,
+          "environments": 8,
+          "estimated_cost_usd": 0.082863034,
+          "input_tokens": 116138,
+          "output_tokens": 44538,
+          "request_errors": 1,
+          "requests_started": 12,
+          "response_parse_recoveries": 1,
+          "response_parse_retries": 1,
+          "responses_completed": 11,
+          "total_tokens": 160676
+        }
+      }
+    },
+    {
+      "case_index": 3,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "8493ac03c3468c2349c968726adffa5fd5661d0e",
+        "error_count": 445,
+        "exit_code": 0,
+        "issues_count": 280,
+        "repo_name": "rollbar/pyrollbar",
+        "warning_count": 29
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "aiocontextvars",
+        "bottle",
+        "django",
+        "django.conf",
+        "django.conf.urls",
+        "django.contrib.auth.models",
+        "django.core.exceptions",
+        "django.core.management",
+        "django.core.urlresolvers",
+        "django.http",
+        "django.http.request",
+        "django.template",
+        "django.test",
+        "django.urls",
+        "django.utils.deprecation",
+        "django.utils.functional",
+        "django.views",
+        "falcon",
+        "fastapi",
+        "fastapi.requests",
+        "fastapi.routing",
+        "fastapi.testclient",
+        "flask",
+        "google.appengine.api.urlfetch",
+        "httpx",
+        "pydantic",
+        "pylons",
+        "pyramid.httpexceptions",
+        "pyramid.request",
+        "pyramid.settings",
+        "pyramid.threadlocal",
+        "pyramid.tweens",
+        "pyramid.util",
+        "pyramid_debugtoolbar",
+        "rest_framework.request",
+        "rest_framework.views",
+        "sanic.request",
+        "starlette",
+        "starlette.applications",
+        "starlette.authentication",
+        "starlette.datastructures",
+        "starlette.middleware",
+        "starlette.requests",
+        "starlette.responses",
+        "starlette.routing",
+        "starlette.testclient",
+        "starlette.types",
+        "tornado.httpclient",
+        "tornado.httpserver",
+        "treq",
+        "twisted.internet",
+        "twisted.internet.ssl",
+        "twisted.python",
+        "twisted.test",
+        "twisted.trial",
+        "twisted.web.client",
+        "twisted.web.iweb",
+        "uvicorn",
+        "werkzeug.local",
+        "werkzeug.wrappers",
+        "zope.interface"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 11,
+        "path": "scripts/generated.sh",
+        "sha256": "c42ef12440eaebc89d422433f95ef6d1e9cf4712155ec80d666c2d97149a6ab0"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 102.911284,
+        "structured_usage": {
+          "cache_read_tokens": 22848,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 88.023465,
+          "environments": 0,
+          "estimated_cost_usd": 0.006981054,
+          "input_tokens": 37510,
+          "output_tokens": 598,
+          "request_errors": 0,
+          "requests_started": 5,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 5,
+          "total_tokens": 38108
+        }
+      }
+    },
+    {
+      "case_index": 4,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "3cafd155bbc35918cfce442f9cef445eaa97f13c",
+        "error_count": 2487,
+        "exit_code": 0,
+        "issues_count": 29,
+        "repo_name": "spotify/luigi",
+        "warning_count": 13
+      },
+      "missing_import_modules": [
+        "dill",
+        "hive_metastore",
+        "hive_metastore.ttypes",
+        "mechanize",
+        "pyftpdlib.authorizers",
+        "pyftpdlib.handlers",
+        "pyftpdlib.servers",
+        "pykube.config",
+        "pykube.http",
+        "pykube.objects",
+        "pymssql",
+        "pysftp",
+        "pyspark",
+        "pyspark.sql",
+        "redis",
+        "sendgrid",
+        "thrift.protocol",
+        "thrift.transport",
+        "ujson"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c04-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c04-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 63,
+        "path": "scripts/generated.sh",
+        "sha256": "2b31ccad2d56683a16b84bd689280e66b163c64969f452ce0131c8540387fa1f"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 1223168,
+          "input_tokens": 1317454,
+          "output_tokens": 10541,
+          "reasoning_output_tokens": 4594
+        },
+        "container_commands": 34,
+        "generation_wall_seconds": 1047.490705,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 4,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c04-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c04-envsolve-pro-causal-v3",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 1502.012639,
+        "structured_usage": {
+          "cache_read_tokens": 8832,
+          "candidates": 6,
+          "commands": 6,
+          "elapsed_wall_clock_seconds": 1502.051275,
+          "environments": 6,
+          "estimated_cost_usd": 0.040288221,
+          "input_tokens": 45581,
+          "output_tokens": 27897,
+          "request_errors": 0,
+          "requests_started": 6,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 6,
+          "total_tokens": 73478
+        }
+      }
+    },
+    {
+      "case_index": 4,
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c04-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 2686.648384,
+        "structured_usage": {
+          "cache_read_tokens": 484480,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 2659.295293,
+          "environments": 0,
+          "estimated_cost_usd": 0.107019715,
+          "input_tokens": 696089,
+          "output_tokens": 15188,
+          "request_errors": 1,
+          "requests_started": 27,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 27,
+          "total_tokens": 711277
+        }
+      }
+    },
+    {
+      "case_index": 5,
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+        "error_count": 200,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "r-anime/holo",
+        "warning_count": 36
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c05-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c05-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 2,
+        "path": "scripts/generated.sh",
+        "sha256": "b9498cd1d0b9b1098333fece11d93d03947d142b41b334ad8afbe4f0e869d9b4"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 197120,
+          "input_tokens": 236969,
+          "output_tokens": 4067,
+          "reasoning_output_tokens": 1893
+        },
+        "container_commands": 13,
+        "generation_wall_seconds": 132.592399,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 5,
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+        "error_count": 186,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "r-anime/holo",
+        "warning_count": 36
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c05-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c05-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 8,
+        "path": "scripts/generated.sh",
+        "sha256": "ff71a1c0980294f215f115a5a95cb3a1359407e8c099936c79bd78e9a61140a4"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 370.666776,
+        "structured_usage": {
+          "cache_read_tokens": 1024,
+          "candidates": 4,
+          "commands": 4,
+          "elapsed_wall_clock_seconds": 370.705051,
+          "environments": 4,
+          "estimated_cost_usd": 0.015229582,
+          "input_tokens": 21288,
+          "output_tokens": 7369,
+          "request_errors": 0,
+          "requests_started": 4,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 4,
+          "total_tokens": 28657
+        }
+      }
+    },
+    {
+      "case_index": 5,
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+        "error_count": 148,
+        "exit_code": 0,
+        "issues_count": 5,
+        "repo_name": "r-anime/holo",
+        "warning_count": 42
+      },
+      "missing_import_modules": [
+        "bs4",
+        "feedparser",
+        "praw",
+        "pygubu",
+        "unidecode"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c05-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 9,
+        "path": "scripts/generated.sh",
+        "sha256": "a38aa7646889215e1a3a91a2d768b11b0ac036b9279a84c0e981e4a6b24a7d56"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 51.524448,
+        "structured_usage": {
+          "cache_read_tokens": 10624,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 37.641107,
+          "environments": 0,
+          "estimated_cost_usd": 0.003133972,
+          "input_tokens": 16478,
+          "output_tokens": 631,
+          "request_errors": 0,
+          "requests_started": 3,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 3,
+          "total_tokens": 17109
+        }
+      }
+    },
+    {
+      "case_index": 6,
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+        "error_count": 471,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "vacanza/python-holidays",
+        "warning_count": 1
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c06-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c06-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 5,
+        "path": "scripts/generated.sh",
+        "sha256": "70afc664910f1bd0dbc7c1f7ba10ac9ef30f8ac80c33bf97068b220bda41f58f"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 332800,
+          "input_tokens": 380978,
+          "output_tokens": 6018,
+          "reasoning_output_tokens": 3134
+        },
+        "container_commands": 30,
+        "generation_wall_seconds": 363.596763,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 6,
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "vacanza/python-holidays",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "final_program": {
+        "nonblank_line_count": 11,
+        "path": "scripts/generated.sh",
+        "sha256": "3d9723f033ab93e38d0bd915863bdff83cd8b346f71c373b20a067e8d78d2b01"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 364.937466,
+        "structured_usage": {
+          "cache_read_tokens": 0,
+          "candidates": 4,
+          "commands": 4,
+          "elapsed_wall_clock_seconds": 364.975498,
+          "environments": 4,
+          "estimated_cost_usd": 0.018948165,
+          "input_tokens": 30483,
+          "output_tokens": 6538,
+          "request_errors": 0,
+          "requests_started": 4,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 4,
+          "total_tokens": 37021
+        }
+      }
+    },
+    {
+      "case_index": 6,
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+        "error_count": 481,
+        "exit_code": 0,
+        "issues_count": 12,
+        "repo_name": "vacanza/python-holidays",
+        "warning_count": 7
+      },
+      "missing_import_modules": [
+        "git",
+        "github",
+        "github.GithubException",
+        "hijridate",
+        "hijridate.ummalqura",
+        "lingva.extract",
+        "numpy",
+        "pytest",
+        "sphinx.writers.html",
+        "sphinx_rtd_theme"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c06-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c06-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 15,
+        "path": "scripts/generated.sh",
+        "sha256": "00787bf41034111a62ab738fec7c2df50ced53b7d0c19b48ee2b211cf80a6fc9"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 173.515556,
+        "structured_usage": {
+          "cache_read_tokens": 93696,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 158.155703,
+          "environments": 0,
+          "estimated_cost_usd": 0.006902928,
+          "input_tokens": 105278,
+          "output_tokens": 1753,
+          "request_errors": 0,
+          "requests_started": 10,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 10,
+          "total_tokens": 107031
+        }
+      }
+    },
+    {
+      "case_index": 7,
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "d00a0405c88f212cf448cad6729a7cfda369f420",
+        "error_count": 278,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "benthayer/git-gud",
+        "warning_count": 0
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c07-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c07-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 4,
+        "path": "scripts/generated.sh",
+        "sha256": "90b89ffb2d9707ca3f36af708a6abee69b9b808ea79b2c8e49d26db469137ac6"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 89600,
+          "input_tokens": 124859,
+          "output_tokens": 2336,
+          "reasoning_output_tokens": 1219
+        },
+        "container_commands": 9,
+        "generation_wall_seconds": 94.301758,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 7,
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "d00a0405c88f212cf448cad6729a7cfda369f420",
+        "error_count": 148,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "benthayer/git-gud",
+        "warning_count": 0
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c07-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c07-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 8,
+        "path": "scripts/generated.sh",
+        "sha256": "834d2091b5426e0b4016a46b88e5ae6f773abefb64f94c9fdfbde5f57671ac73"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 127.807935,
+        "structured_usage": {
+          "cache_read_tokens": 0,
+          "candidates": 2,
+          "commands": 2,
+          "elapsed_wall_clock_seconds": 127.844023,
+          "environments": 2,
+          "estimated_cost_usd": 0.006809925,
+          "input_tokens": 10817,
+          "output_tokens": 2419,
+          "request_errors": 0,
+          "requests_started": 2,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 2,
+          "total_tokens": 13236
+        }
+      }
+    },
+    {
+      "case_index": 7,
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d00a0405c88f212cf448cad6729a7cfda369f420",
+        "error_count": 162,
+        "exit_code": 0,
+        "issues_count": 14,
+        "repo_name": "benthayer/git-gud",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "pytest"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c07-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c07-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 14,
+        "path": "scripts/generated.sh",
+        "sha256": "e1e2effe95aa83aca8d70a94b14d2df7a8a2384f01bff9f72f78d87a07200d31"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 119.346299,
+        "structured_usage": {
+          "cache_read_tokens": 37120,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 104.236908,
+          "environments": 0,
+          "estimated_cost_usd": 0.00261319,
+          "input_tokens": 40782,
+          "output_tokens": 1018,
+          "request_errors": 0,
+          "requests_started": 6,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 6,
+          "total_tokens": 41800
+        }
+      }
+    },
+    {
+      "case_index": 8,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "070b339b67d64773fbfdf296a52a334fa27af2ac",
+        "error_count": 1774,
+        "exit_code": 0,
+        "issues_count": 11,
+        "repo_name": "langchain-ai/langgraph",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "graphs_reqs_a.graphs_submod.agent",
+        "graphs_submod.agent",
+        "langchain_community.adapters.openai",
+        "langchain_community.retrievers",
+        "langchain_community.tools.tavily_search",
+        "langchain_community.vectorstores",
+        "numexpr",
+        "utils.greeter"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c08-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c08-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 12,
+        "path": "scripts/generated.sh",
+        "sha256": "51b0c3b6c0527ff4bbc5565afae5359d920d0aab6f91aaf758a7ae0641255f82"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 371200,
+          "input_tokens": 420266,
+          "output_tokens": 5974,
+          "reasoning_output_tokens": 3268
+        },
+        "container_commands": 16,
+        "generation_wall_seconds": 679.426938,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 8,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "070b339b67d64773fbfdf296a52a334fa27af2ac",
+        "error_count": 2030,
+        "exit_code": 0,
+        "issues_count": 11,
+        "repo_name": "langchain-ai/langgraph",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "langchain.chains.openai_functions",
+        "langchain_core.pydantic_v1"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c08-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c08-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 45,
+        "path": "scripts/generated.sh",
+        "sha256": "ffe148d75e0fed09f56a4e5f3f122b29dc0045e1473c812f6b8e5f01dffc3e45"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 2286.557915,
+        "structured_usage": {
+          "cache_read_tokens": 1024,
+          "candidates": 8,
+          "commands": 8,
+          "elapsed_wall_clock_seconds": 2286.620273,
+          "environments": 8,
+          "estimated_cost_usd": 0.055078627,
+          "input_tokens": 76915,
+          "output_tokens": 25359,
+          "request_errors": 0,
+          "requests_started": 8,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 8,
+          "total_tokens": 102274
+        }
+      }
+    },
+    {
+      "case_index": 8,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c08-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c08-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 806.266298,
+        "structured_usage": {
+          "cache_read_tokens": 190592,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 805.882732,
+          "environments": 0,
+          "estimated_cost_usd": 0.016367426,
+          "input_tokens": 214238,
+          "output_tokens": 6196,
+          "request_errors": 2,
+          "requests_started": 14,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 14,
+          "total_tokens": 220434
+        }
+      }
+    },
+    {
+      "case_index": 9,
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "4079fbd595d0e25504e977df0b22883507b2492e",
+        "error_count": 394,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "calliope-project/calliope",
+        "warning_count": 13
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c09-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c09-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 6,
+        "path": "scripts/generated.sh",
+        "sha256": "3810c315317bafcc15dc3c30c6a05ffb4461401eddb68469f434db4be6684d7b"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 514560,
+          "input_tokens": 590634,
+          "output_tokens": 5769,
+          "reasoning_output_tokens": 2890
+        },
+        "container_commands": 23,
+        "generation_wall_seconds": 744.938541,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 9,
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c09-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c09-envsolve-pro-causal-v3",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 776.527479,
+        "structured_usage": {
+          "cache_read_tokens": 0,
+          "candidates": 4,
+          "commands": 4,
+          "elapsed_wall_clock_seconds": 776.565873,
+          "environments": 4,
+          "estimated_cost_usd": 0.024555315,
+          "input_tokens": 28365,
+          "output_tokens": 14042,
+          "request_errors": 0,
+          "requests_started": 4,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 4,
+          "total_tokens": 42407
+        }
+      }
+    },
+    {
+      "case_index": 9,
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "4079fbd595d0e25504e977df0b22883507b2492e",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "calliope-project/calliope",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1-infra-retry1",
+      "final_program": {
+        "nonblank_line_count": 24,
+        "path": "scripts/generated.sh",
+        "sha256": "8b33f45f105fd284077ae9e958f1e1331034c5c0936b80ae7a8fa35534720954"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 618.381782,
+        "structured_usage": {
+          "cache_read_tokens": 128640,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 599.887744,
+          "environments": 0,
+          "estimated_cost_usd": 0.010290795,
+          "input_tokens": 145391,
+          "output_tokens": 2917,
+          "request_errors": 0,
+          "requests_started": 12,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 12,
+          "total_tokens": 148308
+        }
+      }
+    },
+    {
+      "case_index": 10,
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_pass",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "official_metrics": {
+        "commit_sha": "d5533d17175561528757245784b79c41b0578dfc",
+        "error_count": 58,
+        "exit_code": 0,
+        "issues_count": 0,
+        "repo_name": "censys/censys-python",
+        "warning_count": 0
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c10-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c10-codex-cli-native-evaluation-resume1",
+      "final_program": {
+        "nonblank_line_count": 14,
+        "path": "scripts/generated.sh",
+        "sha256": "bdbbbb498cc2f6790ec5abd2fb4087de7ce6890f46c6ecc51eef60a0c54db5e9"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 411136,
+          "input_tokens": 455455,
+          "output_tokens": 6112,
+          "reasoning_output_tokens": 2246
+        },
+        "container_commands": 35,
+        "generation_wall_seconds": 342.185936,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 10,
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d5533d17175561528757245784b79c41b0578dfc",
+        "error_count": 59,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "censys/censys-python",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "sphinx_rtd_theme"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c10-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 23,
+        "path": "scripts/generated.sh",
+        "sha256": "59ca0c550efd22f550153c8e7312db34d57df60394ee9be717264d00aaca79f8"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 75.687659,
+        "structured_usage": {
+          "cache_read_tokens": 0,
+          "candidates": 1,
+          "commands": 1,
+          "elapsed_wall_clock_seconds": 75.725464,
+          "environments": 1,
+          "estimated_cost_usd": 0.003642255,
+          "input_tokens": 4659,
+          "output_tokens": 1857,
+          "request_errors": 0,
+          "requests_started": 1,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 1,
+          "total_tokens": 6516
+        }
+      }
+    },
+    {
+      "case_index": 10,
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d5533d17175561528757245784b79c41b0578dfc",
+        "error_count": 59,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "censys/censys-python",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "sphinx_rtd_theme"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c10-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c10-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 11,
+        "path": "scripts/generated.sh",
+        "sha256": "ce311f48a169c7e12305d6f4bcce0c14faa1b5b9dde08a29b0f8976f82f93996"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 73.254167,
+        "structured_usage": {
+          "cache_read_tokens": 23552,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 53.875618,
+          "environments": 0,
+          "estimated_cost_usd": 0.002503106,
+          "input_tokens": 27482,
+          "output_tokens": 814,
+          "request_errors": 0,
+          "requests_started": 4,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 4,
+          "total_tokens": 28296
+        }
+      }
+    },
+    {
+      "case_index": 11,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "9dd62db0137dfe554fc550b57c58b0be521a1749",
+        "error_count": 2942,
+        "exit_code": 0,
+        "issues_count": 11,
+        "repo_name": "mirageoscience/geoapps",
+        "warning_count": 1
+      },
+      "missing_import_modules": [
+        "StringIO",
+        "geoapps.drivers",
+        "nonexisting",
+        "nonexisting.nope",
+        "os.nonexisting",
+        "ruamel.yaml",
+        "sphinx.environment",
+        "urllib2"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c11-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c11-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 77,
+        "path": "scripts/generated.sh",
+        "sha256": "76806000949564bba75aa12f350b79663f62df48ec159d45249bf4d1e6468715"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 1666560,
+          "input_tokens": 1779666,
+          "output_tokens": 14830,
+          "reasoning_output_tokens": 7247
+        },
+        "container_commands": 32,
+        "generation_wall_seconds": 1322.491739,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 11,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c11-envsolve-pro-causal-v3",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 1160.438542,
+        "structured_usage": {
+          "cache_read_tokens": 2304,
+          "candidates": 8,
+          "commands": 8,
+          "elapsed_wall_clock_seconds": 1160.475606,
+          "environments": 8,
+          "estimated_cost_usd": 0.066811302,
+          "input_tokens": 68982,
+          "output_tokens": 43446,
+          "request_errors": 0,
+          "requests_started": 8,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 8,
+          "total_tokens": 112428
+        }
+      }
+    },
+    {
+      "case_index": 11,
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c11-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c11-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 679.179394,
+        "structured_usage": {
+          "cache_read_tokens": 294272,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 678.824105,
+          "environments": 0,
+          "estimated_cost_usd": 0.021653111,
+          "input_tokens": 315443,
+          "output_tokens": 13077,
+          "request_errors": 0,
+          "requests_started": 20,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 20,
+          "total_tokens": 328520
+        }
+      }
+    },
+    {
+      "case_index": 12,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "0d7823073f9307cfeaad370ad41207354dfe9713",
+        "error_count": 144,
+        "exit_code": 0,
+        "issues_count": 14,
+        "repo_name": "sphinx-gallery/sphinx-gallery",
+        "warning_count": 10
+      },
+      "missing_import_modules": [
+        "Image",
+        "memory_profiler",
+        "pypandoc",
+        "pyvista"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c12-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c12-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 7,
+        "path": "scripts/generated.sh",
+        "sha256": "9b5074934052d7e97a816137189c025a2deba77b61e5a1106cb0ef0af7e3fe7d"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 1369600,
+          "input_tokens": 1489200,
+          "output_tokens": 8643,
+          "reasoning_output_tokens": 4738
+        },
+        "container_commands": 27,
+        "generation_wall_seconds": 1136.201044,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 12,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c12-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c12-envsolve-pro-causal-v3",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 1130.515671,
+        "structured_usage": {
+          "cache_read_tokens": 1024,
+          "candidates": 5,
+          "commands": 5,
+          "elapsed_wall_clock_seconds": 1130.578378,
+          "environments": 5,
+          "estimated_cost_usd": 0.034805017,
+          "input_tokens": 43295,
+          "output_tokens": 18866,
+          "request_errors": 0,
+          "requests_started": 5,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 5,
+          "total_tokens": 62161
+        }
+      }
+    },
+    {
+      "case_index": 12,
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "0d7823073f9307cfeaad370ad41207354dfe9713",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "sphinx-gallery/sphinx-gallery",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c12-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 10,
+        "path": "scripts/generated.sh",
+        "sha256": "518d3dd18d8fe9d75e857805e8acf32291e2ecc2de48377f90f99aab4c025002"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 282.257555,
+        "structured_usage": {
+          "cache_read_tokens": 31872,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 235.242687,
+          "environments": 0,
+          "estimated_cost_usd": 0.002524566,
+          "input_tokens": 35072,
+          "output_tokens": 1169,
+          "request_errors": 0,
+          "requests_started": 5,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 5,
+          "total_tokens": 36241
+        }
+      }
+    },
+    {
+      "case_index": 13,
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "81413717d8526a4890b5af05d1a27c747088b31d",
+        "error_count": 598,
+        "exit_code": 0,
+        "issues_count": 6,
+        "repo_name": "rlberry-py/rlberry",
+        "warning_count": 15
+      },
+      "missing_import_modules": [
+        "mushroom_rl.algorithms.value",
+        "mushroom_rl.core",
+        "mushroom_rl.environments",
+        "mushroom_rl.policy",
+        "mushroom_rl.utils.dataset",
+        "mushroom_rl.utils.parameters"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c13-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c13-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 25,
+        "path": "scripts/generated.sh",
+        "sha256": "d7e5ea93bbc5254311cad5b2061d245809f84d483814f0310756625fef1aae1f"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 2258432,
+          "input_tokens": 2477284,
+          "output_tokens": 19134,
+          "reasoning_output_tokens": 11084
+        },
+        "container_commands": 39,
+        "generation_wall_seconds": 4970.64061,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 13,
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c13-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c13-envsolve-pro-causal-v3",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 1269.496836,
+        "structured_usage": {
+          "cache_read_tokens": 384,
+          "candidates": 3,
+          "commands": 3,
+          "elapsed_wall_clock_seconds": 1269.534788,
+          "environments": 3,
+          "estimated_cost_usd": 0.014446002,
+          "input_tokens": 18020,
+          "output_tokens": 7785,
+          "request_errors": 0,
+          "requests_started": 3,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 3,
+          "total_tokens": 25805
+        }
+      }
+    },
+    {
+      "case_index": 13,
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c13-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c13-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 6446.817988,
+        "structured_usage": {
+          "cache_read_tokens": 516096,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 6404.171821,
+          "environments": 0,
+          "estimated_cost_usd": 0.206108133,
+          "input_tokens": 947047,
+          "output_tokens": 19280,
+          "request_errors": 7,
+          "requests_started": 34,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 34,
+          "total_tokens": 966327
+        }
+      }
+    },
+    {
+      "case_index": 14,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "theislab/scvelo",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c14-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 11,
+        "path": "scripts/generated.sh",
+        "sha256": "8dbc1cb3dd4aaee0a0d89f4a3cf120de721f017404112cd79e69f831ffc877a9"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 1901056,
+          "input_tokens": 2049343,
+          "output_tokens": 10611,
+          "reasoning_output_tokens": 4604
+        },
+        "container_commands": 49,
+        "generation_wall_seconds": 1485.311219,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 14,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "theislab/scvelo",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c14-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 19,
+        "path": "scripts/generated.sh",
+        "sha256": "db1362d3b75e5c99bf80da2a60a88be2c8759e2f2c7ae62256668c05c44be2fb"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 3529.369628,
+        "structured_usage": {
+          "cache_read_tokens": 768,
+          "candidates": 8,
+          "commands": 8,
+          "elapsed_wall_clock_seconds": 3529.407317,
+          "environments": 8,
+          "estimated_cost_usd": 0.075202104,
+          "input_tokens": 96996,
+          "output_tokens": 38322,
+          "request_errors": 0,
+          "requests_started": 9,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 9,
+          "total_tokens": 135318
+        }
+      }
+    },
+    {
+      "case_index": 14,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+        "error_count": null,
+        "exit_code": 1,
+        "issues_count": 0,
+        "repo_name": "theislab/scvelo",
+        "warning_count": null
+      },
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c14-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 14,
+        "path": "scripts/generated.sh",
+        "sha256": "25847b012c4f78d865c43b3a7432edf8ad6299b668d8a1226a2d8ea484882203"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 489.792119,
+        "structured_usage": {
+          "cache_read_tokens": 76544,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 471.870537,
+          "environments": 0,
+          "estimated_cost_usd": 0.005545757,
+          "input_tokens": 84715,
+          "output_tokens": 1970,
+          "request_errors": 2,
+          "requests_started": 10,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 10,
+          "total_tokens": 86685
+        }
+      }
+    },
+    {
+      "case_index": 15,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c15-codex-cli-native",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 79360,
+          "input_tokens": 110032,
+          "output_tokens": 2611,
+          "reasoning_output_tokens": 1572
+        },
+        "container_commands": 7,
+        "generation_wall_seconds": 129.747329,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 15,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+        "error_count": 17,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "astropy/extension-helpers",
+        "warning_count": 1
+      },
+      "missing_import_modules": [
+        ".version"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c15-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c15-envsolve-pro-causal-v3",
+      "final_program": {
+        "nonblank_line_count": 64,
+        "path": "scripts/generated.sh",
+        "sha256": "7469c1aa91662cd6efef07e921ef11613494432f4f99be8bdfdfa23ad36e4056"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 1528.803943,
+        "structured_usage": {
+          "cache_read_tokens": 2176,
+          "candidates": 8,
+          "commands": 8,
+          "elapsed_wall_clock_seconds": 1528.865845,
+          "environments": 8,
+          "estimated_cost_usd": 0.067971418,
+          "input_tokens": 60304,
+          "output_tokens": 49055,
+          "request_errors": 0,
+          "requests_started": 8,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 8,
+          "total_tokens": 109359
+        }
+      }
+    },
+    {
+      "case_index": 15,
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "generation_failed",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c15-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c15-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 137.903933,
+        "structured_usage": {
+          "cache_read_tokens": 49920,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 123.239849,
+          "environments": 0,
+          "estimated_cost_usd": 0.00801183,
+          "input_tokens": 64130,
+          "output_tokens": 1896,
+          "request_errors": 0,
+          "requests_started": 8,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 8,
+          "total_tokens": 66026
+        }
+      }
+    },
+    {
+      "case_index": 16,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "method": "codex-cli-native",
+      "method_id": "codex-cli-native",
+      "model": "gpt-5.5",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "7b724925badfe7133979c3d4d90a15054cdebabd",
+        "error_count": 9,
+        "exit_code": 0,
+        "issues_count": 1,
+        "repo_name": "nonebot/nonebot2",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "tomli"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c16-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c16-codex-cli-native",
+      "final_program": {
+        "nonblank_line_count": 14,
+        "path": "scripts/generated.sh",
+        "sha256": "0a4e113570282a6f9e7405a0c040a937e6d4da51961e6e33ff92a4ebca8367e5"
+      },
+      "resources": {
+        "codex_token_usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 566272,
+          "input_tokens": 627307,
+          "output_tokens": 6656,
+          "reasoning_output_tokens": 3544
+        },
+        "container_commands": 19,
+        "generation_wall_seconds": 447.231835,
+        "structured_usage": null
+      }
+    },
+    {
+      "case_index": 16,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "method": "envsolve-pro-causal",
+      "method_id": "envsolve-pro-causal-v3",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "infrastructure_unknown",
+      "generation_completed": false,
+      "evaluation_completed": null,
+      "official_pass": null,
+      "official_metrics": null,
+      "missing_import_modules": [],
+      "generation_run_id": "pro-cross-method-v1-c16-envsolve-pro-causal-v3",
+      "evaluation_run_id": "pro-cross-method-v1-c16-envsolve-pro-causal-v3",
+      "final_program": null,
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 133.535122,
+        "structured_usage": {
+          "cache_read_tokens": 0,
+          "candidates": 1,
+          "commands": 1,
+          "elapsed_wall_clock_seconds": 133.570965,
+          "environments": 1,
+          "estimated_cost_usd": 0.003869325,
+          "input_tokens": 6171,
+          "output_tokens": 1362,
+          "request_errors": 0,
+          "requests_started": 1,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 1,
+          "total_tokens": 7533
+        }
+      }
+    },
+    {
+      "case_index": 16,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "method": "repo2run",
+      "method_id": "repo2run-reproduced-open",
+      "model": "deepseek/deepseek-v4-pro",
+      "terminal": "official_fail",
+      "generation_completed": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "official_metrics": {
+        "commit_sha": "7b724925badfe7133979c3d4d90a15054cdebabd",
+        "error_count": 76,
+        "exit_code": 0,
+        "issues_count": 10,
+        "repo_name": "nonebot/nonebot2",
+        "warning_count": 0
+      },
+      "missing_import_modules": [
+        "fastapi.responses",
+        "fastapi.staticfiles",
+        "quart.ctx",
+        "quart.datastructures",
+        "quart.globals",
+        "starlette.websockets",
+        "uvicorn",
+        "websockets.exceptions",
+        "websockets.legacy.client"
+      ],
+      "generation_run_id": "pro-cross-method-v1-c16-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c16-repo2run-reproduced-open-final-adapter-v1",
+      "final_program": {
+        "nonblank_line_count": 11,
+        "path": "scripts/generated.sh",
+        "sha256": "01c60aa20c986e002e0efa3053ddd9c962921e551f4e813f19a864def84646be"
+      },
+      "resources": {
+        "codex_token_usage": null,
+        "container_commands": null,
+        "generation_wall_seconds": 146.857835,
+        "structured_usage": {
+          "cache_read_tokens": 22784,
+          "candidates": 0,
+          "commands": 0,
+          "elapsed_wall_clock_seconds": 126.648996,
+          "environments": 0,
+          "estimated_cost_usd": 0.002733482,
+          "input_tokens": 26350,
+          "output_tokens": 1264,
+          "request_errors": 0,
+          "requests_started": 4,
+          "response_parse_recoveries": 0,
+          "response_parse_retries": 0,
+          "responses_completed": 4,
+          "total_tokens": 27614
+        }
+      }
+    }
+  ]
+}

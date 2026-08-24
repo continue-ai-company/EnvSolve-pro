@@ -280,6 +280,16 @@ repositories in the frozen cross-method census.
 
 ### 4.9 P6 Cross-Method Decision
 
+A 2026-08-24 attempt-level reconstruction recovered all 48 method--case rows and 36
+completed Official evaluations. Native Codex passed 6/15 evaluated episodes, causal-v3
+3/10, and reproduced Repo2Run 1/11. These denominators differ because the methods used
+different models, objective visibility, and infrastructure/adapter paths. They are not a
+performance ranking. The matrix supports trajectory taxonomy and identifies target-goal
+visibility as a repeated causal difference; same-backbone effectiveness must be estimated
+by the later matched experiment. The evidence matrix and retry adjudication are
+`experiments/validations/pro_cross_method_census_v1_evidence_matrix.json` and
+`experiments/validations/pro_cross_method_census_v1_attempt_adjudication.json`.
+
 The completed census identifies one simpler contradiction than another dependency rule:
 the executable task goal is not a continuously visible, authoritative state variable.
 Native agents often optimize repository tests or documentation proxies without executing

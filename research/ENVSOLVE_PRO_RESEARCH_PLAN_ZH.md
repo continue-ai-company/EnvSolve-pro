@@ -222,6 +222,14 @@ Codex，Spark 运行 EnvSolve-Pro 和两条互不重叠的 Repo2Run 队列。本
 
 ### 4.9 P6 跨方法结论
 
+2026-08-24 的 attempt 级重建恢复了全部 48 个 method--case row，其中 36 个完成 Official。原生
+Codex 在完成评测的 episode 上为 6/15，causal-v3 为 3/10，复现 Repo2Run 为 1/11。由于三者使用的
+模型、目标可见性和基础设施/adapter 路径不同，这些分母也不同，不能被当成性能排名。该矩阵用于轨迹
+taxonomy，并证明目标可见性是反复出现的因果差异；同 backbone 效果必须由后续 matched experiment
+估计。证据矩阵与重试裁决分别为
+`experiments/validations/pro_cross_method_census_v1_evidence_matrix.json` 和
+`experiments/validations/pro_cross_method_census_v1_attempt_adjudication.json`。
+
 完整普查得到一个比继续增加依赖规则更简单的主要矛盾：**可执行任务目标没有成为持续可见、具有权威性
 的状态变量**。原生 Agent 经常在没有执行计分目标时优化仓库测试或文档等代理目标。causal-v3 虽然运行
 丰富的内部 verifier，但语义推断可能移除真实目标义务，也可能保留不计分义务。c14 的 Codex

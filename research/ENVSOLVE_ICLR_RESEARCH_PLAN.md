@@ -90,7 +90,7 @@ and storage are measured outcomes, and efficiency is claimed only when success i
 
 ### 3.1 Two Orthogonal Axes
 
-We separate **deployment method family** from **failure layer**.
+We separate **deployment mechanism family** from **failure layer**.
 
 Method families describe how a deployer acts:
 
@@ -107,11 +107,11 @@ Failure layers locate the earliest decisive cause:
   target with broader deployment completeness;
 - **Operation failure:** actions failed to discharge constraints, ordering or shell state was wrong, the program could not
   rebuild success, or the Agent failed to form and deliver a candidate;
-- **Loop failure:** evidence did not change a constraint, the constraint did not change an operation, or a repair was not
-  revalidated where it had to hold.
-
-Infrastructure incidents remain Unknown instead of being forced into algorithmic categories. Each failed episode receives
-one primary causal label and optional secondary tags, based on the full trajectory rather than the last error string.
+These are the only three primary algorithmic layers. Apparent loop stagnation is assigned to Constraint when evidence was
+not retained or updated, and to Operation when a represented requirement did not change action or trigger revalidation.
+When the trajectory cannot distinguish them, the episode is Unresolved rather than assigned a new layer. Infrastructure
+incidents remain Unknown. Each failed episode receives the earliest counterfactual layer whose correction could plausibly
+change the terminal outcome, plus optional secondary tags, based on the full trajectory rather than the last error string.
 
 ### 3.2 Positioning Existing Systems
 
@@ -176,8 +176,7 @@ model cannot reason autonomously.
 
 ### 5.1 Research Questions
 
-- **RQ1, failure structure:** how do method families distribute failures across Observation, Constraint, Operation, and loop
-  categories?
+- **RQ1, failure structure:** how do mechanism families distribute failures across Observation, Constraint, and Operation?
 - **RQ2, success:** under matched backbone, information, and Official access, does F+C_s+R outperform F?
 - **RQ3, model dependence:** does EnvSolve-Pro help both weaker API models and a native frontier Agent?
 - **RQ4, cost and quality:** at equal or greater success, how does replay affect time, tokens, commands, storage, and
@@ -219,6 +218,12 @@ outcomes rather than the deployer's central stopping objective.
 The trajectory census spans multiple systems and repeatedly exposes fresh-state drift, hard-boundary false positives,
 package-index ambiguity, candidate non-delivery, and metric-passing but incomplete paths. This corpus supports taxonomy
 discovery, not system success-rate estimation.
+
+Our reconstructed consumed cross-method matrix contains 48 method--case rows and 36 completed Official evaluations:
+native Codex passes 6/15 evaluated episodes, the earlier causal-v3 system 3/10, and reproduced Repo2Run 1/11. These are
+not comparable success-rate estimates because model capability, public-goal visibility, and censoring differ. Their role is
+to expose contrasting trajectories and motivate the three-layer taxonomy; causal effectiveness is measured only in the
+matched same-backbone study.
 
 Outcome-independent target-replay development evidence covers eight pairs: free Agent passed `6/8`, while EnvSolve-Pro
 passed `7/8`, with one discordant pair (`p=1.0`). These cases established executability but were mostly too easy to identify

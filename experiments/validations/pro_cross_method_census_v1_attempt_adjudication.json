@@ -1,0 +1,55 @@
+{
+  "schema": "envsolve-pro-cross-method-attempt-adjudication-v1",
+  "study_id": "envsolve-pro-cross-method-census-v1",
+  "recorded_at": "2026-08-24",
+  "purpose": "Bind already existing infrastructure retries to generation and evaluation stages without selecting attempts by algorithm outcome.",
+  "rules": [
+    "A full replacement attempt is admissible only when the scheduled generation ended before an algorithmic candidate outcome with an explicit infrastructure error.",
+    "An evaluation-only replacement is admissible only when the scheduled generation completed and the retry evaluated the byte-identical submitted program.",
+    "A retry is not selected because it passes; completed algorithm failures remain failures.",
+    "Generation and evaluation evidence remain attributed to their actual run IDs."
+  ],
+  "attempt_overrides": {
+    "pro-cross-method-v1-c03-envsolve-pro-causal-v3": {
+      "generation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3-infra-retry1"
+    },
+    "pro-cross-method-v1-c06-envsolve-pro-causal-v3": {
+      "generation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1",
+      "evaluation_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3-infra-retry1"
+    },
+    "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1": {
+      "generation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1",
+      "evaluation_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1-infra-retry1"
+    },
+    "pro-cross-method-v1-c10-codex-cli-native": {
+      "generation_run_id": "pro-cross-method-v1-c10-codex-cli-native",
+      "evaluation_run_id": "pro-cross-method-v1-c10-codex-cli-native-evaluation-resume1"
+    }
+  },
+  "evidence": [
+    {
+      "scheduled_run_id": "pro-cross-method-v1-c03-envsolve-pro-causal-v3",
+      "scheduled_terminal": "generation_completed=false: Candidate execution was blocked by infrastructure failure",
+      "replacement_role": "full replacement after infrastructure censoring"
+    },
+    {
+      "scheduled_run_id": "pro-cross-method-v1-c06-envsolve-pro-causal-v3",
+      "scheduled_terminal": "generation_completed=false: APIConnectionError",
+      "replacement_role": "full replacement after infrastructure censoring"
+    },
+    {
+      "scheduled_run_id": "pro-cross-method-v1-c09-repo2run-reproduced-open-final-adapter-v1",
+      "scheduled_terminal": "evaluation_completed=false: evaluator read-timeout",
+      "replacement_role": "evaluation-only retry",
+      "script_identity_evidence": "scheduled scripts/generated.sh and retry scripts/generated.sh are byte-identical"
+    },
+    {
+      "scheduled_run_id": "pro-cross-method-v1-c10-codex-cli-native",
+      "scheduled_terminal": "generation completed; evaluation absent",
+      "replacement_role": "evaluation-only resume",
+      "script_identity_evidence": "scheduled scripts/generated.sh and retry scripts/bootstrap.sh are byte-identical"
+    }
+  ],
+  "claim_scope": "Retrospective consumed-development measurement repair only; no held-out, leaderboard, or SOTA claim."
+}

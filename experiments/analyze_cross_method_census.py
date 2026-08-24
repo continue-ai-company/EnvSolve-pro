@@ -193,16 +193,36 @@ def collect_episode(
     runs_root: Path,
     *,
     actual_run_id: str | None = None,
+    generation_run_id: str | None = None,
+    evaluation_run_id: str | None = None,
 ) -> dict[str, Any]:
     scheduled_run_id = str(episode["run_id"])
-    selected_run_id = actual_run_id or scheduled_run_id
+    if actual_run_id is not None and (
+        generation_run_id is not None or evaluation_run_id is not None
+    ):
+        raise ValueError(
+            "actual_run_id cannot be combined with stage-specific attempt IDs"
+        )
+    selected_generation_run_id = (
+        generation_run_id or actual_run_id or scheduled_run_id
+    )
+    selected_evaluation_run_id = (
+        evaluation_run_id or actual_run_id or scheduled_run_id
+    )
     case_id = str(episode["case_id"])
-    root = runs_root / safe_name(selected_run_id) / safe_name(case_id)
-    generation = _optional_json(root / "generation/result.json")
-    evaluation = _optional_json(root / "evaluation/result.json")
-    ledger = _optional_json(root / "generation/budget_ledger.json")
+    generation_root = (
+        runs_root / safe_name(selected_generation_run_id) / safe_name(case_id)
+    )
+    evaluation_root = (
+        runs_root / safe_name(selected_evaluation_run_id) / safe_name(case_id)
+    )
+    generation = _optional_json(generation_root / "generation/result.json")
+    evaluation = _optional_json(evaluation_root / "evaluation/result.json")
+    ledger = _optional_json(generation_root / "generation/budget_ledger.json")
     official_metrics, missing_modules = _official_metrics(evaluation)
-    candidates = candidate_verifications(root / "generation/episode.jsonl")
+    candidates = candidate_verifications(
+        generation_root / "generation/episode.jsonl"
+    )
 
     selected_candidate = None
     if generation is not None:
@@ -218,19 +238,21 @@ def collect_episode(
         if isinstance(accepted, dict):
             selected_candidate = accepted.get("candidate_id")
 
-    evidence_paths = (
+    generation_evidence_paths = (
         "generation/result.json",
         "generation/budget_ledger.json",
         "generation/episode.jsonl",
         "generation/trajectory.jsonl",
-        "evaluation/result.json",
         "scripts/generated.sh",
     )
     evidence = {
-        relative: sha256_file(root / relative)
-        for relative in evidence_paths
-        if (root / relative).is_file()
+        relative: sha256_file(generation_root / relative)
+        for relative in generation_evidence_paths
+        if (generation_root / relative).is_file()
     }
+    evaluation_result_path = evaluation_root / "evaluation/result.json"
+    if evaluation_result_path.is_file():
+        evidence["evaluation/result.json"] = sha256_file(evaluation_result_path)
     return {
         "case_id": case_id,
         "case_index": episode.get("case_index"),
@@ -238,9 +260,12 @@ def collect_episode(
         "method_id": episode.get("method_id"),
         "model": episode.get("model"),
         "scheduled_run_id": scheduled_run_id,
-        "actual_run_id": selected_run_id,
-        "artifact_root": str(root),
-        "artifact_exists": root.is_dir(),
+        "actual_run_id": selected_generation_run_id,
+        "generation_run_id": selected_generation_run_id,
+        "evaluation_run_id": selected_evaluation_run_id,
+        "artifact_root": str(generation_root),
+        "evaluation_artifact_root": str(evaluation_root),
+        "artifact_exists": generation_root.is_dir() or evaluation_root.is_dir(),
         "terminal": _terminal(generation, evaluation),
         "generation_completed": (
             generation.get("generation_completed")
@@ -257,7 +282,7 @@ def collect_episode(
         ),
         "official_metrics": official_metrics,
         "missing_import_modules": missing_modules,
-        "final_program": _final_program(root),
+        "final_program": _final_program(generation_root),
         "resources": _resource_metrics(generation, ledger),
         "selected_candidate_id": selected_candidate,
         "candidate_verifications": candidates,
@@ -289,7 +314,7 @@ def analyze(
     schedule_paths: list[Path],
     run_roots: list[Path],
     *,
-    attempt_overrides: dict[str, str] | None = None,
+    attempt_overrides: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if len(schedule_paths) != len(run_roots):
         raise ValueError("Each schedule requires one corresponding run root")
@@ -311,11 +336,43 @@ def analyze(
             if identity in identities:
                 raise ValueError(f"Duplicate method-case identity: {identity}")
             identities.add(identity)
+            scheduled_run_id = str(episode["run_id"])
+            override = overrides.get(scheduled_run_id)
+            generation_run_id = None
+            evaluation_run_id = None
+            actual_run_id = None
+            if isinstance(override, str):
+                actual_run_id = override
+            elif isinstance(override, dict):
+                unknown = set(override) - {
+                    "generation_run_id",
+                    "evaluation_run_id",
+                }
+                if unknown:
+                    raise ValueError(
+                        f"Unknown attempt override fields for {scheduled_run_id}: "
+                        f"{sorted(unknown)}"
+                    )
+                generation_run_id = override.get("generation_run_id")
+                evaluation_run_id = override.get("evaluation_run_id")
+                for value in (generation_run_id, evaluation_run_id):
+                    if value is not None and (
+                        not isinstance(value, str) or not value.strip()
+                    ):
+                        raise ValueError(
+                            f"Attempt IDs for {scheduled_run_id} must be nonempty strings"
+                        )
+            elif override is not None:
+                raise ValueError(
+                    f"Attempt override for {scheduled_run_id} must be a string or object"
+                )
             records.append(
                 collect_episode(
                     episode,
                     run_root,
-                    actual_run_id=overrides.get(str(episode["run_id"])),
+                    actual_run_id=actual_run_id,
+                    generation_run_id=generation_run_id,
+                    evaluation_run_id=evaluation_run_id,
                 )
             )
     records.sort(
@@ -337,6 +394,17 @@ def analyze(
     }
 
 
+def load_attempt_overrides(path: Path) -> dict[str, Any]:
+    value = read_json(path)
+    if not isinstance(value, dict):
+        raise ValueError("Attempt override input must be a JSON object")
+    nested = value.get("attempt_overrides")
+    overrides = nested if nested is not None else value
+    if not isinstance(overrides, dict):
+        raise ValueError("attempt_overrides must be a JSON object")
+    return overrides
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Build a method-neutral evidence matrix for a frozen census."
@@ -346,7 +414,11 @@ def main() -> int:
     parser.add_argument("--attempt-overrides", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    overrides = read_json(args.attempt_overrides) if args.attempt_overrides else {}
+    overrides = (
+        load_attempt_overrides(args.attempt_overrides)
+        if args.attempt_overrides
+        else {}
+    )
     result = analyze(
         [path.resolve() for path in args.schedule],
         [path.resolve() for path in args.run_root],
