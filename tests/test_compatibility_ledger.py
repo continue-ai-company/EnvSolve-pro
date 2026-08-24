@@ -3,7 +3,11 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import os
+from pathlib import Path
 import shlex
+import subprocess
+import tempfile
 import zlib
 
 from envsolve.runtime import ExecutableGoalContract
@@ -13,6 +17,7 @@ from envsolve_harness.compatibility_ledger import (
     ScheduledCompatibilityObserver,
     _extract_projection_receipt,
     _extract_projection,
+    _decode_projection,
     _probe_command,
     model_visible_scheduled_observation,
 )
@@ -223,6 +228,68 @@ def test_probe_command_and_projection_are_nonce_bound() -> None:
     assert 'unset "$ENVSOLVE_LEDGER_NAME"' in command
     assert _extract_projection(output, nonce) == projection
     assert _extract_projection(output, "different") is None
+
+
+def test_probe_runs_from_project_root_without_losing_active_environment() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        project_root = Path(directory) / "project"
+        caller_cwd = project_root / "nested" / "work"
+        caller_cwd.mkdir(parents=True)
+        nonce = "cwd-invariance"
+        projection_path = Path(f"/tmp/envsolve-ledger-projection-{nonce}.json")
+        contract = ExecutableGoalContract(
+            "goal",
+            "record goal execution identity",
+            r'''command python - "$ENVSOLVE_GOAL_REPORT" <<'PY'
+import json
+import os
+from pathlib import Path
+import sys
+
+Path(sys.argv[1]).write_text(json.dumps({
+    "schema": "envsolve-goal-report-v1",
+    "status": "pass",
+    "finding_set_complete": True,
+    "findings": [],
+    "details": {
+        "goal_cwd": os.getcwd(),
+        "virtual_env": os.environ.get("VIRTUAL_ENV"),
+    },
+}))
+PY''',
+        )
+        environment = dict(os.environ)
+        environment["VIRTUAL_ENV"] = "/tmp/envsolve-active-environment"
+        try:
+            completed = subprocess.run(
+                ["bash", "-c", _probe_command(contract, nonce, str(project_root))],
+                cwd=caller_cwd,
+                env=environment,
+                capture_output=True,
+                text=True,
+                timeout=30,
+                check=False,
+            )
+            encoded = projection_path.read_text(encoding="ascii")
+            projection = _decode_projection(encoded)
+        finally:
+            projection_path.unlink(missing_ok=True)
+
+    assert completed.returncode == 0, completed.stderr
+    assert projection is not None
+    assert Path(projection["report"]["details"]["goal_cwd"]).resolve() == (
+        project_root.resolve()
+    )
+    assert projection["report"]["details"]["virtual_env"] == (
+        "/tmp/envsolve-active-environment"
+    )
+    assert Path(projection["environment"]["cwd"]).resolve() == project_root.resolve()
+    assert Path(
+        projection["environment"]["observation_caller_cwd"]
+    ).resolve() == caller_cwd.resolve()
+    assert projection["environment"]["virtual_env"] == (
+        "/tmp/envsolve-active-environment"
+    )
 
 
 def test_projection_receipt_is_nonce_size_and_hash_bound() -> None:

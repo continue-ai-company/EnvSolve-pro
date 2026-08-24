@@ -234,7 +234,11 @@ class CompatibilityDeltaLedger:
         }
 
 
-def _probe_command(contract: ExecutableGoalContract, nonce: str) -> str:
+def _probe_command(
+    contract: ExecutableGoalContract,
+    nonce: str,
+    project_root: str = "/data/project",
+) -> str:
     report_path = f"/tmp/envsolve-ledger-report-{nonce}.json"
     fingerprint_path = f"/tmp/envsolve-ledger-environment-{nonce}.json"
     projection_path = f"/tmp/envsolve-ledger-projection-{nonce}.json"
@@ -372,6 +376,9 @@ Path(sys.argv[1]).write_text(
             "python_base_prefix": sys.base_prefix,
             "virtual_env": os.environ.get("VIRTUAL_ENV"),
             "conda_prefix": os.environ.get("CONDA_PREFIX"),
+            "observation_caller_cwd": os.environ.get(
+                "ENVSOLVE_LEDGER_CALLER_CWD"
+            ),
             "cwd": os.getcwd(),
             "python_distribution_count": len(distributions),
             "python_distributions_sha256": hashlib.sha256(
@@ -393,6 +400,8 @@ Path(sys.argv[1]).write_text(
     lines = [
         "if (",
         "set +e",
+        'export ENVSOLVE_LEDGER_CALLER_CWD="$PWD"',
+        f"builtin cd -- {shlex.quote(project_root)} || exit 125",
         "rm -f "
         f"{shlex.quote(report_path)} "
         f"{shlex.quote(fingerprint_path)} "
@@ -497,9 +506,13 @@ class CompatibilityLedgerService:
         self,
         contract: ExecutableGoalContract,
         terminal_server: ContainerMcpServer,
+        project_root: str = "/data/project",
     ) -> None:
+        if not project_root.startswith("/"):
+            raise ValueError("Compatibility project root must be absolute")
         self.contract = contract
         self.terminal_server = terminal_server
+        self.project_root = project_root
         self.ledger = CompatibilityDeltaLedger(contract.report_schema)
 
     def _execute_shell(self, call_id: str, command: str) -> dict[str, Any] | None:
@@ -569,7 +582,7 @@ class CompatibilityLedgerService:
         projection_path = f"/tmp/envsolve-ledger-projection-{nonce}.json"
         structured = self._execute_shell(
             call_id,
-            _probe_command(self.contract, nonce),
+            _probe_command(self.contract, nonce, self.project_root),
         )
         try:
             if not isinstance(structured, dict):
@@ -645,6 +658,8 @@ class CompatibilityLedgerService:
                 "shell_variable_effects_persist": False,
                 "goal_instrumentation_may_modify_environment": True,
                 "environment_fingerprint_timing": "after-goal-execution",
+                "goal_working_directory": self.project_root,
+                "caller_working_directory_recorded": True,
                 "projection_transport": "zlib-base64-json-chunked-v2",
                 "max_projection_bytes": _MAX_PROJECTION_BYTES,
                 "max_projection_transport_bytes": _MAX_PROJECTION_TRANSPORT_BYTES,
