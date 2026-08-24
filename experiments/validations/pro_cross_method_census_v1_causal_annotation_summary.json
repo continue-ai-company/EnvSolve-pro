@@ -6,42 +6,49 @@
   "coverage": {
     "matrix_rows": 48,
     "non_success_rows": 38,
-    "annotated_rows": 17,
-    "remaining_non_success_rows": 21
+    "annotated_rows": 38,
+    "remaining_non_success_rows": 0
   },
   "primary_layer_counts": {
-    "constraint": 3,
-    "infrastructure_unknown": 3,
-    "observation": 7,
-    "operation": 2,
-    "protocol_censored": 2
+    "constraint": 7,
+    "infrastructure_unknown": 9,
+    "observation": 14,
+    "operation": 4,
+    "protocol_censored": 4
   },
   "by_method": {
     "codex-cli-native": {
-      "observation": 3,
+      "constraint": 1,
+      "observation": 8,
       "protocol_censored": 1
     },
     "envsolve-pro-causal": {
-      "constraint": 2,
-      "infrastructure_unknown": 2,
-      "operation": 2
+      "constraint": 3,
+      "infrastructure_unknown": 7,
+      "operation": 3
     },
     "repo2run": {
-      "constraint": 1,
-      "infrastructure_unknown": 1,
-      "observation": 4,
-      "protocol_censored": 1
+      "constraint": 3,
+      "infrastructure_unknown": 2,
+      "observation": 6,
+      "operation": 1,
+      "protocol_censored": 3
     }
   },
   "by_terminal_stage": {
     "candidate_formation": {
       "constraint": 1,
-      "protocol_censored": 2
+      "infrastructure_unknown": 1,
+      "operation": 1,
+      "protocol_censored": 4
+    },
+    "infrastructure_unknown": {
+      "infrastructure_unknown": 5
     },
     "public_goal_residual": {
-      "constraint": 2,
-      "observation": 4,
-      "operation": 2
+      "constraint": 6,
+      "observation": 11,
+      "operation": 3
     },
     "target_bootstrap": {
       "infrastructure_unknown": 3,
