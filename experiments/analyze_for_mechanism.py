@@ -34,6 +34,80 @@ RESOURCE_METRICS = (
     "elapsed_wall_clock_seconds",
     "commands",
 )
+REPLAY_TRACE_CANDIDATES = (
+    Path("generation/clean-replay/replays.jsonl"),
+    Path("generation/minimal-b/replays.jsonl"),
+)
+
+
+def _replay_mechanism(
+    artifact_root: Path,
+    *,
+    replay_exposed: bool,
+    official_pass: bool | None,
+) -> dict[str, Any]:
+    trace_path = next(
+        (
+            artifact_root / relative
+            for relative in REPLAY_TRACE_CANDIDATES
+            if (artifact_root / relative).is_file()
+        ),
+        None,
+    )
+    records = []
+    if trace_path is not None:
+        records = [
+            json.loads(line)
+            for line in trace_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+    statuses = [str(record.get("status", "unknown")) for record in records]
+    hashes = [record.get("program_sha256") for record in records]
+    fail_to_pass = any(
+        status == "fail" and "pass" in statuses[index + 1 :]
+        for index, status in enumerate(statuses)
+    )
+    changed_after_failure = any(
+        status == "fail"
+        and isinstance(hashes[index], str)
+        and any(
+            isinstance(later, str) and later != hashes[index]
+            for later in hashes[index + 1 :]
+        )
+        for index, status in enumerate(statuses)
+    )
+    final_status = statuses[-1] if statuses else None
+    agreement = None
+    if isinstance(official_pass, bool) and final_status in {"pass", "fail"}:
+        agreement = (final_status == "pass") is official_pass
+    return {
+        "replay_exposed": replay_exposed,
+        "replay_activated": bool(records),
+        "replay_count": len(records),
+        "statuses": statuses,
+        "first_replay_status": statuses[0] if statuses else None,
+        "first_replay_certification": statuses[:1] == ["pass"],
+        "fail_to_pass_repair": fail_to_pass,
+        "program_changed_after_failure": changed_after_failure,
+        "final_replay_status": final_status,
+        "final_replay_official_agreement": agreement,
+        "trace_path": (
+            str(trace_path.relative_to(artifact_root)) if trace_path is not None else None
+        ),
+    }
+
+
+def _attach_replay_mechanisms(
+    runs: list[dict[str, Any]],
+    runs_root: Path,
+) -> None:
+    for run in runs:
+        artifact_root = runs_root / str(run["artifact_root"])
+        run["replay_mechanism"] = _replay_mechanism(
+            artifact_root,
+            replay_exposed=run.get("method") == ARM_METHODS["F+O+R"],
+            official_pass=run.get("official_pass"),
+        )
 
 
 def _numeric(value: Any) -> bool:
@@ -62,6 +136,17 @@ def _arm_summary(runs: list[dict[str, Any]], method: str) -> dict[str, Any]:
             and _numeric(run["resources"].get(metric))
         ]
         resources[metric] = _aggregate_values(values) if values else None
+    replay = [
+        (run, run["replay_mechanism"])
+        for run in selected
+        if isinstance(run.get("replay_mechanism"), dict)
+    ]
+    measured_agreement = [
+        item["final_replay_official_agreement"]
+        for run, item in replay
+        if run.get("scientifically_eligible") is True
+        and isinstance(item.get("final_replay_official_agreement"), bool)
+    ]
     return {
         "method": method,
         "runs": len(selected),
@@ -71,6 +156,27 @@ def _arm_summary(runs: list[dict[str, Any]], method: str) -> dict[str, Any]:
         "terminal_counts": dict(
             sorted(Counter(str(run.get("descriptive_terminal")) for run in selected).items())
         ),
+        "replay_mechanism": {
+            "exposed": sum(
+                item.get("replay_exposed") is True for _, item in replay
+            ),
+            "activated": sum(
+                item.get("replay_activated") is True for _, item in replay
+            ),
+            "first_replay_certification": sum(
+                item.get("first_replay_certification") is True for _, item in replay
+            ),
+            "fail_to_pass_repair": sum(
+                item.get("fail_to_pass_repair") is True for _, item in replay
+            ),
+            "program_changed_after_failure": sum(
+                item.get("program_changed_after_failure") is True for _, item in replay
+            ),
+            "replay_official_agreement": {
+                "measured": len(measured_agreement),
+                "agrees": sum(measured_agreement),
+            },
+        },
         "resources_all_runs": resources,
     }
 
@@ -195,6 +301,7 @@ def main() -> int:
     args = parser.parse_args()
 
     summary = summarize_schedule(args.schedule, args.runs_root)
+    _attach_replay_mechanisms(summary["runs"], args.runs_root.resolve())
     if args.progress:
         _attach_coordinator_progress(summary, args.progress)
     result = analyze(summary)

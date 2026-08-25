@@ -1,4 +1,6 @@
-from experiments.analyze_for_mechanism import analyze
+import json
+
+from experiments.analyze_for_mechanism import _replay_mechanism, analyze
 
 
 METHODS = {
@@ -15,6 +17,7 @@ def _run(
     *,
     eligible: bool = True,
     tokens: int | None = None,
+    replay_mechanism: dict | None = None,
 ) -> dict:
     resources = None if tokens is None else {
         "requests_started": tokens // 10,
@@ -22,7 +25,7 @@ def _run(
         "elapsed_wall_clock_seconds": tokens / 2,
         "commands": tokens // 20,
     }
-    return {
+    run = {
         "pair_id": pair_id,
         "method": METHODS[arm],
         "scientifically_eligible": eligible,
@@ -32,6 +35,9 @@ def _run(
         ),
         "resources": resources,
     }
+    if replay_mechanism is not None:
+        run["replay_mechanism"] = replay_mechanism
+    return run
 
 
 def _summary(runs: list[dict]) -> dict:
@@ -103,3 +109,54 @@ def test_missing_official_result_is_censored_for_primary_but_fails_end_to_end() 
     contrast = result["contrasts"]["public_goal"]
     assert contrast["paired_official"]["censored_pairs"] == 1
     assert contrast["paired_end_to_end"]["treatment_only_pass"] == 1
+
+
+def test_extracts_feedback_conditioned_replay_repair(tmp_path) -> None:
+    trace = tmp_path / "generation/clean-replay/replays.jsonl"
+    trace.parent.mkdir(parents=True)
+    trace.write_text(
+        "\n".join(
+            json.dumps(record)
+            for record in (
+                {"status": "fail", "program_sha256": "first"},
+                {"status": "pass", "program_sha256": "second"},
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    mechanism = _replay_mechanism(
+        tmp_path,
+        replay_exposed=True,
+        official_pass=True,
+    )
+
+    assert mechanism["statuses"] == ["fail", "pass"]
+    assert mechanism["fail_to_pass_repair"] is True
+    assert mechanism["program_changed_after_failure"] is True
+    assert mechanism["final_replay_official_agreement"] is True
+
+
+def test_aggregates_replay_activation_and_repair() -> None:
+    mechanism = {
+        "replay_exposed": True,
+        "replay_activated": True,
+        "first_replay_certification": False,
+        "fail_to_pass_repair": True,
+        "program_changed_after_failure": True,
+        "final_replay_official_agreement": True,
+    }
+    runs = [
+        _run("case-1", "F", False),
+        _run("case-1", "F+O", False),
+        _run("case-1", "F+O+R", True, replay_mechanism=mechanism),
+    ]
+
+    result = analyze(_summary(runs))
+
+    replay = result["arms"]["F+O+R"]["replay_mechanism"]
+    assert replay["activated"] == 1
+    assert replay["fail_to_pass_repair"] == 1
+    assert replay["program_changed_after_failure"] == 1
+    assert replay["replay_official_agreement"] == {"measured": 1, "agrees": 1}
