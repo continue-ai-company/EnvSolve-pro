@@ -720,3 +720,26 @@ and treatment share the same endpoint, thinking mode, reasoning effort, and requ
 The Direct API does not document a seed parameter, so the preregistered seed remains an
 episode identifier but is not forwarded in either arm. This provider migration changes no
 prompt, tool, replay, ledger, evaluator, or case-selection mechanism.
+
+## 16. Current Minimal Three-Arm Study
+
+ROL and the rejected handoff treatments are retained as consumed development evidence, not
+as the first paper's core method. The current method-selection experiment isolates only:
+
+1. `F`: continuous free search with repository feedback;
+2. `F+O`: the same interface plus the complete executable public goal;
+3. `F+O+R`: the same goal-aware session plus repeatedly callable whole-program replay from
+   the target initial state.
+
+The fixed six-case consumed batch covers prior Observation, Constraint, and Operation
+failures. It is diagnostic mechanism evidence, not a held-out or leaderboard estimate.
+Official Pass@1 is primary. Replay activation, first-replay certification, Fail-to-Pass
+repair, program change after a counterexample, replay/Official agreement, and resources on
+common-success pairs explain the endpoint without redefining it.
+
+Before execution, the invalid first-party credential required a joint provider migration.
+All arms now use OpenRouter model `deepseek/deepseek-v4-flash-0731`, fixed DeepInfra routing,
+seed forwarding, and no provider fallback. No case, algorithm, prompt, tool, evaluator, or
+analysis rule changed. The design and amendment are recorded in
+`experiments/validations/envsolve_pro_for_v1_consumed6_design.json` and
+`experiments/validations/envsolve_pro_for_v1_provider_amendment.json`.

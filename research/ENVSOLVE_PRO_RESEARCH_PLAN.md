@@ -1096,6 +1096,12 @@ three distinct future arms: repository-feedback `F`, goal-aware `F+O`, and repla
 The consumed six-case diagnostic design and balanced three-arm schedule are recorded in
 `experiments/validations/envsolve_pro_for_v1_consumed6_design.json` and
 `experiments/schedules/envsolve_pro_for_v1_consumed6.json`.
+Before any episode started, the first-party credential failed an authenticated canary.
+The study therefore moved all three arms together to OpenRouter's pinned
+`deepseek/deepseek-v4-flash-0731` endpoint with DeepInfra fixed and fallbacks disabled.
+The case set, methods, prompts, tools, evaluator, and analysis remained unchanged; the
+pre-execution record is
+`experiments/validations/envsolve_pro_for_v1_provider_amendment.json`.
 
 ### 12.6 Certified-Incumbent Falsification and Verifier-Triggered Handoff
 

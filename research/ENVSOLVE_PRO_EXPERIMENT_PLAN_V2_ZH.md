@@ -569,3 +569,23 @@ Official Pass@1 仍是端到端指标；请求数、Token、时间、流量、re
 reasoning effort 和请求上限。Direct API 未声明支持 seed，因此预注册 seed 只保留为 episode
 身份，不在任一臂转发。此次 provider 迁移不改变 prompt、tool、replay、ledger、evaluator 或
 case 选择机制。
+
+## 16. 当前最小三臂实验
+
+ROL 和已否决的 handoff treatment 只保留为已消费开发证据，不进入第一篇论文的核心方法。当前方法选择
+实验只隔离三个接口：
+
+1. `F`：连续自由搜索与仓库反馈；
+2. `F+O`：相同接口增加完整可执行公开目标；
+3. `F+O+R`：相同 goal-aware session 增加可反复调用、从目标初始状态执行的完整程序重放。
+
+固定的已消费 6-case batch 覆盖历史 Observation、Constraint、Operation 失败。它只能提供机制诊断，
+不能估计 held-out 泛化或排行榜表现。Official Pass@1 是主指标；replay 激活、首次 replay 认证、
+Fail-to-Pass 修复、反例后的程序变化、replay/Official 一致性，以及共同成功 pair 上的资源共同解释结果，
+但不改写结果定义。
+
+开跑前，失效的官方凭据要求三组统一迁移 provider。所有 arm 改用 OpenRouter 模型
+`deepseek/deepseek-v4-flash-0731`，固定 DeepInfra、转发 seed、禁止 provider fallback。Case、算法、
+prompt、tool、evaluator 和分析规则均不改变。设计与 amendment 分别记录在
+`experiments/validations/envsolve_pro_for_v1_consumed6_design.json` 和
+`experiments/validations/envsolve_pro_for_v1_provider_amendment.json`。

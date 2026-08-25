@@ -839,6 +839,10 @@ quacc B 在候选前搜索膨胀；ajenti 两组都已经达到 0 missing import
 已消费 6-case 诊断设计和三臂平衡 schedule 分别记录在
 `experiments/validations/envsolve_pro_for_v1_consumed6_design.json` 与
 `experiments/schedules/envsolve_pro_for_v1_consumed6.json`。
+首个 episode 开始前，DeepSeek 官方凭据未通过鉴权 canary，因此三组统一迁移到 OpenRouter 固定模型
+`deepseek/deepseek-v4-flash-0731`，固定 DeepInfra 且禁止 fallback。Case、方法、prompt、tool、
+evaluator 与分析规则均不改变；开跑前记录为
+`experiments/validations/envsolve_pro_for_v1_provider_amendment.json`。
 
 ### 12.6 Certified-Incumbent 证伪与验证器触发交接
 
