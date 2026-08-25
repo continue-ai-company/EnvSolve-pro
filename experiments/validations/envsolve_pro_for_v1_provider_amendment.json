@@ -1,0 +1,30 @@
+{
+  "schema": "envsolve-pro-for-provider-amendment-v1",
+  "study_id": "envsolve-pro-for-v1-consumed6",
+  "recorded_at": "2026-08-25",
+  "timing": "before_any_episode_started",
+  "reason": "The preregistered DeepSeek first-party credential returned HTTP 401 during the authenticated completion canary.",
+  "change": {
+    "from_provider": "DeepSeek first-party API",
+    "from_model": "deepseek-v4-flash",
+    "to_provider": "OpenRouter",
+    "to_model": "deepseek/deepseek-v4-flash-0731"
+  },
+  "preexecution_canary": {
+    "authenticated_completion": "pass",
+    "tools": "pass",
+    "reasoning_effort": "xhigh",
+    "seed_forwarding": "pass",
+    "provider_fallbacks": false
+  },
+  "unchanged": [
+    "case identities and order",
+    "F, F+O, and F+O+R mechanisms",
+    "prompt and tool schema",
+    "target-state replay implementation",
+    "official evaluator",
+    "analysis policy",
+    "broad safety limits"
+  ],
+  "claim_scope": "Consumed-development mechanism identification only"
+}

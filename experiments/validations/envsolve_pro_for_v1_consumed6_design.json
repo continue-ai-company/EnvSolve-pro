@@ -50,10 +50,11 @@
   },
   "shared_execution": {
     "model": "deepseek-v4-flash",
-    "provider": "DeepSeek first-party API",
+    "provider": "OpenRouter after the pre-execution provider amendment",
     "host": "DGX Spark",
     "official_evaluator_access": "post-episode-only",
-    "resource_metrics": "reported as outcomes, not success thresholds"
+    "resource_metrics": "reported as outcomes, not success thresholds",
+    "provider_amendment": "experiments/validations/envsolve_pro_for_v1_provider_amendment.json"
   },
   "selection_rule": {
     "population": "Consumed cross-method census cases only",
