@@ -15,6 +15,7 @@
     "tools": "pass",
     "reasoning_effort": "xhigh",
     "seed_forwarding": "pass",
+    "provider_order": ["deepinfra"],
     "provider_fallbacks": false
   },
   "unchanged": [
