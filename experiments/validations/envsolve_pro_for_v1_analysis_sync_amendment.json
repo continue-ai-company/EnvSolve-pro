@@ -1,0 +1,30 @@
+{
+  "schema": "envsolve-pro-for-analysis-sync-amendment-v1",
+  "study_id": "envsolve-pro-for-v1-consumed6",
+  "recorded_at": "2026-08-25",
+  "timing": {
+    "after_started_positions": [1, 2, 10],
+    "before_any_F_plus_O_plus_R_episode": true
+  },
+  "spark_revisions": {
+    "initial": "22f2f77520427f70a924761a23ea5c4a53a9b1c3",
+    "after_analysis_sync": "deeacbfeabfda4769df6cf464890d9cff21e774b",
+    "changed_paths": [
+      "experiments/analyze_for_mechanism.py",
+      "tests/test_for_mechanism_analysis.py"
+    ]
+  },
+  "reason": "Implement the already declared replay Fail-to-Pass and replay/Official secondary analyses, plus descriptive first-replay and program-change decomposition.",
+  "execution_surface_unchanged": [
+    "runner implementation",
+    "model prompt",
+    "tool schema",
+    "container and source acquisition",
+    "public goal",
+    "target-state replay",
+    "official evaluator",
+    "case identities and order",
+    "primary Official Pass@1 analysis"
+  ],
+  "claim_rule": "The synchronized analyzer is post-processing only. Its new descriptive fields cannot alter scientific eligibility, Official outcomes, case selection, or the primary decision rule."
+}
