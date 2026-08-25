@@ -10,7 +10,7 @@
     ]
   },
   "integrity_rules": [
-    "provide_the_same_public_executable_goal_to_paired_methods",
+    "hold_the_public_goal_program_constant_and_vary_its_model_visibility_only_when_visibility_is_the_registered_treatment",
     "do_not_expose_post_hoc_official_evaluator_results_during_generation",
     "preserve_exact_repository_revision_and_all_tracked_files",
     "preserve_benchmark_adapter_owned_workspace_preconditions",
