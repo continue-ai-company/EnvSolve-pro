@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-atomic-rescue-consumed4-v1",
+  "status": "fixed-before-treatment-execution",
+  "research_question": "Can atomic submit-and-clean-replay rescue pre-existing goal-aware F+O Official failures across terminal target-state failure and candidate non-delivery?",
+  "selection": {
+    "source": "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_result.json",
+    "rule": "Include every case whose scientifically eligible DeepSeek F+O control in the consumed Bad-6 study failed end to end.",
+    "selected_cases": [
+      "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7"
+    ],
+    "outcome_used_for_selection": "Historical F+O control failure only; no atomic outcome existed when this file was written."
+  },
+  "treatment": {
+    "runner": "envsolve-pro-v2-atomic",
+    "method": "envsolve-pro-atomic-submit-replay",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "description": "One continuous free Agent session; final submission atomically validates and clean-replays the whole bootstrap, and replay failure returns executable feedback to the same session."
+  },
+  "outcomes": {
+    "primary": "EnvBench Official rescue count among the four selected historical F+O failures.",
+    "mechanism": "Candidate formation, atomic replay activation, Fail-to-Pass repair, and final replay-Official agreement.",
+    "resources": [
+      "model requests",
+      "total tokens",
+      "generation wall time",
+      "replay count",
+      "provider errors"
+    ]
+  },
+  "claim_limits": [
+    "This is an outcome-conditioned consumed-development rescue screen, not an unbiased paired effect estimate.",
+    "Historical controls are not rerun and atomic outcomes cannot rescore them.",
+    "Do not tune package-specific or network-specific rules on these cases.",
+    "Promotion requires rescue across more than one failure mechanism before a new prospective paired batch."
+  ],
+  "schedule": "experiments/schedules/envsolve_pro_v2_atomic_rescue_consumed4_v1.json",
+  "config": "experiments/configs/local_spark_envsolve_pro_v2_target_state_replay_screened_bad6_v1.json"
+}
