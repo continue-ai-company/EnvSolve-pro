@@ -1,0 +1,53 @@
+{
+  "schema": "envsolve-pro-v2-atomic-submit-replay-study-design-v1",
+  "study_id": "envsolve-pro-v2-atomic-submit-replay-v1-prospective2",
+  "recorded_at": "2026-08-26",
+  "status": "recorded-before-execution",
+  "research_question": "Does binding clean replay to the ordinary submission action improve deployment success without interrupting a strong Agent's continuous search session?",
+  "selection": {
+    "source": "experiments/validations/envsolve_pro_v2_case_exposure_audit_20260824.json",
+    "rule": "Use every Dev-pool case with no execution evidence found in the existing exposure audit.",
+    "case_ids": [
+      "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb"
+    ],
+    "outcome_based_selection": false
+  },
+  "paired_arms": {
+    "control": {
+      "runner": "deepseek-goal-aware-agent",
+      "mechanism": "continuous free-feedback search with the public executable goal and ordinary submission"
+    },
+    "treatment": {
+      "runner": "envsolve-pro-v2-atomic",
+      "mechanism": "the same search interface, with each ordinary submission atomically clean-replayed; Fail returns evidence to the same session and Pass terminates"
+    }
+  },
+  "matched_conditions": [
+    "model",
+    "case-specific seed",
+    "public goal",
+    "construction image",
+    "request and wall-clock safety caps",
+    "post-episode Official evaluator",
+    "minimal integrity boundary"
+  ],
+  "counterbalancing": "Control runs first for fontbakery; treatment runs first for verticapy.",
+  "primary_outcome": "paired EnvBench Official Pass@1, counting non-submission as failure and excluding only independently established infrastructure censoring",
+  "secondary_outcomes": [
+    "submission and replay status sequence",
+    "model requests and total tokens as reported costs, not success thresholds",
+    "generation wall-clock time",
+    "shell operations",
+    "failure layer and subtype"
+  ],
+  "claim_scope": "Two-case prospective mechanism pilot only; insufficient by itself for a generalization or SOTA claim.",
+  "excluded_treatments": [
+    "scheduled observations",
+    "compatibility ledger",
+    "checkpoint retention",
+    "cross-case memory",
+    "package-specific rules",
+    "controller-forced tool choice"
+  ]
+}

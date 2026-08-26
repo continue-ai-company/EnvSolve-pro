@@ -63,6 +63,7 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 DEEPSEEK_DIRECT_BASE_URL = "https://api.deepseek.com"
 ReplayMode = Literal[
     "none",
+    "atomic",
     "soft",
     "incumbent",
     "ledger",
@@ -157,8 +158,15 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
             tool_name = event.get("tool_name")
             if isinstance(tool_name, str):
                 tool_counts[tool_name] = tool_counts.get(tool_name, 0) + 1
-            if tool_name == "submit_and_replay":
-                result = event.get("result")
+            result = event.get("result")
+            atomic_submission = (
+                result.get("atomic_submission") if isinstance(result, dict) else None
+            )
+            if tool_name == "submit_and_replay" or (
+                tool_name == "submit_bootstrap"
+                and isinstance(atomic_submission, dict)
+                and atomic_submission.get("replayed") is True
+            ):
                 status = result.get("status") if isinstance(result, dict) else None
                 if isinstance(status, str):
                     replay_counts[status] = replay_counts.get(status, 0) + 1
@@ -243,7 +251,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.7.1"
+    runner_version = "0.8.0"
 
     def __init__(
         self,
@@ -268,6 +276,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     ) -> None:
         if replay_mode not in {
             "none",
+            "atomic",
             "soft",
             "incumbent",
             "ledger",
@@ -276,8 +285,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "stateful",
         }:
             raise ValueError(
-                "Replay mode must be none, soft, incumbent, ledger, scheduled, "
-                "handoff, or stateful"
+                "Replay mode must be none, atomic, soft, incumbent, ledger, "
+                "scheduled, handoff, or stateful"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -321,6 +330,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
     def agent_interface(self) -> str:
         if not self.public_goal_visible:
             return "free-repository-feedback-search-v1"
+        if self.atomic_submission_enabled:
+            return "free-feedback-search+atomic-submit-clean-replay-v1"
         if self.verifier_handoff_enabled:
             return (
                 "free-feedback-search+scheduled-trusted-goal-observation+"
@@ -347,6 +358,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     @property
     def replay_enabled(self) -> bool:
         return self.replay_mode in {
+            "atomic",
             "soft",
             "incumbent",
             "ledger",
@@ -354,6 +366,10 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "handoff",
             "stateful",
         }
+
+    @property
+    def atomic_submission_enabled(self) -> bool:
+        return self.replay_mode == "atomic"
 
     @property
     def incumbent_enabled(self) -> bool:
@@ -383,6 +399,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
     def mechanism_primitives(self) -> list[str]:
         if not self.public_goal_visible:
             return ["F", "minimal-H"]
+        if self.atomic_submission_enabled:
+            return ["F", "public-O", "soft-C", "R", "atomic-delivery", "minimal-H"]
         if self.verifier_handoff_enabled:
             return [
                 "F",
@@ -544,7 +562,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 },
             )
         ]
-        if self.replay_enabled:
+        if self.replay_enabled and not self.atomic_submission_enabled:
             tools.append(
                 _function_tool(
                     "submit_and_replay",
@@ -579,10 +597,17 @@ class OpenRouterAgentRunner(CodexCliRunner):
                     },
                 ),
             )
+        submit_description = (
+            "Atomically submit the complete bootstrap program: validate it, replay it "
+            "from a fresh checkout and container, return executable failure evidence to "
+            "this same session, or finish when the clean replay passes."
+            if self.atomic_submission_enabled
+            else "Submit the final complete bootstrap program and a short summary."
+        )
         tools.append(
             _function_tool(
                 "submit_bootstrap",
-                "Submit the final complete bootstrap program and a short summary.",
+                submit_description,
                 {
                     "type": "object",
                     "properties": {
@@ -648,7 +673,16 @@ ordinary execution feedback to infer a complete development environment.
 {self.validator.prompt_contract}
 </candidate_contract>
 """
-        if self.replay_mode in {
+        if self.atomic_submission_enabled:
+            prompt += """\
+
+`submit_bootstrap` is the single atomic delivery action. Every call validates the
+complete program and clean-replays that exact program from the target's initial state.
+A Pass finishes the episode with that program. A Fail returns normalized executable
+evidence to this same session so you can repair the whole program and submit again.
+There is no separate replay action and no replay state is retained.
+"""
+        elif self.replay_mode in {
             "soft",
             "ledger",
             "scheduled",
@@ -794,6 +828,8 @@ never selects packages, blocks commands, or restores an environment.
         if not isinstance(program, str) or not isinstance(summary, str):
             return {"accepted": False, "reason": "program and summary must be strings"}, None
         canonical = canonical_script(program)
+        if not canonical:
+            return {"accepted": False, "reason": "program must not be empty"}, None
         validation = self.validator.validate(
             DeploymentCandidate(
                 candidate_id="openrouter-final-submission",
@@ -820,6 +856,49 @@ never selects packages, blocks commands, or restores an environment.
             }, None
         submission = {"program": canonical, "summary": summary, "program_sha256": digest}
         return {"accepted": True, "program_sha256": digest}, submission
+
+    def _atomic_submit(
+        self,
+        arguments: dict[str, Any],
+        replay_service: CleanReplayService,
+    ) -> tuple[dict[str, Any], dict[str, str] | None, str | None]:
+        validation_payload, proposed = self._submit(arguments, None)
+        if proposed is None:
+            return {
+                **validation_payload,
+                "atomic_submission": {"accepted": False, "replayed": False},
+            }, None, None
+
+        raw_replay = replay_service.submit(proposed["program"])
+        status = str(raw_replay.get("status", "unknown"))
+        payload = {
+            **normalize_replay_feedback(raw_replay),
+            "atomic_submission": {
+                "accepted": False,
+                "replayed": True,
+                "program_sha256": proposed["program_sha256"],
+            },
+        }
+        if status != "pass":
+            return payload, None, status
+
+        acceptance_payload, submission = self._submit(proposed, replay_service)
+        if submission is None:
+            return {
+                **payload,
+                "atomic_submission": {
+                    **payload["atomic_submission"],
+                    "reason": acceptance_payload.get("reason"),
+                },
+            }, None, status
+        return {
+            **payload,
+            "atomic_submission": {
+                "accepted": True,
+                "replayed": True,
+                "program_sha256": submission["program_sha256"],
+            },
+        }, submission, status
 
     def _agent_loop(
         self,
@@ -992,6 +1071,10 @@ never selects packages, blocks commands, or restores an environment.
                     "forced_model_requests": handoff_forced_requests,
                     "pending_at_termination": handoff_pending,
                     "events": handoff_events,
+                    "termination_reason": termination_reason,
+                }
+            if self.atomic_submission_enabled:
+                metadata["atomic_submission"] = {
                     "termination_reason": termination_reason,
                 }
             if replay_obligation_ledger is not None:
@@ -1288,7 +1371,21 @@ never selects packages, blocks commands, or restores an environment.
                                         }
                                     )
                     elif name == "submit_bootstrap":
-                        payload, submission = self._submit(arguments, replay_service)
+                        if self.atomic_submission_enabled:
+                            if replay_service is None:
+                                raise RuntimeError(
+                                    "Atomic submission requires a clean replay service"
+                                )
+                            payload, submission, status = self._atomic_submit(
+                                arguments,
+                                replay_service,
+                            )
+                            if status is not None:
+                                replay_status_counts[status] = (
+                                    replay_status_counts.get(status, 0) + 1
+                                )
+                        else:
+                            payload, submission = self._submit(arguments, replay_service)
                     else:
                         payload = {"ok": False, "error": f"unknown tool: {name}"}
 
@@ -1312,7 +1409,11 @@ never selects packages, blocks commands, or restores an environment.
                             else (
                                 "verifier-triggered-replay-pass"
                                 if self.verifier_handoff_enabled
-                                else None
+                                else (
+                                    "atomic-submit-clean-replay-pass"
+                                    if self.atomic_submission_enabled
+                                    else None
+                                )
                             )
                         ),
                     )

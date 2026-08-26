@@ -71,6 +71,12 @@ def register_envsolve_pro_v2_runners() -> None:
             "free-feedback-search",
             _factory("none"),
         )
+    if "envsolve-pro-v2-atomic" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-atomic",
+            "envsolve-pro-atomic-submit-replay",
+            _factory("atomic"),
+        )
     if "envsolve-pro-v2" not in registered:
         register_solver_runner(
             "envsolve-pro-v2",

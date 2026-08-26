@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-atomic-submit-replay-v1-prospective2",
+  "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+  "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "pair_id": "fontbakery",
+      "arm": "F+O",
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "runner": "deepseek-goal-aware-agent",
+      "method": "free-feedback-search-public-goal",
+      "seed": 680070,
+      "run_id": "pro-v2-atomic-v1-prospective2-01-fontbakery-FO"
+    },
+    {
+      "position": 2,
+      "pair_id": "fontbakery",
+      "arm": "F+O+atomic-R",
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "runner": "envsolve-pro-v2-atomic",
+      "method": "envsolve-pro-atomic-submit-replay",
+      "seed": 680070,
+      "run_id": "pro-v2-atomic-v1-prospective2-02-fontbakery-FOAR"
+    },
+    {
+      "position": 3,
+      "pair_id": "verticapy",
+      "arm": "F+O+atomic-R",
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "runner": "envsolve-pro-v2-atomic",
+      "method": "envsolve-pro-atomic-submit-replay",
+      "seed": 680196,
+      "run_id": "pro-v2-atomic-v1-prospective2-03-verticapy-FOAR"
+    },
+    {
+      "position": 4,
+      "pair_id": "verticapy",
+      "arm": "F+O",
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "runner": "deepseek-goal-aware-agent",
+      "method": "free-feedback-search-public-goal",
+      "seed": 680196,
+      "run_id": "pro-v2-atomic-v1-prospective2-04-verticapy-FO"
+    }
+  ]
+}

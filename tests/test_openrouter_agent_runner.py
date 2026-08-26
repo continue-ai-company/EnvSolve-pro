@@ -337,6 +337,37 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             {"require_parameters": True, "allow_fallbacks": False},
         )
 
+    def test_atomic_submission_keeps_the_control_action_signature(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            control = self._runner(root, "none")
+            atomic = self._runner(root, "atomic")
+            control_tools = control._tools()
+            atomic_tools = atomic._tools()
+            prompt = atomic._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            [item["function"]["name"] for item in atomic_tools],
+            ["envbench_shell", "submit_bootstrap"],
+        )
+        self.assertEqual(
+            [item["function"]["parameters"] for item in atomic_tools],
+            [item["function"]["parameters"] for item in control_tools],
+        )
+        self.assertNotIn("submit_and_replay", prompt)
+        self.assertIn("single atomic delivery action", prompt)
+        self.assertIn("Fail returns normalized executable", prompt)
+        self.assertEqual(
+            atomic.agent_interface,
+            "free-feedback-search+atomic-submit-clean-replay-v1",
+        )
+        self.assertEqual(
+            atomic.mechanism_primitives,
+            ["F", "public-O", "soft-C", "R", "atomic-delivery", "minimal-H"],
+        )
+
     def test_deepseek_direct_uses_first_party_route_and_thinking_parameters(self) -> None:
         created: dict[str, object] = {}
 
@@ -1005,6 +1036,111 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             [request["seed"] for request in client.chat.completions.requests],
             [9173, 9173, 9173],
         )
+
+    def test_atomic_failure_returns_to_same_session_then_pass_finishes(self) -> None:
+        first_program = "false"
+        second_program = "python -m venv .venv\nsource .venv/bin/activate"
+
+        class FailThenPassReplay(FakeReplayService):
+            def __init__(self) -> None:
+                super().__init__(second_program)
+                self.programs: list[str] = []
+
+            def submit(self, program: str) -> dict[str, object]:
+                self.programs.append(program)
+                if len(self.programs) == 1:
+                    return {
+                        "status": "fail",
+                        "phase": "clean-replay",
+                        "replay_id": "replay-1",
+                        "program_sha256": script_sha256(program),
+                        "verification": {
+                            "summary": "bootstrap failed",
+                            "bootstrap": {
+                                "exit_code": 1,
+                                "stdout": "",
+                                "stderr": "missing executable",
+                                "duration_seconds": 1.0,
+                            },
+                            "counterexamples": {"json": "[]", "truncated": False},
+                            "details": {"json": "{}", "truncated": False},
+                        },
+                    }
+                return super().submit(program)
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "submit_bootstrap",
+                        {"program": first_program, "summary": "first attempt"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "submit_bootstrap",
+                        {"program": second_program, "summary": "repaired attempt"},
+                    )
+                ),
+            ]
+        )
+        replay = FailThenPassReplay()
+        with tempfile.TemporaryDirectory() as directory:
+            trajectory = Path(directory) / "trajectory.jsonl"
+            runner = self._runner(Path(directory), "atomic")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=replay,  # type: ignore[arg-type]
+                trajectory_path=trajectory,
+            )
+            progress = _trajectory_progress(trajectory)
+
+        self.assertEqual(replay.programs, [first_program, second_program])
+        self.assertEqual(submission["program_sha256"], script_sha256(second_program))
+        self.assertEqual(metadata["model_requests"], 2)
+        self.assertEqual(metadata["tool_counts"]["submit_bootstrap"], 2)
+        self.assertEqual(metadata["tool_counts"]["submit_and_replay"], 0)
+        self.assertEqual(metadata["replay_status_counts"], {"fail": 1, "pass": 1})
+        self.assertEqual(
+            metadata["atomic_submission"]["termination_reason"],
+            "atomic-submit-clean-replay-pass",
+        )
+        self.assertEqual(progress["replay_status_counts"], {"fail": 1, "pass": 1})
+        self.assertTrue(
+            any(
+                item.get("role") == "tool"
+                and item.get("name") == "submit_bootstrap"
+                and "missing executable" in str(item.get("content"))
+                for item in client.chat.completions.requests[1]["messages"]
+            )
+        )
+        self.assertEqual(
+            [request["tool_choice"] for request in client.chat.completions.requests],
+            ["auto", "auto"],
+        )
+
+    def test_atomic_invalid_candidate_does_not_start_clean_replay(self) -> None:
+        replay = FakeReplayService("unused")
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "atomic")
+            payload, submission, status = runner._atomic_submit(
+                {"program": "", "summary": "invalid"},
+                replay,  # type: ignore[arg-type]
+            )
+
+        self.assertIsNone(submission)
+        self.assertIsNone(status)
+        self.assertFalse(payload["accepted"])
+        self.assertEqual(
+            payload["atomic_submission"],
+            {"accepted": False, "replayed": False},
+        )
+        self.assertEqual(replay.certified_programs, [])
 
     def test_incumbent_survives_a_later_provider_failure(self) -> None:
         program = "python -m venv .venv\nsource .venv/bin/activate"
