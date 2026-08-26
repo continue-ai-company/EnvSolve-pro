@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "study_id": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1",
   "status": "specified-before-execution",
-  "research_question": "When the trusted full goal first passes, does immediately invoking the existing atomic submit-and-replay action preserve a usable candidate and return target-state counterexamples early enough for the same Agent session to repair them?",
+  "research_question": "Does coupling scheduled trusted full-goal observation with immediate invocation of the existing atomic submit-and-replay action preserve a usable candidate and return target-state counterexamples early enough for the same Agent session to repair them?",
   "selection": {
     "source": "Consumed development trajectories from the screened Bad-6 study and the atomic rescue diagnostic",
     "rule": "Select the three observed goal-to-delivery cases: quacc and hark passed the full goal well before voluntary atomic submission, while ajenti repeatedly passed the full goal but never submitted. Exclude micropy-cli because its current atomic diagnostic never reached the full goal, so this treatment could not activate.",
@@ -29,7 +29,11 @@
       "minimal evaluator and repository integrity boundary",
       "fresh target-state replay implementation"
     ],
-    "only_intended_difference": "The harness requests the already available atomic submit action immediately after a trusted full-goal Pass instead of waiting for voluntary submission.",
+    "treatment_differences": [
+      "The harness periodically executes the trusted full goal after shell operations and returns that observation to the Agent.",
+      "When that observation reports candidate_ready=true, the next model request is constrained to the already available submit_bootstrap action instead of waiting for voluntary submission."
+    ],
+    "attribution_limit": "This consumed pilot qualifies the coupled scheduled-observation plus atomic-handoff mechanism. It does not estimate a pure handoff effect independently of scheduled observation.",
     "historical_comparator": "The in-progress atomic rescue runs are descriptive comparators only because independent model rollouts are stochastic."
   },
   "measurements": {
@@ -53,7 +57,7 @@
     ]
   },
   "interpretation": [
-    "A prompt handoff with earlier replay feedback supports the proposed goal-to-delivery mechanism.",
+    "A prompt observation-triggered handoff with earlier replay feedback supports the proposed goal-to-delivery mechanism.",
     "Official rescue on these cases is development evidence, not a population effect estimate.",
     "Failure to reach the full goal is outside this treatment's mechanism and must not be relabeled as a handoff failure.",
     "Transient provider or package-network failures are reported separately from dependency-semantic and delivery failures."
