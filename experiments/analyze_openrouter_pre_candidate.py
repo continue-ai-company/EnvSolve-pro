@@ -32,7 +32,7 @@ PYRIGHT_EXECUTION = re.compile(
 )
 EXPLICIT_PARTIAL_PYRIGHT_SCOPE = re.compile(
     r"(?:python\S*\s+-m\s+pyright|(?:^|[;&|]\s*|timeout\s+\d+\s+)"
-    r"(?:/\S+/)?pyright)\s+(?:src|tests|examples|capi|doc)(?:\s|$)",
+    r"(?:/\S+/)?pyright)\s+(?:src|tests|examples|capi|doc)(?:/|\s|$)",
     re.IGNORECASE,
 )
 PACKAGE_OPERATION = re.compile(

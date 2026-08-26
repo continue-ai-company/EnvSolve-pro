@@ -123,6 +123,14 @@ def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
         )
         is None
     )
+    assert (
+        _goal_issue_count(
+            "python -m pyright src/quacc --outputjson | python -c "
+            "\"print('missing:', len(gen))\"",
+            "missing: 0\n",
+        )
+        is None
+    )
     assert _goal_issue_count("pytest", "summary {'errorCount': 0}\n") is None
     assert _goal_issue_count("pytest", "pass {'issues_count': 0}\n") is None
     assert (
