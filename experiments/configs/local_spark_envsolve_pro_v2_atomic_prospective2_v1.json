@@ -2,7 +2,7 @@
   "benchmarks": {
     "envbench": {
       "adapter": "envbench",
-      "root": "EnvBench",
+      "root": "/home/avdpro/EnvSolve/EnvBench",
       "settings": {
         "deterministic_script": "evaluation/scripts/python_baseline.sh",
         "image": "ghcr.io/jetbrains-research/envbench-python:latest",
