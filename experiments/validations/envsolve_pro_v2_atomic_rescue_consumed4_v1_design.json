@@ -39,5 +39,5 @@
     "Promotion requires rescue across more than one failure mechanism before a new prospective paired batch."
   ],
   "schedule": "experiments/schedules/envsolve_pro_v2_atomic_rescue_consumed4_v1.json",
-  "config": "experiments/configs/local_spark_envsolve_pro_v2_target_state_replay_screened_bad6_v1.json"
+  "config": "experiments/configs/local_spark_envsolve_pro_v2_atomic_rescue_consumed4_v1.json"
 }
