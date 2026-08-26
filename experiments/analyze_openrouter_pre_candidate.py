@@ -13,6 +13,13 @@ from typing import Any
 ISSUE_COUNT = re.compile(r'"issues_count"\s*:\s*(\d+)')
 PYTHON_ISSUE_COUNT = re.compile(r"['\"]issues_count['\"]\s*:\s*(\d+)")
 TOTAL_COUNT = re.compile(r"\btotal\s*:\s*(\d+)\b", re.IGNORECASE)
+BARE_TOTAL_COUNT = re.compile(
+    r"^\s*total\s+(\d+)\s*$", re.IGNORECASE | re.MULTILINE
+)
+TOTAL_MISSING_COUNT = re.compile(
+    r"^\s*total\s+missing(?:\s+imports?)?\s*[:=]?\s*(\d+)\b",
+    re.IGNORECASE | re.MULTILINE,
+)
 LINE_COUNT = re.compile(r"^\s*count\s*[:=]?\s*(\d+)\s*$", re.IGNORECASE | re.MULTILINE)
 BARE_MISSING_COUNT = re.compile(
     r"^\s*missing\s*[:=]\s*(\d+)\b", re.IGNORECASE | re.MULTILINE
@@ -78,6 +85,8 @@ def _goal_issue_count(command: str, output: object) -> int | None:
     for pattern in (
         PYTHON_ISSUE_COUNT,
         TOTAL_COUNT,
+        BARE_TOTAL_COUNT,
+        TOTAL_MISSING_COUNT,
         LINE_COUNT,
         BARE_MISSING_COUNT,
         MISSING_COUNT,

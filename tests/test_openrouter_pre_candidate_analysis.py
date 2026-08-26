@@ -117,6 +117,8 @@ def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
     )
     assert _goal_issue_count(command, "count 2\n") == 2
     assert _goal_issue_count(command, "N unique: 0 total: 0\n") == 0
+    assert _goal_issue_count(command, "total 351\n") == 351
+    assert _goal_issue_count(command, "total missing 351\n") == 351
     assert _goal_issue_count(command, "summary {'errorCount': 48}\n") == 0
     assert _goal_issue_count(command, "missing: 1 {'filesAnalyzed': 203}\n") == 1
     assert _goal_issue_count(command, "missing: 0\n") == 0
