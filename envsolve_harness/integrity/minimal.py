@@ -32,10 +32,47 @@ from importlib import metadata
 import json
 from pathlib import Path
 import site
+import subprocess
 import sysconfig
 
 marker = __import__("sys").argv[1]
 owners = metadata.packages_distributions()
+owned_artifacts = set()
+for distribution in metadata.distributions():
+    for relative_path in distribution.files or ():
+        try:
+            owned_artifacts.add(
+                str(Path(distribution.locate_file(relative_path)).resolve(strict=True))
+            )
+        except (OSError, RuntimeError):
+            pass
+
+
+def has_system_package_owner(path):
+    commands = (
+        (Path("/usr/bin/dpkg-query"), "-S", str(path)),
+        (Path("/usr/bin/rpm"), "-qf", str(path)),
+        (Path("/bin/rpm"), "-qf", str(path)),
+        (Path("/sbin/apk"), "info", "--who-owns", str(path)),
+        (Path("/usr/sbin/apk"), "info", "--who-owns", str(path)),
+    )
+    for command in commands:
+        if not command[0].is_file():
+            continue
+        try:
+            completed = subprocess.run(
+                command,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        except OSError:
+            continue
+        if completed.returncode == 0:
+            return True
+    return False
+
+
 roots = set()
 try:
     roots.update(site.getsitepackages())
@@ -75,6 +112,8 @@ for encoded_root in sorted(roots):
             resolved = proof.resolve(strict=True)
             payload = resolved.read_bytes()
         except (OSError, RuntimeError):
+            continue
+        if str(resolved) in owned_artifacts or has_system_package_owner(resolved):
             continue
         identity = (module, str(resolved), hashlib.sha256(payload).hexdigest())
         if identity in seen:

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import shlex
 import subprocess
 import tempfile
 import unittest
@@ -23,6 +24,7 @@ from envsolve_harness.integrity.minimal import (
     _PROVIDER_AUDIT_SCHEMA,
     _PROVIDER_BASELINE_MARKER,
     _PROVIDER_POST_MARKER,
+    _UNOWNED_PROVIDER_AUDIT,
     _novel_unowned_provider_violations,
     _provider_audit_command,
     inspect_minimal_repository_integrity,
@@ -106,6 +108,10 @@ class MinimalIntegrityTest(unittest.TestCase):
             command.index(_PROVIDER_POST_MARKER),
         )
         self.assertIn("packages_distributions", command)
+        self.assertIn("distribution.files", command)
+        self.assertIn("/usr/bin/dpkg-query", command)
+        self.assertIn("/usr/bin/rpm", command)
+        self.assertIn("/sbin/apk", command)
         self.assertIn("module.startswith", command)
         self.assertNotIn("importlib.util.find_spec", command)
 
@@ -180,8 +186,19 @@ class MinimalIntegrityTest(unittest.TestCase):
             environment_vars["PATH"] = (
                 f"{environment / 'bin'}{os.pathsep}{environment_vars.get('PATH', '')}"
             )
+            fallback_audit = _UNOWNED_PROVIDER_AUDIT.replace(
+                "owners = metadata.packages_distributions()",
+                "owners = {}",
+                1,
+            )
             completed = subprocess.run(
-                ["bash", "-c", _provider_audit_command(_PROVIDER_POST_MARKER)],
+                [
+                    "bash",
+                    "-c",
+                    "command python -I -c "
+                    f"{shlex.quote(fallback_audit)} "
+                    f"{shlex.quote(_PROVIDER_POST_MARKER)}",
+                ],
                 env=environment_vars,
                 capture_output=True,
                 text=True,
@@ -201,6 +218,72 @@ class MinimalIntegrityTest(unittest.TestCase):
         )
         self.assertNotIn(
             "owned_provider",
+            [
+                item["module"]
+                for item in report["unowned_public_site_providers"]
+            ],
+        )
+
+    def test_provider_audit_accepts_system_package_manager_owner(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            environment = root / "venv"
+            venv.EnvBuilder(with_pip=True).create(environment)
+            python = environment / "bin" / "python"
+            site_root = Path(
+                subprocess.run(
+                    [str(python), "-c", "import site; print(site.getsitepackages()[0])"],
+                    capture_output=True,
+                    text=True,
+                    check=True,
+                ).stdout.strip()
+            )
+            module = site_root / "system_helper.py"
+            module.write_text("VALUE = 1\n", encoding="utf-8")
+            fake_bin = root / "bin"
+            fake_bin.mkdir()
+            dpkg_query = fake_bin / "dpkg-query"
+            dpkg_query.write_text(
+                "#!/bin/sh\n"
+                "case \"$2\" in\n"
+                f"  {shlex.quote(str(module.resolve()))}) exit 0 ;;\n"
+                "  *) exit 1 ;;\n"
+                "esac\n",
+                encoding="utf-8",
+            )
+            dpkg_query.chmod(0o755)
+            environment_vars = dict(os.environ)
+            environment_vars["PATH"] = os.pathsep.join(
+                (
+                    str(fake_bin),
+                    str(environment / "bin"),
+                    environment_vars.get("PATH", ""),
+                )
+            )
+            system_audit = _UNOWNED_PROVIDER_AUDIT.replace(
+                'Path("/usr/bin/dpkg-query")',
+                f"Path({str(dpkg_query)!r})",
+                1,
+            )
+            completed = subprocess.run(
+                [
+                    "bash",
+                    "-c",
+                    "command python -I -c "
+                    f"{shlex.quote(system_audit)} "
+                    f"{shlex.quote(_PROVIDER_POST_MARKER)}",
+                ],
+                env=environment_vars,
+                capture_output=True,
+                text=True,
+                timeout=30,
+                check=True,
+            )
+
+        report = marked_json_payload(completed.stdout, _PROVIDER_POST_MARKER)
+        self.assertIsNotNone(report)
+        self.assertNotIn(
+            "system_helper",
             [
                 item["module"]
                 for item in report["unowned_public_site_providers"]
