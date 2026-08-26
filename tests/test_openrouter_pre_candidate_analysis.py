@@ -107,6 +107,9 @@ def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
     assert _goal_issue_count(command, "count 2\n") == 2
     assert _goal_issue_count(command, "N unique: 0 total: 0\n") == 0
     assert _goal_issue_count(command, "summary {'errorCount': 48}\n") == 0
+    assert _goal_issue_count(command, "missing: 1 {'filesAnalyzed': 203}\n") == 1
+    assert _goal_issue_count(command, "missing: 0\n") == 0
+    assert _goal_issue_count(command, "pass {'issues_count': 0}\n") == 0
     assert _goal_issue_count(command, "total diag 1057 missingImports 438\n") == 438
     assert _goal_issue_count(command, "missing imports: 748\n") == 748
     assert _goal_issue_count(command, "total missing imports (full): 0\n") == 0
@@ -121,6 +124,7 @@ def test_goal_count_parses_agent_equivalent_pyright_summaries() -> None:
         is None
     )
     assert _goal_issue_count("pytest", "summary {'errorCount': 0}\n") is None
+    assert _goal_issue_count("pytest", "pass {'issues_count': 0}\n") is None
     assert (
         _goal_issue_count(
             "grep -r 'reportMissingImports|pyright' pyproject.toml",

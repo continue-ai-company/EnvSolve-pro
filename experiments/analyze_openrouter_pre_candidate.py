@@ -11,8 +11,12 @@ from typing import Any
 
 
 ISSUE_COUNT = re.compile(r'"issues_count"\s*:\s*(\d+)')
+PYTHON_ISSUE_COUNT = re.compile(r"['\"]issues_count['\"]\s*:\s*(\d+)")
 TOTAL_COUNT = re.compile(r"\btotal\s*:\s*(\d+)\b", re.IGNORECASE)
 LINE_COUNT = re.compile(r"^\s*count\s*[:=]?\s*(\d+)\s*$", re.IGNORECASE | re.MULTILINE)
+BARE_MISSING_COUNT = re.compile(
+    r"^\s*missing\s*[:=]\s*(\d+)\b", re.IGNORECASE | re.MULTILINE
+)
 MISSING_COUNT = re.compile(
     r"\b(?:total\s+)?missing\s*imports?(?:\s*\([^)]*\))?\s*[:=]?\s*(\d+)\b",
     re.IGNORECASE,
@@ -71,7 +75,14 @@ def _goal_issue_count(command: str, output: object) -> int | None:
         return None
     if EXPLICIT_PARTIAL_PYRIGHT_SCOPE.search(command):
         return None
-    for pattern in (TOTAL_COUNT, LINE_COUNT, MISSING_COUNT, REPORT_MISSING_COUNT):
+    for pattern in (
+        PYTHON_ISSUE_COUNT,
+        TOTAL_COUNT,
+        LINE_COUNT,
+        BARE_MISSING_COUNT,
+        MISSING_COUNT,
+        REPORT_MISSING_COUNT,
+    ):
         matches = pattern.findall(output)
         if matches:
             return int(matches[-1])
