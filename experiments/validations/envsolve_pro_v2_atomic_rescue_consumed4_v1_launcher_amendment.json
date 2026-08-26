@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-atomic-rescue-consumed4-v1",
+  "status": "recorded-before-launcher-retry",
+  "failed_attempt": {
+    "entrypoint": "experiments/run_schedule.py",
+    "progress_files": [
+      "experiments/runs/envsolve_pro_v2_atomic_rescue_consumed4_v1_lane1_progress.json",
+      "experiments/runs/envsolve_pro_v2_atomic_rescue_consumed4_v1_lane2_progress.json"
+    ],
+    "positions": [1, 2, 3, 4],
+    "process_exit_code": 2,
+    "failure": "The generic run_case.py parser rejected envsolve-pro-v2-atomic as an unsupported generic runner.",
+    "model_requests": 0,
+    "artifacts_created": false
+  },
+  "retry": {
+    "entrypoint": "experiments/run_envsolve_pro_v2_schedule.py",
+    "progress_files": [
+      "experiments/runs/envsolve_pro_v2_atomic_rescue_consumed4_v1_lane1_launcher_retry1_progress.json",
+      "experiments/runs/envsolve_pro_v2_atomic_rescue_consumed4_v1_lane2_launcher_retry1_progress.json"
+    ],
+    "schedule_changed": false,
+    "run_ids_changed": false,
+    "case_selection_changed": false,
+    "model_changed": false,
+    "seed_changed": false,
+    "algorithm_changed": false
+  },
+  "claim_effect": "The pre-model launcher failures are infrastructure non-attempts and do not enter the rescue denominator."
+}
