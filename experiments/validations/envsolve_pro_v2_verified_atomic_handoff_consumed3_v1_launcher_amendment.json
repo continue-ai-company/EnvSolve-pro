@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1",
+  "status": "recorded-before-launcher-retry",
+  "failed_attempt": {
+    "entrypoint": "system python3 experiments/run_envsolve_pro_v2_schedule.py",
+    "progress_files": [
+      "experiments/runs/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_lane1_progress.json",
+      "experiments/runs/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_lane2_progress.json"
+    ],
+    "positions": [1, 2, 3],
+    "process_exit_code": 1,
+    "failure": "Spark system Python did not contain the openai package required by the provider client.",
+    "model_requests": 0,
+    "duration_seconds_each": "less than 3",
+    "artifacts_created": true,
+    "artifact_scope": "Failure metadata only; no construction container, model response, shell action, candidate, replay, or Official evaluation."
+  },
+  "retry": {
+    "entrypoint": ".venv/bin/python experiments/run_envsolve_pro_v2_schedule.py",
+    "schedule": "experiments/schedules/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_launcher_retry1.json",
+    "progress_files": [
+      "experiments/runs/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_lane1_launcher_retry1_progress.json",
+      "experiments/runs/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_lane2_launcher_retry1_progress.json"
+    ],
+    "run_id_suffix": "-launcher-retry1",
+    "case_selection_changed": false,
+    "model_changed": false,
+    "provider_changed": false,
+    "seed_changed": false,
+    "algorithm_changed": false,
+    "resource_settings_changed": false
+  },
+  "claim_effect": "The pre-model launcher failures are infrastructure non-attempts and do not enter mechanism or endpoint denominators. Distinct retry run IDs preserve both records without artifact overwrite."
+}

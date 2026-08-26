@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1-launcher-retry1",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_target_state_replay_screened_bad6_v1.jsonl",
+  "case_file_sha256": "3dbb751be8e3835e40daa7b8c19dcd5dba4b7efe63b3bd46a27531dbef95522a",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "pair_id": "consumed-goal-delivery-quacc",
+      "arm": "F+O+verified-atomic-handoff+R",
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "runner": "envsolve-pro-v2-atomic-handoff",
+      "method": "envsolve-pro-verified-atomic-handoff",
+      "seed": 510004,
+      "run_id": "pro-v2-atomic-handoff-c3-v1-01-quacc-FOAHR-launcher-retry1",
+      "source_atomic_run_id": "pro-v2-atomic-rescue-c4-v1-01-quacc-FOAR"
+    },
+    {
+      "position": 2,
+      "pair_id": "consumed-goal-delivery-ajenti",
+      "arm": "F+O+verified-atomic-handoff+R",
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "runner": "envsolve-pro-v2-atomic-handoff",
+      "method": "envsolve-pro-verified-atomic-handoff",
+      "seed": 510007,
+      "run_id": "pro-v2-atomic-handoff-c3-v1-02-ajenti-FOAHR-launcher-retry1",
+      "source_atomic_run_id": "pro-v2-atomic-rescue-c4-v1-02-ajenti-FOAR"
+    },
+    {
+      "position": 3,
+      "pair_id": "consumed-goal-delivery-hark",
+      "arm": "F+O+verified-atomic-handoff+R",
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "runner": "envsolve-pro-v2-atomic-handoff",
+      "method": "envsolve-pro-verified-atomic-handoff",
+      "seed": 510056,
+      "run_id": "pro-v2-atomic-handoff-c3-v1-03-hark-FOAHR-launcher-retry1",
+      "source_atomic_run_id": "pro-v2-atomic-rescue-c4-v1-03-hark-FOAR"
+    }
+  ]
+}
