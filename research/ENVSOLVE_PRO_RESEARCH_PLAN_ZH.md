@@ -868,3 +868,19 @@ request 66 通过 replay 和 Official。这证明机制可执行，不证明效�
 Runner 0.6.0 还暴露了一个因果设计混杂：treatment prompt 在触发前提前说明了 handoff。Runner 0.6.1
 删除该说明，使两组在触发前的工具和初始 prompt 完全相同；controller 指令只在可信 Pass 后出现。下一步
 是在固定 prospective bad-case 上与 B-FSR 比较，本次资格实验不允许导出 qibolab 专用规则或其他 treatment。
+
+### 12.7 原子提交 Outcome-Independent Pilot
+
+Runner 0.8.0 在保留强 Agent 连续 session 与自由搜索的前提下，把完整程序 clean replay 与最终交付
+合并为原子动作。Dev pool 中仅有的两个未执行 case 在开跑前固定。atomic 与普通 `F+O` 的程序最终都
+通过 Official；其中一个普通结果需要同脚本 evaluator retry，但因 retry method 标签与源 run 不完全
+一致，在严格 adjudication 中仍按删失处理。
+
+fontbakery 激活一次 atomic replay，verticapy 激活三次，并形成跨不同 fresh container 的
+Fail--Fail--Pass 修复链；但 verticapy 普通对照也通过。atomic 总生成成本为 126 对 88 次请求、
+270 万对 199 万 Token、7,419 对 3,762 秒。本轮只证明反馈连续性和 replay--Official 一致性，
+不证明成功率或效率增益。
+
+不晋级 universal atomic replay，也不针对观测到的 package hash 打补丁。保持 treatment 不变，
+下一组从已有 goal-aware `F+O` Official failure 中机械选择并固定，只检验一个剩余假设：当 matched
+control 已证明有 headroom 时，atomic replay feedback 能否提高 Pass@1。

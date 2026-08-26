@@ -1,0 +1,411 @@
+{
+  "analysis_implementation": {
+    "cli": {
+      "path": "experiments/summarize_schedule_v2.py",
+      "sha256": "903a02a0c59af03a174b227e7a83136367ce17664cef70e33c469de29b19dacb"
+    },
+    "frozen_base_summarizer": {
+      "path": "envsolve_harness/results.py",
+      "sha256": "79086e254ffa5340683b670a7c7b68b52140efd2e49c9242fbd5d79231f470b2"
+    },
+    "summarizer": {
+      "path": "envsolve_harness/results_v2.py",
+      "sha256": "117cef503e9e0050c1c8a3a09f8cc3e918bc232fd619b03efdb30611ffa225cc"
+    }
+  },
+  "coordinator_progress": {
+    "aggregate_by_method": {
+      "envsolve-pro-atomic-submit-replay": {
+        "endpoint_wall_clock_seconds": 8017.6734087644145,
+        "process_finished": 2,
+        "runs": 2
+      },
+      "free-feedback-search-public-goal": {
+        "endpoint_wall_clock_seconds": 4436.080199915916,
+        "process_finished": 2,
+        "runs": 2
+      }
+    },
+    "runs": [
+      {
+        "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+        "duration_seconds": 2884.023948644288,
+        "finished_at": "2026-08-26T10:25:34.417580+00:00",
+        "method": "free-feedback-search-public-goal",
+        "position": 1,
+        "process_exit_code": 1,
+        "run_id": "pro-v2-atomic-v1-prospective2-01-fontbakery-FO",
+        "seed": 680070,
+        "started_at": "2026-08-26T09:37:30.388379+00:00",
+        "state": "process_finished"
+      },
+      {
+        "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+        "duration_seconds": 1770.3508426463231,
+        "finished_at": "2026-08-26T10:55:04.775496+00:00",
+        "method": "envsolve-pro-atomic-submit-replay",
+        "position": 2,
+        "process_exit_code": 0,
+        "run_id": "pro-v2-atomic-v1-prospective2-02-fontbakery-FOAR",
+        "seed": 680070,
+        "started_at": "2026-08-26T10:25:34.421086+00:00",
+        "state": "process_finished"
+      },
+      {
+        "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+        "duration_seconds": 6247.322566118091,
+        "finished_at": "2026-08-26T11:21:37.733926+00:00",
+        "method": "envsolve-pro-atomic-submit-replay",
+        "position": 3,
+        "process_exit_code": 0,
+        "run_id": "pro-v2-atomic-v1-prospective2-03-verticapy-FOAR",
+        "seed": 680196,
+        "started_at": "2026-08-26T09:37:30.406626+00:00",
+        "state": "process_finished"
+      },
+      {
+        "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+        "duration_seconds": 1552.0562512716278,
+        "finished_at": "2026-08-26T11:47:29.799699+00:00",
+        "method": "free-feedback-search-public-goal",
+        "position": 4,
+        "process_exit_code": 0,
+        "run_id": "pro-v2-atomic-v1-prospective2-04-verticapy-FO",
+        "seed": 680196,
+        "started_at": "2026-08-26T11:21:37.738441+00:00",
+        "state": "process_finished"
+      }
+    ],
+    "sources": [
+      {
+        "path": "experiments/runs/envsolve_pro_v2_atomic_submit_replay_v1_prospective2_fontbakery_progress.json",
+        "sha256": "d4c4663bb7f3adf5a154a3181c24a97c0e7802cc31f3a79663894016bd9be2cb"
+      },
+      {
+        "path": "experiments/runs/envsolve_pro_v2_atomic_submit_replay_v1_prospective2_verticapy_progress.json",
+        "sha256": "4166590cdd930160a74b96d0712e5f324e32b72fb45d08a5b02f900fbbfcb474"
+      }
+    ]
+  },
+  "descriptive": {
+    "artifact_integrity_valid": 4,
+    "official_fail": 0,
+    "official_pass": 3,
+    "runs": 4
+  },
+  "paired_end_to_end_scientific": {
+    "both_pass": 1,
+    "censored_pairs": 0,
+    "control_method": "free-feedback-search-public-goal",
+    "control_only_pass": 0,
+    "eligible_pairs": 2,
+    "missing_official_result": "deployment_failure",
+    "neither_pass": 0,
+    "pairs": 2,
+    "treatment_method": "envsolve-pro-atomic-submit-replay",
+    "treatment_only_pass": 1
+  },
+  "paired_scientific": {
+    "both_pass": 1,
+    "censored_pairs": 1,
+    "control_method": "free-feedback-search-public-goal",
+    "control_only_pass": 0,
+    "eligible_pairs": 1,
+    "neither_pass": 0,
+    "pairs": 2,
+    "treatment_method": "envsolve-pro-atomic-submit-replay",
+    "treatment_only_pass": 0
+  },
+  "resource_schema_version": "2.0.0",
+  "runs": [
+    {
+      "artifact_bundle_sha256": "b9885f7f92def684f5defc68d8e7a1ac8d54b5ea7df395b272f33dad62931615",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "2e9386a251c44b543652ed7bbbf79b4f26d7fa83d56739331929fd02ae8838e3",
+        "evaluation/official_attempt.json": "191fe3506772517bd178ffe83b21b5b30ac1458db1e38c21a2d098f34937ef35",
+        "evaluation/result.json": "3ffb3d85201efe7df6e8a44c1f89edb5eac4082ff5b22f1e7c26035832e61067",
+        "generation/result.json": "6a5bdb63ef24bef55418697ec2a5d9c74509cd1f761b5a08b67add9da869c6ec",
+        "generation/trajectory.jsonl": "0e09cc62da26cf25dea0133f5a4e8716aa4a5deecb03dcf06d7fdc4f92d23579",
+        "inputs/case.json": "0149bffdca3890d2c09f2b11231ed517b675d7a5ae6b640561b9ab111595f74c",
+        "manifest.json": "7d254f804214e6ba57d9c9aee2d8b62582d07fdb53141e857e7fdc1b4d458926",
+        "runtime/heartbeat.jsonl": "b09efd0ef7cad1fb3d711206f836b3e75134cb16270a5c0286bae3704345ceb3",
+        "scripts/bootstrap.sh": "711081fc7b0e12e1c25f731507bb50c3970c6471bc11b1b549ab6cd503bdbf5c",
+        "status.json": "f0b0add130a6407708f50f5265cf216314bae0afeaf4e90379b52cb087bb87e1"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-v2-atomic-v1-prospective2-01-fontbakery-FO/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "descriptive_terminal": "infrastructure_unknown",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": true,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_eligible",
+        "eligible": true,
+        "exclusion_reasons": [],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "free-feedback-search-public-goal",
+      "official_pass": null,
+      "pair_id": "fontbakery",
+      "pair_index": null,
+      "position": 1,
+      "resources": {
+        "budget_commands": null,
+        "cache_read_tokens": 1457664,
+        "cache_write_input_tokens": null,
+        "cached_input_tokens": 1457664,
+        "candidates": null,
+        "commands": 70,
+        "elapsed_scope": "generation",
+        "elapsed_wall_clock_seconds": 2850.83839,
+        "environments": null,
+        "input_tokens": 1654869,
+        "output_tokens": 23163,
+        "provider_attempts_in_progress": null,
+        "provider_attempts_started": 73,
+        "provider_retries": 13,
+        "provider_retry_recoveries": 9,
+        "reasoning_output_tokens": 12312,
+        "requests_started": 60,
+        "rounds_started": null,
+        "source": "generation/result.json+trajectory.jsonl",
+        "successful_commands": 63,
+        "total_tokens": 1678032
+      },
+      "run_id": "pro-v2-atomic-v1-prospective2-01-fontbakery-FO",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": true,
+      "seed": 680070
+    },
+    {
+      "artifact_bundle_sha256": "99d56e04f25c4ef0cd3dc39dde3866363438efc2767be71c5ab0960e0fe7680c",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "dee63546f77bae940863044cb3b6af69e379e0bb269862c6ff9292b8e754bc56",
+        "evaluation/official_attempt.json": "0ec32ad59b77ac91baeb55de5ca8bd6111ff9f06d0c136d69e11d9a266f2f119",
+        "evaluation/result.json": "c0791169f89ee5287c8e6d8af31139ffabfb30115b0951f204892780fe678b82",
+        "generation/result.json": "c99c91c3318576a9b055dd4331e6d9033e30e4eae596f0b7f87cbd96192b5af7",
+        "generation/trajectory.jsonl": "4bdd125accc4d1a9afa65c19eb0c463e26c33bb63787d07a9dc7af4140b9fe0c",
+        "inputs/case.json": "0149bffdca3890d2c09f2b11231ed517b675d7a5ae6b640561b9ab111595f74c",
+        "manifest.json": "f25e6f81f613124517e679f87c742b01ba1c4cb96f2ac87d20db2f8f8a644e53",
+        "runtime/heartbeat.jsonl": "268b515c03a3261449ec1ffe02d11213e6ddf0e8e366c67aee78c1232594eaa8",
+        "scripts/bootstrap.sh": "47ef492db8155d0513482cb9a8577ab82efdc6af41819068b9dca0906e9386c2",
+        "status.json": "6f3b14ddca7be2c5e660e351e57de365d7a7a0d21c72861e1a1fa6dfd9b160a2"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-v2-atomic-v1-prospective2-02-fontbakery-FOAR/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": true,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_eligible",
+        "eligible": true,
+        "exclusion_reasons": [],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-atomic-submit-replay",
+      "official_pass": true,
+      "pair_id": "fontbakery",
+      "pair_index": null,
+      "position": 2,
+      "resources": {
+        "budget_commands": null,
+        "cache_read_tokens": 1260032,
+        "cache_write_input_tokens": null,
+        "cached_input_tokens": 1260032,
+        "candidates": null,
+        "commands": 68,
+        "elapsed_scope": "generation",
+        "elapsed_wall_clock_seconds": 1666.163757,
+        "environments": null,
+        "input_tokens": 1356756,
+        "output_tokens": 25989,
+        "provider_attempts_in_progress": null,
+        "provider_attempts_started": 78,
+        "provider_retries": 9,
+        "provider_retry_recoveries": 5,
+        "reasoning_output_tokens": 17280,
+        "requests_started": 69,
+        "rounds_started": null,
+        "source": "generation/result.json+trajectory.jsonl",
+        "successful_commands": 64,
+        "total_tokens": 1382745
+      },
+      "run_id": "pro-v2-atomic-v1-prospective2-02-fontbakery-FOAR",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": true,
+      "seed": 680070
+    },
+    {
+      "artifact_bundle_sha256": "e52442eab02865e3fa705abf60fcc26ae9da8f142f174ee3d10d02649569a693",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "d607de22179f70025169a6d2646fee8640d79e8f2b0a0e769fedc143c4ab2ac0",
+        "evaluation/official_attempt.json": "b649434cdd8518511cd4a7c17a341d2b8e288c9fc0ed6d5a3b45ee230d2e3d26",
+        "evaluation/result.json": "79eeab8334b862093776225a243d53ca3fa8b467b34563da9a931bc9d867c284",
+        "generation/result.json": "ba53428443fe882306df8aef998279e2162527c92c565dfbe4db31224ef48f7c",
+        "generation/trajectory.jsonl": "c211773a796204c48e91d18d1f957cf2bdd25fd62d8b4f4f7424b1212b5462a2",
+        "inputs/case.json": "253fa2349a1bee3eadf9c3fbd72f2ec3567c3831940f1f9809cadea7ba6e70e4",
+        "manifest.json": "96c8bd7697cf739b31e16ee1e69a57b59f39802e363aa23dddd895014899fae2",
+        "runtime/heartbeat.jsonl": "adf781b67aa4bf57ef6ec7c872a4f5bd11bea0ddff14aea287ad415b2a52dfef",
+        "scripts/bootstrap.sh": "6634b1412081591a016a74635b460b8518fe8f5bc652f775a8f5effbff5446e6",
+        "status.json": "b5bda8702c4e249a969fd4cc0908152583fe986a411726d3078e110566705e26"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-v2-atomic-v1-prospective2-03-verticapy-FOAR/envbench-python-vertica__verticapy__57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": true,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_eligible",
+        "eligible": true,
+        "exclusion_reasons": [],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "envsolve-pro-atomic-submit-replay",
+      "official_pass": true,
+      "pair_id": "verticapy",
+      "pair_index": null,
+      "position": 3,
+      "resources": {
+        "budget_commands": null,
+        "cache_read_tokens": 1111808,
+        "cache_write_input_tokens": null,
+        "cached_input_tokens": 1111808,
+        "candidates": null,
+        "commands": 68,
+        "elapsed_scope": "generation",
+        "elapsed_wall_clock_seconds": 5753.311458,
+        "environments": null,
+        "input_tokens": 1279885,
+        "output_tokens": 40820,
+        "provider_attempts_in_progress": null,
+        "provider_attempts_started": 78,
+        "provider_retries": 21,
+        "provider_retry_recoveries": 14,
+        "reasoning_output_tokens": 30827,
+        "requests_started": 57,
+        "rounds_started": null,
+        "source": "generation/result.json+trajectory.jsonl",
+        "successful_commands": 61,
+        "total_tokens": 1320705
+      },
+      "run_id": "pro-v2-atomic-v1-prospective2-03-verticapy-FOAR",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": true,
+      "seed": 680196
+    },
+    {
+      "artifact_bundle_sha256": "670ee7eac2049cceae6964729858692b3a7c5a4a549684e154812e428ec7da5b",
+      "artifact_hashes": {
+        "evaluation/json/results.jsonl": "c90bc30ae0df369d3061693b811b0806a74fae8f9f7c94d0b534094559c37ea7",
+        "evaluation/official_attempt.json": "fb7019d6a0fd4d3d1c3d9891e2b9ae57e7ca207b78cc21273adade39647dc48c",
+        "evaluation/result.json": "3422a8fd6d92fb5d51d103bb9f619420ec685a372fab384d15abd2f0f051215d",
+        "generation/result.json": "0e14fecad1bfc04ff600187a2712179d268b0a152991591a81b8b9d588d558ee",
+        "generation/trajectory.jsonl": "114dc83d03960230216258dbc15f0aac26a0ad35027001f5f87f20fbf85d54cd",
+        "inputs/case.json": "253fa2349a1bee3eadf9c3fbd72f2ec3567c3831940f1f9809cadea7ba6e70e4",
+        "manifest.json": "02124efc828f2e042eaa469e21a9ea14c5cb5670f70c2e2c869a559c004017c5",
+        "runtime/heartbeat.jsonl": "b3482f259eba33269e9f5c225a6a826f47f151b446cb3437dea0d3dc64ee298b",
+        "scripts/bootstrap.sh": "84d5747e66bed2b441e6b24cb2d278c8df2661dc33d06ada6ab977cd00687db3",
+        "status.json": "ad052c3f5773c9347445099ccbb004bba9b64e4b0012c006790ee2d4aeb93c80"
+      },
+      "artifact_integrity_valid": true,
+      "artifact_root": "pro-v2-atomic-v1-prospective2-04-verticapy-FO/envbench-python-vertica__verticapy__57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "descriptive_terminal": "official_pass",
+      "eligibility": {
+        "checks": {
+          "artifact_integrity_valid": true,
+          "clean_source": true,
+          "committed_source": true,
+          "host_suspension_absent": true,
+          "runtime_heartbeat_complete": true,
+          "runtime_heartbeat_exists": true,
+          "runtime_heartbeat_hash": true,
+          "runtime_heartbeat_portable": true,
+          "runtime_heartbeat_sequence": true
+        },
+        "classification": "scientifically_eligible",
+        "eligible": true,
+        "exclusion_reasons": [],
+        "warnings": []
+      },
+      "errors": [],
+      "method": "free-feedback-search-public-goal",
+      "official_pass": true,
+      "pair_id": "verticapy",
+      "pair_index": null,
+      "position": 4,
+      "resources": {
+        "budget_commands": null,
+        "cache_read_tokens": 281088,
+        "cache_write_input_tokens": null,
+        "cached_input_tokens": 281088,
+        "candidates": null,
+        "commands": 27,
+        "elapsed_scope": "generation",
+        "elapsed_wall_clock_seconds": 910.68177,
+        "environments": null,
+        "input_tokens": 304309,
+        "output_tokens": 8348,
+        "provider_attempts_in_progress": null,
+        "provider_attempts_started": 30,
+        "provider_retries": 2,
+        "provider_retry_recoveries": 2,
+        "reasoning_output_tokens": 4571,
+        "requests_started": 28,
+        "rounds_started": null,
+        "source": "generation/result.json+trajectory.jsonl",
+        "successful_commands": 26,
+        "total_tokens": 312657
+      },
+      "run_id": "pro-v2-atomic-v1-prospective2-04-verticapy-FO",
+      "schedule_identity_valid": true,
+      "scientifically_eligible": true,
+      "seed": 680196
+    }
+  ],
+  "schedule": {
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+    "case_file_sha256": "2171e1ac910d57d97b98ce1ec75df725d5bf88a28e39176e98d53baa145e74dc",
+    "path": "envsolve_pro_v2_atomic_submit_replay_v1_prospective2.json",
+    "sha256": "c2ba0a95ef0da3cc2559f3aa51e244bf238f964a3e5c55cc4883d291cacc909f"
+  },
+  "schema_version": "1.1.0",
+  "scientific": {
+    "eligible_runs": 4,
+    "excluded_runs": 0,
+    "official_fail": 0,
+    "official_pass": 3
+  }
+}

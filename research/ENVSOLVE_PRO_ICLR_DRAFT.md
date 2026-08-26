@@ -235,14 +235,25 @@ was never activated. All three arms exhausted the broad request cap without subm
 This case motivates atomic submit-and-replay and a separate integrity axis; it does not
 support a claim that activated replay was ineffective.
 
+A two-case outcome-independent atomic-submit pilot then made replay unavoidable at
+delivery while leaving Agent search free. Both atomic programs passed clean replay and
+Official; the matched plain programs also passed Official after one unchanged-script
+infrastructure retry. Verticapy supplied a three-replay Fail--Fail--Pass repair chain,
+but atomic delivery used 5,753 versus 911 generation seconds and 1.32M versus 0.31M
+tokens on that pair. This is evidence that same-session replay feedback is executable,
+not evidence of an effectiveness or efficiency gain.
+
 ### 6.3 Simplicity by Falsification
 
 More controlling treatments were not retained. Prompt-guided early programization plus
 incumbent retention regressed from `6/6` to `5/6`; a prospective forced-handoff pilot
 regressed from `3/3` to `2/3`, with no treatment-only Official Pass. This evidence argues
 against making the harness choose the strong Agent's next operation. The retained method
-adds only public-goal observation and atomic complete-program target-state replay. The
-next prospective fixed batch tests this interface before held-out evaluation.
+does not yet include universal atomic replay: a two-case ceiling tie showed substantial,
+case-dependent overhead. The next fixed batch is mechanically drawn from pre-existing
+`F+O` Official failures and tests whether same-session replay repair improves Pass@1
+where control headroom is known; package rules and network-specific patches remain
+excluded.
 
 ## 7. Falsification and Scope
 

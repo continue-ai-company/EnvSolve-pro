@@ -1137,3 +1137,22 @@ future handoff before it activated. Runner 0.6.1 removes that disclosure and mak
 and initial prompts exactly equal across arms; the controller instruction appears only
 after a trusted Pass. The next evidence is a fixed prospective bad-case comparison against
 B-FSR. No qibolab-specific rule or other treatment is licensed by this qualification.
+
+### 12.7 Atomic-Submit Outcome-Independent Pilot
+
+Runner 0.8.0 made complete-program clean replay atomic with final delivery while preserving
+the strong Agent's continuous session and free search. The only two previously unexecuted
+Dev-pool cases were fixed before execution. Both atomic and plain `F+O` programs passed
+Official; one plain result required an unchanged-script evaluator retry and remains censored
+under strict adjudication because its retry method label was not identical to the source.
+
+Atomic replay activated once on fontbakery and three times on verticapy. Verticapy produced
+a genuine Fail--Fail--Pass repair chain across distinct fresh containers, but its plain
+control also passed. Aggregate atomic generation used 126 versus 88 requests, 2.70M versus
+1.99M tokens, and 7,419 versus 3,762 seconds. This qualifies feedback continuity and
+replay--Official agreement; it does not qualify success or efficiency gain.
+
+Do not promote universal atomic replay and do not patch the observed package hashes. Keep
+the treatment fixed for a mechanically selected batch of pre-existing goal-aware `F+O`
+Official failures. That batch tests the narrow remaining hypothesis: atomic replay feedback
+improves Pass@1 when the matched control has demonstrated headroom.

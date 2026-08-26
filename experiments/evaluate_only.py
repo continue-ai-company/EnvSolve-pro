@@ -76,6 +76,24 @@ def _existing_retry(config_runs: Path, source_run_id: str, case_id: str) -> str 
     return None
 
 
+def _validate_retry_identity(
+    source_manifest: dict[str, object], method: str, seed: int | None
+) -> None:
+    source_run = source_manifest.get("run") or {}
+    if not isinstance(source_run, dict):
+        raise ValueError("Source run metadata is missing")
+    mismatches = []
+    if method != source_run.get("method"):
+        mismatches.append("method")
+    if seed != source_run.get("seed"):
+        mismatches.append("seed")
+    if mismatches:
+        raise ValueError(
+            "Infrastructure evaluation retry identity differs from the source run: "
+            + ", ".join(mismatches)
+        )
+
+
 def _prepare_evaluation_retry(
     source_root: Path,
     script_path: Path,
@@ -175,6 +193,7 @@ def main() -> int:
         raise ValueError("Infrastructure evaluation retries cannot use --overwrite")
     if args.source_run is not None:
         source_manifest = read_json(args.source_run.resolve() / "manifest.json")
+        _validate_retry_identity(source_manifest, args.method, args.seed)
         source_run_id = str((source_manifest.get("run") or {}).get("run_id"))
         existing = _existing_retry(config.runs_root, source_run_id, case.case_id)
         if existing is not None:

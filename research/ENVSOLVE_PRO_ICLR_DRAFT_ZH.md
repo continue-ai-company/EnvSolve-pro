@@ -172,12 +172,20 @@ Geoapps 是双方都失败的 hard case。正确解释器观测消除了数百�
 类型 shim，可选 replay 动作始终没有被激活。三臂都耗尽宽松请求上限而没有提交。该 case 支持原子
 submit-and-replay 和独立完整性评价轴，但不能证明“已经激活的 replay 无效”。
 
+随后两 case 的 outcome-independent 原子提交 pilot 在保持 Agent 自由搜索的同时，让交付时 replay
+成为必经步骤。两个 atomic 程序都通过 clean replay 和 Official；普通对照程序也在一次同脚本
+基础设施 retry 后全部通过。verticapy 出现 Fail--Fail--Pass 的三次重放修复链，但该 pair 的原子
+交付用了 5,753 对 911 秒生成时间、132 万对 31 万 Token。这证明同 session replay feedback
+可以执行，不证明效果或效率增益。
+
 ### 6.3 用证伪保持简单
 
 控制性更强的 treatment 没有保留。Prompt 引导提前程序化加 incumbent retention 从 `6/6` 退化到
 `5/6`；prospective forced-handoff pilot 从 `3/3` 退化到 `2/3`，没有 treatment-only Official Pass。
-因此 harness 不应替强 Agent 选择下一步操作。保留的方法只增加公开目标观测与原子的完整程序目标状态
-重放。下一组前瞻固定 batch 先检验该接口，再进入 held-out 评测。
+因此 harness 不应替强 Agent 选择下一步操作。当前保留方法尚不包含 universal atomic replay：两 case
+ceiling tie 显示它有显著且依 case 而变的额外开销。下一组从已有 `F+O` Official failure 中机械选择
+并固定，检验对照已知有 headroom 时同 session replay repair 是否提高 Pass@1；继续排除 package
+规则和网络专用补丁。
 
 ## 7. 证伪条件与范围
 

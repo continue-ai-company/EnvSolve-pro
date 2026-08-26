@@ -6,7 +6,11 @@ from pathlib import Path
 import unittest
 from unittest import mock
 
-from experiments.evaluate_only import _existing_retry, _prepare_evaluation_retry
+from experiments.evaluate_only import (
+    _existing_retry,
+    _prepare_evaluation_retry,
+    _validate_retry_identity,
+)
 from envsolve_harness.adapters.envbench import EnvBenchEvaluator
 from envsolve_harness.audit import audit_run
 from envsolve_harness.core.io import write_json, write_jsonl, write_text_atomic
@@ -26,6 +30,24 @@ REAL_SUBPROCESS_RUN = subprocess.run
 
 
 class EvaluationRetryTest(unittest.TestCase):
+    def test_retry_identity_requires_exact_source_method_and_seed(self) -> None:
+        source_manifest = {
+            "run": {
+                "method": "free-feedback-search",
+                "seed": 680070,
+            }
+        }
+
+        _validate_retry_identity(source_manifest, "free-feedback-search", 680070)
+        with self.assertRaisesRegex(ValueError, "method"):
+            _validate_retry_identity(
+                source_manifest,
+                "free-feedback-search-evaluation-retry1",
+                680070,
+            )
+        with self.assertRaisesRegex(ValueError, "seed"):
+            _validate_retry_identity(source_manifest, "free-feedback-search", 680071)
+
     def test_retry_lock_ignores_only_completed_missing_uv_preflight(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             runs = Path(directory)
