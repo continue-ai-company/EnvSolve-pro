@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1",
+  "status": "specified-before-execution",
+  "research_question": "When the trusted full goal first passes, does immediately invoking the existing atomic submit-and-replay action preserve a usable candidate and return target-state counterexamples early enough for the same Agent session to repair them?",
+  "selection": {
+    "source": "Consumed development trajectories from the screened Bad-6 study and the atomic rescue diagnostic",
+    "rule": "Select the three observed goal-to-delivery cases: quacc and hark passed the full goal well before voluntary atomic submission, while ajenti repeatedly passed the full goal but never submitted. Exclude micropy-cli because its current atomic diagnostic never reached the full goal, so this treatment could not activate.",
+    "selected_cases": [
+      "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781"
+    ],
+    "outcome_conditioning": "Intentional mechanism qualification on consumed cases; this is not an unbiased effectiveness or generalization sample."
+  },
+  "treatment": {
+    "runner": "envsolve-pro-v2-atomic-handoff",
+    "method": "envsolve-pro-verified-atomic-handoff",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "description": "Keep the Agent's shell search unrestricted. After a scheduled trusted full-goal observation passes, force the next model action to use the same submit_bootstrap action exposed by the atomic control. A replay failure returns raw executable feedback and restores free tool choice in the same session."
+  },
+  "comparability": {
+    "shared_with_atomic_control": [
+      "model and provider route",
+      "initial prompt and public goal",
+      "visible tools and submit_bootstrap action signature",
+      "request and wall-time settings",
+      "minimal evaluator and repository integrity boundary",
+      "fresh target-state replay implementation"
+    ],
+    "only_intended_difference": "The harness requests the already available atomic submit action immediately after a trusted full-goal Pass instead of waiting for voluntary submission.",
+    "historical_comparator": "The in-progress atomic rescue runs are descriptive comparators only because independent model rollouts are stochastic."
+  },
+  "measurements": {
+    "mechanism": [
+      "first trusted full-goal Pass request",
+      "first atomic submission request",
+      "goal-to-submission request delay",
+      "handoff activation count",
+      "replay status sequence",
+      "free-search restoration after replay failure",
+      "final replay and Official agreement"
+    ],
+    "endpoint": "EnvBench Official Pass for each scheduled episode",
+    "resources": [
+      "model requests",
+      "total tokens",
+      "generation and endpoint wall time",
+      "replay count",
+      "provider errors",
+      "container network traffic when available"
+    ]
+  },
+  "interpretation": [
+    "A prompt handoff with earlier replay feedback supports the proposed goal-to-delivery mechanism.",
+    "Official rescue on these cases is development evidence, not a population effect estimate.",
+    "Failure to reach the full goal is outside this treatment's mechanism and must not be relabeled as a handoff failure.",
+    "Transient provider or package-network failures are reported separately from dependency-semantic and delivery failures."
+  ],
+  "restrictions": [
+    "Do not add case-specific package mappings, commands, checkpoints, or operation restrictions.",
+    "Do not change the trusted goal, integrity boundary, or replay implementation between the atomic comparator and treatment.",
+    "Do not use these consumed outcomes as held-out, leaderboard, statistical-significance, or SOTA evidence."
+  ],
+  "schedule": "experiments/schedules/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1.json",
+  "config": "experiments/configs/local_spark_envsolve_pro_v2_atomic_handoff_consumed3_v1.json"
+}
