@@ -1,10 +1,11 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-24）：** 失败统一按 Observation--Constraint--Operation 三层分类。
-> EnvSolve-Pro 保留一个自由连续 Agent session，暴露完整公开目标，并让 Agent 反复从目标初始状态重放
-> 完整程序。重放失败在同一 session 内成为 case-local 软约束。定时观测、强制 handoff、ledger、
-> package 规则、checkpoint、跨 case memory 和硬动作策略均被排除在核心方法之外。所有方法共享的实验
-> 完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计研发历史。
+> **当前论文设计（2026-08-27）：** 失败统一按 Observation--Constraint--Operation 三层分类。
+> EnvSolve-Pro 保留一个自由连续 Agent session，按固定节奏测量完整可信目标；目标通过时，下一轮立即
+> 要求交付累计程序。该程序从目标初始状态原样重放；失败成为同一 session 中可执行的 case-local 证据，
+> 并恢复自由修复。Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源阈值不属于
+> 核心方法。所有方法共享的实验完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计
+> 研发历史。
 
 ## 1. 研究目标
 
@@ -884,3 +885,25 @@ Fail--Fail--Pass 修复链；但 verticapy 普通对照也通过。atomic 总生
 不晋级 universal atomic replay，也不针对观测到的 package hash 打补丁。保持 treatment 不变，
 下一组从已有 goal-aware `F+O` Official failure 中机械选择并固定，只检验一个剩余假设：当 matched
 control 已证明有 headroom 时，atomic replay feedback 能否提高 Pass@1。
+
+### 12.8 已消费目标到交付 case 上的验证式原子交接
+
+固定的 consumed 诊断选取了所有已经观测到目标到交付 gap 的三个 case：Quacc、Ajenti 和 Hark。
+搜索保持自由。Harness 在开始时以及每 16 次 shell 操作后运行一次可信完整目标；一旦首次 Pass，下一次
+模型请求必须通过已有 atomic replay 动作交付累计程序。Replay Fail 后，同一活跃 session 恢复自由
+工具选择。因此本研究验证的是“定时观测加交接”的组合机制，不能识别纯 handoff 效应。
+
+三个 case 都在首次可信 Pass 后一轮提交。Quacc 执行三次 replay（`Unknown`、`Fail`、`Pass`），同一
+session 修复过度最小化的依赖程序后通过 Official。Hark 执行两次 replay（`Fail`、`Pass`），在失败后
+下一轮加入 fresh-checkout Git ownership 操作并通过 Official。Ajenti 原 episode 提交一次，但旧
+import-provider 边界错误拒绝已经通过目标的环境，随后耗尽 120 次请求。
+
+Ajenti 采用独立裁决：流程在 episode 结果之后、裁决执行之前写明；不调用模型，也不修改 request 97 的
+程序。修正已有 provenance 检查，使其识别 distribution 文件清单和固定路径系统包管理器所有权后，
+该原样程序同时通过 clean replay 和未改变的 Official evaluator。原 episode 仍为 Fail，但作为
+harness 边界导致的结果从算法效果归因中删失。修正仍拒绝手工制造的无归属 provider，也没有增加部署
+规则。
+
+原始 batch 主指标为 `2/3` Official Pass；机制激活和一轮交付为 `3/3`。这是 outcome-conditioned 的
+已消费证据，只批准文档顶部的固定算法。下一项效果实验必须在结果未知、仓库不重叠的 bad-case batch
+上与匹配 `F+O` 对照比较。本轮三个 treatment 结果不能再触发算法或边界修改。

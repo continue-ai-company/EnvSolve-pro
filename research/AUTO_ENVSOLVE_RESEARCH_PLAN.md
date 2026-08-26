@@ -734,3 +734,20 @@ the construction audit as diagnostic evidence. Promotion requires a real tamperi
 negative, a legitimate cleanup control, and a repository-disjoint shadow batch that did
 not generate the proposal. Correcting a wrapper false negative is a measurement-version
 change, never an inner deployment-policy gain.
+
+### 26. Atomic-Handoff and Boundary-Adjudication Transactions
+
+The consumed three-case handoff study provides one positive proposal transaction and one
+measurement rollback example. The proposed inner change is narrowly scoped: after a
+trusted complete-goal Pass, require cumulative-program delivery on the next request; if
+fresh replay fails, restore free repair in the same session. An outer optimizer should
+compare activation rate, goal-to-submission delay, replay sequence, same-session repair,
+Official outcome, and resources against the preceding version. It must not infer package
+rules from Quacc, Ajenti, or Hark.
+
+Ajenti shows why measurement versions require separate attribution. The original episode
+remains Fail, while a no-model replay of its unchanged candidate passes after correcting a
+false-positive provenance boundary. Auto-EnvSolve should retain both records and mark the
+episode `harness_boundary_censored`; it must neither reward the old boundary nor relabel
+the adjudication as a new solver success. A future promotion rule should estimate algorithm
+effects only from episodes valid under the measurement version being compared.

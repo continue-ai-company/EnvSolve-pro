@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-verified-atomic-handoff-ajenti-boundary-adjudication-v1",
+  "status": "specified-after-main-outcome-before-adjudication-execution",
+  "scope": "Post-outcome measurement-boundary adjudication on one consumed development case. This is not a replacement episode, held-out evidence, an effectiveness estimate, or SOTA evidence.",
+  "trigger": {
+    "source_study": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1-launcher-retry1",
+    "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+    "source_run_id": "pro-v2-atomic-handoff-c3-v1-02-ajenti-FOAHR-launcher-retry1",
+    "source_request_index": 97,
+    "observed_outcome": "The exact submitted program completed bootstrap and the trusted public goal with zero reportMissingImports, then the existing import-provider provenance check rejected ordinary wheel and apt-owned modules as unowned. The same Agent subsequently regressed from zero to 39 goal obligations and exhausted 120 requests.",
+    "diagnosis": "Python 3.10 packages_distributions() omitted many distributions without top_level.txt and the audit did not recognize operating-system package ownership. This is a harness measurement false positive, not a dependency or public-goal failure."
+  },
+  "frozen_candidate": {
+    "program_artifact": "generation/clean-replay/programs/minimal-b-replay-0001.sh",
+    "canonical_program_sha256": "4d01dbc9e9d0c466569268980c257cb30fd2afc80b34b0a78c50dbcee5210f8c",
+    "artifact_file_sha256": "70629854cddd6d8584f92315e1f55c7fa71a1eecbf3b5d912873d51b0bc44c4a",
+    "bootstrap_exit_code": 0,
+    "trusted_goal_status": "pass",
+    "trusted_goal_missing_import_count": 0
+  },
+  "boundary_correction": {
+    "commit": "6b3ead3",
+    "description": "Recognize exact files listed by installed-distribution metadata and files owned by a fixed-path system package manager while retaining rejection of manually introduced unowned import providers.",
+    "validation_before_adjudication": [
+      "914 passed, 12 skipped, 80 subtests passed in the full local suite before the fixed-path hardening",
+      "52 focused tests passed after fixed-path hardening",
+      "The corrected read-only audit reports zero unowned providers in the original Ajenti Python 3.10 construction environment"
+    ]
+  },
+  "procedure": [
+    "Replay only the frozen candidate program from a fresh checkout at the same revision and image using the corrected minimal-integrity verifier and the unchanged public goal.",
+    "Run EnvBench Official on the same frozen candidate without any model request or script modification.",
+    "Record corrected-boundary replay and Official results separately from the original batch outcome."
+  ],
+  "decision_rule": {
+    "both_corrected_replay_and_official_pass": "Keep the original episode as Fail, but censor it from algorithm-effect attribution as harness-boundary-induced and report the request-97 candidate as counterfactually accepted under the corrected measurement boundary.",
+    "corrected_replay_or_official_fails": "Retain the original failure as unresolved or algorithmically attributable according to the new executable counterexample; do not censor it solely because the old audit was faulty."
+  },
+  "restrictions": [
+    "Do not call a model or continue the expired Agent session.",
+    "Do not edit the candidate program, public goal, repository revision, image, or Official evaluator.",
+    "Do not replace the original batch result with this adjudication.",
+    "Do not use this consumed post-outcome adjudication as held-out, population-rate, statistical-significance, leaderboard, or SOTA evidence."
+  ]
+}

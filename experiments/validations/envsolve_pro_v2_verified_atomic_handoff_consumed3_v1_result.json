@@ -1,0 +1,190 @@
+{
+  "schema": "envsolve-pro-v2-verified-atomic-handoff-consumed3-result-v1",
+  "study_id": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1",
+  "recorded_at": "2026-08-27",
+  "status": "complete-consumed-development-mechanism-qualification",
+  "claim_scope": "Outcome-conditioned consumed-development mechanism evidence. This is not a held-out, confirmatory, population-rate, statistical-significance, generalization, leaderboard, or SOTA result.",
+  "design": "experiments/validations/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_design.json",
+  "launcher": {
+    "initial_attempt": "infrastructure-non-attempt",
+    "failure": "Spark system Python lacked the openai provider-client dependency.",
+    "model_requests": 0,
+    "denominator_effect": "excluded",
+    "retry_record": "experiments/validations/envsolve_pro_v2_verified_atomic_handoff_consumed3_v1_launcher_amendment.json"
+  },
+  "execution_identity": {
+    "host": "Spark Linux aarch64",
+    "runner": "envsolve-pro-v2-atomic-handoff",
+    "runner_version": "0.9.0",
+    "method": "envsolve-pro-verified-atomic-handoff",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "primary_endpoint": {
+    "definition": "The original scheduled episode passes only if its submitted program passes EnvBench Official.",
+    "official_pass": 2,
+    "official_fail": 1,
+    "total": 3,
+    "passed_cases": [
+      "quacc",
+      "hark"
+    ],
+    "failed_cases": [
+      "ajenti"
+    ],
+    "interpretation": "The original Ajenti episode remains Fail. Its failure is censored from algorithm-effect attribution only because the separately fixed exact candidate passed both corrected clean replay and Official evaluation."
+  },
+  "mechanism": {
+    "cases_reaching_trusted_goal_pass": 3,
+    "cases_triggering_atomic_handoff": 3,
+    "cases_submitting_on_next_request": 3,
+    "goal_to_first_submission_request_delta": {
+      "quacc": 1,
+      "ajenti": 1,
+      "hark": 1
+    },
+    "raw_replay_statuses": {
+      "pass": 2,
+      "fail": 3,
+      "unknown": 1
+    },
+    "same_session_fail_then_pass_repairs": 2,
+    "same_session_repair_cases": [
+      "quacc",
+      "hark"
+    ],
+    "qualified": true,
+    "interpretation": "Scheduled trusted observation coupled to atomic handoff removed the observed goal-to-delivery delay on all three selected cases. Replay counterexamples remained inside the active Agent session; they did not prescribe package or repair actions."
+  },
+  "cases": [
+    {
+      "case": "quacc",
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "run_id": "pro-v2-atomic-handoff-c3-v1-01-quacc-FOAHR-launcher-retry1",
+      "original_official_pass": true,
+      "first_goal_pass_request": 26,
+      "first_submission_request": 27,
+      "goal_to_submission_request_delta": 1,
+      "handoff_requests": [26, 41, 59],
+      "submission_requests": [27, 42, 60],
+      "replay_statuses": ["unknown", "fail", "pass"],
+      "repair_trace": "The first complete environment timed out during replay. The second over-minimized installation with --no-deps and failed target imports. The same Agent restored full CPU-compatible dependencies and retained no-deps only for selected optional packages; the third clean replay and Official evaluation passed.",
+      "historical_atomic_comparator": {
+        "official_pass": false,
+        "model_requests": 120,
+        "total_tokens": 5548514,
+        "episode_seconds": 13701.975,
+        "first_goal_pass_request": 65,
+        "first_submission_request": 106
+      },
+      "directional_change_from_historical_rollout": {
+        "success": "Fail-to-Pass",
+        "model_requests_percent": -50.0,
+        "total_tokens_percent": -51.5,
+        "episode_seconds_percent": -34.5,
+        "scope": "descriptive only; independent stochastic rollouts"
+      }
+    },
+    {
+      "case": "ajenti",
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "run_id": "pro-v2-atomic-handoff-c3-v1-02-ajenti-FOAHR-launcher-retry1",
+      "original_official_pass": false,
+      "first_goal_pass_request": 96,
+      "first_submission_request": 97,
+      "goal_to_submission_request_delta": 1,
+      "handoff_requests": [96],
+      "submission_requests": [97],
+      "replay_statuses": ["fail"],
+      "terminal_failure": "The old import-provider provenance check rejected ordinary wheel and operating-system-owned modules. The Agent then replaced a working environment, regressed from zero to 39 obligations, and exhausted 120 requests.",
+      "attribution": "harness-boundary-induced-censored",
+      "boundary_adjudication": {
+        "design": "experiments/validations/envsolve_pro_v2_verified_atomic_handoff_ajenti_boundary_adjudication_v1_design.json",
+        "model_requests": 0,
+        "candidate_changed": false,
+        "canonical_program_sha256": "4d01dbc9e9d0c466569268980c257cb30fd2afc80b34b0a78c50dbcee5210f8c",
+        "corrected_clean_replay_pass": true,
+        "corrected_clean_replay_bootstrap_seconds": 115.0661340802908,
+        "corrected_goal_missing_import_count": 0,
+        "corrected_provider_unowned_count": 0,
+        "corrected_repository_integrity_valid": true,
+        "official_pass": true,
+        "official_exit_code": 0,
+        "official_issues_count": 0,
+        "decision": "Keep the original episode Fail and censor it from algorithm-effect attribution; do not count the adjudication as a replacement treatment episode."
+      }
+    },
+    {
+      "case": "hark",
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "run_id": "pro-v2-atomic-handoff-c3-v1-03-hark-FOAHR-launcher-retry1",
+      "original_official_pass": true,
+      "first_goal_pass_request": 16,
+      "first_submission_request": 17,
+      "goal_to_submission_request_delta": 1,
+      "handoff_requests": [16],
+      "submission_requests": [17, 18],
+      "replay_statuses": ["fail", "pass"],
+      "repair_trace": "Fresh replay exposed Git dubious ownership. Free choice was restored and the Agent voluntarily resubmitted on the next request with git safe.directory; clean replay and Official evaluation passed.",
+      "historical_atomic_comparator": {
+        "official_pass": true,
+        "model_requests": 37,
+        "total_tokens": 584794,
+        "episode_seconds": 1850.897,
+        "first_goal_pass_request": 16,
+        "first_submission_request": 27,
+        "first_certification_request": 37
+      },
+      "directional_change_from_historical_rollout": {
+        "success": "Pass-to-Pass",
+        "model_requests_percent": -51.4,
+        "total_tokens_percent": -65.9,
+        "episode_seconds_percent": -54.3,
+        "scope": "descriptive only; independent stochastic rollouts"
+      }
+    }
+  ],
+  "resources": {
+    "aggregate_original_episodes": {
+      "model_requests": 198,
+      "provider_errors": 15,
+      "prompt_tokens": 10775385,
+      "completion_tokens": 240679,
+      "total_tokens": 11016064,
+      "episode_seconds": 16321.527595
+    },
+    "by_case": {
+      "quacc": {"requests": 60, "provider_errors": 1, "prompt_tokens": 2627573, "completion_tokens": 63501, "total_tokens": 2691074, "episode_seconds": 8981.283706},
+      "ajenti": {"requests": 120, "provider_errors": 14, "prompt_tokens": 7958087, "completion_tokens": 167692, "total_tokens": 8125779, "episode_seconds": 6494.406777},
+      "hark": {"requests": 18, "provider_errors": 0, "prompt_tokens": 189725, "completion_tokens": 9486, "total_tokens": 199211, "episode_seconds": 845.837112}
+    },
+    "interpretation": "Tokens, time, requests, and provider errors are outcomes rather than hard success thresholds. Ajenti dominates cost because a faulty boundary rejected a valid candidate and induced destructive re-search."
+  },
+  "scientific_decision": {
+    "mechanism_qualified_on_consumed_cases": true,
+    "promote_as_held_out_effectiveness_result": false,
+    "retain_core": [
+      "one unrestricted continuous Agent session",
+      "scheduled trusted full-goal observation",
+      "atomic handoff when the full goal passes",
+      "fresh target-state replay",
+      "raw replay counterexample returned to the same session"
+    ],
+    "exclude_from_core": [
+      "package-rule library",
+      "container checkpoint search",
+      "cross-case memory",
+      "harness-selected repair action",
+      "hard token budget"
+    ],
+    "next_evidence": "Freeze this coupled mechanism and evaluate it prospectively on an outcome-blind, repository-disjoint bad-case batch with matched F+O controls before any further algorithm change.",
+    "restrictions": [
+      "Do not count Ajenti adjudication as a replacement treatment episode.",
+      "Do not estimate a population success rate from these three selected cases.",
+      "Do not isolate a pure handoff effect from this coupled scheduled-observation treatment.",
+      "Do not derive repository-specific package or command rules from these trajectories."
+    ]
+  }
+}

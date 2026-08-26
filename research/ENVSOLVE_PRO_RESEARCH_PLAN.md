@@ -1,13 +1,14 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-24):** failures are classified by the
-> Observation--Constraint--Operation framework. EnvSolve-Pro keeps one free continuous
-> Agent session, exposes the complete public goal, and lets the Agent repeatedly replay
-> a complete program from the target initial state. Replay failures become case-local
-> soft constraints in the same session. Scheduled observation, forced handoff, ledgers,
-> package rules, checkpoints, cross-case memory, and hard action policies are excluded
-> from the core method. The shared evaluation-integrity foundation E is not an algorithm.
-> Section 12 retains superseded proposals as auditable development history.
+> **Current paper design (2026-08-27):** failures are classified by the
+> Observation--Constraint--Operation framework. EnvSolve-Pro keeps one unrestricted
+> continuous Agent session, measures the complete trusted goal at a fixed cadence, and
+> immediately asks for the cumulative program when that goal passes. The exact program is
+> replayed from the target initial state; failures become executable case-local evidence in
+> the same session and restore free repair. Package rules, checkpoints, cross-case memory,
+> harness-selected repairs, and hard resource thresholds are excluded from the core method.
+> The shared evaluation-integrity foundation E is not an algorithm. Section 12 retains
+> superseded proposals as auditable development history.
 
 ## 1. Objective
 
@@ -1156,3 +1157,35 @@ Do not promote universal atomic replay and do not patch the observed package has
 the treatment fixed for a mechanically selected batch of pre-existing goal-aware `F+O`
 Official failures. That batch tests the narrow remaining hypothesis: atomic replay feedback
 improves Pass@1 when the matched control has demonstrated headroom.
+
+### 12.8 Verified Atomic Handoff on the Consumed Goal-to-Delivery Cases
+
+The fixed consumed diagnostic selected all three cases with an already observed
+goal-to-delivery gap: Quacc, Ajenti, and Hark. Search remained unrestricted. The harness
+ran the trusted complete goal initially and every 16 shell operations; when the result
+first became Pass, the next model request had to deliver the cumulative program through
+the existing atomic replay action. Replay Fail restored unrestricted tool choice in the
+same active session. The study therefore qualifies the coupled scheduled-observation plus
+handoff mechanism; it cannot identify a pure handoff effect.
+
+All three cases submitted one model request after their first trusted Pass. Quacc invoked
+three replays (`Unknown`, `Fail`, `Pass`) and passed Official after the same session repaired
+an over-minimized dependency program. Hark invoked two replays (`Fail`, `Pass`), adding the
+fresh-checkout Git ownership operation on the request immediately after failure, and passed
+Official. The original Ajenti episode submitted once and exhausted 120 requests after the
+old import-provider boundary rejected its goal-passing environment.
+
+Ajenti was adjudicated separately under a procedure written after the episode outcome but
+before adjudication execution. No model was called and the request-97 program was not
+changed. After correcting the existing provenance check to recognize exact installed-
+distribution files and fixed-path system-package ownership, that program passed both clean
+replay and the unchanged Official evaluator. The original episode remains Fail but is
+censored from algorithm-effect attribution as harness-boundary-induced. The correction
+retains rejection of manually introduced unowned providers and does not add a deployment
+rule.
+
+The original batch endpoint is `2/3` Official Pass; mechanism activation and one-request
+delivery are `3/3`. This is consumed, outcome-conditioned evidence and licenses only the
+fixed algorithm described at the top of this document. The next effect experiment uses an
+outcome-blind, repository-disjoint bad-case batch with matched `F+O` controls. No additional
+algorithm or boundary change is allowed in response to these three treatment outcomes.

@@ -648,3 +648,19 @@ label it `measurement_false_negative`, but it may neither overwrite the raw term
 treat counterfactual evaluation as online feedback. The same trajectory can then supervise
 boundary correction without punishing a policy that generated a correct deployment
 program.
+
+### 25. Atomic-Handoff Transition and Censored-Reward Labels
+
+The latest consumed trajectories add an explicit state transition:
+`trusted_goal_pass -> cumulative_program_request -> target_state_replay`. Preserve the
+request indices, replay status, raw counterexample, first post-failure action, resubmission,
+and final Official result. Quacc supplies an `Unknown -> Fail -> Pass` sequence and Hark a
+`Fail -> Pass` sequence, both inside one reasoning session. These are useful long-horizon
+repair trajectories because the harness selects neither package nor repair action.
+
+Ajenti must not receive ordinary negative deployment reward. Its submitted program passed
+the trusted goal and later passed unchanged clean replay and Official under a corrected
+measurement boundary. Retain the original terminal failure, boundary version, and
+adjudication as separate fields, then mark the policy outcome `reward_censored`. This lets
+future EnvSolve-RL learn from the Agent's valid operations without learning to evade a
+faulty verifier or treating post-outcome adjudication as online reward.
