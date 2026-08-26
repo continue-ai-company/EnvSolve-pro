@@ -1,6 +1,6 @@
 # EnvSolve-Pro：面向仓库部署的部分可观测状态化约束求解
 
-状态：ICLR 工作稿，2026-08-24；同模型机制实验与 held-out 结果待完成
+状态：ICLR 工作稿，2026-08-26；原子重放前瞻实验与 held-out 结果待完成
 
 ## 摘要
 
@@ -10,7 +10,8 @@
 我们记录端到端部署轨迹，并把最早决定性失败分为观测层、约束层和操作层。分析发现，一个反复出现的
 问题是：Agent 会优化仓库测试等代理信号而不是计分的公开目标，而且构造可用状态也不等于交付一段能重建
 该状态的程序。EnvSolve-Pro 让能力强的 Agent 在一个连续 session 中自由行动，向它暴露完整公开目标，
-并允许它从目标初始状态重放完整部署程序。重放反例作为 case-local 证据返回同一 session。方法不加入
+并把提交变成一次从目标初始状态执行完整部署程序的原子操作。失败提交把可执行反例作为 case-local 证据
+返回同一 session。方法不加入
 package 规则库、checkpoint 搜索、跨 case 记忆、定时修复策略或硬动作规则。
 
 已消费开发轨迹支持因果 taxonomy，并产生同 session Fail-to-Pass 修复，但不能证明泛化。最终实验先在
@@ -73,8 +74,9 @@ revision、基础镜像和 fresh execution，观测完整程序，而不是某�
 
 ### 操作层
 
-Agent 自由检查仓库并改变构建环境，可以随时把当前解法整理成完整程序并反复调用 clean replay。重放
-失败把证据返回同一 session，但不规定下一步动作。只有从目标状态通过重放的同一份程序才能被交付。
+Agent 自由检查仓库并改变构建环境。它提交完整程序时，harness 原子地从目标初始状态执行该程序和公开
+目标。失败提交把证据返回同一 session，但不规定下一步动作。系统没有未经检查的提交动作，也没有独立的
+可选 replay 动作。只有从目标状态通过的同一份程序才能被交付。
 
 ```text
 在构建环境中启动一个连续 Agent session
@@ -82,11 +84,10 @@ Agent 自由检查仓库并改变构建环境，可以随时把当前解法整�
 while 尚无通过重放的程序且宽松安全上限未耗尽:
     Agent 自由观测并改变构建环境
     使用仓库反馈和可执行公开目标
-    if Agent 提出完整部署程序:
-        获得完整部署程序 P
+    if Agent 调用 submit(P):
+        y <- 从目标初始状态执行 P 和公开目标
     else:
         continue
-    y <- 从目标初始状态执行 P 和公开目标
     if y 通过:
         return P
     把 y 中第一个可执行反例返回同一 session
@@ -94,10 +95,10 @@ while 尚无通过重放的程序且宽松安全上限未耗尽:
 return failure
 ```
 
-算法保存程序和执行证据，不保存容器 checkpoint；既不决定怎样修环境，也不在 construction Pass 后
-强迫模型执行某个动作。修复 loop 仍在活跃推理 session 内，针对真正交付的完整程序，并从该程序实际
-面对的初始状态执行。更强模型扩展的是操作层能力，不会被 harness 限制修复策略。Verifier-triggered
-handoff 是已被否决的 treatment，不属于本文方法。
+算法保存程序和执行证据，不保存容器 checkpoint；既不决定何时提交、怎样修环境，也不规定失败提交后的
+下一步动作。修复 loop 仍在活跃推理 session 内，针对真正交付的完整程序，并从该程序实际面对的初始
+状态执行。更强模型扩展的是操作层能力，不会被 harness 限制修复策略。定时触发的 verifier handoff 是
+已被否决的 treatment，不属于本文方法。
 
 ## 4. 三项贡献
 
@@ -119,10 +120,14 @@ handoff 是已被否决的 treatment，不属于本文方法。
 ### 5.2 同模型机制拆分
 
 主因果实验在同一模型和执行条件下拆成三种接口：只有仓库反馈的自由搜索（`F`）、增加可执行公开目标的
-自由搜索（`F+O`），以及在同一 goal-aware session 中增加可反复调用目标状态重放（`F+O+R`）。第一个
+自由搜索（`F+O`），以及在同一 goal-aware session 中增加目标状态重放（`F+O+R`）。第一个
 对比检验占主导的观测层假设，第二个对比检验目标已经可见后，完整程序反例是否仍有增益。所有重放残余都
 只是 advisory，所有改变环境的操作仍由模型决定。历史 `deepseek-free-agent` 实际已经收到公开目标，
 因此过去写成 `A-F` 对 replay 的结果只能估计第二个对比，分析中应重标为 `F+O` 对 `F+O+R`。
+
+已消费机制实验把 replay 暴露成一个可调用动作，并发现强 Agent 即使在构造工作区达到过 Pass，也可能完全
+不调用它。因此前瞻算法把提交与 replay 合并为第 3 节的原子接口；系统仍不定时强迫提交，也不选择后续
+修复动作。
 
 主指标是 Official Pass@1。机制指标包括首次重放失败、反馈后程序变化、修复成功和 replay/Official
 一致性。资源指标包括请求、Token、时间、网络流量、存储和首次认证时间；同时报告无条件结果和成功条件
@@ -153,19 +158,26 @@ attempt 级重建包含 48 个 method--case row 和 38 条非成功记录。临�
 不含首轮标签的证据包覆盖全部 38 条非成功记录。独立复标完成前不报告一致率；临时计数不能充当 taxonomy
 可靠性证据。
 
-### 6.2 目标状态重放
+### 6.2 同模型机制证据
 
-早期轨迹系统发现 replay 继承构建缓存，导致通过认证的程序在 Official 中失败。隔离目标初始状态后，
-replay/Official 恢复一致，并暴露出没有进入最终程序的修复。两个 outcome-independent 开发 batch 中，
-goal-aware 自由搜索为 `6/8`，目标状态重放为 `7/8`；失败富集诊断为 `2/6` 对 `4/6`，并产生三次
-replay Fail-to-Pass 修复。这些是已消费开发 case 上的机制发现，不是总体成功率估计。
+基础设施删失和干净 replacement 执行后，每个 contrast 都剩三个已消费可配对 case。公开目标把一个 `F`
+失败变成 `F+O` Pass，另两个 pair 仍失败。Replay 保持一个双方都成功的 pair，把一个 `F+O` 失败变成
+`F+O+R` Pass，并在一个 hard case 上仍然失败。Replay 独有增益来自 Sphinx-Gallery：clean replay 暴露
+Git 对 fresh checkout 的 ownership 要求，同一 session 补入缺失操作，下一次 replay 和 Official 都通过。
+在唯一双方都成功的 pair 上，replay 多用 24 次模型请求、136 万 Token 和 1,904 秒。这些结果识别机制和
+tradeoff，不估计 held-out 成功率。
+
+Geoapps 是双方都失败的 hard case。正确解释器观测消除了数百个表观 import residual，但完整 Official
+目标还计入仓库中的过时导入和测试里故意缺失的导入。Goal-aware Agent 随后尝试缩小测量范围或创建源码/
+类型 shim，可选 replay 动作始终没有被激活。三臂都耗尽宽松请求上限而没有提交。该 case 支持原子
+submit-and-replay 和独立完整性评价轴，但不能证明“已经激活的 replay 无效”。
 
 ### 6.3 用证伪保持简单
 
 控制性更强的 treatment 没有保留。Prompt 引导提前程序化加 incumbent retention 从 `6/6` 退化到
 `5/6`；prospective forced-handoff pilot 从 `3/3` 退化到 `2/3`，没有 treatment-only Official Pass。
-因此 harness 不应替强 Agent 选择下一步操作。保留的方法只增加公开目标观测与完整程序目标状态重放。
-固定的 `F`、`F+O`、`F+O+R` 实验先隔离这两个增量，再进入 held-out 评测。
+因此 harness 不应替强 Agent 选择下一步操作。保留的方法只增加公开目标观测与原子的完整程序目标状态
+重放。下一组前瞻固定 batch 先检验该接口，再进入 held-out 评测。
 
 ## 7. 证伪条件与范围
 

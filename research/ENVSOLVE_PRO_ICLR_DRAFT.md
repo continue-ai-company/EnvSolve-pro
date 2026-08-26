@@ -1,6 +1,6 @@
 # EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-24; final same-model and held-out results pending
+Status: working ICLR paper draft, 2026-08-26; prospective atomic-replay and held-out results pending
 
 ## Abstract
 
@@ -15,9 +15,10 @@ failure into three causal layers: Observation, Constraint, and Operation. The an
 reveals two recurring gaps: Agents optimize repository-level proxy signals instead of the
 scored public goal, and a working construction state does not imply a program that
 reconstructs it. EnvSolve-Pro therefore keeps a capable Agent free in one continuous
-session, exposes the complete public goal, and lets it replay the complete deployment
-program from the target initial state. Replay counterexamples return to the same session
-as case-local evidence. The method adds no package-rule library, checkpoint search,
+session, exposes the complete public goal, and makes submission an atomic execution of the
+complete deployment program from the target initial state. Failed submissions return an
+executable counterexample to the same session as case-local evidence. The method adds no
+package-rule library, checkpoint search,
 cross-case memory, scheduled repair policy, or hard action rule.
 
 Consumed-development trajectories support the causal taxonomy and show same-session
@@ -101,10 +102,12 @@ package.
 
 ### Operation Layer
 
-The Agent freely inspects the repository and changes the construction environment. It may
-express the current solution as a complete program and invoke clean replay repeatedly. A
-replay failure returns evidence to the same session, without prescribing the next action.
-A candidate is returned only after that exact program passes from the target state.
+The Agent freely inspects the repository and changes the construction environment. When
+it submits a complete program, the harness atomically executes that program and the goal
+from the target initial state. A failed submission returns evidence to the same session,
+without prescribing the next action. There is no unchecked submission action and no
+separate optional replay action. A candidate is returned only after that exact program
+passes from the target state.
 
 ```text
 start one continuous Agent session in a construction environment
@@ -112,11 +115,10 @@ start one continuous Agent session in a construction environment
 while no replay-passing program exists and broad safety limits remain:
     Agent freely observes and changes the construction environment
     use repository feedback and the executable public goal
-    if the Agent proposes a complete deployment program:
-        obtain the complete deployment program P
+    if the Agent calls submit(P):
+        y <- execute P and the public goal from the target initial state
     else:
         continue
-    y <- execute P and the public goal from the target initial state
     if y passes:
         return P
     return the first executable counterexample in y to the same session
@@ -125,11 +127,11 @@ return failure
 ```
 
 The algorithm stores programs and execution evidence, not container checkpoints. It does
-not decide how to repair the environment or force a model action after a construction
-Pass. The repair loop remains inside the active reasoning session and operates on the
-complete deliverable from its actual initial state. Stronger models therefore enlarge the
-Operation layer instead of being restricted by it. The tested verifier-triggered handoff
-is rejected and is not part of the method.
+not decide when to submit, how to repair the environment, or which action follows a failed
+submission. The repair loop remains inside the active reasoning session and operates on
+the complete deliverable from its actual initial state. Stronger models therefore enlarge
+the Operation layer instead of being restricted by it. Scheduled verifier-triggered
+handoff is rejected and is not part of the method.
 
 ## 4. Contributions
 
@@ -159,13 +161,18 @@ success claims.
 
 The main causal experiment separates three interfaces under the same model and execution
 conditions: free search with repository feedback (`F`), free search plus an executable
-public goal (`F+O`), and the same goal-aware session plus repeatedly callable target-state
-replay (`F+O+R`). The first contrast tests the dominant Observation hypothesis; the second
-tests whether complete-program counterexamples add value after the goal is already visible.
+public goal (`F+O`), and the same goal-aware session plus target-state replay
+(`F+O+R`). The first contrast tests the dominant Observation hypothesis; the second tests
+whether complete-program counterexamples add value after the goal is already visible.
 All replay residuals are advisory, and all environment-changing operations remain model
 decisions. The historical `deepseek-free-agent` control already received the public goal,
 so earlier `A-F` versus replay results estimate only the second contrast and are relabeled
 `F+O` versus `F+O+R` in analysis.
+
+The consumed mechanism study exposed replay as a callable action and revealed that a
+strong Agent can ignore it even after reaching a construction-only Pass. The prospective
+algorithm therefore merges submission and replay into the atomic interface in Section 3;
+it does not schedule submission or select the subsequent repair.
 
 The primary metric is Official Pass@1. Mechanism outcomes include first-replay failure,
 feedback-conditioned program change, repair success, and replay/Official agreement.
@@ -208,15 +215,25 @@ A label-blinded evidence packet covers all 38 non-success rows. Agreement remain
 unreported until independent review is complete; provisional counts are not reliability
 evidence.
 
-### 6.2 Target-State Replay
+### 6.2 Same-Model Mechanism Evidence
 
-Early instrumentation found that replay inherited construction cache state, causing
-replay-certified programs to fail Official evaluation. Isolating the target initial state
-restored replay/Official agreement and exposed repairs that had been omitted from delivered
-programs. Across two outcome-independent development batches, goal-aware free search
-passed `6/8` and target-state replay passed `7/8`. A failure-enriched diagnostic produced
-`2/6` versus `4/6` and three replay Fail-to-Pass repairs. These are mechanism-discovery
-results on consumed development cases, not a general success estimate.
+After infrastructure censoring and clean replacement execution, three consumed cases
+remain paired for each contrast. Public-goal observation changes one `F` failure to an
+`F+O` Pass; two pairs remain failures. Replay preserves one shared Pass, changes one
+`F+O` failure to an `F+O+R` Pass, and leaves one hard case failed. The replay-only gain is
+Sphinx-Gallery: a clean replay exposed Git's fresh-checkout ownership requirement, the
+same session added the missing operation, and the next replay and Official evaluator
+passed. On the one common-success pair, replay costs 24 additional model requests,
+1.36M tokens, and 1,904 seconds. These results identify a mechanism and tradeoff; they do
+not estimate held-out success.
+
+Geoapps is the neither-Pass hard case. Correct interpreter observation removed hundreds
+of apparent import residuals, but the full Official goal also counted obsolete repository
+imports and imports intentionally missing in tests. Goal-aware Agents then tried to
+shrink the measurement scope or create source/type shims, while the optional replay action
+was never activated. All three arms exhausted the broad request cap without submission.
+This case motivates atomic submit-and-replay and a separate integrity axis; it does not
+support a claim that activated replay was ineffective.
 
 ### 6.3 Simplicity by Falsification
 
@@ -224,9 +241,8 @@ More controlling treatments were not retained. Prompt-guided early programizatio
 incumbent retention regressed from `6/6` to `5/6`; a prospective forced-handoff pilot
 regressed from `3/3` to `2/3`, with no treatment-only Official Pass. This evidence argues
 against making the harness choose the strong Agent's next operation. The retained method
-adds only public-goal observation and complete-program target-state replay. The fixed
-`F`, `F+O`, and `F+O+R` experiment now isolates those two additions before held-out
-evaluation.
+adds only public-goal observation and atomic complete-program target-state replay. The
+next prospective fixed batch tests this interface before held-out evaluation.
 
 ## 7. Falsification and Scope
 
