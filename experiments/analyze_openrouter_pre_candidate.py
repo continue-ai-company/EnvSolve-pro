@@ -126,7 +126,11 @@ def analyze_trajectory(path: Path, run_id: str | None = None) -> dict[str, Any]:
                         )
                 elif tool_name == "submit_bootstrap":
                     candidate_events.append((request_index, "submit-bootstrap"))
-                    if result.get("accepted") is True:
+                    if result.get("status") == "pass":
+                        certification_events.append(
+                            (request_index, "atomic-replay-pass")
+                        )
+                    elif result.get("accepted") is True:
                         certification_events.append(
                             (request_index, "accepted-submission")
                         )

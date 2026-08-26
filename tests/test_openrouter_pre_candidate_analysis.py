@@ -38,6 +38,17 @@ def _replay_event(request: int, status: str) -> str:
     )
 
 
+def _bootstrap_event(request: int, status: str) -> str:
+    return json.dumps(
+        {
+            "event": "tool_result",
+            "request_index": request,
+            "tool_name": "submit_bootstrap",
+            "result": {"status": status},
+        }
+    )
+
+
 def test_goal_satisfaction_does_not_imply_candidate_formation() -> None:
     records = [
         _event(1, "ls", "files"),
@@ -179,3 +190,20 @@ def test_goal_to_candidate_delay_is_measured_separately() -> None:
     assert result["goal_to_candidate_request_delta"] == 3
     assert result["goal_satisfied_without_candidate"] is False
     assert result["pre_candidate"]["shell_actions"] == 2
+
+
+def test_atomic_bootstrap_pass_is_a_certification_boundary() -> None:
+    records = [
+        _event(1, "goal", '{"issues_count": 0}'),
+        _bootstrap_event(3, "fail"),
+        _bootstrap_event(5, "pass"),
+    ]
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "trajectory.jsonl"
+        path.write_text("\n".join(records) + "\n", encoding="utf-8")
+        result = analyze_trajectory(path)
+
+    assert result["first_candidate_request"] == 3
+    assert result["first_candidate_source"] == "submit-bootstrap"
+    assert result["first_certification_request"] == 5
+    assert result["first_certification_source"] == "atomic-replay-pass"
