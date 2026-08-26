@@ -169,6 +169,26 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
             "package-index-dns-exhaustion",
         )
 
+    def test_classifies_exhausted_package_index_read_timeout_before_pip_error(
+        self,
+    ) -> None:
+        self.assertEqual(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "Retrying after ReadTimeoutError while requesting "
+                        "/simple/setuptools/\n"
+                        "ERROR: Could not find a version that satisfies the "
+                        "requirement setuptools\n"
+                        "ERROR: No matching distribution found for setuptools\n"
+                    ),
+                    "pyright": {},
+                }
+            ),
+            "package-index-read-timeout-exhaustion",
+        )
+
     def test_does_not_censor_a_named_requirement_with_a_bad_hash(self) -> None:
         self.assertIsNone(
             envbench_bootstrap_infrastructure_signature(

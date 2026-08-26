@@ -22,6 +22,11 @@ _NETWORK_FAILURES = tuple(
             r"Could not resolve host)[\s\S]{0,12000}"
             r"No matching distribution found",
         ),
+        (
+            "package-index-read-timeout-exhaustion",
+            r"ReadTimeout(?:Error)?[\s\S]{0,12000}"
+            r"No matching distribution found",
+        ),
         ("tls-timeout", r"TLSV?\s+handshake.*timed out"),
         (
             "git-rpc-tls-truncation",

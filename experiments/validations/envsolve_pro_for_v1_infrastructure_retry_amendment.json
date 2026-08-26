@@ -1,0 +1,81 @@
+{
+  "schema": "envsolve-pro-for-v1-infrastructure-retry-amendment-v1",
+  "study_id": "envsolve-pro-for-v1-consumed6",
+  "recorded_at": "2026-08-26T03:43:39Z",
+  "status": "recorded-before-retry-execution",
+  "reason": "A concurrent 18 GB non-study download on the shared Spark host caused package-index timeouts during generation, clean replay, and Official evaluation.",
+  "claim_policy": {
+    "original_attempts": "Retain for descriptive trajectory analysis but exclude infrastructure-censored outcomes from paired effectiveness estimates.",
+    "official_retries": "Run the exact frozen bootstrap once without reexecuting the model.",
+    "geoapps_replacement": "Replace the complete three-arm triplet so no arm receives selective retry treatment.",
+    "unaffected_episodes": "Do not rerun."
+  },
+  "official_exact_script_retries": [
+    {
+      "position": 4,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "source_run_id": "pro-for-v1-consumed6-04-pyrollbar-FO",
+      "retry_run_id": "pro-for-v1-consumed6-04-pyrollbar-FO-official-infra-retry1",
+      "infrastructure_signature": "package-index-read-timeout-exhaustion"
+    },
+    {
+      "position": 6,
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "source_run_id": "pro-for-v1-consumed6-06-pyrollbar-F",
+      "retry_run_id": "pro-for-v1-consumed6-06-pyrollbar-F-official-infra-retry1",
+      "infrastructure_signature": "read-timeout"
+    },
+    {
+      "position": 8,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "source_run_id": "pro-for-v1-consumed6-08-langgraph-F",
+      "retry_run_id": "pro-for-v1-consumed6-08-langgraph-F-official-infra-retry1",
+      "infrastructure_signature": "read-timeout"
+    },
+    {
+      "position": 9,
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "source_run_id": "pro-for-v1-consumed6-09-langgraph-FO",
+      "retry_run_id": "pro-for-v1-consumed6-09-langgraph-FO-official-infra-retry1",
+      "infrastructure_signature": "read-timeout"
+    },
+    {
+      "position": 16,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "source_run_id": "pro-for-v1-consumed6-16-nonebot2-FO",
+      "retry_run_id": "pro-for-v1-consumed6-16-nonebot2-FO-official-infra-retry1",
+      "infrastructure_signature": "connection-error"
+    },
+    {
+      "position": 17,
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "source_run_id": "pro-for-v1-consumed6-17-nonebot2-F",
+      "retry_run_id": "pro-for-v1-consumed6-17-nonebot2-F-official-infra-retry1",
+      "infrastructure_signature": "connection-error"
+    }
+  ],
+  "paired_episode_replacement": {
+    "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+    "positions": [10, 11, 12],
+    "schedule": "experiments/schedules/envsolve_pro_for_v1_geoapps_infra_retry1.json",
+    "evidence": [
+      "The F+O+R first replay ended after PyPI ReadTimeout and misleading package-resolution errors.",
+      "The F+O+R second replay ended after 1800 seconds with Conda and PyPI connection failures.",
+      "All three arms overlapped the same host-wide non-study download and reached the request safety cap without a submitted program."
+    ],
+    "replacement_rule": "Use the replacement triplet for paired effectiveness. Retain the original triplet only as infrastructure-tainted trajectory evidence.",
+    "model_reexecuted": true,
+    "same_seed_requested": true,
+    "determinism_guaranteed": false,
+    "maximum_replacement_triplets_after_this": 0
+  },
+  "method_validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "tool_change": false,
+    "model_change": false,
+    "provider_change": false,
+    "protocol_change": false,
+    "official_feedback_returned_to_agent": false
+  }
+}
