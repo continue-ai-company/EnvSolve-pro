@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-for-v1-geoapps-infra-retry2",
+  "case_file": "experiments/cases/dev_pro_bad_case_census_v1_209.jsonl",
+  "case_file_sha256": "85d0d878a1f5f7ae70f9f93ec31e57cc99989a153c835adee94c56a49e0c6753",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "population_role": "complete-triplet-replacement-after-experimenter-censored-pre-submission-attempt",
+  "episodes": [
+    {
+      "position": 1,
+      "original_position": 10,
+      "case_index": 11,
+      "pair_id": "for-v1-case-11",
+      "arm": "F",
+      "runner": "deepseek-repository-agent",
+      "method": "free-feedback-search-repository-signals",
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "seed": 824011,
+      "run_id": "pro-for-v1-consumed6-10-geoapps-F-infra-retry2"
+    },
+    {
+      "position": 2,
+      "original_position": 11,
+      "case_index": 11,
+      "pair_id": "for-v1-case-11",
+      "arm": "F+O+R",
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "seed": 824011,
+      "run_id": "pro-for-v1-consumed6-11-geoapps-FOR-infra-retry2"
+    },
+    {
+      "position": 3,
+      "original_position": 12,
+      "case_index": 11,
+      "pair_id": "for-v1-case-11",
+      "arm": "F+O",
+      "runner": "deepseek-goal-aware-agent",
+      "method": "free-feedback-search-public-goal",
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "seed": 824011,
+      "run_id": "pro-for-v1-consumed6-12-geoapps-FO-infra-retry2"
+    }
+  ]
+}

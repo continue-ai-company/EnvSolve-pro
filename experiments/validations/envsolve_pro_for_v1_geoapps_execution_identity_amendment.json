@@ -1,0 +1,32 @@
+{
+  "schema": "envsolve-pro-for-v1-execution-identity-amendment-v1",
+  "study_id": "envsolve-pro-for-v1-consumed6",
+  "recorded_at": "2026-08-26T04:09:41Z",
+  "status": "recorded-before-retry2-execution",
+  "affected_case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+  "invalid_attempt": {
+    "schedule": "experiments/schedules/envsolve_pro_for_v1_geoapps_infra_retry1.json",
+    "run_id": "pro-for-v1-consumed6-10-geoapps-F-infra-retry1",
+    "state": "experimenter-censored-before-submission",
+    "reason": "The Spark manifest recorded dirty=true because committed local changes had been copied as files instead of synchronized as Git commits.",
+    "generation_completed": false,
+    "submitted_program_formed": false,
+    "official_evaluation_started": false,
+    "include_in_effectiveness_analysis": false,
+    "retain_for_audit": true
+  },
+  "correction": {
+    "schedule": "experiments/schedules/envsolve_pro_for_v1_geoapps_infra_retry2.json",
+    "scope": "complete-three-arm-triplet",
+    "harness_revision": "clean committed revision recorded by each run manifest",
+    "harness_dirty": false,
+    "model_change": false,
+    "provider_change": false,
+    "prompt_change": false,
+    "tool_change": false,
+    "protocol_change": false,
+    "seed_change": false,
+    "arm_order_change": false
+  },
+  "claim_policy": "Only retry2 may replace original positions 10-12. Retry1 remains an experimenter-censored audit trail and is never combined with retry2."
+}
