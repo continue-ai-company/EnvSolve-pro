@@ -368,6 +368,36 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             ["F", "public-O", "soft-C", "R", "atomic-delivery", "minimal-H"],
         )
 
+    def test_atomic_handoff_keeps_atomic_action_signature(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            atomic = self._runner(root, "atomic")
+            handoff = self._runner(root, "atomic-handoff")
+            prompt = handoff._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(handoff._tools(), atomic._tools())
+        self.assertNotIn("submit_and_replay", prompt)
+        self.assertIn("single atomic delivery action", prompt)
+        self.assertIn("automatically executes the complete public goal", prompt)
+        self.assertEqual(
+            handoff.agent_interface,
+            "free-feedback-search+scheduled-trusted-goal-observation+"
+            "verified-atomic-handoff-v1",
+        )
+        self.assertEqual(
+            handoff.mechanism_primitives,
+            [
+                "F",
+                "scheduled-O",
+                "verified-atomic-handoff",
+                "soft-C",
+                "R",
+                "minimal-H",
+            ],
+        )
+
     def test_deepseek_direct_uses_first_party_route_and_thinking_parameters(self) -> None:
         created: dict[str, object] = {}
 
@@ -699,6 +729,131 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertIn(
             "replay-returned-for-free-repair",
             [item["transition"] for item in metadata["verifier_handoff"]["events"]],
+        )
+
+    def test_candidate_ready_forces_atomic_delivery_then_restores_free_repair(
+        self,
+    ) -> None:
+        first_program = "false"
+        second_program = "python -m venv .venv\nsource .venv/bin/activate"
+
+        class FailThenPassReplay(FakeReplayService):
+            def __init__(self) -> None:
+                super().__init__(second_program)
+                self.calls = 0
+
+            def submit(self, program: str) -> dict[str, object]:
+                self.calls += 1
+                if self.calls == 1:
+                    return {
+                        "status": "fail",
+                        "phase": "clean-replay",
+                        "replay_id": "replay-1",
+                        "program_sha256": script_sha256(program),
+                        "verification": {
+                            "summary": "bootstrap failed",
+                            "bootstrap": {
+                                "exit_code": 1,
+                                "stdout": "",
+                                "stderr": "failed",
+                                "duration_seconds": 1.0,
+                            },
+                            "counterexamples": {"json": "[]", "truncated": False},
+                            "details": {"json": "{}", "truncated": False},
+                        },
+                    }
+                return super().submit(program)
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "submit_bootstrap",
+                        {"program": first_program, "summary": "first attempt"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "submit_bootstrap",
+                        {"program": second_program, "summary": "repair"},
+                    )
+                ),
+            ]
+        )
+        compatibility = CandidateReadyCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility)
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "atomic-handoff")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FailThenPassReplay(),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(submission["program_sha256"], script_sha256(second_program))
+        self.assertEqual(
+            client.chat.completions.requests[0]["tool_choice"],
+            {"type": "function", "function": {"name": "submit_bootstrap"}},
+        )
+        self.assertEqual(client.chat.completions.requests[1]["tool_choice"], "auto")
+        self.assertEqual(metadata["tool_counts"]["submit_bootstrap"], 2)
+        self.assertEqual(metadata["replay_status_counts"], {"fail": 1, "pass": 1})
+        self.assertEqual(metadata["verifier_handoff"]["trigger_count"], 1)
+        self.assertEqual(metadata["verifier_handoff"]["forced_model_requests"], 1)
+        self.assertEqual(
+            [item["transition"] for item in metadata["verifier_handoff"]["events"]],
+            [
+                "candidate-ready",
+                "replay-returned-for-free-repair",
+            ],
+        )
+
+    def test_candidate_ready_atomic_delivery_returns_passing_program(self) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "submit_bootstrap",
+                        {"program": program, "summary": "ready"},
+                    )
+                )
+            ]
+        )
+        compatibility = CandidateReadyCompatibilityService()
+        scheduled = ScheduledCompatibilityObserver(compatibility)
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "atomic-handoff")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                scheduled_observer=scheduled,
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(submission["program_sha256"], script_sha256(program))
+        self.assertEqual(metadata["model_requests"], 1)
+        self.assertEqual(metadata["tool_counts"]["submit_bootstrap"], 1)
+        self.assertEqual(metadata["replay_status_counts"], {"pass": 1})
+        self.assertEqual(
+            metadata["verifier_handoff"]["termination_reason"],
+            "verifier-triggered-replay-pass",
+        )
+        self.assertEqual(
+            [item["transition"] for item in metadata["verifier_handoff"]["events"]],
+            ["candidate-ready", "clean-replay-pass-returned"],
         )
 
     def test_incomplete_goal_observation_does_not_force_handoff(self) -> None:

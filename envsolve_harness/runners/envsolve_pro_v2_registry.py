@@ -77,6 +77,12 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-atomic-submit-replay",
             _factory("atomic"),
         )
+    if "envsolve-pro-v2-atomic-handoff" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-atomic-handoff",
+            "envsolve-pro-verified-atomic-handoff",
+            _factory("atomic-handoff"),
+        )
     if "envsolve-pro-v2" not in registered:
         register_solver_runner(
             "envsolve-pro-v2",

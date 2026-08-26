@@ -32,6 +32,7 @@ PROVIDER_API_RUNNERS = frozenset(
         "deepseek-goal-aware-agent",
         "deepseek-free-agent",
         "envsolve-pro-v2-atomic",
+        "envsolve-pro-v2-atomic-handoff",
         "envsolve-pro-v2",
         "envsolve-pro-v2-incumbent",
         "envsolve-pro-v2-ledger",

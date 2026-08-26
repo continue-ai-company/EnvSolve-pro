@@ -64,6 +64,7 @@ DEEPSEEK_DIRECT_BASE_URL = "https://api.deepseek.com"
 ReplayMode = Literal[
     "none",
     "atomic",
+    "atomic-handoff",
     "soft",
     "incumbent",
     "ledger",
@@ -251,7 +252,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     """One continuous OpenAI-compatible deployment session."""
 
     runner_name = "openrouter-continuous-agent"
-    runner_version = "0.8.0"
+    runner_version = "0.9.0"
 
     def __init__(
         self,
@@ -277,6 +278,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
         if replay_mode not in {
             "none",
             "atomic",
+            "atomic-handoff",
             "soft",
             "incumbent",
             "ledger",
@@ -285,8 +287,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "stateful",
         }:
             raise ValueError(
-                "Replay mode must be none, atomic, soft, incumbent, ledger, "
-                "scheduled, handoff, or stateful"
+                "Replay mode must be none, atomic, atomic-handoff, soft, "
+                "incumbent, ledger, scheduled, handoff, or stateful"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -330,6 +332,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
     def agent_interface(self) -> str:
         if not self.public_goal_visible:
             return "free-repository-feedback-search-v1"
+        if self.atomic_handoff_enabled:
+            return (
+                "free-feedback-search+scheduled-trusted-goal-observation+"
+                "verified-atomic-handoff-v1"
+            )
         if self.atomic_submission_enabled:
             return "free-feedback-search+atomic-submit-clean-replay-v1"
         if self.verifier_handoff_enabled:
@@ -359,6 +366,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
     def replay_enabled(self) -> bool:
         return self.replay_mode in {
             "atomic",
+            "atomic-handoff",
             "soft",
             "incumbent",
             "ledger",
@@ -369,7 +377,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def atomic_submission_enabled(self) -> bool:
-        return self.replay_mode == "atomic"
+        return self.replay_mode in {"atomic", "atomic-handoff"}
+
+    @property
+    def atomic_handoff_enabled(self) -> bool:
+        return self.replay_mode == "atomic-handoff"
 
     @property
     def incumbent_enabled(self) -> bool:
@@ -381,11 +393,16 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def scheduled_observation_enabled(self) -> bool:
-        return self.replay_mode in {"scheduled", "handoff", "stateful"}
+        return self.replay_mode in {
+            "atomic-handoff",
+            "scheduled",
+            "handoff",
+            "stateful",
+        }
 
     @property
     def verifier_handoff_enabled(self) -> bool:
-        return self.replay_mode == "handoff"
+        return self.replay_mode in {"atomic-handoff", "handoff"}
 
     @property
     def stateful_replay_constraints_enabled(self) -> bool:
@@ -399,6 +416,15 @@ class OpenRouterAgentRunner(CodexCliRunner):
     def mechanism_primitives(self) -> list[str]:
         if not self.public_goal_visible:
             return ["F", "minimal-H"]
+        if self.atomic_handoff_enabled:
+            return [
+                "F",
+                "scheduled-O",
+                "verified-atomic-handoff",
+                "soft-C",
+                "R",
+                "minimal-H",
+            ]
         if self.atomic_submission_enabled:
             return ["F", "public-O", "soft-C", "R", "atomic-delivery", "minimal-H"]
         if self.verifier_handoff_enabled:
@@ -1000,6 +1026,12 @@ never selects packages, blocks commands, or restores an environment.
             return True
 
         def handoff_message(observation: dict[str, Any]) -> dict[str, str]:
+            delivery_action = (
+                "call submit_bootstrap now; that single action will atomically "
+                "clean-replay the program"
+                if self.atomic_handoff_enabled
+                else "call submit_and_replay now"
+            )
             return {
                 "role": "user",
                 "content": (
@@ -1007,7 +1039,7 @@ never selects packages, blocks commands, or restores an environment.
                     "Pass (candidate_ready=true) in the active construction state. "
                     "Before any optional completeness work, compile the reproducible "
                     "operations that produced this state into one cumulative bootstrap "
-                    "program and call submit_and_replay now. If replay fails, its exact "
+                    f"program and {delivery_action}. If replay fails, its exact "
                     "evidence will return to this same session for free repair."
                 ),
             }
@@ -1112,7 +1144,13 @@ never selects packages, blocks commands, or restores an environment.
             if self.verifier_handoff_enabled and handoff_pending:
                 options["tool_choice"] = {
                     "type": "function",
-                    "function": {"name": "submit_and_replay"},
+                    "function": {
+                        "name": (
+                            "submit_bootstrap"
+                            if self.atomic_handoff_enabled
+                            else "submit_and_replay"
+                        )
+                    },
                 }
                 handoff_forced_requests += 1
             try:
@@ -1384,6 +1422,34 @@ never selects packages, blocks commands, or restores an environment.
                                 replay_status_counts[status] = (
                                     replay_status_counts.get(status, 0) + 1
                                 )
+                            if self.atomic_handoff_enabled and handoff_pending:
+                                replay_id = (
+                                    payload.get("replay_id")
+                                    if isinstance(payload, dict)
+                                    else None
+                                )
+                                if status == "pass" and submission is not None:
+                                    handoff_pending = False
+                                    handoff_events.append(
+                                        {
+                                            "transition": "clean-replay-pass-returned",
+                                            "request_index": request_index,
+                                            "replay_id": replay_id,
+                                            "program_sha256": submission.get(
+                                                "program_sha256"
+                                            ),
+                                        }
+                                    )
+                                elif status is not None:
+                                    handoff_pending = False
+                                    handoff_events.append(
+                                        {
+                                            "transition": "replay-returned-for-free-repair",
+                                            "request_index": request_index,
+                                            "replay_id": replay_id,
+                                            "replay_status": status,
+                                        }
+                                    )
                         else:
                             payload, submission = self._submit(arguments, replay_service)
                     else:

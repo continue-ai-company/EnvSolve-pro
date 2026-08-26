@@ -21,6 +21,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         self.assertIn("deepseek-goal-aware-agent", registered)
         self.assertIn("deepseek-free-agent", registered)
         self.assertIn("envsolve-pro-v2-atomic", registered)
+        self.assertIn("envsolve-pro-v2-atomic-handoff", registered)
         self.assertIn("envsolve-pro-v2", registered)
         self.assertIn("envsolve-pro-v2-incumbent", registered)
         self.assertIn("envsolve-pro-v2-ledger", registered)
@@ -31,6 +32,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
     def test_openrouter_preflight_requires_only_the_openrouter_key(self) -> None:
         identities = [
             {"runner": "envsolve-pro-v2-atomic"},
+            {"runner": "envsolve-pro-v2-atomic-handoff"},
             {"runner": "envsolve-pro-v2"},
             {"runner": "envsolve-pro-v2-verifier-handoff"},
             {"runner": "envsolve-pro-v2-stateful-replay"},
