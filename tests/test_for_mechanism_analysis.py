@@ -1,6 +1,13 @@
 import json
+from pathlib import Path
 
-from experiments.analyze_for_mechanism import _replay_mechanism, analyze
+import pytest
+
+from experiments.analyze_for_mechanism import (
+    _replay_mechanism,
+    _resolve_replacement_schedules,
+    analyze,
+)
 
 
 METHODS = {
@@ -160,3 +167,36 @@ def test_aggregates_replay_activation_and_repair() -> None:
     assert replay["fail_to_pass_repair"] == 1
     assert replay["program_changed_after_failure"] == 1
     assert replay["replay_official_agreement"] == {"measured": 1, "agrees": 1}
+
+
+def test_resolves_multi_episode_replacement_to_original_positions() -> None:
+    root = Path(__file__).resolve().parents[1]
+    schedule, sources = _resolve_replacement_schedules(
+        root / "experiments/schedules/envsolve_pro_for_v1_consumed6.json",
+        [root / "experiments/schedules/envsolve_pro_for_v1_geoapps_infra_retry2.json"],
+    )
+
+    episodes = {episode["position"]: episode for episode in schedule["episodes"]}
+    assert episodes[10]["run_id"].endswith("geoapps-F-infra-retry2")
+    assert episodes[11]["run_id"].endswith("geoapps-FOR-infra-retry2")
+    assert episodes[12]["run_id"].endswith("geoapps-FO-infra-retry2")
+    assert sources[0]["original_positions"] == [10, 11, 12]
+
+
+def test_replacement_rejects_changed_treatment_identity(tmp_path: Path) -> None:
+    root = Path(__file__).resolve().parents[1]
+    source = json.loads(
+        (
+            root
+            / "experiments/schedules/envsolve_pro_for_v1_geoapps_infra_retry2.json"
+        ).read_text(encoding="utf-8")
+    )
+    source["episodes"][0]["method"] = "changed-method"
+    replacement = tmp_path / "replacement.json"
+    replacement.write_text(json.dumps(source), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="Replacement method differs"):
+        _resolve_replacement_schedules(
+            root / "experiments/schedules/envsolve_pro_for_v1_consumed6.json",
+            [replacement],
+        )

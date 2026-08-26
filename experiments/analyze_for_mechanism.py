@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from statistics import median
 import sys
+import tempfile
 from typing import Any
 
 
@@ -14,8 +15,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from envsolve_harness.core.io import write_json
+from envsolve_harness.core.io import read_json, write_json
 from envsolve_harness.results_v2 import _paired_aggregate_v2, summarize_schedule
+from envsolve_harness.utils.provenance import sha256_file
+from experiments.run_schedule import _validate_schedule
 from experiments.summarize_schedule_v2 import _attach_coordinator_progress
 
 
@@ -38,6 +41,106 @@ REPLAY_TRACE_CANDIDATES = (
     Path("generation/clean-replay/replays.jsonl"),
     Path("generation/minimal-b/replays.jsonl"),
 )
+REPLACEMENT_IDENTITY_FIELDS = ("case_id", "method", "seed", "pair_id")
+
+
+def _project_path(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(ROOT))
+    except ValueError:
+        return str(resolved)
+
+
+def _resolve_replacement_schedules(
+    schedule_path: Path,
+    replacement_paths: list[Path],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    resolved_schedule_path = schedule_path.resolve()
+    schedule = read_json(resolved_schedule_path)
+    _validate_schedule(resolved_schedule_path, schedule)
+    episodes = schedule.get("episodes")
+    if not isinstance(episodes, list):
+        raise ValueError("Schedule must contain an episode list")
+    originals = {int(episode["position"]): dict(episode) for episode in episodes}
+    replacements: dict[int, dict[str, Any]] = {}
+    sources = []
+    for path in replacement_paths:
+        resolved = path.resolve()
+        replacement_schedule = read_json(resolved)
+        _validate_schedule(resolved, replacement_schedule)
+        replacement_episodes = replacement_schedule.get("episodes")
+        if not isinstance(replacement_episodes, list):
+            raise ValueError(f"Replacement schedule has no episode list: {resolved}")
+        positions = []
+        for replacement in replacement_episodes:
+            if not isinstance(replacement, dict):
+                raise ValueError(f"Replacement episode must be an object: {resolved}")
+            original_position = replacement.get("original_position")
+            if not isinstance(original_position, int) or original_position not in originals:
+                raise ValueError(
+                    f"Replacement targets unknown original position: {resolved}"
+                )
+            if original_position in replacements:
+                raise ValueError(
+                    f"Duplicate replacement for original position {original_position}"
+                )
+            original = originals[original_position]
+            for field in REPLACEMENT_IDENTITY_FIELDS:
+                if replacement.get(field) != original.get(field):
+                    raise ValueError(
+                        f"Replacement {field} differs at original position "
+                        f"{original_position}: {resolved}"
+                    )
+            replacements[original_position] = {
+                **original,
+                **replacement,
+                "position": original_position,
+            }
+            positions.append(original_position)
+        sources.append(
+            {
+                "path": _project_path(resolved),
+                "sha256": sha256_file(resolved),
+                "original_positions": positions,
+            }
+        )
+    resolved_episodes = [
+        replacements.get(int(episode["position"]), dict(episode))
+        for episode in episodes
+    ]
+    run_ids = [str(episode["run_id"]) for episode in resolved_episodes]
+    if len(run_ids) != len(set(run_ids)):
+        raise ValueError("Resolved schedule run_id values must be unique")
+    return {**schedule, "episodes": resolved_episodes}, sources
+
+
+def _summarize_resolved_schedule(
+    schedule_path: Path,
+    replacement_paths: list[Path],
+    runs_root: Path,
+) -> dict[str, Any]:
+    schedule, replacements = _resolve_replacement_schedules(
+        schedule_path,
+        replacement_paths,
+    )
+    if not replacements:
+        return summarize_schedule(schedule_path, runs_root)
+    with tempfile.TemporaryDirectory() as directory:
+        resolved_path = Path(directory) / schedule_path.name
+        resolved_path.write_text(
+            json.dumps(schedule, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        summary = summarize_schedule(resolved_path, runs_root)
+    summary["schedule"] = {
+        "path": _project_path(schedule_path),
+        "sha256": sha256_file(schedule_path.resolve()),
+        "case_file": schedule.get("case_file"),
+        "case_file_sha256": schedule.get("case_file_sha256"),
+        "replacement_schedules": replacements,
+    }
+    return summary
 
 
 def _replay_mechanism(
@@ -298,9 +401,19 @@ def main() -> int:
     parser.add_argument("--runs-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--progress", type=Path, action="append", default=[])
+    parser.add_argument(
+        "--replacement-schedule",
+        type=Path,
+        action="append",
+        default=[],
+    )
     args = parser.parse_args()
 
-    summary = summarize_schedule(args.schedule, args.runs_root)
+    summary = _summarize_resolved_schedule(
+        args.schedule,
+        args.replacement_schedule,
+        args.runs_root,
+    )
     _attach_replay_mechanisms(summary["runs"], args.runs_root.resolve())
     if args.progress:
         _attach_coordinator_progress(summary, args.progress)
