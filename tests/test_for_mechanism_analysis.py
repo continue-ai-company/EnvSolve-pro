@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from experiments.analyze_for_mechanism import (
+    _apply_infrastructure_amendment,
     _replay_mechanism,
     _resolve_replacement_schedules,
     analyze,
@@ -200,3 +201,56 @@ def test_replacement_rejects_changed_treatment_identity(tmp_path: Path) -> None:
             root / "experiments/schedules/envsolve_pro_for_v1_consumed6.json",
             [replacement],
         )
+
+
+def test_infrastructure_amendment_censors_source_without_using_retry(
+    tmp_path: Path,
+) -> None:
+    summary = {
+        "schedule": {"path": "schedule.json"},
+        "descriptive": {},
+        "scientific": {},
+        "runs": [
+            {
+                "position": 4,
+                "case_id": "owner/repo@abc",
+                "run_id": "source-run",
+                "artifact_integrity_valid": True,
+                "scientifically_eligible": True,
+                "eligibility": {
+                    "eligible": True,
+                    "classification": "scientifically_eligible",
+                    "exclusion_reasons": [],
+                },
+                "descriptive_terminal": "official_fail",
+                "official_pass": False,
+            }
+        ],
+    }
+    amendment = tmp_path / "amendment.json"
+    amendment.write_text(
+        json.dumps(
+            {
+                "official_exact_script_retries": [
+                    {
+                        "position": 4,
+                        "case_id": "owner/repo@abc",
+                        "source_run_id": "source-run",
+                        "retry_run_id": "retry-run",
+                        "infrastructure_signature": "read-timeout",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    _apply_infrastructure_amendment(summary, amendment, tmp_path / "runs")
+
+    run = summary["runs"][0]
+    assert run["official_pass"] is None
+    assert run["scientifically_eligible"] is False
+    assert run["descriptive_terminal"] == "infrastructure_censored"
+    assert run["infrastructure_adjudication"]["observed_official_pass"] is False
+    assert summary["scientific"]["eligible_runs"] == 0
+    assert summary["descriptive"]["official_fail"] == 0

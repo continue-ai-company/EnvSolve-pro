@@ -1,0 +1,74 @@
+{
+  "schema": "envsolve-pro-for-v1-official-retry-identity-adjudication-v1",
+  "study_id": "envsolve-pro-for-v1-consumed6",
+  "recorded_at": "2026-08-26T04:24:50Z",
+  "status": "post-execution-adjudication",
+  "reason": "The exact-script retries were launched after committed local changes had been copied to Spark as files. Every retry manifest therefore recorded harness.dirty=true.",
+  "policy": {
+    "source_outcomes": "Remain infrastructure-censored in primary effectiveness analysis.",
+    "retry_outcomes": "Retain as descriptive exact-script evidence only.",
+    "override_primary_outcome": false,
+    "selective_rerun": false
+  },
+  "retries": [
+    {
+      "position": 4,
+      "run_id": "pro-for-v1-consumed6-04-pyrollbar-FO-official-infra-retry1",
+      "audit_valid": true,
+      "harness_dirty": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "scientific_use": "descriptive-only"
+    },
+    {
+      "position": 6,
+      "run_id": "pro-for-v1-consumed6-06-pyrollbar-F-official-infra-retry1",
+      "audit_valid": true,
+      "harness_dirty": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "scientific_use": "descriptive-only"
+    },
+    {
+      "position": 8,
+      "run_id": "pro-for-v1-consumed6-08-langgraph-F-official-infra-retry1",
+      "audit_valid": true,
+      "harness_dirty": true,
+      "evaluation_completed": true,
+      "official_pass": false,
+      "scientific_use": "descriptive-only"
+    },
+    {
+      "position": 9,
+      "run_id": "pro-for-v1-consumed6-09-langgraph-FO-official-infra-retry1",
+      "audit_valid": true,
+      "harness_dirty": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "scientific_use": "descriptive-only"
+    },
+    {
+      "position": 16,
+      "run_id": "pro-for-v1-consumed6-16-nonebot2-FO-official-infra-retry1",
+      "audit_valid": true,
+      "harness_dirty": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "scientific_use": "descriptive-only"
+    },
+    {
+      "position": 17,
+      "run_id": "pro-for-v1-consumed6-17-nonebot2-F-official-infra-retry1",
+      "audit_valid": true,
+      "harness_dirty": true,
+      "evaluation_completed": true,
+      "official_pass": true,
+      "scientific_use": "descriptive-only"
+    }
+  ],
+  "descriptive_pattern": {
+    "pyrollbar": "F failed; F+O passed",
+    "langgraph": "F failed; F+O passed",
+    "nonebot2": "F and F+O both passed"
+  }
+}

@@ -15,8 +15,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from envsolve_harness.audit import audit_run
 from envsolve_harness.core.io import read_json, write_json
 from envsolve_harness.results_v2 import _paired_aggregate_v2, summarize_schedule
+from envsolve_harness.storage.artifacts import safe_name
 from envsolve_harness.utils.provenance import sha256_file
 from experiments.run_schedule import _validate_schedule
 from experiments.summarize_schedule_v2 import _attach_coordinator_progress
@@ -141,6 +143,130 @@ def _summarize_resolved_schedule(
         "replacement_schedules": replacements,
     }
     return summary
+
+
+def _recompute_summary_counts(summary: dict[str, Any]) -> None:
+    runs = summary["runs"]
+    summary["descriptive"] = {
+        "runs": len(runs),
+        "artifact_integrity_valid": sum(
+            run.get("artifact_integrity_valid") is True for run in runs
+        ),
+        "official_pass": sum(run.get("official_pass") is True for run in runs),
+        "official_fail": sum(run.get("official_pass") is False for run in runs),
+    }
+    summary["scientific"] = {
+        "eligible_runs": sum(
+            run.get("scientifically_eligible") is True for run in runs
+        ),
+        "excluded_runs": sum(
+            run.get("scientifically_eligible") is not True for run in runs
+        ),
+        "official_pass": sum(
+            run.get("scientifically_eligible") is True
+            and run.get("official_pass") is True
+            for run in runs
+        ),
+        "official_fail": sum(
+            run.get("scientifically_eligible") is True
+            and run.get("official_pass") is False
+            for run in runs
+        ),
+    }
+
+
+def _apply_infrastructure_amendment(
+    summary: dict[str, Any],
+    amendment_path: Path,
+    runs_root: Path,
+) -> None:
+    resolved = amendment_path.resolve()
+    amendment = read_json(resolved)
+    retries = amendment.get("official_exact_script_retries")
+    if not isinstance(retries, list):
+        raise ValueError("Infrastructure amendment has no official retry list")
+    by_position = {int(run["position"]): run for run in summary["runs"]}
+    for retry in retries:
+        if not isinstance(retry, dict):
+            raise ValueError("Infrastructure retry entry must be an object")
+        position = retry.get("position")
+        if not isinstance(position, int) or position not in by_position:
+            raise ValueError(f"Infrastructure amendment targets unknown position {position}")
+        run = by_position[position]
+        for amendment_field, run_field in (
+            ("case_id", "case_id"),
+            ("source_run_id", "run_id"),
+        ):
+            if retry.get(amendment_field) != run.get(run_field):
+                raise ValueError(
+                    f"Infrastructure amendment {amendment_field} mismatch at "
+                    f"position {position}"
+                )
+        adjudication: dict[str, Any] = {
+            "classification": "infrastructure-censored",
+            "infrastructure_signature": retry.get("infrastructure_signature"),
+            "observed_terminal": run.get("descriptive_terminal"),
+            "observed_official_pass": run.get("official_pass"),
+            "retry_run_id": retry.get("retry_run_id"),
+            "primary_effectiveness_use": False,
+        }
+        retry_run_id = retry.get("retry_run_id")
+        if isinstance(retry_run_id, str):
+            retry_root = (
+                runs_root.resolve()
+                / safe_name(retry_run_id)
+                / safe_name(str(run["case_id"]))
+            )
+            if retry_root.is_dir():
+                retry_manifest = read_json(retry_root / "manifest.json")
+                retry_result = retry_manifest.get("result") or {}
+                retry_harness = retry_manifest.get("harness") or {}
+                retry_metadata = (
+                    ((retry_manifest.get("solver") or {}).get("metadata") or {}).get(
+                        "evaluation_retry"
+                    )
+                    or {}
+                )
+                linked = (
+                    retry_metadata.get("source_run_id") == run.get("run_id")
+                    and retry_metadata.get("source_case_id") == run.get("case_id")
+                )
+                dirty = retry_harness.get("dirty") is True
+                adjudication["exact_script_retry"] = {
+                    "artifact_root": str(retry_root.relative_to(runs_root.resolve())),
+                    "artifact_integrity_valid": audit_run(retry_root).valid,
+                    "source_link_valid": linked,
+                    "harness_revision": retry_harness.get("revision"),
+                    "harness_dirty": retry_harness.get("dirty"),
+                    "evaluation_completed": retry_result.get("evaluation_completed"),
+                    "official_pass": retry_result.get("official_pass"),
+                    "use": "descriptive-only" if dirty else "requires-adjudication",
+                }
+        run["infrastructure_adjudication"] = adjudication
+        run["descriptive_terminal"] = "infrastructure_censored"
+        run["official_pass"] = None
+        run["scientifically_eligible"] = False
+        eligibility = dict(run.get("eligibility") or {})
+        exclusion_reasons = list(eligibility.get("exclusion_reasons") or [])
+        exclusion_reasons.append(
+            "infrastructure_censored: official outcome is not attributable to the method"
+        )
+        eligibility.update(
+            {
+                "eligible": False,
+                "classification": "scientifically_ineligible",
+                "exclusion_reasons": exclusion_reasons,
+            }
+        )
+        run["eligibility"] = eligibility
+    summary["schedule"] = {
+        **summary["schedule"],
+        "infrastructure_amendment": {
+            "path": _project_path(resolved),
+            "sha256": sha256_file(resolved),
+        },
+    }
+    _recompute_summary_counts(summary)
 
 
 def _replay_mechanism(
@@ -407,6 +533,7 @@ def main() -> int:
         action="append",
         default=[],
     )
+    parser.add_argument("--infrastructure-amendment", type=Path)
     args = parser.parse_args()
 
     summary = _summarize_resolved_schedule(
@@ -414,6 +541,12 @@ def main() -> int:
         args.replacement_schedule,
         args.runs_root,
     )
+    if args.infrastructure_amendment is not None:
+        _apply_infrastructure_amendment(
+            summary,
+            args.infrastructure_amendment,
+            args.runs_root,
+        )
     _attach_replay_mechanisms(summary["runs"], args.runs_root.resolve())
     if args.progress:
         _attach_coordinator_progress(summary, args.progress)
