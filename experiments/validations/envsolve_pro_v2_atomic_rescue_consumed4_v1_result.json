@@ -1,0 +1,129 @@
+{
+  "schema": "envsolve-pro-v2-atomic-rescue-consumed4-result-v1",
+  "study_id": "envsolve-pro-v2-atomic-rescue-consumed4-v1",
+  "recorded_at": "2026-08-27",
+  "status": "complete-consumed-development-diagnostic",
+  "claim_scope": "Outcome-conditioned consumed-development rescue evidence. This is not held-out, confirmatory, population-rate, statistical-significance, generalization, leaderboard, or SOTA evidence.",
+  "selection": {
+    "rule": "Every scientifically eligible DeepSeek F+O control failure in the screened Bad-6 study.",
+    "cases": 4,
+    "historical_control_official_pass": 0,
+    "design": "experiments/validations/envsolve_pro_v2_atomic_rescue_consumed4_v1_design.json"
+  },
+  "execution_identity": {
+    "host": "Spark Linux aarch64",
+    "runner": "envsolve-pro-v2-atomic",
+    "runner_version": "0.8.0",
+    "method": "envsolve-pro-atomic-submit-replay",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_fallbacks": false,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "primary_result": {
+    "endpoint": "A case passes only if a submitted program passes EnvBench Official.",
+    "atomic_official_pass": 1,
+    "total": 4,
+    "historical_F_plus_O_official_pass": 0,
+    "rescued_cases": ["hark"],
+    "interpretation": "Atomic delivery rescued one historical control failure, but the outcome-conditioned four-case diagnostic does not estimate an unbiased treatment effect."
+  },
+  "mechanism": {
+    "cases_reaching_full_goal_in_construction": 2,
+    "cases_forming_atomic_candidate": 2,
+    "cases_invoking_replay": 2,
+    "completed_replays": 4,
+    "replay_statuses": {
+      "fail": 3,
+      "pass": 1
+    },
+    "fail_then_pass_repairs": 1,
+    "goal_to_first_submission_request_delta": {
+      "hark": 11,
+      "quacc": 41
+    }
+  },
+  "cases": [
+    {
+      "case": "quacc",
+      "official_pass": false,
+      "first_full_goal_pass_request": 65,
+      "first_atomic_submission_request": 106,
+      "first_certification_request": null,
+      "goal_to_submission_request_delta": 41,
+      "goal_issue_counts": [545, 1, 1, 0, 0, 0, 0, 0],
+      "replay_statuses": ["fail", "fail"],
+      "first_replay_counterexample": "The isolated torch-scatter build could not import the already installed torch dependency.",
+      "first_repair": "Install the ML extras without build isolation so torch-scatter builds against the selected torch environment.",
+      "second_replay_counterexample": "A files.pythonhosted.org download timed out while reconstructing the environment.",
+      "terminal_failure": "The Agent exhausted 120 requests while rebuilding and adding network retries, before a third atomic submission.",
+      "causal_interpretation": "A real target-state defect was found and repaired, but voluntary delivery occurred 41 requests after the first goal Pass, leaving too little active-session capacity for replay and transient-network recovery."
+    },
+    {
+      "case": "ajenti",
+      "official_pass": false,
+      "first_full_goal_pass_request": null,
+      "first_atomic_submission_request": null,
+      "first_certification_request": null,
+      "goal_issue_counts": [377, 351, 351, 82],
+      "replay_statuses": [],
+      "terminal_failure": "The Agent exhausted 120 requests while resolving legacy plugin namespaces and never submitted.",
+      "causal_interpretation": "Substantial compatibility progress did not reach the full goal in this rollout. Atomic replay was unreachable; the episode is primarily pre-candidate search and observation sparsity, not replay failure."
+    },
+    {
+      "case": "hark",
+      "official_pass": true,
+      "first_full_goal_pass_request": 16,
+      "first_atomic_submission_request": 27,
+      "first_certification_request": 37,
+      "goal_to_submission_request_delta": 11,
+      "goal_issue_counts": [1, 0, 0, 0, 0],
+      "replay_statuses": ["fail", "pass"],
+      "replay_counterexample": "Fresh-checkout editable installation failed because Git rejected the repository as dubious ownership.",
+      "repair": "Add the replay checkout to Git safe.directory before installation.",
+      "causal_interpretation": "Clean same-session causal rescue: replay exposed an operation omitted from the deliverable, the Agent added it, and the next replay and Official evaluator passed."
+    },
+    {
+      "case": "micropy-cli",
+      "official_pass": false,
+      "first_full_goal_pass_request": null,
+      "first_atomic_submission_request": null,
+      "first_certification_request": null,
+      "goal_issue_counts": [70, 19, 19],
+      "replay_statuses": [],
+      "terminal_failure": "The Agent exhausted 120 requests while inspecting fixtures, legacy distributions, and source compatibility without submitting.",
+      "causal_interpretation": "The current rollout never reached the full goal or candidate boundary. Atomic replay cannot repair a pre-candidate search failure."
+    }
+  ],
+  "resources": {
+    "aggregate": {
+      "model_requests": 397,
+      "provider_attempts": 437,
+      "provider_errors": 40,
+      "prompt_tokens": 15300956,
+      "completion_tokens": 242657,
+      "total_tokens": 15543613,
+      "episode_seconds": 21198.982
+    },
+    "by_case": {
+      "quacc": {"requests": 120, "provider_errors": 36, "total_tokens": 5548514, "seconds": 13701.975},
+      "ajenti": {"requests": 120, "provider_errors": 1, "total_tokens": 4918850, "seconds": 2379.887},
+      "hark": {"requests": 37, "provider_errors": 2, "total_tokens": 584794, "seconds": 1850.897},
+      "micropy-cli": {"requests": 120, "provider_errors": 1, "total_tokens": 4491455, "seconds": 3266.223}
+    },
+    "interpretation": "Resource use is an outcome, not a success threshold. Quacc dominates cost because late candidate formation was followed by two full target-state replays and network recovery."
+  },
+  "scientific_decision": {
+    "retain_atomic_delivery_as_support_primitive": true,
+    "promote_universal_atomic_method_from_this_diagnostic": false,
+    "reason": "Only one of four historical failures was rescued; two failures never reached a candidate and Quacc reached a candidate too late to complete repair.",
+    "next_question": "Can scheduled trusted goal observation coupled to immediate atomic handoff reduce goal-to-delivery delay while preserving unrestricted same-session repair?",
+    "next_study": "envsolve-pro-v2-verified-atomic-handoff-consumed3-v1",
+    "restrictions": [
+      "Do not add case-specific package mappings or commands.",
+      "Do not count the second Quacc replay network timeout as a dependency-semantic counterexample.",
+      "Do not treat pre-candidate failures as evidence that activated replay is ineffective.",
+      "Do not use this consumed diagnostic as held-out effectiveness evidence."
+    ]
+  }
+}
