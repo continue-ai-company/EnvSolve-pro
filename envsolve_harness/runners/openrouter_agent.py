@@ -17,6 +17,7 @@ from envsolve_harness.compatibility_ledger import (
     ScheduledCompatibilityObserver,
     model_visible_scheduled_observation,
 )
+from envsolve_harness.current_goal import CurrentGoalService
 from envsolve_harness.codex.container_mcp import (
     ContainerMcpServer,
 )
@@ -67,6 +68,7 @@ ReplayMode = Literal[
     "atomic-handoff",
     "soft",
     "incumbent",
+    "current",
     "ledger",
     "scheduled",
     "handoff",
@@ -281,6 +283,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "atomic-handoff",
             "soft",
             "incumbent",
+            "current",
             "ledger",
             "scheduled",
             "handoff",
@@ -288,7 +291,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
         }:
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
-                "incumbent, ledger, scheduled, handoff, or stateful"
+                "incumbent, current, ledger, scheduled, handoff, or stateful"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -349,6 +352,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "free-feedback-search+scheduled-compatibility-observation+"
                 "stateful-replay-obligation-ledger+soft-clean-replay-v1"
             )
+        if self.current_goal_enabled:
+            return (
+                "free-feedback-search+current-goal-constraints+"
+                "soft-clean-replay-v1"
+            )
         if self.scheduled_observation_enabled:
             return (
                 "free-feedback-search+scheduled-compatibility-observation+"
@@ -369,6 +377,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "atomic-handoff",
             "soft",
             "incumbent",
+            "current",
             "ledger",
             "scheduled",
             "handoff",
@@ -390,6 +399,10 @@ class OpenRouterAgentRunner(CodexCliRunner):
     @property
     def compatibility_ledger_enabled(self) -> bool:
         return self.replay_mode == "ledger"
+
+    @property
+    def current_goal_enabled(self) -> bool:
+        return self.replay_mode == "current"
 
     @property
     def scheduled_observation_enabled(self) -> bool:
@@ -443,6 +456,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "R",
                 "minimal-H",
             ]
+        if self.current_goal_enabled:
+            return ["F", "current-O", "current-C", "R", "minimal-H"]
         if self.scheduled_observation_enabled:
             return ["F", "scheduled-O", "delta-C", "R", "minimal-H"]
         if self.compatibility_ledger_enabled:
@@ -623,6 +638,24 @@ class OpenRouterAgentRunner(CodexCliRunner):
                     },
                 ),
             )
+        if self.current_goal_enabled:
+            tools.insert(
+                1,
+                _function_tool(
+                    "check_current_goal",
+                    (
+                        "Execute the exact trusted public goal in the current "
+                        "construction environment and return only the currently "
+                        "active constraints. It retains no history or checkpoint "
+                        "and never blocks shell operations."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": False,
+                    },
+                ),
+            )
         submit_description = (
             "Atomically submit the complete bootstrap program: validate it, replay it "
             "from a fresh checkout and container, return executable failure evidence to "
@@ -710,6 +743,7 @@ There is no separate replay action and no replay state is retained.
 """
         elif self.replay_mode in {
             "soft",
+            "current",
             "ledger",
             "scheduled",
             "handoff",
@@ -736,7 +770,19 @@ reproducibility improvement to make. Replace the incumbent only by clean-replayi
 the improved complete program. `submit_bootstrap` accepts only a certified hash. The
 incumbent stores the program and certificate, never a container checkpoint.
 """
-        if self.compatibility_ledger_enabled:
+        if self.current_goal_enabled:
+            prompt += """\
+
+Call `check_current_goal` after a material setup step or whenever you are unsure
+whether the active environment satisfies the complete public goal. It reports only
+the constraints active now: it has no history, frontier, checkpoint, automatic
+cadence, package policy, or command restrictions. When it reports
+`candidate_ready=true`, promptly compile the operations that produced the current
+state into one complete bootstrap program and call `submit_and_replay`. If clean
+replay fails, use that executable evidence to repair the program in this same
+session.
+"""
+        elif self.compatibility_ledger_enabled:
             prompt += """\
 
 Use `check_compatibility` after a material batch of environment changes and before
@@ -935,6 +981,7 @@ never selects packages, blocks commands, or restores an environment.
         terminal_server: ContainerMcpServer,
         replay_service: CleanReplayService | None,
         trajectory_path: Path,
+        current_goal_service: CurrentGoalService | None = None,
         compatibility_service: CompatibilityLedgerService | None = None,
         scheduled_observer: ScheduledCompatibilityObserver | None = None,
         seed: int | None = None,
@@ -947,6 +994,7 @@ never selects packages, blocks commands, or restores an environment.
         usage_total: dict[str, int | float] = {}
         tool_counts = {
             "envbench_shell": 0,
+            "check_current_goal": 0,
             "check_compatibility": 0,
             "submit_and_replay": 0,
             "submit_bootstrap": 0,
@@ -1269,6 +1317,8 @@ never selects packages, blocks commands, or restores an environment.
                                     request_index,
                                 ):
                                     handoff_triggered_this_response = scheduled
+                    elif name == "check_current_goal" and current_goal_service is not None:
+                        payload = current_goal_service.check(str(call.id))
                     elif name == "check_compatibility" and compatibility_service is not None:
                         payload = compatibility_service.check(str(call.id))
                     elif name == "submit_and_replay" and replay_service is not None:
@@ -1592,6 +1642,7 @@ never selects packages, blocks commands, or restores an environment.
         }
         container_id: str | None = None
         terminal: V2ProcessTreeSafePersistentContainerShell | None = None
+        current_goal_service: CurrentGoalService | None = None
         compatibility_service: CompatibilityLedgerService | None = None
         scheduled_observer: ScheduledCompatibilityObserver | None = None
         log_parts: list[str] = []
@@ -1658,6 +1709,11 @@ never selects packages, blocks commands, or restores an environment.
                 if self.compatibility_observation_enabled
                 else None
             )
+            current_goal_service = (
+                CurrentGoalService(self.goal_contract, terminal_server)
+                if self.current_goal_enabled
+                else None
+            )
             scheduled_observer = (
                 ScheduledCompatibilityObserver(compatibility_service)
                 if self.scheduled_observation_enabled
@@ -1672,6 +1728,7 @@ never selects packages, blocks commands, or restores an environment.
                 prompt=prompt,
                 terminal_server=terminal_server,
                 replay_service=replay_service,
+                current_goal_service=current_goal_service,
                 compatibility_service=compatibility_service,
                 scheduled_observer=scheduled_observer,
                 trajectory_path=trajectory_path,
@@ -1706,6 +1763,8 @@ never selects packages, blocks commands, or restores an environment.
             }
             if compatibility_service is not None:
                 metadata["compatibility_ledger"] = compatibility_service.metadata()
+            if current_goal_service is not None:
+                metadata["current_goal"] = current_goal_service.metadata()
             if scheduled_observer is not None:
                 metadata["scheduled_observation"] = scheduled_observer.metadata()
             submission_metadata: dict[str, Any] = {
@@ -1739,6 +1798,8 @@ never selects packages, blocks commands, or restores an environment.
             )
             return self._finish(artifacts, result, "\n".join(log_parts))
         except Exception as exc:
+            if current_goal_service is not None:
+                metadata["current_goal"] = current_goal_service.metadata()
             if compatibility_service is not None:
                 metadata["compatibility_ledger"] = compatibility_service.metadata()
             if scheduled_observer is not None:

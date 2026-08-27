@@ -173,6 +173,25 @@ class CandidateReadyCompatibilityService(FakeCompatibilityService):
         }
 
 
+class FakeCurrentGoalService:
+    def __init__(self) -> None:
+        self.call_ids: list[str] = []
+
+    def check(self, call_id: str) -> dict[str, object]:
+        self.call_ids.append(call_id)
+        return {
+            "schema": "envsolve-current-goal-observation-v1",
+            "ok": True,
+            "goal_status": "fail",
+            "finding_set_complete": True,
+            "candidate_ready": False,
+            "active_constraint_count": 1,
+            "active_constraints": [{"subject": "missing_package"}],
+            "history_used": False,
+            "operation_constraints_added": False,
+        }
+
+
 class OpenRouterAgentRunnerTest(unittest.TestCase):
     def test_construction_container_keeps_the_episode_package_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -490,6 +509,77 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         )
         self.assertIn("A regression is evidence, not a forbidden state", prompt)
         self.assertIn("never selects packages, blocks commands", prompt)
+
+    def test_current_goal_treatment_adds_only_stateless_goal_check(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "current")
+            names = [item["function"]["name"] for item in runner._tools()]
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            names,
+            [
+                "envbench_shell",
+                "check_current_goal",
+                "submit_and_replay",
+                "submit_bootstrap",
+            ],
+        )
+        self.assertIn("has no history, frontier, checkpoint", prompt)
+        self.assertNotIn("after every 16 completed shell operations", prompt)
+        self.assertEqual(
+            runner.mechanism_primitives,
+            ["F", "current-O", "current-C", "R", "minimal-H"],
+        )
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+current-goal-constraints+soft-clean-replay-v1",
+        )
+
+    def test_current_goal_feedback_remains_in_the_continuous_agent_loop(self) -> None:
+        program = "python -m venv .venv\nsource .venv/bin/activate"
+        client = FakeClient(
+            [
+                FakeResponse(tool_call("1", "check_current_goal", {})),
+                FakeResponse(
+                    tool_call("2", "submit_and_replay", {"program": program})
+                ),
+                FakeResponse(
+                    tool_call(
+                        "3",
+                        "submit_bootstrap",
+                        {"program": program, "summary": "created environment"},
+                    )
+                ),
+            ]
+        )
+        current_goal = FakeCurrentGoalService()
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "current")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                current_goal_service=current_goal,  # type: ignore[arg-type]
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(current_goal.call_ids, ["1"])
+        self.assertEqual(metadata["tool_counts"]["check_current_goal"], 1)
+        self.assertEqual(submission["program_sha256"], script_sha256(program))
+        second_messages = client.chat.completions.requests[1]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "tool"
+                and item.get("name") == "check_current_goal"
+                and "missing_package" in str(item.get("content"))
+                for item in second_messages
+            )
+        )
 
     def test_scheduled_treatment_keeps_the_control_tool_surface(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

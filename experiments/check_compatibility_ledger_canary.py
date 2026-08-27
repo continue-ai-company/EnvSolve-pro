@@ -19,6 +19,7 @@ from envsolve.runtime import ExecutableGoalContract
 from envsolve_harness.adapters.envbench_goal import envbench_python_goal_contract
 from envsolve_harness.codex.container_mcp import ContainerMcpServer
 from envsolve_harness.compatibility_ledger import CompatibilityLedgerService
+from envsolve_harness.current_goal import CurrentGoalService
 from envsolve_harness.execution.v2_container_shell import (
     V2ProcessTreeSafePersistentContainerShell,
 )
@@ -145,7 +146,9 @@ def main() -> int:
         )
         server = ContainerMcpServer(terminal, trace_path)
         synthetic = CompatibilityLedgerService(_synthetic_contract(), server)
+        current_goal = CurrentGoalService(_synthetic_contract(), server)
         before = synthetic.check("synthetic-before")
+        current_before = current_goal.check("current-before")
         mutation = _shell(
             server,
             "synthetic-mutation",
@@ -155,6 +158,7 @@ def main() -> int:
             "export PYTHONPATH=/tmp/envsolve-ledger-canary${PYTHONPATH:+:$PYTHONPATH}",
         )
         after = synthetic.check("synthetic-after")
+        current_after = current_goal.check("current-after")
 
         real = CompatibilityLedgerService(envbench_python_goal_contract(), server)
         envbench = real.check("envbench-goal")
@@ -180,6 +184,11 @@ def main() -> int:
                 "after": after,
                 "metadata": synthetic.metadata(),
             },
+            "current_goal": {
+                "before": current_before,
+                "after": current_after,
+                "metadata": current_goal.metadata(),
+            },
             "envbench": {
                 "observation": envbench,
                 "metadata": real.metadata(),
@@ -191,6 +200,23 @@ def main() -> int:
                     after.get("delta_from_previous", {}).get("classification")
                     == "improved"
                 ),
+                "current_goal_initial_constraint": (
+                    current_before.get("goal_status") == "fail"
+                    and current_before.get("active_constraint_count") == 1
+                ),
+                "current_goal_candidate_ready": (
+                    current_after.get("candidate_ready") is True
+                    and current_after.get("active_constraint_count") == 0
+                ),
+                "current_goal_has_no_search_history": all(
+                    key not in observation
+                    for observation in (current_before, current_after)
+                    for key in (
+                        "delta_from_previous",
+                        "frontier",
+                        "obligation_set_sha256",
+                    )
+                ),
                 "environment_fingerprint_changed": (
                     before.get("environment") != after.get("environment")
                 ),
@@ -201,10 +227,14 @@ def main() -> int:
                     before.get("operation_constraints_added") is False
                     and after.get("operation_constraints_added") is False
                     and envbench.get("operation_constraints_added") is False
+                    and current_before.get("operation_constraints_added") is False
+                    and current_after.get("operation_constraints_added") is False
                 ),
                 "no_container_checkpoint_stored": (
                     synthetic.metadata().get("stores_container_checkpoint") is False
                     and real.metadata().get("stores_container_checkpoint") is False
+                    and current_goal.metadata().get("stores_container_checkpoint")
+                    is False
                 ),
             },
         }

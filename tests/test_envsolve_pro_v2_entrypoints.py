@@ -24,6 +24,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         self.assertIn("envsolve-pro-v2-atomic-handoff", registered)
         self.assertIn("envsolve-pro-v2", registered)
         self.assertIn("envsolve-pro-v2-incumbent", registered)
+        self.assertIn("envsolve-pro-v2-current-goal", registered)
         self.assertIn("envsolve-pro-v2-ledger", registered)
         self.assertIn("envsolve-pro-v2-scheduled-observation", registered)
         self.assertIn("envsolve-pro-v2-verifier-handoff", registered)
@@ -34,6 +35,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
             {"runner": "envsolve-pro-v2-atomic"},
             {"runner": "envsolve-pro-v2-atomic-handoff"},
             {"runner": "envsolve-pro-v2"},
+            {"runner": "envsolve-pro-v2-current-goal"},
             {"runner": "envsolve-pro-v2-verifier-handoff"},
             {"runner": "envsolve-pro-v2-stateful-replay"},
         ]

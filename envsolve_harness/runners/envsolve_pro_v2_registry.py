@@ -95,6 +95,12 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-goal-triggered-certified-incumbent",
             _factory("incumbent"),
         )
+    if "envsolve-pro-v2-current-goal" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-current-goal",
+            "envsolve-pro-current-goal-constraints",
+            _factory("current"),
+        )
     if "envsolve-pro-v2-ledger" not in registered:
         register_solver_runner(
             "envsolve-pro-v2-ledger",
