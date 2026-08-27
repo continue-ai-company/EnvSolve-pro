@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-current-goal-consumed2-v1",
+  "recorded_at": "2026-08-28",
+  "status": "specified-before-execution",
+  "claim_scope": "consumed development mechanism validation only",
+  "question": "Does an Agent-invoked exact current-goal check help a continuous strong Agent recognize active compatibility constraints and deliver a clean-replayable program without restricting its operations?",
+  "algorithm_commit": "5afa22d",
+  "cases": [
+    {
+      "pair": "rlberry",
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "seed": 829001,
+      "order": ["treatment", "control"],
+      "prior_mechanism": "Minimal B reached exact trusted-goal Pass late and succeeded; the free Agent repeatedly reached a near-solved state but exhausted the request cap without delivery."
+    },
+    {
+      "pair": "scvelo",
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "seed": 829002,
+      "order": ["control", "treatment"],
+      "prior_mechanism": "Both arms exhausted the request cap around a genuine compatibility conflict; this is a negative control for simple delivery recognition."
+    }
+  ],
+  "arms": {
+    "control": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "interface": "continuous public-goal Agent plus Agent-invoked clean replay"
+    },
+    "treatment": {
+      "runner": "envsolve-pro-v2-current-goal",
+      "method": "envsolve-pro-current-goal-constraints",
+      "interface": "the control plus Agent-invoked exact current-goal constraints"
+    }
+  },
+  "shared": {
+    "host": "Spark Linux ARM64",
+    "source": "clean committed checkout",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter with fallbacks disabled",
+    "official_evaluator": "post-episode only",
+    "operations": "unrestricted within the existing minimal integrity boundary",
+    "token_and_cost": "reported outcomes, not hard scientific limits"
+  },
+  "endpoints": {
+    "primary": "EnvBench Official Pass for each paired arm",
+    "mechanism": [
+      "current-goal invocation and returned active constraints",
+      "request of first complete current-goal Pass",
+      "requests from first complete current-goal Pass to clean replay and submission",
+      "clean-replay status sequence",
+      "earliest decisive O/C/O failure layer"
+    ],
+    "resources": [
+      "model requests",
+      "tokens",
+      "generation time",
+      "clean replay count",
+      "Official time"
+    ]
+  },
+  "interpretation": [
+    "Two consumed pairs can validate or falsify the proposed mechanism but cannot estimate population effect, generalization, statistical significance, leaderboard performance, or SOTA.",
+    "No case-specific dependency rule, automatic observation cadence, cross-call frontier, checkpoint, forced handoff, or package policy may be added during these four episodes.",
+    "Infrastructure failures are reported separately and do not become algorithm failures or successes."
+  ]
+}
