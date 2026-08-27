@@ -1,6 +1,6 @@
 # EnvSolve-Pro：面向仓库部署的部分可观测状态化约束求解
 
-状态：ICLR 工作稿，2026-08-27；未见 batch 与外部 baseline 结果待完成
+状态：ICLR 工作稿，2026-08-28；未见 batch 与外部 baseline 结果待完成
 
 ## 摘要
 
@@ -10,14 +10,15 @@
 
 我们首先提出可审计的轨迹表示，并把最早决定最终结果的失败分为观测、约束和操作三层。开发轨迹中反复
 出现两个问题：Agent 优化了不完整的代理目标；已经可用的构建状态没有被转换成能重建它的部署程序。
-据此，我们提出最小三层算法 EnvSolve-Pro：能力强的 Agent 在一个连续 session 内自由行动；harness
-定期执行完整公开目标；目标通过后立即要求交付累计程序；再从目标初始状态重放同一程序。Replay 失败
-作为可执行、case-local 约束返回同一个 session，但不规定修复方法。
+据此，我们提出最小三层算法 EnvSolve-Pro：能力强的 Agent 在一个连续 session 内自由行动，并可反复
+提交累计部署程序，从目标初始状态执行。Replay 失败作为可执行、case-local 约束返回同一个 session，
+但不规定修复方法；只有原样通过 replay 的程序才能交付。Harness 不调度搜索，也不强制形成候选。
 
-已消费开发 case 已验证这套机制能运行，包括多步 Fail-to-Pass 修复和消除历史上观测到的目标到交付
-延迟，但它们不能证明泛化。最终实验会先冻结算法，再在结果未知的 batch 上与同模型对照、EnvBench
-baseline、Repo2Run、旧硬约束 EnvSolve 和原生 coding Agent 比较，并覆盖强弱 backbone。Official
-Pass@1 是主指标；时间、Token、网络和存储只在成功率不下降后优化。
+已消费开发 case 已验证同 session 的多步 Fail-to-Pass replay 修复。一个前瞻固定的十对开发压力实验
+不支持把固定节奏观测和强制 handoff 加入核心，因此两者只保留为 ablation。当前证据不能证明泛化。
+最终实验会先冻结更小的算法，再在未见 case 上与同模型对照、EnvBench baseline、Repo2Run、旧硬约束
+EnvSolve 和原生 coding Agent 比较，并覆盖强弱 backbone。Official Pass@1 是主指标；时间、Token、
+网络和存储只在成功率不下降后优化。
 
 ## 1. 问题定义
 
@@ -67,8 +68,8 @@ EnvSolve-Pro 明确保留三层结构，同时把 controller policy 压到最小
 
 ### 观测层
 
-Agent 在持久构建环境中获得普通命令反馈。Harness 按固定节奏在同一状态执行完整可信公开目标，并把
-结果返回活跃 session。对于提交程序，还会从目标初始状态执行完整程序和目标，而不是验证累积构建状态。
+Agent 在持久构建环境中获得普通命令反馈和完整公开目标。它可以反复调用可信 replay，从目标初始状态
+执行累计程序和目标，而不是只验证累积构建状态。最终交付也必须通过同一种 replay。
 
 ### 约束层
 
@@ -78,37 +79,33 @@ Agent 在持久构建环境中获得普通命令反馈。Harness 按固定节奏
 
 ### 操作层
 
-Agent 自由检查仓库并修改构建环境。当可信观测首次报告完整目标通过时，controller 在下一次模型请求中
-要求交付累计部署程序，并进行原子 replay。Replay 失败后恢复自由工具选择，把反例返回同一个 session。
-只有从目标状态通过的同一程序才能交付。
+Agent 自由检查仓库、修改构建环境，并自行判断何时提交累计程序进行 replay。Replay 失败后保留活跃
+session 和自由工具选择，把反例返回同一个 session。只有从目标状态通过的同一程序才能交付。
 
 ```text
 启动一个 Agent session 和一个构建环境
 
 while 尚无 replay 通过的程序且宽松安全上限未耗尽:
     Agent 自由观测并修改构建状态
-    定期执行完整可信目标
-    if 目标尚未通过:
-        continue
-    下一轮要求交付累计部署程序
-    y <- 从目标初始状态执行该程序和目标
-    if y 通过:
-        return 程序
-    把 y 返回同一 session，并恢复自由修复
+    if Agent 提交累计部署程序:
+        y <- 从目标初始状态执行该程序和目标
+        if y 通过:
+            return 程序
+        把 y 返回同一 session，继续自由修复
 
 return failure
 ```
 
-Controller 只决定何时测量证据，以及何时把已经通过目标的状态表达成可交付程序；它不选择下一条环境
-操作。更强模型扩展的是操作层能力，而不是被封闭 planner 替代。算法保存程序与轨迹，不保存容器
-checkpoint。
+Controller 提供目标状态证据，并保证交付物就是通过 replay 的程序；它不决定何时停止搜索，也不选择
+下一条环境操作。更强模型扩展的是操作层能力，而不是被封闭 planner 替代。算法保存程序与轨迹，不保存
+容器 checkpoint。
 
 ## 4. 三项贡献
 
 1. **因果失败分析。** 提供可审计轨迹表示和“观测--约束--操作”taxonomy，用最早决定性原因比较不同
    部署范式。
-2. **最小部署算法。** EnvSolve-Pro 在一个不受限的连续 Agent session 内组合可信目标观测、立即程序
-   交付和目标状态 replay，把 replay 失败转化为可执行的 case-local 约束。
+2. **最小部署算法。** EnvSolve-Pro 把不受限的连续 Agent session 与可反复调用的目标状态 replay
+   结合，把完整程序失败转化为可执行的 case-local 约束，同时保留模型主导的搜索和停止决策。
 3. **受控实验证据。** 在 Official 成功率、因果失败迁移、部署完整性和成功保持下的资源开销上，比较
    同模型机制、外部系统以及强弱 backbone。
 
@@ -127,8 +124,9 @@ episode 不进入算法失败率统计。
 ### 5.2 同模型机制实验
 
 在相同模型和执行条件下，分离只有仓库反馈的自由搜索 `F`、可见完整可执行目标的自由搜索 `F+O`，以及
-EnvSolve-Pro 的定时观测加原子目标状态 replay `F+O+R`。第一组对比检验目标可观测性；第二组检验
-目标已经可见后，及时返回完整程序反例是否改善交付。所有改变环境的动作仍由模型决定。
+EnvSolve-Pro 的 Agent 主动目标状态 replay 加交付前强制 replay 认证 `F+O+R`。第一组对比检验目标
+可观测性；第二组检验目标已经可见后，完整程序反例是否改善交付。定时观测与强制 handoff 作为独立的
+controller-policy ablation 评估。所有改变环境的动作仍由模型决定。
 
 开发轨迹用于发现错误类型和选择唯一固定方法。EnvSolve-Pro 虽然没有可训练参数，仍需要结果未知的独立
 batch：代码、prompt、观测节奏、边界和停止逻辑同样可能对已消费仓库过拟合。只有这些选择冻结后，未见
@@ -155,15 +153,16 @@ taxonomy，不能当成总体流行率。
 六 case 实验产生三条同 session Fail-to-Pass 修复，但也发现多个目标已经通过却没有交付的状态。更强的
 候选保留策略反而退化，因此我们选择更小的状态转换。
 
-最新的 outcome-conditioned 三 case 资格实验把定时可信观测与立即原子交接组合起来。Quacc、Ajenti 和
-Hark 都在可信目标首次 Pass 后的下一次模型请求提交。Quacc 与 Hark 经同 session replay 修复后通过
-Official。Ajenti 原 episode 因旧 harness 把普通已安装模块误判为无归属而失败；另行规定、且不调用
-模型的裁决对原样程序重放后，修正 clean replay 和未改变的 Official evaluator 均通过。Ajenti 原结果
-仍为 Fail，并从算法效果归因中删失。
+前瞻固定的十对开发压力实验比较了 goal-aware 自由搜索与更大的“定时观测、强制 handoff、replay”
+treatment。一对因 evaluator 基础设施问题删失。九对有效样本中，对照为 `6/9`，treatment 为 `7/9`
+（5 对都通过、1 对仅对照通过、2 对仅 treatment 通过、1 对都失败；双侧精确 McNemar `p=1.0`）。
+两个 treatment-only 中只有一个真正激活了强制 handoff，另一个在该机制激活前就由不同随机搜索路径
+产生。五对共同成功样本上，treatment 的平均模型请求几乎相同，但平均生成时间和 Token 更高。因此，
+该 batch 不支持把固定节奏或强制 handoff 作为核心算法。
 
-这些结果只证明机制在已消费 case 上成立，不估计 held-out 成功率、显著性、泛化、榜单或 SOTA。下一项
-有效效果证据必须来自冻结算法在结果未知、仓库不重叠 batch 上与匹配对照的比较，之后才能进入外部
-baseline 和强弱 backbone 实验。
+结合更早的多步 replay 修复证据，论文选择更小的“连续 session + 可反复调用的 clean replay”方法。
+当前结果仍全部属于开发证据，不能估计未见成功率、泛化、榜单或 SOTA。下一项有效效果主张必须来自
+固定最小方法在未触碰 case 上与匹配对照的比较，之后再进行外部 baseline 和强弱 backbone 实验。
 
 ## 7. 证伪条件与范围
 

@@ -240,6 +240,11 @@ def test_adjudicates_official_and_protocol_compliant_pair_tables() -> None:
         "control_only_pass": 1,
         "treatment_only_pass": 0,
         "neither_pass": 0,
+        "control_pass_rate": 1.0,
+        "treatment_pass_rate": 2 / 3,
+        "treatment_minus_control_pass_rate": -1 / 3,
+        "discordant_pairs": 1,
+        "mcnemar_exact_two_sided_p_value": 1.0,
     }
     assert result["protocol_compliant_paired"] == {
         "pairs": 3,
@@ -251,7 +256,134 @@ def test_adjudicates_official_and_protocol_compliant_pair_tables() -> None:
         "control_only_pass": 1,
         "treatment_only_pass": 0,
         "neither_pass": 1,
+        "control_pass_rate": 2 / 3,
+        "treatment_pass_rate": 1 / 3,
+        "treatment_minus_control_pass_rate": -1 / 3,
+        "discordant_pairs": 1,
+        "mcnemar_exact_two_sided_p_value": 1.0,
     }
+
+
+def test_accepts_explicit_arm_labels_and_reports_common_success_resources() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        schedule = root / "schedule.json"
+        case_id = "envbench-python-owner__repo@abc"
+        episodes = [
+            {
+                "position": 1,
+                "pair_index": 1,
+                "pair_id": "pair-1",
+                "pair_position": 1,
+                "arm": "A-F+O",
+                "case_id": case_id,
+                "run_id": "control",
+            },
+            {
+                "position": 2,
+                "pair_index": 1,
+                "pair_id": "pair-1",
+                "pair_position": 2,
+                "arm": "B-F+O+H+R",
+                "case_id": case_id,
+                "run_id": "treatment",
+            },
+        ]
+        source_runs = [
+            {
+                **_run(index, "official_pass"),
+                "case_id": case_id,
+                "run_id": episode["run_id"],
+            }
+            for index, episode in enumerate(episodes, start=1)
+        ]
+        write_json(schedule, {"study_id": "custom-arms", "episodes": episodes})
+
+        def metrics(_root: Path, run_id: str, _case_id: str) -> dict[str, object]:
+            value = 10 if run_id == "control" else 20
+            return {
+                "generation_seconds": value,
+                "official_seconds": value / 2,
+                "model_requests": value,
+                "token_usage": {"total_tokens": value * 100},
+            }
+
+        with (
+            mock.patch(
+                "envsolve_harness.verifier_handoff_screen.summarize_schedule",
+                return_value={"runs": source_runs},
+            ),
+            mock.patch(
+                "envsolve_harness.verifier_handoff_screen._run_metrics",
+                side_effect=metrics,
+            ),
+        ):
+            result = adjudicate_paired_schedule(
+                schedule,
+                root / "runs",
+                control_arm="A-F+O",
+                treatment_arm="B-F+O+H+R",
+            )
+
+    assert result["arms"] == {
+        "control": "A-F+O",
+        "treatment": "B-F+O+H+R",
+    }
+    assert result["official_paired"]["both_pass"] == 1
+    assert result["official_paired"]["mcnemar_exact_two_sided_p_value"] == 1.0
+    resources = result["resources"]["common_success"]
+    assert resources["pairs"] == 1
+    assert resources["control"]["model_requests"]["mean"] == 10
+    assert resources["treatment"]["total_tokens"]["mean"] == 2000
+
+
+def test_resource_summary_ignores_boolean_metric_values() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        schedule = root / "schedule.json"
+        case_id = "envbench-python-owner__repo@abc"
+        episodes = [
+            {
+                "position": position,
+                "pair_index": 1,
+                "pair_id": "pair-1",
+                "pair_position": position,
+                "arm": arm,
+                "case_id": case_id,
+                "run_id": run_id,
+            }
+            for position, (arm, run_id) in enumerate(
+                (("A", "control"), ("B", "treatment")), start=1
+            )
+        ]
+        source_runs = [
+            {
+                **_run(index, "official_pass"),
+                "case_id": case_id,
+                "run_id": episode["run_id"],
+            }
+            for index, episode in enumerate(episodes, start=1)
+        ]
+        write_json(schedule, {"study_id": "boolean-metrics", "episodes": episodes})
+
+        with (
+            mock.patch(
+                "envsolve_harness.verifier_handoff_screen.summarize_schedule",
+                return_value={"runs": source_runs},
+            ),
+            mock.patch(
+                "envsolve_harness.verifier_handoff_screen._run_metrics",
+                return_value={"model_requests": True},
+            ),
+        ):
+            result = adjudicate_paired_schedule(
+                schedule,
+                root / "runs",
+                control_arm="A",
+                treatment_arm="B",
+            )
+
+    assert result["resources"]["common_success"]["control"]["model_requests"] is None
 
 
 def test_rejects_unknown_protocol_invalid_run() -> None:

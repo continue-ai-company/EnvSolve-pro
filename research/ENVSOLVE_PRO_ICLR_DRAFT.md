@@ -1,6 +1,6 @@
 # EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-27; held-out and external-baseline results pending
+Status: working ICLR paper draft, 2026-08-28; held-out and external-baseline results pending
 
 ## Abstract
 
@@ -15,19 +15,20 @@ decisive failure into three causal layers: Observation, Constraint, and Operatio
 development trajectories, two recurring failures are optimizing an incomplete proxy for
 the scored goal and failing to convert a working construction state into a program that
 recreates it. We then propose EnvSolve-Pro, a minimal three-layer algorithm. A capable
-Agent remains free in one continuous session; the harness periodically executes the
-complete public goal; a goal-passing state triggers immediate delivery of the cumulative
-program; and the exact program is replayed from the target initial state. Replay failures
-return executable, case-local constraints to the same session without prescribing a
-repair.
+Agent remains free in one continuous session and may repeatedly submit a cumulative
+deployment program for execution from the target initial state. Replay failures return
+executable, case-local constraints to the same session without prescribing a repair, and
+only the exact program that passes replay can be delivered. The harness neither schedules
+search nor forces a candidate transition.
 
-Consumed development cases qualify this mechanism, including multi-step Fail-to-Pass
-repairs and removal of a previously observed goal-to-delivery delay. They do not establish
-generalization. Our final evaluation freezes the algorithm before an outcome-blind batch,
-compares it with matched same-model controls, EnvBench baselines, Repo2Run, prior
-hard-constraint EnvSolve, and native coding Agents, and tests both strong and weaker
-backbones. Official Pass@1 is primary; time, tokens, network, and storage are optimized
-only after success is preserved.
+Consumed development cases qualify same-session Fail-to-Pass replay repair. A prospective
+ten-pair development stress test does not support adding fixed-cadence observation and
+forced handoff to that core, so those mechanisms are retained only as ablations. They do
+not establish generalization. Our final evaluation freezes the smaller algorithm before
+held-out evaluation, compares it with matched same-model controls, EnvBench baselines,
+Repo2Run, prior hard-constraint EnvSolve, and native coding Agents, and tests both strong
+and weaker backbones. Official Pass@1 is primary; time, tokens, network, and storage are
+optimized only after success is preserved.
 
 ## 1. Problem
 
@@ -92,11 +93,10 @@ EnvSolve-Pro keeps the three layers explicit while minimizing controller policy.
 
 ### Observation Layer
 
-The Agent receives ordinary command feedback in a persistent construction environment.
-At a fixed cadence, the harness executes the complete trusted public goal in that same
-state and returns the result to the active session. Submitted programs are additionally
-observed by executing the complete program and goal from the target initial state, not
-from accumulated construction state.
+The Agent receives ordinary command feedback in a persistent construction environment
+and the complete public goal. It may repeatedly invoke a trusted replay that executes a
+cumulative program and the goal from the target initial state, rather than validating
+only accumulated construction state. The same replay is mandatory for final delivery.
 
 ### Constraint Layer
 
@@ -108,44 +108,39 @@ model-selected repair policy.
 
 ### Operation Layer
 
-The Agent freely inspects the repository and changes the construction environment. When
-a trusted observation first reports that the complete goal passes, the controller asks
-for the cumulative deployment program on the next model turn and atomically replays it.
-A failed replay restores unrestricted tool choice and returns its counterexample to the
-same session. A candidate is delivered only when that exact program passes from the target
-state.
+The Agent freely inspects the repository, changes the construction environment, and
+decides when a cumulative program is ready for replay. A failed replay preserves the
+active session and returns its counterexample with unrestricted tool choice. A candidate
+is delivered only when that exact program passes from the target state.
 
 ```text
 start one Agent session and one construction environment
 
 while no replay-passing program exists and broad safety limits remain:
     let the Agent freely observe and modify the construction state
-    periodically execute the complete trusted goal
-    if the goal has not passed:
-        continue
-    request the cumulative deployment program on the next turn
-    y <- execute the program and goal from the target initial state
-    if y passes:
-        return the program
-    return y to the same session and restore free repair
+    if the Agent submits a cumulative deployment program:
+        y <- execute the exact program and goal from the target initial state
+        if y passes:
+            return the program
+        return y to the same session and continue free repair
 
 return failure
 ```
 
-The controller decides only when evidence is measured and when an already goal-passing
-state must be expressed as a deliverable. It does not choose the next environment-changing
-operation. Stronger models therefore expand the Operation layer rather than being replaced
-by a closed planner. The algorithm stores programs and trajectories, not container
-checkpoints.
+The controller provides target-state evidence and enforces that the delivered artifact is
+the replayed artifact. It does not decide when search should stop or choose the next
+environment-changing operation. Stronger models therefore expand the Operation layer
+rather than being replaced by a closed planner. The algorithm stores programs and
+trajectories, not container checkpoints.
 
 ## 4. Contributions
 
 1. **Causal failure analysis.** We provide an auditable trajectory representation and an
    Observation--Constraint--Operation taxonomy that identifies the earliest decisive
    cause across different deployment paradigms.
-2. **A minimal deployment algorithm.** EnvSolve-Pro couples trusted goal observation,
-   immediate program delivery, and target-state replay inside one unrestricted Agent
-   session, turning replay failures into executable case-local constraints.
+2. **A minimal deployment algorithm.** EnvSolve-Pro couples an unrestricted continuous
+   Agent session with repeatable target-state replay, turning complete-program failures
+   into executable case-local constraints while keeping search and stopping model-led.
 3. **Controlled empirical evidence.** We compare matched mechanisms, external systems,
    and strong and weaker backbones using Official success, causal failure transitions,
    deployment completeness, and success-preserving resource outcomes.
@@ -170,9 +165,11 @@ failure mass across Observation, Constraint, and Operation.
 
 Under the same model and execution conditions, we separate repository-feedback free
 search (`F`), free search with the complete executable goal (`F+O`), and EnvSolve-Pro's
-scheduled observation plus atomic target-state replay (`F+O+R`). The first contrast tests
-goal observability. The second tests whether early complete-program counterexamples improve
-delivery after the goal is visible. All environment-changing choices remain model actions.
+agent-invoked target-state replay with mandatory replay certification (`F+O+R`). The first
+contrast tests goal observability. The second tests whether complete-program
+counterexamples improve delivery after the goal is visible. Scheduled observation and
+forced handoff are evaluated separately as controller-policy ablations. All
+environment-changing choices remain model actions.
 
 Development trajectories are used to discover failure types and choose one fixed method.
 Although EnvSolve-Pro has no learned parameters, a separate outcome-blind batch is still
@@ -209,19 +206,22 @@ three same-session Fail-to-Pass replay repairs, but also exposed goal-passing st
 were never delivered. More controlling candidate-retention policies regressed, motivating
 the smaller state transition used here.
 
-The latest outcome-conditioned three-case qualification couples periodic trusted
-observation to immediate atomic handoff. Quacc, Ajenti, and Hark all submitted on the model
-request immediately following the first trusted goal Pass. Quacc and Hark passed Official
-after same-session replay repair. Ajenti's original episode failed because the old harness
-misclassified ordinary installed modules as unowned; a separately specified no-model
-adjudication replayed the exact submitted program, which passed both the corrected clean
-replay and unchanged Official evaluator. The original Ajenti episode remains Fail and is
-censored from algorithm-effect attribution.
+A prospectively fixed ten-pair development stress test compared goal-aware free search
+with the larger scheduled-observation, forced-handoff, and replay treatment. One pair was
+censored by evaluator infrastructure. On nine eligible pairs, control passed 6/9 and the
+treatment 7/9 (five both pass, one control-only, two treatment-only, one neither;
+two-sided exact McNemar \(p=1.0\)). Only one treatment-only win actually activated forced
+handoff; the other arose before that mechanism activated. On five common successes, the
+treatment had nearly identical mean model requests but higher mean generation time and
+tokens. The batch therefore does not justify fixed cadence or forced handoff as core
+algorithm components.
 
-These results qualify the mechanism on consumed cases. They do not estimate held-out
-success, significance, generalization, leaderboard performance, or SOTA. The next valid
-effect claim requires the frozen algorithm on an outcome-blind repository-disjoint batch
-with matched controls, followed by external baselines and strong/weak backbone tests.
+Combined with earlier multi-step replay repairs, this evidence selects the smaller
+continuous-session plus repeatable clean-replay method for the paper. All current results
+remain development evidence: they do not estimate held-out success, generalization,
+leaderboard performance, or SOTA. The next valid effect claim requires the fixed minimal
+method on untouched cases with matched controls, followed by external baselines and
+strong/weak backbone tests.
 
 ## 7. Falsification and Scope
 

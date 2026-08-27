@@ -62,6 +62,8 @@ _TERMINAL_BOOTSTRAP_FAILURES = tuple(
         r"Could not build wheels? for",
         r"Failed building wheel for",
         r"C shared or static library ['\"][^'\"]+['\"] not found",
+        r"(?:ModuleNotFoundError:\s*)?No module named ['\"][a-zA-Z0-9_.-]+['\"]",
+        r"ImportError:\s*cannot import name ['\"][^'\"]+['\"]",
     )
 )
 

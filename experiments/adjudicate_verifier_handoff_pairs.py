@@ -33,6 +33,8 @@ def main() -> int:
     parser.add_argument("--schedule", type=Path, required=True)
     parser.add_argument("--runs-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--control-arm", default="S-OBS")
+    parser.add_argument("--treatment-arm", default="H-VH")
     parser.add_argument(
         "--official-retry", action="append", default=[], metavar="SOURCE=RETRY"
     )
@@ -46,6 +48,8 @@ def main() -> int:
         args.runs_root,
         official_retries=_mapping(args.official_retry, "Official retry"),
         protocol_invalid=_mapping(args.protocol_invalid, "protocol-invalid reason"),
+        control_arm=args.control_arm,
+        treatment_arm=args.treatment_arm,
     )
     write_json(args.output, result)
     official = result["official_paired"]

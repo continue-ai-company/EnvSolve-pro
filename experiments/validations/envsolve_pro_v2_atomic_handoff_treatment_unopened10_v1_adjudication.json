@@ -1,0 +1,2037 @@
+{
+  "arms": {
+    "control": "A-F+O",
+    "treatment": "B-F+O+H+R"
+  },
+  "counts": {
+    "official_only_retries": 2,
+    "pairs": 10,
+    "protocol_invalid_runs": 0,
+    "scheduled_runs": 20
+  },
+  "official_paired": {
+    "both_pass": 5,
+    "censored_pairs": 1,
+    "control_only_pass": 1,
+    "control_pass_rate": 0.6666666666666666,
+    "control_passes": 6,
+    "discordant_pairs": 3,
+    "eligible_pairs": 9,
+    "mcnemar_exact_two_sided_p_value": 1.0,
+    "neither_pass": 1,
+    "pairs": 10,
+    "treatment_minus_control_pass_rate": 0.1111111111111111,
+    "treatment_only_pass": 2,
+    "treatment_pass_rate": 0.7777777777777778,
+    "treatment_passes": 7
+  },
+  "paired_schedule": "/home/avdpro/EnvSolve-Pro-f52da5a/experiments/schedules/envsolve_pro_v2_atomic_handoff_treatment_unopened10_v1.json",
+  "pairs": [
+    {
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 785.674988,
+          "model_requests": 26,
+          "official_seconds": 146.8549404144287,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 7560,
+            "prompt_tokens": 364272,
+            "total_tokens": 371832
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 25,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-01-ha-battery-notes",
+        "pair_index": 1,
+        "pair_position": 1,
+        "position": 1,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-01-ha-battery-notes-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "treatment-unopened-01-ha-battery-notes",
+      "pair_index": 1,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 387.213155,
+          "model_requests": 17,
+          "official_seconds": 31.11918568611145,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 6503,
+            "prompt_tokens": 160218,
+            "total_tokens": 166721
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 16,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 2,
+                "observation_trigger": "periodic",
+                "request_index": 16,
+                "shell_operations_completed": 16,
+                "transition": "candidate-ready"
+              },
+              {
+                "program_sha256": "f643321c896b1a6d971a83417c2d5e003b48e383f1facf8dca9e4e2b2733c51e",
+                "replay_id": null,
+                "request_index": 17,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 1,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 1
+          }
+        },
+        "official_pass": true,
+        "official_retry": {
+          "artifact_root": "pro-v2-atomic-handoff-u10-v1-02-ha-battery-notes-B-FOHR-eval-retry1/envbench-python-andrew-codechimp__HA-Battery-Notes__59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+          "evaluation_completed": true,
+          "infrastructure_signature": "read-timeout",
+          "model_reexecuted": false,
+          "official_pass": true,
+          "official_seconds": 31.11918568611145,
+          "run_id": "pro-v2-atomic-handoff-u10-v1-02-ha-battery-notes-B-FOHR-eval-retry1"
+        },
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-01-ha-battery-notes",
+        "pair_index": 1,
+        "pair_position": 2,
+        "position": 2,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-02-ha-battery-notes-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "infrastructure_unknown"
+      }
+    },
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+        "final_class": "official_fail",
+        "metrics": {
+          "generation_seconds": 748.537074,
+          "model_requests": 30,
+          "official_seconds": 9.754640102386475,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 13191,
+            "prompt_tokens": 501315,
+            "total_tokens": 514506
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 38,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-02-basxconnect",
+        "pair_index": 2,
+        "pair_position": 2,
+        "position": 4,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-04-basxconnect-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_fail"
+      },
+      "pair_id": "treatment-unopened-02-basxconnect",
+      "pair_index": 2,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 680.929647,
+          "model_requests": 21,
+          "official_seconds": 236.3400821685791,
+          "replay_status_counts": {
+            "fail": 2,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 8721,
+            "prompt_tokens": 361616,
+            "total_tokens": 370337
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 24,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 3
+          },
+          "verifier_handoff": {
+            "events": [],
+            "forced_model_requests": 0,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 0
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-02-basxconnect",
+        "pair_index": 2,
+        "pair_position": 1,
+        "position": 3,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-03-basxconnect-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 4282.657792,
+          "model_requests": 110,
+          "official_seconds": 204.24473357200623,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 86705,
+            "prompt_tokens": 4446565,
+            "total_tokens": 4533270
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 109,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": {
+          "artifact_root": "pro-v2-atomic-handoff-u10-v1-05-micropy-cli-A-FO-eval-retry1/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+          "evaluation_completed": true,
+          "infrastructure_signature": "read-timeout",
+          "model_reexecuted": false,
+          "official_pass": true,
+          "official_seconds": 204.24473357200623,
+          "run_id": "pro-v2-atomic-handoff-u10-v1-05-micropy-cli-A-FO-eval-retry1"
+        },
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-03-micropy-cli",
+        "pair_index": 3,
+        "pair_position": 1,
+        "position": 5,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-05-micropy-cli-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "infrastructure_unknown"
+      },
+      "pair_id": "treatment-unopened-03-micropy-cli",
+      "pair_index": 3,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 5575.00744,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-03-micropy-cli",
+        "pair_index": 3,
+        "pair_position": 2,
+        "position": 6,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-06-micropy-cli-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      }
+    },
+    {
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 1572.253899,
+          "model_requests": 37,
+          "official_seconds": 435.5468716621399,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 18009,
+            "prompt_tokens": 614729,
+            "total_tokens": 632738
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 35,
+            "envbench_socket_check": 1,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-04-clarity",
+        "pair_index": 4,
+        "pair_position": 2,
+        "position": 8,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-08-clarity-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "treatment-unopened-04-clarity",
+      "pair_index": 4,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 1697.658746,
+          "model_requests": 26,
+          "official_seconds": 284.9243423938751,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 11624,
+            "prompt_tokens": 419135,
+            "total_tokens": 430759
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 32,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 3,
+                "observation_trigger": "periodic",
+                "request_index": 25,
+                "shell_operations_completed": 32,
+                "transition": "candidate-ready"
+              },
+              {
+                "program_sha256": "469b26a3b6a51dc40448f0afed20455a74ab58d84e74b6c606072a3a5f8d0320",
+                "replay_id": null,
+                "request_index": 26,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 1,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 1
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-04-clarity",
+        "pair_index": 4,
+        "pair_position": 1,
+        "position": 7,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-07-clarity-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 6928.908215,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-05-graphium",
+        "pair_index": 5,
+        "pair_position": 1,
+        "position": 9,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-09-graphium-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      },
+      "pair_id": "treatment-unopened-05-graphium",
+      "pair_index": 5,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 5883.190373,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-05-graphium",
+        "pair_index": 5,
+        "pair_position": 2,
+        "position": 10,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-10-graphium-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      }
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+        "final_class": "official_fail",
+        "metrics": {
+          "generation_seconds": 3404.512946,
+          "model_requests": 42,
+          "official_seconds": 7.342527866363525,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 43729,
+            "prompt_tokens": 624965,
+            "total_tokens": 668694
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 41,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-06-bigbang",
+        "pair_index": 6,
+        "pair_position": 2,
+        "position": 12,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-12-bigbang-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_fail"
+      },
+      "pair_id": "treatment-unopened-06-bigbang",
+      "pair_index": 6,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 6352.34172,
+          "model_requests": 39,
+          "official_seconds": 1533.3570320606232,
+          "replay_status_counts": {
+            "fail": 1,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 28346,
+            "prompt_tokens": 1043715,
+            "total_tokens": 1072061
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 49,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 2
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 4,
+                "observation_trigger": "periodic",
+                "request_index": 37,
+                "shell_operations_completed": 48,
+                "transition": "candidate-ready"
+              },
+              {
+                "replay_id": null,
+                "replay_status": "fail",
+                "request_index": 38,
+                "transition": "replay-returned-for-free-repair"
+              }
+            ],
+            "forced_model_requests": 1,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 1
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-06-bigbang",
+        "pair_index": 6,
+        "pair_position": 1,
+        "position": 11,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-11-bigbang-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 5340.378549,
+          "model_requests": 68,
+          "official_seconds": 352.7315504550934,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 50759,
+            "prompt_tokens": 1818563,
+            "total_tokens": 1869322
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 88,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-07-uer-py",
+        "pair_index": 7,
+        "pair_position": 1,
+        "position": 13,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-13-uer-py-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "treatment-unopened-07-uer-py",
+      "pair_index": 7,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 8288.237703,
+          "model_requests": 81,
+          "official_seconds": 390.6282694339752,
+          "replay_status_counts": {
+            "fail": 1,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 96671,
+            "prompt_tokens": 2925946,
+            "total_tokens": 3022617
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 96,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 2
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 6,
+                "observation_trigger": "periodic",
+                "request_index": 64,
+                "shell_operations_completed": 80,
+                "transition": "candidate-ready"
+              },
+              {
+                "replay_id": null,
+                "replay_status": "fail",
+                "request_index": 65,
+                "transition": "replay-returned-for-free-repair"
+              },
+              {
+                "observation_number": 7,
+                "observation_trigger": "periodic",
+                "request_index": 80,
+                "shell_operations_completed": 96,
+                "transition": "candidate-ready"
+              },
+              {
+                "program_sha256": "e5a1ce2127b5226df28ddf8f0a0e082e21ac8f40aeee66d54d72140535bcfcb7",
+                "replay_id": null,
+                "request_index": 81,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 2,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 2
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-07-uer-py",
+        "pair_index": 7,
+        "pair_position": 2,
+        "position": 14,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-14-uer-py-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+        "final_class": "infrastructure_or_measurement_censored",
+        "metrics": {
+          "generation_seconds": 2703.279075,
+          "model_requests": 66,
+          "official_seconds": 116.81809878349304,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 59898,
+            "prompt_tokens": 2315511,
+            "total_tokens": 2375409
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 65,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": null,
+        "official_retry": null,
+        "official_scientifically_eligible": false,
+        "pair_id": "treatment-unopened-08-django-machina",
+        "pair_index": 8,
+        "pair_position": 2,
+        "position": 16,
+        "protocol_compliant_pass": null,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-16-django-machina-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "infrastructure_unknown"
+      },
+      "pair_id": "treatment-unopened-08-django-machina",
+      "pair_index": 8,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+        "final_class": "official_fail",
+        "metrics": {
+          "generation_seconds": 5007.536161,
+          "model_requests": 82,
+          "official_seconds": 198.5876338481903,
+          "replay_status_counts": {
+            "fail": 1,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 100982,
+            "prompt_tokens": 3531530,
+            "total_tokens": 3632512
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 80,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 2
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 4,
+                "observation_trigger": "periodic",
+                "request_index": 48,
+                "shell_operations_completed": 48,
+                "transition": "candidate-ready"
+              },
+              {
+                "replay_id": null,
+                "replay_status": "fail",
+                "request_index": 49,
+                "transition": "replay-returned-for-free-repair"
+              },
+              {
+                "observation_number": 6,
+                "observation_trigger": "periodic",
+                "request_index": 81,
+                "shell_operations_completed": 80,
+                "transition": "candidate-ready"
+              },
+              {
+                "program_sha256": "0ad6b2608b3a8f473ca532a51523dfd74b1a80ac9fec00f15fc37a91982a7972",
+                "replay_id": null,
+                "request_index": 82,
+                "transition": "clean-replay-pass-returned"
+              }
+            ],
+            "forced_model_requests": 2,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 2
+          }
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-08-django-machina",
+        "pair_index": 8,
+        "pair_position": 1,
+        "position": 15,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-15-django-machina-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_fail"
+      }
+    },
+    {
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 784.347274,
+          "model_requests": 31,
+          "official_seconds": 107.69595170021057,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 31414,
+            "prompt_tokens": 747441,
+            "total_tokens": 778855
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 43,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-09-phobos",
+        "pair_index": 9,
+        "pair_position": 1,
+        "position": 17,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-17-phobos-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "treatment-unopened-09-phobos",
+      "pair_index": 9,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 1441.606107,
+          "model_requests": 34,
+          "official_seconds": 106.51258611679077,
+          "replay_status_counts": {
+            "fail": 1,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 33132,
+            "prompt_tokens": 654382,
+            "total_tokens": 687514
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 32,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 2
+          },
+          "verifier_handoff": {
+            "events": [
+              {
+                "observation_number": 3,
+                "observation_trigger": "periodic",
+                "request_index": 32,
+                "shell_operations_completed": 32,
+                "transition": "candidate-ready"
+              },
+              {
+                "replay_id": null,
+                "replay_status": "fail",
+                "request_index": 33,
+                "transition": "replay-returned-for-free-repair"
+              }
+            ],
+            "forced_model_requests": 1,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 1
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-09-phobos",
+        "pair_index": 9,
+        "pair_position": 2,
+        "position": 18,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-18-phobos-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 2537.795541,
+          "model_requests": 76,
+          "official_seconds": 47.62571096420288,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 77530,
+            "prompt_tokens": 1932356,
+            "total_tokens": 2009886
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 75,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-10-androidviewclient",
+        "pair_index": 10,
+        "pair_position": 2,
+        "position": 20,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-20-androidviewclient-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "treatment-unopened-10-androidviewclient",
+      "pair_index": 10,
+      "treatment": {
+        "arm": "B-F+O+H+R",
+        "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 3899.508387,
+          "model_requests": 79,
+          "official_seconds": 42.72405672073364,
+          "replay_status_counts": {
+            "fail": 1,
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 75972,
+            "prompt_tokens": 2702559,
+            "total_tokens": 2778531
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "envbench_shell": 77,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 2
+          },
+          "verifier_handoff": {
+            "events": [],
+            "forced_model_requests": 0,
+            "pending_at_termination": false,
+            "termination_reason": "verifier-triggered-replay-pass",
+            "trigger_count": 0
+          }
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "treatment-unopened-10-androidviewclient",
+        "pair_index": 10,
+        "pair_position": 1,
+        "position": 19,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-atomic-handoff-u10-v1-19-androidviewclient-B-FOHR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    }
+  ],
+  "protocol_compliant_paired": {
+    "both_pass": 5,
+    "censored_pairs": 1,
+    "control_only_pass": 1,
+    "control_pass_rate": 0.6666666666666666,
+    "control_passes": 6,
+    "discordant_pairs": 3,
+    "eligible_pairs": 9,
+    "mcnemar_exact_two_sided_p_value": 1.0,
+    "neither_pass": 1,
+    "pairs": 10,
+    "treatment_minus_control_pass_rate": 0.1111111111111111,
+    "treatment_only_pass": 2,
+    "treatment_pass_rate": 0.7777777777777778,
+    "treatment_passes": 7
+  },
+  "records": [
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 785.674988,
+        "model_requests": 26,
+        "official_seconds": 146.8549404144287,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 7560,
+          "prompt_tokens": 364272,
+          "total_tokens": 371832
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 25,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-01-ha-battery-notes",
+      "pair_index": 1,
+      "pair_position": 1,
+      "position": 1,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-01-ha-battery-notes-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 387.213155,
+        "model_requests": 17,
+        "official_seconds": 31.11918568611145,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 6503,
+          "prompt_tokens": 160218,
+          "total_tokens": 166721
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 16,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 2,
+              "observation_trigger": "periodic",
+              "request_index": 16,
+              "shell_operations_completed": 16,
+              "transition": "candidate-ready"
+            },
+            {
+              "program_sha256": "f643321c896b1a6d971a83417c2d5e003b48e383f1facf8dca9e4e2b2733c51e",
+              "replay_id": null,
+              "request_index": 17,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 1,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 1
+        }
+      },
+      "official_pass": true,
+      "official_retry": {
+        "artifact_root": "pro-v2-atomic-handoff-u10-v1-02-ha-battery-notes-B-FOHR-eval-retry1/envbench-python-andrew-codechimp__HA-Battery-Notes__59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+        "evaluation_completed": true,
+        "infrastructure_signature": "read-timeout",
+        "model_reexecuted": false,
+        "official_pass": true,
+        "official_seconds": 31.11918568611145,
+        "run_id": "pro-v2-atomic-handoff-u10-v1-02-ha-battery-notes-B-FOHR-eval-retry1"
+      },
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-01-ha-battery-notes",
+      "pair_index": 1,
+      "pair_position": 2,
+      "position": 2,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-02-ha-battery-notes-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "infrastructure_unknown"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 680.929647,
+        "model_requests": 21,
+        "official_seconds": 236.3400821685791,
+        "replay_status_counts": {
+          "fail": 2,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 8721,
+          "prompt_tokens": 361616,
+          "total_tokens": 370337
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 24,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 3
+        },
+        "verifier_handoff": {
+          "events": [],
+          "forced_model_requests": 0,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 0
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-02-basxconnect",
+      "pair_index": 2,
+      "pair_position": 1,
+      "position": 3,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-03-basxconnect-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "final_class": "official_fail",
+      "metrics": {
+        "generation_seconds": 748.537074,
+        "model_requests": 30,
+        "official_seconds": 9.754640102386475,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 13191,
+          "prompt_tokens": 501315,
+          "total_tokens": 514506
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 38,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-02-basxconnect",
+      "pair_index": 2,
+      "pair_position": 2,
+      "position": 4,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-04-basxconnect-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_fail"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 4282.657792,
+        "model_requests": 110,
+        "official_seconds": 204.24473357200623,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 86705,
+          "prompt_tokens": 4446565,
+          "total_tokens": 4533270
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 109,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": {
+        "artifact_root": "pro-v2-atomic-handoff-u10-v1-05-micropy-cli-A-FO-eval-retry1/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+        "evaluation_completed": true,
+        "infrastructure_signature": "read-timeout",
+        "model_reexecuted": false,
+        "official_pass": true,
+        "official_seconds": 204.24473357200623,
+        "run_id": "pro-v2-atomic-handoff-u10-v1-05-micropy-cli-A-FO-eval-retry1"
+      },
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-03-micropy-cli",
+      "pair_index": 3,
+      "pair_position": 1,
+      "position": 5,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-05-micropy-cli-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "infrastructure_unknown"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 5575.00744,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-03-micropy-cli",
+      "pair_index": 3,
+      "pair_position": 2,
+      "position": 6,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-06-micropy-cli-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 1697.658746,
+        "model_requests": 26,
+        "official_seconds": 284.9243423938751,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 11624,
+          "prompt_tokens": 419135,
+          "total_tokens": 430759
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 32,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 3,
+              "observation_trigger": "periodic",
+              "request_index": 25,
+              "shell_operations_completed": 32,
+              "transition": "candidate-ready"
+            },
+            {
+              "program_sha256": "469b26a3b6a51dc40448f0afed20455a74ab58d84e74b6c606072a3a5f8d0320",
+              "replay_id": null,
+              "request_index": 26,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 1,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 1
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-04-clarity",
+      "pair_index": 4,
+      "pair_position": 1,
+      "position": 7,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-07-clarity-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 1572.253899,
+        "model_requests": 37,
+        "official_seconds": 435.5468716621399,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 18009,
+          "prompt_tokens": 614729,
+          "total_tokens": 632738
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 35,
+          "envbench_socket_check": 1,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-04-clarity",
+      "pair_index": 4,
+      "pair_position": 2,
+      "position": 8,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-08-clarity-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 6928.908215,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-05-graphium",
+      "pair_index": 5,
+      "pair_position": 1,
+      "position": 9,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-09-graphium-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 5883.190373,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-05-graphium",
+      "pair_index": 5,
+      "pair_position": 2,
+      "position": 10,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-10-graphium-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 6352.34172,
+        "model_requests": 39,
+        "official_seconds": 1533.3570320606232,
+        "replay_status_counts": {
+          "fail": 1,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 28346,
+          "prompt_tokens": 1043715,
+          "total_tokens": 1072061
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 49,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 2
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 4,
+              "observation_trigger": "periodic",
+              "request_index": 37,
+              "shell_operations_completed": 48,
+              "transition": "candidate-ready"
+            },
+            {
+              "replay_id": null,
+              "replay_status": "fail",
+              "request_index": 38,
+              "transition": "replay-returned-for-free-repair"
+            }
+          ],
+          "forced_model_requests": 1,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 1
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-06-bigbang",
+      "pair_index": 6,
+      "pair_position": 1,
+      "position": 11,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-11-bigbang-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "final_class": "official_fail",
+      "metrics": {
+        "generation_seconds": 3404.512946,
+        "model_requests": 42,
+        "official_seconds": 7.342527866363525,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 43729,
+          "prompt_tokens": 624965,
+          "total_tokens": 668694
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 41,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-06-bigbang",
+      "pair_index": 6,
+      "pair_position": 2,
+      "position": 12,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-12-bigbang-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_fail"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 5340.378549,
+        "model_requests": 68,
+        "official_seconds": 352.7315504550934,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 50759,
+          "prompt_tokens": 1818563,
+          "total_tokens": 1869322
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 88,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-07-uer-py",
+      "pair_index": 7,
+      "pair_position": 1,
+      "position": 13,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-13-uer-py-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 8288.237703,
+        "model_requests": 81,
+        "official_seconds": 390.6282694339752,
+        "replay_status_counts": {
+          "fail": 1,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 96671,
+          "prompt_tokens": 2925946,
+          "total_tokens": 3022617
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 96,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 2
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 6,
+              "observation_trigger": "periodic",
+              "request_index": 64,
+              "shell_operations_completed": 80,
+              "transition": "candidate-ready"
+            },
+            {
+              "replay_id": null,
+              "replay_status": "fail",
+              "request_index": 65,
+              "transition": "replay-returned-for-free-repair"
+            },
+            {
+              "observation_number": 7,
+              "observation_trigger": "periodic",
+              "request_index": 80,
+              "shell_operations_completed": 96,
+              "transition": "candidate-ready"
+            },
+            {
+              "program_sha256": "e5a1ce2127b5226df28ddf8f0a0e082e21ac8f40aeee66d54d72140535bcfcb7",
+              "replay_id": null,
+              "request_index": 81,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 2,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 2
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-07-uer-py",
+      "pair_index": 7,
+      "pair_position": 2,
+      "position": 14,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-14-uer-py-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+      "final_class": "official_fail",
+      "metrics": {
+        "generation_seconds": 5007.536161,
+        "model_requests": 82,
+        "official_seconds": 198.5876338481903,
+        "replay_status_counts": {
+          "fail": 1,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 100982,
+          "prompt_tokens": 3531530,
+          "total_tokens": 3632512
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 80,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 2
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 4,
+              "observation_trigger": "periodic",
+              "request_index": 48,
+              "shell_operations_completed": 48,
+              "transition": "candidate-ready"
+            },
+            {
+              "replay_id": null,
+              "replay_status": "fail",
+              "request_index": 49,
+              "transition": "replay-returned-for-free-repair"
+            },
+            {
+              "observation_number": 6,
+              "observation_trigger": "periodic",
+              "request_index": 81,
+              "shell_operations_completed": 80,
+              "transition": "candidate-ready"
+            },
+            {
+              "program_sha256": "0ad6b2608b3a8f473ca532a51523dfd74b1a80ac9fec00f15fc37a91982a7972",
+              "replay_id": null,
+              "request_index": 82,
+              "transition": "clean-replay-pass-returned"
+            }
+          ],
+          "forced_model_requests": 2,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 2
+        }
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-08-django-machina",
+      "pair_index": 8,
+      "pair_position": 1,
+      "position": 15,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-15-django-machina-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_fail"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+      "final_class": "infrastructure_or_measurement_censored",
+      "metrics": {
+        "generation_seconds": 2703.279075,
+        "model_requests": 66,
+        "official_seconds": 116.81809878349304,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 59898,
+          "prompt_tokens": 2315511,
+          "total_tokens": 2375409
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 65,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": null,
+      "official_retry": null,
+      "official_scientifically_eligible": false,
+      "pair_id": "treatment-unopened-08-django-machina",
+      "pair_index": 8,
+      "pair_position": 2,
+      "position": 16,
+      "protocol_compliant_pass": null,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-16-django-machina-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "infrastructure_unknown"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 784.347274,
+        "model_requests": 31,
+        "official_seconds": 107.69595170021057,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 31414,
+          "prompt_tokens": 747441,
+          "total_tokens": 778855
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 43,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-09-phobos",
+      "pair_index": 9,
+      "pair_position": 1,
+      "position": 17,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-17-phobos-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 1441.606107,
+        "model_requests": 34,
+        "official_seconds": 106.51258611679077,
+        "replay_status_counts": {
+          "fail": 1,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 33132,
+          "prompt_tokens": 654382,
+          "total_tokens": 687514
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 32,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 2
+        },
+        "verifier_handoff": {
+          "events": [
+            {
+              "observation_number": 3,
+              "observation_trigger": "periodic",
+              "request_index": 32,
+              "shell_operations_completed": 32,
+              "transition": "candidate-ready"
+            },
+            {
+              "replay_id": null,
+              "replay_status": "fail",
+              "request_index": 33,
+              "transition": "replay-returned-for-free-repair"
+            }
+          ],
+          "forced_model_requests": 1,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 1
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-09-phobos",
+      "pair_index": 9,
+      "pair_position": 2,
+      "position": 18,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-18-phobos-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "B-F+O+H+R",
+      "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 3899.508387,
+        "model_requests": 79,
+        "official_seconds": 42.72405672073364,
+        "replay_status_counts": {
+          "fail": 1,
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 75972,
+          "prompt_tokens": 2702559,
+          "total_tokens": 2778531
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 77,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 2
+        },
+        "verifier_handoff": {
+          "events": [],
+          "forced_model_requests": 0,
+          "pending_at_termination": false,
+          "termination_reason": "verifier-triggered-replay-pass",
+          "trigger_count": 0
+        }
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-10-androidviewclient",
+      "pair_index": 10,
+      "pair_position": 1,
+      "position": 19,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-19-androidviewclient-B-FOHR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 2537.795541,
+        "model_requests": 76,
+        "official_seconds": 47.62571096420288,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 77530,
+          "prompt_tokens": 1932356,
+          "total_tokens": 2009886
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "envbench_shell": 75,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "treatment-unopened-10-androidviewclient",
+      "pair_index": 10,
+      "pair_position": 2,
+      "position": 20,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-atomic-handoff-u10-v1-20-androidviewclient-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    }
+  ],
+  "resources": {
+    "common_success": {
+      "control": {
+        "generation_seconds": {
+          "count": 5,
+          "max": 5340.378549,
+          "mean": 2204.0900502,
+          "median": 1572.253899,
+          "min": 784.347274
+        },
+        "model_requests": {
+          "count": 5,
+          "max": 76.0,
+          "mean": 47.6,
+          "median": 37.0,
+          "min": 26.0
+        },
+        "official_seconds": {
+          "count": 5,
+          "max": 435.5468716621399,
+          "mean": 218.09100503921508,
+          "median": 146.8549404144287,
+          "min": 47.62571096420288
+        },
+        "runs": 5,
+        "total_tokens": {
+          "count": 5,
+          "max": 2009886.0,
+          "mean": 1132526.6,
+          "median": 778855.0,
+          "min": 371832.0
+        }
+      },
+      "pairs": 5,
+      "treatment": {
+        "generation_seconds": {
+          "count": 5,
+          "max": 8288.237703,
+          "mean": 3142.8448196,
+          "median": 1697.658746,
+          "min": 387.213155
+        },
+        "model_requests": {
+          "count": 5,
+          "max": 81.0,
+          "mean": 47.4,
+          "median": 34.0,
+          "min": 17.0
+        },
+        "official_seconds": {
+          "count": 5,
+          "max": 390.6282694339752,
+          "mean": 171.18168807029724,
+          "median": 106.51258611679077,
+          "min": 31.11918568611145
+        },
+        "runs": 5,
+        "total_tokens": {
+          "count": 5,
+          "max": 3022617.0,
+          "mean": 1417228.4,
+          "median": 687514.0,
+          "min": 166721.0
+        }
+      }
+    },
+    "official_success": {
+      "control": {
+        "generation_seconds": {
+          "count": 6,
+          "max": 5340.378549,
+          "mean": 2550.518007166667,
+          "median": 2055.02472,
+          "min": 784.347274
+        },
+        "model_requests": {
+          "count": 6,
+          "max": 110.0,
+          "mean": 58.0,
+          "median": 52.5,
+          "min": 26.0
+        },
+        "official_seconds": {
+          "count": 6,
+          "max": 435.5468716621399,
+          "mean": 215.7832931280136,
+          "median": 175.54983699321747,
+          "min": 47.62571096420288
+        },
+        "runs": 6,
+        "total_tokens": {
+          "count": 6,
+          "max": 4533270.0,
+          "mean": 1699317.1666666667,
+          "median": 1324088.5,
+          "min": 371832.0
+        }
+      },
+      "treatment": {
+        "generation_seconds": {
+          "count": 7,
+          "max": 8288.237703,
+          "mean": 3249.642209285714,
+          "median": 1697.658746,
+          "min": 387.213155
+        },
+        "model_requests": {
+          "count": 7,
+          "max": 81.0,
+          "mean": 42.42857142857143,
+          "median": 34.0,
+          "min": 17.0
+        },
+        "official_seconds": {
+          "count": 7,
+          "max": 1533.3570320606232,
+          "mean": 375.0865077972412,
+          "median": 236.3400821685791,
+          "min": 31.11918568611145
+        },
+        "runs": 7,
+        "total_tokens": {
+          "count": 7,
+          "max": 3022617.0,
+          "mean": 1218362.857142857,
+          "median": 687514.0,
+          "min": 166721.0
+        }
+      }
+    },
+    "selection_note": "Common-success resources are the paired comparison; per-arm Official success summaries are descriptive because their case sets can differ."
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-atomic-handoff-treatment-unopened10-v1"
+}

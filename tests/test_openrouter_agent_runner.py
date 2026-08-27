@@ -808,6 +808,10 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(metadata["verifier_handoff"]["trigger_count"], 1)
         self.assertEqual(metadata["verifier_handoff"]["forced_model_requests"], 1)
         self.assertEqual(
+            metadata["verifier_handoff"]["termination_reason"],
+            "atomic-submit-clean-replay-pass",
+        )
+        self.assertEqual(
             [item["transition"] for item in metadata["verifier_handoff"]["events"]],
             [
                 "candidate-ready",

@@ -1,11 +1,11 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-27）：** 失败统一按 Observation--Constraint--Operation 三层分类。
-> EnvSolve-Pro 保留一个自由连续 Agent session，按固定节奏测量完整可信目标；目标通过时，下一轮立即
-> 要求交付累计程序。该程序从目标初始状态原样重放；失败成为同一 session 中可执行的 case-local 证据，
-> 并恢复自由修复。Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源阈值不属于
-> 核心方法。所有方法共享的实验完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计
-> 研发历史。
+> **当前论文设计（2026-08-28）：** 失败统一按 Observation--Constraint--Operation 三层分类。
+> EnvSolve-Pro 保留一个自由连续 Agent session，并提供可反复调用、从目标初始状态执行的 clean replay。
+> Replay 失败成为同一 session 中可执行的 case-local 证据；只有原样通过 replay 的程序才能交付。何时
+> 形成候选、怎样修复仍由 Agent 决定。固定节奏观测和强制 handoff 已被开发实验否决，不属于核心机制；
+> Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源阈值同样不属于核心方法。所有
+> 方法共享的实验完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计研发历史。
 
 ## 1. 研究目标
 
@@ -907,3 +907,36 @@ harness 边界导致的结果从算法效果归因中删失。修正仍拒绝手
 原始 batch 主指标为 `2/3` Official Pass；机制激活和一轮交付为 `3/3`。这是 outcome-conditioned 的
 已消费证据，只批准文档顶部的固定算法。下一项效果实验必须在结果未知、仓库不重叠的 bad-case batch
 上与匹配 `F+O` 对照比较。本轮三个 treatment 结果不能再触发算法或边界修改。
+
+### 12.9 前瞻十对压力实验与核心方法做减法
+
+预注册的 treatment-unopened batch 在完成既定排除后，纳入独立 Codex census 中全部符合条件的确定性
+失败。Spark 共执行 20 个 episode：匹配的 goal-aware 自由搜索 `A-F+O`，对比更大的“定时观测、强制
+handoff、原子 replay” treatment `B-F+O+H+R`。这些仓库 identity 的更早轨迹已经参与开发，因此它是
+前瞻开发压力实验，不是 held-out 评估。
+
+一对因 evaluator 基础设施问题删失。九对有效样本中，A 为 `6/9`，B 为 `7/9`：5 对都通过、1 对
+仅 A 通过、2 对仅 B 通过、1 对都失败，双侧精确 McNemar 为 `p=1.0`。两个 B-only 中，basxconnect
+从未激活强制 handoff，因此只有 BigBang 是与该机制一致的救援；micropy-cli 为 A-only，原因是 B 没有
+完成生成。五对共同成功样本的平均模型请求为 47.6 对 47.4，但 B 的平均生成时间更高（3,143 对 2,204
+秒），平均 Token 也更高（142 万对 113 万）。样本很小，这些描述性资源结果不支持效率主张。
+
+科研决策是做减法：固定节奏和强制 handoff 不晋级为 EnvSolve-Pro。核心退回 Minimal B：一个连续
+Agent session；Agent 可反复主动调用 clean replay；失败反馈返回同一 session；交付前必须让原样程序
+通过 replay 认证。已有完整性边界仍是共享实验基础设施。不新增 package 规则、候选保留策略、checkpoint、
+compatibility ledger 或 gate。
+
+裁决同时修正两项不改变 episode 结果的测量问题：当日志后部已经出现确定性的 Python 环境失败时，前部
+网络消息不能再把 episode 错删失；termination metadata 需要区分真正的强制 handoff 与普通原子提交。
+后续配对裁决统一报告精确 discordance 统计和共同成功样本资源。
+
+下一阶段证据顺序固定为：
+
+1. 完成独立 Codex 与 Repo2Run 的 Dev 失败矩阵，在打开新的 Minimal-B 结果前冻结所有符合条件的
+   baseline-failure case；
+2. 使用相同固定 DeepSeek V4 Flash、provider policy、宽松安全上限和 Official evaluator，运行匹配的
+   `F+O` 对 Minimal-B `F+O+R`；
+3. 并行完成失败 taxonomy 的分层独立复标；
+4. 完整 batch 裁决前不修改算法；
+5. 只有 Minimal B 保持或提高 Official 成功率后，才进入未触碰评估、外部系统比较和强弱 backbone
+   实验。

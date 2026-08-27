@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from datetime import datetime
+from math import comb
 from pathlib import Path
 import re
+from statistics import mean, median
 from typing import Any, Mapping
 
 from envsolve_harness.audit import audit_run
@@ -115,6 +117,7 @@ def _adjudicate_official_retry(
         "model_reexecuted": False,
         "evaluation_completed": True,
         "official_pass": result["official_pass"],
+        "official_seconds": result.get("execution_time"),
     }
 
 
@@ -214,7 +217,7 @@ def adjudicate_screen(
 def _paired_counts(
     pairs: list[dict[str, Any]],
     outcome_key: str,
-) -> dict[str, int]:
+) -> dict[str, int | float | None]:
     counts = {
         "pairs": len(pairs),
         "eligible_pairs": 0,
@@ -243,7 +246,114 @@ def _paired_counts(
             counts["treatment_only_pass"] += 1
         else:
             counts["neither_pass"] += 1
+    eligible = counts["eligible_pairs"]
+    discordant = counts["control_only_pass"] + counts["treatment_only_pass"]
+    if discordant:
+        smaller = min(
+            counts["control_only_pass"], counts["treatment_only_pass"]
+        )
+        tail = sum(comb(discordant, index) for index in range(smaller + 1))
+        mcnemar_p = min(1.0, 2.0 * tail / (2**discordant))
+    else:
+        mcnemar_p = 1.0
+    counts.update(
+        {
+            "control_pass_rate": (
+                counts["control_passes"] / eligible if eligible else None
+            ),
+            "treatment_pass_rate": (
+                counts["treatment_passes"] / eligible if eligible else None
+            ),
+            "treatment_minus_control_pass_rate": (
+                (counts["treatment_passes"] - counts["control_passes"])
+                / eligible
+                if eligible
+                else None
+            ),
+            "discordant_pairs": discordant,
+            "mcnemar_exact_two_sided_p_value": mcnemar_p,
+        }
+    )
     return counts
+
+
+def _numeric_summary(values: list[Any]) -> dict[str, float | int] | None:
+    numeric = [
+        float(value)
+        for value in values
+        if isinstance(value, (int, float)) and not isinstance(value, bool)
+    ]
+    if not numeric:
+        return None
+    return {
+        "count": len(numeric),
+        "mean": mean(numeric),
+        "median": median(numeric),
+        "min": min(numeric),
+        "max": max(numeric),
+    }
+
+
+def _resource_metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
+    metrics = [
+        record["metrics"]
+        for record in records
+        if isinstance(record.get("metrics"), dict)
+    ]
+    return {
+        "runs": len(records),
+        "generation_seconds": _numeric_summary(
+            [item.get("generation_seconds") for item in metrics]
+        ),
+        "official_seconds": _numeric_summary(
+            [item.get("official_seconds") for item in metrics]
+        ),
+        "model_requests": _numeric_summary(
+            [item.get("model_requests") for item in metrics]
+        ),
+        "total_tokens": _numeric_summary(
+            [
+                (item.get("token_usage") or {}).get("total_tokens")
+                for item in metrics
+            ]
+        ),
+    }
+
+
+def _resource_summary(pairs: list[dict[str, Any]]) -> dict[str, Any]:
+    official_success = {
+        role: [
+            pair[role]
+            for pair in pairs
+            if pair[role].get("official_pass") is True
+        ]
+        for role in ("control", "treatment")
+    }
+    common_success_pairs = [
+        pair
+        for pair in pairs
+        if pair["control"].get("official_pass") is True
+        and pair["treatment"].get("official_pass") is True
+    ]
+    return {
+        "selection_note": (
+            "Common-success resources are the paired comparison; per-arm Official "
+            "success summaries are descriptive because their case sets can differ."
+        ),
+        "official_success": {
+            role: _resource_metrics(records)
+            for role, records in official_success.items()
+        },
+        "common_success": {
+            "pairs": len(common_success_pairs),
+            "control": _resource_metrics(
+                [pair["control"] for pair in common_success_pairs]
+            ),
+            "treatment": _resource_metrics(
+                [pair["treatment"] for pair in common_success_pairs]
+            ),
+        },
+    }
 
 
 def adjudicate_paired_schedule(
@@ -252,7 +362,11 @@ def adjudicate_paired_schedule(
     *,
     official_retries: Mapping[str, str] | None = None,
     protocol_invalid: Mapping[str, str] | None = None,
+    control_arm: str = "S-OBS",
+    treatment_arm: str = "H-VH",
 ) -> dict[str, Any]:
+    if not control_arm or not treatment_arm or control_arm == treatment_arm:
+        raise ValueError("Control and treatment arm labels must be distinct and non-empty")
     schedule = read_json(schedule_path.resolve())
     episodes = schedule.get("episodes")
     if not isinstance(episodes, list):
@@ -313,6 +427,12 @@ def adjudicate_paired_schedule(
         protocol_pass = False if protocol_reason is not None else official_pass
         if protocol_reason is not None:
             final_class = "protocol_invalid"
+        metrics = _run_metrics(runs_root, run_id, str(source["case_id"]))
+        if metrics is not None and retry is not None:
+            metrics = {
+                **metrics,
+                "official_seconds": retry.get("official_seconds"),
+            }
         records.append(
             {
                 "position": source.get("position"),
@@ -333,9 +453,7 @@ def adjudicate_paired_schedule(
                 "protocol_invalid_reason": protocol_reason,
                 "protocol_compliant_pass": protocol_pass,
                 "final_class": final_class,
-                "metrics": _run_metrics(
-                    runs_root, run_id, str(source["case_id"])
-                ),
+                "metrics": metrics,
             }
         )
 
@@ -350,7 +468,10 @@ def adjudicate_paired_schedule(
     for record in records:
         pair_index = record.get("pair_index")
         arm = record.get("arm")
-        if not isinstance(pair_index, int) or arm not in {"S-OBS", "H-VH"}:
+        if not isinstance(pair_index, int) or arm not in {
+            control_arm,
+            treatment_arm,
+        }:
             raise ValueError(
                 f"Run {record['source_run_id']} has invalid pair identity"
             )
@@ -362,7 +483,7 @@ def adjudicate_paired_schedule(
                 "case_id": record["case_id"],
             },
         )
-        key = "control" if arm == "S-OBS" else "treatment"
+        key = "control" if arm == control_arm else "treatment"
         if key in pair:
             raise ValueError(f"Pair {pair_index} repeats {key} arm")
         pair[key] = record
@@ -378,6 +499,7 @@ def adjudicate_paired_schedule(
         "schema_version": "1.0.0",
         "study_id": schedule.get("study_id"),
         "paired_schedule": str(schedule_path),
+        "arms": {"control": control_arm, "treatment": treatment_arm},
         "counts": {
             "scheduled_runs": len(records),
             "pairs": len(pairs),
@@ -392,6 +514,7 @@ def adjudicate_paired_schedule(
         "protocol_compliant_paired": _paired_counts(
             pairs, "protocol_compliant_pass"
         ),
+        "resources": _resource_summary(pairs),
         "records": records,
         "pairs": pairs,
     }

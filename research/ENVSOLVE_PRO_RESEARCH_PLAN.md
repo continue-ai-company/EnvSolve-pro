@@ -1,13 +1,14 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-27):** failures are classified by the
+> **Current paper design (2026-08-28):** failures are classified by the
 > Observation--Constraint--Operation framework. EnvSolve-Pro keeps one unrestricted
-> continuous Agent session, measures the complete trusted goal at a fixed cadence, and
-> immediately asks for the cumulative program when that goal passes. The exact program is
-> replayed from the target initial state; failures become executable case-local evidence in
-> the same session and restore free repair. Package rules, checkpoints, cross-case memory,
-> harness-selected repairs, and hard resource thresholds are excluded from the core method.
-> The shared evaluation-integrity foundation E is not an algorithm. Section 12 retains
+> continuous Agent session and exposes repeatable clean replay from the target initial
+> state. Replay failures become executable case-local evidence in the same session; only
+> the exact replay-passing program can be delivered. The Agent decides when to form a
+> candidate and how to repair it. Fixed-cadence observation and forced handoff are rejected
+> development treatments, not core mechanisms. Package rules, checkpoints, cross-case
+> memory, harness-selected repairs, and hard resource thresholds are also excluded. The
+> shared evaluation-integrity foundation E is not an algorithm. Section 12 retains
 > superseded proposals as auditable development history.
 
 ## 1. Objective
@@ -1189,3 +1190,45 @@ delivery are `3/3`. This is consumed, outcome-conditioned evidence and licenses 
 fixed algorithm described at the top of this document. The next effect experiment uses an
 outcome-blind, repository-disjoint bad-case batch with matched `F+O` controls. No additional
 algorithm or boundary change is allowed in response to these three treatment outcomes.
+
+### 12.9 Prospective Ten-Pair Stress Test and Core-Method Reduction
+
+The preregistered treatment-unopened batch selected every eligible deterministic failure
+from the independent Codex census after applying the recorded exclusions. It executed 20
+episodes on Spark: matched goal-aware free search `A-F+O` versus the larger
+scheduled-observation, forced-handoff, and atomic-replay treatment `B-F+O+H+R`. Older
+trajectories from these repository identities had informed development, so this is a
+prospective development stress test, not held-out evaluation.
+
+One pair was censored by evaluator infrastructure. Among nine eligible pairs, A passed
+`6/9` and B passed `7/9`: five both-pass, one A-only, two B-only, and one neither-pass pair.
+The two-sided exact McNemar result is `p=1.0`. Of the two B-only outcomes, basxconnect never
+activated forced handoff, so only BigBang is a mechanism-consistent rescue. Micropy-cli was
+A-only because B did not complete generation. The five common-success pairs used 47.6
+versus 47.4 mean model requests, while B used more mean generation time (3,143 versus 2,204
+seconds) and tokens (1.42M versus 1.13M). These small descriptive resource samples do not
+support an efficiency claim.
+
+The scientific decision is subtraction. Fixed cadence and forced handoff are not promoted
+to EnvSolve-Pro. The core returns to Minimal B: one continuous Agent session, an
+Agent-invoked clean-replay action that can be used repeatedly, replay feedback returned to
+the same session, and mandatory exact-program replay certification before delivery. The
+existing integrity boundary remains shared experimental infrastructure. No package rule,
+candidate-retention policy, checkpoint, compatibility ledger, or new gate is added.
+
+Two measurement fixes accompany the adjudication without changing any episode outcome:
+later deterministic Python environment failures now prevent an earlier network message
+from censoring the episode, and termination metadata distinguishes an actual forced
+handoff from an ordinary atomic submission. Future paired adjudication reports exact
+discordance statistics and common-success resources.
+
+The next evidence sequence is fixed as follows:
+
+1. finish the independent Codex and Repo2Run Dev failure matrix and freeze every eligible
+   baseline-failure case before opening new Minimal-B outcomes;
+2. run matched `F+O` versus Minimal-B `F+O+R` with the same pinned DeepSeek V4 Flash model,
+   provider policy, broad safety limits, and Official evaluator;
+3. complete independent stratified annotation of the failure taxonomy in parallel;
+4. make no algorithm change until the full batch is adjudicated;
+5. only if Minimal B preserves or improves Official success proceed to untouched
+   evaluation, external-system comparison, and the strong/weak backbone study.

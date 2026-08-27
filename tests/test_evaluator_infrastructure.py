@@ -235,6 +235,23 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
             )
         )
 
+    def test_network_error_does_not_hide_a_later_python_environment_failure(
+        self,
+    ) -> None:
+        self.assertIsNone(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "ReadTimeoutError while downloading jinja2\n"
+                        "retrying the environment installer\n"
+                        "No module named 'packaging.licenses'\n"
+                    ),
+                    "pyright": {},
+                }
+            )
+        )
+
     @mock.patch(
         "envsolve_harness.adapters.envbench.docker_image_provenance",
         return_value={"reference": "test:image"},

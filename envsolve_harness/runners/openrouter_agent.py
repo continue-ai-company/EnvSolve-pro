@@ -1141,7 +1141,10 @@ never selects packages, blocks commands, or restores an environment.
                     return fallback
                 raise RuntimeError("Agent exceeded the generation wall-clock safety cap")
             options = self.request_options(model, messages, seed=seed)
-            if self.verifier_handoff_enabled and handoff_pending:
+            forced_handoff_request = (
+                self.verifier_handoff_enabled and handoff_pending
+            )
+            if forced_handoff_request:
                 options["tool_choice"] = {
                     "type": "function",
                     "function": {
@@ -1474,7 +1477,7 @@ never selects packages, blocks commands, or restores an environment.
                             if self.incumbent_enabled
                             else (
                                 "verifier-triggered-replay-pass"
-                                if self.verifier_handoff_enabled
+                                if forced_handoff_request
                                 else (
                                     "atomic-submit-clean-replay-pass"
                                     if self.atomic_submission_enabled
