@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "repo2run-flash-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "study_role": "descriptive-external-baseline-trajectory-study",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "formal_comparison_permitted": false,
+  "fairness_boundary": {
+    "goal_matched": false,
+    "initial_state_matched": false,
+    "native_goal": "Repo2Run's native loop optimized repository test collection rather than the EnvBench reportMissingImports goal.",
+    "initial_state_difference": "Repo2Run construction did not receive EnvBench's build_output precondition.",
+    "output_adapter": "The upstream integration path did not produce a Dockerfile because its current outer-command integration references an undefined variable. The study therefore compiled observable inner commands and separately corrected the observation distillation adapter.",
+    "source_qualification": "The reproduced Repo2Run checkout contained the transport and parity patches required for this study and was not a clean formal baseline source.",
+    "prohibited_summary": "Do not report this batch as Repo2Run 0/9 or as a causal success-rate comparison."
+  },
+  "native_generation": {
+    "scheduled": 9,
+    "completed": 7,
+    "failed": 2,
+    "episodes": [
+      {
+        "position": 1,
+        "case": "luigi",
+        "completed": true,
+        "model_requests": 48,
+        "total_tokens": 2836525,
+        "generation_seconds": 6428.03001
+      },
+      {
+        "position": 2,
+        "case": "holo",
+        "completed": true,
+        "model_requests": 6,
+        "total_tokens": 44601,
+        "generation_seconds": 65.384807
+      },
+      {
+        "position": 3,
+        "case": "python-holidays",
+        "completed": true,
+        "model_requests": 10,
+        "total_tokens": 108459,
+        "generation_seconds": 176.576668
+      },
+      {
+        "position": 4,
+        "case": "git-gud",
+        "completed": true,
+        "model_requests": 9,
+        "total_tokens": 93775,
+        "generation_seconds": 253.139182
+      },
+      {
+        "position": 5,
+        "case": "calliope",
+        "completed": true,
+        "model_requests": 16,
+        "total_tokens": 213020,
+        "generation_seconds": 650.908368
+      },
+      {
+        "position": 6,
+        "case": "censys-python",
+        "completed": true,
+        "model_requests": 8,
+        "total_tokens": 64698,
+        "generation_seconds": 161.150449
+      },
+      {
+        "position": 7,
+        "case": "rlberry",
+        "completed": false,
+        "model_requests": 7,
+        "total_tokens": 87875,
+        "generation_seconds": 371.894013,
+        "failure": "Controller crashed after an empty model response while indexing the first configuration candidate."
+      },
+      {
+        "position": 8,
+        "case": "scvelo",
+        "completed": true,
+        "model_requests": 16,
+        "total_tokens": 248086,
+        "generation_seconds": 528.574948
+      },
+      {
+        "position": 9,
+        "case": "extension-helpers",
+        "completed": false,
+        "model_requests": 9,
+        "total_tokens": 86275,
+        "generation_seconds": 110.396301,
+        "failure": "The trajectory required a private code-edit tool and changed pyproject.toml test configuration, so it was not replayable under the EnvBench protocol."
+      }
+    ]
+  },
+  "corrected_effects_evaluation": {
+    "legally_evaluable_programs": 5,
+    "official_passes": 0,
+    "episodes": [
+      {
+        "case": "holo",
+        "official_pass": false,
+        "issues_count": 5
+      },
+      {
+        "case": "python-holidays",
+        "official_pass": false,
+        "issues_count": 8
+      },
+      {
+        "case": "git-gud",
+        "official_pass": false,
+        "issues_count": 14
+      },
+      {
+        "case": "calliope",
+        "official_pass": false,
+        "issues_count": 9
+      },
+      {
+        "case": "censys-python",
+        "official_pass": false,
+        "issues_count": 1
+      }
+    ],
+    "interpretation": "These five failures show that the native test-collection deployment programs did not close the EnvBench missing-import constraints after adapter effects were preserved. They are descriptive goal-transfer failures, not a fair Repo2Run success rate."
+  },
+  "excluded_or_censored_cases": [
+    {
+      "case": "luigi",
+      "classification": "protocol_invalid",
+      "reason": "The generated program set PYTHONPATH to the benchmark test tree, an explicitly forbidden evaluator/test path."
+    },
+    {
+      "case": "rlberry",
+      "classification": "implementation_censored",
+      "reason": "Repo2Run's controller crashed before producing a usable deployment program."
+    },
+    {
+      "case": "scvelo",
+      "classification": "target_state_mismatch",
+      "reason": "The corrected effects program reached zero recorded issues but exited during editable installation because EnvBench's build_output precondition changed setuptools package discovery."
+    },
+    {
+      "case": "extension-helpers",
+      "classification": "protocol_invalid",
+      "reason": "The native solution depended on a private edit operation that changed verifier-relevant pyproject.toml configuration."
+    }
+  ],
+  "oco_findings": [
+    {
+      "layer": "observation",
+      "finding": "A deployment loop optimized against a different executable goal and different initial repository state can produce coherent native trajectories that do not transfer to EnvBench."
+    },
+    {
+      "layer": "constraint",
+      "finding": "The five corrected legal programs left 1 to 14 EnvBench missing-import issues because test-collection success did not represent the target constraint set."
+    },
+    {
+      "layer": "operation",
+      "finding": "Controller failure, private edit tools, and an incomplete upstream Dockerfile integration prevented some otherwise observable operations from becoming valid reproducible programs."
+    }
+  ],
+  "next_baseline_requirement": "A formal Repo2Run comparison must expose the same EnvBench public goal, materialize the same workspace preconditions before construction, use a clean source revision, and preserve Repo2Run's own iterative control logic."
+}

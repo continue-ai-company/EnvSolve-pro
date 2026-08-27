@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "study_role": "fixed-development-mechanism-study",
+  "formal_qualification": {
+    "scheduled_pairs": 9,
+    "scheduled_arms": 18,
+    "scientifically_eligible_arms": 0,
+    "scientifically_eligible_pairs": 0,
+    "reason": "The original Spark and AgentHub execution directories were source snapshots without Git metadata, so the manifests could not establish a committed and clean harness revision.",
+    "formal_effect_estimate_permitted": false,
+    "leaderboard_claim_permitted": false
+  },
+  "development_paired_outcome": {
+    "pairs": 9,
+    "eligible_pairs": 7,
+    "censored_pairs": 2,
+    "control_passes": 5,
+    "treatment_passes": 6,
+    "both_pass": 5,
+    "control_only_pass": 0,
+    "treatment_only_pass": 1,
+    "neither_pass": 1,
+    "discordant_pairs": 1,
+    "treatment_minus_control_pass_rate": 0.14285714285714285,
+    "mcnemar_exact_two_sided_p_value": 1.0,
+    "interpretation": "Replay produced one development-only treatment win and no observed treatment-only loss, but the batch is too small and formally ineligible."
+  },
+  "pairs": [
+    {
+      "pair_id": "crossmethod9-01-luigi",
+      "control_official": null,
+      "treatment_official": true,
+      "pair_class": "censored",
+      "reason": "Control generation completed, but both the source Official attempt and its only evaluation retry were infrastructure-censored."
+    },
+    {
+      "pair_id": "crossmethod9-02-holo",
+      "control_official": true,
+      "treatment_official": true,
+      "pair_class": "both_pass"
+    },
+    {
+      "pair_id": "crossmethod9-03-python-holidays",
+      "control_official": true,
+      "treatment_official": true,
+      "pair_class": "both_pass",
+      "reason": "The control outcome uses its preregistered exact-script Official retry after an initial read timeout."
+    },
+    {
+      "pair_id": "crossmethod9-04-git-gud",
+      "control_official": true,
+      "treatment_official": true,
+      "pair_class": "both_pass",
+      "mechanism": "Treatment clean replay repaired Fail to Pass before Official submission."
+    },
+    {
+      "pair_id": "crossmethod9-05-calliope",
+      "control_official": true,
+      "treatment_official": true,
+      "pair_class": "both_pass"
+    },
+    {
+      "pair_id": "crossmethod9-06-censys-python",
+      "control_official": true,
+      "treatment_official": true,
+      "pair_class": "both_pass"
+    },
+    {
+      "pair_id": "crossmethod9-07-rlberry",
+      "control_official": false,
+      "treatment_official": true,
+      "pair_class": "treatment_only_pass",
+      "mechanism": "Control exhausted 120 requests without submission. Treatment first observed zero missing imports at request 57, executed the exact goal at request 99, clean-replayed at request 100, submitted at request 101, and passed Official."
+    },
+    {
+      "pair_id": "crossmethod9-08-scvelo",
+      "control_official": false,
+      "treatment_official": false,
+      "pair_class": "neither_pass",
+      "mechanism": "Both arms exhausted 120 requests. The control ended with two mutually exclusive NumPy namespace imports; treatment replays returned Fail and Unknown without a certified program."
+    },
+    {
+      "pair_id": "crossmethod9-09-extension-helpers",
+      "control_official": true,
+      "treatment_official": null,
+      "pair_class": "censored",
+      "reason": "Treatment clean replay passed, but its Official attempt was read-timeout-censored. The only evaluation retry did not reach the evaluator because uv was absent from the non-interactive host PATH.",
+      "mechanism": "Both arms resolved runtime-generated test-package imports with an environment-level stub distribution."
+    }
+  ],
+  "replay_mechanism": {
+    "treatment_arms": 9,
+    "replay_calls": 11,
+    "status_counts": {
+      "pass": 8,
+      "fail": 2,
+      "unknown": 1
+    },
+    "arms_with_passing_replay": 8,
+    "fail_then_pass_repairs": 1,
+    "development_success_gain": "rlberry",
+    "limitation": "Replay certifies a proposed program but does not tell the Agent when the current construction state is ready to be programized."
+  },
+  "common_success_resources": {
+    "pairs": 5,
+    "pair_ids": [
+      "crossmethod9-02-holo",
+      "crossmethod9-03-python-holidays",
+      "crossmethod9-04-git-gud",
+      "crossmethod9-05-calliope",
+      "crossmethod9-06-censys-python"
+    ],
+    "requests": {
+      "control_mean": 23.0,
+      "treatment_mean": 23.6,
+      "treatment_over_control_mean_ratio": 1.0260869565217392,
+      "median_paired_ratio": 1.0625
+    },
+    "tokens": {
+      "control_mean": 273735.0,
+      "treatment_mean": 272727.6,
+      "treatment_over_control_mean_ratio": 0.9963197983451147,
+      "median_paired_ratio": 0.8816105207391941
+    },
+    "generation_seconds": {
+      "control_mean": 419.1942668,
+      "treatment_mean": 532.5589184,
+      "treatment_over_control_mean_ratio": 1.270434642308901,
+      "median_paired_ratio": 1.403769021618793
+    },
+    "interpretation": "Replay was not a reliable efficiency improvement on common-success cases; paired dispersion is large, and mean generation time increased by 27 percent."
+  },
+  "failure_mechanisms": [
+    {
+      "layer": "observation",
+      "mechanism": "The exact scoring residual can be hidden by non-scoring diagnostics or misleading shell pipeline status.",
+      "evidence": "The clean-source Holo smoke had zero missing imports while Pyright still exited nonzero with 200 non-scoring diagnostics. The old CrossMethod-9 runtime also allowed failed pip pipelines to appear successful; that harness bug was repaired after this batch."
+    },
+    {
+      "layer": "constraint",
+      "mechanism": "The remaining imports can encode a genuine compatibility conflict rather than an absent package name.",
+      "evidence": "scVelo required both pre-NumPy-2 and NumPy-2 private namespace paths under whole-repository static analysis, and neither arm found a legal reproducible resolution within 120 requests."
+    },
+    {
+      "layer": "operation",
+      "mechanism": "A solved construction state is not automatically converted into a reproducible program.",
+      "evidence": "RLberry treatment spent 43 model requests between its first zero-missing observation and clean replay. Control also reached zero late but never submitted."
+    },
+    {
+      "layer": "operation",
+      "mechanism": "Agents amplify scope by installing optional dependency closures after the scoring residual is already solved or nearly solved.",
+      "evidence": "RLberry and scVelo repeatedly expanded Torch, CUDA, documentation, and optional test dependencies, consuming millions of tokens and long downloads."
+    }
+  ],
+  "path_quality": {
+    "separate_axis_required": true,
+    "reason": "Official Pass can be reached by full dependency environments or by narrower environment overlays such as the extension-helpers stub distribution. Pass alone does not identify deployment completeness or the cheapest valid path.",
+    "new_gate_added": false
+  },
+  "next_treatment": {
+    "control": "Continuous public-goal Agent session with optional clean replay.",
+    "treatment": "The same Agent and replay interface plus a model-invoked exact current-goal check that returns only the active current constraints.",
+    "automatic_initial_observation": false,
+    "automatic_cadence": false,
+    "cross_observation_history": false,
+    "compatibility_frontier": false,
+    "container_checkpoint": false,
+    "package_selection_rules": false,
+    "forced_handoff": false,
+    "operation_policy": "The Agent remains free to choose all environment operations. A current-goal Pass advises immediate programization and clean replay; replay failure returns executable evidence to the same session.",
+    "rationale": "This directly targets exact-state ambiguity and delayed delivery while preserving strong-Agent autonomy and avoiding the overhead already observed for scheduled observations and compatibility frontiers."
+  }
+}
