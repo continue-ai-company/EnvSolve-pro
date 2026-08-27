@@ -1,0 +1,43 @@
+--- a/build_agent/utils/llm_client.py
++++ b/build_agent/utils/llm_client.py
+@@ -23,7 +23,7 @@
+ _BUDGET_LEDGER = budget_ledger_from_environment()
+ 
+ 
+-def get_llm_response(model: str, messages, temperature=0.0, n=1, max_tokens=8192):
++def get_llm_response(model: str, messages, temperature=0.0, n=1, max_tokens=32768):
+     base_url = os.environ.get("OPENAI_BASE_URL", None)
+     api_key = os.environ.get("OPENAI_API_KEY", None)
+     client = openai.OpenAI(
+@@ -38,14 +38,15 @@
+         for item in os.environ.get("OPENROUTER_PROVIDER_ORDER", "").split(",")
+         if item.strip()
+     ]
+-    extra_body = None
++    extra_body = {}
++    reasoning_effort = os.environ.get("ENVSOLVE_MODEL_REASONING_EFFORT", "").strip()
++    if reasoning_effort:
++        extra_body["reasoning"] = {"effort": reasoning_effort}
+     if base_url and "openrouter.ai" in base_url and provider_order:
+-        extra_body = {
+-            "provider": {
+-                "order": provider_order,
+-                "require_parameters": True,
+-                "allow_fallbacks": False,
+-            }
++        extra_body["provider"] = {
++            "order": provider_order,
++            "require_parameters": True,
++            "allow_fallbacks": False,
+         }
+     max_retry = 1 + int(os.environ.get("ENVSOLVE_MODEL_MAX_RETRIES", "4"))
+     count = 0
+@@ -60,7 +61,7 @@
+                 "n": n,
+                 "max_tokens": max_tokens,
+             }
+-            if extra_body is not None:
++            if extra_body:
+                 request["extra_body"] = extra_body
+             response = client.chat.completions.create(**request)
+             if response.usage:

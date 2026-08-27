@@ -1,0 +1,46 @@
+--- a/build_agent/utils/llm_client.py
++++ b/build_agent/utils/llm_client.py
+@@ -33,19 +33,36 @@
+         max_retries=0,
+     )
+ 
++    provider_order = [
++        item.strip()
++        for item in os.environ.get("OPENROUTER_PROVIDER_ORDER", "").split(",")
++        if item.strip()
++    ]
++    extra_body = None
++    if base_url and "openrouter.ai" in base_url and provider_order:
++        extra_body = {
++            "provider": {
++                "order": provider_order,
++                "require_parameters": True,
++                "allow_fallbacks": False,
++            }
++        }
+     max_retry = 1 + int(os.environ.get("ENVSOLVE_MODEL_MAX_RETRIES", "4"))
+     count = 0
+     if _BUDGET_LEDGER is not None:
+         _BUDGET_LEDGER.preflight()
+     while count < max_retry:
+         try:
+-            response = client.chat.completions.create(
+-                model=model,
+-                messages=messages,
+-                temperature=temperature,
+-                n=n,
+-                max_tokens=max_tokens
+-            )
++            request = {
++                "model": model,
++                "messages": messages,
++                "temperature": temperature,
++                "n": n,
++                "max_tokens": max_tokens,
++            }
++            if extra_body is not None:
++                request["extra_body"] = extra_body
++            response = client.chat.completions.create(**request)
+             if response.usage:
+                 usage_dict = {
+                     "total_tokens": response.usage.total_tokens,

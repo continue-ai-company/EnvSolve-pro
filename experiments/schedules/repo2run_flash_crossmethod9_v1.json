@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "repo2run-flash-crossmethod9-v1",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_minimal_b_crossmethod9_v1.jsonl",
+  "case_file_sha256": "ea520d9a454d5385d336c2e0b8e392e03074b5e981bc55d762cf32f6c95f6cd3",
+  "episode_timeout_seconds": 22200,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "episodes": [
+    {"position":1,"case_id":"envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-01-luigi"},
+    {"position":2,"case_id":"envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-02-holo"},
+    {"position":3,"case_id":"envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-03-python-holidays"},
+    {"position":4,"case_id":"envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-04-git-gud"},
+    {"position":5,"case_id":"envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-05-calliope"},
+    {"position":6,"case_id":"envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-06-censys-python"},
+    {"position":7,"case_id":"envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-07-rlberry"},
+    {"position":8,"case_id":"envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-08-scvelo"},
+    {"position":9,"case_id":"envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e","runner":"repo2run","method":"repo2run-reproduced-open-flash0731-parity","run_id":"pro-v2-r2r-flash-xm9-v1-09-extension-helpers"}
+  ]
+}

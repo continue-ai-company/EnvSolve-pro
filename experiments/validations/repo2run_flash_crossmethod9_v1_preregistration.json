@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "repo2run-flash-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "status": "specified-before-any-current-baseline-case-execution",
+  "purpose": "Observe a modern same-model Repo2Run baseline on the complete fixed CrossMethod-9 development stratum and compare its Official outcomes and failure distribution with EnvSolve-Pro A/B. This is not part of the paired Minimal-B treatment estimate.",
+  "selection": {
+    "source": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+    "rule": "Use all nine cases in the already fixed source-census order; do not select by current A/B outcomes.",
+    "cases": 9,
+    "identity_unseen": false,
+    "role": "consumed-development external-baseline observation"
+  },
+  "baseline": {
+    "repository": "Repo2Run",
+    "source_commit": "65042aa2d69a13746d7cd94ef1c5a29fcd19a692",
+    "runner": "repo2run",
+    "candidate_interface": "open-program",
+    "method": "repo2run-reproduced-open-flash0731-parity",
+    "algorithm_unchanged": [
+      "Repo2Run prompt and ReAct loop",
+      "Repo2Run tools and repository interactions",
+      "Repo2Run stopping logic",
+      "temperature=0 native setting",
+      "no requested seed"
+    ],
+    "transport_alignment_patches": [
+      "experiments/baseline_patches/repo2run_pin_openrouter_provider.patch",
+      "experiments/baseline_patches/repo2run_match_flash_inference_contract.patch"
+    ],
+    "existing_benchmark_adapter": "Distill replayable environment actions into the same open-program and Official EnvBench interface used by the prior cross-method census. Unsupported source-edit actions remain observable candidate-formation failures."
+  },
+  "inference": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter",
+    "provider_canary": "pass",
+    "require_parameters": true,
+    "allow_fallbacks": false,
+    "reasoning_effort": "xhigh",
+    "max_output_tokens": 32768,
+    "temperature": 0,
+    "seed": null
+  },
+  "budgets": {
+    "generation_wall_seconds": 18000,
+    "episode_wall_seconds": 22200,
+    "model_requests_safety_cap": 120,
+    "tokens_safety_cap": 100000000,
+    "estimated_cost_usd_safety_cap": 1000.0,
+    "interpretation": "Success is primary. Token and cost use are measured outcomes; the deliberately remote caps are only runaway-process protection."
+  },
+  "execution": {
+    "host": "spark-linux-arm64",
+    "lane_1": "positions 1-5",
+    "lane_2": "positions 6-9",
+    "schedule": "experiments/schedules/repo2run_flash_crossmethod9_v1.json",
+    "config": "experiments/configs/local_spark_repo2run_flash_crossmethod9_v1.json",
+    "official_evaluator_access": "post-generation-only"
+  },
+  "endpoints": {
+    "primary": "EnvBench Official Pass@1 per case and aggregate descriptive pass rate",
+    "failure": "Earliest decisive Observation, Constraint, or Operation layer plus infrastructure/protocol censoring",
+    "resources": ["model requests", "tokens", "generation time", "Official time", "network and storage when available"]
+  },
+  "claim_boundary": [
+    "The batch can update the development failure census and provide a same-model external baseline.",
+    "It is unpaired and stochastic, so it cannot estimate the Minimal-B causal effect.",
+    "It is consumed development evidence and cannot establish held-out generalization, leaderboard performance, SOTA, or statistical significance.",
+    "Do not change cases, provider, inference contract, baseline algorithm, or adapter after observing any current outcome."
+  ]
+}
