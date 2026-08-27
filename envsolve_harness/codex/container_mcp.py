@@ -173,6 +173,7 @@ class PersistentContainerShell:
         marker = f"__ENVSOLVE_CODEX_MCP_DONE_{nonce}__=".encode()
         encoded = base64.b64encode(command.encode("utf-8")).decode("ascii")
         wrapper = (
+            "set -o pipefail\n"
             f"eval \"$(printf '%s' '{encoded}' | base64 --decode)\"\n"
             "__envsolve_codex_rc=$?\n"
             f"printf '\\n{marker.decode()}%s\\n' \"$__envsolve_codex_rc\"\n"

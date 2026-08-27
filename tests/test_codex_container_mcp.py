@@ -11,6 +11,7 @@ import unittest
 from envsolve_harness.codex.container_mcp import (
     ContainerCommandResult,
     ContainerMcpServer,
+    PersistentContainerShell,
 )
 from envsolve_harness.codex.container_mcp_qualified import (
     ProcessTreeSafePersistentContainerShell,
@@ -30,6 +31,32 @@ class FakeExecutor:
 
     def close(self) -> None:
         self.closed = True
+
+
+class _LocalBashMixin:
+    def _start(self) -> subprocess.Popen[bytes]:
+        if self._process is not None and self._process.poll() is None:
+            return self._process
+        self._buffer = b""
+        self._process = subprocess.Popen(
+            ["/bin/bash", "--noprofile", "--norc"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+        )
+        return self._process
+
+
+class _LocalPersistentContainerShell(_LocalBashMixin, PersistentContainerShell):
+    pass
+
+
+class _LocalProcessTreeSafeShell(
+    _LocalBashMixin,
+    ProcessTreeSafePersistentContainerShell,
+):
+    pass
 
 
 class ContainerMcpServerTest(unittest.TestCase):
@@ -96,6 +123,30 @@ class ContainerMcpServerTest(unittest.TestCase):
             self.assertEqual(response["error"]["code"], -32602)
             self.assertEqual(executor.calls, [])
 
+    def test_persistent_shell_reports_pipeline_failures_truthfully(self) -> None:
+        for shell_type in (
+            _LocalPersistentContainerShell,
+            _LocalProcessTreeSafeShell,
+        ):
+            with self.subTest(shell_type=shell_type.__name__):
+                shell = shell_type(
+                    "local-test",
+                    "/tmp",
+                    command_timeout=5,
+                    max_output_chars=16000,
+                )
+                try:
+                    disabled = shell.execute("set +o pipefail")
+                    failure = shell.execute("false | tail -1")
+                    success = shell.execute("printf 'ok\\n' | tail -1")
+                finally:
+                    shell.close()
+
+                self.assertEqual(disabled.exit_code, 0)
+                self.assertEqual(failure.exit_code, 1)
+                self.assertEqual(success.exit_code, 0)
+                self.assertEqual(success.output.strip(), "ok")
+
 
 @unittest.skipUnless(
     os.environ.get("ENVSOLVE_CODEX_MCP_DOCKER_TEST") == "1",
@@ -130,11 +181,13 @@ class PersistentContainerShellIntegrationTest(unittest.TestCase):
             first = shell.execute("mkdir -p state && cd state && export ENVSOLVE_STATE=ready")
             second = shell.execute('printf "%s:%s\\n" "$PWD" "$ENVSOLVE_STATE"')
             failure = shell.execute("false")
+            pipeline_failure = shell.execute("false | tail -1")
 
             self.assertEqual(first.exit_code, 0, first)
             self.assertEqual(second.exit_code, 0, second)
             self.assertEqual(second.output.strip(), "/tmp/state:ready")
             self.assertEqual(failure.exit_code, 1)
+            self.assertEqual(pipeline_failure.exit_code, 1)
             self.assertIsNone(failure.infrastructure_error)
         finally:
             shell.close()

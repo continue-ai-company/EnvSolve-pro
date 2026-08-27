@@ -158,6 +158,7 @@ fi
         encoded = base64.b64encode(command.encode("utf-8")).decode("ascii")
         wrapper = (
             f"printf '{start_marker.decode()}%s\\n' \"$$\"\n"
+            "set -o pipefail\n"
             f"eval \"$(printf '%s' '{encoded}' | base64 --decode)\"\n"
             "__envsolve_codex_rc=$?\n"
             f"printf '\\n{done_marker.decode()}%s\\n' \"$__envsolve_codex_rc\"\n"
