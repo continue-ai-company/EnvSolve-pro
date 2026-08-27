@@ -114,15 +114,21 @@ algorithmic failures.
 - a declared runtime dependency is missed;
 - a transitive build-time or system dependency is missed;
 - a version, runtime, ABI, platform, or architecture conflict is not represented;
-- benchmark-goal satisfaction is confused with executable deployment completeness.
+- benchmark-goal satisfaction is confused with executable deployment completeness;
+- an incorrect admission or success rule rejects a valid repair or accepts an
+  incomplete state as complete.
 
 ### 3.3 Operation failures
 
 - the selected action cannot satisfy the active constraint;
 - action ordering or shell-state propagation is wrong;
 - the successful construction state cannot be reproduced by the submitted program;
-- a hard guard rejects a valid repair;
-- the path reaches the metric through an incomplete or inconsistent environment.
+- despite a correctly represented completeness requirement, the selected action
+  reaches the metric through an incomplete or inconsistent environment.
+
+The boundary is evidence based: a wrong requirement is a Constraint failure; only
+an ineffective state transition after the correct requirement is active is an
+Operation failure.
 
 ### 3.4 Cross-layer closure failures
 
