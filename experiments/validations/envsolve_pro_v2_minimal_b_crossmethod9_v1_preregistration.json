@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "status": "specified-before-any-current-control-or-treatment-execution",
+  "research_question": "On every baseline-failure case in the fixed cross-method census that has no prior Minimal-B F+O+R outcome, does repeatable same-session target-state replay improve paired EnvBench Official Pass@1 over a fresh goal-aware free Agent using the same model?",
+  "algorithm_base_commit": "8589ead",
+  "selection": {
+    "source_population": "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+    "source_cases": 16,
+    "rule": [
+      "Include a case when Codex native or Repo2Run has a scientifically attributable failure or candidate noncompletion in the fixed cross-method census.",
+      "Exclude every case with any prior F+O+R Minimal-B episode: conan-package-tools, pyrollbar, langgraph, geoapps, sphinx-gallery, and nonebot2.",
+      "Exclude jaraco/irc because Codex, prior EnvSolve-Pro, and Repo2Run all passed Official.",
+      "Include all nine remaining cases in source-census order; do not rank by difficulty, expected repairability, repository contents, or any current A/B outcome."
+    ],
+    "cases": 9,
+    "case_file": "experiments/cases/dev_envsolve_pro_v2_minimal_b_crossmethod9_v1.jsonl",
+    "identity_unseen": false,
+    "minimal_b_outcomes_used": false,
+    "interpretation": "All identities are consumed development evidence, but the current Minimal-B treatment is unopened on every selected identity. This study selects a development method; it is not held-out evaluation."
+  },
+  "arms": {
+    "A_FO": {
+      "runner": "deepseek-goal-aware-agent",
+      "method": "free-feedback-search-public-goal",
+      "description": "One unrestricted continuous Agent session with ordinary execution feedback and the complete public goal; no target-state replay action."
+    },
+    "B_FOR": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "description": "The same continuous Agent interface plus an Agent-invoked repeatable clean replay. Replay failures return to the same session, and final delivery requires the exact replay-passing program. There is no scheduled observation, forced handoff, checkpoint, cross-case memory, or harness-selected repair."
+    },
+    "shared": [
+      "deepseek/deepseek-v4-flash-0731",
+      "DeepInfra through OpenRouter with fallbacks disabled",
+      "complete public goal and initial repository information",
+      "one continuous Agent session",
+      "shared minimal evaluator and repository integrity boundary",
+      "fresh source checkout and EnvBench Official evaluator",
+      "broad request, command, wall-time, and provider-retry safety limits"
+    ]
+  },
+  "execution": {
+    "episodes": 18,
+    "matching": "Fresh A and B rollouts use the same requested seed within each pair. Provider rollouts remain stochastic.",
+    "order": "Alternate A-first and B-first by source-census position.",
+    "hosts": {
+      "spark_linux_arm64": "pairs 1-5, positions 1-10",
+      "agenthub_macos_arm64": "pairs 6-9, positions 11-18"
+    },
+    "host_rule": "Both arms of a pair run on the same host; host effects cannot create a within-pair treatment contrast.",
+    "official_evaluator_access": "post-episode-only",
+    "schedule": "experiments/schedules/envsolve_pro_v2_minimal_b_crossmethod9_v1.json",
+    "configs": [
+      "experiments/configs/local_spark_envsolve_pro_v2_minimal_b_crossmethod9_v1.json",
+      "experiments/configs/local_agenthub_envsolve_pro_v2_minimal_b_crossmethod9_v1.json"
+    ]
+  },
+  "endpoints": {
+    "primary": "Paired EnvBench Official Pass@1 over every scientifically eligible pair, with valid non-submission counted as failure.",
+    "paired_table": ["both_pass", "A_only", "B_only", "neither_pass"],
+    "mechanism": [
+      "replay invocation count and status sequence",
+      "feedback-conditioned complete-program change",
+      "Fail-to-Pass replay repair",
+      "final clean-replay and Official agreement"
+    ],
+    "resources": ["model requests", "tokens", "generation time", "Official time", "network traffic when available", "storage"],
+    "failure_analysis": "Every scientifically valid failure receives an earliest decisive Observation, Constraint, or Operation label plus secondary mechanism tags."
+  },
+  "analysis": {
+    "statistics": "Report the exact paired discordance table and two-sided exact McNemar result. Statistical significance is evidence, not an algorithm-selection gate.",
+    "resources": "Report unconditionally and on common-success pairs. Resource use is an outcome, not a hard threshold.",
+    "infrastructure": "Censor recognized infrastructure failures. Permit one exact-script, evaluation-only retry when preregistered infrastructure policy applies; never rerun the model for an Official-only retry.",
+    "whole_batch_rule": "Do not change the algorithm, prompt, replay semantics, integrity boundary, case set, model, or provider policy after any episode outcome. Complete and adjudicate the full batch before interpretation."
+  },
+  "claim_boundary": [
+    "This study can select or reject Minimal B as the fixed development method and estimate a development stress-test effect on the recorded failure stratum.",
+    "It cannot establish held-out performance, population success rate, leaderboard performance, statistical significance, generalization, or SOTA.",
+    "No case-specific package rule, checkpoint, cross-case memory, candidate-retention policy, scheduled observation, forced handoff, or new gate may be derived during the batch."
+  ]
+}
