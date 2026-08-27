@@ -406,6 +406,27 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         self.assertEqual(result.dropped_commands, commands)
         self.assertNotIn("/home/tools", result.script)
 
+    def test_repo2run_open_compiler_drops_read_only_exploration(self) -> None:
+        observations = (
+            "ls -la /repo/.pipreqs",
+            "cat /repo/pyproject.toml",
+            'find /repo -maxdepth 2 -name "requirements*.txt"',
+        )
+        install = "python -m pip install -e ."
+        result = compile_repo2run_open_program(
+            [
+                {"command": command, "returncode": 0, "dir": "/repo"}
+                for command in (*observations, install)
+            ]
+        )
+
+        self.assertEqual(result.unsupported_commands, ())
+        self.assertEqual(result.dropped_commands, observations)
+        self.assertNotIn(".pipreqs", result.script)
+        self.assertNotIn("pyproject.toml", result.script)
+        self.assertNotIn("requirements", result.script)
+        self.assertIn(install, result.script)
+
     def test_repo2run_open_compiler_rejects_unknown_private_tool(self) -> None:
         command = "python /home/tools/unknown_helper.py"
         result = compile_repo2run_open_program(

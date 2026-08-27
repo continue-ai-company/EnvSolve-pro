@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-28",
+  "status": "post-outcome-adapter-defect-record",
+  "affected_study": "repo2run-flash-crossmethod9-v1",
+  "trigger": {
+    "run_id": "pro-v2-r2r-flash-xm9-v1-08-scvelo",
+    "observation": "The generated bootstrap retained a successful construction-only 'ls -la .pipreqs' probe and failed before Official Pyright because that path was absent in the fresh checkout."
+  },
+  "root_cause": "compile_repo2run_open_program imported the shared structured command analyzer but did not use it to remove commands proven to be read-only observations. The adapter therefore converted construction probes into deployment requirements.",
+  "scientific_treatment": [
+    "Do not rewrite or replace any artifact in the running affected study.",
+    "Do not count a terminal caused by a retained read-only probe as a Repo2Run Observation, Constraint, or Operation failure.",
+    "Classify each demonstrably affected episode as adapter/protocol censored in the affected-study adjudication.",
+    "Use the corrected compiler only in a separately recorded future run."
+  ],
+  "future_fix": {
+    "implementation": "Run each mapped successful command through analyze_successful_command and drop it only when the existing parser proves the whole command is observational. Preserve compound or unknown commands under the existing open-program behavior.",
+    "tests": [
+      "tests/test_open_candidate_interface.py",
+      "tests/test_replay_ir.py",
+      "tests/test_harness_core.py"
+    ],
+    "verification": "61 passed, 47 subtests passed"
+  },
+  "claim_boundary": "This record identifies an adapter validity defect. It is not evidence that Repo2Run would pass the affected case after correction and does not change any EnvSolve-Pro A/B outcome."
+}

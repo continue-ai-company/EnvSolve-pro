@@ -178,6 +178,10 @@ def compile_repo2run_open_program(
         elif working_dir not in {"/", "/repo"}:
             unsupported.append(f"cwd={working_dir}: {command}")
             continue
+        analysis = analyze_successful_command(mapped)
+        if analysis.dropped and analysis.unsupported_reason is None:
+            dropped.append(command)
+            continue
         replay.append(mapped)
         kept.append(command)
         if re.search(r"(?:^|&&)\s*poetry\s+install(?:\s|$)", mapped):
