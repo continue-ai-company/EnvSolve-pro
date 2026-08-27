@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "recorded_before_retry_execution": true,
+  "source": {
+    "run_id": "pro-v2-minb-xm9-v1-18-extension-helpers-B-FOR-agenthub-hostfix2",
+    "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+    "arm": "B-F+O+R",
+    "generation_completed": true,
+    "clean_replay_status": "pass",
+    "official_evaluation_completed": false,
+    "infrastructure_signature": "read-timeout"
+  },
+  "retry": {
+    "run_id": "pro-v2-minb-xm9-v1-18-extension-helpers-B-FOR-agenthub-hostfix2-eval-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "model_reexecuted": false,
+    "script_policy": "byte-identical submitted bootstrap",
+    "maximum_additional_retries": 0
+  },
+  "claim_boundary": "The retry may replace only the infrastructure-censored Official outcome. It is not another model episode or an additional replication."
+}
