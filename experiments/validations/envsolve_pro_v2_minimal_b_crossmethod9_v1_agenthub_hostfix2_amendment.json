@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "recorded_before_replacement_execution": true,
+  "failed_attempts": [
+    {
+      "original_positions": [11, 12, 13, 14, 15, 16, 17, 18],
+      "run_id_suffix": null,
+      "failure_phase": "pre-model container cleanup",
+      "common_signature": "FileNotFoundError: docker",
+      "model_requests": 0
+    },
+    {
+      "original_positions": [11, 12, 13, 14, 15, 16, 17, 18],
+      "run_id_suffix": "-agenthub-hostfix1",
+      "failure_phase": "pre-model image inspection",
+      "common_signature": "FileNotFoundError: docker",
+      "model_requests": 0
+    }
+  ],
+  "repair": {
+    "scope": "host launch environment only",
+    "change": "Export Docker Desktop's CLI directory in PATH before starting the schedule process.",
+    "end_to_end_preflight": [
+      "docker image inspect",
+      "docker create",
+      "docker start",
+      "docker exec",
+      "docker rm"
+    ],
+    "end_to_end_preflight_status": "pass",
+    "source_changed_from_preregistered_algorithm": false,
+    "algorithm_prompt_model_provider_changed": false
+  },
+  "replacement": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_minimal_b_crossmethod9_v1_agenthub_hostfix2.json",
+    "run_id_suffix": "-agenthub-hostfix2",
+    "same_case_seed_arm_runner_method_model": true,
+    "population_role": "exact-identity-pre-model-infrastructure-replacement-not-an-additional-replication",
+    "maximum_replacements_after_this_batch": 0
+  },
+  "interpretation": "Hostfix2 supplies each original position's fixed-seed Pass@1 observation. Both earlier zero-request attempts remain retained but are excluded from algorithm-effect and resource analyses."
+}

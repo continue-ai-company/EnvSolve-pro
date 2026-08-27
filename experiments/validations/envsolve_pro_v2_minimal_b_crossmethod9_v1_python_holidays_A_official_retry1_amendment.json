@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "recorded_before_retry_execution": true,
+  "source": {
+    "position": 5,
+    "arm": "A-F+O",
+    "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+    "run_id": "pro-v2-minb-xm9-v1-05-python-holidays-A-FO",
+    "method": "free-feedback-search-public-goal",
+    "seed": 828203,
+    "generation_completed": true,
+    "evaluation_completed": false,
+    "infrastructure_signature": "read-timeout"
+  },
+  "retry": {
+    "run_id": "pro-v2-minb-xm9-v1-05-python-holidays-A-FO-eval-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "script": "the exact source scripts/bootstrap.sh",
+    "model_reexecuted": false,
+    "max_retries": 1
+  },
+  "interpretation": "The retry replaces only an infrastructure-censored Official observation. It does not create a second Agent rollout or change paired Pass@1 semantics."
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1-agenthub-hostfix2",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_minimal_b_crossmethod9_v1.jsonl",
+  "case_file_sha256": "ea520d9a454d5385d336c2e0b8e392e03074b5e981bc55d762cf32f6c95f6cd3",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "amendment": "experiments/validations/envsolve_pro_v2_minimal_b_crossmethod9_v1_agenthub_hostfix2_amendment.json",
+  "episodes": [
+    {"position":1,"original_position":11,"pair_id":"crossmethod9-06-censys-python","pair_index":6,"pair_position":1,"arm":"B-F+O+R","case_id":"envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc","runner":"envsolve-pro-v2","method":"envsolve-pro-fsr-minimal-h","seed":828206,"run_id":"pro-v2-minb-xm9-v1-11-censys-python-B-FOR-agenthub-hostfix2"},
+    {"position":2,"original_position":12,"pair_id":"crossmethod9-06-censys-python","pair_index":6,"pair_position":2,"arm":"A-F+O","case_id":"envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc","runner":"deepseek-goal-aware-agent","method":"free-feedback-search-public-goal","seed":828206,"run_id":"pro-v2-minb-xm9-v1-12-censys-python-A-FO-agenthub-hostfix2"},
+    {"position":3,"original_position":13,"pair_id":"crossmethod9-07-rlberry","pair_index":7,"pair_position":1,"arm":"A-F+O","case_id":"envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d","runner":"deepseek-goal-aware-agent","method":"free-feedback-search-public-goal","seed":828207,"run_id":"pro-v2-minb-xm9-v1-13-rlberry-A-FO-agenthub-hostfix2"},
+    {"position":4,"original_position":14,"pair_id":"crossmethod9-07-rlberry","pair_index":7,"pair_position":2,"arm":"B-F+O+R","case_id":"envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d","runner":"envsolve-pro-v2","method":"envsolve-pro-fsr-minimal-h","seed":828207,"run_id":"pro-v2-minb-xm9-v1-14-rlberry-B-FOR-agenthub-hostfix2"},
+    {"position":5,"original_position":15,"pair_id":"crossmethod9-08-scvelo","pair_index":8,"pair_position":1,"arm":"B-F+O+R","case_id":"envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45","runner":"envsolve-pro-v2","method":"envsolve-pro-fsr-minimal-h","seed":828208,"run_id":"pro-v2-minb-xm9-v1-15-scvelo-B-FOR-agenthub-hostfix2"},
+    {"position":6,"original_position":16,"pair_id":"crossmethod9-08-scvelo","pair_index":8,"pair_position":2,"arm":"A-F+O","case_id":"envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45","runner":"deepseek-goal-aware-agent","method":"free-feedback-search-public-goal","seed":828208,"run_id":"pro-v2-minb-xm9-v1-16-scvelo-A-FO-agenthub-hostfix2"},
+    {"position":7,"original_position":17,"pair_id":"crossmethod9-09-extension-helpers","pair_index":9,"pair_position":1,"arm":"A-F+O","case_id":"envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e","runner":"deepseek-goal-aware-agent","method":"free-feedback-search-public-goal","seed":828209,"run_id":"pro-v2-minb-xm9-v1-17-extension-helpers-A-FO-agenthub-hostfix2"},
+    {"position":8,"original_position":18,"pair_id":"crossmethod9-09-extension-helpers","pair_index":9,"pair_position":2,"arm":"B-F+O+R","case_id":"envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e","runner":"envsolve-pro-v2","method":"envsolve-pro-fsr-minimal-h","seed":828209,"run_id":"pro-v2-minb-xm9-v1-18-extension-helpers-B-FOR-agenthub-hostfix2"}
+  ]
+}

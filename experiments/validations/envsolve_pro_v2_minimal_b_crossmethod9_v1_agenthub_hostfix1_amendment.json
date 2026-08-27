@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "recorded_before_replacement_execution": true,
+  "failed_attempts": {
+    "original_positions": [11, 12, 13, 14, 15, 16, 17, 18],
+    "host": "agenthub",
+    "failure_phase": "pre-model container cleanup",
+    "common_signature": "FileNotFoundError: docker",
+    "model_requests": 0,
+    "scientific_disposition": "infrastructure-censored and retained"
+  },
+  "repair": {
+    "scope": "host portability only",
+    "change": "Honor the existing DOCKER_EXECUTABLE setting in container cleanup and final cleanup.",
+    "algorithm_changed": false,
+    "prompt_changed": false,
+    "model_or_provider_changed": false
+  },
+  "replacement": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_minimal_b_crossmethod9_v1_agenthub_hostfix1.json",
+    "run_id_suffix": "-agenthub-hostfix1",
+    "same_case_seed_arm_runner_method_model": true,
+    "population_role": "exact-identity-pre-model-infrastructure-replacement-not-an-additional-replication",
+    "maximum_replacements_after_this_batch": 0
+  },
+  "interpretation": "Each replacement supplies the fixed-seed Pass@1 observation for its original position. The eight launch failures are excluded from algorithm-effect and resource analyses because no Agent request was made."
+}
