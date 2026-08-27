@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "source_run_id": "pro-v2-minb-xm9-v1-18-extension-helpers-B-FOR-agenthub-hostfix2",
+  "retry_run_id": "pro-v2-minb-xm9-v1-18-extension-helpers-B-FOR-agenthub-hostfix2-eval-retry1",
+  "source_outcome": {
+    "generation_completed": true,
+    "clean_replay_status": "pass",
+    "official_evaluation_completed": false,
+    "infrastructure_signature": "read-timeout"
+  },
+  "retry_outcome": {
+    "model_reexecuted": false,
+    "official_evaluator_reached": false,
+    "evaluation_completed": false,
+    "official_pass": null,
+    "identity_matches": false,
+    "infrastructure_signature": "missing-host-uv",
+    "adapter_error": "FileNotFoundError: [Errno 2] No such file or directory: 'uv'"
+  },
+  "adjudication": {
+    "official_outcome": null,
+    "classification": "infrastructure_censored",
+    "additional_retry_permitted": false,
+    "effect_interpretation": "Do not score this arm as an Official failure. Retain the clean-replay Pass only as development mechanism evidence."
+  }
+}
