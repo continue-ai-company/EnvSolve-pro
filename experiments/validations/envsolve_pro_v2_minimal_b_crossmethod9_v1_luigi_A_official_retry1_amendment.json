@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-crossmethod9-v1",
+  "recorded_at": "2026-08-28",
+  "recorded_before_retry_execution": true,
+  "source": {
+    "position": 1,
+    "arm": "A-F+O",
+    "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+    "run_id": "pro-v2-minb-xm9-v1-01-luigi-A-FO",
+    "method": "free-feedback-search-public-goal",
+    "seed": 828201,
+    "evaluation_completed": false,
+    "infrastructure_signature": "conda-http-connection-failed"
+  },
+  "retry": {
+    "run_id": "pro-v2-minb-xm9-v1-01-luigi-A-FO-eval-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "script": "the exact source scripts/bootstrap.sh",
+    "model_reexecuted": false,
+    "max_retries": 1
+  },
+  "interpretation": "The retry replaces only an infrastructure-censored Official observation. It does not create a second Agent rollout or change paired Pass@1 semantics."
+}
