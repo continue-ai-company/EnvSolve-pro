@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-clean-source-smoke-v1",
+  "recorded_at": "2026-08-28",
+  "purpose": "Verify that future formal runs launched from the clean Spark clone produce auditable and scientifically eligible artifacts.",
+  "effect_estimate": false,
+  "case_status": "development-consumed-before-this-smoke",
+  "episode": {
+    "run_id": "pro-clean-source-smoke-v1-holo-A-FO",
+    "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+    "method": "free-feedback-search-public-goal",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "seed": 828202,
+    "harness_revision": "167ce280f56db66a9ee2dc99b8756293e811d20f"
+  },
+  "outcome": {
+    "generation_completed": true,
+    "evaluation_completed": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "artifact_audit_valid": true,
+    "scientifically_eligible": true,
+    "eligibility_exclusion_reasons": []
+  },
+  "source_checks": {
+    "committed_source": true,
+    "clean_source": true,
+    "runtime_heartbeat_complete": true,
+    "runtime_heartbeat_sequence_valid": true,
+    "host_suspension_absent": true
+  },
+  "resources": {
+    "model_requests": 31,
+    "prompt_tokens": 544699,
+    "completion_tokens": 10532,
+    "total_tokens": 555231,
+    "shell_operations": 30,
+    "generation_seconds": 293.933406,
+    "official_seconds": 19.454673051834106
+  },
+  "mechanism_observation": {
+    "first_explicit_zero_missing_imports_request": 20,
+    "submission_request": 31,
+    "requests_after_explicit_zero": 11,
+    "interpretation": "The Agent had solved the scoring residual before delivery but still had to infer the goal-specific Pass from a Pyright process that exited nonzero because 200 non-scoring diagnostics remained. This supports testing an exact current-goal observation followed by programization and clean replay; it is not an effectiveness result."
+  },
+  "claim_boundary": "This smoke validates the clean-source experiment path only. It is excluded from paired algorithm-effect and leaderboard estimates."
+}
