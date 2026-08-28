@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-current-goal-consumed2-v1",
+  "recorded_at": "2026-08-28",
+  "study_role": "consumed-development-mechanism-study",
+  "formal_qualification": {
+    "scheduled_pairs": 2,
+    "scheduled_arms": 4,
+    "development_complete_arms": 4,
+    "formal_effect_estimate_permitted": false,
+    "leaderboard_claim_permitted": false,
+    "reason": "The case identities were already consumed during method development. The runs used a clean committed Spark checkout, but direct run_case execution did not bind source provenance into each run manifest. These artifacts support mechanism analysis only."
+  },
+  "source_and_artifacts": {
+    "host": "Spark Linux ARM64",
+    "externally_observed_clean_commit": "84936ae463380d0651058aafe72655117803e369",
+    "run_root": "/home/avdpro/work/EnvSolve-pro-clean/runs/envsolve-pro-v2-current-goal-consumed2-v1",
+    "run_ids": [
+      "pro-v2-current-goal-consumed2-v1-01-rlberry-T",
+      "pro-v2-current-goal-consumed2-v1-02-rlberry-B",
+      "pro-v2-current-goal-consumed2-v1-03-scvelo-B",
+      "pro-v2-current-goal-consumed2-v1-04-scvelo-T"
+    ],
+    "artifact_audit": "All four run audits were valid and all four heartbeats ended in completed state. No experiment container or study tmux session remained after natural termination.",
+    "future_reuse": "Preserve the trajectory.jsonl, command_trace.jsonl, heartbeat.jsonl, generation report, and Official result under each run directory for later Auto-EnvSolve and EnvSolve-RL studies."
+  },
+  "paired_outcome": {
+    "pairs": 2,
+    "control_passes": 1,
+    "treatment_passes": 1,
+    "both_pass": 1,
+    "control_only_pass": 0,
+    "treatment_only_pass": 0,
+    "neither_pass": 1,
+    "treatment_minus_control_pass_rate": 0.0,
+    "interpretation": "The optional current-goal check produced no success gain in these two consumed pairs. This sample is intentionally too small for a population or significance claim."
+  },
+  "pairs": [
+    {
+      "pair_id": "rlberry",
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "control": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "generation_seconds": 3963.132145,
+        "official_seconds": 488.82883501052856,
+        "model_requests": 75,
+        "provider_attempts": 81,
+        "provider_errors": 6,
+        "prompt_tokens": 2229776,
+        "completion_tokens": 60867,
+        "total_tokens": 2290643,
+        "shell_calls": 90,
+        "clean_replays": 2,
+        "clean_replay_sequence": [
+          "fail",
+          "pass"
+        ]
+      },
+      "treatment": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "generation_seconds": 5462.855179,
+        "official_seconds": 799.200667142868,
+        "model_requests": 64,
+        "provider_attempts": 69,
+        "provider_errors": 5,
+        "prompt_tokens": 1573443,
+        "completion_tokens": 36871,
+        "total_tokens": 1610314,
+        "shell_calls": 73,
+        "current_goal_checks": 1,
+        "clean_replays": 1,
+        "clean_replay_sequence": [
+          "pass"
+        ]
+      },
+      "paired_resources": {
+        "treatment_request_reduction": 0.14666666666666667,
+        "treatment_token_reduction": 0.29700350512934577,
+        "treatment_shell_call_reduction": 0.18888888888888888,
+        "treatment_clean_replay_reduction": 0.5,
+        "treatment_generation_time_increase": 0.3784186292884766,
+        "treatment_official_time_increase": 0.6349294679509947
+      },
+      "mechanism_timeline": {
+        "treatment_first_manual_zero_missing_request": 51,
+        "treatment_current_goal_pass_request": 59,
+        "treatment_program_write_request": 62,
+        "treatment_clean_replay_pass_request": 63,
+        "treatment_submission_request": 64,
+        "control_clean_replay_failure_request": 70,
+        "control_clean_replay_pass_request": 74,
+        "control_submission_request": 75
+      },
+      "interpretation": "The treatment used fewer model requests, tokens, shell calls, and clean replays, but it was substantially slower in wall time. The Agent had manually observed zero missing imports eight requests before invoking the structured check, so the trusted Pass may have helped trigger delivery but did not uniquely discover the solved state. Independent stochastic rollouts do not support attributing all paired differences to the tool."
+    },
+    {
+      "pair_id": "scvelo",
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "control": {
+        "official_pass": false,
+        "termination": "request-safety-cap-without-submission",
+        "generation_seconds": 8831.129591,
+        "model_requests": 120,
+        "provider_attempts": 123,
+        "provider_errors": 3,
+        "prompt_tokens": 4622546,
+        "completion_tokens": 129840,
+        "total_tokens": 4752386,
+        "shell_calls": 119,
+        "clean_replays": 0
+      },
+      "treatment": {
+        "official_pass": false,
+        "termination": "request-safety-cap-without-submission",
+        "generation_seconds": 5934.053032,
+        "model_requests": 120,
+        "provider_attempts": 120,
+        "provider_errors": 0,
+        "prompt_tokens": 4661031,
+        "completion_tokens": 116960,
+        "total_tokens": 4777991,
+        "shell_calls": 128,
+        "current_goal_checks": 1,
+        "current_goal_check_request": 1,
+        "initial_active_constraints": 81,
+        "clean_replays": 0
+      },
+      "paired_resources": {
+        "treatment_token_increase": 0.005387819928768467,
+        "treatment_token_delta": 25605
+      },
+      "remaining_constraints": [
+        "numpy.core._exceptions versus numpy._core._exceptions",
+        "scanpy.pp"
+      ],
+      "interpretation": "Both Agents converged to the same two static import constraints and exhausted the safety cap. scVelo uses a runtime fallback between mutually exclusive NumPy private namespaces, while whole-repository Pyright checks both branches. Scanpy also exposes runtime import behavior that Pyright does not resolve as a conventional module. Ordinary version search therefore cannot jointly satisfy the observed static obligations. The treatment attempted an environment shim near the end, but it neither installed correctly nor produced a candidate; a case-specific fake module would be a low-quality metric workaround, not a general deployment solution."
+    }
+  ],
+  "oco_failure_analysis": [
+    {
+      "layer": "observation",
+      "finding": "The optional current-goal observation was severely underused: exactly one invocation per treatment episode, and the scVelo invocation occurred only at request 1. A strong Agent already ran its own Pyright probes, so the tool did not add a reliable observation advantage."
+    },
+    {
+      "layer": "constraint",
+      "finding": "scVelo exposes a verifier-semantics conflict: disjunctive runtime compatibility and dynamic module exposure are represented as conjunctive static obligations. This is not equivalent to a missing dependency."
+    },
+    {
+      "layer": "operation",
+      "finding": "RLberry supports the narrower hypothesis that a trusted exact Pass can help transition from construction to programization and replay. Both cases also show costly optional dependency expansion, including avoidable CUDA downloads before switching to CPU Torch."
+    }
+  ],
+  "algorithm_decision": {
+    "promote_current_goal_to_final_algorithm": false,
+    "retain_as_orthogonal_treatment": true,
+    "reason": "There was no success gain, the tool was rarely invoked, and its plausible benefit is delivery certainty rather than new state discovery. The evidence does not justify automatic cadence, forced handoff, cross-case constraints, a compatibility frontier, package rules, checkpoints, or case-specific shims.",
+    "next_question": "Across pre-existing delivery and replay failure mechanisms, does an optional trusted Pass reproducibly cause earlier programization and clean replay?",
+    "next_fixed_consumed_replication": [
+      {
+        "case": "Holo",
+        "mechanism": "exact score Pass hidden by non-scoring diagnostics"
+      },
+      {
+        "case": "Git-Gud",
+        "mechanism": "clean replay previously repaired Fail to Pass"
+      },
+      {
+        "case": "extension-helpers",
+        "mechanism": "dynamic helper import and environment-overlay path-quality ambiguity"
+      }
+    ],
+    "decision_rule": "Complete the fixed paired replication before modifying the mechanism. If Agents rarely invoke the check or it does not improve delivery behavior, reject it from the primary method and retain it only as an ablation. If it repeatedly shortens the solved-state-to-replay interval, test one minimal soft phase-transition treatment without restricting Agent operations."
+  },
+  "new_hash_contract_or_gate_added": false
+}
