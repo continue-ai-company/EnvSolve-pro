@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-current-goal-delivery3-v1",
+  "recorded_at": "2026-08-28",
+  "status": "specified-before-execution",
+  "claim_scope": "consumed development mechanism replication only",
+  "question": "Across three pre-existing delivery and replay mechanisms, does an Agent-invoked exact current-goal Pass cause earlier programization, clean replay, and submission without restricting a strong Agent's operations?",
+  "selection_rule": "Cases were fixed from mechanisms documented before this study: scoring Pass hidden by diagnostics, clean replay repairing a generated program, and dynamic-import environment overlay with path-quality ambiguity. No case may be added, removed, or replaced based on treatment outcomes.",
+  "cases": [
+    {
+      "pair": "holo",
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "seed": 829101,
+      "order": [
+        "treatment",
+        "control"
+      ],
+      "prior_mechanism": "The exact scoring goal passed while Pyright still emitted roughly 200 non-scoring diagnostics, creating observation ambiguity."
+    },
+    {
+      "pair": "git-gud",
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "seed": 829102,
+      "order": [
+        "control",
+        "treatment"
+      ],
+      "prior_mechanism": "A previous replay treatment repaired a generated bootstrap program from Fail to Pass before Official submission."
+    },
+    {
+      "pair": "extension-helpers",
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "seed": 829103,
+      "order": [
+        "treatment",
+        "control"
+      ],
+      "prior_mechanism": "Runtime-generated helper imports were satisfied by an environment overlay, exposing a distinction between Official Pass and deployment-path quality."
+    }
+  ],
+  "arms": {
+    "control": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "interface": "continuous public-goal Agent plus Agent-invoked clean replay"
+    },
+    "treatment": {
+      "runner": "envsolve-pro-v2-current-goal",
+      "method": "envsolve-pro-current-goal-constraints",
+      "interface": "the control plus Agent-invoked exact current-goal constraints"
+    }
+  },
+  "shared": {
+    "host": "Spark Linux ARM64",
+    "source": "clean committed checkout",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra through OpenRouter with fallbacks disabled",
+    "official_evaluator": "post-episode only",
+    "operations": "unrestricted within the existing minimal integrity boundary",
+    "request_safety_cap": 120,
+    "token_and_cost": "reported outcomes, not scientific hard thresholds"
+  },
+  "endpoints": {
+    "primary": "EnvBench Official Pass for each paired arm",
+    "mechanism": [
+      "whether and when current-goal is invoked",
+      "first manual exact-goal Pass when observable from the trajectory",
+      "first structured current-goal Pass",
+      "requests from first Pass to program write, clean replay, and submission",
+      "clean-replay status sequence",
+      "earliest decisive O/C/O failure layer"
+    ],
+    "resources": [
+      "model requests",
+      "tokens",
+      "generation time",
+      "shell calls",
+      "clean replay count",
+      "Official time"
+    ],
+    "path_quality": [
+      "ordinary dependency environment versus narrow overlay",
+      "CPU versus unnecessary CUDA dependency closure",
+      "whether the final program reproduces the successful construction state"
+    ]
+  },
+  "decision_rule": {
+    "reject_from_primary_method": "The check is rarely invoked, does not shorten solved-state-to-replay behavior, or only changes resource use through unrelated stochastic paths.",
+    "advance_one_minimal_treatment": "The check repeatedly supplies a trusted Pass followed by earlier programization and successful clean replay. The next treatment may add only a soft phase-transition prompt; it may not restrict operations or add cross-case state.",
+    "no_decision": "Infrastructure censoring or incomparable construction paths prevent mechanism attribution."
+  },
+  "prohibited_during_study": [
+    "case-specific dependency or shim rules",
+    "automatic observation cadence",
+    "forced handoff",
+    "cross-call or cross-case frontier",
+    "container checkpoint",
+    "package-selection policy",
+    "post-outcome case replacement"
+  ],
+  "interpretation": [
+    "Three consumed pairs test a mechanism and cannot estimate generalization, statistical significance, leaderboard performance, or SOTA.",
+    "Official Pass, resource use, and path quality remain separate outcome axes.",
+    "Infrastructure failures are censored and reported separately."
+  ],
+  "new_hash_contract_or_gate_added": false
+}
