@@ -4,6 +4,26 @@
 
 本文档保存冻结的 209-case Dev census 中最有研究价值的反例。Official 结果是主指标，advisory qualification 单独记录；被基础设施故障截断的尝试不算算法失败。
 
+## Taxonomy v2 勘误（2026-08-30）
+
+下文的历史标签早于“部署机制”和“失败原因”的正式分离，因此保留原样作为审计记录。
+按 taxonomy v2，硬边界误拒属于**约束层失败**：候选执行前，系统施加了错误的合法性
+要求；它不是操作层失败。同样，如果新目标环境中的关键事实没有进入 Agent 的活跃会话，
+即使最终症状出现在 Official 阶段，也属于**观测层失败**。
+
+当前 16 条非成功轨迹中，有 13 条可归因的算法失败：观测层 6/13、约束层 5/13、操作层
+2/13。另有 3 条间歇性空索引事件仍无法归因，标记为 infrastructure-unknown，不进入
+O/C/O 分布的分母。这只是对已消费 Dev 证据的单人初步标注，不能用于标注可靠性或泛化
+效果声明。机器可审计记录位于
+`experiments/validations/pro_dev_bad_case_census_v1_taxonomy_v2_annotations.json`。
+
+| Taxonomy v2 层 | Cases | 决定性区别 |
+|---|---|---|
+| 观测层 | `ajenti`、`HA-Battery-Notes`、`basxconnect`、`clarity`、`graphium`、`hark` | 关键目标环境事实不可见，或没有在 Agent 停止前返回会话。 |
+| 约束层 | `bigbang`、`uer-py`、`django-machina`、`phobos`、`androidviewclient` | 编码的硬边界施加了错误的候选合法性要求。 |
+| 操作层 | `quacc`、`micropy-cli` | 要求已经被观测并保持有效，但交付程序没有满足它。 |
+| 未决 / 基础设施未知 | `plugin.video.netflix`、`cvxportfolio`、`evox` | 证据无法区分间歇性包索引异常与算法行为。 |
+
 ## 暴露集更正（2026-08-24）
 
 此前的 pending 状态只检查了 A-only census，没有覆盖完整研究历史，因此并不可靠。对本地

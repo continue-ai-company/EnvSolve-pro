@@ -4,6 +4,29 @@ Status: live A-only census record, 2026-08-10
 
 This casebook preserves high-value counterexamples from the frozen 209-case Dev census. Official outcome is primary. Advisory qualification is recorded separately. Infrastructure-censored attempts are not algorithm failures.
 
+## Taxonomy v2 correction (2026-08-30)
+
+The historical labels below predate the separation between deployment mechanisms and
+failure causes. They remain unchanged as an audit trail. Under taxonomy v2, hard-boundary
+false rejections are **Constraint** failures: the system imposed the wrong admissibility
+requirement before the candidate could run. They are not Operation failures. Likewise,
+fresh-target facts that never reached the active Agent session are **Observation**
+failures, even when the final symptom appeared during Official evaluation.
+
+The 16 non-success trajectories currently yield 13 attributable algorithmic failures:
+Observation 6/13, Constraint 5/13, and Operation 2/13. Three intermittent empty-index
+events remain unresolved and infrastructure-unknown; they are excluded from the O/C/O
+prevalence denominator. This is a provisional single-reviewer annotation over consumed
+Dev evidence, not a reliability or effectiveness claim. The auditable record is
+`experiments/validations/pro_dev_bad_case_census_v1_taxonomy_v2_annotations.json`.
+
+| Taxonomy v2 layer | Cases | Decisive distinction |
+|---|---|---|
+| Observation | `ajenti`, `HA-Battery-Notes`, `basxconnect`, `clarity`, `graphium`, `hark` | The decisive target-state fact was unavailable or was not returned before the Agent stopped. |
+| Constraint | `bigbang`, `uer-py`, `django-machina`, `phobos`, `androidviewclient` | An encoded hard boundary imposed an incorrect admissibility requirement. |
+| Operation | `quacc`, `micropy-cli` | The requirement was known and active, but the delivered program did not satisfy it. |
+| Unresolved / infrastructure-unknown | `plugin.video.netflix`, `cvxportfolio`, `evox` | The evidence cannot separate an intermittent package-index event from algorithm behavior. |
+
 ## Exposure correction (2026-08-24)
 
 The earlier pending-state summary was incomplete because it considered the A-only census

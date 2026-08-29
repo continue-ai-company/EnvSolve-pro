@@ -1,0 +1,194 @@
+{
+  "schema": "envsolve-pro-failure-annotation-v2",
+  "annotation_id": "pro-dev-bad-case-census-v1-taxonomy-v2",
+  "recorded_at": "2026-08-30",
+  "status": "provisional-single-reviewer-development-annotation",
+  "taxonomy": "experiments/protocols/envsolve_pro_failure_taxonomy_v2.json",
+  "claim_scope": "Mechanism diagnosis on consumed Dev trajectories only; not a reliability estimate or held-out effectiveness result.",
+  "method_profile": {
+    "name": "codex-cli-goal-aware-boundary-v5",
+    "mechanisms": ["F", "C_h"],
+    "replay_scope": "none returned to the active Agent session"
+  },
+  "summary": {
+    "non_success_trajectories": 16,
+    "algorithmic_failures": 13,
+    "censored_or_unresolved": 3,
+    "primary_failure_layer_counts": {
+      "observation": 6,
+      "constraint": 5,
+      "operation": 2,
+      "unresolved": 3
+    },
+    "algorithmic_prevalence_percent": {
+      "observation": 46.15,
+      "constraint": 38.46,
+      "operation": 15.38
+    }
+  },
+  "annotations": [
+    {
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "repository": "Quantum-Accelerators/quacc",
+      "primary_failure_layer": "operation",
+      "secondary_mechanisms": ["native-system-dependency-realization"],
+      "censoring": null,
+      "terminal_stage": "official_evaluation",
+      "evidence": [
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_resume_block1_result.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_5_terminal_cause_amendment.json"
+      ],
+      "evidence_anchor": "The LAPACK requirement was active, but the delivered program did not provide a usable aarch64 LAPACK configuration for tblite."
+    },
+    {
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "repository": "ajenti/ajenti",
+      "primary_failure_layer": "observation",
+      "secondary_mechanisms": ["build-isolation", "setuptools-resolution"],
+      "censoring": null,
+      "terminal_stage": "clean_replay",
+      "evidence": ["experiments/validations/p6_operation_q3_closure.json"],
+      "evidence_anchor": "The decisive fresh-replay build-isolation failure was discovered after candidate generation and was not returned to the active Agent session."
+    },
+    {
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "repository": "andrew-codechimp/HA-Battery-Notes",
+      "primary_failure_layer": "observation",
+      "secondary_mechanisms": ["transitive-build-dependency", "cython"],
+      "censoring": null,
+      "terminal_stage": "clean_replay",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_5_spark_lane1_position9_result.json"],
+      "evidence_anchor": "The fresh-replay Cython build dependency failure was not observed inside the active Agent session before submission."
+    },
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "repository": "basxsoftwareassociation/basxconnect",
+      "primary_failure_layer": "observation",
+      "secondary_mechanisms": ["checkout-ownership-drift"],
+      "censoring": null,
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_21_featuretools_neps_basxconnect_results.json"],
+      "evidence_anchor": "The construction environment did not expose the Git ownership semantics later encountered by setuptools_scm in Official."
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "repository": "bradenm/micropy-cli",
+      "primary_failure_layer": "operation",
+      "secondary_mechanisms": ["project-local-missing-import", "admissibility"],
+      "censoring": null,
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_19_micropy_cli_terminal_result.json"],
+      "evidence_anchor": "The missing micropy.cli import was observed and remained an active requirement, but the submitted admissible program did not realize it."
+    },
+    {
+      "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+      "repository": "castagnait/plugin.video.netflix",
+      "primary_failure_layer": "unresolved",
+      "secondary_mechanisms": ["empty-package-index-candidate-set"],
+      "censoring": "infrastructure_unknown",
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_45_plugin_video_netflix_result.json"],
+      "evidence_anchor": "Intermittent empty setuptools resolution does not support a deterministic algorithm attribution."
+    },
+    {
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "repository": "claritychallenge/clarity",
+      "primary_failure_layer": "observation",
+      "secondary_mechanisms": ["checkout-ownership-drift", "replay-fidelity"],
+      "censoring": null,
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_49_clarity_result.json"],
+      "evidence_anchor": "The replay checkout did not reproduce the ownership fact that caused setuptools_scm to fail in Official."
+    },
+    {
+      "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784",
+      "repository": "cvxgrp/cvxportfolio",
+      "primary_failure_layer": "unresolved",
+      "secondary_mechanisms": ["empty-package-index-candidate-set"],
+      "censoring": "infrastructure_unknown",
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_59_cvxportfolio_result.json"],
+      "evidence_anchor": "The project installed during construction, while Official later returned no setuptools candidates; the trajectory cannot isolate an algorithm cause."
+    },
+    {
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "repository": "datamol-io/graphium",
+      "primary_failure_layer": "observation",
+      "secondary_mechanisms": ["checkout-ownership-drift", "deployment-completeness"],
+      "censoring": null,
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_67_graphium_result.json"],
+      "evidence_anchor": "Fresh Official checkout ownership caused setuptools_scm failure, but that target-state fact was absent from construction feedback."
+    },
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "repository": "econ-ark/hark",
+      "primary_failure_layer": "observation",
+      "secondary_mechanisms": ["checkout-ownership-drift", "replay-fidelity"],
+      "censoring": null,
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_97_hark_result.json"],
+      "evidence_anchor": "Construction and advisory replay passed because neither reproduced Official checkout ownership semantics."
+    },
+    {
+      "case_id": "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+      "repository": "emi-group/evox",
+      "primary_failure_layer": "unresolved",
+      "secondary_mechanisms": ["empty-package-index-candidate-set"],
+      "censoring": "infrastructure_unknown",
+      "terminal_stage": "official_evaluation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_110_evox_result.json"],
+      "evidence_anchor": "The exact program passed advisory replay before Official returned no setuptools candidates, so deterministic attribution is unsupported."
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "repository": "datactive/bigbang",
+      "primary_failure_layer": "constraint",
+      "secondary_mechanisms": ["candidate-boundary-false-rejection"],
+      "censoring": null,
+      "terminal_stage": "candidate_formation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_75_bigbang_terminal_candidate_boundary_adjudication.json"],
+      "evidence_anchor": "The hard admission rule rejected a legitimate program because it misclassified configuration writes through a temporary path."
+    },
+    {
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "repository": "dbiir/uer-py",
+      "primary_failure_layer": "constraint",
+      "secondary_mechanisms": ["candidate-boundary-false-rejection", "third-party-import-layout"],
+      "censoring": null,
+      "terminal_stage": "candidate_formation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_80_uer_py_terminal_candidate_boundary_adjudication.json"],
+      "evidence_anchor": "A categorical hard boundary rejected a TensorFlow import-layout repair whose exact-program counterfactual later passed."
+    },
+    {
+      "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+      "repository": "ellmetha/django-machina",
+      "primary_failure_layer": "constraint",
+      "secondary_mechanisms": ["candidate-boundary-false-rejection", "local-configuration"],
+      "censoring": null,
+      "terminal_stage": "candidate_formation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_98_django_machina_terminal_candidate_boundary_adjudication.json"],
+      "evidence_anchor": "The hard boundary rejected an ordinary project-local configuration artifact whose exact-program counterfactual later passed."
+    },
+    {
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "repository": "dfki-ric/phobos",
+      "primary_failure_layer": "constraint",
+      "secondary_mechanisms": ["candidate-boundary-false-rejection", "type-stub-artifact"],
+      "censoring": null,
+      "terminal_stage": "candidate_formation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_103_phobos_terminal_candidate_boundary_adjudication.json"],
+      "evidence_anchor": "The hard boundary rejected generated type-stub distributions before execution; later ownership drift prevents a pass counterfactual claim but not attribution of the observed terminal rejection."
+    },
+    {
+      "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+      "repository": "dtmilano/androidviewclient",
+      "primary_failure_layer": "constraint",
+      "secondary_mechanisms": ["candidate-boundary-false-rejection", "legacy-import-wheel"],
+      "censoring": null,
+      "terminal_stage": "candidate_formation",
+      "evidence": ["experiments/validations/pro_dev_bad_case_census_v1_0_106_androidviewclient_terminal_candidate_boundary_adjudication.json"],
+      "evidence_anchor": "The hard boundary rejected a synthetic legacy-import wheel whose exact-program counterfactual later passed; deployment completeness remains a separate quality concern."
+    }
+  ]
+}
