@@ -270,3 +270,27 @@ command. A state transition may be useful, damaged, or still unknown regardless 
 exit code. The next Operation layer should search in a persistent construction state,
 admit reuse only through executable postconditions, apply minimal repairs, and certify
 the synthesized complete program once in a clean environment.
+
+## 9. Exact Current-Goal Replication and Falsification
+
+A fixed consumed three-pair study compared Minimal B with the same continuous Agent plus
+an Agent-invoked exact current-goal observer. Holo and extension-helpers passed Official
+under both methods. Git-Gud control passed; treatment passed clean replay but its Official
+bootstrap returned an empty PyYAML index result without an eligible network signature, so
+the strict endpoint remains Fail and causal attribution remains unresolved.
+
+The proposed delivery mechanism did not replicate. From the first known goal Pass to the
+first replay, treatment used 4, 2, and 3 requests on Holo, Git-Gud, and extension-helpers;
+control used 2 requests on each after its manual Pass. Treatment reduced aggregate
+requests and time but left aggregate tokens unchanged, with pair-level directions that
+disagreed. These resource differences cannot be attributed to the observer across
+independent stochastic construction paths.
+
+The programs add two path-quality labels. Git-Gud treatment reached the missing-import
+goal without installing the project, while control performed editable installation.
+Extension-helpers treatment installed the project, built a real auxiliary C extension,
+repaired one replay after a package-download timeout, and passed; control needed two
+repairs before passing. Exact current-goal inspection is therefore retained as a
+diagnostic ablation, not part of the primary EnvSolve-Pro algorithm. Full metrics and
+artifact paths are recorded in
+`experiments/validations/envsolve_pro_v2_current_goal_delivery3_v1_development_result.json`.

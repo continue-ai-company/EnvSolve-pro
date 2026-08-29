@@ -210,3 +210,21 @@ artifact、repository-integrity 和 candidate-program 审计，共执行 27 条�
 所以跨 case 机制不能简化为“缓存每个成功命令”。无论退出码如何，状态转换都可能有用、受损或仍然
 未知。下一版操作层应在持久 construction state 中搜索，只通过可执行后置条件准入状态复用，执行最小
 修复，并只在终局用全新环境认证合成出的完整程序。
+
+## 9. 精确 Current-Goal 复现与证伪
+
+固定的三对已消费实验比较 Minimal B 与“同一连续 Agent + Agent 主动精确 current-goal 观测器”。Holo
+和 extension-helpers 在两种方法下都通过 Official。Git-Gud control 通过；treatment 通过 clean replay，
+但 Official bootstrap 返回空 PyYAML 索引结果，且没有命中允许重试的显式网络签名。因此严格主指标仍为
+Fail，因果归因保持未决。
+
+预期的交付机制没有复现。从首次已知目标 Pass 到首次 replay，treatment 在 Holo、Git-Gud 和
+extension-helpers 上分别使用 4、2、3 次请求；control 在各自手工确认 Pass 后都使用 2 次请求。Treatment
+的总请求和时间下降，但总 Token 基本不变，单个配对方向也不一致。独立随机 construction 路径下，不能
+把这些资源差异归因给观测器。
+
+程序还暴露了两个路径质量标签。Git-Gud treatment 没有安装项目本身也达到 missing-import 目标，control
+则执行 editable install。extension-helpers treatment 安装项目、构建真实辅助 C extension，并在一次
+package download timeout 后修复 replay；control 修复两次后通过。因此精确 current-goal 检查只保留为
+诊断 ablation，不属于 EnvSolve-Pro 主算法。完整指标与 artifact 路径记录在
+`experiments/validations/envsolve_pro_v2_current_goal_delivery3_v1_development_result.json`。
