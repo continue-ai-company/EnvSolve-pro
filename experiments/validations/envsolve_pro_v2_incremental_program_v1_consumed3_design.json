@@ -1,0 +1,68 @@
+{
+  "schema": "envsolve-pro-consumed-mechanism-design-v1",
+  "study_id": "envsolve-pro-v2-incremental-program-v1-consumed3",
+  "recorded_at": "2026-08-30",
+  "status": "recorded-before-any-live-incremental-program-outcome",
+  "claim_scope": "Consumed development mechanism qualification only; no effectiveness, generalization, or SOTA estimate.",
+  "hypothesis": "Linking successful model-selected environment operations to a continuously growing executable program removes terminal program reconstruction, so a sufficient construction state can transition directly to target-state replay.",
+  "selection": [
+    {
+      "position": 1,
+      "repository": "qiboteam/qibolab",
+      "reason": "A prior certified-incumbent treatment observed a complete public-goal Pass but exhausted the session without forming a candidate."
+    },
+    {
+      "position": 2,
+      "repository": "econ-ark/hark",
+      "reason": "Prior trajectories exposed a construction-to-target checkout ownership mismatch and same-session replay repair."
+    },
+    {
+      "position": 3,
+      "repository": "hazyresearch/meerkat",
+      "reason": "The latest control reached a public-goal Pass at request 117 but did not deliver while broader runtime completeness remained unresolved."
+    }
+  ],
+  "method": {
+    "runner": "envsolve-pro-v2-incremental-program",
+    "mechanisms": [
+      "one continuous strong-Agent session",
+      "model-selected inspection versus persistent operation",
+      "successful persistent operations appended verbatim to one ordered program",
+      "complete public-goal observation after every appended operation",
+      "automatic target-state replay on construction-goal Pass",
+      "same-session repair after replay failure"
+    ],
+    "excluded": [
+      "package-specific rules",
+      "closed action vocabulary",
+      "container checkpoints",
+      "cross-case memory",
+      "fixed observation cadence",
+      "terminal whole-program reconstruction"
+    ]
+  },
+  "qualification_observations": [
+    "apply_environment_step calls and successful recorded steps",
+    "automatic goal observations",
+    "first sufficient state to replay delay in model requests",
+    "ordered replay outcomes and same-session repairs",
+    "exact accumulated program delivered after replay Pass",
+    "Official outcome",
+    "deployment completeness and path quality",
+    "requests, tokens, wall time, network traffic, and storage"
+  ],
+  "decision_policy": {
+    "mechanism_qualified": "The operation-linked program is used, every observed sufficient state triggers replay in the same tool turn, replay failure returns to the same session, and every delivered program is the accumulated replay-passing program.",
+    "mechanism_rejected": "The Agent routinely bypasses the program path, a sufficient state fails to trigger replay, or accumulated operations cannot represent a valid target-state program.",
+    "effect_claim": "No effect claim is permitted from these outcome-conditioned cases regardless of Official results."
+  },
+  "execution": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "OpenRouter fixed DeepInfra route without fallback",
+    "reasoning_effort": "xhigh",
+    "max_model_requests": 120,
+    "hard_token_or_cost_limit": false,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "new_hash_contract_or_gate_added": false
+}
