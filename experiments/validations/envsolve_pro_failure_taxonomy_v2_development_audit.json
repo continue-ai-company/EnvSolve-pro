@@ -1,0 +1,93 @@
+{
+  "schema": "envsolve-pro-failure-taxonomy-audit-v2",
+  "study_id": "envsolve-pro-cross-method-census-v1",
+  "annotation_status": "provisional-single-reviewer",
+  "claim_scope": "Consumed-development diagnosis only. These annotations are neither held-out evidence nor an effectiveness estimate.",
+  "coverage": {
+    "matrix_rows": 48,
+    "non_success_rows": 38,
+    "annotation_rows": 38,
+    "missing_annotation_rows": 0,
+    "algorithmic_rows": 25,
+    "unresolved_rows": 0,
+    "censored_rows": 13
+  },
+  "algorithmic_distribution": {
+    "constraint": {
+      "count": 7,
+      "share": 0.28
+    },
+    "observation": {
+      "count": 14,
+      "share": 0.56
+    },
+    "operation": {
+      "count": 4,
+      "share": 0.16
+    }
+  },
+  "by_method": {
+    "codex-cli-native": {
+      "profile": {
+        "mechanisms": [
+          "F"
+        ],
+        "replay_scope": "none"
+      },
+      "failure_counts": {
+        "constraint": 1,
+        "observation": 8,
+        "protocol_censored": 1
+      }
+    },
+    "envsolve-pro-causal": {
+      "profile": {
+        "mechanisms": [
+          "F",
+          "C_h",
+          "R"
+        ],
+        "replay_scope": "whole-program candidate replay across controller rounds"
+      },
+      "failure_counts": {
+        "constraint": 3,
+        "infrastructure_unknown": 7,
+        "operation": 3
+      }
+    },
+    "repo2run": {
+      "profile": {
+        "mechanisms": [
+          "F",
+          "R"
+        ],
+        "replay_scope": "construction-state checkpoint and command rollback"
+      },
+      "failure_counts": {
+        "constraint": 3,
+        "infrastructure_unknown": 2,
+        "observation": 6,
+        "operation": 1,
+        "protocol_censored": 3
+      }
+    }
+  },
+  "evidence_artifacts": {
+    "found": 43,
+    "not_found_in_supplied_roots": 19
+  },
+  "evidence_artifacts_by_method": {
+    "codex-cli-native": {
+      "not_found_in_supplied_roots": 19
+    },
+    "envsolve-pro-causal": {
+      "found": 19
+    },
+    "repo2run": {
+      "found": 24
+    }
+  },
+  "missing_annotation_row_ids": [],
+  "structural_errors": [],
+  "valid": true
+}

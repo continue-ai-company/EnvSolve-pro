@@ -1,0 +1,64 @@
+{
+  "schema": "envsolve-pro-failure-taxonomy-v2",
+  "status": "development",
+  "claim_scope": "Causal analysis of scientifically valid deployment trajectories; not an effectiveness estimate.",
+  "unit": "One non-successful method-case trajectory.",
+  "dimensions": {
+    "method_mechanisms": {
+      "F": "Free feedback search: a persistent agent chooses environment operations from execution feedback.",
+      "C_h": "Hard constraints: encoded rules require, reject, or rewrite candidate behavior.",
+      "C_s": "Soft constraints: execution evidence is presented as an actionable obligation without restricting the agent's action space.",
+      "R": "Replay or recovery: prior state or a complete program is re-executed and its failure can guide another attempt. The replay scope must be reported separately."
+    },
+    "primary_failure_layer": {
+      "observation": "A decisive target-state fact was unavailable, not observed, or not returned before the method stopped.",
+      "constraint": "The decisive fact was observed but was not represented, retained, or reconciled as a requirement.",
+      "operation": "The requirement was active, but the selected state change or delivered program did not satisfy it.",
+      "unresolved": "The trajectory does not support one earliest decisive cause."
+    },
+    "censoring": {
+      "infrastructure_unknown": "External infrastructure plausibly determined the outcome.",
+      "protocol_censored": "The experimental adapter could not validly represent or submit the method's behavior."
+    },
+    "terminal_stage": [
+      "target_bootstrap",
+      "candidate_formation",
+      "clean_replay",
+      "official_evaluation"
+    ],
+    "quality_axis": [
+      "complete-runtime-environment",
+      "metric-minimal-environment",
+      "platform-specific-environment",
+      "path-cost-outlier",
+      "not-assessed"
+    ]
+  },
+  "method_profiles": {
+    "codex-cli-native": {
+      "mechanisms": ["F"],
+      "replay_scope": "none"
+    },
+    "envsolve-pro-causal": {
+      "mechanisms": ["F", "C_h", "R"],
+      "replay_scope": "whole-program candidate replay across controller rounds"
+    },
+    "repo2run": {
+      "mechanisms": ["F", "R"],
+      "replay_scope": "construction-state checkpoint and command rollback"
+    },
+    "envsolve-pro-minimal-b": {
+      "mechanisms": ["F", "C_s", "R"],
+      "replay_scope": "complete-program target-state replay in the same active session"
+    }
+  },
+  "adjudication": [
+    "Method mechanisms describe how a system deploys; they are not failure labels.",
+    "Assign exactly one earliest decisive primary layer when the evidence supports it.",
+    "Keep later contributors as secondary mechanisms rather than a cross-layer primary class.",
+    "Exclude infrastructure_unknown and protocol_censored from algorithmic failure prevalence.",
+    "Treat Official outcome, deployment quality, and path cost as separate axes.",
+    "Every non-unresolved attribution requires at least one trajectory artifact path and a concise evidence anchor.",
+    "Taxonomy-development data may define labels but cannot estimate held-out effectiveness."
+  ]
+}

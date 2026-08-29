@@ -329,6 +329,19 @@ The blinded all-row packet and agreement implementation are
 `experiments/compare_causal_annotations.py`; the packet intentionally contains no first-
 reviewer label, subtype, rationale, or evidence anchor.
 
+Taxonomy v2 now separates four composable method mechanisms (`F`, `C_h`, `C_s`, `R`)
+from the O/C/O primary cause, terminal stage, censoring status, and deployment-quality
+axis. The development audit validates all 38 annotation rows structurally and excludes
+13 censored rows from the 25-row algorithmic distribution. Spark contains and resolves
+all 19 EnvSolve and all 24 Repo2Run evidence artifacts; the 19 Codex artifacts are not in
+the supplied Spark run root and remain to be located on their originating machine. This
+is artifact availability, not annotation disagreement or evidence loss. The specification,
+auditor, and result are `experiments/protocols/envsolve_pro_failure_taxonomy_v2.json`,
+`experiments/audit_failure_taxonomy.py`, and
+`experiments/validations/envsolve_pro_failure_taxonomy_v2_development_audit.json`.
+Independent named-researcher annotation remains the next requirement before reporting
+reliability or method-level failure distributions as paper evidence.
+
 The completed census identifies one simpler contradiction than another dependency rule:
 the executable task goal is not a continuously visible, authoritative state variable.
 Native agents often optimize repository tests or documentation proxies without executing

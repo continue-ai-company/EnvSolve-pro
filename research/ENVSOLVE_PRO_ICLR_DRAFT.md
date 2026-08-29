@@ -198,7 +198,10 @@ The current trajectory reconstruction contains 48 method--case rows and 38 non-s
 rows. A provisional single-reviewer pass identifies 25 algorithmically attributable
 failures: 14 Observation, seven Constraint, and four Operation. Nine infrastructure-unknown
 and four protocol-censored rows are excluded. Independent annotation is pending, so these
-counts support taxonomy development but not population prevalence.
+counts support taxonomy development but not population prevalence. Method mechanisms and
+failure causes are recorded separately: a system may combine free search, hard or soft
+constraints, and replay, while each failed trajectory receives one earliest decisive
+O/C/O cause or is censored.
 
 Earlier consumed studies show that optional replay can be ignored and that replay after
 late delivery may arrive too late for repair. A failure-enriched six-case study produced

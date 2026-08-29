@@ -257,6 +257,16 @@ taxonomy，并证明目标可见性是反复出现的因果差异；同 backbone
 `experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json` 和
 `experiments/compare_causal_annotations.py`；盲标包刻意不包含首轮 label、subtype、rationale 或证据措辞。
 
+Taxonomy v2 已把四种可组合方法机制（`F`、`C_h`、`C_s`、`R`）与 O/C/O 主因、终止阶段、删失状态和
+部署质量轴彻底分开。开发审计确认 38 条标注在结构上完整，并从 25 条算法失败分布中排除了 13 条删失
+记录。Spark 上 EnvSolve 的 19 个和 Repo2Run 的 24 个证据 artifact 已全部解析；Codex 的 19 个
+artifact 不在本次提供的 Spark run root，仍需回到其原始执行机器定位。这表示 artifact 可用性状态，
+不表示标注分歧或证据丢失。规范、审计器和结果分别为
+`experiments/protocols/envsolve_pro_failure_taxonomy_v2.json`、
+`experiments/audit_failure_taxonomy.py` 和
+`experiments/validations/envsolve_pro_failure_taxonomy_v2_development_audit.json`。在把可靠性或方法级失败
+分布写成论文证据前，仍必须完成由具名研究者给出的独立第二标注。
+
 完整普查得到一个比继续增加依赖规则更简单的主要矛盾：**可执行任务目标没有成为持续可见、具有权威性
 的状态变量**。原生 Agent 经常在没有执行计分目标时优化仓库测试或文档等代理目标。causal-v3 虽然运行
 丰富的内部 verifier，但语义推断可能移除真实目标义务，也可能保留不计分义务。c14 的 Codex
