@@ -52,6 +52,42 @@ def sha256_tree(root: Path, paths: list[Path]) -> str:
     return digest.hexdigest()
 
 
+def sha256_git_tracked_tree(root: Path, paths: list[Path]) -> str:
+    """Hash current contents for tracked files under the selected source paths."""
+    relative_paths: list[str] = []
+    for path in paths:
+        try:
+            relative_paths.append(str(path.resolve().relative_to(root.resolve())))
+        except ValueError as exc:
+            raise ValueError(f"Source path is outside the Git root: {path}") from exc
+    try:
+        process = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "-z", "--", *relative_paths],
+            capture_output=True,
+            check=False,
+        )
+    except OSError:
+        return sha256_tree(root, paths)
+    if process.returncode != 0:
+        return sha256_tree(root, paths)
+
+    digest = hashlib.sha256()
+    stdout = process.stdout
+    if isinstance(stdout, str):
+        stdout = stdout.encode("utf-8", errors="surrogateescape")
+    tracked = sorted(item for item in stdout.split(b"\0") if item)
+    for encoded_path in tracked:
+        relative = Path(encoded_path.decode("utf-8", errors="surrogateescape"))
+        path = root / relative
+        digest.update(encoded_path)
+        digest.update(b"\0")
+        if path.is_file():
+            digest.update(bytes.fromhex(sha256_file(path)))
+        else:
+            digest.update(b"missing")
+    return digest.hexdigest()
+
+
 def host_provenance() -> dict[str, Any]:
     return {
         "platform": platform.platform(),

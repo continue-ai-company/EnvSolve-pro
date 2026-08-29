@@ -54,7 +54,7 @@ from envsolve_harness.scripts.envbench_trajectory import (
 from envsolve_harness.scripts.repo2run import distill_repo2run_commands
 from envsolve_harness.storage.artifacts import RunArtifacts, safe_name
 from envsolve_harness.storage.manifest import initialize_manifest
-from envsolve_harness.utils.provenance import sha256_tree
+from envsolve_harness.utils.provenance import sha256_git_tracked_tree, sha256_tree
 from envsolve.v0.verification import V0VerifierResult
 
 REAL_SUBPROCESS_RUN = subprocess.run
@@ -224,6 +224,25 @@ class CoreIoTest(unittest.TestCase):
             first = sha256_tree(root, [source])
             file_path.write_text("second\n")
             self.assertNotEqual(first, sha256_tree(root, [source]))
+
+    def test_tracked_source_hash_ignores_untracked_runtime_files(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=root, check=True)
+            source = root / "source"
+            source.mkdir()
+            tracked = source / "tracked.py"
+            tracked.write_text("first\n")
+            REAL_SUBPROCESS_RUN(["git", "add", "source/tracked.py"], cwd=root, check=True)
+
+            first = sha256_git_tracked_tree(root, [source])
+            (source / "runtime-progress.json").write_text("one\n")
+            self.assertEqual(first, sha256_git_tracked_tree(root, [source]))
+            (source / "runtime-progress.json").write_text("two\n")
+            self.assertEqual(first, sha256_git_tracked_tree(root, [source]))
+
+            tracked.write_text("second\n")
+            self.assertNotEqual(first, sha256_git_tracked_tree(root, [source]))
 
     def test_repository_integrity_rejects_mutation_and_injection_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

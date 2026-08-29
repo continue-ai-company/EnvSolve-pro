@@ -7,7 +7,11 @@ from envsolve_harness.core.io import read_json, write_json
 from envsolve_harness.core.models import Case, HarnessConfig, RunSpec
 from envsolve_harness.core.protocol import ExperimentProtocol
 from envsolve_harness.storage.artifacts import RunArtifacts
-from envsolve_harness.utils.provenance import git_provenance, host_provenance, sha256_tree
+from envsolve_harness.utils.provenance import (
+    git_provenance,
+    host_provenance,
+    sha256_git_tracked_tree,
+)
 
 MANIFEST_SCHEMA_VERSION = "0.6.0"
 
@@ -30,7 +34,7 @@ def initialize_manifest(
         "host": host_provenance(),
         "harness": {
             **git_provenance(config.workspace_root),
-            "source_sha256": sha256_tree(
+            "source_sha256": sha256_git_tracked_tree(
                 config.workspace_root,
                 [
                     config.workspace_root / "envsolve_harness",
