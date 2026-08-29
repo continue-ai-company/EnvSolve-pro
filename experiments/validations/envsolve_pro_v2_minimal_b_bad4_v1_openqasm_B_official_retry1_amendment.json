@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "recorded_at": "2026-08-30T04:34:00+08:00",
+  "recorded_before_retry_execution": true,
+  "source": {
+    "run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR",
+    "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+    "arm": "B-F+O+R",
+    "generation_completed": true,
+    "clean_replay_status": "pass",
+    "clean_replay_count": 1,
+    "official_evaluation_completed": false,
+    "infrastructure_signature": "read-timeout"
+  },
+  "retry": {
+    "run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR-eval-retry1",
+    "policy": "single-exact-script-infrastructure-retry-v1",
+    "model_reexecuted": false,
+    "script_policy": "byte-identical submitted bootstrap",
+    "maximum_additional_retries": 0
+  },
+  "claim_boundary": "The retry may replace only the infrastructure-censored Official outcome. It is not another model episode, another replay attempt, or an additional replication.",
+  "algorithm_or_provider_policy_changed": false,
+  "new_hash_contract_or_gate_added": false
+}
