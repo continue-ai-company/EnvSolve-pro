@@ -1,0 +1,775 @@
+{
+  "arms": {
+    "control": "A-F+O",
+    "treatment": "B-F+O+R"
+  },
+  "counts": {
+    "official_only_retries": 1,
+    "pairs": 4,
+    "protocol_invalid_runs": 0,
+    "scheduled_runs": 8
+  },
+  "official_paired": {
+    "both_pass": 2,
+    "censored_pairs": 0,
+    "control_only_pass": 0,
+    "control_pass_rate": 0.5,
+    "control_passes": 2,
+    "discordant_pairs": 0,
+    "eligible_pairs": 4,
+    "mcnemar_exact_two_sided_p_value": 1.0,
+    "neither_pass": 2,
+    "pairs": 4,
+    "treatment_minus_control_pass_rate": 0.0,
+    "treatment_only_pass": 0,
+    "treatment_pass_rate": 0.5,
+    "treatment_passes": 2
+  },
+  "paired_schedule": "experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1_effective.json",
+  "pairs": [
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 8181.460528,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-01-meerkat",
+        "pair_index": 1,
+        "pair_position": 1,
+        "position": 1,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO-replacement1",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      },
+      "pair_id": "bad4-01-meerkat",
+      "pair_index": 1,
+      "treatment": {
+        "arm": "B-F+O+R",
+        "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 8843.403468,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-01-meerkat",
+        "pair_index": 1,
+        "pair_position": 2,
+        "position": 2,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-02-meerkat-B-FOR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      }
+    },
+    {
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 864.934202,
+          "model_requests": 60,
+          "official_seconds": 24.87216854095459,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 46483,
+            "prompt_tokens": 1446311,
+            "total_tokens": 1492794
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "check_current_goal": 0,
+            "envbench_shell": 59,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-02-pysnmp",
+        "pair_index": 2,
+        "pair_position": 2,
+        "position": 4,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-04-pysnmp-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "bad4-02-pysnmp",
+      "pair_index": 2,
+      "treatment": {
+        "arm": "B-F+O+R",
+        "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 1590.174853,
+          "model_requests": 62,
+          "official_seconds": 54.05869960784912,
+          "replay_status_counts": {
+            "pass": 1,
+            "unknown": 2
+          },
+          "token_usage": {
+            "completion_tokens": 53059,
+            "prompt_tokens": 1473466,
+            "total_tokens": 1526525
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "check_current_goal": 0,
+            "envbench_shell": 56,
+            "submit_and_replay": 3,
+            "submit_bootstrap": 3
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-02-pysnmp",
+        "pair_index": 2,
+        "pair_position": 1,
+        "position": 3,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-03-pysnmp-B-FOR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      }
+    },
+    {
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 3143.373817,
+          "model_requests": 106,
+          "official_seconds": 138.01072716712952,
+          "replay_status_counts": {},
+          "token_usage": {
+            "completion_tokens": 95350,
+            "prompt_tokens": 3881812,
+            "total_tokens": 3977162
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "check_current_goal": 0,
+            "envbench_sblock": 1,
+            "envbench_shell": 104,
+            "submit_and_replay": 0,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-03-openqasm",
+        "pair_index": 3,
+        "pair_position": 1,
+        "position": 5,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-05-openqasm-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "official_pass"
+      },
+      "pair_id": "bad4-03-openqasm",
+      "pair_index": 3,
+      "treatment": {
+        "arm": "B-F+O+R",
+        "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+        "final_class": "official_pass",
+        "metrics": {
+          "generation_seconds": 2201.350884,
+          "model_requests": 51,
+          "official_seconds": 107.8843092918396,
+          "replay_status_counts": {
+            "pass": 1
+          },
+          "token_usage": {
+            "completion_tokens": 48727,
+            "prompt_tokens": 1194725,
+            "total_tokens": 1243452
+          },
+          "tool_counts": {
+            "check_compatibility": 0,
+            "check_current_goal": 0,
+            "envbench_shell": 49,
+            "submit_and_replay": 1,
+            "submit_bootstrap": 1
+          },
+          "verifier_handoff": null
+        },
+        "official_pass": true,
+        "official_retry": {
+          "artifact_root": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR-eval-retry1/envbench-python-openqasm__openqasm__5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+          "evaluation_completed": true,
+          "infrastructure_signature": "read-timeout",
+          "model_reexecuted": false,
+          "official_pass": true,
+          "official_seconds": 107.8843092918396,
+          "run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR-eval-retry1"
+        },
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-03-openqasm",
+        "pair_index": 3,
+        "pair_position": 2,
+        "position": 6,
+        "protocol_compliant_pass": true,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "infrastructure_unknown"
+      }
+    },
+    {
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "control": {
+        "arm": "A-F+O",
+        "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 3026.382872,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-04-stopstalk",
+        "pair_index": 4,
+        "pair_position": 2,
+        "position": 8,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-08-stopstalk-A-FO",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      },
+      "pair_id": "bad4-04-stopstalk",
+      "pair_index": 4,
+      "treatment": {
+        "arm": "B-F+O+R",
+        "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+        "final_class": "agent_noncompletion",
+        "metrics": {
+          "generation_seconds": 5166.048567,
+          "model_requests": null,
+          "official_seconds": null,
+          "replay_status_counts": null,
+          "token_usage": {
+            "completion_tokens": null,
+            "prompt_tokens": null,
+            "total_tokens": null
+          },
+          "tool_counts": null,
+          "verifier_handoff": null
+        },
+        "official_pass": false,
+        "official_retry": null,
+        "official_scientifically_eligible": true,
+        "pair_id": "bad4-04-stopstalk",
+        "pair_index": 4,
+        "pair_position": 1,
+        "position": 7,
+        "protocol_compliant_pass": false,
+        "protocol_invalid_reason": null,
+        "source_artifact_integrity_valid": true,
+        "source_run_id": "pro-v2-minb-bad4-v1-07-stopstalk-B-FOR",
+        "source_scientifically_eligible": true,
+        "source_terminal": "generation_failed"
+      }
+    }
+  ],
+  "protocol_compliant_paired": {
+    "both_pass": 2,
+    "censored_pairs": 0,
+    "control_only_pass": 0,
+    "control_pass_rate": 0.5,
+    "control_passes": 2,
+    "discordant_pairs": 0,
+    "eligible_pairs": 4,
+    "mcnemar_exact_two_sided_p_value": 1.0,
+    "neither_pass": 2,
+    "pairs": 4,
+    "treatment_minus_control_pass_rate": 0.0,
+    "treatment_only_pass": 0,
+    "treatment_pass_rate": 0.5,
+    "treatment_passes": 2
+  },
+  "records": [
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 8181.460528,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-01-meerkat",
+      "pair_index": 1,
+      "pair_position": 1,
+      "position": 1,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO-replacement1",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    },
+    {
+      "arm": "B-F+O+R",
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 8843.403468,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-01-meerkat",
+      "pair_index": 1,
+      "pair_position": 2,
+      "position": 2,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-02-meerkat-B-FOR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    },
+    {
+      "arm": "B-F+O+R",
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 1590.174853,
+        "model_requests": 62,
+        "official_seconds": 54.05869960784912,
+        "replay_status_counts": {
+          "pass": 1,
+          "unknown": 2
+        },
+        "token_usage": {
+          "completion_tokens": 53059,
+          "prompt_tokens": 1473466,
+          "total_tokens": 1526525
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "check_current_goal": 0,
+          "envbench_shell": 56,
+          "submit_and_replay": 3,
+          "submit_bootstrap": 3
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-02-pysnmp",
+      "pair_index": 2,
+      "pair_position": 1,
+      "position": 3,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-03-pysnmp-B-FOR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 864.934202,
+        "model_requests": 60,
+        "official_seconds": 24.87216854095459,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 46483,
+          "prompt_tokens": 1446311,
+          "total_tokens": 1492794
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "check_current_goal": 0,
+          "envbench_shell": 59,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-02-pysnmp",
+      "pair_index": 2,
+      "pair_position": 2,
+      "position": 4,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-04-pysnmp-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 3143.373817,
+        "model_requests": 106,
+        "official_seconds": 138.01072716712952,
+        "replay_status_counts": {},
+        "token_usage": {
+          "completion_tokens": 95350,
+          "prompt_tokens": 3881812,
+          "total_tokens": 3977162
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "check_current_goal": 0,
+          "envbench_sblock": 1,
+          "envbench_shell": 104,
+          "submit_and_replay": 0,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-03-openqasm",
+      "pair_index": 3,
+      "pair_position": 1,
+      "position": 5,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-05-openqasm-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "official_pass"
+    },
+    {
+      "arm": "B-F+O+R",
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "final_class": "official_pass",
+      "metrics": {
+        "generation_seconds": 2201.350884,
+        "model_requests": 51,
+        "official_seconds": 107.8843092918396,
+        "replay_status_counts": {
+          "pass": 1
+        },
+        "token_usage": {
+          "completion_tokens": 48727,
+          "prompt_tokens": 1194725,
+          "total_tokens": 1243452
+        },
+        "tool_counts": {
+          "check_compatibility": 0,
+          "check_current_goal": 0,
+          "envbench_shell": 49,
+          "submit_and_replay": 1,
+          "submit_bootstrap": 1
+        },
+        "verifier_handoff": null
+      },
+      "official_pass": true,
+      "official_retry": {
+        "artifact_root": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR-eval-retry1/envbench-python-openqasm__openqasm__5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+        "evaluation_completed": true,
+        "infrastructure_signature": "read-timeout",
+        "model_reexecuted": false,
+        "official_pass": true,
+        "official_seconds": 107.8843092918396,
+        "run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR-eval-retry1"
+      },
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-03-openqasm",
+      "pair_index": 3,
+      "pair_position": 2,
+      "position": 6,
+      "protocol_compliant_pass": true,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "infrastructure_unknown"
+    },
+    {
+      "arm": "B-F+O+R",
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 5166.048567,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-04-stopstalk",
+      "pair_index": 4,
+      "pair_position": 1,
+      "position": 7,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-07-stopstalk-B-FOR",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    },
+    {
+      "arm": "A-F+O",
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "final_class": "agent_noncompletion",
+      "metrics": {
+        "generation_seconds": 3026.382872,
+        "model_requests": null,
+        "official_seconds": null,
+        "replay_status_counts": null,
+        "token_usage": {
+          "completion_tokens": null,
+          "prompt_tokens": null,
+          "total_tokens": null
+        },
+        "tool_counts": null,
+        "verifier_handoff": null
+      },
+      "official_pass": false,
+      "official_retry": null,
+      "official_scientifically_eligible": true,
+      "pair_id": "bad4-04-stopstalk",
+      "pair_index": 4,
+      "pair_position": 2,
+      "position": 8,
+      "protocol_compliant_pass": false,
+      "protocol_invalid_reason": null,
+      "source_artifact_integrity_valid": true,
+      "source_run_id": "pro-v2-minb-bad4-v1-08-stopstalk-A-FO",
+      "source_scientifically_eligible": true,
+      "source_terminal": "generation_failed"
+    }
+  ],
+  "resources": {
+    "common_success": {
+      "control": {
+        "generation_seconds": {
+          "count": 2,
+          "max": 3143.373817,
+          "mean": 2004.1540095,
+          "median": 2004.1540095,
+          "min": 864.934202
+        },
+        "model_requests": {
+          "count": 2,
+          "max": 106.0,
+          "mean": 83.0,
+          "median": 83.0,
+          "min": 60.0
+        },
+        "official_seconds": {
+          "count": 2,
+          "max": 138.01072716712952,
+          "mean": 81.44144785404205,
+          "median": 81.44144785404205,
+          "min": 24.87216854095459
+        },
+        "runs": 2,
+        "total_tokens": {
+          "count": 2,
+          "max": 3977162.0,
+          "mean": 2734978.0,
+          "median": 2734978.0,
+          "min": 1492794.0
+        }
+      },
+      "pairs": 2,
+      "treatment": {
+        "generation_seconds": {
+          "count": 2,
+          "max": 2201.350884,
+          "mean": 1895.7628685,
+          "median": 1895.7628685,
+          "min": 1590.174853
+        },
+        "model_requests": {
+          "count": 2,
+          "max": 62.0,
+          "mean": 56.5,
+          "median": 56.5,
+          "min": 51.0
+        },
+        "official_seconds": {
+          "count": 2,
+          "max": 107.8843092918396,
+          "mean": 80.97150444984436,
+          "median": 80.97150444984436,
+          "min": 54.05869960784912
+        },
+        "runs": 2,
+        "total_tokens": {
+          "count": 2,
+          "max": 1526525.0,
+          "mean": 1384988.5,
+          "median": 1384988.5,
+          "min": 1243452.0
+        }
+      }
+    },
+    "official_success": {
+      "control": {
+        "generation_seconds": {
+          "count": 2,
+          "max": 3143.373817,
+          "mean": 2004.1540095,
+          "median": 2004.1540095,
+          "min": 864.934202
+        },
+        "model_requests": {
+          "count": 2,
+          "max": 106.0,
+          "mean": 83.0,
+          "median": 83.0,
+          "min": 60.0
+        },
+        "official_seconds": {
+          "count": 2,
+          "max": 138.01072716712952,
+          "mean": 81.44144785404205,
+          "median": 81.44144785404205,
+          "min": 24.87216854095459
+        },
+        "runs": 2,
+        "total_tokens": {
+          "count": 2,
+          "max": 3977162.0,
+          "mean": 2734978.0,
+          "median": 2734978.0,
+          "min": 1492794.0
+        }
+      },
+      "treatment": {
+        "generation_seconds": {
+          "count": 2,
+          "max": 2201.350884,
+          "mean": 1895.7628685,
+          "median": 1895.7628685,
+          "min": 1590.174853
+        },
+        "model_requests": {
+          "count": 2,
+          "max": 62.0,
+          "mean": 56.5,
+          "median": 56.5,
+          "min": 51.0
+        },
+        "official_seconds": {
+          "count": 2,
+          "max": 107.8843092918396,
+          "mean": 80.97150444984436,
+          "median": 80.97150444984436,
+          "min": 54.05869960784912
+        },
+        "runs": 2,
+        "total_tokens": {
+          "count": 2,
+          "max": 1526525.0,
+          "mean": 1384988.5,
+          "median": 1384988.5,
+          "min": 1243452.0
+        }
+      }
+    },
+    "selection_note": "Common-success resources are the paired comparison; per-arm Official success summaries are descriptive because their case sets can differ."
+  },
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1-effective"
+}

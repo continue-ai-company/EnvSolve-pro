@@ -150,30 +150,21 @@ Pass@1 为主指标；次级指标包括失败层迁移、replay 与 Official �
 taxonomy，不能当成总体流行率。方法机制与失败原因分开记录：一个系统可以组合自由搜索、硬约束、
 软约束和 replay；每条失败轨迹则只标一个最早决定性的 O/C/O 原因，或作为删失样本排除。
 
-早期已消费实验表明，可选 replay 可能被 Agent 忽略，交付太晚时 replay 也来不及支持修复。失败富集的
-六 case 实验产生三条同 session Fail-to-Pass 修复，但也发现多个目标已经通过却没有交付的状态。更强的
-候选保留策略反而退化，因此我们选择更小的状态转换。
+早期开发实验表明，replay 可以修复部分完整程序，但也可能被 Agent 忽略，或等决定性搜索已经结束后才
+触发。基于固定观测节奏、强制 handoff 和候选保留的更大 controller policy 都没有产生稳定增益，因此
+不进入核心方法。
 
-前瞻固定的十对开发压力实验比较了 goal-aware 自由搜索与更大的“定时观测、强制 handoff、replay”
-treatment。一对因 evaluator 基础设施问题删失。九对有效样本中，对照为 `6/9`，treatment 为 `7/9`
-（5 对都通过、1 对仅对照通过、2 对仅 treatment 通过、1 对都失败；双侧精确 McNemar `p=1.0`）。
-两个 treatment-only 中只有一个真正激活了强制 handoff，另一个在该机制激活前就由不同随机搜索路径
-产生。五对共同成功样本上，treatment 的平均模型请求几乎相同，但平均生成时间和 Token 更高。因此，
-该 batch 不支持把固定节奏或强制 handoff 作为核心算法。
-
-另一组预先固定的三对实验检验：不由 controller 调度，只让 Agent 主动调用精确 current-goal Pass，是否
-能加快程序交付。Treatment 与 control 在两个无歧义 Official pair 上结果相同；剩余 treatment 在 clean
-replay 已通过后遇到一次因果未决的 package acquisition 失败。更关键的是，treatment 没有缩短从已知
-目标 Pass 到首次 replay 的请求距离，而且其中一份程序没有安装项目本身也达到了 benchmark 目标。
-因此，精确当前状态检查只保留为诊断 ablation，不属于 EnvSolve-Pro。这个负结果也说明 benchmark 成功
-和部署完整性必须分开报告。
+我们随后固定四个 Official bad case，比较同一个 goal-aware Agent 是否增加可反复调用的 clean replay。
+两组均为 `2/4`：两对共同通过，两对共同失败。关键是，两个失败 treatment 都从未调用 replay；失败发生
+在形成第一份合法 bootstrap 的过程中，而不是修复 replay 反例。两对共同成功 case 的资源差异又分别受
+Python 3.9 harness bug 和部署完整性不一致混杂，因此不能支持效率主张。
 
 当前 205 个 Dev identity 均已被至少一种方法执行。后续 Dev 实验可以诊断“当前 treatment 尚未运行”的
 历史失败层，但不能再包装成仓库未见泛化；这一角色只保留给受保护的 Canary 与 Official Test。
 
-结合更早的多步 replay 修复证据，论文选择更小的“连续 session + 可反复调用的 clean replay”方法。
-当前结果仍全部属于开发证据，不能估计未见成功率、泛化、榜单或 SOTA。下一项有效效果主张必须来自
-固定最小方法在未触碰 case 上与匹配对照的比较，之后再进行外部 baseline 和强弱 backbone 实验。
+这个结果否决了“终局完整程序 replay 已足够构成 EnvSolve-Pro 算法”。它只保留为 baseline 和认证原语。
+下一方法必须在候选形成过程中暴露可执行的 case 内状态，同时继续由模型决定环境操作。当前结果仍全部
+属于开发证据；只有该状态转换固定后，才开始未见 case、外部 baseline 和强弱 backbone 实验。
 
 ## 7. 证伪条件与范围
 

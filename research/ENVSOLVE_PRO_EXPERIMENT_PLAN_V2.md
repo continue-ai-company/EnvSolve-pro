@@ -759,3 +759,34 @@ seed forwarding, and no provider fallback. No case, algorithm, prompt, tool, eva
 analysis rule changed. The design and amendment are recorded in
 `experiments/validations/envsolve_pro_for_v1_consumed6_design.json` and
 `experiments/validations/envsolve_pro_for_v1_provider_amendment.json`.
+
+## 17. Fixed Bad4 Result and Next Algorithm Gate
+
+The effective four-pair Bad4 comparison is complete. Goal-aware free search (`F+O`) and
+Minimal B (`F+O+R`) both score `2/4` Official Pass: Pysnmp and OpenQASM both pass, while
+Meerkat and Stopstalk both fail. Neither failed treatment episode invoked replay. This
+rejects whole-program replay as a sufficient mechanism on the current hard stratum and
+localizes the next problem to pre-candidate formation.
+
+Pysnmp treatment produced two replay Unknowns because the provider-provenance audit used
+a Python 3.10-only metadata API under Python 3.9.7. The Agent switched to Python 3.11 and
+then passed replay and Official. The audit compatibility defect is fixed in `f923d7e`;
+the Official endpoint remains valid, but replay-repair attribution, resource comparison,
+and Python-version fidelity are marked confounded. OpenQASM treatment used fewer resources
+to reach the Official goal but installed a less complete environment, so completeness and
+Official efficiency remain separate axes.
+
+Minimal B is now a baseline and certification primitive. Before implementing a successor,
+the next gate is a retrospective transition analysis of the four pairs: identify the last
+reproducible environment state, the first unresolved constraint, and the operation that
+prevented or enabled a legal bootstrap. The successor may expose executable intermediate
+state to the same active Agent, but it must not add package-specific rules, fixed action
+selection, another cross-candidate ledger, or controller handoff without a repeated causal
+failure that requires it. The treatment and comparison batch are fixed only after this
+analysis.
+
+Evidence:
+
+- `research/ENVSOLVE_PRO_MINIMAL_B_BAD4_RESULTS.md`
+- `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1_effective.json`
+- `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_result.json`

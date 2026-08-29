@@ -203,29 +203,18 @@ failure causes are recorded separately: a system may combine free search, hard o
 constraints, and replay, while each failed trajectory receives one earliest decisive
 O/C/O cause or is censored.
 
-Earlier consumed studies show that optional replay can be ignored and that replay after
-late delivery may arrive too late for repair. A failure-enriched six-case study produced
-three same-session Fail-to-Pass replay repairs, but also exposed goal-passing states that
-were never delivered. More controlling candidate-retention policies regressed, motivating
-the smaller state transition used here.
+Earlier development studies show that replay can repair some complete programs, but can
+also be ignored or invoked only after the decisive search work is over. Larger controller
+policies based on fixed observation cadence, forced handoff, or candidate retention did
+not produce a stable gain and are excluded from the core method.
 
-A prospectively fixed ten-pair development stress test compared goal-aware free search
-with the larger scheduled-observation, forced-handoff, and replay treatment. One pair was
-censored by evaluator infrastructure. On nine eligible pairs, control passed 6/9 and the
-treatment 7/9 (five both pass, one control-only, two treatment-only, one neither;
-two-sided exact McNemar \(p=1.0\)). Only one treatment-only win actually activated forced
-handoff; the other arose before that mechanism activated. On five common successes, the
-treatment had nearly identical mean model requests but higher mean generation time and
-tokens. The batch therefore does not justify fixed cadence or forced handoff as core
-algorithm components.
-
-A separate fixed three-pair replication tested whether an Agent-invoked exact current-goal
-Pass accelerates program delivery without controller scheduling. Treatment and control
-passed the same two unambiguous Official pairs; the remaining treatment failed during an
-unresolved package-acquisition event after its clean replay had passed. More importantly,
-the treatment did not reduce the requests from a known goal Pass to first replay, and one
-program reached the benchmark goal without installing the project itself. We therefore
-retain exact current-state inspection as a diagnostic ablation, not part of EnvSolve-Pro.
+We then fixed four Official bad cases and compared the same goal-aware Agent with and
+without repeatable clean replay. Both arms passed `2/4`; two pairs both passed and two
+pairs both failed. Crucially, replay was never invoked on either failed treatment episode.
+The failures occurred while forming the first legal bootstrap, not while repairing a
+replay counterexample. On the two common successes, resource differences were confounded
+by a Python 3.9 harness defect in one case and unequal deployment completeness in the
+other, so they do not support an efficiency claim.
 
 All 205 development identities have now been executed by at least one method. Subsequent
 Dev studies can diagnose a treatment-unrun failure stratum, but cannot be presented as
@@ -234,12 +223,11 @@ that role.
 This negative result also motivates reporting deployment completeness separately from the
 benchmark goal.
 
-Combined with earlier multi-step replay repairs, this evidence selects the smaller
-continuous-session plus repeatable clean-replay method for the paper. All current results
-remain development evidence: they do not estimate held-out success, generalization,
-leaderboard performance, or SOTA. The next valid effect claim requires the fixed minimal
-method on untouched cases with matched controls, followed by external baselines and
-strong/weak backbone tests.
+This result rejects terminal complete-program replay as a sufficient EnvSolve-Pro
+algorithm. It remains a baseline and certification primitive. The next method must expose
+executable, case-local state during candidate formation while leaving environment-changing
+actions model-led. All current results remain development evidence; held-out, external-
+baseline, and strong/weak-backbone experiments begin only after that transition is fixed.
 
 ## 7. Falsification and Scope
 

@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "run_id": "pro-v2-minb-bad4-v1-03-pysnmp-B-FOR",
+  "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+  "observed_sequence": [
+    {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "unknown",
+      "public_goal_issues_count": 0,
+      "verification_summary": "Import provider provenance audit did not complete",
+      "cause": "Python 3.9 importlib.metadata lacks packages_distributions"
+    },
+    {
+      "replay_id": "minimal-b-replay-0002",
+      "status": "unknown",
+      "public_goal_issues_count": 0,
+      "verification_summary": "Import provider provenance audit did not complete",
+      "cause": "same unchanged candidate and measurement defect"
+    },
+    {
+      "replay_id": "minimal-b-replay-0003",
+      "status": "pass",
+      "public_goal_issues_count": 0,
+      "environment_change": "Agent changed from repository-declared Python 3.9.7 to Python 3.11"
+    }
+  ],
+  "official_outcome": {
+    "evaluation_completed": true,
+    "official_pass": true,
+    "issues_count": 0
+  },
+  "adjudication": {
+    "official_endpoint": "valid-pass",
+    "paired_success_endpoint": "include",
+    "replay_repair_attribution": "confounded-by-treatment-only-measurement-defect",
+    "resource_comparison": "descriptive-only-confounded",
+    "deployment_fidelity": "flag-python-version-deviation"
+  },
+  "fix": {
+    "commit": "f923d7e",
+    "change": "Fall back to distribution metadata traversal when packages_distributions is unavailable without weakening unowned-provider detection.",
+    "verification": "930 passed, 12 skipped, 82 subtests passed"
+  },
+  "new_hash_contract_or_gate_added": false
+}

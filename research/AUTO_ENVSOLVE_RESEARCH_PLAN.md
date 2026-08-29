@@ -256,6 +256,16 @@ Pass@1 Fail。Auto-EnvSolve 必须把 `agent_program_valid`、`clean_replay_pass
 生成的 repository-disjoint shadow batch。修复 wrapper false negative 属于 measurement version，
 不能冒充内层部署策略提升。
 
+### 17. Bad4 机制未激活回退事务
+
+固定 Bad4 比较为外层系统提供了一个明确的拒绝样例：`F+O+R` 与 `F+O` 均为 `2/4`，且两个失败的
+treatment 都没有调用 replay。Auto-EnvSolve 不能因为组件存在、成功 case 资源下降或某条轨迹更复杂就
+晋级版本；关键状态转换没有在目标失败层上激活时，应保留旧版本，并把 proposal 重新定位到候选形成。
+
+Pysnmp 还要求把 measurement repair 与 solver promotion 分开。Python 3.9 审计兼容修复可以通过回归
+测试和原脚本重放晋级测量版本，但不能记为内层算法收益。未来比较记录至少保留 candidate formation、
+mechanism activation、measurement censor、Official outcome 和 deployment completeness 五个独立字段。
+
 ## English Version
 
 ### 1. Core question
@@ -767,3 +777,18 @@ manual Pass, first replay, strict Official outcome, acquisition censor status, a
 deployment-completeness annotations. The accepted successor is the previous Minimal B
 version, while the current-goal tool remains available only for diagnosis and future
 orthogonal experiments.
+
+### 28. Bad4 Non-Activation Rollback Transaction
+
+The fixed Bad4 comparison is a direct outer-loop rejection example: `F+O+R` and `F+O`
+both score `2/4`, and neither failed treatment invokes replay. Auto-EnvSolve must not
+promote a version because a component exists, successful cases become cheaper, or traces
+become more elaborate. If the defining transition is absent on the target failure
+stratum, the version is retained as a baseline and the next proposal is redirected to
+candidate formation.
+
+Pysnmp also separates measurement repair from solver promotion. The Python 3.9 audit fix
+may advance a measurement version after regression and exact-program replay, but it is not
+an inner-policy gain. Future comparison records retain candidate formation, mechanism
+activation, measurement censoring, Official outcome, and deployment completeness as
+separate fields.

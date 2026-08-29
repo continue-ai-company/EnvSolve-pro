@@ -599,3 +599,27 @@ Fail-to-Pass 修复、反例后的程序变化、replay/Official 一致性，以
 prompt、tool、evaluator 和分析规则均不改变。设计与 amendment 分别记录在
 `experiments/validations/envsolve_pro_for_v1_consumed6_design.json` 和
 `experiments/validations/envsolve_pro_for_v1_provider_amendment.json`。
+
+## 17. 固定 Bad4 结果与下一算法门槛
+
+四对有效 Bad4 比较已经完成。Goal-aware 自由搜索（`F+O`）与 Minimal B（`F+O+R`）的 Official
+Pass 都是 `2/4`：Pysnmp 和 OpenQASM 两组都通过，Meerkat 和 Stopstalk 两组都失败。两个失败的
+treatment 均没有调用 replay。这个结果否决了“完整程序 replay 足以解决当前 hard stratum”，并把下一
+问题定位到候选形成之前。
+
+Pysnmp treatment 前两次 replay Unknown，是因为导入来源审计在 Python 3.9.7 下调用了 Python 3.10
+才有的 metadata API。Agent 改用 Python 3.11 后 replay 和 Official 通过。审计兼容缺陷已在 `f923d7e`
+修复；Official 终局有效，但 replay 修复归因、资源比较和 Python 版本忠实度均标记为受混杂。OpenQASM
+treatment 用更少资源达到 Official 目标，却安装了更不完整的环境，因此部署完整性与 Official 效率继续
+作为独立评价轴。
+
+Minimal B 现在是 baseline 和认证原语。实现下一算法前，先对四个 pair 做回顾性状态转换分析：找出最后
+一个可复现环境状态、第一条未解除约束，以及阻止或促成合法 bootstrap 的操作。后续方法可以向同一个
+活跃 Agent 暴露可执行中间状态，但除非重复因果失败明确要求，不加入 package 特定规则、固定动作选择、
+新的跨候选 ledger 或 controller handoff。完成分析后，才固定 treatment 和比较 batch。
+
+证据：
+
+- `research/ENVSOLVE_PRO_MINIMAL_B_BAD4_RESULTS_ZH.md`
+- `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1_effective.json`
+- `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_result.json`

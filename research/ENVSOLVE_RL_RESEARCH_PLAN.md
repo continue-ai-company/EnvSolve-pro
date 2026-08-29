@@ -212,6 +212,17 @@ counterfactual Official Pass。未来 reward view 可以把它标为 `measuremen
 原始终局，也不能把 counterfactual 当作在线反馈。这样同一条轨迹既能监督安全边界修正，又不会错误惩罚
 已经正确生成部署程序的策略。
 
+### 15. Bad4 候选形成与测量删失标签
+
+Bad4 要求把 `candidate_not_formed` 与 `replay_failed` 分开。Meerkat 和 Stopstalk 的 treatment 从未调用
+replay，因此只能监督候选形成阶段，不能给 replay policy 负 reward。Pysnmp 前两次 Unknown 来自 Python
+3.9 harness 审计兼容缺陷，应标为 `measurement_censored`；第三次 replay 和 Official Pass 才是有效
+终局，但改用 Python 3.11 的路径还要保留版本忠实度标签。
+
+OpenQASM 则要求 Official reward 与部署完整性 reward 分离。更少 Token 达到榜单目标不能自动成为完整
+环境策略的正样本。第一篇应保存每个阶段的程序、环境版本、replay 状态、Official 结果和完整性标注，
+让第二篇以后重建多轴 reward，而不重跑原始环境。
+
 ## English Version
 
 ### 1. Core question
@@ -679,3 +690,18 @@ causally unresolved. Extension-helpers retains replay repair type and path-fidel
 These distinctions let EnvSolve-RL later test whether exact state observations improve a
 learned policy without teaching metric-minimal deployment or assigning negative reward to
 unresolved infrastructure.
+
+### 27. Bad4 Candidate-Formation and Measurement-Censor Labels
+
+Bad4 requires `candidate_not_formed` to remain distinct from `replay_failed`. Meerkat and
+Stopstalk treatment never invokes replay, so those trajectories supervise candidate
+formation only and provide no negative reward for a replay policy. Pysnmp's first two
+Unknowns come from a Python 3.9 harness-audit incompatibility and are labeled
+`measurement_censored`; its later replay and Official Pass remain valid, with a separate
+Python-version-fidelity label for the switch to 3.11.
+
+OpenQASM likewise separates Official reward from deployment-completeness reward. Reaching
+the benchmark goal with fewer tokens is not automatically a positive example for a full
+environment policy. The first paper retains stage programs, environment versions, replay
+states, Official outcomes, and completeness annotations so the learned project can rebuild
+multi-axis rewards without rerunning the environments.
