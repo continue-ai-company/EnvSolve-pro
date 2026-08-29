@@ -1,0 +1,49 @@
+{
+  "schema": "envsolve-pro-manual-interruption-adjudication-v1",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "recorded_at": "2026-08-30T03:44:00+08:00",
+  "status": "replacement-specified-before-meerkat-treatment-outcome",
+  "affected_episode": {
+    "position": 1,
+    "run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO",
+    "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+    "arm": "A-F+O",
+    "process_exit_code": -2,
+    "duration_seconds": 2529.5049210460857,
+    "scientifically_eligible": false,
+    "censoring": "protocol_censored",
+    "censoring_subtype": "operator-induced-premature-interruption"
+  },
+  "incident": {
+    "initial_inference": "A stale CLOSE-WAIT provider socket and a non-growing trajectory were incorrectly interpreted as a provider request that had exceeded the 600 second request timeout.",
+    "post_interruption_evidence": "The KeyboardInterrupt traceback placed the main thread in terminal_server.handle -> executor.execute -> selector.select while executing a container shell command.",
+    "interrupted_command": "cd /data/project && export PIP_DEFAULT_TIMEOUT=1000 && export PIP_RETRIES=20 && timeout 3000 pip install --timeout 1000 --retries 20 -e . 2>&1 | tail -40",
+    "command_requested_timeout_seconds": 3100,
+    "shared_harness_command_timeout_seconds": 1800,
+    "interruption_occurred_before_shared_timeout": true,
+    "conclusion": "The original episode cannot be classified as an Agent failure, infrastructure timeout, or valid non-submission. It is excluded from every effectiveness and resource comparison."
+  },
+  "replacement": {
+    "decision_rule": "Run one fresh replacement control because the invalidity was caused by operator intervention, not by the method outcome.",
+    "run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO-replacement1",
+    "runner": "deepseek-goal-aware-agent",
+    "method": "free-feedback-search-public-goal",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "seed": 830101,
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_minimal_b_bad4_v1.json",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "source_revision": "61ab658a0ffe6f347f2b28a42c18b99c331b492f",
+    "provider_policy": {
+      "provider": "DeepInfra",
+      "fallbacks": false
+    },
+    "outcome_information_available_when_specified": {
+      "original_control": "invalid-interrupted-before-terminal-outcome",
+      "meerkat_treatment": "running-no-outcome",
+      "replacement": "not-started"
+    }
+  },
+  "analysis_rule": "Use replacement1 as the Meerkat A observation only if its manifest confirms the specified clean committed source and it reaches a protocol-valid terminal outcome. Preserve the original episode solely as incident evidence.",
+  "algorithm_or_provider_policy_changed": false,
+  "new_hash_contract_or_gate_added": false
+}
