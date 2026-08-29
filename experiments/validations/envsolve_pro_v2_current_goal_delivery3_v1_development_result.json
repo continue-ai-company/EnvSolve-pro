@@ -1,0 +1,255 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-current-goal-delivery3-v1",
+  "recorded_at": "2026-08-30",
+  "study_role": "consumed-development-mechanism-replication",
+  "claim_scope": "Mechanism diagnosis only; not held-out, confirmatory, population-rate, statistical-significance, leaderboard, generalization, or SOTA evidence.",
+  "source_and_artifacts": {
+    "host": "Spark Linux ARM64",
+    "externally_observed_clean_commit": "d2a594fe987963981929067e0dfc29f48befe2c0",
+    "run_root": "/home/avdpro/work/EnvSolve-pro-clean/runs/envsolve-pro-v2-current-goal-delivery3-v1",
+    "source_provenance_bound_in_run_manifests": false,
+    "main_run_artifact_audits_valid": 6,
+    "main_run_artifact_audits_invalid": 0,
+    "active_study_sessions_after_completion": 0,
+    "note": "Direct run_case execution did not bind the harness commit into each manifest. The clean commit and worktree were checked externally, so the artifacts support development mechanism analysis only."
+  },
+  "strict_official_outcome": {
+    "pairs": 3,
+    "control_passes": 3,
+    "treatment_passes": 2,
+    "both_pass": 2,
+    "control_only_pass": 1,
+    "treatment_only_pass": 0,
+    "neither_pass": 0,
+    "treatment_minus_control_pass_rate": -0.3333333333333333,
+    "interpretation": "The treatment did not improve Official success. Git-Gud treatment failed during package acquisition, so its mechanism attribution is unresolved, but the preregistered strict Official endpoint remains Fail."
+  },
+  "pairs": [
+    {
+      "pair": "holo",
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "control": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "non_scoring_pyright_errors": 200,
+        "model_requests": 17,
+        "total_tokens": 153389,
+        "shell_calls": 15,
+        "clean_replays": 1,
+        "generation_seconds": 276.345283,
+        "official_seconds": 9.729551076889038,
+        "first_manual_goal_pass_request": 14,
+        "first_replay_request": 16,
+        "submission_request": 17
+      },
+      "treatment": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "non_scoring_pyright_errors": 200,
+        "model_requests": 11,
+        "total_tokens": 81970,
+        "shell_calls": 12,
+        "current_goal_checks": 2,
+        "clean_replays": 1,
+        "generation_seconds": 273.866657,
+        "official_seconds": 33.42427659034729,
+        "current_goal_pass_request": 6,
+        "first_manual_goal_pass_request": 8,
+        "first_replay_request": 10,
+        "submission_request": 11
+      },
+      "paired_change_treatment_over_control": {
+        "model_requests_percent": -35.29411764705882,
+        "total_tokens_percent": -46.560705135309576,
+        "shell_calls_percent": -20.0,
+        "generation_seconds_percent": -0.8969308153524813
+      },
+      "mechanism": "The structured check recognized Pass two requests before the treatment's manual Pyright count. However, treatment used four requests from structured Pass to replay, while control used two requests from manual Pass to replay. Independent rollout differences, not a shorter delivery transition, explain the request reduction."
+    },
+    {
+      "pair": "git-gud",
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "control": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "non_scoring_pyright_errors": 148,
+        "model_requests": 13,
+        "total_tokens": 82487,
+        "shell_calls": 11,
+        "clean_replays": 1,
+        "generation_seconds": 235.912216,
+        "official_seconds": 38.799392223358154,
+        "first_manual_goal_pass_request": 10,
+        "first_replay_request": 12,
+        "submission_request": 13
+      },
+      "treatment": {
+        "official_pass": false,
+        "official_exit_code": 1,
+        "official_issues_count": 0,
+        "official_failure": "Bootstrap pip returned no available PyYAML versions before Pyright ran.",
+        "model_requests": 9,
+        "total_tokens": 60004,
+        "shell_calls": 8,
+        "current_goal_checks": 2,
+        "clean_replays": 1,
+        "clean_replay_status": "pass",
+        "generation_seconds": 126.658731,
+        "official_seconds": 25.50076675415039,
+        "current_goal_pass_request": 6,
+        "first_manual_goal_pass_request": 7,
+        "first_replay_request": 8,
+        "submission_request": 9
+      },
+      "paired_change_treatment_over_control": {
+        "model_requests_percent": -30.76923076923077,
+        "total_tokens_percent": -27.256416162546827,
+        "shell_calls_percent": -27.27272727272727,
+        "generation_seconds_percent": -46.3110757265745
+      },
+      "official_failure_adjudication": {
+        "causal_status": "unresolved package acquisition",
+        "strict_endpoint": "fail",
+        "reason_not_automatically_censored": "The log contained no explicit DNS, timeout, TLS, HTTP, or connection signature before the empty package-index result. Existing policy intentionally does not treat a bare No matching distribution error as infrastructure because it may be a real version or platform constraint.",
+        "exact_script_retry_executed": false,
+        "retry_rejection": "evaluate_only source-run audit rejected the result as not an eligible infrastructure failure.",
+        "partial_retry_directory": "pro-v2-current-goal-delivery3-v1-04-git-gud-T-official-retry1",
+        "partial_retry_artifact_valid": false,
+        "partial_retry_reason": "Evaluation was rejected before execution and no status.json was produced."
+      },
+      "path_quality": "Treatment installed declared dependencies but omitted editable installation of the project itself; control installed the project. The treatment therefore reached the EnvBench missing-import goal through a less complete deployment path even though clean replay passed.",
+      "mechanism": "Treatment and control each used two requests from their first observed goal Pass to replay. The structured signal did not shorten the delivery transition."
+    },
+    {
+      "pair": "extension-helpers",
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "control": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "non_scoring_pyright_errors": 32,
+        "model_requests": 25,
+        "provider_attempts": 27,
+        "provider_errors": 2,
+        "total_tokens": 421268,
+        "shell_calls": 30,
+        "clean_replays": 3,
+        "clean_replay_sequence": [
+          "fail",
+          "fail",
+          "pass"
+        ],
+        "generation_seconds": 652.245115,
+        "official_seconds": 38.6638388633728,
+        "first_manual_goal_pass_request": 16,
+        "first_replay_request": 18,
+        "submission_request": 25
+      },
+      "treatment": {
+        "official_pass": true,
+        "official_issues_count": 0,
+        "non_scoring_pyright_errors": 16,
+        "model_requests": 26,
+        "provider_attempts": 28,
+        "provider_errors": 2,
+        "total_tokens": 516959,
+        "shell_calls": 27,
+        "current_goal_checks": 3,
+        "clean_replays": 2,
+        "clean_replay_sequence": [
+          "fail",
+          "pass"
+        ],
+        "generation_seconds": 606.558125,
+        "official_seconds": 32.121241331100464,
+        "current_goal_pass_request": 20,
+        "first_manual_goal_pass_request": 21,
+        "first_replay_request": 23,
+        "submission_request": 26
+      },
+      "paired_change_treatment_over_control": {
+        "model_requests_percent": 4.0,
+        "total_tokens_percent": 22.71499378068118,
+        "shell_calls_percent": -10.0,
+        "clean_replays_percent": -33.333333333333336,
+        "generation_seconds_percent": -7.004573732989938
+      },
+      "replay_repairs": {
+        "control": "The first program omitted NumPy from the replay environment; the second encountered an empty NumPy package-index result; the third passed.",
+        "treatment": "The first program encountered an explicit files.pythonhosted.org read timeout while installing build dependencies. The Agent added a bounded pip retry wrapper and the second replay passed."
+      },
+      "path_quality": "Both programs installed the project and created a real auxiliary distribution. Treatment built and imported a C extension and asserted a non-unknown compiler value; control installed broader docs dependencies but used a synthetic compiler_version value. Path quality differs in both scope and fidelity and cannot be reduced to Official Pass.",
+      "mechanism": "Treatment used three requests from structured Pass to first replay, while control used two from manual Pass. The structured signal did not shorten delivery and increased requests and tokens in this pair."
+    }
+  ],
+  "aggregate_resources": {
+    "control": {
+      "model_requests": 55,
+      "total_tokens": 657144,
+      "shell_calls": 56,
+      "clean_replays": 5,
+      "generation_seconds": 1164.502614
+    },
+    "treatment": {
+      "model_requests": 46,
+      "total_tokens": 658933,
+      "shell_calls": 47,
+      "current_goal_checks": 7,
+      "current_goal_passes": 3,
+      "clean_replays": 4,
+      "generation_seconds": 1007.083513
+    },
+    "treatment_over_control_percent": {
+      "model_requests": -16.36363636363637,
+      "total_tokens": 0.2722386569762536,
+      "shell_calls": -16.07142857142857,
+      "clean_replays": -20.0,
+      "generation_seconds": -13.518140629953102
+    },
+    "interpretation": "Aggregate requests, shell calls, replays, and time decreased, but token use was unchanged and pair-level direction was inconsistent. Independent stochastic paths prevent causal attribution of aggregate resource differences to the current-goal tool."
+  },
+  "mechanism_test": {
+    "hypothesis": "An Agent-invoked trusted current-goal Pass causes earlier programization and clean replay.",
+    "supported": false,
+    "treatment_pass_to_first_replay_request_deltas": {
+      "holo": 4,
+      "git-gud": 2,
+      "extension-helpers": 3
+    },
+    "control_manual_pass_to_first_replay_request_deltas": {
+      "holo": 2,
+      "git-gud": 2,
+      "extension-helpers": 2
+    },
+    "finding": "The check sometimes recognized Pass before the Agent's manual Pyright summary, but it did not shorten the within-episode transition from known Pass to replay. Request savings on two pairs came from different construction trajectories, not the proposed handoff mechanism."
+  },
+  "oco_analysis": [
+    {
+      "layer": "observation",
+      "finding": "Exact current constraints are concise and were actively reused in all three treatment runs, but strong Agents can independently compute the same missing-import residual."
+    },
+    {
+      "layer": "constraint",
+      "finding": "A zero missing-import set is the benchmark goal, not a proof of complete project deployment. Git-Gud demonstrates that the formal goal can be satisfied without installing the project."
+    },
+    {
+      "layer": "operation",
+      "finding": "Clean replay remains useful: both extension-helpers arms repaired programs that did not reproduce their construction states. The optional current-goal signal did not prescribe or accelerate those repairs."
+    }
+  ],
+  "algorithm_decision": {
+    "promote_current_goal_to_primary_envsolve_pro": false,
+    "retain_as_ablation_and_debug_observer": true,
+    "primary_core_remains": [
+      "one unrestricted continuous Agent session",
+      "Agent-proposed cumulative bootstrap program",
+      "repeatable fresh target-state replay",
+      "structured executable replay feedback returned to the same session",
+      "Official evaluation after episode completion"
+    ],
+    "reason": "The optional current-goal check produced no success gain, did not shorten known-Pass-to-replay behavior, and can encourage early metric-minimal delivery whose completeness differs from a real project environment.",
+    "next_core_question": "Which pre-candidate constraint and operation failures prevent Minimal B from ever forming a replayable program on true Official bad cases?",
+    "next_evidence": "Return to the fixed bad-case taxonomy and analyze pre-candidate search explosion, verifier-semantic conflicts, build isolation, and target-state drift before adding another treatment. Do not add package-specific rules, automatic cadence, forced handoff, checkpoints, or cross-case state from this study."
+  },
+  "new_hash_contract_or_gate_added": false
+}
