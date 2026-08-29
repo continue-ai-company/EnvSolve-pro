@@ -1,6 +1,6 @@
 # EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-28; held-out and external-baseline results pending
+Status: working ICLR paper draft, 2026-08-30; held-out and external-baseline results pending
 
 ## Abstract
 
@@ -21,14 +21,14 @@ executable, case-local constraints to the same session without prescribing a rep
 only the exact program that passes replay can be delivered. The harness neither schedules
 search nor forces a candidate transition.
 
-Consumed development cases qualify same-session Fail-to-Pass replay repair. A prospective
-ten-pair development stress test does not support adding fixed-cadence observation and
-forced handoff to that core, so those mechanisms are retained only as ablations. They do
-not establish generalization. Our final evaluation freezes the smaller algorithm before
-held-out evaluation, compares it with matched same-model controls, EnvBench baselines,
-Repo2Run, prior hard-constraint EnvSolve, and native coding Agents, and tests both strong
-and weaker backbones. Official Pass@1 is primary; time, tokens, network, and storage are
-optimized only after success is preserved.
+Consumed development cases qualify same-session Fail-to-Pass replay repair. Prospective
+development tests do not support adding fixed-cadence observation, forced handoff, or an
+Agent-invoked exact current-state tool to that core, so those mechanisms remain ablations.
+They do not establish generalization. Our final evaluation freezes the smaller algorithm
+before held-out evaluation, compares it with matched same-model controls, EnvBench
+baselines, Repo2Run, prior hard-constraint EnvSolve, and native coding Agents, and tests
+both strong and weaker backbones. Official Pass@1 is primary; time, tokens, network, and
+storage are optimized only after success is preserved.
 
 ## 1. Problem
 
@@ -215,6 +215,16 @@ handoff; the other arose before that mechanism activated. On five common success
 treatment had nearly identical mean model requests but higher mean generation time and
 tokens. The batch therefore does not justify fixed cadence or forced handoff as core
 algorithm components.
+
+A separate fixed three-pair replication tested whether an Agent-invoked exact current-goal
+Pass accelerates program delivery without controller scheduling. Treatment and control
+passed the same two unambiguous Official pairs; the remaining treatment failed during an
+unresolved package-acquisition event after its clean replay had passed. More importantly,
+the treatment did not reduce the requests from a known goal Pass to first replay, and one
+program reached the benchmark goal without installing the project itself. We therefore
+retain exact current-state inspection as a diagnostic ablation, not part of EnvSolve-Pro.
+This negative result also motivates reporting deployment completeness separately from the
+benchmark goal.
 
 Combined with earlier multi-step replay repairs, this evidence selects the smaller
 continuous-session plus repeatable clean-replay method for the paper. All current results

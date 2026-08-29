@@ -1,10 +1,11 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-28）：** 失败统一按 Observation--Constraint--Operation 三层分类。
+> **当前论文设计（2026-08-30）：** 失败统一按 Observation--Constraint--Operation 三层分类。
 > EnvSolve-Pro 保留一个自由连续 Agent session，并提供可反复调用、从目标初始状态执行的 clean replay。
 > Replay 失败成为同一 session 中可执行的 case-local 证据；只有原样通过 replay 的程序才能交付。何时
-> 形成候选、怎样修复仍由 Agent 决定。固定节奏观测和强制 handoff 已被开发实验否决，不属于核心机制；
-> Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源阈值同样不属于核心方法。所有
+> 形成候选、怎样修复仍由 Agent 决定。固定节奏观测、强制 handoff 和可选的精确 current-goal 检查均被
+> 开发实验否决，不属于核心机制；Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源
+> 阈值同样不属于核心方法。所有
 > 方法共享的实验完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计研发历史。
 
 ## 1. 研究目标
@@ -20,6 +21,17 @@ EnvSolve-Pro 从冻结的 EnvSolve v1 代码和历史继续开发。旧仓库
 `hongleo-Lee/EnvSolve` 已在提交 `07a208f` 以标签
 `envsolve-v1-baseline-freeze-2026-07-21` 封存，作为可运行 baseline；所有新改动只进入
 `hongleo-Lee/EnvSolve-pro`。
+
+### 当前收敛决策
+
+主方法收敛为“连续 Agent session + 可反复 clean replay”的最小闭环。固定三对复现实验否定了更窄的
+假设：让 Agent 主动获取精确 current-goal Pass，并没有缩短从已知 Pass 到程序 replay 的过程，没有提高
+Official 成功数，而且部署完整性与 benchmark 目标可以独立变化。该实现只保留为 ablation 和调试观测器；
+不能从这些 case 推导定时观测、强制 handoff、checkpoint、frontier 或 package 规则。
+
+下一步核心工作是补证据，不是继续给 controller 打补丁：完成真实 Official bad case 的 O/C/O taxonomy，
+分离“形成可重放程序之前”的失败，再让固定 Minimal B 在 outcome-blind case 上与同模型对照和外部 baseline
+比较。
 
 ## 2. 研究原则
 
@@ -90,8 +102,8 @@ Spark 是 Linux ARM64，也是 EnvBench 发布的容器平台之一，因此开�
 | P4（完成） | 量化剩余主要矛盾 | Spark 上两组独立的 8-case Dev 普查 | 单层复现失败，接口级信号已冻结 |
 | P5（完成） | 验证因果约束前沿 | V2 测量否决与 V3 完整性修复 | 保留为诊断 baseline，不做效果 claim |
 | P6（完成） | 观测各方法与官方目标的关系 | 16 个已消费仓库上的 causal-v3、Codex 与 Repo2Run | 一个跨方法、仓库无关的主要矛盾 |
-| P7（进行中） | 验证可执行目标驱动的状态 | 冻结 `goal-contract-evidence-anchor-v1` 后进行 repository-disjoint qualification | 目标保真、多轮修复且无 evaluator 泄漏 |
-| P8 | 受控效果实验与冻结 | goal-aware 配对、untouched Dev、Canary 与 Official Test | 代码、prompt、目标、baseline 与分析全部冻结 |
+| P7（完成） | 验证可执行目标驱动的状态 | 目标驱动的 target-state replay 与被否决的 controller-policy ablation | 目标保真、多轮修复且无 evaluator 泄漏 |
+| P8（进行中） | 受控效果实验与冻结 | 完成 taxonomy、matched outcome-blind Dev、外部 baseline、Canary 与 Official Test | 代码、prompt、目标、baseline 与分析全部冻结 |
 
 P0 期间不得根据 EnvSolve v1 的既有 case 添加仓库特定规则。新的 parser、constraint 或 guard 必须来自
 多个独立轨迹，或者来自任务定义本身的确定性不变量。

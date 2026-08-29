@@ -1,6 +1,6 @@
 # EnvSolve-Pro：面向仓库部署的部分可观测状态化约束求解
 
-状态：ICLR 工作稿，2026-08-28；未见 batch 与外部 baseline 结果待完成
+状态：ICLR 工作稿，2026-08-30；未见 batch 与外部 baseline 结果待完成
 
 ## 摘要
 
@@ -14,11 +14,11 @@
 提交累计部署程序，从目标初始状态执行。Replay 失败作为可执行、case-local 约束返回同一个 session，
 但不规定修复方法；只有原样通过 replay 的程序才能交付。Harness 不调度搜索，也不强制形成候选。
 
-已消费开发 case 已验证同 session 的多步 Fail-to-Pass replay 修复。一个前瞻固定的十对开发压力实验
-不支持把固定节奏观测和强制 handoff 加入核心，因此两者只保留为 ablation。当前证据不能证明泛化。
-最终实验会先冻结更小的算法，再在未见 case 上与同模型对照、EnvBench baseline、Repo2Run、旧硬约束
-EnvSolve 和原生 coding Agent 比较，并覆盖强弱 backbone。Official Pass@1 是主指标；时间、Token、
-网络和存储只在成功率不下降后优化。
+已消费开发 case 已验证同 session 的多步 Fail-to-Pass replay 修复。前瞻开发实验不支持把固定节奏观测、
+强制 handoff 或 Agent 主动调用的精确当前状态工具加入核心，因此这些机制只保留为 ablation。当前证据
+不能证明泛化。最终实验会先冻结更小的算法，再在未见 case 上与同模型对照、EnvBench baseline、
+Repo2Run、旧硬约束 EnvSolve 和原生 coding Agent 比较，并覆盖强弱 backbone。Official Pass@1 是
+主指标；时间、Token、网络和存储只在成功率不下降后优化。
 
 ## 1. 问题定义
 
@@ -159,6 +159,13 @@ treatment。一对因 evaluator 基础设施问题删失。九对有效样本中
 两个 treatment-only 中只有一个真正激活了强制 handoff，另一个在该机制激活前就由不同随机搜索路径
 产生。五对共同成功样本上，treatment 的平均模型请求几乎相同，但平均生成时间和 Token 更高。因此，
 该 batch 不支持把固定节奏或强制 handoff 作为核心算法。
+
+另一组预先固定的三对实验检验：不由 controller 调度，只让 Agent 主动调用精确 current-goal Pass，是否
+能加快程序交付。Treatment 与 control 在两个无歧义 Official pair 上结果相同；剩余 treatment 在 clean
+replay 已通过后遇到一次因果未决的 package acquisition 失败。更关键的是，treatment 没有缩短从已知
+目标 Pass 到首次 replay 的请求距离，而且其中一份程序没有安装项目本身也达到了 benchmark 目标。
+因此，精确当前状态检查只保留为诊断 ablation，不属于 EnvSolve-Pro。这个负结果也说明 benchmark 成功
+和部署完整性必须分开报告。
 
 结合更早的多步 replay 修复证据，论文选择更小的“连续 session + 可反复调用的 clean replay”方法。
 当前结果仍全部属于开发证据，不能估计未见成功率、泛化、榜单或 SOTA。下一项有效效果主张必须来自

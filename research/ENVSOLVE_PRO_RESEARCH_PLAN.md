@@ -1,12 +1,13 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-28):** failures are classified by the
+> **Current paper design (2026-08-30):** failures are classified by the
 > Observation--Constraint--Operation framework. EnvSolve-Pro keeps one unrestricted
 > continuous Agent session and exposes repeatable clean replay from the target initial
 > state. Replay failures become executable case-local evidence in the same session; only
 > the exact replay-passing program can be delivered. The Agent decides when to form a
-> candidate and how to repair it. Fixed-cadence observation and forced handoff are rejected
-> development treatments, not core mechanisms. Package rules, checkpoints, cross-case
+> candidate and how to repair it. Fixed-cadence observation, forced handoff, and optional
+> exact current-goal inspection are rejected development treatments, not core mechanisms.
+> Package rules, checkpoints, cross-case
 > memory, harness-selected repairs, and hard resource thresholds are also excluded. The
 > shared evaluation-integrity foundation E is not an algorithm. Section 12 retains
 > superseded proposals as auditable development history.
@@ -28,6 +29,21 @@ EnvSolve-Pro inherits the complete EnvSolve v1 code and Git history. The origina
 `hongleo-Lee/EnvSolve` repository is archived at commit `07a208f` under tag
 `envsolve-v1-baseline-freeze-2026-07-21` and remains a runnable baseline. All new
 development belongs to `hongleo-Lee/EnvSolve-pro`.
+
+### Current convergence decision
+
+The primary method is now the minimal continuous-session plus repeatable clean-replay
+loop. A fixed three-pair replication falsified the narrower hypothesis that an
+Agent-invoked exact current-goal Pass shortens the transition to program replay: the
+Pass-to-replay delay did not improve, Official success did not increase, and deployment
+completeness varied independently of the benchmark goal. Keep that implementation as an
+ablation and debugging observer; do not add cadence, handoff, checkpoint, frontier, or
+package rules from these cases.
+
+The next core work is evidence, not another controller patch: complete the O/C/O taxonomy
+for true Official bad cases, isolate failures that occur before a replayable program is
+formed, and then run the fixed Minimal B method against matched controls and external
+baselines on outcome-blind cases.
 
 ## 2. Research Principles
 
@@ -101,8 +117,8 @@ These are policy choices and ablation targets, not the definition of EnvSolve.
 | P4 (complete) | Quantify the remaining contradiction | Two independent eight-case Dev censuses on Spark | Single-layer replication failed; interface-level signal frozen |
 | P5 (complete) | Qualify a causal constraint frontier | V2 measurement rejection and V3 integrity repair | Retained as a diagnostic baseline; no effectiveness claim |
 | P6 (complete) | Observe all methods against the official objective | Sixteen consumed repositories across causal-v3, Codex, and Repo2Run | One cross-method, repository-independent contradiction |
-| P7 (in progress) | Qualify executable goal-grounded state | Freeze `goal-contract-evidence-anchor-v1`, then run repository-disjoint qualification | Goal fidelity, multi-round repair, and no evaluator leakage |
-| P8 | Controlled effectiveness and freeze | Goal-aware baseline pairs, untouched Dev, Canary, and Official Test | Code, prompts, goals, baselines, and analysis frozen |
+| P7 (complete) | Qualify executable goal-grounded state | Goal-grounded target-state replay plus rejected controller-policy ablations | Goal fidelity, multi-round repair, and no evaluator leakage |
+| P8 (in progress) | Controlled effectiveness and freeze | Finish taxonomy, matched outcome-blind Dev, external baselines, Canary, and Official Test | Code, prompts, goals, baselines, and analysis frozen |
 
 P0 must not produce repository-specific rules from consumed EnvSolve v1 cases. A new
 parser, constraint, or guard requires multiple independent trajectories or a deterministic

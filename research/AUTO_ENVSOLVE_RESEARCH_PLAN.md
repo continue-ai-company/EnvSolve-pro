@@ -751,3 +751,19 @@ false-positive provenance boundary. Auto-EnvSolve should retain both records and
 episode `harness_boundary_censored`; it must neither reward the old boundary nor relabel
 the adjudication as a new solver success. A future promotion rule should estimate algorithm
 effects only from episodes valid under the measurement version being compared.
+
+### 27. Current-Goal Rejection Transaction
+
+The fixed three-pair current-goal replication is a compact rollback example for the outer
+optimizer. The component was invoked in every treatment episode and returned a complete
+Pass in all three, yet it did not shorten known-Pass-to-first-replay latency, did not
+increase unambiguous Official success, and produced mixed resource changes. One treatment
+also reached the benchmark goal without installing the project, showing that path quality
+can move independently of the primary endpoint.
+
+Auto-EnvSolve should therefore reject promotion even when aggregate requests and wall time
+fall. Its comparison record must retain mechanism activation, first trusted Pass, first
+manual Pass, first replay, strict Official outcome, acquisition censor status, and
+deployment-completeness annotations. The accepted successor is the previous Minimal B
+version, while the current-goal tool remains available only for diagnosis and future
+orthogonal experiments.

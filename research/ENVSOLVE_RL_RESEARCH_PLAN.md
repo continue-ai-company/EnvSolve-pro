@@ -664,3 +664,18 @@ measurement boundary. Retain the original terminal failure, boundary version, an
 adjudication as separate fields, then mark the policy outcome `reward_censored`. This lets
 future EnvSolve-RL learn from the Agent's valid operations without learning to evade a
 faulty verifier or treating post-outcome adjudication as online reward.
+
+### 26. Current-Goal Observation and Non-Credit Labels
+
+The fixed current-goal replication provides paired observation data but not a positive
+policy label. Preserve each structured check, the Agent's first manual zero-missing-import
+observation, program proposal, replay, and Official result. Because Pass-to-replay latency
+did not improve, the tool invocation must not receive intrinsic reward merely for being
+followed by success; construction-path differences remain a confounder.
+
+Git-Gud also requires independent `benchmark_goal_pass` and
+`project_install_complete` labels, while its package-acquisition Official failure remains
+causally unresolved. Extension-helpers retains replay repair type and path-fidelity labels.
+These distinctions let EnvSolve-RL later test whether exact state observations improve a
+learned policy without teaching metric-minimal deployment or assigning negative reward to
+unresolved infrastructure.
