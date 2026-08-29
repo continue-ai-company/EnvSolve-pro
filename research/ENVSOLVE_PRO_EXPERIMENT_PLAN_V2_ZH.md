@@ -623,3 +623,22 @@ Minimal B 现在是 baseline 和认证原语。实现下一算法前，先对四
 - `research/ENVSOLVE_PRO_MINIMAL_B_BAD4_RESULTS_ZH.md`
 - `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1_effective.json`
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_result.json`
+
+## 18. 增量可执行程序候选
+
+Bad4 状态转换分析明确区分了环境充分、程序形成、干净认证和 Official 成功。Meerkat 对照在第 117 次
+请求已经满足完整公开目标，却没有形成程序；另外三条失败轨迹从未达到充分状态。因此下一 treatment 只
+消除“终点重建整份程序”，不声称已经解决未解除的兼容性约束。
+
+每条由模型选择的持久操作都通过 `apply_environment_step` 执行，只有构建成功才追加到有序程序。每次追加
+自动触发完整公开目标；目标 Pass 就立即从目标初始状态重放累计程序，失败回到同一 session，成功直接
+结束。观察仍使用普通 shell。算法不增加 package 规则、checkpoint、跨 case 记忆、固定周期、候选图，
+也不新增 hash、冻结 contract 或 gate。
+
+开真实 episode 前先完成确定性资格验证。首轮真实资格验证只使用已消费的 goal-to-delivery case，验证
+机制是否激活，不估计效果。完成后才固定算法和结果未知的比较 batch。
+
+证据与设计：
+
+- `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_ZH.md`

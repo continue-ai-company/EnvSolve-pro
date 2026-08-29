@@ -12,6 +12,7 @@ from unittest import mock
 from envsolve.runtime import ExecutableGoalContract
 from envsolve_harness.compatibility_ledger import ScheduledCompatibilityObserver
 from envsolve_harness.codex.minimal_b_mcp import script_sha256
+from envsolve_harness.incremental_program import IncrementalProgram
 from envsolve_harness.replay_feedback import normalize_replay_feedback
 from envsolve_harness.runners.openrouter_agent import (
     DEEPSEEK_DIRECT_BASE_URL,
@@ -192,6 +193,55 @@ class FakeCurrentGoalService:
         }
 
 
+class CandidateReadyCurrentGoalService(FakeCurrentGoalService):
+    def check(
+        self,
+        call_id: str,
+        *,
+        automatic: bool = False,
+    ) -> dict[str, object]:
+        self.call_ids.append(call_id)
+        return {
+            "schema": "envsolve-current-goal-observation-v1",
+            "ok": True,
+            "goal_status": "pass",
+            "finding_set_complete": True,
+            "candidate_ready": True,
+            "active_constraint_count": 0,
+            "active_constraints": [],
+            "history_used": False,
+            "operation_constraints_added": False,
+            "automatic": automatic,
+        }
+
+
+class SequenceCurrentGoalService(FakeCurrentGoalService):
+    def __init__(self, ready: list[bool]) -> None:
+        super().__init__()
+        self.ready = ready
+
+    def check(
+        self,
+        call_id: str,
+        *,
+        automatic: bool = False,
+    ) -> dict[str, object]:
+        self.call_ids.append(call_id)
+        candidate_ready = self.ready.pop(0)
+        return {
+            "schema": "envsolve-current-goal-observation-v1",
+            "ok": True,
+            "goal_status": "pass" if candidate_ready else "fail",
+            "finding_set_complete": True,
+            "candidate_ready": candidate_ready,
+            "active_constraint_count": 0 if candidate_ready else 1,
+            "active_constraints": [] if candidate_ready else [{"subject": "legacy"}],
+            "history_used": False,
+            "operation_constraints_added": False,
+            "automatic": automatic,
+        }
+
+
 class OpenRouterAgentRunnerTest(unittest.TestCase):
     def test_construction_container_keeps_the_episode_package_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -354,6 +404,150 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(
             options["extra_body"]["provider"],
             {"require_parameters": True, "allow_fallbacks": False},
+        )
+
+    def test_incremental_program_exposes_operation_linked_tools_only(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "incremental")
+            names = [item["function"]["name"] for item in runner._tools()]
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            names,
+            [
+                "envbench_shell",
+                "apply_environment_step",
+                "replay_current_program",
+            ],
+        )
+        self.assertIn("every successful state change", prompt)
+        self.assertIn("Do not reconstruct a bootstrap program from memory", prompt)
+        self.assertNotIn("Finish by calling `submit_bootstrap`", prompt)
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+incremental-executable-program+target-replay-v1",
+        )
+
+    def test_incremental_apply_records_then_replays_without_program_rewrite(self) -> None:
+        command = "python -m venv .venv"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "apply_environment_step",
+                        {"command": command},
+                    )
+                )
+            ]
+        )
+        terminal = FakeTerminalServer()
+        replay = FakeReplayService(command)
+        current_goal = CandidateReadyCurrentGoalService()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "incremental")
+            program = IncrementalProgram(root / "incremental-program")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=terminal,  # type: ignore[arg-type]
+                replay_service=replay,  # type: ignore[arg-type]
+                incremental_program=program,
+                current_goal_service=current_goal,  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+
+        self.assertEqual(program.program, command)
+        self.assertEqual(submission["program"], command)
+        self.assertEqual(metadata["model_requests"], 1)
+        self.assertEqual(metadata["tool_counts"]["apply_environment_step"], 1)
+        self.assertEqual(metadata["replay_status_counts"], {"pass": 1})
+        self.assertEqual(current_goal.call_ids, ["1-automatic-goal"])
+
+    def test_incremental_replay_failure_returns_for_an_appended_repair(self) -> None:
+        first = "python -m venv .venv"
+        second = "source .venv/bin/activate"
+        repair = "python -m pip install wheel"
+
+        class FailThenPassReplay(FakeReplayService):
+            def __init__(self) -> None:
+                super().__init__("")
+                self.programs: list[str] = []
+
+            def submit(self, program: str) -> dict[str, object]:
+                self.programs.append(program)
+                if len(self.programs) == 1:
+                    return {
+                        "status": "fail",
+                        "phase": "clean-replay",
+                        "replay_id": "replay-1",
+                        "program_sha256": script_sha256(program),
+                        "verification": {
+                            "summary": "wheel is absent in the target state",
+                            "bootstrap": {
+                                "exit_code": 1,
+                                "stdout": "",
+                                "stderr": "No module named wheel",
+                                "duration_seconds": 1.0,
+                            },
+                            "counterexamples": {"json": "[]", "truncated": False},
+                            "details": {"json": "{}", "truncated": False},
+                        },
+                    }
+                return super().submit(program)
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call("1", "apply_environment_step", {"command": first})
+                ),
+                FakeResponse(
+                    tool_call("2", "apply_environment_step", {"command": second})
+                ),
+                FakeResponse(
+                    tool_call("3", "apply_environment_step", {"command": repair})
+                ),
+            ]
+        )
+        replay = FailThenPassReplay()
+        goal = SequenceCurrentGoalService([False, True, True])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "incremental")
+            program = IncrementalProgram(root / "incremental-program")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=replay,  # type: ignore[arg-type]
+                incremental_program=program,
+                current_goal_service=goal,  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(replay.programs[0], f"{first}\n\n{second}")
+        self.assertEqual(replay.programs[1], f"{first}\n\n{second}\n\n{repair}")
+        self.assertEqual(submission["program"], replay.programs[1])
+        self.assertEqual(metadata["replay_status_counts"], {"fail": 1, "pass": 1})
+        failed_tool_result = next(
+            event
+            for event in events
+            if event.get("event") == "tool_result"
+            and event.get("tool_call_id") == "2"
+        )
+        self.assertEqual(
+            failed_tool_result["result"]["automatic_clean_replay"]["status"],
+            "fail",
         )
 
     def test_atomic_submission_keeps_the_control_action_signature(self) -> None:

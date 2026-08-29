@@ -790,3 +790,27 @@ Evidence:
 - `research/ENVSOLVE_PRO_MINIMAL_B_BAD4_RESULTS.md`
 - `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1_effective.json`
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_result.json`
+
+## 18. Incremental Executable Program Candidate
+
+The Bad4 transition analysis separates environment sufficiency, program formation, clean
+certification, and Official success. Meerkat control reached the complete public goal at
+request 117 but did not form a program; three other failed trajectories never reached a
+sufficient state. The next treatment therefore removes terminal program reconstruction
+without claiming to solve unresolved compatibility constraints.
+
+Every model-selected persistent operation is executed through `apply_environment_step` and
+appended to an ordered program only on construction success. Each append triggers the
+complete public goal. Goal Pass immediately replays the accumulated program from the target
+initial state; failure returns to the same session and success terminates. Inspection stays
+on the ordinary shell. No package rule, checkpoint, cross-case memory, fixed cadence,
+candidate graph, new hash, contract, or gate is introduced.
+
+Deterministic qualification precedes any live episode. The first live qualification uses
+only consumed goal-to-delivery cases and measures mechanism activation, not effectiveness.
+The algorithm and outcome-blind comparison batch are fixed only after this step.
+
+Evidence and design:
+
+- `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1.md`

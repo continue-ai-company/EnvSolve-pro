@@ -38,8 +38,10 @@ class CurrentGoalService:
         self.check_count = 0
         self.complete_check_count = 0
         self.pass_check_count = 0
+        self.agent_check_count = 0
+        self.automatic_check_count = 0
 
-    def check(self, call_id: str) -> dict[str, Any]:
+    def check(self, call_id: str, *, automatic: bool = False) -> dict[str, Any]:
         # A fresh transport service on every call prevents history from crossing checks.
         raw = CompatibilityLedgerService(
             self.contract,
@@ -47,6 +49,10 @@ class CurrentGoalService:
             self.project_root,
         ).check(call_id)
         self.check_count += 1
+        if automatic:
+            self.automatic_check_count += 1
+        else:
+            self.agent_check_count += 1
 
         complete = raw.get("finding_set_complete") is True
         passed = raw.get("candidate_ready") is True
@@ -88,8 +94,8 @@ class CurrentGoalService:
             "check_count": self.check_count,
             "complete_check_count": self.complete_check_count,
             "pass_check_count": self.pass_check_count,
-            "agent_invoked_only": True,
-            "automatic_check_count": 0,
+            "agent_invoked_only": self.automatic_check_count == 0,
+            "automatic_check_count": self.automatic_check_count,
             "history_used": False,
             "cross_call_state_retained": False,
             "stores_container_checkpoint": False,

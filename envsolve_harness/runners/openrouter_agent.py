@@ -37,6 +37,7 @@ from envsolve_harness.integrity.minimal import (
     MinimalIntegrityGoalVerifier,
     inspect_minimal_repository_integrity,
 )
+from envsolve_harness.incremental_program import IncrementalProgram
 from envsolve_harness.replay_feedback import normalize_replay_feedback
 from envsolve_harness.replay_obligation_ledger import (
     ObligationSnapshotCleanReplayService,
@@ -73,6 +74,7 @@ ReplayMode = Literal[
     "scheduled",
     "handoff",
     "stateful",
+    "incremental",
 ]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
@@ -171,6 +173,19 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
                 and atomic_submission.get("replayed") is True
             ):
                 status = result.get("status") if isinstance(result, dict) else None
+                if isinstance(status, str):
+                    replay_counts[status] = replay_counts.get(status, 0) + 1
+            elif tool_name == "replay_current_program":
+                status = result.get("status") if isinstance(result, dict) else None
+                if isinstance(status, str):
+                    replay_counts[status] = replay_counts.get(status, 0) + 1
+            elif tool_name == "apply_environment_step":
+                automatic = (
+                    result.get("automatic_clean_replay")
+                    if isinstance(result, dict)
+                    else None
+                )
+                status = automatic.get("status") if isinstance(automatic, dict) else None
                 if isinstance(status, str):
                     replay_counts[status] = replay_counts.get(status, 0) + 1
         elif event_name == "compatibility_observation":
@@ -288,10 +303,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "scheduled",
             "handoff",
             "stateful",
+            "incremental",
         }:
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
-                "incumbent, current, ledger, scheduled, handoff, or stateful"
+                "incumbent, current, ledger, scheduled, handoff, stateful, or incremental"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -352,6 +368,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "free-feedback-search+scheduled-compatibility-observation+"
                 "stateful-replay-obligation-ledger+soft-clean-replay-v1"
             )
+        if self.incremental_program_enabled:
+            return "free-feedback-search+incremental-executable-program+target-replay-v1"
         if self.current_goal_enabled:
             return (
                 "free-feedback-search+current-goal-constraints+"
@@ -382,6 +400,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "scheduled",
             "handoff",
             "stateful",
+            "incremental",
         }
 
     @property
@@ -422,6 +441,10 @@ class OpenRouterAgentRunner(CodexCliRunner):
         return self.replay_mode == "stateful"
 
     @property
+    def incremental_program_enabled(self) -> bool:
+        return self.replay_mode == "incremental"
+
+    @property
     def compatibility_observation_enabled(self) -> bool:
         return self.compatibility_ledger_enabled or self.scheduled_observation_enabled
 
@@ -453,6 +476,15 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "F",
                 "scheduled-O",
                 "replay-obligation-ledger",
+                "R",
+                "minimal-H",
+            ]
+        if self.incremental_program_enabled:
+            return [
+                "F",
+                "operation-linked-program-state",
+                "operation-triggered-O",
+                "soft-C",
                 "R",
                 "minimal-H",
             ]
@@ -585,13 +617,20 @@ class OpenRouterAgentRunner(CodexCliRunner):
         return options
 
     def _tools(self) -> list[dict[str, Any]]:
+        shell_description = (
+            "Inspect or diagnose the persistent construction container. Commands used "
+            "here are not added to the deployment program; use apply_environment_step "
+            "for every operation whose effect the final environment needs."
+            if self.incremental_program_enabled
+            else (
+                "Execute Bash in the persistent construction container. Shell state, "
+                "files, installed packages, and working directory persist."
+            )
+        )
         tools = [
             _function_tool(
                 "envbench_shell",
-                (
-                    "Execute Bash in the persistent construction container. Shell state, "
-                    "files, installed packages, and working directory persist."
-                ),
+                shell_description,
                 {
                     "type": "object",
                     "properties": {
@@ -603,7 +642,43 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 },
             )
         ]
-        if self.replay_enabled and not self.atomic_submission_enabled:
+        if self.incremental_program_enabled:
+            tools.append(
+                _function_tool(
+                    "apply_environment_step",
+                    (
+                        "Execute one model-selected environment operation and, only if it "
+                        "succeeds, append that exact command to the current replayable "
+                        "deployment program. The harness then observes the complete public "
+                        "goal and automatically clean-replays the current program on Pass."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {
+                            "command": {"type": "string", "minLength": 1},
+                            "timeout_seconds": {"type": "integer", "minimum": 1},
+                        },
+                        "required": ["command"],
+                        "additionalProperties": False,
+                    },
+                )
+            )
+            tools.append(
+                _function_tool(
+                    "replay_current_program",
+                    (
+                        "Clean-replay the deployment program accumulated by successful "
+                        "apply_environment_step calls. A Pass finishes the episode; a "
+                        "Fail returns executable evidence to this same session."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": False,
+                    },
+                )
+            )
+        elif self.replay_enabled and not self.atomic_submission_enabled:
             tools.append(
                 _function_tool(
                     "submit_and_replay",
@@ -663,30 +738,40 @@ class OpenRouterAgentRunner(CodexCliRunner):
             if self.atomic_submission_enabled
             else "Submit the final complete bootstrap program and a short summary."
         )
-        tools.append(
-            _function_tool(
-                "submit_bootstrap",
-                submit_description,
-                {
-                    "type": "object",
-                    "properties": {
-                        "program": {"type": "string", "minLength": 1},
-                        "summary": {"type": "string"},
+        if not self.incremental_program_enabled:
+            tools.append(
+                _function_tool(
+                    "submit_bootstrap",
+                    submit_description,
+                    {
+                        "type": "object",
+                        "properties": {
+                            "program": {"type": "string", "minLength": 1},
+                            "summary": {"type": "string"},
+                        },
+                        "required": ["program", "summary"],
+                        "additionalProperties": False,
                     },
-                    "required": ["program", "summary"],
-                    "additionalProperties": False,
-                },
+                )
             )
-        )
         return tools
 
     def _prompt(self, case: Case, goal_contract: ExecutableGoalContract | None = None) -> str:
         contract = goal_contract or self.goal_contract
+        shell_instruction = (
+            "Use `envbench_shell` for repository inspection and diagnosis. Use the "
+            "operation-linked tool described below for installation and every other "
+            "persistent environment change."
+            if self.incremental_program_enabled
+            else (
+                "Use `envbench_shell` for repository inspection, installation, and "
+                "ordinary execution feedback."
+            )
+        )
         prompt = f"""\
 Set up the Python development environment for `{case.repository}` at exact revision
 `{case.revision}`. Work as a strong general-purpose coding agent in one continuous
-session. Use `envbench_shell` for repository inspection, installation, and ordinary
-execution feedback. The construction shell is persistent and starts at
+session. {shell_instruction} The construction shell is persistent and starts at
 `/data/project` in the benchmark image.
 
 Infer the intended Python version, dependency manager, project install, and
@@ -717,6 +802,23 @@ The benchmark's public scoring goal and terminal Official evaluator are unavaila
 during construction. Use repository-owned declarations, documentation, tests, and
 ordinary execution feedback to infer a complete development environment.
 """
+        if self.incremental_program_enabled:
+            prompt += """\
+
+Use `envbench_shell` only for inspection and diagnosis. Use
+`apply_environment_step` for every successful state change that the final deployment
+needs. The harness executes the command in the active environment and appends the exact
+successful command to the current deployment program. After each appended step it runs
+the trusted public goal. If the goal passes, the harness immediately replays the current
+program from the target initial state. Replay failure evidence returns here for another
+model-selected repair step; replay success finishes the episode.
+
+Do not reconstruct a bootstrap program from memory and do not optimize deployment
+completeness or cost after the public goal passes. The accumulated program, Official
+success, deployment completeness, and resource use are evaluated separately. You may
+call `replay_current_program` when an explicit target-state check is useful.
+"""
+            return prompt
         prompt += f"""\
 
 	Finish by calling `submit_bootstrap` with one self-contained Bash program that can
@@ -981,6 +1083,7 @@ never selects packages, blocks commands, or restores an environment.
         terminal_server: ContainerMcpServer,
         replay_service: CleanReplayService | None,
         trajectory_path: Path,
+        incremental_program: IncrementalProgram | None = None,
         current_goal_service: CurrentGoalService | None = None,
         compatibility_service: CompatibilityLedgerService | None = None,
         scheduled_observer: ScheduledCompatibilityObserver | None = None,
@@ -994,6 +1097,8 @@ never selects packages, blocks commands, or restores an environment.
         usage_total: dict[str, int | float] = {}
         tool_counts = {
             "envbench_shell": 0,
+            "apply_environment_step": 0,
+            "replay_current_program": 0,
             "check_current_goal": 0,
             "check_compatibility": 0,
             "submit_and_replay": 0,
@@ -1253,8 +1358,16 @@ never selects packages, blocks commands, or restores an environment.
                     "certified program."
                     if incumbent is not None
                     else (
-                        "Continue working with the available tools. Finish only by "
-                        "calling submit_bootstrap with the complete program."
+                        (
+                            "Continue with envbench_shell for diagnosis and "
+                            "apply_environment_step for every persistent repair. The "
+                            "harness will finish when the accumulated program replays."
+                        )
+                        if self.incremental_program_enabled
+                        else (
+                            "Continue working with the available tools. Finish only by "
+                            "calling submit_bootstrap with the complete program."
+                        )
                     )
                 )
                 messages.append(
@@ -1317,6 +1430,109 @@ never selects packages, blocks commands, or restores an environment.
                                     request_index,
                                 ):
                                     handoff_triggered_this_response = scheduled
+                    elif (
+                        name == "apply_environment_step"
+                        and incremental_program is not None
+                        and current_goal_service is not None
+                        and replay_service is not None
+                    ):
+                        command = arguments.get("command")
+                        if not isinstance(command, str):
+                            payload = {"ok": False, "error": "command must be a string"}
+                        else:
+                            request = {
+                                "jsonrpc": "2.0",
+                                "id": str(call.id),
+                                "method": "tools/call",
+                                "params": {
+                                    "name": "envbench_shell",
+                                    "arguments": arguments,
+                                },
+                            }
+                            response_value = terminal_server.handle(request)
+                            if response_value is None or "result" not in response_value:
+                                shell_result = {"infrastructure_error": response_value}
+                            else:
+                                shell_result = response_value["result"]["structuredContent"]
+                            payload = {"shell_result": shell_result, "program_updated": False}
+                            successful = (
+                                isinstance(shell_result, dict)
+                                and shell_result.get("exit_code") == 0
+                                and shell_result.get("timed_out") is not True
+                                and shell_result.get("infrastructure_error") is None
+                            )
+                            if successful:
+                                step = incremental_program.append_successful(
+                                    command,
+                                    shell_result,
+                                )
+                                current_goal = current_goal_service.check(
+                                    f"{call.id}-automatic-goal",
+                                    automatic=True,
+                                )
+                                payload.update(
+                                    {
+                                        "program_updated": True,
+                                        "program_step": step,
+                                        "program_state": incremental_program.state(),
+                                        "current_goal": current_goal,
+                                    }
+                                )
+                                if current_goal.get("candidate_ready") is True:
+                                    raw_replay = replay_service.submit(
+                                        incremental_program.program
+                                    )
+                                    status = str(raw_replay.get("status", "unknown"))
+                                    replay_status_counts[status] = (
+                                        replay_status_counts.get(status, 0) + 1
+                                    )
+                                    payload["automatic_clean_replay"] = (
+                                        normalize_replay_feedback(raw_replay)
+                                    )
+                                    if status == "pass":
+                                        delivery, submission = self._submit(
+                                            {
+                                                "program": incremental_program.program,
+                                                "summary": (
+                                                    "Incremental executable program passed "
+                                                    "operation-triggered target-state replay."
+                                                ),
+                                            },
+                                            replay_service,
+                                        )
+                                        payload["delivery"] = delivery
+                    elif (
+                        name == "replay_current_program"
+                        and incremental_program is not None
+                        and replay_service is not None
+                    ):
+                        if not incremental_program.steps:
+                            payload = {
+                                "ok": False,
+                                "error": "current deployment program has no steps",
+                            }
+                        else:
+                            raw_replay = replay_service.submit(
+                                incremental_program.program
+                            )
+                            status = str(raw_replay.get("status", "unknown"))
+                            replay_status_counts[status] = (
+                                replay_status_counts.get(status, 0) + 1
+                            )
+                            payload = normalize_replay_feedback(raw_replay)
+                            payload["program_state"] = incremental_program.state()
+                            if status == "pass":
+                                delivery, submission = self._submit(
+                                    {
+                                        "program": incremental_program.program,
+                                        "summary": (
+                                            "Incremental executable program passed explicit "
+                                            "target-state replay."
+                                        ),
+                                    },
+                                    replay_service,
+                                )
+                                payload["delivery"] = delivery
                     elif name == "check_current_goal" and current_goal_service is not None:
                         payload = current_goal_service.check(str(call.id))
                     elif name == "check_compatibility" and compatibility_service is not None:
@@ -1529,7 +1745,9 @@ never selects packages, blocks commands, or restores an environment.
                                 "verifier-triggered-replay-pass"
                                 if forced_handoff_request
                                 else (
-                                    "atomic-submit-clean-replay-pass"
+                                    "incremental-program-replay-pass"
+                                    if self.incremental_program_enabled
+                                    else "atomic-submit-clean-replay-pass"
                                     if self.atomic_submission_enabled
                                     else None
                                 )
@@ -1643,6 +1861,7 @@ never selects packages, blocks commands, or restores an environment.
         container_id: str | None = None
         terminal: V2ProcessTreeSafePersistentContainerShell | None = None
         current_goal_service: CurrentGoalService | None = None
+        incremental_program: IncrementalProgram | None = None
         compatibility_service: CompatibilityLedgerService | None = None
         scheduled_observer: ScheduledCompatibilityObserver | None = None
         log_parts: list[str] = []
@@ -1673,6 +1892,10 @@ never selects packages, blocks commands, or restores an environment.
                 os.environ.get("DOCKER_EXECUTABLE", "docker"),
             )
             terminal_server = ContainerMcpServer(terminal, command_trace_path)
+            if self.incremental_program_enabled:
+                incremental_program = IncrementalProgram(
+                    artifacts.generation_dir / "incremental-program"
+                )
 
             replay_service: CleanReplayService | None = None
             if self.replay_enabled:
@@ -1711,7 +1934,7 @@ never selects packages, blocks commands, or restores an environment.
             )
             current_goal_service = (
                 CurrentGoalService(self.goal_contract, terminal_server)
-                if self.current_goal_enabled
+                if self.current_goal_enabled or self.incremental_program_enabled
                 else None
             )
             scheduled_observer = (
@@ -1728,6 +1951,7 @@ never selects packages, blocks commands, or restores an environment.
                 prompt=prompt,
                 terminal_server=terminal_server,
                 replay_service=replay_service,
+                incremental_program=incremental_program,
                 current_goal_service=current_goal_service,
                 compatibility_service=compatibility_service,
                 scheduled_observer=scheduled_observer,
@@ -1765,6 +1989,15 @@ never selects packages, blocks commands, or restores an environment.
                 metadata["compatibility_ledger"] = compatibility_service.metadata()
             if current_goal_service is not None:
                 metadata["current_goal"] = current_goal_service.metadata()
+            if incremental_program is not None:
+                incremental_metadata = incremental_program.metadata()
+                incremental_metadata["steps_path"] = str(
+                    incremental_program.steps_path.relative_to(artifacts.root)
+                )
+                incremental_metadata["program_path"] = str(
+                    incremental_program.program_path.relative_to(artifacts.root)
+                )
+                metadata["incremental_program"] = incremental_metadata
             if scheduled_observer is not None:
                 metadata["scheduled_observation"] = scheduled_observer.metadata()
             submission_metadata: dict[str, Any] = {
@@ -1800,6 +2033,15 @@ never selects packages, blocks commands, or restores an environment.
         except Exception as exc:
             if current_goal_service is not None:
                 metadata["current_goal"] = current_goal_service.metadata()
+            if incremental_program is not None:
+                incremental_metadata = incremental_program.metadata()
+                incremental_metadata["steps_path"] = str(
+                    incremental_program.steps_path.relative_to(artifacts.root)
+                )
+                incremental_metadata["program_path"] = str(
+                    incremental_program.program_path.relative_to(artifacts.root)
+                )
+                metadata["incremental_program"] = incremental_metadata
             if compatibility_service is not None:
                 metadata["compatibility_ledger"] = compatibility_service.metadata()
             if scheduled_observer is not None:
