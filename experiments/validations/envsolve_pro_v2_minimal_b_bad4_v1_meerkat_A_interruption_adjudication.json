@@ -25,6 +25,8 @@
   },
   "replacement": {
     "decision_rule": "Run one fresh replacement control because the invalidity was caused by operator intervention, not by the method outcome.",
+    "schedule": "experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1_meerkat_A_replacement1.json",
+    "executed_schedule_sha256": "1ca393f54d43163714aedcac705f70bfe0fecee1c2a1df14be52640e21caa226",
     "run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO-replacement1",
     "runner": "deepseek-goal-aware-agent",
     "method": "free-feedback-search-public-goal",
