@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-current-goal-delivery3-v1",
+  "recorded_at": "2026-08-29",
+  "status": "specified-before-retry",
+  "source_run_id": "pro-v2-current-goal-delivery3-v1-04-git-gud-T",
+  "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+  "source_outcome": {
+    "generation_completed": true,
+    "clean_replay_status": "pass",
+    "official_pass": false,
+    "official_exit_code": 1,
+    "official_issues_count": 0,
+    "failure_signature": "pip could not find any PyYAML versions during Official bootstrap: No matching distribution found for pyyaml (from versions: none)"
+  },
+  "adjudication": "infrastructure-censored Official attempt",
+  "basis": [
+    "The identical generated script installed PyYAML and passed the public goal in a fresh clean replay immediately before Official evaluation.",
+    "The paired control installed the same ordinary dependency and passed Official during the same batch.",
+    "PyYAML is available for the target platform; an empty package-index version list is a transient acquisition failure rather than a compatibility constraint produced by the algorithm."
+  ],
+  "allowed_retry": {
+    "count": 1,
+    "mode": "evaluate-only exact-script retry",
+    "regeneration": false,
+    "script_change": false,
+    "model_change": false,
+    "seed_change": false,
+    "source_run_audit_required": true,
+    "run_id": "pro-v2-current-goal-delivery3-v1-04-git-gud-T-official-retry1"
+  },
+  "reporting": "Preserve and report the failed source Official attempt. Use the retry only to determine whether the generated program passes when the censored package acquisition succeeds.",
+  "new_hash_contract_or_gate_added": false
+}
