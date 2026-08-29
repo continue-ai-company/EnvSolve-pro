@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "recorded_at": "2026-08-30T06:03:06+08:00",
+  "prior_adjudication": "experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_meerkat_A_interruption_adjudication.json",
+  "excluded_original": {
+    "run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO",
+    "censoring": "protocol_censored",
+    "censoring_subtype": "operator-induced-premature-interruption"
+  },
+  "replacement": {
+    "run_id": "pro-v2-minb-bad4-v1-01-meerkat-A-FO-replacement1",
+    "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+    "arm": "A-F+O",
+    "artifact_integrity_valid": true,
+    "generation_completed": false,
+    "official_evaluation_reached": false,
+    "official_pass": false,
+    "terminal": "agent_noncompletion",
+    "error": "RuntimeError: Agent exhausted the request safety cap without submission",
+    "duration_seconds": 8185.038136174902,
+    "model_requests": 120,
+    "provider_attempts": 134,
+    "provider_error_count": 14,
+    "tool_counts": {
+      "envbench_shell": 120
+    },
+    "token_usage": {
+      "prompt_tokens": 6414714,
+      "completion_tokens": 153405,
+      "total_tokens": 6568119
+    },
+    "harness_revision": "61ab658a0ffe6f347f2b28a42c18b99c331b492f",
+    "harness_dirty": false
+  },
+  "adjudication": {
+    "use_replacement_as_meerkat_A": true,
+    "scientifically_eligible": true,
+    "count_as_official_failure": true,
+    "reason": "The replacement used the pre-specified model, method, seed, provider policy, clean committed source, and broad safety caps. It recovered from retryable provider errors and reached a valid algorithmic non-submission terminal.",
+    "resource_accounting": "Use replacement resources for Meerkat A. Preserve the original interrupted attempt only as excluded operator-incident evidence."
+  },
+  "new_hash_contract_or_gate_added": false
+}
