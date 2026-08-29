@@ -36,7 +36,44 @@ import subprocess
 import sysconfig
 
 marker = __import__("sys").argv[1]
-owners = metadata.packages_distributions()
+
+
+def package_distribution_owners():
+    resolver = getattr(metadata, "packages_distributions", None)
+    if resolver is not None:
+        try:
+            return resolver()
+        except Exception:
+            pass
+
+    owners = {}
+    for distribution in metadata.distributions():
+        distribution_name = distribution.metadata.get("Name", "unknown")
+        modules = set()
+        top_level = distribution.read_text("top_level.txt")
+        if top_level:
+            modules.update(
+                line.strip()
+                for line in top_level.splitlines()
+                if line.strip().isidentifier()
+            )
+        else:
+            for relative_path in distribution.files or ():
+                parts = Path(str(relative_path)).parts
+                if not parts:
+                    continue
+                first = parts[0]
+                if first.endswith((".dist-info", ".egg-info")):
+                    continue
+                module = Path(first).stem if len(parts) == 1 else first
+                if module.isidentifier():
+                    modules.add(module)
+        for module in modules:
+            owners.setdefault(module, []).append(distribution_name)
+    return owners
+
+
+owners = package_distribution_owners()
 owned_artifacts = set()
 for distribution in metadata.distributions():
     for relative_path in distribution.files or ():

@@ -187,10 +187,11 @@ class MinimalIntegrityTest(unittest.TestCase):
                 f"{environment / 'bin'}{os.pathsep}{environment_vars.get('PATH', '')}"
             )
             fallback_audit = _UNOWNED_PROVIDER_AUDIT.replace(
-                "owners = metadata.packages_distributions()",
-                "owners = {}",
+                'resolver = getattr(metadata, "packages_distributions", None)',
+                "resolver = None",
                 1,
             )
+            self.assertNotEqual(fallback_audit, _UNOWNED_PROVIDER_AUDIT)
             completed = subprocess.run(
                 [
                     "bash",
