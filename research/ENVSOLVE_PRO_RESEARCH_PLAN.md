@@ -1251,13 +1251,26 @@ from censoring the episode, and termination metadata distinguishes an actual for
 handoff from an ordinary atomic submission. Future paired adjudication reports exact
 discordance statistics and common-success resources.
 
-The next evidence sequence is fixed as follows:
+The 2026-08-30 exposure update establishes that all 205 Dev identities have now been
+executed by at least one method. Dev can still diagnose treatment-unrun failures, but no
+longer provides repository-unseen evidence. Taxonomy v2 therefore records the complete
+selection audit for the next targeted batch rather than calling it unseen.
 
-1. finish the independent Codex and Repo2Run Dev failure matrix and freeze every eligible
-   baseline-failure case before opening new Minimal-B outcomes;
-2. run matched `F+O` versus Minimal-B `F+O+R` with the same pinned DeepSeek V4 Flash model,
-   provider policy, broad safety limits, and Official evaluator;
-3. complete independent stratified annotation of the failure taxonomy in parallel;
-4. make no algorithm change until the full batch is adjudicated;
-5. only if Minimal B preserves or improves Official success proceed to untouched
-   evaluation, external-system comparison, and the strong/weak backbone study.
+The next evidence sequence is:
+
+1. run the complete four-case historical goal-aware failure stratum with no discovered
+   Minimal-B outcome: meerkat, pysnmp, openqasm, and stopstalk-deployment;
+2. compare fresh `F+O` against unchanged Minimal-B `F+O+R` on Spark from one clean,
+   committed checkout, correcting the source-eligibility defect that invalidated the
+   formal CrossMethod-9 estimate;
+3. complete all eight episodes and O/C/O adjudication before any algorithm change;
+4. complete independent named-researcher taxonomy annotation in parallel;
+5. if Minimal B preserves or improves success and replay evidence is causally active,
+   fix the method and proceed to protected Canary, formal external baselines, and the
+   strong/weak backbone study.
+
+The case list, selection audit, schedule, and preregistration are
+`experiments/cases/dev_envsolve_pro_v2_minimal_b_bad4_v1.jsonl`,
+`experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_selection_audit.json`,
+`experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json`, and
+`experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_preregistration.json`.

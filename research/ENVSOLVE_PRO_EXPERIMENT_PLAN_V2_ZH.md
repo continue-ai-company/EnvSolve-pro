@@ -1,7 +1,7 @@
 # EnvSolve-Pro 实验计划 v2
 
-状态：certified-incumbent 开发 treatment 已否决；下一假设聚焦验证器触发的程序化交接与重放
-日期：2026-08-23
+状态：Minimal B 已选定；taxonomy v2 已审计；定向 Bad4 实验已设计
+日期：2026-08-30
 
 ## 1. 研究主线
 
@@ -44,6 +44,14 @@ Auto-EnvSolve；模型训练属于 EnvSolve-RL。
 请求或时间收益。合并 outcome-independent 证据为 F 6/8、F+C_s+R 7/8，只有一对 discordant
 （`p=1.0`）。随机 Dev 扩展到此停止；下一组必须从既有 census 中预先固定强 baseline Official failure
 分层，且不能使用 treatment 结果选样。
+
+### 2026-08-30 收敛更新
+
+更大的定时观测、强制 handoff、current-goal 和 compatibility-ledger treatment 均未获得晋级证据。固定
+方法为 Minimal B：一个不受限的连续 session，加 Agent 可反复调用的目标状态 replay，并要求原样交付
+程序通过 replay。Taxonomy v2 将方法机制（`F`、`C_h`、`C_s`、`R`）与唯一最早 O/C/O 主因、删失状态
+和路径质量分开。205 个 Dev identity 已全部消费；下一组四 case 配对实验是完整的“当前 treatment 未运行
+历史失败层”，不是未见评估。受保护 Canary 和 Official Test 继续承担泛化验证。
 
 ## 2. 部署机制与公共实验底座
 

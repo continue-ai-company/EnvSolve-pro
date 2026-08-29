@@ -952,13 +952,23 @@ compatibility ledger 或 gate。
 网络消息不能再把 episode 错删失；termination metadata 需要区分真正的强制 handoff 与普通原子提交。
 后续配对裁决统一报告精确 discordance 统计和共同成功样本资源。
 
-下一阶段证据顺序固定为：
+2026-08-30 的 exposure 更新确认，205 个 Dev identity 均已被至少一种方法执行。Dev 仍可诊断当前
+treatment 尚未运行的历史失败，但不能再承担仓库未见证据。因此 taxonomy v2 为下一批完整记录选择过程，
+不再称其为 unseen。
 
-1. 完成独立 Codex 与 Repo2Run 的 Dev 失败矩阵，在打开新的 Minimal-B 结果前冻结所有符合条件的
-   baseline-failure case；
-2. 使用相同固定 DeepSeek V4 Flash、provider policy、宽松安全上限和 Official evaluator，运行匹配的
-   `F+O` 对 Minimal-B `F+O+R`；
-3. 并行完成失败 taxonomy 的分层独立复标；
-4. 完整 batch 裁决前不修改算法；
-5. 只有 Minimal B 保持或提高 Official 成功率后，才进入未触碰评估、外部系统比较和强弱 backbone
-   实验。
+下一阶段证据顺序为：
+
+1. 全量运行四个“历史 goal-aware baseline 失败且未发现当前 Minimal-B 结果”的 case：meerkat、
+   pysnmp、openqasm 和 stopstalk-deployment；
+2. 在 Spark 的同一个干净、已提交 checkout 上，用相同 DeepSeek V4 Flash 比较 fresh `F+O` 与不变的
+   Minimal-B `F+O+R`，修复 CrossMethod-9 因源码无 Git 元数据而无法形成正式效果估计的问题；
+3. 八个 episode 和 O/C/O 裁决全部完成前不修改算法；
+4. 并行完成由具名研究者负责的独立 taxonomy 复标；
+5. 如果 Minimal B 保持或提高成功率且 replay 证据真实参与修复，则固定方法并进入受保护 Canary、
+   正式外部 baseline 和强弱 backbone 实验。
+
+Case 清单、选择审计、schedule 和预注册分别为
+`experiments/cases/dev_envsolve_pro_v2_minimal_b_bad4_v1.jsonl`、
+`experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_selection_audit.json`、
+`experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json` 和
+`experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_preregistration.json`。

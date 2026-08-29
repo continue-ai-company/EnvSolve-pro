@@ -168,6 +168,9 @@ replay 已通过后遇到一次因果未决的 package acquisition 失败。更�
 因此，精确当前状态检查只保留为诊断 ablation，不属于 EnvSolve-Pro。这个负结果也说明 benchmark 成功
 和部署完整性必须分开报告。
 
+当前 205 个 Dev identity 均已被至少一种方法执行。后续 Dev 实验可以诊断“当前 treatment 尚未运行”的
+历史失败层，但不能再包装成仓库未见泛化；这一角色只保留给受保护的 Canary 与 Official Test。
+
 结合更早的多步 replay 修复证据，论文选择更小的“连续 session + 可反复调用的 clean replay”方法。
 当前结果仍全部属于开发证据，不能估计未见成功率、泛化、榜单或 SOTA。下一项有效效果主张必须来自
 固定最小方法在未触碰 case 上与匹配对照的比较，之后再进行外部 baseline 和强弱 backbone 实验。

@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "recorded_at": "2026-08-30",
+  "claim_scope": "Consumed-development selection audit only.",
+  "source_population": {
+    "definition": "Cases with a committed Official Fail from a continuous goal-aware free or soft-constraint Agent trajectory before this study.",
+    "case_count": 9,
+    "cases": [
+      "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9"
+    ],
+    "evidence_documents": [
+      "experiments/validations/envsolve_pro_v2_atomic_handoff_treatment_unopened10_v1_adjudication.json",
+      "experiments/validations/pro_execution_feedback_v3_screen8_results.json",
+      "experiments/validations/pro_postcondition_persistent_qualification_v1_results.json",
+      "experiments/validations/pro_stateful_agent_v2_3_pilot3_results.json"
+    ]
+  },
+  "exclusion": {
+    "rule": "Exclude every source case with a discovered current Minimal-B F+O+R trajectory or outcome before this study.",
+    "case_count": 5,
+    "cases": [
+      {
+        "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+        "reason": "Current replay and atomic-handoff development outcomes already exist."
+      },
+      {
+        "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+        "reason": "Current replay and atomic-handoff development outcomes already exist."
+      },
+      {
+        "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+        "reason": "A Minimal-B paired-development outcome already exists."
+      },
+      {
+        "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+        "reason": "Current replay and atomic-handoff development outcomes already exist."
+      },
+      {
+        "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+        "reason": "Two Minimal-B smoke outcomes already exist, both retained as invalid integrity diagnostics."
+      }
+    ],
+    "evidence_documents": [
+      "experiments/validations/pro_minimal_b_v1_paired_dev5_results.json",
+      "experiments/validations/pro_minimal_b_v1_consumed_smoke_01_adjudication.json",
+      "experiments/validations/pro_minimal_b_v1_0_1_consumed_smoke_retry1_adjudication.json",
+      "experiments/validations/envsolve_pro_v2_atomic_handoff_treatment_unopened10_v1_adjudication.json"
+    ]
+  },
+  "selected": {
+    "rule": "Retain all source-population cases not excluded by prior current-treatment exposure, preserving source case order.",
+    "case_count": 4,
+    "cases": [
+      "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9"
+    ],
+    "treatment_outcomes_available_at_selection": 0
+  },
+  "limitations": [
+    "The source methods and historical backbones are not a uniform baseline census.",
+    "All four repository identities are consumed development data.",
+    "The batch estimates repair behavior on this fixed failure stratum, not EnvBench population success."
+  ],
+  "new_hash_contract_or_gate_added": false
+}

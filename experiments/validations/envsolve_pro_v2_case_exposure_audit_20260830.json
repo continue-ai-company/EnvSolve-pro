@@ -1,0 +1,35 @@
+{
+  "schema": "envsolve-pro-v2-case-exposure-audit-v2",
+  "recorded_at": "2026-08-30",
+  "purpose": "Update the Dev exposure boundary after the final two previously unexecuted identities entered prospective development experiments.",
+  "parent": "experiments/validations/envsolve_pro_v2_case_exposure_audit_20260824.json",
+  "universe": {
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_pending205.jsonl",
+    "case_count": 205
+  },
+  "prior_state": {
+    "exposed": 203,
+    "no_execution_evidence_found": 2
+  },
+  "new_exposures": [
+    {
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "evidence": "experiments/validations/envsolve_pro_v2_atomic_submit_replay_v1_prospective2_summary.json"
+    },
+    {
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "evidence": "experiments/validations/envsolve_pro_v2_atomic_submit_replay_v1_prospective2_summary.json"
+    }
+  ],
+  "current_state": {
+    "exposed": 205,
+    "no_execution_evidence_found": 0
+  },
+  "research_decision": {
+    "dev_role": "All 205 identities are consumed development data. Dev may support taxonomy formation, mechanism diagnosis, and targeted replication, but not repository-unseen generalization.",
+    "unseen_role": "Repository-unseen effect estimation must use the protected Canary and Official Test splits after the method and analysis are fixed.",
+    "bad_case_role": "A treatment-unrun historical failure stratum may test repair behavior only when its complete selection rule is recorded before current treatment execution."
+  },
+  "limitations": "Exposure means at least one method executed on the identity; it does not imply uniform baseline coverage or a completed causal annotation.",
+  "new_hash_contract_or_gate_added": false
+}

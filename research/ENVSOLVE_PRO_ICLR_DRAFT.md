@@ -226,6 +226,11 @@ unresolved package-acquisition event after its clean replay had passed. More imp
 the treatment did not reduce the requests from a known goal Pass to first replay, and one
 program reached the benchmark goal without installing the project itself. We therefore
 retain exact current-state inspection as a diagnostic ablation, not part of EnvSolve-Pro.
+
+All 205 development identities have now been executed by at least one method. Subsequent
+Dev studies can diagnose a treatment-unrun failure stratum, but cannot be presented as
+repository-unseen generalization. The protected Canary and Official Test splits retain
+that role.
 This negative result also motivates reporting deployment completeness separately from the
 benchmark goal.
 

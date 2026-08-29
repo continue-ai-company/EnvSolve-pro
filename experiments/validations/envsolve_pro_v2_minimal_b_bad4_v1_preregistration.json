@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "recorded_at": "2026-08-30",
+  "status": "specified-before-current-control-or-treatment-execution",
+  "research_question": "On four previously observed goal-aware baseline failures with no discovered Minimal-B outcome, does repeatable same-session target-state replay improve paired EnvBench Official Pass@1 over a fresh goal-aware free Agent using the same model?",
+  "selection": {
+    "rule": [
+      "Start from committed goal-aware baseline Official failures recorded before this study.",
+      "Exclude cases with a discovered current Minimal-B F+O+R trajectory or outcome.",
+      "Retain every remaining case found by the committed evidence audit: meerkat, pysnmp, openqasm, and stopstalk-deployment.",
+      "Do not rank by expected treatment repairability, repository contents, or any new A/B outcome."
+    ],
+    "source_evidence": [
+      "experiments/validations/pro_execution_feedback_v3_screen8_results.json",
+      "experiments/validations/pro_postcondition_persistent_qualification_v1_results.json",
+      "experiments/validations/pro_stateful_agent_v2_3_pilot3_results.json"
+    ],
+    "case_file": "experiments/cases/dev_envsolve_pro_v2_minimal_b_bad4_v1.jsonl",
+    "cases": 4,
+    "identity_unseen": false,
+    "current_treatment_outcomes_used": false,
+    "interpretation": "This is a targeted consumed-development repair study, not a held-out success-rate or generalization estimate."
+  },
+  "arms": {
+    "A_FO": {
+      "runner": "deepseek-goal-aware-agent",
+      "method": "free-feedback-search-public-goal",
+      "description": "One unrestricted continuous Agent session with ordinary execution feedback and the complete public goal; no target-state replay action."
+    },
+    "B_FOR": {
+      "runner": "envsolve-pro-v2",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "description": "The same session and public goal plus Agent-invoked repeatable target-state replay. Replay failures return to the same session, and delivery requires the replay-passing program."
+    },
+    "shared": [
+      "deepseek/deepseek-v4-flash-0731",
+      "DeepInfra through OpenRouter with fallbacks disabled",
+      "one continuous Agent session",
+      "complete public goal and initial repository information",
+      "shared minimal evaluator and repository integrity boundary",
+      "Spark Linux ARM64 execution from one committed clean Git checkout",
+      "broad request, token, wall-time, and provider-retry runaway limits"
+    ]
+  },
+  "execution": {
+    "episodes": 8,
+    "host": "spark-linux-arm64",
+    "lanes": {
+      "lane_1": "positions 1-4",
+      "lane_2": "positions 5-8"
+    },
+    "matching": "Fresh A and B rollouts request the same seed within each pair; provider execution remains stochastic.",
+    "order": "Alternate A-first and B-first by case.",
+    "source_requirement": "Launch both lanes from the same clean committed EnvSolve-pro checkout so run manifests can establish source eligibility.",
+    "official_evaluator_access": "post-episode-only",
+    "schedule": "experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json",
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_minimal_b_bad4_v1.json"
+  },
+  "endpoints": {
+    "primary": "Paired EnvBench Official Pass@1 over scientifically eligible pairs, with valid non-submission counted as failure.",
+    "paired_table": ["both_pass", "A_only", "B_only", "neither_pass"],
+    "mechanism": [
+      "replay invocation and status sequence",
+      "feedback-conditioned complete-program change",
+      "Fail-to-Pass replay repair",
+      "final replay-to-Official agreement"
+    ],
+    "failure_analysis": "Assign the earliest decisive Observation, Constraint, or Operation cause; censor infrastructure and protocol failures.",
+    "resources": "Report requests, tokens, generation time, Official time, network traffic when available, and storage without using them as success thresholds."
+  },
+  "analysis": {
+    "statistics": "Report the exact paired discordance table and two-sided exact McNemar result without treating significance as a gate.",
+    "whole_batch_rule": "Do not change the algorithm, prompt, replay semantics, integrity boundary, cases, model, or provider policy until all eight episodes are adjudicated.",
+    "claim_boundary": "The result can diagnose repair of a fixed historical-failure stratum. It cannot establish held-out performance, population success, leaderboard rank, generalization, or SOTA."
+  },
+  "new_hash_contract_or_gate_added": false
+}

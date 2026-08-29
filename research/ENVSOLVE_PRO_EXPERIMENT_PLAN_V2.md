@@ -1,8 +1,7 @@
 # EnvSolve-Pro Experiment Plan v2
 
-Status: certified-incumbent development treatment rejected; the next hypothesis targets
-verifier-triggered programization and replay handoff
-Date: 2026-08-23
+Status: Minimal B selected; taxonomy v2 audited; targeted Bad4 study specified
+Date: 2026-08-30
 
 ## 1. Research Thesis
 
@@ -59,6 +58,17 @@ paired medians did not show a general request or time gain. Combined outcome-ind
 evidence is F 6/8 versus F+C_s+R 7/8 with one discordant pair (`p=1.0`). Random Dev scaling
 now stops: the next study must draw a fixed stratum of strong-baseline Official failures
 from the pre-existing census without using treatment outcomes.
+
+### 2026-08-30 convergence update
+
+Larger scheduled-observation, forced-handoff, current-goal, and compatibility-ledger
+treatments did not earn promotion. The fixed method is Minimal B: one unrestricted
+continuous session plus repeatable Agent-invoked target-state replay and mandatory
+replay of the delivered program. Taxonomy v2 separates method mechanisms (`F`, `C_h`,
+`C_s`, `R`) from one earliest O/C/O failure cause and from censoring and path quality.
+All 205 Dev identities are consumed; the next four-case matched study is a complete
+treatment-unrun historical-failure stratum and not unseen evaluation. Protected Canary
+and Official Test remain the generalization sets.
 
 ## 2. Deployment Mechanisms and Experimental Foundation
 
