@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-minimal-b-bad4-v1",
+  "recorded_at": "2026-08-30T04:39:24+08:00",
+  "amendment": "experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_openqasm_B_official_retry1_amendment.json",
+  "source": {
+    "run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR",
+    "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+    "generation_completed": true,
+    "clean_replay_status": "pass",
+    "official_evaluation_completed": false,
+    "infrastructure_signature": "read-timeout",
+    "script_sha256": "acf87f527e16e316c6bf36b26fbe539a8e20d6ac439f0634448d31e986a27b7a"
+  },
+  "retry": {
+    "run_id": "pro-v2-minb-bad4-v1-06-openqasm-B-FOR-eval-retry1",
+    "model_reexecuted": false,
+    "script_sha256": "acf87f527e16e316c6bf36b26fbe539a8e20d6ac439f0634448d31e986a27b7a",
+    "evaluation_completed": true,
+    "official_pass": true,
+    "execution_time_seconds": 107.8843092918396,
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 2279,
+      "warning_count": 16,
+      "repo_name": "openqasm/openqasm",
+      "commit_sha": "5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0"
+    },
+    "harness_revision": "61ab658a0ffe6f347f2b28a42c18b99c331b492f",
+    "harness_dirty": false,
+    "evaluator_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "evaluator_dirty": false
+  },
+  "adjudication": {
+    "paired_outcome": "official_pass",
+    "replace_source_official_outcome_only": true,
+    "generation_attempt_count": 1,
+    "official_evaluation_attempt_count": 2,
+    "maximum_additional_retries": 0,
+    "resource_accounting": "Keep original generation resources and report both official evaluation attempts separately."
+  },
+  "new_hash_contract_or_gate_added": false
+}
