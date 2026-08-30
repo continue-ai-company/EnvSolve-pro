@@ -827,6 +827,21 @@ classify commands or correct a wrong annotation. The exact V1 consumed set is re
 to qualify interface activation; a later outcome-blind batch is required for any effect
 claim.
 
+The V2 qualification activated `persist` naturally in both episodes with an observed
+deployment-operation opportunity. HARK reached a complete goal Pass and automatic replay;
+Meerkat recorded a substantive install earlier than V1. HARK's replay then invalidated six
+hard-coded `/data/project` steps. The Agent redirected later work to `/opt`, but the
+append-only program could not remove the invalid prefix. V2 therefore qualifies the
+annotation and O/C/O transition but rejects append-only plan state as the core algorithm.
+No Official or effectiveness result was produced.
+
+The V3 proposal changes only plan revision. Evidence remains append-only, while the active
+program exposes indexed steps and permits one model-selected replacement or deletion at a
+time. Every edit immediately clean-replays the revised program; the active construction
+session remains available for reasoning and is not checkpointed or rolled back. A consumed
+HARK episode may qualify natural edit activation, but an outcome-blind fixed comparison is
+still required before any effect claim.
+
 Evidence and design:
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
@@ -834,4 +849,8 @@ Evidence and design:
 - `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_RESULT.md`
 - `experiments/validations/envsolve_pro_v2_incremental_program_v1_consumed3_result.json`
 - `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V2.md`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V2_RESULT.md`
 - `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_design.json`
+- `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_result.json`
+- `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3.md`
+- `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_design.json`

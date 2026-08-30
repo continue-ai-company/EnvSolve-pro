@@ -649,6 +649,17 @@ shell 通道，并要求每次调用声明“观察”或“持久步骤”。
 检查与 replay。harness 不分类命令，也不纠正错误标注。V2 只在 V1 的同一已消费 case 集上验证界面
 激活；任何效果结论都必须等待后续结果未知的固定 batch。
 
+V2 在两个观测到真实部署操作机会的 episode 中都自然激活了 `persist`。HARK 达到完整目标 Pass 并
+自动 replay；Meerkat 比 V1 更早记录了实质安装操作。随后 HARK replay 推翻了六个写死
+`/data/project` 的步骤。Agent 虽然把后续工作改到 `/opt`，append-only 程序却不能删除错误前缀。
+因此 V2 通过标注界面和 O/C/O 状态转换资格验证，但否决 append-only 计划状态作为核心算法。本轮没有
+Official 或效果结论。
+
+V3 提案只改变计划修订能力：证据日志仍然 append-only，当前程序则暴露带序号步骤，并允许模型每次替换
+或删除一步；每次编辑后立即从干净环境重放修改后的程序。活跃构建 session 继续用于推理，不保存
+checkpoint，也不回退。可以用已消费 HARK 验证编辑动作是否自然激活，但任何效果主张仍需结果未知的固定
+对照 batch。
+
 证据与设计：
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
@@ -656,4 +667,8 @@ shell 通道，并要求每次调用声明“观察”或“持久步骤”。
 - `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_RESULT_ZH.md`
 - `experiments/validations/envsolve_pro_v2_incremental_program_v1_consumed3_result.json`
 - `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V2_ZH.md`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V2_RESULT_ZH.md`
 - `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_design.json`
+- `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_result.json`
+- `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3_ZH.md`
+- `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_design.json`

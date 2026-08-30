@@ -76,6 +76,7 @@ ReplayMode = Literal[
     "stateful",
     "incremental",
     "incremental-annotated",
+    "incremental-editable",
 ]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
@@ -186,6 +187,10 @@ def _trajectory_progress(path: Path) -> dict[str, Any]:
                 if isinstance(status, str):
                     replay_counts[status] = replay_counts.get(status, 0) + 1
             elif tool_name == "replay_current_program":
+                status = result.get("status") if isinstance(result, dict) else None
+                if isinstance(status, str):
+                    replay_counts[status] = replay_counts.get(status, 0) + 1
+            elif tool_name == "revise_program":
                 status = result.get("status") if isinstance(result, dict) else None
                 if isinstance(status, str):
                     replay_counts[status] = replay_counts.get(status, 0) + 1
@@ -324,11 +329,12 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "stateful",
             "incremental",
             "incremental-annotated",
+            "incremental-editable",
         }:
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
                 "incumbent, current, ledger, scheduled, handoff, stateful, "
-                "incremental, or incremental-annotated"
+                "incremental, incremental-annotated, or incremental-editable"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -390,6 +396,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "stateful-replay-obligation-ledger+soft-clean-replay-v1"
             )
         if self.annotated_incremental_program_enabled:
+            if self.editable_incremental_program_enabled:
+                return (
+                    "free-feedback-search+editable-incremental-executable-program+"
+                    "target-replay-v3"
+                )
             return (
                 "free-feedback-search+annotated-incremental-executable-program+"
                 "target-replay-v2"
@@ -469,11 +480,22 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def incremental_program_enabled(self) -> bool:
-        return self.replay_mode in {"incremental", "incremental-annotated"}
+        return self.replay_mode in {
+            "incremental",
+            "incremental-annotated",
+            "incremental-editable",
+        }
 
     @property
     def annotated_incremental_program_enabled(self) -> bool:
-        return self.replay_mode == "incremental-annotated"
+        return self.replay_mode in {
+            "incremental-annotated",
+            "incremental-editable",
+        }
+
+    @property
+    def editable_incremental_program_enabled(self) -> bool:
+        return self.replay_mode == "incremental-editable"
 
     @property
     def compatibility_observation_enabled(self) -> bool:
@@ -511,6 +533,15 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "minimal-H",
             ]
         if self.annotated_incremental_program_enabled:
+            if self.editable_incremental_program_enabled:
+                return [
+                    "F",
+                    "operation-annotated-editable-program-state",
+                    "operation-triggered-O",
+                    "soft-C",
+                    "R",
+                    "minimal-H",
+                ]
             return [
                 "F",
                 "operation-annotated-program-state",
@@ -720,6 +751,28 @@ class OpenRouterAgentRunner(CodexCliRunner):
                     },
                 )
             )
+        if self.editable_incremental_program_enabled:
+            tools.append(
+                _function_tool(
+                    "revise_program",
+                    (
+                        "Revise the current replayable deployment program without "
+                        "changing the active construction environment. Replace one "
+                        "one-based indexed step with replacement_command, or delete "
+                        "that step by passing an empty string. Every edit immediately "
+                        "clean-replays the complete revised program."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {
+                            "step_index": {"type": "integer", "minimum": 1},
+                            "replacement_command": {"type": "string"},
+                        },
+                        "required": ["step_index", "replacement_command"],
+                        "additionalProperties": False,
+                    },
+                )
+            )
         if self.incremental_program_enabled:
             accumulated_by = (
                 "successful effect=persist shell calls"
@@ -887,6 +940,15 @@ Do not reconstruct a bootstrap program from memory and do not optimize deploymen
 completeness or cost after the public goal passes. The command remains arbitrary Bash;
 the effect annotation describes intent but does not restrict which command you may run.
 You may call `replay_current_program` when an explicit target-state check is useful.
+"""
+            if self.editable_incremental_program_enabled:
+                prompt += """
+
+The harness also exposes the current program as one-based indexed steps. When replay
+evidence shows that an earlier recorded step is wrong, use `revise_program` to replace
+that step or delete it with an empty replacement. This edits only the candidate program,
+not the active construction environment, and immediately clean-replays the revised whole.
+Historical execution evidence remains available even though the current plan may change.
 """
             return prompt
         if self.incremental_program_enabled:
@@ -1186,6 +1248,7 @@ never selects packages, blocks commands, or restores an environment.
             "envbench_shell": 0,
             "apply_environment_step": 0,
             "replay_current_program": 0,
+            "revise_program": 0,
             "check_current_goal": 0,
             "check_compatibility": 0,
             "submit_and_replay": 0,
@@ -1367,6 +1430,8 @@ never selects packages, blocks commands, or restores an environment.
                     "current_goal": current_goal,
                 }
             )
+            if self.editable_incremental_program_enabled:
+                payload["indexed_program"] = incremental_program.indexed_steps()
             if current_goal.get("candidate_ready") is not True:
                 return payload, None
 
@@ -1527,33 +1592,36 @@ never selects packages, blocks commands, or restores an environment.
             messages.append(assistant_message)
 
             if not tool_calls:
-                continuation = (
-                    "A clean-replay-certified incumbent is saved. Continue only for a "
-                    "material improvement, certify any replacement, or submit an exact "
-                    "certified program."
-                    if incumbent is not None
-                    else (
-                        (
-                            (
-                                "Continue with envbench_shell and declare effect=inspect "
-                                "or effect=persist for every command. The harness will "
-                                "finish when the accumulated program replays."
-                                if self.annotated_incremental_program_enabled
-                                else (
-                                    "Continue with envbench_shell for diagnosis and "
-                                    "apply_environment_step for every persistent repair. "
-                                    "The harness will finish when the accumulated program "
-                                    "replays."
-                                )
-                            )
-                        )
-                        if self.incremental_program_enabled
-                        else (
-                            "Continue working with the available tools. Finish only by "
-                            "calling submit_bootstrap with the complete program."
-                        )
+                if incumbent is not None:
+                    continuation = (
+                        "A clean-replay-certified incumbent is saved. Continue only for "
+                        "a material improvement, certify any replacement, or submit an "
+                        "exact certified program."
                     )
-                )
+                elif self.editable_incremental_program_enabled:
+                    continuation = (
+                        "Continue with envbench_shell and declare effect=inspect or "
+                        "effect=persist for every command. Revise an earlier recorded "
+                        "step when replay invalidates it. The harness will finish when "
+                        "the current program replays."
+                    )
+                elif self.annotated_incremental_program_enabled:
+                    continuation = (
+                        "Continue with envbench_shell and declare effect=inspect or "
+                        "effect=persist for every command. The harness will finish when "
+                        "the accumulated program replays."
+                    )
+                elif self.incremental_program_enabled:
+                    continuation = (
+                        "Continue with envbench_shell for diagnosis and "
+                        "apply_environment_step for every persistent repair. The harness "
+                        "will finish when the accumulated program replays."
+                    )
+                else:
+                    continuation = (
+                        "Continue working with the available tools. Finish only by "
+                        "calling submit_bootstrap with the complete program."
+                    )
                 messages.append(
                     {
                         "role": "user",
@@ -1637,6 +1705,62 @@ never selects packages, blocks commands, or restores an environment.
                                 ):
                                     handoff_triggered_this_response = scheduled
                     elif (
+                        name == "revise_program"
+                        and self.editable_incremental_program_enabled
+                        and incremental_program is not None
+                        and replay_service is not None
+                    ):
+                        step_index = arguments.get("step_index")
+                        replacement = arguments.get("replacement_command")
+                        if (
+                            isinstance(step_index, bool)
+                            or not isinstance(step_index, int)
+                            or not isinstance(replacement, str)
+                        ):
+                            payload = {
+                                "ok": False,
+                                "error": (
+                                    "step_index must be an integer and "
+                                    "replacement_command must be a string"
+                                ),
+                            }
+                        else:
+                            try:
+                                revision = incremental_program.revise(
+                                    step_index,
+                                    replacement,
+                                )
+                            except ValueError as exc:
+                                payload = {"ok": False, "error": str(exc)}
+                            else:
+                                raw_replay = replay_service.submit(
+                                    incremental_program.program
+                                )
+                                status = str(raw_replay.get("status", "unknown"))
+                                replay_status_counts[status] = (
+                                    replay_status_counts.get(status, 0) + 1
+                                )
+                                payload = {
+                                    **normalize_replay_feedback(raw_replay),
+                                    "program_revision": revision,
+                                    "program_state": incremental_program.state(),
+                                    "indexed_program": (
+                                        incremental_program.indexed_steps()
+                                    ),
+                                }
+                                if status == "pass":
+                                    delivery, submission = self._submit(
+                                        {
+                                            "program": incremental_program.program,
+                                            "summary": (
+                                                "Editable incremental program passed "
+                                                "target-state replay after plan revision."
+                                            ),
+                                        },
+                                        replay_service,
+                                    )
+                                    payload["delivery"] = delivery
+                    elif (
                         name == "apply_environment_step"
                         and incremental_program is not None
                         and current_goal_service is not None
@@ -1672,6 +1796,10 @@ never selects packages, blocks commands, or restores an environment.
                             )
                             payload = normalize_replay_feedback(raw_replay)
                             payload["program_state"] = incremental_program.state()
+                            if self.editable_incremental_program_enabled:
+                                payload["indexed_program"] = (
+                                    incremental_program.indexed_steps()
+                                )
                             if status == "pass":
                                 delivery, submission = self._submit(
                                     {

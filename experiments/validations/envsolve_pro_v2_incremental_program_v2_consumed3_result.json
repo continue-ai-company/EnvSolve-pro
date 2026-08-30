@@ -1,0 +1,127 @@
+{
+  "schema": "envsolve-pro-v2-mechanism-qualification-result-v1",
+  "study_id": "envsolve-pro-v2-incremental-program-v2-consumed3",
+  "recorded_at": "2026-08-30",
+  "claim_scope": "Consumed-case mechanism qualification only; no effectiveness, generalization, SOTA, or Official success claim.",
+  "treatment": "Annotated Incremental Program V2 with one arbitrary-Bash shell and model-declared inspect or persist effects",
+  "termination": {
+    "type": "researcher_stop",
+    "reason": "The annotation activated naturally in both episodes that reached a deployment-operation opportunity, and HARK then exposed the decisive limitation of an append-only program: replay feedback could redirect later operations but could not replace or delete the invalid recorded prefix. The episodes were stopped before Official evaluation because the mechanism question had been answered.",
+    "all_episode_states": "interrupted"
+  },
+  "episodes": [
+    {
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "run_id": "pro-v2-iep-v2-consumed3-01-qibolab",
+      "duration_seconds": 791.3601265596226,
+      "provider_responses": 22,
+      "provider_errors": 0,
+      "prompt_tokens": 379192,
+      "completion_tokens": 45214,
+      "total_tokens": 424406,
+      "reported_provider_cost_usd": 0.021336216,
+      "tool_calls": {
+        "inspect": 41,
+        "persist_attempts": 0,
+        "recorded_persist_steps": 0
+      },
+      "operation_opportunity": "not_observed",
+      "interpretation": "The Agent remained in repository and goal diagnosis. No required deployment operation was identified before the researcher stop, so this episode neither qualifies nor rejects the annotation interface.",
+      "official_evaluation_run": false
+    },
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "run_id": "pro-v2-iep-v2-consumed3-02-hark",
+      "duration_seconds": 1392.2124948948622,
+      "provider_responses": 32,
+      "provider_errors": 5,
+      "prompt_tokens": 583718,
+      "completion_tokens": 44062,
+      "total_tokens": 627780,
+      "reported_provider_cost_usd": 0.021270776,
+      "tool_calls": {
+        "inspect": 31,
+        "persist_attempts": 9,
+        "recorded_persist_steps": 8,
+        "failed_persist_attempts": 1
+      },
+      "first_persist_request_index": 7,
+      "first_goal_pass_request_index": 28,
+      "first_goal_pass_active_constraint_count": 0,
+      "automatic_clean_replays": 1,
+      "automatic_clean_replay_result": {
+        "status": "fail",
+        "phase": "bootstrap-execution",
+        "retryability": "agent_repair",
+        "verification_summary": "Candidate modified the adapter-owned outer workspace",
+        "outer_workspace_violation": "/data/project/.venv",
+        "additional_counterexample": "Hard-coded /data/project assumptions caused requirements and editable-project lookups to miss the target replay checkout."
+      },
+      "post_counterexample_behavior": {
+        "same_session_repair_observed": true,
+        "new_environment_root": "/opt/harkenv",
+        "latest_recorded_step": 8,
+        "latest_active_constraint_count": 6,
+        "invalid_prefix_still_recorded": true
+      },
+      "interpretation": "The Agent naturally used persist, reached a complete construction goal Pass, received an automatic clean-replay counterexample, and redirected later operations in the same session. The evidence qualifies the O-to-C-to-O transition but shows that append-only recording cannot revise the six already-recorded /data/project steps; it can only add compensating work.",
+      "official_evaluation_run": false
+    },
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "run_id": "pro-v2-iep-v2-consumed3-03-meerkat",
+      "duration_seconds": 1393.5233243135735,
+      "provider_responses": 20,
+      "provider_errors": 0,
+      "prompt_tokens": 386309,
+      "completion_tokens": 31658,
+      "total_tokens": 417967,
+      "reported_provider_cost_usd": 0.022742296,
+      "tool_calls": {
+        "inspect": 29,
+        "persist_attempts": 1,
+        "recorded_persist_steps": 1
+      },
+      "first_persist_request_index": 15,
+      "post_step_goal_status": "fail",
+      "post_step_active_constraint_count": 31,
+      "comparison_to_v1": "V1 first activated its separate operation tool at request 20 and retained 79 active constraints; V2 naturally recorded the main dependency installation at request 15 and reduced the residual to 31.",
+      "interpretation": "The single-shell annotation activated earlier and on a substantive deployment operation. The episode did not reach a sufficient state or replay before the researcher stop.",
+      "official_evaluation_run": false
+    }
+  ],
+  "aggregate": {
+    "episode_count": 3,
+    "episodes_with_observed_operation_opportunity": 2,
+    "episodes_with_natural_persist_activation": 2,
+    "provider_responses": 74,
+    "provider_errors": 5,
+    "prompt_tokens": 1349219,
+    "completion_tokens": 120934,
+    "total_tokens": 1470153,
+    "reported_provider_cost_usd": 0.065349288,
+    "tool_results": 111,
+    "inspect_calls": 101,
+    "persist_attempts": 10,
+    "recorded_persist_steps": 9,
+    "automatic_goal_observations": 9,
+    "automatic_clean_replays": 1,
+    "official_evaluations": 0
+  },
+  "adjudication": {
+    "single_shell_annotation_interface": "qualified_on_observed_operation_opportunities",
+    "operation_constraint_transition": "qualified",
+    "append_only_program_representation": "reject_as_core_representation",
+    "effectiveness_result": "not_tested",
+    "finding": "Executable evidence may accumulate monotonically, but the deployment plan must remain revisable. A replay counterexample can invalidate an earlier step; retaining that step forces every later replay and delivered program to repeat invalid or redundant work even when the same Agent has inferred a better operation.",
+    "semantic_bypass_audit": "Construction-only mutations occurred under inspect, including Git safe-directory setup and diagnostic pyright installation. The available trace does not establish that those operations were necessary to the delivered program, so they are retained as bypass risk rather than counted as a qualified interface failure.",
+    "network_role": "secondary_noise",
+    "network_reason": "Only HARK had provider errors; all five were retryable and the episode subsequently activated persist, reached goal Pass, and received replay feedback.",
+    "next_minimal_change": "Keep the one annotated shell and add a plan-edit operation that can replace or delete one indexed recorded step, immediately clean-replaying the revised program. Keep the active construction session for reasoning, but do not add package rules, checkpoints, cross-case memory, or prompt patches."
+  },
+  "evidence": {
+    "local_root": "runs/envsolve-pro-v2-incremental-program-v2-consumed3-evidence",
+    "spark_root": "/home/avdpro/work/runs/envsolve-pro-v2-incremental-program-v2-consumed3",
+    "contents": "Complete partial trajectories, container command logs, status records, progress records, and coordinator logs; source and package caches intentionally omitted from the local evidence copy."
+  }
+}

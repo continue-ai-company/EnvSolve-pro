@@ -458,6 +458,31 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             "target-replay-v2",
         )
 
+    def test_editable_incremental_program_adds_only_a_plan_editor(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "incremental-editable")
+            tools = runner._tools()
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            [item["function"]["name"] for item in tools],
+            ["envbench_shell", "revise_program", "replay_current_program"],
+        )
+        revision_parameters = tools[1]["function"]["parameters"]
+        self.assertEqual(
+            revision_parameters["required"],
+            ["step_index", "replacement_command"],
+        )
+        self.assertIn("edits only the candidate program", prompt)
+        self.assertIn("immediately clean-replays", prompt)
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+editable-incremental-executable-program+"
+            "target-replay-v3",
+        )
+
     def test_annotated_incremental_inspection_is_excluded_then_persist_replays(self) -> None:
         inspection = "python --version"
         persistent = "python -m venv .venv"
@@ -572,6 +597,93 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             and event.get("tool_call_id") == "1"
         )
         self.assertFalse(failed_result["program_updated"])
+
+    def test_editable_incremental_replaces_a_replay_invalidated_step(self) -> None:
+        bad = "python -m venv /data/project/.venv"
+        good = "python -m venv /opt/project-venv"
+
+        class FailThenPassReplay(FakeReplayService):
+            def __init__(self) -> None:
+                super().__init__(good)
+                self.programs: list[str] = []
+
+            def submit(self, program: str) -> dict[str, object]:
+                self.programs.append(program)
+                if len(self.programs) == 1:
+                    return {
+                        "status": "fail",
+                        "phase": "bootstrap-execution",
+                        "replay_id": "replay-1",
+                        "program_sha256": script_sha256(program),
+                        "verification": {
+                            "summary": "outer workspace was modified",
+                            "bootstrap": {
+                                "exit_code": 253,
+                                "stdout": "",
+                                "stderr": "outer workspace violation",
+                                "duration_seconds": 1.0,
+                            },
+                            "counterexamples": {"json": "[]", "truncated": False},
+                            "details": {"json": "{}", "truncated": False},
+                        },
+                    }
+                return super().submit(program)
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "envbench_shell",
+                        {"command": bad, "effect": "persist"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "revise_program",
+                        {"step_index": 1, "replacement_command": good},
+                    )
+                ),
+            ]
+        )
+        replay = FailThenPassReplay()
+        terminal = FakeTerminalServer()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "incremental-editable")
+            program = IncrementalProgram(root / "incremental-program")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=terminal,  # type: ignore[arg-type]
+                replay_service=replay,  # type: ignore[arg-type]
+                incremental_program=program,
+                current_goal_service=CandidateReadyCurrentGoalService(),  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(replay.programs, [bad, good])
+        self.assertEqual(program.program, good)
+        self.assertEqual(submission["program"], good)
+        self.assertEqual(metadata["tool_counts"]["revise_program"], 1)
+        self.assertEqual(metadata["replay_status_counts"], {"fail": 1, "pass": 1})
+        self.assertEqual(len(terminal.requests), 1)
+        revision_result = next(
+            event["result"]
+            for event in events
+            if event.get("tool_name") == "revise_program"
+        )
+        self.assertEqual(revision_result["program_revision"]["operation"], "replace")
+        self.assertEqual(
+            revision_result["indexed_program"],
+            [{"step": 1, "command": good}],
+        )
 
     def test_incremental_apply_records_then_replays_without_program_rewrite(self) -> None:
         command = "python -m venv .venv"

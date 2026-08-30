@@ -64,3 +64,41 @@ def test_failed_operations_never_enter_the_program(result: dict[str, object]) ->
         assert program.steps == []
         assert not program.steps_path.exists()
         assert not program.program_path.exists()
+
+
+def test_program_steps_can_be_replaced_and_deleted_with_refreshed_indexes() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        program = IncrementalProgram(Path(directory))
+        program.append_successful("bad-one", successful_result())
+        program.append_successful("keep-two", successful_result())
+        program.append_successful("remove-three", successful_result())
+
+        replacement = program.revise(1, "good-one")
+        deletion = program.revise(3, "")
+        records = read_jsonl(program.steps_path)
+
+    assert replacement == {
+        "schema": "envsolve-pro-incremental-program-v1",
+        "operation": "replace",
+        "step_index": 1,
+        "previous_command": "bad-one",
+        "replacement_command": "good-one",
+    }
+    assert deletion["operation"] == "delete"
+    assert deletion["previous_command"] == "remove-three"
+    assert program.indexed_steps() == [
+        {"step": 1, "command": "good-one"},
+        {"step": 2, "command": "keep-two"},
+    ]
+    assert [record["step"] for record in records] == [1, 2]
+    assert program.program == "good-one\n\nkeep-two"
+
+
+@pytest.mark.parametrize("step_index", [0, 2, True, "1"])
+def test_program_revision_rejects_invalid_step_indexes(step_index: object) -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        program = IncrementalProgram(Path(directory))
+        program.append_successful("only-step", successful_result())
+
+        with pytest.raises(ValueError, match="step index"):
+            program.revise(step_index, "replacement")  # type: ignore[arg-type]

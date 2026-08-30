@@ -808,3 +808,20 @@ The proposal record retains expected transition, observed call opportunities, fi
 activation, bypass examples, provider errors, and the stop decision. The next proposal may
 change one interface choice, but it may not infer package rules from these repositories or
 attribute recovered network errors to the solver.
+
+### 30. Immutable Evidence, Mutable Plan Transaction
+
+Incremental Program V2 is a two-level outer-loop example. The proposed single-shell
+annotation passes its early activation test: both episodes with an observed deployment
+operation used `persist`, and HARK reached an automatic replay. The larger append-only
+algorithm still fails its representation test because that replay invalidated an earlier
+path choice and the current program could only accumulate compensating steps. An interface
+may therefore qualify while the algorithm containing it is rolled back.
+
+Future Auto-EnvSolve comparisons should keep execution events and replay counterexamples
+immutable while treating the current deployment plan as a revisable hypothesis. Promotion
+requires downstream evidence that replay feedback changes the certified plan, not merely
+that a tool was called. The minimal successor transaction adds indexed replace/delete,
+replays after each edit, and records the before-plan, counterexample, edit, after-plan, and
+outcome. It does not optimize packages, prompts, checkpoints, or cross-case policy, and no
+resource improvement may compensate for an Official regression.

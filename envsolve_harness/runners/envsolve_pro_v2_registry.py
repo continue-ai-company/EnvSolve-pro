@@ -137,3 +137,9 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-annotated-incremental-executable-program",
             _factory("incremental-annotated"),
         )
+    if "envsolve-pro-v2-incremental-program-editable" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-incremental-program-editable",
+            "envsolve-pro-editable-incremental-executable-program",
+            _factory("incremental-editable"),
+        )

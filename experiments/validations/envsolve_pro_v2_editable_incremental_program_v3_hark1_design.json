@@ -1,0 +1,60 @@
+{
+  "schema": "envsolve-pro-consumed-mechanism-design-v1",
+  "study_id": "envsolve-pro-v2-editable-incremental-program-v3-hark1",
+  "recorded_at": "2026-08-30",
+  "status": "recorded-before-any-live-v3-outcome",
+  "claim_scope": "Consumed development mechanism qualification only; no effectiveness, generalization, efficiency, Official, or SOTA estimate.",
+  "prior_result": "V2 naturally activated persist and reached automatic replay. HARK replay invalidated an earlier path choice; the same Agent redirected later work but the append-only program retained all invalid prefix steps.",
+  "hypothesis": "When replay falsifies an earlier recorded operation, a strong Agent in the same session will naturally revise that indexed operation and use replay of the edited program as its next executable test.",
+  "case_selection": "Use only the already consumed HARK case that generated the V2 representation counterexample. It is selected for mechanism opportunity, not for an effectiveness endpoint.",
+  "method": {
+    "runner": "envsolve-pro-v2-incremental-program-editable",
+    "only_change_from_v2": "Add one non-shell revise_program action that replaces or deletes one indexed current-program step and immediately clean-replays the revised whole.",
+    "mechanisms": [
+      "one continuous strong-Agent session",
+      "one arbitrary-Bash shell with model-declared inspect or persist effects",
+      "successful persistent commands appended verbatim",
+      "complete public-goal observation after every append",
+      "automatic target-state replay on construction-goal Pass",
+      "model-selected replacement or deletion of one indexed program step",
+      "immediate target-state replay after every plan edit",
+      "same-session reasoning with an unchanged active construction environment"
+    ],
+    "excluded": [
+      "package-specific rules",
+      "automatic command classification",
+      "controller-selected edits",
+      "container checkpoints or rollback",
+      "cross-case memory",
+      "command decomposition",
+      "path-specific prompt patches",
+      "new integrity gates"
+    ]
+  },
+  "qualification_observations": [
+    "whether a replay counterexample invalidates an earlier recorded step",
+    "whether an edit opportunity occurs",
+    "first revise_program request and edit type",
+    "before and after indexed programs",
+    "counterexample-to-edit model-request latency",
+    "replay outcome immediately after the edit",
+    "whether the invalid prefix remains in the current program",
+    "same-session subsequent repair",
+    "requests, tokens, wall time, network traffic, and storage"
+  ],
+  "decision_policy": {
+    "mechanism_qualified": "After replay evidence invalidates an earlier recorded step, the Agent selects replace or delete and the harness clean-replays the revised program in the same tool turn.",
+    "opportunity_absent": "No replay counterexample invalidates an earlier recorded step in the fresh trajectory; the episode is censored for edit activation.",
+    "mechanism_rejected": "An edit opportunity occurs but the Agent only appends compensating steps, or the selected edit does not change and replay the indexed current program.",
+    "effect_claim": "No effect or efficiency claim is permitted from this consumed case regardless of terminal outcome.",
+    "promotion_claim": "Mechanism qualification only licenses fixing V3 for a later outcome-blind paired development comparison."
+  },
+  "execution": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "OpenRouter fixed DeepInfra route without fallback",
+    "reasoning_effort": "xhigh",
+    "max_model_requests": 120,
+    "hard_token_or_cost_limit": false,
+    "official_evaluator_access": "post-episode-only"
+  }
+}
