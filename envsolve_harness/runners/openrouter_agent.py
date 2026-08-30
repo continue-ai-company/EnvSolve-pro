@@ -439,6 +439,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "stateful",
             "incremental",
             "incremental-annotated",
+            "incremental-editable",
         }
 
     @property

@@ -1,0 +1,22 @@
+{
+  "schema": "envsolve-pro-infrastructure-amendment-v1",
+  "study_id": "envsolve-pro-v2-editable-incremental-program-v3-hark1",
+  "recorded_at": "2026-08-30",
+  "incident": "The first live V3 attempt executed its first effect=persist shell command successfully at request 12, but the runner returned incremental services are unavailable and did not record the step.",
+  "root_cause": "The new incremental-editable mode was included in incremental_program_enabled but omitted from replay_enabled, so run() did not construct a clean-replay service. Direct agent-loop tests supplied that service manually and did not exercise the missing wiring.",
+  "adjudication": "The original attempt is infrastructure-censored and excluded from mechanism, Official, effectiveness, and resource endpoints.",
+  "repair": "Include incremental-editable in replay_enabled and assert that property in the V3 interface regression test. No prompt, tool schema, plan-edit semantics, model, provider, case, goal, evaluator, or analysis rule changes.",
+  "original_attempt": {
+    "run_id": "pro-v2-eip-v3-hark1-01-hark",
+    "provider_responses_observed_before_stop": 14,
+    "provider_errors_observed_before_stop": 0,
+    "successful_shell_persist_not_recorded": true,
+    "official_evaluation_run": false
+  },
+  "replacement": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_editable_incremental_program_v3_hark1_retry1.json",
+    "run_id": "pro-v2-eip-v3-hark1-r1-01-hark",
+    "same_case_model_provider_seed_and_method": true,
+    "fresh_container_required": true
+  }
+}

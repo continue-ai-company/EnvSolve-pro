@@ -477,6 +477,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         )
         self.assertIn("edits only the candidate program", prompt)
         self.assertIn("immediately clean-replays", prompt)
+        self.assertTrue(runner.replay_enabled)
         self.assertEqual(
             runner.agent_interface,
             "free-feedback-search+editable-incremental-executable-program+"
