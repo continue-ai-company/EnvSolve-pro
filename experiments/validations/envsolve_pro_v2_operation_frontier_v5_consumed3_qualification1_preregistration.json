@@ -1,0 +1,56 @@
+{
+  "schema": "envsolve-pro-v2-consumed-mechanism-qualification-v1",
+  "study_id": "envsolve-pro-v2-operation-frontier-v5-consumed3-qualification1",
+  "recorded_at": "2026-08-30",
+  "method_design": "experiments/validations/envsolve_pro_v2_operation_frontier_v5_design.json",
+  "status": "recorded-before-provider-execution",
+  "purpose": "Mechanism qualification only; these cases are already consumed and are excluded from future generalization estimates.",
+  "selection": {
+    "source": "The first three completed pairs in the pre-existing fixed Hard6 path-parity batch.",
+    "cases": [
+      "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac"
+    ],
+    "rationale": "Conan is a V4 efficiency win, PyRollbar is a severe replay-amplification loss, and LangGraph is a mixed token/wall-time result. This avoids testing only cases where the new treatment is expected to look favorable."
+  },
+  "comparison": {
+    "control": "B-Minimal-B",
+    "treatment": "V5-Operation-Frontier",
+    "pairing": "Both arms use the same case, model, provider order, seed, image, public goal, evaluator, host lane, and broad safety limits.",
+    "arm_order": "Alternates B/V5, V5/B, B/V5 across the three pairs."
+  },
+  "execution": {
+    "schedule": "experiments/schedules/envsolve_pro_v2_operation_frontier_v5_consumed3_qualification1.json",
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_operation_frontier_v5_consumed3_qualification1.json",
+    "host": "Spark",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": ["DeepInfra"]
+  },
+  "primary_endpoint": "Official EnvBench Pass@1; success is assessed before resources.",
+  "mechanism_endpoints": [
+    "frontier observation occurs after declared changes",
+    "verified resolved, introduced, and stagnant obligation counts with model-view truncation explicitly audited",
+    "whether a frontier delta changes the next Agent operation",
+    "recovery after a misleading zero exit or partially successful nonzero change",
+    "same-session repair after clean replay failure",
+    "final program path portability and deployment completeness"
+  ],
+  "reported_resources": [
+    "model requests",
+    "input, output, and total tokens",
+    "wall time",
+    "shell calls by declared effect",
+    "public-goal observations",
+    "clean replay count",
+    "dependency traffic when available"
+  ],
+  "adjudication": "A treatment success loss rejects V5 as the next core method. With tied success, trajectory evidence must show operation-attributable recovery or clearer state diagnosis; projection truncation and resource use then decide whether the mechanism merits repository-disjoint development qualification. Tokens are a reported metric, not a success-stopping threshold.",
+  "excluded_claims": [
+    "generalization",
+    "SOTA",
+    "held-out performance",
+    "cross-model robustness"
+  ],
+  "new_hash_contract_or_gate_added": false
+}

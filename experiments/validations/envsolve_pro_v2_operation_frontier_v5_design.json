@@ -1,0 +1,55 @@
+{
+  "schema": "envsolve-pro-v2-method-design-v1",
+  "study_id": "envsolve-pro-v2-operation-frontier-v5",
+  "recorded_at": "2026-08-30",
+  "evidence_source": "Consumed B/V4 trajectories from Conan, PyRollbar, and LangGraph. V4 reached Official Pass on all three, but accumulated construction commands too early, confused shell exit status with state effect, and amplified clean replays on PyRollbar and LangGraph.",
+  "research_question": "Does returning an operation-attributed public-goal delta immediately after each Agent-declared environment change improve failure recovery without constraining the Agent or turning construction commands into the deployment program?",
+  "control": "Minimal B: one continuous Agent session, an open persistent shell, and repeatedly callable whole-program clean replay.",
+  "treatment": "V5: Minimal B plus Agent-declared inspect/change operations. Every change is followed by the complete public goal, even after a nonzero shell exit. The same session receives exact obligation counts, a bounded identity list for current/resolved/introduced obligations, and explicit truncation metadata; complete evidence remains in the machine trajectory.",
+  "three_layers": {
+    "observation": "Shell output plus a truthful bounded projection of the complete public-goal post-state after each declared change.",
+    "constraint": "The compatibility frontier contains only currently executable obligations and their delta; it is advisory evidence, not a package rule or command policy.",
+    "operation": "The Agent freely chooses shell actions and later synthesizes one self-contained, path-portable bootstrap program for clean replay."
+  },
+  "distinctions": {
+    "from_current_goal": "The observation is attached to an environment-changing operation rather than requested optionally by the Agent.",
+    "from_scheduled_observation": "The observation occurs after each declared change rather than at a fixed request cadence.",
+    "from_v4": "Construction commands are never copied into a candidate program. The Agent synthesizes the final program from verified state only when ready.",
+    "from_envsolve": "No cross-candidate rule library, independent candidate sessions, or hard semantic veto is introduced."
+  },
+  "unchanged": [
+    "continuous Agent session",
+    "open arbitrary-Bash construction shell",
+    "persistent construction environment",
+    "same public executable goal",
+    "same clean target-state replay",
+    "same evaluator and repository safety boundary",
+    "same model-selected package and repair operations",
+    "same broad request, token, time, and cost safety ceilings"
+  ],
+  "not_added": [
+    "package or version rules",
+    "command filters",
+    "automatic rollback",
+    "physical checkpoints",
+    "cross-case memory",
+    "controller classifier",
+    "automatic construction-command persistence",
+    "new hashes",
+    "new frozen contracts",
+    "new gates"
+  ],
+  "deterministic_evidence": {
+    "test_result": "957 passed, 12 skipped, 7 warnings, 82 subtests passed",
+    "covered_semantics": [
+      "inspect does not execute the public goal",
+      "change executes the complete public goal exactly once",
+      "a nonzero change still exposes partial post-state",
+      "construction commands are not copied into the final program",
+      "the Agent-provided replay-certified program remains authoritative",
+      "runner registration and provider preflight include V5"
+    ]
+  },
+  "projection_boundary": "The model-visible identity lists are capped at 128 obligations per current/resolved/introduced section. Exact totals and truncation metadata are visible to the model; complete obligations remain in the trajectory. This projection is part of the treatment and must be reported rather than interpreted as an exact full frontier.",
+  "claim_boundary": "The implementation and deterministic tests establish interface semantics only. Effectiveness will first be assessed on consumed diagnostic cases and cannot support a generalization or SOTA claim."
+}

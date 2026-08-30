@@ -72,6 +72,7 @@ ReplayMode = Literal[
     "current",
     "ledger",
     "scheduled",
+    "operation-frontier",
     "handoff",
     "stateful",
     "incremental",
@@ -326,6 +327,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "current",
             "ledger",
             "scheduled",
+            "operation-frontier",
             "handoff",
             "stateful",
             "incremental",
@@ -336,8 +338,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
                 "incumbent, current, ledger, scheduled, handoff, stateful, "
-                "incremental, incremental-annotated, incremental-editable, or "
-                "incremental-transactional-editable"
+                "operation-frontier, incremental, incremental-annotated, "
+                "incremental-editable, or incremental-transactional-editable"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -425,6 +427,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "free-feedback-search+scheduled-compatibility-observation+"
                 "delta-evidence-frontier+soft-clean-replay-v1"
             )
+        if self.operation_frontier_enabled:
+            return (
+                "free-feedback-search+operation-triggered-compatibility-frontier+"
+                "soft-clean-replay-v1"
+            )
         if self.compatibility_ledger_enabled:
             return "free-feedback-search+compatibility-delta-ledger+soft-clean-replay-v1"
         if self.replay_mode == "incumbent":
@@ -443,6 +450,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "current",
             "ledger",
             "scheduled",
+            "operation-frontier",
             "handoff",
             "stateful",
             "incremental",
@@ -479,6 +487,10 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "handoff",
             "stateful",
         }
+
+    @property
+    def operation_frontier_enabled(self) -> bool:
+        return self.replay_mode == "operation-frontier"
 
     @property
     def verifier_handoff_enabled(self) -> bool:
@@ -518,7 +530,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def compatibility_observation_enabled(self) -> bool:
-        return self.compatibility_ledger_enabled or self.scheduled_observation_enabled
+        return (
+            self.compatibility_ledger_enabled
+            or self.scheduled_observation_enabled
+            or self.operation_frontier_enabled
+        )
 
     @property
     def mechanism_primitives(self) -> list[str]:
@@ -587,6 +603,14 @@ class OpenRouterAgentRunner(CodexCliRunner):
             return ["F", "current-O", "current-C", "R", "minimal-H"]
         if self.scheduled_observation_enabled:
             return ["F", "scheduled-O", "delta-C", "R", "minimal-H"]
+        if self.operation_frontier_enabled:
+            return [
+                "F",
+                "operation-triggered-O",
+                "compatibility-frontier-C",
+                "R",
+                "minimal-H",
+            ]
         if self.compatibility_ledger_enabled:
             return ["F", "compatibility-delta-ledger", "S", "R", "minimal-H"]
         if self.incumbent_enabled:
@@ -720,6 +744,16 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "reproducible environment change; a successful persist command is "
                 "appended exactly to the deployment program and triggers goal checking."
             )
+        elif self.operation_frontier_enabled:
+            shell_description = (
+                "Execute arbitrary Bash in the persistent construction container. "
+                "Declare effect=inspect for diagnosis. Declare effect=change for an "
+                "operation intended to alter environment compatibility; after every "
+                "change, including a nonzero exit, the harness executes the complete "
+                "public goal and returns a bounded compatibility delta with exact "
+                "counts and explicit truncation metadata. Commands are never copied "
+                "into the final deployment program."
+            )
         elif self.incremental_program_enabled:
             shell_description = (
                 "Inspect or diagnose the persistent construction container. Commands used "
@@ -740,6 +774,12 @@ class OpenRouterAgentRunner(CodexCliRunner):
             shell_properties["effect"] = {
                 "type": "string",
                 "enum": ["inspect", "persist"],
+            }
+            shell_required.append("effect")
+        elif self.operation_frontier_enabled:
+            shell_properties["effect"] = {
+                "type": "string",
+                "enum": ["inspect", "change"],
             }
             shell_required.append("effect")
         tools = [
@@ -941,6 +981,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "Use the single `envbench_shell` for all work and declare each call's "
                 "effect as `inspect` or `persist` as described below."
             )
+        elif self.operation_frontier_enabled:
+            shell_instruction = (
+                "Use the single `envbench_shell` for all work and declare each call's "
+                "effect as `inspect` or `change` as described below."
+            )
         elif self.incremental_program_enabled:
             shell_instruction = (
                 "Use `envbench_shell` for repository inspection and diagnosis. Use the "
@@ -1079,6 +1124,7 @@ There is no separate replay action and no replay state is retained.
             "current",
             "ledger",
             "scheduled",
+            "operation-frontier",
             "handoff",
             "stateful",
         }:
@@ -1135,6 +1181,23 @@ the construction state changed after the latest observation. Scheduled feedback
 reports complete identity-bound obligations and their delta in this same session.
 It is advisory evidence: temporary regression remains allowed, and the harness
 never selects packages, blocks commands, or restores an environment.
+"""
+        elif self.operation_frontier_enabled:
+            prompt += """\
+
+Set `effect=inspect` for diagnosis that should not trigger the public goal. Set
+`effect=change` for every operation intended to change environment compatibility.
+After each change, even when its shell exit code is nonzero, the harness executes
+the complete public goal. The machine trajectory retains complete evidence; the model
+receives exact counts plus a bounded identity list for current, resolved, and introduced
+obligations, with explicit truncation metadata. You may inspect the raw goal when more
+detail is useful. This compatibility frontier is advisory: it does not select packages,
+block commands, restore an environment, or copy commands into the candidate program.
+
+Use the frontier to distinguish an operation's verified effect from its exit status.
+When the active environment is ready, synthesize one self-contained, path-portable
+bootstrap program from the verified state and call `submit_and_replay`. Repair replay
+failures in this same session, then submit the exact replay-certified program.
 """
         return prompt
 
@@ -1337,7 +1400,11 @@ never selects packages, blocks commands, or restores an environment.
             "submit_bootstrap": 0,
         }
         replay_status_counts: dict[str, int] = {}
-        shell_effect_counts = {"inspect": 0, "persist": 0, "invalid": 0}
+        shell_effect_counts = (
+            {"inspect": 0, "change": 0, "invalid": 0}
+            if self.operation_frontier_enabled
+            else {"inspect": 0, "persist": 0, "invalid": 0}
+        )
         incumbent: dict[str, str] | None = None
         incumbent_updates: list[dict[str, Any]] = []
         first_certification_request: int | None = None
@@ -1550,7 +1617,10 @@ never selects packages, blocks commands, or restores an environment.
                 "tool_counts": tool_counts,
                 "replay_status_counts": replay_status_counts,
             }
-            if self.annotated_incremental_program_enabled:
+            if (
+                self.annotated_incremental_program_enabled
+                or self.operation_frontier_enabled
+            ):
                 metadata["shell_effect_counts"] = shell_effect_counts
             if self.incumbent_enabled:
                 metadata["certified_incumbent"] = {
@@ -1738,6 +1808,16 @@ never selects packages, blocks commands, or restores an environment.
                                 "error": "effect must be inspect or persist",
                                 "declared_effect": "invalid",
                             }
+                        elif self.operation_frontier_enabled and effect not in {
+                            "inspect",
+                            "change",
+                        }:
+                            shell_effect_counts["invalid"] += 1
+                            payload = {
+                                "ok": False,
+                                "error": "effect must be inspect or change",
+                                "declared_effect": "invalid",
+                            }
                         elif not isinstance(command, str):
                             payload = {"ok": False, "error": "command must be a string"}
                         else:
@@ -1757,6 +1837,54 @@ never selects packages, blocks commands, or restores an environment.
                                         "program_updated": False,
                                     }
                                 payload["declared_effect"] = declared_effect
+                            elif self.operation_frontier_enabled:
+                                declared_effect = str(effect)
+                                shell_effect_counts[declared_effect] += 1
+                                payload = {
+                                    **shell_result,
+                                    "declared_effect": declared_effect,
+                                    "program_updated": False,
+                                }
+                                if declared_effect == "change":
+                                    if compatibility_service is None:
+                                        payload["infrastructure_error"] = (
+                                            "operation frontier service is unavailable"
+                                        )
+                                    else:
+                                        frontier = compatibility_service.check(
+                                            f"{call.id}-operation-frontier"
+                                        )
+                                        observation = {
+                                            "schema": (
+                                                "envsolve-operation-frontier-"
+                                                "observation-v1"
+                                            ),
+                                            "trigger": "operation-change",
+                                            "advisory_only": True,
+                                            "result": frontier,
+                                        }
+                                        projected = (
+                                            model_visible_scheduled_observation(
+                                                observation
+                                            )
+                                        )
+                                        payload[
+                                            "operation_frontier_observation"
+                                        ] = projected["result"]
+                                        self._append_event(
+                                            trajectory_path,
+                                            {
+                                                "schema": (
+                                                    "envsolve-openrouter-event-v1"
+                                                ),
+                                                "event": (
+                                                    "operation_frontier_observation"
+                                                ),
+                                                "request_index": request_index,
+                                                "parent_tool_call_id": str(call.id),
+                                                "result": frontier,
+                                            },
+                                        )
                             else:
                                 payload = shell_result
                         if scheduled_observer is not None:

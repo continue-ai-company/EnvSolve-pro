@@ -113,6 +113,12 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-scheduled-compatibility-observation",
             _factory("scheduled"),
         )
+    if "envsolve-pro-v2-operation-frontier" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-operation-frontier",
+            "envsolve-pro-operation-triggered-compatibility-frontier",
+            _factory("operation-frontier"),
+        )
     if "envsolve-pro-v2-verifier-handoff" not in registered:
         register_solver_runner(
             "envsolve-pro-v2-verifier-handoff",

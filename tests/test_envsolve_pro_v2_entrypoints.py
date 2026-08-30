@@ -27,6 +27,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         self.assertIn("envsolve-pro-v2-current-goal", registered)
         self.assertIn("envsolve-pro-v2-ledger", registered)
         self.assertIn("envsolve-pro-v2-scheduled-observation", registered)
+        self.assertIn("envsolve-pro-v2-operation-frontier", registered)
         self.assertIn("envsolve-pro-v2-verifier-handoff", registered)
         self.assertIn("envsolve-pro-v2-stateful-replay", registered)
         self.assertIn("envsolve-pro-v2-incremental-program", registered)
@@ -44,6 +45,7 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
             {"runner": "envsolve-pro-v2"},
             {"runner": "envsolve-pro-v2-current-goal"},
             {"runner": "envsolve-pro-v2-verifier-handoff"},
+            {"runner": "envsolve-pro-v2-operation-frontier"},
             {"runner": "envsolve-pro-v2-stateful-replay"},
             {
                 "runner": (

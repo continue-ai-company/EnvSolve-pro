@@ -460,6 +460,175 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             "target-replay-v2",
         )
 
+    def test_operation_frontier_observes_changes_without_recording_commands(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "operation-frontier")
+            tools = runner._tools()
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            [item["function"]["name"] for item in tools],
+            ["envbench_shell", "submit_and_replay", "submit_bootstrap"],
+        )
+        shell_parameters = tools[0]["function"]["parameters"]
+        self.assertEqual(shell_parameters["required"], ["command", "effect"])
+        self.assertEqual(
+            shell_parameters["properties"]["effect"]["enum"],
+            ["inspect", "change"],
+        )
+        self.assertIn("including a nonzero exit", tools[0]["function"]["description"])
+        self.assertIn("exact counts", prompt)
+        self.assertIn("explicit truncation metadata", prompt)
+        self.assertIn("does not", prompt)
+        self.assertIn("copy commands into the candidate program", prompt)
+        self.assertIn("synthesize one self-contained", prompt)
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+operation-triggered-compatibility-frontier+"
+            "soft-clean-replay-v1",
+        )
+        self.assertEqual(
+            runner.mechanism_primitives,
+            [
+                "F",
+                "operation-triggered-O",
+                "compatibility-frontier-C",
+                "R",
+                "minimal-H",
+            ],
+        )
+
+    def test_operation_frontier_checks_only_change_effects_and_keeps_agent_program(self) -> None:
+        inspection = "python --version"
+        change = "python -m venv .venv"
+        program = "python -m venv .venv\n. .venv/bin/activate"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "envbench_shell",
+                        {"command": inspection, "effect": "inspect"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "envbench_shell",
+                        {"command": change, "effect": "change"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call("3", "submit_and_replay", {"program": program})
+                ),
+                FakeResponse(
+                    tool_call(
+                        "4",
+                        "submit_bootstrap",
+                        {"program": program, "summary": "ready"},
+                    )
+                ),
+            ]
+        )
+        terminal = FakeTerminalServer()
+        compatibility = FakeCompatibilityService()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "operation-frontier")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=terminal,  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(submission["program"], program)
+        self.assertEqual(
+            compatibility.call_ids,
+            ["2-operation-frontier"],
+        )
+        self.assertEqual(
+            metadata["shell_effect_counts"],
+            {"inspect": 1, "change": 1, "invalid": 0},
+        )
+        self.assertEqual(
+            [
+                request["params"]["arguments"]  # type: ignore[index]
+                for request in terminal.requests
+            ],
+            [{"command": inspection}, {"command": change}],
+        )
+        frontier_events = [
+            event
+            for event in events
+            if event.get("event") == "operation_frontier_observation"
+        ]
+        self.assertEqual(len(frontier_events), 1)
+        change_result = next(
+            event["result"]
+            for event in events
+            if event.get("event") == "tool_result"
+            and event.get("tool_call_id") == "2"
+        )
+        self.assertFalse(change_result["program_updated"])
+        self.assertIn("operation_frontier_observation", change_result)
+
+    def test_operation_frontier_observes_partial_state_after_nonzero_change(self) -> None:
+        change = "python -m pip install first missing-package"
+        program = "python -m pip install first"
+
+        class NonzeroTerminal(FakeTerminalServer):
+            def handle(self, request: dict[str, object]) -> dict[str, object]:
+                response = super().handle(request)
+                response["result"]["structuredContent"]["exit_code"] = 1  # type: ignore[index]
+                return response
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "envbench_shell",
+                        {"command": change, "effect": "change"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call("2", "submit_and_replay", {"program": program})
+                ),
+                FakeResponse(
+                    tool_call(
+                        "3",
+                        "submit_bootstrap",
+                        {"program": program, "summary": "ready"},
+                    )
+                ),
+            ]
+        )
+        compatibility = FakeCompatibilityService()
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "operation-frontier")
+            submission, _ = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=NonzeroTerminal(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                trajectory_path=Path(directory) / "trajectory.jsonl",
+            )
+
+        self.assertEqual(submission["program"], program)
+        self.assertEqual(compatibility.call_ids, ["1-operation-frontier"])
+
     def test_editable_incremental_program_adds_only_a_plan_editor(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "incremental-editable")
