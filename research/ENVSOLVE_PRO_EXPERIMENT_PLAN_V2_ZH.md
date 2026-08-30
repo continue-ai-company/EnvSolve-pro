@@ -638,7 +638,22 @@ Bad4 状态转换分析明确区分了环境充分、程序形成、干净认证
 开真实 episode 前先完成确定性资格验证。首轮真实资格验证只使用已消费的 goal-to-delivery case，验证
 机制是否激活，不估计效果。完成后才固定算法和结果未知的比较 batch。
 
+已消费资格验证在效果比较前否决了双工具界面。三个 episode 中，Agent 调用普通 shell 69 次，定义性
+操作工具仅 1 次；Qibolab 和 HARK 从未激活，Meerkat 直到第 20 次请求才首次调用。HARK 还通过
+普通 shell 执行了真实 editable install。没有 episode 进入 replay 或 Official 评测。这是操作界面
+失败，不是对增量程序假设的检验。V1 不再通过提示词补丁续命；下一最小候选保留任意 Bash，但只使用一个
+shell 通道，并要求每次调用声明“观察”或“持久步骤”。
+
+标注式增量程序 V2 只实现这一项变化，并保留 V1 作为负基线。`envbench_shell(command, effect)` 仍能
+执行任意 Bash；`effect=inspect` 只执行不记录，成功的 `effect=persist` 进入有序程序并触发已有目标
+检查与 replay。harness 不分类命令，也不纠正错误标注。V2 只在 V1 的同一已消费 case 集上验证界面
+激活；任何效果结论都必须等待后续结果未知的固定 batch。
+
 证据与设计：
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
 - `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_ZH.md`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_RESULT_ZH.md`
+- `experiments/validations/envsolve_pro_v2_incremental_program_v1_consumed3_result.json`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V2_ZH.md`
+- `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_design.json`

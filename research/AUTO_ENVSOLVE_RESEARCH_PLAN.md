@@ -792,3 +792,19 @@ may advance a measurement version after regression and exact-program replay, but
 an inner-policy gain. Future comparison records retain candidate formation, mechanism
 activation, measurement censoring, Official outcome, and deployment completeness as
 separate fields.
+
+### 29. Early Mechanism-Activation Rejection
+
+Incremental Program V1 gives the outer loop a cheaper rejection signal than waiting for a
+full success batch. In three consumed episodes, the defining mutation tool appeared once
+among 70 shell-like calls; two cases never invoked it, and HARK sent a real install through
+the old shell path. Auto-EnvSolve should therefore test whether a proposal's defining
+transition appears naturally before estimating its success effect. A version with absent
+or very late activation is rolled back as an interface failure, while the underlying
+hypothesis remains untested.
+
+This diagnostic cannot promote a version and must not become a rigid universal threshold.
+The proposal record retains expected transition, observed call opportunities, first
+activation, bypass examples, provider errors, and the stop decision. The next proposal may
+change one interface choice, but it may not infer package rules from these repositories or
+attribute recovered network errors to the solver.

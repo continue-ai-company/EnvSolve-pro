@@ -430,6 +430,149 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             "free-feedback-search+incremental-executable-program+target-replay-v1",
         )
 
+    def test_annotated_incremental_program_uses_one_shell_action_channel(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "incremental-annotated")
+            tools = runner._tools()
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            [item["function"]["name"] for item in tools],
+            ["envbench_shell", "replay_current_program"],
+        )
+        shell_parameters = tools[0]["function"]["parameters"]
+        self.assertEqual(shell_parameters["required"], ["command", "effect"])
+        self.assertEqual(
+            shell_parameters["properties"]["effect"]["enum"],
+            ["inspect", "persist"],
+        )
+        self.assertIn("single `envbench_shell` action channel", prompt)
+        self.assertIn("Set `effect=persist`", prompt)
+        self.assertNotIn("apply_environment_step", prompt)
+        self.assertNotIn("Finish by calling `submit_bootstrap`", prompt)
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+annotated-incremental-executable-program+"
+            "target-replay-v2",
+        )
+
+    def test_annotated_incremental_inspection_is_excluded_then_persist_replays(self) -> None:
+        inspection = "python --version"
+        persistent = "python -m venv .venv"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "envbench_shell",
+                        {"command": inspection, "effect": "inspect"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "envbench_shell",
+                        {"command": persistent, "effect": "persist"},
+                    )
+                ),
+            ]
+        )
+        terminal = FakeTerminalServer()
+        replay = FakeReplayService(persistent)
+        current_goal = CandidateReadyCurrentGoalService()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "incremental-annotated")
+            program = IncrementalProgram(root / "incremental-program")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=terminal,  # type: ignore[arg-type]
+                replay_service=replay,  # type: ignore[arg-type]
+                incremental_program=program,
+                current_goal_service=current_goal,  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+
+        self.assertEqual(program.program, persistent)
+        self.assertEqual(submission["program"], persistent)
+        self.assertEqual(metadata["tool_counts"]["envbench_shell"], 2)
+        self.assertEqual(
+            metadata["shell_effect_counts"],
+            {"inspect": 1, "persist": 1, "invalid": 0},
+        )
+        self.assertEqual(current_goal.call_ids, ["2-automatic-goal"])
+        forwarded = [
+            request["params"]["arguments"]  # type: ignore[index]
+            for request in terminal.requests
+        ]
+        self.assertEqual(
+            forwarded,
+            [{"command": inspection}, {"command": persistent}],
+        )
+
+    def test_annotated_incremental_failed_persist_is_not_recorded(self) -> None:
+        failed = "false"
+        repair = "python -m venv .venv"
+
+        class FailThenSucceedTerminal(FakeTerminalServer):
+            def handle(self, request: dict[str, object]) -> dict[str, object]:
+                response = super().handle(request)
+                if len(self.requests) == 1:
+                    response["result"]["structuredContent"]["exit_code"] = 1  # type: ignore[index]
+                return response
+
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "envbench_shell",
+                        {"command": failed, "effect": "persist"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call(
+                        "2",
+                        "envbench_shell",
+                        {"command": repair, "effect": "persist"},
+                    )
+                ),
+            ]
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "incremental-annotated")
+            program = IncrementalProgram(root / "incremental-program")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FailThenSucceedTerminal(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(repair),  # type: ignore[arg-type]
+                incremental_program=program,
+                current_goal_service=CandidateReadyCurrentGoalService(),  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(program.program, repair)
+        self.assertEqual(submission["program"], repair)
+        self.assertEqual(metadata["shell_effect_counts"]["persist"], 2)
+        failed_result = next(
+            event["result"]
+            for event in events
+            if event.get("event") == "tool_result"
+            and event.get("tool_call_id") == "1"
+        )
+        self.assertFalse(failed_result["program_updated"])
+
     def test_incremental_apply_records_then_replays_without_program_rewrite(self) -> None:
         command = "python -m venv .venv"
         client = FakeClient(
@@ -1746,6 +1889,41 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(progress["token_usage"]["total_tokens"], 15)
         self.assertEqual(progress["token_usage"]["cost"], 0.02)
         self.assertEqual(progress["tool_counts"], {"submit_and_replay": 1})
+        self.assertEqual(progress["replay_status_counts"], {"fail": 1})
+
+    def test_trajectory_progress_records_annotated_shell_effects_and_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "trajectory.jsonl"
+            runner = self._runner(Path(directory), "incremental-annotated")
+            for effect, result in (
+                ("inspect", {"declared_effect": "inspect"}),
+                (
+                    "persist",
+                    {
+                        "declared_effect": "persist",
+                        "automatic_clean_replay": {"status": "fail"},
+                    },
+                ),
+                ("invalid", {"declared_effect": "invalid"}),
+            ):
+                runner._append_event(
+                    path,
+                    {
+                        "event": "tool_result",
+                        "request_index": 1,
+                        "tool_name": "envbench_shell",
+                        "result": result,
+                        "test_effect": effect,
+                    },
+                )
+
+            progress = _trajectory_progress(path)
+
+        self.assertEqual(progress["tool_counts"], {"envbench_shell": 3})
+        self.assertEqual(
+            progress["shell_effect_counts"],
+            {"inspect": 1, "persist": 1, "invalid": 1},
+        )
         self.assertEqual(progress["replay_status_counts"], {"fail": 1})
 
 

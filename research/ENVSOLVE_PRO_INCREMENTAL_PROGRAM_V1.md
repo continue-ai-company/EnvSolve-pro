@@ -1,5 +1,9 @@
 # EnvSolve-Pro Incremental Executable Program V1
 
+Status: the separate-shell-tool interface was rejected in consumed mechanism
+qualification. See `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_RESULT.md`. The
+incremental-program hypothesis was not tested for effectiveness.
+
 ## Problem
 
 Minimal B asks a strong Agent to work freely and then rewrite its successful construction

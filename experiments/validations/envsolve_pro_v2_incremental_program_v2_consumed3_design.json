@@ -1,0 +1,59 @@
+{
+  "schema": "envsolve-pro-consumed-mechanism-design-v1",
+  "study_id": "envsolve-pro-v2-incremental-program-v2-consumed3",
+  "recorded_at": "2026-08-30",
+  "status": "recorded-before-any-live-v2-outcome",
+  "claim_scope": "Consumed development mechanism qualification only; no effectiveness, generalization, or SOTA estimate.",
+  "prior_result": "V1 was stopped after 69 ordinary shell calls and one operation-tool call; its dual-tool interface was rejected while the incremental-program hypothesis remained untested.",
+  "hypothesis": "A single familiar arbitrary-Bash action channel with an explicit inspect-versus-persist annotation makes operation-linked program construction natural enough to test the incremental-program hypothesis.",
+  "case_selection": "Reuse the exact three V1 consumed cases and order. No case is added or removed after observing V1 or V2 outcomes.",
+  "method": {
+    "runner": "envsolve-pro-v2-incremental-program-annotated",
+    "only_change_from_v1": "Replace separate envbench_shell and apply_environment_step actions with one envbench_shell requiring effect=inspect or effect=persist.",
+    "mechanisms": [
+      "one continuous strong-Agent session",
+      "one arbitrary-Bash action channel",
+      "model-declared inspection versus persistent effect",
+      "successful persistent commands appended verbatim to one ordered program",
+      "complete public-goal observation after every appended command",
+      "automatic target-state replay on construction-goal Pass",
+      "same-session repair after replay failure"
+    ],
+    "excluded": [
+      "automatic command classification",
+      "package-specific rules",
+      "closed action vocabulary",
+      "container checkpoints",
+      "cross-case memory",
+      "fixed observation cadence",
+      "terminal whole-program reconstruction",
+      "stronger prompt patches to the rejected V1 interface"
+    ]
+  },
+  "qualification_observations": [
+    "inspect, persist, and invalid annotation counts",
+    "first persist request and successful recorded steps",
+    "human-audited required deployment mutations declared inspect",
+    "automatic goal observations",
+    "first sufficient state to replay delay in model requests",
+    "ordered replay outcomes and same-session repairs",
+    "exact accumulated program delivered after replay Pass",
+    "Official outcome if reached",
+    "requests, tokens, wall time, network traffic, and storage"
+  ],
+  "decision_policy": {
+    "interface_qualified": "Real deployment mutations use effect=persist without a second action tool, successful persistent commands are recorded exactly, and every observed sufficient state after a recorded command triggers replay in the same tool turn.",
+    "interface_rejected": "Required deployment mutations continue through effect=inspect, successful persist commands are not recorded exactly, or a sufficient state fails to trigger replay.",
+    "effect_claim": "No effect claim is permitted from these outcome-conditioned cases regardless of Official results.",
+    "promotion_claim": "Mechanism activation can reject this version but cannot promote it without a later fixed outcome-blind comparison."
+  },
+  "execution": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "OpenRouter fixed DeepInfra route without fallback",
+    "reasoning_effort": "xhigh",
+    "max_model_requests": 120,
+    "hard_token_or_cost_limit": false,
+    "official_evaluator_access": "post-episode-only"
+  },
+  "new_hash_contract_or_gate_added": false
+}

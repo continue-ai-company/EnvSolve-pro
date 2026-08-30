@@ -810,7 +810,28 @@ Deterministic qualification precedes any live episode. The first live qualificat
 only consumed goal-to-delivery cases and measures mechanism activation, not effectiveness.
 The algorithm and outcome-blind comparison batch are fixed only after this step.
 
+The consumed qualification rejects the dual-tool interface before an effect comparison.
+Across three episodes, the Agent used the ordinary shell 69 times and the defining
+operation tool once; Qibolab and HARK never activated it, while Meerkat first did so at
+request 20. HARK also executed a real editable install through the ordinary shell. No
+episode reached replay or Official evaluation. This is an action-interface failure, not a
+test of the incremental-program hypothesis. V1 will not receive prompt patches. The next
+minimal candidate keeps arbitrary Bash but uses one shell channel with a required
+inspection-versus-persistent annotation per call.
+
+Annotated Incremental Program V2 implements that one change while preserving V1 as a
+negative baseline. `envbench_shell(command, effect)` remains arbitrary Bash;
+`effect=inspect` executes without recording and successful `effect=persist` calls enter
+the ordered program and trigger the existing goal/replay transition. The harness does not
+classify commands or correct a wrong annotation. The exact V1 consumed set is reused only
+to qualify interface activation; a later outcome-blind batch is required for any effect
+claim.
+
 Evidence and design:
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
 - `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1.md`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_RESULT.md`
+- `experiments/validations/envsolve_pro_v2_incremental_program_v1_consumed3_result.json`
+- `research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V2.md`
+- `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_design.json`

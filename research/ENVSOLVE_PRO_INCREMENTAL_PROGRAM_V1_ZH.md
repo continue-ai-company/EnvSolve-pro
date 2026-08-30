@@ -1,5 +1,8 @@
 # EnvSolve-Pro 增量可执行程序 V1
 
+状态：双 shell 工具界面已在已消费机制资格验证中被否决，见
+`research/ENVSOLVE_PRO_INCREMENTAL_PROGRAM_V1_RESULT_ZH.md`；本轮没有检验增量程序假设的效果。
+
 ## 问题
 
 Minimal B 让强 Agent 自由工作，最后再把成功的构建历史重写成一份 bootstrap。Bad4 证明失败有两种：
