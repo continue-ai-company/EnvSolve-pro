@@ -1,0 +1,50 @@
+{
+  "schema": "envsolve-pro-v2-fixed-development-mechanism-test-v1",
+  "study_id": "envsolve-pro-v2-operation-frontier-v5-fixed-bad4-v1",
+  "recorded_at": "2026-08-30",
+  "status": "recorded-before-either-arm-is-executed-under-this-study",
+  "claim_scope": "prospective development evidence on consumed repositories; not held-out or population performance",
+  "selection": {
+    "source": "the complete pre-existing Minimal-B bad4 selection, which was mechanically fixed before its then-current treatment outcomes",
+    "rule": "retain all four cases without filtering by historical Minimal-B outcome, expected V5 amenability, repository size, or cost",
+    "selection_audit": "experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_selection_audit.json",
+    "case_file": "experiments/cases/dev_envsolve_pro_v2_minimal_b_bad4_v1.jsonl",
+    "cases": [
+      "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9"
+    ],
+    "operation_frontier_outcomes_available_at_freeze": 0
+  },
+  "comparison": {
+    "control": "fresh Minimal B: continuous strong Agent plus final clean replay",
+    "treatment": "fresh Operation Frontier V5: the same interface plus operation-linked compatibility deltas",
+    "matched": ["case", "model", "provider order", "seed", "host class", "image", "public goal", "clean replay", "Official evaluator", "broad safety limits"],
+    "historical_results": "not reused as arm outcomes; both arms rerun from clean episodes",
+    "arm_order": "counterbalanced across pairs and interleaved across two concurrent Spark lanes"
+  },
+  "execution": {
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_operation_frontier_v5_fixed_bad4_v1.json",
+    "lane_schedules": [
+      "experiments/schedules/envsolve_pro_v2_operation_frontier_v5_fixed_bad4_v1_lane1.json",
+      "experiments/schedules/envsolve_pro_v2_operation_frontier_v5_fixed_bad4_v1_lane2.json"
+    ],
+    "host": "Spark",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": ["DeepInfra"]
+  },
+  "primary_endpoint": "paired Official EnvBench Pass@1 after censoring only evidence-backed infrastructure failures",
+  "secondary_endpoints": [
+    "earliest decisive O/C/O failure transition",
+    "frontier movement and whether it changes the next operation",
+    "clean-replay activation and Fail-to-Pass repair",
+    "deployment completeness as a separate quality axis",
+    "model requests and tokens",
+    "wall time and shell calls",
+    "network and storage when available"
+  ],
+  "decision_rule": "A treatment success loss rejects V5. A success tie requires causal frontier use without an unacceptable aggregate resource increase. A treatment success gain permits the next protected evaluation only after every pair is adjudicated and no case-specific rule is added.",
+  "prohibited_mid_batch_changes": ["runner code", "prompt", "boundary", "case list", "arm order", "model", "provider policy", "success criterion"],
+  "new_hash_contract_or_gate_added": false
+}
