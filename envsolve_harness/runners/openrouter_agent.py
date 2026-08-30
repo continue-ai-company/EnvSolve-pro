@@ -73,6 +73,7 @@ ReplayMode = Literal[
     "ledger",
     "scheduled",
     "operation-frontier",
+    "operation-frontier-live",
     "handoff",
     "stateful",
     "incremental",
@@ -370,6 +371,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "ledger",
             "scheduled",
             "operation-frontier",
+            "operation-frontier-live",
             "handoff",
             "stateful",
             "incremental",
@@ -380,7 +382,8 @@ class OpenRouterAgentRunner(CodexCliRunner):
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
                 "incumbent, current, ledger, scheduled, handoff, stateful, "
-                "operation-frontier, incremental, incremental-annotated, "
+                "operation-frontier, operation-frontier-live, incremental, "
+                "incremental-annotated, "
                 "incremental-editable, or incremental-transactional-editable"
             )
         if max_iterations <= 0:
@@ -409,7 +412,9 @@ class OpenRouterAgentRunner(CodexCliRunner):
         self.replay_mode = replay_mode
         self.public_goal_visible = public_goal_visible
         self.client_factory = client_factory
-        self.validator = MinimalIntegrityCandidateValidator()
+        self.validator = MinimalIntegrityCandidateValidator(
+            protect_evaluator_artifacts=self.live_frontier_enabled
+        )
 
     def _acquire_repository(self, case: Case, destination: Path) -> dict[str, Any]:
         return ExactRevisionSourceCache(
@@ -469,6 +474,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "free-feedback-search+scheduled-compatibility-observation+"
                 "delta-evidence-frontier+soft-clean-replay-v1"
             )
+        if self.live_frontier_enabled:
+            return (
+                "free-feedback-search+validity-aware-live-compatibility-frontier+"
+                "terminal-clean-replay-v1"
+            )
         if self.operation_frontier_enabled:
             return (
                 "free-feedback-search+operation-triggered-compatibility-frontier+"
@@ -493,6 +503,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "ledger",
             "scheduled",
             "operation-frontier",
+            "operation-frontier-live",
             "handoff",
             "stateful",
             "incremental",
@@ -532,7 +543,18 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def operation_frontier_enabled(self) -> bool:
-        return self.replay_mode == "operation-frontier"
+        return self.replay_mode in {
+            "operation-frontier",
+            "operation-frontier-live",
+        }
+
+    @property
+    def live_frontier_enabled(self) -> bool:
+        return self.replay_mode == "operation-frontier-live"
+
+    @property
+    def replay_pass_is_terminal(self) -> bool:
+        return self.live_frontier_enabled
 
     @property
     def verifier_handoff_enabled(self) -> bool:
@@ -649,7 +671,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
             return [
                 "F",
                 "operation-triggered-O",
-                "compatibility-frontier-C",
+                (
+                    "validity-aware-live-compatibility-frontier-C"
+                    if self.live_frontier_enabled
+                    else "compatibility-frontier-C"
+                ),
                 "R",
                 "minimal-H",
             ]
@@ -1167,6 +1193,7 @@ There is no separate replay action and no replay state is retained.
             "ledger",
             "scheduled",
             "operation-frontier",
+            "operation-frontier-live",
             "handoff",
             "stateful",
         }:
@@ -1243,6 +1270,14 @@ Use the frontier to distinguish an operation's verified effect from its exit sta
 When the active environment is ready, synthesize one self-contained, path-portable
 bootstrap program from the verified state and call `submit_and_replay`. Repair replay
 failures in this same session, then submit the exact replay-certified program.
+"""
+            if self.live_frontier_enabled:
+                prompt += """
+
+Only the newest validity-checked compatibility state remains fully visible in the
+live context; older frontier payloads are replaced by short supersession markers and
+remain complete in the machine trajectory. A clean-replay Pass immediately returns
+that exact certified program as the episode result, without another model request.
 """
         return prompt
 
@@ -1466,6 +1501,51 @@ failures in this same session, then submit the exact replay-certified program.
             else None
         )
         started = time.monotonic()
+        latest_live_frontier_message: int | None = None
+        live_frontier_context = {
+            "superseded_observation_count": 0,
+            "superseded_payload_chars": 0,
+            "retained_marker_chars": 0,
+        }
+
+        def supersede_live_frontier_message(
+            next_observation_index: int | None,
+        ) -> None:
+            nonlocal latest_live_frontier_message
+            if not self.live_frontier_enabled or latest_live_frontier_message is None:
+                return
+            message = messages[latest_live_frontier_message]
+            marker = {
+                "schema": "envsolve-live-frontier-supersession-v1",
+                "superseded": True,
+                "superseded_by_observation_index": next_observation_index,
+                "complete_evidence_retained_in_machine_trajectory": True,
+            }
+            content = message.get("content")
+            original_chars = len(content) if isinstance(content, str) else 0
+            if message.get("role") == "tool" and isinstance(content, str):
+                try:
+                    payload = json.loads(content)
+                except json.JSONDecodeError:
+                    payload = None
+                if isinstance(payload, dict) and isinstance(
+                    payload.get("operation_frontier_observation"), dict
+                ):
+                    payload["operation_frontier_observation"] = marker
+                    message["content"] = json.dumps(
+                        payload, ensure_ascii=True, sort_keys=True
+                    )
+            else:
+                message["content"] = (
+                    "Harness compatibility state superseded: "
+                    + json.dumps(marker, ensure_ascii=True, sort_keys=True)
+                )
+            retained = message.get("content")
+            retained_chars = len(retained) if isinstance(retained, str) else 0
+            live_frontier_context["superseded_observation_count"] += 1
+            live_frontier_context["superseded_payload_chars"] += original_chars
+            live_frontier_context["retained_marker_chars"] += retained_chars
+            latest_live_frontier_message = None
 
         def record_scheduled_observation(
             observation: dict[str, Any],
@@ -1604,6 +1684,8 @@ failures in this same session, then submit the exact replay-certified program.
                     ),
                 }
             )
+            if self.live_frontier_enabled:
+                latest_live_frontier_message = len(messages) - 1
 
         def execute_shell(
             call_id: str,
@@ -1748,6 +1830,18 @@ failures in this same session, then submit the exact replay-certified program.
                 )
             if scheduled_observer is not None:
                 metadata["scheduled_observation"] = scheduled_observer.metadata()
+            if self.live_frontier_enabled:
+                metadata["live_frontier_context"] = {
+                    **live_frontier_context,
+                    "latest_full_observation_retained": (
+                        latest_live_frontier_message is not None
+                    ),
+                    "full_history_retained_in_machine_trajectory": True,
+                }
+                metadata["agent_termination"] = {
+                    "reason": termination_reason,
+                    "error": termination_error,
+                }
             return metadata
 
         def fallback_submission(
@@ -1955,6 +2049,11 @@ failures in this same session, then submit the exact replay-certified program.
                                             model_visible_scheduled_observation(
                                                 observation
                                             )
+                                        )
+                                        supersede_live_frontier_message(
+                                            frontier.get("observation_index")
+                                            if isinstance(frontier, dict)
+                                            else None
                                         )
                                         payload[
                                             "operation_frontier_observation"
@@ -2211,7 +2310,29 @@ failures in this same session, then submit the exact replay-certified program.
                                             "certified_program_sha256": certified_digest,
                                         },
                                     }
-                            if self.verifier_handoff_enabled:
+                            if status == "pass" and self.replay_pass_is_terminal:
+                                delivery, submission = self._submit(
+                                    {
+                                        "program": program,
+                                        "summary": (
+                                            "Validity-aware live frontier returned the "
+                                            "clean-replay-certified program."
+                                        ),
+                                    },
+                                    replay_service,
+                                )
+                                payload = {
+                                    **payload,
+                                    "verified_delivery": {
+                                        "returned": submission is not None,
+                                        "reason": (
+                                            "clean-replay-pass"
+                                            if submission is not None
+                                            else delivery.get("reason")
+                                        ),
+                                    },
+                                }
+                            elif self.verifier_handoff_enabled:
                                 if status == "pass":
                                     auto_payload, auto_submission = self._submit(
                                         {
@@ -2339,6 +2460,8 @@ failures in this same session, then submit the exact replay-certified program.
                                 else (
                                     "incremental-program-replay-pass"
                                     if self.incremental_program_enabled
+                                    else "clean-replay-pass-terminal-delivery"
+                                    if self.replay_pass_is_terminal
                                     else "atomic-submit-clean-replay-pass"
                                     if self.atomic_submission_enabled
                                     else None
@@ -2354,6 +2477,14 @@ failures in this same session, then submit the exact replay-certified program.
                         "content": json.dumps(payload, ensure_ascii=True, sort_keys=True),
                     }
                 )
+                if (
+                    self.live_frontier_enabled
+                    and isinstance(payload, dict)
+                    and isinstance(
+                        payload.get("operation_frontier_observation"), dict
+                    )
+                ):
+                    latest_live_frontier_message = len(messages) - 1
             if handoff_triggered_this_response is not None:
                 messages.append(handoff_message(handoff_triggered_this_response))
         fallback = fallback_submission(
@@ -2504,6 +2635,7 @@ failures in this same session, then submit the exact replay-certified program.
                         worktree,
                         case.revision,
                         self.workspace_preconditions,
+                        protect_evaluator_artifacts=self.live_frontier_enabled,
                     ),
                 )
                 replay_service = ObligationSnapshotCleanReplayService(
@@ -2520,7 +2652,20 @@ failures in this same session, then submit the exact replay-certified program.
                 replay_service.validator = self.validator
 
             compatibility_service = (
-                CompatibilityLedgerService(self.goal_contract, terminal_server)
+                CompatibilityLedgerService(
+                    self.goal_contract,
+                    terminal_server,
+                    state_auditor=(
+                        lambda: inspect_minimal_repository_integrity(
+                            workspace,
+                            case.revision,
+                            self.workspace_preconditions,
+                            protect_evaluator_artifacts=True,
+                        ).to_dict()
+                        if self.live_frontier_enabled
+                        else None
+                    ),
+                )
                 if self.compatibility_observation_enabled
                 else None
             )
@@ -2556,6 +2701,7 @@ failures in this same session, then submit the exact replay-certified program.
                 workspace,
                 case.revision,
                 self.workspace_preconditions,
+                protect_evaluator_artifacts=self.live_frontier_enabled,
             )
             metadata["construction_workspace_integrity"] = (
                 construction_integrity.to_dict()

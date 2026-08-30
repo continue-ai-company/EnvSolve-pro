@@ -714,6 +714,70 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             ["operation-frontier-initial", "1-operation-frontier"],
         )
 
+    def test_live_frontier_supersedes_old_state_and_returns_last_request_replay(self) -> None:
+        change = "python -m pip install package"
+        program = "python -m pip install package"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "envbench_shell",
+                        {"command": change, "effect": "change"},
+                    )
+                ),
+                FakeResponse(
+                    tool_call("2", "submit_and_replay", {"program": program})
+                ),
+            ]
+        )
+        compatibility = FakeCompatibilityService()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "operation-frontier-live")
+            runner.max_iterations = 2
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=FakeTerminalServer(),  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(submission["program"], program)
+        self.assertEqual(len(client.chat.completions.requests), 2)
+        visible = json.dumps(
+            client.chat.completions.requests[-1]["messages"],
+            ensure_ascii=True,
+            sort_keys=True,
+        )
+        self.assertIn("envsolve-live-frontier-supersession-v1", visible)
+        self.assertIn("operation_frontier_observation", visible)
+        self.assertEqual(
+            metadata["live_frontier_context"]["superseded_observation_count"],
+            1,
+        )
+        self.assertEqual(
+            metadata["agent_termination"]["reason"],
+            "clean-replay-pass-terminal-delivery",
+        )
+        self.assertEqual(
+            len(
+                [
+                    event
+                    for event in events
+                    if event.get("event") == "operation_frontier_observation"
+                ]
+            ),
+            2,
+        )
+
     def test_editable_incremental_program_adds_only_a_plan_editor(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "incremental-editable")

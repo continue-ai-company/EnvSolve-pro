@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import shlex
 import subprocess
 from typing import Any
@@ -21,6 +21,10 @@ from envsolve.solver import (
     FeedbackChannel,
 )
 from envsolve.runtime.workspace import WorkspacePrecondition
+from envsolve_harness.integrity.repository import ALLOWED_GENERATED_DIRECTORIES
+
+
+_EVALUATOR_CONFIGURATION_NAMES = {"pyrightconfig.json"}
 
 
 _PROVIDER_BASELINE_MARKER = "ENVSOLVE_IMPORT_PROVIDER_BASELINE_V1="
@@ -227,6 +231,8 @@ class MinimalRepositoryIntegrityReport:
     expected_revision: str
     checked_out_revision: str | None
     tracked_changes: tuple[str, ...]
+    untracked_evaluator_artifacts: tuple[str, ...]
+    evaluator_artifacts_protected: bool
     violations: tuple[MinimalIntegrityViolation, ...]
 
     @property
@@ -240,7 +246,12 @@ class MinimalRepositoryIntegrityReport:
             "expected_revision": self.expected_revision,
             "checked_out_revision": self.checked_out_revision,
             "tracked_changes": list(self.tracked_changes),
-            "untracked_deployment_artifacts_are_semantically_gated": False,
+            "untracked_evaluator_artifacts": list(
+                self.untracked_evaluator_artifacts
+            ),
+            "untracked_deployment_artifacts_are_semantically_gated": (
+                self.evaluator_artifacts_protected
+            ),
             "violations": [item.to_dict() for item in self.violations],
         }
 
@@ -263,6 +274,8 @@ def inspect_minimal_repository_integrity(
     repo_path: Path,
     expected_revision: str,
     required_preconditions: tuple[WorkspacePrecondition, ...] = (),
+    *,
+    protect_evaluator_artifacts: bool = False,
 ) -> MinimalRepositoryIntegrityReport:
     """Protect the checkout and adapter state, while allowing deployment outputs."""
 
@@ -302,6 +315,66 @@ def inspect_minimal_repository_integrity(
         )
         for path in tracked_changes
     )
+    evaluator_artifacts: tuple[str, ...] = ()
+    if protect_evaluator_artifacts:
+        evaluator_pathspecs = (
+            ":(glob)**/*.pyi",
+            ":(glob)**/pyrightconfig.json",
+        )
+        untracked = _git(
+            repo_path,
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "-z",
+            "--",
+            *evaluator_pathspecs,
+        )
+        ignored = _git(
+            repo_path,
+            "ls-files",
+            "--others",
+            "--ignored",
+            "--exclude-standard",
+            "-z",
+            "--",
+            *evaluator_pathspecs,
+        )
+        for process, label in ((untracked, "untracked files"), (ignored, "ignored files")):
+            if process.returncode != 0:
+                violations.append(
+                    MinimalIntegrityViolation(
+                        "git_error",
+                        None,
+                        f"{label}: {process.stderr.strip()}",
+                    )
+                )
+        candidates = set(_nul_paths(untracked.stdout + ignored.stdout))
+
+        def changes_evaluator(path: str) -> bool:
+            pure = PurePosixPath(path)
+            if any(
+                part in ALLOWED_GENERATED_DIRECTORIES or part.endswith(".egg-info")
+                for part in pure.parts
+            ):
+                return False
+            return (
+                pure.suffix.lower() == ".pyi"
+                or pure.name in _EVALUATOR_CONFIGURATION_NAMES
+            )
+
+        evaluator_artifacts = tuple(sorted(filter(changes_evaluator, candidates)))
+        violations.extend(
+            MinimalIntegrityViolation(
+                "untracked_evaluator_artifact",
+                path,
+                (
+                    "untracked type-only providers and evaluator configuration "
+                    "must not change the public goal's meaning"
+                ),
+            )
+            for path in evaluator_artifacts
+        )
     violations.extend(
         MinimalIntegrityViolation(
             "workspace_precondition_missing",
@@ -315,6 +388,8 @@ def inspect_minimal_repository_integrity(
         expected_revision=expected_revision,
         checked_out_revision=checked_out_revision,
         tracked_changes=tracked_changes,
+        untracked_evaluator_artifacts=evaluator_artifacts,
+        evaluator_artifacts_protected=protect_evaluator_artifacts,
         violations=tuple(violations),
     )
 

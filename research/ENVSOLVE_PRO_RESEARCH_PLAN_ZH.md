@@ -1,10 +1,11 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-30）：** 失败统一按 Observation--Constraint--Operation 三层分类。
-> EnvSolve-Pro 保留一个自由连续 Agent session，并提供可反复调用、从目标初始状态执行的 clean replay。
-> Replay 失败成为同一 session 中可执行的 case-local 证据；只有原样通过 replay 的程序才能交付。何时
-> 形成候选、怎样修复仍由 Agent 决定。固定节奏观测、强制 handoff 和可选的精确 current-goal 检查均被
-> 开发实验否决，不属于核心机制；Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源
+> **当前论文设计（2026-08-31）：** 失败统一按 Observation--Constraint--Operation 三层分类。
+> EnvSolve-Pro 保留一个自由连续 Agent session。每次意图改变兼容性后，公开目标只更新一个当前且通过
+> 有效性检查的约束状态；旧状态仅保留在机器轨迹中。Replay 失败成为同一 session 中可执行的 case-local
+> 证据，Pass 则立即交付原样程序。何时形成候选、怎样修复仍由 Agent 决定。历史 frontier 累积、固定节奏
+> 观测、强制 handoff 和可选的精确 current-goal 检查均被开发实验否决，不属于核心机制；Package 规则、
+> checkpoint、跨 case memory、harness 指定修复和硬资源
 > 阈值同样不属于核心方法。所有
 > 方法共享的实验完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计研发历史。
 
@@ -24,14 +25,15 @@ EnvSolve-Pro 从冻结的 EnvSolve v1 代码和历史继续开发。旧仓库
 
 ### 当前收敛决策
 
-主方法收敛为“连续 Agent session + 可反复 clean replay”的最小闭环。固定三对复现实验否定了更窄的
-假设：让 Agent 主动获取精确 current-goal Pass，并没有缩短从已知 Pass 到程序 replay 的过程，没有提高
-Official 成功数，而且部署完整性与 benchmark 目标可以独立变化。该实现只保留为 ablation 和调试观测器；
-不能从这些 case 推导定时观测、强制 handoff、checkpoint、frontier 或 package 规则。
+固定 bad4 实验否决了 Operation Frontier V5。两个 pair 因 Official 接受 evaluator-only 配置或类型存根而
+无法识别算法效应；另外两个有效 pair 中两种方法都成功，但资源变化方向不一致。Meerkat 还表明，历史
+frontier 快照反复进入上下文会使 prompt token 接近翻倍，而旧的两步提交协议会丢掉最后一次请求才出现的
+replay Pass。
 
-下一步核心工作是补证据，不是继续给 controller 打补丁：完成真实 Official bad case 的 O/C/O taxonomy，
-分离“形成可重放程序之前”的失败，再让固定 Minimal B 在 outcome-blind case 上与同模型对照和外部 baseline
-比较。
+因此唯一进入下一轮的候选是 validity-aware live compatibility frontier：每次声明为改变兼容性的操作后
+执行完整目标，只向活跃 Agent 暴露最新且有效的残差及变化，完整历史留在轨迹中，并在 clean replay 通过
+时立即返回程序。它不加入 package 规则、checkpoint 图、命令累积或模型外 planner。已消费 case 只验证
+这些机制；下一次效果估计必须使用结果未知且 repository-disjoint 的 Dev batch。
 
 ## 2. 研究原则
 

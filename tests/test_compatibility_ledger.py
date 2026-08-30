@@ -115,6 +115,53 @@ def test_unknown_status_does_not_mutate_compatibility_frontier() -> None:
     assert ledger.metadata()["frontier_size"] == 1
 
 
+def test_invalid_evaluator_state_does_not_enter_frontier() -> None:
+    contract = ExecutableGoalContract("goal", "test goal", "true")
+    service = CompatibilityLedgerService(
+        contract,
+        object(),  # type: ignore[arg-type]
+        state_auditor=lambda: {
+            "valid": False,
+            "violations": [{"kind": "untracked_evaluator_artifact"}],
+        },
+    )
+
+    def execute(call_id: str, command: str) -> dict[str, object]:
+        del call_id
+        if command.startswith("rm -f "):
+            return {"exit_code": 0, "output": ""}
+        nonce = command.split("ENVSOLVE_COMPATIBILITY_LEDGER_BEGIN_V1=", 1)[1].split(
+            "\n", 1
+        )[0]
+        projection = {
+            "goal_exit_code": 0,
+            "environment": {"python_executable": "/usr/bin/python"},
+            "report": _report(),
+        }
+        encoded = base64.b64encode(
+            zlib.compress(json.dumps(projection).encode())
+        ).decode()
+        return {
+            "exit_code": 0,
+            "output": (
+                f"ENVSOLVE_COMPATIBILITY_LEDGER_BEGIN_V1={nonce}\n"
+                f"{encoded}\n"
+                f"ENVSOLVE_COMPATIBILITY_LEDGER_END_V1={nonce}\n"
+            ),
+        }
+
+    service._execute_shell = execute  # type: ignore[method-assign]
+    result = service.check("call")
+    metadata = service.metadata()
+
+    assert result["ok"] is False
+    assert result["ledger_updated"] is False
+    assert result["state_validity"]["valid"] is False
+    assert metadata["complete_observation_count"] == 0
+    assert metadata["frontier_size"] == 0
+    assert metadata["state_audit"]["rejection_count"] == 1
+
+
 def test_scheduled_observer_applies_initial_periodic_and_dirty_replay_dose() -> None:
     class Service:
         def __init__(self) -> None:

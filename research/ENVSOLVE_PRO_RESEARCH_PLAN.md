@@ -1,12 +1,14 @@
 # EnvSolve-Pro Research Plan
 
-> **Current paper design (2026-08-30):** failures are classified by the
+> **Current paper design (2026-08-31):** failures are classified by the
 > Observation--Constraint--Operation framework. EnvSolve-Pro keeps one unrestricted
-> continuous Agent session and exposes repeatable clean replay from the target initial
-> state. Replay failures become executable case-local evidence in the same session; only
-> the exact replay-passing program can be delivered. The Agent decides when to form a
-> candidate and how to repair it. Fixed-cadence observation, forced handoff, and optional
-> exact current-goal inspection are rejected development treatments, not core mechanisms.
+> continuous Agent session. After each intended compatibility change, the public goal
+> updates one current, validity-checked constraint state; superseded states remain only in
+> the machine trajectory. Replay failures return executable case-local evidence, while a
+> Pass immediately delivers the exact program. The Agent still decides when to form a
+> candidate and how to repair it. Historical frontier accumulation, fixed-cadence
+> observation, forced handoff, and optional exact current-goal inspection are rejected
+> development treatments, not core mechanisms.
 > Package rules, checkpoints, cross-case
 > memory, harness-selected repairs, and hard resource thresholds are also excluded. The
 > shared evaluation-integrity foundation E is not an algorithm. Section 12 retains
@@ -32,18 +34,19 @@ development belongs to `hongleo-Lee/EnvSolve-pro`.
 
 ### Current convergence decision
 
-The primary method is now the minimal continuous-session plus repeatable clean-replay
-loop. A fixed three-pair replication falsified the narrower hypothesis that an
-Agent-invoked exact current-goal Pass shortens the transition to program replay: the
-Pass-to-replay delay did not improve, Official success did not increase, and deployment
-completeness varied independently of the benchmark goal. Keep that implementation as an
-ablation and debugging observer; do not add cadence, handoff, checkpoint, frontier, or
-package rules from these cases.
+The fixed bad4 study rejects Operation Frontier V5. Two pairs were non-identifying because
+Official accepted evaluator-only configuration or type stubs; among the two valid pairs,
+both arms succeeded, with inconsistent resource effects. Meerkat also showed that repeated
+historical frontier snapshots nearly doubled prompt tokens and that a final-request replay
+Pass could be lost by the old two-step submission protocol.
 
-The next core work is evidence, not another controller patch: complete the O/C/O taxonomy
-for true Official bad cases, isolate failures that occur before a replayable program is
-formed, and then run the fixed Minimal B method against matched controls and external
-baselines on outcome-blind cases.
+The sole next candidate is therefore a validity-aware live compatibility frontier:
+observe the complete goal after declared compatibility changes, expose only the newest
+valid residual and delta to the active Agent, retain full history in the trajectory, and
+return a clean-replay-passing program immediately. It adds no package rules, checkpoint
+graph, command accumulation, or model-external planner. Consumed cases qualify these
+mechanics only; the next effect estimate must use an outcome-blind repository-disjoint Dev
+batch.
 
 ## 2. Research Principles
 

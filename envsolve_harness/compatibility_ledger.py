@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import hashlib
 import json
 import shlex
-from typing import Any
+from typing import Any, Callable
 import uuid
 import zlib
 
@@ -507,12 +507,16 @@ class CompatibilityLedgerService:
         contract: ExecutableGoalContract,
         terminal_server: ContainerMcpServer,
         project_root: str = "/data/project",
+        state_auditor: Callable[[], dict[str, Any]] | None = None,
     ) -> None:
         if not project_root.startswith("/"):
             raise ValueError("Compatibility project root must be absolute")
         self.contract = contract
         self.terminal_server = terminal_server
         self.project_root = project_root
+        self.state_auditor = state_auditor
+        self.state_audit_count = 0
+        self.state_audit_rejection_count = 0
         self.ledger = CompatibilityDeltaLedger(contract.report_schema)
 
     def _execute_shell(self, call_id: str, command: str) -> dict[str, Any] | None:
@@ -619,6 +623,22 @@ class CompatibilityLedgerService:
                     "status": "unknown",
                     "finding_set_complete": False,
                 }
+            if self.state_auditor is not None:
+                self.state_audit_count += 1
+                try:
+                    state_audit = self.state_auditor()
+                except Exception as exc:
+                    self.state_audit_rejection_count += 1
+                    return self._unknown(
+                        f"compatibility state audit failed: {type(exc).__name__}: {exc}"
+                    )
+                if state_audit.get("valid") is not True:
+                    self.state_audit_rejection_count += 1
+                    result = self._unknown(
+                        "compatibility state changes public evaluator semantics"
+                    )
+                    result["state_validity"] = state_audit
+                    return result
             result = self.ledger.observe(report, environment)
             goal_output = projection.get("goal_output")
             if isinstance(goal_output, dict):
@@ -652,6 +672,12 @@ class CompatibilityLedgerService:
     def metadata(self) -> dict[str, Any]:
         return {
             **self.ledger.metadata(),
+            "state_audit": {
+                "enabled": self.state_auditor is not None,
+                "count": self.state_audit_count,
+                "rejection_count": self.state_audit_rejection_count,
+                "invalid_state_updates_frontier": False,
+            },
             "probe_execution": {
                 "scope": "persistent-construction-shell-subshell",
                 "filesystem_effects_persist": True,

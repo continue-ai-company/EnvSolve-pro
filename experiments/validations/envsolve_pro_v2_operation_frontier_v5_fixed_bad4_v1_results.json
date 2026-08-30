@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-operation-frontier-v5-fixed-bad4-v1",
+  "recorded_at": "2026-08-31",
+  "role": "prospective development mechanism test on a previously fixed consumed-case set; not a generalization estimate",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "status": "completed-but-non-identifying-after-validity-adjudication",
+  "paired_cases": [
+    {
+      "case": "hazyresearch/meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "minimal_b": {
+        "requests": 120,
+        "provider_attempts": 137,
+        "provider_errors": 17,
+        "tokens": 6069226,
+        "generation_wall_seconds": 10201.073464,
+        "shell_calls": 118,
+        "clean_replays": 2,
+        "clean_replay_statuses": {"pass": 1, "unknown": 1},
+        "generation_completed": false,
+        "official_posthoc_diagnostic_pass": true,
+        "official_issues_count": 0,
+        "official_non_scoring_error_count": 5627,
+        "valid_deployment": false
+      },
+      "v5": {
+        "requests": 120,
+        "provider_attempts": 130,
+        "provider_errors": 10,
+        "tokens": 11829960,
+        "generation_wall_seconds": 6100.93959,
+        "shell_calls": 146,
+        "clean_replays": 0,
+        "generation_completed": false,
+        "official_pass": null,
+        "valid_deployment": null
+      },
+      "adjudication": "non-identifying: Minimal-B reached a replay and Official pass by adding evaluator-only typings/*.pyi providers, then lost the certified result because the old two-step protocol required one more request; V5 exhausted the request cap without forming a candidate"
+    },
+    {
+      "case": "pysnmp/pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "minimal_b": {
+        "requests": 34,
+        "tokens": 655486,
+        "generation_wall_seconds": 812.258493,
+        "evaluation_seconds": 54.091670751571655,
+        "shell_calls": 44,
+        "official_pass": true,
+        "valid_deployment": true
+      },
+      "v5": {
+        "requests": 17,
+        "tokens": 304775,
+        "generation_wall_seconds": 412.496331,
+        "evaluation_seconds": 24.82452416419983,
+        "shell_calls": 25,
+        "official_pass": true,
+        "valid_deployment": true
+      },
+      "adjudication": "valid success tie; V5 used half the requests and 53.5% fewer tokens, but produced a less complete environment because it did not editable-install the project"
+    },
+    {
+      "case": "openqasm/openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "minimal_b": {
+        "requests": 61,
+        "provider_attempts": 62,
+        "provider_errors": 1,
+        "tokens": 1473071,
+        "generation_wall_seconds": 1047.543452,
+        "evaluation_seconds": 89.90560865402222,
+        "shell_calls": 59,
+        "official_pass": true,
+        "valid_deployment": true
+      },
+      "v5": {
+        "requests": 39,
+        "provider_attempts": 40,
+        "provider_errors": 1,
+        "tokens": 1306820,
+        "generation_wall_seconds": 1517.015261,
+        "evaluation_seconds": 264.172593832016,
+        "shell_calls": 46,
+        "official_pass": true,
+        "valid_deployment": true
+      },
+      "adjudication": "valid success tie; V5 used fewer requests and tokens and built a more complete environment, but generation was 44.8% slower and Official evaluation was 2.94 times slower"
+    },
+    {
+      "case": "stopstalk/stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "minimal_b": {
+        "requests": 108,
+        "provider_attempts": 110,
+        "provider_errors": 2,
+        "tokens": 6902589,
+        "generation_wall_seconds": 6964.33981,
+        "evaluation_seconds": 40.736567735672,
+        "shell_calls": 127,
+        "official_pass": true,
+        "valid_deployment": false
+      },
+      "v5": {
+        "requests": 87,
+        "provider_attempts": 97,
+        "provider_errors": 10,
+        "tokens": 9115573,
+        "generation_wall_seconds": 6593.423506,
+        "evaluation_seconds": 79.75590062141418,
+        "shell_calls": 85,
+        "official_pass": true,
+        "valid_deployment": false
+      },
+      "adjudication": "non-identifying: both arms changed evaluator semantics with untracked pyrightconfig.json exclusions and typings/gevent/coros.pyi"
+    }
+  ],
+  "validity_adjudication": {
+    "valid_paired_outcomes": 2,
+    "invalid_or_non_identifying_pairs": 2,
+    "valid_official_successes": {"minimal_b": 2, "v5": 2},
+    "leaderboard_only_passes_excluded": ["meerkat-minimal-b", "stopstalk-minimal-b", "stopstalk-v5"],
+    "why_a_narrow_boundary_is_required": {
+      "concrete_failure": "untracked Pyright configuration and repository-root .pyi providers can reduce Official reportMissingImports to zero while required runtime distributions remain absent",
+      "git": "records the files as untracked but does not decide whether they invalidate evaluator meaning",
+      "version_numbers": "identify software versions but do not constrain repository workspace effects",
+      "primary_keys": "do not express shell or evaluator semantics",
+      "transactions": "can make writes atomic but cannot distinguish a runtime provider from a type-only substitute",
+      "unique_constraints": "prevent duplicate records, not invalid evaluation artifacts",
+      "types": "Pyright itself accepts the type-only providers that cause this false pass",
+      "ordinary_tests": "the public goal and Official evaluator both pass in the observed failure"
+    }
+  },
+  "mechanism_findings": [
+    "V5 model-visible frontier snapshots accumulated in the stateless API context; Meerkat consumed 11706962 prompt tokens versus 5919371 for the matched Minimal-B retry",
+    "a replay-passing program can be lost at the final request because the old protocol separates certification from delivery",
+    "Official success and deployment validity or completeness must be reported on separate axes"
+  ],
+  "decision": "reject V5 as the paper method; retain it as a development baseline and qualify a simpler validity-aware live compatibility frontier that exposes only the newest valid state and returns a clean-replay-passing program immediately",
+  "claim_boundary": "No success-rate, SOTA, or generalization claim is supported by this consumed development study."
+}

@@ -17,9 +17,10 @@ the scored goal and treating a successful command as evidence that compatibility
 actually improved. We then propose EnvSolve-Pro, a minimal three-layer algorithm. A
 capable Agent remains free in one continuous session. After each intended environment
 change, the public executable goal reports which case-local obligations were resolved,
-introduced, or remain; this evidence advises rather than constrains the next action. The
-Agent later synthesizes one self-contained deployment program, and only that exact
-program passing clean replay can be delivered.
+introduced, or remain. Only the newest validity-checked state remains in the live model
+context; complete history stays in the auditable trajectory. The Agent later synthesizes
+one self-contained deployment program, and a clean-replay Pass immediately delivers that
+exact program.
 
 Consumed development cases qualify the mechanism but do not establish generalization.
 Our final evaluation fixes the algorithm before outcome-blind evaluation, compares it
@@ -99,10 +100,12 @@ evidence in the machine trajectory.
 
 ### Constraint Layer
 
-The constraint state is the executable goal residual and its delta after an operation:
-resolved, introduced, and remaining obligations. The compatibility frontier retains
-verified progress but is advisory; temporary regression and alternative hypotheses
-remain allowed. The harness adds no package-rule library, cross-case experience,
+The constraint state is the newest valid executable-goal residual and its delta after an
+operation: resolved, introduced, and remaining obligations. Superseded states are removed
+from the live model context but retained in the machine trajectory. A narrow shared
+integrity boundary prevents evaluator-only configuration or type stubs from entering the
+state; it does not choose packages or operations. Temporary regression and alternative
+hypotheses remain allowed. The harness adds no package-rule library, cross-case experience,
 checkpoint graph, or model-external repair policy.
 
 ### Operation Layer
@@ -110,8 +113,8 @@ checkpoint graph, or model-external repair policy.
 The Agent freely inspects the repository, chooses every environment transformation, and
 decides when the active state is ready. It then synthesizes a self-contained program
 rather than inheriting the exploratory command history. A failed clean replay preserves
-the active session and returns its counterexample. A candidate is delivered only when
-that exact program passes from the target initial state.
+the active session and returns its counterexample. A passing replay returns the exact
+certified program immediately, including on the final allowed model request.
 
 ```text
 start one Agent session and one construction environment
@@ -217,6 +220,15 @@ tokens, shell calls, and wall time, driven by one severe false-progress loop; it
 expensive on another case and provided no useful signal when the Agent left its selected
 Python environment inside a temporary subshell. This supports a fixed Dev test of the
 mechanism, not a success-rate, SOTA, or generalization claim.
+
+A prospective four-pair development test then exposed two measurement defects. Both arms
+could obtain Official Pass by changing Pyright semantics with untracked configuration or
+type-only providers, and a replay Pass on the final model request could be discarded by a
+second submission step. Among the two validity-adjudicated pairs, both methods succeeded;
+the frontier was substantially cheaper on one case and slower on the other. On Meerkat,
+repeated frontier snapshots nearly doubled prompt tokens relative to the matched control.
+We therefore reject that historical-snapshot V5 and advance only the simpler current-state,
+validity-aware variant described above.
 
 All current results are development evidence. Official success and deployment
 completeness are reported separately, and repository-unseen claims are reserved for

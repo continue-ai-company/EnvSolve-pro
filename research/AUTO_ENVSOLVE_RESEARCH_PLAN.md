@@ -2,6 +2,10 @@
 
 Status / 状态：独立后续项目，当前不属于 EnvSolve 的论文 claim、方法或实验。
 
+Current trace implication / 当前轨迹要求：外层比较新旧 harness 时，应同时读取完整机器轨迹和当时实际
+暴露给模型的“最新约束状态”。版本升级首先比较有效成功率，再比较上下文膨胀、无效状态进入率和交付协议
+损失；fixed bad4 表明单看 Official Pass 会把算法改进与 evaluator-only 假阳性混在一起。
+
 ## 中文版
 
 ### 1. 核心问题

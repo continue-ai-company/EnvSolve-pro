@@ -2,6 +2,10 @@
 
 Status / 状态：独立后续项目，当前不属于 EnvSolve 的论文 claim、方法或实验。
 
+Current trace implication / 当前轨迹要求：每个 transition 分开保存完整历史证据、模型当时可见的最新有效
+约束状态、状态是否因完整性审计被拒绝，以及 clean replay 是否直接形成交付。这样未来 policy 学到的是
+“根据当前可信状态选择下一步”，而不是复现过期 frontier、类型存根假阳性或额外提交步骤。
+
 ## 中文版
 
 ### 1. 核心问题

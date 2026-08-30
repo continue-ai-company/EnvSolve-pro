@@ -54,6 +54,15 @@ class MinimalIntegrityTest(unittest.TestCase):
         self.assertTrue(validation.accepted)
         self.assertFalse(validation.details["semantic_rules"])
 
+    def test_live_policy_names_evaluator_only_artifacts(self) -> None:
+        validator = MinimalIntegrityCandidateValidator(
+            protect_evaluator_artifacts=True
+        )
+
+        self.assertEqual(validator.policy_id, "minimal-evaluator-integrity-v2")
+        self.assertIn("pyrightconfig.json", validator.prompt_contract)
+        self.assertIn("type-only `.pyi` providers", validator.prompt_contract)
+
     def test_repository_audit_allows_untracked_outputs_but_not_tracked_edits(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -80,6 +89,51 @@ class MinimalIntegrityTest(unittest.TestCase):
         self.assertTrue(clean.valid)
         self.assertFalse(modified.valid)
         self.assertEqual(modified.tracked_changes, ("tracked.py",))
+
+    def test_live_audit_rejects_evaluator_config_and_type_only_stubs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            subprocess.run(
+                ["git", "config", "user.email", "test@example.com"],
+                cwd=root,
+                check=True,
+            )
+            subprocess.run(
+                ["git", "config", "user.name", "Test"], cwd=root, check=True
+            )
+            (root / "tracked.py").write_text("value = 1\n", encoding="utf-8")
+            subprocess.run(["git", "add", "tracked.py"], cwd=root, check=True)
+            subprocess.run(["git", "commit", "-qm", "initial"], cwd=root, check=True)
+            revision = subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=root,
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout.strip()
+            (root / "compatibility.py").write_text("VALUE = 1\n", encoding="utf-8")
+            (root / "pyrightconfig.json").write_text("{}\n", encoding="utf-8")
+            (root / "typings/pkg").mkdir(parents=True)
+            (root / "typings/pkg/__init__.pyi").write_text("VALUE: int\n", encoding="utf-8")
+            (root / ".venv/lib/pkg").mkdir(parents=True)
+            (root / ".venv/lib/pkg/__init__.pyi").write_text("VALUE: int\n", encoding="utf-8")
+
+            historical = inspect_minimal_repository_integrity(root, revision)
+            live = inspect_minimal_repository_integrity(
+                root,
+                revision,
+                protect_evaluator_artifacts=True,
+            )
+
+        self.assertTrue(historical.valid)
+        self.assertFalse(live.valid)
+        self.assertEqual(
+            live.untracked_evaluator_artifacts,
+            ("pyrightconfig.json", "typings/pkg/__init__.pyi"),
+        )
+        self.assertNotIn("compatibility.py", live.untracked_evaluator_artifacts)
+        self.assertNotIn(".venv/lib/pkg/__init__.pyi", live.untracked_evaluator_artifacts)
 
     def test_goal_verifier_adds_only_narrow_provider_provenance_boundary(self) -> None:
         verifier = MinimalIntegrityGoalVerifier(
