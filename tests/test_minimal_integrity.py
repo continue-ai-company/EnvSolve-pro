@@ -118,6 +118,18 @@ class MinimalIntegrityTest(unittest.TestCase):
             (root / "typings/pkg/__init__.pyi").write_text("VALUE: int\n", encoding="utf-8")
             (root / ".venv/lib/pkg").mkdir(parents=True)
             (root / ".venv/lib/pkg/__init__.pyi").write_text("VALUE: int\n", encoding="utf-8")
+            custom_venv = root / ".venv_py39"
+            (custom_venv / "bin").mkdir(parents=True)
+            (custom_venv / "lib/pkg").mkdir(parents=True)
+            (custom_venv / "pyvenv.cfg").write_text(
+                "home = /usr/bin\ninclude-system-site-packages = false\n",
+                encoding="utf-8",
+            )
+            (custom_venv / "bin/activate").write_text("true\n", encoding="utf-8")
+            (custom_venv / "bin/python").write_text("", encoding="utf-8")
+            (custom_venv / "lib/pkg/__init__.pyi").write_text(
+                "VALUE: int\n", encoding="utf-8"
+            )
 
             historical = inspect_minimal_repository_integrity(root, revision)
             live = inspect_minimal_repository_integrity(
@@ -134,6 +146,10 @@ class MinimalIntegrityTest(unittest.TestCase):
         )
         self.assertNotIn("compatibility.py", live.untracked_evaluator_artifacts)
         self.assertNotIn(".venv/lib/pkg/__init__.pyi", live.untracked_evaluator_artifacts)
+        self.assertNotIn(
+            ".venv_py39/lib/pkg/__init__.pyi",
+            live.untracked_evaluator_artifacts,
+        )
 
     def test_goal_verifier_adds_only_narrow_provider_provenance_boundary(self) -> None:
         verifier = MinimalIntegrityGoalVerifier(

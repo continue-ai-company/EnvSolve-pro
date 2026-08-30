@@ -350,12 +350,46 @@ def inspect_minimal_repository_integrity(
                     )
                 )
         candidates = set(_nul_paths(untracked.stdout + ignored.stdout))
+        virtual_environment_cache: dict[PurePosixPath, bool] = {}
+
+        def is_virtual_environment(root: PurePosixPath) -> bool:
+            cached = virtual_environment_cache.get(root)
+            if cached is not None:
+                return cached
+            candidate = repo_path / root
+            configuration = candidate / "pyvenv.cfg"
+            activate = candidate / "bin/activate"
+            python = candidate / "bin/python"
+            try:
+                fields = {
+                    key.strip().lower(): value.strip()
+                    for line in configuration.read_text(encoding="utf-8").splitlines()
+                    if "=" in line
+                    for key, value in [line.split("=", 1)]
+                }
+                valid = (
+                    not configuration.is_symlink()
+                    and activate.is_file()
+                    and not activate.is_symlink()
+                    and (python.is_file() or python.is_symlink())
+                    and "home" in fields
+                    and "include-system-site-packages" in fields
+                )
+            except (OSError, UnicodeError):
+                valid = False
+            virtual_environment_cache[root] = valid
+            return valid
 
         def changes_evaluator(path: str) -> bool:
             pure = PurePosixPath(path)
             if any(
                 part in ALLOWED_GENERATED_DIRECTORIES or part.endswith(".egg-info")
                 for part in pure.parts
+            ):
+                return False
+            if any(
+                parent != PurePosixPath(".") and is_virtual_environment(parent)
+                for parent in pure.parents
             ):
                 return False
             return (

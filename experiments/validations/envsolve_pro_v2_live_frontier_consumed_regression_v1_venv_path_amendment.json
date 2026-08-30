@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-live-frontier-consumed-regression-v1-venv-path-retry1",
+  "recorded_at": "2026-08-31",
+  "study_id": "envsolve-pro-v2-live-frontier-consumed-regression-v1",
+  "scope": "consumed-case implementation regression only; no method-effect, success-rate, SOTA, or generalization claim",
+  "original_run_id": "pro-v2-live-frontier-regression-v1-pysnmp",
+  "replacement_run_id": "pro-v2-live-frontier-regression-v1-pysnmp-retry1",
+  "original_run_disposition": "aborted after request 9 and before any generation, clean-replay, or Official outcome",
+  "trigger": "the narrow evaluator-artifact audit excluded only conventional generated-directory names and could misclassify legitimate third-party .pyi files inside an arbitrarily named virtual environment such as .venv_py39",
+  "correction": "recognize an arbitrary directory as a virtual environment only when its filesystem layout contains pyvenv.cfg with the standard home and include-system-site-packages fields, bin/activate, and bin/python; evaluator-artifact paths inside that directory are excluded from the narrow audit",
+  "invariants": [
+    "the original run directory and trajectory remain preserved",
+    "the benchmark case, model, provider order, seed, budgets, runner, prompt, and public goal are unchanged",
+    "root or repository-owned pyrightconfig.json and .pyi artifacts remain rejected",
+    "the correction adds no repository-specific rule, package-specific rule, hash, frozen contract, or new experimental gate"
+  ],
+  "interpretation": "the replacement run checks implementation behavior only and remains excluded from any method-effect estimate"
+}
