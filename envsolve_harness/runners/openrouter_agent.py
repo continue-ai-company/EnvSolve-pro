@@ -92,6 +92,48 @@ def _prepare_episode_package_cache(cache_root: Path) -> Path:
     return cache_root
 
 
+def _certified_repository_integrity(
+    replay_service: CleanReplayService,
+    program_sha256: str,
+) -> dict[str, Any]:
+    if not any(
+        item.get("program_sha256") == program_sha256
+        for item in replay_service.certified_programs
+    ):
+        raise RuntimeError("submitted program has no clean-replay certificate")
+    matching_replays = [
+        item
+        for item in read_jsonl(replay_service.trace_path)
+        if item.get("program_sha256") == program_sha256
+        and item.get("status") == "pass"
+        and item.get("certified") is True
+    ]
+    if not matching_replays:
+        raise RuntimeError("submitted program has no passing replay record")
+    verification = matching_replays[-1].get("verification")
+    bounded_details = (
+        verification.get("details") if isinstance(verification, dict) else None
+    )
+    encoded_details = (
+        bounded_details.get("json") if isinstance(bounded_details, dict) else None
+    )
+    try:
+        details = json.loads(encoded_details) if isinstance(encoded_details, str) else None
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("clean-replay repository audit is malformed") from exc
+    integrity = details.get("repository_effect_audit") if isinstance(details, dict) else None
+    if not isinstance(integrity, dict) and isinstance(details, dict):
+        report_details = details.get("report_details")
+        integrity = (
+            report_details.get("repository_effect_audit")
+            if isinstance(report_details, dict)
+            else None
+        )
+    if not isinstance(integrity, dict) or integrity.get("valid") is not True:
+        raise RuntimeError("clean replay has no valid repository audit")
+    return integrity
+
+
 def _model_dump(value: Any) -> dict[str, Any]:
     if hasattr(value, "model_dump"):
         dumped = value.model_dump(mode="json")
@@ -2507,15 +2549,26 @@ failures in this same session, then submit the exact replay-certified program.
             )
             metadata.update(loop_metadata)
             metadata["trajectory_progress"] = _trajectory_progress(trajectory_path)
-            integrity = inspect_minimal_repository_integrity(
+            construction_integrity = inspect_minimal_repository_integrity(
                 workspace,
                 case.revision,
                 self.workspace_preconditions,
             )
-            metadata["repository_integrity"] = integrity.to_dict()
-            if not integrity.valid:
+            metadata["construction_workspace_integrity"] = (
+                construction_integrity.to_dict()
+            )
+            if replay_service is not None:
+                repository_integrity = _certified_repository_integrity(
+                    replay_service,
+                    submission["program_sha256"],
+                )
+            else:
+                repository_integrity = construction_integrity.to_dict()
+            metadata["repository_integrity"] = repository_integrity
+            if repository_integrity.get("valid") is not True:
                 raise RuntimeError(
-                    f"construction environment violated minimal integrity: {integrity.violations}"
+                    "submitted environment violated minimal repository integrity: "
+                    f"{repository_integrity.get('violations', [])}"
                 )
             command_records = read_jsonl(command_trace_path) if command_trace_path.is_file() else []
             metadata["container_command_trace"] = {

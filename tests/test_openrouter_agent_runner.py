@@ -21,6 +21,7 @@ from envsolve_harness.runners.openrouter_agent import (
     DEEPSEEK_V4_PRO,
     OpenRouterAgentRunner,
     SUPPORTED_DEEPSEEK_MODELS,
+    _certified_repository_integrity,
     _request_contract,
     _trajectory_progress,
 )
@@ -135,6 +136,46 @@ class FakeReplayService:
         }
 
 
+class CertifiedIntegrityReplay:
+    def __init__(self, root: Path, program: str, *, valid: bool = True) -> None:
+        self.certified_programs = [
+            {
+                "program_sha256": script_sha256(program),
+            }
+        ]
+        self.trace_path = root / "replays.jsonl"
+        self.trace_path.write_text(
+            json.dumps(
+                {
+                    "program_sha256": script_sha256(program),
+                    "status": "pass",
+                    "certified": True,
+                    "verification": {
+                        "details": {
+                            "json": json.dumps(
+                                {
+                                    "report_details": {
+                                        "repository_effect_audit": {
+                                            "valid": valid,
+                                            "violations": (
+                                                []
+                                                if valid
+                                                else ["workspace_precondition_missing"]
+                                            ),
+                                        }
+                                    }
+                                }
+                            ),
+                            "truncated": False,
+                        }
+                    },
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+
 class FakeCompatibilityService:
     def __init__(self) -> None:
         self.call_ids: list[str] = []
@@ -243,6 +284,35 @@ class SequenceCurrentGoalService(FakeCurrentGoalService):
 
 
 class OpenRouterAgentRunnerTest(unittest.TestCase):
+    def test_final_integrity_comes_from_matching_clean_replay_certificate(self) -> None:
+        program = "python -m pip install -e ."
+        with tempfile.TemporaryDirectory() as directory:
+            replay = CertifiedIntegrityReplay(Path(directory), program)
+
+            integrity = _certified_repository_integrity(
+                replay,  # type: ignore[arg-type]
+                script_sha256(program),
+            )
+
+        self.assertTrue(integrity["valid"])
+
+    def test_invalid_or_nonmatching_clean_replay_integrity_is_rejected(self) -> None:
+        program = "python -m pip install -e ."
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with self.assertRaisesRegex(RuntimeError, "no valid repository audit"):
+                _certified_repository_integrity(
+                    CertifiedIntegrityReplay(root, program, valid=False),  # type: ignore[arg-type]
+                    script_sha256(program),
+                )
+            with self.assertRaisesRegex(
+                RuntimeError, "no clean-replay certificate"
+            ):
+                _certified_repository_integrity(
+                    CertifiedIntegrityReplay(root, program),  # type: ignore[arg-type]
+                    script_sha256("other"),
+                )
+
     def test_construction_container_keeps_the_episode_package_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
