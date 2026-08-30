@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import shlex
 import subprocess
+import sys
 import tempfile
 import zlib
 
@@ -259,6 +260,9 @@ Path(sys.argv[1]).write_text(json.dumps({
 PY''',
         )
         environment = dict(os.environ)
+        environment["PATH"] = os.pathsep.join(
+            (str(Path(sys.executable).parent), environment.get("PATH", ""))
+        )
         environment["VIRTUAL_ENV"] = "/tmp/envsolve-active-environment"
         try:
             completed = subprocess.run(
