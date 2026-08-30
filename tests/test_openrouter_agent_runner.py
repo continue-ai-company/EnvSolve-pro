@@ -450,6 +450,8 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         )
         self.assertIn("single `envbench_shell` action channel", prompt)
         self.assertIn("Set `effect=persist`", prompt)
+        self.assertIn("absolute path may differ", prompt)
+        self.assertIn("hardcode the construction path", prompt)
         self.assertNotIn("apply_environment_step", prompt)
         self.assertNotIn("Finish by calling `submit_bootstrap`", prompt)
         self.assertEqual(
@@ -477,6 +479,8 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         )
         self.assertIn("edits only the candidate program", prompt)
         self.assertIn("immediately clean-replays", prompt)
+        self.assertIn("absolute path may differ", prompt)
+        self.assertIn("hardcode the construction path", prompt)
         self.assertTrue(runner.replay_enabled)
         self.assertEqual(
             runner.agent_interface,

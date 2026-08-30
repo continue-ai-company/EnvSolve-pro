@@ -986,6 +986,14 @@ The benchmark's public scoring goal and terminal Official evaluator are unavaila
 during construction. Use repository-owned declarations, documentation, tests, and
 ordinary execution feedback to infer a complete development environment.
 """
+        if self.incremental_program_enabled:
+            prompt += """\
+
+The recorded deployment program is replayed from a fresh checkout with the repository
+root as its starting working directory. That checkout's absolute path may differ from
+`/data/project`. Derive repository paths from the starting working directory and do not
+hardcode the construction path in persistent commands.
+"""
         if self.annotated_incremental_program_enabled:
             prompt += """\
 
