@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-v2-live-frontier-consumed-regression-v1-venv-symlink-diagnostic",
+  "recorded_at": "2026-08-31",
+  "study_id": "envsolve-pro-v2-live-frontier-consumed-regression-v1",
+  "scope": "post-outcome implementation diagnosis; no episode outcome is changed",
+  "affected_run_id": "pro-v2-live-frontier-regression-v1-pysnmp-retry1",
+  "observed_failure": "the first candidate passed the executable public goal but the host-side evaluator-artifact audit rejected ordinary third-party .pyi files inside .bootstrap-venv",
+  "root_cause": "bin/python was a container-created symlink whose final /root/.pyenv target was inaccessible from the host; calling Path.is_file before Path.is_symlink followed that target and raised PermissionError, so the otherwise valid virtual environment was not recognized",
+  "correction": "test whether bin/python is a symlink before following it as a regular file; retain all pyvenv.cfg and activation-script checks",
+  "scientific_disposition": [
+    "the original first replay remains recorded as Fail",
+    "the final second replay and Official Pass remain the observed endpoint",
+    "replay count, wall time, and total resources are boundary-confounded and cannot estimate method efficiency",
+    "a posthoc replay or layout diagnostic may verify the exact first program after the correction but cannot rewrite the episode"
+  ],
+  "new_hash_contract_or_gate_added": false
+}

@@ -126,17 +126,28 @@ class MinimalIntegrityTest(unittest.TestCase):
                 encoding="utf-8",
             )
             (custom_venv / "bin/activate").write_text("true\n", encoding="utf-8")
-            (custom_venv / "bin/python").write_text("", encoding="utf-8")
+            inaccessible = root.parent / f"{root.name}-container-only-python"
+            inaccessible.mkdir()
+            interpreter = inaccessible / "python3.9"
+            interpreter.write_text("", encoding="utf-8")
+            interpreter.chmod(0)
+            inaccessible.chmod(0)
+            (custom_venv / "bin/python").symlink_to(interpreter)
             (custom_venv / "lib/pkg/__init__.pyi").write_text(
                 "VALUE: int\n", encoding="utf-8"
             )
-
-            historical = inspect_minimal_repository_integrity(root, revision)
-            live = inspect_minimal_repository_integrity(
-                root,
-                revision,
-                protect_evaluator_artifacts=True,
-            )
+            try:
+                historical = inspect_minimal_repository_integrity(root, revision)
+                live = inspect_minimal_repository_integrity(
+                    root,
+                    revision,
+                    protect_evaluator_artifacts=True,
+                )
+            finally:
+                inaccessible.chmod(0o700)
+                interpreter.chmod(0o600)
+                interpreter.unlink()
+                inaccessible.rmdir()
 
         self.assertTrue(historical.valid)
         self.assertFalse(live.valid)

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-live-frontier-consumed-regression-v1",
+  "recorded_at": "2026-08-31",
+  "role": "consumed-case implementation regression only; no method-effect, success-rate, SOTA, or generalization claim",
+  "case": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+  "run_id": "pro-v2-live-frontier-regression-v1-pysnmp-retry1",
+  "method": "envsolve-pro-validity-aware-live-compatibility-frontier",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider_order": ["DeepInfra"],
+  "seed": 830602,
+  "outcome": {
+    "generation_completed": true,
+    "official_pass": true,
+    "official_issues_count": 0,
+    "valid_final_deployment": true,
+    "model_requests": 55,
+    "provider_attempts": 56,
+    "provider_errors": 1,
+    "prompt_tokens": 1218778,
+    "completion_tokens": 62606,
+    "total_tokens": 1281384,
+    "generation_wall_seconds": 1872.680365,
+    "agent_shell_calls": 52,
+    "clean_replays": 2,
+    "clean_replay_statuses": {"fail": 1, "pass": 1},
+    "submit_bootstrap_calls": 0,
+    "termination_reason": "clean-replay-pass-terminal-delivery"
+  },
+  "mechanism_audit": {
+    "compatibility_observations": 8,
+    "complete_observations": 7,
+    "validity_audit_rejections": 0,
+    "obligation_path": [14, 14, 3, 3, 3, 3, 0],
+    "selected_environment_transition": "default Python 3.13 with three residual obligations to activated Python 3.9 with zero residual obligations",
+    "superseded_observations": 7,
+    "superseded_payload_chars": 36379,
+    "retained_marker_chars": 7188,
+    "full_machine_history_retained": true,
+    "same_session_replay_repair": true,
+    "terminal_delivery_without_extra_model_request": true
+  },
+  "implementation_confound": {
+    "present": true,
+    "amendment": "experiments/validations/envsolve_pro_v2_live_frontier_consumed_regression_v1_venv_symlink_amendment.json",
+    "effect": "the first replay public goal passed but a host-side symlink-following defect falsely rejected its repository-local virtual environment; the Agent moved the venv outside the repository and the second replay passed",
+    "affected_metrics": ["clean_replays", "model_requests", "tokens", "generation_wall_seconds"]
+  },
+  "descriptive_matched_history": {
+    "method": "Minimal-B",
+    "official_pass": true,
+    "model_requests": 34,
+    "total_tokens": 655486,
+    "generation_wall_seconds": 812.258493,
+    "agent_shell_calls": 44,
+    "clean_replays": 1,
+    "interpretation": "the live-frontier episode used 61.8% more requests, 95.5% more tokens, 130.6% more generation time, and 18.2% more Agent shell calls; this consumed, boundary-confounded comparison is diagnostic and not a method-effect estimate"
+  },
+  "decision": "the candidate qualifies end-to-end mechanism activation and final validity, but not an efficiency gain; correct and independently verify the venv audit before freezing a small outcome-blind development comparison against Minimal-B",
+  "claim_boundary": "This run supports implementation qualification only. It does not support superiority, population success, generalization, leaderboard, or SOTA claims."
+}

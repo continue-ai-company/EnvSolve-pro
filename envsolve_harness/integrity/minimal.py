@@ -371,7 +371,7 @@ def inspect_minimal_repository_integrity(
                     not configuration.is_symlink()
                     and activate.is_file()
                     and not activate.is_symlink()
-                    and (python.is_file() or python.is_symlink())
+                    and (python.is_symlink() or python.is_file())
                     and "home" in fields
                     and "include-system-site-packages" in fields
                 )
