@@ -1,0 +1,34 @@
+{
+  "schema": "envsolve-pro-v2-execution-host-amendment-v1",
+  "study_id": "envsolve-pro-v2-transactional-editable-v4-hard6-path-parity1",
+  "recorded_at": "2026-08-30",
+  "recorded_before_reassigned_lane_execution": true,
+  "trigger": {
+    "planned_lane": "agenthub_lane",
+    "planned_pairs": [5, 6],
+    "observed_state": "AgentHub has no provider credential file and no schedule progress record.",
+    "model_requests_before_reassignment": 0,
+    "reason": "Use the idle Spark experiment lane without copying a credential to AgentHub before explicit secret-transfer authorization."
+  },
+  "reassignment": {
+    "source_schedule": "experiments/schedules/envsolve_pro_v2_transactional_editable_v4_hard6_path_parity1_agenthub_lane.json",
+    "execution_host": "spark",
+    "progress_path": "/home/avdpro/work/runs/envsolve-pro-v2-transactional-editable-v4-hard6-path-parity1/progress-spark-lane3.json",
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_transactional_editable_v4_hard6_path_parity1.json",
+    "same_case_arm_order_runner_method_model_seed": true,
+    "both_arms_of_each_pair_share_host_and_lane": true
+  },
+  "validity": {
+    "algorithm_change": false,
+    "prompt_change": false,
+    "tool_schema_change": false,
+    "case_selection_change": false,
+    "schedule_order_change": false,
+    "model_or_provider_change": false,
+    "goal_or_evaluator_change": false,
+    "host_is_blocked_by_pair": true,
+    "cross_pair_host_differences_are_not_method_effects": true
+  },
+  "original_agenthub_lane_policy": "Do not launch the original AgentHub lane after Spark lane3 records progress; it is an unused planned lane, not an additional replication.",
+  "new_hash_contract_or_gate_added": false
+}
