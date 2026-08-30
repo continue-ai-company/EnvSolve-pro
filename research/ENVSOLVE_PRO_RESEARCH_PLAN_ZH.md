@@ -32,8 +32,10 @@ replay Pass。
 
 因此唯一进入下一轮的候选是 validity-aware live compatibility frontier：每次声明为改变兼容性的操作后
 执行完整目标，只向活跃 Agent 暴露最新且有效的残差及变化，完整历史留在轨迹中，并在 clean replay 通过
-时立即返回程序。它不加入 package 规则、checkpoint 图、命令累积或模型外 planner。已消费 case 只验证
-这些机制；下一次效果估计必须使用结果未知且 repository-disjoint 的 Dev batch。
+时立即返回程序。它不加入 package 规则、checkpoint 图、命令累积或模型外 planner。已消费的 Pysnmp
+回归验证了机制并暴露一个宿主审计缺陷，但不能估计效果。由于 205 个 Dev identity 已全部被至少一种方法
+消费，下一批只能使用 treatment 尚未运行的固定 Dev 失败；真正仓库未见证据保留给 Canary 与 Official
+Test。
 
 ## 2. 研究原则
 
@@ -58,9 +60,9 @@ success-resource curves，不以美元价格作为核心变量。
 
 ### 2.4 防止开发集过拟合
 
-诊断 case 与验证 case 分离。每个算法假设先由跨仓库失败模式和 repository-free 反例支持，再在新的
-outcome-blind Dev batch 上验证。已经看过结果的 case 只能用于诊断，不能再次承担确认性证据。
-Canary 和 Official Test 在算法、baseline 与分析规则冻结前保持 untouched。
+区分诊断、前瞻开发和 held-out case。每个算法假设先由跨仓库失败模式或 repository-free 反例支持，再在
+固定且 treatment 尚未运行的 Dev batch 上检验。已消费 Dev 可以证伪或验证机制，但不能估计仓库未见
+泛化。Canary 和 Official Test 在算法、baseline 与分析规则固定前保持 untouched。
 
 ### 2.5 主执行平台
 
@@ -975,7 +977,7 @@ Case 清单、选择审计、schedule 和预注册分别为
 `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json` 和
 `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_preregistration.json`。
 
-## 13. 当前方法决策：Operation Frontier V5
+## 13. 已否决的方法决策：Operation Frontier V5
 
 完整历史轨迹复审和后续 Hard6 跨方法实验否决了“累计并编辑整份程序”作为核心算法。它会放大 replay，
 并让 Agent 在尚未确认哪一步真正改变兼容状态时，就开始优化构建脚本。Minimal B 保留为匹配的强 Agent
@@ -1003,10 +1005,29 @@ Operation Frontier V5 只改变可执行证据到达的时间。搜索前记录�
 
 下面的证据顺序取代上文旧 Minimal-B bad4 顺序：
 
-1. 根据已有选择审计，在运行任一 arm 前固定一个仓库不重叠的 Dev bad-case batch；
+1. 根据已有选择审计，在运行任一 arm 前固定一个 treatment 尚未运行的 Dev bad-case batch；
 2. 使用完全相同的模型、seed、provider policy、主机 lane、目标、replay 和宽松安全上限，比较 Minimal
    B 与 Operation Frontier V5；
 3. 所有 pair 和 O/C/O 裁决完成前不修改方法；
 4. Official Pass 是主指标，部署完整性单列质量轴；请求、token、墙钟、网络和存储为次指标；
 5. 只有固定 Dev 证据支持机制且不需要新 case-specific 规则，才进入受保护 Canary、外部 baseline 和
    强弱 backbone 实验。
+
+## 14. 当前方法决策：Validity-Aware Live Frontier
+
+上面的历史快照 V5 已被否决。新候选只保留操作关联测量：Agent 把每次 shell 操作标注为检查，或意图
+改变兼容性的操作；后一类操作结束后，完整公开目标生成一个绑定当前环境身份的残差和变化。旧状态退出
+实时 prompt，但完整保留在轨迹中。Clean replay 一旦通过就立即返回原样程序。Controller 仍不选择命令、
+package 或修复方案。
+
+已消费的 Pysnmp 回归完整激活了该循环并通过 Official：55 次模型请求、两次 clean replay，活跃环境从
+基础 Python 3.13 切换到 Python 3.9，最终残差归零。第一次 replay 被误拒绝，是因为宿主审计跟随了只在
+容器内有效的虚拟环境 symlink。真实布局集成测试与原样程序事后 replay 证明程序本身有效；审计修正没有
+重写原 episode。它验证了环境身份、即时交付和 replay 反馈机制，但不能证明效果或效率。与旧 Minimal-B
+历史结果相比，本次请求、token 和时间都更多，而且边界与终端交付并不匹配，因此不能做因果比较。
+
+下一项预注册实验使用严格匹配的对照：相同窄完整性边界、clean replay 和通过即交付，但不要求操作标注，
+也不返回 live compatibility feedback。三个 treatment 尚未运行、且历史上同一模型在形成候选前耗尽请求
+上限的已消费 Dev 失败由机械规则选出：TensorFlow Model Analysis、LNLDB 和 PAZ。配对 Official Pass@1
+为主指标，资源只在共同结局上比较。六个 episode 期间不修改方法、prompt、边界、case、顺序、模型、
+provider、成功标准或分析规则。

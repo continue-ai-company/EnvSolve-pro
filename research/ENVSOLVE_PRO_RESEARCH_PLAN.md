@@ -44,9 +44,11 @@ The sole next candidate is therefore a validity-aware live compatibility frontie
 observe the complete goal after declared compatibility changes, expose only the newest
 valid residual and delta to the active Agent, retain full history in the trajectory, and
 return a clean-replay-passing program immediately. It adds no package rules, checkpoint
-graph, command accumulation, or model-external planner. Consumed cases qualify these
-mechanics only; the next effect estimate must use an outcome-blind repository-disjoint Dev
-batch.
+graph, command accumulation, or model-external planner. A consumed Pysnmp regression
+qualified the mechanics and exposed a host audit defect without establishing an effect.
+Because every Dev identity has now been consumed by at least one method, the next fixed
+comparison uses treatment-unrun Dev failures only; repository-unseen evidence is reserved
+for protected Canary and Official Test cases.
 
 ## 2. Research Principles
 
@@ -77,10 +79,11 @@ and recovery behavior must enter a shared trajectory analysis.
 
 ### 2.4 Prevent development-set overfitting
 
-Separate diagnostic and validation cases. Each mechanism needs support from a
-cross-repository failure pattern or a repository-free counterexample before an
-outcome-blind Dev batch tests it. Consumed cases remain diagnostic only. Canary and
-Official Test stay untouched until the algorithm, baselines, and analysis are frozen.
+Separate diagnostic, prospective-development, and held-out cases. Each mechanism needs
+support from a cross-repository failure pattern or a repository-free counterexample before
+a fixed treatment-unrun Dev batch tests it. Consumed Dev cases can falsify or qualify a
+mechanism but cannot estimate repository-unseen generalization. Canary and Official Test
+stay untouched until the algorithm, baselines, and analysis are fixed.
 
 ### 2.5 Primary execution platform
 
@@ -1278,7 +1281,7 @@ The case list, selection audit, schedule, and preregistration are
 `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json`, and
 `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_preregistration.json`.
 
-## 13. Current Method Decision: Operation Frontier V5
+## 13. Rejected Method Decision: Operation Frontier V5
 
 The complete historical trajectory review and subsequent Hard6 cross-method runs reject
 editable accumulated programs as the core algorithm. They amplify replay and encourage
@@ -1316,8 +1319,8 @@ new safeguard or deployment rule is introduced.
 
 The next evidence sequence supersedes the Minimal-B bad4 sequence above:
 
-1. freeze one repository-disjoint fixed Dev bad-case batch from the existing selection
-   audit, before running either arm;
+1. freeze one fixed treatment-unrun Dev bad-case batch from the existing selection audit,
+   before running either arm;
 2. compare matched Minimal B against Operation Frontier V5 with identical model, seed,
    provider policy, host lane, goal, replay, and broad safety limits;
 3. complete every pair and O/C/O adjudication before any method change;
@@ -1325,3 +1328,30 @@ The next evidence sequence supersedes the Minimal-B bad4 sequence above:
    and requests, tokens, wall time, network, and storage as secondary outcomes;
 5. proceed to protected Canary, external baselines, and strong/weak backbones only if the
    fixed Dev evidence supports the mechanism without a new case-specific rule.
+
+## 14. Current Method Decision: Validity-Aware Live Frontier
+
+The historical-snapshot V5 above is rejected. Its successor retains only operation-linked
+measurement: the Agent labels each shell operation as inspection or intended compatibility
+change; after a change, the complete public goal produces one environment-identity-bound
+current residual and delta. Superseded states leave the live prompt but remain in the
+trajectory. A clean-replay Pass returns the exact program immediately. The controller still
+does not choose commands, packages, or repairs.
+
+The consumed Pysnmp regression exercised the complete loop and passed Official. It made 55
+model requests, formed two clean replays, changed from the base Python 3.13 environment to
+an active Python 3.9 environment, and reached zero residual obligations. The first replay
+was falsely rejected because host audit code followed a container-only virtual-environment
+symlink. A true-layout integration test and exact-program posthoc replay confirmed the
+unchanged program was valid; the audit was corrected without rewriting the episode. This
+qualifies state identity, terminal delivery, and replay feedback, but not effectiveness or
+efficiency. Relative to an older unmatched Minimal-B run, it used more requests, tokens,
+and time; boundary and terminal-delivery differences make that comparison non-causal.
+
+The next preregistered comparison therefore uses a matched control with the same narrow
+integrity boundary, clean replay, and terminal delivery, but without required operation
+annotation or live compatibility feedback. Three mechanically selected, treatment-unrun
+consumed Dev failures previously exhausted the same model's request cap before candidate
+formation: TensorFlow Model Analysis, LNLDB, and PAZ. Official paired Pass@1 is primary;
+resource measures adjudicate only common outcomes. No method, prompt, boundary, case,
+order, model, provider, success criterion, or analysis rule changes during the six episodes.

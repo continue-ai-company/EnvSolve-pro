@@ -778,6 +778,27 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             2,
         )
 
+    def test_live_control_matches_boundary_and_terminal_without_frontier(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "soft-validity-terminal")
+            tools = runner._tools()
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertTrue(runner.replay_pass_is_terminal)
+        self.assertTrue(runner.minimal_evaluator_integrity_enabled)
+        self.assertFalse(runner.live_frontier_enabled)
+        self.assertFalse(runner.operation_frontier_enabled)
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+validity-aware-minimal-boundary+"
+            "terminal-clean-replay-v1",
+        )
+        self.assertNotIn("effect", tools[0]["function"]["parameters"]["properties"])
+        self.assertIn("without another model request", prompt)
+        self.assertNotIn("newest validity-checked compatibility state", prompt)
+
     def test_editable_incremental_program_adds_only_a_plan_editor(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             runner = self._runner(Path(directory), "incremental-editable")

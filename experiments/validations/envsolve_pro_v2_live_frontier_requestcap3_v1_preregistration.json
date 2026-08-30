@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-live-frontier-requestcap3-v1",
+  "recorded_at": "2026-08-31",
+  "status": "recorded before any episode in this study",
+  "claim_scope": "paired targeted development evidence on consumed repositories; not a generalization or leaderboard estimate",
+  "hypothesis": "when Minimal-B historically exhausts the request cap before candidate formation, operation-linked executable compatibility deltas improve the probability of producing a valid Official-passing deployment without constraining the Agent's operation choice",
+  "selection": "experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_selection.json",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_live_frontier_requestcap3_v1.jsonl",
+  "comparison": {
+    "control": {
+      "runner": "envsolve-pro-v2-live-control",
+      "method": "envsolve-pro-validity-aware-terminal-minimal-b",
+      "description": "continuous free Agent search, the shared narrow evaluator-artifact boundary, repeatedly callable clean replay, and terminal delivery on replay Pass; no compatibility frontier"
+    },
+    "treatment": {
+      "runner": "envsolve-pro-v2-live-frontier",
+      "method": "envsolve-pro-validity-aware-live-compatibility-frontier",
+      "description": "the matched control plus initial and operation-triggered complete-goal observations, with only the newest valid compatibility state fully visible"
+    },
+    "only_treatment_difference": "the required inspect/change operation annotation that triggers executable compatibility observation, plus latest-state frontier feedback",
+    "matched": ["case", "model", "provider order", "seed", "host", "image", "public goal", "validity boundary", "clean replay", "terminal delivery", "Official evaluator", "broad safety limits"]
+  },
+  "execution": {
+    "host": "Spark",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": ["DeepInfra"],
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_live_frontier_requestcap3_v1.json",
+    "pair_count": 3,
+    "episode_count": 6,
+    "arm_order": "counterbalanced by pair and interleaved over two concurrent Spark lanes"
+  },
+  "primary_endpoint": "paired valid Official EnvBench Pass@1; generation noncompletion is Fail",
+  "mechanism_endpoints": [
+    "whether operation-triggered observations are valid and identity-bound",
+    "obligation transition sequence and first zero-obligation state",
+    "whether frontier feedback changes the next substantive operation",
+    "candidate formation and clean-replay activation",
+    "Fail-to-Pass replay repair and replay-Official agreement"
+  ],
+  "secondary_endpoints": ["model requests", "prompt, completion, and total tokens", "generation and evaluation wall time", "Agent shell calls", "clean replay count", "deployment completeness and validity as separate quality axes"],
+  "decision_rule": [
+    "fewer treatment Official passes rejects the candidate",
+    "more treatment Official passes retains the candidate for a larger fixed development comparison",
+    "a success tie with both arms failing every case rejects the candidate",
+    "any other success tie is adjudicated by causal frontier use and common-outcome resources, with success remaining primary and no hard token or cost threshold"
+  ],
+  "censoring": "only documented provider, source-acquisition, container, or Official-evaluator infrastructure failures may be retried under a written identical-semantics amendment; algorithm noncompletion is not censored",
+  "prohibited_mid_batch_changes": ["runner code", "prompt", "validity boundary", "case list", "arm order", "model", "provider policy", "success criterion", "analysis rule"],
+  "new_hash_contract_or_gate_added": false
+}

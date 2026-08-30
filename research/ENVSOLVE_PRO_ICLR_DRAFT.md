@@ -1,6 +1,6 @@
 # EnvSolve-Pro: Partially Observable Stateful Constraint Solving for Repository Deployment
 
-Status: working ICLR paper draft, 2026-08-30; held-out and external-baseline results pending
+Status: working ICLR paper draft, 2026-08-31; held-out and external-baseline results pending
 
 ## Abstract
 
@@ -230,13 +230,23 @@ repeated frontier snapshots nearly doubled prompt tokens relative to the matched
 We therefore reject that historical-snapshot V5 and advance only the simpler current-state,
 validity-aware variant described above.
 
+A consumed Pysnmp regression then exercised the complete current-state loop and passed
+Official evaluation. It preserved environment identity across a Python-version change,
+returned replay evidence in the same session, and delivered the replay-certified program
+without a final extra request. A host-side audit initially misclassified the container's
+virtual-environment symlink; a true-layout integration test and unchanged-program replay
+isolated and corrected that measurement defect. The episode used more requests, tokens,
+and time than an older unmatched control, so it establishes mechanics rather than an
+efficiency gain. We next compare against a control matched for the integrity boundary,
+clean replay, and terminal delivery on a fixed treatment-unrun consumed-Dev failure stratum.
+
 All current results are development evidence. Official success and deployment
 completeness are reported separately, and repository-unseen claims are reserved for
 protected Canary and Official Test data after the method and boundary are fixed.
 
 ## 7. Falsification and Scope
 
-The central claim is weakened if matched outcome-blind experiments show no Official gain,
+The central claim is weakened if matched prospective experiments show no Official gain,
 if operation-linked deltas do not change subsequent actions, if clean replay and Official
 diverge under the same target state, or if gains disappear for stronger models. A success
 gain with higher resource use is a success--cost tradeoff, not an efficiency improvement.

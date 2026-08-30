@@ -89,6 +89,12 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-fsr-minimal-h",
             _factory("soft"),
         )
+    if "envsolve-pro-v2-live-control" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-live-control",
+            "envsolve-pro-validity-aware-terminal-minimal-b",
+            _factory("soft-validity-terminal"),
+        )
     if "envsolve-pro-v2-incumbent" not in registered:
         register_solver_runner(
             "envsolve-pro-v2-incumbent",

@@ -37,6 +37,8 @@ PROVIDER_API_RUNNERS = frozenset(
         "envsolve-pro-v2-incumbent",
         "envsolve-pro-v2-current-goal",
         "envsolve-pro-v2-ledger",
+        "envsolve-pro-v2-live-control",
+        "envsolve-pro-v2-live-frontier",
         "envsolve-pro-v2-scheduled-observation",
         "envsolve-pro-v2-operation-frontier",
         "envsolve-pro-v2-verifier-handoff",

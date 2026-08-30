@@ -68,6 +68,7 @@ ReplayMode = Literal[
     "atomic",
     "atomic-handoff",
     "soft",
+    "soft-validity-terminal",
     "incumbent",
     "current",
     "ledger",
@@ -366,6 +367,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "atomic",
             "atomic-handoff",
             "soft",
+            "soft-validity-terminal",
             "incumbent",
             "current",
             "ledger",
@@ -381,6 +383,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
         }:
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
+                "soft-validity-terminal, "
                 "incumbent, current, ledger, scheduled, handoff, stateful, "
                 "operation-frontier, operation-frontier-live, incremental, "
                 "incremental-annotated, "
@@ -413,7 +416,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
         self.public_goal_visible = public_goal_visible
         self.client_factory = client_factory
         self.validator = MinimalIntegrityCandidateValidator(
-            protect_evaluator_artifacts=self.live_frontier_enabled
+            protect_evaluator_artifacts=self.minimal_evaluator_integrity_enabled
         )
 
     def _acquire_repository(self, case: Case, destination: Path) -> dict[str, Any]:
@@ -488,6 +491,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
             return "free-feedback-search+compatibility-delta-ledger+soft-clean-replay-v1"
         if self.replay_mode == "incumbent":
             return "free-feedback-search+goal-triggered-certified-incumbent-v1"
+        if self.replay_mode == "soft-validity-terminal":
+            return (
+                "free-feedback-search+validity-aware-minimal-boundary+"
+                "terminal-clean-replay-v1"
+            )
         if self.replay_mode == "soft":
             return "free-feedback-search+soft-clean-replay-v1"
         return "free-feedback-search-v1"
@@ -498,6 +506,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "atomic",
             "atomic-handoff",
             "soft",
+            "soft-validity-terminal",
             "incumbent",
             "current",
             "ledger",
@@ -554,7 +563,17 @@ class OpenRouterAgentRunner(CodexCliRunner):
 
     @property
     def replay_pass_is_terminal(self) -> bool:
-        return self.live_frontier_enabled
+        return self.replay_mode in {
+            "operation-frontier-live",
+            "soft-validity-terminal",
+        }
+
+    @property
+    def minimal_evaluator_integrity_enabled(self) -> bool:
+        return self.replay_mode in {
+            "operation-frontier-live",
+            "soft-validity-terminal",
+        }
 
     @property
     def verifier_handoff_enabled(self) -> bool:
@@ -683,7 +702,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             return ["F", "compatibility-delta-ledger", "S", "R", "minimal-H"]
         if self.incumbent_enabled:
             return ["F", "S", "R", "certified-incumbent", "minimal-H"]
-        if self.replay_mode == "soft":
+        if self.replay_mode in {"soft", "soft-validity-terminal"}:
             return ["F", "public-O", "soft-C", "R", "minimal-H"]
         return ["F", "public-O", "minimal-H"]
 
@@ -1189,6 +1208,7 @@ There is no separate replay action and no replay state is retained.
 """
         elif self.replay_mode in {
             "soft",
+            "soft-validity-terminal",
             "current",
             "ledger",
             "scheduled",
@@ -1278,6 +1298,12 @@ Only the newest validity-checked compatibility state remains fully visible in th
 live context; older frontier payloads are replaced by short supersession markers and
 remain complete in the machine trajectory. A clean-replay Pass immediately returns
 that exact certified program as the episode result, without another model request.
+"""
+        if self.replay_pass_is_terminal and not self.live_frontier_enabled:
+            prompt += """
+
+A clean-replay Pass immediately returns that exact certified program as the episode
+result, without another model request.
 """
         return prompt
 
@@ -2315,8 +2341,13 @@ that exact certified program as the episode result, without another model reques
                                     {
                                         "program": program,
                                         "summary": (
-                                            "Validity-aware live frontier returned the "
-                                            "clean-replay-certified program."
+                                            (
+                                                "Validity-aware live frontier"
+                                                if self.live_frontier_enabled
+                                                else "Matched validity-aware control"
+                                            )
+                                            + " returned the clean-replay-certified "
+                                            "program."
                                         ),
                                     },
                                     replay_service,
@@ -2635,7 +2666,9 @@ that exact certified program as the episode result, without another model reques
                         worktree,
                         case.revision,
                         self.workspace_preconditions,
-                        protect_evaluator_artifacts=self.live_frontier_enabled,
+                        protect_evaluator_artifacts=(
+                            self.minimal_evaluator_integrity_enabled
+                        ),
                     ),
                 )
                 replay_service = ObligationSnapshotCleanReplayService(
@@ -2701,7 +2734,7 @@ that exact certified program as the episode result, without another model reques
                 workspace,
                 case.revision,
                 self.workspace_preconditions,
-                protect_evaluator_artifacts=self.live_frontier_enabled,
+                protect_evaluator_artifacts=self.minimal_evaluator_integrity_enabled,
             )
             metadata["construction_workspace_integrity"] = (
                 construction_integrity.to_dict()
