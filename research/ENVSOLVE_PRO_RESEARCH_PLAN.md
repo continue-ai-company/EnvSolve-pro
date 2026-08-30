@@ -1283,6 +1283,13 @@ the Agent to optimize a construction script before it has established which oper
 actually changed compatibility. Minimal B remains the matched strong-Agent baseline and
 final certification primitive.
 
+The completed six-pair Hard6 result makes this decision empirical rather than
+architectural preference. Minimal B achieved 5/6 effective Official passes versus 4/6
+for V4. V4 increased requests by 17%, tokens by 73%, wall time by 56%, and clean replay
+attempts from seven to 24. It lost GeoApps and did not recover scVelo. The machine-readable
+record is
+`experiments/validations/envsolve_pro_v2_transactional_editable_v4_hard6_path_parity1_result.json`.
+
 Operation Frontier V5 changes only the timing of executable evidence. A complete public
 goal baseline is recorded before search. After an operation declared to change the
 environment, the same active session receives resolved, introduced, and remaining

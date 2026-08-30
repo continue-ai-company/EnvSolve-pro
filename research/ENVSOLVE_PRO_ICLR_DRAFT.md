@@ -205,6 +205,12 @@ observation cadence, forced handoff, and checkpoint-like candidate retention as 
 method. Their common weakness is that useful executable evidence arrives too late or is
 coupled to a controller policy that adds cost without reliably improving the next action.
 
+In the completed six-pair accumulated-program ablation, the simpler continuous-Agent
+control achieved 5/6 effective Official passes versus 4/6, while using 15% fewer model
+requests, 42% fewer tokens, 36% less wall time, and seven rather than 24 clean replays.
+We therefore retain final replay as certification but remove accumulated construction
+commands from the method.
+
 The first consumed-case qualification of operation-linked feedback produced goal replay
 success for both methods on all three pairs. EnvSolve-Pro reduced aggregate requests,
 tokens, shell calls, and wall time, driven by one severe false-progress loop; it was more

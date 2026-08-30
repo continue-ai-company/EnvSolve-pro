@@ -1,0 +1,85 @@
+{
+  "schema": "envsolve-pro-v2-paired-development-result-v1",
+  "study_id": "envsolve-pro-v2-transactional-editable-v4-hard6-path-parity1",
+  "recorded_at": "2026-08-30",
+  "status": "complete",
+  "claim_scope": "consumed Dev ablation; not held-out or population performance",
+  "comparison": {
+    "control": "Minimal B: continuous Agent session plus Agent-synthesized final clean replay",
+    "treatment": "V4: continuous Agent session plus an accumulated editable incremental program",
+    "primary_endpoint": "effective Official EnvBench Pass@1",
+    "resource_endpoint": "generation episode resources; evaluator-only retry time is excluded"
+  },
+  "pairs": [
+    {
+      "case": "conan-io/conan-package-tools",
+      "control": {"official_pass": true, "requests": 52, "tokens": 1592760, "wall_seconds": 1101.997, "clean_replay_attempts": 1},
+      "treatment": {"official_pass": true, "requests": 22, "tokens": 417096, "wall_seconds": 817.009, "clean_replay_attempts": 2}
+    },
+    {
+      "case": "rollbar/pyrollbar",
+      "control": {"official_pass": true, "requests": 23, "tokens": 350306, "wall_seconds": 1006.503, "clean_replay_attempts": 1},
+      "treatment": {"official_pass": true, "requests": 67, "tokens": 2526318, "wall_seconds": 3379.067, "clean_replay_attempts": 7}
+    },
+    {
+      "case": "langchain-ai/langgraph",
+      "control": {"official_pass": true, "requests": 42, "tokens": 1004483, "wall_seconds": 945.93, "clean_replay_attempts": 1},
+      "treatment": {"official_pass": true, "requests": 31, "tokens": 776618, "wall_seconds": 2028.783, "clean_replay_attempts": 4}
+    },
+    {
+      "case": "mirageoscience/geoapps",
+      "control": {
+        "official_pass": true,
+        "original_terminal_class": "final-clean-replay-pass-rejected-by-obsolete-construction-state-audit",
+        "adjudication_run_id": "pro-v4-pp1-geoapps-B-boundary-diagnostic-eval1",
+        "requests": 103,
+        "tokens": 5237181,
+        "wall_seconds": 6524.562,
+        "clean_replay_attempts": 2
+      },
+      "treatment": {"official_pass": false, "terminal_class": "request-cap-without-submission", "requests": 120, "tokens": 9436941, "wall_seconds": 7663.009, "clean_replay_attempts": 1}
+    },
+    {
+      "case": "theislab/scvelo",
+      "control": {"official_pass": false, "terminal_class": "request-cap-without-submission", "requests": 120, "tokens": 5246567, "wall_seconds": 7106.157, "clean_replay_attempts": 0},
+      "treatment": {"official_pass": false, "terminal_class": "request-cap-without-submission", "requests": 120, "tokens": 8900242, "wall_seconds": 11161.799, "clean_replay_attempts": 6}
+    },
+    {
+      "case": "nonebot/nonebot2",
+      "control": {"official_pass": true, "requests": 13, "tokens": 136154, "wall_seconds": 412.995, "clean_replay_attempts": 2},
+      "treatment": {
+        "official_pass": true,
+        "original_terminal_class": "clean-replay-pass-official-infrastructure-censored",
+        "adjudication_run_id": "pro-v2-tep-v4-pp1-11-nonebot2-T-v4-official-infra-retry1",
+        "requests": 54,
+        "tokens": 1417160,
+        "wall_seconds": 1666.637,
+        "clean_replay_attempts": 4
+      }
+    }
+  ],
+  "aggregate": {
+    "control": {"official_passes": 5, "case_count": 6, "requests": 353, "tokens": 13567451, "wall_seconds": 17098.145, "shell_calls": 373, "clean_replay_attempts": 7},
+    "treatment": {"official_passes": 4, "case_count": 6, "requests": 414, "tokens": 23474375, "wall_seconds": 26716.303, "shell_calls": 427, "clean_replay_attempts": 24},
+    "treatment_minus_control": {"official_passes": -1, "requests": 61, "requests_percent": 17.28, "tokens": 9906924, "tokens_percent": 73.02, "wall_seconds": 9618.158, "wall_percent": 56.25, "shell_calls": 54, "shell_calls_percent": 14.48, "clean_replay_attempts": 17}
+  },
+  "adjudications": [
+    {
+      "case": "mirageoscience/geoapps",
+      "arm": "control",
+      "reason": "The original runner audited the disposable construction workspace after the exact final clean replay had passed. Independent execution of that unchanged final program passed Official with zero missing imports. The corrected runner now audits the exact final replay state."
+    },
+    {
+      "case": "nonebot/nonebot2",
+      "arm": "treatment",
+      "reason": "The original Official attempt timed out reading files.pythonhosted.org before Pyright. The single preregistered exact-script evaluator-only retry passed Official; the model and deployment program were not rerun or changed."
+    }
+  ],
+  "decision": {
+    "retain_as_core_method": false,
+    "reason": "V4 loses one effective Official success and increases every aggregate resource endpoint. Its accumulated editable program amplifies replay and carries construction-coordinate assumptions into deployment instead of reliably identifying the next compatibility-changing operation.",
+    "next_method": "Operation Frontier V5: operation-linked executable deltas with Agent-synthesized final clean replay",
+    "new_case_specific_rule_added": false,
+    "new_hash_contract_or_gate_added": false
+  }
+}

@@ -979,6 +979,11 @@ Case 清单、选择审计、schedule 和预注册分别为
 并让 Agent 在尚未确认哪一步真正改变兼容状态时，就开始优化构建脚本。Minimal B 保留为匹配的强 Agent
 baseline 和最终认证原语。
 
+完整六对 Hard6 结果让这个选择不再只是架构偏好：Minimal B 的有效 Official 成功率为 5/6，V4 为
+4/6；V4 的请求增加 17%，token 增加 73%，墙钟时间增加 56%，干净重放从 7 次增至 24 次。它在
+GeoApps 上丢失一个成功 case，也没有解决 scVelo。机器可读结果见
+`experiments/validations/envsolve_pro_v2_transactional_editable_v4_hard6_path_parity1_result.json`。
+
 Operation Frontier V5 只改变可执行证据到达的时间。搜索前记录完整公开目标基线；每次声明为改变环境的
 操作之后，同一个活跃 session 得到刚解决、新引入和仍存在的约束。Agent 仍选择每一条命令，并在最后
 自行综合自包含程序进行干净重放。不增加 package 规则、checkpoint、回退 controller、跨 case 记忆或

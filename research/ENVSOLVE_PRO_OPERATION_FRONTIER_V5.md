@@ -12,14 +12,19 @@ construction history into the final deployment program?
 
 Minimal B gives one Agent a continuous session, a persistent shell, and clean replay of
 any complete program it proposes. V4 additionally accumulates construction commands as
-an editable program. On the first three Hard6 pairs, both methods passed all cases, but
-V4 used more aggregate tokens, about twice the wall time, and 13 clean replays versus
-three for B.
+an editable program. Across the complete six-pair Hard6 study, Minimal B reached 5/6
+effective Official passes and V4 reached 4/6. V4 used 414 versus 353 model requests,
+23.47M versus 13.57M tokens, 26,716 versus 17,098 seconds, and 24 versus seven clean
+replay attempts.
 
 The failure was not a lack of edit machinery. V4 treated a shell exit as evidence that
 the intended state change occurred and treated construction coordinates as a portable
-deployment plan. PyRollbar and LangGraph eventually passed because the Agent repaired
-these mistakes, but only after long diagnostic loops.
+deployment plan. It passed the three easier pairs and NoneBot2, but lost GeoApps after
+120 requests and failed scVelo after six replay attempts. Minimal B passed GeoApps after
+the obsolete construction-state audit was corrected; both methods failed scVelo.
+PyRollbar and LangGraph passed under V4 only after repeated replay repair. The full
+result rejects accumulated editable programs as the core method on both success and
+resource evidence.
 
 ## V5 In Plain Language
 
