@@ -1,0 +1,37 @@
+{
+  "schema":"envsolve-pro-v2-paired-development-design-v1",
+  "study_id":"envsolve-pro-v2-transactional-editable-v4-crossmethod-hard6",
+  "recorded_at":"2026-08-30",
+  "status":"recorded-before-any-v4-batch-execution",
+  "claim_scope":"Consumed-development hard-stratum method selection. This study is outcome-blind to V4 but is not held-out, leaderboard, or population-effect evidence.",
+  "exposure_boundary":"All 209 EnvBench Dev identities have historical execution evidence as of the 2026-08-30 exposure audit. No case in this study is called unseen.",
+  "source_census":"experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+  "selection_rule":[
+    "Use only identities for which the historical cross-method census recorded no Official pass from Codex CLI, EnvSolve-Pro causal-v3, or reproduced Repo2Run.",
+    "Exclude a case when its only interpretable non-success evidence is infrastructure or protocol censoring.",
+    "Select six cases that cover distinct pre-existing O/C/O failure mechanisms: versioned API action, large optional frontier, monorepo and version frontier, counterexample retention, target bootstrap drift, and Python marker or extras mismatch.",
+    "Do not replace a selected identity after observing a V4 algorithm outcome. Infrastructure-only retries preserve arm, case, model, seed, and method."
+  ],
+  "cases":[
+    {"pair_index":1,"case_id":"envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2","historical_mechanism":"versioned API requirement not mapped to a compatible operation"},
+    {"pair_index":2,"case_id":"envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e","historical_mechanism":"large explicit optional-integration frontier not realized"},
+    {"pair_index":3,"case_id":"envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac","historical_mechanism":"monorepo scope plus versioned legacy API frontier"},
+    {"pair_index":4,"case_id":"envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749","historical_mechanism":"execution counterexamples did not change the active plan"},
+    {"pair_index":5,"case_id":"envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45","historical_mechanism":"construction and target bootstrap workspace drift"},
+    {"pair_index":6,"case_id":"envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd","historical_mechanism":"Python target marker and all-extras requirement mismatch"}
+  ],
+  "comparison":{
+    "control":"Minimal B with continuous Agent session and repeatedly callable whole-program clean replay",
+    "treatment":"V4 with the same session and replay plus operation-linked mutable program and transactional plan edit",
+    "paired_controls":["case","model","provider route","seed","image","source access","public goal","Official evaluator","broad safety limits"],
+    "arm_order":"alternated by pair",
+    "execution":"two Spark lanes; both arms of every pair remain on the same host and lane"
+  },
+  "outcomes":{
+    "primary":"Official EnvBench Pass@1",
+    "analysis_priority":"success before resources",
+    "diagnostic":["candidate formation","edit activation","invalid edits","replay sequence","counterexample-to-valid-plan latency","requests","tokens","wall time","traffic","clean reproducibility","deployment completeness","declaration fidelity","path cost"],
+    "censoring":"Infrastructure failures are excluded from algorithm endpoints and may receive only same-arm same-case replacement attempts recorded before the replacement starts."
+  },
+  "new_hash_contract_or_gate_added":false
+}

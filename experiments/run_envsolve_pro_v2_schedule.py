@@ -43,6 +43,7 @@ PROVIDER_API_RUNNERS = frozenset(
         "envsolve-pro-v2-incremental-program",
         "envsolve-pro-v2-incremental-program-annotated",
         "envsolve-pro-v2-incremental-program-editable",
+        "envsolve-pro-v2-incremental-program-transactional-editable",
     }
 )
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"

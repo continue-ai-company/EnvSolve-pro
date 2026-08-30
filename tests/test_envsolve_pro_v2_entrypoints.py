@@ -45,6 +45,11 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
             {"runner": "envsolve-pro-v2-current-goal"},
             {"runner": "envsolve-pro-v2-verifier-handoff"},
             {"runner": "envsolve-pro-v2-stateful-replay"},
+            {
+                "runner": (
+                    "envsolve-pro-v2-incremental-program-transactional-editable"
+                )
+            },
         ]
         with self.assertRaisesRegex(RuntimeError, "OPENROUTER_API_KEY"):
             _validate_provider_environment(identities, {})
