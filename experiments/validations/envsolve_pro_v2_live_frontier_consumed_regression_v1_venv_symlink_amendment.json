@@ -8,6 +8,15 @@
   "observed_failure": "the first candidate passed the executable public goal but the host-side evaluator-artifact audit rejected ordinary third-party .pyi files inside .bootstrap-venv",
   "root_cause": "bin/python was a container-created symlink whose final /root/.pyenv target was inaccessible from the host; calling Path.is_file before Path.is_symlink followed that target and raised PermissionError, so the otherwise valid virtual environment was not recognized",
   "correction": "test whether bin/python is a symlink before following it as a regular file; retain all pyvenv.cfg and activation-script checks",
+  "posthoc_diagnostic": {
+    "program": "the exact first submitted candidate, unchanged",
+    "workspace": "a new exact-revision checkout in the unchanged EnvBench image",
+    "bootstrap_completed": true,
+    "corrected_repository_audit_valid": true,
+    "untracked_evaluator_artifact_count": 0,
+    "violation_count": 0,
+    "interpretation": "combined with the original replay's complete public-goal Pass, this confirms a boundary-induced false rejection without rewriting the recorded episode"
+  },
   "scientific_disposition": [
     "the original first replay remains recorded as Fail",
     "the final second replay and Official Pass remain the observed endpoint",

@@ -46,6 +46,15 @@
     "effect": "the first replay public goal passed but a host-side symlink-following defect falsely rejected its repository-local virtual environment; the Agent moved the venv outside the repository and the second replay passed",
     "affected_metrics": ["clean_replays", "model_requests", "tokens", "generation_wall_seconds"]
   },
+  "posthoc_exact_first_program_diagnostic": {
+    "program_changed": false,
+    "bootstrap_completed": true,
+    "original_public_goal_status": "pass",
+    "corrected_repository_audit_valid": true,
+    "untracked_evaluator_artifact_count": 0,
+    "violation_count": 0,
+    "episode_outcome_rewritten": false
+  },
   "descriptive_matched_history": {
     "method": "Minimal-B",
     "official_pass": true,
