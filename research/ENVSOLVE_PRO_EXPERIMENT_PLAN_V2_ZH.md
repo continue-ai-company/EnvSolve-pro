@@ -660,6 +660,21 @@ V3 提案只改变计划修订能力：证据日志仍然 append-only，当前�
 checkpoint，也不回退。可以用已消费 HARK 验证编辑动作是否自然激活，但任何效果主张仍需结果未知的固定
 对照 batch。
 
+第一次 V3 尝试按基础设施删失处理：首个持久操作执行成功，但新 runner mode 没有构造已有 replay
+service，导致命令无法进入程序状态。只修复 wiring、保持全部科研变量不变后，fresh retry 完成了预期
+因果链：构建目标 Pass，replay 因项目目录内环境和硬编码路径失败，同 session 替换并删除早期步骤，
+反复重放修改后程序，最终 replay Pass 和 Official Pass。因此 V3 的可变计划状态通过机制资格验证，
+但一个已消费 case 不能让它晋升，也不能估计效果。
+
+轨迹同时推翻了当前单序号编辑的组合语义。模型在一次响应中发出 6 条修改，系统顺序执行后，早期删除
+改变了后续序号，造成 2 次非法调用。Agent 虽然自行恢复，接口仍产生了多余编辑与 replay。开启效果
+batch 前，唯一有证据支持的修正候选是：所有编辑相对同一个编辑前快照解释，原子应用后只 replay 一次。
+是否先做该修正，必须在按结果未知规则选 case 之前决定。
+
+最后，最终通过程序属于指标最小化环境，而不是忠实项目部署：它留下未使用的虚拟环境、安装到默认
+Conda、没有安装项目，并覆盖仓库声明的 Numba 约束。Official Pass、干净可复现、部署完整性、声明
+一致性和路径成本继续作为彼此独立的结果轴。
+
 证据与设计：
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
@@ -672,3 +687,5 @@ checkpoint，也不回退。可以用已消费 HARK 验证编辑动作是否自�
 - `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_result.json`
 - `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3_ZH.md`
 - `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_design.json`
+- `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3_RESULT_ZH.md`
+- `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_result.json`

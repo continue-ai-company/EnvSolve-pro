@@ -1,0 +1,109 @@
+{
+  "schema": "envsolve-pro-v2-mechanism-qualification-result-v1",
+  "study_id": "envsolve-pro-v2-editable-incremental-program-v3-hark1",
+  "recorded_at": "2026-08-30",
+  "claim_scope": "Consumed-case mechanism qualification only; no effectiveness, generalization, SOTA, efficiency, or population success-rate claim.",
+  "treatment": "Editable Incremental Program V3 with one annotated arbitrary-Bash shell, a mutable current program, and model-selected indexed replace or delete followed by immediate clean replay",
+  "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider": "OpenRouter with fixed DeepInfra routing and no fallback",
+  "seed": 830312,
+  "attempts": [
+    {
+      "run_id": "pro-v2-eip-v3-hark1-01-hark",
+      "adjudication": "infrastructure_censored",
+      "duration_seconds": 244.83962073083967,
+      "provider_responses": 14,
+      "provider_errors": 0,
+      "incident": "The first effect=persist command succeeded in the construction environment at request 12, but the runner returned incremental services are unavailable and did not record the step.",
+      "root_cause": "The incremental-editable mode enabled incremental program state but did not construct the replay service required by persist.",
+      "repair": "Add incremental-editable to replay service wiring and cover the runner-level property in the interface regression test; no model, prompt, tool schema, case, evaluator, or analysis change.",
+      "official_evaluation_run": false,
+      "excluded_from_endpoints": true
+    },
+    {
+      "run_id": "pro-v2-eip-v3-hark1-r1-01-hark",
+      "adjudication": "eligible_mechanism_qualification_retry",
+      "duration_seconds": 2862.0312121445313,
+      "generation_seconds": 2686.663164,
+      "official_evaluation_seconds": 172.16222071647644,
+      "provider_responses": 39,
+      "provider_attempts": 47,
+      "provider_errors": 8,
+      "token_usage": {
+        "prompt_tokens": 968854,
+        "completion_tokens": 59814,
+        "total_tokens": 1028668,
+        "provider_reported_cost_usd": 0.03248731999999999
+      },
+      "tool_calls": {
+        "envbench_shell": 37,
+        "inspect": 28,
+        "persist_attempts": 9,
+        "recorded_persist_steps": 8,
+        "failed_persist_attempts": 1,
+        "revise_program": 8,
+        "successful_revisions": 6,
+        "invalid_revision_indices": 2
+      },
+      "automatic_goal_observations": 8,
+      "clean_replays": {
+        "count": 8,
+        "fail": 7,
+        "pass": 1
+      },
+      "official_pass": true,
+      "official_issues_count": 0,
+      "official_missing_import_count": 0,
+      "non_scoring_pyright_error_count": 1678
+    }
+  ],
+  "causal_trace": {
+    "first_construction_goal_pass_request_index": 30,
+    "first_clean_replay_status": "fail",
+    "first_clean_replay_counterexample": "The accumulated program created /data/project/venv in the adapter-owned outer workspace and relied on hard-coded /data/project paths that did not identify the target replay checkout.",
+    "first_revision_request_index": 34,
+    "counterexample_to_first_revision_model_request_latency": 4,
+    "same_session_revision_observed": true,
+    "model_selected_operations": [
+      "replace the first in-project virtual-environment step with /opt/harkenv",
+      "delete obsolete in-project install, PATH, dependency, and cleanup steps"
+    ],
+    "revised_program_replayed_after_each_successful_edit": true,
+    "final_clean_replay_status": "pass",
+    "final_official_status": "pass"
+  },
+  "representation_finding": {
+    "qualified": true,
+    "finding": "A strong Agent used an executable replay counterexample to revise an earlier program hypothesis in the same active session, and the revised program was repeatedly evaluated from a clean target state until it passed.",
+    "compositional_defect": "Six revise_program calls were emitted in one model response. Because edits were applied sequentially while all calls referred to the pre-response numeric indices, two later deletions became invalid after earlier deletions shifted the list.",
+    "agent_recovery": "The same Agent inspected the refreshed indexed program on the next request and issued two valid deletions, so the defect added churn but did not prevent success.",
+    "next_candidate_if_needed": "Evaluate an atomic batch edit whose indices are interpreted against one pre-edit snapshot and whose complete result is replayed once. Do not add stable IDs, package rules, checkpoints, or controller gates without separate repeated evidence."
+  },
+  "path_quality": {
+    "classification": "official_pass_but_incomplete_metric_minimal_environment",
+    "final_program_step_count": 3,
+    "project_installed": false,
+    "unused_environment_created": "/opt/harkenv",
+    "default_environment_mutated": "/opt/conda",
+    "declared_dependency_conflict": "The program installs numba>=0.61 although the repository declares numba<0.60.0.",
+    "interpretation": "Official goal satisfaction, reproducible clean replay, deployment completeness, semantic fidelity, and path efficiency are distinct axes. This consumed result establishes the first two only."
+  },
+  "adjudication": {
+    "single_shell_annotation_interface": "qualified",
+    "editable_program_state": "qualified",
+    "replay_counterexample_to_same_session_edit_transition": "qualified",
+    "clean_replay_to_official_agreement": "observed_on_one_consumed_case",
+    "effectiveness_result": "not_tested",
+    "efficiency_result": "not_estimated",
+    "algorithm_promotion": "not_automatic",
+    "network_role": "secondary_recovered_noise",
+    "next_experiment": "Freeze the adjudicated V3 representation before selecting an outcome-blind paired development batch. If the numeric-index compositional defect is corrected first, treat that correction as one minimal interface proposal and qualify it before any effect comparison."
+  },
+  "evidence": {
+    "eligible_local_root": "runs/envsolve-pro-v2-editable-incremental-program-v3-hark1-retry1-evidence",
+    "censored_local_root": "runs/envsolve-pro-v2-editable-incremental-program-v3-hark1-censored-evidence",
+    "eligible_spark_root": "/home/avdpro/work/runs/envsolve-pro-v2-editable-incremental-program-v3-hark1-retry1",
+    "contents": "Trajectory, command trace, all replay programs and outcomes, final program state, official result, status, progress, and coordinator logs; source and package caches are omitted."
+  }
+}

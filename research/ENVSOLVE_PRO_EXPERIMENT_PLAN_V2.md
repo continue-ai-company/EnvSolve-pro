@@ -842,6 +842,27 @@ session remains available for reasoning and is not checkpointed or rolled back. 
 HARK episode may qualify natural edit activation, but an outcome-blind fixed comparison is
 still required before any effect claim.
 
+The first V3 attempt is infrastructure-censored: its first successful persistent operation
+could not enter program state because the new runner mode did not construct the existing
+replay service. A wiring-only repair preserved every scientific variable and the fresh retry
+completed. The retry produced the required counterexample-to-edit chain: construction goal
+Pass, replay Fail on the in-project environment and hard-coded paths, same-session replacement
+and deletion of earlier steps, repeated revised-program replay, final replay Pass, and Official
+Pass. V3 therefore qualifies mutable plan state, but one consumed case does not promote it or
+estimate effect.
+
+The trajectory also falsifies the current single-index composition semantics. Six revisions
+in one model response were interpreted sequentially, so earlier deletions shifted later
+indices and caused two invalid calls. The Agent recovered, but the interface created avoidable
+edit and replay churn. Before opening an effect batch, the only justified candidate correction
+is an atomic batch edit interpreted against one pre-edit snapshot and replayed once. Whether to
+apply that correction or freeze V3 unchanged must be decided before outcome-blind case selection.
+
+Finally, the passing program is metric-minimal rather than a faithful project deployment: it
+leaves an unused virtual environment, installs into default Conda, omits project installation,
+and overrides a declared Numba constraint. Official Pass, clean reproducibility, completeness,
+declaration fidelity, and path cost remain separate outcome axes.
+
 Evidence and design:
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
@@ -854,3 +875,5 @@ Evidence and design:
 - `experiments/validations/envsolve_pro_v2_incremental_program_v2_consumed3_result.json`
 - `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3.md`
 - `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_design.json`
+- `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3_RESULT.md`
+- `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_result.json`

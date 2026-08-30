@@ -825,3 +825,27 @@ that a tool was called. The minimal successor transaction adds indexed replace/d
 replays after each edit, and records the before-plan, counterexample, edit, after-plan, and
 outcome. It does not optimize packages, prompts, checkpoints, or cross-case policy, and no
 resource improvement may compensate for an Official regression.
+
+### 31. Editable-Plan Qualification and Transactional-Edit Proposal
+
+Incremental Program V3 supplies a positive mechanism transaction without supplying an
+effectiveness result. A consumed HARK retry contains the complete replay-counterexample,
+same-session plan edit, revised-program replay, final replay Pass, and Official Pass chain.
+The outer system may therefore mark mutable plan state as mechanism-qualified, but it may
+only promote that version into a disjoint effect test, not into the final inner algorithm.
+
+The same trajectory exposes a compositional defect suitable for one minimal successor
+proposal. Multiple numeric-index edits emitted in one model response were applied
+sequentially, so early deletions shifted later targets and produced invalid calls. An outer
+proposal may replace this with one transactional batch edit: interpret all edits against the
+pre-edit plan snapshot, apply them atomically, and replay the resulting program once. The
+proposal must compare edit errors, replay count, counterexample-to-valid-plan latency,
+Official outcome, and path quality against V3. It should not add stable IDs, checkpoints,
+package rules, or new gates unless later evidence demonstrates a separate need.
+
+The final HARK program also shows why outer-loop reward cannot collapse to Official Pass.
+It passed the benchmark while leaving an unused environment, omitting project installation,
+and overriding a declared dependency constraint. Auto-EnvSolve should retain Official success
+as the first lexicographic objective, then record clean reproducibility, completeness,
+declaration fidelity, and resources as separate non-compensating axes. A path-quality gain
+cannot excuse an Official regression, and an Official tie does not imply equivalent deployment.
