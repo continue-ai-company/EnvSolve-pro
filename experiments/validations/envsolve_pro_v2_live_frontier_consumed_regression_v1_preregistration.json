@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-live-frontier-consumed-regression-v1",
+  "recorded_at": "2026-08-31",
+  "role": "consumed-case implementation regression only; no success-rate, SOTA, or generalization claim",
+  "case": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+  "selection_reason": "the historical fixed-bad4 study produced valid Official passes for both Minimal-B and V5, so this case tests false-positive avoidance without selecting a historical algorithm failure",
+  "runner": "envsolve-pro-v2-live-frontier",
+  "method": "envsolve-pro-validity-aware-live-compatibility-frontier",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "provider_order": ["DeepInfra"],
+  "seed": 830602,
+  "run_id": "pro-v2-live-frontier-regression-v1-pysnmp",
+  "checks": [
+    "generation completes and exact program passes clean replay",
+    "validity audit does not reject the legitimate environment",
+    "clean-replay Pass terminates without a second submit_bootstrap request",
+    "superseded frontier payloads are compacted in model-visible context and retained in the machine trajectory",
+    "Official evaluation passes"
+  ],
+  "failure_interpretation": "a failure blocks prospective qualification but does not estimate method effect on this consumed case",
+  "new_hash_contract_or_gate_added": false
+}
