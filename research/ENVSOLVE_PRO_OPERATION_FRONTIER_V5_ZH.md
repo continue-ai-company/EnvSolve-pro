@@ -54,3 +54,22 @@ V5 不增加包或版本规则、命令过滤、自动回退、checkpoint、跨 
 Official Pass 是主指标。如果成功率打平，再判断按操作返回的状态差量是否真正改变了诊断
 或恢复路径，并报告 request、token、时间、shell 操作、观测截断和重放次数。这三个已
 消耗 case 只能验证机制是否值得继续，不能用于估计泛化能力。
+
+## 资格实验结果
+
+两种方法在三个 case 上都达到了 clean replay 目标通过。V5 的三个可裁决 Official 评测
+全部通过；Minimal B 的 Conan 和 LangGraph 在原脚本网络诊断后通过，PyRollbar 因旧边界
+误伤探索环境、随后两次诊断又被网络删失，Official 结果仍不可裁决。因此这组实验不能估计
+成功率差异。
+
+聚合上，V5 将请求从 233 降到 130，token 从 9.11M 降到 5.33M，shell 调用从 240 降到
+146，墙钟时间从 9449 秒降到 6827 秒，但 case 间差异很大。PyRollbar 中，经过验证的
+`61→0` 路径结束了反复尝试 PATH 和环境的循环；LangGraph 中，frontier 正确跟随 Python
+3.11 环境从 47 降到 0，但 Agent 随后继续检查部署完整性，因此比 B 使用更多 token 和
+时间；Conan 中，Agent 只在临时 Python 环境里操作，没有把它留给持久观测 shell，所有
+frontier 观测都原地不动。
+
+这支持继续验证机制，不支持提前宣称性能提升。固定 Dev batch 前，只做两个通用纠正：已有
+安全审计以最终 clean replay 环境为准，而不是以可丢弃的探索环境为准；prompt 明确要求变更
+后的 Python 环境必须保持为后续观测的活跃环境。不增加包规则、checkpoint、命令 gate、
+跨 case 记忆或自动 planner。

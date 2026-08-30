@@ -9,16 +9,14 @@
 求解**。
 
 我们首先提出可审计的轨迹表示，并把最早决定最终结果的失败分为观测、约束和操作三层。开发轨迹中反复
-出现两个问题：Agent 优化了不完整的代理目标；已经可用的构建状态没有被转换成能重建它的部署程序。
-据此，我们提出最小三层算法 EnvSolve-Pro：能力强的 Agent 在一个连续 session 内自由行动，并可反复
-提交累计部署程序，从目标初始状态执行。Replay 失败作为可执行、case-local 约束返回同一个 session，
-但不规定修复方法；只有原样通过 replay 的程序才能交付。Harness 不调度搜索，也不强制形成候选。
+出现两个问题：Agent 优化了不完整的代理目标；命令执行成功却没有让真实兼容状态变好。据此，我们提出
+最小三层算法 EnvSolve-Pro：能力强的 Agent 在一个连续 session 内自由行动；每次意图改变环境后，公开
+可执行目标返回刚解决、新引入和仍存在的 case-local 约束，但不限制下一步操作；Agent 最后自行综合一份
+自包含部署程序，只有原样通过干净重放的程序才能交付。
 
-已消费开发 case 已验证同 session 的多步 Fail-to-Pass replay 修复。前瞻开发实验不支持把固定节奏观测、
-强制 handoff 或 Agent 主动调用的精确当前状态工具加入核心，因此这些机制只保留为 ablation。当前证据
-不能证明泛化。最终实验会先冻结更小的算法，再在未见 case 上与同模型对照、EnvBench baseline、
-Repo2Run、旧硬约束 EnvSolve 和原生 coding Agent 比较，并覆盖强弱 backbone。Official Pass@1 是
-主指标；时间、Token、网络和存储只在成功率不下降后优化。
+已消费开发 case 只能验证机制，不能证明泛化。最终实验会先固定算法，再在结果未知的数据上与同模型
+对照、EnvBench baseline、Repo2Run、旧硬约束 EnvSolve 和原生 coding Agent 比较，并覆盖强弱
+backbone。Official Pass@1 是主指标；时间、Token、网络和存储只在成功率不下降后优化。
 
 ## 1. 问题定义
 
@@ -68,44 +66,47 @@ EnvSolve-Pro 明确保留三层结构，同时把 controller policy 压到最小
 
 ### 观测层
 
-Agent 在持久构建环境中获得普通命令反馈和完整公开目标。它可以反复调用可信 replay，从目标初始状态
-执行累计程序和目标，而不是只验证累积构建状态。最终交付也必须通过同一种 replay。
+Agent 在持久构建环境中获得普通命令反馈。搜索开始前以及每个声明为改变兼容性的操作之后，Harness 都在
+当前活跃环境中执行完整公开目标，返回精确残差数量和有明确截断标记的身份投影，同时在机器轨迹中保留
+完整证据。
 
 ### 约束层
 
-目标残差和 replay 失败是可执行、case-local 的事实。Replay 失败表示当前完整程序不能重建满足目标的
-环境。原始证据始终可见，Agent 可以修改或推翻自己的解释。Harness 不增加 package 规则库、跨 case
+约束状态是可执行目标残差及一次操作后的变化：刚解决、新引入和仍存在的约束。Compatibility frontier
+保留经过验证的进展，但它只是建议；允许临时退化和替代假设。Harness 不增加 package 规则库、跨 case
 经验、checkpoint 图或模型外的修复策略。
 
 ### 操作层
 
-Agent 自由检查仓库、修改构建环境，并自行判断何时提交累计程序进行 replay。Replay 失败后保留活跃
-session 和自由工具选择，把反例返回同一个 session。只有从目标状态通过的同一程序才能交付。
+Agent 自由检查仓库、选择每一个环境变换，并自行判断活跃状态何时可用。随后它综合自包含程序，而不是
+直接继承探索命令历史。干净重放失败后保留活跃 session 并返回反例。只有从目标初始状态通过的同一程序
+才能交付。
 
 ```text
 启动一个 Agent session 和一个构建环境
 
 while 尚无 replay 通过的程序且宽松安全上限未耗尽:
-    Agent 自由观测并修改构建状态
-    if Agent 提交累计部署程序:
-        y <- 从目标初始状态执行该程序和目标
-        if y 通过:
-            return 程序
-        把 y 返回同一 session，继续自由修复
+    action <- Agent 自由检查或改变构建状态
+    if action 意图改变兼容性:
+        delta <- 执行公开目标，并与上一个状态比较
+        把 delta 返回同一 Agent session
+    if Agent 提交自包含部署程序:
+        replay <- 从目标初始状态执行原样程序和目标
+        if replay 通过: return 程序
+        把 replay 返回同一 session
 
 return failure
 ```
 
-Controller 提供目标状态证据，并保证交付物就是通过 replay 的程序；它不决定何时停止搜索，也不选择
-下一条环境操作。更强模型扩展的是操作层能力，而不是被封闭 planner 替代。算法保存程序与轨迹，不保存
-容器 checkpoint。
+Controller 验证状态变化，并保证交付物就是通过 replay 的程序；它不选择 package 或下一条环境操作。
+更强模型扩展的是操作层能力，而不是被封闭 planner 替代。算法保存程序与轨迹，不保存容器 checkpoint。
 
 ## 4. 三项贡献
 
 1. **因果失败分析。** 提供可审计轨迹表示和“观测--约束--操作”taxonomy，用最早决定性原因比较不同
    部署范式。
-2. **最小部署算法。** EnvSolve-Pro 把不受限的连续 Agent session 与可反复调用的目标状态 replay
-   结合，把完整程序失败转化为可执行的 case-local 约束，同时保留模型主导的搜索和停止决策。
+2. **最小部署算法。** EnvSolve-Pro 把不受限的连续 Agent session、操作关联的可执行兼容变化和最终
+   干净重放结合，在保持模型主导搜索与停止决策的同时，让进展由真实执行事实落地。
 3. **受控实验证据。** 在 Official 成功率、因果失败迁移、部署完整性和成功保持下的资源开销上，比较
    同模型机制、外部系统以及强弱 backbone。
 
@@ -123,10 +124,10 @@ episode 不进入算法失败率统计。
 
 ### 5.2 同模型机制实验
 
-在相同模型和执行条件下，分离只有仓库反馈的自由搜索 `F`、可见完整可执行目标的自由搜索 `F+O`，以及
-EnvSolve-Pro 的 Agent 主动目标状态 replay 加交付前强制 replay 认证 `F+O+R`。第一组对比检验目标
-可观测性；第二组检验目标已经可见后，完整程序反例是否改善交付。定时观测与强制 handoff 作为独立的
-controller-policy ablation 评估。所有改变环境的动作仍由模型决定。
+在相同模型和执行条件下，比较“连续自由 Agent + 最终干净重放”`F+R` 与 EnvSolve-Pro 的“操作关联
+观测 + 兼容变化 + 相同最终重放”`F+O+C+R`。这个对比隔离的问题是：面对已经拥有持久 session 和
+可复现检查的强 Agent，经过验证的状态变化反馈是否仍能提高部署能力。累计可编辑程序、定时观测、强制
+handoff 和 checkpoint 都只作为独立 ablation。所有改变环境的动作仍由模型决定。
 
 开发轨迹用于发现错误类型和选择唯一固定方法。EnvSolve-Pro 虽然没有可训练参数，仍需要结果未知的独立
 batch：代码、prompt、观测节奏、边界和停止逻辑同样可能对已消费仓库过拟合。只有这些选择冻结后，未见
@@ -139,36 +140,30 @@ Codex。Repo2Run 按 stateful loop 而非 one-shot baseline 对待：它保留�
 命令。EnvSolve-Pro 检验的更窄区别是：完整交付程序是否从目标初始状态执行，并在活跃推理 session 结束
 前返回反例。
 
-强弱 backbone 用于判断 replay-grounded constraint 是补充模型能力，还是会被模型进步吞噬。Official
+强弱 backbone 用于判断可执行状态反馈是补充模型能力，还是会被模型进步吞噬。Official
 Pass@1 为主指标；次级指标包括失败层迁移、replay 与 Official 一致性、部署完整性、请求、Token、时间、
 网络和存储。Official 成功与更广义 runtime 完整性分开报告。
 
 ## 6. 当前证据与主张边界
 
-当前轨迹重建包含 48 个 method--case 行和 38 个非成功行。单人初标中，25 个可归因算法失败包括观测
-14、约束 7、操作 4；另有 9 个基础设施未知和 4 个协议删失。独立标注尚未完成，因此这些数字用于形成
-taxonomy，不能当成总体流行率。方法机制与失败原因分开记录：一个系统可以组合自由搜索、硬约束、
-软约束和 replay；每条失败轨迹则只标一个最早决定性的 O/C/O 原因，或作为删失样本排除。
+当前轨迹重建足以支持 O/C/O taxonomy，但不足以估计错误类型的总体比例：独立标注尚未完成，基础设施和
+协议删失 episode 不进入算法失败统计。部署范式与失败原因始终作为两个不同变量记录。
 
-早期开发实验表明，replay 可以修复部分完整程序，但也可能被 Agent 忽略，或等决定性搜索已经结束后才
-触发。基于固定观测节奏、强制 handoff 和候选保留的更大 controller policy 都没有产生稳定增益，因此
-不进入核心方法。
+开发期 ablation 否决了“只有最终 replay”、累计可编辑程序、固定节奏观测、强制 handoff 和类似
+checkpoint 的候选保留作为核心方法。它们的共同问题是：有用的可执行证据到得太晚，或者 controller
+policy 增加了成本，却没有稳定改善下一步操作。
 
-我们随后固定四个 Official bad case，比较同一个 goal-aware Agent 是否增加可反复调用的 clean replay。
-两组均为 `2/4`：两对共同通过，两对共同失败。关键是，两个失败 treatment 都从未调用 replay；失败发生
-在形成第一份合法 bootstrap 的过程中，而不是修复 replay 反例。两对共同成功 case 的资源差异又分别受
-Python 3.9 harness bug 和部署完整性不一致混杂，因此不能支持效率主张。
+第一组操作关联反馈资格实验中，两种方法在三个 pair 上都达到目标重放通过。EnvSolve-Pro 聚合降低了
+请求、token、shell 调用和墙钟时间，主要来自终止一个严重的虚假进展循环；但它在另一个 case 上更贵，
+并在 Agent 把 Python 环境留在临时 subshell 时没有提供有效信号。这支持进入固定 Dev 机制实验，不支持
+成功率、SOTA 或泛化主张。
 
-当前 205 个 Dev identity 均已被至少一种方法执行。后续 Dev 实验可以诊断“当前 treatment 尚未运行”的
-历史失败层，但不能再包装成仓库未见泛化；这一角色只保留给受保护的 Canary 与 Official Test。
-
-这个结果否决了“终局完整程序 replay 已足够构成 EnvSolve-Pro 算法”。它只保留为 baseline 和认证原语。
-下一方法必须在候选形成过程中暴露可执行的 case 内状态，同时继续由模型决定环境操作。当前结果仍全部
-属于开发证据；只有该状态转换固定后，才开始未见 case、外部 baseline 和强弱 backbone 实验。
+当前结果仍全部属于开发证据。Official 成功与部署完整性分开报告；仓库未见结论只保留给方法和边界固定
+后的受保护 Canary 与 Official Test。
 
 ## 7. 证伪条件与范围
 
-如果匹配的未见实验没有 Official 增益、replay 反例不能改变后续程序、相同目标状态下 clean replay 与
+如果匹配的结果未知实验没有 Official 增益、操作关联 delta 不能改变后续动作、相同目标状态下 clean replay 与
 Official 不一致，或增益在强模型上消失，核心主张都会被削弱。成功率提高但资源变多是成功--成本权衡，
 不是效率改进。
 

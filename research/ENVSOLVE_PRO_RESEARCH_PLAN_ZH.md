@@ -972,3 +972,34 @@ Case 清单、选择审计、schedule 和预注册分别为
 `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_selection_audit.json`、
 `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json` 和
 `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_preregistration.json`。
+
+## 13. 当前方法决策：Operation Frontier V5
+
+完整历史轨迹复审和后续 Hard6 跨方法实验否决了“累计并编辑整份程序”作为核心算法。它会放大 replay，
+并让 Agent 在尚未确认哪一步真正改变兼容状态时，就开始优化构建脚本。Minimal B 保留为匹配的强 Agent
+baseline 和最终认证原语。
+
+Operation Frontier V5 只改变可执行证据到达的时间。搜索前记录完整公开目标基线；每次声明为改变环境的
+操作之后，同一个活跃 session 得到刚解决、新引入和仍存在的约束。Agent 仍选择每一条命令，并在最后
+自行综合自包含程序进行干净重放。不增加 package 规则、checkpoint、回退 controller、跨 case 记忆或
+累计命令程序。
+
+预注册的三个已消费 case 资格实验中，两种方法都达到 `3/3` clean replay 通过。V5 的请求为 130 对
+233，token 为 5.33M 对 9.11M，shell 调用为 146 对 240，墙钟时间为 6,827 对 9,449 秒。聚合收益
+主要来自 PyRollbar；LangGraph 上 V5 更贵；Conan 暴露了观测身份问题，因为所选 Python 环境只存在于
+临时 subshell。Minimal B 的 PyRollbar 仍被基础设施删失，因此不能比较 Official 成功率。这些结果只
+批准继续验证机制。
+
+下一批之前只允许两项已经测试的通用测量纠正：已有完整性边界以原样最终 clean replay 环境为准，可丢弃
+探索环境中的违规只记诊断；prompt 明确要求所选 Python 环境在操作返回后仍是后续观测的活跃环境。不
+增加新安全规则或部署规则。
+
+下面的证据顺序取代上文旧 Minimal-B bad4 顺序：
+
+1. 根据已有选择审计，在运行任一 arm 前固定一个仓库不重叠的 Dev bad-case batch；
+2. 使用完全相同的模型、seed、provider policy、主机 lane、目标、replay 和宽松安全上限，比较 Minimal
+   B 与 Operation Frontier V5；
+3. 所有 pair 和 O/C/O 裁决完成前不修改方法；
+4. Official Pass 是主指标，部署完整性单列质量轴；请求、token、墙钟、网络和存储为次指标；
+5. 只有固定 Dev 证据支持机制且不需要新 case-specific 规则，才进入受保护 Canary、外部 baseline 和
+   强弱 backbone 实验。

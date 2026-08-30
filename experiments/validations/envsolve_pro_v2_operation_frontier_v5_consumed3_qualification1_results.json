@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-operation-frontier-v5-consumed3-qualification1",
+  "role": "consumed-case mechanism qualification; not a generalization estimate",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "paired_cases": [
+    {
+      "case": "conan-io/conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "minimal_b": {
+        "requests": 74,
+        "tokens": 3115938,
+        "wall_seconds": 2930.4703984940425,
+        "shell_calls": 85,
+        "clean_replays": 1,
+        "goal_replay_pass": true,
+        "official_pass": true,
+        "official_evidence": "independent exact-script diagnostic after package-network censoring"
+      },
+      "v5": {
+        "requests": 58,
+        "tokens": 2641319,
+        "wall_seconds": 2414.4334185812622,
+        "shell_calls": 66,
+        "clean_replays": 2,
+        "goal_replay_pass": true,
+        "official_pass": true,
+        "frontier_transitions": {"initial": 1, "stagnant": 10}
+      },
+      "mechanism_adjudication": "null: all frontier observations remained attached to the base Python environment while the Agent worked in a temporary Python 3.8 environment"
+    },
+    {
+      "case": "rollbar/pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "minimal_b": {
+        "requests": 116,
+        "tokens": 5254029,
+        "wall_seconds": 5227.904627569951,
+        "shell_calls": 114,
+        "clean_replays": 1,
+        "goal_replay_pass": true,
+        "official_pass": null,
+        "official_evidence": "censored: exploration-only deletion of adapter state blocked generation; two exact-script diagnostics were then package-network censored"
+      },
+      "v5": {
+        "requests": 27,
+        "tokens": 713729,
+        "wall_seconds": 1485.047192220576,
+        "shell_calls": 24,
+        "clean_replays": 2,
+        "goal_replay_pass": true,
+        "official_pass": true,
+        "frontier_transitions": {"initial": 1, "improved": 5, "stagnant": 4}
+      },
+      "mechanism_adjudication": "positive: verified 61-to-0 target-state progress and candidate-ready feedback ended a repeated PATH and environment search loop"
+    },
+    {
+      "case": "langchain-ai/langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "minimal_b": {
+        "requests": 43,
+        "tokens": 740368,
+        "wall_seconds": 1290.8322678776458,
+        "shell_calls": 41,
+        "clean_replays": 1,
+        "goal_replay_pass": true,
+        "official_pass": true,
+        "official_evidence": "independent exact-script diagnostic after package-network censoring"
+      },
+      "v5": {
+        "requests": 45,
+        "tokens": 1975910,
+        "wall_seconds": 2927.3835539910942,
+        "shell_calls": 56,
+        "clean_replays": 1,
+        "goal_replay_pass": true,
+        "official_pass": true,
+        "official_evidence": "independent exact-script diagnostic after Pyright IncompleteRead",
+        "frontier_transitions": {"initial": 1, "improved": 4, "mixed": 1, "regressed": 2, "stagnant": 8}
+      },
+      "mechanism_adjudication": "positive but more expensive: the frontier followed the Python 3.11 venv from 47 obligations to 0, after which the Agent continued semantic completeness checks before one passing replay"
+    }
+  ],
+  "aggregate": {
+    "minimal_b": {"requests": 233, "tokens": 9110335, "wall_seconds": 9449.207293941638, "shell_calls": 240, "goal_replay_passes": 3},
+    "v5": {"requests": 130, "tokens": 5330958, "wall_seconds": 6826.864164792932, "shell_calls": 146, "goal_replay_passes": 3},
+    "relative_change_v5": {"requests": -0.44206008583690986, "tokens": -0.4148472072671287, "wall_seconds": -0.2775125088068504, "shell_calls": -0.39166666666666666}
+  },
+  "official_adjudication": {
+    "v5": "3/3 pass after one exact-script network diagnostic on LangGraph",
+    "minimal_b": "2/2 adjudicable pass; PyRollbar remains infrastructure-censored",
+    "success_rate_claim": "not estimable from this consumed batch"
+  },
+  "decision": "retain V5 as the sole method candidate for a preregistered repository-disjoint Dev batch after correcting final-replay audit scope and persistent-environment instructions; do not claim SOTA or generalization from these cases"
+}

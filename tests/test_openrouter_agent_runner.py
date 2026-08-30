@@ -553,6 +553,8 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertIn("explicit truncation metadata", prompt)
         self.assertIn("does not", prompt)
         self.assertIn("copy commands into the candidate program", prompt)
+        self.assertIn("leave that environment active in", prompt)
+        self.assertIn("temporary subshell cannot be observed", prompt)
         self.assertIn("synthesize one self-contained", prompt)
         self.assertEqual(
             runner.agent_interface,

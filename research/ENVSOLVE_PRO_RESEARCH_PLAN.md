@@ -1274,3 +1274,44 @@ The case list, selection audit, schedule, and preregistration are
 `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_selection_audit.json`,
 `experiments/schedules/envsolve_pro_v2_minimal_b_bad4_v1.json`, and
 `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_preregistration.json`.
+
+## 13. Current Method Decision: Operation Frontier V5
+
+The complete historical trajectory review and subsequent Hard6 cross-method runs reject
+editable accumulated programs as the core algorithm. They amplify replay and encourage
+the Agent to optimize a construction script before it has established which operation
+actually changed compatibility. Minimal B remains the matched strong-Agent baseline and
+final certification primitive.
+
+Operation Frontier V5 changes only the timing of executable evidence. A complete public
+goal baseline is recorded before search. After an operation declared to change the
+environment, the same active session receives resolved, introduced, and remaining
+obligations. The Agent still selects every command and later synthesizes its own
+self-contained program for clean replay. There are no package rules, checkpoints,
+rollback controller, cross-case memory, or accumulated command program.
+
+On the preregistered consumed three-case qualification, both methods reached `3/3`
+passing clean replays. V5 used 130 versus 233 requests, 5.33M versus 9.11M tokens, 146
+versus 240 shell calls, and 6,827 versus 9,449 seconds. The aggregate gain was driven by
+PyRollbar; V5 was more expensive on LangGraph, and Conan exposed an observation identity
+failure when the selected Python environment remained inside a temporary subshell.
+Official success cannot be compared because Minimal B's PyRollbar episode remains
+infrastructure-censored. These results qualify the mechanism only.
+
+Before the next batch, two general measurement corrections are allowed and now tested:
+the existing integrity boundary is evaluated on the exact final clean-replay environment,
+while disposable construction-state violations remain diagnostic; and the Agent is told
+to leave a selected Python environment active for the post-operation observation. No
+new safeguard or deployment rule is introduced.
+
+The next evidence sequence supersedes the Minimal-B bad4 sequence above:
+
+1. freeze one repository-disjoint fixed Dev bad-case batch from the existing selection
+   audit, before running either arm;
+2. compare matched Minimal B against Operation Frontier V5 with identical model, seed,
+   provider policy, host lane, goal, replay, and broad safety limits;
+3. complete every pair and O/C/O adjudication before any method change;
+4. retain Official Pass as primary, deployment completeness as a separate quality axis,
+   and requests, tokens, wall time, network, and storage as secondary outcomes;
+5. proceed to protected Canary, external baselines, and strong/weak backbones only if the
+   fixed Dev evidence supports the mechanism without a new case-specific rule.

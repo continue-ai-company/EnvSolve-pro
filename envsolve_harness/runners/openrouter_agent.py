@@ -1235,6 +1235,9 @@ receives exact counts plus a bounded identity list for current, resolved, and in
 obligations, with explicit truncation metadata. You may inspect the raw goal when more
 detail is useful. This compatibility frontier is advisory: it does not select packages,
 block commands, restore an environment, or copy commands into the candidate program.
+If a change selects a Python or package environment, leave that environment active in
+the persistent shell when the command returns; a temporary subshell cannot be observed
+as the resulting deployment state.
 
 Use the frontier to distinguish an operation's verified effect from its exit status.
 When the active environment is ready, synthesize one self-contained, path-portable

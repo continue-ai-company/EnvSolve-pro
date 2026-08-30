@@ -13,22 +13,20 @@ constraint solving**.
 We first introduce an auditable trajectory representation and classify the earliest
 decisive failure into three causal layers: Observation, Constraint, and Operation. Across
 development trajectories, two recurring failures are optimizing an incomplete proxy for
-the scored goal and failing to convert a working construction state into a program that
-recreates it. We then propose EnvSolve-Pro, a minimal three-layer algorithm. A capable
-Agent remains free in one continuous session and may repeatedly submit a cumulative
-deployment program for execution from the target initial state. Replay failures return
-executable, case-local constraints to the same session without prescribing a repair, and
-only the exact program that passes replay can be delivered. The harness neither schedules
-search nor forces a candidate transition.
+the scored goal and treating a successful command as evidence that compatibility
+actually improved. We then propose EnvSolve-Pro, a minimal three-layer algorithm. A
+capable Agent remains free in one continuous session. After each intended environment
+change, the public executable goal reports which case-local obligations were resolved,
+introduced, or remain; this evidence advises rather than constrains the next action. The
+Agent later synthesizes one self-contained deployment program, and only that exact
+program passing clean replay can be delivered.
 
-Consumed development cases qualify same-session Fail-to-Pass replay repair. Prospective
-development tests do not support adding fixed-cadence observation, forced handoff, or an
-Agent-invoked exact current-state tool to that core, so those mechanisms remain ablations.
-They do not establish generalization. Our final evaluation freezes the smaller algorithm
-before held-out evaluation, compares it with matched same-model controls, EnvBench
-baselines, Repo2Run, prior hard-constraint EnvSolve, and native coding Agents, and tests
-both strong and weaker backbones. Official Pass@1 is primary; time, tokens, network, and
-storage are optimized only after success is preserved.
+Consumed development cases qualify the mechanism but do not establish generalization.
+Our final evaluation fixes the algorithm before outcome-blind evaluation, compares it
+with matched same-model controls, EnvBench baselines, Repo2Run, prior hard-constraint
+EnvSolve, and native coding Agents, and tests strong and weaker backbones. Official
+Pass@1 is primary; time, tokens, network, and storage are optimized only after success
+is preserved.
 
 ## 1. Problem
 
@@ -93,45 +91,48 @@ EnvSolve-Pro keeps the three layers explicit while minimizing controller policy.
 
 ### Observation Layer
 
-The Agent receives ordinary command feedback in a persistent construction environment
-and the complete public goal. It may repeatedly invoke a trusted replay that executes a
-cumulative program and the goal from the target initial state, rather than validating
-only accumulated construction state. The same replay is mandatory for final delivery.
+The Agent receives ordinary command feedback in a persistent construction environment.
+Before search and after every operation declared to change compatibility, the harness
+executes the complete public goal in that active environment. It reports exact residual
+counts and a bounded, explicitly truncated identity projection while retaining complete
+evidence in the machine trajectory.
 
 ### Constraint Layer
 
-Goal residuals and replay failures are executable, case-local facts. A replay failure
-means that the current complete program does not reconstruct a goal-satisfying state.
-Raw evidence remains visible, and the Agent may revise or reject its interpretation. The
-harness adds no package-rule library, cross-case experience, checkpoint graph, or
-model-selected repair policy.
+The constraint state is the executable goal residual and its delta after an operation:
+resolved, introduced, and remaining obligations. The compatibility frontier retains
+verified progress but is advisory; temporary regression and alternative hypotheses
+remain allowed. The harness adds no package-rule library, cross-case experience,
+checkpoint graph, or model-external repair policy.
 
 ### Operation Layer
 
-The Agent freely inspects the repository, changes the construction environment, and
-decides when a cumulative program is ready for replay. A failed replay preserves the
-active session and returns its counterexample with unrestricted tool choice. A candidate
-is delivered only when that exact program passes from the target state.
+The Agent freely inspects the repository, chooses every environment transformation, and
+decides when the active state is ready. It then synthesizes a self-contained program
+rather than inheriting the exploratory command history. A failed clean replay preserves
+the active session and returns its counterexample. A candidate is delivered only when
+that exact program passes from the target initial state.
 
 ```text
 start one Agent session and one construction environment
 
 while no replay-passing program exists and broad safety limits remain:
-    let the Agent freely observe and modify the construction state
-    if the Agent submits a cumulative deployment program:
-        y <- execute the exact program and goal from the target initial state
-        if y passes:
-            return the program
-        return y to the same session and continue free repair
+    action <- Agent freely inspects or changes the construction state
+    if action intends to change compatibility:
+        delta <- execute the public goal and compare with the prior state
+        return delta to the same Agent session
+    if the Agent submits a self-contained deployment program:
+        replay <- execute the exact program and goal from the target initial state
+        if replay passes: return the program
+        return replay to the same session
 
 return failure
 ```
 
-The controller provides target-state evidence and enforces that the delivered artifact is
-the replayed artifact. It does not decide when search should stop or choose the next
-environment-changing operation. Stronger models therefore expand the Operation layer
-rather than being replaced by a closed planner. The algorithm stores programs and
-trajectories, not container checkpoints.
+The controller verifies state transitions and binds delivery to clean replay. It neither
+chooses packages nor decides the next operation. Stronger models therefore expand the
+Operation layer rather than being replaced by a closed planner. The algorithm stores
+programs and trajectories, not container checkpoints.
 
 ## 4. Contributions
 
@@ -139,8 +140,8 @@ trajectories, not container checkpoints.
    Observation--Constraint--Operation taxonomy that identifies the earliest decisive
    cause across different deployment paradigms.
 2. **A minimal deployment algorithm.** EnvSolve-Pro couples an unrestricted continuous
-   Agent session with repeatable target-state replay, turning complete-program failures
-   into executable case-local constraints while keeping search and stopping model-led.
+   Agent session with operation-linked executable compatibility deltas and final clean
+   replay, grounding progress while keeping search and stopping model-led.
 3. **Controlled empirical evidence.** We compare matched mechanisms, external systems,
    and strong and weaker backbones using Official success, causal failure transitions,
    deployment completeness, and success-preserving resource outcomes.
@@ -163,12 +164,12 @@ failure mass across Observation, Constraint, and Operation.
 
 ### 5.2 Same-Model Mechanism Test
 
-Under the same model and execution conditions, we separate repository-feedback free
-search (`F`), free search with the complete executable goal (`F+O`), and EnvSolve-Pro's
-agent-invoked target-state replay with mandatory replay certification (`F+O+R`). The first
-contrast tests goal observability. The second tests whether complete-program
-counterexamples improve delivery after the goal is visible. Scheduled observation and
-forced handoff are evaluated separately as controller-policy ablations. All
+Under the same model and execution conditions, we compare a continuous free Agent with
+final clean replay (`F+R`) against EnvSolve-Pro's operation-linked observation,
+compatibility delta, and the same final replay (`F+O+C+R`). This isolates whether verified
+state-transition feedback improves deployment beyond a strong Agent that already has a
+persistent session and reproducibility check. Accumulated editable programs, scheduled
+observation, forced handoff, and checkpoints remain separate ablations. All
 environment-changing choices remain model actions.
 
 Development trajectories are used to discover failure types and choose one fixed method.
@@ -186,7 +187,7 @@ failed commands. The narrower distinction tested by EnvSolve-Pro is whether the 
 deliverable is executed from the target initial state and its counterexample is returned
 before the active reasoning session ends.
 
-Strong and weaker backbones test whether replay-grounded constraints complement model
+Strong and weaker backbones test whether executable state feedback complements model
 capability or are absorbed by model progress. Official Pass@1 is primary. Secondary
 outcomes are failure-layer transitions, replay-to-Official agreement, deployment
 completeness, requests, tokens, wall time, network traffic, and storage. Official success
@@ -194,45 +195,31 @@ and broader runtime completeness are reported as separate axes.
 
 ## 6. Current Evidence and Claim Boundary
 
-The current trajectory reconstruction contains 48 method--case rows and 38 non-success
-rows. A provisional single-reviewer pass identifies 25 algorithmically attributable
-failures: 14 Observation, seven Constraint, and four Operation. Nine infrastructure-unknown
-and four protocol-censored rows are excluded. Independent annotation is pending, so these
-counts support taxonomy development but not population prevalence. Method mechanisms and
-failure causes are recorded separately: a system may combine free search, hard or soft
-constraints, and replay, while each failed trajectory receives one earliest decisive
-O/C/O cause or is censored.
+Trajectory reconstruction currently supports the O/C/O taxonomy but not prevalence:
+independent annotation is pending, and infrastructure or protocol-censored episodes are
+excluded from algorithmic failure counts. Deployment paradigms and failure causes remain
+separate variables.
 
-Earlier development studies show that replay can repair some complete programs, but can
-also be ignored or invoked only after the decisive search work is over. Larger controller
-policies based on fixed observation cadence, forced handoff, or candidate retention did
-not produce a stable gain and are excluded from the core method.
+Development ablations reject final replay alone, editable accumulated programs, fixed
+observation cadence, forced handoff, and checkpoint-like candidate retention as the core
+method. Their common weakness is that useful executable evidence arrives too late or is
+coupled to a controller policy that adds cost without reliably improving the next action.
 
-We then fixed four Official bad cases and compared the same goal-aware Agent with and
-without repeatable clean replay. Both arms passed `2/4`; two pairs both passed and two
-pairs both failed. Crucially, replay was never invoked on either failed treatment episode.
-The failures occurred while forming the first legal bootstrap, not while repairing a
-replay counterexample. On the two common successes, resource differences were confounded
-by a Python 3.9 harness defect in one case and unequal deployment completeness in the
-other, so they do not support an efficiency claim.
+The first consumed-case qualification of operation-linked feedback produced goal replay
+success for both methods on all three pairs. EnvSolve-Pro reduced aggregate requests,
+tokens, shell calls, and wall time, driven by one severe false-progress loop; it was more
+expensive on another case and provided no useful signal when the Agent left its selected
+Python environment inside a temporary subshell. This supports a fixed Dev test of the
+mechanism, not a success-rate, SOTA, or generalization claim.
 
-All 205 development identities have now been executed by at least one method. Subsequent
-Dev studies can diagnose a treatment-unrun failure stratum, but cannot be presented as
-repository-unseen generalization. The protected Canary and Official Test splits retain
-that role.
-This negative result also motivates reporting deployment completeness separately from the
-benchmark goal.
-
-This result rejects terminal complete-program replay as a sufficient EnvSolve-Pro
-algorithm. It remains a baseline and certification primitive. The next method must expose
-executable, case-local state during candidate formation while leaving environment-changing
-actions model-led. All current results remain development evidence; held-out, external-
-baseline, and strong/weak-backbone experiments begin only after that transition is fixed.
+All current results are development evidence. Official success and deployment
+completeness are reported separately, and repository-unseen claims are reserved for
+protected Canary and Official Test data after the method and boundary are fixed.
 
 ## 7. Falsification and Scope
 
 The central claim is weakened if matched outcome-blind experiments show no Official gain,
-if replay counterexamples do not change subsequent programs, if clean replay and Official
+if operation-linked deltas do not change subsequent actions, if clean replay and Official
 diverge under the same target state, or if gains disappear for stronger models. A success
 gain with higher resource use is a success--cost tradeoff, not an efficiency improvement.
 
