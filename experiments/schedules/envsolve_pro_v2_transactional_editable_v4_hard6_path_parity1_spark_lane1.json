@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-transactional-editable-v4-hard6-path-parity1-spark-lane1",
+  "parent_schedule": "experiments/schedules/envsolve_pro_v2_transactional_editable_v4_hard6_path_parity1.json",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_transactional_editable_v4_crossmethod_hard6.jsonl",
+  "case_file_sha256": "5f3b3735de728263601880c3a9c6a4afe6030488662d87154b3c6b852f39f62a",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {"OPENROUTER_API_KEY": "present-not-recorded", "OPENROUTER_PROVIDER_ORDER": "DeepInfra"},
+  "episodes": [
+    {"position": 1, "original_position": 1, "pair_id": "hard6-01-conan-package-tools", "pair_index": 1, "pair_position": 1, "arm": "B-Minimal-B", "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2", "runner": "envsolve-pro-v2", "method": "envsolve-pro-fsr-minimal-h", "seed": 830401, "run_id": "pro-v2-tep-v4-pp1-01-conan-B-minimal-b"},
+    {"position": 2, "original_position": 2, "pair_id": "hard6-01-conan-package-tools", "pair_index": 1, "pair_position": 2, "arm": "T-Transactional-Editable-V4", "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2", "runner": "envsolve-pro-v2-incremental-program-transactional-editable", "method": "envsolve-pro-transactional-editable-incremental-executable-program", "seed": 830401, "run_id": "pro-v2-tep-v4-pp1-02-conan-T-v4"},
+    {"position": 3, "original_position": 5, "pair_id": "hard6-03-langgraph", "pair_index": 3, "pair_position": 1, "arm": "B-Minimal-B", "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac", "runner": "envsolve-pro-v2", "method": "envsolve-pro-fsr-minimal-h", "seed": 830403, "run_id": "pro-v2-tep-v4-pp1-05-langgraph-B-minimal-b"},
+    {"position": 4, "original_position": 6, "pair_id": "hard6-03-langgraph", "pair_index": 3, "pair_position": 2, "arm": "T-Transactional-Editable-V4", "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac", "runner": "envsolve-pro-v2-incremental-program-transactional-editable", "method": "envsolve-pro-transactional-editable-incremental-executable-program", "seed": 830403, "run_id": "pro-v2-tep-v4-pp1-06-langgraph-T-v4"}
+  ]
+}

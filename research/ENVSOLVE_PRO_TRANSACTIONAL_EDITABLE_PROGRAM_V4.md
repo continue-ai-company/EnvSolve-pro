@@ -73,3 +73,25 @@ and path cost are reported separately and cannot relabel Official Pass@1.
 
 V3 remains a representation ablation. A V3-versus-V4 edit-efficiency comparison is meaningful
 only on prospectively identified episodes where both arms naturally activate plan revision.
+
+## Hard6 Diagnostic Pilot
+
+The first Hard6 launch exposed an interface confound rather than an algorithm effect. Minimal B
+explicitly received the fresh-replay path contract: replay starts at the repository root and its
+absolute path may differ from `/data/project`. The incremental prompt returned before this
+instruction was added. Both V4 episodes therefore persisted construction-only absolute paths.
+
+The completed Conan pair passed Official in both arms. V4 used 56 model requests and 1,502,161
+tokens versus Minimal B's 63 requests and 2,456,019 tokens, but required four replays rather than
+two and took longer. V4 repaired the path through three program revisions. Its final program also
+installed a metric-sufficient compatibility shim, while Minimal B extracted the genuine legacy
+module. These are useful mechanism and path-quality observations, not a causal win.
+
+PyRollbar V4 was stopped after 52 requests, 2,384,936 tokens, six failed replays, and four plan
+revisions. The Agent repeatedly attributed internal missing imports to network or dependency
+selection even after replay evidence showed the nested checkout. Continuing would measure the
+missing instruction rather than V4. A just-started LangGraph control was also stopped.
+
+The original study is therefore terminated and excluded from effect estimates. Commit `c094117`
+supplies the same path-independent replay contract to every incremental runner without changing
+the V4 algorithm. The fixed Hard6 identities remain unchanged for the parity rerun.

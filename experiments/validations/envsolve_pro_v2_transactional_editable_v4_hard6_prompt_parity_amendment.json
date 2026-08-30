@@ -1,0 +1,59 @@
+{
+  "schema": "envsolve-pro-v2-study-amendment-v1",
+  "study_id": "envsolve-pro-v2-transactional-editable-v4-crossmethod-hard6",
+  "recorded_at": "2026-08-30",
+  "status": "terminated-for-interface-confound",
+  "discovery": {
+    "point": "After the first Conan pair completed and while the first PyRollbar treatment episode was running.",
+    "confound": "Minimal B explicitly told the Agent that clean replay starts at the repository root and may use an absolute path different from /data/project. Incremental V4 returned from prompt construction before receiving that path-portability contract.",
+    "observed_consequence": "Both V4 trajectories persisted /data/project commands. Fresh replay placed the repository below /data/project, so project installation targeted the wrong directory. Conan eventually repaired the path after three plan revisions; PyRollbar repeatedly misattributed the resulting internal missing imports to network or dependency strategy.",
+    "scope": "The study compared both deployment methods and unequal replay-path information, so it cannot estimate the causal effect of transactional editable programs."
+  },
+  "completed_diagnostic_evidence": {
+    "conan_minimal_b": {
+      "official_pass": true,
+      "model_requests": 63,
+      "total_tokens": 2456019,
+      "wall_seconds": 1193.435383473523,
+      "clean_replays": ["fail", "pass"]
+    },
+    "conan_v4": {
+      "official_pass": true,
+      "model_requests": 56,
+      "total_tokens": 1502161,
+      "wall_seconds": 1470.8931595319882,
+      "clean_replays": ["fail", "fail", "fail", "pass"],
+      "plan_revisions": 3,
+      "diagnostic_only": true
+    },
+    "pyrollbar_v4": {
+      "official_pass": null,
+      "state": "interrupted after the confound was established",
+      "model_requests": 52,
+      "total_tokens": 2384936,
+      "wall_seconds": 3164.7507636249065,
+      "clean_replays": ["fail", "fail", "fail", "fail", "fail", "fail"],
+      "plan_revisions": 4,
+      "diagnostic_only": true
+    },
+    "langgraph_minimal_b": {
+      "state": "interrupted immediately after automatic start",
+      "wall_seconds": 65.33060923218727,
+      "excluded": true
+    }
+  },
+  "claim_boundary": [
+    "Do not report a Hard6 success-rate or efficiency effect from this terminated study.",
+    "Retain the trajectories as mechanism evidence for replay-path drift, repair behavior, network-noise attribution, and deployment-quality annotation.",
+    "The Conan pair may illustrate behavior but is not a causal comparison because prompt information differed."
+  ],
+  "resolution": {
+    "code_commit": "c094117",
+    "change": "Give every incremental runner the same path-independent fresh-replay contract already supplied to whole-program methods.",
+    "algorithm_change": false,
+    "case_specific_rule": false,
+    "new_hash_contract_or_gate_added": false,
+    "verification": "954 passed, 12 skipped, 7 warnings, 82 subtests passed",
+    "rerun_policy": "Use the same prospectively fixed Hard6 identities and paired controls; do not replace cases based on pilot outcomes."
+  }
+}

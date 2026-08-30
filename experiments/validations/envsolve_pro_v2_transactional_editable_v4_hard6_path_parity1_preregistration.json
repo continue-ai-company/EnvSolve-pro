@@ -1,0 +1,22 @@
+{
+  "schema": "envsolve-pro-v2-paired-development-design-amendment-v1",
+  "study_id": "envsolve-pro-v2-transactional-editable-v4-hard6-path-parity1",
+  "recorded_at": "2026-08-30",
+  "parent_design": "experiments/validations/envsolve_pro_v2_transactional_editable_v4_crossmethod_hard6_preregistration.json",
+  "prompt_parity_amendment": "experiments/validations/envsolve_pro_v2_transactional_editable_v4_hard6_prompt_parity_amendment.json",
+  "status": "recorded-before-path-parity-rerun",
+  "cases": "Unchanged fixed Hard6 identities, arm order, model, provider, seed, image, goal, evaluator, and broad safety limits.",
+  "only_method_interface_change": "Incremental runners receive the same fresh-replay path-portability instruction already present for whole-program runners.",
+  "algorithm_change": false,
+  "primary_endpoint": "Official EnvBench Pass@1",
+  "analysis_priority": "Success before resource use; deployment quality remains separate.",
+  "execution": {
+    "spark_lane1": "pairs 1 and 3",
+    "spark_lane2": "pairs 2 and 4",
+    "agenthub_lane": "pairs 5 and 6",
+    "pair_host_rule": "Both arms of each pair execute on the same host and lane.",
+    "host_interpretation": "Host is blocked by pair; no cross-pair host difference is interpreted as a method effect."
+  },
+  "pilot_use": "The terminated pilot is diagnostic mechanism evidence only and is excluded from effect estimates.",
+  "new_hash_contract_or_gate_added": false
+}

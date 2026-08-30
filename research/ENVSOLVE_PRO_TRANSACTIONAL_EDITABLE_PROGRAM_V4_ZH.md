@@ -63,3 +63,21 @@ Official Pass@1。
 
 V3 保留为表示层 ablation。只有在前瞻实验中两臂都自然激活计划编辑的 episode 上，V3 与 V4 的编辑效率
 比较才有意义。
+
+## Hard6 诊断性 Pilot
+
+第一次 Hard6 启动发现的不是算法效果，而是接口混杂。Minimal B 明确收到 fresh replay 路径契约：
+replay 从仓库根目录开始，绝对路径可能不同于 `/data/project`；incremental prompt 在加入这条说明前就
+提前返回。两个 V4 episode 因此都把仅在构建容器有效的绝对路径写入了程序。
+
+Conan 配对的两臂最终都 Official Pass。V4 使用 56 次模型请求和 1,502,161 Token，低于 Minimal B 的
+63 次和 2,456,019 Token，但 V4 做了 4 次 replay、Minimal B 只做了 2 次，而且 V4 墙钟更长。V4 通过
+三次程序修改修复了路径。其最终程序还写入了“指标足够”的兼容 shim，而 Minimal B 提取了真实旧版
+模块。因此这些结果只能说明机制和部署路径质量，不能解释成 V4 的因果胜利。
+
+PyRollbar V4 在 52 次请求、2,384,936 Token、6 次失败 replay 和 4 次程序修改后被停止。即使 replay
+已经显示嵌套 checkout，Agent 仍反复把项目内部 missing import 归因于网络或依赖选择；继续运行只会测量
+缺失说明，而不是测量 V4。一个刚自动启动的 LangGraph control 也随即停止。
+
+因此原研究被终止，不进入效果估计。提交 `c094117` 只把相同的路径无关 replay 契约提供给所有
+incremental runner，不改变 V4 算法。对齐后重跑仍使用原先固定的 Hard6 case，不根据 pilot 结果换样本。
