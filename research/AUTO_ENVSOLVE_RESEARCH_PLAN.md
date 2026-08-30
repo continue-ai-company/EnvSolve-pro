@@ -855,3 +855,19 @@ HARK episode. This is the correct outer-loop split: consumed evidence proposes o
 cross-platform deterministic tests establish its semantics, and a disjoint outcome-blind batch
 estimates effect. Future Auto-EnvSolve versions should preserve this separation instead of using
 proposal-generating trajectories as promotion evidence.
+
+### 32. Interface-Parity Audit and Early Study Rejection
+
+The first V4 Hard6 launch supplies an outer-loop rejection that precedes outcome comparison.
+Minimal B received an explicit path-independent fresh-replay contract, while the incremental
+prompt returned before that instruction. V4 then persisted construction-only absolute paths;
+Conan repaired them after several edits and PyRollbar repeatedly misclassified the resulting
+internal missing imports as network or dependency failures. Auto-EnvSolve must audit the
+model-visible information, tools, evaluator access, and replay coordinate frame of both arms
+before assigning algorithm credit.
+
+When such an interface mismatch becomes causally established, the outer loop should stop the
+affected batch, retain every raw trajectory, censor effect estimates, and propose the smallest
+parity correction. It must keep the prospectively fixed case identities rather than selecting
+new cases after seeing outcomes. Measurement/interface corrections and algorithm proposals remain
+separate version transitions; only the corrected rerun can drive promotion or rollback.

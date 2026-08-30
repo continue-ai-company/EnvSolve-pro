@@ -705,3 +705,17 @@ the benchmark goal with fewer tokens is not automatically a positive example for
 environment policy. The first paper retains stage programs, environment versions, replay
 states, Official outcomes, and completeness annotations so the learned project can rebuild
 multi-axis rewards without rerunning the environments.
+
+### 28. Replay Coordinate Frame and Interface-Confound Labels
+
+The terminated V4 Hard6 pilot must not provide ordinary positive or negative policy reward.
+Its incremental Agent lacked the path-portability instruction available to Minimal B, so
+absolute construction paths became invalid after fresh checkout. Preserve the visible prompt,
+construction working directory, replay repository root, each persisted command, path-related
+counterexample, attribution made by the Agent, plan revision, and terminal censor reason.
+
+Derived training views should label `coordinate_frame_mismatch`, `path_repair`,
+`failure_misattribution`, and `interface_censored` separately. The completed Conan successes
+remain useful repair demonstrations but not paired method preference; interrupted PyRollbar is
+useful negative supervision for repeated diagnosis under missing context, not evidence that the
+deployment policy itself is weak. Corrected path-parity reruns provide the valid comparison data.
