@@ -1,0 +1,39 @@
+{
+  "schema": "envsolve-pro-v2-official-network-retry-amendment-v1",
+  "study_id": "envsolve-pro-v2-transactional-editable-v4-hard6-path-parity1",
+  "amendment_id": "hard6-path-parity1-nonebot2-v4-official-retry1",
+  "recorded_at": "2026-08-30",
+  "recorded_before_retry_execution": true,
+  "source_episode": {
+    "original_position": 11,
+    "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+    "arm": "T-Transactional-Editable-V4",
+    "run_id": "pro-v2-tep-v4-pp1-11-nonebot2-T-v4",
+    "generation_completed": true,
+    "clean_replay_status_counts": {
+      "fail": 3,
+      "pass": 1
+    },
+    "official_evaluation_completed": false,
+    "termination": {
+      "kind": "infrastructure_unknown",
+      "scope": "evaluator_bootstrap",
+      "signature": "connection-error"
+    },
+    "failure_evidence": "Poetry timed out reading files.pythonhosted.org before the Official Pyright invocation."
+  },
+  "retry": {
+    "run_id": "pro-v2-tep-v4-pp1-11-nonebot2-T-v4-official-infra-retry1",
+    "mode": "single-exact-script-evaluation-only",
+    "execute_after_all_original_schedule_positions": true,
+    "model_reexecuted": false,
+    "script_changed": false,
+    "case_changed": false,
+    "algorithm_changed": false,
+    "goal_or_evaluator_changed": false,
+    "host_changed": false,
+    "analysis_treatment": "Replace only the infrastructure-censored Official outcome when the retry produces a complete identity-matched result; retain both attempts."
+  },
+  "claim_boundary": "The retry can recover the missing Official outcome only. It cannot alter generation success, resource use, or mechanism evidence.",
+  "new_hash_contract_or_gate_added": false
+}
