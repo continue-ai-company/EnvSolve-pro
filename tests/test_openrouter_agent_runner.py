@@ -554,7 +554,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(submission["program"], program)
         self.assertEqual(
             compatibility.call_ids,
-            ["2-operation-frontier"],
+            ["operation-frontier-initial", "2-operation-frontier"],
         )
         self.assertEqual(
             metadata["shell_effect_counts"],
@@ -572,7 +572,17 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             for event in events
             if event.get("event") == "operation_frontier_observation"
         ]
-        self.assertEqual(len(frontier_events), 1)
+        self.assertEqual(len(frontier_events), 2)
+        self.assertEqual(frontier_events[0]["trigger"], "initial-baseline")
+        self.assertEqual(frontier_events[1]["trigger"], "operation-change")
+        first_messages = client.chat.completions.requests[0]["messages"]
+        self.assertTrue(
+            any(
+                item.get("role") == "user"
+                and "compatibility baseline" in str(item.get("content"))
+                for item in first_messages
+            )
+        )
         change_result = next(
             event["result"]
             for event in events
@@ -627,7 +637,10 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             )
 
         self.assertEqual(submission["program"], program)
-        self.assertEqual(compatibility.call_ids, ["1-operation-frontier"])
+        self.assertEqual(
+            compatibility.call_ids,
+            ["operation-frontier-initial", "1-operation-frontier"],
+        )
 
     def test_editable_incremental_program_adds_only_a_plan_editor(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

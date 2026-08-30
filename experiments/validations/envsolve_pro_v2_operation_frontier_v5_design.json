@@ -5,9 +5,9 @@
   "evidence_source": "Consumed B/V4 trajectories from Conan, PyRollbar, and LangGraph. V4 reached Official Pass on all three, but accumulated construction commands too early, confused shell exit status with state effect, and amplified clean replays on PyRollbar and LangGraph.",
   "research_question": "Does returning an operation-attributed public-goal delta immediately after each Agent-declared environment change improve failure recovery without constraining the Agent or turning construction commands into the deployment program?",
   "control": "Minimal B: one continuous Agent session, an open persistent shell, and repeatedly callable whole-program clean replay.",
-  "treatment": "V5: Minimal B plus Agent-declared inspect/change operations. Every change is followed by the complete public goal, even after a nonzero shell exit. The same session receives exact obligation counts, a bounded identity list for current/resolved/introduced obligations, and explicit truncation metadata; complete evidence remains in the machine trajectory.",
+  "treatment": "V5: Minimal B plus an initial public-goal baseline and Agent-declared inspect/change operations. Every change is followed by the complete public goal, even after a nonzero shell exit. The same session receives exact obligation counts, a bounded identity list for current/resolved/introduced obligations, and explicit truncation metadata; complete evidence remains in the machine trajectory.",
   "three_layers": {
-    "observation": "Shell output plus a truthful bounded projection of the complete public-goal post-state after each declared change.",
+    "observation": "A pre-operation public-goal baseline, then shell output plus a truthful bounded projection of the complete public-goal post-state after each declared change.",
     "constraint": "The compatibility frontier contains only currently executable obligations and their delta; it is advisory evidence, not a package rule or command policy.",
     "operation": "The Agent freely chooses shell actions and later synthesizes one self-contained, path-portable bootstrap program for clean replay."
   },
@@ -43,6 +43,7 @@
     "test_result": "957 passed, 12 skipped, 7 warnings, 82 subtests passed",
     "covered_semantics": [
       "inspect does not execute the public goal",
+      "an initial baseline is observed before the first model request",
       "change executes the complete public goal exactly once",
       "a nonzero change still exposes partial post-state",
       "construction commands are not copied into the final program",

@@ -23,9 +23,10 @@ these mistakes, but only after long diagnostic loops.
 
 ## V5 In Plain Language
 
-After the Agent says, "this command is meant to change the environment," the harness
-immediately runs the complete public goal and reports how many obligations became fixed,
-newly broke, or remain. To keep repeated observations within the model context, it
+Before the first model request, the harness records the public-goal baseline. After the
+Agent says, "this command is meant to change the environment," the harness immediately
+runs the complete public goal and reports how many obligations became fixed, newly
+broke, or remain. To keep repeated observations within the model context, it
 exposes at most 128 obligation identities per section and an explicit truncation flag.
 Complete evidence remains in the machine trajectory, and the Agent can inspect the raw
 goal when it needs more detail. The Agent stays in the same session and chooses the next
@@ -37,8 +38,8 @@ environment. A replay failure returns to the same session for repair.
 
 ## Three Layers
 
-**Observation:** command output and a truthful bounded projection of the complete
-public-goal post-state after each declared change.
+**Observation:** an initial public-goal baseline, then command output and a truthful
+bounded projection of the complete post-state after each declared change.
 
 **Constraint:** a compatibility frontier containing only executable current obligations
 and their resolved or introduced delta. It is evidence, not a package rule.

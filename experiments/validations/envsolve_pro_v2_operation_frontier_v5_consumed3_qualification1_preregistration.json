@@ -3,6 +3,7 @@
   "study_id": "envsolve-pro-v2-operation-frontier-v5-consumed3-qualification1",
   "recorded_at": "2026-08-30",
   "method_design": "experiments/validations/envsolve_pro_v2_operation_frontier_v5_design.json",
+  "pre_treatment_amendment": "experiments/validations/envsolve_pro_v2_operation_frontier_v5_consumed3_qualification1_initial_baseline_amendment.json",
   "status": "recorded-before-provider-execution",
   "purpose": "Mechanism qualification only; these cases are already consumed and are excluded from future generalization estimates.",
   "selection": {

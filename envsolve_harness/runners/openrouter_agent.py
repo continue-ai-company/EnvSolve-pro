@@ -1387,6 +1387,10 @@ failures in this same session, then submit the exact replay-certified program.
             raise ValueError(
                 "Scheduled replay mode and scheduled observer must be configured together"
             )
+        if self.operation_frontier_enabled and compatibility_service is None:
+            raise ValueError(
+                "Operation-frontier replay mode requires a compatibility service"
+            )
         messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
         usage_total: dict[str, int | float] = {}
         tool_counts = {
@@ -1516,6 +1520,45 @@ failures in this same session, then submit the exact replay-certified program.
             )
             if schedule_verifier_handoff(initial_observation, 0):
                 messages.append(handoff_message(initial_observation))
+
+        if self.operation_frontier_enabled:
+            assert compatibility_service is not None
+            initial_result = compatibility_service.check(
+                "operation-frontier-initial"
+            )
+            initial_observation = {
+                "schema": "envsolve-operation-frontier-observation-v1",
+                "trigger": "initial-baseline",
+                "advisory_only": True,
+                "result": initial_result,
+            }
+            projected_initial = model_visible_scheduled_observation(
+                initial_observation
+            )
+            self._append_event(
+                trajectory_path,
+                {
+                    "schema": "envsolve-openrouter-event-v1",
+                    "event": "operation_frontier_observation",
+                    "request_index": 0,
+                    "trigger": "initial-baseline",
+                    "result": initial_result,
+                },
+            )
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Harness advisory compatibility baseline before the first "
+                        "model request:\n"
+                        + json.dumps(
+                            projected_initial,
+                            ensure_ascii=True,
+                            sort_keys=True,
+                        )
+                    ),
+                }
+            )
 
         def execute_shell(
             call_id: str,
@@ -1881,6 +1924,7 @@ failures in this same session, then submit the exact replay-certified program.
                                                     "operation_frontier_observation"
                                                 ),
                                                 "request_index": request_index,
+                                                "trigger": "operation-change",
                                                 "parent_tool_call_id": str(call.id),
                                                 "result": frontier,
                                             },

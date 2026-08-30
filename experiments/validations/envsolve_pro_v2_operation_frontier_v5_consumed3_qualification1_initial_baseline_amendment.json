@@ -1,0 +1,19 @@
+{
+  "schema": "envsolve-pro-v2-pre-treatment-design-amendment-v1",
+  "study_id": "envsolve-pro-v2-operation-frontier-v5-consumed3-qualification1",
+  "recorded_at": "2026-08-30",
+  "timing": "Recorded while position 1 B-Minimal-B was running and before any V5 treatment process or provider request.",
+  "observed_treatment_outcomes_before_amendment": false,
+  "problem": "Without a pre-operation observation, the first change would produce only an initial state and could not be attributed to that operation.",
+  "correction": "Run one advisory public-goal observation before the first model request. Every later declared change is compared with this baseline or the immediately previous change observation.",
+  "control_effect": "None. Position 1 uses Minimal B, which does not construct or call the compatibility service.",
+  "unchanged": [
+    "case identities and order",
+    "control and treatment runners",
+    "model, provider, seeds, image, goal, evaluator, host, and broad safety limits",
+    "model-visible projection bound",
+    "open Agent operation space",
+    "clean replay and final submission boundary"
+  ],
+  "new_hash_contract_or_gate_added": false
+}
