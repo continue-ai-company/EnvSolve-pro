@@ -849,3 +849,9 @@ and overriding a declared dependency constraint. Auto-EnvSolve should retain Off
 as the first lexicographic objective, then record clean reproducibility, completeness,
 declaration fidelity, and resources as separate non-compensating axes. A path-quality gain
 cannot excuse an Official regression, and an Official tie does not imply equivalent deployment.
+
+The researcher-operated successor implements the proposal as V4 without rerunning its generating
+HARK episode. This is the correct outer-loop split: consumed evidence proposes one generic change,
+cross-platform deterministic tests establish its semantics, and a disjoint outcome-blind batch
+estimates effect. Future Auto-EnvSolve versions should preserve this separation instead of using
+proposal-generating trajectories as promotion evidence.

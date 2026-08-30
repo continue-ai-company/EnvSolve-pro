@@ -484,6 +484,37 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             "target-replay-v3",
         )
 
+    def test_transactional_editable_program_uses_one_snapshot_batch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(
+                Path(directory),
+                "incremental-transactional-editable",
+            )
+            tools = runner._tools()
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            [item["function"]["name"] for item in tools],
+            ["envbench_shell", "revise_program", "replay_current_program"],
+        )
+        revision_parameters = tools[1]["function"]["parameters"]
+        self.assertEqual(revision_parameters["required"], ["edits"])
+        edit_parameters = revision_parameters["properties"]["edits"]
+        self.assertEqual(edit_parameters["minItems"], 1)
+        self.assertEqual(
+            edit_parameters["items"]["required"],
+            ["step_index", "replacement_command"],
+        )
+        self.assertIn("same program shown before", prompt)
+        self.assertIn("complete result once", prompt)
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+transactional-editable-incremental-"
+            "executable-program+target-replay-v4",
+        )
+
     def test_annotated_incremental_inspection_is_excluded_then_persist_replays(self) -> None:
         inspection = "python --version"
         persistent = "python -m venv .venv"
@@ -684,6 +715,76 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         self.assertEqual(
             revision_result["indexed_program"],
             [{"step": 1, "command": good}],
+        )
+
+    def test_transactional_editable_program_replays_one_complete_batch(self) -> None:
+        final_program = "good-one\n\nkeep-three"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "revise_program",
+                        {
+                            "edits": [
+                                {
+                                    "step_index": 1,
+                                    "replacement_command": "good-one",
+                                },
+                                {"step_index": 2, "replacement_command": ""},
+                                {"step_index": 4, "replacement_command": ""},
+                            ]
+                        },
+                    )
+                )
+            ]
+        )
+        replay = FakeReplayService(final_program)
+        terminal = FakeTerminalServer()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "incremental-transactional-editable")
+            program = IncrementalProgram(root / "incremental-program")
+            successful = {
+                "exit_code": 0,
+                "timed_out": False,
+                "infrastructure_error": None,
+            }
+            for command in ["bad-one", "remove-two", "keep-three", "remove-four"]:
+                program.append_successful(command, successful)
+
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=terminal,  # type: ignore[arg-type]
+                replay_service=replay,  # type: ignore[arg-type]
+                incremental_program=program,
+                current_goal_service=CandidateReadyCurrentGoalService(),  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(program.program, final_program)
+        self.assertEqual(submission["program"], final_program)
+        self.assertEqual(len(replay.certified_programs), 1)
+        self.assertEqual(metadata["tool_counts"]["revise_program"], 1)
+        self.assertEqual(metadata["replay_status_counts"], {"pass": 1})
+        revision_result = next(
+            event["result"]
+            for event in events
+            if event.get("tool_name") == "revise_program"
+        )
+        self.assertEqual(revision_result["program_revision"]["operation"], "batch")
+        self.assertEqual(
+            revision_result["indexed_program"],
+            [
+                {"step": 1, "command": "good-one"},
+                {"step": 2, "command": "keep-three"},
+            ],
         )
 
     def test_incremental_apply_records_then_replays_without_program_rewrite(self) -> None:

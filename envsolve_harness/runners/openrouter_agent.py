@@ -77,6 +77,7 @@ ReplayMode = Literal[
     "incremental",
     "incremental-annotated",
     "incremental-editable",
+    "incremental-transactional-editable",
 ]
 ClientFactory = Callable[..., Any]
 _PROVIDER_RETRY_DELAYS_SECONDS = (2, 10, 30, 60, 120, 240)
@@ -330,11 +331,13 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "incremental",
             "incremental-annotated",
             "incremental-editable",
+            "incremental-transactional-editable",
         }:
             raise ValueError(
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
                 "incumbent, current, ledger, scheduled, handoff, stateful, "
-                "incremental, incremental-annotated, or incremental-editable"
+                "incremental, incremental-annotated, incremental-editable, or "
+                "incremental-transactional-editable"
             )
         if max_iterations <= 0:
             raise ValueError("Agent iterations must be positive")
@@ -397,6 +400,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
             )
         if self.annotated_incremental_program_enabled:
             if self.editable_incremental_program_enabled:
+                if self.transactional_editable_incremental_program_enabled:
+                    return (
+                        "free-feedback-search+transactional-editable-incremental-"
+                        "executable-program+target-replay-v4"
+                    )
                 return (
                     "free-feedback-search+editable-incremental-executable-program+"
                     "target-replay-v3"
@@ -440,6 +448,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "incremental",
             "incremental-annotated",
             "incremental-editable",
+            "incremental-transactional-editable",
         }
 
     @property
@@ -485,6 +494,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "incremental",
             "incremental-annotated",
             "incremental-editable",
+            "incremental-transactional-editable",
         }
 
     @property
@@ -492,11 +502,19 @@ class OpenRouterAgentRunner(CodexCliRunner):
         return self.replay_mode in {
             "incremental-annotated",
             "incremental-editable",
+            "incremental-transactional-editable",
         }
 
     @property
     def editable_incremental_program_enabled(self) -> bool:
-        return self.replay_mode == "incremental-editable"
+        return self.replay_mode in {
+            "incremental-editable",
+            "incremental-transactional-editable",
+        }
+
+    @property
+    def transactional_editable_incremental_program_enabled(self) -> bool:
+        return self.replay_mode == "incremental-transactional-editable"
 
     @property
     def compatibility_observation_enabled(self) -> bool:
@@ -535,9 +553,14 @@ class OpenRouterAgentRunner(CodexCliRunner):
             ]
         if self.annotated_incremental_program_enabled:
             if self.editable_incremental_program_enabled:
+                editable_state = (
+                    "operation-annotated-transactional-editable-program-state"
+                    if self.transactional_editable_incremental_program_enabled
+                    else "operation-annotated-editable-program-state"
+                )
                 return [
                     "F",
-                    "operation-annotated-editable-program-state",
+                    editable_state,
                     "operation-triggered-O",
                     "soft-C",
                     "R",
@@ -753,25 +776,63 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 )
             )
         if self.editable_incremental_program_enabled:
+            if self.transactional_editable_incremental_program_enabled:
+                revision_description = (
+                    "Atomically revise the current replayable deployment program "
+                    "without changing the active construction environment. Every "
+                    "step_index is interpreted against the same pre-edit indexed "
+                    "program. Use an empty replacement_command to delete a step. "
+                    "The harness applies the complete batch and clean-replays the "
+                    "resulting program once."
+                )
+                revision_parameters = {
+                    "type": "object",
+                    "properties": {
+                        "edits": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "step_index": {
+                                        "type": "integer",
+                                        "minimum": 1,
+                                    },
+                                    "replacement_command": {"type": "string"},
+                                },
+                                "required": [
+                                    "step_index",
+                                    "replacement_command",
+                                ],
+                                "additionalProperties": False,
+                            },
+                        }
+                    },
+                    "required": ["edits"],
+                    "additionalProperties": False,
+                }
+            else:
+                revision_description = (
+                    "Revise the current replayable deployment program without "
+                    "changing the active construction environment. Replace one "
+                    "one-based indexed step with replacement_command, or delete "
+                    "that step by passing an empty string. Every edit immediately "
+                    "clean-replays the complete revised program."
+                )
+                revision_parameters = {
+                    "type": "object",
+                    "properties": {
+                        "step_index": {"type": "integer", "minimum": 1},
+                        "replacement_command": {"type": "string"},
+                    },
+                    "required": ["step_index", "replacement_command"],
+                    "additionalProperties": False,
+                }
             tools.append(
                 _function_tool(
                     "revise_program",
-                    (
-                        "Revise the current replayable deployment program without "
-                        "changing the active construction environment. Replace one "
-                        "one-based indexed step with replacement_command, or delete "
-                        "that step by passing an empty string. Every edit immediately "
-                        "clean-replays the complete revised program."
-                    ),
-                    {
-                        "type": "object",
-                        "properties": {
-                            "step_index": {"type": "integer", "minimum": 1},
-                            "replacement_command": {"type": "string"},
-                        },
-                        "required": ["step_index", "replacement_command"],
-                        "additionalProperties": False,
-                    },
+                    revision_description,
+                    revision_parameters,
                 )
             )
         if self.incremental_program_enabled:
@@ -943,7 +1004,19 @@ the effect annotation describes intent but does not restrict which command you m
 You may call `replay_current_program` when an explicit target-state check is useful.
 """
             if self.editable_incremental_program_enabled:
-                prompt += """
+                if self.transactional_editable_incremental_program_enabled:
+                    prompt += """
+
+The harness also exposes the current program as one-based indexed steps. When replay
+evidence shows that recorded steps are wrong, call `revise_program` once with every
+intended replacement or deletion. All indices refer to the same program shown before
+the call; an empty replacement deletes that step. The batch edits only the candidate
+program, not the active construction environment, and the harness clean-replays the
+complete result once. Historical execution evidence remains available even though the
+current plan may change.
+"""
+                else:
+                    prompt += """
 
 The harness also exposes the current program as one-based indexed steps. When replay
 evidence shows that an earlier recorded step is wrong, use `revise_program` to replace
@@ -1711,56 +1784,70 @@ never selects packages, blocks commands, or restores an environment.
                         and incremental_program is not None
                         and replay_service is not None
                     ):
-                        step_index = arguments.get("step_index")
-                        replacement = arguments.get("replacement_command")
-                        if (
-                            isinstance(step_index, bool)
-                            or not isinstance(step_index, int)
-                            or not isinstance(replacement, str)
-                        ):
-                            payload = {
-                                "ok": False,
-                                "error": (
+                        if self.transactional_editable_incremental_program_enabled:
+                            edits = arguments.get("edits")
+                            if not isinstance(edits, list):
+                                revision_error = "edits must be an array"
+                                revision = None
+                            else:
+                                try:
+                                    revision = incremental_program.revise_batch(edits)
+                                except ValueError as exc:
+                                    revision_error = str(exc)
+                                    revision = None
+                        else:
+                            step_index = arguments.get("step_index")
+                            replacement = arguments.get("replacement_command")
+                            if (
+                                isinstance(step_index, bool)
+                                or not isinstance(step_index, int)
+                                or not isinstance(replacement, str)
+                            ):
+                                revision_error = (
                                     "step_index must be an integer and "
                                     "replacement_command must be a string"
+                                )
+                                revision = None
+                            else:
+                                try:
+                                    revision = incremental_program.revise(
+                                        step_index,
+                                        replacement,
+                                    )
+                                except ValueError as exc:
+                                    revision_error = str(exc)
+                                    revision = None
+
+                        if revision is None:
+                            payload = {"ok": False, "error": revision_error}
+                        else:
+                            raw_replay = replay_service.submit(
+                                incremental_program.program
+                            )
+                            status = str(raw_replay.get("status", "unknown"))
+                            replay_status_counts[status] = (
+                                replay_status_counts.get(status, 0) + 1
+                            )
+                            payload = {
+                                **normalize_replay_feedback(raw_replay),
+                                "program_revision": revision,
+                                "program_state": incremental_program.state(),
+                                "indexed_program": (
+                                    incremental_program.indexed_steps()
                                 ),
                             }
-                        else:
-                            try:
-                                revision = incremental_program.revise(
-                                    step_index,
-                                    replacement,
+                            if status == "pass":
+                                delivery, submission = self._submit(
+                                    {
+                                        "program": incremental_program.program,
+                                        "summary": (
+                                            "Editable incremental program passed "
+                                            "target-state replay after plan revision."
+                                        ),
+                                    },
+                                    replay_service,
                                 )
-                            except ValueError as exc:
-                                payload = {"ok": False, "error": str(exc)}
-                            else:
-                                raw_replay = replay_service.submit(
-                                    incremental_program.program
-                                )
-                                status = str(raw_replay.get("status", "unknown"))
-                                replay_status_counts[status] = (
-                                    replay_status_counts.get(status, 0) + 1
-                                )
-                                payload = {
-                                    **normalize_replay_feedback(raw_replay),
-                                    "program_revision": revision,
-                                    "program_state": incremental_program.state(),
-                                    "indexed_program": (
-                                        incremental_program.indexed_steps()
-                                    ),
-                                }
-                                if status == "pass":
-                                    delivery, submission = self._submit(
-                                        {
-                                            "program": incremental_program.program,
-                                            "summary": (
-                                                "Editable incremental program passed "
-                                                "target-state replay after plan revision."
-                                            ),
-                                        },
-                                        replay_service,
-                                    )
-                                    payload["delivery"] = delivery
+                                payload["delivery"] = delivery
                     elif (
                         name == "apply_environment_step"
                         and incremental_program is not None

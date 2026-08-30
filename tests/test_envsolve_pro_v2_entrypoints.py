@@ -32,6 +32,10 @@ class EnvSolveProV2EntrypointTest(unittest.TestCase):
         self.assertIn("envsolve-pro-v2-incremental-program", registered)
         self.assertIn("envsolve-pro-v2-incremental-program-annotated", registered)
         self.assertIn("envsolve-pro-v2-incremental-program-editable", registered)
+        self.assertIn(
+            "envsolve-pro-v2-incremental-program-transactional-editable",
+            registered,
+        )
 
     def test_openrouter_preflight_requires_only_the_openrouter_key(self) -> None:
         identities = [

@@ -675,6 +675,12 @@ batch 前，唯一有证据支持的修正候选是：所有编辑相对同一�
 Conda、没有安装项目，并覆盖仓库声明的 Numba 约束。Official Pass、干净可复现、部署完整性、声明
 一致性和路径成本继续作为彼此独立的结果轴。
 
+V4 已把这项有证据支持的修正实现为独立 runner。一次 `revise_program` 调用携带全部目标编辑，所有序号
+都相对编辑前快照解释，整组输入先验证再修改，并只 clean replay 最终程序一次。V3 原样保留为 ablation。
+确定性语义测试已在 macOS ARM 和 Spark Linux ARM 通过。由于 HARK 生成了该提案，不再用它重复验证；
+下一份真实证据必须来自与 Minimal B 的固定结果未知配对 batch，并在看到任何 V4 结果前从既有 baseline
+失败 census 中选定。
+
 证据与设计：
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
@@ -689,3 +695,5 @@ Conda、没有安装项目，并覆盖仓库声明的 Numba 约束。Official Pa
 - `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_design.json`
 - `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3_RESULT_ZH.md`
 - `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_result.json`
+- `research/ENVSOLVE_PRO_TRANSACTIONAL_EDITABLE_PROGRAM_V4_ZH.md`
+- `experiments/validations/envsolve_pro_v2_transactional_editable_program_v4_design.json`

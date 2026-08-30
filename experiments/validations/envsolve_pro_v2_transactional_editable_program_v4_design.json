@@ -1,0 +1,68 @@
+{
+  "schema": "envsolve-pro-v2-method-design-v1",
+  "study_id": "envsolve-pro-v2-transactional-editable-program-v4",
+  "recorded_at": "2026-08-30",
+  "proposal_source": "Consumed V3 HARK trajectory in which six same-response numeric-index edits produced two invalid later deletions and six partial-program replays.",
+  "research_question": "Does one snapshot-relative atomic program-edit batch preserve the Agent's repair intent while reducing invalid edits and redundant replay without reducing Official success?",
+  "only_change_from_v3": "revise_program accepts one list of edits, interprets every index against the pre-edit program, validates before mutation, applies the complete list together, and replays the resulting program once.",
+  "unchanged": [
+    "continuous Agent session",
+    "active construction environment",
+    "annotated arbitrary-Bash shell",
+    "public executable goal",
+    "clean target-state replay",
+    "evaluator isolation",
+    "model-selected operations",
+    "append-only evidence trajectory",
+    "mutable current program"
+  ],
+  "not_added": [
+    "stable step identifiers",
+    "checkpoints or container snapshots",
+    "package or version rules",
+    "command filters",
+    "controller classifiers",
+    "cross-case memory",
+    "HARK-specific prompt changes",
+    "hashes",
+    "frozen contracts",
+    "gates"
+  ],
+  "deterministic_qualification": {
+    "macos_arm": "954 passed, 12 skipped; focused V4 interface suite 69 passed",
+    "linux_arm_spark": "focused V4 interface suite 69 passed",
+    "covered_semantics": [
+      "snapshot-relative replace and non-adjacent delete",
+      "invalid batch leaves current program unchanged",
+      "single-step V3 semantics remain unchanged",
+      "one complete batch triggers one replay",
+      "V4 runner and tool schema are registered"
+    ]
+  },
+  "live_hark_rerun": {
+    "run": false,
+    "reason": "HARK generated the proposal and is consumed; rerunning it would confirm a known repair rather than estimate effect."
+  },
+  "next_live_comparison": {
+    "control": "Minimal B: continuous Agent plus repeatedly callable whole-program clean replay",
+    "treatment": "V4: continuous Agent plus annotated operation-linked mutable program and transactional edit replay",
+    "selection": "Choose a fixed paired batch before V4 outcomes from the pre-existing baseline failure census, stratified by candidate-formation and target-replay failures.",
+    "primary_endpoint": "Official EnvBench Pass@1",
+    "priority": "Compare success before resources.",
+    "diagnostics": [
+      "candidate formation",
+      "edit activation",
+      "invalid edit count",
+      "replay sequence",
+      "counterexample-to-valid-plan latency",
+      "model requests and tokens",
+      "wall time and traffic",
+      "clean reproducibility",
+      "deployment completeness",
+      "declaration fidelity",
+      "path cost"
+    ],
+    "v3_ablation": "Compare V3 and V4 edit efficiency only on prospectively observed episodes where plan revision naturally activates."
+  },
+  "claim_boundary": "The implementation and deterministic tests establish operation semantics only. No live effectiveness, generalization, SOTA, or efficiency claim has been made."
+}

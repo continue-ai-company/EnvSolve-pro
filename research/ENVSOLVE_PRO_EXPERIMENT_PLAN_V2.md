@@ -863,6 +863,14 @@ leaves an unused virtual environment, installs into default Conda, omits project
 and overrides a declared Numba constraint. Official Pass, clean reproducibility, completeness,
 declaration fidelity, and path cost remain separate outcome axes.
 
+V4 implements the justified correction as a separate runner. One `revise_program` call carries
+all intended edits, interprets every index against the pre-edit snapshot, validates the whole
+batch before mutation, and clean-replays the final program once. V3 remains unchanged as an
+ablation. Deterministic semantics pass on macOS ARM and Spark Linux ARM. HARK is not rerun because
+it generated the proposal; the next live evidence must come from a fixed outcome-blind paired
+batch against Minimal B, selected from the pre-existing baseline failure census before any V4
+outcome is observed.
+
 Evidence and design:
 
 - `experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json`
@@ -877,3 +885,5 @@ Evidence and design:
 - `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_design.json`
 - `research/ENVSOLVE_PRO_EDITABLE_INCREMENTAL_PROGRAM_V3_RESULT.md`
 - `experiments/validations/envsolve_pro_v2_editable_incremental_program_v3_hark1_result.json`
+- `research/ENVSOLVE_PRO_TRANSACTIONAL_EDITABLE_PROGRAM_V4.md`
+- `experiments/validations/envsolve_pro_v2_transactional_editable_program_v4_design.json`

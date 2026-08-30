@@ -94,6 +94,67 @@ def test_program_steps_can_be_replaced_and_deleted_with_refreshed_indexes() -> N
     assert program.program == "good-one\n\nkeep-two"
 
 
+def test_program_revision_batch_uses_one_pre_edit_snapshot() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        program = IncrementalProgram(Path(directory))
+        for command in ["bad-one", "remove-two", "keep-three", "remove-four"]:
+            program.append_successful(command, successful_result())
+
+        revision = program.revise_batch(
+            [
+                {"step_index": 1, "replacement_command": "good-one"},
+                {"step_index": 2, "replacement_command": ""},
+                {"step_index": 4, "replacement_command": ""},
+            ]
+        )
+        records = read_jsonl(program.steps_path)
+
+    assert revision["operation"] == "batch"
+    assert revision["pre_edit_step_count"] == 4
+    assert revision["post_edit_step_count"] == 2
+    assert [item["previous_command"] for item in revision["revisions"]] == [
+        "bad-one",
+        "remove-two",
+        "remove-four",
+    ]
+    assert program.indexed_steps() == [
+        {"step": 1, "command": "good-one"},
+        {"step": 2, "command": "keep-three"},
+    ]
+    assert [record["step"] for record in records] == [1, 2]
+
+
+@pytest.mark.parametrize(
+    "edits, message",
+    [
+        ([], "cannot be empty"),
+        (
+            [
+                {"step_index": 1, "replacement_command": "first"},
+                {"step_index": 1, "replacement_command": "second"},
+            ],
+            "must be unique",
+        ),
+        ([{"step_index": 3, "replacement_command": "bad"}], "between 1 and 2"),
+    ],
+)
+def test_invalid_revision_batch_leaves_program_unchanged(
+    edits: list[dict[str, object]],
+    message: str,
+) -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        program = IncrementalProgram(Path(directory))
+        program.append_successful("keep-one", successful_result())
+        program.append_successful("keep-two", successful_result())
+        persisted_before = program.program_path.read_text(encoding="utf-8")
+
+        with pytest.raises(ValueError, match=message):
+            program.revise_batch(edits)  # type: ignore[arg-type]
+
+        assert program.program == "keep-one\n\nkeep-two"
+        assert program.program_path.read_text(encoding="utf-8") == persisted_before
+
+
 @pytest.mark.parametrize("step_index", [0, 2, True, "1"])
 def test_program_revision_rejects_invalid_step_indexes(step_index: object) -> None:
     with tempfile.TemporaryDirectory() as directory:
