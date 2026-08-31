@@ -6,6 +6,9 @@ import tempfile
 import unittest
 
 from envsolve.runtime.goal import ExecutableGoalContract
+from envsolve_harness.boundary_v5 import (
+    BoundaryV5OfficialAlignedExecutableGoalVerifier,
+)
 from envsolve_harness.codex.remote_container_mcp import (
     SshProcessTreeSafePersistentContainerShell,
 )
@@ -68,6 +71,10 @@ class RemoteMinimalBMcpTest(unittest.TestCase):
             )
             self.assertIsInstance(provider.run_command, RemoteDockerCommandAdapter)
             self.assertIs(provider.run_command, verifier.run_command)
+            self.assertIsInstance(
+                verifier,
+                BoundaryV5OfficialAlignedExecutableGoalVerifier,
+            )
             self.assertEqual(executor.ssh_target, "user@executor")
             self.assertEqual(executor.ssh_identity, "/tmp/test-identity")
             self.assertEqual(executor.ssh_port, 2222)

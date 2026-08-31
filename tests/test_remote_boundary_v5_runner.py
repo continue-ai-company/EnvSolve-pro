@@ -6,7 +6,10 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from envsolve.runtime.goal import ExecutableGoalContract
-from envsolve_harness.core.io import write_json
+from envsolve_harness.boundary_v5 import (
+    BoundaryV5OfficialAlignedExecutableGoalVerifier,
+)
+from envsolve_harness.core.io import write_json, write_jsonl
 from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.runners.remote_boundary_v5 import (
     OfficialPrimaryRemoteBoundaryV5CodexCliRunner,
@@ -139,6 +142,45 @@ class RemoteBoundaryV5RunnerTest(unittest.TestCase):
             docker_index = arguments.index("--docker")
             self.assertEqual(arguments[docker_index + 1], "/usr/local/bin/docker")
 
+    def test_remote_minimal_b_accepts_official_aligned_replay_certificate(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            artifacts = RunArtifacts.create(root / "runs", "run", "case")
+            replay_path = artifacts.generation_dir / "minimal-b" / "replays.jsonl"
+            write_jsonl(
+                replay_path,
+                [
+                    {
+                        "replay_id": "replay-1",
+                        "program_sha256": "program-1",
+                        "status": "pass",
+                        "certified": True,
+                        "verification": {
+                            "check_profile": (
+                                "official-aligned-executable-goal-boundary-v5-v1"
+                            )
+                        },
+                    }
+                ],
+            )
+            runner = self._runner(root, RemoteBoundaryV5QualifiedMinimalBRunner)
+
+            result = runner._certificate_integrity(
+                "true",
+                artifacts,
+                {
+                    "minimal_b": {
+                        "accepted_certificate": {"replay_id": "replay-1"},
+                        "final_program_sha256": "program-1",
+                    }
+                },
+            )
+
+            self.assertIsNotNone(result)
+            self.assertTrue(result["valid"])
+
     def test_official_primary_recovers_admissible_submission_from_advisory_failure(
         self,
     ) -> None:
@@ -188,6 +230,29 @@ class RemoteBoundaryV5RunnerTest(unittest.TestCase):
                     "qualification_is_advisory"
                 ]
             )
+
+    def test_official_aligned_verifier_keeps_shell_isolation_without_python_audit(
+        self,
+    ) -> None:
+        from envsolve.runtime.docker import DockerEnvironmentHandle
+        from envsolve.solver import DeploymentCandidate
+
+        verifier = BoundaryV5OfficialAlignedExecutableGoalVerifier(
+            ExecutableGoalContract("goal", "goal", "true")
+        )
+        command, _, _ = verifier._command(
+            DeploymentCandidate(
+                "candidate",
+                "python -m pip install demo",
+                "exercise an ordinary dependency installation",
+            ),
+            DockerEnvironmentHandle("container", Path("/tmp/repo"), "/data/project"),
+            "nonce",
+        )
+
+        self.assertIn("/bin/bash --noprofile --norc -p", command)
+        self.assertNotIn("ENVSOLVE_PYTHON_INSTALLATION_BASELINE_V2", command)
+        self.assertNotIn("ENVSOLVE_PYTHON_INSTALLATION_POST_V2", command)
 
 
 if __name__ == "__main__":

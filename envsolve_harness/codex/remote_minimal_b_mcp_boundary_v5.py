@@ -9,9 +9,8 @@ from envsolve.runtime.docker import DockerFreshEnvironmentProvider
 from envsolve.runtime.goal import ExecutableGoalContract
 from envsolve.runtime.workspace import WorkspacePrecondition
 from envsolve_harness.boundary_v5 import (
-    BoundaryV5MinimalBExecutableGoalVerifier,
+    BoundaryV5OfficialAlignedExecutableGoalVerifier,
     BoundaryV5OpenCandidateProgramValidator,
-    install_boundary_v5_local_distribution_audit,
 )
 from envsolve_harness.codex.minimal_b_mcp import CleanReplayService, MinimalBMcpServer
 from envsolve_harness.codex.remote_container_mcp import (
@@ -88,8 +87,7 @@ def build_server(args: argparse.Namespace) -> MinimalBMcpServer:
         create_timeout=args.container_create_timeout,
         run_command=adapter,
     )
-    install_boundary_v5_local_distribution_audit()
-    verifier = BoundaryV5MinimalBExecutableGoalVerifier(
+    verifier = BoundaryV5OfficialAlignedExecutableGoalVerifier(
         contract,
         observation_timeout=args.command_timeout,
         effect_auditor=lambda worktree: inspect_repository(

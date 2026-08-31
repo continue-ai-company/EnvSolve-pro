@@ -7,12 +7,16 @@ from typing import Any
 from envsolve.runtime.docker import DockerFreshEnvironmentProvider
 from envsolve_harness.boundary_v5 import (
     REPOSITORY_POLICY,
-    BoundaryV5MinimalBExecutableGoalVerifier,
+    BoundaryV5OfficialAlignedExecutableGoalVerifier,
     BoundaryV5OpenCandidateProgramValidator,
-    install_boundary_v5_local_distribution_audit,
 )
 from envsolve_harness.codex.minimal_b_mcp import CleanReplayService
-from envsolve_harness.core.io import read_json, write_json, write_text_atomic
+from envsolve_harness.core.io import (
+    read_json,
+    read_jsonl,
+    write_json,
+    write_text_atomic,
+)
 from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.execution.remote_docker import (
     RemoteExactRevisionSourceCache,
@@ -283,8 +287,7 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
             create_timeout=self.container_create_timeout,
             run_command=adapter,
         )
-        install_boundary_v5_local_distribution_audit()
-        verifier = BoundaryV5MinimalBExecutableGoalVerifier(
+        verifier = BoundaryV5OfficialAlignedExecutableGoalVerifier(
             self.goal_contract,
             observation_timeout=self.command_timeout,
             effect_auditor=lambda worktree: inspect_repository(
@@ -434,8 +437,46 @@ class RemoteBoundaryV5QualifiedMinimalBRunner(
     """Keep one local Agent session while clean replays execute remotely."""
 
     runner_name = "envsolve-pro-minimal-b-boundary-v5-remote-docker"
-    runner_version = "1.0.0"
+    runner_version = "1.0.1"
     agent_interface = "continuous-agent+online-clean-remote-replay-mcp-v1"
+
+    def _certificate_integrity(
+        self,
+        script: str,
+        artifacts: RunArtifacts,
+        metadata: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        del script
+        minimal_b = metadata.get("minimal_b")
+        if not isinstance(minimal_b, dict):
+            return None
+        certificate = minimal_b.get("accepted_certificate")
+        final_digest = minimal_b.get("final_program_sha256")
+        if not isinstance(certificate, dict) or not isinstance(final_digest, str):
+            return None
+        replay_path = artifacts.generation_dir / "minimal-b" / "replays.jsonl"
+        records = read_jsonl(replay_path) if replay_path.is_file() else []
+        matching = [
+            record
+            for record in records
+            if record.get("replay_id") == certificate.get("replay_id")
+            and record.get("program_sha256") == final_digest
+            and record.get("status") == "pass"
+            and record.get("certified") is True
+            and record.get("verification", {}).get("check_profile")
+            == "official-aligned-executable-goal-boundary-v5-v1"
+        ]
+        if not matching:
+            return None
+        return {
+            "policy": REPOSITORY_POLICY,
+            "valid": True,
+            "qualification": "matching-in-session-fresh-replay-certificate",
+            "program_sha256": final_digest,
+            "replay_id": certificate.get("replay_id"),
+            "replay_trace_sha256": sha256_file(replay_path),
+            "violations": [],
+        }
 
     def _goal_contract_for_run(self, run_spec: RunSpec):  # type: ignore[no-untyped-def]
         return self.goal_contract if run_spec.method == MINIMAL_B_METHOD else None

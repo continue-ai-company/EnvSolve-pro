@@ -9,7 +9,11 @@ from typing import Any
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.goal_verifier import ExecutableGoalContractVerifier
 from envsolve.runtime.integrity import marked_json_payload
-from envsolve.solver import CandidateValidation, DeploymentCandidate
+from envsolve.solver import (
+    CandidateValidation,
+    DeploymentCandidate,
+    ExecutableVerification,
+)
 from envsolve_harness.boundary_v3 import (
     MANAGED_DEPENDENCY_MARKER,
     adjudicate_managed_dependencies,
@@ -22,6 +26,7 @@ from envsolve_harness.boundary_v4 import (
     adjudicate_repository_native_artifacts,
     boundary_v4_local_distribution_audit,
 )
+from envsolve_harness.boundary_v2 import NonInterferingExecutableGoalVerifier
 from envsolve_harness.codex import minimal_b_mcp
 from envsolve_harness.integrity.repository import RepositoryIntegrityReport
 
@@ -435,3 +440,35 @@ class BoundaryV5MinimalBExecutableGoalVerifier(
             )
         finally:
             self.effect_auditor = original
+
+
+class BoundaryV5OfficialAlignedExecutableGoalVerifier(
+    BoundaryV5MinimalBExecutableGoalVerifier
+):
+    """Keep executable and repository checks without Python provenance policy."""
+
+    check_profile = "official-aligned-executable-goal-boundary-v5-v1"
+
+    def _command(
+        self,
+        candidate: DeploymentCandidate,
+        handle: DockerEnvironmentHandle,
+        nonce: str,
+    ) -> tuple[str, str, str]:
+        return NonInterferingExecutableGoalVerifier._command(
+            self,
+            candidate,
+            handle,
+            nonce,
+        )
+
+    def verify(
+        self,
+        candidate: DeploymentCandidate,
+        environment: Any,
+    ) -> ExecutableVerification:
+        return ExecutableGoalContractVerifier.verify(
+            self,
+            candidate,
+            environment,
+        )
