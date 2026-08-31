@@ -1,0 +1,46 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "amendment_id": "benchmark-goal-contradiction-v1",
+  "recorded_at": "2026-09-01T02:39:32+08:00",
+  "recorded_before_case_outcome": {
+    "position": 4,
+    "case_id": "envbench-python-piskvorky__smart_open@5a826134eb23c86087d06db3b78b25484e7e2e6d",
+    "run_id": "pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1",
+    "state": "generating",
+    "eligible_candidate_known": false,
+    "official_outcome_known": false
+  },
+  "classification": {
+    "name": "benchmark-goal contradiction",
+    "report_label": "benchmark-goal contradiction / non-repairable-under-noninterference",
+    "definition": "A benchmark-goal contradiction exists only when all four criteria below are supported by the recorded trajectory and repository evidence.",
+    "criteria": [
+      "The remaining missing import occurs in a test fixture or example that deliberately models an absent dependency, and project semantics explicitly require that module to be absent.",
+      "No legitimate dependency expected by the project provides the module.",
+      "Eliminating the diagnostic would require changing or excluding repository source, fabricating a local import provider, or otherwise changing the project's intended semantics.",
+      "Apart from the contradiction, the submitted program has normally solved every remaining legitimate deployment dependency."
+    ]
+  },
+  "adjudication": {
+    "official_accounting": "If Official fails because of the contradiction, count it honestly as A Official Fail.",
+    "replay_accounting": "Do not count it as a genuine replay opportunity, do not run B for it, and do not use it as an EnvSolve-Pro success example.",
+    "mixed_failure_rule": "If any other legitimate installable dependency remains unresolved, the contradiction label must not hide that deployment failure.",
+    "uniform_scope": "Apply the same criteria to every remaining case in this 15-case stratum without case-specific relaxation or extension."
+  },
+  "pre_outcome_evidence": {
+    "intentional_absence_fixture": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/generation/workspace/smart_open/tests/fixtures/missing_deps_transport.py",
+    "project_missing_dependency_test_driver": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/generation/workspace/ci_helpers/test_missing_dependencies.py",
+    "trajectory": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/generation/container-commands.jsonl",
+    "observed_subject": "this_module_does_not_exist_but_we_need_it",
+    "public_distribution_lookup_at_recording": "no matching distribution found",
+    "remaining_legitimate_dependencies_at_recording": [
+      "numpy",
+      "requests-kerberos",
+      "mypy-boto3-s3"
+    ],
+    "remaining_legitimate_dependencies_install_command_completed": true,
+    "criterion_four_requires_post_submission_confirmation": true
+  },
+  "scientific_invariance": "This amendment adds an analysis category. It changes neither the algorithm, hard boundary, A/B treatments, Official metric, fixed case order, nor terminal decision rule.",
+  "safeguard_policy": "Ordinary Git versioning only; this amendment adds no hash, frozen contract, or software gate."
+}

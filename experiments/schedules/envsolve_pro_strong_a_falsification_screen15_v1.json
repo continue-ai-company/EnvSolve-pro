@@ -4,7 +4,8 @@
   "fixed_before_selected_outcomes": "2026-08-31T22:59:27+08:00",
   "relation_to_prior_profile": "This is an independent stratum. Its 15 cases must not be pooled with the earlier five difficulty-enriched cases as a random 20-case estimate.",
   "protocol_amendments": [
-    "experiments/validations/envsolve_pro_strong_a_falsification_screen15_v1_model_provider_invalid_timeout_amendment.json"
+    "experiments/validations/envsolve_pro_strong_a_falsification_screen15_v1_model_provider_invalid_timeout_amendment.json",
+    "experiments/validations/envsolve_pro_strong_a_falsification_screen15_v1_benchmark_goal_contradiction_amendment.json"
   ],
   "sampling": {
     "source": "experiments/cases/train_rest204.jsonl",
@@ -39,6 +40,7 @@
   "classification": {
     "a_official_pass": "A normally forms an eligible complete program and an independent Official run reports exit_code=0 and issues_count=0.",
     "genuine_replay_opportunity": "A normally forms an eligible complete program and an independent Official run completes without external failure but does not pass for a deployment reason.",
+    "benchmark_goal_contradiction": "Official fails on a deliberately absent dependency that cannot be resolved without changing project semantics, after all legitimate deployment dependencies are solved. Count A Official Fail, but do not count a replay opportunity or run B.",
     "pre_candidate_failure": "The strong Agent normally completes or exhausts its nonbinding request opportunity without an eligible complete program.",
     "external_invalid_attempt": "Provider, source, network, host, or evaluator infrastructure prevents a deployment outcome. It is neither pass nor failure and does not replace the case."
   },
