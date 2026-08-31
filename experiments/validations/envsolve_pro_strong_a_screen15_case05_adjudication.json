@@ -30,7 +30,8 @@
       "exit_code": 0,
       "issues_count": 0,
       "error_count": 1626,
-      "warning_count": 4
+      "warning_count": 4,
+      "execution_time_seconds": 470.8678140640259
     }
   },
   "trajectory_observation": {
