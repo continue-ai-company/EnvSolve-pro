@@ -745,6 +745,20 @@ class OpenRouterAgentRunner(CodexCliRunner):
             policy["order"] = order
         return policy
 
+    def _compatibility_state_auditor(
+        self,
+        workspace: Path,
+        case: Case,
+    ) -> Callable[[], dict[str, Any]] | None:
+        if not self.live_frontier_enabled:
+            return None
+        return lambda: inspect_minimal_repository_integrity(
+            workspace,
+            case.revision,
+            self.workspace_preconditions,
+            protect_evaluator_artifacts=True,
+        ).to_dict()
+
     def _create_container_with_package_cache(
         self,
         workspace: Path,
@@ -2891,15 +2905,9 @@ result, without another model request.
                 CompatibilityLedgerService(
                     self.goal_contract,
                     terminal_server,
-                    state_auditor=(
-                        lambda: inspect_minimal_repository_integrity(
-                            workspace,
-                            case.revision,
-                            self.workspace_preconditions,
-                            protect_evaluator_artifacts=True,
-                        ).to_dict()
-                        if self.live_frontier_enabled
-                        else None
+                    state_auditor=self._compatibility_state_auditor(
+                        workspace,
+                        case,
                     ),
                 )
                 if self.compatibility_observation_enabled

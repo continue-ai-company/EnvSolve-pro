@@ -602,6 +602,22 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             "soft-clean-replay-v1",
         )
 
+    def test_only_live_frontier_enables_compatibility_state_auditor(self) -> None:
+        case = SimpleNamespace(revision="abc")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            hypothesis = self._runner(root, "hypothesis")
+            ordinary_frontier = self._runner(root, "operation-frontier")
+            live_frontier = self._runner(root, "operation-frontier-live")
+
+            self.assertIsNone(hypothesis._compatibility_state_auditor(root, case))
+            self.assertIsNone(
+                ordinary_frontier._compatibility_state_auditor(root, case)
+            )
+            self.assertTrue(
+                callable(live_frontier._compatibility_state_auditor(root, case))
+            )
+
     def test_constraint_hypothesis_binds_before_operation_and_after_evidence(self) -> None:
         target = {
             "domain": "python-import",

@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-constraint-hypothesis-activation-v1",
+  "recorded_at": "2026-08-31",
+  "amendment": "instrumentation repair before repeat",
+  "failed_run_id": "pro-v2-hypothesis-activation-v1-01-paz",
+  "provider_requests_before_failure": 0,
+  "model_outcome_observed": false,
+  "failure": "The initial compatibility observation crashed before the first model request because a conditional expression was placed inside a lambda body. Every compatibility mode received a callable state auditor; outside live-frontier that callable returned None, and CompatibilityLedgerService attempted None.get(...).",
+  "repair": "Select the optional state-auditor callable outside the lambda body. Only operation-frontier-live receives the evaluator-integrity auditor; hypothesis, ordinary operation-frontier, ledger, and scheduled modes receive None.",
+  "scope": "General mode-wiring correction. No prompt, hypothesis classification, provider choice, case-specific rule, request limit, goal, replay behavior, or endpoint changes.",
+  "repeat": {
+    "run_id": "pro-v2-hypothesis-activation-v1-01-paz-retry1",
+    "same_case_model_provider_seed_and_config": true,
+    "claim_scope_unchanged": true
+  },
+  "new_hash_frozen_contract_or_gate_added": false
+}
