@@ -1,0 +1,63 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 6,
+  "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+  "generation_run_id": "pro-strong-a-screen15-06-op-test-agenthub-A-F-v1",
+  "official_run_id": "pro-strong-a-screen15-06-op-test-mac-official-v1",
+  "recorded_at": "2026-09-01T05:52:00+08:00",
+  "episode_adjudication": {
+    "primary_classification": "genuine_replay_opportunity",
+    "eligible_complete_program": true,
+    "official_pass_at_1": false,
+    "official_exit_code": 0,
+    "official_issues_count": 2,
+    "genuine_replay_opportunity": true,
+    "run_b": false,
+    "reason": "The legal A program completed and independent Official failed for a deployment reason. The remaining imports occur in real application code, not in a fixture or example that deliberately requires an absent dependency, so the preregistered benchmark-goal-contradiction exclusion does not apply. B remains deferred until the complete 15-case screen satisfies its preregistered opportunity gate."
+  },
+  "advisory_clean_replay": {
+    "status": "fail",
+    "bootstrap_exit_code": 0,
+    "active_missing_imports": 2,
+    "missing_import_modules": [
+      "connection.common.FWConnection",
+      "engine.FWObject"
+    ],
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Confirms the terminal A failure in a fresh environment and supplies the withheld replay evidence that defines a genuine opportunity. It does not establish that B can repair the case.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-A-F-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/generation/submission-qualification/result.json"
+  },
+  "official_evidence": {
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-mac-official-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/evaluation/result.json",
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 2,
+      "error_count": 1531,
+      "warning_count": 168,
+      "execution_time_seconds": 60.095125913619995
+    }
+  },
+  "trajectory_observation": {
+    "container_commands": 64,
+    "initial_missing_imports": 26,
+    "construction_terminal_missing_imports": 2,
+    "legal_missing_imports_resolved": 24,
+    "irreducible_import_sites": [
+      "common/util/web/LoginPage.py:28",
+      "common/util/web/LoginPage.py:30"
+    ],
+    "interpretation": "The strong Agent made substantial progress but still submitted a program that Official rejected. Public-provider absence may explain difficulty, but the preregistered protocol does not permit using it as a post-outcome exclusion."
+  },
+  "classification_correction": {
+    "initial_draft": "benchmark_goal_contradiction",
+    "correction_basis": "Criterion 1 of benchmark-goal-contradiction-v1 is not satisfied: LoginPage.py is functional application code and does not deliberately model an absent dependency.",
+    "protocol_effect": "No amendment, rerun, case-order change, or new exclusion was introduced."
+  },
+  "cumulative_after_position_6": {
+    "a_official_passes": 4,
+    "pre_candidate_failures": 1,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 1,
+    "external_invalid_attempts": 0
+  }
+}
