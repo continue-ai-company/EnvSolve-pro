@@ -3,6 +3,9 @@
   "question": "On an outcome-blind public Dev stratum not previously observed under the selected strong-model conditions, how often does strong A leave a genuine deployment failure that clean replay feedback could repair?",
   "fixed_before_selected_outcomes": "2026-08-31T22:59:27+08:00",
   "relation_to_prior_profile": "This is an independent stratum. Its 15 cases must not be pooled with the earlier five difficulty-enriched cases as a random 20-case estimate.",
+  "protocol_amendments": [
+    "experiments/validations/envsolve_pro_strong_a_falsification_screen15_v1_model_provider_invalid_timeout_amendment.json"
+  ],
   "sampling": {
     "source": "experiments/cases/train_rest204.jsonl",
     "protected_sources_excluded": [

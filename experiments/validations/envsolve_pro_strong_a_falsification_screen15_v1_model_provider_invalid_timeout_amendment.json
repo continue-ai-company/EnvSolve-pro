@@ -1,0 +1,23 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "amendment_id": "model-provider-invalid-timeout-v1",
+  "recorded_at": "2026-09-01T00:18:55+08:00",
+  "recorded_before_case_outcome": {
+    "position": 2,
+    "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+    "run_id": "pro-strong-a-screen15-02-probatus-agenthub-A-F-v1",
+    "state": "generating",
+    "eligible_candidate_known": false,
+    "official_outcome_known": false
+  },
+  "clarification": {
+    "scope": "All 15 cases in this stratum use this same rule without case-specific extension or reduction.",
+    "resource_interpretation": "Time and cost remain nonbinding secondary metrics. The 600-second request timeout is not an algorithm-failure threshold.",
+    "invalid_attempt_definition": "A model/provider attempt is externally invalid only when 1200 consecutive seconds pass after the end of the last verifiable Agent or tool activity, the Agent produces no new action, and its subprocess does not normally finish.",
+    "running_tool_definition": "A tool command that is still executing is ongoing verifiable activity, even when its trace record is emitted only after completion or timeout.",
+    "recovery_within_window": "If Agent activity resumes before the 1200-second inactivity window expires, continue the same effective A episode.",
+    "invalid_attempt_action": "If the inactivity definition is met, interrupt the attempt and rerun the identical case, A arm, prompt, model, and reasoning effort. Do not count the invalid attempt as A success or failure.",
+    "scientific_invariance": "This clarification changes neither the algorithm hypothesis nor the A/B treatments, candidate eligibility, Official metric, fixed case order, or decision rule."
+  },
+  "safeguard_policy": "Ordinary Git versioning only; this amendment adds no hash, frozen contract, or software gate."
+}
