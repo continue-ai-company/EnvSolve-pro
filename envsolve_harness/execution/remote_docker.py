@@ -312,6 +312,8 @@ printf 'ENVSOLVE_REMOTE_SOURCE_V1=%s|%s|%s\n' "$cache_hit" "$commit" "$tree"
         )
         self.transport.checked_remote(
             [
+                "/usr/bin/env",
+                "GIT_LFS_SKIP_SMUDGE=1",
                 "git",
                 "clone",
                 "--quiet",
@@ -324,6 +326,8 @@ printf 'ENVSOLVE_REMOTE_SOURCE_V1=%s|%s|%s\n' "$cache_hit" "$commit" "$tree"
         )
         self.transport.checked_remote(
             [
+                "/usr/bin/env",
+                "GIT_LFS_SKIP_SMUDGE=1",
                 "git",
                 "-C",
                 remote_checkout,

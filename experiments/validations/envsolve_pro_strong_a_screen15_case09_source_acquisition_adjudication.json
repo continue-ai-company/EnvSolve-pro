@@ -1,0 +1,65 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 9,
+  "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+  "recorded_at": "2026-09-01T07:39:31+08:00",
+  "scientific_scope": "Source-acquisition validity only; this record does not determine the A endpoint.",
+  "external_invalid_attempts": [
+    {
+      "run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-v1",
+      "generation_session_started": false,
+      "signature": "remote-nonlogin-path-omitted-installed-git-lfs"
+    },
+    {
+      "run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry1",
+      "generation_session_started": false,
+      "signature": "upstream-lfs-object-missing",
+      "missing_path": "tests/meshes/abaqus/UUea.inp",
+      "missing_oid": "0263bf32e6bd93bbdaf9fe0ff531aaad9ac9af8722100ef8f92813f8c2ccdb3b"
+    }
+  ],
+  "accepted_acquisition": {
+    "run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2",
+    "mode": "exact-revision-pointer-checkout-with-lfs-smudge-skipped",
+    "complete_lfs_checkout": false,
+    "revision": "b2ee99842e119901349fdeee06b5bf61e01f450a",
+    "git_worktree_clean": true,
+    "lfs_tracked_path_count": 46,
+    "lfs_path_scope": "tests/meshes/**",
+    "lfs_extensions": [
+      "bin",
+      "ele",
+      "f3grid",
+      "fem",
+      "inp",
+      "med",
+      "mesh",
+      "meshb",
+      "msh",
+      "node",
+      "obj",
+      "ply",
+      "su2",
+      "tec",
+      "ugrid",
+      "vtk",
+      "vtu",
+      "vol"
+    ]
+  },
+  "noninterference_evidence": {
+    "python_sources_lfs_tracked": false,
+    "dependency_metadata_lfs_tracked": false,
+    "build_configuration_lfs_tracked": false,
+    "official_goal_reads_mesh_fixtures": false,
+    "official_goal": "Pyright reportMissingImports over Python source",
+    "reason": "All LFS entries are large mesh fixtures below tests/meshes. The tracked Python sources and environment metadata are ordinary Git blobs, and the Official static import analysis does not execute tests or deserialize mesh fixtures."
+  },
+  "implementation_change": {
+    "remote_path_semantics": "Expose standard Homebrew and system binary directories to non-login SSH commands.",
+    "lfs_semantics": "Set GIT_LFS_SKIP_SMUDGE=1 only while materializing the exact-revision source checkout.",
+    "algorithm_changed": false,
+    "model_or_prompt_changed": false,
+    "official_changed": false
+  }
+}

@@ -64,7 +64,11 @@ class SshDockerTransportTest(unittest.TestCase):
                 self.remote_commands.append(command)
                 if command[:2] == ["/bin/bash", "-lc"]:
                     return f"ENVSOLVE_REMOTE_SOURCE_V1=0|{revision}|{'b' * 40}"
-                if command[:3] == ["git", "-C", "/srv/envsolve/source/workspace"]:
+                if command[-3:] == [
+                    "/srv/envsolve/source/workspace",
+                    "rev-parse",
+                    "HEAD",
+                ]:
                     return revision
                 return ""
 
@@ -102,6 +106,11 @@ class SshDockerTransportTest(unittest.TestCase):
             populate = transport.remote_commands[0]
             self.assertEqual(populate[:2], ["/bin/bash", "-lc"])
             self.assertIn('"$flock_bin" 9', populate[2])
+            checkout = transport.remote_commands[3]
+            self.assertEqual(
+                checkout[:3],
+                ["/usr/bin/env", "GIT_LFS_SKIP_SMUDGE=1", "git"],
+            )
 
     def test_rebuildable_excludes_never_hide_tracked_directories(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
