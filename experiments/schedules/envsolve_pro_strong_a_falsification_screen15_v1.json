@@ -1,0 +1,69 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "question": "On an outcome-blind public Dev stratum not previously observed under the selected strong-model conditions, how often does strong A leave a genuine deployment failure that clean replay feedback could repair?",
+  "fixed_before_selected_outcomes": "2026-08-31T22:59:27+08:00",
+  "relation_to_prior_profile": "This is an independent stratum. Its 15 cases must not be pooled with the earlier five difficulty-enriched cases as a random 20-case estimate.",
+  "sampling": {
+    "source": "experiments/cases/train_rest204.jsonl",
+    "protected_sources_excluded": [
+      "experiments/cases/official_test100.jsonl",
+      "experiments/cases/canary20.jsonl"
+    ],
+    "eligible_definition": "A source case is eligible when no observed run or validation record for that identity contains gpt-5.4, gpt-5.5, or gpt-5.6-sol. Prior weak-model outcomes are ignored and were not read during selection.",
+    "source_count": 204,
+    "excluded_strong_observation_count": 88,
+    "eligible_count": 116,
+    "ordering": "lexicographic case_id",
+    "selection": "random.Random(20260831).sample(eligible, 15)",
+    "python_version": "3.13.9",
+    "random_seed": 20260831,
+    "repository_content_inspected_before_selection": false,
+    "historical_outcomes_read_during_selection": false
+  },
+  "protocol": {
+    "arm": "A-F",
+    "case_file": "experiments/cases/dev_pro_strong_a_falsification_screen15_v1.jsonl",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "candidate_execution_host": "agenthub@100.66.96.39",
+    "official_metric": "Official Pass@1",
+    "resource_metrics_are_nonbinding": true,
+    "execution_order": "fixed sequential strong-Agent sessions; Official adjudication may overlap the next generation",
+    "protected_canary_opened": false
+  },
+  "classification": {
+    "a_official_pass": "A normally forms an eligible complete program and an independent Official run reports exit_code=0 and issues_count=0.",
+    "genuine_replay_opportunity": "A normally forms an eligible complete program and an independent Official run completes without external failure but does not pass for a deployment reason.",
+    "pre_candidate_failure": "The strong Agent normally completes or exhausts its nonbinding request opportunity without an eligible complete program.",
+    "external_invalid_attempt": "Provider, source, network, host, or evaluator infrastructure prevents a deployment outcome. It is neither pass nor failure and does not replace the case."
+  },
+  "external_failure_rule": {
+    "model_or_provider_failure": "Repeat the same A arm and case without changing prompt, method, or case identity.",
+    "official_network_or_host_failure": "Replay the exact evaluator record and exact submitted program in a fresh Official container, using another registered host when useful.",
+    "replacement": "No case replacement is allowed after selection."
+  },
+  "decision_rule": {
+    "zero_genuine_opportunities": "Stop the strong-model terminal-success-gain route.",
+    "one_genuine_opportunity": "Retain only as a mechanism case; do not claim a main contribution.",
+    "at_least_two_genuine_opportunities": "Run the qualified B treatment on every preidentified opportunity and report conditional repair rate and overall absolute gain."
+  },
+  "cases": [
+    {"position": 1, "case_id": "envbench-python-injectivelabs__sdk-python@a93aab1257174769db96e208ac61464999323b32", "run_id": "pro-strong-a-screen15-01-injective-agenthub-A-F-v1"},
+    {"position": 2, "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c", "run_id": "pro-strong-a-screen15-02-probatus-agenthub-A-F-v1"},
+    {"position": 3, "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc", "run_id": "pro-strong-a-screen15-03-zulip-api-agenthub-A-F-v1"},
+    {"position": 4, "case_id": "envbench-python-piskvorky__smart_open@5a826134eb23c86087d06db3b78b25484e7e2e6d", "run_id": "pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1"},
+    {"position": 5, "case_id": "envbench-python-libensemble__libensemble@99934db94cac472649d4e452da20123d51e8cee1", "run_id": "pro-strong-a-screen15-05-libensemble-agenthub-A-F-v1"},
+    {"position": 6, "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f", "run_id": "pro-strong-a-screen15-06-op-test-agenthub-A-F-v1"},
+    {"position": 7, "case_id": "envbench-python-robbievanleeuwen__section-properties@0a41ea141394ccca9df1625e1d44ea132a2ccf37", "run_id": "pro-strong-a-screen15-07-section-properties-agenthub-A-F-v1"},
+    {"position": 8, "case_id": "envbench-python-flav-io__flavio@188120d651c38419cd970957e5259071842f4cca", "run_id": "pro-strong-a-screen15-08-flavio-agenthub-A-F-v1"},
+    {"position": 9, "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a", "run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-v1"},
+    {"position": 10, "case_id": "envbench-python-psf__pyperf@7b9a23adb3ceeb182f58a03e453158dbe081a7e7", "run_id": "pro-strong-a-screen15-10-pyperf-agenthub-A-F-v1"},
+    {"position": 11, "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea", "run_id": "pro-strong-a-screen15-11-tfma-agenthub-A-F-v1"},
+    {"position": 12, "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b", "run_id": "pro-strong-a-screen15-12-armi-agenthub-A-F-v1"},
+    {"position": 13, "case_id": "envbench-python-ubernostrum__django-registration@dc80d4e3f90d64d12c35a6c494aa1ec9b36a1705", "run_id": "pro-strong-a-screen15-13-django-registration-agenthub-A-F-v1"},
+    {"position": 14, "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513", "run_id": "pro-strong-a-screen15-14-rstcheck-agenthub-A-F-v1"},
+    {"position": 15, "case_id": "envbench-python-pypa__twine@6fbf880ee60915cf1666348c4bdd78a10415f2ac", "run_id": "pro-strong-a-screen15-15-twine-agenthub-A-F-v1"}
+  ]
+}
