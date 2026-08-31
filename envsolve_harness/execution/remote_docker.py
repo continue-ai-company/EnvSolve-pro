@@ -436,7 +436,7 @@ class RemoteDockerCommandAdapter:
             return subprocess.CompletedProcess([], 0, "", "")
         return self.transport.run_remote(
             [
-                "docker",
+                self.transport.docker_executable,
                 "exec",
                 "--user",
                 "0:0",
@@ -461,6 +461,7 @@ class RemoteDockerCommandAdapter:
                 self._remote_mount_command(command)
             )
             pending_mount = (local_path, remote_path, container_path, excludes)
+        rewritten[0] = self.transport.docker_executable
         process = self.transport.run_remote(rewritten, **kwargs)
         if action == "create" and process.returncode == 0 and pending_mount is not None:
             container_id = process.stdout.strip()

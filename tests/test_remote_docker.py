@@ -22,6 +22,7 @@ from envsolve_harness.execution.remote_docker import (
 class RecordingTransport:
     def __init__(self) -> None:
         self.remote_root = "/srv/envsolve"
+        self.docker_executable = "docker"
         self.remote_commands: list[list[str]] = []
         self.uploads: list[tuple[Path, str]] = []
         self.downloads: list[tuple[str, Path, tuple[str, ...]]] = []
@@ -236,6 +237,25 @@ class SshDockerTransportTest(unittest.TestCase):
             ]
             self.assertEqual(ownership_commands[0][-2:], ["0:0", "/data/project"])
             self.assertEqual(ownership_commands[-1][-2:], ["1000:1000", "/data/project"])
+
+    def test_adapter_uses_configured_remote_docker_executable(self) -> None:
+        transport = RecordingTransport()
+        transport.docker_executable = "/usr/local/bin/docker"
+        adapter = RemoteDockerCommandAdapter(
+            transport,  # type: ignore[arg-type]
+            sync_timeout=30,
+        )
+
+        adapter(
+            ["docker", "image", "inspect", "example"],
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(
+            transport.remote_commands,
+            [["/usr/local/bin/docker", "image", "inspect", "example"]],
+        )
 
 
 @unittest.skipUnless(
