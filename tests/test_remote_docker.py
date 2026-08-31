@@ -97,7 +97,7 @@ class SshDockerTransportTest(unittest.TestCase):
             )
             populate = transport.remote_commands[0]
             self.assertEqual(populate[:2], ["/bin/bash", "-lc"])
-            self.assertIn("flock 9", populate[2])
+            self.assertIn('"$flock_bin" 9', populate[2])
 
     def test_rebuildable_excludes_never_hide_tracked_directories(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

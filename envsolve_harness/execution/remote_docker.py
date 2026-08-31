@@ -222,7 +222,12 @@ source_url=$3
 revision=$4
 mkdir -p "$(dirname "$cache_path")"
 exec 9>"$lock_path"
-flock 9
+flock_bin="$(command -v flock || true)"
+if [ -z "$flock_bin" ] && [ -x /opt/homebrew/bin/flock ]; then
+  flock_bin=/opt/homebrew/bin/flock
+fi
+test -n "$flock_bin"
+"$flock_bin" 9
 cache_hit=1
 if [ ! -d "$cache_path" ]; then
   cache_hit=0
