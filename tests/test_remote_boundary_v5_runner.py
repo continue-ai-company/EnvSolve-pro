@@ -107,6 +107,38 @@ class RemoteBoundaryV5RunnerTest(unittest.TestCase):
             self.assertEqual(arguments.count("--docker"), 1)
             self.assertIn("submit_and_replay", runner._mcp_tool_names())
 
+    def test_remote_docker_executable_reaches_terminal_and_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = RemoteBoundaryV5QualifiedMinimalBRunner(
+                ssh_target="user@agenthub",
+                remote_workspace_root="/srv/envsolve",
+                docker_executable="/usr/local/bin/docker",
+                codex_executable=root / "codex",
+                harness_root=root,
+                source_cache_root=root / "cache",
+                image="envbench:test",
+                timeout=120,
+                command_timeout=30,
+                container_create_timeout=10,
+                git_fetch_timeout=20,
+                goal_contract=ExecutableGoalContract(
+                    contract_id="goal",
+                    description="goal",
+                    program="true",
+                ),
+            )
+
+            arguments = runner._mcp_server_args(
+                trace_path=root / "trace.jsonl",
+                container_id="container",
+                case=Case("case", "owner/repo", "a" * 40),
+                image_digest="sha256:test",
+            )
+
+            docker_index = arguments.index("--docker")
+            self.assertEqual(arguments[docker_index + 1], "/usr/local/bin/docker")
+
     def test_official_primary_recovers_admissible_submission_from_advisory_failure(
         self,
     ) -> None:

@@ -78,6 +78,10 @@ def _factory(
             os.environ.get("ENVSOLVE_REMOTE_SSH_IDENTITY", "").strip() or None
         ),
         ssh_port=_optional_port("ENVSOLVE_REMOTE_SSH_PORT"),
+        docker_executable=(
+            os.environ.get("ENVSOLVE_REMOTE_DOCKER_EXECUTABLE", "").strip()
+            or "docker"
+        ),
     )
 
 

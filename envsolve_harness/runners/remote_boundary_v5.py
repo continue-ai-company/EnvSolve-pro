@@ -46,6 +46,7 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
         expose_gpus: bool = False,
         ssh_executable: str | None = None,
         rsync_executable: str | None = None,
+        docker_executable: str = "docker",
         ssh_identity: str | None = None,
         ssh_port: int | None = None,
         **kwargs: Any,
@@ -57,6 +58,7 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
             remote_root=remote_workspace_root,
             ssh_executable=ssh_executable or shutil.which("ssh") or "ssh",
             rsync_executable=rsync_executable or shutil.which("rsync") or "rsync",
+            docker_executable=docker_executable,
             ssh_identity=ssh_identity,
             ssh_port=ssh_port,
         )
