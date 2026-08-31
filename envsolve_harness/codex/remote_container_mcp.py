@@ -29,6 +29,8 @@ class SshProcessTreeSafePersistentContainerShell(
         ssh_target: str,
         ssh_executable: str = "ssh",
         docker_executable: str = "docker",
+        ssh_identity: str | None = None,
+        ssh_port: int | None = None,
     ) -> None:
         super().__init__(
             container_id,
@@ -39,10 +41,19 @@ class SshProcessTreeSafePersistentContainerShell(
         )
         self.ssh_target = ssh_target
         self.ssh_executable = ssh_executable
+        self.ssh_identity = ssh_identity
+        self.ssh_port = ssh_port
 
     def _ssh_docker_command(self, arguments: list[str]) -> list[str]:
         remote = shlex.join([self.docker_executable, *arguments])
-        return [self.ssh_executable, "-T", self.ssh_target, remote]
+        command = [self.ssh_executable]
+        if self.ssh_identity is not None:
+            command.extend(
+                ["-i", self.ssh_identity, "-o", "IdentitiesOnly=yes"]
+            )
+        if self.ssh_port is not None:
+            command.extend(["-p", str(self.ssh_port)])
+        return [*command, "-T", self.ssh_target, remote]
 
     def _start(self) -> subprocess.Popen[bytes]:
         if self._process is not None and self._process.poll() is None:
@@ -136,6 +147,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-output-chars", type=int, default=16000)
     parser.add_argument("--ssh-target", required=True)
     parser.add_argument("--ssh-executable", default="ssh")
+    parser.add_argument("--ssh-identity")
+    parser.add_argument("--ssh-port", type=int)
     parser.add_argument("--docker", default="docker")
     return parser.parse_args()
 
@@ -150,6 +163,8 @@ def main() -> int:
         args.ssh_target,
         args.ssh_executable,
         args.docker,
+        args.ssh_identity,
+        args.ssh_port,
     )
     ContainerMcpServer(executor, args.trace).serve(sys.stdin, sys.stdout)
     return 0

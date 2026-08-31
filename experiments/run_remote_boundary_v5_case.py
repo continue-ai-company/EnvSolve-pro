@@ -14,7 +14,10 @@ if str(ROOT) not in sys.path:
 from envsolve_harness.core.models import HarnessConfig, RunSpec
 from envsolve_harness.core.protocol import ExperimentProtocol
 from envsolve_harness.runners.base import SolverRunner
-from envsolve_harness.runners.certification_repair_boundary_v5 import CONTROL_METHOD
+from envsolve_harness.runners.certification_repair_boundary_v5 import (
+    CONTROL_METHOD,
+    MINIMAL_B_METHOD,
+)
 from envsolve_harness.runners.registry import (
     RunnerOptions,
     register_solver_runner,
@@ -23,6 +26,7 @@ from envsolve_harness.runners.registry import (
 from envsolve_harness.runners.remote_boundary_v5 import (
     OfficialPrimaryRemoteBoundaryV5CodexCliRunner,
     RemoteBoundaryV5QualifiedCodexCliRunner,
+    RemoteBoundaryV5QualifiedMinimalBRunner,
 )
 from experiments.run_qualified_codex_case import _common
 
@@ -34,18 +38,29 @@ def _enabled(name: str) -> bool:
     return value in {"1", "true"}
 
 
+def _optional_port(name: str) -> int | None:
+    value = os.environ.get(name, "").strip()
+    if not value:
+        return None
+    port = int(value)
+    if not 1 <= port <= 65535:
+        raise ValueError(f"{name} must be between 1 and 65535")
+    return port
+
+
 def _factory(
     runner_type: type[SolverRunner],
+    expected_method: str,
     config: HarnessConfig,
     protocol: ExperimentProtocol,
     run_spec: RunSpec,
     options: RunnerOptions,
 ) -> SolverRunner:
     del options
-    if run_spec.method != CONTROL_METHOD:
+    if run_spec.method != expected_method:
         raise ValueError(
             f"Unsupported remote boundary-v5 method {run_spec.method!r}; "
-            f"expected {CONTROL_METHOD!r}"
+            f"expected {expected_method!r}"
         )
     target = os.environ.get("ENVSOLVE_REMOTE_DOCKER_TARGET", "").strip()
     if not target:
@@ -59,6 +74,10 @@ def _factory(
         ssh_target=target,
         remote_workspace_root=remote_root,
         expose_gpus=_enabled("ENVSOLVE_REMOTE_EXPOSE_GPUS"),
+        ssh_identity=(
+            os.environ.get("ENVSOLVE_REMOTE_SSH_IDENTITY", "").strip() or None
+        ),
+        ssh_port=_optional_port("ENVSOLVE_REMOTE_SSH_PORT"),
     )
 
 
@@ -69,6 +88,7 @@ def main() -> int:
         CONTROL_METHOD,
         lambda config, protocol, run_spec, options: _factory(
             RemoteBoundaryV5QualifiedCodexCliRunner,
+            CONTROL_METHOD,
             config,
             protocol,
             run_spec,
@@ -80,6 +100,19 @@ def main() -> int:
         CONTROL_METHOD,
         lambda config, protocol, run_spec, options: _factory(
             OfficialPrimaryRemoteBoundaryV5CodexCliRunner,
+            CONTROL_METHOD,
+            config,
+            protocol,
+            run_spec,
+            options,
+        ),
+    )
+    register_solver_runner(
+        RemoteBoundaryV5QualifiedMinimalBRunner.runner_name,
+        MINIMAL_B_METHOD,
+        lambda config, protocol, run_spec, options: _factory(
+            RemoteBoundaryV5QualifiedMinimalBRunner,
+            MINIMAL_B_METHOD,
             config,
             protocol,
             run_spec,

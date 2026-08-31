@@ -22,7 +22,9 @@ from envsolve_harness.execution.remote_docker import (
 )
 from envsolve_harness.integrity.repository import inspect_repository
 from envsolve_harness.runners.certification_repair_boundary_v5 import (
+    MINIMAL_B_METHOD,
     BoundaryV5QualifiedCodexCliRunner,
+    BoundaryV5QualifiedMinimalBRunner,
 )
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.utils.provenance import sha256_file
@@ -44,6 +46,8 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
         expose_gpus: bool = False,
         ssh_executable: str | None = None,
         rsync_executable: str | None = None,
+        ssh_identity: str | None = None,
+        ssh_port: int | None = None,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
@@ -53,6 +57,8 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
             remote_root=remote_workspace_root,
             ssh_executable=ssh_executable or shutil.which("ssh") or "ssh",
             rsync_executable=rsync_executable or shutil.which("rsync") or "rsync",
+            ssh_identity=ssh_identity,
+            ssh_port=ssh_port,
         )
         self._generation_remote_path: str | None = None
         self._generation_local_path: Path | None = None
@@ -182,6 +188,10 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
                 self.transport.docker_executable,
             ]
         )
+        if self.transport.ssh_identity is not None:
+            arguments.extend(["--ssh-identity", self.transport.ssh_identity])
+        if self.transport.ssh_port is not None:
+            arguments.extend(["--ssh-port", str(self.transport.ssh_port)])
         return arguments
 
     def _augment_generation_metadata(
@@ -400,3 +410,61 @@ class OfficialPrimaryRemoteBoundaryV5CodexCliRunner(
             + "Preserved advisory qualification and emitted the completed, "
             + "safety-admissible submission for Official evaluation.\n",
         )
+
+
+class RemoteBoundaryV5QualifiedMinimalBRunner(
+    RemoteBoundaryV5QualifiedCodexCliRunner,
+    BoundaryV5QualifiedMinimalBRunner,
+):
+    """Keep one local Agent session while clean replays execute remotely."""
+
+    runner_name = "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+    runner_version = "1.0.0"
+    agent_interface = "continuous-agent+online-clean-remote-replay-mcp-v1"
+
+    def _goal_contract_for_run(self, run_spec: RunSpec):  # type: ignore[no-untyped-def]
+        return self.goal_contract if run_spec.method == MINIMAL_B_METHOD else None
+
+    def _mcp_server_args(self, **kwargs: Any) -> list[str]:
+        arguments = BoundaryV5QualifiedMinimalBRunner._mcp_server_args(
+            self,
+            **kwargs,
+        )
+        module_index = arguments.index(
+            "envsolve_harness.codex.minimal_b_mcp_boundary_v5_qualified"
+        )
+        arguments[module_index] = (
+            "envsolve_harness.codex.remote_minimal_b_mcp_boundary_v5"
+        )
+        docker_index = arguments.index("--docker")
+        del arguments[docker_index : docker_index + 2]
+        arguments.extend(
+            [
+                "--ssh-target",
+                self.transport.target,
+                "--remote-workspace-root",
+                self.transport.remote_root,
+                "--ssh-executable",
+                self.transport.ssh_executable,
+                "--docker",
+                self.transport.docker_executable,
+            ]
+        )
+        if self.expose_gpus:
+            arguments.append("--expose-gpus")
+        if self.transport.ssh_identity is not None:
+            arguments.extend(["--ssh-identity", self.transport.ssh_identity])
+        if self.transport.ssh_port is not None:
+            arguments.extend(["--ssh-port", str(self.transport.ssh_port)])
+        return arguments
+
+    def _augment_generation_metadata(
+        self,
+        artifacts: RunArtifacts,
+        metadata: dict[str, Any],
+    ) -> None:
+        super()._augment_generation_metadata(artifacts, metadata)
+        minimal_b = metadata.get("minimal_b")
+        if isinstance(minimal_b, dict):
+            minimal_b["feedback_returned_to_agent"] = True
+            minimal_b["replay_execution_backend"] = self.infrastructure_profile

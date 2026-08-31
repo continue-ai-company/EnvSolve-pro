@@ -61,17 +61,39 @@ class SshDockerTransport:
     ssh_executable: str = "ssh"
     rsync_executable: str = "rsync"
     docker_executable: str = "docker"
+    ssh_identity: str | None = None
+    ssh_port: int | None = None
     run_command: RunCommand = subprocess.run
 
     def __post_init__(self) -> None:
         if _SSH_TARGET.fullmatch(self.target) is None:
             raise ValueError("SSH target contains unsupported characters")
         self.remote_root = _absolute_remote_path(self.remote_root)
+        if self.ssh_identity is not None and not self.ssh_identity.strip():
+            raise ValueError("SSH identity path cannot be empty")
+        if self.ssh_port is not None and not 1 <= self.ssh_port <= 65535:
+            raise ValueError("SSH port must be between 1 and 65535")
+
+    def ssh_command_prefix(self) -> list[str]:
+        command = [self.ssh_executable]
+        if self.ssh_identity is not None:
+            command.extend(
+                ["-i", self.ssh_identity, "-o", "IdentitiesOnly=yes"]
+            )
+        if self.ssh_port is not None:
+            command.extend(["-p", str(self.ssh_port)])
+        return command
 
     def remote_command(self, command: list[str]) -> list[str]:
         if not command:
             raise ValueError("Remote command cannot be empty")
-        return [self.ssh_executable, "-T", self.target, shlex.join(command)]
+        return [*self.ssh_command_prefix(), "-T", self.target, shlex.join(command)]
+
+    def _rsync_transport(self) -> list[str]:
+        prefix = self.ssh_command_prefix()
+        if len(prefix) == 1:
+            return []
+        return ["-e", shlex.join(prefix)]
 
     def run_remote(self, command: list[str], **kwargs: Any) -> subprocess.CompletedProcess[str]:
         return self.run_command(self.remote_command(command), **kwargs)
@@ -110,6 +132,7 @@ class SshDockerTransport:
                 self.rsync_executable,
                 "-a",
                 "--delete",
+                *self._rsync_transport(),
                 f"{local_path.resolve()}/",
                 f"{self.target}:{remote_path}/",
             ],
@@ -132,7 +155,12 @@ class SshDockerTransport:
     ) -> None:
         remote_path = _absolute_remote_path(remote_path)
         local_path.mkdir(parents=True, exist_ok=True)
-        command = [self.rsync_executable, "-a", "--delete"]
+        command = [
+            self.rsync_executable,
+            "-a",
+            "--delete",
+            *self._rsync_transport(),
+        ]
         for pattern in excludes:
             command.extend(["--exclude", pattern])
         command.extend(

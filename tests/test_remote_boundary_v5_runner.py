@@ -11,6 +11,7 @@ from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.runners.remote_boundary_v5 import (
     OfficialPrimaryRemoteBoundaryV5CodexCliRunner,
     RemoteBoundaryV5QualifiedCodexCliRunner,
+    RemoteBoundaryV5QualifiedMinimalBRunner,
 )
 from envsolve_harness.storage.artifacts import RunArtifacts
 
@@ -79,6 +80,32 @@ class RemoteBoundaryV5RunnerTest(unittest.TestCase):
                 "/srv/envsolve/source/exact-checkout",
                 timeout=20,
             )
+
+    def test_minimal_b_keeps_agent_local_and_routes_online_replay_remotely(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, RemoteBoundaryV5QualifiedMinimalBRunner)
+
+            arguments = runner._mcp_server_args(
+                trace_path=root / "trace.jsonl",
+                container_id="container",
+                case=Case("case", "owner/repo", "a" * 40),
+                image_digest="sha256:test",
+            )
+
+            self.assertIn(
+                "envsolve_harness.codex.remote_minimal_b_mcp_boundary_v5",
+                arguments,
+            )
+            self.assertIn("--replay-trace", arguments)
+            self.assertIn("--ssh-target", arguments)
+            self.assertIn("user@spark", arguments)
+            self.assertIn("--remote-workspace-root", arguments)
+            self.assertIn("/srv/envsolve", arguments)
+            self.assertEqual(arguments.count("--docker"), 1)
+            self.assertIn("submit_and_replay", runner._mcp_tool_names())
 
     def test_official_primary_recovers_admissible_submission_from_advisory_failure(
         self,

@@ -124,6 +124,35 @@ class SshDockerTransportTest(unittest.TestCase):
         self.assertEqual(rendered[:3], ["ssh", "-T", "user@spark"])
         self.assertEqual(rendered[3], shlex.join(command))
 
+    def test_identity_and_port_are_shared_by_ssh_and_rsync(self) -> None:
+        transport = SshDockerTransport(
+            "user@executor",
+            "/srv/envsolve",
+            ssh_identity="/tmp/identity",
+            ssh_port=2222,
+        )
+
+        self.assertEqual(
+            transport.remote_command(["true"])[:8],
+            [
+                "ssh",
+                "-i",
+                "/tmp/identity",
+                "-o",
+                "IdentitiesOnly=yes",
+                "-p",
+                "2222",
+                "-T",
+            ],
+        )
+        self.assertEqual(
+            transport._rsync_transport(),
+            [
+                "-e",
+                "ssh -i /tmp/identity -o IdentitiesOnly=yes -p 2222",
+            ],
+        )
+
     def test_rejects_ambiguous_remote_identity_and_path(self) -> None:
         with self.assertRaises(ValueError):
             SshDockerTransport("user@spark;touch /tmp/x", "/srv/envsolve")
