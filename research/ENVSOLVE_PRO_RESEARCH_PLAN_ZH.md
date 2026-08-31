@@ -1,13 +1,13 @@
 # EnvSolve-Pro 研究计划
 
-> **当前论文设计（2026-08-31）：** 失败统一按 Observation--Constraint--Operation 三层分类。
-> EnvSolve-Pro 保留一个自由连续 Agent session。每次意图改变兼容性后，公开目标只更新一个当前且通过
-> 有效性检查的约束状态；旧状态仅保留在机器轨迹中。Replay 失败成为同一 session 中可执行的 case-local
-> 证据，Pass 则立即交付原样程序。何时形成候选、怎样修复仍由 Agent 决定。历史 frontier 累积、固定节奏
-> 观测、强制 handoff 和可选的精确 current-goal 检查均被开发实验否决，不属于核心机制；Package 规则、
-> checkpoint、跨 case memory、harness 指定修复和硬资源
-> 阈值同样不属于核心方法。所有
-> 方法共享的实验完整性底座 E 不属于算法。第 12 节保留被后续证据否决的方案，作为可审计研发历史。
+> **当前论文设计（2026-08-31）：** 失败统一按 Observation--Constraint--Operation 三层分类。当前可靠
+> 底座 Minimal B 保留一个自由连续 Agent session，把 clean replay 反例返回同一 session，并立即交付
+> 原样通过 replay 的程序。它是当前 incumbent baseline，还不是足够强的论文算法贡献。预注册匹配实验没有
+> 发现 validity-aware live compatibility frontier 带来 Official 成功增益，因此它与历史累积、固定节奏、
+> 强制 handoff、可编辑累计程序和类似 checkpoint 的保留一起退出核心方法，只作为轨迹诊断工具保留。
+> 下一算法必须直接解决已暴露的瓶颈：判断残余约束是否存在合法 provider，并让 Agent 从诊断转向可重放
+> 交付。Package 规则、checkpoint、跨 case memory、harness 指定修复和硬资源阈值仍排除在外。所有方法
+> 共享的实验完整性底座 E 不属于算法。
 
 ## 1. 研究目标
 
@@ -25,17 +25,15 @@ EnvSolve-Pro 从冻结的 EnvSolve v1 代码和历史继续开发。旧仓库
 
 ### 当前收敛决策
 
-固定 bad4 实验否决了 Operation Frontier V5。两个 pair 因 Official 接受 evaluator-only 配置或类型存根而
-无法识别算法效应；另外两个有效 pair 中两种方法都成功，但资源变化方向不一致。Meerkat 还表明，历史
-frontier 快照反复进入上下文会使 prompt token 接近翻倍，而旧的两步提交协议会丢掉最后一次请求才出现的
-replay Pass。
+固定三对 request-cap 实验否决 validity-aware live frontier 作为第一篇论文核心。Minimal B 与 frontier
+都只有 `1/3` Official Pass。共同成功的 LNLDB 上，frontier 少用 33% 请求和 37% Token，但慢 18%；
+PAZ 上两组都耗尽 120 次请求，frontier 反而多用 5% Token 和 21% 时间。Frontier 产生了有效且被 Agent
+真实使用的状态变化，但没有解决残余 provider 是否可满足，也没有稳定推动 Agent 形成候选并交付。
 
-因此唯一进入下一轮的候选是 validity-aware live compatibility frontier：每次声明为改变兼容性的操作后
-执行完整目标，只向活跃 Agent 暴露最新且有效的残差及变化，完整历史留在轨迹中，并在 clean replay 通过
-时立即返回程序。它不加入 package 规则、checkpoint 图、命令累积或模型外 planner。已消费的 Pysnmp
-回归验证了机制并暴露一个宿主审计缺陷，但不能估计效果。由于 205 个 Dev identity 已全部被至少一种方法
-消费，下一批只能使用 treatment 尚未运行的固定 Dev 失败；真正仓库未见证据保留给 Canary 与 Official
-Test。
+因此 Minimal B 只保留为干净实验底座，论文算法仍未收敛。下一步不急着增加规则，而是对现有 bad 轨迹做
+结果无关的统一复审，测量进展到底停在观测、约束还是操作：未知合法 provider、provider 集冲突、状态
+退化，或无法把已知可用状态编译成最终程序。只有跨 case 的主导机制才允许产生下一个小 treatment；方法
+和分析未固定前不打开受保护 Canary 与 Official Test。
 
 ## 2. 研究原则
 
@@ -1013,7 +1011,7 @@ Operation Frontier V5 只改变可执行证据到达的时间。搜索前记录�
 5. 只有固定 Dev 证据支持机制且不需要新 case-specific 规则，才进入受保护 Canary、外部 baseline 和
    强弱 backbone 实验。
 
-## 14. 当前方法决策：Validity-Aware Live Frontier
+## 14. 已否决的方法决策：Validity-Aware Live Frontier
 
 上面的历史快照 V5 已被否决。新候选只保留操作关联测量：Agent 把每次 shell 操作标注为检查，或意图
 改变兼容性的操作；后一类操作结束后，完整公开目标生成一个绑定当前环境身份的残差和变化。旧状态退出
@@ -1026,8 +1024,21 @@ package 或修复方案。
 重写原 episode。它验证了环境身份、即时交付和 replay 反馈机制，但不能证明效果或效率。与旧 Minimal-B
 历史结果相比，本次请求、token 和时间都更多，而且边界与终端交付并不匹配，因此不能做因果比较。
 
-下一项预注册实验使用严格匹配的对照：相同窄完整性边界、clean replay 和通过即交付，但不要求操作标注，
-也不返回 live compatibility feedback。三个 treatment 尚未运行、且历史上同一模型在形成候选前耗尽请求
-上限的已消费 Dev 失败由机械规则选出：TensorFlow Model Analysis、LNLDB 和 PAZ。配对 Official Pass@1
-为主指标，资源只在共同结局上比较。六个 episode 期间不修改方法、prompt、边界、case、顺序、模型、
-provider、成功标准或分析规则。
+预注册匹配实验已经完成。TensorFlow Model Analysis、LNLDB 和 PAZ 三对中，两种方法都为 `1/3`
+Official Pass：LNLDB 两组都通过，其余两组都没通过。Frontier 的确参与了推理：TensorFlow Model
+Analysis 的观测残差降到 0 并形成 clean-replay 通过的候选，LNLDB 也根据残差找到了真实 distribution
+支持的 provider。但前者因脚本最终停在 `/` 而在 Official 失败；PAZ 则一直停留在 provider 诊断，直到
+两组都耗尽 120 次请求。
+
+成功数持平，因此按预注册规则不晋级。共同成功的 LNLDB 上，frontier 将请求从 88 降到 59、Token 从
+3.32M 降到 2.08M，但生成时间从 3,325 秒升到 3,927 秒，并多做一次 replay。PAZ 上它多用 4.65% Token
+和 20.99% 时间，仍未形成候选。因此它提高了可观测性，却没有证明成功率或无歧义效率增益；保留给 taxonomy
+和未来 Auto-EnvSolve 搜索，不作为 EnvSolve-Pro 核心。
+
+TensorFlow Model Analysis 还暴露一个两组共享的 replay--Official 缺口：脚本可以在仓库外结束，通过使用
+绝对路径的公开目标，却破坏 Official 后续的相对路径构建。后续候选必须回到启动时的物理项目目录；临时
+切换目录仍允许。这个共享运行时后置条件不改写历史结果，也不偏向任一 arm。
+
+完整裁决与六集机器汇总见
+`experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_result.json` 和
+`experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_summary.json`。

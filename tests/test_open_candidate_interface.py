@@ -61,6 +61,7 @@ class OpenCandidateInterfaceTest(unittest.TestCase):
         prompt = " ".join(validator.prompt_contract.split())
         self.assertIn("inserted inline into the controlling Bash process", prompt)
         self.assertIn("use `$PWD`", validator.prompt_contract)
+        self.assertIn("return the controlling shell", prompt)
 
     def test_open_validator_rejects_direct_import_artifact_injection(self) -> None:
         validator = OpenCandidateProgramValidator()

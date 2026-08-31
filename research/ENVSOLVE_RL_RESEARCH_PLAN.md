@@ -723,3 +723,19 @@ Derived training views should label `coordinate_frame_mismatch`, `path_repair`,
 remain useful repair demonstrations but not paired method preference; interrupted PyRollbar is
 useful negative supervision for repeated diagnosis under missing context, not evidence that the
 deployment policy itself is weak. Corrected path-parity reruns provide the valid comparison data.
+
+### 29. Live-Frontier Negative Preference and Delivery-State Labels
+
+The request-cap3 pairs provide negative preference data for a frontier-conditioned policy,
+not a reason to discard their transitions. Preserve each residual set, environment identity,
+operation effect label, next action, candidate-formation event, replay outcome, and Official
+outcome. Since the frontier tied Minimal B on success and had mixed resources, its actions
+must not receive a global positive method reward.
+
+TensorFlow Model Analysis adds `goal_zero_but_delivery_invalid` and
+`final_working_directory_mismatch`; LNLDB supplies a useful zero-residual provider-resolution
+trajectory; PAZ adds `provider_satisfiability_unresolved` and `candidate_not_formed` despite
+improving residuals. These factorized labels allow EnvSolve-RL to learn when structured
+state is useful without teaching that lower obligation count alone implies a deployable or
+Official-passing program. The post-study working-directory correction remains measurement
+metadata and does not overwrite the original reward.

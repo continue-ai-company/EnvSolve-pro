@@ -21,7 +21,8 @@ state. You may create ordinary environment, build, cache, and compatibility
 artifacts when they are part of the deployment itself. Do not manually place
 placeholder import providers in `site-packages`; install a distribution or use an
 auditable repository provider. The trusted goal and official evaluator remain
-outside your control.
+outside your control. You may change directories temporarily, but the program must
+return the controlling shell to its starting project root before it finishes.
 """.strip()
     prompt_contract = _base_prompt_contract
 

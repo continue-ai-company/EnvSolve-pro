@@ -11,16 +11,16 @@ clean checkout. We formulate repository deployment as **partially observable sta
 constraint solving**.
 
 We first introduce an auditable trajectory representation and classify the earliest
-decisive failure into three causal layers: Observation, Constraint, and Operation. Across
-development trajectories, two recurring failures are optimizing an incomplete proxy for
-the scored goal and treating a successful command as evidence that compatibility
-actually improved. We then propose EnvSolve-Pro, a minimal three-layer algorithm. A
-capable Agent remains free in one continuous session. After each intended environment
-change, the public executable goal reports which case-local obligations were resolved,
-introduced, or remain. Only the newest validity-checked state remains in the live model
-context; complete history stays in the auditable trajectory. The Agent later synthesizes
-one self-contained deployment program, and a clean-replay Pass immediately delivers that
-exact program.
+decisive failure into three causal layers: Observation, Constraint, and Operation. The
+current minimal scaffold keeps a capable Agent in one continuous session, executes every
+candidate from the target initial state, returns replay counterexamples to the same
+session, and delivers exactly the replay-passing program. This separates interactive
+progress from reproducible deployment without constraining the Agent's operations.
+A preregistered development test found that additionally exposing a live compatibility
+frontier improved observability but not Official success, so it is excluded from the core
+method. The remaining algorithmic question is narrower: how to help the Agent determine
+whether residual constraints have a legal solution and turn that solution into a
+deliverable without adding a brittle rule system.
 
 Consumed development cases qualify the mechanism but do not establish generalization.
 Our final evaluation fixes the algorithm before outcome-blind evaluation, compares it
@@ -88,25 +88,26 @@ compared by their distributions over the same three layers.
 
 ## 3. EnvSolve-Pro
 
-EnvSolve-Pro keeps the three layers explicit while minimizing controller policy.
+EnvSolve-Pro keeps the three layers explicit while minimizing controller policy. The
+method described here is the current empirical incumbent; the final constraint-layer
+intervention is not yet fixed.
 
 ### Observation Layer
 
 The Agent receives ordinary command feedback in a persistent construction environment.
-Before search and after every operation declared to change compatibility, the harness
-executes the complete public goal in that active environment. It reports exact residual
-counts and a bounded, explicitly truncated identity projection while retaining complete
-evidence in the machine trajectory.
+It may execute the public goal and submit a complete program for target-state replay at
+any time. Commands, goal observations, environment identity, replay evidence, and Official
+outcomes are retained in one auditable trajectory.
 
 ### Constraint Layer
 
-The constraint state is the newest valid executable-goal residual and its delta after an
-operation: resolved, introduced, and remaining obligations. Superseded states are removed
-from the live model context but retained in the machine trajectory. A narrow shared
-integrity boundary prevents evaluator-only configuration or type stubs from entering the
-state; it does not choose packages or operations. Temporary regression and alternative
-hypotheses remain allowed. The harness adds no package-rule library, cross-case experience,
-checkpoint graph, or model-external repair policy.
+The active Agent infers case-local constraints from raw execution and clean-replay
+counterexamples. The harness does not currently maintain a second model-external
+compatibility frontier: matched Dev evidence showed that exact residual deltas can be
+valid and causally used without resolving provider satisfiability or candidate delivery.
+A narrow shared integrity boundary prevents evaluator-only configuration or type stubs
+from changing the task; it does not choose packages or operations. The method adds no
+package-rule library, cross-case experience, checkpoint graph, or repair policy.
 
 ### Operation Layer
 
@@ -121,9 +122,6 @@ start one Agent session and one construction environment
 
 while no replay-passing program exists and broad safety limits remain:
     action <- Agent freely inspects or changes the construction state
-    if action intends to change compatibility:
-        delta <- execute the public goal and compare with the prior state
-        return delta to the same Agent session
     if the Agent submits a self-contained deployment program:
         replay <- execute the exact program and goal from the target initial state
         if replay passes: return the program
@@ -132,19 +130,21 @@ while no replay-passing program exists and broad safety limits remain:
 return failure
 ```
 
-The controller verifies state transitions and binds delivery to clean replay. It neither
-chooses packages nor decides the next operation. Stronger models therefore expand the
-Operation layer rather than being replaced by a closed planner. The algorithm stores
-programs and trajectories, not container checkpoints.
+The controller binds delivery to clean replay and returns failures without ending the
+reasoning session. It neither chooses packages nor decides the next operation. Stronger
+models therefore expand the Operation layer rather than being replaced by a closed
+planner. The algorithm stores programs and trajectories, not container checkpoints. The
+live-frontier treatment remains an analysis instrument and ablation, not part of this loop.
 
 ## 4. Contributions
 
 1. **Causal failure analysis.** We provide an auditable trajectory representation and an
    Observation--Constraint--Operation taxonomy that identifies the earliest decisive
    cause across different deployment paradigms.
-2. **A minimal deployment algorithm.** EnvSolve-Pro couples an unrestricted continuous
-   Agent session with operation-linked executable compatibility deltas and final clean
-   replay, grounding progress while keeping search and stopping model-led.
+2. **A minimal deployment algorithm.** EnvSolve-Pro keeps search in one unrestricted
+   Agent session and makes target-state replay an iterative executable counterexample and
+   exact-delivery primitive. The final constraint intervention must earn inclusion through
+   Official success rather than architectural complexity.
 3. **Controlled empirical evidence.** We compare matched mechanisms, external systems,
    and strong and weaker backbones using Official success, causal failure transitions,
    deployment completeness, and success-preserving resource outcomes.
@@ -167,13 +167,14 @@ failure mass across Observation, Constraint, and Operation.
 
 ### 5.2 Same-Model Mechanism Test
 
-Under the same model and execution conditions, we compare a continuous free Agent with
-final clean replay (`F+R`) against EnvSolve-Pro's operation-linked observation,
-compatibility delta, and the same final replay (`F+O+C+R`). This isolates whether verified
-state-transition feedback improves deployment beyond a strong Agent that already has a
-persistent session and reproducibility check. Accumulated editable programs, scheduled
-observation, forced handoff, and checkpoints remain separate ablations. All
-environment-changing choices remain model actions.
+Under the same model and execution conditions, Minimal B is the fixed control: one
+continuous free Agent plus repeatedly callable target-state replay (`F+R`). Each proposed
+algorithmic addition is tested as one matched treatment. Accumulated editable programs,
+scheduled observation, forced handoff, checkpoint-like retention, and live compatibility
+frontiers have failed to improve success consistently and are not combined into the core.
+The next treatment is selected only after the trajectory taxonomy identifies a dominant
+cross-repository constraint or delivery failure. All environment-changing choices remain
+model actions.
 
 Development trajectories are used to discover failure types and choose one fixed method.
 Although EnvSolve-Pro has no learned parameters, a separate outcome-blind batch is still
@@ -230,15 +231,20 @@ repeated frontier snapshots nearly doubled prompt tokens relative to the matched
 We therefore reject that historical-snapshot V5 and advance only the simpler current-state,
 validity-aware variant described above.
 
-A consumed Pysnmp regression then exercised the complete current-state loop and passed
-Official evaluation. It preserved environment identity across a Python-version change,
-returned replay evidence in the same session, and delivered the replay-certified program
-without a final extra request. A host-side audit initially misclassified the container's
-virtual-environment symlink; a true-layout integration test and unchanged-program replay
-isolated and corrected that measurement defect. The episode used more requests, tokens,
-and time than an older unmatched control, so it establishes mechanics rather than an
-efficiency gain. We next compare against a control matched for the integrity boundary,
-clean replay, and terminal delivery on a fixed treatment-unrun consumed-Dev failure stratum.
+A consumed Pysnmp regression exercised the complete live-frontier loop and passed Official,
+establishing mechanism operation but not an effect. The subsequent preregistered matched
+three-pair study produced one Official Pass in each arm. On their shared success, the
+frontier used 33% fewer requests and 37% fewer tokens but took 18% longer. On a shared
+request-cap failure it used 5% more tokens and 21% more time. It also reached zero observed
+obligations on TensorFlow Model Analysis yet failed Official because the candidate ended
+outside the repository. We therefore reject the frontier as the core method, add a shared
+final-working-directory replay postcondition, and do not rewrite the recorded outcome.
+
+The negative result narrows the next question. More precise residual reporting is
+insufficient when the Agent cannot determine whether a legal provider set exists or does
+not convert a diagnosed state into a candidate. The next method treatment will be chosen
+from an outcome-blind cross-case audit of those failure transitions, not from a newly
+solved case.
 
 All current results are development evidence. Official success and deployment
 completeness are reported separately, and repository-unseen claims are reserved for
@@ -246,8 +252,8 @@ protected Canary and Official Test data after the method and boundary are fixed.
 
 ## 7. Falsification and Scope
 
-The central claim is weakened if matched prospective experiments show no Official gain,
-if operation-linked deltas do not change subsequent actions, if clean replay and Official
+The central claim is weakened if the final matched treatment shows no Official gain, if
+its structured evidence does not change subsequent actions, if clean replay and Official
 diverge under the same target state, or if gains disappear for stronger models. A success
 gain with higher resource use is a success--cost tradeoff, not an efficiency improvement.
 

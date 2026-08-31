@@ -875,3 +875,19 @@ affected batch, retain every raw trajectory, censor effect estimates, and propos
 parity correction. It must keep the prospectively fixed case identities rather than selecting
 new cases after seeing outcomes. Measurement/interface corrections and algorithm proposals remain
 separate version transitions; only the corrected rerun can drive promotion or rollback.
+
+### 33. Live-Frontier Rollback Transaction
+
+The request-cap3 study is a complete outer-loop rollback example. The proposed live
+frontier activated, produced valid identity-bound transitions, and changed substantive
+Agent reasoning, yet tied Minimal B at `1/3` Official Pass. Its resource effect was mixed:
+fewer requests and tokens but more time on the common success, then more tokens and time on
+a common request-cap failure. Auto-EnvSolve should therefore distinguish mechanism
+activation from promotion and roll this version back to Minimal B.
+
+The trajectories remain valuable proposal evidence. TensorFlow Model Analysis isolates a
+shared final-working-directory measurement gap, while PAZ isolates the unsolved transition
+from residual diagnosis to legal-provider satisfiability and candidate delivery. The first
+supports a shared runtime correction; the second may propose a future inner treatment only
+after the same transition recurs across repositories. Neither permits case-derived package
+rules, and the corrected verifier must not retroactively relabel the original Official Fail.

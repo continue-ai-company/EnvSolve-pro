@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-live-frontier-requestcap3-v1",
+  "recorded_at": "2026-08-31",
+  "role": "preregistered paired consumed-Dev mechanism decision; not a generalization, leaderboard, or SOTA estimate",
+  "preregistration": "experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_preregistration.json",
+  "machine_summary": "experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_summary.json",
+  "integrity": {
+    "scheduled_episodes": 6,
+    "artifact_integrity_valid": 6,
+    "scientifically_eligible": 6,
+    "infrastructure_censored_pairs": 0
+  },
+  "primary_endpoint": {
+    "control_official_passes": 1,
+    "treatment_official_passes": 1,
+    "pair_count": 3,
+    "both_pass": 1,
+    "control_only_pass": 0,
+    "treatment_only_pass": 0,
+    "neither_pass": 2,
+    "generation_noncompletion_treated_as_failure": true
+  },
+  "pairs": [
+    {
+      "pair_id": "requestcap3-01-tfma",
+      "control": "generation failed at 120 requests without submission",
+      "treatment": "formed a candidate after 105 requests; clean replay statuses Fail, Fail, Pass; Official Fail",
+      "official_outcome": "neither pass",
+      "frontier_audit": {
+        "observation_count": 20,
+        "transition_counts": {"initial": 1, "improved": 8, "stagnant": 11},
+        "obligation_path": [48, 43, 30, 13, 10, 9, 2, 1, 0],
+        "goal_pass_observations": 2,
+        "best_obligation_count": 0,
+        "state_audit_rejections": 0
+      },
+      "diagnosis": "the treatment used frontier evidence to reach a replayable zero-obligation state, but its program ended with `cd /`; clean replay invoked the trusted goal through an absolute project root while Official evaluation later required repository-relative build paths",
+      "episode_outcome_rewritten": false
+    },
+    {
+      "pair_id": "requestcap3-02-lnldb",
+      "control": "Official Pass",
+      "treatment": "Official Pass",
+      "official_outcome": "both pass",
+      "frontier_audit": {
+        "observation_count": 19,
+        "transition_counts": {"initial": 1, "improved": 5, "regressed": 1, "stagnant": 12},
+        "goal_pass_observations": 2,
+        "best_obligation_count": 0,
+        "state_audit_rejections": 0
+      },
+      "common_outcome_resources": {
+        "control_requests": 88,
+        "treatment_requests": 59,
+        "treatment_request_reduction_percent": 32.95,
+        "control_total_tokens": 3320450,
+        "treatment_total_tokens": 2078533,
+        "treatment_token_reduction_percent": 37.40,
+        "control_generation_seconds": 3324.922208,
+        "treatment_generation_seconds": 3927.433574,
+        "treatment_generation_time_increase_percent": 18.12,
+        "interpretation": "the treatment required fewer model interactions and tokens but was slower and used an extra clean replay; it is not an unambiguous resource improvement"
+      }
+    },
+    {
+      "pair_id": "requestcap3-03-paz",
+      "control": "generation failed at 120 requests after one failed clean replay",
+      "treatment": "generation failed at 120 requests without clean replay",
+      "official_outcome": "neither pass",
+      "frontier_audit": {
+        "observation_count": 13,
+        "transition_counts": {"initial": 1, "improved": 6, "regressed": 2, "stagnant": 4},
+        "goal_pass_observations": 0,
+        "best_obligation_count": 10,
+        "latest_material_transition": "a new /tmp/testenv changed the active Python state and regressed the observed obligations to 45; no later change operation was made",
+        "state_audit_rejections": 0
+      },
+      "common_failure_resources": {
+        "control_total_tokens": 7305036,
+        "treatment_total_tokens": 7644743,
+        "treatment_token_increase_percent": 4.65,
+        "control_generation_seconds": 6095.918754,
+        "treatment_generation_seconds": 7375.640390,
+        "treatment_generation_time_increase_percent": 20.99
+      },
+      "diagnosis": "precise residual observations exposed dependency progress but did not resolve whether the remaining imports had a legal provider or move the Agent from diagnosis to candidate delivery"
+    }
+  ],
+  "mechanism_conclusion": "The live frontier was valid and substantively used in the treatment trajectories, but it did not increase Official success in this fixed batch. It improves observability, not by itself constraint satisfiability or delivery.",
+  "decision": {
+    "preregistered_rule_applied": "non-all-fail success tie adjudicated by causal use and common-outcome resources",
+    "promote_to_first_paper_core": false,
+    "retain_as": [
+      "diagnostic treatment for failure taxonomy",
+      "candidate component for future Auto-EnvSolve search"
+    ],
+    "core_method_after_decision": "Minimal-B: one continuous Agent session plus repeatedly callable clean replay and terminal delivery, under the shared minimal validity boundary",
+    "reason": "the frontier produced no success gain, mixed resource effects on the common success, and worse resource use on the common request-cap failure"
+  },
+  "shared_follow_up": {
+    "observed_failure": "a replay-passing candidate may leave the controlling shell outside the repository and then fail Official repository-relative actions",
+    "change": "require the sourced candidate to finish in the physical working directory from which it started; temporary directory changes remain allowed",
+    "applies_to": "all methods using the shared executable goal verifier",
+    "not_a_treatment_advantage": true,
+    "new_hash_frozen_contract_or_experiment_gate_added": false,
+    "why_runtime_check_is_needed": "Git and software versions do not represent process cwd; primary keys, transactions, unique constraints, and types do not constrain shell state; ordinary tests can regression-test the verifier but cannot constrain arbitrary future generated programs at runtime"
+  },
+  "claim_boundary": "This study rejects promotion of this frontier implementation as the first-paper core on targeted consumed Dev evidence. It does not estimate unseen-repository success or compare against external baselines."
+}

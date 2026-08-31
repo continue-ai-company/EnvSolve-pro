@@ -1,18 +1,18 @@
 # EnvSolve-Pro Research Plan
 
 > **Current paper design (2026-08-31):** failures are classified by the
-> Observation--Constraint--Operation framework. EnvSolve-Pro keeps one unrestricted
-> continuous Agent session. After each intended compatibility change, the public goal
-> updates one current, validity-checked constraint state; superseded states remain only in
-> the machine trajectory. Replay failures return executable case-local evidence, while a
-> Pass immediately delivers the exact program. The Agent still decides when to form a
-> candidate and how to repair it. Historical frontier accumulation, fixed-cadence
-> observation, forced handoff, and optional exact current-goal inspection are rejected
-> development treatments, not core mechanisms.
-> Package rules, checkpoints, cross-case
-> memory, harness-selected repairs, and hard resource thresholds are also excluded. The
-> shared evaluation-integrity foundation E is not an algorithm. Section 12 retains
-> superseded proposals as auditable development history.
+> Observation--Constraint--Operation framework. The current reliable scaffold, Minimal B,
+> keeps one unrestricted Agent session, returns clean-replay counterexamples to that same
+> session, and immediately delivers the exact replay-passing program. It is the incumbent
+> baseline, not yet a sufficient algorithmic contribution. A preregistered matched study
+> found no Official-success gain from adding a validity-aware live compatibility frontier,
+> so that mechanism joins historical accumulation, fixed cadence, forced handoff, editable
+> programs, and checkpoint-like retention as a rejected core treatment. The frontier is
+> retained only as a diagnostic trajectory instrument. The next algorithm must address the
+> observed unresolved bottleneck: deciding whether residual constraints have a legal
+> provider and moving from diagnosis to a replayable deliverable. Package rules,
+> checkpoints, cross-case memory, harness-selected repairs, and hard resource thresholds
+> remain excluded. The shared evaluation-integrity foundation E is not an algorithm.
 
 ## 1. Objective
 
@@ -34,21 +34,20 @@ development belongs to `hongleo-Lee/EnvSolve-pro`.
 
 ### Current convergence decision
 
-The fixed bad4 study rejects Operation Frontier V5. Two pairs were non-identifying because
-Official accepted evaluator-only configuration or type stubs; among the two valid pairs,
-both arms succeeded, with inconsistent resource effects. Meerkat also showed that repeated
-historical frontier snapshots nearly doubled prompt tokens and that a final-request replay
-Pass could be lost by the old two-step submission protocol.
+The fixed three-pair request-cap study rejects the validity-aware live frontier as the
+first-paper core. Minimal B and the frontier each passed `1/3` Official cases. On their
+common success, the frontier used 33% fewer requests and 37% fewer tokens but took 18%
+longer; on PAZ both exhausted 120 requests, while the frontier used 5% more tokens and 21%
+more time. The frontier produced valid, causally used state deltas, but those deltas did not
+solve residual-provider satisfiability or reliably trigger candidate delivery.
 
-The sole next candidate is therefore a validity-aware live compatibility frontier:
-observe the complete goal after declared compatibility changes, expose only the newest
-valid residual and delta to the active Agent, retain full history in the trajectory, and
-return a clean-replay-passing program immediately. It adds no package rules, checkpoint
-graph, command accumulation, or model-external planner. A consumed Pysnmp regression
-qualified the mechanics and exposed a host audit defect without establishing an effect.
-Because every Dev identity has now been consumed by at least one method, the next fixed
-comparison uses treatment-unrun Dev failures only; repository-unseen evidence is reserved
-for protected Canary and Official Test cases.
+Minimal B therefore remains the clean experimental scaffold while the algorithm is still
+open. The immediate work is an outcome-blind review of existing bad trajectories to
+measure where progress stops across Observation, Constraint, and Operation: unknown legal
+provider, incompatible provider set, state regression, or failure to compile a known-good
+state into a deliverable. Only a cross-case dominant mechanism may motivate the next small
+treatment. No protected Canary or Official Test case is opened before that method and its
+analysis are fixed.
 
 ## 2. Research Principles
 
@@ -1329,7 +1328,7 @@ The next evidence sequence supersedes the Minimal-B bad4 sequence above:
 5. proceed to protected Canary, external baselines, and strong/weak backbones only if the
    fixed Dev evidence supports the mechanism without a new case-specific rule.
 
-## 14. Current Method Decision: Validity-Aware Live Frontier
+## 14. Rejected Method Decision: Validity-Aware Live Frontier
 
 The historical-snapshot V5 above is rejected. Its successor retains only operation-linked
 measurement: the Agent labels each shell operation as inspection or intended compatibility
@@ -1348,10 +1347,27 @@ qualifies state identity, terminal delivery, and replay feedback, but not effect
 efficiency. Relative to an older unmatched Minimal-B run, it used more requests, tokens,
 and time; boundary and terminal-delivery differences make that comparison non-causal.
 
-The next preregistered comparison therefore uses a matched control with the same narrow
-integrity boundary, clean replay, and terminal delivery, but without required operation
-annotation or live compatibility feedback. Three mechanically selected, treatment-unrun
-consumed Dev failures previously exhausted the same model's request cap before candidate
-formation: TensorFlow Model Analysis, LNLDB, and PAZ. Official paired Pass@1 is primary;
-resource measures adjudicate only common outcomes. No method, prompt, boundary, case,
-order, model, provider, success criterion, or analysis rule changes during the six episodes.
+The preregistered matched comparison is complete. Across TensorFlow Model Analysis, LNLDB,
+and PAZ, both methods achieved `1/3` Official Pass: LNLDB passed in both arms and the other
+two passed in neither. The frontier was substantively used: TensorFlow Model Analysis
+reached zero observed obligations and formed a clean-replay-passing candidate, while LNLDB
+used the residual sequence to reach a real distribution-backed provider. Nevertheless, the
+first candidate failed Official after leaving the shell in `/`, and PAZ remained in
+provider diagnosis until both arms exhausted 120 requests.
+
+The success tie is adjudicated against promotion. On the shared LNLDB success, the frontier
+reduced requests from 88 to 59 and tokens from 3.32M to 2.08M, but increased generation
+time from 3,325 to 3,927 seconds and required an extra replay. On PAZ it used 4.65% more
+tokens and 20.99% more time without forming a candidate. Thus the mechanism improves
+observability but does not establish a success or unambiguous efficiency gain. It is kept
+for taxonomy and future Auto-EnvSolve search, not as EnvSolve-Pro's core.
+
+TensorFlow Model Analysis also exposed a shared replay-to-Official mismatch: a sourced
+program could finish outside the repository, pass an absolute-path public goal, and then
+break Official relative-path build actions. Future runs require candidates to return to
+their starting physical project directory; temporary directory changes remain legal. This
+shared runtime postcondition does not alter any recorded outcome or favor either arm.
+
+The complete decision and generated six-episode summary are
+`experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_result.json` and
+`experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_summary.json`.

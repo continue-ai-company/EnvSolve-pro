@@ -319,7 +319,8 @@ composition and control flow, but do not terminate or replace the controlling sh
 with `exit`, `return`, or `exec`. Do not edit tracked repository files, inject
 importable source files, suppress the terminal verifier, or delete evaluator-owned
 workspace artifacts. The program must leave the selected Python environment active
-for commands that run after it.
+for commands that run after it. It may change directories temporarily, but it must
+return the controlling shell to its starting project root before it finishes.
 Environment-path configuration may expose real repository or installed artifacts,
 but must not point to synthetic modules or shadow the executable goal.
 Do not directly create or copy Python import artifacts such as `.py`, `.pyi`, `.pth`,

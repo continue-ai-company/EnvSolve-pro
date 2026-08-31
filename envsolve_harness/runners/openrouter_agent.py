@@ -34,9 +34,9 @@ from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.execution.batch import cleanup_case_containers
 from envsolve_harness.execution.source_cache import ExactRevisionSourceCache
 from envsolve_harness.integrity.minimal import (
-    MinimalIntegrityGoalVerifier,
     inspect_minimal_repository_integrity,
 )
+from envsolve_harness.integrity.delivery import DeliveryIntegrityGoalVerifier
 from envsolve_harness.incremental_program import IncrementalProgram
 from envsolve_harness.replay_feedback import normalize_replay_feedback
 from envsolve_harness.replay_obligation_ledger import (
@@ -2659,7 +2659,7 @@ result, without another model request.
                     image_digest,
                     case,
                 )
-                verifier = MinimalIntegrityGoalVerifier(
+                verifier = DeliveryIntegrityGoalVerifier(
                     self.goal_contract,
                     observation_timeout=self.command_timeout,
                     effect_auditor=lambda worktree: inspect_minimal_repository_integrity(

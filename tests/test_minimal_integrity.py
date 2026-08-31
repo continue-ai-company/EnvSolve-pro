@@ -41,6 +41,7 @@ class MinimalIntegrityTest(unittest.TestCase):
         self.assertIn("absolute path is not stable", contract)
         self.assertIn("placeholder import providers", contract)
         self.assertIn("auditable repository provider", contract)
+        self.assertIn("return the controlling shell", contract)
 
     def test_candidate_policy_allows_deployment_artifacts(self) -> None:
         validation = MinimalIntegrityCandidateValidator().validate(

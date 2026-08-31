@@ -8,11 +8,12 @@
 信息，而且交互环境中的成功未必能从干净 checkout 复现。我们将仓库部署定义为**部分可观测状态化约束
 求解**。
 
-我们首先提出可审计的轨迹表示，并把最早决定最终结果的失败分为观测、约束和操作三层。开发轨迹中反复
-出现两个问题：Agent 优化了不完整的代理目标；命令执行成功却没有让真实兼容状态变好。据此，我们提出
-最小三层算法 EnvSolve-Pro：能力强的 Agent 在一个连续 session 内自由行动；每次意图改变环境后，公开
-可执行目标返回刚解决、新引入和仍存在的 case-local 约束。模型上下文只保留最新且有效的状态，完整历史
-留在可审计轨迹中。Agent 最后自行综合一份自包含部署程序；一旦干净重放通过，系统立即交付这份原样程序。
+我们首先提出可审计的轨迹表示，并把最早决定最终结果的失败分为观测、约束和操作三层。当前最小底座让
+强 Agent 在一个连续 session 内自由行动，从目标初始状态执行每个候选，把 replay 反例返回同一 session，
+并且只交付原样通过 replay 的程序。它在不限制 Agent 操作的前提下，把交互进展与可复现部署分开。一次
+预注册开发实验表明，额外提供 live compatibility frontier 提高了可观测性，却没有提高 Official 成功，
+因此它退出核心方法。剩余算法问题更窄：怎样帮助 Agent 判断残余约束是否存在合法解，并把解转化为可交付
+程序，同时不引入脆弱规则系统。
 
 已消费开发 case 只能验证机制，不能证明泛化。最终实验会先固定算法，再在结果未知的数据上与同模型
 对照、EnvBench baseline、Repo2Run、旧硬约束 EnvSolve 和原生 coding Agent 比较，并覆盖强弱
@@ -62,20 +63,20 @@ E_P = R(P, E_0),
 
 ## 3. EnvSolve-Pro
 
-EnvSolve-Pro 明确保留三层结构，同时把 controller policy 压到最小。
+EnvSolve-Pro 明确保留三层结构，同时把 controller policy 压到最小。这里描述的是当前经验上最可靠的
+incumbent；最终约束层干预尚未固定。
 
 ### 观测层
 
-Agent 在持久构建环境中获得普通命令反馈。搜索开始前以及每个声明为改变兼容性的操作之后，Harness 都在
-当前活跃环境中执行完整公开目标，返回精确残差数量和有明确截断标记的身份投影，同时在机器轨迹中保留
-完整证据。
+Agent 在持久构建环境中获得普通命令反馈，并可随时执行公开目标或提交完整程序进行目标状态 replay。
+命令、目标观测、环境身份、replay 证据和 Official 结果统一保存在可审计轨迹中。
 
 ### 约束层
 
-约束状态是最新且有效的可执行目标残差及一次操作后的变化：刚解决、新引入和仍存在的约束。旧状态从
-模型实时上下文中移除，但完整保留在机器轨迹。一个很窄的共享完整性边界阻止 evaluator-only 配置或
-类型存根进入约束状态，但它不选择 package 或操作。系统仍允许临时退化和替代假设，也不增加 package
-规则库、跨 case 经验、checkpoint 图或模型外的修复策略。
+当前由活跃 Agent 根据原始执行和 clean-replay 反例推断 case-local 约束，Harness 不再维护第二套模型外
+compatibility frontier。匹配 Dev 证据已经表明：精确残差可以正确、也可以真实影响后续推理，却仍不能解决
+provider 是否可满足或候选交付。一个很窄的共享完整性边界阻止 evaluator-only 配置或类型存根改变任务，
+但它不选择 package 或操作。系统不增加 package 规则库、跨 case 经验、checkpoint 图或模型外修复策略。
 
 ### 操作层
 
@@ -88,9 +89,6 @@ Agent 自由检查仓库、选择每一个环境变换，并自行判断活跃�
 
 while 尚无 replay 通过的程序且宽松安全上限未耗尽:
     action <- Agent 自由检查或改变构建状态
-    if action 意图改变兼容性:
-        delta <- 执行公开目标，并与上一个状态比较
-        把 delta 返回同一 Agent session
     if Agent 提交自包含部署程序:
         replay <- 从目标初始状态执行原样程序和目标
         if replay 通过: return 程序
@@ -99,15 +97,16 @@ while 尚无 replay 通过的程序且宽松安全上限未耗尽:
 return failure
 ```
 
-Controller 验证状态变化，并保证交付物就是通过 replay 的程序；它不选择 package 或下一条环境操作。
-更强模型扩展的是操作层能力，而不是被封闭 planner 替代。算法保存程序与轨迹，不保存容器 checkpoint。
+Controller 把交付绑定到 clean replay，并在失败时不结束推理 session；它不选择 package 或下一条环境
+操作。更强模型扩展的是操作层能力，而不是被封闭 planner 替代。算法保存程序与轨迹，不保存容器
+checkpoint。Live frontier 只保留为分析工具和 ablation，不在这个核心循环中。
 
 ## 4. 三项贡献
 
 1. **因果失败分析。** 提供可审计轨迹表示和“观测--约束--操作”taxonomy，用最早决定性原因比较不同
    部署范式。
-2. **最小部署算法。** EnvSolve-Pro 把不受限的连续 Agent session、操作关联的可执行兼容变化和最终
-   干净重放结合，在保持模型主导搜索与停止决策的同时，让进展由真实执行事实落地。
+2. **最小部署算法。** EnvSolve-Pro 保留一个不受限的连续 Agent session，把目标状态 replay 变成可反复
+   调用的可执行反例和原样交付原语。最终约束干预只有在 Official 成功实验中证明价值后才进入算法。
 3. **受控实验证据。** 在 Official 成功率、因果失败迁移、部署完整性和成功保持下的资源开销上，比较
    同模型机制、外部系统以及强弱 backbone。
 
@@ -125,10 +124,10 @@ episode 不进入算法失败率统计。
 
 ### 5.2 同模型机制实验
 
-在相同模型和执行条件下，比较“连续自由 Agent + 最终干净重放”`F+R` 与 EnvSolve-Pro 的“操作关联
-观测 + 兼容变化 + 相同最终重放”`F+O+C+R`。这个对比隔离的问题是：面对已经拥有持久 session 和
-可复现检查的强 Agent，经过验证的状态变化反馈是否仍能提高部署能力。累计可编辑程序、定时观测、强制
-handoff 和 checkpoint 都只作为独立 ablation。所有改变环境的动作仍由模型决定。
+在相同模型和执行条件下，Minimal B 是固定对照：一个连续自由 Agent 加可反复调用的目标状态 replay
+（`F+R`）。每个算法增量单独作为匹配 treatment。累计可编辑程序、定时观测、强制 handoff、类似
+checkpoint 的保留和 live compatibility frontier 都没有稳定提高成功率，因此不组合进核心。下一 treatment
+只能由轨迹 taxonomy 中跨仓库的主导约束或交付失败选择。所有改变环境的动作仍由模型决定。
 
 开发轨迹用于发现错误类型和选择唯一固定方法。EnvSolve-Pro 虽然没有可训练参数，仍需要结果未知的独立
 batch：代码、prompt、观测节奏、边界和停止逻辑同样可能对已消费仓库过拟合。只有这些选择冻结后，未见
@@ -169,19 +168,22 @@ policy 增加了成本，却没有稳定改善下一步操作。
 在另一个 case 上更慢。Meerkat 中，重复保留历史 frontier 快照使 prompt token 接近同配置对照的两倍。
 因此我们否决历史快照 V5，只推进上文更简单的“当前状态 + 有效性检查”版本。
 
-随后，一个已消费 Pysnmp 回归完整激活了当前状态循环并通过 Official：Python 版本切换后环境身份仍被
-正确跟踪，replay 反例返回同一 session，认证程序无需最后一次额外请求即可交付。宿主审计起初误判了只在
-容器中有效的虚拟环境 symlink；真实布局集成测试和原样程序 replay 将其确定为测量缺陷并完成修正。该
-episode 比一个不完全匹配的旧对照使用更多请求、token 和时间，所以只能证明机制工作，不能证明效率。
-下一步在固定、treatment 尚未运行的已消费 Dev 失败层上，与完整性边界、clean replay 和即时交付均匹配
-的对照进行比较。
+一个已消费 Pysnmp 回归完整激活 live-frontier 循环并通过 Official，只证明机制能工作。随后预注册的三对
+匹配实验中，两组都只有一个 Official Pass。共同成功上，frontier 少用 33% 请求和 37% Token，但慢
+18%；共同 request-cap 失败上，它多用 5% Token 和 21% 时间。TensorFlow Model Analysis 中它甚至将
+观测残差降到 0，却因候选最终停在仓库外而 Official 失败。因此我们否决 frontier 作为核心，增加共享的
+最终工作目录 replay 后置条件，并且不改写原实验结果。
+
+这个负结果把下一问题缩小了：当 Agent 不知道合法 provider 集是否存在，或没有把已诊断状态转成候选时，
+更精确的残差报告仍不够。下一方法 treatment 将由跨 case、结果无关的失败迁移审计决定，而不是从新近
+跑通的 case 倒推。
 
 当前结果仍全部属于开发证据。Official 成功与部署完整性分开报告；仓库未见结论只保留给方法和边界固定
 后的受保护 Canary 与 Official Test。
 
 ## 7. 证伪条件与范围
 
-如果匹配的前瞻实验没有 Official 增益、操作关联 delta 不能改变后续动作、相同目标状态下 clean replay 与
+如果最终匹配 treatment 没有 Official 增益、结构化证据不改变后续动作、相同目标状态下 clean replay 与
 Official 不一致，或增益在强模型上消失，核心主张都会被削弱。成功率提高但资源变多是成功--成本权衡，
 不是效率改进。
 
