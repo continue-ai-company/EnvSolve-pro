@@ -17,6 +17,7 @@ from envsolve_harness.compatibility_ledger import (
     ScheduledCompatibilityObserver,
     model_visible_scheduled_observation,
 )
+from envsolve_harness.constraint_hypothesis import evaluate_constraint_hypothesis
 from envsolve_harness.current_goal import CurrentGoalService
 from envsolve_harness.codex.container_mcp import (
     ContainerMcpServer,
@@ -75,6 +76,7 @@ ReplayMode = Literal[
     "scheduled",
     "operation-frontier",
     "operation-frontier-live",
+    "hypothesis",
     "handoff",
     "stateful",
     "incremental",
@@ -374,6 +376,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "scheduled",
             "operation-frontier",
             "operation-frontier-live",
+            "hypothesis",
             "handoff",
             "stateful",
             "incremental",
@@ -385,7 +388,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "Replay mode must be none, atomic, atomic-handoff, soft, "
                 "soft-validity-terminal, "
                 "incumbent, current, ledger, scheduled, handoff, stateful, "
-                "operation-frontier, operation-frontier-live, incremental, "
+                "operation-frontier, operation-frontier-live, hypothesis, incremental, "
                 "incremental-annotated, "
                 "incremental-editable, or incremental-transactional-editable"
             )
@@ -482,6 +485,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "free-feedback-search+validity-aware-live-compatibility-frontier+"
                 "terminal-clean-replay-v1"
             )
+        if self.constraint_hypothesis_enabled:
+            return (
+                "free-feedback-search+executable-constraint-hypothesis+"
+                "soft-clean-replay-v1"
+            )
         if self.operation_frontier_enabled:
             return (
                 "free-feedback-search+operation-triggered-compatibility-frontier+"
@@ -513,6 +521,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             "scheduled",
             "operation-frontier",
             "operation-frontier-live",
+            "hypothesis",
             "handoff",
             "stateful",
             "incremental",
@@ -560,6 +569,10 @@ class OpenRouterAgentRunner(CodexCliRunner):
     @property
     def live_frontier_enabled(self) -> bool:
         return self.replay_mode == "operation-frontier-live"
+
+    @property
+    def constraint_hypothesis_enabled(self) -> bool:
+        return self.replay_mode == "hypothesis"
 
     @property
     def replay_pass_is_terminal(self) -> bool:
@@ -617,6 +630,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
             self.compatibility_ledger_enabled
             or self.scheduled_observation_enabled
             or self.operation_frontier_enabled
+            or self.constraint_hypothesis_enabled
         )
 
     @property
@@ -695,6 +709,13 @@ class OpenRouterAgentRunner(CodexCliRunner):
                     if self.live_frontier_enabled
                     else "compatibility-frontier-C"
                 ),
+                "R",
+                "minimal-H",
+            ]
+        if self.constraint_hypothesis_enabled:
+            return [
+                "F",
+                "executable-constraint-hypothesis-OCO",
                 "R",
                 "minimal-H",
             ]
@@ -1036,6 +1057,75 @@ class OpenRouterAgentRunner(CodexCliRunner):
                     },
                 ),
             )
+        if self.constraint_hypothesis_enabled:
+            tools.insert(
+                1,
+                _function_tool(
+                    "test_constraint_hypothesis",
+                    (
+                        "State one falsifiable mapping from a real provider to exact "
+                        "active goal obligations, execute one arbitrary Bash operation, "
+                        "then measure the complete goal before and after. The harness "
+                        "classifies the claimed effect as supported, partially supported, "
+                        "refuted, or inconclusive. This is advisory and never restricts "
+                        "ordinary shell exploration."
+                    ),
+                    {
+                        "type": "object",
+                        "properties": {
+                            "provider": {
+                                "type": "object",
+                                "properties": {
+                                    "kind": {
+                                        "type": "string",
+                                        "enum": [
+                                            "installed-distribution",
+                                            "repository-source",
+                                            "system-package",
+                                            "generated-build",
+                                            "upstream-source",
+                                            "other",
+                                        ],
+                                    },
+                                    "identity": {"type": "string", "minLength": 1},
+                                },
+                                "required": ["kind", "identity"],
+                                "additionalProperties": False,
+                            },
+                            "expected_effect": {"type": "string", "minLength": 1},
+                            "target_obligations": {
+                                "type": "array",
+                                "minItems": 1,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "domain": {"type": "string"},
+                                        "subject": {"type": "string"},
+                                        "predicate": {"type": "string"},
+                                        "required": {},
+                                    },
+                                    "required": [
+                                        "domain",
+                                        "subject",
+                                        "predicate",
+                                        "required",
+                                    ],
+                                    "additionalProperties": False,
+                                },
+                            },
+                            "command": {"type": "string", "minLength": 1},
+                            "timeout_seconds": {"type": "integer", "minimum": 1},
+                        },
+                        "required": [
+                            "provider",
+                            "expected_effect",
+                            "target_obligations",
+                            "command",
+                        ],
+                        "additionalProperties": False,
+                    },
+                ),
+            )
         submit_description = (
             "Atomically submit the complete bootstrap program: validate it, replay it "
             "from a fresh checkout and container, return executable failure evidence to "
@@ -1214,6 +1304,7 @@ There is no separate replay action and no replay state is retained.
             "scheduled",
             "operation-frontier",
             "operation-frontier-live",
+            "hypothesis",
             "handoff",
             "stateful",
         }:
@@ -1298,6 +1389,23 @@ Only the newest validity-checked compatibility state remains fully visible in th
 live context; older frontier payloads are replaced by short supersession markers and
 remain complete in the machine trajectory. A clean-replay Pass immediately returns
 that exact certified program as the episode result, without another model request.
+"""
+        elif self.constraint_hypothesis_enabled:
+            prompt += """
+
+The harness gives an initial complete compatibility baseline. When you have a concrete
+provider hypothesis, call `test_constraint_hypothesis` with exact obligations copied
+from that baseline, the provider you expect to satisfy them, and one arbitrary Bash
+operation. The harness measures the complete goal immediately before and after the
+operation and reports whether the claimed effect was supported, partially supported,
+or refuted. Provider identity is your explicit declaration in this version; only the
+operation's effect on executable constraints is independently verified.
+
+This tool is optional. Continue to use unrestricted `envbench_shell` for inspection,
+multi-step diagnosis, and any exploration that does not fit one hypothesis. The harness
+does not select providers, block commands, restore state, or accumulate a program. Once
+the active environment passes, synthesize and clean-replay the complete bootstrap in the
+same session.
 """
         if self.replay_pass_is_terminal and not self.live_frontier_enabled:
             prompt += """
@@ -1497,6 +1605,10 @@ result, without another model request.
             raise ValueError(
                 "Operation-frontier replay mode requires a compatibility service"
             )
+        if self.constraint_hypothesis_enabled and compatibility_service is None:
+            raise ValueError(
+                "Constraint-hypothesis replay mode requires a compatibility service"
+            )
         messages: list[dict[str, Any]] = [{"role": "user", "content": prompt}]
         usage_total: dict[str, int | float] = {}
         tool_counts = {
@@ -1506,6 +1618,7 @@ result, without another model request.
             "revise_program": 0,
             "check_current_goal": 0,
             "check_compatibility": 0,
+            "test_constraint_hypothesis": 0,
             "submit_and_replay": 0,
             "submit_bootstrap": 0,
         }
@@ -1712,6 +1825,35 @@ result, without another model request.
             )
             if self.live_frontier_enabled:
                 latest_live_frontier_message = len(messages) - 1
+        elif self.constraint_hypothesis_enabled:
+            assert compatibility_service is not None
+            initial_result = compatibility_service.check("constraint-hypothesis-initial")
+            self._append_event(
+                trajectory_path,
+                {
+                    "schema": "envsolve-openrouter-event-v1",
+                    "event": "constraint_hypothesis_baseline",
+                    "request_index": 0,
+                    "result": initial_result,
+                },
+            )
+            projected_initial = model_visible_scheduled_observation(
+                {"result": initial_result}
+            )["result"]
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "Harness executable-constraint baseline before the first "
+                        "model request:\n"
+                        + json.dumps(
+                            projected_initial,
+                            ensure_ascii=True,
+                            sort_keys=True,
+                        )
+                    ),
+                }
+            )
 
         def execute_shell(
             call_id: str,
@@ -2254,6 +2396,67 @@ result, without another model request.
                         payload = current_goal_service.check(str(call.id))
                     elif name == "check_compatibility" and compatibility_service is not None:
                         payload = compatibility_service.check(str(call.id))
+                    elif (
+                        name == "test_constraint_hypothesis"
+                        and compatibility_service is not None
+                    ):
+                        provider = arguments.get("provider")
+                        expected_effect = arguments.get("expected_effect")
+                        targets = arguments.get("target_obligations")
+                        command = arguments.get("command")
+                        if (
+                            not isinstance(provider, dict)
+                            or not isinstance(expected_effect, str)
+                            or not isinstance(targets, list)
+                            or not targets
+                            or not all(isinstance(item, dict) for item in targets)
+                            or not isinstance(command, str)
+                        ):
+                            payload = {
+                                "ok": False,
+                                "error": "invalid constraint hypothesis arguments",
+                            }
+                        else:
+                            before = compatibility_service.check(
+                                f"{call.id}-hypothesis-before"
+                            )
+                            operation_arguments = {"command": command}
+                            timeout_seconds = arguments.get("timeout_seconds")
+                            if isinstance(timeout_seconds, int):
+                                operation_arguments["timeout_seconds"] = timeout_seconds
+                            operation = execute_shell(
+                                f"{call.id}-hypothesis-operation",
+                                operation_arguments,
+                            )
+                            after = compatibility_service.check(
+                                f"{call.id}-hypothesis-after"
+                            )
+                            machine_payload = evaluate_constraint_hypothesis(
+                                provider=provider,
+                                expected_effect=expected_effect,
+                                target_obligations=targets,
+                                operation=operation,
+                                before=before,
+                                after=after,
+                            )
+                            projected = dict(machine_payload)
+                            projected["before"] = model_visible_scheduled_observation(
+                                {"result": before}
+                            )["result"]
+                            projected["after"] = model_visible_scheduled_observation(
+                                {"result": after}
+                            )["result"]
+                            payload = projected
+                            self._append_event(
+                                trajectory_path,
+                                {
+                                    "schema": "envsolve-openrouter-event-v1",
+                                    "event": "constraint_hypothesis_test",
+                                    "request_index": request_index,
+                                    "parent_tool_call_id": str(call.id),
+                                    "result": machine_payload,
+                                },
+                            )
                     elif name == "submit_and_replay" and replay_service is not None:
                         program = arguments.get("program")
                         if not isinstance(program, str):

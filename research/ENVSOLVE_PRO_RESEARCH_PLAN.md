@@ -1371,3 +1371,32 @@ shared runtime postcondition does not alter any recorded outcome or favor either
 The complete decision and generated six-episode summary are
 `experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_result.json` and
 `experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_summary.json`.
+
+## 15. Next Candidate: Executable Provider Hypotheses
+
+The current hard-failure audit mechanically collects five unique valid Minimal-B non-pass
+repositories from the completed Bad4, Hard6, and request-cap3 studies. All five stop before
+a legal compatible provider set is established; four never form a program, and the fifth
+does not replace a failed replay candidate. This is a deliberately hard consumed-Dev
+stratum, not a prevalence estimate. Its machine-readable record is
+`experiments/validations/envsolve_pro_v2_current_hard_failure_transition_audit_v1.json`.
+
+The implemented candidate is an executable constraint-hypothesis loop. The Agent may bind
+three structured fields to one otherwise arbitrary shell operation: the exact active
+obligations it intends to resolve, the provider it hypothesizes will supply them, and the
+expected effect. The harness measures the complete public goal immediately before and after
+that operation and returns `supported`, `partially_supported`, `refuted`, or an inconclusive
+measurement with exact residual changes. Version 1 verifies the operation's constraint
+effect; provider identity is explicitly Agent-declared and is not yet independently
+certified. Complete evidence remains in the trajectory, with bounded copies returned to the
+same model session.
+
+This mechanism adds causal discipline, not package knowledge. It does not recommend or
+forbid packages, block ordinary shell actions, roll back state, store checkpoints, build the
+final program, or reuse cross-case experience. Minimal-B replay remains the only delivery
+primitive. Repository-free protocol tests now qualify the before--operation--after ordering,
+exact-target classification, optional free-shell path, and trajectory retention; the full
+suite passes. The five design-source repositories may only test instrumentation and
+activation. Effect requires a separately selected fixed treatment-unrun Dev batch with
+matched Minimal-B control and Official Pass@1 primary. Provider provenance and any compact
+cross-hypothesis memory remain separate later treatments rather than assumed components.

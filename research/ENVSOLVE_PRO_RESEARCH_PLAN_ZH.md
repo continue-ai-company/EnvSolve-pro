@@ -1042,3 +1042,23 @@ TensorFlow Model Analysis 还暴露一个两组共享的 replay--Official 缺口
 完整裁决与六集机器汇总见
 `experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_result.json` 和
 `experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_summary.json`。
+
+## 15. 下一候选：可执行 Provider 假设
+
+当前 hard-failure 审计按机械规则收集 Bad4、Hard6 和 request-cap3 中五个唯一且科研有效的 Minimal-B
+未通过仓库。五个都在建立合法且彼此兼容的 provider 集之前停止；其中四个没有形成程序，另一个没有替换
+失败的 replay 候选。这是刻意筛出的已消费 Dev hard stratum，不是错误总体比例。机器记录见
+`experiments/validations/envsolve_pro_v2_current_hard_failure_transition_audit_v1.json`。
+
+已经实现的候选是“可执行约束假设循环”。Agent 可以把三个结构化字段绑定到一条任意 Bash 操作：想解决
+的精确活跃约束、预计提供这些约束的 provider，以及预期效果。Harness 在该操作紧邻的前后各执行一次完整
+公开目标，并根据精确残差变化返回 `supported`、`partially_supported`、`refuted` 或测量不确定。v1 只独立
+验证操作对约束的效果；provider 身份明确标记为 Agent 声明，尚未独立认证。完整证据进入机器轨迹，同一
+模型 session 只接收有界副本。
+
+它增加的是因果纪律，不是 package 知识：不推荐或禁止 package，不拦截普通 shell，不自动回退，不保存
+checkpoint，不构建最终程序，也不复用跨 case 经验。Minimal-B replay 仍是唯一交付原语。与仓库无关的
+协议测试已验证“前测--操作--后测”顺序、精确目标分类、可选自由 Shell 路径和轨迹留存，完整测试套件通过。
+上述五个设计来源仓库只能检查 instrumentation 和机制激活，不能估计效果。效果实验必须另行选择 treatment
+尚未运行的固定 Dev batch，以匹配 Minimal-B 为对照、Official Pass@1 为主指标。Provider provenance 和
+紧凑的跨假设记忆都保留为后续独立 treatment，不视作当前算法已有能力。

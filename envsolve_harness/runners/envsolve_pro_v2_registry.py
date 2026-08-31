@@ -131,6 +131,12 @@ def register_envsolve_pro_v2_runners() -> None:
             "envsolve-pro-validity-aware-live-compatibility-frontier",
             _factory("operation-frontier-live"),
         )
+    if "envsolve-pro-v2-constraint-hypothesis" not in registered:
+        register_solver_runner(
+            "envsolve-pro-v2-constraint-hypothesis",
+            "envsolve-pro-executable-constraint-hypothesis",
+            _factory("hypothesis"),
+        )
     if "envsolve-pro-v2-verifier-handoff" not in registered:
         register_solver_runner(
             "envsolve-pro-v2-verifier-handoff",

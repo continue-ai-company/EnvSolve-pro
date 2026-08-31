@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "envsolve-pro-v2-current-hard-failure-transition-audit-v1",
+  "recorded_at": "2026-08-31",
+  "status": "retrospective single-reviewer consumed-Dev mechanism audit",
+  "claim_scope": "This audit identifies a next development hypothesis. It is not a prevalence, method-effect, unseen-repository, leaderboard, or SOTA estimate.",
+  "selection_rule": "Include every unique repository with a scientifically valid DeepSeek V4 Flash Minimal-B algorithmic non-pass in the completed Minimal-B Bad4, path-parity Hard6, and live-frontier request-cap3 studies; when a repository appears more than once, use its latest matched Minimal-B episode.",
+  "source_studies": [
+    "experiments/validations/envsolve_pro_v2_minimal_b_bad4_v1_transition_analysis.json",
+    "experiments/validations/envsolve_pro_v2_transactional_editable_v4_hard6_path_parity1_result.json",
+    "experiments/validations/envsolve_pro_v2_live_frontier_requestcap3_v1_result.json"
+  ],
+  "records": [
+    {
+      "repository": "tensorflow/model-analysis",
+      "run_id": "pro-livefront-rq3-01-tfma-C",
+      "official_pass": false,
+      "public_goal_sufficient": false,
+      "program_formed": false,
+      "clean_replay_invoked": false,
+      "primary_stop": "provider-set-satisfiability",
+      "secondary_stop": "candidate-not-formed",
+      "evidence": "The Agent explored interpreter, TensorFlow, TFX, Keras, generated-proto, and upstream-source branches for 120 requests without compiling a complete program. The matched frontier arm later showed that a legal upstream-source construction exists, but only after many provider-specific operations."
+    },
+    {
+      "repository": "oarriaga/paz",
+      "run_id": "pro-livefront-rq3-05-paz-C",
+      "official_pass": false,
+      "public_goal_sufficient": false,
+      "program_formed": true,
+      "clean_replay_invoked": true,
+      "primary_stop": "provider-set-satisfiability",
+      "secondary_stop": "failed-candidate-not-replaced",
+      "evidence": "Common distributions reduced the residual substantially, but internal, example, TensorFlow, and Keras import providers remained unresolved. One complete program failed replay and no replacement was certified before 120 requests."
+    },
+    {
+      "repository": "theislab/scvelo",
+      "run_id": "pro-v2-tep-v4-pp1-09-scvelo-B-minimal-b",
+      "official_pass": false,
+      "public_goal_sufficient": false,
+      "program_formed": false,
+      "clean_replay_invoked": false,
+      "primary_stop": "provider-set-satisfiability",
+      "secondary_stop": "compatibility-artifact-admissibility",
+      "evidence": "The Agent identified mutually incompatible NumPy and Scanpy import layouts, repeatedly changed environments, and experimented with compatibility wheels, but did not establish one legal reproducible provider set or submit a candidate in 120 requests."
+    },
+    {
+      "repository": "hazyresearch/meerkat",
+      "run_id": "pro-v2-minb-bad4-v1-02-meerkat-B-FOR",
+      "official_pass": false,
+      "public_goal_sufficient": false,
+      "program_formed": false,
+      "clean_replay_invoked": false,
+      "primary_stop": "provider-set-satisfiability",
+      "secondary_stop": "metric-goal-versus-runtime-quality-ambiguity",
+      "evidence": "The residual collapsed to broken internal paths, removed historical APIs, optional demo imports, and packages unavailable under current build tooling. The Agent repeatedly reconsidered whether a provider was legitimate and ended with six residuals and no program."
+    },
+    {
+      "repository": "stopstalk/stopstalk-deployment",
+      "run_id": "pro-v2-minb-bad4-v1-07-stopstalk-B-FOR",
+      "official_pass": false,
+      "public_goal_sufficient": false,
+      "program_formed": false,
+      "clean_replay_invoked": false,
+      "primary_stop": "provider-set-satisfiability",
+      "secondary_stop": "metric-changing-configuration-versus-legal-provider",
+      "evidence": "The Agent diagnosed an unavailable historical submodule, Python-2-era imports, nonstandard source roots, and removed gevent APIs. It reached a zero residual only through evaluator-changing exclusions and hand-built compatibility artifacts, then correctly remained unable to establish a legal candidate."
+    }
+  ],
+  "descriptive_summary": {
+    "repositories": 5,
+    "provider_set_satisfiability_primary": 5,
+    "no_program_formed": 4,
+    "failed_program_without_replacement": 1,
+    "interpretation": "In this deliberately hard, non-population stratum, the recurring stop is not absence of a residual list. It is failure to bind residual constraints to a legally admissible provider hypothesis whose effect can be verified before candidate delivery."
+  },
+  "rejected_inference": [
+    "The five-of-five count estimates EnvBench-wide failure prevalence.",
+    "Every residual constraint has a legal provider set.",
+    "A lower missing-import count implies a valid deployment.",
+    "The next treatment improves success before a separate fixed comparison."
+  ],
+  "next_hypothesis": {
+    "name": "executable-constraint-hypothesis-loop",
+    "observation": "retain raw command evidence, exact current residual identities, and environment identity; version 1 records provider identity as an Agent declaration rather than independently verified provenance",
+    "constraint": "the Agent optionally declares a falsifiable mapping from selected residual obligations to one real provider hypothesis and its expected effect",
+    "operation": "execute the Agent's arbitrary Bash operation in the active session, rerun the complete public goal, and classify the declared hypothesis as supported, partially supported, or refuted",
+    "live_context": "show a bounded copy of the current hypothesis result in the same model session and retain complete evidence in the machine trajectory; version 1 adds no cross-hypothesis memory",
+    "delivery": "unchanged Minimal-B target-state clean replay and exact terminal delivery",
+    "does_not_do": [
+      "select or recommend a package",
+      "forbid free shell actions",
+      "automatically roll back state",
+      "store a container checkpoint",
+      "accumulate the final program",
+      "reuse cross-case experience",
+      "add a hard token or cost limit"
+    ]
+  },
+  "evaluation_boundary": {
+    "design_source_repositories_cannot_estimate_effect": true,
+    "interface_qualification": "repository-free executable tests plus consumed-case trace replay only",
+    "effect_test": "a separately selected fixed treatment-unrun Dev batch with matched Minimal-B control",
+    "primary_endpoint": "paired valid Official Pass@1; algorithm noncompletion is failure",
+    "secondary_endpoints": [
+      "hypothesis activation and refutation",
+      "candidate formation",
+      "clean-replay repair",
+      "requests",
+      "tokens",
+      "wall time",
+      "deployment completeness"
+    ]
+  },
+  "new_hash_frozen_contract_or_gate_added": false
+}

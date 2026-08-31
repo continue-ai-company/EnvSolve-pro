@@ -572,6 +572,130 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
             ],
         )
 
+    def test_constraint_hypothesis_adds_one_optional_falsifiable_action(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            runner = self._runner(Path(directory), "hypothesis")
+            tools = runner._tools()
+            prompt = runner._prompt(
+                SimpleNamespace(repository="owner/repo", revision="abc")
+            )
+
+        self.assertEqual(
+            [item["function"]["name"] for item in tools],
+            [
+                "envbench_shell",
+                "test_constraint_hypothesis",
+                "submit_and_replay",
+                "submit_bootstrap",
+            ],
+        )
+        self.assertIn("tool is optional", prompt)
+        self.assertIn("unrestricted `envbench_shell`", prompt)
+        self.assertIn("Provider identity is your explicit declaration", prompt)
+        self.assertEqual(
+            runner.mechanism_primitives,
+            ["F", "executable-constraint-hypothesis-OCO", "R", "minimal-H"],
+        )
+        self.assertEqual(
+            runner.agent_interface,
+            "free-feedback-search+executable-constraint-hypothesis+"
+            "soft-clean-replay-v1",
+        )
+
+    def test_constraint_hypothesis_binds_before_operation_and_after_evidence(self) -> None:
+        target = {
+            "domain": "python-import",
+            "subject": "scanpy",
+            "predicate": "importable",
+            "required": True,
+        }
+
+        class HypothesisCompatibility(FakeCompatibilityService):
+            def check(self, call_id: str) -> dict[str, object]:
+                self.call_ids.append(call_id)
+                obligations = [] if call_id.endswith("-after") else [target]
+                return {
+                    "schema": "envsolve-compatibility-delta-ledger-v1",
+                    "ok": True,
+                    "finding_set_complete": True,
+                    "goal_status": "pass" if not obligations else "fail",
+                    "candidate_ready": not obligations,
+                    "current": {
+                        "obligation_count": len(obligations),
+                        "obligations": obligations,
+                    },
+                    "delta_from_previous": {"classification": "improved"},
+                    "operation_constraints_added": False,
+                }
+
+        program = "python -m pip install scanpy"
+        client = FakeClient(
+            [
+                FakeResponse(
+                    tool_call(
+                        "1",
+                        "test_constraint_hypothesis",
+                        {
+                            "provider": {
+                                "kind": "installed-distribution",
+                                "identity": "scanpy",
+                            },
+                            "expected_effect": "make scanpy importable",
+                            "target_obligations": [target],
+                            "command": program,
+                        },
+                    )
+                ),
+                FakeResponse(
+                    tool_call("2", "submit_and_replay", {"program": program})
+                ),
+                FakeResponse(
+                    tool_call(
+                        "3",
+                        "submit_bootstrap",
+                        {"program": program, "summary": "ready"},
+                    )
+                ),
+            ]
+        )
+        terminal = FakeTerminalServer()
+        compatibility = HypothesisCompatibility()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runner = self._runner(root, "hypothesis")
+            submission, metadata = runner._agent_loop(
+                client=client,
+                model=DEEPSEEK_V4_PRO,
+                prompt="prompt",
+                terminal_server=terminal,  # type: ignore[arg-type]
+                replay_service=FakeReplayService(program),  # type: ignore[arg-type]
+                compatibility_service=compatibility,  # type: ignore[arg-type]
+                trajectory_path=root / "trajectory.jsonl",
+            )
+            events = [
+                json.loads(line)
+                for line in (root / "trajectory.jsonl").read_text().splitlines()
+            ]
+
+        self.assertEqual(submission["program"], program)
+        self.assertEqual(
+            compatibility.call_ids,
+            [
+                "constraint-hypothesis-initial",
+                "1-hypothesis-before",
+                "1-hypothesis-after",
+            ],
+        )
+        self.assertEqual(
+            terminal.requests[0]["params"]["arguments"],  # type: ignore[index]
+            {"command": program},
+        )
+        hypothesis_event = next(
+            item for item in events if item.get("event") == "constraint_hypothesis_test"
+        )
+        self.assertEqual(hypothesis_event["result"]["classification"], "supported")
+        self.assertEqual(metadata["tool_counts"]["test_constraint_hypothesis"], 1)
+
     def test_operation_frontier_checks_only_change_effects_and_keeps_agent_program(self) -> None:
         inspection = "python --version"
         change = "python -m venv .venv"

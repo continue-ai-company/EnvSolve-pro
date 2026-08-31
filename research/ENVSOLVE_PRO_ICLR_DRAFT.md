@@ -242,9 +242,12 @@ final-working-directory replay postcondition, and do not rewrite the recorded ou
 
 The negative result narrows the next question. More precise residual reporting is
 insufficient when the Agent cannot determine whether a legal provider set exists or does
-not convert a diagnosed state into a candidate. The next method treatment will be chosen
-from an outcome-blind cross-case audit of those failure transitions, not from a newly
-solved case.
+not convert a diagnosed state into a candidate. An outcome-blind audit of five existing
+hard failures selects one next treatment: the Agent states an exact constraint hypothesis,
+executes its own operation, and receives an immediate before--after falsification result.
+This treatment is implemented but has no effectiveness claim before a fixed matched Dev
+test; provider identity is declared by the Agent, while only constraint effects are
+independently verified.
 
 All current results are development evidence. Official success and deployment
 completeness are reported separately, and repository-unseen claims are reserved for
