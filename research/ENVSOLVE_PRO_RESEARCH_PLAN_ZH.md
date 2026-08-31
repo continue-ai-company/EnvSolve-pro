@@ -1069,3 +1069,9 @@ checkpoint，不构建最终程序，也不复用跨 case 经验。Minimal-B rep
 过高交互成本。V2 删除冲突，只接收 subject 名称，再由 Harness 在即时前测中绑定精确 obligation。这仍是同一
 已消费 case 上的 instrumentation retry，不是方法效果实验。如果自然激活仍失败，就否决这个结构化假设接口，
 而不是继续增加 case-specific prompt 规则。
+
+V2 同样没有达到预注册的激活端点：40 次请求、63 次自由 Shell，其中包括创建 Python 环境、安装科学计算
+依赖栈、替换 TensorFlow/Keras 版本和搜索上游源码，但假设工具调用仍为 0。因此这个“可选、显式假设”
+treatment 在效果 batch 之前被否决；分类器和轨迹只作为 ablation 证据保留，不是 EnvSolve-Pro 算法。下一
+候选必须回到全部 hard-failure 轨迹重新选择，而且不能依赖 Agent 主动切换 action channel。本 case 不允许
+继续做 prompt 补丁。

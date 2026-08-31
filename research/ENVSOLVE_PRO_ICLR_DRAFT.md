@@ -243,11 +243,12 @@ final-working-directory replay postcondition, and do not rewrite the recorded ou
 The negative result narrows the next question. More precise residual reporting is
 insufficient when the Agent cannot determine whether a legal provider set exists or does
 not convert a diagnosed state into a candidate. An outcome-blind audit of five existing
-hard failures selects one next treatment: the Agent states an exact constraint hypothesis,
-executes its own operation, and receives an immediate before--after falsification result.
-This treatment is implemented but has no effectiveness claim before a fixed matched Dev
-test; provider identity is declared by the Agent, while only constraint effects are
-independently verified.
+hard failures motivated an explicit executable-hypothesis treatment. Two preregistered
+activation-only runs rejected it before effect testing: despite many applicable provider
+operations, the model never selected the optional action channel. We retain this as a
+negative design result rather than calling an unused tool an algorithm. The next constraint
+intervention remains unselected; Minimal B is the current executable scaffold, not yet the
+paper's final method.
 
 All current results are development evidence. Official success and deployment
 completeness are reported separately, and repository-unseen claims are reserved for

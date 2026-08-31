@@ -1410,3 +1410,12 @@ conflict and accepts subject names, which the harness binds to exact obligations
 immediate pre-measurement. This is an instrumentation retry on the same consumed case,
 not a method-effect experiment. If natural activation still fails, the structured
 hypothesis interface is rejected rather than patched with case-specific rules.
+
+V2 also failed its preregistered activation endpoint. It made 40 requests and 63 free-shell
+calls, including Python-environment creation, scientific-stack installation, TensorFlow and
+Keras replacement, and upstream-source search, but made zero hypothesis calls. The optional
+explicit-hypothesis treatment is therefore rejected before an effect batch. Its classifier
+and traces remain an ablation artifact, not the EnvSolve-Pro algorithm. The next candidate
+must be selected by returning to the complete hard-failure trajectories and must not depend
+on the Agent voluntarily changing action channels. No further prompt patch is allowed from
+this case.

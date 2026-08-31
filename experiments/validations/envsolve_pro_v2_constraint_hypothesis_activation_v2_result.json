@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-constraint-hypothesis-activation-v2",
+  "recorded_at": "2026-08-31",
+  "status": "complete activation failure; treatment rejected before effect testing",
+  "claim_scope": "Consumed-Dev instrumentation only; no method-effect estimate.",
+  "run": {
+    "run_id": "pro-v2-hypothesis-activation-v2-01-paz",
+    "host": "spark-f21c",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra",
+    "seed": 831001,
+    "generation_completed": false,
+    "terminal_error": "Agent exhausted the request safety cap without submission",
+    "model_requests": 40,
+    "provider_attempts": 45,
+    "provider_errors": 5,
+    "prompt_tokens": 1074998,
+    "completion_tokens": 45256,
+    "total_tokens": 1120254,
+    "reported_provider_cost_usd": 0.050220416,
+    "envbench_shell_calls": 63,
+    "constraint_hypothesis_calls": 0,
+    "clean_replay_calls": 0
+  },
+  "activation_endpoints": {
+    "initial_baseline_delivered": true,
+    "optional_tool_invoked": false,
+    "exact_subject_binding_exercised": false,
+    "complete_hypothesis_evidence_retained": false,
+    "same_session_hypothesis_feedback_delivered": false,
+    "ordinary_free_shell_available": true,
+    "activation_pass": false
+  },
+  "missed_provider_operation_anchors": [
+    {"request_index": 14, "operation": "query and download the skimage_ransac provider"},
+    {"request_index": 15, "operation": "install skimage_ransac"},
+    {"request_index": 20, "operation": "create a Python 3.10 environment"},
+    {"request_index": 21, "operation": "install the main scientific provider set"},
+    {"request_index": 24, "operation": "replace the TensorFlow and Keras provider versions"},
+    {"request_index": 31, "operation": "install and import-check Keras 2.12"},
+    {"request_index": 33, "operation": "install TensorFlow Probability and FiftyOne providers"},
+    {"request_index": 34, "operation": "clone upstream source to search for repository providers"}
+  ],
+  "paired_activation_diagnostic": {
+    "v1_hypothesis_calls": 0,
+    "v2_hypothesis_calls": 0,
+    "v1_free_shell_calls": 58,
+    "v2_free_shell_calls": 63,
+    "v1_total_tokens": 1111854,
+    "v2_total_tokens": 1120254,
+    "interpretation": "Removing the prompt conflict and reducing target arguments to subject names did not place the optional action in the model's natural control flow. This is an activation diagnostic, not a causal efficiency comparison."
+  },
+  "decision": "Reject the optional explicit constraint-hypothesis interface as the next EnvSolve-Pro core treatment. Do not run an effect batch and do not add more case-specific prompting. Return to the full hard-failure trajectories and select an intervention whose activation does not depend on the Agent voluntarily changing action channels.",
+  "auto_envsolve_value": "Natural activation, evidence validity, and subsequent-action use should be first-class harness-version fitness signals before expensive effect batches.",
+  "envsolve_rl_value": "Retain available-tool schemas, chosen action channel, provider-operation commands, goal deltas, and non-activation opportunities as offline policy data.",
+  "new_hash_frozen_contract_or_gate_added": false
+}

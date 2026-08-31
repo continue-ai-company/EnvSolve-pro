@@ -2,6 +2,16 @@
 
 Status / 状态：独立后续项目，当前不属于 EnvSolve 的论文 claim、方法或实验。
 
+2026-08-31 轨迹启示：可执行假设 ablation 虽被 EnvSolve-Pro 否决，仍产生了有价值的离线 policy 信号。
+未来数据应同时保存：当时可用的 tool schema、实际选择的 action channel、原始 provider 操作、操作前活跃
+约束、操作后的精确 goal delta，以及结构化替代动作是否可用但被忽略。这样可以学习“何时显式形成假设
+值得付出交互成本”，而不是把同一种 action grammar 强加给每个状态。
+
+2026-08-31 trace implication: retain the available tool schema, selected action channel,
+raw provider operation, pre-action obligations, post-action goal delta when measured, and
+whether a structured alternative was available but ignored. This supports learning when
+explicit hypothesis formation is worth its interaction cost.
+
 Current trace implication / 当前轨迹要求：每个 transition 分开保存完整历史证据、模型当时可见的最新有效
 约束状态、状态是否因完整性审计被拒绝，以及 clean replay 是否直接形成交付。这样未来 policy 学到的是
 “根据当前可信状态选择下一步”，而不是复现过期 frontier、类型存根假阳性或额外提交步骤。

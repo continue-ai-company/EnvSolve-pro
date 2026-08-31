@@ -2,6 +2,18 @@
 
 Status / 状态：独立后续项目，当前不属于 EnvSolve 的论文 claim、方法或实验。
 
+2026-08-31 轨迹启示：EnvSolve-Pro 的可选可执行假设工具在同一个已消费 hard case 上连续两版自然激活
+失败；两版都有大量适用 provider 操作，但模型选择新 action channel 的次数都是 0。Auto-EnvSolve 应把
+候选 harness 分阶段评价为：接口激活、证据有效、下一步是否使用证据，最后才是匹配任务成功。一个“存在
+但模型不用”的机制应在昂贵效果实验前被淘汰或重设计；不激活不是零 treatment effect，而是 treatment
+根本没有实例化。
+
+2026-08-31 trace implication: an optional executable-hypothesis action failed natural
+activation in two versions on the same consumed hard case. Auto-EnvSolve should evaluate
+candidate harnesses in stages: interface activation, evidence validity, subsequent-action
+use, and only then matched task success. A mechanism that is available but unused should
+not enter an expensive effect batch.
+
 Current trace implication / 当前轨迹要求：外层比较新旧 harness 时，应同时读取完整机器轨迹和当时实际
 暴露给模型的“最新约束状态”。版本升级首先比较有效成功率，再比较上下文膨胀、无效状态进入率和交付协议
 损失；fixed bad4 表明单看 Official Pass 会把算法改进与 evaluator-only 假阳性混在一起。
