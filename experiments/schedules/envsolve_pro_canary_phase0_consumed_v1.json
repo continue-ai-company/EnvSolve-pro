@@ -1,0 +1,111 @@
+{
+  "case_file": "experiments/cases/consumed_envsolve_pro_canary_phase0_v1.jsonl",
+  "case_file_sha256": "80f8c30628497c35dd24e3c7ed34e6ebf81cb00549c3deac73bcce9a7f3a79f3",
+  "episode_timeout_seconds": 23000,
+  "episodes": [
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "spark",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.6-sol",
+      "pair_id": "phase0-spark-strong",
+      "position": 1,
+      "run_id": "pro-canary-phase0-v1-spark-strong-A-F",
+      "runner": "codex-cli",
+      "seed": 831001
+    },
+    {
+      "arm": "B-FR",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "spark",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.6-sol",
+      "pair_id": "phase0-spark-strong",
+      "position": 2,
+      "run_id": "pro-canary-phase0-v1-spark-strong-B-FR",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 831001
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "spark",
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "phase0-spark-weak",
+      "position": 3,
+      "provider": "deepinfra",
+      "run_id": "pro-canary-phase0-v1-spark-weak-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 831002
+    },
+    {
+      "arm": "B-FR",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "spark",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "phase0-spark-weak",
+      "position": 4,
+      "provider": "deepinfra",
+      "run_id": "pro-canary-phase0-v1-spark-weak-B-FR",
+      "runner": "envsolve-pro-v2",
+      "seed": 831002
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "agenthub",
+      "method": "codex-cli-goal-aware",
+      "model": "gpt-5.6-sol",
+      "pair_id": "phase0-agenthub-strong",
+      "position": 5,
+      "run_id": "pro-canary-phase0-v1-agenthub-strong-A-F",
+      "runner": "codex-cli",
+      "seed": 831003
+    },
+    {
+      "arm": "B-FR",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "agenthub",
+      "method": "envsolve-pro-minimal-b-v1",
+      "model": "gpt-5.6-sol",
+      "pair_id": "phase0-agenthub-strong",
+      "position": 6,
+      "run_id": "pro-canary-phase0-v1-agenthub-strong-B-FR",
+      "runner": "envsolve-pro-minimal-b",
+      "seed": 831003
+    },
+    {
+      "arm": "A-F",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "agenthub",
+      "method": "free-feedback-search",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "phase0-agenthub-weak",
+      "position": 7,
+      "provider": "deepinfra",
+      "run_id": "pro-canary-phase0-v1-agenthub-weak-A-F",
+      "runner": "deepseek-free-agent",
+      "seed": 831004
+    },
+    {
+      "arm": "B-FR",
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "host": "agenthub",
+      "method": "envsolve-pro-fsr-minimal-h",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "pair_id": "phase0-agenthub-weak",
+      "position": 8,
+      "provider": "deepinfra",
+      "run_id": "pro-canary-phase0-v1-agenthub-weak-B-FR",
+      "runner": "envsolve-pro-v2",
+      "seed": 831004
+    }
+  ],
+  "model": "mixed-qualified-identities",
+  "population_role": "consumed-development-interface-qualification",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-canary-phase0-consumed-v1"
+}

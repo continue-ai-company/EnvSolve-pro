@@ -1,0 +1,42 @@
+{
+  "benchmarks": {
+    "envbench": {
+      "adapter": "envbench",
+      "root": "EnvBench",
+      "settings": {
+        "deterministic_script": "evaluation/scripts/python_baseline.sh",
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+      }
+    }
+  },
+  "evaluation": {
+    "container_timeout": 2400,
+    "create_container_timeout": 600,
+    "git_fetch_timeout": 900,
+    "max_workers": 1,
+    "process_timeout": 3600
+  },
+  "generation": {
+    "bash_timeout": 1800,
+    "envsolve_max_candidates": 3,
+    "envsolve_max_commands": 3,
+    "envsolve_max_environments": 3,
+    "max_iterations": 100000,
+    "model_max_estimated_cost_usd": 1000000000.0,
+    "model_max_output_tokens": 32768,
+    "model_max_requests": 100000,
+    "model_max_retries": 5,
+    "model_max_total_tokens": 1000000000000,
+    "model_reasoning_effort": "xhigh",
+    "model_request_timeout": 600,
+    "timeout": 18000
+  },
+  "paths": {
+    "runs": "/home/avdpro/work/runs/envsolve-pro-canary-phase0-v1/spark-strong"
+  },
+  "solvers": {
+    "codex-cli": {
+      "root": "/home/avdpro/.local/bin/codex"
+    }
+  }
+}
