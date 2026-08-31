@@ -117,7 +117,23 @@ class SshDockerTransportTest(unittest.TestCase):
             excludes = untracked_rebuildable_excludes(workspace)
 
             self.assertNotIn("/.venv/", excludes)
+            self.assertIn("/env/", excludes)
             self.assertIn("/node_modules/", excludes)
+
+    def test_tracked_env_directory_is_not_excluded(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            subprocess.run(["git", "init", "-q", workspace], check=True)
+            (workspace / "env").mkdir()
+            (workspace / "env" / "tracked.txt").write_text("tracked\n")
+            subprocess.run(
+                ["git", "-C", str(workspace), "add", "env/tracked.txt"],
+                check=True,
+            )
+
+            excludes = untracked_rebuildable_excludes(workspace)
+
+            self.assertNotIn("/env/", excludes)
 
     def test_remote_command_quotes_each_argument_once(self) -> None:
         transport = SshDockerTransport("user@spark", "/srv/envsolve")

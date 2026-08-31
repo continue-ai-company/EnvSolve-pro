@@ -17,6 +17,7 @@ _REBUILDABLE_TOP_LEVEL_DIRECTORIES = (
     ".nox",
     ".tox",
     ".venv",
+    "env",
     "node_modules",
     "venv",
 )
