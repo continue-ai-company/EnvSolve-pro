@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-minimal-b-strong-a-opportunity-profile-v1",
+  "question": "How often does a strong free Agent finish an eligible deployment program that still fails clean replay or Official evaluation, leaving an intervention opportunity for same-session replay?",
+  "created_before_outcomes": "2026-08-31T17:20:00+08:00",
+  "known_result_excluded": {
+    "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+    "reason": "gpt-5.6-sol A-F and independent Official already passed before this profile was fixed"
+  },
+  "classification": {
+    "a_official_pass": "Agent normally submits an eligible complete program and independent Official reports exit_code=0 and issues_count=0.",
+    "replay_opportunity": "Agent normally submits an eligible complete program, but post-session clean replay or independent Official fails for a deployment reason.",
+    "pre_candidate_or_external_failure": "No eligible complete program is formed, or provider/infrastructure failure prevents a deployment outcome; target-state replay cannot be credited with an intervention opportunity."
+  },
+  "protocol": {
+    "arm": "A-F",
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "execution_host": "agenthub@100.66.96.39",
+    "execution_mode": "sequential",
+    "official_metric": "Official Pass@1",
+    "resource_metrics_are_nonbinding": true,
+    "protected_canary_opened": false
+  },
+  "cases": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "run_id": "pro-minb-causal-screened6-01-quacc-agenthub-A-F-v1"
+    },
+    {
+      "position": 2,
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "run_id": "pro-minb-causal-screened6-02-ajenti-agenthub-A-F-v1"
+    },
+    {
+      "position": 3,
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "run_id": "pro-minb-causal-screened6-03-clarity-agenthub-A-F-v1"
+    },
+    {
+      "position": 4,
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "run_id": "pro-minb-causal-screened6-04-ha-battery-notes-agenthub-A-F-v1"
+    },
+    {
+      "position": 5,
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "run_id": "pro-minb-causal-screened6-05-micropy-cli-agenthub-A-F-v1"
+    }
+  ]
+}
