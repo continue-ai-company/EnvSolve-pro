@@ -1,10 +1,11 @@
 {
   "study_id": "envsolve-pro-minimal-b-strong-a-opportunity-profile-v1",
-  "question": "How often does a strong free Agent finish an eligible deployment program that still fails clean replay or Official evaluation, leaving an intervention opportunity for same-session replay?",
+  "question": "Within this fixed difficulty-enriched set, how often does a strong free Agent finish an eligible deployment program that still fails clean replay or Official evaluation, leaving an intervention opportunity for same-session replay?",
+  "scope": "This profile estimates the opportunity distribution only within the fixed difficulty-enriched set. It is not a representative estimate of the overall EnvBench opportunity rate.",
   "created_before_outcomes": "2026-08-31T17:20:00+08:00",
   "known_result_excluded": {
     "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
-    "reason": "gpt-5.6-sol A-F and independent Official already passed before this profile was fixed"
+    "reason": "gpt-5.6-sol A-F and independent Official already passed before this profile was fixed; the pass means this case offers no current replay opportunity, not that difficulty enrichment was invalid"
   },
   "classification": {
     "a_official_pass": "Agent normally submits an eligible complete program and independent Official reports exit_code=0 and issues_count=0.",
