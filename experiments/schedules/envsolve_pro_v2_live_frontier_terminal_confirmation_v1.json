@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-live-frontier-terminal-confirmation-v1",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_live_frontier_requestcap3_v1.jsonl",
+  "case_file_sha256": "3a967f2cdf2aa6fa5711afdfa0441dcc303c40112ee1351868c3bca9e15b920f",
+  "episode_timeout_seconds": 23000,
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "pair_id": "terminal-confirmation-01-tfma",
+      "pair_index": 1,
+      "pair_position": 1,
+      "arm": "C-Matched-Minimal-B",
+      "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+      "runner": "envsolve-pro-v2-live-control",
+      "method": "envsolve-pro-validity-aware-terminal-minimal-b",
+      "seed": 830701,
+      "run_id": "pro-livefront-terminal-v1-01-tfma-C"
+    },
+    {
+      "position": 2,
+      "pair_id": "terminal-confirmation-01-tfma",
+      "pair_index": 1,
+      "pair_position": 2,
+      "arm": "T-Live-Frontier",
+      "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+      "runner": "envsolve-pro-v2-live-frontier",
+      "method": "envsolve-pro-validity-aware-live-compatibility-frontier",
+      "seed": 830701,
+      "run_id": "pro-livefront-terminal-v1-02-tfma-T"
+    }
+  ]
+}

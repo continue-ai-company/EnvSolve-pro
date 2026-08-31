@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-live-frontier-terminal-confirmation-v1",
+  "recorded_at": "2026-08-31",
+  "status": "recorded before either confirmation episode",
+  "claim_scope": "consumed-Dev mechanism confirmation after a shared delivery-verifier correction; not a generalization, leaderboard, SOTA, or method-effect estimate",
+  "motivation": "In the earlier matched TFMA pair, the control exhausted 120 requests without submission. Live frontier formed a candidate and passed clean replay, but Official failed because the candidate ended outside the project root. The shared verifier now detects that delivery error during clean replay. The old outcome remains unchanged; this study asks whether the corrected challenger can produce a new terminal Official success.",
+  "case": {
+    "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+    "selection_status": "consumed development mechanism case selected from the pre-existing request-cap3 pair",
+    "selection_cannot_support": [
+      "EnvBench-wide success prevalence",
+      "unseen-repository generalization",
+      "leaderboard performance"
+    ]
+  },
+  "comparison": {
+    "control": {
+      "runner": "envsolve-pro-v2-live-control",
+      "method": "envsolve-pro-validity-aware-terminal-minimal-b",
+      "run_id": "pro-livefront-terminal-v1-01-tfma-C"
+    },
+    "treatment": {
+      "runner": "envsolve-pro-v2-live-frontier",
+      "method": "envsolve-pro-validity-aware-live-compatibility-frontier",
+      "run_id": "pro-livefront-terminal-v1-02-tfma-T"
+    },
+    "matched": [
+      "case and revision",
+      "DeepSeek V4 Flash model",
+      "DeepInfra provider order",
+      "seed 830701",
+      "Spark host",
+      "EnvBench image",
+      "120 model-request safety cap",
+      "public goal",
+      "candidate boundary",
+      "clean replay",
+      "delivery verifier",
+      "Official evaluator"
+    ],
+    "only_treatment_difference": "operation-linked live compatibility observations and latest-state frontier feedback"
+  },
+  "execution": {
+    "host": "Spark",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": ["DeepInfra"],
+    "seed": 830701,
+    "max_model_requests": 120,
+    "config": "experiments/configs/local_spark_envsolve_pro_v2_live_frontier_requestcap3_v1.json",
+    "protocol": "experiments/protocols/envbench_python_official_v1.json",
+    "schedule": "experiments/schedules/envsolve_pro_v2_live_frontier_terminal_confirmation_v1.json",
+    "concurrency": "the two matched episodes may run concurrently on the same Spark host"
+  },
+  "primary_endpoint": "valid EnvBench Official Pass@1; generation noncompletion, no submitted program, failed clean replay, and Official Fail are all Fail",
+  "decision_rule": {
+    "control_fail_treatment_pass": "retain Live frontier only as a challenger for a fixed treatment-unrun Dev comparison",
+    "control_fail_treatment_fail": "reject Live frontier from the EnvSolve-Pro core regardless of intermediate obligation reduction",
+    "control_pass_treatment_pass": "reject this case as evidence of differential gain; do not promote Live frontier",
+    "control_pass_treatment_fail": "reject Live frontier"
+  },
+  "non_endpoints": [
+    "frontier slope",
+    "best intermediate obligation count",
+    "number of improved transitions",
+    "a construction-state goal Pass without clean replay and Official Pass"
+  ],
+  "secondary_descriptive_only": [
+    "candidate formation",
+    "clean-replay status",
+    "model requests and tokens",
+    "wall time",
+    "deployment completeness and integrity"
+  ],
+  "old_episode_outcomes_are_rewritten": false,
+  "new_hash_frozen_contract_or_gate_added": false
+}
