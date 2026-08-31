@@ -73,7 +73,7 @@ class DeliveryIntegrityGoalVerifierTests(unittest.TestCase):
             env = dict(os.environ)
             env["PATH"] = f"{self.test_bin}{os.pathsep}{env['PATH']}"
             return subprocess.run(
-                ["/bin/bash", "-lc", command[-1]],
+                ["/bin/bash", "-c", command[-1]],
                 cwd=self.worktree,
                 env=env,
                 **kwargs,
