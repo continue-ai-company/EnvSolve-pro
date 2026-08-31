@@ -142,7 +142,26 @@ class SshDockerTransportTest(unittest.TestCase):
         rendered = transport.remote_command(command)
 
         self.assertEqual(rendered[:3], ["ssh", "-T", "user@spark"])
-        self.assertEqual(rendered[3], shlex.join(command))
+        self.assertEqual(
+            rendered[3],
+            shlex.join(
+                [
+                    "/usr/bin/env",
+                    "PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+                    *command,
+                ]
+            ),
+        )
+
+    def test_remote_command_exposes_homebrew_filter_processes(self) -> None:
+        transport = SshDockerTransport("user@agenthub", "/srv/envsolve")
+
+        rendered = transport.remote_command(
+            ["git", "-C", "/srv/source", "checkout", "revision"]
+        )
+
+        self.assertIn("/opt/homebrew/bin", rendered[-1])
+        self.assertTrue(rendered[-1].endswith("git -C /srv/source checkout revision"))
 
     def test_identity_and_port_are_shared_by_ssh_and_rsync(self) -> None:
         transport = SshDockerTransport(

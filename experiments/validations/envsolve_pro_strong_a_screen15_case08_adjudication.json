@@ -1,0 +1,57 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 8,
+  "case_id": "envbench-python-flav-io__flavio@188120d651c38419cd970957e5259071842f4cca",
+  "generation_run_id": "pro-strong-a-screen15-08-flavio-agenthub-A-F-v1",
+  "official_run_id": "pro-strong-a-screen15-08-flavio-spark-official-v1",
+  "recorded_at": "2026-09-01T06:37:18+08:00",
+  "episode_adjudication": {
+    "primary_classification": "a_official_pass",
+    "eligible_complete_program": true,
+    "official_pass_at_1": true,
+    "official_exit_code": 0,
+    "official_issues_count": 0,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "The exact A program that passed clean replay on AgentHub completed the independent Spark Official evaluator with zero reportMissingImports issues."
+  },
+  "advisory_clean_replay": {
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "duration_seconds": 168.6932490420004,
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Eligibility evidence only; the independent Official result determines the endpoint.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-08-flavio-agenthub-A-F-v1/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca/generation/submission-qualification/result.json"
+  },
+  "official_evidence": {
+    "execution_host": "spark-f21c",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-08-flavio-agenthub-A-F-v1/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca/evaluation/spark-official-v1/results.jsonl",
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 870,
+      "warning_count": 53,
+      "execution_time_seconds": 130.79251194000244
+    },
+    "cross_host_equivalence": {
+      "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+      "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "image_repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+      "architecture": "arm64",
+      "matches_registered_mac_evaluator": true
+    }
+  },
+  "trajectory_observation": {
+    "container_commands": 23,
+    "construction_terminal_missing_imports": 0,
+    "interpretation": "The strong Agent diagnosed an old SciPy compatibility requirement, selected Python 3.8 and compatible numerical packages, and emitted a complete replayable program. Both clean replay and Official passed."
+  },
+  "cumulative_after_position_8": {
+    "a_official_passes": 6,
+    "pre_candidate_failures": 1,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 1,
+    "external_invalid_attempts": 3
+  }
+}

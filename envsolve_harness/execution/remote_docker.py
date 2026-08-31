@@ -13,6 +13,9 @@ RunCommand = Callable[..., subprocess.CompletedProcess[str]]
 _SSH_TARGET = re.compile(
     r"^(?:[A-Za-z0-9._-]+@)?(?:[A-Za-z0-9._-]+|\[[0-9A-Fa-f:]+\])$"
 )
+_STANDARD_REMOTE_PATH = (
+    "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+)
 _REBUILDABLE_TOP_LEVEL_DIRECTORIES = (
     ".nox",
     ".tox",
@@ -89,7 +92,17 @@ class SshDockerTransport:
     def remote_command(self, command: list[str]) -> list[str]:
         if not command:
             raise ValueError("Remote command cannot be empty")
-        return [*self.ssh_command_prefix(), "-T", self.target, shlex.join(command)]
+        remote_command = [
+            "/usr/bin/env",
+            f"PATH={_STANDARD_REMOTE_PATH}",
+            *command,
+        ]
+        return [
+            *self.ssh_command_prefix(),
+            "-T",
+            self.target,
+            shlex.join(remote_command),
+        ]
 
     def _rsync_transport(self) -> list[str]:
         prefix = self.ssh_command_prefix()
