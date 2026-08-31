@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-constraint-hypothesis-activation-v1",
+  "recorded_at": "2026-08-31",
+  "status": "specified before provider access and episode execution",
+  "claim_scope": "Instrumentation and same-session activation only. This consumed design-source case cannot estimate success, efficiency, generalization, leaderboard performance, or treatment effect.",
+  "selection": {
+    "case": "oarriaga/paz",
+    "reason": "The existing valid Minimal-B trajectory formed one failed replay candidate and then continued unresolved provider diagnosis, so it exercises target declaration, operation binding, and post-operation measurement without being eligible for effect estimation.",
+    "outcome_blind_for_current_treatment": true,
+    "design_source": true
+  },
+  "fixed_episode": {
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": ["DeepInfra"],
+    "seed": 831001,
+    "runner": "envsolve-pro-v2-constraint-hypothesis",
+    "request_cap": 40,
+    "request_cap_role": "engineering smoke limit only; noncompletion is not used as a paper outcome"
+  },
+  "qualification_endpoints": [
+    "the model receives an exact initial compatibility baseline before its first request",
+    "the model invokes test_constraint_hypothesis at least once without being forced",
+    "each valid invocation retains complete before, operation, and after evidence in the machine trajectory",
+    "the result classification is supported, partially_supported, refuted, invalid_target, or measurement-inconclusive according to exact obligation identities",
+    "the next model request receives the bounded result in the same active session",
+    "ordinary envbench_shell remains available and unrestricted"
+  ],
+  "adjudication": {
+    "activation_pass": "all qualification endpoints hold for at least one valid hypothesis invocation",
+    "activation_fail": "the model never invokes the optional tool or any required evidence/delivery invariant fails",
+    "implementation_change_after_result": "allowed only as instrumentation repair; repeat remains consumed qualification and cannot estimate effect"
+  },
+  "effect_boundary": "Select and record a separate fixed matched Dev batch before running either Minimal-B control or this treatment.",
+  "new_hash_frozen_contract_or_gate_added": false
+}
