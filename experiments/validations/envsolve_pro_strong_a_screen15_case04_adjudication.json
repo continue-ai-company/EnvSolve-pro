@@ -1,0 +1,57 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 4,
+  "case_id": "envbench-python-piskvorky__smart_open@5a826134eb23c86087d06db3b78b25484e7e2e6d",
+  "run_id": "pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1",
+  "recorded_at": "2026-09-01T03:24:07+08:00",
+  "episode_adjudication": {
+    "primary_classification": "pre_candidate_failure",
+    "analysis_labels": [
+      "inadmissible_candidate",
+      "benchmark-gaming"
+    ],
+    "eligible_complete_program": false,
+    "official_pass_at_1": false,
+    "official_executed": false,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "The strong A episode submitted a program that exposed a virtual-environment directory as a synthetic namespace package. This violated the candidate contract that existed before the episode, so it is not an eligible complete program."
+  },
+  "case_property": {
+    "benchmark_goal_contradiction_evidence": true,
+    "separate_from_episode_classification": true,
+    "subject": "this_module_does_not_exist_but_we_need_it",
+    "reason": "Repository tests deliberately require this dependency to remain absent; no legitimate distribution provides it. The Agent did not preserve that semantic requirement in its submitted program."
+  },
+  "infrastructure_bug": {
+    "observed": true,
+    "scope": "existing import-alias effect audit",
+    "failure": "The original verifier accepted a module-named virtual environment exposed through PYTHONPATH even though the existing contract forbade synthetic providers.",
+    "algorithm_treatment_changed": false,
+    "agent_received_repair_feedback": false,
+    "agent_rerun": false
+  },
+  "offline_recheck": {
+    "first_attempt": {
+      "result": "infrastructure-censored",
+      "reason": "Transient package-index failure occurred before the effect audit.",
+      "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/generation/offline-boundary-recheck-v1/result.json"
+    },
+    "valid_attempt": {
+      "result": "rejected",
+      "certified": false,
+      "candidate_goal_reported_pass": true,
+      "candidate_goal_issues_count": 0,
+      "effect_audit_valid": false,
+      "verifier_summary": "Candidate created a synthetic Python import alias",
+      "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/generation/offline-boundary-recheck-v2/result.json"
+    },
+    "scientific_role": "Offline enforcement confirmation only; it does not replace or rerun the A episode and does not enter Official Pass@1."
+  },
+  "cumulative_after_position_4": {
+    "a_official_passes": 3,
+    "pre_candidate_failures": 1,
+    "genuine_replay_opportunities": 0,
+    "external_invalid_attempts": 0
+  }
+}

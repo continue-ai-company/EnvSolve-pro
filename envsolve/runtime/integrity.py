@@ -62,9 +62,26 @@ for value in sorted(search_roots):
     if resolved_root in {project_root, (project_root / "src").resolve()}:
         continue
     for path in root.iterdir():
+        alias = path.name.split(".", 1)[0]
+        if (
+            path.is_dir()
+            and not path.is_symlink()
+            and alias.isidentifier()
+            and (path / "pyvenv.cfg").is_file()
+        ):
+            violations.append(
+                {
+                    "alias": alias,
+                    "path": str(path.resolve()),
+                    "reason": (
+                        "virtual environment directory is exposed as a "
+                        "synthetic namespace package"
+                    ),
+                }
+            )
+            continue
         if not path.is_symlink():
             continue
-        alias = path.name.split(".", 1)[0]
         if not alias.isidentifier() or alias in provided:
             continue
         try:

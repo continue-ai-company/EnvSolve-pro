@@ -106,6 +106,54 @@ class ImportAliasAuditTests(unittest.TestCase):
             )
             json.dumps(payload, ensure_ascii=True)
 
+    def test_rejects_virtualenv_exposed_as_namespace_package(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            tmp_path = Path(temporary)
+            project = tmp_path / "project"
+            pythonpath = tmp_path / ".venv"
+            synthetic = pythonpath / "missing_dependency"
+            project.mkdir()
+            synthetic.mkdir(parents=True)
+            (synthetic / "pyvenv.cfg").write_text(
+                "home = /usr/bin\n",
+                encoding="utf-8",
+            )
+
+            payload = _run_audit(project, pythonpath)
+
+            self.assertIs(payload["valid"], False)
+            self.assertEqual(
+                payload["violations"],
+                [
+                    {
+                        "alias": "missing_dependency",
+                        "path": str(synthetic.resolve()),
+                        "reason": (
+                            "virtual environment directory is exposed as a "
+                            "synthetic namespace package"
+                        ),
+                    }
+                ],
+            )
+
+    def test_allows_virtualenv_root_on_pythonpath(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            tmp_path = Path(temporary)
+            project = tmp_path / "project"
+            virtualenv = tmp_path / ".venv"
+            project.mkdir()
+            (virtualenv / "bin").mkdir(parents=True)
+            (virtualenv / "lib").mkdir()
+            (virtualenv / "pyvenv.cfg").write_text(
+                "home = /usr/bin\n",
+                encoding="utf-8",
+            )
+
+            payload = _run_audit(project, virtualenv)
+
+            self.assertIs(payload["valid"], True)
+            self.assertEqual(payload["violations"], [])
+
     def test_v2_rejects_external_project_namespace_overlay(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             tmp_path = Path(temporary)
