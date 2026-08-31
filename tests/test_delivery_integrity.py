@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -31,6 +33,9 @@ class DeliveryIntegrityGoalVerifierTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.worktree = Path(self.temp.name) / "project"
         self.worktree.mkdir()
+        self.test_bin = self.worktree / ".test-bin"
+        self.test_bin.mkdir()
+        (self.test_bin / "python").symlink_to(Path(sys.executable).resolve())
         self.environment = ProvisionedEnvironment(
             EnvironmentReceipt(
                 environment_id="environment-1",
@@ -65,9 +70,12 @@ class DeliveryIntegrityGoalVerifierTests(unittest.TestCase):
             command: list[str],
             **kwargs: object,
         ) -> subprocess.CompletedProcess[str]:
+            env = dict(os.environ)
+            env["PATH"] = f"{self.test_bin}{os.pathsep}{env['PATH']}"
             return subprocess.run(
                 ["/bin/bash", "-lc", command[-1]],
                 cwd=self.worktree,
+                env=env,
                 **kwargs,
             )
 
