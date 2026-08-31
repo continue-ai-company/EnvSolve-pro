@@ -146,19 +146,22 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
                 ["start", container_id],
                 timeout=self.container_create_timeout,
             )
-            self.transport.checked_docker(
-                [
-                    "exec",
-                    "--user",
-                    "0:0",
-                    container_id,
-                    "chown",
-                    "-R",
-                    "0:0",
-                    "/data/project",
-                ],
-                timeout=self.container_create_timeout,
-            )
+            if self.transport.requires_bind_mount_chown(
+                timeout=self.container_create_timeout
+            ):
+                self.transport.checked_docker(
+                    [
+                        "exec",
+                        "--user",
+                        "0:0",
+                        container_id,
+                        "chown",
+                        "-R",
+                        "0:0",
+                        "/data/project",
+                    ],
+                    timeout=self.container_create_timeout,
+                )
         except Exception:
             self.transport.run_docker(
                 ["rm", "-f", container_id],
@@ -205,19 +208,23 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
             raise RuntimeError("Remote generation workspace was not initialized")
         if self._generation_container_id is None:
             raise RuntimeError("Remote generation container was not initialized")
-        self.transport.checked_docker(
-            [
-                "exec",
-                "--user",
-                "0:0",
-                self._generation_container_id,
-                "chown",
-                "-R",
-                self._host_owner(),
-                "/data/project",
-            ],
-            timeout=self.container_create_timeout,
+        translate_ownership = self.transport.requires_bind_mount_chown(
+            timeout=self.container_create_timeout
         )
+        if translate_ownership:
+            self.transport.checked_docker(
+                [
+                    "exec",
+                    "--user",
+                    "0:0",
+                    self._generation_container_id,
+                    "chown",
+                    "-R",
+                    self._host_owner(),
+                    "/data/project",
+                ],
+                timeout=self.container_create_timeout,
+            )
         self.transport.sync_from_remote(
             self._generation_remote_path,
             self._generation_local_path,
@@ -236,8 +243,14 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
             "accelerator_exposure": "all" if self.expose_gpus else "none",
             "agent_host_role": "control-only",
             "execution_host_role": "generation-and-clean-replay",
-            "workspace_owner_during_execution": "0:0",
-            "workspace_owner_during_transport": self._host_owner(),
+            "workspace_owner_during_execution": (
+                "0:0" if translate_ownership else "docker-desktop-host-user"
+            ),
+            "workspace_owner_during_transport": (
+                self._host_owner()
+                if translate_ownership
+                else "docker-desktop-host-user"
+            ),
         }
 
     def _nonfeedback_submission_qualification(

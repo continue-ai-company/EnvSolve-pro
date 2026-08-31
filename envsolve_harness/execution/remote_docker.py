@@ -64,6 +64,7 @@ class SshDockerTransport:
     ssh_identity: str | None = None
     ssh_port: int | None = None
     run_command: RunCommand = subprocess.run
+    _remote_kernel: str | None = field(default=None, init=False)
 
     def __post_init__(self) -> None:
         if _SSH_TARGET.fullmatch(self.target) is None:
@@ -110,6 +111,11 @@ class SshDockerTransport:
             detail = process.stderr.strip() or process.stdout.strip()
             raise RuntimeError(f"remote {command[0]} failed: {detail}")
         return process.stdout.strip()
+
+    def requires_bind_mount_chown(self, *, timeout: int) -> bool:
+        if self._remote_kernel is None:
+            self._remote_kernel = self.checked_remote(["uname", "-s"], timeout=timeout)
+        return self._remote_kernel != "Darwin"
 
     def docker_command(self, arguments: list[str]) -> list[str]:
         return [self.docker_executable, *arguments]
@@ -426,6 +432,8 @@ class RemoteDockerCommandAdapter:
         owner: str,
         **kwargs: Any,
     ) -> subprocess.CompletedProcess[str]:
+        if not self.transport.requires_bind_mount_chown(timeout=self.sync_timeout):
+            return subprocess.CompletedProcess([], 0, "", "")
         return self.transport.run_remote(
             [
                 "docker",

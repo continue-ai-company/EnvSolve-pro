@@ -45,6 +45,9 @@ class RecordingTransport:
     def checked_remote(self, command: list[str], *, timeout: int) -> str:
         return "1000"
 
+    def requires_bind_mount_chown(self, *, timeout: int) -> bool:
+        return True
+
     def run_remote(self, command: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
         self.remote_commands.append(command)
         stdout = "container-1\n" if command[1] == "create" else ""
@@ -152,6 +155,23 @@ class SshDockerTransportTest(unittest.TestCase):
                 "ssh -i /tmp/identity -o IdentitiesOnly=yes -p 2222",
             ],
         )
+
+    def test_darwin_remote_skips_bind_mount_chown(self) -> None:
+        commands: list[list[str]] = []
+
+        def run(command: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            commands.append(command)
+            return subprocess.CompletedProcess(command, 0, "Darwin\n", "")
+
+        transport = SshDockerTransport(
+            "user@agenthub",
+            "/srv/envsolve",
+            run_command=run,
+        )
+
+        self.assertFalse(transport.requires_bind_mount_chown(timeout=30))
+        self.assertFalse(transport.requires_bind_mount_chown(timeout=30))
+        self.assertEqual(len(commands), 1)
 
     def test_rejects_ambiguous_remote_identity_and_path(self) -> None:
         with self.assertRaises(ValueError):
