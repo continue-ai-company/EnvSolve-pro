@@ -1,0 +1,74 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 7,
+  "case_id": "envbench-python-robbievanleeuwen__section-properties@0a41ea141394ccca9df1625e1d44ea132a2ccf37",
+  "generation_run_id": "pro-strong-a-screen15-07-section-properties-agenthub-A-F-v1",
+  "official_run_id": "pro-strong-a-screen15-07-section-properties-spark-official-v1",
+  "recorded_at": "2026-09-01T06:20:00+08:00",
+  "episode_adjudication": {
+    "primary_classification": "a_official_pass",
+    "eligible_complete_program": true,
+    "official_pass_at_1": true,
+    "official_exit_code": 0,
+    "official_issues_count": 0,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "The exact submitted A program completed the independent Spark Official evaluator with zero reportMissingImports issues after the Mac evaluator path was repeatedly censored by local sandbox and network failures."
+  },
+  "advisory_clean_replay": {
+    "status": "infrastructure-censored",
+    "reported_status": "fail",
+    "bootstrap_exit_code": 2,
+    "signature": "files-pythonhosted-read-timeout",
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Advisory infrastructure observation only; it cannot overwrite the completed cross-host Official outcome.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-agenthub-A-F-v1/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/generation/submission-qualification/result.json"
+  },
+  "official_evidence": {
+    "execution_host": "spark-f21c",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-agenthub-A-F-v1/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/evaluation/spark-official-v1/results.jsonl",
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 97,
+      "warning_count": 0,
+      "execution_time_seconds": 160.86942744255066
+    },
+    "cross_host_equivalence": {
+      "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+      "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "image_repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+      "architecture": "arm64",
+      "matches_mac": true
+    }
+  },
+  "external_invalid_attempts": [
+    {
+      "run_id": "pro-strong-a-screen15-07-section-properties-mac-official-v1",
+      "signature": "codex-local-sandbox-denied-uv-cache-and-docker",
+      "evaluation_started": false
+    },
+    {
+      "run_id": "pro-strong-a-screen15-07-section-properties-mac-official-v2",
+      "signature": "connection-error",
+      "evaluation_completed": false
+    },
+    {
+      "run_id": "pro-strong-a-screen15-07-section-properties-mac-official-retry2",
+      "signature": "connection-error",
+      "evaluation_completed": false
+    }
+  ],
+  "trajectory_observation": {
+    "container_commands": 19,
+    "construction_terminal_missing_imports": 0,
+    "interpretation": "The strong Agent found an ARM-compatible source-build path and encoded it in a complete program. Clean replay and two Mac Official attempts were network-censored, while the same program passed on the registered Spark host."
+  },
+  "cumulative_after_position_7": {
+    "a_official_passes": 5,
+    "pre_candidate_failures": 1,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 1,
+    "external_invalid_attempts": 3
+  }
+}
