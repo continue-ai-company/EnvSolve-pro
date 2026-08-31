@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-constraint-hypothesis-activation-v2",
+  "recorded_at": "2026-08-31",
+  "status": "specified after v1 activation adjudication and before v2 provider access",
+  "claim_scope": "Consumed-Dev instrumentation and natural activation only. No success, efficiency, generalization, leaderboard, or treatment-effect estimate.",
+  "design_evidence": "experiments/validations/envsolve_pro_v2_constraint_hypothesis_activation_v1_result.json",
+  "fixed_interface_changes": [
+    "remove the contradictory opening instruction that assigned installation to envbench_shell",
+    "use target subject names instead of copied obligation objects",
+    "bind each subject name to every exact active obligation in the immediate pre-measurement"
+  ],
+  "unchanged_mechanism": [
+    "one continuous model session and persistent construction environment",
+    "arbitrary Agent-selected Bash operation",
+    "complete public-goal measurement immediately before and after the operation",
+    "supported, partially_supported, refuted, invalid_target, or inconclusive effect classification",
+    "ordinary free shell remains available for inspection and diagnosis",
+    "Minimal-B clean replay remains the only delivery primitive",
+    "provider identity remains Agent-declared rather than independently certified"
+  ],
+  "fixed_episode": {
+    "case": "oarriaga/paz",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider_order": ["DeepInfra"],
+    "seed": 831001,
+    "runner": "envsolve-pro-v2-constraint-hypothesis",
+    "request_cap": 40,
+    "request_cap_role": "engineering smoke limit only; noncompletion is not a paper outcome"
+  },
+  "primary_activation_endpoint": "At least one valid test_constraint_hypothesis invocation occurs naturally before terminal completion or the request cap.",
+  "secondary_endpoints": [
+    "the invocation targets subjects active in its immediate pre-measurement",
+    "complete before, operation, and after evidence is retained in the machine trajectory",
+    "the bounded classification is delivered before the next model request",
+    "the next reasoning turn explicitly receives or responds to the classification",
+    "free-shell inspection remains usable"
+  ],
+  "decision": {
+    "pass": "Primary endpoint and every evidence-delivery endpoint hold.",
+    "fail": "No natural invocation occurs, or evidence binding/delivery is invalid.",
+    "after_pass": "Select a separate fixed matched Dev effect batch before either arm runs.",
+    "after_fail": "Reject this structured interface as the next core treatment; do not add more case-specific prompt rules."
+  },
+  "new_hash_frozen_contract_or_gate_added": false
+}

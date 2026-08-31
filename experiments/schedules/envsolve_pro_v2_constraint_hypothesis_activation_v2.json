@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-constraint-hypothesis-activation-v2",
+  "purpose": "Consumed-Dev instrumentation and natural-activation retry after a preregistered v1 interface failure; no method-effect estimate.",
+  "case_file": "experiments/cases/dev_envsolve_pro_v2_live_frontier_requestcap3_v1.jsonl",
+  "config": "experiments/configs/local_spark_envsolve_pro_v2_constraint_hypothesis_activation_v1.json",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "required_environment": {
+    "OPENROUTER_API_KEY": "present-not-recorded",
+    "OPENROUTER_PROVIDER_ORDER": "DeepInfra"
+  },
+  "episodes": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "runner": "envsolve-pro-v2-constraint-hypothesis",
+      "method": "envsolve-pro-executable-constraint-hypothesis",
+      "seed": 831001,
+      "run_id": "pro-v2-hypothesis-activation-v2-01-paz"
+    }
+  ]
+}

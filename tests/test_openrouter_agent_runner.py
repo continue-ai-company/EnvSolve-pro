@@ -591,7 +591,11 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
         )
         self.assertIn("tool is optional", prompt)
         self.assertIn("unrestricted `envbench_shell`", prompt)
-        self.assertIn("Provider identity is your explicit declaration", prompt)
+        self.assertIn("Provider identity is your explicit", prompt)
+        self.assertIn("active subject names", prompt)
+        hypothesis_parameters = tools[1]["function"]["parameters"]
+        self.assertIn("target_subjects", hypothesis_parameters["properties"])
+        self.assertNotIn("target_obligations", hypothesis_parameters["properties"])
         self.assertEqual(
             runner.mechanism_primitives,
             ["F", "executable-constraint-hypothesis-OCO", "R", "minimal-H"],
@@ -657,7 +661,7 @@ class OpenRouterAgentRunnerTest(unittest.TestCase):
                                 "identity": "scanpy",
                             },
                             "expected_effect": "make scanpy importable",
-                            "target_obligations": [target],
+                            "target_subjects": ["scanpy"],
                             "command": program,
                         },
                     )

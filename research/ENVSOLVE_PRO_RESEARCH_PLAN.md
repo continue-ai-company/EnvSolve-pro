@@ -1400,3 +1400,13 @@ suite passes. The five design-source repositories may only test instrumentation 
 activation. Effect requires a separately selected fixed treatment-unrun Dev batch with
 matched Minimal-B control and Official Pass@1 primary. Provider provenance and any compact
 cross-hypothesis memory remain separate later treatments rather than assumed components.
+
+The first natural-activation smoke rejected the v1 interface before any effect test. On
+consumed PAZ, DeepSeek V4 Flash made 40 requests and 58 free-shell calls, including at
+least seven explicit Python or package-provider probes, but never called the hypothesis
+tool. The interface contained a direct prompt conflict assigning installation to free
+shell, and required the model to copy complete obligation objects. V2 removes that
+conflict and accepts subject names, which the harness binds to exact obligations in the
+immediate pre-measurement. This is an instrumentation retry on the same consumed case,
+not a method-effect experiment. If natural activation still fails, the structured
+hypothesis interface is rejected rather than patched with case-specific rules.

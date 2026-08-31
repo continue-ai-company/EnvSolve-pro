@@ -876,6 +876,13 @@ class OpenRouterAgentRunner(CodexCliRunner):
                 "counts and explicit truncation metadata. Commands are never copied "
                 "into the final deployment program."
             )
+        elif self.constraint_hypothesis_enabled:
+            shell_description = (
+                "Inspect or diagnose the persistent construction container with "
+                "arbitrary Bash. When the primary purpose of an operation is to test "
+                "whether installing, selecting, or building a provider resolves named "
+                "active goal subjects, use test_constraint_hypothesis instead."
+            )
         elif self.incremental_program_enabled:
             shell_description = (
                 "Inspect or diagnose the persistent construction container. Commands used "
@@ -1107,25 +1114,11 @@ class OpenRouterAgentRunner(CodexCliRunner):
                                 "additionalProperties": False,
                             },
                             "expected_effect": {"type": "string", "minLength": 1},
-                            "target_obligations": {
+                            "target_subjects": {
                                 "type": "array",
                                 "minItems": 1,
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "domain": {"type": "string"},
-                                        "subject": {"type": "string"},
-                                        "predicate": {"type": "string"},
-                                        "required": {},
-                                    },
-                                    "required": [
-                                        "domain",
-                                        "subject",
-                                        "predicate",
-                                        "required",
-                                    ],
-                                    "additionalProperties": False,
-                                },
+                                "items": {"type": "string", "minLength": 1},
+                                "uniqueItems": True,
                             },
                             "command": {"type": "string", "minLength": 1},
                             "timeout_seconds": {"type": "integer", "minimum": 1},
@@ -1133,7 +1126,7 @@ class OpenRouterAgentRunner(CodexCliRunner):
                         "required": [
                             "provider",
                             "expected_effect",
-                            "target_obligations",
+                            "target_subjects",
                             "command",
                         ],
                         "additionalProperties": False,
@@ -1176,6 +1169,13 @@ class OpenRouterAgentRunner(CodexCliRunner):
             shell_instruction = (
                 "Use the single `envbench_shell` for all work and declare each call's "
                 "effect as `inspect` or `change` as described below."
+            )
+        elif self.constraint_hypothesis_enabled:
+            shell_instruction = (
+                "Use `envbench_shell` for inspection and diagnosis. Use "
+                "`test_constraint_hypothesis` for an operation whose primary purpose "
+                "is to install, select, or build a provider expected to resolve named "
+                "active goal subjects."
             )
         elif self.incremental_program_enabled:
             shell_instruction = (
@@ -1408,12 +1408,13 @@ that exact certified program as the episode result, without another model reques
             prompt += """
 
 The harness gives an initial complete compatibility baseline. When you have a concrete
-provider hypothesis, call `test_constraint_hypothesis` with exact obligations copied
-from that baseline, the provider you expect to satisfy them, and one arbitrary Bash
-operation. The harness measures the complete goal immediately before and after the
-operation and reports whether the claimed effect was supported, partially supported,
-or refuted. Provider identity is your explicit declaration in this version; only the
-operation's effect on executable constraints is independently verified.
+provider hypothesis, call `test_constraint_hypothesis` with the active subject names,
+the provider you expect to satisfy them, and one arbitrary Bash operation. The harness
+binds those names to every exact active obligation in the immediate pre-measurement,
+measures the complete goal after the operation, and reports whether the claimed effect
+was supported, partially supported, or refuted. Provider identity is your explicit
+declaration in this version; only the operation's effect on executable constraints is
+independently verified.
 
 This tool is optional. Continue to use unrestricted `envbench_shell` for inspection,
 multi-step diagnosis, and any exploration that does not fit one hypothesis. The harness
@@ -2416,14 +2417,16 @@ result, without another model request.
                     ):
                         provider = arguments.get("provider")
                         expected_effect = arguments.get("expected_effect")
-                        targets = arguments.get("target_obligations")
+                        targets = arguments.get("target_subjects")
                         command = arguments.get("command")
                         if (
                             not isinstance(provider, dict)
                             or not isinstance(expected_effect, str)
                             or not isinstance(targets, list)
                             or not targets
-                            or not all(isinstance(item, dict) for item in targets)
+                            or not all(
+                                isinstance(item, str) and item for item in targets
+                            )
                             or not isinstance(command, str)
                         ):
                             payload = {
@@ -2448,7 +2451,7 @@ result, without another model request.
                             machine_payload = evaluate_constraint_hypothesis(
                                 provider=provider,
                                 expected_effect=expected_effect,
-                                target_obligations=targets,
+                                target_subjects=targets,
                                 operation=operation,
                                 before=before,
                                 after=after,

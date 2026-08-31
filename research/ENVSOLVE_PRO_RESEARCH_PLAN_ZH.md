@@ -1062,3 +1062,10 @@ checkpoint，不构建最终程序，也不复用跨 case 经验。Minimal-B rep
 上述五个设计来源仓库只能检查 instrumentation 和机制激活，不能估计效果。效果实验必须另行选择 treatment
 尚未运行的固定 Dev batch，以匹配 Minimal-B 为对照、Official Pass@1 为主指标。Provider provenance 和
 紧凑的跨假设记忆都保留为后续独立 treatment，不视作当前算法已有能力。
+
+第一次自然激活 smoke 在任何效果实验之前否决了 v1 接口。已消费 PAZ 上，DeepSeek V4 Flash 发出 40 次
+请求和 58 次自由 Shell，其中至少七次明确检验 Python 或 package provider，却从未调用假设工具。接口一方面
+在主 Prompt 中把 installation 分配给自由 Shell，另一方面要求模型复制完整 obligation 对象，形成直接冲突和
+过高交互成本。V2 删除冲突，只接收 subject 名称，再由 Harness 在即时前测中绑定精确 obligation。这仍是同一
+已消费 case 上的 instrumentation retry，不是方法效果实验。如果自然激活仍失败，就否决这个结构化假设接口，
+而不是继续增加 case-specific prompt 规则。

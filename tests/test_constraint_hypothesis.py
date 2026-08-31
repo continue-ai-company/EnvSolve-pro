@@ -28,7 +28,7 @@ def evaluate(after: dict[str, object]) -> dict[str, object]:
     return evaluate_constraint_hypothesis(
         provider={"kind": "installed-distribution", "identity": "scanpy"},
         expected_effect="make scanpy importable",
-        target_obligations=[TARGET],
+        target_subjects=["scanpy"],
         operation={"exit_code": 0},
         before=observation(TARGET),
         after=after,
@@ -63,10 +63,27 @@ def test_non_active_target_is_invalid_instead_of_claiming_effect() -> None:
     result = evaluate_constraint_hypothesis(
         provider={"kind": "repository-source", "identity": "project"},
         expected_effect="make scanpy importable",
-        target_obligations=[TARGET],
+        target_subjects=["scanpy"],
         operation={"exit_code": 0},
         before=observation(OTHER),
         after=observation(),
     )
 
     assert result["classification"] == "invalid_target"
+    assert result["effect_evidence"]["missing_target_subjects"] == ["scanpy"]
+
+
+def test_subject_target_binds_every_exact_active_obligation() -> None:
+    second = {**TARGET, "predicate": "version-compatible", "required": ">=1"}
+    result = evaluate_constraint_hypothesis(
+        provider={"kind": "installed-distribution", "identity": "scanpy"},
+        expected_effect="provide every scanpy requirement",
+        target_subjects=["scanpy"],
+        operation={"exit_code": 0},
+        before=observation(TARGET, second),
+        after=observation(),
+    )
+
+    assert result["classification"] == "supported"
+    assert result["effect_evidence"]["active_target_count_before"] == 2
+    assert len(result["hypothesis"]["bound_target_obligations"]) == 2

@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-v2-constraint-hypothesis-activation-v1",
+  "recorded_at": "2026-08-31",
+  "status": "complete activation failure",
+  "claim_scope": "Consumed-Dev instrumentation only; no method-effect estimate.",
+  "run": {
+    "run_id": "pro-v2-hypothesis-activation-v1-01-paz-retry1",
+    "host": "spark-f21c",
+    "model": "deepseek/deepseek-v4-flash-0731",
+    "provider": "DeepInfra",
+    "seed": 831001,
+    "generation_completed": false,
+    "terminal_error": "Agent exhausted the request safety cap without submission",
+    "model_requests": 40,
+    "provider_attempts": 41,
+    "provider_errors": 1,
+    "prompt_tokens": 1052921,
+    "completion_tokens": 58933,
+    "total_tokens": 1111854,
+    "reported_provider_cost_usd": 0.031992596,
+    "envbench_shell_calls": 58,
+    "constraint_hypothesis_calls": 0,
+    "clean_replay_calls": 0
+  },
+  "activation_endpoints": {
+    "initial_baseline_delivered": true,
+    "optional_tool_invoked": false,
+    "complete_hypothesis_evidence_retained": false,
+    "same_session_hypothesis_feedback_delivered": false,
+    "ordinary_free_shell_available": true,
+    "activation_pass": false
+  },
+  "missed_provider_operation_anchors": [
+    {"request_index": 12, "operation": "uv python install 3.11"},
+    {"request_index": 16, "operation": "pip index/download tensorflow"},
+    {"request_index": 17, "operation": "test TensorFlow installation across Python 3.10, 3.11, and 3.12"},
+    {"request_index": 19, "operation": "install TensorFlow 2.16.2 into the Python 3.11 environment"},
+    {"request_index": 21, "operation": "retry TensorFlow provider installation with extended network timeout"},
+    {"request_index": 22, "operation": "install a multi-distribution scientific provider set"},
+    {"request_index": 36, "operation": "install types-tensorflow and query remaining provider candidates"}
+  ],
+  "causal_diagnosis": [
+    "The opening prompt told the Agent to use envbench_shell for installation, conflicting with the later optional hypothesis-tool instruction.",
+    "The tool required copying complete obligation objects even though the harness could bind exact obligations from subject names in the immediate pre-measurement.",
+    "The Agent encountered and executed many provider hypotheses, so non-activation cannot be attributed to absence of an applicable decision."
+  ],
+  "decision": "Reject the v1 interface. Before any effect batch, remove the prompt conflict and replace copied obligation objects with target subject names that the harness binds to exact active obligations.",
+  "scientific_boundary": "The retry is another consumed instrumentation qualification. It cannot estimate success or efficiency effect.",
+  "new_hash_frozen_contract_or_gate_added": false
+}
