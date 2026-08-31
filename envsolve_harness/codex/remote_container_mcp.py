@@ -43,6 +43,7 @@ class SshProcessTreeSafePersistentContainerShell(
         self.ssh_executable = ssh_executable
         self.ssh_identity = ssh_identity
         self.ssh_port = ssh_port
+        self._baseline_pids: frozenset[int] | None = None
 
     def _ssh_docker_command(self, arguments: list[str]) -> list[str]:
         remote = shlex.join([self.docker_executable, *arguments])
@@ -57,47 +58,95 @@ class SshProcessTreeSafePersistentContainerShell(
 
     def _start(self) -> subprocess.Popen[bytes]:
         if self._process is not None and self._process.poll() is None:
-            return self._process
-        self._buffer = b""
-        self._container_shell_pid = None
-        self._process = subprocess.Popen(
-            self._ssh_docker_command(
-                [
-                    "exec",
-                    "-i",
-                    "--workdir",
-                    self.workdir,
-                    self.container_id,
-                    "/bin/bash",
-                    "--noprofile",
-                    "--norc",
-                ]
-            ),
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            start_new_session=True,
-        )
-        return self._process
+            process = self._process
+        else:
+            self._buffer = b""
+            self._container_shell_pid = None
+            self._process = subprocess.Popen(
+                self._ssh_docker_command(
+                    [
+                        "exec",
+                        "-i",
+                        "--workdir",
+                        self.workdir,
+                        self.container_id,
+                        "/bin/bash",
+                        "--noprofile",
+                        "--norc",
+                    ]
+                ),
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                start_new_session=True,
+            )
+            process = self._process
+        self._baseline_pids = self._snapshot_container_pids()
+        return process
+
+    def _stop(self) -> None:
+        super()._stop()
+        self._baseline_pids = None
+
+    def _snapshot_container_pids(self) -> frozenset[int] | None:
+        try:
+            completed = subprocess.run(
+                self._ssh_docker_command(
+                    [
+                        "exec",
+                        "--user",
+                        "0:0",
+                        self.container_id,
+                        "ps",
+                        "-eo",
+                        "pid=",
+                    ]
+                ),
+                capture_output=True,
+                text=True,
+                timeout=5,
+                check=False,
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return None
+        if completed.returncode != 0:
+            return None
+        try:
+            return frozenset(int(item) for item in completed.stdout.split())
+        except ValueError:
+            return None
 
     def _terminate_container_process_tree(self) -> str | None:
         shell_pid = self._container_shell_pid
+        baseline = self._baseline_pids
         if shell_pid is None:
             return "container shell PID was not observed before timeout"
+        if baseline is None:
+            return "container PID baseline was not observed before timeout"
+        baseline_words = " ".join(str(pid) for pid in sorted(baseline))
         cleanup_script = r"""
-collect_descendants() {
-    parent="$1"
-    for child in $(ps -eo pid=,ppid= | awk -v parent="$parent" '$2 == parent {print $1}'); do
-        collect_descendants "$child"
-    done
-    printf '%s ' "$parent"
-}
-targets="$(collect_descendants "$1")"
+baseline=" $1 "
+shell_pid="$2"
+cleanup_pid="$$"
+cleanup_parent="$PPID"
+targets=""
+for pid in $(ps -eo pid=); do
+    case " $pid " in
+        " 1 "|" $cleanup_pid "|" $cleanup_parent ") continue ;;
+    esac
+    case "$baseline" in
+        *" $pid "*) continue ;;
+    esac
+    targets="$targets $pid"
+done
 if [ -n "$targets" ]; then
     kill -TERM $targets 2>/dev/null || true
     sleep 1
     kill -KILL $targets 2>/dev/null || true
 fi
+kill -TERM "$shell_pid" 2>/dev/null || true
+sleep 1
+kill -KILL "$shell_pid" 2>/dev/null || true
 """.strip()
         try:
             process = subprocess.Popen(
@@ -111,6 +160,7 @@ fi
                         "-c",
                         cleanup_script,
                         "--",
+                        baseline_words,
                         str(shell_pid),
                     ]
                 ),

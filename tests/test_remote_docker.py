@@ -286,6 +286,10 @@ class SshDockerTransportIntegrationTest(unittest.TestCase):
                 "ENVSOLVE_REMOTE_DOCKER_TEST_ROOT",
                 "/home/avdpro/work/envsolve-remote-smoke",
             ),
+            docker_executable=os.environ.get(
+                "ENVSOLVE_REMOTE_DOCKER_TEST_EXECUTABLE", "docker"
+            ),
+            ssh_identity=os.environ.get("ENVSOLVE_REMOTE_DOCKER_TEST_IDENTITY"),
         )
 
     def test_remote_shell_persists_and_workspace_round_trips(self) -> None:
@@ -378,35 +382,45 @@ class SshDockerTransportIntegrationTest(unittest.TestCase):
             max_output_chars=16000,
             ssh_target=target,
             ssh_executable=shutil.which("ssh") or "ssh",
+            docker_executable=os.environ.get(
+                "ENVSOLVE_REMOTE_DOCKER_TEST_EXECUTABLE", "docker"
+            ),
+            ssh_identity=os.environ.get("ENVSOLVE_REMOTE_DOCKER_TEST_IDENTITY"),
         )
         try:
+            baseline = shell.execute(
+                "nohup sleep 60 >/tmp/baseline.log 2>&1 & "
+                "echo $! >/tmp/baseline.pid"
+            )
             result = shell.execute(
-                "sleep 60 & child=$!; printf '%s\\n' \"$child\" > /tmp/child.pid; "
-                "wait \"$child\"",
+                "setsid /bin/bash -c 'trap \"\" TERM; sleep 60' "
+                ">/tmp/new.log 2>&1 & echo $! >/tmp/new.pid; wait",
                 timeout_seconds=5,
             )
+            self.assertEqual(baseline.exit_code, 0, baseline)
             self.assertTrue(result.timed_out, result)
             self.assertIsNone(result.infrastructure_error, result)
-            child_pid = transport.checked_docker(
-                ["exec", container_id, "cat", "/tmp/child.pid"],
-                timeout=30,
-            )
-            alive = transport.run_docker(
-                [
-                    "exec",
-                    container_id,
-                    "/bin/bash",
-                    "-c",
-                    "kill -0 \"$1\" 2>/dev/null",
-                    "--",
-                    child_pid,
-                ],
-                capture_output=True,
-                text=True,
-                check=False,
-                timeout=30,
-            )
-            self.assertNotEqual(alive.returncode, 0, f"child {child_pid} survived")
+            for name, expected_alive in (("baseline", True), ("new", False)):
+                pid = transport.checked_docker(
+                    ["exec", container_id, "cat", f"/tmp/{name}.pid"],
+                    timeout=30,
+                )
+                alive = transport.run_docker(
+                    [
+                        "exec",
+                        container_id,
+                        "/bin/bash",
+                        "-c",
+                        "kill -0 \"$1\" 2>/dev/null",
+                        "--",
+                        pid,
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                    timeout=30,
+                )
+                self.assertEqual(alive.returncode == 0, expected_alive, name)
         finally:
             shell.close()
             transport.run_docker(
