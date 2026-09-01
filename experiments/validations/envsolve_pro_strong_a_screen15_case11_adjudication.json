@@ -1,0 +1,66 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 11,
+  "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+  "generation_run_id": "pro-strong-a-screen15-11-tfma-agenthub-A-F-v1",
+  "recorded_at": "2026-09-01T08:36:31+08:00",
+  "episode_adjudication": {
+    "primary_classification": "pre_candidate_failure",
+    "analysis_labels": [
+      "inadmissible_candidate",
+      "candidate-boundary-false-positive",
+      "legitimate-provenance-derived-build-artifact"
+    ],
+    "eligible_complete_program": false,
+    "official_pass_at_1": false,
+    "official_executed": false,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "The strong A episode submitted a complete program whose fresh replay reached zero reportMissingImports, but the boundary rejected three untracked protobuf Python modules generated inside the repository. Under the boundary frozen before this screen, the program is ineligible and cannot proceed to Official."
+  },
+  "advisory_clean_replay": {
+    "status": "effect-boundary-fail",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 429.8737110410002,
+    "goal_status": "pass",
+    "goal_issues_count": 0,
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Diagnostic evidence only; the frozen admissibility boundary determines that no eligible A program exists.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-11-tfma-agenthub-A-F-v1/envbench-python-tensorflow__model-analysis__807bd626f18613a5bfc8a5cc96cf29deee62f0ea/generation/submission-qualification/result.json"
+  },
+  "boundary_diagnostic": {
+    "classification": "candidate-boundary-false-positive",
+    "rejected_paths": [
+      "tensorflow_model_analysis/proto/config_pb2.py",
+      "tensorflow_model_analysis/proto/metrics_for_slice_pb2.py",
+      "tensorflow_model_analysis/proto/validation_result_pb2.py"
+    ],
+    "provenance": {
+      "tracked_generator": "setup.py:generate_proto",
+      "tracked_sources": [
+        "tensorflow_model_analysis/proto/config.proto",
+        "tensorflow_model_analysis/proto/metrics_for_slice.proto",
+        "tensorflow_model_analysis/proto/validation_result.proto"
+      ],
+      "generation_mechanism": "The repository's standard editable-install build invokes protoc over committed .proto inputs.",
+      "candidate_handwritten_provider": false,
+      "candidate_copied_provider": false
+    },
+    "interpretation": "The frozen guard correctly controls the current screen but is over-conservative for deterministic repository-native generated modules. This is not evidence that the strong Agent failed to solve the dependency environment.",
+    "protocol_action": "Do not change the boundary, rerun A, or execute B for this case during the frozen screen. Revisit the boundary only in a separately specified post-screen experiment."
+  },
+  "trajectory_observation": {
+    "container_commands": 74,
+    "initial_missing_imports": 629,
+    "construction_terminal_missing_imports": 0,
+    "replay_terminal_missing_imports": 0,
+    "interpretation": "The continuous strong-Agent session assembled a historical TensorFlow, Beam, TFX-BSL, Serving, Ranking, TFJS, Colab, and type-stub environment. The final program replayed successfully at the executable goal but was excluded by the frozen effect boundary."
+  },
+  "cumulative_after_position_11": {
+    "a_official_passes": 7,
+    "pre_candidate_failures": 2,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 2,
+    "external_invalid_attempts": 6
+  }
+}
