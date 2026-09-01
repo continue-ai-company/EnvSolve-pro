@@ -238,6 +238,55 @@ class CleanReplayServiceTest(unittest.TestCase):
             self.assertEqual(provider.released, ["fresh-1"])
             self.assertFalse(result["certified"])
 
+    def test_terminal_download_failure_is_infrastructure_not_counterexample(self) -> None:
+        class NetworkVerifier:
+            def __init__(self, logs: str) -> None:
+                self.logs = logs
+
+            def verify(
+                self,
+                candidate: DeploymentCandidate,
+                environment: ProvisionedEnvironment,
+            ) -> ExecutableVerification:
+                del candidate, environment
+                return ExecutableVerification(
+                    verifier="fake-public-goal",
+                    check_profile="fake-v1",
+                    channel=FeedbackChannel.INTERNAL_EXECUTION,
+                    passed=False,
+                    bootstrap=CommandResult(0, stdout="", stderr=self.logs),
+                    summary="missing imports remain",
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service, provider = self._service(root)
+
+            service.verifier = NetworkVerifier(
+                "pip._vendor.urllib3.exceptions.ReadTimeoutError: "
+                "HTTPSConnectionPool read timed out"
+            )
+            timed_out = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "requests.exceptions.ChunkedEncodingError\n"
+                "IncompleteRead(10 bytes read)\nCannot install certifi."
+            )
+            truncated = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "WARNING: Retrying after ReadTimeoutError while downloading\n"
+                "Successfully installed dependency"
+            )
+            recovered = service.submit("true")
+
+            self.assertEqual(timed_out["status"], "infrastructure_error")
+            self.assertIn("read-timeout", timed_out["infrastructure_error"])
+            self.assertEqual(truncated["status"], "infrastructure_error")
+            self.assertIn(
+                "truncated-download", truncated["infrastructure_error"]
+            )
+            self.assertEqual(recovered["status"], "fail")
+            self.assertEqual(provider.released, ["fresh-1", "fresh-2", "fresh-3"])
+
     def test_mcp_server_keeps_one_service_alive_across_replay_calls(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shlex
 import sys
 from typing import Any, Protocol, TextIO
@@ -47,6 +48,23 @@ _LOCAL_DISTRIBUTION_BASELINE_MARKER = (
     "ENVSOLVE_PYTHON_INSTALLATION_BASELINE_V2="
 )
 _LOCAL_DISTRIBUTION_POST_MARKER = "ENVSOLVE_PYTHON_INSTALLATION_POST_V2="
+_TERMINAL_REPLAY_NETWORK_FAILURES = (
+    (
+        "read-timeout",
+        re.compile(
+            r"(?:ReadTimeoutError|TimeoutError):[^\n]*(?:timed out|read operation timed out)",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "truncated-download",
+        re.compile(
+            r"(?:ChunkedEncodingError|IncompleteRead)[\s\S]{0,8000}"
+            r"(?:Cannot install|ERROR:)",
+            re.IGNORECASE,
+        ),
+    ),
+)
 _LOCAL_DISTRIBUTION_AUDIT = r"""\
 import importlib.metadata
 import json
@@ -343,6 +361,22 @@ class ReplayVerifier(Protocol):
     ) -> ExecutableVerification: ...
 
 
+def _terminal_replay_network_failure(
+    outcome: ExecutableVerification,
+) -> str | None:
+    if outcome.passed is True:
+        return None
+    logs = f"{outcome.bootstrap.stdout}\n{outcome.bootstrap.stderr}"
+    return next(
+        (
+            signature
+            for signature, pattern in _TERMINAL_REPLAY_NETWORK_FAILURES
+            if pattern.search(logs)
+        ),
+        None,
+    )
+
+
 class CleanReplayService:
     """Validate and replay complete programs without retaining replay state."""
 
@@ -555,6 +589,20 @@ class CleanReplayService:
             raise AssertionError("replay outcome must exist without infrastructure failure")
 
         verification = self._verification(outcome)
+        network_failure = _terminal_replay_network_failure(outcome)
+        if network_failure is not None:
+            return self._finish(
+                {
+                    **base,
+                    "status": "infrastructure_error",
+                    "phase": "clean-replay",
+                    "infrastructure_error": (
+                        "dependency acquisition was interrupted by "
+                        f"{network_failure}"
+                    ),
+                    "verification": verification,
+                }
+            )
         if outcome.passed is None:
             status = "unknown"
         elif outcome.passed:

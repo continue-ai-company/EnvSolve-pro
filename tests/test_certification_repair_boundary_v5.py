@@ -107,6 +107,26 @@ def test_build_tree_rejects_renamed_source_copy(tmp_path: Path) -> None:
     ]
 
 
+def test_build_tree_rejects_empty_namespace_shim(tmp_path: Path) -> None:
+    repo, revision = _source_repo(tmp_path)
+    (repo / "package/override_settings").mkdir()
+
+    raw, report = _v5_repository_report(repo, revision)
+
+    assert raw.valid
+    assert not report.valid
+    assert [item.to_dict() for item in report.remaining_violations] == [
+        {
+            "kind": "empty_import_directory",
+            "path": "package/override_settings",
+            "detail": (
+                "an empty directory below tracked Python source can act as a "
+                "synthetic namespace package"
+            ),
+        }
+    ]
+
+
 def _run_local_audit(repo: Path, import_root: Path) -> dict:
     marker = "ENVSOLVE_TEST_AUDIT="
     completed = subprocess.run(

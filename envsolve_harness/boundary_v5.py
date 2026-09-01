@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import hashlib
+import os
 from pathlib import Path, PurePosixPath
 import subprocess
 from typing import Any
@@ -28,7 +29,11 @@ from envsolve_harness.boundary_v4 import (
 )
 from envsolve_harness.boundary_v2 import NonInterferingExecutableGoalVerifier
 from envsolve_harness.codex import minimal_b_mcp
-from envsolve_harness.integrity.repository import RepositoryIntegrityReport
+from envsolve_harness.integrity.repository import (
+    ALLOWED_GENERATED_DIRECTORIES,
+    IntegrityViolation,
+    RepositoryIntegrityReport,
+)
 
 
 OPEN_PROGRAM_POLICY = "open-candidate-program-v5"
@@ -302,6 +307,71 @@ def _repository_tracked_copy(
     return None
 
 
+def _empty_import_directory_violations(
+    repo_path: Path,
+    tracked_python_paths: tuple[str, ...],
+    protected_paths: tuple[str, ...],
+) -> tuple[IntegrityViolation, ...]:
+    """Reject empty namespace shims that are invisible to Git inventories."""
+
+    tracked_python_roots = {
+        PurePosixPath(path).parent for path in tracked_python_paths
+    }
+    protected_roots = {
+        PurePosixPath(path.rstrip("/"))
+        for path in protected_paths
+        if path.rstrip("/")
+    }
+    findings: list[IntegrityViolation] = []
+    for current, directory_names, file_names in os.walk(
+        repo_path,
+        topdown=True,
+        followlinks=False,
+    ):
+        current_path = Path(current)
+        relative = PurePosixPath(current_path.relative_to(repo_path).as_posix())
+        if relative == PurePosixPath("."):
+            relative = PurePosixPath()
+
+        directory_names[:] = [
+            name
+            for name in directory_names
+            if name != ".git"
+            and name not in ALLOWED_GENERATED_DIRECTORIES
+            and not any(
+                relative / name == root or root in (relative / name).parents
+                for root in protected_roots
+            )
+            and not (current_path / name).is_symlink()
+        ]
+        if not relative.parts or directory_names or file_names:
+            continue
+        python_ancestor = next(
+            (
+                ancestor
+                for ancestor in relative.parents
+                if ancestor in tracked_python_roots
+            ),
+            None,
+        )
+        if python_ancestor is None:
+            continue
+        suffix = relative.relative_to(python_ancestor)
+        if not suffix.parts or not all(part.isidentifier() for part in suffix.parts):
+            continue
+        findings.append(
+            IntegrityViolation(
+                "empty_import_directory",
+                relative.as_posix(),
+                (
+                    "an empty directory below tracked Python source can act as "
+                    "a synthetic namespace package"
+                ),
+            )
+        )
+    return tuple(sorted(findings, key=lambda item: item.path or ""))
+
+
 @dataclass(frozen=True)
 class BoundaryV5RepositoryIntegrityReport:
     base: BoundaryV4RepositoryIntegrityReport
@@ -364,6 +434,18 @@ def adjudicate_repository_tracked_copies(
             remaining.append(violation)
         else:
             accepted.append(artifact)
+    raw = base.base.base
+    remaining.extend(
+        _empty_import_directory_violations(
+            repo_path,
+            tuple(sources),
+            (
+                *raw.allowed_generated_paths,
+                *raw.declared_generated_paths,
+                "build_output",
+            ),
+        )
+    )
     return BoundaryV5RepositoryIntegrityReport(
         base=base,
         tracked_copy_policy=TRACKED_COPY_POLICY,

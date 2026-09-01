@@ -1,0 +1,37 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v1",
+  "amendment": "replay-infrastructure-and-empty-namespace-boundary",
+  "observations": [
+    {
+      "run_id": "pro-strong-ab-census83-01-A2",
+      "finding": "The submitted program created src/pretalx/override_settings as an empty namespace directory, which is invisible to Git and violates the existing no-fake-or-empty-module protocol rule.",
+      "adjudication": "inadmissible failure; do not count a possible Official pass"
+    },
+    {
+      "run_id": "pro-strong-ab-census83-04-A1",
+      "finding": "Post-session clean replay was censored by a truncated dependency download, while the unchanged program later Official-passed with zero issues.",
+      "adjudication": "replay infrastructure failure; Official A1 result remains Pass"
+    },
+    {
+      "run_id": "pro-strong-ab-census83-05-A1",
+      "finding": "Post-session clean replay was censored by a package read timeout, while the unchanged program later Official-passed with zero issues.",
+      "adjudication": "replay infrastructure failure; Official A1 result remains Pass"
+    }
+  ],
+  "correction": {
+    "scope": "EnvSolve-Pro boundary-v5 and clean replay only",
+    "changes": [
+      "Reject empty import directories created below tracked Python source.",
+      "Return infrastructure_error for terminal dependency download timeout or truncation instead of a task counterexample."
+    ],
+    "external_baselines_changed": false,
+    "a1_agent_feedback_changed": false,
+    "applies_before_run_id": "pro-strong-ab-census83-01-B"
+  },
+  "verification": {
+    "tests": "84 passed, 6 skipped",
+    "pretalx_a2_regression": "empty_import_directory: src/pretalx/override_settings",
+    "tortoise_workspace_false_positive": false,
+    "xsdata_workspace_false_positive": false
+  }
+}
