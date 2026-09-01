@@ -1,5 +1,6 @@
 {
   "case_file": "experiments/cases/dev_pro_strong_ab_census83_v1.jsonl",
+  "config": "experiments/configs/local_mac_envsolve_pro_strong_ab_census83_v6_v1.json",
   "case_order": "random shuffle fixed before outcomes",
   "cases": [
     {

@@ -27,6 +27,7 @@
     "resource_limits": "nonbinding safety caps"
   },
   "execution": {
+    "config": "experiments/configs/local_mac_envsolve_pro_strong_ab_census83_v6_v1.json",
     "run_a1_on_every_case": true,
     "followup_eligibility": "A1 formed an admissible complete program and independent Official completed but failed for a deployment reason",
     "followup": "Run both A2 and B for every eligible A1 failure in the preassigned per-case order",

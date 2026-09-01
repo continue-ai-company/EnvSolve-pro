@@ -23,6 +23,7 @@ def test_v6_restarts_the_exact_v5_identity_order_and_host_assignment() -> None:
     v6 = _json(V6)
 
     assert v6["study_id"] == "envsolve-pro-strong-ab-census83-v6-v1"
+    assert v6["config"].endswith("strong_ab_census83_v6_v1.json")
     assert len(v6["cases"]) == 83
     assert [item["case_id"] for item in v6["cases"]] == [
         item["case_id"] for item in v5["cases"]
