@@ -1,0 +1,59 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "recorded_at": "2026-09-01T19:58:00+08:00",
+  "status": "a_screen_complete_with_one_unresolved_external_invalid_case",
+  "protocol": "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json",
+  "selected_case_count": 15,
+  "adjudicable_case_count": 14,
+  "unresolved_external_invalid_case_count": 1,
+  "primary_outcomes": {
+    "a_official_pass": 10,
+    "genuine_replay_opportunity": 2,
+    "pre_candidate_failure": 2,
+    "benchmark_goal_contradiction": 0,
+    "external_invalid_unresolved": 1
+  },
+  "strong_a_terminal_success": {
+    "numerator": 10,
+    "denominator": 14,
+    "rate": 0.7142857142857143,
+    "metric": "Official Pass@1 over adjudicable selected cases",
+    "note": "The unresolved ARMI case is retained in the selected cohort but excluded from the success denominator because three same-condition attempts were externally invalid before candidate formation."
+  },
+  "eligible_complete_programs": {
+    "count": 12,
+    "official_passes": 10,
+    "official_deployment_failures": 2
+  },
+  "genuine_replay_opportunities": [
+    {
+      "position": 6,
+      "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+      "a_official_issues_count": 2,
+      "residual_modules": [
+        "connection.common.FWConnection",
+        "engine.FWObject"
+      ]
+    },
+    {
+      "position": 9,
+      "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+      "a_official_issues_count": 2,
+      "residual_modules": [
+        "vtk.util"
+      ]
+    }
+  ],
+  "decision_rule": {
+    "threshold": "at_least_two_genuine_opportunities",
+    "observed_count": 2,
+    "satisfied": true,
+    "required_next_action": "Run the qualified same-session clean-replay B treatment on both preidentified opportunities, then evaluate each final submitted program with independent Official Pass@1."
+  },
+  "claim_boundary": {
+    "current_conclusion": "Strong free search does leave terminal deployment failures that define valid opportunities for replay-feedback repair.",
+    "not_yet_established": "No algorithmic gain is established until qualified B produces an eligible final program and independent Official Pass on at least one preidentified A failure.",
+    "live_frontier_role": "Diagnostic challenger only; it is not part of the core algorithm or claimed contribution."
+  },
+  "safeguard_policy": "This result adds no hash, frozen contract, or software gate. It records outcomes under the pre-existing protocol."
+}

@@ -1,0 +1,58 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 12,
+  "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+  "recorded_at": "2026-09-01T15:27:32+08:00",
+  "episode_adjudication": {
+    "primary_classification": "external_invalid_unresolved",
+    "eligible_complete_program": false,
+    "official_pass_at_1": null,
+    "official_executed": false,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "Three same-condition strong-A attempts each stopped producing model output after a completed tool response while the Codex CLI connection remained open. None returned a candidate program, so the case has no valid A endpoint and is excluded from success-rate denominators rather than counted as a deployment failure."
+  },
+  "external_invalid_attempts": [
+    {
+      "run_id": "pro-strong-a-screen15-12-armi-agenthub-A-F-v1",
+      "container_commands": 28,
+      "last_completed_tool_utc": "2026-09-01T02:01:58.018852+00:00",
+      "termination": "model_response_stall_after_completed_tool_feedback",
+      "valid_algorithm_endpoint": false
+    },
+    {
+      "run_id": "pro-strong-a-screen15-12-armi-agenthub-A-F-retry2",
+      "container_commands": 30,
+      "last_completed_tool_utc": "2026-09-01T03:24:11.813935+00:00",
+      "termination": "model_response_stall_after_completed_tool_feedback",
+      "valid_algorithm_endpoint": false
+    },
+    {
+      "run_id": "pro-strong-a-screen15-12-armi-agenthub-A-F-retry3",
+      "container_commands": 35,
+      "last_completed_tool_utc": "2026-09-01T06:33:53.929576+00:00",
+      "termination": "model_response_stall_after_completed_tool_feedback",
+      "valid_algorithm_endpoint": false
+    }
+  ],
+  "trajectory_observation": {
+    "analysis_labels": [
+      "optional-import-ambiguity",
+      "low-information-package-search",
+      "network-amplified-installation",
+      "external-model-session-stall"
+    ],
+    "strongest_algorithmic_observation": "The Agent established that ccl.common_operations is imported only inside a broad exception fallback for Windows UNC conversion, but continued broad registry and repository searches for similarly named packages instead of terminating the low-information search.",
+    "strongest_counterevidence": "No attempt produced a complete candidate and no Official evaluator ran, so this trajectory cannot establish that any EnvSolve-Pro treatment would improve terminal success.",
+    "scientific_role": "Diagnostic evidence for future hypothesis design only; not an A failure and not a qualified B opportunity in the frozen screen."
+  },
+  "protocol_action": "Do not retry ARMI again in this screen. Continue the fixed case order and report position 12 as an unresolved external-invalid case with denominator exclusion.",
+  "cumulative_after_position_12": {
+    "a_official_passes": 7,
+    "pre_candidate_failures": 2,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 2,
+    "external_invalid_attempts": 9,
+    "unresolved_external_invalid_cases": 1
+  }
+}

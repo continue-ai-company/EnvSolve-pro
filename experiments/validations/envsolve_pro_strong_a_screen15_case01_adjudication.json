@@ -1,0 +1,51 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 1,
+  "case_id": "envbench-python-injectivelabs__sdk-python@a93aab1257174769db96e208ac61464999323b32",
+  "generation_run_id": "pro-strong-a-screen15-01-injective-agenthub-A-F-v1",
+  "official_run_id": "pro-strong-a-screen15-01-injective-local-mac-official-v1",
+  "recorded_at": "2026-09-01T19:58:00+08:00",
+  "episode_adjudication": {
+    "primary_classification": "a_official_pass",
+    "eligible_complete_program": true,
+    "official_pass_at_1": true,
+    "official_exit_code": 0,
+    "official_issues_count": 0,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "The exact strong-A program completed the independent Official evaluator with zero reportMissingImports issues. The advisory clean replay ended during an SSL package-index interruption and is infrastructure-censored rather than a candidate failure."
+  },
+  "advisory_clean_replay": {
+    "status": "infrastructure-censored",
+    "reported_status": "fail",
+    "bootstrap_exit_code": 1,
+    "signature": "ssl-eof-setuptools-unavailable",
+    "duration_seconds": 496.3641692500096,
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Advisory infrastructure observation only; the completed independent Official outcome determines the endpoint.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-01-injective-agenthub-A-F-v1/envbench-python-injectivelabs__sdk-python__a93aab1257174769db96e208ac61464999323b32/generation/submission-qualification/result.json"
+  },
+  "official_evidence": {
+    "execution_host": "mac-control",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-01-injective-agenthub-A-F-v1/envbench-python-injectivelabs__sdk-python__a93aab1257174769db96e208ac61464999323b32/evaluation/local-mac-official/json/results.jsonl",
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 6470,
+      "warning_count": 0,
+      "execution_time_seconds": 46.9744758605957
+    }
+  },
+  "trajectory_observation": {
+    "container_commands": 32,
+    "construction_terminal_missing_imports": 0,
+    "interpretation": "The strong Agent selected Python 3.11, installed the locked Poetry groups, and supplied a historical checkout for legacy namespace compatibility. Official passed despite the advisory replay's transient SSL failure."
+  },
+  "cumulative_after_position_1": {
+    "a_official_passes": 1,
+    "pre_candidate_failures": 0,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 0,
+    "external_invalid_attempts": 0
+  }
+}

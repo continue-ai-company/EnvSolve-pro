@@ -1,0 +1,51 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 15,
+  "case_id": "envbench-python-pypa__twine@6fbf880ee60915cf1666348c4bdd78a10415f2ac",
+  "generation_run_id": "pro-strong-a-screen15-15-twine-agenthub-A-F-v1",
+  "official_run_id": "pro-strong-a-screen15-15-twine-spark-official-v1",
+  "recorded_at": "2026-09-01T19:58:00+08:00",
+  "episode_adjudication": {
+    "primary_classification": "a_official_pass",
+    "eligible_complete_program": true,
+    "official_pass_at_1": true,
+    "official_exit_code": 0,
+    "official_issues_count": 0,
+    "genuine_replay_opportunity": false,
+    "run_b": false,
+    "reason": "The exact strong-A program passed clean replay and the independent Spark Official evaluator with zero reportMissingImports issues."
+  },
+  "advisory_clean_replay": {
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "duration_seconds": 40.81606795801781,
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Eligibility evidence only; the independent Official result determines the endpoint.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-15-twine-agenthub-A-F-v1/envbench-python-pypa__twine__6fbf880ee60915cf1666348c4bdd78a10415f2ac/generation/submission-qualification/result.json"
+  },
+  "official_evidence": {
+    "execution_host": "spark-f21c",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-15-twine-agenthub-A-F-v1/envbench-python-pypa__twine__6fbf880ee60915cf1666348c4bdd78a10415f2ac/evaluation/spark-official-v1/results.jsonl",
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 0,
+      "error_count": 59,
+      "warning_count": 0,
+      "execution_time_seconds": 32.5859751701355
+    }
+  },
+  "trajectory_observation": {
+    "container_commands": 10,
+    "construction_terminal_missing_imports": 0,
+    "interpretation": "The strong Agent created a virtual environment and installed the editable project plus the small set of repository import dependencies. Clean replay and Official passed."
+  },
+  "cumulative_after_position_15": {
+    "a_official_passes": 10,
+    "pre_candidate_failures": 2,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 2,
+    "external_invalid_attempts": 9,
+    "unresolved_external_invalid_cases": 1
+  }
+}
