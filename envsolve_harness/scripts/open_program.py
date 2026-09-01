@@ -310,6 +310,7 @@ class OpenCandidateProgramValidator:
     """Admit complete shell programs; execution effects determine validity."""
 
     policy_id = OPEN_PROGRAM_POLICY
+    allow_direct_import_artifacts = False
     prompt_contract = """\
 Return one complete, self-contained Bash program that will be inserted inline into
 the controlling Bash process from the project root in a fresh container. No
@@ -360,7 +361,7 @@ decided by isolated execution, repository-effect audit, and executable postcondi
                 },
             )
         direct_artifact = _direct_import_artifact_write(script)
-        if direct_artifact is not None:
+        if direct_artifact is not None and not self.allow_direct_import_artifacts:
             line, target = direct_artifact
             return CandidateValidation(
                 False,
@@ -371,7 +372,7 @@ decided by isolated execution, repository-effect audit, and executable postcondi
                 details={"line": line, "target": target},
             )
         embedded_artifact = _embedded_import_artifact_write(script)
-        if embedded_artifact is not None:
+        if embedded_artifact is not None and not self.allow_direct_import_artifacts:
             line, target = embedded_artifact
             return CandidateValidation(
                 False,

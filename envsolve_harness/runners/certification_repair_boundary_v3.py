@@ -46,6 +46,9 @@ class _BoundaryV3MetadataMixin:
     ) -> str:
         prompt = super()._prompt(case, goal_contract)
         legacy = BoundaryV3OpenCandidateProgramValidator.__mro__[1].prompt_contract
+        current = self._candidate_prompt_contract()
+        if current != legacy and prompt.count(current) == 1:
+            return prompt
         if prompt.count(legacy) != 1:
             raise RuntimeError("Boundary v3 could not replace the candidate contract")
         return prompt.replace(

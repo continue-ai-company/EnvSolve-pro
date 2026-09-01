@@ -1,0 +1,66 @@
+{
+  "boundary_id": "open-operation-boundary-v6.0.0",
+  "candidate_policy": "open-candidate-program-v6",
+  "repository_policy": "open-operation-postepisode-provenance-v1",
+  "recorded_at": "2026-09-01T19:51:10Z",
+  "reason": {
+    "concrete_failure": "Boundary v5 rejected legitimate repository-local protobuf, ANTLR, and local deployment configuration artifacts before clean replay, while an empty namespace could previously look successful.",
+    "scientific_consequence": "The prompt, A submission eligibility, and B replay eligibility had different effective deployment semantics, so an observed A/B difference could not be attributed only to same-session replay.",
+    "why_version_control_alone_is_insufficient": "Git records implementation history but cannot make results collected under different operation spaces causally comparable. A new study version and complete restart are required."
+  },
+  "online_boundary": {
+    "operation_space": "open",
+    "hard_rejections": [
+      "tracked repository mutation",
+      "evaluator interference",
+      "import-path symlink injection",
+      "empty import artifact",
+      "empty namespace shim",
+      "NUL, empty, or oversized candidate program"
+    ],
+    "review_required": "Every remaining nonempty new import artifact is recorded for outcome-blind post-episode executable-source review and does not block clean replay online."
+  },
+  "postepisode_adjudication": {
+    "single_question": "Does tracked repository build or configuration intent require or authorize this artifact in a real local deployment?",
+    "accept": [
+      "repository-declared local deployment configuration",
+      "nonempty output deterministically produced by a repository-declared standard build or install path"
+    ],
+    "reject": [
+      "producerless empty namespace or shim",
+      "artifact created only to game the public goal"
+    ],
+    "blinding": "Artifact provenance is adjudicated without Official outcome or treatment label."
+  },
+  "treatment_parity": {
+    "a1": "shared v6 prompt, candidate validator, clean qualification, and postepisode adjudication",
+    "a2": "shared v6 prompt, candidate validator, clean qualification, and postepisode adjudication",
+    "b": "same shared v6 components; only B receives target-state complete-program replay feedback in the same active Agent session",
+    "unique_difference": "same-session replay feedback"
+  },
+  "qualification_evidence": {
+    "prompt_submission_replay_unified": true,
+    "pretalx_direct_local_configuration_admitted": true,
+    "tfma_review_paths": [
+      "tensorflow_model_analysis/proto/config_pb2.py",
+      "tensorflow_model_analysis/proto/metrics_for_slice_pb2.py",
+      "tensorflow_model_analysis/proto/validation_result_pb2.py"
+    ],
+    "hydra_review_paths": [
+      "hydra/grammar/gen/OverrideLexer.py",
+      "hydra/grammar/gen/OverrideParser.py",
+      "hydra/grammar/gen/OverrideParserListener.py",
+      "hydra/grammar/gen/OverrideParserVisitor.py"
+    ],
+    "empty_import_file_rejected": true,
+    "empty_namespace_rejected": true,
+    "ordinary_yapf_style_install_script_unchanged_between_v5_and_v6": true
+  },
+  "scope": {
+    "case_specific_rules": false,
+    "protected_canary_opened": false,
+    "official_test_opened": false,
+    "v5_code_and_results_preserved": true
+  },
+  "status": "recorded_before_first_v6_result"
+}

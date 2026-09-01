@@ -192,6 +192,12 @@ class CodexCliRunner:
     def _required_tool_activity_error(self) -> str:
         return "Codex CLI completed without a successful container command"
 
+    def _candidate_prompt_contract(self) -> str:
+        return OpenCandidateProgramValidator.prompt_contract
+
+    def _submission_scope_prompt(self) -> str:
+        return "The script must not edit repository source or configuration."
+
     def _validate_additional_submission(
         self,
         script: str,
@@ -359,12 +365,12 @@ When the environment is ready, return the requested JSON object. Its
 `bootstrap_script` must be a self-contained Bash script that can be sourced from
 the root of a fresh checkout in the same base image. Include only the successful
 environment setup commands needed to reproduce the final state; omit inspection,
-diagnostic, test, and failed commands. The script must not edit repository source
-or configuration. `summary` should briefly state what was installed.
+diagnostic, test, and failed commands. {self._submission_scope_prompt()}
+`summary` should briefly state what was installed.
 
 The submitted script will be checked against this shared candidate contract:
 <candidate_contract>
-{OpenCandidateProgramValidator.prompt_contract}
+{self._candidate_prompt_contract()}
 </candidate_contract>
 """
         if goal_contract is None:
