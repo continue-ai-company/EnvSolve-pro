@@ -71,6 +71,7 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
         self._generation_container_id: str | None = None
         self._remote_owner: str | None = None
         self._remote_source_paths: dict[Path, str] = {}
+        self._generation_transport_excludes: tuple[str, ...] = ()
 
     def _acquire_repository(self, case: Case, destination: Path) -> dict[str, Any]:
         acquisition = RemoteExactRevisionSourceCache(
@@ -229,20 +230,27 @@ class RemoteBoundaryV5QualifiedCodexCliRunner(BoundaryV5QualifiedCodexCliRunner)
                 ],
                 timeout=self.container_create_timeout,
             )
+        self._generation_transport_excludes = (
+            self.transport.rebuildable_excludes_from_remote(
+                self._generation_remote_path,
+                baseline=untracked_rebuildable_excludes(
+                    self._generation_local_path
+                ),
+                timeout=max(self.command_timeout, self.git_fetch_timeout),
+            )
+        )
         self.transport.sync_from_remote(
             self._generation_remote_path,
             self._generation_local_path,
             timeout=max(self.command_timeout, self.git_fetch_timeout),
-            excludes=untracked_rebuildable_excludes(self._generation_local_path),
+            excludes=self._generation_transport_excludes,
         )
         super()._augment_generation_metadata(artifacts, metadata)
         metadata["execution_backend"] = {
             "profile": self.infrastructure_profile,
             "ssh_target": self.transport.target,
             "workspace_transport": "rsync-exact-tree-v1",
-            "transport_excludes": list(
-                untracked_rebuildable_excludes(self._generation_local_path)
-            ),
+            "transport_excludes": list(self._generation_transport_excludes),
             "container_runtime": "remote-docker",
             "accelerator_exposure": "all" if self.expose_gpus else "none",
             "agent_host_role": "control-only",

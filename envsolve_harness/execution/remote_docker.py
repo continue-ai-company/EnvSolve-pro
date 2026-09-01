@@ -197,6 +197,58 @@ class SshDockerTransport:
             detail = process.stderr.strip() or process.stdout.strip()
             raise RuntimeError(f"workspace download failed: {detail}")
 
+    def rebuildable_excludes_from_remote(
+        self,
+        remote_path: str,
+        *,
+        baseline: tuple[str, ...] = (),
+        timeout: int,
+    ) -> tuple[str, ...]:
+        """Add dynamically named, untracked top-level virtualenvs to rsync excludes."""
+
+        remote_path = _absolute_remote_path(remote_path)
+        try:
+            markers = self.checked_remote(
+                [
+                    "find",
+                    remote_path,
+                    "-mindepth",
+                    "2",
+                    "-maxdepth",
+                    "2",
+                    "-type",
+                    "f",
+                    "-name",
+                    "pyvenv.cfg",
+                    "-print0",
+                ],
+                timeout=timeout,
+            )
+        except RuntimeError:
+            return tuple(dict.fromkeys(baseline))
+
+        root = PurePosixPath(remote_path)
+        candidates: set[str] = set()
+        for value in markers.split("\0"):
+            if not value:
+                continue
+            marker = PurePosixPath(value)
+            if marker.parent.parent == root:
+                candidates.add(marker.parent.name)
+
+        excludes = list(dict.fromkeys(baseline))
+        for name in sorted(candidates):
+            try:
+                tracked = self.checked_remote(
+                    ["git", "-C", remote_path, "ls-files", "-z", "--", name],
+                    timeout=timeout,
+                )
+            except RuntimeError:
+                continue
+            if not tracked:
+                excludes.append(f"/{name}/")
+        return tuple(dict.fromkeys(excludes))
+
 
 @dataclass
 class RemoteExactRevisionSourceCache:
@@ -503,11 +555,16 @@ class RemoteDockerCommandAdapter:
                 )
                 if ownership.returncode != 0:
                     return ownership
+                excludes = self.transport.rebuildable_excludes_from_remote(
+                    mount[1],
+                    baseline=mount[3],
+                    timeout=self.sync_timeout,
+                )
                 self.transport.sync_from_remote(
                     mount[1],
                     mount[0],
                     timeout=self.sync_timeout,
-                    excludes=mount[3],
+                    excludes=excludes,
                 )
         elif action == "rm":
             for value in command[2:]:

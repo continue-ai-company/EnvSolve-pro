@@ -43,6 +43,15 @@ class RecordingTransport:
     ) -> None:
         self.downloads.append((remote_path, local_path, excludes))
 
+    def rebuildable_excludes_from_remote(
+        self,
+        remote_path: str,
+        *,
+        baseline: tuple[str, ...] = (),
+        timeout: int,
+    ) -> tuple[str, ...]:
+        return baseline
+
     def checked_remote(self, command: list[str], *, timeout: int) -> str:
         return "1000"
 
@@ -143,6 +152,27 @@ class SshDockerTransportTest(unittest.TestCase):
             excludes = untracked_rebuildable_excludes(workspace)
 
             self.assertNotIn("/env/", excludes)
+
+    def test_remote_dynamic_virtualenv_excludes_only_untracked_top_level(self) -> None:
+        transport = SshDockerTransport("user@spark", "/srv/envsolve")
+        marker_output = (
+            "/srv/envsolve/work/.venv-final/pyvenv.cfg\0"
+            "/srv/envsolve/work/tracked-env/pyvenv.cfg\0"
+            "/srv/envsolve/work/nested/env/pyvenv.cfg\0"
+        )
+        with unittest.mock.patch.object(
+            transport,
+            "checked_remote",
+            side_effect=[marker_output, "", "tracked-env/pyvenv.cfg"],
+        ) as checked:
+            excludes = transport.rebuildable_excludes_from_remote(
+                "/srv/envsolve/work",
+                baseline=("/.venv/",),
+                timeout=30,
+            )
+
+        self.assertEqual(excludes, ("/.venv/", "/.venv-final/"))
+        self.assertEqual(checked.call_count, 3)
 
     def test_remote_command_quotes_each_argument_once(self) -> None:
         transport = SshDockerTransport("user@spark", "/srv/envsolve")
