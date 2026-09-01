@@ -1,0 +1,54 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "recorded_at": "2026-09-01T22:28:49+08:00",
+  "status": "qualified_b_complete",
+  "selected_case_count": 15,
+  "adjudicable_case_count": 14,
+  "unresolved_external_invalid_case_count": 1,
+  "preidentified_b_opportunity_count": 2,
+  "strong_a": {
+    "official_passes": 10,
+    "denominator": 14,
+    "official_pass_at_1": 0.7142857142857143
+  },
+  "qualified_b": {
+    "opportunities_attempted": 2,
+    "conditional_repairs": 1,
+    "conditional_repair_rate": 0.5,
+    "case_outcomes": [
+      {
+        "position": 6,
+        "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+        "a_official_pass": false,
+        "b_official_pass": false,
+        "classification": "b_no_repair_pre_candidate_failure"
+      },
+      {
+        "position": 9,
+        "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+        "a_official_pass": false,
+        "b_official_pass": true,
+        "classification": "b_repair_official_pass"
+      }
+    ]
+  },
+  "a_then_b_policy": {
+    "official_passes": 11,
+    "denominator": 14,
+    "official_pass_at_1": 0.7857142857142857,
+    "absolute_pass_rate_gain": 0.0714285714285714,
+    "percentage_point_gain": 7.14285714285714
+  },
+  "hypothesis_decision": {
+    "live_frontier_promoted_to_core": false,
+    "qualified_same_session_clean_replay_survives_as_challenger": true,
+    "reason": "The predeclared success criterion was met on one of two preidentified A failures: qualified B submitted an eligible program and independently Official-passed meshio. Frontier reduction alone was not counted; op-test remained a failure."
+  },
+  "claim_boundary": {
+    "supported": "On this fixed falsification screen, same-session clean-replay feedback repaired one terminal deployment failure left by strong free search and increased the observed A-then-B Official success count from 10 to 11.",
+    "not_supported": "Two repair opportunities are insufficient to claim a stable effect size, SOTA, broad generalization, or superiority to Repo2Run and Codex.",
+    "required_next_experiment": "Freeze a larger bad-case cohort selected from baseline failures without inspecting B outcomes, then compare strong free search and qualified replay repair on every eligible failure under independent Official evaluation."
+  },
+  "quality_limit": "Official Pass is the primary benchmark endpoint. Full deployment completeness and path quality must be measured separately because the successful meshio program uses a legacy VTK artifact to satisfy the static import objective.",
+  "safeguard_policy": "This result adds no hash, frozen contract, or software gate. It records outcomes under the pre-existing protocol."
+}

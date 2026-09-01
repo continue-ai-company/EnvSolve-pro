@@ -1,0 +1,51 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 6,
+  "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+  "a_run_id": "pro-strong-a-screen15-06-op-test-agenthub-A-F-v1",
+  "b_run_id": "pro-strong-a-screen15-06-op-test-agenthub-qualified-B-v1",
+  "recorded_at": "2026-09-01T20:52:12+08:00",
+  "treatment": {
+    "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker",
+    "method": "envsolve-pro-minimal-b-boundary-v5",
+    "model": "gpt-5.6-sol",
+    "difference_from_a": "The same active Agent session could submit a complete program to a fresh clean replay and receive its structured public-goal counterexamples before revising the program."
+  },
+  "outcome": {
+    "classification": "b_no_repair_pre_candidate_failure",
+    "eligible_final_program": false,
+    "official_eligible": false,
+    "official_pass": false,
+    "conditional_repair": false,
+    "reason": "The first clean replay executed normally and returned the same two residual missing imports as structured feedback. The Agent continued in the same session but concluded that the modules were unused upstream artifacts whose legitimate source was unavailable. It submitted no executable revised program, so B did not repair the A failure."
+  },
+  "replay_evidence": {
+    "replay_count": 1,
+    "feedback_returned_to_agent": true,
+    "status": "fail",
+    "bootstrap_exit_code": 0,
+    "active_missing_imports": 2,
+    "missing_import_modules": [
+      "engine.FWObject",
+      "connection.common.FWConnection"
+    ],
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-qualified-B-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/generation/minimal-b/replays.jsonl"
+  },
+  "trajectory_observation": {
+    "container_commands": 59,
+    "final_agent_statement": "No admissible certified bootstrap program could be produced.",
+    "legitimate_paths_exhausted": true,
+    "metric_gaming_counted_as_success": false,
+    "interpretation": "Replay feedback made the unresolved requirements explicit but did not make them solvable. The Agent investigated historical Pyright behavior and environment effects, then correctly rejected source edits, synthetic compatibility modules, stubs, and verifier suppression under the existing candidate contract."
+  },
+  "scientific_effect": {
+    "a_official_pass": false,
+    "b_official_pass": false,
+    "absolute_terminal_success_gain_on_case": 0,
+    "frontier_progress_is_not_success": true
+  },
+  "artifacts": {
+    "result": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-qualified-B-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/generation/result.json",
+    "final_output": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-qualified-B-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/generation/codex-control/final-output.json"
+  }
+}
