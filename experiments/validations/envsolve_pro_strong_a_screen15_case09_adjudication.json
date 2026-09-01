@@ -1,0 +1,85 @@
+{
+  "study_id": "envsolve-pro-strong-a-falsification-screen15-v1",
+  "position": 9,
+  "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+  "generation_run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2",
+  "official_run_id": "pro-strong-a-screen15-09-meshio-spark-official-retry1",
+  "recorded_at": "2026-09-01T07:56:18+08:00",
+  "episode_adjudication": {
+    "primary_classification": "genuine_replay_opportunity",
+    "eligible_complete_program": true,
+    "official_pass_at_1": false,
+    "official_exit_code": 0,
+    "official_issues_count": 2,
+    "genuine_replay_opportunity": true,
+    "run_b": true,
+    "reason": "The strong A Agent submitted an admissible complete program and the independent Spark Official evaluator completed normally, but two reportMissingImports findings for vtk.util remained. VTK is a legitimate deployment dependency used by the legacy reader and writer, so the frozen benchmark-goal-contradiction criteria are not met."
+  },
+  "advisory_clean_replay": {
+    "status": "infrastructure-censored",
+    "reported_status": "fail",
+    "bootstrap_exit_code": 1,
+    "signature": "dependency-download-incomplete-read",
+    "duration_seconds": 310.62294541698066,
+    "feedback_returned_to_agent": false,
+    "scientific_role": "Advisory infrastructure observation only; the completed independent Official outcome determines the endpoint.",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/generation/submission-qualification/result.json"
+  },
+  "external_invalid_attempts": [
+    {
+      "run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-v1",
+      "signature": "remote-nonlogin-path-omitted-installed-git-lfs",
+      "generation_session_started": false
+    },
+    {
+      "run_id": "pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry1",
+      "signature": "upstream-lfs-object-missing",
+      "generation_session_started": false
+    },
+    {
+      "run_id": "pro-strong-a-screen15-09-meshio-spark-official-v1",
+      "signature": "dependency-download-incomplete-read",
+      "official_exit_code": 1,
+      "official_issues_count": 0,
+      "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/evaluation/spark-official-v1/results.jsonl"
+    }
+  ],
+  "official_evidence": {
+    "execution_host": "spark-f21c",
+    "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/evaluation/spark-official-retry1/results.jsonl",
+    "raw_metrics": {
+      "exit_code": 0,
+      "issues_count": 2,
+      "error_count": 485,
+      "warning_count": 2,
+      "execution_time_seconds": 525.1994578838348
+    },
+    "residual_missing_imports": [
+      {
+        "file": "tests/legacy_reader.py",
+        "module": "vtk.util"
+      },
+      {
+        "file": "tests/legacy_writer.py",
+        "module": "vtk.util"
+      }
+    ]
+  },
+  "trajectory_observation": {
+    "container_commands": 49,
+    "construction_terminal_missing_imports": 0,
+    "interpretation": "The strong Agent assembled a large two-environment compatibility program spanning modern ParaView and historical VTK. Its construction-time check reported zero missing imports, but clean Official replay exposed that vtk.util was not resolvable under the final submitted environment. This is a deployment-state transfer failure and a valid target for same-session clean-replay repair."
+  },
+  "decision_rule_status": {
+    "genuine_opportunity_threshold_reached": true,
+    "current_count": 2,
+    "required_action": "Complete all 15 frozen A cases, then run qualified B on every preidentified genuine replay opportunity."
+  },
+  "cumulative_after_position_9": {
+    "a_official_passes": 6,
+    "pre_candidate_failures": 1,
+    "benchmark_goal_contradictions": 0,
+    "genuine_replay_opportunities": 2,
+    "external_invalid_attempts": 6
+  }
+}
