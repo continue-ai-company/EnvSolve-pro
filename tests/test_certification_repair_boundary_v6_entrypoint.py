@@ -16,6 +16,9 @@ from envsolve_harness.runners.certification_repair_boundary_v6 import (
     BoundaryV6QualifiedCodexCliRunner,
     BoundaryV6QualifiedMinimalBRunner,
 )
+from envsolve_harness.runners.certification_repair_boundary_v5 import (
+    BoundaryV5QualifiedCodexCliRunner,
+)
 from envsolve_harness.runners.remote_boundary_v6 import (
     RemoteBoundaryV6QualifiedCodexCliRunner,
     RemoteBoundaryV6QualifiedMinimalBRunner,
@@ -68,6 +71,29 @@ def test_a_and_b_share_the_exact_v6_candidate_contract(tmp_path: Path) -> None:
         prompt = runner._prompt(case, runner.goal_contract)
         assert "shared v6 boundary leaves deployment operations open" in prompt
         assert "rejects candidate-generated compatibility packages" not in prompt
+
+
+def test_all_v6_finalizers_use_the_v6_artifact_policy(tmp_path: Path) -> None:
+    script = (
+        "mkdir -p src/pkg\n"
+        "printf 'VALUE = 1\\n' > src/pkg/generated.py\n"
+    )
+    runner_types = (
+        BoundaryV6QualifiedCodexCliRunner,
+        BoundaryV6QualifiedMinimalBRunner,
+        RemoteBoundaryV6QualifiedCodexCliRunner,
+        RemoteBoundaryV6QualifiedMinimalBRunner,
+    )
+
+    for runner_type in runner_types:
+        validation = _runner(runner_type, tmp_path)._validate_bootstrap(script)
+        assert validation.accepted
+        assert validation.policy_id == "open-candidate-program-v6"
+
+    v5 = BoundaryV5QualifiedCodexCliRunner.__new__(
+        BoundaryV5QualifiedCodexCliRunner
+    )
+    assert not v5._validate_bootstrap(script).accepted
 
 
 def test_v6_minimal_b_entrypoint_installs_v6_validator_and_verifier(

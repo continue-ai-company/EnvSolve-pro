@@ -198,6 +198,9 @@ class CodexCliRunner:
     def _submission_scope_prompt(self) -> str:
         return "The script must not edit repository source or configuration."
 
+    def _validate_bootstrap(self, script: str) -> CandidateValidation:
+        return validate_codex_bootstrap(script)
+
     def _validate_additional_submission(
         self,
         script: str,
@@ -650,7 +653,7 @@ other development checks are optional evidence rather than the success criterion
                 raise RuntimeError("Codex CLI returned an empty bootstrap script")
             if len(script) > 100_000:
                 raise RuntimeError("Codex CLI bootstrap script exceeds 100000 characters")
-            validation = validate_codex_bootstrap(script)
+            validation = self._validate_bootstrap(script)
             metadata["candidate_validation"] = codex_validation_metadata(validation)
             if not validation.accepted:
                 raise RuntimeError(

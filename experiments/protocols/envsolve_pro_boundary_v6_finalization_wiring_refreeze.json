@@ -1,0 +1,50 @@
+{
+  "record_id": "envsolve-pro-boundary-v6-finalization-wiring-refreeze-v1",
+  "recorded_at": "2026-09-01T21:39:19Z",
+  "status": "implementation_refrozen_before_new_b_generation",
+  "scope": "implementation-only validator dispatch correction",
+  "concrete_failure": {
+    "episode": "pro-v6-strong-ab-census83-01-B",
+    "observed": "The in-session v6 clean replay passed and certified the submitted program, but the shared post-session finalizer invoked the global v2 validator and rejected the same program after the Agent turn ended.",
+    "root_cause": "CodexCliRunner.run called validate_codex_bootstrap directly instead of dispatching through the runner's versioned _validate_bootstrap hook.",
+    "scientific_effect": "A1 and A2 remote wrappers could recover through versioned qualification while B stopped at the shared v2 rejection, creating treatment-dependent implementation semantics."
+  },
+  "correction": {
+    "default_behavior": "CodexCliRunner._validate_bootstrap delegates to the unchanged shared v2 validator.",
+    "versioned_behavior": "The shared finalizer calls self._validate_bootstrap so v3 through v6 runners use their declared boundary.",
+    "unchanged": [
+      "candidate program",
+      "prompt",
+      "Agent protocol",
+      "model and reasoning effort",
+      "treatment definition",
+      "case order and host assignment",
+      "Official evaluator",
+      "protected-data state"
+    ]
+  },
+  "why_a_refreeze_is_required": {
+    "git": "Git preserves the faulty and corrected implementations but does not by itself state which completed episodes are comparable under one effective boundary.",
+    "version_numbers": "The declared v6 version was already present while the shared finalizer silently executed v2, so the version label alone did not identify effective behavior.",
+    "primary_keys": "Run identifiers distinguish episodes but cannot detect validator-policy dispatch inside an episode.",
+    "transactions": "Atomic artifact writes cannot make a semantically wrong validator choice correct.",
+    "unique_constraints": "Uniqueness prevents duplicate records, not treatment-dependent finalization semantics.",
+    "types": "Both v2 and v6 validators return the same CandidateValidation type, so type checking cannot distinguish the wrong policy implementation.",
+    "ordinary_tests": "Existing component tests proved that v6 validators and replay entrypoints existed but did not exercise the shared final-output dispatch path. A focused regression test now covers that path."
+  },
+  "episode_disposition": {
+    "completed_a_episodes": "Retain without resampling when their exact final programs pass both v2 and v6 validation; the audited completed A programs meet this condition.",
+    "position_1_b": "Eligible for deterministic re-adjudication from its preserved final output and matching certified v6 replay program; do not invoke the Agent again.",
+    "position_2_b": "Implementation-censored because no complete final-output artifact exists; do not infer an algorithm outcome.",
+    "new_b_episodes": "Remain paused until this implementation correction is committed and the refreeze is recorded."
+  },
+  "tests": {
+    "shared_finalizer_dispatch": "A runner-specific validator accepting a program rejected by the global validator is invoked by CodexCliRunner.run.",
+    "v6_entrypoints": "Local and remote A and B runners all finalize nonempty repository-local import artifacts under open-candidate-program-v6.",
+    "legacy_default": "The base runner retains the original shared v2 validation behavior."
+  },
+  "case_specific_rules": false,
+  "new_runtime_gate": false,
+  "new_hash": false,
+  "algorithm_change": false
+}
