@@ -1,0 +1,63 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-01T21:43:27Z",
+  "run_id": "pro-v6-strong-ab-census83-01-B",
+  "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+  "trigger": "implementation-only finalizer dispatch correction committed as fac63dd",
+  "procedure": {
+    "model_reexecuted": false,
+    "candidate_resampled": false,
+    "prompt_changed": false,
+    "program_changed": false,
+    "official_feedback_used": false,
+    "source_trajectory_and_result_modified": false
+  },
+  "infrastructure_retries": [
+    {
+      "attempt": 1,
+      "stage": "pre-evaluation-input-load",
+      "failure": "The locally generated JSON object spanned multiple lines and EnvBench read it as JSONL.",
+      "candidate_executed": false,
+      "official_feedback_produced": false,
+      "correction": "Serialize the identical repository, revision, and script object on one JSONL line."
+    }
+  ],
+  "evidence": {
+    "final_output_complete": true,
+    "final_output_equals_replay_program_byte_for_byte": true,
+    "v6_candidate_validation": "accepted",
+    "matching_clean_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "derived_record": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-01-B/envbench-python-pretalx__pretalx__64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8/generation/finalization-readjudication-v1/result.json",
+    "derived_program": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-01-B/envbench-python-pretalx__pretalx__64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8/generation/finalization-readjudication-v1/generated.sh"
+  },
+  "outcome_blind_source_review": {
+    "artifact": "src/pretalx/override_settings.py",
+    "decision": "accept",
+    "reason": "The tracked repository explicitly ignores and excludes this file, and pretalx.settings optionally imports it as a local settings extension. The submitted file is nonempty and contains a normal local email-backend setting.",
+    "official_outcome_consulted": false
+  },
+  "primary_official": {
+    "host": "spark",
+    "outcome": "pass",
+    "exit_code": 0,
+    "issues_count": 0,
+    "execution_time_seconds": 181.6814727783203,
+    "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-01-B/envbench-python-pretalx__pretalx__64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8/evaluation/spark-official-v1/json_results/results.jsonl"
+  },
+  "paired_a2_contrast": {
+    "a2_outcome": "fail",
+    "a2_exit_code": 0,
+    "a2_issues_count": 7,
+    "a2_adjudication": "experiments/validations/envsolve_pro_strong_ab_census83_v6_position1_a2_official_retry_adjudication.json",
+    "paired_outcome": "B-exclusive-terminal-win",
+    "interpretation": "The independent second free-Agent session completed but left seven Official missing-import diagnostics; the same-session replay condition completed with zero Official issues."
+  },
+  "disposition": "generation-complete-primary-spark-official-pass",
+  "position_2_b_disposition": "implementation-censored-missing-final-output",
+  "new_b_sampling_status": "resume-from-fresh-session-after-position-1-B-exclusive-terminal-win"
+}

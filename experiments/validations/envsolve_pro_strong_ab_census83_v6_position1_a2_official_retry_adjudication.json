@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-01T22:04:13Z",
+  "run_id": "pro-v6-strong-ab-census83-01-A2",
+  "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+  "purpose": "Separate two infrastructure-censored Official attempts from the terminal A2 algorithm outcome.",
+  "candidate_identity": {
+    "model_reexecuted": false,
+    "candidate_resampled": false,
+    "prompt_changed": false,
+    "program_changed": false,
+    "official_feedback_returned_to_agent": false
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "outcome": "infrastructure-censored",
+      "stage": "candidate-bootstrap-network-download",
+      "failure": "PyPI download timed out while upgrading pip.",
+      "candidate_completed": false,
+      "official_outcome_available": false,
+      "preserved_remote_artifact": "/home/avdpro/work/envsolve-pro-strong-ab-census83-v6-v1/official/pro-v6-strong-ab-census83-01-A2/json_results-network-censored-attempt1/results.jsonl"
+    },
+    {
+      "attempt": 2,
+      "outcome": "infrastructure-censored",
+      "stage": "pre-candidate-source-cleanup",
+      "failure": "EnvBench could not remove a root-owned repository artifact left by the prior container.",
+      "candidate_executed": false,
+      "official_outcome_available": false,
+      "recovery": "Use fresh repo, tmp, and result directories without deleting prior evidence."
+    },
+    {
+      "attempt": 3,
+      "outcome": "official-fail",
+      "host": "spark",
+      "candidate_completed": true,
+      "exit_code": 0,
+      "issues_count": 7,
+      "execution_time_seconds": 206.45493078231812,
+      "missing_imports": [
+        "enchant",
+        "django_extensions",
+        "debug_toolbar",
+        "pretalx.override_settings",
+        "dj_static"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-01-A2/envbench-python-pretalx__pretalx__64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8/evaluation/spark-official-clean-retry2/json_results/results.jsonl"
+    }
+  ],
+  "analysis_disposition": "Count attempt 3 as the A2 terminal outcome. Exclude attempts 1 and 2 from treatment estimates and retain them as infrastructure diagnostics.",
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}
