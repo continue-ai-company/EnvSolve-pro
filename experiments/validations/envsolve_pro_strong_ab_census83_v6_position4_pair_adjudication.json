@@ -1,0 +1,90 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-01T23:48:54Z",
+  "position": 4,
+  "case_id": "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+  "treatment": {
+    "name": "same-session-target-state-complete-program-replay",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "live_frontier_attribution": false,
+    "complete_program_replay_count": 1,
+    "accepted_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "final_program_matches_accepted_replay_byte_for_byte": true
+  },
+  "official_outcomes": {
+    "a1": {
+      "outcome": "fail",
+      "exit_code": 0,
+      "issues_count": 5,
+      "execution_time_seconds": 1599.8033330440521,
+      "missing_imports": [
+        "uvicorn.main",
+        "asyncmy",
+        "asyncmy",
+        "asyncmy.charset",
+        "astroid.node_classes"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-04-A1/envbench-python-tortoise__tortoise-orm__bc18384bdb490cc14e96d27a18956fe1b122829d/evaluation/spark-official-v1/results.jsonl"
+    },
+    "a2": {
+      "outcome": "fail",
+      "exit_code": 0,
+      "issues_count": 2,
+      "execution_time_seconds": 182.2747573852539,
+      "missing_imports": [
+        "uvicorn.main",
+        "astroid.node_classes"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-04-A2/envbench-python-tortoise__tortoise-orm__bc18384bdb490cc14e96d27a18956fe1b122829d/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "b": {
+      "outcome": "pass",
+      "exit_code": 0,
+      "issues_count": 0,
+      "execution_time_seconds": 136.15913677215576,
+      "missing_imports": [],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-04-B/envbench-python-tortoise__tortoise-orm__bc18384bdb490cc14e96d27a18956fe1b122829d/evaluation/spark-official-v1/json_results/results.jsonl"
+    }
+  },
+  "paired_outcome": "B-exclusive-terminal-win",
+  "mechanism_observation": {
+    "a2_reduced_but_did_not_eliminate_missing_imports": true,
+    "b_used_container_commands": 9,
+    "b_clean_replay_count": 1,
+    "b_clean_replay_passed": true,
+    "b_official_passed": true,
+    "interpretation": "The replay-enabled session converted its explored dependency state into a complete program, detected the same two unresolved imports that remained in A2, repaired them, and verified the resulting program in a fresh environment before submission. The independent Official evaluator then passed the identical program."
+  },
+  "infrastructure_censoring": [
+    {
+      "arm": "A2",
+      "stage": "official-source-acquisition",
+      "disposition": "excluded-attempt",
+      "detail": "The first Official attempt failed during GitHub and Hugging Face TLS acquisition before the submitted candidate executed; the exact script was retried in a fresh Official directory."
+    },
+    {
+      "arm": "B",
+      "stage": "official-launch",
+      "disposition": "not-an-official-attempt",
+      "detail": "The first launcher command used Hydra override syntax for an absent optional key and exited before repository acquisition or container creation. The command syntax was corrected and the unchanged script was evaluated."
+    }
+  ],
+  "cumulative_interpretation": {
+    "b_exclusive_terminal_wins": 3,
+    "distinct_projects": 3,
+    "core_mechanism": "same-session-target-state-complete-program-replay",
+    "algorithm_and_protocol_status": "frozen-while-completing-census",
+    "not_established": [
+      "overall treatment effect size",
+      "SOTA",
+      "paper-level conclusion"
+    ]
+  },
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}
