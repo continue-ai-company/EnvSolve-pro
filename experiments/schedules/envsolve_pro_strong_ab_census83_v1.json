@@ -1,0 +1,2271 @@
+{
+  "case_file": "experiments/cases/dev_pro_strong_ab_census83_v1.jsonl",
+  "case_order": "random shuffle fixed before outcomes",
+  "cases": [
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-01-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-01-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-01-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 1
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-02-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-02-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-02-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 2
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-03-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-03-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-03-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 3
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-04-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-04-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-04-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 4
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-05-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-05-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-05-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-tefra__xsdata@1f42a6a5990664494049d4f97810cb0bcccc76df",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 5
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-06-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-06-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-06-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 6
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-07-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-07-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-07-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 7
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-08-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-08-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-08-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 8
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-09-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-09-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-09-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 9
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-10-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-10-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-10-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 10
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-11-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-11-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-11-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-giskard-ai__giskard@e724a9f5d7d90e88c1575cdb06ccd573548f033b",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 11
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-12-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-12-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-12-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-scikit-rf__scikit-rf@cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 12
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-13-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-13-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-13-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-zostera__django-bootstrap5@f07d75182b27a351ad07ae89400591046f0b2f3d",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 13
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-14-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-14-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-14-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 14
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-15-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-15-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-15-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-ucoproject__uco@9f168313453bb577141248e3968198bc00e7d39b",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 15
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-16-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-16-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-16-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-project-improv__improv@5682eeb82b9a8acd3cd5a9960e5cef308efc7f3e",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 16
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-17-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-17-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-17-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-scitools__iris-grib@e6e3d5ac1d90b8851b9625a2b3df2af1a14f168f",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 17
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-18-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-18-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-18-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 18
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-19-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-19-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-19-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-islandora__documentation@d9b18ffb2678dfcf2f5d20cd36de0de2aacef528",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 19
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-20-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-20-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-20-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-jaraco__keyring@afe0abd3165da8fd68d2812f483ba429008442d5",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 20
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-21-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-21-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-21-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-neurogym__neurogym@ee0a140cf2c6f14f36f524997c269cf110afc73d",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 21
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-22-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-22-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-22-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-meltano__sdk@e4881b182b96f4f8c14bff059320dcf04715f65c",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 22
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-23-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-23-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-23-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 23
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-24-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-24-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-24-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 24
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-25-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-25-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-25-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 25
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-26-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-26-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-26-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-pyvisa__pyvisa@df628ff00a0a4ae4efee5277738b12a9d2fd0da0",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 26
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-27-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-27-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-27-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-rl-institut__spice_ev@81f63291a7b52ce00ffc1a4746af6dacc92e3f1e",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 27
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-28-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-28-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-28-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-fhempy__fhempy@2c61a608c664b25c7b5ecdcba6195b521e7bc74a",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 28
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-29-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-29-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-29-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-llm-random__llm-random@80c89d079aa004051fc14f5ffa6a6a62f22ea7da",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 29
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-30-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-30-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-30-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-getnikola__plugins@b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 30
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-31-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-31-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-31-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 31
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-32-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-32-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-32-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-fatal1ty__mashumaro@e945ee4319db49da9f7b8ede614e988cc8c8956b",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 32
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-33-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-33-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-33-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-pika__pika@ce7226e1aac88db151a0c1c4803ff55af7c2aa5a",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 33
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-34-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-34-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-34-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 34
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-35-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-35-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-35-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-scylladb__sphinx-scylladb-theme@4e3917945c5c194a7119cf10629f35664b451d61",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 35
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-36-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-36-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-36-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-googlefonts__gftools@e70cbae529bf512339dd55f63d7516dba5a22a85",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 36
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-37-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-37-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-37-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 37
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-38-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-38-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-38-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-litex-hub__litex-boards@75ef26b8e54b7b0c1c5e2fba63336f0752b96c2b",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 38
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-39-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-39-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-39-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-vespa-engine__pyvespa@32edd3699cc00c9bd7ad933fd74155acb59a4747",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 39
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-40-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-40-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-40-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mdolab__openaerostruct@0448bff067856093cdcec4bc8c271ecd4339a36d",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 40
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-41-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-41-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-41-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-transientskp__tkp@8a19cd23c7141c66c1ee8e42295957bbcf809531",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 41
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-42-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-42-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-42-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-python-openapi__openapi-core@68aaab4fb8c0d8382ab3d05588b501acaf7a51aa",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 42
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-43-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-43-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-43-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-karlicoss__hpi@35dd5d82a0e399f684fb3d09763bab44146927fc",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 43
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-44-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-44-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-44-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-getsentry__sentry-python@ec7172e15311b88695827a76ca7fa83fba2efff4",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 44
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-45-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-45-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-45-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-plasmapy__plasmapy@b0cecc85d74c5f9c666b4bfb06f5e3fbc308f321",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 45
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-46-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-46-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-46-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-platformio__platformio-core@7cf8d1d6961761eab681d49eea7fbafae0889186",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 46
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-47-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-47-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-47-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-internetarchive__brozzler@8d7507f37757b6b9caf6f0d948666c7e5f972894",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 47
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-48-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-48-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-48-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-jmetal__jmetalpy@0c9dc83ab4534d2cf053a1d159613cdc58b42c57",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 48
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-49-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-49-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-49-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-librephotos__librephotos@0a9e63377333dc4947767fbac81055a07ccf5341",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 49
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-50-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-50-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-50-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-johnsnowlabs__nlu@506860e546076b353969b5a3216c05d080ad923e",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 50
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-51-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-51-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-51-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-idaholab__civet@282f2cb1c72197cd34d4a38d396720bfaa6d7fc5",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 51
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-52-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-52-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-52-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-openqasm__openqasm@5efd5d0c7fc506b3f1c33e44f0f401aadfd013e0",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 52
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-53-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-53-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-53-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-oarriaga__paz@cede0aee7b0ce78357f884b916f96803f1cea202",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 53
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-54-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-54-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-54-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-nabla-ntnu__nablaweb@c0f51ad0cfbfb73de52fd041c002a5a3e4590c03",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 54
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-55-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-55-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-55-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-neptune-ai__neptune-client@b8d45806f7d0a96beb45ab09d7ddec693253a9e7",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 55
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-56-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-56-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-56-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-mampfes__hacs_waste_collection_schedule@a107f0e393b8f77b0da7971e530d0996344c6248",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 56
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-57-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-57-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-57-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-postgrespro__mamonsu@31a59811d7f66f01c90d77b9df34f3077a12dd8b",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 57
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-58-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-58-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-58-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-terminusdb__terminusdb-client-python@30fe3957a2ccd4fe4c15b3d36fc5419bcf166a85",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 58
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-59-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-59-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-59-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-spec-first__connexion@a930303faa9e10603cdd820c497303b2e52d8253",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 59
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-60-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-60-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-60-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-smarr__rebench@1de0e22fb3e9578b3aeb7a994481ead300fa977f",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 60
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-61-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-61-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-61-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-kevinmusgrave__pytorch-metric-learning@adfb78ccb275e5bd7a84d2693da41ff3002eed32",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 61
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-62-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-62-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-62-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-quantumjot__btrack@5720808a3533a91b02cb521c787b8ac31d3df20d",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 62
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-63-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-63-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-63-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-huggingface__datasets@a6ccf944e42c1a84de81bf326accab9999b86c90",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 63
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-64-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-64-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-64-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 64
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-65-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-65-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-65-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-google__trax@14514794eb03247c3a4426032607e1f7547e6f63",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 65
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-66-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-66-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-66-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-ibm__ibmi-bob@d741050ea70c32474d58a5f0897ab0056d9a611e",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 66
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-67-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-67-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-67-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-jonlabelle__sublimejsprettier@59831ef0e3ac4653974948ad1698d31a61172212",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 67
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-68-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-68-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-68-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-zostera__django-bootstrap3@a6565be14ed0edff98b84d2874dc709cbecb1118",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 68
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-69-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-69-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-69-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-lagolunatic__wwrando@35bc2a746713c1a380b6486809a3d87c5ba9fa85",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 69
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-70-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-70-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-70-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-nakagami__pyfirebirdsql@44f155d50e1668cf3e3f08ec15693eb72d4f1b60",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "spark",
+      "position": 70
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-71-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-71-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-71-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-textext__textext@a7f423f8a44285f0059299ed3f1286a46ef17218",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 71
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-72-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-72-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-72-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-qiita-spots__qiita@13eafdf1a2eb0c8b5d4019ad294b7490cd396139",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 72
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-73-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-73-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-73-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-rcmdnk__homebrew-file@d8d6be39755166e696dbbc4f16eb2e20dd2ee97c",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 73
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-74-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-74-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-74-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-qiboteam__qibolab@5e8ed94a7336734a9babca39ba58f1c557865d0e",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 74
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-75-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-75-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-75-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-wind-python__windpowerlib@191d8ca894d6d830997630fa3599f048d6e8c7b4",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 75
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-76-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-76-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-76-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 76
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-77-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-77-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-77-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-sublimelinter__sublimelinter@621ba9bf8d4ed4084902b8840bb1ae7d31e6a8fb",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "spark",
+      "position": 77
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-78-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-78-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-78-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-gymrek-lab__TRTools@99d7fb4ef0a420e4a689bafecba5189127d657ba",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 78
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-79-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-79-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-79-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-tommadness__kh2randomizer@9f2c43caa4cf29d05cc73f11590410f766cfce5c",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 79
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-80-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-80-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-80-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-flairNLP__fundus@c91ce6ef6625c9ab2711e696643c3a5014695e66",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 80
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-81-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-81-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-81-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-pgeu__pgeu-system@dd0bd79ae43b3a0cb1b604bd7f5cae0081e5a4dc",
+      "conditional_followup_order": [
+        "A2-no-replay",
+        "B-same-session-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 81
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-82-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-82-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-82-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-vkbottle__vkbottle@150c039c231785322a0e01cac40cc860b9ab74e5",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 82
+    },
+    {
+      "a1": {
+        "condition": "A1-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-83-A1",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "a2": {
+        "condition": "A2-no-replay",
+        "method": "codex-cli-goal-aware-boundary-v5",
+        "run_id": "pro-strong-ab-census83-83-A2",
+        "runner": "codex-cli-boundary-v5-official-primary-remote-docker"
+      },
+      "b": {
+        "condition": "B-same-session-replay",
+        "method": "envsolve-pro-minimal-b-boundary-v5",
+        "run_id": "pro-strong-ab-census83-83-B",
+        "runner": "envsolve-pro-minimal-b-boundary-v5-remote-docker"
+      },
+      "case_id": "envbench-python-microsoftgraph__msgraph-sdk-python-core@e36c17424c9d443bdfeafc32f32682529ce25f95",
+      "conditional_followup_order": [
+        "B-same-session-replay",
+        "A2-no-replay"
+      ],
+      "construction_host": "agenthub",
+      "position": 83
+    }
+  ],
+  "construction_hosts": {
+    "agenthub": {
+      "docker_executable": "/usr/local/bin/docker",
+      "expose_gpus": false,
+      "ssh_identity": "/Users/admin/.ssh/continue_ai_context_agenthub",
+      "target": "agenthub@100.66.96.39",
+      "workspace_root": "/Users/agenthub/work/envsolve-pro-strong-ab-census83-v1"
+    },
+    "spark": {
+      "docker_executable": "docker",
+      "expose_gpus": true,
+      "ssh_identity": null,
+      "target": "avdpro@100.81.196.23",
+      "workspace_root": "/home/avdpro/work/envsolve-pro-strong-ab-census83-v1"
+    }
+  },
+  "max_generation_sessions_per_construction_host": 1,
+  "max_parallel_generation_sessions": 2,
+  "model": "gpt-5.6-sol",
+  "official_fallback": "Mac ARM64 fresh EnvBench container only after a recorded Spark infrastructure failure; submitted program unchanged",
+  "official_host": "Spark fresh EnvBench container",
+  "random_seed": 20260902,
+  "reasoning_effort": "xhigh",
+  "study_id": "envsolve-pro-strong-ab-census83-v1"
+}

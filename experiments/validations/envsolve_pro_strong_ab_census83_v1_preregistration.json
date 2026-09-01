@@ -1,0 +1,63 @@
+{
+  "analysis": {
+    "competitive_explanation": "independent Agent-session variability",
+    "frontier_metrics": "diagnostic only; never substitute for pass",
+    "primary_contrast": "B-exclusive wins versus A2-exclusive wins; both-pass and both-fail are ties",
+    "primary_unit": "eligible A1 complete-program Official failure",
+    "screen_level_report": "A1-only, A1-then-A2, and A1-then-B Official Pass@1",
+    "secondary_metrics": [
+      "tokens",
+      "wall-clock time",
+      "container commands",
+      "complete-program replay count",
+      "infrastructure censoring"
+    ]
+  },
+  "decision": {
+    "kill": "No reproducible B-exclusive terminal advantage, or A2 matches/exceeds B across the opportunity cohort",
+    "promote": "Only after reproducible B-exclusive Official wins establish incremental terminal success over A2",
+    "retain": "Evidence is mixed or opportunity count is insufficient; do not add replay rules"
+  },
+  "execution": {
+    "construction_host_blocking": "All arms for one case use its preassigned host; host is balanced and assigned before outcomes",
+    "followup": "Run both A2 and B for every eligible A1 failure in the preassigned per-case order",
+    "followup_eligibility": "A1 formed an admissible complete program and independent Official completed but failed for a deployment reason",
+    "machine_roles": {
+      "agenthub": "one remote non-GPU construction/replay lane",
+      "mac": "Agent controller, scheduler, artifact collection",
+      "spark": "one remote CUDA-capable construction/replay lane and primary independent Official queue"
+    },
+    "pre_candidate_failure": "Record as a replay boundary; do not run conditional A2/B",
+    "run_a1_on_every_case": true,
+    "unique_treatment_difference": "B may call target-state complete-program replay and receive its result before the same active Agent session ends; A1 and A2 cannot"
+  },
+  "question": "Does same-session target-state complete-program replay produce terminal Official wins that a second equally strong free-Agent session does not?",
+  "recorded_at": "2026-09-01T16:17:56.140543+00:00",
+  "safeguard_policy": "No new hash, frozen contract, or software gate. Git records the preregistered files; ordinary tests check consistency.",
+  "scientific_role": "Consumed/Dev falsification cohort for same-session complete-program replay; not protected-set effect estimation.",
+  "selection": {
+    "census_count": 83,
+    "excluded_strong_association_count": 121,
+    "exposure_audit": "experiments/validations/envsolve_pro_strong_ab_census83_v1_exposure_audit.json",
+    "order_seed": 20260902,
+    "repository_content_or_current_outcome_used": false,
+    "selection": "all eligible identities; no outcome sampling",
+    "source": "experiments/cases/train_rest204.jsonl",
+    "source_count": 204
+  },
+  "shared_protocol": {
+    "candidate_interface": "complete executable Bash program",
+    "case_specific_rules": false,
+    "cross_case_experience": false,
+    "model": "gpt-5.6-sol",
+    "official_feedback_returned_online": false,
+    "official_metric": "Official Pass@1",
+    "official_test_opened": false,
+    "operation_space": "open",
+    "protected_canary_opened": false,
+    "reasoning_effort": "xhigh",
+    "resource_limits": "nonbinding safety caps"
+  },
+  "status": "recorded_before_first_a1_outcome",
+  "study_id": "envsolve-pro-strong-ab-census83-v1"
+}

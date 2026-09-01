@@ -1,0 +1,1290 @@
+{
+  "claim_limit": "All Dev identities are consumed under at least one method. This audit supports strong-model mechanism diagnosis only, not repository-unseen generalization.",
+  "eligible_count": 83,
+  "evidence_policy": "Exclude identities with a strong-model run manifest or a strong-model-associated committed schedule/validation record. The two blanket census assignment schedules are ignored because assignment did not establish execution.",
+  "excluded_cases": [
+    {
+      "case_id": "envbench-python-Lightning-AI__litgpt@0c609550dfb61699ee513defd64da64634ee3788",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-1-A/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c02-litgpt-codex-cli-native/envbench-python-Lightning-AI__litgpt__0c609550dfb61699ee513defd64da64634ee3788/manifest.json",
+        "experiments/schedules/pro_bad_case_revalidation_v1_mac.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane1_progress.json",
+        "experiments/validations/pro_bad_case_revalidation_v1_preregistration.json",
+        "experiments/validations/pro_goal_contract_external_codex_litgpt_v1_results.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-Mirascope__mirascope@cd6bf0a92d2dae975081d6da8281097abb5810a1",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-2-A/envbench-python-Mirascope__mirascope__cd6bf0a92d2dae975081d6da8281097abb5810a1/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-3-A/envbench-python-Modalities__modalities__4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane1_progress.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-Quantum-Accelerators__quacc@f6bc96ca8f169e2474a09e96cb84f2dc14227ff2",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-minb-causal-screened6-01-quacc-agenthub-A-F-v1/envbench-python-Quantum-Accelerators__quacc__f6bc96ca8f169e2474a09e96cb84f2dc14227ff2/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-2-lane2-4-A-spark/envbench-python-Quantum-Accelerators__quacc__f6bc96ca8f169e2474a09e96cb84f2dc14227ff2/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-2-lane2-4-A-spark/envbench-python-Quantum-Accelerators__quacc__f6bc96ca8f169e2474a09e96cb84f2dc14227ff2/official-spark/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-4-A/envbench-python-Quantum-Accelerators__quacc__f6bc96ca8f169e2474a09e96cb84f2dc14227ff2/manifest.json",
+        "experiments/schedules/envsolve_pro_minimal_b_strong_a_opportunity_profile_v1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_resume_block1_result.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-adamchainz__django-mysql@d6f0500565b1e4bc94044ca061e745cada955c11",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-2-lane1-5-A-spark/envbench-python-adamchainz__django-mysql__d6f0500565b1e4bc94044ca061e745cada955c11/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-2-lane1-5-A-spark/envbench-python-adamchainz__django-mysql__d6f0500565b1e4bc94044ca061e745cada955c11/official-spark/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane1-5-A/envbench-python-adamchainz__django-mysql__d6f0500565b1e4bc94044ca061e745cada955c11/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane1_progress.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_resume_block1_result.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-adbar__trafilatura@b5bfe43520623a5e42c6e4034878ec8dd7d9d242",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control-network-retry1/envbench-python-adbar__trafilatura__b5bfe43520623a5e42c6e4034878ec8dd7d9d242/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-01-A-strong-agent-control/envbench-python-adbar__trafilatura__b5bfe43520623a5e42c6e4034878ec8dd7d9d242/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-02-B-one-shot-certification/envbench-python-adbar__trafilatura__b5bfe43520623a5e42c6e4034878ec8dd7d9d242/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-03-C-retryable-minimal-b/envbench-python-adbar__trafilatura__b5bfe43520623a5e42c6e4034878ec8dd7d9d242/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4_position1_network_retry1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4_position1_network_retry1_progress.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4_progress.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position1_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position1_network_amendment.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position1_network_retry1_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position2_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position3_execution_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ai4co__rl4co@a6231241b8ddf2fd6f38f8931f42778d84e78603",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-2-lane2-6-A-spark/envbench-python-ai4co__rl4co__a6231241b8ddf2fd6f38f8931f42778d84e78603/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-3-lane2-6-A-spark-source-retry1/envbench-python-ai4co__rl4co__a6231241b8ddf2fd6f38f8931f42778d84e78603/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-3-lane2-6-A-spark-source-retry1/envbench-python-ai4co__rl4co__a6231241b8ddf2fd6f38f8931f42778d84e78603/official-spark-network-retry1/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-3-lane2-6-A-spark-source-retry1/envbench-python-ai4co__rl4co__a6231241b8ddf2fd6f38f8931f42778d84e78603/official-spark/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-6-A/envbench-python-ai4co__rl4co__a6231241b8ddf2fd6f38f8931f42778d84e78603/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block2.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_8_rl4co_official_network_retry1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_8_rl4co_official_network_retry_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ajenti__ajenti@af7a178ae8dc847a20c47e2cb0176bffecfea14c",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-minb-causal-screened6-02-ajenti-agenthub-A-F-v1/envbench-python-ajenti__ajenti__af7a178ae8dc847a20c47e2cb0176bffecfea14c/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-2-lane1-7-A-spark/envbench-python-ajenti__ajenti__af7a178ae8dc847a20c47e2cb0176bffecfea14c/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-4-lane1-7-A-spark-source-retry1/envbench-python-ajenti__ajenti__af7a178ae8dc847a20c47e2cb0176bffecfea14c/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-4-lane1-7-A-spark-source-retry1/envbench-python-ajenti__ajenti__af7a178ae8dc847a20c47e2cb0176bffecfea14c/official-spark/manifest.json",
+        "experiments/schedules/envsolve_pro_minimal_b_strong_a_opportunity_profile_v1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block2.json",
+        "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_4_ajenti_remote_source_retry_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-6-lane2-8-A-spark/envbench-python-alteryx__featuretools__8c99ff7d62d723e90d406ac56bae22aad82e6a47/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-8-A/envbench-python-alteryx__featuretools__8c99ff7d62d723e90d406ac56bae22aad82e6a47/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block4_parallel.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_11_integrity_and_official_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_21_featuretools_neps_basxconnect_results.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-andrew-codechimp__HA-Battery-Notes@59a2b6d544f88deefa1e5a7bcb44a8abf772c62d",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-minb-causal-screened6-04-ha-battery-notes-agenthub-A-F-v1/envbench-python-andrew-codechimp__HA-Battery-Notes__59a2b6d544f88deefa1e5a7bcb44a8abf772c62d/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-5-lane1-9-A-spark/envbench-python-andrew-codechimp__HA-Battery-Notes__59a2b6d544f88deefa1e5a7bcb44a8abf772c62d/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-5-lane1-9-A-spark/envbench-python-andrew-codechimp__HA-Battery-Notes__59a2b6d544f88deefa1e5a7bcb44a8abf772c62d/official-spark/manifest.json",
+        "experiments/schedules/envsolve_pro_minimal_b_strong_a_opportunity_profile_v1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block3_lane1.json",
+        "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_5_spark_lane1_position9_result.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ansible__ansible-zuul-jobs@33dd767b8609db931003583faa1eb47ac9fabfc1",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-10-A/envbench-python-ansible__ansible-zuul-jobs__33dd767b8609db931003583faa1eb47ac9fabfc1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-codex-mcp-smoke-v1/envbench-python-ansible__ansible-zuul-jobs__33dd767b8609db931003583faa1eb47ac9fabfc1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-v1-c03-codex-cli-native/envbench-python-ansible__ansible-zuul-jobs__33dd767b8609db931003583faa1eb47ac9fabfc1/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ansible__molecule@fd3ed55b11bf896aa1892ee75a6f32761eed3032",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-6-lane1-11-A-spark/envbench-python-ansible__molecule__fd3ed55b11bf896aa1892ee75a6f32761eed3032/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-6-lane1-11-A-spark/envbench-python-ansible__molecule__fd3ed55b11bf896aa1892ee75a6f32761eed3032/official-spark/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block4_parallel.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_6_molecule_result.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-astropy__extension-helpers@e6996c540c5bf23e89b45f170e89bd8c9f22a86e",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c15-codex-cli-native-integrity-adjudication1/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c15-codex-cli-native/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-12-A/envbench-python-astropy__extension-helpers__e6996c540c5bf23e89b45f170e89bd8c9f22a86e/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-astropy__regions@15393a984d1bd93333805b4f0a9277e3e1ed7929",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-7-lane1-13-A-spark/envbench-python-astropy__regions__15393a984d1bd93333805b4f0a9277e3e1ed7929/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block5_parallel.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_11_integrity_and_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-7-lane2-14-A-spark/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-01-A-strong-agent-control-infra-retry1/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-01-A-strong-agent-control/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-02-B-one-shot-certification-infra-retry1/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-02-B-one-shot-certification/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry1/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b-official-retry2/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-03-C-retryable-minimal-b/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-14-A/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/manifest.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block1_ab_infra_retry1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block5_parallel.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block1_infrastructure_retry_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-automl__neps@6a6c0c273f59036b8605086c43a6a714ea02bd23",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-9-lane1-15-A-spark/envbench-python-automl__neps__6a6c0c273f59036b8605086c43a6a714ea02bd23/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block6_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_16_neps_official_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_21_featuretools_neps_basxconnect_results.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-avaiga__taipy-core@62f0d8521cbb80ae13654c53620ddc856ba86d33",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-16-A/envbench-python-avaiga__taipy-core__62f0d8521cbb80ae13654c53620ddc856ba86d33/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-10-lane1-17-A-spark/envbench-python-basxsoftwareassociation__basxconnect__a616dd61bb6012de1668ba0e3c289924e69cff68/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-04-C-retryable-minimal-b/envbench-python-basxsoftwareassociation__basxconnect__a616dd61bb6012de1668ba0e3c289924e69cff68/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block7_parallel.json",
+        "experiments/validations/pro_certification_repair_ablation_v1_dev8_parallel_coordinator_interruption_snapshot.json",
+        "experiments/validations/pro_certification_repair_ablation_v1_dev8_position4_coordinator_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_11_integrity_and_official_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_21_featuretools_neps_basxconnect_results.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-basxsoftwareassociation__bread@b26203df8f81fcbf5f299dfe07dc808309349ecd",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-18-A/envbench-python-basxsoftwareassociation__bread__b26203df8f81fcbf5f299dfe07dc808309349ecd/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-beeware__briefcase@448b58bcf928ae4e933fa342795785fb3211cd17",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-14-lane1-19-A-spark/envbench-python-beeware__briefcase__448b58bcf928ae4e933fa342795785fb3211cd17/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block8_parallel.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_18_briefcase_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-benadida__helios-server@c7ed0608e2cdfc75bf323a834f0ca579e6273e34",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-20-A/envbench-python-benadida__helios-server__c7ed0608e2cdfc75bf323a834f0ca579e6273e34/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-benthayer__git-gud@d00a0405c88f212cf448cad6729a7cfda369f420",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-18-lane1-21-A-spark/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c07-codex-cli-native/envbench-python-benthayer__git-gud__d00a0405c88f212cf448cad6729a7cfda369f420/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block9_lane1.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_22_git_gud_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-22-A/envbench-python-biothings__biothings.api__6573562773ed66b9428aead1ba7ac187005bb031/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-bottlecapdave__homeassistant-octopusenergy@1ece6dff9948051323f51aeee4c861ccaeb7d548",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-22-lane1-23-A-spark/envbench-python-bottlecapdave__homeassistant-octopusenergy__1ece6dff9948051323f51aeee4c861ccaeb7d548/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block11_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_25_homeassistant_octopusenergy_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-bradenm__micropy-cli@ac85e9f12c4d71a46f589d716e37c8da33f761a7",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-minb-causal-screened6-05-micropy-cli-agenthub-A-F-v1/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-10-lane2-24-A-spark/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1/pro-dev-bad-case-census-v1-lane2-24-A/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-posthoc-external-v1/pro-posthoc-v1-c02-micropy-cli-codex-cli-goal-aware-contract-rerun1/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-posthoc-external-v1/pro-posthoc-v1-c02-micropy-cli-codex-cli-goal-aware/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v1-consumed/pro-stateful-v1-c02-micropy-cli-raw-history/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v1-consumed/pro-stateful-v1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2-consumed/pro-stateful-v2-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.1-consumed/pro-stateful-v2-1-c02-micropy-cli-structured-state/envbench-python-bradenm__micropy-cli__ac85e9f12c4d71a46f589d716e37c8da33f761a7/manifest.json",
+        "experiments/schedules/envsolve_pro_minimal_b_strong_a_opportunity_profile_v1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block7_parallel.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_mac_lane2_progress.json",
+        "experiments/schedules/pro_posthoc_external_v1_mac_codex.json",
+        "experiments/schedules/pro_posthoc_external_v1_mac_codex_contract_rerun1.json",
+        "experiments/schedules/pro_stateful_agent_v1_consumed_mac.json",
+        "experiments/schedules/pro_stateful_agent_v2_1_consumed_mechanism_mac.json",
+        "experiments/schedules/pro_stateful_agent_v2_consumed_mechanism_mac.json",
+        "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_14_micropy_cli_official_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_19_micropy_cli_terminal_result.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_2_spark_execution_amendment.json",
+        "experiments/validations/pro_posthoc_external_v1_preregistration.json",
+        "experiments/validations/pro_posthoc_external_v1_results.json",
+        "experiments/validations/pro_stateful_agent_v1_consumed_mechanism_preregistration.json",
+        "experiments/validations/pro_stateful_agent_v2_1_consumed_mechanism_preregistration.json",
+        "experiments/validations/pro_stateful_agent_v2_consumed_mechanism_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-bradyajohnston__molecularnodes@33a07854f471eebe8f131d260b3fcbc9416f69b0",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-25-lane1-25-A-spark/envbench-python-bradyajohnston__molecularnodes__33a07854f471eebe8f131d260b3fcbc9416f69b0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-10-codex-raw-repair-v2.2/envbench-python-bradyajohnston__molecularnodes__33a07854f471eebe8f131d260b3fcbc9416f69b0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-11-envsolve-pro-structured-v2.2/envbench-python-bradyajohnston__molecularnodes__33a07854f471eebe8f131d260b3fcbc9416f69b0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-12-codex-goal-aware-single-session/envbench-python-bradyajohnston__molecularnodes__33a07854f471eebe8f131d260b3fcbc9416f69b0/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block12_lane1.json",
+        "experiments/schedules/pro_stateful_agent_v2_2_pilot5_mac.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_33_molecularnodes_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-brainglobe__brainrender@2b9e89533cd7802802ef63c791245af7b33cc916",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-14-lane2-26-A-spark/envbench-python-brainglobe__brainrender__2b9e89533cd7802802ef63c791245af7b33cc916/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block8_parallel.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_20_brainrender_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-calliope-project__calliope@4079fbd595d0e25504e977df0b22883507b2492e",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-28-lane1-27-A-spark/envbench-python-calliope-project__calliope__4079fbd595d0e25504e977df0b22883507b2492e/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c09-codex-cli-native/envbench-python-calliope-project__calliope__4079fbd595d0e25504e977df0b22883507b2492e/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block14_lane1.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_41_calliope_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-cantools__cantools@2c92c60f2d1b50894ad0c5652afd331283e03402",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-20-lane2-28-A-spark/envbench-python-cantools__cantools__2c92c60f2d1b50894ad0c5652afd331283e03402/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block10_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_26_cantools_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-castagnait__plugin.video.netflix@e87aa8559e9b0d38699a5383e09381ee7756783b",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-39-lane1-29-A-spark/envbench-python-castagnait__plugin.video.netflix__e87aa8559e9b0d38699a5383e09381ee7756783b/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-09-envsolve-pro-minimal-b-v1.0.2/envbench-python-castagnait__plugin.video.netflix__e87aa8559e9b0d38699a5383e09381ee7756783b/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-10-codex-goal-aware-single-session/envbench-python-castagnait__plugin.video.netflix__e87aa8559e9b0d38699a5383e09381ee7756783b/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block17_lane1.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_43_plugin_video_netflix_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-26-lane2-30-A-spark/envbench-python-cclib__cclib__ea13e497a0ade1d47ecffce9c219f032cfe741d1/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block13_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_31_versioningit_integrity_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_32_cclib_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-cda-tum__mqt-bench@ae62809395e5b31b5f5b5886f3e5916193029cdd",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-42-lane1-31-A-spark/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b-cli147-replacement1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b-infra-retry1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-04-C-retryable-minimal-b/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control-cli147-replacement1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control-infra-retry1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-05-A-strong-agent-control/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-replacement1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-cli147-semantic-stall-retry1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification-infra-retry1/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-06-B-one-shot-certification/envbench-python-cda-tum__mqt-bench__ae62809395e5b31b5f5b5886f3e5916193029cdd/manifest.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_cli147_b_semantic_stall_retry1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_cli147_replacement1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_namespace_replacement_b1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block19_lane1.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_cli147_adjudication.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_cli147_b_semantic_stall_retry_amendment.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_cli_drift_contemporaneous_amendment.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_namespace_replacement_b_amendment.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block2_spark_source_retry_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_46_mqt_bench_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-censys__censys-python@d5533d17175561528757245784b79c41b0578dfc",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-29-lane2-32-A-spark/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c10-codex-cli-native-evaluation-resume1/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c10-codex-cli-native-infra-retry1/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c10-codex-cli-native/envbench-python-censys__censys-python__d5533d17175561528757245784b79c41b0578dfc/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block15_lane2.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_35_censys_python_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-46-lane1-33-A-spark/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block21_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_50_ceph_ansible_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-cherrypy__cheroot@1ff20b18e98e424e0616654c28c92524deef348a",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-35-lane2-34-A-spark/envbench-python-cherrypy__cheroot__1ff20b18e98e424e0616654c28c92524deef348a/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block16_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_39_cheroot_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-cityofzion__neo3-boa@58d33fdcbb67cc6d4f5efefced4ef0a382346ad4",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-51-lane1-35-A-spark/envbench-python-cityofzion__neo3-boa__58d33fdcbb67cc6d4f5efefced4ef0a382346ad4/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block23_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_55_neo3_boa_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-claritychallenge__clarity@5fa8741ed75eb9c9c8dba078c86b78458e2713f3",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-minb-causal-screened6-03-clarity-agenthub-A-F-v1/envbench-python-claritychallenge__clarity__5fa8741ed75eb9c9c8dba078c86b78458e2713f3/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-40-lane2-36-A-spark/envbench-python-claritychallenge__clarity__5fa8741ed75eb9c9c8dba078c86b78458e2713f3/manifest.json",
+        "experiments/schedules/envsolve_pro_minimal_b_strong_a_opportunity_profile_v1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block18_lane2.json",
+        "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_47_clarity_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-columnflow__columnflow@ad04770a757f5031229ea1b47314cef6de5c9edf",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-55-lane1-37-A-spark/envbench-python-columnflow__columnflow__ad04770a757f5031229ea1b47314cef6de5c9edf/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block25_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_61_columnflow_official_binding.json",
+        "experiments/validations/pro_p0_external_baselines_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-commaai__comma10k@7a1293562fd8c0f3932c2c55f6e8a509efa1c66d",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-43-lane2-38-A-spark/envbench-python-commaai__comma10k__7a1293562fd8c0f3932c2c55f6e8a509efa1c66d/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block20_lane2.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-60-lane1-39-A-spark/envbench-python-conan-io__conan-package-tools__decb63a1a470a5ffd5adf3ae6074b740f086aef2/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c01-codex-cli-native/envbench-python-conan-io__conan-package-tools__decb63a1a470a5ffd5adf3ae6074b740f086aef2/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block27_lane1.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_60_conan_package_tools_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-couchbase__cbmonitor@c041e290452b284c0e8913192158193af777f6cd",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-62-lane1-41-A-spark/envbench-python-couchbase__cbmonitor__c041e290452b284c0e8913192158193af777f6cd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-07-codex-raw-repair-v2.4/envbench-python-couchbase__cbmonitor__c041e290452b284c0e8913192158193af777f6cd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-08-envsolve-pro-structured-v2.4/envbench-python-couchbase__cbmonitor__c041e290452b284c0e8913192158193af777f6cd/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-09-codex-goal-aware-single-session/envbench-python-couchbase__cbmonitor__c041e290452b284c0e8913192158193af777f6cd/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block29_lane1.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_clean_retry2.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_resume_from_3.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_64_cbmonitor_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-52-lane2-42-A-spark/envbench-python-cvxgrp__cvxportfolio__831fc7c6e691c4e5d27ecf870ba52d7440bf4784/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block24_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_58_cvxportfolio_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-datactive__bigbang@42568c20e318bd351a1d42acda21895960646133",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-63-lane1-43-A-spark/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-03-envsolve-pro-minimal-b-v1.0.2/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-infrastructure-retry1/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-network-retry2/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-04-codex-goal-aware-single-session-source-cache-retry3/envbench-python-datactive__bigbang__42568c20e318bd351a1d42acda21895960646133/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block30_lane1.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_infrastructure_retry1_mac.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_network_retry2_mac.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_position4_source_cache_retry3_mac.json",
+        "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_infrastructure_amendment.json",
+        "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_network_amendment.json",
+        "experiments/validations/pro_minimal_b_v1_paired_dev5_position4_source_cache_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-57-lane2-44-A-spark/envbench-python-datamol-io__graphium__3efa7f106e6443f9213c498be115ced15556754d/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block26_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_63_graphium_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-dbiir__uer-py@5743050cc41f0f21986c9f938db5ac1726052629",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-66-lane1-45-A-spark/envbench-python-dbiir__uer-py__5743050cc41f0f21986c9f938db5ac1726052629/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block33_lane1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-de7vid__klingon-assistant-data@2a8945f261748cde5e84363ac5145ac74b7c5e61",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-61-lane2-46-A-spark/envbench-python-de7vid__klingon-assistant-data__2a8945f261748cde5e84363ac5145ac74b7c5e61/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block28_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_65_klingon_assistant_data_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-democracyclub__everyelection@74e6fabf58668d8b96713d05f877b6e4f0353166",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-69-lane1-47-A-spark/envbench-python-democracyclub__everyelection__74e6fabf58668d8b96713d05f877b6e4f0353166/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block36_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_90_everyelection_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-democracyclub__uk-polling-stations@d67f5fc05c9aa40530b21dea0cc9d5db920f6493",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-64-lane2-48-A-spark/envbench-python-democracyclub__uk-polling-stations__d67f5fc05c9aa40530b21dea0cc9d5db920f6493/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-v1-c01-codex-cli-native/envbench-python-democracyclub__uk-polling-stations__d67f5fc05c9aa40530b21dea0cc9d5db920f6493/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block31_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_72_uk_polling_stations_official_binding.json",
+        "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-dfki-ric__phobos@4e37f7f0f73b1d2a32cb715dd803dcd117f14d21",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-remote-valid1/envbench-python-dfki-ric__phobos__4e37f7f0f73b1d2a32cb715dd803dcd117f14d21/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark-source-retry1/envbench-python-dfki-ric__phobos__4e37f7f0f73b1d2a32cb715dd803dcd117f14d21/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-72-lane1-49-A-spark/envbench-python-dfki-ric__phobos__4e37f7f0f73b1d2a32cb715dd803dcd117f14d21/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block39_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_92_phobos_remote_source_retry_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-diefenbach__django-lfs@3e6e96ec223a8184ae84fdeabd984745ea29e27f",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-65-lane2-50-A-spark/envbench-python-diefenbach__django-lfs__3e6e96ec223a8184ae84fdeabd984745ea29e27f/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block32_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_74_django_lfs_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-dj-stripe__dj-stripe@f271062a7662968385113df2482cd26a2ec69ac9",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-74-lane1-51-A-spark-remote-valid1/envbench-python-dj-stripe__dj-stripe__f271062a7662968385113df2482cd26a2ec69ac9/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block41_lane1.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_100_dj_stripe_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-dnarayanan__powderday@d81ce05aa0baedaa4b63b17abc0963b64fb33bbc",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-67-lane2-52-A-spark/envbench-python-dnarayanan__powderday__d81ce05aa0baedaa4b63b17abc0963b64fb33bbc/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block34_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_85_powderday_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-dtmilano__androidviewclient@8738d3af40921b861f25780b4a92b5b6d4990af1",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-75-lane1-53-A-spark-remote-valid1/envbench-python-dtmilano__androidviewclient__8738d3af40921b861f25780b4a92b5b6d4990af1/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block42_lane1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-eastsidepreparatoryschool__epschedule@76cc6bec7d37dedae67c6926142ae37cbf15194a",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-68-lane2-54-A-spark/envbench-python-eastsidepreparatoryschool__epschedule__76cc6bec7d37dedae67c6926142ae37cbf15194a/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block35_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_82_epschedule_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ecds__readux@3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-76-lane1-55-A-spark-remote-valid1/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01-C-retryable-minimal-b/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-01O1-C-official-network-retry/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-02-A-strong-agent-control/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-ablation-v1-dev8/pro-cert-repair-v1-dev8-03-B-one-shot-certification/envbench-python-ecds__readux__3eaf18edb9bcb0858507dcdb9295bc367e1ff8fb/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block43_lane1.json",
+        "experiments/validations/pro_certification_repair_ablation_v1_dev8_parallel_coordinator_interruption_snapshot.json",
+        "experiments/validations/pro_certification_repair_ablation_v1_dev8_position1_official_retry1_execution_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-econ-ark__hark@d86eb935e005debb032875a89d5402bd170c9781",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-minb-causal-hark-agenthub-A-F-v2/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-remote-valid1/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark-source-retry1/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-70-lane2-56-A-spark/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/pro-minb-causal-hark-agenthub-A-F-v1/envbench-python-econ-ark__hark__d86eb935e005debb032875a89d5402bd170c9781/manifest.json",
+        "experiments/schedules/envsolve_pro_minimal_b_strong_a_opportunity_profile_v1.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block37_lane2.json",
+        "experiments/validations/envsolve_pro_v2_target_state_replay_screened_bad6_v1_selection.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_86_hark_remote_source_retry_amendment.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_96_hark_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-78-lane1-57-A-spark-remote-valid1/envbench-python-eggpi__citationhunt__53d3975373b51c22a805cb2a07d12e3d8cfb21c7/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block45_lane1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ellmetha__django-machina@e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-remote-valid1/envbench-python-ellmetha__django-machina__e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark-source-retry1/envbench-python-ellmetha__django-machina__e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-71-lane2-58-A-spark/envbench-python-ellmetha__django-machina__e34c8ba4f1ba13f6f76dfcc20f276d2affc7c416/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block38_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_89_django_machina_remote_source_retry_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-emdgroup__baybe@8afb0ff99655d34176fa7dc52ec488e3773103d3",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-1/pro-dev-bad-case-census-v1-0-79-lane1-59-A-spark-remote-valid1-official/envbench-python-emdgroup__baybe__8afb0ff99655d34176fa7dc52ec488e3773103d3/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-79-lane1-59-A-spark-remote-valid1/envbench-python-emdgroup__baybe__8afb0ff99655d34176fa7dc52ec488e3773103d3/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block46_lane1_frozen_not_started.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_118_baybe_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-remote-valid1/envbench-python-emi-group__evox__c67e704b19a087bd4d075a83a380aad611fda1d2/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark-source-retry1/envbench-python-emi-group__evox__c67e704b19a087bd4d075a83a380aad611fda1d2/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-73-lane2-60-A-spark/envbench-python-emi-group__evox__c67e704b19a087bd4d075a83a380aad611fda1d2/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block40_lane2.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_93_evox_remote_source_retry_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-eylles__pywal16@ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-81-lane1-61-A-spark-remote-valid1/envbench-python-eylles__pywal16__ab1f5c87f1a8b8423d66cab3cb7d0b4df9f47636/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block48_lane1_frozen_not_started.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-facebookresearch__hydra@2e682d84e789d82dd11ab1f329f2dd1966fa6b54",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-77-lane2-62-A-spark-remote-valid1/envbench-python-facebookresearch__hydra__2e682d84e789d82dd11ab1f329f2dd1966fa6b54/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block44_lane2.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-fedora-python__portingdb@6c7f97e01d35594833856bab7e187999fc78fea2",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-1/pro-dev-bad-case-census-v1-0-80-lane2-64-A-spark-remote-valid1-official/envbench-python-fedora-python__portingdb__6c7f97e01d35594833856bab7e187999fc78fea2/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-80-lane2-64-A-spark-remote-valid1/envbench-python-fedora-python__portingdb__6c7f97e01d35594833856bab7e187999fc78fea2/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block47_lane2_frozen_not_started.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_0_119_portingdb_official_binding.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-fillll__reddit2telegram@9899113b47d24c3eaebaf566718903990794e07c",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-82-lane2-66-A-official-network-retry1/envbench-python-fillll__reddit2telegram__9899113b47d24c3eaebaf566718903990794e07c/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-dev-bad-case-census-v1-0-2/pro-dev-bad-case-census-v1-0-82-lane2-66-A-spark-remote-valid1/envbench-python-fillll__reddit2telegram__9899113b47d24c3eaebaf566718903990794e07c/manifest.json",
+        "experiments/schedules/pro_dev_bad_case_census_v1_0_2_spark_resume_block49_lane2_frozen_not_started.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-flav-io__flavio@188120d651c38419cd970957e5259071842f4cca",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-08-flavio-agenthub-A-F-v1/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-10-codex-raw-repair-v2.4/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-11-envsolve-pro-structured-v2.4/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-12-codex-goal-aware-single-session/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_clean_retry2.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_resume_from_3.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-gpflow__gpflow@81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-04-A-strong-agent-control-submission-continuation1/envbench-python-gpflow__gpflow__81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-04-A-strong-agent-control/envbench-python-gpflow__gpflow__81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-05-B-one-shot-certification/envbench-python-gpflow__gpflow__81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-06-C-retryable-minimal-b/envbench-python-gpflow__gpflow__81fe1fb86a77d3d49d30ab4f8e739e25bbd71f56/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4_progress.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position4_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position5_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position6_execution_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-has2k1__plotnine@812a5ab0b591515c4f5b62c08b5e51f90ab4cae1",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-13-codex-goal-aware-single-session/envbench-python-has2k1__plotnine__812a5ab0b591515c4f5b62c08b5e51f90ab4cae1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-14-codex-raw-repair-v2.2/envbench-python-has2k1__plotnine__812a5ab0b591515c4f5b62c08b5e51f90ab4cae1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-15-envsolve-pro-structured-v2.2/envbench-python-has2k1__plotnine__812a5ab0b591515c4f5b62c08b5e51f90ab4cae1/manifest.json",
+        "experiments/schedules/pro_stateful_agent_v2_2_pilot5_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-hazyresearch__meerkat@b08d6061f7d3e0acdc04a6304cf8fc27c2d72b30",
+      "evidence": [
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_mac.json",
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_mac_network_retry1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ing-bank__probatus@c1a6889a61fad16358c89d200eff47ebecbb5c3c",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-02-probatus-agenthub-A-F-v1/envbench-python-ing-bank__probatus__c1a6889a61fad16358c89d200eff47ebecbb5c3c/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-injectivelabs__sdk-python@a93aab1257174769db96e208ac61464999323b32",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-01-injective-agenthub-A-F-v1/envbench-python-injectivelabs__sdk-python__a93aab1257174769db96e208ac61464999323b32/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-jaraco__irc@5282a3d1471d091da24f77adc75018dbc94cc912",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c02-codex-cli-native/envbench-python-jaraco__irc__5282a3d1471d091da24f77adc75018dbc94cc912/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-jazzband__tablib@2121267b45fe54b47b9dd4c74c203bf82eff8b97",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/remote-spark-smoke-v1/pro-remote-spark-backend-smoke-tablib-v1/envbench-python-jazzband__tablib__2121267b45fe54b47b9dd4c74c203bf82eff8b97/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/remote-spark-smoke-v1/pro-remote-spark-backend-smoke-tablib-v2/envbench-python-jazzband__tablib__2121267b45fe54b47b9dd4c74c203bf82eff8b97/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-07-codex-goal-aware-single-session/envbench-python-jazzband__tablib__2121267b45fe54b47b9dd4c74c203bf82eff8b97/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-08-envsolve-pro-minimal-b-v1.0.2/envbench-python-jazzband__tablib__2121267b45fe54b47b9dd4c74c203bf82eff8b97/manifest.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+        "experiments/validations/pro_remote_spark_backend_consumed_smoke_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-langchain-ai__langgraph@070b339b67d64773fbfdf296a52a334fa27af2ac",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c08-codex-cli-native/envbench-python-langchain-ai__langgraph__070b339b67d64773fbfdf296a52a334fa27af2ac/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-posthoc-external-v1/pro-posthoc-v1-c01-lark-codex-cli-goal-aware-contract-rerun1/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-posthoc-external-v1/pro-posthoc-v1-c01-lark-codex-cli-goal-aware/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-posthoc-external-v1/pro-posthoc-v1-c01-lark-codex-contract-visible-integrity-refinalized1/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v1-consumed/pro-stateful-v1-c01-lark-raw-history/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v1-consumed/pro-stateful-v1-c01-lark-structured-state/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c/manifest.json",
+        "experiments/schedules/pro_posthoc_external_v1_mac_codex.json",
+        "experiments/schedules/pro_posthoc_external_v1_mac_codex_contract_rerun1.json",
+        "experiments/schedules/pro_stateful_agent_v1_consumed_mac.json",
+        "experiments/validations/pro_posthoc_external_v1_preregistration.json",
+        "experiments/validations/pro_posthoc_external_v1_results.json",
+        "experiments/validations/pro_stateful_agent_v1_consumed_mechanism_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-libensemble__libensemble@99934db94cac472649d4e452da20123d51e8cee1",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-05-libensemble-agenthub-A-F-v1/envbench-python-libensemble__libensemble__99934db94cac472649d4e452da20123d51e8cee1/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-05-libensemble-mac-official-v1/envbench-python-libensemble__libensemble__99934db94cac472649d4e452da20123d51e8cee1/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-lichess4545__heltour@1d5fd89ae12e2e27cfa278c5cbaf0aa47325f030",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-v1-c05-codex-cli-native/envbench-python-lichess4545__heltour__1d5fd89ae12e2e27cfa278c5cbaf0aa47325f030/manifest.json",
+        "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-m-o-a-t__moat-mqtt@fcd0f9bf07548604d19d159ffb5fc543e78ce597",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-04-codex-goal-aware-single-session/envbench-python-m-o-a-t__moat-mqtt__fcd0f9bf07548604d19d159ffb5fc543e78ce597/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-05-codex-raw-repair-v2.2/envbench-python-m-o-a-t__moat-mqtt__fcd0f9bf07548604d19d159ffb5fc543e78ce597/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-06-envsolve-pro-structured-v2.2/envbench-python-m-o-a-t__moat-mqtt__fcd0f9bf07548604d19d159ffb5fc543e78ce597/manifest.json",
+        "experiments/schedules/pro_stateful_agent_v2_2_pilot5_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-marimo-team__marimo@537b23093bb75afd57b2c1f1d2f5cd528a08fc66",
+      "evidence": [
+        "experiments/validations/pro_p0_external_baselines_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-mause__duckdb_engine@f196b338b383d597ebdb6bef69879e75e6a3edbb",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-active-state-mechanism-gate-v1/pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware-network-retry1/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-active-state-mechanism-gate-v1/pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware-network-retry2/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-active-state-mechanism-gate-v1/pro-active-state-gate-v1-01-duckdb-engine-codex-goal-aware/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-consumed/pro-minimal-b-v1-0-1-consumed-smoke-01-duckdb-engine-retry1/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-consumed/pro-minimal-b-v1-consumed-smoke-01-duckdb-engine/envbench-python-mause__duckdb_engine__f196b338b383d597ebdb6bef69879e75e6a3edbb/manifest.json",
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_duckdb_network_retry2.json",
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_mac.json",
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_mac_network_retry1.json",
+        "experiments/validations/pro_minimal_b_v1_0_1_consumed_smoke_retry1_preregistration.json",
+        "experiments/validations/pro_minimal_b_v1_consumed_smoke_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-mirageoscience__geoapps@9dd62db0137dfe554fc550b57c58b0be521a1749",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c11-codex-cli-native/envbench-python-mirageoscience__geoapps__9dd62db0137dfe554fc550b57c58b0be521a1749/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-miurahr__aqtinstall@ac7da38299fc56ae4818ff1c19b96e4e2d6f36c8",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-01-codex-goal-aware-single-session/envbench-python-miurahr__aqtinstall__ac7da38299fc56ae4818ff1c19b96e4e2d6f36c8/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-02-codex-raw-repair-v2.2/envbench-python-miurahr__aqtinstall__ac7da38299fc56ae4818ff1c19b96e4e2d6f36c8/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-03-envsolve-pro-structured-v2.2/envbench-python-miurahr__aqtinstall__ac7da38299fc56ae4818ff1c19b96e4e2d6f36c8/manifest.json",
+        "experiments/schedules/pro_stateful_agent_v2_2_pilot5_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-10-B-one-shot-certification/envbench-python-nixtla__neuralforecast__90b6fd06dc59fa3f320c57f361d4ca8379aa6be7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-11-C-retryable-minimal-b/envbench-python-nixtla__neuralforecast__90b6fd06dc59fa3f320c57f361d4ca8379aa6be7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-12-A-strong-agent-control/envbench-python-nixtla__neuralforecast__90b6fd06dc59fa3f320c57f361d4ca8379aa6be7/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4_progress.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position10_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position11_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position12_execution_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-nonebot__nonebot2@7b724925badfe7133979c3d4d90a15054cdebabd",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c16-codex-cli-native/envbench-python-nonebot__nonebot2__7b724925badfe7133979c3d4d90a15054cdebabd/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-v1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-qualified-B-v1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json",
+        "experiments/validations/envsolve_pro_strong_a_screen15_case09_qualified_b_adjudication.json",
+        "experiments/validations/envsolve_pro_strong_a_screen15_second_session_control_v1_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c01-river-codex-cli-native/envbench-python-online-ml__river__6995f1522a9136fd3982890afac5c4a178e4cd57/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-goal-contract-v1/pro-goal-anchor-qv1-c01-river-codex-recorded-integrity-v5/envbench-python-online-ml__river__6995f1522a9136fd3982890afac5c4a178e4cd57/manifest.json",
+        "experiments/schedules/pro_bad_case_revalidation_v1_mac.json",
+        "experiments/validations/pro_bad_case_revalidation_v1_preregistration.json",
+        "experiments/validations/pro_goal_contract_external_codex_river_v1_results.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-A-F-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-A2-no-replay-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-qualified-B-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-mac-official-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json",
+        "experiments/validations/envsolve_pro_strong_a_screen15_case06_qualified_b_adjudication.json",
+        "experiments/validations/envsolve_pro_strong_a_screen15_second_session_control_v1_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-pasqal-io__pulser@acd8911024ab3b1fced0ff746fbe2f38452b0da0",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-07-envsolve-pro-structured-v2.3/envbench-python-pasqal-io__pulser__acd8911024ab3b1fced0ff746fbe2f38452b0da0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-08-codex-goal-aware-single-session/envbench-python-pasqal-io__pulser__acd8911024ab3b1fced0ff746fbe2f38452b0da0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-09-codex-raw-repair-v2.3/envbench-python-pasqal-io__pulser__acd8911024ab3b1fced0ff746fbe2f38452b0da0/manifest.json",
+        "experiments/schedules/pro_stateful_agent_v2_3_pilot3_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-piskvorky__smart_open@5a826134eb23c86087d06db3b78b25484e7e2e6d",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-04-smart-open-agenthub-A-F-v1/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-07-codex-raw-repair-v2.2/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-08-envsolve-pro-structured-v2.2/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.2-pilot5/pro-stateful-v2-2-pilot5-09-codex-goal-aware-single-session/envbench-python-piskvorky__smart_open__5a826134eb23c86087d06db3b78b25484e7e2e6d/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json",
+        "experiments/schedules/pro_stateful_agent_v2_2_pilot5_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-phase0-central-agenthub-strong-B-FR-v1-retry1/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-phase0-central-agenthub-strong-B-FR-v1-retry2/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-phase0-central-agenthub-strong-B-FR-v1-retry3/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-phase0-central-agenthub-strong-B-FR-v1-retry4/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-phase0-central-agenthub-strong-B-FR-v1/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-phase0-central-spark-strong-B-FR-v1/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-consumed/pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables-network-retry1/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-consumed/pro-minimal-b-v1-0-2-consumed-smoke-02-great-tables/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-01-codex-goal-aware-single-session/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-02-codex-raw-repair-v2.4/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-03-envsolve-pro-structured-v2.4-clean-retry2/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-03-envsolve-pro-structured-v2.4-retry1/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-03-envsolve-pro-structured-v2.4/envbench-python-posit-dev__great-tables__c4cbd943e9376c62872c3c402e64d168264e5623/manifest.json",
+        "experiments/schedules/envsolve_pro_canary_phase0_consumed_v1.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_clean_retry2.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_resume_from_3.json",
+        "experiments/validations/pro_minimal_b_v1_0_2_consumed_smoke_great_tables_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-psf__pyperf@7b9a23adb3ceeb182f58a03e453158dbe081a7e7",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-10-pyperf-agenthub-A-F-v1/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-04-codex-raw-repair-v2.4-clean-retry2/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-04-codex-raw-repair-v2.4/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-05-envsolve-pro-structured-v2.4-clean-retry2/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-05-envsolve-pro-structured-v2.4/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-06-codex-goal-aware-single-session-clean-retry2/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.4-pilot4/pro-stateful-v2-4-pilot4-06-codex-goal-aware-single-session/envbench-python-psf__pyperf__7b9a23adb3ceeb182f58a03e453158dbe081a7e7/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_clean_retry2.json",
+        "experiments/schedules/pro_stateful_agent_v2_4_pilot4_mac_resume_from_3.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-pymanopt__pymanopt@1de3b6f47258820fdc072fceaeaa763b9fd263b0",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-01-codex-goal-aware-single-session/envbench-python-pymanopt__pymanopt__1de3b6f47258820fdc072fceaeaa763b9fd263b0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2-interruption-retry1/envbench-python-pymanopt__pymanopt__1de3b6f47258820fdc072fceaeaa763b9fd263b0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-02-envsolve-pro-minimal-b-v1.0.2/envbench-python-pymanopt__pymanopt__1de3b6f47258820fdc072fceaeaa763b9fd263b0/manifest.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_position2_retry1_mac.json",
+        "experiments/validations/pro_minimal_b_v1_paired_dev5_position2_interruption_amendment.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-pypa__distutils@0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-01-C-retryable-minimal-b/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-boundary-diagnostic-evaluation-only-v1/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v3-untouched5/pro-cert-repair-boundary-v3-untouched5-02-A-strong-agent-control-infrastructure-retry1/envbench-python-pypa__distutils__0de29d3545dd3bf72c7e64bf8a8e53eac2ee50e0/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5_position2_infrastructure_retry1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5_position2_infrastructure_retry1_progress.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5_progress.json",
+        "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position1_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_infrastructure_amendment.json",
+        "experiments/validations/pro_certification_repair_boundary_v3_untouched5_position2_infrastructure_retry1_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-pypa__twine@6fbf880ee60915cf1666348c4bdd78a10415f2ac",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-15-twine-agenthub-A-F-v1/envbench-python-pypa__twine__6fbf880ee60915cf1666348c4bdd78a10415f2ac/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-pypose__pypose@931dc6f496936792059806eee190b9d6755c8c6f",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-01-envsolve-pro-structured-v2.3/envbench-python-pypose__pypose__931dc6f496936792059806eee190b9d6755c8c6f/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-02-codex-goal-aware-single-session/envbench-python-pypose__pypose__931dc6f496936792059806eee190b9d6755c8c6f/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-03-codex-raw-repair-v2.3/envbench-python-pypose__pypose__931dc6f496936792059806eee190b9d6755c8c6f/manifest.json",
+        "experiments/schedules/pro_stateful_agent_v2_3_pilot3_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-pysnmp__pysnmp@4891556e7db831a5a9b27d4bad8ff102609b2a2c",
+      "evidence": [
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_mac.json",
+        "experiments/schedules/pro_active_state_mechanism_gate_v1_mac_network_retry1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+      "evidence": [
+        "experiments/validations/pro_p0_external_baselines_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-r-anime__holo@7864bc6d8359f0eead242e015398fdb1aaebd3cb",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c05-codex-cli-native/envbench-python-r-anime__holo__7864bc6d8359f0eead242e015398fdb1aaebd3cb/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-rdmorganiser__rdmo@065d195043b7ac34a7b6b3180dac69829a3974bc",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-05-envsolve-pro-minimal-b-v1.0.2/envbench-python-rdmorganiser__rdmo__065d195043b7ac34a7b6b3180dac69829a3974bc/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-minimal-b-v1-paired-dev5/pro-minimal-b-v1-paired5-06-codex-goal-aware-single-session/envbench-python-rdmorganiser__rdmo__065d195043b7ac34a7b6b3180dac69829a3974bc/manifest.json",
+        "experiments/schedules/pro_minimal_b_v1_paired_dev5_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-rlberry-py__rlberry@81413717d8526a4890b5af05d1a27c747088b31d",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c13-codex-cli-native/envbench-python-rlberry-py__rlberry__81413717d8526a4890b5af05d1a27c747088b31d/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-robbievanleeuwen__section-properties@0a41ea141394ccca9df1625e1d44ea132a2ccf37",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-agenthub-A-F-v1/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-mac-official-retry1/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-mac-official-retry2/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-mac-official-v1/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-07-section-properties-mac-official-v2/envbench-python-robbievanleeuwen__section-properties__0a41ea141394ccca9df1625e1d44ea132a2ccf37/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-roboflow__supervision@d5cebd4fd2b75b160feb9d22b3558f3247b27f28",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-v1-c06-codex-cli-native/envbench-python-roboflow__supervision__d5cebd4fd2b75b160feb9d22b3558f3247b27f28/manifest.json",
+        "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c03-codex-cli-native/envbench-python-rollbar__pyrollbar__8493ac03c3468c2349c968726adffa5fd5661d0e/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-rstcheck__rstcheck@b8ddb006f1f49a9bdaf40e45f0bc0b070f460513",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-14-rstcheck-agenthub-A-F-v1/envbench-python-rstcheck__rstcheck__b8ddb006f1f49a9bdaf40e45f0bc0b070f460513/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-rubisco-sfa__ilamb@c0aecd5ea97c0817c1ef74935bc2d9aa3667195a",
+      "evidence": [
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-sphinx-contrib__spelling@51debaa98520145f6debce8f5a6c6d220359f54c",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-v1-c04-codex-cli-native/envbench-python-sphinx-contrib__spelling__51debaa98520145f6debce8f5a6c6d220359f54c/manifest.json",
+        "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-sphinx-gallery__sphinx-gallery@0d7823073f9307cfeaad370ad41207354dfe9713",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c12-codex-cli-native/envbench-python-sphinx-gallery__sphinx-gallery__0d7823073f9307cfeaad370ad41207354dfe9713/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c04-codex-cli-native/envbench-python-spotify__luigi__3cafd155bbc35918cfce442f9cef445eaa97f13c/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-starsimhub__starsim@0d3df5d3c57cfd89a8ccda8b3155c70a3b114e85",
+      "evidence": [
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-stopstalk__stopstalk-deployment@2bb56983cedeaf684aeea122d56bcb2996f66bc9",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-04-codex-raw-repair-v2.3/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-04-codex-raw-repair-v2.3/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9__interrupted_20260730T013013Z/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-05-envsolve-pro-structured-v2.3/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-stateful-agent-v2.3-pilot3/pro-stateful-v2-3-pilot3-06-codex-goal-aware-single-session/envbench-python-stopstalk__stopstalk-deployment__2bb56983cedeaf684aeea122d56bcb2996f66bc9/manifest.json",
+        "experiments/schedules/pro_stateful_agent_v2_3_pilot3_mac.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-strinking__futaba@2e4d7874f0b99176f7595f776dfebf2eac26afbb",
+      "evidence": [
+        "experiments/validations/pro_p0_external_baselines_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-11-tfma-agenthub-A-F-v1/envbench-python-tensorflow__model-analysis__807bd626f18613a5bfc8a5cc96cf29deee62f0ea/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-terrapower__armi@2bcb03689954ae39f3044f18a9a77c1fb7a0e63b",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-12-armi-agenthub-A-F-retry2/envbench-python-terrapower__armi__2bcb03689954ae39f3044f18a9a77c1fb7a0e63b/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-12-armi-agenthub-A-F-retry3/envbench-python-terrapower__armi__2bcb03689954ae39f3044f18a9a77c1fb7a0e63b/manifest.json",
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-12-armi-agenthub-A-F-v1/envbench-python-terrapower__armi__2bcb03689954ae39f3044f18a9a77c1fb7a0e63b/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-theislab__cellrank@6074913214f087301dd49bd9ef581c20ec56e759",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p2/pro-p2-v1-c02-codex-cli-native/envbench-python-theislab__cellrank__6074913214f087301dd49bd9ef581c20ec56e759/manifest.json",
+        "experiments/validations/pro_p2_dominant_contradiction_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c14-codex-cli-native-state-parity-adjudication1/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c14-codex-cli-native/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-ubernostrum__django-registration@dc80d4e3f90d64d12c35a6c494aa1ec9b36a1705",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-13-django-registration-agenthub-A-F-v1/envbench-python-ubernostrum__django-registration__dc80d4e3f90d64d12c35a6c494aa1ec9b36a1705/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-vacanza__python-holidays@472e89d889cf3a5c5301d54bc642f6c149f55ee5",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-cross-method-v1/pro-cross-method-v1-c06-codex-cli-native/envbench-python-vacanza__python-holidays__472e89d889cf3a5c5301d54bc642f6c149f55ee5/manifest.json",
+        "experiments/validations/pro_cross_method_census_v1_codex_schedule.json",
+        "experiments/validations/pro_cross_method_census_v1_evidence_matrix.json",
+        "experiments/validations/pro_cross_method_census_v1_second_annotation_packet.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-07-C-retryable-minimal-b-infra-retry1/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-07-C-retryable-minimal-b/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-08-A-strong-agent-control-infra-retry1/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-08-A-strong-agent-control/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-09-B-one-shot-certification-infra-retry1/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v2-dev8/pro-cert-repair-boundary-v2-dev8-09-B-one-shot-certification/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block3_cli147.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry1.json",
+        "experiments/validations/pro_certification_repair_boundary_v2_dev8_block3_spark_source_retry_amendment.json",
+        "experiments/validations/pro_certification_repair_boundary_v3_untouched5_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-wireless-innovation-forum__spectrum-access-system@928c3150adf7b31e53a96b695bf1fbdd3284ecb2",
+      "evidence": [
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-p0/pro-p0-v1-c01-codex-cli-native/envbench-python-wpi-lnl__lnldb__6384c05c867ef1e34f80c3c38f5fabdc3f35d28b/manifest.json",
+        "experiments/validations/pro_p0_external_baselines_v1_schedule.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+      "evidence": [
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-07-C-retryable-minimal-b/envbench-python-zappa__zappa__39f75e76d28c1a08d4de6501e6f794fe988cbc98/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-08-A-strong-agent-control/envbench-python-zappa__zappa__39f75e76d28c1a08d4de6501e6f794fe988cbc98/manifest.json",
+        "/Users/admin/Documents/AnyDeploy/runs/envsolve-pro-certification-repair-boundary-v5-untouched4/pro-cert-repair-boundary-v5-untouched4-09-B-one-shot-certification/envbench-python-zappa__zappa__39f75e76d28c1a08d4de6501e6f794fe988cbc98/manifest.json",
+        "experiments/schedules/pro_certification_repair_ablation_v1_dev8_v1_0_1.json",
+        "experiments/schedules/pro_certification_repair_boundary_v2_dev8.json",
+        "experiments/schedules/pro_certification_repair_boundary_v3_untouched5.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4.json",
+        "experiments/schedules/pro_certification_repair_boundary_v5_untouched4_progress.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position7_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position8_execution_binding.json",
+        "experiments/validations/pro_certification_repair_boundary_v5_untouched4_position9_execution_binding.json",
+        "experiments/validations/pro_dev_bad_case_census_v1_preregistration.json"
+      ]
+    },
+    {
+      "case_id": "envbench-python-zulip__python-zulip-api@868ce8f225b82f628c48284ac91feb4c2c6a48cc",
+      "evidence": [
+        "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-03-zulip-api-agenthub-A-F-v1/envbench-python-zulip__python-zulip-api__868ce8f225b82f628c48284ac91feb4c2c6a48cc/manifest.json",
+        "experiments/schedules/envsolve_pro_strong_a_falsification_screen15_v1.json"
+      ]
+    }
+  ],
+  "excluded_count": 121,
+  "manifest_roots": [
+    "/Users/admin/.codex/worktrees/4050/AnyDeploy/runs",
+    "/Users/admin/Documents/AnyDeploy/runs"
+  ],
+  "planned_only_schedules_ignored": [
+    "pro_dev_bad_case_census_v1_mac_lane1.json",
+    "pro_dev_bad_case_census_v1_mac_lane2.json"
+  ],
+  "recorded_at": "2026-09-01T16:17:56.140543+00:00",
+  "remote_reconciliation": {
+    "additional_source_identities_beyond_local_evidence": 0,
+    "agenthub_manifest_count": 2991,
+    "agenthub_strong_case_count": 1,
+    "observed_at": "2026-09-02",
+    "spark_manifest_count": 4331,
+    "spark_strong_case_count": 56
+  },
+  "source_case_file": "experiments/cases/train_rest204.jsonl",
+  "source_count": 204,
+  "strong_models": [
+    "gpt-5.4",
+    "gpt-5.5",
+    "gpt-5.6-sol"
+  ],
+  "study_id": "envsolve-pro-strong-ab-census83-v1"
+}
