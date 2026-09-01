@@ -44,6 +44,11 @@
     "qualified_same_session_clean_replay_survives_as_challenger": true,
     "reason": "The predeclared success criterion was met on one of two preidentified A failures: qualified B submitted an eligible program and independently Official-passed meshio. Frontier reduction alone was not counted; op-test remained a failure."
   },
+  "subsequent_negative_control": {
+    "artifact": "experiments/validations/envsolve_pro_strong_a_screen15_second_session_control_v1_result.json",
+    "causal_interpretation_superseded": true,
+    "updated_conclusion": "A second no-replay strong-Agent session also Official-passed meshio. The observed A-then-B gain is therefore not unique to replay and is matched by A-then-A2 on the complete opportunity set."
+  },
   "claim_boundary": {
     "supported": "On this fixed falsification screen, same-session clean-replay feedback repaired one terminal deployment failure left by strong free search and increased the observed A-then-B Official success count from 10 to 11.",
     "not_supported": "Two repair opportunities are insufficient to claim a stable effect size, SOTA, broad generalization, or superiority to Repo2Run and Codex.",

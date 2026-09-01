@@ -1,0 +1,128 @@
+{
+  "study_id": "envsolve-pro-strong-a-screen15-second-session-control-v1",
+  "recorded_at": "2026-09-01T23:54:02+08:00",
+  "status": "complete_negative_control_refutes_unique_replay_gain",
+  "preregistration": "experiments/validations/envsolve_pro_strong_a_screen15_second_session_control_v1_preregistration.json",
+  "scientific_role": "Post-hoc negative control of the second-independent-Agent-session explanation; not confirmatory effect estimation.",
+  "case_results": [
+    {
+      "position": 6,
+      "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+      "a1_official_pass": false,
+      "b_official_pass": false,
+      "a2_official_pass": false,
+      "a2_generation_run_id": "pro-strong-a-screen15-06-op-test-agenthub-A2-no-replay-v1",
+      "a2_container_commands": 83,
+      "a2_submitted_program": ":",
+      "a2_submission_qualification_pass": false,
+      "a2_official": {
+        "host": "spark-f21c",
+        "exit_code": 0,
+        "issues_count": 26,
+        "error_count": 1539,
+        "warning_count": 207,
+        "execution_time_seconds": 3.5327627658843994,
+        "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-A2-no-replay-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f/evaluation/spark-official-v1/results.jsonl"
+      },
+      "interpretation": "A2 independently reproduced the inability to locate legitimate providers for engine.FWObject and connection.common.FWConnection. It rejected source edits and synthetic modules, then submitted a no-op program that Official failed. Neither a second free session nor replay repaired this case."
+    },
+    {
+      "position": 9,
+      "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+      "a1_official_pass": false,
+      "b_official_pass": true,
+      "a2_official_pass": true,
+      "a2_generation_run_id": "pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1",
+      "a2_container_commands": 41,
+      "a2_submission_qualification_pass": true,
+      "a2_replay_feedback_available": false,
+      "a2_official": {
+        "host": "local-mac-arm64",
+        "exit_code": 0,
+        "issues_count": 0,
+        "error_count": 275,
+        "warning_count": 1,
+        "execution_time_seconds": 145.14108610153198,
+        "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/evaluation/local-mac-official-v1/json/results.jsonl"
+      },
+      "interpretation": "Without online clean-replay feedback, a second independent strong-Agent session found a reconstructible legacy compatibility path, passed the post-session nonfeedback clean qualification, and independently Official-passed. The B success is therefore not exclusive to replay."
+    }
+  ],
+  "matched_opportunity_comparison": {
+    "opportunity_count": 2,
+    "qualified_b_repairs": 1,
+    "qualified_b_repair_rate": 0.5,
+    "second_free_a_repairs": 1,
+    "second_free_a_repair_rate": 0.5,
+    "b_exclusive_wins": 0,
+    "a2_exclusive_wins": 0,
+    "ties_both_pass": 1,
+    "ties_both_fail": 1
+  },
+  "screen_level_comparison": {
+    "a1_only": {
+      "official_passes": 10,
+      "denominator": 14,
+      "rate": 0.7142857142857143
+    },
+    "a1_then_b_on_preidentified_opportunities": {
+      "official_passes": 11,
+      "denominator": 14,
+      "rate": 0.7857142857142857
+    },
+    "a1_then_a2_on_preidentified_opportunities": {
+      "official_passes": 11,
+      "denominator": 14,
+      "rate": 0.7857142857142857
+    },
+    "replay_gain_over_equal_second_session_control": {
+      "official_passes": 0,
+      "percentage_points": 0.0
+    }
+  },
+  "infrastructure_adjudication": {
+    "meshio_spark_attempts": [
+      {
+        "stage": "input_read",
+        "classification": "controller_jsonl_encoding_error",
+        "candidate_executed": false
+      },
+      {
+        "stage": "candidate_bootstrap",
+        "classification": "network_incomplete_transfer",
+        "exit_code": 18,
+        "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/evaluation/spark-official-v1/results.jsonl"
+      },
+      {
+        "stage": "source_acquisition",
+        "classification": "missing_git_lfs_then_downloader_fallback_error",
+        "candidate_executed": false
+      },
+      {
+        "stage": "candidate_bootstrap",
+        "classification": "python_package_download_timeout",
+        "exit_code": 2,
+        "artifact": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a/evaluation/spark-official-network-retry2/results.jsonl"
+      }
+    ],
+    "host_repair": "Installed the previously missing git-lfs system package on Spark. The final endpoint used the exact unchanged input on another registered ARM64 host after repeated Spark network censoring.",
+    "candidate_changed_between_hosts": false
+  },
+  "hypothesis_decision": {
+    "promote": false,
+    "current_recommendation": "retain_implementation_only_as_unproven_challenger",
+    "killed_claim": "The screen15 result demonstrates that same-session clean replay increases terminal success relative to an equally strong free-Agent control.",
+    "reason": "On the complete preidentified opportunity set, B and an equal second free-Agent session produced the same repairs and the same screen-level Official success. The only B success was also achieved without replay."
+  },
+  "strongest_support_remaining": "B can operationally return complete-program clean-replay counterexamples inside one active session and did produce an eligible Official-passing repair after A1 failed.",
+  "strongest_counterevidence": "The same case Official-passed under a second no-replay Agent session, so ordinary session variability fully explains the observed terminal gain.",
+  "next_experiment": {
+    "design": "Select a larger outcome-blind consumed/Dev cohort before new outcomes. Run A1 on every case. For every A1 eligible complete-program Official failure, run both A2 and qualified B in randomized order under the same model and evaluation conditions.",
+    "primary_contrast": "Count B-exclusive wins (B Pass, A2 Fail) against A2-exclusive wins (A2 Pass, B Fail); both-pass outcomes do not establish replay gain.",
+    "falsification_rule": "If B has no reproducible exclusive terminal wins over A2, kill replay as the EnvSolve-Pro core algorithm rather than adding rules."
+  },
+  "claim_limits": "One A2 replicate on two opportunities is enough to refute the simple unique-gain interpretation of screen15, but not enough to estimate stochastic pass probabilities or the population effect of replay.",
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_policy": "No new hash, frozen contract, or software gate was added."
+}
