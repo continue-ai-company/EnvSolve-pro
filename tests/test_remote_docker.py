@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
 
 from envsolve_harness.codex.remote_container_mcp import (
     SshProcessTreeSafePersistentContainerShell,
@@ -157,13 +158,14 @@ class SshDockerTransportTest(unittest.TestCase):
         transport = SshDockerTransport("user@spark", "/srv/envsolve")
         marker_output = (
             "/srv/envsolve/work/.venv-final/pyvenv.cfg\0"
+            "/srv/envsolve/work/.conda312/conda-meta/history\0"
             "/srv/envsolve/work/tracked-env/pyvenv.cfg\0"
             "/srv/envsolve/work/nested/env/pyvenv.cfg\0"
         )
-        with unittest.mock.patch.object(
+        with mock.patch.object(
             transport,
             "checked_remote",
-            side_effect=[marker_output, "", "tracked-env/pyvenv.cfg"],
+            side_effect=[marker_output, "", "", "tracked-env/pyvenv.cfg"],
         ) as checked:
             excludes = transport.rebuildable_excludes_from_remote(
                 "/srv/envsolve/work",
@@ -171,8 +173,11 @@ class SshDockerTransportTest(unittest.TestCase):
                 timeout=30,
             )
 
-        self.assertEqual(excludes, ("/.venv/", "/.venv-final/"))
-        self.assertEqual(checked.call_count, 3)
+        self.assertEqual(
+            excludes,
+            ("/.venv/", "/.conda312/", "/.venv-final/"),
+        )
+        self.assertEqual(checked.call_count, 4)
 
     def test_remote_command_quotes_each_argument_once(self) -> None:
         transport = SshDockerTransport("user@spark", "/srv/envsolve")

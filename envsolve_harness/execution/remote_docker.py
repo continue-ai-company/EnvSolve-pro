@@ -204,7 +204,7 @@ class SshDockerTransport:
         baseline: tuple[str, ...] = (),
         timeout: int,
     ) -> tuple[str, ...]:
-        """Add dynamically named, untracked top-level virtualenvs to rsync excludes."""
+        """Exclude dynamically named, untracked top-level Python environments."""
 
         remote_path = _absolute_remote_path(remote_path)
         try:
@@ -215,11 +215,16 @@ class SshDockerTransport:
                     "-mindepth",
                     "2",
                     "-maxdepth",
-                    "2",
+                    "3",
                     "-type",
                     "f",
+                    "(",
                     "-name",
                     "pyvenv.cfg",
+                    "-o",
+                    "-path",
+                    "*/conda-meta/history",
+                    ")",
                     "-print0",
                 ],
                 timeout=timeout,
@@ -233,8 +238,14 @@ class SshDockerTransport:
             if not value:
                 continue
             marker = PurePosixPath(value)
-            if marker.parent.parent == root:
+            if marker.name == "pyvenv.cfg" and marker.parent.parent == root:
                 candidates.add(marker.parent.name)
+            elif (
+                marker.name == "history"
+                and marker.parent.name == "conda-meta"
+                and marker.parent.parent.parent == root
+            ):
+                candidates.add(marker.parent.parent.name)
 
         excludes = list(dict.fromkeys(baseline))
         for name in sorted(candidates):

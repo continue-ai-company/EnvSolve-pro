@@ -1,0 +1,67 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-01T22:47:24Z",
+  "run_id": "pro-v6-strong-ab-census83-02-B",
+  "case_id": "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+  "restart_provenance": {
+    "prior_attempt": "implementation-censored-missing-final-output",
+    "prior_trajectory_used": false,
+    "fresh_agent_session": true,
+    "fresh_run_root": true,
+    "archived_prior_root": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-02-B-implementation-censored-pre-fac63dd"
+  },
+  "treatment": {
+    "name": "same-session-target-state-complete-program-replay",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "live_frontier_attribution": false,
+    "complete_program_replay_count": 1,
+    "accepted_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "final_program_matches_accepted_replay_byte_for_byte": true
+  },
+  "primary_official": {
+    "host": "spark",
+    "outcome": "pass",
+    "exit_code": 0,
+    "issues_count": 0,
+    "execution_time_seconds": 339.1458661556244,
+    "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-02-B/envbench-python-python-control__python-control__dbc998dedf8e18dcdcc15acf15303f22adf9368f/evaluation/spark-official-v1/json_results/results.jsonl"
+  },
+  "paired_a2_contrast": {
+    "a2_outcome": "fail",
+    "a2_exit_code": 0,
+    "a2_issues_count": 2,
+    "a2_missing_imports": [
+      "numpy.lib.polynomial",
+      "numpy.lib.type_check"
+    ],
+    "a2_execution_time_seconds": 564.1668512821198,
+    "paired_outcome": "B-exclusive-terminal-win"
+  },
+  "infrastructure_observation": {
+    "kind": "nonessential-remote-workspace-transfer",
+    "detail": "The post-session rsync did not exclude the Agent-created .conda312 directory and transferred approximately 825 MB to the Mac.",
+    "candidate_or_official_effect": "none",
+    "analysis_role": "secondary infrastructure efficiency diagnostic"
+  },
+  "cumulative_interpretation": {
+    "b_exclusive_terminal_wins": 2,
+    "replicated_across_distinct_projects": true,
+    "decision": "promote-current-core-mechanism-and-continue-census",
+    "promotion_status": "promoted-same-session-target-state-complete-program-replay",
+    "promotion_scope": "Reproducible incremental terminal success over an independent equally strong Agent resampling session.",
+    "not_established": [
+      "overall treatment effect size",
+      "SOTA",
+      "paper-level conclusion"
+    ],
+    "freeze_after_promotion": "Do not add replay rules or change the v6 algorithm and protocol while completing the frozen opportunity cohort.",
+    "reason": "Two B-exclusive Official wins on distinct projects satisfy the preregistered reproducibility threshold for promoting the replay mechanism; ties, losses, and censoring outcomes remain necessary for effect estimation."
+  },
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}
