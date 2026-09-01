@@ -1,0 +1,44 @@
+{
+  "study_id": "envsolve-pro-strong-a-screen15-second-session-control-v1",
+  "recorded_at": "2026-09-01T22:39:07+08:00",
+  "status": "recorded_before_a2_generation",
+  "scientific_role": "Post-hoc negative-control experiment prompted by the qualified-B result; it is not confirmatory effect estimation.",
+  "question": "Can the observed meshio B repair be explained by drawing a second independent strong-Agent trajectory rather than by same-session target-state replay feedback?",
+  "parent_result": "experiments/validations/envsolve_pro_strong_a_falsification_screen15_v1_qualified_b_result.json",
+  "case_selection": {
+    "rule": "Include every preidentified qualified-B opportunity from the completed strong-A screen15, without regard to the B outcome.",
+    "cases": [
+      {
+        "position": 6,
+        "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+        "a2_run_id": "pro-strong-a-screen15-06-op-test-agenthub-A2-no-replay-v1"
+      },
+      {
+        "position": 9,
+        "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+        "a2_run_id": "pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1"
+      }
+    ]
+  },
+  "a2_protocol": {
+    "runner": "codex-cli-boundary-v5-official-primary-remote-docker",
+    "method": "codex-cli-goal-aware-boundary-v5",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_host": "agenthub@100.66.96.39",
+    "replay_feedback_available": false,
+    "official_metric": "Official Pass@1",
+    "official_feedback_returned_to_agent": false,
+    "resource_metrics_are_nonbinding": true,
+    "protected_canary_opened": false,
+    "official_test_opened": false
+  },
+  "decision_rule": {
+    "meshio_a2_pass": "The screen15 terminal-success difference is compatible with second-session Agent variability. Withdraw any causal repair interpretation from this screen and require a larger paired or replicated control before retaining replay as an algorithmic gain.",
+    "meshio_a2_fail_and_b_pass": "Second-session resampling does not explain the observed meshio repair in this negative control. Retain qualified replay as a challenger, while still requiring a larger paired cohort for effect estimation.",
+    "op_test_a2_pass_and_b_fail": "Treat strong-Agent session variability as substantial and replay as potentially non-improving on this failure type.",
+    "both_a2_fail": "The two original A failures replicate once; retain the B meshio repair as stronger mechanism evidence, not as a stable effect-size estimate."
+  },
+  "claim_limits": "With one A2 replicate per case, the experiment can expose a simple resampling explanation but cannot estimate stochastic pass probabilities or prove replay causality by itself.",
+  "safeguard_policy": "No hash, frozen contract, or software gate is added. This record fixes only the scientific interpretation before A2 outcomes are observed."
+}
