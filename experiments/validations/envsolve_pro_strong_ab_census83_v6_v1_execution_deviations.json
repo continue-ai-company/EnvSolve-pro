@@ -1,0 +1,43 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T04:56:49+08:00",
+  "deviations": [
+    {
+      "deviation_id": "official-host-routing-001",
+      "description": "Two A1 scripts were sent to an AgentHub EnvBench evaluator even though the preregistered primary independent Official queue is Spark.",
+      "observed_nonprimary_results": [
+        {
+          "run_id": "pro-v6-strong-ab-census83-01-A1",
+          "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+          "host": "agenthub",
+          "outcome": "fail",
+          "exit_code": 1,
+          "issues_count": 0,
+          "diagnostic": "Bootstrap failed because pkg_resources was unavailable during Pretalx compilemessages."
+        },
+        {
+          "run_id": "pro-v6-strong-ab-census83-03-A1",
+          "case_id": "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+          "host": "agenthub",
+          "outcome": "pass",
+          "exit_code": 0,
+          "issues_count": 0,
+          "diagnostic": "The nonprimary AgentHub evaluator completed before cancellation took effect."
+        }
+      ],
+      "analysis_disposition": "Exclude both AgentHub outcomes from all primary and secondary treatment estimates. Retain them only as disclosed diagnostics.",
+      "recovery": "Run the exact submitted A1 script for each affected run through the preregistered Spark independent Official queue and use only that result.",
+      "unchanged_factors": [
+        "submitted script",
+        "treatment condition",
+        "model",
+        "reasoning effort",
+        "v6 prompt",
+        "v6 boundary",
+        "case identity",
+        "protected-data state"
+      ],
+      "protocol_effect": "No scoring rule or experimental object changed. No refreeze, new safeguard, contract, or gate is required."
+    }
+  ]
+}
