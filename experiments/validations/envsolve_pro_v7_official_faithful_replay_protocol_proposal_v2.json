@@ -9,9 +9,9 @@
     "single_code_path": "Online replay and postepisode Official directly invoke the same EnvBench candidate-execution function with the same Spark host, image, repository acquisition, /data/project mount, container user, working directory, build script, and configuration.",
     "only_mode_difference": "Online mode serializes the execution result into the F continuation message; postepisode mode stores the result and returns nothing to the Agent.",
     "no_second_provider": true,
-    "agenthub_role": "Agent generation and non-scored orchestration only. AgentHub does not run scored replay or Official evaluation in this pilot.",
+    "agenthub_role": "Remote construction and container host used by Mac-controlled Agent sessions. AgentHub does not run the Codex controller, scored replay, or Official evaluation in this pilot.",
     "spark_role": "All online P0 replay and all postepisode Official candidate executions.",
-    "mac_role": "Scheduling, byte-identical prefix branching, artifact collection, and analysis."
+    "mac_role": "The single authenticated Codex controller for every P0, F, N, and A2 session, plus scheduling, native byte-identical prefix branching, artifact collection, and analysis."
   },
   "minimal_four_program_three_stage_design": {
     "diagram": "Stage 0 conformance -> Stage 1 shared P0 prefix -> {F: real-result continuation, N: typed-null continuation, A2: independent fresh Agent} -> Stage 2 offline Official(P0, F-P1, N-P1, A2)",
@@ -49,7 +49,7 @@
     "small_sample_consequence": "If infrastructure censoring leaves fewer than four valid semantic opportunities, the decision is RETAIN_INSUFFICIENT_OPPORTUNITY."
   },
   "exact_branch_semantics": {
-    "prefix": "Run P0 as a persisted, completed Codex session and record its session ID, canonical events, tool outputs, and P0 bytes. Instantiate both branches with the native `codex exec fork <P0_SESSION_ID>` operation, which copies the same completed history.",
+    "prefix": "Run P0 from the Mac controller as a persisted, completed Codex session and record its session ID, canonical events, tool outputs, and P0 bytes. Instantiate both branches from that same Mac controller with the native `codex exec fork <P0_SESSION_ID>` operation, which copies the same completed history.",
     "common_p0_execution": "Execute P0 once through the shared Spark target executor after the prefix is saved. This single result is the source of both branch messages.",
     "F_message": "A structured result with schema, bootstrap terminal data, normalized missing-import findings, and infrastructure disposition from the common P0 execution.",
     "N_message": "The identical schema and field order with status=withheld, withheld=true, and measured result fields set to null. It reveals no real P0 outcome.",

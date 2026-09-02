@@ -1,0 +1,62 @@
+{
+  "result_id": "envsolve-pro-v7-executor-phase0-result",
+  "recorded_at": "2026-09-02T11:22:09Z",
+  "status": "passed-model-free-conformance",
+  "implementation_commit": "d3e960e",
+  "protocol": "experiments/validations/envsolve_pro_v7_official_faithful_replay_protocol_proposal_v2.json",
+  "execution_host": {
+    "role": "sole scored candidate executor",
+    "name": "Spark",
+    "os": "Linux aarch64",
+    "python": "3.13.13",
+    "envbench_root": "/home/avdpro/EnvSolve/EnvBench",
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4"
+  },
+  "source_policy": "Prewarm the immutable exact-revision cache before either arm, then materialize an independent no-hardlinks checkout for each candidate execution.",
+  "model_calls": 0,
+  "fixtures": [
+    {
+      "fixture_id": "pass",
+      "online_exit_code": 0,
+      "postepisode_exit_code": 0,
+      "issues_count": 0,
+      "observable_equality": true,
+      "expected_class": true
+    },
+    {
+      "fixture_id": "semantic-missing-import",
+      "online_exit_code": 0,
+      "postepisode_exit_code": 0,
+      "issues_count": 34,
+      "observable_equality": true,
+      "expected_class": true
+    },
+    {
+      "fixture_id": "bootstrap-failure",
+      "online_exit_code": 1,
+      "postepisode_exit_code": 1,
+      "issues_count": 0,
+      "observable_equality": true,
+      "expected_class": true
+    },
+    {
+      "fixture_id": "ownership-sensitive-git",
+      "online_exit_code": 128,
+      "postepisode_exit_code": 128,
+      "issues_count": 0,
+      "git_ownership_error": true,
+      "observable_equality": true,
+      "expected_class": true
+    }
+  ],
+  "decision": "PASS_PHASE_0",
+  "interpretation": "Online feedback and postepisode Official now use the same EnvBench candidate-execution code path and agree on all four predeclared runtime classes. This validates the executor implementation only; it is not evidence that feedback improves terminal Official success.",
+  "raw_summary": "runs/envsolve-pro-v7-phase0-d3e960e/summary.json",
+  "tests": {
+    "focused_local": "6 passed",
+    "focused_spark": "6 passed",
+    "full_local": "1008 passed, 13 skipped, 1 unrelated pre-existing frozen-hash mismatch",
+    "known_unrelated_failure": "tests/test_envsolve_pro_minimal_b_runner.py::EnvSolveProMinimalBRunnerTest::test_implementation_freeze_hashes_match"
+  }
+}
