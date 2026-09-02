@@ -1,0 +1,139 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T07:34:09Z",
+  "position": 14,
+  "case_id": "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+  "construction_host": "agenthub",
+  "official_evaluator_host": "spark",
+  "conditional_followup_order": [
+    "A2-no-replay",
+    "B-same-session-replay"
+  ],
+  "treatment": {
+    "name": "same-session-target-state-complete-program-replay",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "live_frontier_attribution": false,
+    "complete_program_replay_count": 1,
+    "accepted_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "bootstrap_duration_seconds": 403.53172554197954,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "final_program_matches_accepted_replay_byte_for_byte": true,
+    "causal_estimand_note": "The treatment bundles same-session replay feedback with an additional executable attempt. This census estimates the replay-enabled procedure, not the isolated causal effect of feedback content."
+  },
+  "official_outcomes": {
+    "a1": {
+      "outcome": "fail",
+      "exit_code": 0,
+      "issues_count": 3,
+      "execution_time_seconds": 754.7572021484375,
+      "missing_imports": [
+        "tensorflow.experimental.numpy",
+        "tensorflow.experimental.numpy",
+        "cvxpy"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-14-A1/envbench-python-qiboteam__qibo__1bb08d9dab45205875073c371ea4fcefa982221f/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "a2": {
+      "outcome": "infrastructure-censored-unresolved",
+      "valid_official_outcome": null,
+      "candidate_program_changed_between_attempts": false,
+      "retry_attempts": [
+        {
+          "retry": 1,
+          "exit_code": 1,
+          "issues_count": 0,
+          "execution_time_seconds": 199.26663422584534,
+          "termination": "Python package index failed to return setuptools candidates before the executable goal ran."
+        },
+        {
+          "retry": 2,
+          "exit_code": 2,
+          "issues_count": 0,
+          "execution_time_seconds": 2107.8632156848907,
+          "termination": "The candidate bootstrap completed, but the evaluator's post-bootstrap Pyright installation timed out at files.pythonhosted.org."
+        },
+        {
+          "retry": 3,
+          "exit_code": 1,
+          "issues_count": 0,
+          "execution_time_seconds": 137.20007967948914,
+          "termination": "The Python package index failed to return h5py candidates before the executable goal ran."
+        },
+        {
+          "retry": 4,
+          "exit_code": 2,
+          "issues_count": 0,
+          "execution_time_seconds": 226.33650493621826,
+          "termination": "The stim source archive download timed out at files.pythonhosted.org before the executable goal ran."
+        }
+      ],
+      "artifact_root": "/home/avdpro/work/envsolve-pro-strong-ab-census83-v6-v1/official/pro-v6-strong-ab-census83-14-A2-retry{1,2,3,4}"
+    },
+    "b": {
+      "outcome": "pass",
+      "exit_code": 0,
+      "issues_count": 0,
+      "execution_time_seconds": 661.8049783706665,
+      "missing_imports": [],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-14-B/envbench-python-qiboteam__qibo__1bb08d9dab45205875073c371ea4fcefa982221f/evaluation/spark-official-v1/json_results/results.jsonl"
+    }
+  },
+  "paired_outcome": "unresolved-due-to-a2-infrastructure-censoring",
+  "mechanism_observation": {
+    "a1_left_official_missing_imports": true,
+    "a2_valid_terminal_outcome_observed": false,
+    "b_clean_replay_passed": true,
+    "b_official_passed": true,
+    "b_package_layout_repair": "After installing the real TensorFlow distribution, B copied its non-empty _api/v2/experimental subtree to the distribution's public experimental package path inside the virtual environment.",
+    "boundary_interpretation": "The package-layout repair did not modify the repository or evaluator and did not create an empty or fake module, so it is admissible under the frozen open-operation boundary-v6. It remains a distinct compatibility-repair category for later sensitivity analysis rather than a generic dependency-install result.",
+    "interpretation": "B demonstrated an operational same-session clean replay and submitted the identical certified program, which passed Official. A1 failed Official. Because every unchanged A2 Official attempt was infrastructure-censored, this case supports B terminal efficacy but cannot establish a B advantage over an independent free-Agent resample."
+  },
+  "infrastructure_censoring": [
+    {
+      "arm": "A1",
+      "stage": "official-source-acquisition-attempt-1",
+      "disposition": "excluded-attempt",
+      "detail": "The first source acquisition failed; an unchanged fresh retry completed and produced the valid A1 Official failure."
+    },
+    {
+      "arm": "A2",
+      "stage": "official-orchestration-attempt-0",
+      "disposition": "excluded-attempt",
+      "detail": "A pretty-printed multi-line JSON object was mistakenly supplied to the JSONL input before candidate execution. The input was corrected to a single unchanged JSONL record."
+    },
+    {
+      "arm": "A2",
+      "stage": "official-retries-1-through-4",
+      "disposition": "infrastructure-censored-unresolved",
+      "detail": "Four exact-program retries ended in external package-index or evaluator dependency-download failures. No retry produced a valid terminal Official outcome."
+    },
+    {
+      "arm": "A2",
+      "stage": "post-session-advisory-qualification",
+      "disposition": "diagnostic-only",
+      "detail": "The advisory fresh replay reported 326 active findings and returned no feedback to the Agent. It is not substituted for the missing Official outcome."
+    }
+  ],
+  "cumulative_interpretation": {
+    "strict_b_exclusive_paired_terminal_wins": 5,
+    "strict_b_exclusive_paired_distinct_projects": 5,
+    "additional_b_terminal_passes_with_unresolved_pair": 1,
+    "core_mechanism": "same-session-target-state-complete-program-replay",
+    "algorithm_and_protocol_status": "frozen-while-completing-census",
+    "current_decision": "retain-as-challenger",
+    "promotion_rule": "Promotion requires terminal Official success gains over valid free-Agent outcomes on the fixed census; frontier improvement alone is insufficient.",
+    "not_established": [
+      "B advantage over an independent free-Agent resample on position 14",
+      "causal effect of replay feedback content separated from added execution opportunity",
+      "overall treatment effect size",
+      "SOTA",
+      "paper-level conclusion"
+    ]
+  },
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}
