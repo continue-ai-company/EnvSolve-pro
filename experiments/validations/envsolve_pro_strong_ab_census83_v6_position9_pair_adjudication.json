@@ -1,0 +1,121 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T02:08:38Z",
+  "position": 9,
+  "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+  "construction_host": "spark",
+  "official_evaluator_host": "spark",
+  "conditional_followup_order": [
+    "B-same-session-replay",
+    "A2-no-replay"
+  ],
+  "treatment": {
+    "name": "same-session-target-state-complete-program-replay",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "live_frontier_attribution": false,
+    "complete_program_replay_count": 2,
+    "accepted_replay": {
+      "replay_id": "minimal-b-replay-0002",
+      "status": "pass",
+      "certified": true,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "final_program_matches_accepted_replay_byte_for_byte": true
+  },
+  "official_outcomes": {
+    "a1": {
+      "outcome": "fail",
+      "exit_code": 0,
+      "issues_count": 9,
+      "execution_time_seconds": 165.23867201805115,
+      "missing_imports": [
+        "websocket",
+        "tronpy",
+        "tronpy.keys",
+        "notifypy",
+        "websocket",
+        "tronpy",
+        "tronpy.keys",
+        "libducohasher",
+        "libducohasher"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-09-A1/envbench-python-revoxhere__duino-coin__2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "a2": {
+      "outcome": "fail",
+      "exit_code": 0,
+      "issues_count": 17,
+      "execution_time_seconds": 222.75916481018066,
+      "missing_imports": [
+        "cryptography.fernet",
+        "cryptography.hazmat.backends",
+        "cryptography.hazmat.primitives",
+        "cryptography.hazmat.primitives.kdf.pbkdf2",
+        "websocket",
+        "tronpy",
+        "tronpy.keys",
+        "notifypy",
+        "cryptography.fernet",
+        "cryptography.hazmat.backends",
+        "cryptography.hazmat.primitives",
+        "cryptography.hazmat.primitives.kdf.pbkdf2",
+        "websocket",
+        "tronpy",
+        "tronpy.keys",
+        "libducohasher",
+        "libducohasher"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-09-A2/envbench-python-revoxhere__duino-coin__2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "b": {
+      "outcome": "pass",
+      "exit_code": 0,
+      "issues_count": 0,
+      "execution_time_seconds": 112.57884573936462,
+      "missing_imports": [],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-09-B/envbench-python-revoxhere__duino-coin__2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259/evaluation/spark-official-v1/json_results/results.jsonl"
+    }
+  },
+  "paired_outcome": "B-exclusive-terminal-win",
+  "mechanism_observation": {
+    "a1_left_missing_declared_and_optional_runtime_capabilities": true,
+    "a2_left_more_missing_imports_than_a1": true,
+    "b_clean_replay_count": 2,
+    "b_clean_replay_passed": true,
+    "b_official_passed": true,
+    "interpretation": "Both independent free-Agent sessions submitted executable environments but left repository imports unresolved. The replay-enabled session converted the observed target state into a complete program that installed the optional Python integrations and supplied the repository's architecture-specific native hashing capability. Its second clean replay and the independent Official evaluator both passed the identical program."
+  },
+  "infrastructure_censoring": [
+    {
+      "arm": "B",
+      "stage": "clean-replay-1",
+      "disposition": "excluded-attempt",
+      "detail": "The first fresh replay ended while pip downloaded from files.pythonhosted.org with a read timeout before the executable goal ran. The unchanged session retried in a new fresh environment; replay 2 passed and became the submitted program."
+    },
+    {
+      "arm": "B",
+      "stage": "official-attempt-1",
+      "disposition": "excluded-attempt",
+      "detail": "Repeated SSL EOFs produced a downloaded package whose hash did not match the index metadata, so bootstrap exited before Pyright. The exact unchanged input was rerun in a fresh Official directory; the valid retry passed."
+    },
+    {
+      "arm": "A2",
+      "stage": "post-session-advisory-qualification",
+      "disposition": "diagnostic-only",
+      "detail": "The advisory fresh replay did not produce a valid goal report and returned no feedback to the Agent. The safety-admissible complete program was submitted unchanged; Official evaluation completed normally and found 17 missing imports."
+    }
+  ],
+  "cumulative_interpretation": {
+    "b_exclusive_terminal_wins": 5,
+    "distinct_projects": 5,
+    "core_mechanism": "same-session-target-state-complete-program-replay",
+    "algorithm_and_protocol_status": "frozen-while-completing-census",
+    "not_established": [
+      "overall treatment effect size",
+      "SOTA",
+      "paper-level conclusion"
+    ]
+  },
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}
