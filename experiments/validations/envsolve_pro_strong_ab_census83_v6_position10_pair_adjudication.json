@@ -1,0 +1,86 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T10:26:22Z",
+  "position": 10,
+  "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+  "construction_host": "spark",
+  "official_evaluator_host": "spark",
+  "conditional_followup_order": [
+    "A2-no-replay",
+    "B-same-session-replay"
+  ],
+  "treatment": {
+    "name": "same-session-target-state-complete-program-replay",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "live_frontier_attribution": false,
+    "complete_program_replay_count": 1,
+    "accepted_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "final_program_matches_accepted_replay_byte_for_byte": true,
+    "postepisode_admissibility": {
+      "accepted": false,
+      "reason": "The submitted program exported PYTHONPATH to inject a repository subdirectory. The frozen Official protocol explicitly prohibits PYTHONPATH injection."
+    }
+  },
+  "official_outcomes": {
+    "a1": {
+      "outcome": "fail",
+      "exit_code": 1,
+      "issues_count": 0,
+      "execution_time_seconds": 183.68242263793945,
+      "terminal_failure": "Editable-install metadata generation invoked Git at /data/project, where Git rejected the host-owned bind mount as dubious ownership.",
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-10-A1/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "a2": {
+      "outcome": "fail",
+      "exit_code": 1,
+      "issues_count": 0,
+      "execution_time_seconds": 222.9140706062317,
+      "terminal_failure": "An unchanged retry reached editable-install metadata generation and failed on the same /data/project dubious-ownership error.",
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-10-A2/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3/evaluation/spark-official-retry1/json_results/results.jsonl"
+    },
+    "b": {
+      "outcome": "fail",
+      "exit_code": 1,
+      "issues_count": 0,
+      "execution_time_seconds": 150.68061685562134,
+      "terminal_failure": "The byte-identical program that passed internal replay failed during editable-install metadata generation because Git rejected /data/project as dubious ownership.",
+      "admissible_for_primary_analysis": false,
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-10-B/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3/evaluation/spark-official-v1/json_results/results.jsonl"
+    }
+  },
+  "paired_outcome": "all-arms-terminal-fail-with-b-inadmissible",
+  "mechanism_observation": {
+    "internal_replay_passed": true,
+    "official_replay_equivalent_program_passed": false,
+    "replay_false_positive_against_official": true,
+    "interpretation": "This case is counterevidence to the current target-state fidelity claim. Internal replay used a root-owned nested checkout, while Official used a host-owned checkout at /data/project. The treatment therefore certified a program without exposing the Official ownership state that caused all three arms to fail."
+  },
+  "infrastructure_censoring": [
+    {
+      "arm": "A2",
+      "stage": "official-attempt-1",
+      "disposition": "excluded-attempt",
+      "detail": "A downloaded package did not match its index hash before the executable goal ran. The unchanged program was retried and produced the valid terminal failure recorded above."
+    }
+  ],
+  "cumulative_interpretation": {
+    "strict_b_exclusive_paired_terminal_wins": 5,
+    "strict_b_exclusive_paired_distinct_projects": 5,
+    "current_case_added_win": false,
+    "current_decision": "retain-only-as-unproven-challenger-pending-replay-fidelity",
+    "not_established": [
+      "Official target-state fidelity of v6 replay",
+      "causal effect of semantic replay feedback",
+      "overall treatment effect size",
+      "SOTA",
+      "paper-level conclusion"
+    ]
+  },
+  "safeguard_effect": "No new hash, frozen contract, runtime gate, candidate rule, or case-specific repair was added."
+}

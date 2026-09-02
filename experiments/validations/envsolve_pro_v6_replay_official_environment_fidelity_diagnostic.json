@@ -1,0 +1,93 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T10:26:22Z",
+  "diagnostic_type": "consumed-environment-fidelity-counterfactual",
+  "trigger_case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+  "research_question": "Does v6 complete-program replay reproduce the path and ownership semantics of the independent EnvBench Official evaluator closely enough to support a target-state replay claim?",
+  "observed_implementations": {
+    "v6_replay": {
+      "repository_path": "/data/project/<repository>@<revision>",
+      "linux_bind_mount_owner_during_execution": "0:0",
+      "source": [
+        "envsolve/runtime/docker.py:292",
+        "envsolve_harness/execution/remote_docker.py:551"
+      ]
+    },
+    "envbench_official": {
+      "repository_path": "/data/project",
+      "linux_bind_mount_owner_during_execution": "host user",
+      "source": [
+        "/Users/admin/Documents/AnyDeploy/EnvBench/evaluation/main.py:142",
+        "/Users/admin/Documents/AnyDeploy/EnvBench/evaluation/main.py:151"
+      ]
+    }
+  },
+  "four_cell_counterfactual": {
+    "repository": "mflowgen/mflowgen",
+    "revision": "354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "probe": "Run git status as container root in the mounted repository.",
+    "cells": [
+      {
+        "mount_owner": "host-user-1000:1000",
+        "layout": "flat-/data/project",
+        "exit_code": 128,
+        "result": "fatal-dubious-ownership"
+      },
+      {
+        "mount_owner": "host-user-1000:1000",
+        "layout": "nested-/data/project/<repository>@<revision>",
+        "exit_code": 128,
+        "result": "fatal-dubious-ownership"
+      },
+      {
+        "mount_owner": "root-0:0",
+        "layout": "flat-/data/project",
+        "exit_code": 0,
+        "result": "pass"
+      },
+      {
+        "mount_owner": "root-0:0",
+        "layout": "nested-/data/project/<repository>@<revision>",
+        "exit_code": 0,
+        "result": "pass"
+      }
+    ],
+    "causal_result": "Ownership, not path layout, caused the observed mflowgen Git failure. Path layout remains an independent systematic state mismatch that may affect path-sensitive programs."
+  },
+  "scope_assessment": {
+    "single_case_accident": false,
+    "reason": "The divergent path and Linux ownership transformations are unconditional provider and evaluator behaviors, so every Linux replay differs from Official on these state dimensions even when a particular program is insensitive to them.",
+    "agenthub_additional_difference": "Docker Desktop does not apply the Linux chown translation, while Official is evaluated on Spark Linux. AgentHub replay therefore has a separate host/runtime ownership semantic from Official."
+  },
+  "effect_on_previous_v6_wins": {
+    "official_terminal_results_remain_valid": true,
+    "strict_b_exclusive_official_wins_observed": 5,
+    "target_state_replay_claim_remains_valid": false,
+    "semantic_feedback_causality_established": false,
+    "replay_history": {
+      "first_replay_passed_without_repair": 4,
+      "remaining_win": "The first replay ended in a dependency-download timeout; the second increased pip timeout from 30 to 180 seconds and passed. No prior B-exclusive win contains a semantic verifier failure followed by a successful repair."
+    },
+    "interpretation": "The five terminal wins still show that the bundled B procedure produced Official-passing programs where two independent free-Agent controls did not. They do not isolate replay feedback as the cause, and v6 must not call its replay an Official target-state reproduction."
+  },
+  "protocol_versioning_decision": {
+    "modify_v6_in_place": false,
+    "mix_fixed_and_original_v6_outcomes": false,
+    "required_next_version": "A fidelity-corrected replay changes the treatment implementation and must be preregistered as a new version before counted runs.",
+    "reason": "Changing mount path or ownership changes which candidate failures the Agent can observe and repair, so it changes the causal treatment rather than merely repairing result bookkeeping."
+  },
+  "scientific_decision": {
+    "v6": "retain-as-diagnostic-treatment-package-but-kill-as-evidence-for-target-state-replay",
+    "live_frontier": "diagnostic-only",
+    "pause_new_b_runs": true,
+    "allowed_closure": "Already-generated unrelated A1 programs may receive their frozen postepisode Official evaluation.",
+    "next_minimal_high_information_validation": "Implement an Official-faithful replay provider in a new version, then run a small preregistered paired set containing at least one ownership-sensitive consumed case and cases whose first replay returns a semantic failure. Promotion requires free Agent terminal failure and corrected replay treatment Official Pass."
+  },
+  "alternative_explanations": [
+    "The bundled B prompt or requirement to obtain certification may make the Agent produce a more complete first candidate even when replay feedback contributes no repair.",
+    "The additional executable attempt may improve reliability without semantic feedback.",
+    "Replay success can be a false positive when the replay container normalizes away an Official failure state."
+  ],
+  "safeguard_effect": "No new hash, frozen contract, gate, candidate restriction, or case-specific repair was introduced."
+}
