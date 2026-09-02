@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "fixtures": [
+    {
+      "fixture_id": "pass",
+      "case_id": "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "repository": "google/yapf",
+      "revision": "1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "script": "project_root=\"$PWD\"\n/root/.pyenv/versions/3.11.7/bin/python -m venv \"$project_root/.venv\"\nsource \"$project_root/.venv/bin/activate\"\npython -m pip install --upgrade pip\npython -m pip install \"$project_root\" pytest pytest-cov 'tox<4' tox-pyenv tox-wheel pre-commit\ncd \"$project_root\"\n",
+      "expected": {
+        "terminal_class": "bootstrap_completed",
+        "goal_report_present": true,
+        "missing_imports": "empty",
+        "git_ownership_error": false
+      }
+    },
+    {
+      "fixture_id": "semantic-missing-import",
+      "case_id": "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "repository": "google/yapf",
+      "revision": "1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "script": "true\n",
+      "expected": {
+        "terminal_class": "bootstrap_completed",
+        "goal_report_present": true,
+        "missing_imports": "nonempty",
+        "git_ownership_error": false
+      }
+    },
+    {
+      "fixture_id": "bootstrap-failure",
+      "case_id": "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "repository": "google/yapf",
+      "revision": "1afbf7112ae61a467276c9401b3c113e6f676d0f",
+      "script": "false\n",
+      "expected": {
+        "terminal_class": "bootstrap_failed",
+        "goal_report_present": false,
+        "missing_imports": "empty",
+        "git_ownership_error": false
+      }
+    },
+    {
+      "fixture_id": "ownership-sensitive-git",
+      "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "repository": "mflowgen/mflowgen",
+      "revision": "354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "script": "git status --short\n",
+      "expected": {
+        "terminal_class": "bootstrap_failed",
+        "goal_report_present": false,
+        "missing_imports": "empty",
+        "git_ownership_error": true
+      }
+    }
+  ]
+}
