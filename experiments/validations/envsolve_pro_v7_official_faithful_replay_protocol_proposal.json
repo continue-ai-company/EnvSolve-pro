@@ -1,0 +1,152 @@
+{
+  "proposal_id": "envsolve-pro-v7-official-faithful-replay-proposal-v1",
+  "recorded_at": "2026-09-02T10:26:22Z",
+  "status": "proposal-awaiting-scientific-review-not-preregistered",
+  "scope": "Consumed/Dev mechanism development only. No protected Canary/Test access and no leaderboard claim.",
+  "core_question": "When a strong Agent's first complete deployment program fails semantically, does feedback from an Official-faithful clean replay cause a later program to Official Pass more often than an equally long continuation without that feedback?",
+  "non_claims": [
+    "v6 is not evidence for Official target-state replay",
+    "a lower diagnostic frontier is not success",
+    "an extra attempt is not evidence that feedback content caused success",
+    "the mechanism-development pilot does not estimate representative benchmark performance"
+  ],
+  "phase_0_conformance": {
+    "purpose": "Falsify the replay executor before any model treatment is run.",
+    "reference": "The unmodified EnvBench Official evaluator execution path on Spark.",
+    "candidate": "The proposed v7 replay executor.",
+    "fixed_model_free_suite": [
+      {
+        "fixture": "pass",
+        "program_behavior": "Bootstrap succeeds and the repository has no missing-import finding."
+      },
+      {
+        "fixture": "semantic-missing-import",
+        "program_behavior": "Bootstrap succeeds and a fixed source file imports one absent module."
+      },
+      {
+        "fixture": "bootstrap-failure",
+        "program_behavior": "Bootstrap exits nonzero before the executable goal."
+      },
+      {
+        "fixture": "ownership-sensitive",
+        "program_behavior": "Bootstrap invokes Git in the mounted repository and exposes owner/runner mismatch."
+      }
+    ],
+    "compared_observables": [
+      "bootstrap terminal class and exit code",
+      "whether the goal report is produced",
+      "normalized reportMissingImports finding multiset using repository-relative file paths",
+      "active Python executable relative to the mounted project when one exists"
+    ],
+    "state_dimensions_recorded": [
+      "image identity",
+      "CPU architecture and accelerator visibility",
+      "container user",
+      "repository mount path",
+      "repository owner and group visible inside the container",
+      "working directory",
+      "workspace preconditions",
+      "environment variables that affect Python and Git",
+      "network mode",
+      "evaluator build-script revision"
+    ],
+    "decision_rule": {
+      "pass": "Every fixture has exact agreement on bootstrap terminal behavior and normalized missing-import findings. State dimensions known to affect a fixture also agree.",
+      "fail": "Any unexplained observable mismatch kills the executor implementation before model runs. No aggregate score can average the mismatch away.",
+      "agenthub_eligibility": "AgentHub becomes a scored CPU replay lane only after its v7 executor independently passes the same suite against the Spark Official reference. Otherwise it remains an unscored control and analysis host."
+    }
+  },
+  "phase_1_feedback_mechanism_pilot": {
+    "sample": {
+      "count": 8,
+      "source": "Consumed/Dev only.",
+      "selection": "Before any v7 P0 is generated, select the first eight eligible cases under a written deterministic rule based on prior strong-Agent terminal failure and the existing failure taxonomy. Do not inspect or condition on v7 P0 replay outcomes.",
+      "scientific_role": "Difficulty-enriched mechanism-development set, reported separately from any later representative census.",
+      "opportunity_policy": "Record P0 replay for all eight cases. A natural semantic failure opportunity is an observed result, not an inclusion criterion. Zero or few opportunities is evidence against the practical necessity of feedback."
+    },
+    "shared_prefix": {
+      "p0": "One strong Agent session explores a construction environment and emits its first complete executable program P0.",
+      "preservation": "Store P0 and the complete conversation/tool prefix before either continuation receives replay information.",
+      "postepisode_official": "Do not return Official outcomes to any Agent. Evaluate P0 and final branch programs only after both continuations end."
+    },
+    "arms": {
+      "F_real_feedback": "Continue from the preserved P0 prefix with the v7 replay's real structured bootstrap and missing-import feedback.",
+      "N_null_feedback": "Continue from the identical P0 prefix with a typed message stating that replay feedback is unavailable; provide the same continuation opportunity and tool access.",
+      "A2_independent_resample": "Run a fresh full strong-Agent episode with no replay feedback as an independent resampling control."
+    },
+    "matching": {
+      "same": [
+        "model and reasoning effort",
+        "P0 conversation and tool prefix for F and N",
+        "construction image and host within a case",
+        "remaining tool access",
+        "nonbinding wall-clock and request safety caps",
+        "candidate interface and postepisode Official evaluator"
+      ],
+      "different_between_F_and_N": "Only the content of the replay-result message.",
+      "token_policy": "Tokens are measured, never used as a success threshold. F and N receive the same safety caps; terminal success remains primary.",
+      "branch_order": "Randomize F/N execution order before outcomes and record it."
+    },
+    "outcomes": {
+      "primary": "Paired Official Pass@1 difference between F and N over all eight fixed cases.",
+      "mechanism_opportunity": "Paired Official Pass@1 difference between F and N among cases whose shared P0 has a valid semantic replay failure: bootstrap completed and reportMissingImports is nonzero.",
+      "strong_resampling_check": "For each F-exclusive win, report whether independent A2 also failed.",
+      "mechanism_trace_requirement": "A claimed feedback-caused repair must identify a P0 finding, the corresponding P1 program change, a conformant P1 replay pass, and an independent Official Pass of the identical P1 program.",
+      "secondary": [
+        "P0 opportunity rate",
+        "bootstrap failures",
+        "infrastructure censoring",
+        "wall-clock time",
+        "tokens",
+        "container commands",
+        "deployment completeness and path quality"
+      ]
+    },
+    "decision_rule": {
+      "promote_feedback_hypothesis": "At least two distinct-project F-exclusive Official wins, zero N-exclusive wins, at least one win where A2 also fails, and every claimed win satisfies the mechanism trace requirement.",
+      "retain_unproven": "Exactly one clean F-exclusive win, or fewer than four valid semantic P0 opportunities. Do not start a representative efficacy claim.",
+      "kill_feedback_hypothesis": "No F-exclusive Official win after at least four semantic P0 opportunities, or N matches/exceeds F on exclusive wins, or any claimed win fails replay/Official conformance.",
+      "low_opportunity_result": "If fewer than four semantic P0 opportunities occur, report the observed opportunity rate as counterevidence to mechanism prevalence; do not replace cases post hoc."
+    }
+  },
+  "phase_2_representative_efficacy": {
+    "status": "out_of_scope_until_phase_1_promotion",
+    "rule": "Only after Phase 1 promotion, preregister a separate representative census with selection independent of v7 outcomes. Do not mix difficulty-enriched pilot estimates with representative efficacy."
+  },
+  "machine_plan": {
+    "mac": "Central scheduler, strong-model control, branch-prefix preservation, artifact collection, and analysis.",
+    "spark": "Reference Official evaluator, CUDA construction, and the authoritative conformance reference. Official evaluations remain globally serial.",
+    "agenthub": "CPU replay/construction lane only after independent Phase 0 conformance; otherwise control-plane and offline analysis only.",
+    "case_blocking": "All model arms for one case use the same preregistered construction/replay host. Host assignment is fixed before P0 and reported.",
+    "parallelism": "While Spark runs serial Official evaluation, an eligible AgentHub lane may run the next CPU construction or continuation. Parallelism may increase throughput but cannot change sample order, arm eligibility, or decision rules."
+  },
+  "infrastructure_censoring": {
+    "rule": "Only failures independently attributable to source or package transport before the program reaches the measured goal may receive an exact-program retry. The model is not rerun and no feedback is returned.",
+    "reporting": "Report every attempt and never impute a pass or deployment failure from an infrastructure-censored attempt."
+  },
+  "why_a_new_conformance_gate_is_justified": {
+    "concrete_failure": "On mflowgen, v6 replay certified a program as passing after normalizing the checkout to root ownership, while Official failed the byte-identical program because its host-owned checkout triggered Git dubious ownership.",
+    "git_is_insufficient": "Git records source history but does not assert runtime mount path, owner, container user, or evaluator behavior.",
+    "version_numbers_are_insufficient": "Matching code and image versions can still execute with different bind-mount ownership and working-directory semantics.",
+    "primary_keys_are_insufficient": "Run and case identities prevent record ambiguity but do not prove two executors realize the same state.",
+    "transactions_are_insufficient": "Atomic artifact writes cannot detect semantic divergence between replay and Official execution.",
+    "unique_constraints_are_insufficient": "Uniqueness prevents duplicate records, not false-positive replay certification.",
+    "types_are_insufficient": "Both divergent results are well-typed result objects.",
+    "ordinary_tests_were_insufficient": "Existing tests checked each adapter's expected commands in isolation and therefore preserved, rather than compared, the divergent ownership/path behavior.",
+    "scope_limit": "The gate compares four fixed executor behaviors only. It does not add case-specific deployment rules or constrain Agent operations."
+  },
+  "implementation_boundary": {
+    "allowed_before_review": [
+      "protocol review",
+      "read-only audit of executor state dimensions",
+      "closing already-generated v6 A1 Official outcomes"
+    ],
+    "forbidden_before_review": [
+      "new v6 B runs",
+      "bulk v7 model runs",
+      "mixing v6 and v7 outcomes",
+      "case-specific candidate rules",
+      "opening protected Canary/Test"
+    ]
+  }
+}
