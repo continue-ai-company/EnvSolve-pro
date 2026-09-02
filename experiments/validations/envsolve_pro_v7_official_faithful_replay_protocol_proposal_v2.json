@@ -1,7 +1,7 @@
 {
   "proposal_id": "envsolve-pro-v7-official-faithful-replay-proposal-v2",
   "recorded_at": "2026-09-02T10:48:00Z",
-  "status": "proposal-awaiting-scientific-review-not-preregistered",
+  "status": "preregistered-and-frozen-before-model-free-phase-0",
   "one_sentence_question": "Given a byte-identical strong-Agent prefix ending in a complete program P0, does one real result from the same candidate-execution path used by Official cause a continuation to produce an Official-passing P1 more often than a matched continuation receiving a typed null result?",
   "scope": "Consumed/Dev mechanism-development pilot only; no protected Canary/Test access, representative-effect claim, significance claim, or leaderboard claim.",
   "occam_algorithm": "Generate P0, execute it once through the shared target executor, return that result to one matched continuation, and submit P1. No frontier, cross-case rules, checkpoint search, or repeated feedback loop is part of v7.",
@@ -41,6 +41,12 @@
     "pass_rule": "All four online-wrapper results equal their postepisode-wrapper results on every compared observable.",
     "failure_rule": "Any unexplained mismatch stops this executor implementation before model experiments; it does not falsify the feedback hypothesis.",
     "why_required": "v6 replay changed Linux bind-mount ownership and certified mflowgen although the byte-identical Official execution failed. Git, versions, record identities, transactions, uniqueness, types, and isolated adapter tests did not compare runtime executor semantics."
+  },
+  "execution_neutrality": {
+    "operation_boundary": "All P0, F-P1, N-P1, and A2 programs are judged under the same operation and admissibility boundary frozen before outcomes are observed. Adjudication is outcome-blind, and an inadmissible program cannot count as an Official Pass.",
+    "cache_boundary": "Every candidate execution receives the same pre-frozen read-only source-cache state materialized into an independent execution directory, or runs without a shared mutable cache. No arm may consume cache state written by an earlier arm.",
+    "infrastructure_censoring": "An identical-byte P0, F-P1, N-P1, or A2 program may be retried only after an executor-external network or source-acquisition failure. The censored result is not returned as feedback, the retry must use identical program bytes, and an unresolved case remains censored without replacement and does not count as a valid semantic opportunity.",
+    "small_sample_consequence": "If infrastructure censoring leaves fewer than four valid semantic opportunities, the decision is RETAIN_INSUFFICIENT_OPPORTUNITY."
   },
   "exact_branch_semantics": {
     "prefix": "Run P0 as a persisted, completed Codex session and record its session ID, canonical events, tool outputs, and P0 bytes. Instantiate both branches with the native `codex exec fork <P0_SESSION_ID>` operation, which copies the same completed history.",
@@ -106,7 +112,7 @@
     {
       "priority": 3,
       "decision": "ADVANCE_TO_REPRESENTATIVE_PHASE_2",
-      "condition": "At least four semantic opportunities exist, at least two distinct projects are mechanism-qualified F wins, and there are zero N-exclusive Official wins among semantic-opportunity cases.",
+      "condition": "At least four semantic opportunities exist, at least two distinct projects are mechanism-qualified F wins, at least one of those wins also has an independently generated A2 that fails Official, and there are zero N-exclusive Official wins among semantic-opportunity cases.",
       "meaning": "The pilot justifies a separately preregistered representative evaluation. It is not significance or proof that the mechanism is established."
     },
     {
@@ -138,8 +144,8 @@
       "total": 48
     },
     "postepisode_official_runs_on_pilot_programs": 32,
-    "notes": "Infrastructure-censored exact-program retries are reported separately and are not included in planned counts. One Agent episode may contain multiple model requests; actual requests and tokens are reported rather than capped for scoring."
+    "notes": "Infrastructure-censored exact-program retries are reported separately and are not included in planned counts. Retries use identical bytes, receive no feedback, and are allowed only for executor-external network or source-acquisition failures. One Agent episode may contain multiple model requests; actual requests and tokens are reported rather than capped for scoring."
   },
-  "execution_order": "Do not start model work until this proposal is reviewed and Stage 0 implementation plus tests pass. Do not mix v6 and v7 outcomes.",
+  "execution_order": "This protocol is frozen before Phase 0. Do not start model work until Stage 0 implementation, ordinary tests, and all four real fixture conformance comparisons pass. Do not mix v6 and v7 outcomes.",
   "safeguard_effect": "No candidate rule, cross-case constraint, hash mechanism, checkpoint, or deployment gate is added. The only gate is the narrowly justified executor conformance check triggered by the observed v6 false-positive certification."
 }
