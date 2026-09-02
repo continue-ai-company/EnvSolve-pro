@@ -4,6 +4,14 @@
   "status": "preregistered-and-frozen-before-model-free-phase-0",
   "one_sentence_question": "Given a byte-identical strong-Agent prefix ending in a complete program P0, does one real result from the same candidate-execution path used by Official cause a continuation to produce an Official-passing P1 more often than a matched continuation receiving a typed null result?",
   "scope": "Consumed/Dev mechanism-development pilot only; no protected Canary/Test access, representative-effect claim, significance claim, or leaderboard claim.",
+  "agent_configuration": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "codex_cli": "codex-cli 0.151.0-alpha.7.2",
+    "controller": "Single authenticated Mac Codex CLI for P0, F, N, and A2",
+    "construction": "AgentHub remote persistent Docker container for P0 and A2; F and N are tool-free native forks",
+    "weak_baseline_labels": "Used only for difficulty-enriched sample construction; never interpreted as strong-Agent failure labels."
+  },
   "occam_algorithm": "Generate P0, execute it once through the shared target executor, return that result to one matched continuation, and submit P1. No frontier, cross-case rules, checkpoint search, or repeated feedback loop is part of v7.",
   "executor_design": {
     "single_code_path": "Online replay and postepisode Official directly invoke the same EnvBench candidate-execution function with the same Spark host, image, repository acquisition, /data/project mount, container user, working directory, build script, and configuration.",
