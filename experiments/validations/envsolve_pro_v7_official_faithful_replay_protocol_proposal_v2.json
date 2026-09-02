@@ -1,0 +1,145 @@
+{
+  "proposal_id": "envsolve-pro-v7-official-faithful-replay-proposal-v2",
+  "recorded_at": "2026-09-02T10:48:00Z",
+  "status": "proposal-awaiting-scientific-review-not-preregistered",
+  "one_sentence_question": "Given a byte-identical strong-Agent prefix ending in a complete program P0, does one real result from the same candidate-execution path used by Official cause a continuation to produce an Official-passing P1 more often than a matched continuation receiving a typed null result?",
+  "scope": "Consumed/Dev mechanism-development pilot only; no protected Canary/Test access, representative-effect claim, significance claim, or leaderboard claim.",
+  "occam_algorithm": "Generate P0, execute it once through the shared target executor, return that result to one matched continuation, and submit P1. No frontier, cross-case rules, checkpoint search, or repeated feedback loop is part of v7.",
+  "executor_design": {
+    "single_code_path": "Online replay and postepisode Official directly invoke the same EnvBench candidate-execution function with the same Spark host, image, repository acquisition, /data/project mount, container user, working directory, build script, and configuration.",
+    "only_mode_difference": "Online mode serializes the execution result into the F continuation message; postepisode mode stores the result and returns nothing to the Agent.",
+    "no_second_provider": true,
+    "agenthub_role": "Agent generation and non-scored orchestration only. AgentHub does not run scored replay or Official evaluation in this pilot.",
+    "spark_role": "All online P0 replay and all postepisode Official candidate executions.",
+    "mac_role": "Scheduling, byte-identical prefix branching, artifact collection, and analysis."
+  },
+  "minimal_four_program_three_stage_design": {
+    "diagram": "Stage 0 conformance -> Stage 1 shared P0 prefix -> {F: real-result continuation, N: typed-null continuation, A2: independent fresh Agent} -> Stage 2 offline Official(P0, F-P1, N-P1, A2)",
+    "four_terminal_programs": [
+      "P0: first complete program from the shared strong-Agent prefix",
+      "F-P1: one continuation after real structured P0 execution feedback",
+      "N-P1: one matched continuation after a same-schema typed-null P0 result",
+      "A2: one independent full strong-Agent resample without replay feedback"
+    ],
+    "stage_0": "Run four fixed model-free fixtures through online-result and postepisode-result wrappers around the single executor code path.",
+    "stage_1": "For each frozen case, form P0 once, preserve its exact prefix, then create F and N branches and an independent A2.",
+    "stage_2": "After both branches and A2 end, evaluate the four terminal programs offline through the same executor; no Official result is returned."
+  },
+  "stage_0_conformance": {
+    "fixtures": [
+      "pass",
+      "semantic-missing-import",
+      "bootstrap-failure",
+      "ownership-sensitive-git"
+    ],
+    "compare_exactly": [
+      "bootstrap terminal class and exit code",
+      "goal-report presence",
+      "normalized reportMissingImports finding multiset with repository-relative paths",
+      "active project Python path when present"
+    ],
+    "pass_rule": "All four online-wrapper results equal their postepisode-wrapper results on every compared observable.",
+    "failure_rule": "Any unexplained mismatch stops this executor implementation before model experiments; it does not falsify the feedback hypothesis.",
+    "why_required": "v6 replay changed Linux bind-mount ownership and certified mflowgen although the byte-identical Official execution failed. Git, versions, record identities, transactions, uniqueness, types, and isolated adapter tests did not compare runtime executor semantics."
+  },
+  "exact_branch_semantics": {
+    "prefix": "Run P0 as a persisted, completed Codex session and record its session ID, canonical events, tool outputs, and P0 bytes. Instantiate both branches with the native `codex exec fork <P0_SESSION_ID>` operation, which copies the same completed history.",
+    "common_p0_execution": "Execute P0 once through the shared Spark target executor after the prefix is saved. This single result is the source of both branch messages.",
+    "F_message": "A structured result with schema, bootstrap terminal data, normalized missing-import findings, and infrastructure disposition from the common P0 execution.",
+    "N_message": "The identical schema and field order with status=withheld, withheld=true, and measured result fields set to null. It reveals no real P0 outcome.",
+    "matched_continuation": "Each branch receives exactly one tool-free continuation response from the same completed P0 session, with the same model, reasoning effort, output schema, and nonbinding safety caps. Each response emits one complete P1 and ends. Tokens are reported, never a success threshold.",
+    "feedback_lockout": "The P0 session and both forks expose no replay MCP. The harness invokes the shared executor between P0 and branching. Neither F nor N has shell, replay, or evaluator tools during continuation, so the only branch difference is the supplied result message.",
+    "offline_only": "P0, F-P1, N-P1, and A2 are independently evaluated after all model work for the case ends. These outcomes are never returned online.",
+    "branch_order": "F-first or N-first is assigned before P0 by a fixed alternating order and recorded. Branch order cannot change eligibility or samples."
+  },
+  "frozen_pilot_cases": {
+    "selection_rule": "Use positions 1 through 8 of the already preregistered census83 order. This rule was chosen before any v7 P0 exists and does not use v7 outcomes or require semantic-failure opportunities.",
+    "cases_in_order": [
+      "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+      "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+      "envbench-python-jackdewinter__pymarkdown@446fbbf251f5daa150b967b90c72216aeddb73fc",
+      "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+      "envbench-python-tefra__xsdata@1f42a6a5990664494049d4f97810cb0bcccc76df",
+      "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+      "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+      "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f"
+    ],
+    "branch_order": [
+      "F-first",
+      "N-first",
+      "F-first",
+      "N-first",
+      "F-first",
+      "N-first",
+      "F-first",
+      "N-first"
+    ],
+    "claim_boundary": "These identities are consumed and the order prefix is a go/no-go pilot, not a representative EnvBench estimate. Every P0 is retained even when it passes, bootstrap-fails, or provides no semantic feedback opportunity. Cases cannot be replaced."
+  },
+  "recorded_outcomes": {
+    "per_case": [
+      "P0 online execution result",
+      "P0 offline Official terminal result",
+      "F-P1 offline Official terminal result",
+      "N-P1 offline Official terminal result",
+      "A2 offline Official terminal result",
+      "P0-to-F-P1 and P0-to-N-P1 program changes",
+      "tokens, time, commands, and infrastructure censoring"
+    ],
+    "semantic_opportunity": "The common P0 bootstrap completes and returns one or more reportMissingImports findings. This is measured after sample freeze and never used to replace a case.",
+    "mechanism_qualified_F_win": "On a semantic-opportunity case, F changes P0 in a way directly corresponding to a specific finding, F-P1 Official Passes, and N-P1 does not Official Pass.",
+    "A2_role": "A2 reports whether an independent strong-Agent resample can solve the case. It is not part of the F/N feedback-content contrast and cannot substitute for it."
+  },
+  "mutually_exclusive_decision_rule": [
+    {
+      "priority": 1,
+      "decision": "EXECUTOR_STOP",
+      "condition": "Stage 0 conformance has any unexplained mismatch.",
+      "meaning": "Revise the executor implementation only; make no claim about the feedback hypothesis."
+    },
+    {
+      "priority": 2,
+      "decision": "RETAIN_INSUFFICIENT_OPPORTUNITY",
+      "condition": "Stage 0 passes but fewer than four of eight P0 programs are valid semantic opportunities.",
+      "meaning": "Do not enter representative Phase 2. Report the low opportunity rate as counterevidence to practical mechanism prevalence; do not replace cases."
+    },
+    {
+      "priority": 3,
+      "decision": "ADVANCE_TO_REPRESENTATIVE_PHASE_2",
+      "condition": "At least four semantic opportunities exist, at least two distinct projects are mechanism-qualified F wins, and there are zero N-exclusive Official wins among semantic-opportunity cases.",
+      "meaning": "The pilot justifies a separately preregistered representative evaluation. It is not significance or proof that the mechanism is established."
+    },
+    {
+      "priority": 4,
+      "decision": "RETAIN_WEAK_SIGNAL",
+      "condition": "At least four semantic opportunities exist, exactly one project is a mechanism-qualified F win, and there are zero N-exclusive Official wins among semantic-opportunity cases.",
+      "meaning": "Keep the hypothesis unproven and redesign or replicate before Phase 2."
+    },
+    {
+      "priority": 5,
+      "decision": "STOP_CURRENT_V7_BEFORE_PHASE_2",
+      "condition": "Stage 0 passes, at least four semantic opportunities exist, and none of the earlier rules applies.",
+      "meaning": "Current pilot evidence does not support entering Phase 2. This is not a universal falsification of feedback."
+    }
+  ],
+  "expected_work": {
+    "model_episode_or_continuation_invocations": {
+      "P0": 8,
+      "F": 8,
+      "N": 8,
+      "A2": 8,
+      "total": 32
+    },
+    "candidate_executions": {
+      "stage_0_online_wrapper": 4,
+      "stage_0_postepisode_wrapper": 4,
+      "pilot_online_P0": 8,
+      "pilot_postepisode_official": 32,
+      "total": 48
+    },
+    "postepisode_official_runs_on_pilot_programs": 32,
+    "notes": "Infrastructure-censored exact-program retries are reported separately and are not included in planned counts. One Agent episode may contain multiple model requests; actual requests and tokens are reported rather than capped for scoring."
+  },
+  "execution_order": "Do not start model work until this proposal is reviewed and Stage 0 implementation plus tests pass. Do not mix v6 and v7 outcomes.",
+  "safeguard_effect": "No candidate rule, cross-case constraint, hash mechanism, checkpoint, or deployment gate is added. The only gate is the narrowly justified executor conformance check triggered by the observed v6 false-positive certification."
+}

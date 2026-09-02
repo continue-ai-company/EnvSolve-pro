@@ -1,7 +1,7 @@
 {
   "proposal_id": "envsolve-pro-v7-official-faithful-replay-proposal-v1",
   "recorded_at": "2026-09-02T10:26:22Z",
-  "status": "proposal-awaiting-scientific-review-not-preregistered",
+  "status": "superseded-by-v2-never-preregistered",
   "scope": "Consumed/Dev mechanism development only. No protected Canary/Test access and no leaderboard claim.",
   "core_question": "When a strong Agent's first complete deployment program fails semantically, does feedback from an Official-faithful clean replay cause a later program to Official Pass more often than an equally long continuation without that feedback?",
   "non_claims": [
