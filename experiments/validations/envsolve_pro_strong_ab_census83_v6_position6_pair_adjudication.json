@@ -1,0 +1,85 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T00:54:57Z",
+  "position": 6,
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "construction_host": "agenthub",
+  "official_evaluator_host": "spark",
+  "treatment": {
+    "name": "same-session-target-state-complete-program-replay",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "live_frontier_attribution": false,
+    "complete_program_replay_count": 1,
+    "accepted_replay": {
+      "replay_id": "minimal-b-replay-0001",
+      "status": "pass",
+      "certified": true,
+      "check_profile": "official-aligned-executable-goal-boundary-v6-v1"
+    },
+    "final_program_matches_accepted_replay_byte_for_byte": true
+  },
+  "official_outcomes": {
+    "a1": {
+      "outcome": "fail",
+      "exit_code": 2,
+      "issues_count": 0,
+      "execution_time_seconds": 92.05215549468994,
+      "terminal_failure": "The submitted program piped `git archive HEAD` into tar. In the fresh Official container Git rejected /data/project as dubious ownership, so tar received no archive and the bootstrap exited before Pyright.",
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-06-A1/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "a2": {
+      "outcome": "fail",
+      "exit_code": 0,
+      "issues_count": 7,
+      "execution_time_seconds": 197.95704984664917,
+      "missing_imports": [
+        "quart",
+        "quart.cli",
+        "flask_mail",
+        "quart",
+        "twilio.rest",
+        "quart",
+        "quart"
+      ],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-06-A2/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59/evaluation/spark-official-v1/json_results/results.jsonl"
+    },
+    "b": {
+      "outcome": "pass",
+      "exit_code": 0,
+      "issues_count": 0,
+      "execution_time_seconds": 359.79171681404114,
+      "missing_imports": [],
+      "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-06-B/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59/evaluation/spark-official-v1/json_results/results.jsonl"
+    }
+  },
+  "paired_outcome": "B-exclusive-terminal-win",
+  "mechanism_observation": {
+    "a1_failed_complete_program_portability": true,
+    "a2_completed_but_left_missing_imports": true,
+    "b_clean_replay_count": 1,
+    "b_clean_replay_passed": true,
+    "b_official_passed": true,
+    "interpretation": "The second independent free-Agent session produced an executable environment but omitted optional integrations imported by the repository. The replay-enabled session tested its complete program in a fresh environment, observed the unresolved target-state imports, added quart, Flask-Mail, and twilio, and submitted the byte-identical replayed program. The independent Official evaluator passed it."
+  },
+  "infrastructure_censoring": [
+    {
+      "arm": "A1",
+      "stage": "generation-source-acquisition",
+      "disposition": "excluded-attempt",
+      "detail": "The initial generation launch could not acquire the exact Git revision from GitHub or the fallback source. The exact source revision was then seeded from the Official fallback before the treatment was run; the recorded Official outcome is the subsequent candidate execution failure."
+    }
+  ],
+  "cumulative_interpretation": {
+    "b_exclusive_terminal_wins": 4,
+    "distinct_projects": 4,
+    "core_mechanism": "same-session-target-state-complete-program-replay",
+    "algorithm_and_protocol_status": "frozen-while-completing-census",
+    "not_established": [
+      "overall treatment effect size",
+      "SOTA",
+      "paper-level conclusion"
+    ]
+  },
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}

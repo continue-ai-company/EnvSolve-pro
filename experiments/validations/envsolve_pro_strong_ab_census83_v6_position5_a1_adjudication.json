@@ -1,0 +1,33 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T00:20:30Z",
+  "position": 5,
+  "case_id": "envbench-python-tefra__xsdata@1f42a6a5990664494049d4f97810cb0bcccc76df",
+  "construction_host": "spark",
+  "official_outcome": {
+    "arm": "A1",
+    "outcome": "pass",
+    "exit_code": 0,
+    "issues_count": 0,
+    "execution_time_seconds": 114.98340439796448,
+    "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-05-A1/envbench-python-tefra__xsdata__1f42a6a5990664494049d4f97810cb0bcccc76df/evaluation/spark-official-v1/json_results/results.jsonl"
+  },
+  "followup_disposition": {
+    "eligible": false,
+    "reason": "A1 passed the independent Official evaluator, so the preregistered conditional A2/B followups are not run."
+  },
+  "infrastructure_censoring": [
+    {
+      "stage": "official-source-acquisition",
+      "disposition": "excluded-attempt",
+      "detail": "GitHub acquisition failed and the Hugging Face fallback ended with an SSL EOF before the candidate or evaluator executed. The exact candidate was retried in a fresh Official directory."
+    },
+    {
+      "stage": "official-evaluator-install",
+      "disposition": "excluded-attempt",
+      "detail": "The candidate bootstrap completed, but installation of the Official Pyright evaluator ended with an SSL EOF. No Official type-check result was produced, so the unchanged candidate was retried in a fresh Official directory."
+    }
+  ],
+  "interpretation": "This is an A1 success in the full census denominator, not a replay-treatment opportunity and not evidence for or against the EnvSolve-Pro replay mechanism.",
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}

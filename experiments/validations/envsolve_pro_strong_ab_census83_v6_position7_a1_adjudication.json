@@ -1,0 +1,21 @@
+{
+  "study_id": "envsolve-pro-strong-ab-census83-v6-v1",
+  "recorded_at": "2026-09-02T00:38:18Z",
+  "position": 7,
+  "case_id": "envbench-python-jupyter__qtconsole@56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9",
+  "construction_host": "agenthub",
+  "official_outcome": {
+    "arm": "A1",
+    "outcome": "pass",
+    "exit_code": 0,
+    "issues_count": 0,
+    "execution_time_seconds": 661.6432783603668,
+    "artifact": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-07-A1/envbench-python-jupyter__qtconsole__56e5a5ec5cfccf5afd098fe8bb5b2c558a1dc8f9/evaluation/spark-official-v1/json_results/results.jsonl"
+  },
+  "followup_disposition": {
+    "eligible": false,
+    "reason": "A1 passed the independent Official evaluator, so the preregistered conditional A2/B followups are not run."
+  },
+  "interpretation": "This is an A1 success in the full census denominator, not a replay-treatment opportunity and not evidence for or against the EnvSolve-Pro replay mechanism.",
+  "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
+}
