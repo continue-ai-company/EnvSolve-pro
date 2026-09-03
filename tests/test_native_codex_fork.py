@@ -61,6 +61,7 @@ def test_both_forks_disable_shell_apps_and_parent_mcp() -> None:
         assert 'features.shell_tool=false' in rendered
         assert 'features.apps=false' in rendered
         assert 'features.multi_agent=false' in rendered
+        assert 'mcp_servers.envsolve_container.command="/usr/bin/false"' in rendered
         assert 'mcp_servers.envsolve_container.enabled=false' in rendered
         assert 'model_reasoning_effort="xhigh"' in rendered
 

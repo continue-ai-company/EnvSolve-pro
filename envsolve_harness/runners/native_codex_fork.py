@@ -81,6 +81,7 @@ def build_tool_free_native_fork(
         "features.memories": False,
         "features.multi_agent": False,
         "features.remote_plugin": False,
+        "mcp_servers.envsolve_container.command": "/usr/bin/false",
         "mcp_servers.envsolve_container.enabled": False,
         "model_reasoning_effort": reasoning_effort,
     }
