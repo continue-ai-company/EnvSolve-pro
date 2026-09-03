@@ -29,6 +29,7 @@ def _plan(branch: str, parent: CompletedCodexPrefix):
         parent=parent,
         codex_executable=Path("/Applications/ChatGPT.app/codex"),
         model="gpt-5.6",
+        reasoning_effort="xhigh",
         schema_path=Path("schema.json"),
         events_path=Path(f"{branch}.jsonl"),
         output_path=Path(f"{branch}.json"),
@@ -61,6 +62,7 @@ def test_both_forks_disable_shell_apps_and_parent_mcp() -> None:
         assert 'features.apps=false' in rendered
         assert 'features.multi_agent=false' in rendered
         assert 'mcp_servers.envsolve_container.enabled=false' in rendered
+        assert 'model_reasoning_effort="xhigh"' in rendered
 
 
 def test_incomplete_parent_is_rejected() -> None:
@@ -72,4 +74,3 @@ def test_incomplete_parent_is_rejected() -> None:
             ],
             "non-empty",
         )
-

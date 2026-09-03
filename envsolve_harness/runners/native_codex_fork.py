@@ -60,6 +60,7 @@ def build_tool_free_native_fork(
     parent: CompletedCodexPrefix,
     codex_executable: Path,
     model: str,
+    reasoning_effort: str,
     schema_path: Path,
     events_path: Path,
     output_path: Path,
@@ -81,6 +82,7 @@ def build_tool_free_native_fork(
         "features.multi_agent": False,
         "features.remote_plugin": False,
         "mcp_servers.envsolve_container.enabled": False,
+        "model_reasoning_effort": reasoning_effort,
     }
     command = [
         str(codex_executable),
