@@ -25,7 +25,7 @@ def main() -> int:
     parser.add_argument("--script", type=Path, required=True)
     parser.add_argument("--envbench-root", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
-    parser.add_argument("--cache-root", type=Path, required=True)
+    parser.add_argument("--cache-root", type=Path)
     parser.add_argument(
         "--image",
         default="ghcr.io/jetbrains-research/envbench-python:latest",
@@ -53,7 +53,9 @@ def main() -> int:
             repo_data=root / "repos",
             temp_dir=root / "tmp",
             image=args.image,
-            source_cache_root=args.cache_root.resolve(),
+            source_cache_root=(
+                args.cache_root.resolve() if args.cache_root is not None else None
+            ),
             max_workers=1,
             process_timeout=args.process_timeout,
             create_container_timeout=args.create_container_timeout,
@@ -81,4 +83,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
