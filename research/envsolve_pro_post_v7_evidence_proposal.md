@@ -1,7 +1,8 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 approved and started on 2026-09-04; Experiment 2 remains proposed, not started. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 获批并启动；实验 2 仍为提案，未启动。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04; Experiment 2 remains proposed, not started. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行；实验 2 仍为提案，未启动。本文是实验备忘录，不是 ICLR 稿件。
+Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
 
@@ -35,6 +36,7 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 - 问题：不按弱基线输赢挑样本，强 Agent 形成完整程序后真实失败的比例是多少？失败中有多少能给 replay 提供反例？
 - 抽样：先确定当前授权的显式 Dev 名单，不读取 Protected Canary/Test；按 case ID 排序后，用 Python Random(20260904) 不放回抽取 24 个。抽样不读取任何基线胜负或新 treatment 结果，公开记录与历史样本的重叠。授权池不足 24 个时先修订方案，不静默缩样。
+- 已核对的候选总体：`experiments/cases/dev_pro_bad_case_census_v1_209.jsonl`，209 个唯一 ID，内容集合等于 `dev5.jsonl` 与 `train_rest204.jsonl` 的并集。依据既有 `pro_dev_bad_case_census_v1_preregistration.json` 的开发总体定义；此次未读取 protected case 文件、未抽样，也不重新声称独立核验了 protected 集合交集。建议审定这个完整开发总体，而非按旧基线表现筛选的子集。
 - 样本量理由：24 是快速估计机会率的 pilot，不是方法有效性检验。若 24 个独立有效样本均无失败，失败率的一侧 95% 二项上界仍约 11.7%，不能宣称强 Agent 已刷满；有删失时该界不能直接用于全样本。
 - 方法：Mac 统一控制同版本强 Agent，AgentHub 最多两个构造槽；Spark 单独做 episode 结束后的 Official。模型、工具、公开目标和初始条件在执行前记录，过程不限制自由 Agent 的操作策略。
 - 终点：首先按全部 24 个抽样位置报告有效程序提交及合法 Official Pass@1；另列未提交、bootstrap 失败、缺失导入失败、源码不可得、明确基础设施故障和原因未决。合法性审核未完成的 metric pass 不能升级为合法成功。
@@ -75,6 +77,8 @@ Experiment 1 execution: Spark tmux `post-v7-repeatability-20260904`, output `/ho
 ### Experiment 2: P0 Prevalence
 
 Establish the explicitly authorized Dev population without reading protected data. Sort IDs, then sample 24 without replacement using Python Random(20260904), independently of all baseline outcomes and treatment results. Record prior exposure overlap. If the authorized pool is smaller, revise the proposal before execution rather than silently shrinking it.
+
+Proposed population verified locally: `experiments/cases/dev_pro_bad_case_census_v1_209.jsonl` has 209 unique IDs and equals the union of `dev5.jsonl` and `train_rest204.jsonl`, following the existing `pro_dev_bad_case_census_v1_preregistration.json` development-universe definition. No protected case file was read and no sample selected; this check does not independently reverify protected-set disjointness. Review this full development population rather than an outcome-selected subset.
 
 Twenty-four cases are a prevalence pilot, not an efficacy test. With zero failures in 24 independent evaluable cases, the one-sided 95% binomial upper bound is still about 11.7%; censoring prevents directly applying this bound to the full sampled population.
 

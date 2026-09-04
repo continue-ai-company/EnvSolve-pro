@@ -21,9 +21,9 @@ Recorded 2026-09-04. Historical-artifact analysis; not an algorithm-effect claim
 
 证据缺口：Spark 的原三份仓库目录已不存在。现有 EnvBench `evaluation/main.py` 在容器结束后调用 `repo_downloader.clear_repo`，这与目录清理相符；历史 quiet 安装日志也没有完整依赖清单。因此历史轨迹不足以锁定根因，不补写确定结论。
 
-已获批的 3 x 5 重复诊断正在运行。首次 python-control 重复取得 metric pass，并在 Pyright 输出文件存在时采到非空 `control/_version.py` 和 104 个 dist-info 目录。该文件注明由 vcs-versioning 生成。此观察证明本次可采到相关构建产物，不证明其余重复会稳定，不改变算法裁决。
+已获批的 3 x 5 重复诊断现已完成，结果见 `research/envsolve_pro_post_v7_repeatability_report.md`。首次 python-control 重复取得 metric pass，并在 Pyright 输出文件存在时采到非空 `control/_version.py` 和 104 个 dist-info 目录。该文件注明由 vcs-versioning 生成。此观察证明本次可采到相关构建产物，不证明所有重复稳定，不改变算法裁决。
 
-裁决仍为 retain：有同程序评分差异的事实，尚无当前核心机制的因果增益证据。最有信息量的后续是完成原定十五次，再比较语义差异、实际依赖及基础设施删失；不追加成功导向重试。
+裁决仍为 retain：有历史同程序评分差异的事实，尚无当前核心机制的因果增益证据。原定十五次已完成，语义差异、依赖采样及基础设施删失的比较见最终短报告；未追加成功导向重试。
 
 ## English
 
@@ -33,7 +33,7 @@ The repository configures setuptools-scm to generate `control/_version.py`. This
 
 The retained historical logs cannot resolve the cause: the three source directories are absent, consistent with the current evaluator's postexecution `clear_repo` call, and quiet installation omitted a complete dependency inventory. Do not retroactively assign a root cause.
 
-The approved repeatability study is in progress. Its first python-control repetition metric-passed and yielded an in-flight sample containing the generated version file, attributed in its text to vcs-versioning, and 104 distribution directories while Pyright output existed. This validates evidence capture for that execution, not repeatability or algorithm efficacy. Retain the unproven mechanism; finish the fixed fifteen executions without outcome-seeking retries.
+The approved repeatability study has completed; see `research/envsolve_pro_post_v7_repeatability_report.md`. Its first python-control repetition metric-passed and yielded an in-flight sample containing the generated version file, attributed in its text to vcs-versioning, and 104 distribution directories while Pyright output existed. This validates evidence capture for that execution, not repeatability or algorithm efficacy. Retain the unproven mechanism; all fifteen executions finished without outcome-seeking retries.
 
 ## Evidence
 

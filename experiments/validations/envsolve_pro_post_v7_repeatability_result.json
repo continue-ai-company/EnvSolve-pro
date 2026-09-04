@@ -1,0 +1,84 @@
+{
+  "study_id": "envsolve-pro-post-v7-repeatability-20260904",
+  "status": "completed-all-15-no-extra-retries",
+  "proposal": "research/envsolve_pro_post_v7_evidence_proposal.md",
+  "host": "Spark",
+  "executor_root": "/home/avdpro/work/EnvSolve-pro-v7-6bc8230",
+  "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+  "started_at": "2026-09-04T04:43:00.174628+00:00",
+  "finished_at": "2026-09-04T05:19:44.833980+00:00",
+  "model_calls": 0,
+  "online_agent": false,
+  "treatment_test": false,
+  "protected_data_used": false,
+  "local_raw_root": "runs/envsolve-pro-post-v7-repeatability-20260904",
+  "remote_raw_root": "/home/avdpro/work/envsolve-pro-post-v7-repeatability-20260904",
+  "counts": {
+    "scheduled": 15,
+    "executed": 15,
+    "metric_pass_with_report": 9,
+    "completed_missing_import_failure": 0,
+    "adapter_censored_with_explicit_timeout_evidence": 5,
+    "bootstrap_failure_with_unresolved_attribution": 1,
+    "missing_records": 0,
+    "additional_retries": 0
+  },
+  "cases": [
+    {
+      "position": "02",
+      "repository": "python-control/python-control",
+      "ordered_outcomes": ["metric_pass", "index_timeout_then_versions_none", "incomplete_slycot_download_timeout", "metric_pass", "metric_pass"],
+      "metric_pass": 3,
+      "explicit_timeout_evidence": 2,
+      "unresolved_bootstrap_failure": 0,
+      "successful_diagnostic_multisets_identical": true,
+      "successful_sampled_distribution_names_identical": true,
+      "note": "The historical ._version semantic failure was not reproduced. Nonempty generated control/_version.py was sampled. Successful executions sampled setuptools_scm 10.2.3, vcs_versioning 2.3.4, setuptools 80.3.1 and Pyright 1.1.411."
+    },
+    {
+      "position": "07",
+      "repository": "jupyter/qtconsole",
+      "ordered_outcomes": ["PyQt6_download_read_timeout", "metric_pass", "PyQt6_download_read_timeout", "metric_pass", "metric_pass"],
+      "metric_pass": 3,
+      "explicit_timeout_evidence": 2,
+      "unresolved_bootstrap_failure": 0,
+      "successful_diagnostic_multisets_identical": true,
+      "successful_sampled_distribution_names_identical": true
+    },
+    {
+      "position": "08",
+      "repository": "google/yapf",
+      "ordered_outcomes": ["metric_pass", "build_dependency_setuptools_versions_none_unattributed", "pytest_download_read_timeout", "metric_pass", "metric_pass"],
+      "metric_pass": 3,
+      "explicit_timeout_evidence": 1,
+      "unresolved_bootstrap_failure": 1,
+      "successful_diagnostic_multisets_identical": true,
+      "successful_sampled_distribution_names_identical": true,
+      "note": "Round 2 failed while installing setuptools>=58.5.0 build dependencies, with versions:none but no explicit timeout in that log. Keep attribution unresolved."
+    }
+  ],
+  "verification": {
+    "fixed_interleaved_schedule": true,
+    "all_15_programs_match_historical_bootstrap_log_text": true,
+    "all_15_mode_postepisode_and_no_agent_disclosure": true,
+    "serial_nonoverlapping_execution_intervals": true,
+    "ordinary_runner_tests": "4 passed",
+    "artifact_consistency_assertions": "passed against all 15 raw execution/result pairs",
+    "no_live_study_container_or_tmux_pane_at_final_check": true
+  },
+  "limitations": [
+    "Nine metric passes are descriptive execution results, not new independently adjudicated legitimate Official Pass@1 or a representative benchmark success estimate.",
+    "Each program has only three successful scored repetitions out of five attempts. No program has five evaluable agreements; do not claim stability was proven.",
+    "Absence of a semantic disagreement in this selected, partially censored sample does not refute the historical python-control observation.",
+    "Explicit timeout evidence supports an external-delivery contribution, not necessarily exclusive attribution of every downstream resolver failure.",
+    "Two-second read-only filesystem samples are not a complete final environment inventory. Equal dist-info directory names do not establish equal package bytes or all environment state.",
+    "Historical final dependency inventories and generated files were not retained, so the historical semantic failure root cause remains unresolved."
+  ],
+  "recommendation": {
+    "decision": "RETAIN_UNPROVEN_NO_PROMOTION",
+    "main_contradiction": "Terminal outcomes vary largely before effective scoring; no new strong-Agent semantic repair opportunity was established.",
+    "support": "Identical full programs can terminate differently under the same recorded image and executor; target execution matters operationally.",
+    "counterevidence": "Every scored completion passes and its full diagnostics agree within program; no Agent or feedback treatment was tested.",
+    "next": "Review the 24-case census proposal over the explicit 209-case Dev universe, with a fair baseline that retains voluntary fresh-container verification and shared infrastructure handling. Do not start before review, infer a replay gain from download retries, or open protected data."
+  }
+}
