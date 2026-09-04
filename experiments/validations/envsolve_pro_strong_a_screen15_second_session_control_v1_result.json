@@ -122,6 +122,13 @@
     "falsification_rule": "If B has no reproducible exclusive terminal wins over A2, kill replay as the EnvSolve-Pro core algorithm rather than adding rules."
   },
   "claim_limits": "One A2 replicate on two opportunities is enough to refute the simple unique-gain interpretation of screen15, but not enough to estimate stochastic pass probabilities or the population effect of replay.",
+  "interpretation_correction_2026_09_04": {
+    "supersedes": ["strongest_counterevidence", "claim_limits"],
+    "observed": "The no-replay A2 and B each produced a metric-passing path, but B was evaluated on Spark with Pyright 1.1.402 and A2 on Mac with Pyright 1.1.411 after Spark acquisition/download failures. This is evidence against replay being necessary for the observed successful path, not a matched-host/version equivalence test or proof that session variability fully explains all differences.",
+    "mechanism_limit": "B's ordinary construction shell already reported zero missing imports before its three replays. Two replay failures concerned acquisition/connectivity before goal execution; program revisions handled downloads, dependency placement and retries. A2 independently tested a fresh Python venv, which is not a fresh base container.",
+    "outcomes_changed": false,
+    "evidence_note": "research/envsolve_pro_v6_feedback_attribution_correction.md"
+  },
   "protected_canary_opened": false,
   "official_test_opened": false,
   "safeguard_policy": "No new hash, frozen contract, or software gate was added."

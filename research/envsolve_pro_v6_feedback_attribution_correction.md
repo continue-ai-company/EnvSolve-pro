@@ -46,3 +46,22 @@ This correction preserves historical outcome records while withdrawing the unsup
 Each row maps to `runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-<position>-B/<case>/generation/trajectory.jsonl` and `generation/minimal-b/replays.jsonl`. Event line numbers are one-based physical JSONL lines, not model step numbers. Original programs are under `generation/minimal-b/programs/`.
 
 The two corrected records are `experiments/validations/envsolve_pro_strong_ab_census83_v6_position4_pair_adjudication.json` and `experiments/validations/envsolve_pro_strong_ab_census83_v6_position6_pair_adjudication.json`. Their added correction fields supersede only the original mechanism interpretations, not the stored scores or raw evidence.
+
+## Separate screen15 Check / 独立的 screen15 核查
+
+This is a different historical study, not an eighth v6 session or a pooled effect estimate.
+
+另核查明确 Dev case meshio 的 screen15 原始轨迹。虽然目录沿用 `envsolve-pro-canary-phase0-v1` 名字，本次只读取了先核对属于 209-case Dev 总体的 meshio 两个具体运行，没有读取受保护 case 文件。
+
+- B 普通构建 shell 在 `trajectory.jsonl` 第 155 行已报告 `missingCount: 0`。第 165、171、187 行分别收到完整重放 fail、fail、pass，turn 于第 189 行结束。
+- 第一次重放因 optimesh Git clone 的 GnuTLS/early EOF 失败；第二次因 CondaHTTPError 失败；两次均未到达目标检查，反例列表为空。程序修改包括改用 codeload 下载、调整依赖安装位置，以及加长超时和添加重试。不能把它简化为“程序完全没改”，也不能说它通过重放发现了剩余缺失导入。
+- A2 没有在线 replay 工具；其第 96 行普通 shell 自行创建了新的 Python venv 并做检查，报告 `missing 0`，第 99 行结束。该命令仍追加已有 PYTHONPATH，且复用构建容器和源码，因此只能称为自主新 venv 测试，不能称为完全隔离的干净目标重放。
+- B 在 Spark 的 Official 报告为 exit 0、issues 0、Pyright 1.1.402；A2 在 Mac 的报告为 exit 0、issues 0、Pyright 1.1.411。A2 的 Spark 尝试因下载失败没有有效报告。故这能说明无在线 replay 的 Agent 也找到了一条评分通过路径，但不是同主机、同评分器版本的等效性检验，更不能断言随机 session 差异已经被证明是全部原因。
+
+核心机制允许利用 bootstrap 失败反馈，不仅限于缺失导入；这里确实有同 session 的下载失败反馈和后续程序调整。但这些证据没有区分干净目标重放的独特收益与普通网络恢复、额外推理及前期验证行为的收益。保留该边界，不新增包规则、不重新运行此 case。
+
+In the separate screen15 meshio B trace, ordinary construction already reported zero missing imports at line 155. Replay returns at lines 165/171/187 were fail/fail/pass before turn completion at line 189. The failures were Git TLS acquisition and Conda connection failures before the goal ran. Candidate revisions changed archive acquisition, dependency placement, timeouts, and retries; this is real execution-feedback handling but not observed discovery of residual missing imports by clean replay.
+
+The no-replay A2 voluntarily tested a fresh Python venv at line 96 before ending at line 99, but appended inherited PYTHONPATH and reused the construction container and checkout. It is not fully isolated target-state replay. Its Mac Official result passed under Pyright 1.1.411, whereas B passed on Spark under 1.1.402. Preserve the successful no-replay path as counterevidence to necessity, but do not call this a matched-host/version equivalence test or proof that sampling alone fully explains the difference.
+
+Raw paths: under `runs/envsolve-pro-canary-phase0-v1/mac-central-remote/`, use only `pro-strong-a-screen15-09-meshio-agenthub-qualified-B-v1` and `pro-strong-a-screen15-09-meshio-agenthub-A2-no-replay-v1`. Both resolve to case `envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a`. Inspect their `generation/trajectory.jsonl`, B's `generation/minimal-b/replays.jsonl` and programs, and the existing Spark/Mac Official result paths recorded in the screen15 negative-control result.
