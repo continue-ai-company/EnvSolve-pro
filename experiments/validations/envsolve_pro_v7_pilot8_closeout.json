@@ -1,0 +1,144 @@
+{
+  "study_id": "envsolve-pro-v7-pilot8-closeout",
+  "recorded_on": "2026-09-04",
+  "execution_date_utc": "2026-09-03",
+  "status": "historical-pilot-closed-no-promotion",
+  "protocol": "experiments/validations/envsolve_pro_v7_official_faithful_replay_protocol_proposal_v2.json",
+  "decision": "RETAIN_INSUFFICIENT_OPPORTUNITY",
+  "scope": "Consumed/Dev pilot only. Not a representative success estimate, leaderboard claim, or test of Live frontier.",
+  "evidence_roots": {
+    "local_controller": "runs/envsolve-pro-v7-pilot8/mac-controller",
+    "local_execution_snapshot": "runs/envsolve-pro-v7-pilot8/spark-snapshot",
+    "spark": "/home/avdpro/work/envsolve-pro-v7-pilot8",
+    "source_receipts": "runs/envsolve-pro-v7-pilot8/spark-snapshot/source-warmup-receipts.json"
+  },
+  "current_goal_compatibility": {
+    "live_frontier": "Killed as a core algorithm by earlier work; no revival or promotion is supported here.",
+    "historical_treatment": "One tool-free native fork continuation after the common completed P0 prefix, with an Official-path result versus a typed-null result.",
+    "current_treatment": "Independent target-state complete-program replay returned within the same active Agent session; Official is postepisode-only.",
+    "incompatibilities": [
+      "Historical v7 serialized Official-path observations into online branch prompts.",
+      "Historical v7 used separate tool-free child sessions, not a repeated replay tool in the original active session."
+    ],
+    "consequence": "Retain raw historical evidence, but do not claim that v7 establishes the current core mechanism or reuse its online Official path for new work."
+  },
+  "execution_accounting": {
+    "planned_positions": 8,
+    "generated_P0": 7,
+    "generated_A2": 6,
+    "completed_F_N_continuations": 12,
+    "online_initial_executions": 7,
+    "online_retry_executions": 2,
+    "postepisode_initial_executions": 24,
+    "postepisode_retry_executions": 11,
+    "candidate_executions_total_excluding_phase0": 44,
+    "phase0_fixture_executions_recorded_separately": 8,
+    "unexecuted_postepisode_program_slots": 8,
+    "unexecuted_slots_reason": "Positions 4 and 6 have no completed branch/A2 set: unresolved online infrastructure failure and unavailable source, respectively. Their four-program postepisode stage was not started; these are missing records, not four observed failures per case."
+  },
+  "opportunity_accounting": {
+    "definition": "Common online P0 bootstrap completes and reports at least one reportMissingImports finding.",
+    "observed_semantic_opportunities": 0,
+    "metric_pass_on_initial_online_execution": [1, 2, 3, 7, 8],
+    "metric_pass_only_on_exact_program_online_retry": [5],
+    "unresolved_online_infrastructure": [4],
+    "source_unavailable": [6],
+    "sensitivity": "Counting position 5 as an accepted external-failure retry gives six observed online score-passes; conservatively excluding it gives five. Both yield zero semantic opportunities and the same decision. Do not call six cases first-attempt execution successes."
+  },
+  "raw_postepisode_initial_counts": {
+    "metric_pass": 12,
+    "completed_bootstrap_failure": 5,
+    "completed_missing_import_failure": 1,
+    "adapter_censored": 6,
+    "denominator": 24,
+    "interpretation": "Raw first executions only; not admissibility-certified Official Pass@1 and not an efficacy estimate."
+  },
+  "cases": [
+    {
+      "position": 1,
+      "repository": "pretalx/pretalx",
+      "online": "metric_pass",
+      "postepisode_attempts": {"P0": ["bootstrap_failure", "metric_pass"], "F": ["metric_pass"], "N": ["metric_pass"], "A2": ["metric_pass"]},
+      "program_relation": "P0, F, and N are byte-identical.",
+      "note": "P0 initial failure was celery versions:none. Its network attribution was inferred, not established by an explicit timeout in that log."
+    },
+    {
+      "position": 2,
+      "repository": "python-control/python-control",
+      "online": "metric_pass",
+      "postepisode_attempts": {"P0": ["missing_import_failure"], "F": ["adapter_censored", "bootstrap_failure"], "N": ["metric_pass"], "A2": ["adapter_censored", "adapter_censored"]},
+      "program_relation": "P0, F, and N are byte-identical.",
+      "note": "Online P0 passes; postepisode P0 has one control._version finding; N passes. F retry reports numpy<2 versions:none. A2 twice has Conda connection failure. Exact-program outcome instability forbids a causal F/N claim."
+    },
+    {
+      "position": 3,
+      "repository": "jackdewinter/pymarkdown",
+      "online": "metric_pass",
+      "postepisode_attempts": {"P0": ["metric_pass"], "F": ["metric_pass"], "N": ["adapter_censored", "adapter_censored"], "A2": ["bootstrap_failure", "bootstrap_failure"]},
+      "program_relation": "P0, F, and N are byte-identical.",
+      "note": "N has read-timeout then index-JSON truncation. A2 has partial wheel downloads with integrity mismatches, first cryptography then cffi. Treat artifact-delivery integrity as unresolved; do not bypass integrity checks or claim an algorithmic A2 loss."
+    },
+    {
+      "position": 4,
+      "repository": "tortoise/tortoise-orm",
+      "online_attempts": ["bootstrap_failure", "adapter_censored"],
+      "postepisode": "not_started",
+      "note": "Initial UV Python archive extraction ends in response-body timeout; retry ends in connection-error. Missing evidence, not a strong-Agent semantic failure."
+    },
+    {
+      "position": 5,
+      "repository": "tefra/xsdata",
+      "online_attempts": ["bootstrap_failure", "metric_pass"],
+      "postepisode_attempts": {"P0": ["adapter_censored", "metric_pass"], "F": ["metric_pass"], "N": ["bootstrap_failure", "adapter_censored"], "A2": ["metric_pass"]},
+      "program_relation": "F equals P0; N adds only pip timeout/retry options.",
+      "note": "Online initial setuptools versions:none; N initial ruff versions:none and retry read-timeout. Empty-index attribution is uncertain. A2 passes the metric using /opt/conda/bin/python; this is not proof of an isolated or complete environment."
+    },
+    {
+      "position": 6,
+      "repository": "flask-middleware/flask-security",
+      "online": "not_started",
+      "postepisode": "not_started",
+      "note": "Exact revision acquisition failed after three attempts with upload-pack: not our ref. No replacement case."
+    },
+    {
+      "position": 7,
+      "repository": "jupyter/qtconsole",
+      "online": "metric_pass",
+      "postepisode_attempts": {"P0": ["metric_pass"], "F": ["adapter_censored", "metric_pass"], "N": ["adapter_censored", "metric_pass"], "A2": ["bootstrap_failure", "metric_pass"]},
+      "program_relation": "P0, F, and N are byte-identical.",
+      "note": "F/N initial read-timeouts; A2 initial IncompleteRead. All final executions score-pass. A2 errorCount 1192 versus 1336 is not a success-rate gain."
+    },
+    {
+      "position": 8,
+      "repository": "google/yapf",
+      "online": "metric_pass",
+      "postepisode_attempts": {"P0": ["bootstrap_failure", "adapter_censored"], "F": ["metric_pass"], "N": ["metric_pass"], "A2": ["metric_pass"]},
+      "program_relation": "P0, F, and N are byte-identical.",
+      "note": "P0 initially backtracks pytest-cov to an old build failing to import coverage; retry has read-timeout. The initial network attribution is unproven and the retry must not erase that bootstrap failure. Identical F/N scripts pass; no feedback gain follows."
+    }
+  ],
+  "audit_cautions": [
+    "All 13 generation manifests report codex-cli 0.152.0, whereas the protocol named 0.151.0-alpha.7.2. Record a version deviation; do not assume equivalence or silently update the preregistration.",
+    "versions:none and resolver backtracking alone do not prove a network failure. Earlier retries based on those symptoms have uncertain protocol eligibility; keep first outcomes and sensitivity analyses.",
+    "The mode=online execution flag records intended disclosure, not proof that an Agent received it. Branch prompt and trajectory evidence must establish actual disclosure.",
+    "Metric pass means bootstrap exit 0 and official issuesCount 0 with a report. It does not independently establish candidate admissibility, deployment completeness, or replay robustness.",
+    "errorCount, token totals, frontier trajectories, and weak-baseline difficulty labels cannot replace the primary terminal endpoint.",
+    "Model-free wrapper agreement on four fixtures did not establish repeated package resolution or program-outcome stability."
+  ],
+  "machine_use": {
+    "Mac": "Authenticated controller for 7 P0, 6 A2, and 12 F/N continuations; local artifact collection and analysis.",
+    "AgentHub": "Remote construction containers for all 13 P0/A2 episodes. Two simultaneous construction containers were observed; completed experiment containers have been removed by the runner.",
+    "Spark": "Sole candidate executor for all 44 pilot executions, serially scored to avoid contention.",
+    "AgentHub_latest_free_disk_GiB": 9.3,
+    "AgentHub_limit": "No more than two construction jobs; the last pair reached about 7.9 GiB free. This is a capacity constraint, not an algorithmic feature."
+  },
+  "scientific_conclusion": {
+    "main_contradiction": "No verified strong-Agent online semantic failures in this selected batch, while identical-program terminal outcomes vary.",
+    "strongest_support_for_problem": "python-control has an observed postepisode missing-import failure despite an online score-pass for identical program bytes.",
+    "strongest_counterevidence": "Five initial online executions and a sixth retry score-pass; every F program is unchanged from P0. The selected weak-baseline-enriched cases do not expose a feedback repair opportunity.",
+    "alternative_explanation": "External delivery noise and unresolved executor/package-state variation can create apparent arm differences without any algorithmic improvement.",
+    "decision": "Retain the minimal replay hypothesis as unproven, close historical v7 without promotion, keep Live frontier killed, and do not enter protected or representative treatment evaluation.",
+    "next": "Propose a fixed-program repeatability diagnostic, followed by an independently selected Dev strong-Agent P0 census. Do not start either from this closeout."
+  },
+  "new_algorithm_or_safeguard_added": false
+}
