@@ -81,5 +81,13 @@
       "paper-level conclusion"
     ]
   },
+  "mechanism_attribution_correction": {
+    "recorded_on": "2026-09-04",
+    "supersedes": "mechanism_observation.interpretation",
+    "correction": "The seven missing-import findings and installation of quart, Flask-Mail and twilio occurred in ordinary construction-shell calls before the only submit_and_replay call. That replay passed immediately. The trace does not show fresh replay discovering these missing imports or providing a semantic counterexample for their repair.",
+    "trajectory_completed_event_lines": {"missing_observation": 37, "repair_and_zero_missing_check": 40, "replay_pass": 44, "turn_completed": 46},
+    "outcomes_changed": false,
+    "evidence_note": "research/envsolve_pro_v6_feedback_attribution_correction.md"
+  },
   "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
 }

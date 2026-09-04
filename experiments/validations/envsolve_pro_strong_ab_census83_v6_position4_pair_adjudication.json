@@ -86,5 +86,13 @@
       "paper-level conclusion"
     ]
   },
+  "mechanism_attribution_correction": {
+    "recorded_on": "2026-09-04",
+    "supersedes": "mechanism_observation.interpretation",
+    "correction": "Missing uvicorn.main and astroid.node_classes were observed and repaired in ordinary construction-shell calls before the sole submit_and_replay call. That replay passed on its first attempt. This trace supports successful validation of an already repaired program, not semantic-counterexample-driven repair by clean replay.",
+    "trajectory_completed_event_lines": {"missing_observation": 29, "repair_and_zero_missing_check": 32, "replay_pass": 38, "turn_completed": 41},
+    "outcomes_changed": false,
+    "evidence_note": "research/envsolve_pro_v6_feedback_attribution_correction.md"
+  },
   "safeguard_effect": "No new hash, frozen contract, or runtime gate was added."
 }
