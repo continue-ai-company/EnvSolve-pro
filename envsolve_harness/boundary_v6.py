@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import hashlib
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+import re
+import shlex
 from typing import Any
 
 from envsolve.runtime.docker import DockerEnvironmentHandle
@@ -16,6 +18,7 @@ from envsolve.solver import (
 from envsolve_harness.boundary_v2 import NonInterferingExecutableGoalVerifier
 from envsolve_harness.boundary_v3 import (
     MANAGED_DEPENDENCY_MARKER,
+    _protected_configuration_write,
     adjudicate_managed_dependencies,
 )
 from envsolve_harness.boundary_v4 import adjudicate_repository_native_artifacts
@@ -27,10 +30,35 @@ from envsolve_harness.boundary_v5 import (
     install_boundary_v5_local_distribution_audit,
 )
 from envsolve_harness.integrity.repository import RepositoryIntegrityReport
+from envsolve_harness.scripts import open_program
+from envsolve_harness.scripts.open_program import OpenCandidateProgramValidator
 
 
-OPEN_PROGRAM_POLICY = "open-candidate-program-v6"
+OPEN_PROGRAM_POLICY = "open-candidate-program-v6.1"
 REPOSITORY_POLICY = "open-operation-postepisode-provenance-v1"
+
+
+def _direct_type_stub_write(script: str) -> tuple[str, str] | None:
+    for line in script.splitlines():
+        for match in open_program._OUTPUT_REDIRECTION.finditer(line):
+            target = open_program._normalized_shell_target(match.group("target"))
+            if PurePosixPath(target).suffix.lower() == ".pyi":
+                return line.strip(), target
+        for match in open_program._DIRECT_FILE_COMMAND.finditer(line):
+            try:
+                tokens = shlex.split(match.group("arguments"), posix=True)
+            except ValueError:
+                tokens = re.findall(
+                    r"\"[^\"\n]+\"|'[^'\n]+'|[^\s]+",
+                    match.group("arguments"),
+                )
+            for token in tokens:
+                if token.startswith("-"):
+                    continue
+                target = open_program._normalized_shell_target(token)
+                if PurePosixPath(target).suffix.lower() == ".pyi":
+                    return line.strip(), target
+    return None
 
 
 def install_boundary_v6_local_distribution_audit() -> None:
@@ -152,12 +180,41 @@ must return the controlling shell to its starting project root before it finishe
 
 Safety and correctness are decided by isolated execution, executable
 postconditions, tracked-state integrity, and post-episode provenance review of new
-import artifacts. Empty files and empty namespace shims are not valid deployment
-artifacts.
+import artifacts. Empty files, empty namespace shims, and type-only `.pyi` providers
+created to satisfy unresolved imports are not valid deployment artifacts.
 """.strip()
 
     def validate(self, candidate: DeploymentCandidate) -> CandidateValidation:
-        result = super().validate(candidate)
+        type_stub = _direct_type_stub_write(candidate.script)
+        if type_stub is not None:
+            line, target = type_stub
+            return CandidateValidation(
+                False,
+                self.policy_id,
+                reason=(
+                    "candidate program materializes a type-only import provider"
+                ),
+                details={"line": line, "target": target},
+            )
+        protected_write = _protected_configuration_write(
+            candidate.script,
+            allow_mktemp_directory_targets=True,
+        )
+        if protected_write is not None:
+            line, target = protected_write
+            return CandidateValidation(
+                False,
+                self.policy_id,
+                reason=(
+                    "candidate program writes protected repository configuration"
+                ),
+                details={"line": line, "target": target},
+            )
+
+        # V4 and V5 only relabel V3's result. Call the open validator directly so
+        # this version can replace V3's configuration rule without changing the
+        # rest of the candidate language.
+        result = OpenCandidateProgramValidator.validate(self, candidate)
         return CandidateValidation(
             result.accepted,
             self.policy_id,
@@ -165,7 +222,14 @@ artifacts.
             reason=result.reason,
             details={
                 **result.details,
-                **({"interface": self.policy_id} if result.accepted else {}),
+                **(
+                    {
+                        "interface": self.policy_id,
+                        "protected_configuration_history": "no-write-observed",
+                    }
+                    if result.accepted
+                    else {}
+                ),
             },
         )
 

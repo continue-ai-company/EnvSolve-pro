@@ -29,7 +29,7 @@ MINIMAL_B_METHOD = "envsolve-pro-minimal-b-boundary-v6"
 
 
 class _BoundaryV6MetadataMixin:
-    boundary_version = "open-operation-boundary-v6.0.0"
+    boundary_version = "open-operation-boundary-v6.0.1"
 
     def _candidate_prompt_contract(self) -> str:
         return BoundaryV6OpenCandidateProgramValidator.prompt_contract
@@ -199,7 +199,7 @@ class BoundaryV6QualifiedCodexCliRunner(
     BoundaryV5QualifiedCodexCliRunner,
 ):
     runner_name = "codex-cli-qualified-boundary-v6"
-    runner_version = "6.0.0"
+    runner_version = "6.0.1"
 
     def _goal_contract_for_run(
         self,
@@ -213,7 +213,7 @@ class BoundaryV6QualifiedMinimalBRunner(
     BoundaryV5QualifiedMinimalBRunner,
 ):
     runner_name = "envsolve-pro-minimal-b-qualified-boundary-v6"
-    runner_version = "6.0.0"
+    runner_version = "6.0.1"
 
     def _prompt(
         self,

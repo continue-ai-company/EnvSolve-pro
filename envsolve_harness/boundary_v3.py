@@ -412,11 +412,60 @@ def _python_path_expression(
     return None
 
 
-def _protected_configuration_write(script: str) -> tuple[str, str] | None:
+_SHELL_ASSIGNMENT = re.compile(
+    r"^\s*(?:export\s+)?(?P<name>[A-Za-z_][A-Za-z0-9_]*)=(?P<value>.*)$"
+)
+
+
+def _mktemp_directory_assignment(line: str) -> str | None:
+    match = _SHELL_ASSIGNMENT.match(line)
+    if match is None:
+        return None
+    value = match.group("value").strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+        value = value[1:-1].strip()
+    command = re.fullmatch(r"\$\(\s*mktemp(?P<arguments>[^)]*)\)", value)
+    if command is None:
+        return None
+    try:
+        arguments = shlex.split(command.group("arguments"), posix=True)
+    except ValueError:
+        return None
+    if not any(item == "-d" or item == "--directory" for item in arguments):
+        return None
+    return match.group("name")
+
+
+def _under_shell_variable_root(target: str, roots: set[str]) -> bool:
+    normalized = target.strip().strip("\"'")
+    return any(
+        normalized.startswith(f"${name}/")
+        or normalized.startswith(f"${{{name}}}/")
+        for name in roots
+    )
+
+
+def _protected_configuration_write(
+    script: str,
+    *,
+    allow_mktemp_directory_targets: bool = False,
+) -> tuple[str, str] | None:
+    temporary_roots: set[str] = set()
     for line in script.splitlines():
+        assignment = _SHELL_ASSIGNMENT.match(line)
+        if assignment is not None:
+            name = assignment.group("name")
+            temporary_root = _mktemp_directory_assignment(line)
+            if temporary_root is not None:
+                temporary_roots.add(temporary_root)
+            else:
+                temporary_roots.discard(name)
         for match in open_program._OUTPUT_REDIRECTION.finditer(line):
             target = _configuration_target(match.group("target"))
-            if target is not None:
+            if target is not None and not (
+                allow_mktemp_directory_targets
+                and _under_shell_variable_root(target, temporary_roots)
+            ):
                 return line.strip(), target
         for match in open_program._DIRECT_FILE_COMMAND.finditer(line):
             try:
@@ -430,7 +479,10 @@ def _protected_configuration_write(script: str) -> tuple[str, str] | None:
                 if token.startswith("-"):
                     continue
                 target = _configuration_target(token)
-                if target is not None:
+                if target is not None and not (
+                    allow_mktemp_directory_targets
+                    and _under_shell_variable_root(target, temporary_roots)
+                ):
                     return line.strip(), target
 
     for source, line_offset in open_program._embedded_python_snippets(script):

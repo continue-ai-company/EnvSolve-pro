@@ -59,8 +59,10 @@ def test_a_and_b_share_the_exact_v6_candidate_contract(tmp_path: Path) -> None:
     prompts = [_runner(item, tmp_path)._prompt(case, None) for item in runner_types]
 
     for prompt in prompts:
-        assert prompt.count(BoundaryV6OpenCandidateProgramValidator.prompt_contract) == 1
+        contract = BoundaryV6OpenCandidateProgramValidator.prompt_contract
+        assert prompt.count(contract) == 1
         assert "operation space is open" in prompt
+        assert "type-only `.pyi` providers" in prompt
         assert "must not edit repository source or configuration" not in prompt
 
     for runner_type in (
@@ -88,7 +90,7 @@ def test_all_v6_finalizers_use_the_v6_artifact_policy(tmp_path: Path) -> None:
     for runner_type in runner_types:
         validation = _runner(runner_type, tmp_path)._validate_bootstrap(script)
         assert validation.accepted
-        assert validation.policy_id == "open-candidate-program-v6"
+        assert validation.policy_id == "open-candidate-program-v6.1"
 
     v5 = BoundaryV5QualifiedCodexCliRunner.__new__(
         BoundaryV5QualifiedCodexCliRunner

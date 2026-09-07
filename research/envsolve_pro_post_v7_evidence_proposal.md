@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 is in progress: position 1 of the fixed 24 completed on 2026-09-07 and failed postepisode Official. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 正在进行：固定 24 个位置中的位置 1 已于 2026-09-07 完成，并在 episode 后的 Official 评测中失败。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 is in progress: position 1 failed postepisode Official, and position 2 was boundary-censored before Official. A minimal boundary amendment applies from position 3. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 正在进行：位置 1 在 episode 后的 Official 评测中失败，位置 2 在 Official 前被边界误杀；最小边界修订从位置 3 起生效。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -51,6 +51,8 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 1 `cclib` 已完成。自由 Agent 提交了程序，并在三个自愿创建的干净环境中进行过重放；最后一次重放的公开目标为零缺失导入。但独立 Official 在 `requirements-dev.txt` 的 `pyquante2` Git 获取发生 GnuTLS 失败后以 bootstrap exit 1 结束，未产生 Pyright 报告，因此全样本成功记为 false。提交还生成了只供静态检查使用、没有对应运行时模块的 `PyQuante`/`pybel` 类型接口，不满足预登记的合法部署边界。该位置证明真实终局失败存在，但没有证明自动 clean replay 有增益，因为自由 Agent 已经自行重放并观察到通过。原始记录见 `experiments/validations/envsolve_pro_free_agent_census24_v1_position01_result.json`。
 
+位置 2 `django-lfs` 的 Agent 已生成完整程序，并在一个自愿创建的干净环境中重放后观察到公开目标通过，但旧 V6 验证器把外部 `mktemp -d` 目录中的功能性兼容包 `setup.py` 误判成项目配置写入，导致轨迹在 Official 前终止。该位置固定记为 `boundary-censored`、保留在 24 个位置的分母中且不重跑。修订只允许明确根植于未重绑定 `mktemp -d` 变量的外部配置目标进入原有执行与审计，同时显式拒绝位置 1 式 `.pyi` 类型 provider；从位置 3 使用 V6.1。旧候选在新静态规则下离线可接受只作敏感性分析，不改变主结果。协议说明见 `research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_BOUNDARY_AMENDMENT_V1.md`，机器记录见 `experiments/validations/envsolve_pro_free_agent_census24_v1_position02_boundary_censoring.json`。
+
 本批 24 个位置继续保持 Spark 构建与 Official、Mac 控制的预先分配。AgentHub 当前只有约 5 GiB 空闲盘，不在看到位置 1 结果后改入本批。下一轮方法比较将在运行前按是否需要 GPU 分层：CPU block 固定到 AgentHub，GPU block 固定到 Spark；同一 case 的全部方法保持同机和同资源条件。AgentHub 上约 17 GiB 的旧 construction checkout/replay 是启用该 CPU lane 前需要迁移或清理的容量障碍。
 
 ### 当前授权边界
@@ -98,6 +100,8 @@ Actual configuration: `gpt-5.6-sol`, `xhigh`, and Codex CLI `0.153.4` as observe
 The census baseline can create fresh containers and test its own complete programs through general-purpose execution, without an EnvSolve automatic replay-feedback policy. Preserve that voluntary ability equally in future arms. The qualification evidence is recorded in `research/envsolve_pro_free_agent_environment_capability_v1_report.md`.
 
 Position 1, `cclib`, is complete. The free Agent submitted a program and performed voluntary replay in three fresh environments; its final replay observed zero missing imports on the public goal. Independent Official later exited during bootstrap when the `requirements-dev.txt` checkout of `pyquante2` encountered repeated GitHub GnuTLS failures, so no Pyright report was produced and whole-sample success is false. The submission also generated type-only `PyQuante` and `pybel` interfaces without corresponding runtime modules, violating the preregistered legitimate-deployment boundary. This establishes a real terminal failure but not an automatic-clean-replay benefit: the free Agent had already replayed and observed a pass. The record is `experiments/validations/envsolve_pro_free_agent_census24_v1_position01_result.json`.
+
+Position 2, `django-lfs`, produced a complete program and voluntarily replayed it in one fresh environment, where it observed a public-goal pass. The old V6 validator then misclassified the functional compatibility package's `setup.py`, rooted under an external `mktemp -d` directory, as a repository configuration write and terminated the run before Official. The position remains `boundary-censored` in the denominator of 24 and will not be rerun. V6.1 solely admits configuration targets explicitly rooted at an unrebound `mktemp -d` variable to the existing execution and audits, while explicitly rejecting position-1-style `.pyi` providers. It applies from position 3. Offline acceptance of the old candidate under the revised static rule is sensitivity analysis only and does not alter the primary record. See `research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_BOUNDARY_AMENDMENT_V1.md` and `experiments/validations/envsolve_pro_free_agent_census24_v1_position02_boundary_censoring.json`.
 
 The current 24 positions retain their preregistered Spark construction/Official and Mac control assignment. AgentHub has only about 5 GiB free and will not be introduced after observing position 1. Before the next method comparison, cases will be stratified by GPU requirement: a CPU block fixed to AgentHub and a GPU block fixed to Spark, with every method for a case kept on the same host and resource condition. Roughly 17 GiB of old construction checkout/replay data on AgentHub must be migrated or removed before that CPU lane is reliable.
 

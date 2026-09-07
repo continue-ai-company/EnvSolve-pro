@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position02-boundary-censoring",
+  "recorded_at": "2026-09-07",
+  "position": 2,
+  "case_id": "envbench-python-diefenbach__django-lfs@3e6e96ec223a8184ae84fdeabd984745ea29e27f",
+  "run_id": "free-agent-census24-v1-02-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-02-A/envbench-python-diefenbach__django-lfs__3e6e96ec223a8184ae84fdeabd984745ea29e27f",
+  "generation": {
+    "completed": false,
+    "candidate_output_existed": true,
+    "candidate_submitted": false,
+    "container_command_count": 22,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_program_replay_observed": true,
+    "fresh_public_goal_pass_observed": true,
+    "input_tokens": 2014616,
+    "cached_input_tokens": 1916800,
+    "output_tokens": 24358,
+    "reasoning_output_tokens": 14305
+  },
+  "termination": {
+    "status": "boundary-censored",
+    "old_policy": "open-candidate-program-v6",
+    "reason": "The old validator classified an external temporary setup.py as protected repository configuration.",
+    "false_positive": true,
+    "official_invoked": false,
+    "position_remains_in_primary_denominator": true,
+    "position_will_be_rerun": false
+  },
+  "diagnosis": {
+    "temporary_root_assignment": "legacy_compat_source=$(mktemp -d)",
+    "rejected_target": "$legacy_compat_source/setup.py",
+    "repository_tracked_state_clean": true,
+    "package_character": "functional runtime compatibility implementation backed by io, cProfile, and pstats",
+    "official_result_used": false
+  },
+  "amendment": {
+    "document": "research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_BOUNDARY_AMENDMENT_V1.md",
+    "new_policy": "open-candidate-program-v6.1",
+    "new_boundary_version": "open-operation-boundary-v6.0.1",
+    "new_runner_version": "1.0.2",
+    "applies_from_position": 3,
+    "pre_and_post_amendment_are_identical_protocols": false
+  },
+  "offline_sensitivity": {
+    "old_candidate_accepted_by_new_static_validator": true,
+    "continued_agent_trajectory": false,
+    "changes_primary_result": false,
+    "interpretation": "The revised static rule removes the observed false positive. This does not establish clean-replay success or Official Pass."
+  },
+  "scientific_interpretation": {
+    "whole_sample_success": false,
+    "evidence_for_automatic_clean_replay_gain": false,
+    "reason": "The harness terminated after the Agent had already performed voluntary clean replay, and no Official evaluation occurred. The position diagnoses measurement boundary error rather than treatment effect."
+  }
+}

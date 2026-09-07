@@ -4,7 +4,10 @@ from pathlib import Path
 import subprocess
 
 from envsolve.solver import DeploymentCandidate
-from envsolve_harness.boundary_v3 import adjudicate_managed_dependencies
+from envsolve_harness.boundary_v3 import (
+    BoundaryV3OpenCandidateProgramValidator,
+    adjudicate_managed_dependencies,
+)
 from envsolve_harness.boundary_v4 import adjudicate_repository_native_artifacts
 from envsolve_harness.boundary_v5 import (
     BoundaryV5OpenCandidateProgramValidator,
@@ -65,6 +68,84 @@ def test_v6_opens_direct_and_embedded_import_artifact_operations() -> None:
         )
         assert result.accepted
         assert result.policy_id == OPEN_PROGRAM_POLICY
+
+
+def test_v6_allows_functional_package_under_direct_mktemp_root() -> None:
+    script = """\
+legacy_compat_source=$(mktemp -d)
+cat > "$legacy_compat_source/setup.py" <<'PY'
+from setuptools import setup
+setup(name="legacy-compat", version="1.0", py_modules=["cStringIO"])
+PY
+cat > "$legacy_compat_source/cStringIO.py" <<'PY'
+from io import StringIO
+PY
+python -m pip install "$legacy_compat_source"
+"""
+
+    result = BoundaryV6OpenCandidateProgramValidator().validate(
+        DeploymentCandidate("candidate", script, "position-2 regression")
+    )
+
+    assert result.accepted
+    assert result.policy_id == OPEN_PROGRAM_POLICY
+
+
+def test_v6_still_rejects_repository_configuration_write() -> None:
+    result = BoundaryV6OpenCandidateProgramValidator().validate(
+        DeploymentCandidate(
+            "candidate",
+            "printf 'from setuptools import setup\\n' > setup.py",
+            "repository write",
+        )
+    )
+
+    assert not result.accepted
+    assert "protected repository configuration" in (result.reason or "")
+
+
+def test_v6_rejects_configuration_write_after_temp_root_rebinding() -> None:
+    script = """\
+build_root=$(mktemp -d)
+build_root=$PWD
+printf 'from setuptools import setup\\n' > "$build_root/setup.py"
+"""
+
+    result = BoundaryV6OpenCandidateProgramValidator().validate(
+        DeploymentCandidate("candidate", script, "rebound root")
+    )
+
+    assert not result.accepted
+    assert "protected repository configuration" in (result.reason or "")
+
+
+def test_v6_rejects_type_only_provider_under_temp_root() -> None:
+    script = """\
+stub_root=$(mktemp -d)
+mkdir -p "$stub_root/PyQuante-stubs"
+printf 'class CGBF: ...\\n' > "$stub_root/PyQuante-stubs/CGBF.pyi"
+"""
+
+    result = BoundaryV6OpenCandidateProgramValidator().validate(
+        DeploymentCandidate("candidate", script, "position-1 regression")
+    )
+
+    assert not result.accepted
+    assert "type-only import provider" in (result.reason or "")
+
+
+def test_v3_does_not_inherit_the_v6_temp_build_driver_exemption() -> None:
+    script = """\
+build_root=$(mktemp -d)
+printf 'from setuptools import setup\\n' > "$build_root/setup.py"
+"""
+
+    result = BoundaryV3OpenCandidateProgramValidator().validate(
+        DeploymentCandidate("candidate", script, "v3 remains unchanged")
+    )
+
+    assert not result.accepted
+    assert "protected repository configuration" in (result.reason or "")
 
 
 def test_v5_operation_language_remains_frozen() -> None:

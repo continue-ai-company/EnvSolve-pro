@@ -33,7 +33,7 @@ class RemoteBoundaryV6QualifiedCodexCliRunner(
     RemoteBoundaryV5QualifiedCodexCliRunner,
 ):
     runner_name = "codex-cli-qualified-boundary-v6-remote-docker"
-    runner_version = "6.0.0+remote.1"
+    runner_version = "6.0.1+remote.1"
 
     def _nonfeedback_submission_qualification(
         self,

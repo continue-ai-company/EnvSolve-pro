@@ -12,7 +12,7 @@ from envsolve_harness.runners.v7_persistent_codex import V7PersistentP0RemoteCod
 
 class FreeAgentCensusRunner(V7PersistentP0RemoteCodexRunner):
     runner_name = "free-agent-voluntary-environments-remote"
-    runner_version = "1.0.1"
+    runner_version = "1.0.2"
     agent_interface = (
         "native-codex-agent+ssh-remote-container-terminal-and-voluntary-"
         "clean-environment-mcp-v1"
