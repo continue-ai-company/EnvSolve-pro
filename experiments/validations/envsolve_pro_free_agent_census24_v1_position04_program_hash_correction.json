@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "correction_id": "envsolve-pro-free-agent-census24-v1-position04-program-hash-correction",
+  "recorded_at": "2026-09-07",
+  "scope": "Position 4 qualification-program identity only",
+  "preservation_policy": "Original run artifacts and recorded hashes are preserved; this record disambiguates their byte conventions.",
+  "finding": "No second deployment program was found. The two hashes describe the same program under canonical-text and serialized-file conventions.",
+  "canonical_text": {
+    "length_bytes": 2344,
+    "sha256": "6937f06f4e89a000a9a8a43541450c6901d3f5d4d13e7cb7df482ed0422387eb",
+    "sources": [
+      "generation/codex-control/final-output.json bootstrap_script",
+      "generation/submission-qualification/result.json program_sha256",
+      "generation/submission-qualification/replays.jsonl program_sha256"
+    ]
+  },
+  "serialized_file": {
+    "transformation": "canonical text plus one terminal LF",
+    "length_bytes": 2345,
+    "sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "paths": [
+      "generation/submission-qualification/programs/minimal-b-replay-0001.sh",
+      "scripts/generated.sh",
+      "scripts/bootstrap.sh"
+    ],
+    "current_files_byte_identical": true
+  },
+  "execution_identity_evidence": {
+    "recorded_harness_revision": "d829f55fe4323916ad78b61eb270ce5d982e0c4f",
+    "recorded_harness_dirty": false,
+    "service_behavior_at_recorded_revision": [
+      "canonical_script normalizes line endings and strips surrounding whitespace",
+      "script_sha256 hashes canonical UTF-8 text",
+      "CleanReplayService writes canonical text plus one terminal LF to the artifact",
+      "CleanReplayService passes canonical text in DeploymentCandidate.script",
+      "ExecutableGoalContractVerifier embeds candidate.script.rstrip() in the executed verification wrapper"
+    ],
+    "qualification_stdout_contains_candidate_completion_marker": true,
+    "conclusion": "The qualification container executed the 2344-byte canonical deployment text as part of the verifier wrapper. The saved 2345-byte shell file differs only by a non-semantic terminal LF."
+  },
+  "scientific_effect": {
+    "qualification_program_identity": "known_same_program_modulo_terminal_lf",
+    "official_metric": "unchanged",
+    "deployment_validity_diagnostic": "unchanged",
+    "algorithm_comparison_eligibility": "unchanged; position 4 remains protocol-discovery evidence only"
+  }
+}

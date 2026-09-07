@@ -16,6 +16,8 @@
     "voluntary_complete_program_replay_observed": true,
     "fresh_public_goal_pass_observed": true,
     "program_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "program_sha256_semantics": "Serialized generated.sh file including one terminal LF.",
+    "canonical_program_sha256": "6937f06f4e89a000a9a8a43541450c6901d3f5d4d13e7cb7df482ed0422387eb",
     "input_tokens": 7886569,
     "cached_input_tokens": 7743104,
     "output_tokens": 29291,
@@ -27,6 +29,12 @@
     "bootstrap_exit_code": 0,
     "public_goal_passed": true,
     "certified": false,
+    "program_identity": {
+      "status": "same_program_modulo_terminal_lf",
+      "canonical_program_sha256": "6937f06f4e89a000a9a8a43541450c6901d3f5d4d13e7cb7df482ed0422387eb",
+      "serialized_program_artifact_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+      "execution_semantics": "The verifier executed the canonical in-memory candidate text inside its wrapper; the saved artifact adds one terminal LF."
+    },
     "import_alias_audit_false_positives": [
       {
         "path": "site/v7",
@@ -79,6 +87,7 @@
     "official_metric_success": true,
     "legitimate_deployment_success": false,
     "direct_evidence_for_automatic_clean_replay_gain": false,
-    "reason": "The unrestricted Agent already repaired its complete program after a failed voluntary replay and observed a later public-goal pass. The final Official pass does not establish semantic deployment validity or incremental benefit from an automatic replay treatment."
+    "reason": "The unrestricted Agent already repaired its complete program after a failed voluntary replay and observed a later public-goal pass. The final Official pass does not establish semantic deployment validity or incremental benefit from an automatic replay treatment.",
+    "program_hash_correction": "experiments/validations/envsolve_pro_free_agent_census24_v1_position04_program_hash_correction.json"
   }
 }

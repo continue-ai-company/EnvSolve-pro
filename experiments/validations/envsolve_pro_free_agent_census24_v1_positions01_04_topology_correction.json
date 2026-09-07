@@ -48,8 +48,11 @@
   "program_handoff": {
     "mechanism": "The normalized submitted script is written to scripts/generated.sh, copied byte-for-byte to scripts/bootstrap.sh, serialized in inputs/evaluator.jsonl, then executed by EnvBench with input.use_scripts=true.",
     "position_4_identity": {
+      "canonical_program_sha256": "6937f06f4e89a000a9a8a43541450c6901d3f5d4d13e7cb7df482ed0422387eb",
       "generated_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
       "bootstrap_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+      "qualification_program_artifact_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+      "hash_semantics": "Qualification records hash canonical text without a terminal LF; serialized script files include one terminal LF.",
       "official_log_embeds_same_script": true
     }
   },
