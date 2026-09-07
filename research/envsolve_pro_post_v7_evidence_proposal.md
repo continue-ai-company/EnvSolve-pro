@@ -38,7 +38,7 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 - 抽样：先确定当前授权的显式 Dev 名单，不读取 Protected Canary/Test；按 case ID 排序后，用 Python Random(20260904) 不放回抽取 24 个。抽样不读取任何基线胜负或新 treatment 结果，公开记录与历史样本的重叠。授权池不足 24 个时先修订方案，不静默缩样。
 - 已核对的候选总体：`experiments/cases/dev_pro_bad_case_census_v1_209.jsonl`，209 个唯一 ID，内容集合等于 `dev5.jsonl` 与 `train_rest204.jsonl` 的并集。依据既有 `pro_dev_bad_case_census_v1_preregistration.json` 的开发总体定义；此次未读取 protected case 文件、未抽样，也不重新声称独立核验了 protected 集合交集。建议审定这个完整开发总体，而非按旧基线表现筛选的子集。
 - 样本量理由：24 是快速估计机会率的 pilot，不是方法有效性检验。若 24 个独立有效样本均无失败，失败率的一侧 95% 二项上界仍约 11.7%，不能宣称强 Agent 已刷满；有删失时该界不能直接用于全样本。
-- 方法：Mac 统一控制同版本强 Agent，AgentHub 最多两个构造槽；Spark 单独做 episode 结束后的 Official。模型、工具、公开目标和初始条件在执行前记录，过程不限制自由 Agent 的操作策略。
+- 方法：Mac 统一控制同版本强 Agent，Spark 承担远程构造与 episode 结束后的串行 Official。模型、工具、公开目标和初始条件在执行前记录，过程不限制自由 Agent 的操作策略。启动前发现 AgentHub 仅余 5.9 GiB 且没有位置 1 的缓存，而 Spark 有 2.1 TiB 空闲和 exact-revision cache，因此在读取新结果前选择 Spark；后续 treatment 必须匹配该主机条件。
 - 终点：首先按全部 24 个抽样位置报告有效程序提交及合法 Official Pass@1；另列未提交、bootstrap 失败、缺失导入失败、源码不可得、明确基础设施故障和原因未决。合法性审核未完成的 metric pass 不能升级为合法成功。
 - 停止规则：只跑固定 24 个位置，不因看到失败或成功提前停止、不替换删失位置、不启动 F/N/A2。未完成进程按原身份恢复。时间、token、费用只报告；保留公共安全超时并单列触发情况。
 - 解释：同时报告完整样本成功下界、把未决位置视为可能成功的上界，以及有效执行条件下的描述性机会率。该样本代表授权 Dev，不自动代表 EnvBench 全榜。
@@ -84,7 +84,7 @@ Proposed population verified locally: `experiments/cases/dev_pro_bad_case_census
 
 Twenty-four cases are a prevalence pilot, not an efficacy test. With zero failures in 24 independent evaluable cases, the one-sided 95% binomial upper bound is still about 11.7%; censoring prevents directly applying this bound to the full sampled population.
 
-Use a common Mac Agent controller and recorded model/CLI configuration, at most two AgentHub construction jobs, and serial postepisode Official scoring on Spark. Do not constrain the free Agent's action strategy. Report legitimate Official Pass@1 over all 24 sampled positions, plus non-submission, bootstrap failure, missing-import failure, source unavailability, explicit infrastructure failures, and unresolved attribution. Metric passes pending admissibility review are not legitimate successes.
+Use a common Mac Agent controller and recorded model/CLI configuration, Spark remote construction, and serial postepisode Official scoring on Spark. This host assignment was recorded before model execution because AgentHub had only 5.9 GiB free disk and no position-1 cache while Spark had 2.1 TiB free and the exact-revision cache. Future treatment must match this host condition. Do not constrain the free Agent's action strategy. Report legitimate Official Pass@1 over all 24 sampled positions, plus non-submission, bootstrap failure, missing-import failure, source unavailability, explicit infrastructure failures, and unresolved attribution. Metric passes pending admissibility review are not legitimate successes.
 
 Complete exactly the 24 positions, with no outcome-driven early stopping, replacements, or F/N/A2 continuations. Report tokens, time, and cost rather than using them as success thresholds. Record safety-timeout events separately. Report observed success bounds and conditional opportunity rates; the target population is authorized Dev, not the entire benchmark.
 

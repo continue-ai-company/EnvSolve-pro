@@ -21,7 +21,7 @@
     "codex_cli": "0.153.4",
     "runner": "free-agent-voluntary-environments-remote",
     "runner_version": "1.0.1",
-    "construction": "Mac controller with AgentHub remote Docker",
+    "construction": "Mac controller with Spark remote Docker",
     "official": "postepisode only on Spark",
     "config": "experiments/configs/local_mac_free_agent_census_v1.json",
     "protocol": "experiments/protocols/envbench_python_public_goal_v2.json"
@@ -31,6 +31,14 @@
     "replacement_cases": false,
     "outcome_driven_retries": false,
     "continuation_arms": false
+  },
+  "infrastructure_assignment": {
+    "recorded_before_model_execution": true,
+    "construction_host": "avdpro@100.81.196.23",
+    "reason": "Spark has the existing exact-revision cache, 2.1 TiB free disk, and GPU capability; AgentHub has 5.9 GiB free disk and no matching position-1 cache.",
+    "selection_outcomes_consulted": false,
+    "future_treatment_must_match_host_condition": true,
+    "agenthub_role": "capability qualification and non-census support only"
   },
   "reporting": {
     "primary": "legitimate Official Pass@1 over all 24 positions",
