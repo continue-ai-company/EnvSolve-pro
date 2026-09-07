@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 was approved, its free-Agent capability qualified, and its fixed 24 positions were selected on 2026-09-07; model execution has not started. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已获批准，自由 Agent 能力已通过资格验证，固定 24 个位置已于 2026-09-07 完成抽样；模型执行尚未开始。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 is in progress: position 1 of the fixed 24 completed on 2026-09-07 and failed postepisode Official. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 正在进行：固定 24 个位置中的位置 1 已于 2026-09-07 完成，并在 episode 后的 Official 评测中失败。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -49,6 +49,10 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 该前置条件现已满足。`research/envsolve_pro_free_agent_environment_capability_v1_report.md` 记录了 Spark、AgentHub 后端探针，以及真实 Codex 在普通 consumed case 中自主创建 fresh environment、运行后来提交的完整程序、读取公开目标结果并主动关闭环境的轨迹。固定样本见 `experiments/schedules/envsolve_pro_free_agent_census24_v1.json`；24/24 均有既往方法暴露，因此本实验只作 consumed Dev 普查。
 
+位置 1 `cclib` 已完成。自由 Agent 提交了程序，并在三个自愿创建的干净环境中进行过重放；最后一次重放的公开目标为零缺失导入。但独立 Official 在 `requirements-dev.txt` 的 `pyquante2` Git 获取发生 GnuTLS 失败后以 bootstrap exit 1 结束，未产生 Pyright 报告，因此全样本成功记为 false。提交还生成了只供静态检查使用、没有对应运行时模块的 `PyQuante`/`pybel` 类型接口，不满足预登记的合法部署边界。该位置证明真实终局失败存在，但没有证明自动 clean replay 有增益，因为自由 Agent 已经自行重放并观察到通过。原始记录见 `experiments/validations/envsolve_pro_free_agent_census24_v1_position01_result.json`。
+
+本批 24 个位置继续保持 Spark 构建与 Official、Mac 控制的预先分配。AgentHub 当前只有约 5 GiB 空闲盘，不在看到位置 1 结果后改入本批。下一轮方法比较将在运行前按是否需要 GPU 分层：CPU block 固定到 AgentHub，GPU block 固定到 Spark；同一 case 的全部方法保持同机和同资源条件。AgentHub 上约 17 GiB 的旧 construction checkout/replay 是启用该 CPU lane 前需要迁移或清理的容量障碍。
+
 ### 当前授权边界
 
 负责人已接受带偏差说明的历史结项，并在重复执行结果完成后批准实验 2。该授权只覆盖固定 24 个 consumed/Dev 位置的自由 Agent 普查，不授权进入 treatment Phase 2 或受保护数据。
@@ -93,6 +97,10 @@ Only after establishing actual strong-Agent terminal failures should a new same-
 Actual configuration: `gpt-5.6-sol`, `xhigh`, and Codex CLI `0.153.4` as observed immediately before launch. Historical P0 exposed only `envsolve_container.envbench_shell`: a persistent construction shell allowing installation, inspection, testing, and public Pyright-goal execution. It had no online Official feedback and no dedicated fresh-container replay tool. It must not be described as unrestricted Codex.
 The census baseline can create fresh containers and test its own complete programs through general-purpose execution, without an EnvSolve automatic replay-feedback policy. Preserve that voluntary ability equally in future arms. The qualification evidence is recorded in `research/envsolve_pro_free_agent_environment_capability_v1_report.md`.
 
+Position 1, `cclib`, is complete. The free Agent submitted a program and performed voluntary replay in three fresh environments; its final replay observed zero missing imports on the public goal. Independent Official later exited during bootstrap when the `requirements-dev.txt` checkout of `pyquante2` encountered repeated GitHub GnuTLS failures, so no Pyright report was produced and whole-sample success is false. The submission also generated type-only `PyQuante` and `pybel` interfaces without corresponding runtime modules, violating the preregistered legitimate-deployment boundary. This establishes a real terminal failure but not an automatic-clean-replay benefit: the free Agent had already replayed and observed a pass. The record is `experiments/validations/envsolve_pro_free_agent_census24_v1_position01_result.json`.
+
+The current 24 positions retain their preregistered Spark construction/Official and Mac control assignment. AgentHub has only about 5 GiB free and will not be introduced after observing position 1. Before the next method comparison, cases will be stratified by GPU requirement: a CPU block fixed to AgentHub and a GPU block fixed to Spark, with every method for a case kept on the same host and resource condition. Roughly 17 GiB of old construction checkout/replay data on AgentHub must be migrated or removed before that CPU lane is reliable.
+
 ### Review Needed
 
-The supervisor accepted the historical closeout with deviations and subsequently approved Experiment 2 after the repeatability result. The generic free-Agent environment capability is now qualified, and the fixed 24-position sample is recorded in `experiments/schedules/envsolve_pro_free_agent_census24_v1.json`. Model execution has not started at this status update. This does not authorize treatment Phase 2 or release protected data. No frontier, cross-case memory, checkpoint search, or symbolic constraint framework is added.
+The supervisor accepted the historical closeout with deviations and subsequently approved Experiment 2 after the repeatability result. The generic free-Agent environment capability is qualified, the fixed sample is recorded in `experiments/schedules/envsolve_pro_free_agent_census24_v1.json`, and position 1 has completed as an Official failure. This does not authorize treatment Phase 2 or release protected data. No frontier, cross-case memory, checkpoint search, or symbolic constraint framework is added.

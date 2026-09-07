@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position01",
+  "recorded_at": "2026-09-07",
+  "position": 1,
+  "case_id": "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+  "run_id": "free-agent-census24-v1-01-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-01-A/envbench-python-cclib__cclib__ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "container_command_count": 45,
+    "fresh_environments_created": 3,
+    "fresh_environments_closed": 3,
+    "voluntary_complete_program_replay_observed": true,
+    "fresh_public_goal_pass_observed": true,
+    "input_tokens": 9935826,
+    "cached_input_tokens": 9684992,
+    "output_tokens": 36638,
+    "reasoning_output_tokens": 19767
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "status": "infrastructure_error",
+    "reason": "The local advisory replay tried to clone from a partial construction checkout whose promisor fetch failed. This does not determine the submitted program's Official outcome."
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "evaluation_completed": true,
+    "pass": false,
+    "bootstrap_exit_code": 1,
+    "goal_report_present": false,
+    "execution_time_seconds": 772.6966342926025,
+    "observed_failure": "The requirements-dev pyquante2 Git checkout ended after repeated GitHub GnuTLS failures, so the bootstrap exited before Pyright ran."
+  },
+  "admissibility": {
+    "status": "inadmissible_under_preregistered_integrity_rules",
+    "reason": "The submitted program generated and installed type-only PyQuante and pybel interfaces specifically to satisfy unresolved static imports while the corresponding runtime modules remained absent.",
+    "automatic_candidate_validator_detected_violation": false,
+    "official_outcome_is_failure_regardless": true
+  },
+  "scientific_interpretation": {
+    "whole_sample_success": false,
+    "terminal_failure_after_candidate_formation": true,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "reason": "The free Agent already used voluntary clean replay and observed a public-goal pass. A later Official run failed on an external Git checkout, so this position is counterevidence to treating one successful clean replay as sufficient certification."
+  }
+}
