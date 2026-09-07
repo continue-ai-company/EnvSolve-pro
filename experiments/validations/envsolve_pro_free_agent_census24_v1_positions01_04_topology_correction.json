@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "correction_id": "envsolve-pro-free-agent-census24-v1-positions01-04-topology-correction",
+  "recorded_at": "2026-09-07",
+  "scope": "Positions 1 through 4 only",
+  "preservation_policy": "Original artifacts and prior result records are retained. This record explicitly supersedes only their execution-host interpretation, not their observed Official metrics.",
+  "actual_topology": {
+    "agent_control": {
+      "host": "Mac",
+      "architecture": "arm64",
+      "role": "Codex CLI session, orchestration, local artifact storage"
+    },
+    "construction_and_agent_visible_validation": {
+      "host": "Spark via SSH avdpro@100.81.196.23",
+      "container_architecture": "linux-aarch64",
+      "container_image": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "accelerator_exposure": "all",
+      "gpu": "NVIDIA GB10",
+      "source_cache": "Spark remote immutable exact-revision cache"
+    },
+    "postsession_qualification": {
+      "positions": [1, 3, 4],
+      "program_execution_host": "Spark remote Docker",
+      "state_transport": "Replay checkout is synchronized back to Mac after remote execution.",
+      "runtime_import_alias_check": "Spark qualification container",
+      "repository_effect_scan": "Mac-side synchronized replay checkout",
+      "feedback_returned_to_agent": false,
+      "position_2": "Not reached because static candidate validation terminated generation."
+    },
+    "official_evaluation": {
+      "positions_invoked": [1, 3, 4],
+      "position_not_invoked": 2,
+      "launcher": "Mac-local EnvBench uv process",
+      "docker_selection": "The EnvBench adapter invokes Docker through the Mac process environment and has no remote-execution transport.",
+      "position_4_observed_context": "desktop-linux",
+      "position_4_observed_container_host": "Mac Docker Desktop",
+      "positions_1_and_3_context": "not recorded; the code path used the then-current Mac Docker context",
+      "container_architecture": "linux-aarch64",
+      "container_image": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "feedback_returned_to_agent": false
+    },
+    "agenthub": {
+      "used_in_positions_1_through_4": false,
+      "current_capacity": "14 CPU, 96 GB RAM, Docker available, approximately 5 GiB free disk",
+      "activation_blocker": "Insufficient free disk for reliable case execution"
+    }
+  },
+  "program_handoff": {
+    "mechanism": "The normalized submitted script is written to scripts/generated.sh, copied byte-for-byte to scripts/bootstrap.sh, serialized in inputs/evaluator.jsonl, then executed by EnvBench with input.use_scripts=true.",
+    "position_4_identity": {
+      "generated_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+      "bootstrap_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+      "official_log_embeds_same_script": true
+    }
+  },
+  "causal_differences": [
+    "Spark and Mac Docker use different network egress paths; a replay success on Spark does not rule out an Official network failure on Mac.",
+    "Spark source acquisition uses an exact-revision cache, while Official evaluation records no equivalent repository acquisition cache.",
+    "Docker package and image caches are host-local even though the EnvBench image digest and architecture match.",
+    "Spark exposes the NVIDIA GB10 to construction and replay; Mac Official does not expose that accelerator.",
+    "Both container backends are linux-aarch64 with the same image digest, reducing but not eliminating environment differences."
+  ],
+  "incorrect_or_incomplete_existing_claims": [
+    {
+      "artifact": "experiments/validations/envsolve_pro_free_agent_census24_v1_position01_result.json",
+      "claim": "official.execution_host is Spark",
+      "correction": "Official was launched by the Mac-local evaluator; its exact historical Docker context was not recorded."
+    },
+    {
+      "artifact": "experiments/validations/envsolve_pro_free_agent_census24_v1_position03_result.json",
+      "claim": "official.execution_host is Spark",
+      "correction": "Official was launched by the Mac-local evaluator; its exact historical Docker context was not recorded."
+    },
+    {
+      "artifact": "research/envsolve_pro_post_v7_evidence_proposal.md",
+      "claim": "Spark performs both construction and Official for the census",
+      "correction": "Spark performs construction and clean replay; the Mac-local EnvBench process performs Official through its local Docker context."
+    },
+    {
+      "artifact": "generation and evaluation manifests",
+      "claim": "Execution topology is fully auditable",
+      "correction": "Generation records the SSH target, but evaluation does not record launcher host, Docker context, Docker host, architecture, or accelerator exposure."
+    }
+  ],
+  "interim_validity": {
+    "official_scores": "retain as observed benchmark outcomes",
+    "strong_agent_census": "interpretable only as behavior under the discovered dual-host protocol, not as same-target-state replay reliability",
+    "positions_1_through_4_for_future_paired_algorithm_comparison": "do not reuse as causal A/B efficacy evidence",
+    "recommended_future_topology": "Run construction, Agent-visible replay, post-session qualification, and Official on one preassigned execution host for each paired case. Use Spark for the next scientific comparison; use AgentHub only for a separately preregistered CPU block after freeing disk, with both arms and Official on AgentHub."
+  }
+}

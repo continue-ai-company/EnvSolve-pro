@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position04",
+  "recorded_at": "2026-09-07",
+  "position": 4,
+  "case_id": "envbench-python-getnikola__plugins@b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+  "run_id": "free-agent-census24-v1-04-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-04-A/envbench-python-getnikola__plugins__b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 38,
+    "fresh_environments_created": 2,
+    "fresh_environments_closed": 2,
+    "voluntary_complete_program_replay_observed": true,
+    "fresh_public_goal_pass_observed": true,
+    "program_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "input_tokens": 7886569,
+    "cached_input_tokens": 7743104,
+    "output_tokens": 29291,
+    "reasoning_output_tokens": 15566
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "status": "audit_failed_after_public_goal_pass",
+    "bootstrap_exit_code": 0,
+    "public_goal_passed": true,
+    "certified": false,
+    "import_alias_audit_false_positives": [
+      {
+        "path": "site/v7",
+        "git_mode": "120000",
+        "reason": "The audit rejected a pre-existing tracked symlink into project source."
+      },
+      {
+        "path": "site/v8",
+        "git_mode": "120000",
+        "reason": "The audit rejected a pre-existing tracked symlink into project source."
+      }
+    ],
+    "repository_effect_audit": {
+      "tracked_changes": [],
+      "violation_count": 726,
+      "violation_kind": "untracked_import_artifact",
+      "trigger": "Importable files installed or materialized below the untracked project-local .envsolve-legacy environment root were rejected solely because they were under the checkout."
+    },
+    "affected_primary_official_outcome": false
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "launcher_host": "Mac controller",
+    "docker_context": "desktop-linux",
+    "container_host": "Mac Docker Desktop",
+    "container_architecture": "linux-aarch64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 777,
+    "warning_count": 225,
+    "execution_time_seconds": 232.86315417289734,
+    "submitted_program_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "program_identity_evidence": "scripts/generated.sh and scripts/bootstrap.sh are byte-identical and share the submitted-program SHA-256."
+  },
+  "deployment_validity": {
+    "status": "failed",
+    "project_tracked_source_modified": false,
+    "compatibility_root_tracked_by_git": false,
+    "compatibility_root_role": "A candidate-created project-local execution environment added to PYTHONPATH.",
+    "upstream_implementation_sources_used": true,
+    "runtime_validation_passed": false,
+    "reason": "The only explicit runtime import check failed while importing CommonMark 0.5.4 on Python 3.12 because HTMLParser.unescape no longer exists. It also exposed incompatible docutils, Sphinx, myst-parser, IPython, and ipykernel requirements. No later runtime import or project smoke check passed; clean replay and Official checked only the missing-import proxy.",
+    "runtime_failure_evidence": "generation/container-commands.jsonl sequence 36"
+  },
+  "scientific_interpretation": {
+    "whole_sample_success": false,
+    "official_metric_success": true,
+    "legitimate_deployment_success": false,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "reason": "The unrestricted Agent already repaired its complete program after a failed voluntary replay and observed a later public-goal pass. The final Official pass does not establish semantic deployment validity or incremental benefit from an automatic replay treatment."
+  }
+}
