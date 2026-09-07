@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position03",
+  "recorded_at": "2026-09-07",
+  "position": 3,
+  "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+  "run_id": "free-agent-census24-v1-03-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-03-A/envbench-python-lark-parser__lark__c1dbe0c49701cd37c595492d1461a97c0597215c",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 28,
+    "fresh_environments_created": 2,
+    "fresh_environments_closed": 2,
+    "voluntary_complete_program_replay_observed": true,
+    "fresh_public_goal_pass_observed": true,
+    "full_test_result": "1103 passed, 100 skipped",
+    "input_tokens": 2839755,
+    "cached_input_tokens": 2617600,
+    "output_tokens": 19886,
+    "reasoning_output_tokens": 11428
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "status": "audit_false_positive",
+    "public_goal_passed": true,
+    "reason": "The repository-effect audit classified tests/test_nearley/nearley as an empty import directory, but the exact checkout records that path as a pre-existing Gitlink with mode 160000 and object 326831689826cb1b9a4d21d1ce0d5db9278e9636.",
+    "affected_primary_official_outcome": false
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 662,
+    "warning_count": 5,
+    "execution_time_seconds": 98.74533987045288
+  },
+  "admissibility": {
+    "status": "inadmissible_under_preregistered_integrity_rules",
+    "reason": "The submitted program installed PyPI js==1.0, whose archive identifies it as the root package for Fanstatic packages and whose installation depends on fanstatic. The repository imports js.window and js.eval as Pyodide browser-runtime objects. The installed package only made the module name resolvable and did not provide the required Pyodide semantics.",
+    "automatic_candidate_validator_detected_violation": false,
+    "postsession_effect_audit_detected_violation": false,
+    "official_metric_pass_remains_reported": true,
+    "evidence": {
+      "package_inspection_commands": [14, 15, 16, 24, 25],
+      "project_source": "generation/workspace/docs/ide/app/core.py",
+      "package_archive_member": "js-1.0/js/test_root_directory_for_fanstatic_packages.txt"
+    }
+  },
+  "failure_analysis": {
+    "observation": "Pyright reported that the top-level name js was unresolved.",
+    "constraint_inference_error": "The Agent treated import-name resolution as sufficient evidence that a provider had the intended runtime semantics.",
+    "operation": "It installed the unrelated same-name PyPI package js==1.0.",
+    "failure_type": "proxy-satisfying-provider-semantic-mismatch"
+  },
+  "scientific_interpretation": {
+    "whole_sample_success": false,
+    "official_metric_success": true,
+    "legitimate_deployment_success": false,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "reason": "The free Agent voluntarily replayed its complete program and observed the public goal pass before submission. The resulting Official pass exposes a proxy-metric semantic gap, not an automatic clean-replay treatment benefit."
+  }
+}
