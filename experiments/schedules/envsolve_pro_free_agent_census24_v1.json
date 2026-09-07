@@ -1,0 +1,202 @@
+{
+  "study_id": "envsolve-pro-free-agent-census24-v1",
+  "status": "fixed-not-started",
+  "recorded_at": "2026-09-07",
+  "purpose": "Estimate strong-Agent submission and terminal-failure prevalence; not treatment efficacy.",
+  "population": {
+    "case_file": "experiments/cases/dev_pro_bad_case_census_v1_209.jsonl",
+    "count": 209,
+    "definition": "explicit consumed/Dev universe; no protected data"
+  },
+  "selection": {
+    "algorithm": "random.Random(seed).sample(sorted(case_ids), size)",
+    "seed": 20260904,
+    "size": 24,
+    "replacement": false,
+    "outcomes_read_for_selection": false
+  },
+  "configuration": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "codex_cli": "0.153.4",
+    "runner": "free-agent-voluntary-environments-remote",
+    "runner_version": "1.0.1",
+    "construction": "Mac controller with AgentHub remote Docker",
+    "official": "postepisode only on Spark",
+    "config": "experiments/configs/local_mac_free_agent_census_v1.json",
+    "protocol": "experiments/protocols/envbench_python_public_goal_v2.json"
+  },
+  "stopping": {
+    "positions": 24,
+    "replacement_cases": false,
+    "outcome_driven_retries": false,
+    "continuation_arms": false
+  },
+  "reporting": {
+    "primary": "legitimate Official Pass@1 over all 24 positions",
+    "also_report": [
+      "valid program submissions",
+      "bootstrap failures",
+      "missing-import failures",
+      "source failures",
+      "explicit infrastructure censoring",
+      "unresolved outcomes",
+      "time and token usage"
+    ],
+    "conditional_valid_score_is_not_whole_sample_success": true
+  },
+  "prior_exposure": {
+    "definition": "at least one prior method executed on the identity",
+    "overlap_count": 24,
+    "all_selected_previously_exposed": true,
+    "evidence": "experiments/validations/envsolve_pro_strong_ab_census83_v1_exposure_audit.json",
+    "evidence_population": "experiments/cases/train_rest204.jsonl",
+    "claim_limit": "consumed development evidence, not unseen generalization"
+  },
+  "cases": [
+    {
+      "position": 1,
+      "case_id": "envbench-python-cclib__cclib@ea13e497a0ade1d47ecffce9c219f032cfe741d1",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 2,
+      "case_id": "envbench-python-diefenbach__django-lfs@3e6e96ec223a8184ae84fdeabd984745ea29e27f",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 3,
+      "case_id": "envbench-python-lark-parser__lark@c1dbe0c49701cd37c595492d1461a97c0597215c",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 4,
+      "case_id": "envbench-python-getnikola__plugins@b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 5,
+      "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 6,
+      "case_id": "envbench-python-fatal1ty__mashumaro@e945ee4319db49da9f7b8ede614e988cc8c8956b",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 7,
+      "case_id": "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 8,
+      "case_id": "envbench-python-vespa-engine__pyvespa@32edd3699cc00c9bd7ad933fd74155acb59a4747",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 9,
+      "case_id": "envbench-python-neurogym__neurogym@ee0a140cf2c6f14f36f524997c269cf110afc73d",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 10,
+      "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 11,
+      "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 12,
+      "case_id": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 13,
+      "case_id": "envbench-python-flav-io__flavio@188120d651c38419cd970957e5259071842f4cca",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 14,
+      "case_id": "envbench-python-scikit-rf__scikit-rf@cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 15,
+      "case_id": "envbench-python-jmetal__jmetalpy@0c9dc83ab4534d2cf053a1d159613cdc58b42c57",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 16,
+      "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 17,
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 18,
+      "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 19,
+      "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 20,
+      "case_id": "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 21,
+      "case_id": "envbench-python-pgeu__pgeu-system@dd0bd79ae43b3a0cb1b604bd7f5cae0081e5a4dc",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 22,
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 23,
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    },
+    {
+      "position": 24,
+      "case_id": "envbench-python-scylladb__sphinx-scylladb-theme@4e3917945c5c194a7119cf10629f35664b451d61",
+      "source_split": "train-rest-204",
+      "prior_exposure": true
+    }
+  ]
+}

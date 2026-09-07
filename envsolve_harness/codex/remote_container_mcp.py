@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 from pathlib import Path
 import shlex
@@ -200,6 +201,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ssh-identity")
     parser.add_argument("--ssh-port", type=int)
     parser.add_argument("--docker", default="docker")
+    parser.add_argument("--fresh-source-cache")
+    parser.add_argument("--fresh-revision")
+    parser.add_argument("--fresh-image")
+    parser.add_argument("--fresh-root")
+    parser.add_argument("--fresh-workspace-dirs", default="[]")
+    parser.add_argument("--container-create-timeout", type=int, default=600)
+    parser.add_argument("--expose-gpus", action="store_true")
     return parser.parse_args()
 
 
@@ -216,7 +224,61 @@ def main() -> int:
         args.ssh_identity,
         args.ssh_port,
     )
-    ContainerMcpServer(executor, args.trace).serve(sys.stdin, sys.stdout)
+    fresh_values = {
+        "--fresh-source-cache": args.fresh_source_cache,
+        "--fresh-revision": args.fresh_revision,
+        "--fresh-image": args.fresh_image,
+        "--fresh-root": args.fresh_root,
+    }
+    supplied_fresh_values = {
+        name for name, value in fresh_values.items() if value is not None
+    }
+    if supplied_fresh_values and len(supplied_fresh_values) != len(fresh_values):
+        missing = ", ".join(
+            name for name, value in fresh_values.items() if value is None
+        )
+        raise ValueError(f"Fresh-environment options must be supplied together: {missing}")
+
+    if supplied_fresh_values:
+        from envsolve_harness.codex.free_environment_mcp import (
+            FreeEnvironmentMcpServer,
+            FreeEnvironmentPool,
+        )
+        from envsolve_harness.execution.remote_docker import SshDockerTransport
+
+        pool = FreeEnvironmentPool(
+            transport=SshDockerTransport(
+                target=args.ssh_target,
+                remote_root=args.fresh_root,
+                ssh_executable=args.ssh_executable, docker_executable=args.docker,
+                ssh_identity=args.ssh_identity, ssh_port=args.ssh_port,
+            ),
+            source_cache=args.fresh_source_cache,
+            revision=args.fresh_revision,
+            image=args.fresh_image,
+            root=args.fresh_root,
+            timeout=args.container_create_timeout,
+            workspace_dirs=tuple(json.loads(args.fresh_workspace_dirs)),
+            expose_gpus=args.expose_gpus,
+        )
+
+        def shell_factory(container_id: str):
+            return SshProcessTreeSafePersistentContainerShell(
+                container_id,
+                args.workdir,
+                args.command_timeout,
+                args.max_output_chars,
+                args.ssh_target,
+                args.ssh_executable,
+                args.docker,
+                args.ssh_identity,
+                args.ssh_port,
+            )
+
+        server = FreeEnvironmentMcpServer(executor, args.trace, pool, shell_factory)
+    else:
+        server = ContainerMcpServer(executor, args.trace)
+    server.serve(sys.stdin, sys.stdout)
     return 0
 
 

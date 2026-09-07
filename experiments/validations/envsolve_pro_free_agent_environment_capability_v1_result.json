@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-free-agent-environment-capability-v1",
+  "recorded_at": "2026-09-07",
+  "status": "pass",
+  "purpose": "Validate that the strong-Agent baseline has voluntary independent-environment capability without an automatic EnvSolve replay policy.",
+  "backend_probes": [
+    {
+      "host": "avdpro@100.81.196.23",
+      "platform": "Linux arm64",
+      "result": "pass",
+      "artifact": "runs/free-environment-capability-20260904-spark-fixed/result.json",
+      "model_calls": 0,
+      "official_calls": 0,
+      "tool_calls": 11,
+      "cleanup": "no owned child container or checkout remained"
+    },
+    {
+      "host": "agenthub@100.66.96.39",
+      "platform": "Docker Desktop on macOS arm64",
+      "result": "pass-after-portability-fix",
+      "artifact": "runs/free-environment-capability-20260907-agenthub-fixed/result.json",
+      "first_attempt_failure": "container-side chmod of host Git pack files was rejected",
+      "fix": "use the existing host-kernel ownership semantic; chmod bind mounts only on Linux",
+      "model_calls": 0,
+      "official_calls": 0,
+      "tool_calls": 11,
+      "cleanup": "no owned child container or checkout remained"
+    }
+  ],
+  "codex_smoke": {
+    "case_id": "envbench-python-psf__pyperf@7b9a23adb3ceeb182f58a03e453158dbe081a7e7",
+    "case_role": "previously consumed plumbing case, excluded from efficacy interpretation",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "codex_cli": "0.153.4",
+    "runner_version": "1.0.0",
+    "generation_completed": true,
+    "official_calls": 0,
+    "fresh_environments_created": 1,
+    "fresh_environment_shell_calls": 2,
+    "fresh_environment_closed_by_agent": true,
+    "submitted_program_body_exactly_matches_fresh_execution": true,
+    "fresh_public_goal_result": {
+      "files_analyzed": 44,
+      "reportMissingImports": 0
+    },
+    "postsession_advisory_qualification": "pass",
+    "online_official_feedback": false,
+    "artifact": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-capability-smoke-pyperf-20260907"
+  },
+  "capability_claim": "The free strong Agent can discover, create, use, inspect, and close an independent exact-revision environment inside one active session, and can execute its eventual complete program there without an automatic verifier or repair policy.",
+  "claim_limit": "This is capability qualification on one consumed case, not a success-rate estimate and not evidence that voluntary replay improves Official Pass@1."
+}

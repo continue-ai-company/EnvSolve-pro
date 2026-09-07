@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04; Experiment 2 remains proposed, not started. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行；实验 2 仍为提案，未启动。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 was approved, its free-Agent capability qualified, and its fixed 24 positions were selected on 2026-09-07; model execution has not started. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已获批准，自由 Agent 能力已通过资格验证，固定 24 个位置已于 2026-09-07 完成抽样；模型执行尚未开始。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -44,12 +44,14 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 - 解释：同时报告完整样本成功下界、把未决位置视为可能成功的上界，以及有效执行条件下的描述性机会率。该样本代表授权 Dev，不自动代表 EnvBench 全榜。
 - 只有确认真实的强 Agent 终局失败后，才提出下一版独立 target-state replay 对照。失败若发生在完整程序形成之前，明确列为 replay 当前无法直接解决的边界。
 
-配置说明（待审，不启动）：建议模型 `gpt-5.6-sol`、推理档 `xhigh`，CLI 明确采用历史实际使用的 `0.152.0`；启动前核验，不能把不同版本混称同配置。历史 P0 只有 `envsolve_container.envbench_shell`，可在持久构建容器中读写、安装、测试，并运行公开的 Pyright 目标；没有在线 Official 结果，也没有暴露专门的新容器 replay 工具。该接口不能直接声称等同于不受限制的 Codex。
-普查应允许自由 Agent 通过通用执行工具自主创建干净容器并运行自己的完整程序，而不预装 EnvSolve 的自动 replay 反馈策略。此能力应在后续两臂中同等保留。现有 P0 接口尚未证明具备该能力；在工具配置与自主新容器操作得到实际核验、负责人审定前，不直接复用它启动 24-case 普查，也不把此缺口当作制造算法机会的手段。
+实际配置：模型 `gpt-5.6-sol`、推理档 `xhigh`，启动前实测 Codex CLI 为 `0.153.4`。历史 P0 只有 `envsolve_container.envbench_shell`，可在持久构建容器中读写、安装、测试，并运行公开的 Pyright 目标；没有在线 Official 结果，也没有暴露专门的新容器 replay 工具。该接口不能直接声称等同于不受限制的 Codex。
+普查允许自由 Agent 通过通用执行工具自主创建干净容器并运行自己的完整程序，而不预装 EnvSolve 的自动 replay 反馈策略。此能力应在后续两臂中同等保留。不能把历史 P0 的能力缺口当作制造算法机会的手段。
 
-### 待监督裁决
+该前置条件现已满足。`research/envsolve_pro_free_agent_environment_capability_v1_report.md` 记录了 Spark、AgentHub 后端探针，以及真实 Codex 在普通 consumed case 中自主创建 fresh environment、运行后来提交的完整程序、读取公开目标结果并主动关闭环境的轨迹。固定样本见 `experiments/schedules/envsolve_pro_free_agent_census24_v1.json`；24/24 均有既往方法暴露，因此本实验只作 consumed Dev 普查。
 
-负责人已接受带偏差说明的历史结项，并只批准实验 1。实验 2 待实验 1 短报告、明确配置和授权 Dev 抽样总体共同审议。此文不修改旧协议，也不授权进入代表性 treatment Phase 2 或受保护数据。
+### 当前授权边界
+
+负责人已接受带偏差说明的历史结项，并在重复执行结果完成后批准实验 2。该授权只覆盖固定 24 个 consumed/Dev 位置的自由 Agent 普查，不授权进入 treatment Phase 2 或受保护数据。
 不引入新的 frontier、跨 case 经验、checkpoint 或符号约束框架。
 
 ## English
@@ -88,9 +90,9 @@ Complete exactly the 24 positions, with no outcome-driven early stopping, replac
 
 Only after establishing actual strong-Agent terminal failures should a new same-active-session independent-replay contrast be proposed. Failures before a complete program exists remain an explicit boundary of the replay mechanism.
 
-Proposed configuration, pending review: `gpt-5.6-sol`, `xhigh`, CLI `0.152.0` explicitly matching the historical actual version, to be checked before launch. Historical P0 exposed only `envsolve_container.envbench_shell`: a persistent construction shell allowing installation, inspection, testing, and public Pyright-goal execution. It had no online Official feedback and no dedicated fresh-container replay tool. It must not be described as unrestricted Codex.
-The census baseline should be able to create fresh containers and test its own complete programs through general-purpose execution, without an EnvSolve automatic replay-feedback policy. Preserve that voluntary ability equally in future arms. The existing P0 interface has not demonstrated it; do not start the census by silently reusing this interface. Review and verify the concrete tool configuration first, rather than exploiting a restricted baseline to create apparent opportunities.
+Actual configuration: `gpt-5.6-sol`, `xhigh`, and Codex CLI `0.153.4` as observed immediately before launch. Historical P0 exposed only `envsolve_container.envbench_shell`: a persistent construction shell allowing installation, inspection, testing, and public Pyright-goal execution. It had no online Official feedback and no dedicated fresh-container replay tool. It must not be described as unrestricted Codex.
+The census baseline can create fresh containers and test its own complete programs through general-purpose execution, without an EnvSolve automatic replay-feedback policy. Preserve that voluntary ability equally in future arms. The qualification evidence is recorded in `research/envsolve_pro_free_agent_environment_capability_v1_report.md`.
 
 ### Review Needed
 
-The supervisor accepted the historical closeout with deviations and approved Experiment 1 only. Experiment 2 awaits its short result report, explicit Agent configuration, and authorized Dev sampling population. This proposal does not amend the old protocol, authorize treatment Phase 2, or release protected data. No frontier, cross-case memory, checkpoint search, or symbolic constraint framework is added.
+The supervisor accepted the historical closeout with deviations and subsequently approved Experiment 2 after the repeatability result. The generic free-Agent environment capability is now qualified, and the fixed 24-position sample is recorded in `experiments/schedules/envsolve_pro_free_agent_census24_v1.json`. Model execution has not started at this status update. This does not authorize treatment Phase 2 or release protected data. No frontier, cross-case memory, checkpoint search, or symbolic constraint framework is added.
