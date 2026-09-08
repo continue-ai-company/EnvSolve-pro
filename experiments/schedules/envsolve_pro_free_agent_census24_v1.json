@@ -1,6 +1,6 @@
 {
   "study_id": "envsolve-pro-free-agent-census24-v1",
-  "status": "fixed-not-started",
+  "status": "positions-1-4-protocol-discovery-complete-positions-5-24-single-host-ready",
   "recorded_at": "2026-09-07",
   "purpose": "Estimate strong-Agent submission and terminal-failure prevalence; not treatment efficacy.",
   "population": {
@@ -20,10 +20,10 @@
     "reasoning_effort": "xhigh",
     "codex_cli": "0.153.4",
     "runner": "free-agent-voluntary-environments-remote",
-    "runner_version": "1.0.1",
+    "runner_version": "1.0.2",
     "construction": "Mac controller with Spark remote Docker",
     "accelerator_exposure": "all Spark GPUs for every position",
-    "official": "postepisode only on Spark",
+    "official": "postepisode only through the Spark EnvBench process and Spark Docker daemon",
     "config": "experiments/configs/local_mac_free_agent_census_v1.json",
     "protocol": "experiments/protocols/envbench_python_public_goal_v2.json"
   },
@@ -32,6 +32,22 @@
     "replacement_cases": false,
     "outcome_driven_retries": false,
     "continuation_arms": false
+  },
+  "analysis_blocks": {
+    "positions_1_through_4": {
+      "role": "protocol-discovery pilot",
+      "topology": "Spark construction and replay; Mac-local Official",
+      "include_in_single_host_success_rate": false,
+      "evidence": "experiments/validations/envsolve_pro_free_agent_census24_v1_positions01_04_topology_correction.json"
+    },
+    "positions_5_through_24": {
+      "role": "fixed single-host strong-Agent census",
+      "topology": "Mac control only; Spark construction, Agent-visible replay, qualification, and Official",
+      "positions": 20,
+      "sample_changed": false,
+      "replacement_cases": false,
+      "calibration": "experiments/validations/envsolve_pro_single_host_topology_calibration_v1.json"
+    }
   },
   "infrastructure_assignment": {
     "recorded_before_model_execution": true,
@@ -43,7 +59,7 @@
     "agenthub_role": "capability qualification and non-census support only"
   },
   "reporting": {
-    "primary": "legitimate Official Pass@1 over all 24 positions",
+    "primary": "Official Pass@1 over the independent single-host positions 5-24 block",
     "also_report": [
       "valid program submissions",
       "bootstrap failures",

@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "calibration_id": "envsolve-pro-single-host-topology-calibration-v1",
+  "recorded_at": "2026-09-08",
+  "purpose": "Validate the repaired single-host execution topology without rerunning the Agent or estimating algorithmic gain.",
+  "source": {
+    "case_id": "envbench-python-getnikola__plugins@b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+    "census_position": 4,
+    "consumed": true,
+    "source_run_id": "free-agent-census24-v1-04-A",
+    "source_program_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "agent_reexecuted": false
+  },
+  "calibration_run": {
+    "run_id": "single-host-topology-calibration-v1-pos04",
+    "artifacts": "runs/envsolve-pro-single-host-calibration-v1/single-host-topology-calibration-v1-pos04/envbench-python-getnikola__plugins__b4a4cd1332d4c149bef9c0b884e8f7045327cbf1",
+    "harness_revision": "809e4b3badd05d9227e60630727ff33205925a7a",
+    "harness_dirty": false,
+    "runner": "deterministic-script",
+    "model_reexecuted": false
+  },
+  "topology": {
+    "controller": {
+      "host": "Mac",
+      "role": "control and local artifact storage only"
+    },
+    "execution": {
+      "ssh_target": "avdpro@100.81.196.23",
+      "hostname": "spark-f21c",
+      "kernel": "Linux",
+      "host_architecture": "aarch64",
+      "docker_context": "default",
+      "docker_daemon_name": "spark-f21c",
+      "docker_server_os": "linux",
+      "docker_server_architecture": "arm64",
+      "docker_root": "/var/lib/docker",
+      "envbench_process_observed_on_execution_host": true,
+      "envbench_container_observed_on_execution_host": true,
+      "all_official_input_output_and_tmp_paths_remote": true
+    },
+    "image": {
+      "reference": "ghcr.io/jetbrains-research/envbench-python:latest",
+      "id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+      "repo_digest": "ghcr.io/jetbrains-research/envbench-python@sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0"
+    },
+    "benchmark": {
+      "path": "/home/avdpro/work/EnvSolve-pro/EnvBench",
+      "revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+      "dirty": false,
+      "source_hashes_match_mac_controller_copy": true,
+      "source_hashes": {
+        "main.py": "222f62a7c97bc35346a686ecf750631a7c39d8527fae96f582a393bb8b6fc7d0",
+        "python_build.sh": "c1c6bfe74c292795e60533253c64ced4fd71f3a8e780a967a485ade92a420e2f",
+        "repo_downloader.py": "07c71ca1884b6325cf18700edebaa5734c681901b6ad77913a218738424f457b"
+      }
+    },
+    "cache_and_network": {
+      "docker_daemon_shared_with_construction_and_replay": true,
+      "image_layer_cache_shared": true,
+      "network_egress_host_shared": true,
+      "construction_source_cache": "Spark remote immutable exact-revision cache",
+      "official_source_acquisition": "EnvBench repository acquisition on Spark; preseed_source_cache=false",
+      "remaining_difference": "Source acquisition mechanism differs, but both resolve the fixed revision on the same host. This calibration does not claim package-cache identity across fresh containers."
+    }
+  },
+  "program_identity": {
+    "source_generated_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "calibration_generated_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "calibration_bootstrap_script_sha256": "30a963551cf6b752221580b7ec6c7559d0ed7b0349e41d19fc8a55c1b2684d06",
+    "byte_identical": true
+  },
+  "feedback_isolation": {
+    "official_invoked_after_solver_return": true,
+    "agent_session_active_during_calibration": false,
+    "official_feedback_returned_to_agent": false
+  },
+  "official": {
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "error_count": 777,
+    "warning_count": 225,
+    "identity_matches": true,
+    "adapter_error": null,
+    "termination": null
+  },
+  "cleanup": {
+    "remote_staging_removed": true,
+    "live_evaluator_process_remaining": false,
+    "container_bound_to_calibration_workspace_remaining": false
+  },
+  "decision": {
+    "topology_acceptance": "pass",
+    "algorithmic_evidence": "none; calibration only",
+    "positions_1_through_4": "retain as protocol-discovery pilot and exclude from the single-host success rate",
+    "positions_5_through_24": "proceed as an independent fixed single-host census block"
+  }
+}

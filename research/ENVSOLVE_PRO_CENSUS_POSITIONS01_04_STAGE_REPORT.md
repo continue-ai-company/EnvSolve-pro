@@ -41,20 +41,20 @@ Real upstream source is not automatically a working environment, however: positi
 
 ## 4. 建议裁决 / Recommended Decision
 
-`Live frontier` 继续保持 kill，只作诊断。最小 B 保持 challenger，不进入核心算法：四个位置里没有一例满足“自由 Agent 终局失败，而最小 B 在同资源下 Official Pass”。当前 Official 数值可以保留为榜单观测；位置 1-4 只能解释为已发现双主机协议下的强 Agent 行为，不能进入未来 A/B 因果比较。位置 5 暂停，等待是否终止或修订本批的监督裁决。
+`Live frontier` 继续保持 kill，只作诊断。最小 B 保持 challenger，不进入核心算法：四个位置里没有一例满足“自由 Agent 终局失败，而最小 B 在同资源下 Official Pass”。当前 Official 数值可以保留为榜单观测；位置 1-4 只能解释为已发现双主机协议下的强 Agent 行为，不能进入未来 A/B 因果比较。监督裁决已将位置 5-24 划为独立单主机 block，不与位置 1-4 合并成功率。
 
 边界建议先不实施：硬边界只保护 evaluator、目标配置和 Git tracked project source；不再按目录名或 `.py/.pyi` 存放位置阻断完整程序进入 Official。provider 合法性改为 episode 后行为判定：必须来自可追溯实现，并至少通过项目相关的真实 import 或 smoke path；仅让静态名字可解析不算部署成功。这一定义能统一处理位置 1 的类型占位、位置 2 的功能兼容包、位置 3 的同名错包和位置 4 的本地兼容环境，不需要 case 特例。
 
-Keep `Live frontier` killed except as a diagnostic. Retain minimal B only as a challenger: none of the four positions demonstrates free-Agent terminal failure followed by same-resource minimal-B Official success. Official scores remain benchmark observations; positions 1-4 describe behavior under the discovered dual-host protocol and must not enter future causal A/B comparisons. Position 5 remains paused pending supervision.
+Keep `Live frontier` killed except as a diagnostic. Retain minimal B only as a challenger: none of the four positions demonstrates free-Agent terminal failure followed by same-resource minimal-B Official success. Official scores remain benchmark observations; positions 1-4 describe behavior under the discovered dual-host protocol and must not enter future causal A/B comparisons. Supervision assigned positions 5-24 to a separate single-host block whose success rate will not be combined with positions 1-4.
 
 Do not yet implement the proposed boundary. The hard boundary should protect only the evaluator, goal configuration, and Git-tracked project source; it should not block complete programs based on directory names or `.py/.pyi` location. Provider legitimacy should be decided postepisode by behavior: a traceable implementation must pass at least one project-relevant real import or smoke path, while static name resolution alone is insufficient. This single rule covers positions 1-4 without case-specific exceptions.
 
 ## 5. 下一项最高信息增益实验 / Highest-Information Next Experiment
 
-先修正为单主机 target-state 路径并做一个 consumed calibration：同一台 Spark 上完成构建、Agent 可见 clean replay、资格重放和 Official，记录 Docker context、镜像、架构、GPU、缓存和网络路径；Agent 仍不得看到 Official。calibration 只验证程序身份与主机一致性，不验证算法收益。通过后，再从未用于本轮选择的 consumed Dev 中预先固定真实 Official bad case，运行唯一差异为“同一活跃 session 是否自动收到完整程序 clean replay 反馈”的 A/B。核心成功证据仍是 A 直到请求上限失败、B 提交合法程序并 Official Pass。
+单主机 target-state 路径已经修正并通过 consumed calibration：position 4 的同一程序由 Spark 上的 EnvBench 进程和 Docker daemon 执行，得到与历史相同的 Official Pass；程序字节、EnvBench revision、镜像、架构、Docker context、反馈隔离和清理均可审计。完整记录见 `experiments/validations/envsolve_pro_single_host_topology_calibration_v1.json`。下一步按原固定顺序启动位置 5，并把位置 5-24 独立报告为 single-host census；该普查仍不估计算法增益。完成 bad-case 识别后，才运行唯一差异为“同一活跃 session 是否自动收到完整程序 clean replay 反馈”的 A/B。
 
 AgentHub 不应插入当前位置 1-4 批次。释放至少约 30 GiB 后，它可承担单独预注册的 CPU block，但每个 case 的构建、两臂 replay、资格和 Official 都必须留在 AgentHub；Spark承担另一个固定 GPU block。这样第二实验机提供并发吞吐，而不制造主机混杂。
 
-First repair the target-state path to one execution host and run one consumed calibration: construction, Agent-visible clean replay, post-session qualification, and Official all run on Spark, while recording Docker context, image, architecture, GPU, cache, and network path. Official remains hidden from the Agent. The calibration tests program identity and topology only, not algorithmic gain. Then preregister genuine Official bad cases from consumed Dev and run A/B where the sole difference is whether the same active session automatically receives complete-program clean-replay feedback. Decisive evidence remains A failing through its request allowance while B submits a legitimate program and Official passes.
+The single-host target-state path is repaired and passed a consumed calibration: the same position-4 program ran through the EnvBench process and Docker daemon on Spark and reproduced its Official Pass. Program bytes, EnvBench revision, image, architecture, Docker context, feedback isolation, and cleanup are auditable in `experiments/validations/envsolve_pro_single_host_topology_calibration_v1.json`. The next step is position 5 in the original fixed order, with positions 5-24 reported as an independent single-host census rather than an algorithm-effect estimate. Only after identifying genuine bad cases should the sole-difference replay A/B begin.
 
 Do not insert AgentHub into positions 1-4. After freeing at least about 30 GiB, use it for a separately preregistered CPU block where construction, both arms, replay, qualification, and Official remain on AgentHub. Keep a separate fixed GPU block on Spark. This adds throughput without host confounding.
