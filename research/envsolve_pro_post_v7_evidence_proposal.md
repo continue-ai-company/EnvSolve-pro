@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-7 and position 8 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-7，下一项为位置 8。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-8 and position 9 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-8，下一项为位置 9。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -69,7 +69,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 7 `lnldb` 是 Official Fail@1。相同提交程序此前通过了 Agent 主动重放和独立 qualification，但 Official 在克隆声明的 `jsmin` Git 依赖时遭遇 GnuTLS 连接终止，bootstrap exit 1，未产生 Pyright 报告。官方失败是主结果；网络下载失败、Django 兼容模块，以及另行观测到的 `collections.Iterable` 运行时问题仅作标签。由于前两次安装成功且瞬时网络波动是竞争解释，本位置尚不能证明自动 replay 有增益。
 
-位置 5-7 已完成，固定顺序中的下一项是位置 8。AgentHub 不加入本轮 census。
+位置 8 `pyvespa` 在 Spark 上通过 Official。构建过程中一次 PyPI 下载超时，Agent 自主增加 timeout/retries 后完成安装，并在自建干净环境中重放成功；精确最终程序随后通过独立 qualification 和 Official。该位置是自由 Agent 自修复成功，不提供自动 replay treatment 的增益证据。
+
+位置 5-8 已完成，固定顺序中的下一项是位置 9。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -163,7 +165,14 @@ tags only. This does not yet demonstrate automatic replay gain because two prior
 of the same installation succeeded and transient network variation is a competing cause.
 See `experiments/validations/envsolve_pro_free_agent_census24_v1_position07_result.json`.
 
-Positions 5-7 are complete and position 8 is next in the unchanged fixed order. AgentHub
+Position 8, `pyvespa`, passed Spark Official with zero missing imports. One initial
+construction command encountered a PyPI read timeout; the free Agent added explicit
+timeout and retry settings, completed the installation, and voluntarily replayed it in a
+fresh environment. The exact final program then passed independent qualification and
+Official. This is a free-Agent self-repair success and provides no automatic-replay gain.
+See `experiments/validations/envsolve_pro_free_agent_census24_v1_position08_result.json`.
+
+Positions 5-8 are complete and position 9 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

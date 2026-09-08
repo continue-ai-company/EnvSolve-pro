@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position08",
+  "recorded_at": "2026-09-08",
+  "position": 8,
+  "case_id": "envbench-python-vespa-engine__pyvespa@32edd3699cc00c9bd7ad933fd74155acb59a4747",
+  "run_id": "free-agent-census24-v1-08-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-08-A/envbench-python-vespa-engine__pyvespa__32edd3699cc00c9bd7ad933fd74155acb59a4747",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 8,
+    "successful_container_command_count": 7,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_installation_replay_observed": true,
+    "exact_final_program_voluntarily_replayed": false,
+    "difference": "The fresh replay ran the same editable installations and retry settings, then installed Pyright and verified the goal in a second command. The final submission combined these operations into one fail-fast status-preserving program. Post-session qualification replayed the exact final program.",
+    "fresh_public_goal_pass_observed": true,
+    "fresh_replay_command_sha256": "322d86b123cd41229da026eb8323b1c19e8841c2d066344f31ffe4696c384976",
+    "canonical_final_program_sha256": "bd1e397a911718ca193e169d0a615456c3dcd7adaec3d771f5d33df99bdd7e1b",
+    "serialized_program_sha256": "87eaa2a7b5e9f01e69b72daeea070a955431d2a146127363b7cf5f1a37424cbf",
+    "input_tokens": 1244355,
+    "cached_input_tokens": 1143936,
+    "output_tokens": 8939,
+    "reasoning_output_tokens": 4569,
+    "construction_repair_tag": {
+      "tag": "dependency-download-timeout-recovered",
+      "observation": "An initial files.pythonhosted.org read timed out. The Agent retried with explicit 120-second timeout and 10 retries, then completed construction and fresh replay.",
+      "overrides_official": false
+    }
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 247.1633918749867,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "bd1e397a911718ca193e169d0a615456c3dcd7adaec3d771f5d33df99bdd7e1b",
+    "source_compatibility_artifacts": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 207,
+    "warning_count": 0,
+    "execution_time_seconds": 162.23763751983643,
+    "submitted_program_sha256": "87eaa2a7b5e9f01e69b72daeea070a955431d2a146127363b7cf5f1a37424cbf",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_cleanup_fallback_used": false,
+    "staging_absence_verified_on_spark": true
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent repaired its own transient construction download timeout, voluntarily replayed the complete installation in a fresh environment, and submitted a program that passed independent post-session qualification and Official. This is a free-Agent success rather than an opportunity for a failure-conditioned replay treatment.",
+    "live_frontier_implication": "No promotion evidence; terminal success was achieved without frontier management."
+  }
+}
