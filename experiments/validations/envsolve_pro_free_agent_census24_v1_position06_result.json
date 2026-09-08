@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position06",
+  "recorded_at": "2026-09-08",
+  "position": 6,
+  "case_id": "envbench-python-fatal1ty__mashumaro@e945ee4319db49da9f7b8ede614e988cc8c8956b",
+  "run_id": "free-agent-census24-v1-06-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-06-A/envbench-python-fatal1ty__mashumaro__e945ee4319db49da9f7b8ede614e988cc8c8956b",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 9,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_installation_replay_observed": true,
+    "exact_final_program_voluntarily_replayed": false,
+    "difference": "The fresh replay used the same ordered installation operations as separate fail-fast shell lines; the final submission joined them with &&. Post-session qualification replayed the exact final program.",
+    "fresh_public_goal_pass_observed": true,
+    "fresh_replay_command_sha256": "bc315abd9b362807b22fb6f9c4c3352ee15eef8079a056bba41bbb011432e29e",
+    "canonical_final_program_sha256": "8636530879e00854fa0f16f6795d2976f19b2b61de16655f4219b7978e32eaf6",
+    "serialized_program_sha256": "2945c8a34e9b207e3417fab5bd9d23386f4e46ca12e0d34177388559fb628999",
+    "input_tokens": 686019,
+    "cached_input_tokens": 530688,
+    "output_tokens": 6942,
+    "reasoning_output_tokens": 3345
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "8636530879e00854fa0f16f6795d2976f19b2b61de16655f4219b7978e32eaf6",
+    "source_compatibility_artifacts": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 478,
+    "warning_count": 10,
+    "execution_time_seconds": 61.250354290008545,
+    "submitted_program_sha256": "2945c8a34e9b207e3417fab5bd9d23386f4e46ca12e0d34177388559fb628999",
+    "identity_matches": true,
+    "staging_cleaned": true
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "path_quality_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent voluntarily validated the complete installation sequence in a fresh environment, and its final fail-fast serialization passed both independent post-session replay and Official. This is a strong-Agent success, not an opportunity for a failure-conditioned replay treatment.",
+    "live_frontier_implication": "No promotion evidence; terminal success was achieved without frontier management."
+  }
+}

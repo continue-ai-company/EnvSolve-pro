@@ -134,7 +134,16 @@ not eligible for failure-conditioned treatment and provides no evidence for prom
 automatic replay mechanism. The machine record is
 `experiments/validations/envsolve_pro_free_agent_census24_v1_position05_result.json`.
 
-Position 5 is complete and position 6 is next in the unchanged fixed order. AgentHub
+Position 6, `mashumaro`, also passed Spark Official with zero missing imports. The
+free Agent voluntarily replayed the complete ordered installation sequence in one fresh
+environment and observed a public-goal pass. Its final submission expressed the same
+operations with fail-fast `&&` chaining, so the voluntary replay was operationally
+equivalent but not byte-identical; the exact final program subsequently passed independent
+post-session qualification without Agent feedback and then passed Official. This is a
+second strong-Agent success and is not eligible for failure-conditioned replay treatment.
+See `experiments/validations/envsolve_pro_free_agent_census24_v1_position06_result.json`.
+
+Positions 5 and 6 are complete and position 7 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
