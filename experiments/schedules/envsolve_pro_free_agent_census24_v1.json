@@ -1,6 +1,6 @@
 {
   "study_id": "envsolve-pro-free-agent-census24-v1",
-  "status": "positions-1-4-protocol-discovery-complete-positions-5-24-single-host-ready",
+  "status": "positions-1-4-protocol-discovery-complete-position-5-single-host-complete-position-6-next",
   "recorded_at": "2026-09-07",
   "purpose": "Estimate strong-Agent submission and terminal-failure prevalence; not treatment efficacy.",
   "population": {
@@ -44,6 +44,9 @@
       "role": "fixed single-host strong-Agent census",
       "topology": "Mac control only; Spark construction, Agent-visible replay, qualification, and Official",
       "positions": 20,
+      "completed_positions": 1,
+      "official_passes": 1,
+      "next_position": 6,
       "sample_changed": false,
       "replacement_cases": false,
       "calibration": "experiments/validations/envsolve_pro_single_host_topology_calibration_v1.json"
@@ -69,7 +72,7 @@
       "unresolved outcomes",
       "time and token usage"
     ],
-    "conditional_valid_score_is_not_whole_sample_success": true
+    "path_quality_and_source_compatibility_operations_are_descriptive_tags_only": true
   },
   "prior_exposure": {
     "definition": "at least one prior method executed on the identity",

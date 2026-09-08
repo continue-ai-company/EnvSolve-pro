@@ -115,7 +115,31 @@ Position 4, `getnikola/plugins`, passed the Official metric with zero missing im
 
 Execution-topology correction: prior prose claiming that Spark ran Official was wrong. Construction, Agent-visible validation, and qualification replay for positions 1-4 ran on Spark; Official was launched by the Mac-local EnvBench process through its then-current local Docker context. Position 4 was observed as `desktop-linux`; positions 1 and 3 did not record the context. Both sides used the same image digest and `linux-aarch64`, but network, cache, and GPU exposure differed. Original records remain preserved; see the explicit correction in `experiments/validations/envsolve_pro_free_agent_census24_v1_positions01_04_topology_correction.json` and the stage decision in `research/ENVSOLVE_PRO_CENSUS_POSITIONS01_04_STAGE_REPORT.md`.
 
-The current 24-position batch is paused after position 4, and AgentHub will not be inserted into an already-started batch. Completed positions used the discovered dual-host path: Spark for construction and replay, and Mac-local EnvBench for Official. AgentHub has only about 5 GiB free. Before the next method comparison, cases will be stratified by GPU requirement: a CPU block fixed to AgentHub and a GPU block fixed to Spark, with every method for a case kept on the same host and resource condition. Roughly 17 GiB of old construction checkout/replay data on AgentHub must be migrated or removed before that CPU lane is reliable.
+The current 24-position batch resumed on the repaired single-host path at position 5, and AgentHub will not be inserted into the already-started batch. Positions 1-4 used the discovered dual-host path: Spark for construction and replay, and Mac-local EnvBench for Official. Positions 5-24 use Spark for construction, replay, qualification, and Official. AgentHub has only about 5 GiB free. Before the next method comparison, cases will be stratified by GPU requirement: a CPU block fixed to AgentHub and a GPU block fixed to Spark, with every method for a case kept on the same host and resource condition. Roughly 22 GiB of old strong-A/B census workspaces on AgentHub must be migrated or removed before that CPU lane is reliable.
+
+Supervisor adjudication on 2026-09-08 makes EnvBench Official Pass@1 the decisive
+success outcome for this census. Source edits, compatibility modules, provider semantics,
+and runtime completeness remain descriptive path-quality tags and do not override an
+Official result. Accordingly, positions 3 and 4 are Official successes despite their
+preserved semantic-risk annotations; their historical machine records remain unchanged.
+
+Position 5, `meshio`, is the first completed member of the repaired single-host block.
+The free Agent replayed its final complete program in an Agent-visible fresh Spark
+environment, post-session qualification independently replayed the same program without
+returning feedback, and Spark EnvBench Official passed with zero missing imports. The
+program creates `src/meshio/vtk_io.py` by copying the checkout's `_vtk_common.py`; this is
+recorded as a source-compatibility tag but does not negate the Official pass. Because the
+free Agent already used voluntary complete-program replay and succeeded, this position is
+not eligible for failure-conditioned treatment and provides no evidence for promoting an
+automatic replay mechanism. The machine record is
+`experiments/validations/envsolve_pro_free_agent_census24_v1_position05_result.json`.
+
+Position 5 is complete and position 6 is next in the unchanged fixed order. AgentHub
+remains outside this census. Its Docker
+Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
+approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
+approved cleanup, AgentHub can run a preassigned CPU-only lane in the next method
+comparison without altering this census topology.
 
 ### Review Needed
 

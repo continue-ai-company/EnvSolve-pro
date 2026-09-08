@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position05",
+  "recorded_at": "2026-09-08",
+  "position": 5,
+  "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+  "run_id": "free-agent-census24-v1-05-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-05-A/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 41,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_program_replay_observed": true,
+    "fresh_public_goal_pass_observed": true,
+    "final_program_was_voluntarily_replayed": true,
+    "canonical_program_sha256": "2334b46513b277c31c6ccf2624a1f534619b0134a223969c0d26132ea48f4830",
+    "serialized_program_sha256": "e9b9bee8f566097de6cb31f1f1df402e2ddbf19c0a85c7cf1173b24c07d11613",
+    "program_identity_evidence": "The final-output bootstrap_script and voluntary fresh-environment command 1 have the same canonical SHA-256. generated.sh, bootstrap.sh, and the post-session replay artifact are byte-identical and share the serialized SHA-256.",
+    "input_tokens": 8793350,
+    "cached_input_tokens": 8274432,
+    "output_tokens": 34967,
+    "reasoning_output_tokens": 19909
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "2334b46513b277c31c6ccf2624a1f534619b0134a223969c0d26132ea48f4830",
+    "source_compatibility_artifacts": [
+      {
+        "path": "src/meshio/vtk_io.py",
+        "operation": "copied from the checked-out src/meshio/_vtk_common.py by the submitted bootstrap program",
+        "purpose": "provide the legacy meshio.vtk_io import name",
+        "audit_disposition": "review_required_artifact",
+        "blocked_qualification": false
+      }
+    ]
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 276,
+    "warning_count": 1,
+    "execution_time_seconds": 319.3310763835907,
+    "submitted_program_sha256": "e9b9bee8f566097de6cb31f1f1df402e2ddbf19c0a85c7cf1173b24c07d11613",
+    "identity_matches": true,
+    "staging_cleaned": true
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "source_compatibility_edit_is_descriptive_tag_only": true,
+    "source_compatibility_edit_overrides_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent voluntarily replayed the final complete program in a fresh environment and then achieved Official Pass@1. This position is a strong-Agent success and cannot establish an incremental benefit from automatic target-state replay.",
+    "live_frontier_implication": "No promotion evidence. The Agent succeeded through its own complete-program replay loop; frontier diagnostics are unnecessary for the terminal outcome."
+  },
+  "cleanup": {
+    "construction_container_remaining": false,
+    "qualification_container_remaining": false,
+    "official_staging_remaining": false
+  }
+}

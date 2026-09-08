@@ -1,5 +1,10 @@
 # EnvSolve-Pro Census Positions 1-4 Stage Report / 普查位置 1-4 阶段报告
 
+> **后续主指标裁决 / Subsequent primary-outcome adjudication (2026-09-08):**
+> EnvBench Official Pass@1 决定本普查的成功；语义错配、源码兼容操作和路径完整性仅作描述性标签，不覆盖 Official。因而位置 3、4 在榜单口径下均计成功。下文保留当时的路径质量分析，但其中 `whole_sample_success=false` 和“不是成功”的表述不再用于主成功率。
+>
+> EnvBench Official Pass@1 is decisive for census success. Semantic mismatch, source-compatibility operations, and path completeness are descriptive tags and do not override Official. Positions 3 and 4 therefore count as benchmark successes. The path-quality analysis below is preserved, but its `whole_sample_success=false` fields and statements that those positions were not successes no longer determine the primary rate.
+
 ## 1. 主要矛盾 / Primary Contradiction
 
 当前测到的不是一个干净的“自由 Agent 对自动 replay”问题。自由 Agent 在三个成功提交程序的位置都主动创建了新环境，并在失败后修改整份程序再次重放；与此同时，Agent 可见 replay 在 Spark，而 Official 在 Mac Docker。系统因此混合了三件事：Agent 自带的 loop、跨主机网络与缓存差异，以及 EnvBench 只检查 missing import 的代理目标。
