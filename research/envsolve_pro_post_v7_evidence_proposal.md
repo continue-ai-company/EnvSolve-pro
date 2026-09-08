@@ -83,7 +83,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 14 `scikit-rf/scikit-rf` 在 Spark 上通过 Official，缺失导入为零；另有 2894 个非目标 Pyright error 和 6 个 warning。安装项目声明的全部开发 extras 后只剩 `docscrape` 和 `docscrape_sphinx` 两个旧式顶层导入；自由 Agent 确认它们由已安装的 `numpydoc` 提供，并通过 `PYTHONPATH` 暴露包内模块目录，运行时导入与 Pyright 均成功，且未修改项目源码。两次 construction 命令和首次 voluntary fresh 执行只发生观测超时，安装进程继续运行；Agent 检查后续环境状态而没有把超时直接判成安装失败。首次 fresh 执行是最终八行程序加 `set -e`，精确最终程序只在已填充的同一环境中再次运行，因此独立 qualification 才是它第一次从零精确重放；qualification 和 Official 均通过。该位置再次说明应区分观测超时与命令终止，但不提供自动 replay 相对增益。
 
-位置 5-14 已完成，固定顺序中的下一项是位置 15。AgentHub 不加入本轮 census。
+位置 15 `jmetal/jmetalpy` 在 Spark 上通过 Official，缺失导入为零；另有 1693 个非目标 Pyright error 和 11 个 warning。自由 Agent 根据 CI 选择 Python 3.11，并安装项目声明的 `distributed` extra 与 pytest，一次覆盖 Dask、Distributed、PySpark、绘图和科学计算依赖；运行时导入、pip check 与 Pyright 均通过。Agent 在自建 fresh 环境中运行了操作等价的完整程序并观察到缺失导入为零，精确最终程序首次由独立 qualification 从零运行，随后 Official 通过。一次 construction 诊断在成功检查之后因 `git status | head` 的 SIGPIPE 返回 141，不是部署失败。完整路径构建约 451 MB 的 PySpark wheel，另有 fresh provider 导致的 706 个纯权限位 diff；二者只作为成本与运行时标签，项目源码内容未修改。该位置不提供自动 replay 相对增益。
+
+位置 5-15 已完成，固定顺序中的下一项是位置 16。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -258,7 +260,19 @@ while the exact final body was later rerun only in the populated environment; in
 qualification was therefore its first exact clean execution. Qualification and Official both
 passed. This is another free-Agent success and provides no automatic-replay gain.
 
-Positions 5-14 are complete and position 15 is next in the unchanged fixed order. AgentHub
+Position 15, `jmetal/jmetalpy`, passed Spark Official with zero missing imports (plus 1,693
+non-goal Pyright errors and 11 warnings). The free Agent followed repository CI by selecting
+Python 3.11 and installed the declared `distributed` extra plus pytest, covering Dask,
+Distributed, PySpark, plotting, and scientific dependencies. Runtime imports, pip check, and
+Pyright all passed. The Agent ran an operationally equivalent complete program in its fresh
+environment and observed zero missing imports; exact clean execution first occurred in
+independent qualification, followed by Official success. One construction diagnostic returned
+141 from `git status | head` after the goal checks had already passed. The broad path also built
+an approximately 451 MB PySpark wheel, and the voluntary fresh provider exposed 706 mode-only
+tracked diffs. These remain cost and runtime tags; project-source contents were unchanged. The
+position provides no automatic-replay gain.
+
+Positions 5-15 are complete and position 16 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

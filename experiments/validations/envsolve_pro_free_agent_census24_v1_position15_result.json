@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position15",
+  "recorded_at": "2026-09-08",
+  "position": 15,
+  "case_id": "envbench-python-jmetal__jmetalpy@0c9dc83ab4534d2cf053a1d159613cdc58b42c57",
+  "run_id": "free-agent-census24-v1-15-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-15-A/envbench-python-jmetal__jmetalpy__0c9dc83ab4534d2cf053a1d159613cdc58b42c57",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 1721.874741,
+    "container_command_count": 7,
+    "successful_container_command_count": 5,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "operationally_equivalent_complete_program_replayed_from_clean_environment": true,
+    "exact_final_program_voluntarily_replayed_from_clean_environment": false,
+    "difference": "The Agent-created fresh environment ran the same Python 3.11 environment creation and distributed-extra installation as the final program, but without the final program's shebang and fail-fast && chaining and with an additional variable cleanup. It observed zero missing imports there. Post-session qualification was the first exact execution of the serialized final program from a clean checkout.",
+    "fresh_public_goal_pass_observed": true,
+    "first_installed_environment_missing_import_count": 0,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "7c7da09aabed500ce58b6b640f48e06b109f5eb90598b002408a1c9f9783fb01",
+    "first_voluntary_replay_program_sha256": "d1d6889392547bed0250f476a5f8a342822e1e420671ce923fcd379f653a6410",
+    "serialized_program_sha256": "ddea87567c6f27cee202d7db78a51e2555ae453c9f171b42e666d9de1a2a0ae6",
+    "input_tokens": 1055883,
+    "cached_input_tokens": 957696,
+    "output_tokens": 8578,
+    "reasoning_output_tokens": 4593,
+    "repository_source_modified": false,
+    "repair_tags": [
+      {
+        "tag": "ci-aligned-python-selection",
+        "observation": "The image default was Python 3.13, while repository CI covered Python 3.9 through 3.11. The Agent selected the available Python 3.11 interpreter for the submitted environment.",
+        "overrides_official": false
+      },
+      {
+        "tag": "declared-distributed-extra-completion",
+        "observation": "Installing the local checkout with its declared distributed extra supplied Dask, Distributed, PySpark, plotting, scientific, and test providers. Runtime imports, pip check, and Pyright all succeeded.",
+        "overrides_official": false
+      },
+      {
+        "tag": "diagnostic-pipeline-sigpipe",
+        "observation": "A construction diagnostic returned exit 141 only after runtime imports, pip check, and zero missing imports had succeeded; the terminal code came from piping a large git-status listing into head.",
+        "overrides_official": false
+      },
+      {
+        "tag": "large-optional-runtime-footprint",
+        "observation": "The complete distributed installation built a roughly 451 MB PySpark wheel and dominated replay time. This is recorded as path cost, not a success criterion.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-provider-mode-only-diff",
+        "observation": "The Agent-created fresh workspace reported 706 tracked files as modified solely because their modes appeared as 100755 rather than 100644; sampled files had zero content changes. Independent qualification audited a clean tracked state.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 345.31430475000525,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "7c7da09aabed500ce58b6b640f48e06b109f5eb90598b002408a1c9f9783fb01",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 1693,
+    "warning_count": 11,
+    "execution_time_seconds": 360.0094003677368,
+    "submitted_program_sha256": "ddea87567c6f27cee202d7db78a51e2555ae453c9f171b42e666d9de1a2a0ae6",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent reached zero missing imports in construction, confirmed an operationally equivalent complete program in its voluntary fresh environment, and passed exact independent qualification plus Official. This is not an automatic-replay treatment opportunity.",
+    "measurement_implication": "A semantically broad optional dependency can dominate time and network cost even when the Official objective is satisfied on the first installed environment, so terminal success and path cost should be reported separately.",
+    "live_frontier_implication": "No promotion evidence; terminal Official success was achieved without frontier management."
+  }
+}
