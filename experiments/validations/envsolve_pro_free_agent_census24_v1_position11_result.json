@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position11",
+  "recorded_at": "2026-09-08",
+  "position": 11,
+  "case_id": "envbench-python-Modalities__modalities@4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+  "run_id": "free-agent-census24-v1-11-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-11-A/envbench-python-Modalities__modalities__4aa2e88efe13c3eaab4c6b425fdb82caf0d2a443",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 5154.426009,
+    "container_command_count": 41,
+    "successful_container_command_count": 29,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_installation_replay_observed": true,
+    "exact_final_program_voluntarily_replayed": false,
+    "difference": "The first complete installation attempt in the Agent-created fresh environment used torch 2.1.2 and x86_64 CUDA wheels and was not the final program. The Agent retained the same fresh environment, repaired network and build-isolation failures, replaced the mismatched binaries with ARM wheels, upgraded to CPU torch 2.7.1, and observed zero missing imports before submission. The consolidated final program was first executed exactly from a clean checkout during post-session qualification.",
+    "fresh_public_goal_pass_observed": true,
+    "canonical_final_program_sha256": "71aeb6ebb4160be621b43f0fb8e79c8c33134a44ceb0d902c65c9d1c734d39b9",
+    "first_voluntary_replay_program_sha256": "1b05f88bad6978cac7bfd0e2bf5e03fc35a61e7c372ecf2e5295db1f724fc201",
+    "serialized_program_sha256": "e83a117260ba329fb6a9838d0570ce4e335ca01cce2bdc4d258eb30e0adfb9af",
+    "input_tokens": 19560817,
+    "cached_input_tokens": 19328640,
+    "output_tokens": 32725,
+    "reasoning_output_tokens": 16424,
+    "repository_source_modified": false,
+    "repair_tags": [
+      {
+        "tag": "conda-network-failure-recovered-with-uv",
+        "observation": "Two conda environment attempts failed while downloading Anaconda metadata, after which the Agent switched to a uv-managed Python 3.10 environment.",
+        "overrides_official": false
+      },
+      {
+        "tag": "architecture-mismatched-binary-exploration",
+        "observation": "During construction and the first voluntary replay, the Agent installed x86_64 causal-conv1d and mamba-ssm shared objects into an ARM64 environment to make static imports resolvable. It later replaced these with aarch64 wheels before submission.",
+        "final_submission_contains_mismatched_architecture": false,
+        "overrides_official": false
+      },
+      {
+        "tag": "cuda-runtime-incomplete-final-path",
+        "observation": "In the Agent-visible fresh environment after applying the final package choices, torch was 2.7.1+cpu with torch.version.cuda=None and torch.cuda.is_available()=False. Direct imports of the ARM causal_conv1d_cuda and selective_scan_cuda extensions failed because libcudart.so.12 and libc10_cuda.so were unavailable. Exact post-session qualification and Official checked the EnvBench missing-import goal but did not execute these runtime imports.",
+        "overrides_official": false
+      },
+      {
+        "tag": "source-only-flash-attention-install",
+        "observation": "The submitted program installs flash-attn 2.5.9.post1 with FLASH_ATTENTION_SKIP_CUDA_BUILD=TRUE, which installs its Python layer without compiling the CUDA extension.",
+        "overrides_official": false
+      },
+      {
+        "tag": "large-direct-wheel-downloads",
+        "observation": "Each exact independent replay downloaded 196.3 MB and 533.3 MB ARM wheels from GitHub in addition to the ordinary dependency set; qualification and Official took about nine minutes each.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 540.6461642500362,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "71aeb6ebb4160be621b43f0fb8e79c8c33134a44ceb0d902c65c9d1c734d39b9",
+    "source_compatibility_artifacts": [],
+    "runtime_extension_imports_checked": false
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 290,
+    "warning_count": 2,
+    "execution_time_seconds": 532.4348113536835,
+    "submitted_program_sha256": "e83a117260ba329fb6a9838d0570ce4e335ca01cce2bdc4d258eb30e0adfb9af",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent used one voluntary fresh environment to expose and repair several installation defects, submitted a complete program, and then passed exact independent qualification and Official. The fact that the submitted environment still lacks a usable CUDA runtime is a path-quality finding under the Official-primary adjudication, not an EnvBench failure or evidence that automatic replay beats this control.",
+    "measurement_implication": "Zero missing imports can coexist with unusable compiled-extension imports. Official Pass@1 and runtime completeness must remain separate axes if deployment quality is analyzed beyond the leaderboard objective.",
+    "live_frontier_implication": "No promotion evidence; terminal Official success was achieved without frontier management."
+  }
+}

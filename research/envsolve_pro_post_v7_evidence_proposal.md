@@ -75,7 +75,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 10 `ceph-ansible` 在 Spark 上通过 Official。自由 Agent 将 43 个缺失导入分解为真实外部 provider 与仓库内 Ansible 路径问题，核实并安装 `boto`、`radosgw-admin`，配置项目源码路径，并把仓库已有的 `ca_common.py` 复制到活动 Ansible 环境。Agent 在自建干净环境中精确重放最终程序并观察到缺失导入为零；独立 qualification 和 Official 随后均通过。仓库源码未被修改，本位置也不提供自动 replay 增益证据。
 
-位置 5-10 已完成，固定顺序中的下一项是位置 11。AgentHub 不加入本轮 census。
+位置 11 `Modalities` 在 Spark 上通过 Official，缺失导入为零；另有 290 个非目标 Pyright error 和 2 个 warning。自由 Agent 在一个自建干净环境中持续修复了 conda 网络失败、隔离构建失败、损坏 wheel、x86_64/ARM 架构不匹配和依赖版本问题，随后提交整合后的最终程序；该精确程序首次在独立 qualification 中从零执行并通过，Official 也通过。最终环境使用 CPU 版 Torch 2.7.1，而 ARM CUDA 扩展的真实导入仍因缺少 `libcudart.so.12` 和 `libc10_cuda.so` 失败；这是运行时完整性标签，不推翻 Official。该位置说明自由 Agent 已能从完整重放反馈中自修复，但不提供自动 replay 相对增益。
+
+位置 5-11 已完成，固定顺序中的下一项是位置 12。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -197,7 +199,18 @@ environment and observed zero missing imports; independent qualification and Off
 passed. No repository source was modified, and the position provides no automatic-replay
 gain.
 
-Positions 5-10 are complete and position 11 is next in the unchanged fixed order. AgentHub
+Position 11, `Modalities`, passed Spark Official with zero missing imports (plus 290
+non-goal Pyright errors and two warnings). In one voluntary fresh environment, the free
+Agent successively repaired conda network failures, an isolated-build failure, a corrupt
+wheel, x86_64/ARM mismatch, and dependency-version problems before submitting a consolidated
+program. That exact program was first executed from scratch by independent qualification,
+which passed, and Official then passed as well. The final environment used CPU-only Torch
+2.7.1, and real imports of the ARM CUDA extensions still failed because `libcudart.so.12`
+and `libc10_cuda.so` were absent. This remains a runtime-completeness tag under the
+Official-primary adjudication. The case shows that the free Agent can already repair from
+complete-replay feedback, but it supplies no relative gain for automatic replay.
+
+Positions 5-11 are complete and position 12 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
