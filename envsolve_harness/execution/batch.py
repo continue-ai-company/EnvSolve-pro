@@ -103,10 +103,11 @@ def cleanup_case_containers(
     case_root: Path,
     attempts: int = 3,
     retry_delay_seconds: float = 0.5,
+    run_command: Any = subprocess.run,
 ) -> tuple[str, ...]:
     removed: set[str] = set()
     for attempt in range(attempts):
-        listed = subprocess.run(
+        listed = run_command(
             ["docker", "ps", "-aq", "--no-trunc"],
             capture_output=True,
             text=True,
@@ -116,7 +117,7 @@ def cleanup_case_containers(
             break
         container_ids = listed.stdout.split()
         if container_ids:
-            inspected = subprocess.run(
+            inspected = run_command(
                 ["docker", "inspect", *container_ids],
                 capture_output=True,
                 text=True,
@@ -130,7 +131,7 @@ def cleanup_case_containers(
                 if isinstance(records, list):
                     matches = container_ids_for_case(records, case_root)
                     for container_id in matches:
-                        subprocess.run(
+                        run_command(
                             ["docker", "rm", "-f", container_id],
                             capture_output=True,
                             text=True,

@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 
 from envsolve_harness.core.io import write_json, write_text_atomic
@@ -23,7 +24,9 @@ from envsolve_harness.adapters.envbench_executor import (
     EnvBenchCandidateRequest,
 )
 from envsolve_harness.adapters.envbench_goal import envbench_python_goal_contract
+from envsolve_harness.adapters.envbench_remote import RemoteEnvBenchProcessRunner
 from envsolve_harness.execution.batch import cleanup_case_containers
+from envsolve_harness.execution.remote_docker import SshDockerTransport
 from envsolve_harness.execution.source_cache import ExactRevisionSourceCache
 from envsolve_harness.storage.artifacts import RunArtifacts
 from envsolve_harness.storage.manifest import ensure_manifest, update_manifest
@@ -90,6 +93,89 @@ class EnvBenchEvaluator:
                 "EnvBench preseed_source_cache setting must be a boolean"
             )
         self.preseed_source_cache = preseed_source_cache
+        execution_backend = self.benchmark.settings.get(
+            "execution_backend", "local"
+        )
+        if execution_backend not in {"local", "ssh-remote-envbench"}:
+            raise ValueError(
+                "EnvBench execution_backend must be local or ssh-remote-envbench"
+            )
+        self.execution_backend = execution_backend
+        self.remote_benchmark_root: str | None = None
+        self.remote_workspace_root: str | None = None
+        if execution_backend == "ssh-remote-envbench":
+            remote_benchmark_root = self.benchmark.settings.get(
+                "remote_benchmark_root"
+            )
+            remote_workspace_root = self.benchmark.settings.get(
+                "remote_workspace_root"
+            )
+            if not isinstance(remote_benchmark_root, str) or not remote_benchmark_root:
+                raise ValueError(
+                    "Remote EnvBench execution requires remote_benchmark_root"
+                )
+            if not isinstance(remote_workspace_root, str) or not remote_workspace_root:
+                raise ValueError(
+                    "Remote EnvBench execution requires remote_workspace_root"
+                )
+            self.remote_benchmark_root = remote_benchmark_root
+            self.remote_workspace_root = remote_workspace_root
+
+    @staticmethod
+    def _optional_remote_port() -> int | None:
+        value = os.environ.get("ENVSOLVE_REMOTE_SSH_PORT", "").strip()
+        if not value:
+            return None
+        port = int(value)
+        if not 1 <= port <= 65535:
+            raise ValueError("ENVSOLVE_REMOTE_SSH_PORT must be between 1 and 65535")
+        return port
+
+    def _remote_process_runner(
+        self,
+        *,
+        artifacts: RunArtifacts,
+        benchmark_input: Path,
+        json_results: Path,
+        repo_data: Path,
+        temp_dir: Path,
+    ) -> RemoteEnvBenchProcessRunner:
+        target = os.environ.get("ENVSOLVE_REMOTE_DOCKER_TARGET", "").strip()
+        if not target:
+            raise ValueError(
+                "Remote EnvBench execution requires ENVSOLVE_REMOTE_DOCKER_TARGET"
+            )
+        if self.remote_benchmark_root is None or self.remote_workspace_root is None:
+            raise RuntimeError("Remote EnvBench paths were not configured")
+        transport = SshDockerTransport(
+            target=target,
+            remote_root=self.remote_workspace_root,
+            ssh_executable=shutil.which("ssh") or "ssh",
+            rsync_executable=shutil.which("rsync") or "rsync",
+            docker_executable=(
+                os.environ.get("ENVSOLVE_REMOTE_DOCKER_EXECUTABLE", "").strip()
+                or "docker"
+            ),
+            ssh_identity=(
+                os.environ.get("ENVSOLVE_REMOTE_SSH_IDENTITY", "").strip() or None
+            ),
+            ssh_port=self._optional_remote_port(),
+        )
+        return RemoteEnvBenchProcessRunner(
+            transport=transport,
+            local_benchmark_root=self.benchmark.root,
+            remote_benchmark_root=self.remote_benchmark_root,
+            local_benchmark_input=benchmark_input,
+            local_json_results=json_results,
+            local_repo_data=repo_data,
+            local_temp_dir=temp_dir,
+            remote_run_root=transport.workspace_path(artifacts.root, "official"),
+            image=self.image,
+            sync_timeout=max(
+                self.config.git_fetch_timeout,
+                self.config.create_container_timeout,
+            ),
+        )
 
     @property
     def benchmark_id(self) -> str:
@@ -162,33 +248,59 @@ class EnvBenchEvaluator:
             artifacts.status,
             {"state": "running", "updated_at": datetime.now(timezone.utc).isoformat()},
         )
-        execution = EnvBenchCandidateExecutor(
-            _run_envbench_process,
-            ExactRevisionSourceCache,
-            cleanup_case_containers,
-        ).execute(
-            EnvBenchCandidateRequest(
-                case=case,
-                script=script,
-                benchmark_root=self.benchmark.root,
+        remote_runner = (
+            self._remote_process_runner(
+                artifacts=artifacts,
                 benchmark_input=artifacts.benchmark_input,
                 json_results=json_results,
                 repo_data=repo_data,
                 temp_dir=temp_dir,
-                image=self.image,
-                source_cache_root=(
-                    self.config.runs_root / "_source_cache/envbench-python"
-                    if self.preseed_source_cache
-                    else None
-                ),
-                max_workers=self.config.max_workers,
-                process_timeout=self.config.evaluation_process_timeout,
-                create_container_timeout=self.config.create_container_timeout,
-                container_timeout=self.config.container_timeout,
-                git_fetch_timeout=self.config.git_fetch_timeout,
-                cleanup_root=artifacts.root,
             )
+            if self.execution_backend == "ssh-remote-envbench"
+            else None
         )
+        process_runner = remote_runner or _run_envbench_process
+        container_cleanup = (
+            remote_runner.cleanup_containers
+            if remote_runner is not None
+            else cleanup_case_containers
+        )
+        try:
+            execution = EnvBenchCandidateExecutor(
+                process_runner,
+                ExactRevisionSourceCache,
+                container_cleanup,
+            ).execute(
+                EnvBenchCandidateRequest(
+                    case=case,
+                    script=script,
+                    benchmark_root=self.benchmark.root,
+                    benchmark_input=artifacts.benchmark_input,
+                    json_results=json_results,
+                    repo_data=repo_data,
+                    temp_dir=temp_dir,
+                    image=self.image,
+                    source_cache_root=(
+                        self.config.runs_root / "_source_cache/envbench-python"
+                        if self.preseed_source_cache
+                        else None
+                    ),
+                    max_workers=self.config.max_workers,
+                    process_timeout=self.config.evaluation_process_timeout,
+                    create_container_timeout=self.config.create_container_timeout,
+                    container_timeout=self.config.container_timeout,
+                    git_fetch_timeout=self.config.git_fetch_timeout,
+                    cleanup_root=artifacts.root,
+                )
+            )
+        finally:
+            if remote_runner is not None:
+                try:
+                    remote_runner.cleanup_staging()
+                except (OSError, RuntimeError, subprocess.TimeoutExpired) as exc:
+                    remote_runner.execution_metadata["staging_cleanup_error"] = (
+                        f"{type(exc).__name__}: {exc}"
+                    )
         started_at = execution.started_at
         command = list(execution.command)
         process_returncode = execution.process_returncode
@@ -197,6 +309,14 @@ class EnvBenchEvaluator:
         adapter_error = execution.adapter_error
         termination = execution.termination
         repository_acquisition = execution.repository_acquisition
+        execution_backend = (
+            remote_runner.execution_metadata
+            if remote_runner is not None
+            else {
+                "kind": "local",
+                "benchmark_root": str(self.benchmark.root),
+            }
+        )
         write_text_atomic(
             artifacts.evaluation_log,
             f"$ {' '.join(command)}\n\n[stdout]\n{stdout}\n[stderr]\n{stderr}",
@@ -263,12 +383,13 @@ class EnvBenchEvaluator:
             raw_result_path=str(result_path.relative_to(artifacts.root)) if result_path.exists() else None,
             metadata={
                 "adapter": "envbench",
-                "adapter_version": "0.8.0",
+                "adapter_version": "0.9.0",
                 "harness_process_exit_code": process_returncode,
                 "identity_matches": identity_matches,
                 "adapter_error": adapter_error,
                 "termination": termination,
                 "repository_acquisition": repository_acquisition,
+                "execution_backend": execution_backend,
                 "started_at": started_at,
                 "finished_at": execution.finished_at,
             },
@@ -281,18 +402,33 @@ class EnvBenchEvaluator:
                 "sha256": sha256_file(artifacts.bootstrap_script),
             },
             evaluator={
-                **git_provenance(self.benchmark.root),
+                **(
+                    execution_backend.get("benchmark", {})
+                    if remote_runner is not None
+                    else git_provenance(self.benchmark.root)
+                ),
                 "benchmark": self.benchmark_id,
-                "image": docker_image_provenance(self.image),
-                "source_hashes": {
-                    "main.py": sha256_file(self.benchmark.root / "evaluation/main.py"),
-                    "python_build.sh": sha256_file(
-                        self.benchmark.root / "evaluation/scripts/python_build.sh"
-                    ),
-                    "repo_downloader.py": sha256_file(
-                        self.benchmark.root / "env_setup_utils/repo_downloader.py"
-                    ),
-                },
+                "image": (
+                    execution_backend.get("image", {})
+                    if remote_runner is not None
+                    else docker_image_provenance(self.image)
+                ),
+                "execution_backend": execution_backend,
+                "source_hashes": (
+                    execution_backend.get("benchmark", {}).get("source_hashes", {})
+                    if remote_runner is not None
+                    else {
+                        "main.py": sha256_file(
+                            self.benchmark.root / "evaluation/main.py"
+                        ),
+                        "python_build.sh": sha256_file(
+                            self.benchmark.root / "evaluation/scripts/python_build.sh"
+                        ),
+                        "repo_downloader.py": sha256_file(
+                            self.benchmark.root / "env_setup_utils/repo_downloader.py"
+                        ),
+                    }
+                ),
                 "command": command,
                 "timeouts": {
                     "process": self.config.evaluation_process_timeout,

@@ -5,7 +5,10 @@
       "root": "/Users/admin/Documents/AnyDeploy/EnvBench",
       "settings": {
         "deterministic_script": "evaluation/scripts/python_baseline.sh",
-        "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+        "execution_backend": "ssh-remote-envbench",
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "remote_benchmark_root": "/home/avdpro/work/EnvSolve-pro/EnvBench",
+        "remote_workspace_root": "/home/avdpro/work/EnvSolve-pro/envbench-official"
       }
     }
   },
