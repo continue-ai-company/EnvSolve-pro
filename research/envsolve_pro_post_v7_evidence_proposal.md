@@ -71,7 +71,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 8 `pyvespa` 在 Spark 上通过 Official。构建过程中一次 PyPI 下载超时，Agent 自主增加 timeout/retries 后完成安装，并在自建干净环境中重放成功；精确最终程序随后通过独立 qualification 和 Official。该位置是自由 Agent 自修复成功，不提供自动 replay treatment 的增益证据。
 
-位置 5-8 已完成，固定顺序中的下一项是位置 9。AgentHub 不加入本轮 census。
+位置 9 `neurogym` 在 Spark 上通过 Official。自由 Agent 在自建干净环境中继续完成一次超时的安装，随后用 `numpy<2` 修复 NumPy 2 运行时不兼容；七个核心测试通过且缺失导入为零。精确最终程序通过独立 qualification 和 Official。程序创建了缺失的 `neurogym/utils/test_plotting.py` 功能性兼容模块；该操作只作源码兼容标签，不推翻 Official。构建目录的旧 clean-tree 审计曾拒绝这个未跟踪文件，但同一原定 run 仍按 Official-primary 路径完成，因此该位置不是 boundary-censored，也不提供自动 replay 增益证据。协议说明见 `research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_POSITION09_PROTOCOL_NOTE.md`。
+
+位置 5-9 已完成，固定顺序中的下一项是位置 10。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -172,7 +174,19 @@ fresh environment. The exact final program then passed independent qualification
 Official. This is a free-Agent self-repair success and provides no automatic-replay gain.
 See `experiments/validations/envsolve_pro_free_agent_census24_v1_position08_result.json`.
 
-Positions 5-8 are complete and position 9 is next in the unchanged fixed order. AgentHub
+Position 9, `neurogym`, passed Spark Official with zero missing imports. The free Agent
+continued an installation after a fresh-environment observation timeout, then repaired a
+NumPy 2 runtime incompatibility with `numpy<2`; seven core tests passed and the public goal
+reported zero missing imports. The exact final program passed independent qualification
+and Official. It creates the missing functional compatibility module
+`neurogym/utils/test_plotting.py`; that operation is retained as a source-compatibility tag
+and does not override Official. A legacy clean-tree audit rejected the untracked file in
+the construction workspace, but the same scheduled run still completed through the
+Official-primary path. The position is therefore not boundary-censored and provides no
+automatic-replay gain. See
+`research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_POSITION09_PROTOCOL_NOTE.md`.
+
+Positions 5-9 are complete and position 10 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position09",
+  "recorded_at": "2026-09-08",
+  "position": 9,
+  "case_id": "envbench-python-neurogym__neurogym@ee0a140cf2c6f14f36f524997c269cf110afc73d",
+  "run_id": "free-agent-census24-v1-09-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-09-A/envbench-python-neurogym__neurogym__ee0a140cf2c6f14f36f524997c269cf110afc73d",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 16,
+    "successful_container_command_count": 15,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_installation_replay_observed": true,
+    "exact_final_program_voluntarily_replayed": false,
+    "difference": "The first fresh execution of the installation sequence reached the 300-second observation timeout while downloading packages. The Agent continued in that same fresh environment, completed installation, repaired the NumPy 2 incompatibility with numpy<2, ran seven tests, and observed zero missing imports. The final submission combined the accumulated operations into one fail-fast program; post-session qualification replayed that exact canonical program.",
+    "fresh_public_goal_pass_observed": true,
+    "fresh_replay_initial_command_timed_out": true,
+    "fresh_replay_recovered_in_same_environment": true,
+    "canonical_final_program_sha256": "1bea685b37882463a683652f544e9064c9387b885d3d8b8d9d0caa26c42e07a9",
+    "serialized_program_sha256": "03f281bc29b0217cbe9252dc374425caad13665f4f1a4b4906dccb5baff276b8",
+    "input_tokens": 1970743,
+    "cached_input_tokens": 1886336,
+    "output_tokens": 15881,
+    "reasoning_output_tokens": 10302,
+    "construction_workspace_audit": {
+      "valid": false,
+      "event": "untracked_import_artifact",
+      "path": "neurogym/utils/test_plotting.py",
+      "role": "construction-state diagnostic only",
+      "overrides_official": false
+    },
+    "source_compatibility_edit_tag": {
+      "tag": "functional-source-compatibility-module-created",
+      "path": "neurogym/utils/test_plotting.py",
+      "sha256": "0b5b344fce25e6c8424a7f3b1f8c4c1ba68a5c27458578f50212b3e4297ee7f3",
+      "observation": "The submitted bootstrap creates a functional wrapper around the checkout's existing neurogym.utils.plotting.plot_env implementation to satisfy an import of a module absent from the pinned revision.",
+      "overrides_official": false
+    }
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 308.92095383402193,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "1bea685b37882463a683652f544e9064c9387b885d3d8b8d9d0caa26c42e07a9",
+    "source_compatibility_artifacts": [
+      {
+        "path": "neurogym/utils/test_plotting.py",
+        "sha256": "0b5b344fce25e6c8424a7f3b1f8c4c1ba68a5c27458578f50212b3e4297ee7f3",
+        "disposition": "postepisode-executable-source-review"
+      }
+    ]
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 236,
+    "warning_count": 1,
+    "execution_time_seconds": 73.95430612564087,
+    "submitted_program_sha256": "03f281bc29b0217cbe9252dc374425caad13665f4f1a4b4906dccb5baff276b8",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_cleanup_fallback_used": false,
+    "staging_absence_verified_on_spark": true
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false,
+    "leaderboard_source_edit_rule": "not explicitly stated in the checked EnvBench documentation at revision bf972d4d0404e6bfcc8241d9a820202cea76dade; evaluator acceptance is recorded separately from leaderboard-policy admissibility"
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent used a voluntary fresh environment, recovered an observation timeout and a NumPy runtime incompatibility there, submitted a complete program, and then passed independent qualification and Official. The source edit is retained as a path-quality tag under the supervisor's Official-primary adjudication.",
+    "live_frontier_implication": "No promotion evidence; terminal success was achieved without frontier management."
+  }
+}
