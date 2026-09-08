@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-8 and position 9 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-8，下一项为位置 9。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-12 and position 13 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-12，下一项为位置 13。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -77,7 +77,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 11 `Modalities` 在 Spark 上通过 Official，缺失导入为零；另有 290 个非目标 Pyright error 和 2 个 warning。自由 Agent 在一个自建干净环境中持续修复了 conda 网络失败、隔离构建失败、损坏 wheel、x86_64/ARM 架构不匹配和依赖版本问题，随后提交整合后的最终程序；该精确程序首次在独立 qualification 中从零执行并通过，Official 也通过。最终环境使用 CPU 版 Torch 2.7.1，而 ARM CUDA 扩展的真实导入仍因缺少 `libcudart.so.12` 和 `libc10_cuda.so` 失败；这是运行时完整性标签，不推翻 Official。该位置说明自由 Agent 已能从完整重放反馈中自修复，但不提供自动 replay 相对增益。
 
-位置 5-11 已完成，固定顺序中的下一项是位置 12。AgentHub 不加入本轮 census。
+位置 12 `valory-xyz/trader` 在 Spark 上通过 Official，缺失导入为零；另有 951 个非目标 Pyright error 和 4 个 warning。单独执行 Poetry 安装后仍有 241 个缺失导入，自由 Agent 识别出项目依赖 Open Autonomy 的包图同步，按文档初始化并下载固定的第三方 package sources；前两次 registry 同步失败后，第三次成功，最终程序加入五次有界重试。Agent 在自建干净环境中运行了语义等价的完整安装，并在已填充的同一环境中再次执行最终程序；精确最终程序随后在独立 qualification 中从零运行，bootstrap 和公开目标均通过，但附加 repository-effect audit 将官方同步命令写入 `packages/` 的两个 namespace initializer 判为违规，另将 297 个同步源码列为待审，因此 qualification 未认证。该审计失败不覆盖 Official Pass，且没有 tracked file 内容被修改。此位置表明强 Agent 能自主发现生态系统级安装步骤，也暴露了通用“禁止项目内可导入文件”规则会误伤合法包管理器；它不提供自动 replay 相对增益。
+
+位置 5-12 已完成，固定顺序中的下一项是位置 13。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -210,7 +212,21 @@ and `libc10_cuda.so` were absent. This remains a runtime-completeness tag under 
 Official-primary adjudication. The case shows that the free Agent can already repair from
 complete-replay feedback, but it supplies no relative gain for automatic replay.
 
-Positions 5-11 are complete and position 12 is next in the unchanged fixed order. AgentHub
+Position 12, `valory-xyz/trader`, passed Spark Official with zero missing imports (plus
+951 non-goal Pyright errors and four warnings). Poetry installation alone left 241 missing
+imports. The free Agent identified the documented Open Autonomy package-graph synchronization
+step, recovered after two registry failures, and submitted a program with five bounded sync
+attempts. It ran an operationally equivalent complete installation in a voluntary clean
+environment and later re-executed the exact final program in that populated environment.
+Independent qualification then executed the exact program from scratch: bootstrap and the
+public goal passed, but the auxiliary repository-effect audit rejected two namespace
+initializers written under `packages/` by the documented package synchronization command and
+marked another 297 synchronized source files for review. No tracked file content changed.
+This auxiliary audit failure does not override Official Pass. The case exposes a false
+positive in a generic rule against project-local import artifacts and provides no relative
+gain for automatic replay.
+
+Positions 5-12 are complete and position 13 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

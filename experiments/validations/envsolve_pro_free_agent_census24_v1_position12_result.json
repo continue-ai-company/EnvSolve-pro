@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position12",
+  "recorded_at": "2026-09-08",
+  "position": 12,
+  "case_id": "envbench-python-valory-xyz__trader@64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+  "run_id": "free-agent-census24-v1-12-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-12-A/envbench-python-valory-xyz__trader__64fa99dd872a157bbd9eef436bf8396e8f5d34d1",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 1052.709352,
+    "container_command_count": 20,
+    "successful_container_command_count": 16,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_installation_replay_observed": true,
+    "exact_final_program_voluntarily_replayed_from_clean_environment": false,
+    "exact_final_program_voluntarily_reexecuted_in_populated_fresh_environment": true,
+    "difference": "The first clean voluntary replay installed the same dependency families and retried autonomy package synchronization, but used a different fail-fast structure and variable names. The Agent later executed the exact final program as a prefix of a command in the already-populated fresh environment. The exact final program was first executed from a clean checkout by post-session qualification.",
+    "fresh_public_goal_pass_observed": true,
+    "initial_missing_import_count": 241,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "f0847e5e2bae6eb101f4d61cfbcd161604240e9abd5ce41ec3a0a2e83ab9ccfd",
+    "first_voluntary_replay_program_sha256": "ff51726ea539f3f034fcd74983897811cd897c2b03392ade3709885106134f3b",
+    "serialized_program_sha256": "ea306893c741b026e829a513e94bf0eabdf14fdc82625552796b2920077af0f3",
+    "input_tokens": 2785555,
+    "cached_input_tokens": 2637440,
+    "output_tokens": 11487,
+    "reasoning_output_tokens": 6458,
+    "repository_tracked_content_modified": false,
+    "repair_tags": [
+      {
+        "tag": "ecosystem-package-graph-synchronization",
+        "observation": "Poetry installed the locked project dependencies, but 241 missing imports remained because the repository expects Open Autonomy package sources. The Agent discovered and ran the documented autonomy initialization and package synchronization workflow, reducing missing imports to zero.",
+        "overrides_official": false
+      },
+      {
+        "tag": "registry-network-retry",
+        "observation": "The first two construction synchronization attempts failed while contacting the Autonolas registry. A later attempt succeeded, and the submitted program contains a bounded five-attempt retry loop.",
+        "overrides_official": false
+      },
+      {
+        "tag": "legal-ecosystem-materialization-rejected-by-auxiliary-audit",
+        "observation": "Post-session qualification completed bootstrap and reached zero missing imports, but its repository-effect audit rejected two namespace initializer files written under packages/ by the project's documented autonomy packages sync command. The same audit classified another 297 synchronized executable source files for postepisode review. No tracked file content changed.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-provider-mode-only-mutation",
+        "observation": "The Agent-visible fresh provider changed tracked file modes through its workspace permission setup. The Agent compared every tracked blob against HEAD and found zero content mismatches. This provider artifact did not prevent Official evaluation.",
+        "overrides_official": false
+      },
+      {
+        "tag": "locked-environment-pip-check-conflict",
+        "observation": "The Agent observed wheel 0.48.0 requiring packaging>=24.0 while the lock installed packaging 23.2. The missing-import goal and representative runtime imports still passed; the submitted program preserves the lock rather than adding an outcome-specific override.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "audit_failed_after_public_goal_pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 99.34377849998418,
+    "public_goal_passed": true,
+    "certified": false,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "f0847e5e2bae6eb101f4d61cfbcd161604240e9abd5ce41ec3a0a2e83ab9ccfd",
+    "tracked_changes": [],
+    "review_required_import_artifact_count": 297,
+    "disallowed_import_artifacts": [
+      "packages/open_aea/__init__.py",
+      "packages/open_aea/protocols/__init__.py"
+    ],
+    "affected_primary_official_outcome": false
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 951,
+    "warning_count": 4,
+    "execution_time_seconds": 94.0166404247284,
+    "submitted_program_sha256": "ea306893c741b026e829a513e94bf0eabdf14fdc82625552796b2920077af0f3",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_qualification_failure_overrides_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent discovered the project-specific ecosystem synchronization step, repaired transient registry failures with bounded retries, used a voluntary clean environment, and submitted a program that passed Official. The independent qualification's repository-effect failure is an auxiliary audit false positive for legitimate dependency materialization, not an EnvBench failure or evidence that automatic replay improves over this control.",
+    "measurement_implication": "A generic rule that rejects every project-local importable artifact is not a valid deployment-quality oracle when a documented package manager intentionally materializes versioned ecosystem sources into the repository. Provenance and runtime semantics should be reported separately from Official success.",
+    "live_frontier_implication": "No promotion evidence; terminal Official success was achieved without frontier management."
+  }
+}
