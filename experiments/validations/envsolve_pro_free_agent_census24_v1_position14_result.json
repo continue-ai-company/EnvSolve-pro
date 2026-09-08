@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position14",
+  "recorded_at": "2026-09-08",
+  "position": 14,
+  "case_id": "envbench-python-scikit-rf__scikit-rf@cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+  "run_id": "free-agent-census24-v1-14-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-14-A/envbench-python-scikit-rf__scikit-rf__cd6ca2fd47597387cdaf0d4991b371de8fc2dd4e",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 2156.990182,
+    "container_command_count": 18,
+    "successful_container_command_count": 11,
+    "container_observation_timeout_count": 2,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "operationally_equivalent_complete_program_replayed_from_clean_environment": true,
+    "exact_final_program_voluntarily_replayed_from_clean_environment": false,
+    "difference": "The Agent's first complete program in its fresh environment was the final eight-line program prefixed by set -e. The observation timed out while installation continued, and a second execution completed in the same partially populated environment. The Agent later ran the exact final eight lines plus diagnostic checks in that populated environment. Post-session qualification was therefore the first exact execution of the submitted program from a clean checkout.",
+    "fresh_public_goal_pass_observed": true,
+    "first_installed_environment_missing_import_count": 2,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "6745dd18ac9ecb5ef9476391c412c29f70e7f9b3aef1d45ac15b37625dc28f7d",
+    "first_voluntary_replay_program_sha256": "20d29e79ab5f26c50a1824ed3f952b8eb5be57f61125a44b3eaecbe39dfa8a45",
+    "serialized_program_sha256": "9a001f82d751ab816a1af3d42de5ccaec1041b2c2d29d456be76ff9bb5dfc309",
+    "input_tokens": 3732418,
+    "cached_input_tokens": 3576320,
+    "output_tokens": 17458,
+    "reasoning_output_tokens": 9753,
+    "repository_source_modified": false,
+    "repair_tags": [
+      {
+        "tag": "declared-extras-completion",
+        "observation": "Installing the repository with all declared test, instrument, network, spreadsheet, plotting, and documentation extras resolved the broad dependency surface but left two legacy documentation-test imports.",
+        "overrides_official": false
+      },
+      {
+        "tag": "legacy-package-layout-via-environment-path",
+        "observation": "The remaining docscrape and docscrape_sphinx imports were real modules inside the installed numpydoc package. The final program exposed that installed package directory on PYTHONPATH, and both runtime imports plus Pyright resolution succeeded without modifying repository source.",
+        "overrides_official": false
+      },
+      {
+        "tag": "observation-timeout-with-continuing-process",
+        "observation": "Two construction commands and the first voluntary fresh execution exceeded their observation windows while package installation continued. The Agent inspected subsequent state and completed the same environment instead of treating each observation timeout as a terminal command failure.",
+        "overrides_official": false
+      },
+      {
+        "tag": "model-transport-recovery",
+        "observation": "The Codex stream timed out through five retries near startup and fell back to HTTP. The episode subsequently completed, so this is recorded as transport overhead rather than censoring or failure.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 168.39306774997385,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "6745dd18ac9ecb5ef9476391c412c29f70e7f9b3aef1d45ac15b37625dc28f7d",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 2894,
+    "warning_count": 6,
+    "execution_time_seconds": 550.0570600032806,
+    "submitted_program_sha256": "9a001f82d751ab816a1af3d42de5ccaec1041b2c2d29d456be76ff9bb5dfc309",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent used its voluntary fresh environment, submitted a source-clean program, passed independent qualification, and passed Official. This is another free-Agent success rather than evidence that an automatic replay treatment outperforms the control.",
+    "measurement_implication": "A tool observation timeout is not equivalent to command termination. Process and environment state must be checked before attributing failure or starting duplicate work.",
+    "live_frontier_implication": "No promotion evidence; terminal Official success was achieved without frontier management."
+  }
+}

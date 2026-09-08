@@ -81,7 +81,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 13 `flav-io/flavio` 在 Spark 上通过 Official，缺失导入为零；另有 870 个非目标 Pyright error 和 53 个 warning。默认 Python 3.13 与最新依赖安装后剩余三个缺失导入，分别来自新版 setuptools 移除 `pkg_resources`，以及项目为 SciPy 1.4.1 及更早版本保留的 fallback 模块。自由 Agent 最终重建 Python 3.8、SciPy 1.4.1、setuptools<81，并因 ARM64 上 `rundec` 0.7 源码包缺少头文件而改用 0.6 wheel。自建 fresh 环境首次 Conda 下载失败，但探索命令未 fail-fast、错误地返回 0；Agent 阅读完整输出后在同一 session 中完成重试和验证，并把有界重试与显式状态传播写进最终程序。精确最终程序首次由独立 qualification 从零执行并通过，Official 随后通过；项目源码未修改。该位置说明执行轨迹比终端退出码更能揭示环境状态，但仍是自由 Agent 自修复成功，不提供自动 replay 相对增益。
 
-位置 5-13 已完成，固定顺序中的下一项是位置 14。AgentHub 不加入本轮 census。
+位置 14 `scikit-rf/scikit-rf` 在 Spark 上通过 Official，缺失导入为零；另有 2894 个非目标 Pyright error 和 6 个 warning。安装项目声明的全部开发 extras 后只剩 `docscrape` 和 `docscrape_sphinx` 两个旧式顶层导入；自由 Agent 确认它们由已安装的 `numpydoc` 提供，并通过 `PYTHONPATH` 暴露包内模块目录，运行时导入与 Pyright 均成功，且未修改项目源码。两次 construction 命令和首次 voluntary fresh 执行只发生观测超时，安装进程继续运行；Agent 检查后续环境状态而没有把超时直接判成安装失败。首次 fresh 执行是最终八行程序加 `set -e`，精确最终程序只在已填充的同一环境中再次运行，因此独立 qualification 才是它第一次从零精确重放；qualification 和 Official 均通过。该位置再次说明应区分观测超时与命令终止，但不提供自动 replay 相对增益。
+
+位置 5-14 已完成，固定顺序中的下一项是位置 15。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -243,7 +245,20 @@ passed. No project source was modified. The trajectory demonstrates the value of
 state beyond terminal status, but remains a free-Agent self-repair success rather than
 automatic-replay gain.
 
-Positions 5-13 are complete and position 14 is next in the unchanged fixed order. AgentHub
+Position 14, `scikit-rf/scikit-rf`, passed Spark Official with zero missing imports (plus
+2,894 non-goal Pyright errors and six warnings). Installing every declared development extra
+left only the legacy top-level imports `docscrape` and `docscrape_sphinx`. The free Agent
+verified that both modules are supplied inside the installed `numpydoc` package and exposed
+that package directory through `PYTHONPATH`; runtime imports and Pyright resolution then
+succeeded without repository-source changes. Two construction commands and the first
+voluntary fresh execution reached observation timeouts while their installation processes
+continued. The Agent inspected subsequent state instead of treating those observations as
+terminal failures. Its first fresh program was the final eight-line body prefixed by `set -e`,
+while the exact final body was later rerun only in the populated environment; independent
+qualification was therefore its first exact clean execution. Qualification and Official both
+passed. This is another free-Agent success and provides no automatic-replay gain.
+
+Positions 5-14 are complete and position 15 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
