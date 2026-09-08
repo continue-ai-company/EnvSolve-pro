@@ -73,6 +73,11 @@ class _FakeTransport:
         self.remote_calls.append(command)
         return subprocess.CompletedProcess(command, 0, "remote stdout", "")
 
+    def run_docker(
+        self, arguments: list[str], **kwargs: Any
+    ) -> subprocess.CompletedProcess[str]:
+        return self.run_remote([self.docker_executable, *arguments], **kwargs)
+
     def sync_to_remote(
         self, local: Path, remote: str, *, timeout: int
     ) -> None:
@@ -207,3 +212,99 @@ def test_remote_envbench_timeout_is_reported_as_timeout() -> None:
             assert exc.timeout == 60
         else:
             raise AssertionError("remote timeout was not surfaced")
+
+
+def _cleanup_runner(transport: _FakeTransport) -> RemoteEnvBenchProcessRunner:
+    root = Path("/tmp/local-envsolve-cleanup-test")
+    return RemoteEnvBenchProcessRunner(
+        transport=transport,  # type: ignore[arg-type]
+        local_benchmark_root=root / "EnvBench",
+        remote_benchmark_root="/srv/EnvBench",
+        local_benchmark_input=root / "inputs/evaluator.jsonl",
+        local_json_results=root / "json",
+        local_repo_data=root / "repos",
+        local_temp_dir=root / "tmp",
+        remote_run_root="/srv/runs/official-cleanup",
+        image="envbench:test",
+        sync_timeout=30,
+    )
+
+
+def test_remote_envbench_staging_cleanup_uses_ordinary_removal() -> None:
+    transport = _FakeTransport()
+    runner = _cleanup_runner(transport)
+
+    runner.cleanup_staging()
+
+    assert runner.execution_metadata["staging_cleaned"] is True
+    assert "staging_cleanup_fallback" not in runner.execution_metadata
+    assert transport.remote_calls == [
+        ["rm", "-rf", "/srv/runs/official-cleanup"]
+    ]
+
+
+def test_remote_envbench_staging_cleanup_handles_root_owned_content() -> None:
+    class RootOwnedTransport(_FakeTransport):
+        def run_remote(
+            self, command: list[str], **kwargs: Any
+        ) -> subprocess.CompletedProcess[str]:
+            del kwargs
+            self.remote_calls.append(command)
+            if command[:2] == ["rm", "-rf"]:
+                return subprocess.CompletedProcess(
+                    command, 1, "", "Permission denied"
+                )
+            return subprocess.CompletedProcess(command, 0, "", "")
+
+    transport = RootOwnedTransport()
+    runner = _cleanup_runner(transport)
+
+    runner.cleanup_staging()
+
+    assert runner.execution_metadata["staging_cleaned"] is True
+    assert (
+        runner.execution_metadata["staging_cleanup_fallback"]
+        == "docker-root-owned-content"
+    )
+    assert transport.remote_calls[1] == [
+        "docker",
+        "run",
+        "--rm",
+        "--mount",
+        "type=bind,src=/srv/runs/official-cleanup,dst=/envsolve-staging",
+        "--entrypoint",
+        "/usr/bin/find",
+        "envbench:test",
+        "/envsolve-staging",
+        "-mindepth",
+        "1",
+        "-delete",
+    ]
+    assert transport.remote_calls[2] == [
+        "rmdir",
+        "/srv/runs/official-cleanup",
+    ]
+
+
+def test_remote_envbench_staging_cleanup_records_fallback_failure() -> None:
+    class FailedCleanupTransport(_FakeTransport):
+        def run_remote(
+            self, command: list[str], **kwargs: Any
+        ) -> subprocess.CompletedProcess[str]:
+            del kwargs
+            self.remote_calls.append(command)
+            if command[:2] == ["rm", "-rf"]:
+                return subprocess.CompletedProcess(
+                    command, 1, "", "Permission denied"
+                )
+            return subprocess.CompletedProcess(command, 125, "", "Docker failed")
+
+    runner = _cleanup_runner(FailedCleanupTransport())
+
+    runner.cleanup_staging()
+
+    assert "staging_cleaned" not in runner.execution_metadata
+    assert runner.execution_metadata["staging_cleanup_error"] == (
+        "ordinary removal failed: Permission denied; "
+        "container fallback failed: Docker failed"
+    )

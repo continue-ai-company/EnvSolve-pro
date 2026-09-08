@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 is paused after position 4 for execution-topology adjudication. Position 1 failed postepisode Official, position 2 was boundary-censored before Official, and positions 3-4 passed the Official metric but failed deployment-validity review. A minimal boundary amendment applied from position 3; no further amendment is implemented pending supervision. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 在位置 4 后暂停，等待执行拓扑裁决。位置 1 在 episode 后的 Official 评测中失败，位置 2 在 Official 前被边界误杀，位置 3-4 通过 Official 指标但未通过部署有效性复核；最小边界修订从位置 3 起生效，在监督裁决前不再实施新修订。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-7 and position 8 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-7，下一项为位置 8。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -39,7 +39,7 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 - 已核对的候选总体：`experiments/cases/dev_pro_bad_case_census_v1_209.jsonl`，209 个唯一 ID，内容集合等于 `dev5.jsonl` 与 `train_rest204.jsonl` 的并集。依据既有 `pro_dev_bad_case_census_v1_preregistration.json` 的开发总体定义；此次未读取 protected case 文件、未抽样，也不重新声称独立核验了 protected 集合交集。建议审定这个完整开发总体，而非按旧基线表现筛选的子集。
 - 样本量理由：24 是快速估计机会率的 pilot，不是方法有效性检验。若 24 个独立有效样本均无失败，失败率的一侧 95% 二项上界仍约 11.7%，不能宣称强 Agent 已刷满；有删失时该界不能直接用于全样本。
 - 方法：Mac 统一控制同版本强 Agent，Spark 承担远程构造与 episode 结束后的串行 Official；全部位置统一暴露 Spark GPU。模型、工具、公开目标和初始条件在执行前记录，过程不限制自由 Agent 的操作策略。启动前发现 AgentHub 仅余 5.9 GiB 且没有位置 1 的缓存，而 Spark 有 2.1 TiB 空闲和 exact-revision cache，因此在读取新结果前选择 Spark；后续 treatment 必须匹配该主机和 GPU 条件。
-- 终点：首先按全部 24 个抽样位置报告有效程序提交及合法 Official Pass@1；另列未提交、bootstrap 失败、缺失导入失败、源码不可得、明确基础设施故障和原因未决。合法性审核未完成的 metric pass 不能升级为合法成功。
+- 终点：首先按全部 24 个抽样位置报告程序提交和 Official Pass@1；另列未提交、bootstrap 失败、缺失导入失败、源码不可得、明确基础设施故障和原因未决。源码兼容修改、provider 语义和运行时完整性只作描述性标签，不覆盖 Official 结果。
 - 停止规则：只跑固定 24 个位置，不因看到失败或成功提前停止、不替换删失位置、不启动 F/N/A2。未完成进程按原身份恢复。时间、token、费用只报告；保留公共安全超时并单列触发情况。
 - 解释：同时报告完整样本成功下界、把未决位置视为可能成功的上界，以及有效执行条件下的描述性机会率。该样本代表授权 Dev，不自动代表 EnvBench 全榜。
 - 只有确认真实的强 Agent 终局失败后，才提出下一版独立 target-state replay 对照。失败若发生在完整程序形成之前，明确列为 replay 当前无法直接解决的边界。
@@ -60,6 +60,16 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 执行拓扑勘误：此前“Spark 承担 Official”的文字不正确。位置 1-4 的构建、Agent 可见验证和资格重放在 Spark；Official 由 Mac-local EnvBench 通过当时的本地 Docker context 启动，位置 4 已现场确认是 `desktop-linux`，位置 1/3 的 context 未记录。两端镜像 digest 和 `linux-aarch64` 架构相同，但网络、缓存与 GPU 暴露不同。原始记录不覆写，显式勘误见 `experiments/validations/envsolve_pro_free_agent_census24_v1_positions01_04_topology_correction.json`，阶段裁决见 `research/ENVSOLVE_PRO_CENSUS_POSITIONS01_04_STAGE_REPORT.md`。
 
 本批 24 个位置在位置 4 后暂停，不再把 AgentHub 插入已开始的批次。已完成位置采用实际发现的双主机路径：Spark 负责构建与 replay，Mac-local EnvBench 负责 Official。AgentHub 当前只有约 5 GiB 空闲盘。下一轮方法比较将在运行前按是否需要 GPU 分层：CPU block 固定到 AgentHub，GPU block 固定到 Spark；同一 case 的全部方法保持同机和同资源条件。AgentHub 上约 17 GiB 的旧 construction checkout/replay 是启用该 CPU lane 前需要迁移或清理的容量障碍。
+
+负责人于 2026-09-08 明确裁决：本普查的一切主结论均以 EnvBench Official Pass@1 为准。源码修改、兼容模块、provider 语义和运行时完整性继续保留为路径质量标签，但不能推翻 Official。因此，位置 3 和 4 按 Official success 计数，历史机器记录不覆写。
+
+位置 5 `meshio` 在 Spark 上通过 Official。自由 Agent 已主动在干净环境中重放完整程序，独立 post-session qualification 也通过。程序把 checkout 中的 `_vtk_common.py` 复制为 `src/meshio/vtk_io.py`；该操作标记为源码兼容路径，但不影响 Official Pass。本位置不提供自动 replay 增益证据。
+
+位置 6 `mashumaro` 在 Spark 上通过 Official。自由 Agent 主动重放了同序安装操作，最终提交只是用 `&&` 将这些操作串成 fail-fast 程序；精确最终程序随后通过独立 qualification 和 Official。本位置同样不提供自动 replay 增益证据。
+
+位置 7 `lnldb` 是 Official Fail@1。相同提交程序此前通过了 Agent 主动重放和独立 qualification，但 Official 在克隆声明的 `jsmin` Git 依赖时遭遇 GnuTLS 连接终止，bootstrap exit 1，未产生 Pyright 报告。官方失败是主结果；网络下载失败、Django 兼容模块，以及另行观测到的 `collections.Iterable` 运行时问题仅作标签。由于前两次安装成功且瞬时网络波动是竞争解释，本位置尚不能证明自动 replay 有增益。
+
+位置 5-7 已完成，固定顺序中的下一项是位置 8。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -96,7 +106,7 @@ Proposed population verified locally: `experiments/cases/dev_pro_bad_case_census
 
 Twenty-four cases are a prevalence pilot, not an efficacy test. With zero failures in 24 independent evaluable cases, the one-sided 95% binomial upper bound is still about 11.7%; censoring prevents directly applying this bound to the full sampled population.
 
-Use a common Mac Agent controller and recorded model/CLI configuration, Spark remote construction with the Spark GPU exposed for every position, and serial postepisode Official scoring on Spark. This host assignment was recorded before model execution because AgentHub had only 5.9 GiB free disk and no position-1 cache while Spark had 2.1 TiB free and the exact-revision cache. Future treatment must match both host and accelerator exposure. Do not constrain the free Agent's action strategy. Report legitimate Official Pass@1 over all 24 sampled positions, plus non-submission, bootstrap failure, missing-import failure, source unavailability, explicit infrastructure failures, and unresolved attribution. Metric passes pending admissibility review are not legitimate successes.
+Use a common Mac Agent controller and recorded model/CLI configuration, Spark remote construction with the Spark GPU exposed for every position, and serial postepisode Official scoring on Spark. This host assignment was recorded before model execution because AgentHub had only 5.9 GiB free disk and no position-1 cache while Spark had 2.1 TiB free and the exact-revision cache. Future treatment must match both host and accelerator exposure. Do not constrain the free Agent's action strategy. Report Official Pass@1 over all 24 sampled positions, plus non-submission, bootstrap failure, missing-import failure, source unavailability, explicit infrastructure failures, and unresolved attribution. Source compatibility, provider semantics, and runtime completeness are descriptive tags and do not override Official.
 
 Complete exactly the 24 positions, with no outcome-driven early stopping, replacements, or F/N/A2 continuations. Report tokens, time, and cost rather than using them as success thresholds. Record safety-timeout events separately. Report observed success bounds and conditional opportunity rates; the target population is authorized Dev, not the entire benchmark.
 
@@ -143,7 +153,17 @@ post-session qualification without Agent feedback and then passed Official. This
 second strong-Agent success and is not eligible for failure-conditioned replay treatment.
 See `experiments/validations/envsolve_pro_free_agent_census24_v1_position06_result.json`.
 
-Positions 5 and 6 are complete and position 7 is next in the unchanged fixed order. AgentHub
+Position 7, `lnldb`, is an Official Fail@1. The submitted program passed both the free
+Agent's voluntary complete-program replay and independent post-session qualification on
+Spark, but Official bootstrap exited while cloning the declared `jsmin` Git dependency
+after a GnuTLS termination and produced no Pyright report. The Official failure is the
+primary result. Dependency-download failure, executable Django compatibility modules, and
+the separately observed `collections.Iterable` runtime incompatibility are descriptive
+tags only. This does not yet demonstrate automatic replay gain because two prior executions
+of the same installation succeeded and transient network variation is a competing cause.
+See `experiments/validations/envsolve_pro_free_agent_census24_v1_position07_result.json`.
+
+Positions 5-7 are complete and position 8 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

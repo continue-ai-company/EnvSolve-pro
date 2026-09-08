@@ -338,9 +338,52 @@ class RemoteEnvBenchProcessRunner:
             check=False,
             timeout=self.sync_timeout,
         )
-        if process.returncode != 0:
-            self.execution_metadata["staging_cleanup_error"] = (
-                process.stderr.strip() or process.stdout.strip()
-            )
-        else:
+        if process.returncode == 0:
             self.execution_metadata["staging_cleaned"] = True
+            return
+
+        initial_error = process.stderr.strip() or process.stdout.strip()
+        container_cleanup = self.transport.run_docker(
+            [
+                "run",
+                "--rm",
+                "--mount",
+                f"type=bind,src={self.remote_run_root},dst=/envsolve-staging",
+                "--entrypoint",
+                "/usr/bin/find",
+                self.image,
+                "/envsolve-staging",
+                "-mindepth",
+                "1",
+                "-delete",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=self.sync_timeout,
+        )
+        if container_cleanup.returncode == 0:
+            remove_root = self.transport.run_remote(
+                ["rmdir", self.remote_run_root],
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=self.sync_timeout,
+            )
+            if remove_root.returncode == 0:
+                self.execution_metadata.update(
+                    {
+                        "staging_cleaned": True,
+                        "staging_cleanup_fallback": "docker-root-owned-content",
+                    }
+                )
+                return
+            fallback_error = remove_root.stderr.strip() or remove_root.stdout.strip()
+        else:
+            fallback_error = (
+                container_cleanup.stderr.strip() or container_cleanup.stdout.strip()
+            )
+        self.execution_metadata["staging_cleanup_error"] = (
+            f"ordinary removal failed: {initial_error}; "
+            f"container fallback failed: {fallback_error}"
+        )
