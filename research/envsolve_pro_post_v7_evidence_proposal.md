@@ -1,7 +1,7 @@
 # Post-v7 Evidence Proposal / v7 后续证据实验提案
 
-Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-12 and position 13 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
-状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-12，下一项为位置 13。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
+Status: Experiment 1 completed all 15 executions on 2026-09-04. Experiment 2 has completed positions 1-13 and position 14 is next. EnvBench Official Pass@1 is decisive; path-quality observations are descriptive tags only. This is an experiment memo, not an ICLR draft.
+状态：实验 1 已于 2026-09-04 完成全部十五次执行。实验 2 已完成位置 1-13，下一项为位置 14。EnvBench Official Pass@1 是唯一主裁决；部署路径质量观测只作为描述性标签。本文是实验备忘录，不是 ICLR 稿件。
 Result / 结果：`research/envsolve_pro_post_v7_repeatability_report.md`。
 
 ## 中文
@@ -79,7 +79,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 12 `valory-xyz/trader` 在 Spark 上通过 Official，缺失导入为零；另有 951 个非目标 Pyright error 和 4 个 warning。单独执行 Poetry 安装后仍有 241 个缺失导入，自由 Agent 识别出项目依赖 Open Autonomy 的包图同步，按文档初始化并下载固定的第三方 package sources；前两次 registry 同步失败后，第三次成功，最终程序加入五次有界重试。Agent 在自建干净环境中运行了语义等价的完整安装，并在已填充的同一环境中再次执行最终程序；精确最终程序随后在独立 qualification 中从零运行，bootstrap 和公开目标均通过，但附加 repository-effect audit 将官方同步命令写入 `packages/` 的两个 namespace initializer 判为违规，另将 297 个同步源码列为待审，因此 qualification 未认证。该审计失败不覆盖 Official Pass，且没有 tracked file 内容被修改。此位置表明强 Agent 能自主发现生态系统级安装步骤，也暴露了通用“禁止项目内可导入文件”规则会误伤合法包管理器；它不提供自动 replay 相对增益。
 
-位置 5-12 已完成，固定顺序中的下一项是位置 13。AgentHub 不加入本轮 census。
+位置 13 `flav-io/flavio` 在 Spark 上通过 Official，缺失导入为零；另有 870 个非目标 Pyright error 和 53 个 warning。默认 Python 3.13 与最新依赖安装后剩余三个缺失导入，分别来自新版 setuptools 移除 `pkg_resources`，以及项目为 SciPy 1.4.1 及更早版本保留的 fallback 模块。自由 Agent 最终重建 Python 3.8、SciPy 1.4.1、setuptools<81，并因 ARM64 上 `rundec` 0.7 源码包缺少头文件而改用 0.6 wheel。自建 fresh 环境首次 Conda 下载失败，但探索命令未 fail-fast、错误地返回 0；Agent 阅读完整输出后在同一 session 中完成重试和验证，并把有界重试与显式状态传播写进最终程序。精确最终程序首次由独立 qualification 从零执行并通过，Official 随后通过；项目源码未修改。该位置说明执行轨迹比终端退出码更能揭示环境状态，但仍是自由 Agent 自修复成功，不提供自动 replay 相对增益。
+
+位置 5-13 已完成，固定顺序中的下一项是位置 14。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -226,7 +228,22 @@ This auxiliary audit failure does not override Official Pass. The case exposes a
 positive in a generic rule against project-local import artifacts and provides no relative
 gain for automatic replay.
 
-Positions 5-12 are complete and position 13 is next in the unchanged fixed order. AgentHub
+Position 13, `flav-io/flavio`, passed Spark Official with zero missing imports (plus 870
+non-goal Pyright errors and 53 warnings). A latest-dependency installation under the image's
+default Python 3.13 left three missing imports: two after newer setuptools removed
+`pkg_resources`, and one from the repository's fallback for SciPy 1.4.1 and earlier. The
+free Agent reconstructed Python 3.8 with SciPy 1.4.1 and setuptools<81, then selected the
+available rundec 0.6 ARM64 wheel after rundec 0.7's source archive failed to build without
+its C header. The first voluntary fresh attempt suffered a partial Conda download, yet its
+non-fail-fast exploratory command returned zero and continued under the system interpreter.
+The Agent read the full output, repaired the environment in the same session, and submitted
+a consolidated program with bounded retries and explicit status propagation. Independent
+qualification first executed that exact final program from scratch and passed; Official then
+passed. No project source was modified. The trajectory demonstrates the value of execution
+state beyond terminal status, but remains a free-Agent self-repair success rather than
+automatic-replay gain.
+
+Positions 5-13 are complete and position 14 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

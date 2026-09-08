@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position13",
+  "recorded_at": "2026-09-08",
+  "position": 13,
+  "case_id": "envbench-python-flav-io__flavio@188120d651c38419cd970957e5259071842f4cca",
+  "run_id": "free-agent-census24-v1-13-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-13-A/envbench-python-flav-io__flavio__188120d651c38419cd970957e5259071842f4cca",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 2084.298237,
+    "container_command_count": 23,
+    "successful_container_command_count": 20,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "exact_final_program_voluntarily_replayed_from_clean_environment": false,
+    "difference": "The first complete installation attempt in the Agent-created fresh environment used the intended Python 3.8 and SciPy 1.4.1 plan, but a partial Conda download failed. Because the exploratory command did not propagate that failure, later pip commands ran under the system interpreter and the command returned zero. The Agent read the output, retried Conda creation, installed the remaining dependencies, and observed zero missing imports in the same fresh environment. The consolidated final program added bounded retries and explicit status propagation and was first executed exactly from a clean checkout by post-session qualification.",
+    "fresh_public_goal_pass_observed": true,
+    "first_installed_environment_missing_import_count": 3,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "5f3e63d77e7414cbdbd14e96511fee59de8a2f7d8fe2542f1a05244755079066",
+    "first_voluntary_replay_program_sha256": "4f797006fc40afacf3c887af5339a113752699eac62d71d4a3bbc0cb44798378",
+    "serialized_program_sha256": "63ec97737aad8e65ca0973378a6a5d6521903be77a0186aee45302cb1ef505c4",
+    "input_tokens": 3044301,
+    "cached_input_tokens": 2929920,
+    "output_tokens": 17020,
+    "reasoning_output_tokens": 9671,
+    "repository_source_modified": false,
+    "repair_tags": [
+      {
+        "tag": "historical-python-environment-reconstruction",
+        "observation": "The repository CI covered Python 3.7 through 3.10, while the default image interpreter was Python 3.13. The successful path reconstructed a Python 3.8 environment rather than patching project source.",
+        "overrides_official": false
+      },
+      {
+        "tag": "transitive-api-era-compatibility",
+        "observation": "A latest-dependency installation left three missing imports: two for pkg_resources after its removal from newer setuptools and one for the repository's SciPy <=1.4.1 fallback module. The final path used setuptools<81 and SciPy 1.4.1, eliminating all three.",
+        "overrides_official": false
+      },
+      {
+        "tag": "architecture-specific-wheel-selection",
+        "observation": "On Python 3.8 ARM64, rundec 0.7 fell back to a source build and failed because its source archive lacked CRunDec.3.1.h. The Agent selected the available rundec 0.6 ARM64 wheel instead.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-fail-fast-false-success-repaired",
+        "observation": "The first voluntary fresh command returned exit 0 even though Conda creation failed, because subsequent commands continued under the system environment. The Agent used the captured output rather than the terminal code alone, repaired the environment in the same session, and submitted a program with explicit success state and bounded Conda retries.",
+        "overrides_official": false
+      },
+      {
+        "tag": "conda-network-retry",
+        "observation": "Both construction and voluntary fresh replay encountered incomplete Conda downloads. A later attempt succeeded, and the final program permits three bounded creation attempts.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 127.68499616696499,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "5f3e63d77e7414cbdbd14e96511fee59de8a2f7d8fe2542f1a05244755079066",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 870,
+    "warning_count": 53,
+    "execution_time_seconds": 124.50320100784302,
+    "submitted_program_sha256": "63ec97737aad8e65ca0973378a6a5d6521903be77a0186aee45302cb1ef505c4",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent used clean-environment feedback to detect an unpropagated setup failure, reconstructed a historically compatible scientific stack without source edits, submitted a fail-fast retrying program, and passed independent qualification and Official. This is a free-Agent self-repair success rather than evidence that an automatic replay treatment outperforms the control.",
+    "measurement_implication": "Terminal exit status alone is an insufficient observation when multi-step shell programs are not fail-fast. The useful signal was the structured execution transcript showing that the intended environment was absent and later steps ran under the wrong interpreter.",
+    "live_frontier_implication": "No promotion evidence; terminal Official success was achieved without frontier management."
+  }
+}
