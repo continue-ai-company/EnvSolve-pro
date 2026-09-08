@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position10",
+  "recorded_at": "2026-09-08",
+  "position": 10,
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "run_id": "free-agent-census24-v1-10-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-10-A/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "container_command_count": 15,
+    "successful_container_command_count": 13,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_complete_installation_replay_observed": true,
+    "exact_final_program_voluntarily_replayed": true,
+    "fresh_public_goal_pass_observed": true,
+    "canonical_final_program_sha256": "4255be9645044c184ab6dd885ccac230427a2e22629690fc8642e99be80216fd",
+    "voluntary_replay_program_sha256": "4255be9645044c184ab6dd885ccac230427a2e22629690fc8642e99be80216fd",
+    "serialized_program_sha256": "c6f58ccad70bcb8aacce48ba3b6b4b8fcae533ed09ff863321f06c4b9734fefa",
+    "input_tokens": 866247,
+    "cached_input_tokens": 788608,
+    "output_tokens": 10169,
+    "reasoning_output_tokens": 4772,
+    "repair_tags": [
+      {
+        "tag": "real-package-provider-disambiguation",
+        "observation": "The Agent verified that radosgw-admin provides the unresolved radosgw package, then installed it together with boto.",
+        "overrides_official": false
+      },
+      {
+        "tag": "ansible-module-path-configuration",
+        "observation": "The Agent exported repository library/module_utils/filter paths and copied the checkout's tracked ca_common.py into the active Ansible module_utils directory. It did not modify repository source.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-goal-git-ownership-diagnostic",
+        "observation": "After the exact fresh bootstrap exited 0 and the public goal reported zero missing imports, a later diagnostic command exited 128 only because git status rejected the container checkout ownership.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 40.5295265839668,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "4255be9645044c184ab6dd885ccac230427a2e22629690fc8642e99be80216fd",
+    "source_compatibility_artifacts": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 239,
+    "warning_count": 0,
+    "execution_time_seconds": 32.30155396461487,
+    "submitted_program_sha256": "c6f58ccad70bcb8aacce48ba3b6b4b8fcae533ed09ff863321f06c4b9734fefa",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_cleanup_fallback_used": false,
+    "staging_absence_verified_on_spark": true
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The unrestricted strong Agent identified real providers, configured project-specific import paths, replayed the exact final program in a voluntary fresh environment, and then passed independent qualification and Official. This is a free-Agent success rather than an opportunity for a failure-conditioned replay treatment.",
+    "live_frontier_implication": "No promotion evidence; terminal success was achieved without frontier management."
+  }
+}

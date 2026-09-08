@@ -73,7 +73,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 9 `neurogym` 在 Spark 上通过 Official。自由 Agent 在自建干净环境中继续完成一次超时的安装，随后用 `numpy<2` 修复 NumPy 2 运行时不兼容；七个核心测试通过且缺失导入为零。精确最终程序通过独立 qualification 和 Official。程序创建了缺失的 `neurogym/utils/test_plotting.py` 功能性兼容模块；该操作只作源码兼容标签，不推翻 Official。构建目录的旧 clean-tree 审计曾拒绝这个未跟踪文件，但同一原定 run 仍按 Official-primary 路径完成，因此该位置不是 boundary-censored，也不提供自动 replay 增益证据。协议说明见 `research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_POSITION09_PROTOCOL_NOTE.md`。
 
-位置 5-9 已完成，固定顺序中的下一项是位置 10。AgentHub 不加入本轮 census。
+位置 10 `ceph-ansible` 在 Spark 上通过 Official。自由 Agent 将 43 个缺失导入分解为真实外部 provider 与仓库内 Ansible 路径问题，核实并安装 `boto`、`radosgw-admin`，配置项目源码路径，并把仓库已有的 `ca_common.py` 复制到活动 Ansible 环境。Agent 在自建干净环境中精确重放最终程序并观察到缺失导入为零；独立 qualification 和 Official 随后均通过。仓库源码未被修改，本位置也不提供自动 replay 增益证据。
+
+位置 5-10 已完成，固定顺序中的下一项是位置 11。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -186,7 +188,16 @@ Official-primary path. The position is therefore not boundary-censored and provi
 automatic-replay gain. See
 `research/ENVSOLVE_PRO_FREE_AGENT_CENSUS_POSITION09_PROTOCOL_NOTE.md`.
 
-Positions 5-9 are complete and position 10 is next in the unchanged fixed order. AgentHub
+Position 10, `ceph-ansible`, passed Spark Official with zero missing imports. The free
+Agent decomposed 43 missing imports into real external providers and repository-local
+Ansible path semantics. It verified and installed `boto` and `radosgw-admin`, exposed the
+project source paths, and copied the checkout's existing `ca_common.py` into the active
+Ansible environment. The Agent voluntarily replayed the exact final program in a fresh
+environment and observed zero missing imports; independent qualification and Official then
+passed. No repository source was modified, and the position provides no automatic-replay
+gain.
+
+Positions 5-10 are complete and position 11 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
