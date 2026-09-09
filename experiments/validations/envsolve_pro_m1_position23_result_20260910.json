@@ -1,0 +1,146 @@
+{
+  "study_id": "envsolve-pro-m1-project-progress-v1",
+  "record_type": "position-stage-result",
+  "recorded_at": "2026-09-10",
+  "claim_scope": "consumed development evidence only",
+  "position": 23,
+  "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+  "status": "D1-and-D2-complete-with-one-infrastructure-censored-trial",
+  "valid_trials": [
+    {
+      "condition": "D1-same-python",
+      "arm": "P",
+      "run_id": "m1-primary-p23-d1-p",
+      "preflight_status": "pass",
+      "preflight_seconds": 194.5294068750227,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 137.07072019577026
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p23-d1-r0",
+      "preflight_status": "fail",
+      "preflight_seconds": 366.247419833031,
+      "model_invoked": true,
+      "input_tokens": 1598819,
+      "cached_input_tokens": 1485312,
+      "output_tokens": 6902,
+      "container_commands": 8,
+      "additional_clean_environments": 1,
+      "additional_clean_environment_commands": 2,
+      "qualification_seconds": 137.9969421249698,
+      "program_change": "add-binary-wheel-and-version-constraints",
+      "official_pass": true,
+      "official_execution_seconds": 132.94540524482727
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p23-d1-r1-session-fix-retry1",
+      "preflight_status": "pass",
+      "preflight_seconds": 166.011912957998,
+      "model_invoked": true,
+      "input_tokens": 1100384,
+      "cached_input_tokens": 1009024,
+      "output_tokens": 2425,
+      "container_commands": 3,
+      "qualification_seconds": 142.112758415984,
+      "program_change": "chain-existing-steps-with-and",
+      "official_pass": true,
+      "official_execution_seconds": 137.06802558898926
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "P",
+      "run_id": "m1-primary-p23-d2-p",
+      "preflight_status": "fail",
+      "preflight_seconds": 203.37698125001043,
+      "model_invoked": true,
+      "input_tokens": 624924,
+      "cached_input_tokens": 587648,
+      "output_tokens": 4279,
+      "container_commands": 3,
+      "qualification_seconds": 232.34250158403302,
+      "program_change": "select-python3.12-only",
+      "official_pass": true,
+      "official_execution_seconds": 144.77159690856934
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p23-d2-r0",
+      "preflight_status": "fail",
+      "preflight_seconds": 178.81920545798494,
+      "model_invoked": true,
+      "input_tokens": 841851,
+      "cached_input_tokens": 771712,
+      "output_tokens": 5174,
+      "container_commands": 4,
+      "qualification_seconds": 189.80652254197048,
+      "program_change": "preserve-wheel-constraints-and-select-python3.12",
+      "official_pass": true,
+      "official_execution_seconds": 143.01156735420227
+    }
+  ],
+  "censored_trials": [
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p23-d2-r1",
+      "run_audit_valid": false,
+      "run_audit_error": "Successful solver result lacks a valid repository integrity report",
+      "preflight_status": "fail",
+      "preflight_seconds": 39.17681758396793,
+      "model_invoked": true,
+      "input_tokens": 2445152,
+      "cached_input_tokens": 2289408,
+      "output_tokens": 7640,
+      "container_commands": 5,
+      "program_change": "select-python3.12-prefer-binary-and-reduce-extras",
+      "qualification_status": "unknown-infrastructure-censored",
+      "official_pass_observed": true,
+      "official_execution_seconds": 123.79105305671692,
+      "disposition": "trajectory-cost-and-postepisode-Official-evidence-only-not-a-primary-outcome"
+    }
+  ],
+  "infrastructure_censors": [
+    {
+      "arm": "R1",
+      "condition": "D2-adjacent-python",
+      "stage": "initial-post-Agent-qualification",
+      "failure": "empty-bootstrap-index",
+      "execution_seconds": 69.06471000000602
+    },
+    {
+      "arm": "R1",
+      "condition": "D2-adjacent-python",
+      "stage": "single-exact-qualification-retry",
+      "run_root": "runs/envsolve-pro-m1-project-progress-v1/probes/p23-r1-d2-qualification-retry1",
+      "model_invoked": false,
+      "state_updated": false,
+      "failure": "package-index-read-timeout",
+      "wall_seconds": 229.59240445797332
+    }
+  ],
+  "invalid_setup_attempts": [
+    {
+      "run_id": "m1-primary-p23-d1-r1",
+      "disposition": "controller-setup-only-not-an-experiment-attempt",
+      "reason": "The required source session ID was omitted; no model or execution container was started."
+    }
+  ],
+  "observations": [
+    "All three D1 arms Official-passed, but the same retained bootstrap program passed for P and R1 while later failing R0 preflight during dependency backtracking and an old Shapely build.",
+    "R0 repaired the D1 dependency-resolution failure by preferring binary packages and constraining Shapely and SunPy. Its 1598819 input tokens are a realized protocol cost, but the difference from P is not a causal state advantage because the nominally identical seed program diverged over time.",
+    "D1 R1 spent 1100384 input tokens and produced only a semantically equivalent command chain after a passing preflight; full session history again did not improve terminal success.",
+    "P and R0 both selected Python 3.12 and Official-passed D2. P made the minimal interpreter change, while R0 preserved its newly added wheel constraints.",
+    "D2 R1 consumed 2445152 input tokens and Official-passed, but its initial and exact-retry qualifications were infrastructure-censored, so the run is retained only as trajectory, cost, and postepisode Official evidence.",
+    "The D2 R1 program removed the testall and docs extras while adding prefer-binary. Official accepts this program; deployment completeness remains a separate path-quality annotation, not a leaderboard failure.",
+    "Position 23 supplies no evidence that minimal explicit project state improves terminal success over ordinary program reuse, and it reinforces the context-cost failure of full-history R1."
+  ]
+}
