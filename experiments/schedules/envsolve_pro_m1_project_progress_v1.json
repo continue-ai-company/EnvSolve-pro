@@ -1,7 +1,7 @@
 {
   "study_id": "envsolve-pro-m1-project-progress-v1",
-  "status": "primary-in-progress-positions10-and17-complete",
-  "recorded_at": "2026-09-09",
+  "status": "primary-in-progress-positions10-17-and22-complete",
+  "recorded_at": "2026-09-10",
   "claim_scope": "consumed development evidence only",
   "protected_data_used": false,
   "hypothesis": "Evidence-backed project progress can preserve terminal deployment success while reducing newly required model inference beyond ordinary program reuse and a strong Agent with full history.",

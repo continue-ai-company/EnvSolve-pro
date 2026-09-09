@@ -1,0 +1,184 @@
+{
+  "study_id": "envsolve-pro-m1-project-progress-v1",
+  "record_type": "position-stage-result",
+  "recorded_at": "2026-09-10",
+  "claim_scope": "consumed development evidence only",
+  "position": 22,
+  "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+  "status": "D1-and-D2-complete-with-infrastructure-censors",
+  "valid_trials": [
+    {
+      "condition": "D1-same-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p22-d1-r1",
+      "preflight_status": "pass",
+      "preflight_seconds": 604.1570284590125,
+      "model_invoked": true,
+      "input_tokens": 105701,
+      "cached_input_tokens": 0,
+      "output_tokens": 546,
+      "container_commands": 0,
+      "program_change": "none",
+      "qualification_status": "not-repeated-identical-preflight-passing-program",
+      "official_pass": true,
+      "official_execution_seconds": 165.41935634613037
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "P",
+      "run_id": "m1-primary-p22-d1-p",
+      "preflight_status": "pass",
+      "preflight_seconds": 277.7900878340006,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 130.74809432029724
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p22-d1-r0",
+      "preflight_status": "pass",
+      "preflight_seconds": 265.73245945799863,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 130.3702962398529
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "P",
+      "run_id": "m1-primary-p22-d2-p",
+      "preflight_status": "fail",
+      "preflight_seconds": 265.7297459170222,
+      "model_invoked": true,
+      "input_tokens": 1863470,
+      "cached_input_tokens": 1714048,
+      "output_tokens": 9775,
+      "container_commands": 4,
+      "additional_clean_environments": 2,
+      "additional_clean_environment_commands": 12,
+      "qualification_seconds": 170.13709079200635,
+      "program_change": "replace-conda-with-system-python3.11-venv",
+      "official_pass": true,
+      "official_execution_seconds": 184.06295657157898
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p22-d2-r0",
+      "preflight_status": "fail",
+      "preflight_seconds": 278.24524570803624,
+      "model_invoked": true,
+      "input_tokens": 249115,
+      "cached_input_tokens": 217600,
+      "output_tokens": 2240,
+      "container_commands": 4,
+      "qualification_seconds": 249.5266662919894,
+      "program_change": "conda-python3.10-to-python3.11",
+      "qualification_status": "pass",
+      "official_status": "unknown-infrastructure-censored"
+    }
+  ],
+  "censored_trials": [
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p22-d2-r1",
+      "run_audit_valid": false,
+      "run_audit_error": "Successful solver result lacks a valid repository integrity report",
+      "preflight_status": "fail",
+      "preflight_seconds": 257.7755079579656,
+      "model_invoked": true,
+      "input_tokens": 775619,
+      "cached_input_tokens": 659328,
+      "output_tokens": 1186,
+      "container_commands": 2,
+      "program_change": "conda-python3.10-to-python3.11",
+      "qualification_status": "unknown-infrastructure-censored",
+      "official_status": "unknown-infrastructure-censored",
+      "disposition": "trajectory-and-cost-evidence-only-not-a-primary-outcome"
+    }
+  ],
+  "infrastructure_censors": [
+    {
+      "arm": "R1",
+      "condition": "D2-adjacent-python",
+      "stage": "initial-post-Agent-qualification",
+      "failure": "conda-http-connection-failed",
+      "execution_seconds": 97.64634933299385
+    },
+    {
+      "arm": "R1",
+      "condition": "D2-adjacent-python",
+      "stage": "single-exact-qualification-retry",
+      "run_root": "runs/envsolve-pro-m1-project-progress-v1/probes/p22-r1-d2-qualification-retry1",
+      "model_invoked": false,
+      "state_updated": false,
+      "failure": "conda-http-connection-failed",
+      "wall_seconds": 179.45078187499894
+    },
+    {
+      "arm": "R1",
+      "condition": "D2-adjacent-python",
+      "stage": "initial-Official",
+      "run_id": "m1-primary-p22-d2-r1",
+      "failure": "conda-http-connection-failed",
+      "execution_seconds": 104.02142906188965
+    },
+    {
+      "arm": "R1",
+      "condition": "D2-adjacent-python",
+      "stage": "single-exact-Official-retry",
+      "run_id": "m1-primary-p22-d2-r1-official-retry1-fixed-replay-relaunch",
+      "model_invoked": false,
+      "state_updated": false,
+      "failure": "conda-http-connection-failed",
+      "execution_seconds": 93.19759488105774,
+      "provenance_note": "The exact script was evaluated as an independent fixed replay because the source run's pre-fix qualification record was not audit-valid."
+    },
+    {
+      "arm": "R0",
+      "condition": "D2-adjacent-python",
+      "stage": "initial-Official",
+      "run_id": "m1-primary-p22-d2-r0",
+      "failure": "conda-http-connection-failed",
+      "execution_seconds": 73.77316999435425
+    },
+    {
+      "arm": "R0",
+      "condition": "D2-adjacent-python",
+      "stage": "single-exact-Official-retry",
+      "run_id": "m1-primary-p22-d2-r0-official-retry1",
+      "model_invoked": false,
+      "state_updated": false,
+      "failure": "conda-http-connection-failed",
+      "execution_seconds": 102.66896080970764
+    }
+  ],
+  "launcher_only_records": [
+    {
+      "run_ids": [
+        "m1-primary-p22-d2-r1-official-retry1",
+        "m1-primary-p22-d2-r1-official-retry1-relaunch",
+        "m1-primary-p22-d2-r1-official-retry1-fixed-replay"
+      ],
+      "disposition": "not-execution-attempts",
+      "reason": "The controller stopped before an Official container result: one process was interrupted, one retry-source audit rejected the run, and one launch omitted the remote execution environment."
+    }
+  ],
+  "observations": [
+    "All three D1 arms Official-passed. P and R0 used no model, while R1 spent 105701 input tokens and returned the byte-identical program without a container command.",
+    "All three D2 Agents selected Python 3.11. P replaced conda with the image's system Python 3.11 and venv, while R0 and R1 retained conda.",
+    "P passed both controlled D2 qualification and Official evaluation. R0 passed controlled qualification but both Official attempts were infrastructure-censored; R1's qualification and Official attempts were all infrastructure-censored.",
+    "Infrastructure-censored outcomes are neither failures nor passes. They do not establish a terminal-success advantage for P.",
+    "P used about 7.48 times R0's D2 input tokens and about 2.40 times R1's. Its more robust observed path came with substantially higher exploration cost.",
+    "R1 used about 3.11 times R0's D2 input tokens and produced the same conda version change, providing no evidence that full-session history improved the terminal program.",
+    "Repeated conda acquisition alternated between success and HTTP 000 failures. This supports measuring acquisition-path reliability but does not identify a causal algorithm benefit because arms ran at different times.",
+    "Across positions 10, 17, and 22, P still has not met the preregistered promotion rule against R0; full-history R1 continues to show context cost without a demonstrated terminal advantage."
+  ]
+}
