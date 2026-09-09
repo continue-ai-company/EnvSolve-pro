@@ -82,6 +82,15 @@ _TERMINAL_REPLAY_NETWORK_FAILURES = (
             re.IGNORECASE,
         ),
     ),
+    (
+        "truncated-package-index-json",
+        re.compile(
+            r"pip/_internal/index/(?:collector|sources|package_finder)\.py"
+            r"[\s\S]{0,8000}json\.decoder\.JSONDecodeError: "
+            r"(?:Unterminated string|Expecting (?:value|property name))",
+            re.IGNORECASE,
+        ),
+    ),
 )
 _LOCAL_DISTRIBUTION_AUDIT = r"""\
 import importlib.metadata

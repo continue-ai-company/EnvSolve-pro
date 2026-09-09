@@ -310,6 +310,14 @@ class CleanReplayServiceTest(unittest.TestCase):
                 "definitely-not-a-real-package"
             )
             missing_project_package = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "File \"pip/_internal/index/collector.py\", line 236, "
+                "in parse_links\n"
+                "  data = json.loads(page.content)\n"
+                "json.decoder.JSONDecodeError: Unterminated string starting at: "
+                "line 1 column 199357"
+            )
+            truncated_index_json = service.submit("true")
 
             self.assertEqual(timed_out["status"], "infrastructure_error")
             self.assertIn("read-timeout", timed_out["infrastructure_error"])
@@ -330,6 +338,13 @@ class CleanReplayServiceTest(unittest.TestCase):
             )
             self.assertEqual(missing_project_package["status"], "fail")
             self.assertEqual(
+                truncated_index_json["status"], "infrastructure_error"
+            )
+            self.assertIn(
+                "truncated-package-index-json",
+                truncated_index_json["infrastructure_error"],
+            )
+            self.assertEqual(
                 provider.released,
                 [
                     "fresh-1",
@@ -339,6 +354,7 @@ class CleanReplayServiceTest(unittest.TestCase):
                     "fresh-5",
                     "fresh-6",
                     "fresh-7",
+                    "fresh-8",
                 ],
             )
 
