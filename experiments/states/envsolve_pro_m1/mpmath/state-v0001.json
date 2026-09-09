@@ -1,0 +1,40 @@
+{
+  "schema_version": "envsolve-pro-project-progress-v1",
+  "version": 1,
+  "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+  "repository": "mpmath/mpmath",
+  "revision": "ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+  "current_program": "mpmath_project_root=\"$PWD\"\ngit config --global --add safe.directory \"$mpmath_project_root\"\npython -m venv .venv\n. \"$mpmath_project_root/.venv/bin/activate\"\npython -m pip install --retries 10 --timeout 60 --upgrade pip setuptools\npython -m pip install --retries 10 --timeout 60 --upgrade '.[develop,gmpy,docs,ci]' numpy matplotlib\ncd \"$mpmath_project_root\"",
+  "current_condition": {
+    "condition_id": "D0-census-position-17",
+    "operating_system": "linux",
+    "architecture": "arm64",
+    "python_version": "3.13",
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+  },
+  "deployments": [
+    {
+      "condition": {
+        "condition_id": "D0-census-position-17",
+        "operating_system": "linux",
+        "architecture": "arm64",
+        "python_version": "3.13",
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+      },
+      "program": "mpmath_project_root=\"$PWD\"\ngit config --global --add safe.directory \"$mpmath_project_root\"\npython -m venv .venv\n. \"$mpmath_project_root/.venv/bin/activate\"\npython -m pip install --retries 10 --timeout 60 --upgrade pip setuptools\npython -m pip install --retries 10 --timeout 60 --upgrade '.[develop,gmpy,docs,ci]' numpy matplotlib\ncd \"$mpmath_project_root\"",
+      "evidence": {
+        "status": "pass",
+        "source": "census-position-17-postsession-qualification+official",
+        "bootstrap_exit_code": 0,
+        "public_goal_passed": true,
+        "observed_python": "3.13",
+        "duration_seconds": 85.67332487500971,
+        "failure_summary": null
+      }
+    }
+  ],
+  "repairs": [],
+  "unresolved_risks": [
+    "The original clean replays observed transient package-index acquisition failure."
+  ]
+}

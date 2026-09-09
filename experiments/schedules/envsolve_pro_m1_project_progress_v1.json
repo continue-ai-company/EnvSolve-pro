@@ -1,0 +1,116 @@
+{
+  "study_id": "envsolve-pro-m1-project-progress-v1",
+  "status": "preregistered-runner-validation-pending",
+  "recorded_at": "2026-09-09",
+  "claim_scope": "consumed development evidence only",
+  "protected_data_used": false,
+  "hypothesis": "Evidence-backed project progress can preserve terminal deployment success while reducing newly required model inference beyond ordinary program reuse and a strong Agent with full history.",
+  "co_primary_metrics": [
+    "terminal success under the predeclared condition",
+    "new model input, cached-input, and output tokens"
+  ],
+  "secondary_metrics": [
+    "preflight and qualification execution time",
+    "Agent wall time",
+    "state update time",
+    "failed recovery cost",
+    "final script execution time"
+  ],
+  "shared_configuration": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "runner": "envsolve-pro-project-progress-remote",
+    "controller": "Mac",
+    "execution_host": "Spark",
+    "accelerator_exposure": "all",
+    "base_image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "public_goal": "envbench-python-reportMissingImports-v3",
+    "official_access": "post-episode-only",
+    "config": "experiments/configs/local_mac_project_progress_m1_v1.json",
+    "protocol": "experiments/protocols/envbench_python_public_goal_v2.json"
+  },
+  "arms": {
+    "R0": {
+      "method": "envsolve-pro-progress-r0",
+      "reusable_information": "latest successful bootstrap program only",
+      "decision": "clean replay first; invoke a new strong Agent only after an actual failure",
+      "repair_context": "program plus the same bounded preflight feedback"
+    },
+    "R1": {
+      "method": "envsolve-pro-progress-r1",
+      "reusable_information": "full completed Codex session and tools",
+      "decision": "always fork the prior session and explicitly request improvement",
+      "repair_context": "full history plus the same bounded preflight feedback"
+    },
+    "P": {
+      "method": "envsolve-pro-progress-p",
+      "reusable_information": "minimal explicit executable project progress",
+      "decision": "clean replay first; invoke a new strong Agent only after an actual failure",
+      "repair_context": "verified program, condition delta, observed transitions, unresolved risks, and the same bounded preflight feedback"
+    }
+  },
+  "conditions": {
+    "D0": "retained Official-successful census artifact",
+    "D1": "fresh deployment under the same Python condition",
+    "D2": "fresh deployment under one repository-supported adjacent Python condition"
+  },
+  "sequence": [
+    "Seed every arm from the same retained D0 evidence.",
+    "Run D1 and retain the arm-specific output without sharing it across arms.",
+    "Run D2 from that arm's D1 output.",
+    "Any explicit probe uses a named input version and never updates its learning state."
+  ],
+  "censoring": {
+    "preflight_infrastructure_error": "censor without Agent repair",
+    "preflight_unknown": "censor without Agent repair",
+    "actual_program_failure": "eligible for the arm's predeclared repair behavior"
+  },
+  "projects": [
+    {
+      "position": 10,
+      "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+      "state_seed": "experiments/states/envsolve_pro_m1/ceph-ansible/state-v0001.json",
+      "source_session_id": "01a08013-ec95-7b03-bd86-2c31c70d5146",
+      "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-10-A",
+      "d1_python": "3.11",
+      "d2_python": "3.10"
+    },
+    {
+      "position": 17,
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "state_seed": "experiments/states/envsolve_pro_m1/mpmath/state-v0001.json",
+      "source_session_id": "01a08513-ceee-7e43-9383-a4d35e47b9dd",
+      "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-17-A",
+      "d1_python": "3.13",
+      "d2_python": "3.12"
+    },
+    {
+      "position": 22,
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "state_seed": "experiments/states/envsolve_pro_m1/fontbakery/state-v0001.json",
+      "source_session_id": "01a08592-6078-7a13-98a2-8c39feb9d3e5",
+      "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-22-A",
+      "d1_python": "3.10",
+      "d2_python": "3.11"
+    },
+    {
+      "position": 23,
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "state_seed": "experiments/states/envsolve_pro_m1/reproject/state-v0001.json",
+      "source_session_id": "01a085b2-dd77-7dd3-89a4-20a482cd337c",
+      "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-23-A",
+      "d1_python": "3.13",
+      "d2_python": "3.12"
+    }
+  ],
+  "stage_boundary": {
+    "m2_authorized": false,
+    "promotion_rule": "P must preserve terminal success and reduce new model inference against both R0 and R1; otherwise explicit state is not promoted.",
+    "not_in_scope": [
+      "cross-project experience",
+      "automatic harness search",
+      "Agent RL",
+      "new hashes, frozen contracts, or gates"
+    ]
+  }
+}

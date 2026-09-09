@@ -1,0 +1,40 @@
+{
+  "schema_version": "envsolve-pro-project-progress-v1",
+  "version": 1,
+  "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+  "repository": "fonttools/fontbakery",
+  "revision": "a5177215f7c8e168416771637af17ae8935f273f",
+  "current_program": "FONTBAKERY_BOOTSTRAP_ROOT=$PWD\nconda create --yes --name fontbakery-dev python=3.10 pip\nsource /opt/conda/etc/profile.d/conda.sh\nconda activate fontbakery-dev\npython -m pip install --upgrade pip wheel 'setuptools<71'\npython -m pip install 'setuptools_scm[toml]>=6.2' meson ninja\npython -m pip install --no-build-isolation 'opentype-sanitizer>=9.1.0,==9.*'\npython -m pip install --editable '.[tests,docs]' glyphsLib GitPython\ncd \"$FONTBAKERY_BOOTSTRAP_ROOT\"\nunset FONTBAKERY_BOOTSTRAP_ROOT",
+  "current_condition": {
+    "condition_id": "D0-census-position-22",
+    "operating_system": "linux",
+    "architecture": "arm64",
+    "python_version": "3.10",
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+  },
+  "deployments": [
+    {
+      "condition": {
+        "condition_id": "D0-census-position-22",
+        "operating_system": "linux",
+        "architecture": "arm64",
+        "python_version": "3.10",
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+      },
+      "program": "FONTBAKERY_BOOTSTRAP_ROOT=$PWD\nconda create --yes --name fontbakery-dev python=3.10 pip\nsource /opt/conda/etc/profile.d/conda.sh\nconda activate fontbakery-dev\npython -m pip install --upgrade pip wheel 'setuptools<71'\npython -m pip install 'setuptools_scm[toml]>=6.2' meson ninja\npython -m pip install --no-build-isolation 'opentype-sanitizer>=9.1.0,==9.*'\npython -m pip install --editable '.[tests,docs]' glyphsLib GitPython\ncd \"$FONTBAKERY_BOOTSTRAP_ROOT\"\nunset FONTBAKERY_BOOTSTRAP_ROOT",
+      "evidence": {
+        "status": "pass",
+        "source": "census-position-22-postsession-qualification+official",
+        "bootstrap_exit_code": 0,
+        "public_goal_passed": true,
+        "observed_python": "3.10",
+        "duration_seconds": 159.3371310000075,
+        "failure_summary": null
+      }
+    }
+  ],
+  "repairs": [],
+  "unresolved_risks": [
+    "The successful path depends on a native opentype-sanitizer build under setuptools<71."
+  ]
+}

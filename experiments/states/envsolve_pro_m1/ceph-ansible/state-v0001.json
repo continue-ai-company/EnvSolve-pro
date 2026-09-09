@@ -1,0 +1,40 @@
+{
+  "schema_version": "envsolve-pro-project-progress-v1",
+  "version": 1,
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "repository": "ceph/ceph-ansible",
+  "revision": "59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "current_program": "PROJECT_ROOT=\"$PWD\"\npython3.11 -m venv \"$PROJECT_ROOT/.venv\"\nsource \"$PROJECT_ROOT/.venv/bin/activate\"\npython -m pip install --upgrade pip setuptools wheel\npython -m pip install \\\n  -r \"$PROJECT_ROOT/requirements.txt\" \\\n  -r \"$PROJECT_ROOT/tests/requirements.txt\" \\\n  flake8 pyright boto radosgw-admin\nANSIBLE_MODULE_UTILS_DIR=\"$(python - <<'PY'\nfrom pathlib import Path\nimport ansible.module_utils\nprint(Path(ansible.module_utils.__file__).resolve().parent)\nPY\n)\"\ncp \"$PROJECT_ROOT/module_utils/ca_common.py\" \"$ANSIBLE_MODULE_UTILS_DIR/ca_common.py\"\nexport PYTHONPATH=\"$PROJECT_ROOT:$PROJECT_ROOT/library:$PROJECT_ROOT/module_utils:$PROJECT_ROOT/plugins/filter${PYTHONPATH:+:$PYTHONPATH}\"\ncd \"$PROJECT_ROOT\"\nunset ANSIBLE_MODULE_UTILS_DIR PROJECT_ROOT",
+  "current_condition": {
+    "condition_id": "D0-census-position-10",
+    "operating_system": "linux",
+    "architecture": "arm64",
+    "python_version": "3.11",
+    "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+  },
+  "deployments": [
+    {
+      "condition": {
+        "condition_id": "D0-census-position-10",
+        "operating_system": "linux",
+        "architecture": "arm64",
+        "python_version": "3.11",
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest"
+      },
+      "program": "PROJECT_ROOT=\"$PWD\"\npython3.11 -m venv \"$PROJECT_ROOT/.venv\"\nsource \"$PROJECT_ROOT/.venv/bin/activate\"\npython -m pip install --upgrade pip setuptools wheel\npython -m pip install \\\n  -r \"$PROJECT_ROOT/requirements.txt\" \\\n  -r \"$PROJECT_ROOT/tests/requirements.txt\" \\\n  flake8 pyright boto radosgw-admin\nANSIBLE_MODULE_UTILS_DIR=\"$(python - <<'PY'\nfrom pathlib import Path\nimport ansible.module_utils\nprint(Path(ansible.module_utils.__file__).resolve().parent)\nPY\n)\"\ncp \"$PROJECT_ROOT/module_utils/ca_common.py\" \"$ANSIBLE_MODULE_UTILS_DIR/ca_common.py\"\nexport PYTHONPATH=\"$PROJECT_ROOT:$PROJECT_ROOT/library:$PROJECT_ROOT/module_utils:$PROJECT_ROOT/plugins/filter${PYTHONPATH:+:$PYTHONPATH}\"\ncd \"$PROJECT_ROOT\"\nunset ANSIBLE_MODULE_UTILS_DIR PROJECT_ROOT",
+      "evidence": {
+        "status": "pass",
+        "source": "census-position-10-postsession-qualification+official",
+        "bootstrap_exit_code": 0,
+        "public_goal_passed": true,
+        "observed_python": "3.11",
+        "duration_seconds": 40.5295265839668,
+        "failure_summary": null
+      }
+    }
+  ],
+  "repairs": [],
+  "unresolved_risks": [
+    "The program copies ca_common.py into the installed Ansible package layout."
+  ]
+}
