@@ -297,6 +297,19 @@ class CleanReplayServiceTest(unittest.TestCase):
                 details={"terminal_failure_origin": "verifier-condition"},
             )
             attributed = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "ERROR: Could not find a version that satisfies the requirement "
+                "setuptools (from versions: none)\n"
+                "ERROR: No matching distribution found for setuptools"
+            )
+            empty_bootstrap_index = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "ERROR: Could not find a version that satisfies the requirement "
+                "definitely-not-a-real-package (from versions: none)\n"
+                "ERROR: No matching distribution found for "
+                "definitely-not-a-real-package"
+            )
+            missing_project_package = service.submit("true")
 
             self.assertEqual(timed_out["status"], "infrastructure_error")
             self.assertIn("read-timeout", timed_out["infrastructure_error"])
@@ -309,8 +322,24 @@ class CleanReplayServiceTest(unittest.TestCase):
             self.assertIn("ssl-eof", ssl_eof["infrastructure_error"])
             self.assertEqual(attributed["status"], "fail")
             self.assertEqual(
+                empty_bootstrap_index["status"], "infrastructure_error"
+            )
+            self.assertIn(
+                "empty-bootstrap-index",
+                empty_bootstrap_index["infrastructure_error"],
+            )
+            self.assertEqual(missing_project_package["status"], "fail")
+            self.assertEqual(
                 provider.released,
-                ["fresh-1", "fresh-2", "fresh-3", "fresh-4", "fresh-5"],
+                [
+                    "fresh-1",
+                    "fresh-2",
+                    "fresh-3",
+                    "fresh-4",
+                    "fresh-5",
+                    "fresh-6",
+                    "fresh-7",
+                ],
             )
 
     def test_mcp_server_keeps_one_service_alive_across_replay_calls(self) -> None:

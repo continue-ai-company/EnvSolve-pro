@@ -72,6 +72,16 @@ _TERMINAL_REPLAY_NETWORK_FAILURES = (
             re.IGNORECASE,
         ),
     ),
+    (
+        "empty-bootstrap-index",
+        re.compile(
+            r"Could not find a version that satisfies the requirement "
+            r"(?P<bootstrap_package>pip|setuptools|wheel)[^\n]*"
+            r"\(from versions: none\)[\s\S]{0,2000}"
+            r"No matching distribution found for (?P=bootstrap_package)",
+            re.IGNORECASE,
+        ),
+    ),
 )
 _LOCAL_DISTRIBUTION_AUDIT = r"""\
 import importlib.metadata
