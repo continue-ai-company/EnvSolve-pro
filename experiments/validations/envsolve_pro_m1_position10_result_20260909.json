@@ -1,0 +1,116 @@
+{
+  "study_id": "envsolve-pro-m1-project-progress-v1",
+  "record_type": "position-stage-result",
+  "recorded_at": "2026-09-09",
+  "claim_scope": "consumed development evidence only",
+  "position": 10,
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "status": "D1-and-D2-complete",
+  "valid_trials": [
+    {
+      "condition": "D1-same-python",
+      "arm": "P",
+      "run_id": "m1-primary-p10-d1-p",
+      "preflight_status": "pass",
+      "preflight_seconds": 45.30971804197179,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 45.13228392601013
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p10-d1-r0",
+      "preflight_status": "pass",
+      "preflight_seconds": 70.33348791697063,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": false,
+      "official_execution_seconds": 20.68009090423584,
+      "official_failure_attribution": "external-PyPI-SSL-EOF"
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p10-d1-r1",
+      "preflight_status": "pass",
+      "preflight_seconds": 91.7857559590484,
+      "model_invoked": true,
+      "input_tokens": 481068,
+      "cached_input_tokens": 414336,
+      "output_tokens": 3469,
+      "official_pass": true,
+      "official_execution_seconds": 32.64056634902954
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "P",
+      "run_id": "m1-primary-p10-d2-p-protocol-fix-retry1",
+      "preflight_status": "fail",
+      "preflight_seconds": 64.94177533400944,
+      "model_invoked": true,
+      "input_tokens": 712990,
+      "cached_input_tokens": 644352,
+      "output_tokens": 4642,
+      "qualification_seconds": 39.071104375005234,
+      "program_change": "python3.11-to-python3.10",
+      "official_pass": true,
+      "official_execution_seconds": 86.2122528553009
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p10-d2-r0",
+      "preflight_status": "fail",
+      "preflight_seconds": 73.49258120899322,
+      "model_invoked": true,
+      "input_tokens": 259260,
+      "cached_input_tokens": 198272,
+      "output_tokens": 3708,
+      "qualification_seconds": 73.89450987498276,
+      "program_change": "python3.11-to-python3.10",
+      "official_pass": true,
+      "official_execution_seconds": 37.378758907318115
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p10-d2-r1-protocol-fix-retry1",
+      "preflight_status": "fail",
+      "preflight_seconds": 43.06986433296697,
+      "model_invoked": true,
+      "input_tokens": 847737,
+      "cached_input_tokens": 769792,
+      "output_tokens": 2156,
+      "qualification_seconds": 69.96539425000083,
+      "program_change": "python3.11-to-python3.10",
+      "official_pass": true,
+      "official_execution_seconds": 82.99026107788086
+    }
+  ],
+  "invalid_or_censored_attempts": [
+    {
+      "run_id": "m1-primary-p10-d2-p",
+      "disposition": "runner-validation-not-primary",
+      "reason": "SSL EOF was initially misclassified as an ordinary program failure; the resulting Agent invocation was interrupted before an outcome"
+    },
+    {
+      "run_id": "m1-primary-p10-d2-r1",
+      "disposition": "runner-validation-not-primary",
+      "reason": "a recovered SSL EOF was incorrectly treated as terminal infrastructure failure instead of the explicit Python-condition failure"
+    }
+  ],
+  "observations": [
+    "All three arms preserved Official success after the D2 Python change.",
+    "All three D2 programs made the same one-line interpreter change.",
+    "R0 used the fewest new model tokens on D2; P did not improve terminal success or model usage at this position.",
+    "Full-history R1 was the most input-token-intensive D2 arm.",
+    "Repeated dependency acquisition had high latency and reliability variance, including one retained postepisode Official failure.",
+    "This single position is counterevidence to promoting explicit project state; no M1 decision is made before the fixed four-position matrix is complete."
+  ]
+}
