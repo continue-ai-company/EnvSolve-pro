@@ -101,7 +101,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 23 `astropy/reproject` 在 Spark 上通过 Official，缺失导入为零；另有 275 个非目标 Pyright error 和 3 个 warning。初始观测有 151 个缺失导入，自由 Agent 直接安装 editable 项目及 `all,test,testall,docs` 全部 extras，在首次完整安装中编译 ARM64 本地扩展并降至零。它随后在一个自建 fresh 环境中重放操作等价的完整程序，约 128.66 秒完成安装并再次达到零缺失导入；末尾 Git ownership 与 provider 权限位噪声不影响已通过的目标，独立 qualification 审计零 tracked change 后通过，Official 也通过。提交程序在 qualification 和 Official 中分别耗时 138.85 秒与 138.22 秒。该 case 说明宽依赖闭包能可靠成功，但并未证明路径在时间、带宽或磁盘上最小，也不提供自动 replay 或 live frontier 的相对增益证据。
 
-位置 5-23 已裁决：15 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 24。AgentHub 不加入本轮 census。
+位置 24 `scylladb/sphinx-scylladb-theme` 在 Spark Official 失败，bootstrap exit 1，Official 没有运行 Pyright。Poetry 首先安装主项目的 64 个锁定依赖，Agent 再根据唯一剩余缺失导入安装仓库内 markdown extension，达到零缺失导入且 35 个测试通过。首次主动 fresh 重放在 PyYAML 隔离构建下载 `packaging` 时超时；Agent 加入 `POETRY_REQUESTS_MAX_RETRIES=5` 后，第二次 fresh 重放与独立 qualification 都通过，但 qualification 耗时 523.71 秒。Official 随后在 Python 3.13 ARM64 上构建锁定的 `watchfiles==0.21.0`，因缺少可用 Rust 工具链而下载 `rustup-init`，该下游连接出现 SSL EOF，未被 Poetry 重试设置保护。该 case 证明一次成功 clean replay 不能证明可靠性；Official Fail 保持不变，同时应将探索、失败重放、修复、qualification 和 Official 成本分别报告。
+
+位置 5-24 的固定单主机 census 已完成：15 个 Official Pass、2 个 Official Fail、3 个显式基础设施 censor。AgentHub 未加入本轮 census。
 
 ### 当前授权边界
 
@@ -398,8 +400,21 @@ audited zero tracked changes and passed, followed by Official. Qualification and
 minimal in time, bandwidth, or disk. The position provides no relative gain evidence for automatic
 replay or live frontier.
 
-Positions 5-23 are adjudicated: fifteen Official passes, one Official failure, and three explicit
-infrastructure censors. Position 24 is next in the unchanged fixed order. AgentHub
+Position 24, `scylladb/sphinx-scylladb-theme`, failed Spark Official with bootstrap exit 1; Official
+did not reach Pyright. Poetry installed the main project's 64 locked dependencies, and the Agent
+then installed the repository-local Markdown extension identified by the sole remaining missing
+import. The resulting environment had zero missing imports and 35 passing tests. The first
+voluntary fresh replay timed out while an isolated PyYAML build downloaded `packaging`. After the
+Agent added `POETRY_REQUESTS_MAX_RETRIES=5`, a second fresh replay and independent qualification
+both passed, although qualification took 523.71 seconds. Official then built locked
+`watchfiles==0.21.0` on Python 3.13 ARM64, attempted to bootstrap a missing Rust toolchain, and
+failed when the downstream rustup download hit an SSL EOF not protected by Poetry's retry setting.
+The case proves that one successful clean replay does not establish reliability. It remains an
+Official failure, and exploration, failed replay, adaptation, qualification, and Official costs
+must be reported separately.
+
+The fixed single-host census at positions 5-24 is complete: fifteen Official passes, two Official
+failures, and three explicit infrastructure censors. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

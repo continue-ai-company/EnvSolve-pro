@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position24",
+  "recorded_at": "2026-09-09",
+  "position": 24,
+  "case_id": "envbench-python-scylladb__sphinx-scylladb-theme@4e3917945c5c194a7119cf10629f35664b451d61",
+  "run_id": "free-agent-census24-v1-24-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-24-A/envbench-python-scylladb__sphinx-scylladb-theme__4e3917945c5c194a7119cf10629f35664b451d61",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "agent_session_wall_clock_seconds": 841.126868,
+    "pipeline_through_qualification_wall_clock_seconds": 1376.114022,
+    "construction_container_command_count": 8,
+    "successful_construction_container_command_count": 7,
+    "fresh_environments_created": 2,
+    "fresh_environments_closed": 2,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempts": 2,
+    "voluntary_complete_installation_successes": 1,
+    "operationally_equivalent_final_program_replayed_from_clean_environment": true,
+    "exact_final_program_body_replayed_from_clean_environment": true,
+    "fresh_public_goal_pass_observed": true,
+    "first_measured_missing_import_count": 1,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "36033fe32e35bb1111fbf2f7257cf437f33d680228dab812c8b895debcf41d2c",
+    "serialized_program_sha256": "7864db6533f7a0b308311486ba3818d4fa974478d07f273899569bf2df60c307",
+    "input_tokens": 799236,
+    "cached_input_tokens": 709248,
+    "output_tokens": 7615,
+    "reasoning_output_tokens": 3861,
+    "repository_tracked_content_modified": false,
+    "repair_tags": [
+      {
+        "tag": "missing-inspection-tool-fallback",
+        "observation": "The first inspection command failed because ripgrep was absent from the image. The Agent immediately switched to find and continued; this did not affect the final deployment program.",
+        "overrides_official": false
+      },
+      {
+        "tag": "main-lockfile-plus-local-subproject",
+        "observation": "Poetry installed the main project's 64 locked runtime and development dependencies, but Pyright still found recommonmark missing from the repository-local sphinx-scylladb-markdown extension. Installing that local subproject supplied its declared dependencies and reduced missing imports from one to zero.",
+        "overrides_official": false
+      },
+      {
+        "tag": "voluntary-clean-replay-network-failure",
+        "observation": "The first voluntary clean replay failed after 111.79 seconds when Poetry's isolated PyYAML build timed out downloading packaging. This exposed a hidden reliability failure after the same operations had succeeded in construction.",
+        "overrides_official": false
+      },
+      {
+        "tag": "agent-added-poetry-download-retries",
+        "observation": "The Agent added POETRY_REQUESTS_MAX_RETRIES=5 and reran the exact final program in a second fresh environment. Installation completed in 106.73 seconds, followed by zero missing imports, pip check success, and 35 passing tests; a later Git ownership diagnostic exited 128 after the goal passed.",
+        "overrides_official": false
+      },
+      {
+        "tag": "qualification-official-instability",
+        "observation": "Independent qualification completed the exact submitted program and passed after 523.71 seconds, but Official failed during bootstrap after 45.47 seconds. A single successful clean qualification therefore did not establish reliable replay.",
+        "overrides_official": false
+      },
+      {
+        "tag": "python313-arm64-watchfiles-rust-bootstrap",
+        "observation": "Official attempted to build locked watchfiles 0.21.0 on Python 3.13 ARM64, found no usable Rust toolchain, and tried to download rustup-init from static.rust-lang.org. That downstream HTTP client failed with SSL unexpected EOF; the Poetry retry setting did not protect this download path.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 523.7138509170036,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "36033fe32e35bb1111fbf2f7257cf437f33d680228dab812c8b895debcf41d2c",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": [],
+    "review_required_import_artifact_count": 0
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": false,
+    "bootstrap_exit_code": 1,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": null,
+    "warning_count": null,
+    "files_analyzed": null,
+    "execution_time_seconds": 45.469823598861694,
+    "submitted_program_sha256": "7864db6533f7a0b308311486ba3818d4fa974478d07f273899569bf2df60c307",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true,
+    "failure_stage": "bootstrap",
+    "failure_cause": "watchfiles 0.21.0 source build attempted a Rust bootstrap whose rustup-init download failed with SSL unexpected EOF"
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environments_absent_on_spark": true,
+    "qualification_replay_artifacts_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Fail@1",
+    "primary_success": false,
+    "failure_class": "bootstrap dependency-build failure",
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_that_clean_replay_can_expose_hidden_failure": true,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_replay_mechanism_analysis": true,
+    "reason": "Voluntary clean replay exposed a network-sensitive install failure, and the Agent transformed that feedback into a retry-enhanced program that passed a second fresh run and independent qualification. Official nevertheless failed through an unprotected downstream Rust bootstrap path, so the primary outcome remains failure.",
+    "measurement_implication": "Logical dependency closure and one successful replay are insufficient reliability evidence. Exploration, failed replay, retry adaptation, qualification, and Official costs must all be reported separately from the final program's nominal successful installation time.",
+    "state_update_opportunity": "A future project-state treatment could retain the observed local-subproject dependency and the Python-3.13/ARM64 source-build hazard, then test whether a later run chooses a more stable environment without additional free exploration. This is a hypothesis for a new paired experiment, not a retrospective rescue of this Official failure.",
+    "live_frontier_implication": "No promotion evidence; the failure concerns replay reliability rather than a need for cross-candidate frontier rules."
+  }
+}
