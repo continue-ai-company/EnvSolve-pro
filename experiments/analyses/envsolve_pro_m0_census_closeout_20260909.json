@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-m0-census-closeout-20260909",
+  "recorded_at": "2026-09-09",
+  "source_population": {
+    "schedule": "experiments/schedules/envsolve_pro_free_agent_census24_v1.json",
+    "block": "fixed single-host positions 5-24",
+    "positions": 20,
+    "sample_changed": false,
+    "replacement_cases": false,
+    "protected_data_used": false
+  },
+  "outcomes": {
+    "official_passes": 15,
+    "official_failures": 2,
+    "explicit_infrastructure_censors": 3,
+    "official_adjudicated": 17,
+    "official_pass_rate_among_adjudicated": 0.8823529411764706,
+    "submitted_programs": 18
+  },
+  "cost": {
+    "submitted_program_count": 18,
+    "agent_session_wall_seconds": {
+      "sum": 30995.699569,
+      "median": 1256.0649205,
+      "min": 552.498929,
+      "max": 5452.509575
+    },
+    "construction_commands": {
+      "sum": 294,
+      "median": 15,
+      "min": 6,
+      "max": 41
+    },
+    "model_tokens": {
+      "input_sum": 57685246,
+      "cached_input_sum": 55183616,
+      "uncached_input_sum": 2501630,
+      "output_sum": 245632,
+      "input_median": 1749039.5,
+      "uncached_input_median": 107400,
+      "output_median": 10768
+    },
+    "postsession_qualification_bootstrap_seconds": {
+      "sum": 4112.242998751986,
+      "median": 203.69416310399538,
+      "min": 35.6115692500025,
+      "max": 540.6461642500362
+    },
+    "official_execution_seconds": {
+      "count": 17,
+      "sum": 2945.0964999198914,
+      "median": 124.50320100784302,
+      "min": 32.30155396461487,
+      "max": 550.0570600032806
+    },
+    "agent_session_to_qualification_bootstrap_sum_ratio": 7.537419257180765,
+    "measurement_note": "For positions 5-10, the older result schema omitted Agent session duration; duration is the generation start timestamp to the final-output file timestamp. Positions 11-24 use the recorded Agent session duration. Qualification is bootstrap execution only and excludes Agent exploration."
+  },
+  "failure_evidence": [
+    {
+      "position": 7,
+      "case_id": "envbench-python-wpi-lnl__lnldb@6384c05c867ef1e34f80c3c38f5fabdc3f35d28b",
+      "official_outcome": "fail",
+      "qualification_outcome": "pass",
+      "failure": "GitHub dependency clone terminated during Official bootstrap",
+      "interpretation": "A transient external acquisition failure is a competing explanation; prior clean replay success did not establish reliability."
+    },
+    {
+      "position": 24,
+      "case_id": "envbench-python-scylladb__sphinx-scylladb-theme@4e3917945c5c194a7119cf10629f35664b451d61",
+      "official_outcome": "fail",
+      "qualification_outcome": "pass",
+      "failure": "A downstream Rust bootstrap download failed with SSL EOF during Official bootstrap",
+      "interpretation": "The Agent repaired an earlier clean-replay download failure, but its retry did not cover the later download path. One successful replay did not establish reliability."
+    }
+  ],
+  "m1_selection": {
+    "selection_recorded_before_m1_outcomes": true,
+    "selection_basis": "Official-successful projects with distinct observed deployment paths and enough retained evidence to compare ordinary reuse, full-history improvement, and compact explicit state.",
+    "projects": [
+      {
+        "position": 10,
+        "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+        "reason": "Short final replay but substantial discovery; provider and repository-local path resolution.",
+        "d0_python": "3.11",
+        "d2_python": "3.10",
+        "d2_support_evidence": "Repository CI explicitly uses Python 3.10."
+      },
+      {
+        "position": 17,
+        "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+        "reason": "Clean replay exposed ownership, false-success, and transient-index failures that the same Agent repaired.",
+        "d0_python": "3.13",
+        "d2_python": "3.12",
+        "d2_support_evidence": "Repository metadata and CI explicitly support Python 3.12."
+      },
+      {
+        "position": 22,
+        "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+        "reason": "Legacy native build chain with a successful but broad and costly deployment program.",
+        "d0_python": "3.10",
+        "d2_python": "3.11",
+        "d2_support_evidence": "Repository CI explicitly tests Python 3.11."
+      },
+      {
+        "position": 23,
+        "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+        "reason": "A first-attempt all-extras success with native builds, suitable for testing whether compact state adds value beyond ordinary reuse.",
+        "d0_python": "3.13",
+        "d2_python": "3.12",
+        "d2_support_evidence": "Repository CI and tox explicitly test Python 3.12."
+      }
+    ],
+    "excluded_high_cost_examples": [
+      {
+        "position": 5,
+        "reason": "The submitted program writes a source compatibility module, confounding clean project-state reuse."
+      },
+      {
+        "position": 11,
+        "reason": "Architecture-specific CUDA artifacts and incomplete real runtime imports confound deployment completeness."
+      },
+      {
+        "position": 24,
+        "reason": "No Official-successful D0 artifact exists; retain it as reliability evidence rather than an M1 seed."
+      }
+    ],
+    "controlled_variation": {
+      "name": "repository-supported-adjacent-python",
+      "scope": "one predeclared interpreter change per project",
+      "leaderboard_result": false,
+      "success_check": "The selected interpreter is active and the public missing-import goal passes.",
+      "purpose": "Test adaptation to a realistic solvable condition change without constructing a case-specific trap."
+    }
+  },
+  "stage_decision": {
+    "candidate": "minimal explicit project solving state",
+    "decision": "retain-for-m1-falsification",
+    "not_promoted": true,
+    "reason": "The census establishes high repeated-discovery cost but does not yet show that explicit state beats ordinary program reuse or a strong Agent with full history."
+  }
+}
