@@ -1,0 +1,264 @@
+{
+  "study_id": "envsolve-pro-m1b-artifact-replay-v1",
+  "status": "fixed-not-started",
+  "recorded_at": "2026-09-10",
+  "claim_scope": "consumed development artifact screen only",
+  "question": "Do existing repaired programs become repeatably reusable artifacts, and are P artifacts more reliable or less execution-intensive than simple artifact controls?",
+  "claim_limits": [
+    "This does not identify a structured-state mechanism or progressive optimality.",
+    "A pre-update program that selects the old Python version can fail D2 by construction; interpreter mismatch is diagnostic, not an algorithmic contribution.",
+    "Three repeats test whether an observed pattern recurs; they do not establish significant reliability improvement or noninferiority.",
+    "Artifact replay is separate from the historical end-to-end method when the submitted program must be recovered by the researcher.",
+    "Zero-model replay does not estimate counterfactual future repair tokens or an empirical break-even count."
+  ],
+  "primary_comparison": "three repeated fixed-D2 clean replays of the exact final submitted P, R0, and R1 programs",
+  "diagnostic_comparison": "three repeated fixed-D2 clean replays of exact pre-update v2 programs, with interpreter mismatch separated from dependency, build, goal, and acquisition failures",
+  "shared_configuration": {
+    "config": "experiments/configs/local_mac_project_progress_m1_v1.json",
+    "protocol": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "execution_target": "avdpro@100.81.196.23",
+    "execution_host": "Spark",
+    "remote_workspace_root": "/home/avdpro/work/envsolve-pro-m1b",
+    "base_image": "ghcr.io/jetbrains-research/envbench-python:latest",
+    "expose_gpus": true,
+    "model_invoked": false,
+    "state_updated": false,
+    "official_access": "none; public goal qualification only"
+  },
+  "cache_conditions": {
+    "same_project_host": true,
+    "source_cache": "shared immutable exact-revision cache on Spark",
+    "package_manager_cache_mount": "none",
+    "environment": "fresh Docker container and fresh checkout for every physical replay",
+    "interleaving": "fixed within-project order recorded below before execution",
+    "cross_project_parallelism": "allowed"
+  },
+  "cost_accounting": {
+    "existing_d2_update_cost_source": "experiments/analyses/envsolve_pro_m1_project_progress_closeout_20260910.json",
+    "report_components": [
+      "input tokens",
+      "cached input tokens",
+      "uncached input tokens",
+      "output tokens",
+      "preflight time",
+      "Agent time where available",
+      "qualification time",
+      "failed recovery and invalid engineering attempts",
+      "M1b replay wall and bootstrap time"
+    ],
+    "shared_d0_cost": "report as shared historical cost; do not assign zero",
+    "counterfactual_future_repair_cost": "missing and not imputed"
+  },
+  "projects": [
+    {
+      "position": 10,
+      "case": {
+        "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+        "language": "python",
+        "repository": "ceph/ceph-ansible",
+        "revision": "59198f5bcdf2eca5cc99c25951d93513c508c01e",
+        "split": "dev-pro-free-agent-census24-v1",
+        "tags": []
+      },
+      "condition_id": "M1b-fixed-D2-adjacent-python",
+      "python_version": "3.10",
+      "runner_state": "runs/envsolve-pro-m1-project-progress-v1/states/position10/P/state-v0002.json",
+      "candidates": [
+        {
+          "candidate_id": "pre-p-r0",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["P", "R0"],
+          "sources": [
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position10/P/state-v0002.json"},
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position10/R0/state-v0002.json"}
+          ]
+        },
+        {
+          "candidate_id": "final-p-r0",
+          "stage": "final-submitted",
+          "arm_aliases": ["P", "R0"],
+          "sources": [
+            {"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p10-d2-p-protocol-fix-retry1/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/scripts/generated.sh"},
+            {"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p10-d2-r0/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/scripts/generated.sh"}
+          ]
+        },
+        {
+          "candidate_id": "pre-r1",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["R1"],
+          "sources": [
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position10/R1/state-v0002.json"}
+          ]
+        },
+        {
+          "candidate_id": "final-r1",
+          "stage": "final-submitted",
+          "arm_aliases": ["R1"],
+          "sources": [
+            {"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p10-d2-r1-protocol-fix-retry1/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/scripts/generated.sh"}
+          ]
+        }
+      ],
+      "rounds": [
+        {"round": 1, "order": ["pre-p-r0", "final-p-r0", "pre-r1", "final-r1"]},
+        {"round": 2, "order": ["pre-r1", "final-r1", "pre-p-r0", "final-p-r0"]},
+        {"round": 3, "order": ["final-p-r0", "pre-p-r0", "final-r1", "pre-r1"]}
+      ]
+    },
+    {
+      "position": 17,
+      "case": {
+        "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+        "language": "python",
+        "repository": "mpmath/mpmath",
+        "revision": "ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+        "split": "dev-pro-free-agent-census24-v1",
+        "tags": []
+      },
+      "condition_id": "M1b-fixed-D2-adjacent-python",
+      "python_version": "3.12",
+      "runner_state": "runs/envsolve-pro-m1-project-progress-v1/states/position17/P/state-v0002.json",
+      "candidates": [
+        {
+          "candidate_id": "pre-all",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["P", "R0", "R1"],
+          "sources": [
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position17/P/state-v0002.json"},
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position17/R0/state-v0002.json"},
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position17/R1/state-v0002.json"}
+          ]
+        },
+        {
+          "candidate_id": "final-p",
+          "stage": "final-submitted",
+          "arm_aliases": ["P"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p17-d2-p/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522/scripts/generated.sh"}]
+        },
+        {
+          "candidate_id": "final-r0",
+          "stage": "final-submitted",
+          "arm_aliases": ["R0"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p17-d2-r0/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522/scripts/generated.sh"}]
+        },
+        {
+          "candidate_id": "final-r1",
+          "stage": "final-submitted",
+          "arm_aliases": ["R1"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p17-d2-r1/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522/scripts/generated.sh"}]
+        }
+      ],
+      "rounds": [
+        {"round": 1, "order": ["pre-all", "final-p", "final-r0", "final-r1"]},
+        {"round": 2, "order": ["final-r0", "final-r1", "pre-all", "final-p"]},
+        {"round": 3, "order": ["final-p", "pre-all", "final-r1", "final-r0"]}
+      ]
+    },
+    {
+      "position": 22,
+      "case": {
+        "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+        "language": "python",
+        "repository": "fonttools/fontbakery",
+        "revision": "a5177215f7c8e168416771637af17ae8935f273f",
+        "split": "dev-pro-free-agent-census24-v1",
+        "tags": []
+      },
+      "condition_id": "M1b-fixed-D2-adjacent-python",
+      "python_version": "3.11",
+      "runner_state": "runs/envsolve-pro-m1-project-progress-v1/states/position22/P/state-v0002.json",
+      "candidates": [
+        {
+          "candidate_id": "pre-all",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["P", "R0", "R1"],
+          "sources": [
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position22/P/state-v0002.json"},
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position22/R0/state-v0002.json"},
+            {"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position22/R1/state-v0002.json"}
+          ]
+        },
+        {
+          "candidate_id": "final-p",
+          "stage": "final-submitted",
+          "arm_aliases": ["P"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p22-d2-p/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f/scripts/generated.sh"}]
+        },
+        {
+          "candidate_id": "final-r0-r1",
+          "stage": "final-submitted",
+          "arm_aliases": ["R0", "R1"],
+          "sources": [
+            {"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p22-d2-r0/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f/scripts/generated.sh"},
+            {"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p22-d2-r1/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f/scripts/generated.sh"}
+          ]
+        }
+      ],
+      "rounds": [
+        {"round": 1, "order": ["pre-all", "final-p", "final-r0-r1"]},
+        {"round": 2, "order": ["final-p", "final-r0-r1", "pre-all"]},
+        {"round": 3, "order": ["final-r0-r1", "pre-all", "final-p"]}
+      ]
+    },
+    {
+      "position": 23,
+      "case": {
+        "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+        "language": "python",
+        "repository": "astropy/reproject",
+        "revision": "529fb3ad7c0d2ac79dd65f851228457a9691064c",
+        "split": "dev-pro-free-agent-census24-v1",
+        "tags": []
+      },
+      "condition_id": "M1b-fixed-D2-adjacent-python",
+      "python_version": "3.12",
+      "runner_state": "runs/envsolve-pro-m1-project-progress-v1/states/position23/P/state-v0002.json",
+      "candidates": [
+        {
+          "candidate_id": "pre-p",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["P"],
+          "sources": [{"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position23/P/state-v0002.json"}]
+        },
+        {
+          "candidate_id": "final-p",
+          "stage": "final-submitted",
+          "arm_aliases": ["P"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p23-d2-p/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/scripts/generated.sh"}]
+        },
+        {
+          "candidate_id": "pre-r0",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["R0"],
+          "sources": [{"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position23/R0/state-v0002.json"}]
+        },
+        {
+          "candidate_id": "final-r0",
+          "stage": "final-submitted",
+          "arm_aliases": ["R0"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p23-d2-r0/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/scripts/generated.sh"}]
+        },
+        {
+          "candidate_id": "pre-r1",
+          "stage": "pre-update-v2",
+          "arm_aliases": ["R1"],
+          "sources": [{"kind": "state-current-program", "path": "runs/envsolve-pro-m1-project-progress-v1/states/position23/R1/state-v0002.json"}]
+        },
+        {
+          "candidate_id": "final-r1",
+          "stage": "final-submitted",
+          "arm_aliases": ["R1"],
+          "sources": [{"kind": "submitted-program", "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p23-d2-r1/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/scripts/generated.sh"}]
+        }
+      ],
+      "rounds": [
+        {"round": 1, "order": ["pre-p", "final-p", "pre-r0", "final-r0", "pre-r1", "final-r1"]},
+        {"round": 2, "order": ["pre-r0", "final-r0", "pre-r1", "final-r1", "pre-p", "final-p"]},
+        {"round": 3, "order": ["pre-r1", "final-r1", "pre-p", "final-p", "pre-r0", "final-r0"]}
+      ]
+    }
+  ],
+  "stopping_rule": "Run exactly the three fixed rounds. Do not add retries based on outcome. Record pre-start failures as missing and executed nonpasses as nonpasses.",
+  "protected_data_used": false,
+  "m2_authorized": false
+}
