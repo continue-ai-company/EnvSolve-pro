@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "amendment_id": "envsolve-pro-free-agent-census24-v1-position19-source-retry1",
+  "recorded_at": "2026-09-09",
+  "recorded_before_retry": true,
+  "position": 19,
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "failed_run": {
+    "run_id": "free-agent-census24-v1-19-A",
+    "phase": "pre-episode repository acquisition",
+    "error": "The upstream Git server no longer advertised the exact preregistered revision and returned upload-pack: not our ref on all three acquisition attempts.",
+    "model_requests": 0,
+    "candidate_programs": 0,
+    "construction_containers": 0,
+    "container_commands": 0,
+    "agent_visible_observations": 0,
+    "qualification_runs": 0,
+    "official_runs": 0,
+    "method_information": 0,
+    "disposition": "infrastructure non-attempt retained without overwrite"
+  },
+  "retry": {
+    "allowed_by": "research/PRO_DEV_BAD_CASE_CENSUS_V1_PROTOCOL.md",
+    "policy": "one semantics-identical retry for Infrastructure Unknown",
+    "run_id": "free-agent-census24-v1-19-A-source-retry1",
+    "same_identity": true,
+    "same_model": "gpt-5.6-sol",
+    "same_reasoning_effort": "xhigh",
+    "same_method": "codex-cli-goal-aware-boundary-v6",
+    "same_runner": "free-agent-voluntary-environments-remote@1.0.2",
+    "same_execution_host": "Spark",
+    "same_accelerator_exposure": "all",
+    "same_protocol": "experiments/protocols/envbench_python_public_goal_v2.json",
+    "same_config": "experiments/configs/local_mac_free_agent_census_v1.json",
+    "sample_replacement": false,
+    "run_overwrite": false,
+    "maximum_additional_pre_episode_source_retries": 0
+  },
+  "source_restoration": {
+    "source": "retained clean Git checkout from the same exact revision in an earlier consumed-development run",
+    "local_checkout": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-06-A2/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59/generation/workspace",
+    "revision": "ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+    "tree": "9685e4245ba68306d876c2cc9b3102d7f058744c",
+    "git_status": "clean",
+    "git_fsck": "pass with four unreachable historical commits and no corrupt objects",
+    "object_alternates": false,
+    "transfer_form": "bare Git repository only",
+    "deployment_program_reused": false,
+    "prior_outcome_reused": false,
+    "agent_receives_only_exact_source_checkout": true
+  },
+  "scientific_effect": "The failed launch contains no model or method information. Restoring the already-consumed exact Git object preserves the fixed case identity and enables its sole protocol-allowed pre-episode acquisition retry; it does not add an observation, rule, package recipe, or result-conditioned hint to the Agent."
+}
