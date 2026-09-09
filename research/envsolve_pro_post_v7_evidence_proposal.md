@@ -93,7 +93,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 19 `flask-middleware/flask-security` 在 Agent 启动前无法从上游 Git 获取预注册 revision。按 Dev census 的一次语义等价 infrastructure retry 规则，本轮从既有 consumed-development 干净 checkout 验证了相同 commit、tree、clean status 和 Git object 完整性，并将独立 bare repo 放入 Spark 缓存；但恢复项缺少当前 source-cache 实现要求的 `refs/envsolve/exact` 引用，唯一 retry 仍在 checkout 前终止。两次 launch 都没有模型请求、容器命令、候选、qualification 或 Official，故该位置按 source infrastructure censor 记账，不算 Pass 或 Fail，不再重试或替换。这个失误不支持任何算法结论；已有 source-cache 构造测试足以覆盖缓存格式，不据此增加新 gate。
 
-位置 5-19 已裁决：11 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 20。AgentHub 不加入本轮 census。
+位置 20 `eggpi/citationhunt` 在 Spark 上通过 Official，缺失导入为零；另有 226 个非目标 Pyright error 和 2 个 warning。固定依赖第一次因缺少 `mysql_config`/`mariadb_config` 而无法构建 `mysqlclient`，但长 shell 序列在后续成功安装 Pyright 后错误返回 0；自由 Agent 阅读完整输出，安装 `default-libmysqlclient-dev` 并完成 Python 3.9 环境。Agent 在一个自建 fresh 环境中重放操作等价的完整程序，观察到零缺失导入且项目测试通过；随后的持久 shell 在末尾 Git 检查前无数值退出，记录为基础设施诊断异常。精确最终程序随后由独立 qualification 从零运行并通过，Official 也通过，仓库源码未修改。相同程序在 qualification 中因包索引超时耗时 209.81 秒，在 Official 中耗时 59.29 秒，说明成本轴受网络波动影响。该位置不提供自动 replay 或 live frontier 的相对增益证据。
+
+位置 5-20 已裁决：12 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 21。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -333,8 +335,21 @@ a Pass nor a Fail, and receives no further retry or replacement. This operator e
 no algorithmic conclusion; existing source-cache construction tests are sufficient, so it does
 not justify a new gate.
 
-Positions 5-19 are adjudicated: eleven Official passes, one Official failure, and three explicit
-infrastructure censors. Position 20 is next in the unchanged fixed order. AgentHub
+Position 20, `eggpi/citationhunt`, passed Spark Official with zero missing imports (plus 226
+non-goal Pyright errors and two warnings). The pinned requirements first failed to build
+mysqlclient because neither `mysql_config` nor `mariadb_config` was present, while the long shell
+sequence incorrectly returned zero after a later Pyright installation succeeded. The free Agent
+read the complete output, installed `default-libmysqlclient-dev`, and completed a Python 3.9
+environment. It replayed an operationally equivalent complete program in one fresh environment,
+observed zero missing imports, and ran the project tests successfully; the persistent diagnostic
+shell then exited without a numeric code before its final Git checks. Independent qualification
+subsequently ran the exact final program from scratch and passed, followed by Official success,
+without repository-source changes. The same program took 209.81 seconds in qualification after
+package-index timeouts and 59.29 seconds in Official, exposing network-sensitive cost variance.
+The position provides no relative gain evidence for automatic replay or live frontier.
+
+Positions 5-20 are adjudicated: twelve Official passes, one Official failure, and three explicit
+infrastructure censors. Position 21 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

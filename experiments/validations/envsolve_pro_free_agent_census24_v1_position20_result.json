@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position20",
+  "recorded_at": "2026-09-09",
+  "position": 20,
+  "case_id": "envbench-python-eggpi__citationhunt@53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+  "run_id": "free-agent-census24-v1-20-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-20-A/envbench-python-eggpi__citationhunt__53d3975373b51c22a805cb2a07d12e3d8cfb21c7",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 859.543514,
+    "construction_container_command_count": 8,
+    "successful_construction_container_command_count": 7,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "operationally_equivalent_final_program_replayed_from_clean_environment": true,
+    "exact_final_program_body_replayed_from_clean_environment": false,
+    "fresh_public_goal_pass_observed": true,
+    "construction_missing_import_count": 0,
+    "fresh_missing_import_count": 0,
+    "canonical_final_program_sha256": "e8ab02be98d5b35a5d5cc74e31105d95803e54bacead7dedeb738875ac401830",
+    "serialized_program_sha256": "318b7a50d213b24a04b651b3696d2a4574cb46736ba55cd55feb76f6651282c3",
+    "input_tokens": 492133,
+    "cached_input_tokens": 450176,
+    "output_tokens": 5460,
+    "reasoning_output_tokens": 2945,
+    "repository_source_modified": false,
+    "repair_tags": [
+      {
+        "tag": "native-build-toolchain-repair",
+        "observation": "The pinned dependency set first failed at mysqlclient because neither mysql_config nor mariadb_config was available. The Agent inspected the image, installed default-libmysqlclient-dev, and then completed the declared requirements under Python 3.9.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-fail-fast-false-success",
+        "observation": "The first construction installation command returned exit zero even though requirements installation had failed at mysqlclient, because a later pyright installation succeeded. The Agent read the output, diagnosed the missing native toolchain, and repaired it rather than trusting the terminal exit code.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-diagnostic-shell-lifecycle-failure",
+        "observation": "The voluntary fresh installation completed and Pyright reported zero missing imports. A following diagnostic command ran the repository tests successfully but the persistent shell exited without a numeric code before the trailing Git checks, so the MCP recorded an infrastructure error. Independent exact qualification subsequently passed with a clean repository state.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-goal-source-type-errors",
+        "observation": "Pyright reported 226 non-missing-import errors and two warnings after the deployment objective passed. These source diagnostics are descriptive and do not determine the Official objective.",
+        "overrides_official": false
+      },
+      {
+        "tag": "network-cost-variance",
+        "observation": "The same submitted program completed in 59.29 seconds under Official but required 209.81 seconds in independent qualification after package-index read timeouts. This is path-cost variance, not a change in terminal correctness.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 209.81251733301906,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "e8ab02be98d5b35a5d5cc74e31105d95803e54bacead7dedeb738875ac401830",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 226,
+    "warning_count": 2,
+    "execution_time_seconds": 59.28599286079407,
+    "submitted_program_sha256": "318b7a50d213b24a04b651b3696d2a4574cb46736ba55cd55feb76f6651282c3",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_that_clean_replay_can_expose_hidden_failure": false,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_replay_mechanism_analysis": true,
+    "reason": "The unrestricted Agent voluntarily reproduced the complete installation in a fresh environment and observed the public goal before submission. That replay did not expose a candidate failure or change the submitted operations, while independent exact replay and Official both passed.",
+    "measurement_implication": "The position supports feasibility of clean replay and exposes exit-code and network-cost measurement issues, but supplies no causal evidence that automatic replay improves terminal success over a fair strong-Agent control.",
+    "live_frontier_implication": "No promotion evidence; terminal success followed complete-program installation and replay rather than frontier management."
+  }
+}
