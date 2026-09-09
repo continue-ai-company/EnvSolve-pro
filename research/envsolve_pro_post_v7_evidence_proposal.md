@@ -87,7 +87,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 16 `theislab/scvelo` 在提交完整程序之前因 Codex OAuth refresh token 被撤销而终止，记为显式基础设施 censoring，不记 Official Fail、不重跑也不替换。Agent 在 construction 中把缺失导入降到零，并发现三个有信息量的问题：EnvBench 预置的 `build_output/` 会触发老式 flat-layout setuptools 的多包发现错误；隔离源码归档需要显式补足 setuptools-scm 版本；长 shell 序列会在 Conda 和 Torch 安装失败后继续使用 base Python，最终错误返回 0。Agent 在第二个 fresh 环境中检查出 `.venv` 不存在，改用镜像内 Python 3.10 与 `uv` 重建，但修正后的完整安装尚未返回时登录凭据失效，因此没有候选、qualification 或 Official。真实 `scvi` 导入仍存在 AnnData/JAX 版本冲突，重放和运行时完整性均未建立。该位置发生在当前 replay 机制可作用的边界之前，不能用来主张自动 replay 增益。
 
-位置 5-16 已裁决：10 个 Official Pass、1 个 Official Fail、1 个显式基础设施 censor。固定顺序中的下一项是位置 17。AgentHub 不加入本轮 census。
+位置 17 `mpmath/mpmath` 在 Spark 上通过 Official，缺失导入为零；另有 5530 个非目标 Pyright error 和 604 个 warning。累计构建环境先达到零缺失导入，但自由 Agent 的第一次干净重放暴露了真实差异：setuptools-scm 构建本地 checkout 时调用 Git，而 Git 因 `/data/project` 所有权不同拒绝仓库。两个局部 Git 配置方案仍留下 34 个缺失导入，其中一次长命令还在安装失败后因末尾诊断成功而错误返回 0；Agent 阅读完整输出，没有把退出码当作部署成功。它随后采用 Git 明确建议的 global `safe.directory`，增加有界 pip 重试，在第四个新环境中验证完整最终程序后提交；独立 qualification 和 Official 均通过，项目源码未修改。这是当前样本中干净完整重放发现隐藏失败并改变最终程序的直接正例，但因为自由 Agent 自主使用了该能力，它只证明 replay 机制相关，不能证明自动 replay treatment 相对公平强 Agent 有因果增益。
+
+位置 5-17 已裁决：11 个 Official Pass、1 个 Official Fail、1 个显式基础设施 censor。固定顺序中的下一项是位置 18。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -287,8 +289,23 @@ No candidate, qualification, or Official evaluation exists, and real scvi import
 AnnData/JAX compatibility failures. This occurred before the retained replay mechanism had a
 complete target state and cannot support an automatic-replay gain claim.
 
-Positions 5-16 are adjudicated: ten Official passes, one Official failure, and one explicit
-infrastructure censor. Position 17 is next in the unchanged fixed order. AgentHub
+Position 17, `mpmath/mpmath`, passed Spark Official with zero missing imports (plus 5,530
+non-goal Pyright errors and 604 warnings). The accumulated construction environment first
+reached zero missing imports, but the free Agent's first clean replay exposed a real target-state
+difference: setuptools-scm invoked Git while building the local checkout, and Git rejected
+`/data/project` because of its ownership. Two scoped Git-configuration attempts still left 34
+missing imports; one long command also returned zero after installation had failed because later
+diagnostics succeeded. The Agent read the complete output rather than trusting that terminal code.
+It then used Git's emitted global `safe.directory` remedy, added bounded pip retries, and verified
+the complete final body in a fourth fresh environment before submission. Independent qualification
+and Official both passed without repository-source changes. This is direct evidence that clean
+complete-program replay can expose a hidden failure and change the final submission. Because the
+unrestricted free Agent invoked the capability voluntarily, however, it establishes mechanism
+relevance rather than a causal gain for an automatic replay treatment over a fair strong-Agent
+control.
+
+Positions 5-17 are adjudicated: eleven Official passes, one Official failure, and one explicit
+infrastructure censor. Position 18 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

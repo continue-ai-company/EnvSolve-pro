@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position17",
+  "recorded_at": "2026-09-09",
+  "position": 17,
+  "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+  "run_id": "free-agent-census24-v1-17-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-17-A/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 1615.501457,
+    "construction_container_command_count": 7,
+    "successful_construction_container_command_count": 6,
+    "fresh_environments_created": 4,
+    "fresh_environments_closed": 4,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "voluntary_complete_program_replay_failures_before_success": 3,
+    "exact_final_program_body_replayed_from_clean_environment": true,
+    "fresh_public_goal_pass_observed": true,
+    "first_installed_environment_missing_import_count": 0,
+    "first_voluntary_replay_missing_import_count": 34,
+    "final_voluntary_replay_missing_import_count": 0,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "0b317d712f0afc2b955cdbcfa3acdb3e6cb98d83971f3a63d7f733c74e3431b0",
+    "serialized_program_sha256": "addecbfc6192e8657828bb8452dc63c4d4dccd6a1898e95dc104fa66ba2dde67",
+    "input_tokens": 1266432,
+    "cached_input_tokens": 1209984,
+    "output_tokens": 11367,
+    "reasoning_output_tokens": 6611,
+    "repository_source_modified": false,
+    "repair_tags": [
+      {
+        "tag": "clean-replay-exposed-git-ownership",
+        "observation": "The construction environment reached zero missing imports, but the first untouched replay could not build the local checkout because setuptools-scm invoked Git and Git rejected /data/project as a dubious-ownership repository.",
+        "overrides_official": false
+      },
+      {
+        "tag": "same-session-counterexample-repair",
+        "observation": "The replay failure was returned to the same active Agent. Two scoped Git-configuration attempts still left 34 missing imports; the Agent then used Git's emitted global safe.directory remedy and verified the final program body in a fourth fresh environment before submission.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-fail-fast-false-success",
+        "observation": "The third fresh command returned exit zero after both a package-index error and the local project build had failed, because later diagnostics succeeded. The Agent read the structured output and did not treat the terminal exit code as deployment success.",
+        "overrides_official": false
+      },
+      {
+        "tag": "transient-package-index-timeout",
+        "observation": "A fresh replay encountered package-index read timeouts. The final program added bounded pip retries and a 60-second network timeout and subsequently completed.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-provider-mode-only-diff",
+        "observation": "The Agent-visible fresh provider reported mode-only tracked diffs with zero content changes. Independent qualification audited a clean tracked state.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 85.67332487500971,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "0b317d712f0afc2b955cdbcfa3acdb3e6cb98d83971f3a63d7f733c74e3431b0",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": []
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 5530,
+    "warning_count": 604,
+    "execution_time_seconds": 98.58256602287292,
+    "submitted_program_sha256": "addecbfc6192e8657828bb8452dc63c4d4dccd6a1898e95dc104fa66ba2dde67",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "all_four_voluntary_fresh_environments_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_that_clean_replay_can_expose_hidden_failure": true,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_replay_mechanism_analysis": true,
+    "reason": "A program that appeared complete in construction failed in the first clean target state, and the executable counterexample changed the same Agent's submitted program before Official success. However, the unrestricted control Agent voluntarily invoked this replay capability, so the position cannot establish a causal advantage for an automatic replay treatment over a fair strong-Agent control.",
+    "measurement_implication": "This is a positive mechanism-relevance case and a negative warning against assuming the mechanism remains absent from a strong-Agent baseline. A future paired experiment must preserve the control's voluntary replay access and test whether orchestration changes terminal success or cost.",
+    "live_frontier_implication": "No promotion evidence; terminal Official success followed complete-program replay, not frontier management."
+  }
+}
