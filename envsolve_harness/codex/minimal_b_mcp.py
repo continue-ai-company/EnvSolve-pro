@@ -64,6 +64,14 @@ _TERMINAL_REPLAY_NETWORK_FAILURES = (
             re.IGNORECASE,
         ),
     ),
+    (
+        "ssl-eof",
+        re.compile(
+            r"(?:SSLEOFError|UNEXPECTED_EOF_WHILE_READING)[\s\S]{0,8000}"
+            r"(?:Could not fetch URL|No matching distribution found|ERROR:)",
+            re.IGNORECASE,
+        ),
+    ),
 )
 _LOCAL_DISTRIBUTION_AUDIT = r"""\
 import importlib.metadata

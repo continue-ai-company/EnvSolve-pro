@@ -277,6 +277,12 @@ class CleanReplayServiceTest(unittest.TestCase):
                 "Successfully installed dependency"
             )
             recovered = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "SSLEOFError: [SSL: UNEXPECTED_EOF_WHILE_READING]\n"
+                "Could not fetch URL https://pypi.org/simple/flake8/\n"
+                "ERROR: No matching distribution found for flake8"
+            )
+            ssl_eof = service.submit("true")
 
             self.assertEqual(timed_out["status"], "infrastructure_error")
             self.assertIn("read-timeout", timed_out["infrastructure_error"])
@@ -285,7 +291,12 @@ class CleanReplayServiceTest(unittest.TestCase):
                 "truncated-download", truncated["infrastructure_error"]
             )
             self.assertEqual(recovered["status"], "fail")
-            self.assertEqual(provider.released, ["fresh-1", "fresh-2", "fresh-3"])
+            self.assertEqual(ssl_eof["status"], "infrastructure_error")
+            self.assertIn("ssl-eof", ssl_eof["infrastructure_error"])
+            self.assertEqual(
+                provider.released,
+                ["fresh-1", "fresh-2", "fresh-3", "fresh-4"],
+            )
 
     def test_mcp_server_keeps_one_service_alive_across_replay_calls(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
