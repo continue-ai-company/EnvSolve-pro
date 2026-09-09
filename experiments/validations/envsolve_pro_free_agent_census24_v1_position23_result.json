@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position23",
+  "recorded_at": "2026-09-09",
+  "position": 23,
+  "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+  "run_id": "free-agent-census24-v1-23-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-23-A/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 903.619358,
+    "construction_container_command_count": 6,
+    "successful_construction_container_command_count": 6,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "operationally_equivalent_final_program_replayed_from_clean_environment": true,
+    "exact_final_program_body_replayed_from_clean_environment": false,
+    "fresh_public_goal_pass_observed": true,
+    "first_measured_missing_import_count": 151,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "54afaee8ed1686542abfe28bf477e930d5a5d5302855bbc8e8f26f91d923b354",
+    "serialized_program_sha256": "ea2867843ef93b5f0c5f6af2fa9eb9d1664dd3555ae208b498ace1bf2aadf482",
+    "input_tokens": 1527336,
+    "cached_input_tokens": 1442048,
+    "output_tokens": 7081,
+    "reasoning_output_tokens": 3408,
+    "repository_tracked_content_modified": false,
+    "repair_tags": [
+      {
+        "tag": "broad-all-extras-resolution",
+        "observation": "The Agent resolved the 151 initial missing-import diagnostics by installing the editable checkout with all runtime, test, optional, and documentation extras. This succeeded on the first complete installation attempt but is not established as a minimal path.",
+        "overrides_official": false
+      },
+      {
+        "tag": "native-extension-build",
+        "observation": "Editable installation compiled the ARM64 deforest, compiler-version, and spherical-overlap extensions. The Agent directly imported the local package and compiled modules before submission.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-diagnostic-git-ownership-exit",
+        "observation": "The operationally equivalent complete program reached zero missing imports in the voluntary fresh environment, but its combined diagnostic command exited 128 because a trailing git status encountered dubious repository ownership after the deployment goal had passed.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-provider-mode-only-mutation",
+        "observation": "After configuring safe.directory, the voluntary fresh provider reported widespread executable-bit changes. The Agent verified zero textual numstat changes, and independent qualification audited zero tracked changes.",
+        "overrides_official": false
+      },
+      {
+        "tag": "declared-generated-build-artifacts",
+        "observation": "Editable installation generated ignored C sources, shared objects, package metadata, and reproject/version.py. Qualification accepted these as provenance-backed build outputs and found no disallowed untracked paths.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-goal-source-type-errors",
+        "observation": "Official Pyright recorded 275 non-missing-import errors and three warnings across 49 files. These source diagnostics are descriptive and do not determine the benchmark objective.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 138.85129687504377,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "54afaee8ed1686542abfe28bf477e930d5a5d5302855bbc8e8f26f91d923b354",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": [],
+    "review_required_import_artifact_count": 0
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 275,
+    "warning_count": 3,
+    "files_analyzed": 49,
+    "execution_time_seconds": 138.21727895736694,
+    "submitted_program_sha256": "ea2867843ef93b5f0c5f6af2fa9eb9d1664dd3555ae208b498ace1bf2aadf482",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "qualification_replay_artifacts_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_that_clean_replay_can_expose_hidden_failure": false,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_replay_mechanism_analysis": true,
+    "reason": "The unrestricted Agent found an immediately viable all-extras installation, compiled the repository's native extensions, voluntarily confirmed an operationally equivalent program in a clean environment, and submitted a program that passed independent qualification and Official. The control therefore solved this case without an automatic replay treatment.",
+    "measurement_implication": "The case reinforces that terminal success and path quality are separate axes. Broad optional dependency closure can maximize compatibility but remains a candidate for later time, bandwidth, and disk minimization.",
+    "live_frontier_implication": "No promotion evidence; same-session free exploration plus complete-state replay achieved terminal success."
+  }
+}

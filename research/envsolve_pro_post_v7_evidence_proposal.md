@@ -99,7 +99,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 22 `fonttools/fontbakery` 在 Spark 上通过 Official，缺失导入为零；另有 719 个非目标 Pyright error、无 warning。自由 Agent 的第一条长安装命令没有留下请求的 Python 3.10 Conda 环境，却继续在 base Python 3.13 上安装并在构建旧 `opentype-sanitizer` 时失败；Agent 显式检查状态后重新创建环境。OTS 又依次暴露源码包元数据、setuptools 和 Meson/Ninja 问题，Agent 通过 `setuptools<71`、setuptools-scm、Meson、Ninja 和禁用 build isolation 完成 ARM64 构建，再安装项目 tests/docs extras、glyphsLib，并用 GitPython 补齐最后一个缺失导入。一个自建 fresh 环境从零重放操作等价的完整程序后达到零缺失导入且 `pip check` 通过；末尾 Git ownership 和 provider 权限位噪声只作标签，独立 qualification 审计到零 tracked change 并通过，Official 随后通过。该路径完整但偏重，未证明在时间、带宽或磁盘上最小；它不提供自动 replay 或 live frontier 的相对增益证据。
 
-位置 5-22 已裁决：14 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 23。AgentHub 不加入本轮 census。
+位置 23 `astropy/reproject` 在 Spark 上通过 Official，缺失导入为零；另有 275 个非目标 Pyright error 和 3 个 warning。初始观测有 151 个缺失导入，自由 Agent 直接安装 editable 项目及 `all,test,testall,docs` 全部 extras，在首次完整安装中编译 ARM64 本地扩展并降至零。它随后在一个自建 fresh 环境中重放操作等价的完整程序，约 128.66 秒完成安装并再次达到零缺失导入；末尾 Git ownership 与 provider 权限位噪声不影响已通过的目标，独立 qualification 审计零 tracked change 后通过，Official 也通过。提交程序在 qualification 和 Official 中分别耗时 138.85 秒与 138.22 秒。该 case 说明宽依赖闭包能可靠成功，但并未证明路径在时间、带宽或磁盘上最小，也不提供自动 replay 或 live frontier 的相对增益证据。
+
+位置 5-23 已裁决：15 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 24。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -384,8 +386,20 @@ audited zero tracked changes and passed, followed by Official. This is a complet
 not evidence of time, bandwidth, or disk minimality. The position provides no relative gain
 evidence for automatic replay or live frontier.
 
-Positions 5-22 are adjudicated: fourteen Official passes, one Official failure, and three explicit
-infrastructure censors. Position 23 is next in the unchanged fixed order. AgentHub
+Position 23, `astropy/reproject`, passed Spark Official with zero missing imports (plus 275
+non-goal Pyright errors and three warnings). Starting from 151 missing-import diagnostics, the free
+Agent installed the editable project with all runtime, test, optional, and documentation extras.
+Its first complete installation compiled the ARM64 native extensions and reached zero missing
+imports. One voluntary fresh environment replayed an operationally equivalent complete program,
+installed in about 128.66 seconds, and again reached zero missing imports. A trailing Git ownership
+failure and provider mode noise occurred only after the goal passed; independent qualification
+audited zero tracked changes and passed, followed by Official. Qualification and Official took
+138.85 and 138.22 seconds respectively. This broad dependency closure is reliable but not proven
+minimal in time, bandwidth, or disk. The position provides no relative gain evidence for automatic
+replay or live frontier.
+
+Positions 5-23 are adjudicated: fifteen Official passes, one Official failure, and three explicit
+infrastructure censors. Position 24 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
