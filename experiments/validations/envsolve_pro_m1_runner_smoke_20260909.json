@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-m1-runner-smoke-20260909",
+  "role": "mechanism validation only; excluded from M1 primary outcomes",
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "condition": "D1 Python 3.11 on Linux arm64",
+  "state_updated": false,
+  "results": {
+    "R0": {
+      "run_id": "m1-smoke-ceph-d1-r0-20260909",
+      "preflight": "pass",
+      "observed_python": "3.11.7",
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 32.68663144111633
+    },
+    "R1": {
+      "run_id": "m1-smoke-ceph-d1-r1-20260909",
+      "preflight": "pass",
+      "source_session_id": "01a08013-ec95-7b03-bd86-2c31c70d5146",
+      "result_session_id": "01a08637-95f3-7f61-b6f9-ec855fc6418e",
+      "model_invoked": true,
+      "input_tokens": 572449,
+      "cached_input_tokens": 499584,
+      "output_tokens": 4022,
+      "official_pass": true,
+      "official_execution_seconds": 39.21675181388855
+    }
+  },
+  "mechanism_checks": {
+    "ordinary_reuse_can_skip_model_after_passing_clean_replay": true,
+    "full_history_arm_created_a_distinct_forked_session": true,
+    "target_condition_observed_in_same_shell_as_candidate": true,
+    "official_remained_postepisode": true
+  },
+  "interpretation": "The runner implements the intended information contrast. The token difference is pilot evidence only and is not an M1 treatment estimate."
+}

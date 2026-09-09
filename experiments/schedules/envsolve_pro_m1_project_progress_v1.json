@@ -1,6 +1,6 @@
 {
   "study_id": "envsolve-pro-m1-project-progress-v1",
-  "status": "preregistered-runner-validation-pending",
+  "status": "runner-validated-primary-not-started",
   "recorded_at": "2026-09-09",
   "claim_scope": "consumed development evidence only",
   "protected_data_used": false,
@@ -60,6 +60,13 @@
     "Run D2 from that arm's D1 output.",
     "Any explicit probe uses a named input version and never updates its learning state."
   ],
+  "primary_execution_order": [
+    {"position": 10, "arm_order": ["P", "R0", "R1"]},
+    {"position": 17, "arm_order": ["R0", "R1", "P"]},
+    {"position": 22, "arm_order": ["R1", "P", "R0"]},
+    {"position": 23, "arm_order": ["P", "R0", "R1"]}
+  ],
+  "order_recorded_before_primary_outcomes": true,
   "censoring": {
     "preflight_infrastructure_error": "censor without Agent repair",
     "preflight_unknown": "censor without Agent repair",
