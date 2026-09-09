@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position22",
+  "recorded_at": "2026-09-09",
+  "position": 22,
+  "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+  "run_id": "free-agent-census24-v1-22-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-22-A/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 1167.984853,
+    "construction_container_command_count": 15,
+    "successful_construction_container_command_count": 10,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "operationally_equivalent_final_program_replayed_from_clean_environment": true,
+    "exact_final_program_body_replayed_from_clean_environment": false,
+    "fresh_public_goal_pass_observed": true,
+    "first_measured_missing_import_count": 1,
+    "final_missing_import_count": 0,
+    "canonical_final_program_sha256": "7dfeaf3944cb8a67a865c67ce1e5bc3b634df14b71550b3468c5a4ff001e02dd",
+    "serialized_program_sha256": "162ea497ad9e3ae42776fce57be3e337bb869b8eab66e15adf154d0a26d153b9",
+    "input_tokens": 2509618,
+    "cached_input_tokens": 2335744,
+    "output_tokens": 9888,
+    "reasoning_output_tokens": 5637,
+    "repository_tracked_content_modified": false,
+    "repair_tags": [
+      {
+        "tag": "missing-target-environment-after-non-fail-fast-sequence",
+        "observation": "The first long setup command continued with the image's base Python 3.13 and failed while building opentype-sanitizer. A following diagnostic confirmed that the requested Python 3.10 Conda environment did not exist. The Agent explicitly recreated and verified the environment before proceeding.",
+        "overrides_official": false
+      },
+      {
+        "tag": "legacy-native-build-chain-repair",
+        "observation": "The pinned opentype-sanitizer source first exposed inconsistent package metadata, then failed because Meson was absent. The Agent selected Python 3.10, constrained setuptools below 71, supplied setuptools-scm, Meson, and Ninja, disabled build isolation for the legacy package, and successfully built the ARM64 wheel.",
+        "overrides_official": false
+      },
+      {
+        "tag": "repository-plus-extras-installation",
+        "observation": "The Agent installed the editable checkout with its tests and docs extras plus glyphsLib. Pyright then found one remaining missing import in a repository meta script, which the Agent resolved with GitPython before submission.",
+        "overrides_official": false
+      },
+      {
+        "tag": "broad-success-path-cost",
+        "observation": "The submitted program installs the full tests and docs extras and compiles opentype-sanitizer locally. This is a complete and reproducible success path for the Official objective, but the trajectory does not establish that it is minimal in time, bandwidth, or disk cost.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-diagnostic-git-ownership-exit",
+        "observation": "The operationally equivalent complete program passed Pyright with zero missing imports and pip check in the voluntary fresh environment. A trailing git status returned 128 because of dubious ownership after the deployment goal had passed; the Agent separately inspected the generated version file and repository effects.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-provider-mode-only-mutation",
+        "observation": "After adding the emitted safe.directory exception, the voluntary fresh provider reported widespread executable-bit changes. The Agent confirmed zero textual numstat changes for text files, and independent qualification audited zero tracked changes.",
+        "overrides_official": false
+      },
+      {
+        "tag": "declared-build-version-artifact",
+        "observation": "Editable installation generated Lib/fontbakery/_version.py. The repository explicitly ignores this path, and both generation and qualification accepted it as declared build output rather than a source modification.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-goal-source-type-errors",
+        "observation": "Official Pyright recorded 719 non-missing-import errors and no warnings across 156 files. These source diagnostics are descriptive and do not determine the benchmark objective.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 159.3371310000075,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "7dfeaf3944cb8a67a865c67ce1e5bc3b634df14b71550b3468c5a4ff001e02dd",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": [],
+    "review_required_import_artifact_count": 0
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 719,
+    "warning_count": 0,
+    "files_analyzed": 156,
+    "execution_time_seconds": 129.77474522590637,
+    "submitted_program_sha256": "162ea497ad9e3ae42776fce57be3e337bb869b8eab66e15adf154d0a26d153b9",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "qualification_replay_artifacts_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_that_clean_replay_can_expose_hidden_failure": false,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_replay_mechanism_analysis": true,
+    "reason": "The unrestricted Agent recovered from an absent target environment, repaired a legacy native build chain, found the final undeclared import, voluntarily replayed the complete operations in a clean environment, and submitted a program that passed independent qualification and Official. The control therefore solved this compound case without an automatic replay treatment.",
+    "measurement_implication": "The case supports separating terminal success from path cost. A broad all-extras build can be reliable and Official-correct while leaving substantial room for time, bandwidth, and disk minimization in a later orthogonal treatment.",
+    "live_frontier_implication": "No promotion evidence; same-session free exploration plus complete-state replay achieved terminal success."
+  }
+}

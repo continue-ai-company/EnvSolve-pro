@@ -97,7 +97,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 21 `pgeu/pgeu-system` 在 Spark 上通过 Official，缺失导入为零；另有 2501 个非目标 Pyright error 和 117 个 warning。该仓库没有标准安装元数据，自由 Agent 从 CI 和 `tools/devsetup` 恢复 Python 3.9 依赖流程，识别出 `qrencode` 构建失败被后续成功命令掩盖，补充 libqrencode、Cairo、libmagic 与可选 Python provider，并生成项目明确需要的本地 settings 和 skin 配置。Agent 还为一个 Python 2 开发工具在 `build_output` 中生成 `urllib2` 兼容模块；它满足缺失导入指标，但原脚本仍含 Python 2 语法，因此只算有限运行时完整性。首次达到零缺失导入后，`manage.py check` 暴露新版 setuptools 移除 `pkg_resources`，Agent 加入 `setuptools<81` 后系统检查通过。一个自建 fresh 环境通过增量修复达到最终状态，精确最终程序首次由独立 qualification 从零执行并通过，随后 Official 通过；tracked source 零修改。generation 阶段一度把五个合法或待审部署产物全部拒绝，qualification 却按既定开放审计将其列为 postepisode review 并认证，暴露出 harness 内部审计语义不一致，但没有覆盖 Official。该位置不提供自动 replay 或 live frontier 的相对增益证据。
 
-位置 5-21 已裁决：13 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 22。AgentHub 不加入本轮 census。
+位置 22 `fonttools/fontbakery` 在 Spark 上通过 Official，缺失导入为零；另有 719 个非目标 Pyright error、无 warning。自由 Agent 的第一条长安装命令没有留下请求的 Python 3.10 Conda 环境，却继续在 base Python 3.13 上安装并在构建旧 `opentype-sanitizer` 时失败；Agent 显式检查状态后重新创建环境。OTS 又依次暴露源码包元数据、setuptools 和 Meson/Ninja 问题，Agent 通过 `setuptools<71`、setuptools-scm、Meson、Ninja 和禁用 build isolation 完成 ARM64 构建，再安装项目 tests/docs extras、glyphsLib，并用 GitPython 补齐最后一个缺失导入。一个自建 fresh 环境从零重放操作等价的完整程序后达到零缺失导入且 `pip check` 通过；末尾 Git ownership 和 provider 权限位噪声只作标签，独立 qualification 审计到零 tracked change 并通过，Official 随后通过。该路径完整但偏重，未证明在时间、带宽或磁盘上最小；它不提供自动 replay 或 live frontier 的相对增益证据。
+
+位置 5-22 已裁决：14 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 23。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -368,8 +370,22 @@ classified them for postepisode review, and certified the program. This internal
 disagreement did not override Official. The position provides no relative gain evidence for
 automatic replay or live frontier.
 
-Positions 5-21 are adjudicated: thirteen Official passes, one Official failure, and three explicit
-infrastructure censors. Position 22 is next in the unchanged fixed order. AgentHub
+Position 22, `fonttools/fontbakery`, passed Spark Official with zero missing imports (plus 719
+non-goal Pyright errors and no warnings). The free Agent's first long setup command did not leave
+the requested Python 3.10 Conda environment, continued under base Python 3.13, and failed while
+building legacy opentype-sanitizer. After explicitly checking state, the Agent recreated the
+environment. OTS then exposed source-package metadata, setuptools, and Meson/Ninja failures; the
+Agent repaired the ARM64 build using setuptools below 71, setuptools-scm, Meson, Ninja, and no
+build isolation. It installed the project's tests and docs extras plus glyphsLib, then added
+GitPython for the final undeclared import. One voluntary fresh environment replayed the complete
+operations from scratch, reached zero missing imports, and passed pip check. A trailing Git
+ownership error and provider-induced mode noise remain descriptive; independent qualification
+audited zero tracked changes and passed, followed by Official. This is a complete but broad path,
+not evidence of time, bandwidth, or disk minimality. The position provides no relative gain
+evidence for automatic replay or live frontier.
+
+Positions 5-22 are adjudicated: fourteen Official passes, one Official failure, and three explicit
+infrastructure censors. Position 23 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
