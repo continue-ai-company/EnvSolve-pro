@@ -141,6 +141,14 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
         adapter: RemoteDockerCommandAdapter,
     ) -> PythonConditionVerifier:
         del artifacts
+        return self._condition_verifier(case=case, adapter=adapter)
+
+    def _condition_verifier(
+        self,
+        *,
+        case: Case,
+        adapter: RemoteDockerCommandAdapter,
+    ) -> PythonConditionVerifier:
         if self.goal_contract is None:
             raise ValueError("progress replay requires a public goal contract")
         return PythonConditionVerifier(
@@ -161,9 +169,29 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
         artifacts: RunArtifacts,
         state: ProjectProgressState,
     ) -> dict[str, Any]:
+        result = self.replay_program(
+            case,
+            program=state.current_program,
+            root=artifacts.generation_dir / "progress-preflight",
+        )
+        result["preflight_wall_seconds"] = result.pop("replay_wall_seconds")
+        write_json(
+            artifacts.generation_dir / "progress-preflight" / "result.json",
+            result,
+        )
+        return result
+
+    def replay_program(
+        self,
+        case: Case,
+        *,
+        program: str,
+        root: Path,
+    ) -> dict[str, Any]:
         if self.goal_contract is None:
-            raise ValueError("progress preflight requires a public goal contract")
-        root = artifacts.generation_dir / "progress-preflight"
+            raise ValueError("progress replay requires a public goal contract")
+        root.mkdir(parents=True, exist_ok=True)
+        started = time.monotonic()
         source = root / "source"
         acquisition = RemoteExactRevisionSourceCache(
             self.transport,
@@ -189,11 +217,7 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
             create_timeout=self.container_create_timeout,
             run_command=adapter,
         )
-        verifier = self._submission_verifier(
-            case=case,
-            artifacts=artifacts,
-            adapter=adapter,
-        )
+        verifier = self._condition_verifier(case=case, adapter=adapter)
         service = CleanReplayService(
             provider=provider,
             verifier=verifier,
@@ -206,9 +230,8 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
             programs_root=root / "programs",
         )
         service.validator = BoundaryV6OpenCandidateProgramValidator()
-        started = time.monotonic()
-        result = service.submit(state.current_program)
-        result["preflight_wall_seconds"] = time.monotonic() - started
+        result = service.submit(program)
+        result["replay_wall_seconds"] = time.monotonic() - started
         result["repository_acquisition"] = acquisition
         result["target_condition"] = self.target_condition.to_dict()
         write_json(root / "result.json", result)
