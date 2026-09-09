@@ -1,12 +1,13 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "study_id": "envsolve-pro-m1-project-progress-closeout-20260910",
   "recorded_at": "2026-09-10",
   "claim_scope": "consumed development evidence only",
+  "supersession_note": "Version 1.1 separates raw EnvBench Official outcomes from run qualification and failure attribution. It also narrows the R1 and cumulative-progress claims.",
   "source_study": {
     "schedule": "experiments/schedules/envsolve_pro_m1_project_progress_v1.json",
     "positions": [10, 17, 22, 23],
-    "projects": 4,
+    "independent_projects": 4,
     "conditions_per_project": ["D1-same-python", "D2-adjacent-python"],
     "arms": ["R0", "R1", "P"],
     "scheduled_cells": 24,
@@ -14,117 +15,163 @@
     "replacement_cases": false,
     "protected_data_used": false
   },
-  "outcome_accounting": {
-    "P": {
-      "scheduled_cells": 8,
-      "observed_official_passes": 8,
-      "observed_external_failures": 0,
-      "observed_unknowns": 0,
-      "primary_audit_valid_passes": 8,
-      "primary_audit_valid_adjudicated": 8
-    },
-    "R0": {
-      "scheduled_cells": 8,
-      "observed_official_passes": 6,
-      "observed_external_failures": 1,
-      "observed_unknowns": 1,
-      "primary_algorithm_adjudicated_passes": 6,
-      "primary_algorithm_adjudicated": 6,
-      "notes": [
-        "Position 10 D1 was a raw Official nonpass attributed to external PyPI SSL EOF.",
-        "Position 22 D2 passed controlled qualification, but both Official attempts were infrastructure-censored."
-      ]
-    },
+  "raw_official_outcomes": {
+    "authority": "Raw postepisode EnvBench Official results are reported independently of qualification and causal attribution.",
+    "P": {"scheduled": 8, "pass": 8, "nonpass": 0, "missing": 0},
+    "R0": {"scheduled": 8, "pass": 6, "nonpass": 2, "missing": 0},
+    "R1": {"scheduled": 8, "pass": 7, "nonpass": 1, "missing": 0},
+    "raw_nonpasses": [
+      {
+        "run_id": "m1-primary-p10-d1-r0",
+        "exit_code": 1,
+        "issues_count": 0,
+        "attribution": "PyPI SSL EOF observed during package acquisition",
+        "causal_status": "external-acquisition-attributed"
+      },
+      {
+        "run_id": "m1-primary-p22-d2-r0",
+        "exit_code": 1,
+        "issues_count": 0,
+        "attribution": "conda HTTP 000 during package acquisition",
+        "causal_status": "ambiguous-policy-and-network"
+      },
+      {
+        "run_id": "m1-primary-p22-d2-r1",
+        "exit_code": 1,
+        "issues_count": 0,
+        "attribution": "conda HTTP 000 during package acquisition",
+        "causal_status": "ambiguous-policy-and-network"
+      }
+    ],
+    "interpretation": "P has the best raw table in this sequential screen. This is not yet a causal reliability result: at position 22 P changed from conda to system Python plus venv, while R0 and R1 retained conda, and the arms ran at different times. The acquisition failure may therefore be deployment-policy-mediated, time-varying network behavior, or both. D2 is controlled development evidence, not a leaderboard result."
+  },
+  "qualification_and_protocol": {
+    "P": {"audit_valid_cells": 8, "audit_invalid_cells": 0},
+    "R0": {"audit_valid_cells": 8, "audit_invalid_cells": 0},
     "R1": {
-      "scheduled_cells": 8,
-      "observed_official_passes": 7,
-      "observed_external_failures": 0,
-      "observed_unknowns": 1,
-      "primary_audit_valid_passes": 6,
-      "primary_audit_valid_adjudicated": 6,
-      "notes": [
-        "Position 22 D2 had neither an adjudicated qualification nor Official outcome and failed the run audit.",
-        "Position 23 D2 Official-passed, but qualification and exact retry were infrastructure-censored; its run failed the audit and is not a primary terminal outcome."
-      ]
+      "audit_valid_cells": 6,
+      "audit_invalid_cells": 2,
+      "invalid_runs": ["m1-primary-p22-d2-r1", "m1-primary-p23-d2-r1"],
+      "note": "Position 23 D2 remains a raw Official Pass even though its run audit is invalid. Position 22 D2 remains a raw Official nonpass even though its run audit is invalid."
     },
-    "cross_arm_terminal_judgment": "P preserved success in every cell, but R0 and R1 had no adjudicated algorithm failure. Infrastructure censoring prevents a terminal-success superiority claim."
+    "principle": "Audit validity determines whether a cell supports mechanism attribution; it does not rewrite the raw Official score."
   },
   "model_usage": {
-    "accounting": "All model usage from scheduled arm executions is retained, including infrastructure-censored trials; controller-only setup attempts and exact zero-model retries add zero tokens.",
+    "accounting": "All available model usage from scheduled arm executions is retained. Controller-only attempts and zero-model retries add no model tokens. Two interrupted Agent attempts have unavailable usage and are reported separately.",
     "all_conditions": {
-      "P": {
-        "input_tokens": 3881243,
-        "cached_input_tokens": 3578240,
-        "uncached_input_tokens": 303003,
-        "output_tokens": 26059
+      "P": {"input_tokens": 3881243, "cached_input_tokens": 3578240, "uncached_input_tokens": 303003, "output_tokens": 26059},
+      "R0": {"input_tokens": 3639529, "cached_input_tokens": 3287168, "uncached_input_tokens": 352361, "output_tokens": 23136},
+      "R1": {"input_tokens": 9355543, "cached_input_tokens": 8576640, "uncached_input_tokens": 778903, "output_tokens": 24387}
+    },
+    "per_independent_project": {
+      "position10_ceph_ansible": {
+        "P": {"input": 712990, "cached": 644352, "uncached": 68638, "output": 4642},
+        "R0": {"input": 259260, "cached": 198272, "uncached": 60988, "output": 3708},
+        "R1": {"input": 1328805, "cached": 1184128, "uncached": 144677, "output": 5625}
       },
-      "R0": {
-        "input_tokens": 3639529,
-        "cached_input_tokens": 3287168,
-        "uncached_input_tokens": 352361,
-        "output_tokens": 23136
+      "position17_mpmath": {
+        "P": {"input": 679859, "cached": 632192, "uncached": 47667, "output": 7363},
+        "R0": {"input": 690484, "cached": 614272, "uncached": 76212, "output": 5112},
+        "R1": {"input": 3599882, "cached": 3434752, "uncached": 165130, "output": 6965}
       },
-      "R1": {
-        "input_tokens": 9355543,
-        "cached_input_tokens": 8576640,
-        "uncached_input_tokens": 778903,
-        "output_tokens": 24387
+      "position22_fontbakery": {
+        "P": {"input": 1863470, "cached": 1714048, "uncached": 149422, "output": 9775},
+        "R0": {"input": 249115, "cached": 217600, "uncached": 31515, "output": 2240},
+        "R1": {"input": 881320, "cached": 659328, "uncached": 221992, "output": 1732}
+      },
+      "position23_reproject": {
+        "P": {"input": 624924, "cached": 587648, "uncached": 37276, "output": 4279},
+        "R0": {"input": 2440670, "cached": 2257024, "uncached": 183646, "output": 12076},
+        "R1": {"input": 3545536, "cached": 3298432, "uncached": 247104, "output": 10065}
       }
     },
-    "D2_only": {
-      "P_input_tokens": 3881243,
-      "R0_input_tokens": 2040710,
-      "R1_input_tokens": 6704631,
-      "P_over_R0_input_ratio": 1.9019081594,
-      "P_over_R1_input_ratio": 0.5788898748
-    },
     "comparisons": {
-      "P_over_R0_all_input_ratio": 1.0664135387,
+      "P_over_R0_total_input_ratio": 1.0664135387,
+      "P_uncached_input_reduction_vs_R0": 0.1400790668,
+      "P_output_increase_vs_R0": 0.1263407676,
       "P_input_reduction_vs_R1": 0.5851397402,
-      "R1_over_R0_all_input_ratio": 2.570536737,
-      "interpretation": "P reduced input tokens against full-history R1 but not against ordinary replay R0. P also used more output tokens than R0, so it does not dominate R0 under the preregistered split token accounting."
-    }
+      "interpretation": "P versus R0 is a mixed tradeoff: P used 6.6% more total input and 12.6% more output, but 14.0% less uncached input. The four projects, not the eight conditions, are the independent units. No dominance or noninferiority claim is supported."
+    },
+    "R1_confound": "R1 always forked the completed session and requested improvement, whereas P and R0 skipped the model after a passing replay. The 58.5% P-versus-R1 input reduction therefore mixes trigger policy with memory representation. It only supports a claim about this always-call full-history policy."
   },
-  "secondary_measurement": {
-    "per_trial_execution_and_qualification_times_retained": true,
-    "aggregate_causal_timing_claim": false,
-    "reason": "Arms ran sequentially and encountered unequal package-cache, resolver, acquisition, and censoring conditions. Wall-time differences are descriptive and are not used to infer an algorithm advantage."
-  },
-  "causal_findings": [
+  "invalid_engineering_attempts": [
     {
-      "finding": "Minimal explicit project state did not outperform ordinary successful-program reuse.",
-      "evidence": "P had no terminal-success advantage over adjudicated R0 outcomes and used 6.6% more total input tokens, 90.2% more D2 input tokens, and 12.6% more output tokens than R0.",
-      "scope": "Four consumed/Dev projects under same-condition and adjacent-supported-Python deployment."
+      "run_id": "m1-primary-p10-d2-p",
+      "cause": "SSL EOF was misclassified as program failure and an Agent was started before interruption.",
+      "observed_wall_seconds": 317.24226862500655,
+      "recorded_container_commands": 6,
+      "model_usage": "unavailable",
+      "disposition": "engineering cost only; not a primary trial"
     },
     {
-      "finding": "Full completed session history is an inefficient default reuse mechanism.",
-      "evidence": "R1 used 2.57 times R0 total input tokens without an adjudicated terminal-success advantage; passing D1 preflights still triggered model work that often returned identical or semantically equivalent programs.",
-      "scope": "The fixed R1 policy always requested improvement, so the claim concerns this full-history policy rather than every possible history summarizer."
+      "run_id": "m1-primary-p10-d2-r1",
+      "cause": "Recovered SSL EOF was treated as terminal infrastructure failure before the explicit Python-condition failure was handled.",
+      "observed_wall_seconds": 295.7027861250099,
+      "recorded_container_commands": 0,
+      "model_usage": "zero",
+      "disposition": "engineering cost only; not a primary trial"
     },
     {
-      "finding": "A successful bootstrap program is reusable but not temporally stable.",
-      "evidence": "At position 23 D1, the same retained program passed P and R1 preflight but later failed R0 through dependency backtracking into an obsolete Shapely build. At other positions, repeated package acquisition also alternated between success and infrastructure errors.",
-      "scope": "This is execution evidence for resolver and acquisition drift, not a causal arm advantage because runs were sequential rather than simultaneous."
+      "run_id": "m1-primary-p17-d1-r0",
+      "cause": "An empty package-index response was misclassified as program failure and an Agent was started before interruption.",
+      "observed_wall_seconds": 717.7677679170156,
+      "recorded_container_commands": 12,
+      "model_usage": "unavailable",
+      "disposition": "engineering cost only; not a primary trial"
     },
     {
-      "finding": "Official success does not identify a unique deployment path.",
-      "evidence": "Official-passing programs varied in retry logic, environment mechanism, version constraints, and installed extras. These differences are retained as path-quality annotations and do not override the Official outcome.",
-      "scope": "Path completeness and robustness are secondary analyses, with EnvBench Official remaining the terminal authority."
+      "run_id": "m1-primary-p23-d1-r1",
+      "cause": "Required source session ID was omitted.",
+      "observed_wall_seconds": null,
+      "recorded_container_commands": 0,
+      "model_usage": "zero",
+      "disposition": "controller setup only"
     }
+  ],
+  "cumulative_progress_gap": {
+    "planned_test": "Compare D0, D1, and D2 state versions on the same fixed condition Q without updating state during probes.",
+    "available_artifacts": "Four v1 seeds and 24 v2/v3 runtime state files exist.",
+    "missing_evidence": "No state-version by fixed-Q probe matrix was executed. The current study is a sequential reuse-and-repair screen, not a completed cumulative-progress experiment.",
+    "state_persistence_issue": "R1 v3 for positions 17 and 23 still records D1, and position 22 still records D0, despite D2 execution. Submitted program artifacts must therefore be treated as authoritative for any supplement; state-file persistence failures are retained as method cost."
+  },
+  "findings": [
+    {
+      "finding": "The current explicit-state candidate P is not ready for promotion.",
+      "evidence": "It has the best raw Official table, but the position-22 advantage is causally ambiguous, costs trade off across token categories, and the planned fixed-Q cumulative-progress test is missing."
+    },
+    {
+      "finding": "Always-call full-session improvement is expensive in this screen.",
+      "evidence": "R1 used 2.57 times R0 total input while changing both trigger policy and memory representation.",
+      "scope": "This does not reject adaptive full-history reuse after a failed replay."
+    },
+    {
+      "finding": "Ordinary executable-program reuse is a strong simple comparator, not a proven optimum.",
+      "evidence": "R0 frequently skipped model work after successful replay, but it did not receive the same information as P and had two raw Official nonpasses."
+    }
+  ],
+  "strongest_alternative_explanations": [
+    "P's raw advantage at position 22 may come from its venv deployment choice rather than explicit state itself.",
+    "Sequential execution and time-varying package acquisition may explain some arm differences.",
+    "R1's cost may come from always requesting improvement rather than from full history.",
+    "The successful executable program may already contain nearly all reusable benefit; the additional state may add little."
   ],
   "stage_decision": {
     "candidate": "minimal explicit executable project progress",
-    "promotion_rule": "P must preserve terminal success and reduce new model inference against both R0 and R1.",
-    "decision": "do-not-promote-to-core",
-    "reason": "P preserved terminal success and beat R1 input usage, but it did not reduce input or output tokens against R0 and did not establish a success advantage.",
-    "R0_status": "strongest-surviving-minimal-policy",
-    "R1_status": "reject-as-default-full-history-policy",
-    "core_algorithm_change": "none-before-stage-review",
+    "decision": "do-not-promote-current-P",
+    "reason": "The claimed mechanism gain is unestablished; this does not show that explicit state is useless or that R0 is optimal.",
+    "R0_status": "strong-simple-observed-comparator-not-optimum",
+    "R1_status": "always-call-policy-not-supported-as-default",
+    "m1_status": "primary-screen-complete-cumulative-progress-question-open",
     "m2_authorized": false
   },
-  "next_review_questions": [
-    "Should the next experiment target fixed real Official bad cases where ordinary replay plus repair fails, rather than another broad state representation?",
-    "Should temporal resolver and acquisition drift be treated as an observed environment condition with repeated trials, rather than repaired through more cross-candidate rules?",
-    "Can a failure-triggered strong Agent be given a better stopping objective that avoids unnecessary exploration while preserving Official success?"
-  ]
+  "minimum_supplement_proposal": {
+    "status": "proposed-not-executed",
+    "projects": "the same four consumed/Dev projects; no replacement",
+    "question": "Does the repaired submitted program reduce repeated deployment failure enough to justify its update cost, or has the previously successful program already absorbed all reusable benefit?",
+    "design": "On each predeclared D2 condition, interleave repeated zero-model clean replays of the exact pre-update v2 program and exact post-update submitted program for P and R0. Do not update state. Use a fixed order declared before execution and report raw success, acquisition signature, replay wall time, and the already-incurred D2 update tokens/wall time separately.",
+    "primary_readout": "Repeated clean-replay success on fixed D2 Q, summarized by four independent projects.",
+    "secondary_readout": "Amortization of update cost over later successful replays; no claim if programs have equal repeated success.",
+    "why_this_first": "It directly tests whether repair creates reusable progress using existing artifacts, without new model calls, new projects, new rules, or protected data.",
+    "decision_owner": "stage review"
+  }
 }

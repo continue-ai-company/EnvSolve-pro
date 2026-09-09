@@ -114,7 +114,10 @@
     {
       "run_id": "m1-primary-p17-d1-r0",
       "disposition": "runner-validation-not-primary",
-      "reason": "an empty package-index response for setuptools was misclassified as program failure; the erroneous Agent invocation was interrupted before an outcome"
+      "reason": "an empty package-index response for setuptools was misclassified as program failure; the erroneous Agent invocation was interrupted before an outcome",
+      "observed_wall_seconds": 717.7677679170156,
+      "recorded_container_commands": 12,
+      "model_usage": "unavailable"
     },
     {
       "run_id": "m1-primary-p17-d2-r1",

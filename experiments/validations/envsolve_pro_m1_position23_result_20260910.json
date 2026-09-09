@@ -5,7 +5,7 @@
   "claim_scope": "consumed development evidence only",
   "position": 23,
   "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
-  "status": "D1-and-D2-complete-with-one-infrastructure-censored-trial",
+  "status": "D1-and-D2-raw-Official-complete-with-one-audit-invalid-trial",
   "valid_trials": [
     {
       "condition": "D1-same-python",
@@ -103,9 +103,12 @@
       "container_commands": 5,
       "program_change": "select-python3.12-prefer-binary-and-reduce-extras",
       "qualification_status": "unknown-infrastructure-censored",
+      "raw_official_status": "pass",
+      "raw_official_exit_code": 0,
+      "raw_official_issues_count": 0,
       "official_pass_observed": true,
       "official_execution_seconds": 123.79105305671692,
-      "disposition": "trajectory-cost-and-postepisode-Official-evidence-only-not-a-primary-outcome"
+      "disposition": "raw-Official-pass-retained; trajectory cannot support mechanism attribution because the run audit is invalid"
     }
   ],
   "infrastructure_censors": [

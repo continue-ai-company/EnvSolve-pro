@@ -81,7 +81,12 @@
       "qualification_seconds": 249.5266662919894,
       "program_change": "conda-python3.10-to-python3.11",
       "qualification_status": "pass",
-      "official_status": "unknown-infrastructure-censored"
+      "raw_official_status": "nonpass",
+      "raw_official_exit_code": 1,
+      "raw_official_issues_count": 0,
+      "official_execution_seconds": 73.77316999435425,
+      "failure_attribution": "conda-http-000",
+      "causal_disposition": "ambiguous-policy-and-network: P switched to system Python plus venv while R0 retained conda, and arms ran sequentially"
     }
   ],
   "censored_trials": [
@@ -100,8 +105,13 @@
       "container_commands": 2,
       "program_change": "conda-python3.10-to-python3.11",
       "qualification_status": "unknown-infrastructure-censored",
-      "official_status": "unknown-infrastructure-censored",
-      "disposition": "trajectory-and-cost-evidence-only-not-a-primary-outcome"
+      "raw_official_status": "nonpass",
+      "raw_official_exit_code": 1,
+      "raw_official_issues_count": 0,
+      "official_execution_seconds": 104.02142906188965,
+      "failure_attribution": "conda-http-000",
+      "causal_disposition": "ambiguous-policy-and-network: P switched to system Python plus venv while R1 retained conda, and arms ran sequentially",
+      "disposition": "raw-Official-nonpass-retained; trajectory cannot support mechanism attribution because the run audit is invalid"
     }
   ],
   "infrastructure_censors": [
@@ -174,11 +184,11 @@
   "observations": [
     "All three D1 arms Official-passed. P and R0 used no model, while R1 spent 105701 input tokens and returned the byte-identical program without a container command.",
     "All three D2 Agents selected Python 3.11. P replaced conda with the image's system Python 3.11 and venv, while R0 and R1 retained conda.",
-    "P passed both controlled D2 qualification and Official evaluation. R0 passed controlled qualification but both Official attempts were infrastructure-censored; R1's qualification and Official attempts were all infrastructure-censored.",
-    "Infrastructure-censored outcomes are neither failures nor passes. They do not establish a terminal-success advantage for P.",
+    "P passed both controlled D2 qualification and Official evaluation. R0 passed controlled qualification but its raw Official result and exact retry were nonpasses with conda HTTP 000; R1's raw Official result and exact retry were also nonpasses with conda HTTP 000, while its run audit remained invalid.",
+    "Raw Official accounting is P Pass, R0 nonpass, and R1 nonpass. Qualification validity and causal attribution are separate: the conda acquisition failures may reflect deployment-policy choice, time-varying network behavior, or both.",
     "P used about 7.48 times R0's D2 input tokens and about 2.40 times R1's. Its more robust observed path came with substantially higher exploration cost.",
     "R1 used about 3.11 times R0's D2 input tokens and produced the same conda version change, providing no evidence that full-session history improved the terminal program.",
-    "Repeated conda acquisition alternated between success and HTTP 000 failures. This supports measuring acquisition-path reliability but does not identify a causal algorithm benefit because arms ran at different times.",
-    "Across positions 10, 17, and 22, P still has not met the preregistered promotion rule against R0; full-history R1 continues to show context cost without a demonstrated terminal advantage."
+    "Repeated conda acquisition alternated between success and HTTP 000 failures. Because P selected a different environment mechanism and arms ran at different times, position 22 does not isolate explicit state from deployment-policy and temporal acquisition effects.",
+    "Across positions 10, 17, and 22, the current P mechanism is not ready for promotion; the R1 comparison only evaluates the always-call full-history policy."
   ]
 }

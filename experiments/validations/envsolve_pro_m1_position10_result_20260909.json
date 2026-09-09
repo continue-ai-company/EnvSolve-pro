@@ -97,12 +97,18 @@
     {
       "run_id": "m1-primary-p10-d2-p",
       "disposition": "runner-validation-not-primary",
-      "reason": "SSL EOF was initially misclassified as an ordinary program failure; the resulting Agent invocation was interrupted before an outcome"
+      "reason": "SSL EOF was initially misclassified as an ordinary program failure; the resulting Agent invocation was interrupted before an outcome",
+      "observed_wall_seconds": 317.24226862500655,
+      "recorded_container_commands": 6,
+      "model_usage": "unavailable"
     },
     {
       "run_id": "m1-primary-p10-d2-r1",
       "disposition": "runner-validation-not-primary",
-      "reason": "a recovered SSL EOF was incorrectly treated as terminal infrastructure failure instead of the explicit Python-condition failure"
+      "reason": "a recovered SSL EOF was incorrectly treated as terminal infrastructure failure instead of the explicit Python-condition failure",
+      "observed_wall_seconds": 295.7027861250099,
+      "recorded_container_commands": 0,
+      "model_usage": "zero"
     }
   ],
   "observations": [
