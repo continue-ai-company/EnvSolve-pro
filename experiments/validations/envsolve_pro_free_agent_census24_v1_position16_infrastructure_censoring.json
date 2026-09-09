@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position16-infrastructure-censoring",
+  "recorded_at": "2026-09-09",
+  "position": 16,
+  "case_id": "envbench-python-theislab__scvelo@d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+  "run_id": "free-agent-census24-v1-16-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-16-A/envbench-python-theislab__scvelo__d3e81d91e8c31c42d1a4b3baae8b4fe2e9671d45",
+  "generation": {
+    "completed": false,
+    "candidate_submitted": false,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 7096.004134,
+    "container_command_count": 39,
+    "successful_container_command_count": 33,
+    "container_observation_timeout_count": 1,
+    "fresh_environments_created": 2,
+    "fresh_environments_closed_by_agent": 1,
+    "fresh_environments_cleaned_postepisode": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "exact_final_program_voluntarily_replayed_from_clean_environment": false,
+    "construction_public_goal_pass_observed": true,
+    "construction_final_missing_import_count": 0,
+    "fresh_public_goal_pass_observed": false,
+    "token_usage_available": false,
+    "process_exit_code": 1,
+    "terminal_error": "Codex CLI authentication refresh failed because the OAuth refresh token was revoked.",
+    "repository_source_modified": false,
+    "trajectory_tags": [
+      {
+        "tag": "workspace-precondition-package-discovery-conflict",
+        "observation": "The EnvBench-provided build_output directory appeared as a second top-level package to this flat-layout setuptools project, causing direct editable installation from the repository root to fail.",
+        "overrides_primary_outcome": false
+      },
+      {
+        "tag": "source-staging-version-metadata-reconstruction",
+        "observation": "The Agent isolated installation source with git archive and supplied SETUPTOOLS_SCM_PRETEND_VERSION_FOR_SCVELO after the archive copy lacked Git metadata required by setuptools-scm.",
+        "overrides_primary_outcome": false
+      },
+      {
+        "tag": "scientific-stack-version-coupling",
+        "observation": "The construction path exposed coupled compatibility failures across scVelo, Scanpy, NumPy, scvi-tools, Torch, AnnData, MuData, JAX, and setuptools. Pyright eventually reported zero missing imports, while real scvi imports still failed under explored combinations.",
+        "overrides_primary_outcome": false
+      },
+      {
+        "tag": "non-fail-fast-false-success-detected",
+        "observation": "The second fresh environment returned exit 0 after Conda environment creation and torch installation failed because later commands continued under the base interpreter and the final compatibility-package install succeeded. The Agent inspected state, found .venv absent, and switched to the image's local Python 3.10 through uv.",
+        "overrides_primary_outcome": false
+      },
+      {
+        "tag": "authentication-revocation",
+        "observation": "During the corrected full installation in the second fresh environment, Codex reported refresh_token_invalidated and terminated before the shell result, candidate submission, qualification, or Official evaluation.",
+        "overrides_primary_outcome": true
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "started": false,
+    "status": "not-run-no-submitted-program",
+    "feedback_returned_to_agent": false
+  },
+  "official": {
+    "evaluation_started": false,
+    "evaluation_completed": false,
+    "pass": null,
+    "reason": "No program was submitted before infrastructure termination.",
+    "feedback_returned_to_agent": false
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "first_fresh_environment_absent_on_spark": true,
+    "second_fresh_environment_absent_on_spark": true,
+    "second_fresh_environment_cleanup": "postepisode container-root cleanup after the revoked-auth termination",
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "explicit infrastructure censoring before submission",
+    "primary_success": false,
+    "count_as_official_pass": false,
+    "count_as_official_failure": false,
+    "rerun": false,
+    "replacement_case": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The episode ended before a complete candidate program existed, so the retained replay mechanism had no submitted target state to replay. Authentication revocation is a decisive competing explanation and prevents attributing the terminal outcome to deployment reasoning.",
+    "supporting_evidence": "The trajectory shows that a strong free Agent can detect false shell success by checking whether the intended environment exists and can revise environment creation from network-dependent Conda to local uv/Python.",
+    "counterevidence_or_limit": "Construction reached the proxy goal only through a large compatibility-oriented stack while a real scvi import remained broken. The corrected clean replay never completed, so neither reproducibility nor legitimate runtime completeness was established.",
+    "live_frontier_implication": "No promotion evidence; no complete program reached terminal adjudication."
+  }
+}

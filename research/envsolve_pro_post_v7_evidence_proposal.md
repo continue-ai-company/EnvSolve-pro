@@ -85,7 +85,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 15 `jmetal/jmetalpy` 在 Spark 上通过 Official，缺失导入为零；另有 1693 个非目标 Pyright error 和 11 个 warning。自由 Agent 根据 CI 选择 Python 3.11，并安装项目声明的 `distributed` extra 与 pytest，一次覆盖 Dask、Distributed、PySpark、绘图和科学计算依赖；运行时导入、pip check 与 Pyright 均通过。Agent 在自建 fresh 环境中运行了操作等价的完整程序并观察到缺失导入为零，精确最终程序首次由独立 qualification 从零运行，随后 Official 通过。一次 construction 诊断在成功检查之后因 `git status | head` 的 SIGPIPE 返回 141，不是部署失败。完整路径构建约 451 MB 的 PySpark wheel，另有 fresh provider 导致的 706 个纯权限位 diff；二者只作为成本与运行时标签，项目源码内容未修改。该位置不提供自动 replay 相对增益。
 
-位置 5-15 已完成，固定顺序中的下一项是位置 16。AgentHub 不加入本轮 census。
+位置 16 `theislab/scvelo` 在提交完整程序之前因 Codex OAuth refresh token 被撤销而终止，记为显式基础设施 censoring，不记 Official Fail、不重跑也不替换。Agent 在 construction 中把缺失导入降到零，并发现三个有信息量的问题：EnvBench 预置的 `build_output/` 会触发老式 flat-layout setuptools 的多包发现错误；隔离源码归档需要显式补足 setuptools-scm 版本；长 shell 序列会在 Conda 和 Torch 安装失败后继续使用 base Python，最终错误返回 0。Agent 在第二个 fresh 环境中检查出 `.venv` 不存在，改用镜像内 Python 3.10 与 `uv` 重建，但修正后的完整安装尚未返回时登录凭据失效，因此没有候选、qualification 或 Official。真实 `scvi` 导入仍存在 AnnData/JAX 版本冲突，重放和运行时完整性均未建立。该位置发生在当前 replay 机制可作用的边界之前，不能用来主张自动 replay 增益。
+
+位置 5-16 已裁决：10 个 Official Pass、1 个 Official Fail、1 个显式基础设施 censor。固定顺序中的下一项是位置 17。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -272,7 +274,21 @@ an approximately 451 MB PySpark wheel, and the voluntary fresh provider exposed 
 tracked diffs. These remain cost and runtime tags; project-source contents were unchanged. The
 position provides no automatic-replay gain.
 
-Positions 5-15 are complete and position 16 is next in the unchanged fixed order. AgentHub
+Position 16, `theislab/scvelo`, terminated before submitting a complete program because the
+Codex OAuth refresh token was revoked. It is explicitly infrastructure-censored, is not an
+Official failure, and will not be rerun or replaced. Construction reached zero missing imports
+but exposed three informative problems: EnvBench's `build_output/` precondition collided with
+flat-layout setuptools discovery; an isolated source archive required explicit setuptools-scm
+version metadata; and a long non-fail-fast shell sequence continued under the base interpreter
+after Conda and Torch failures before incorrectly returning zero. The Agent detected that
+`.venv` was absent in its second fresh environment and switched to the image-local Python 3.10
+through uv, but authentication was revoked before the corrected full installation returned.
+No candidate, qualification, or Official evaluation exists, and real scvi imports still had
+AnnData/JAX compatibility failures. This occurred before the retained replay mechanism had a
+complete target state and cannot support an automatic-replay gain claim.
+
+Positions 5-16 are adjudicated: ten Official passes, one Official failure, and one explicit
+infrastructure censor. Position 17 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
