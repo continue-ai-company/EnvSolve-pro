@@ -4,7 +4,12 @@ import subprocess
 
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.runtime.goal import ExecutableGoalContract
-from envsolve.solver import DeploymentCandidate
+from envsolve.solver import (
+    CommandResult,
+    DeploymentCandidate,
+    ExecutableVerification,
+    FeedbackChannel,
+)
 from envsolve_harness.progress_replay import (
     ACTIVE_PYTHON_MARKER,
     PythonConditionVerifier,
@@ -93,3 +98,34 @@ def test_condition_command_accepts_required_major_minor() -> None:
 
     expected = 0 if process.stdout.strip().endswith(("3.10", "3.10.14")) else 42
     assert process.returncode == expected
+
+
+def test_condition_verifier_attributes_its_own_terminal_failure(monkeypatch) -> None:
+    outcome = ExecutableVerification(
+        verifier="fixture",
+        check_profile="fixture-v1",
+        channel=FeedbackChannel.INTERNAL_EXECUTION,
+        passed=False,
+        bootstrap=CommandResult(
+            42,
+            stdout=f"{ACTIVE_PYTHON_MARKER}3.11.7\n",
+            stderr="required Python 3.10, observed 3.11.7",
+        ),
+        summary="candidate did not return control",
+    )
+    monkeypatch.setattr(
+        "envsolve_harness.boundary_v6."
+        "BoundaryV6OfficialAlignedExecutableGoalVerifier.verify",
+        lambda self, candidate, environment: outcome,
+    )
+
+    attributed = verifier().verify(
+        DeploymentCandidate("candidate", "true", "test"),
+        DockerEnvironmentHandle("container", None, "/data/project"),
+    )
+
+    assert attributed.details["terminal_failure_origin"] == "verifier-condition"
+    assert attributed.details["python_condition"] == {
+        "required": "3.10",
+        "observed": "3.11.7",
+    }

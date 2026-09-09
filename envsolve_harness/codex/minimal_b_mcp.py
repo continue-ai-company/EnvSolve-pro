@@ -374,6 +374,8 @@ def _terminal_replay_network_failure(
 ) -> str | None:
     if outcome.passed is True:
         return None
+    if outcome.details.get("terminal_failure_origin") == "verifier-condition":
+        return None
     logs = f"{outcome.bootstrap.stdout}\n{outcome.bootstrap.stderr}"
     return next(
         (

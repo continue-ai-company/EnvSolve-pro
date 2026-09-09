@@ -240,8 +240,14 @@ class CleanReplayServiceTest(unittest.TestCase):
 
     def test_terminal_download_failure_is_infrastructure_not_counterexample(self) -> None:
         class NetworkVerifier:
-            def __init__(self, logs: str) -> None:
+            def __init__(
+                self,
+                logs: str,
+                *,
+                details: dict[str, object] | None = None,
+            ) -> None:
                 self.logs = logs
+                self.details = details or {}
 
             def verify(
                 self,
@@ -256,6 +262,7 @@ class CleanReplayServiceTest(unittest.TestCase):
                     passed=False,
                     bootstrap=CommandResult(0, stdout="", stderr=self.logs),
                     summary="missing imports remain",
+                    details=self.details,
                 )
 
         with tempfile.TemporaryDirectory() as directory:
@@ -283,6 +290,13 @@ class CleanReplayServiceTest(unittest.TestCase):
                 "ERROR: No matching distribution found for flake8"
             )
             ssl_eof = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "SSLEOFError: [SSL: UNEXPECTED_EOF_WHILE_READING]\n"
+                "Could not fetch URL https://pypi.org/simple/setuptools/\n"
+                "required Python 3.10, observed 3.11.7",
+                details={"terminal_failure_origin": "verifier-condition"},
+            )
+            attributed = service.submit("true")
 
             self.assertEqual(timed_out["status"], "infrastructure_error")
             self.assertIn("read-timeout", timed_out["infrastructure_error"])
@@ -293,9 +307,10 @@ class CleanReplayServiceTest(unittest.TestCase):
             self.assertEqual(recovered["status"], "fail")
             self.assertEqual(ssl_eof["status"], "infrastructure_error")
             self.assertIn("ssl-eof", ssl_eof["infrastructure_error"])
+            self.assertEqual(attributed["status"], "fail")
             self.assertEqual(
                 provider.released,
-                ["fresh-1", "fresh-2", "fresh-3", "fresh-4"],
+                ["fresh-1", "fresh-2", "fresh-3", "fresh-4", "fresh-5"],
             )
 
     def test_mcp_server_keeps_one_service_alive_across_replay_calls(self) -> None:

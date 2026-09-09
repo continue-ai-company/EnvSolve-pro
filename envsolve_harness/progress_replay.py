@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import re
 import shlex
 from typing import Any
 
 from envsolve.runtime.docker import DockerEnvironmentHandle
 from envsolve.solver import DeploymentCandidate
+from envsolve.solver.counterexample import ExecutableVerification
 from envsolve_harness.boundary_v6 import (
     BoundaryV6OfficialAlignedExecutableGoalVerifier,
 )
@@ -68,6 +70,32 @@ class PythonConditionVerifier(BoundaryV6OfficialAlignedExecutableGoalVerifier):
             command.replace(marker_line, f"{condition}\n{marker_line}", 1),
             completion_marker,
             report_begin,
+        )
+
+    def verify(
+        self,
+        candidate: DeploymentCandidate,
+        environment: DockerEnvironmentHandle,
+    ) -> ExecutableVerification:
+        outcome = super().verify(candidate, environment)
+        match = _OBSERVED_PYTHON.search(outcome.bootstrap.stdout)
+        if match is None:
+            return outcome
+        observed = match.group("version").strip()
+        if observed == self.required_python or observed.startswith(
+            f"{self.required_python}."
+        ):
+            return outcome
+        return replace(
+            outcome,
+            details={
+                **outcome.details,
+                "terminal_failure_origin": "verifier-condition",
+                "python_condition": {
+                    "required": self.required_python,
+                    "observed": observed,
+                },
+            },
         )
 
 
