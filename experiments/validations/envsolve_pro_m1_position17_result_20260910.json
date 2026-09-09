@@ -1,0 +1,134 @@
+{
+  "study_id": "envsolve-pro-m1-project-progress-v1",
+  "record_type": "position-stage-result",
+  "recorded_at": "2026-09-10",
+  "claim_scope": "consumed development evidence only",
+  "position": 17,
+  "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+  "status": "D1-and-D2-complete",
+  "valid_trials": [
+    {
+      "condition": "D1-same-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p17-d1-r0-protocol-fix-retry1",
+      "preflight_status": "pass",
+      "preflight_seconds": 99.64398925000569,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 85.51476216316223
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p17-d1-r1",
+      "preflight_status": "pass",
+      "preflight_seconds": 95.91287150001153,
+      "model_invoked": true,
+      "input_tokens": 963759,
+      "cached_input_tokens": 899712,
+      "output_tokens": 3364,
+      "qualification_seconds": 133.51215837500058,
+      "program_change": "none",
+      "official_pass": true,
+      "official_execution_seconds": 116.4865288734436
+    },
+    {
+      "condition": "D1-same-python",
+      "arm": "P",
+      "run_id": "m1-primary-p17-d1-p",
+      "preflight_status": "pass",
+      "preflight_seconds": 92.76500645797933,
+      "model_invoked": false,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "official_pass": true,
+      "official_execution_seconds": 85.00875329971313
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R0",
+      "run_id": "m1-primary-p17-d2-r0",
+      "preflight_status": "fail",
+      "preflight_seconds": 98.75792587501928,
+      "model_invoked": true,
+      "input_tokens": 690484,
+      "cached_input_tokens": 614272,
+      "output_tokens": 5112,
+      "container_commands": 5,
+      "qualification_seconds": 203.16451254102867,
+      "program_change": "select-python3.12-only",
+      "official_pass": true,
+      "official_execution_seconds": 187.17673134803772
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "R1",
+      "run_id": "m1-primary-p17-d2-r1",
+      "preflight_status": "fail",
+      "preflight_seconds": 87.52234749996569,
+      "model_invoked": true,
+      "input_tokens": 2636123,
+      "cached_input_tokens": 2535040,
+      "output_tokens": 3601,
+      "container_commands": 3,
+      "program_change": "select-python3.12-and-remove-explicit-numpy-matplotlib",
+      "initial_qualification": {
+        "status": "infrastructure-censored",
+        "failure": "truncated-package-index-json",
+        "execution_seconds": 62.02130991697777
+      },
+      "exact_qualification_retry": {
+        "run_root": "runs/envsolve-pro-m1-project-progress-v1/probes/p17-r1-d2-qualification-retry1",
+        "model_invoked": false,
+        "state_updated": false,
+        "status": "pass",
+        "observed_python": "3.12.0",
+        "execution_seconds": 100.53032187500503,
+        "wall_seconds": 115.73672579199774
+      },
+      "official_pass": true,
+      "official_execution_seconds": 86.2809042930603
+    },
+    {
+      "condition": "D2-adjacent-python",
+      "arm": "P",
+      "run_id": "m1-primary-p17-d2-p",
+      "preflight_status": "fail",
+      "preflight_seconds": 85.59839908400318,
+      "model_invoked": true,
+      "input_tokens": 679859,
+      "cached_input_tokens": 632192,
+      "output_tokens": 7363,
+      "container_commands": 1,
+      "qualification_seconds": 90.96850120800082,
+      "program_change": "select-python3.12-and-add-bounded-pip-retry-loops",
+      "official_pass": true,
+      "official_execution_seconds": 99.24912905693054
+    }
+  ],
+  "invalid_or_censored_attempts": [
+    {
+      "run_id": "m1-primary-p17-d1-r0",
+      "disposition": "runner-validation-not-primary",
+      "reason": "an empty package-index response for setuptools was misclassified as program failure; the erroneous Agent invocation was interrupted before an outcome"
+    },
+    {
+      "run_id": "m1-primary-p17-d2-r1",
+      "stage": "initial-post-Agent-qualification",
+      "disposition": "infrastructure-censored-stage-replaced-by-exact-replay",
+      "reason": "pip received truncated package-index JSON; the generated candidate and its Official result were retained, and only the identical candidate qualification was repeated"
+    }
+  ],
+  "observations": [
+    "All three D1 arms Official-passed, while R1 spent model inference to return a byte-identical program.",
+    "All three D2 arms Official-passed and selected Python 3.12.",
+    "P and R0 used nearly equal D2 input tokens; P reduced Agent container commands from five to one but did not establish a terminal-success advantage.",
+    "R1 used about 3.8 times the D2 input tokens of R0 because full-session history accumulated across conditions.",
+    "R0 made the minimal interpreter change, R1 also removed two explicit packages, and P added bounded retry loops; these are path-quality differences, not success-rate evidence.",
+    "Across positions 10 and 17, P has not yet met the preregistered promotion rule against R0, while full-history R1 shows substantial context growth."
+  ]
+}
