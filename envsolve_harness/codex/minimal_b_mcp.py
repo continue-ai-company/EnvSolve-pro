@@ -91,6 +91,13 @@ _TERMINAL_REPLAY_NETWORK_FAILURES = (
             re.IGNORECASE,
         ),
     ),
+    (
+        "conda-http-connection-failed",
+        re.compile(
+            r"CondaHTTPError:\s*HTTP\s+000\s+CONNECTION FAILED",
+            re.IGNORECASE,
+        ),
+    ),
 )
 _LOCAL_DISTRIBUTION_AUDIT = r"""\
 import importlib.metadata

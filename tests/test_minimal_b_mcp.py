@@ -318,6 +318,12 @@ class CleanReplayServiceTest(unittest.TestCase):
                 "line 1 column 199357"
             )
             truncated_index_json = service.submit("true")
+            service.verifier = NetworkVerifier(
+                "CondaHTTPError: HTTP 000 CONNECTION FAILED for url "
+                "<https://repo.anaconda.com/pkgs/main/linux-aarch64/"
+                "python-3.11.conda>"
+            )
+            conda_connection_failed = service.submit("true")
 
             self.assertEqual(timed_out["status"], "infrastructure_error")
             self.assertIn("read-timeout", timed_out["infrastructure_error"])
@@ -345,6 +351,13 @@ class CleanReplayServiceTest(unittest.TestCase):
                 truncated_index_json["infrastructure_error"],
             )
             self.assertEqual(
+                conda_connection_failed["status"], "infrastructure_error"
+            )
+            self.assertIn(
+                "conda-http-connection-failed",
+                conda_connection_failed["infrastructure_error"],
+            )
+            self.assertEqual(
                 provider.released,
                 [
                     "fresh-1",
@@ -355,6 +368,7 @@ class CleanReplayServiceTest(unittest.TestCase):
                     "fresh-6",
                     "fresh-7",
                     "fresh-8",
+                    "fresh-9",
                 ],
             )
 
