@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position18-infrastructure-censoring",
+  "recorded_at": "2026-09-09",
+  "position": 18,
+  "case_id": "envbench-python-open-sdg__sdg-translations@9a33c0b60188a859e530e6168f647506fad9e405",
+  "run_id": "free-agent-census24-v1-18-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-18-A/envbench-python-open-sdg__sdg-translations__9a33c0b60188a859e530e6168f647506fad9e405",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 552.498929,
+    "construction_container_command_count": 8,
+    "successful_construction_container_command_count": 7,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "exact_final_program_voluntarily_replayed_from_clean_environment": true,
+    "construction_public_goal_pass_observed": true,
+    "fresh_public_goal_pass_observed": true,
+    "construction_final_missing_import_count": 0,
+    "fresh_final_missing_import_count": 0,
+    "canonical_final_program_sha256": "dafff9f0e1f686e06aeb290fa3a9a6baa3fb7613a9ec3717a4c1bcca64e51db6",
+    "serialized_program_sha256": "69f8cdc778e081cba3d4c4cc6e01659e3d25dcec46408a1a72044328ff78f2ae",
+    "input_tokens": 683451,
+    "cached_input_tokens": 632064,
+    "output_tokens": 4411,
+    "reasoning_output_tokens": 2281,
+    "repository_source_modified": false,
+    "trajectory_tags": [
+      {
+        "tag": "declared-plus-observed-script-dependencies",
+        "observation": "The repository had no installable package metadata. The Agent installed requirements.txt plus PyPDF2 and requests after observing additional imports in batch scripts, reaching zero missing imports without source changes.",
+        "overrides_primary_outcome": false
+      },
+      {
+        "tag": "non-goal-source-syntax-error",
+        "observation": "A repository script contained an unclosed bracket. Pyright recorded ten non-goal errors, while reportMissingImports remained zero. This source defect is descriptive and does not determine the Official objective.",
+        "overrides_primary_outcome": false
+      },
+      {
+        "tag": "fresh-diagnostic-git-ownership-exit",
+        "observation": "The exact bootstrap completed in the voluntary fresh environment and Pyright reported zero missing imports. A later git status diagnostic returned 128 because of checkout ownership, after the measured deployment goal had already passed.",
+        "overrides_primary_outcome": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 35.6115692500025,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "dafff9f0e1f686e06aeb290fa3a9a6baa3fb7613a9ec3717a4c1bcca64e51db6",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": []
+  },
+  "official": {
+    "evaluation_started": true,
+    "candidate_execution_started": false,
+    "evaluation_completed": false,
+    "pass": null,
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "harness_process_exit_code": 1,
+    "raw_result_record_count": 0,
+    "adapter_error_recorded": null,
+    "termination_recorded": null,
+    "observed_infrastructure_failure": {
+      "scope": "evaluator_repository_acquisition",
+      "github": "git fetch of the exact revision returned exit 128",
+      "fallback": "Hugging Face CDN TLS handshake exceeded its 10-second read timeout",
+      "terminal_effect": "EnvBench produced no result record and then raised FileNotFoundError while listing the absent json/results directory",
+      "evidence": "logs/evaluation.log"
+    },
+    "identity_matches": false,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "explicit infrastructure censoring during Official repository acquisition before candidate execution",
+    "primary_success": false,
+    "count_as_official_pass": false,
+    "count_as_official_failure": false,
+    "rerun": false,
+    "replacement_case": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "The submitted program passed Agent-visible clean replay and independent qualification, but EnvBench never acquired the repository for Official candidate execution. The terminal outcome therefore cannot be attributed to deployment reasoning or replay.",
+    "supporting_evidence": "The unrestricted Agent formed and cleanly replayed a compact dependency-only program without editing repository source.",
+    "counterevidence_or_limit": "No Official result exists, so qualification success cannot be substituted for the benchmark outcome.",
+    "measurement_gap": "When EnvBench exits nonzero with an empty results file, adapter version 0.9.0 preserves the evaluation log but leaves adapter_error and termination null. The existing evaluation log is sufficient for post-hoc censor adjudication; this parser gap should be repaired only after the fixed census ends.",
+    "live_frontier_implication": "No promotion evidence; no Official candidate execution occurred."
+  }
+}

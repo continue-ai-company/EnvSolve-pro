@@ -89,7 +89,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 17 `mpmath/mpmath` 在 Spark 上通过 Official，缺失导入为零；另有 5530 个非目标 Pyright error 和 604 个 warning。累计构建环境先达到零缺失导入，但自由 Agent 的第一次干净重放暴露了真实差异：setuptools-scm 构建本地 checkout 时调用 Git，而 Git 因 `/data/project` 所有权不同拒绝仓库。两个局部 Git 配置方案仍留下 34 个缺失导入，其中一次长命令还在安装失败后因末尾诊断成功而错误返回 0；Agent 阅读完整输出，没有把退出码当作部署成功。它随后采用 Git 明确建议的 global `safe.directory`，增加有界 pip 重试，在第四个新环境中验证完整最终程序后提交；独立 qualification 和 Official 均通过，项目源码未修改。这是当前样本中干净完整重放发现隐藏失败并改变最终程序的直接正例，但因为自由 Agent 自主使用了该能力，它只证明 replay 机制相关，不能证明自动 replay treatment 相对公平强 Agent 有因果增益。
 
-位置 5-17 已裁决：11 个 Official Pass、1 个 Official Fail、1 个显式基础设施 censor。固定顺序中的下一项是位置 18。AgentHub 不加入本轮 census。
+位置 18 `open-sdg/sdg-translations` 在 construction、一次自愿 clean replay 和独立 qualification 中均达到零缺失导入，且未修改仓库源码。项目没有可安装包元数据；自由 Agent 根据全部脚本导入，在 `requirements.txt` 之外补充 `PyPDF2` 和 `requests`。仓库源码本身有未闭合方括号，产生 10 个非目标 Pyright error，只作源码标签。Official 随后在候选容器启动前失败：EnvBench 先从 GitHub 获取精确 revision 失败，再从 Hugging Face CDN 下载时 TLS 握手超过 10 秒，结果文件为空，最后因不存在的 `json/results` 目录退出。该位置记为 evaluator 仓库获取阶段的显式基础设施 censor，不算 Pass 或 Fail，不重跑、不替换。当前 adapter 保留了完整 `evaluation.log`，但对空结果加非零进程退出没有自动填写 `adapter_error` 和 `termination`；这是 census 后的普通解析修复项，不在批次中途改协议。
+
+位置 5-18 已裁决：11 个 Official Pass、1 个 Official Fail、2 个显式基础设施 censor。固定顺序中的下一项是位置 19。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -304,8 +306,21 @@ unrestricted free Agent invoked the capability voluntarily, however, it establis
 relevance rather than a causal gain for an automatic replay treatment over a fair strong-Agent
 control.
 
-Positions 5-17 are adjudicated: eleven Official passes, one Official failure, and one explicit
-infrastructure censor. Position 18 is next in the unchanged fixed order. AgentHub
+Position 18, `open-sdg/sdg-translations`, reached zero missing imports in construction, one
+voluntary clean replay, and independent qualification without repository-source changes. The
+repository has no installable package metadata; the free Agent supplemented `requirements.txt`
+with PyPDF2 and requests after inspecting imports across all scripts. An unclosed bracket in the
+repository produced ten non-goal Pyright errors and remains only a source-quality tag. Official
+then failed before candidate-container creation: EnvBench could not fetch the exact revision from
+GitHub, its Hugging Face CDN fallback exceeded a ten-second TLS read timeout, no result record was
+written, and the evaluator finally raised on the absent `json/results` directory. The position is
+explicitly infrastructure-censored at evaluator repository acquisition, is neither a Pass nor a
+Fail, and will not be rerun or replaced. The adapter preserved the complete `evaluation.log` but
+left `adapter_error` and `termination` null for this empty-result/nonzero-process case; that is an
+ordinary parser repair after the census, not a reason to change the protocol mid-batch.
+
+Positions 5-18 are adjudicated: eleven Official passes, one Official failure, and two explicit
+infrastructure censors. Position 19 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
