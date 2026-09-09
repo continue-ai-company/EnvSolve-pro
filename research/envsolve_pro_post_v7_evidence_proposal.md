@@ -95,7 +95,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 20 `eggpi/citationhunt` 在 Spark 上通过 Official，缺失导入为零；另有 226 个非目标 Pyright error 和 2 个 warning。固定依赖第一次因缺少 `mysql_config`/`mariadb_config` 而无法构建 `mysqlclient`，但长 shell 序列在后续成功安装 Pyright 后错误返回 0；自由 Agent 阅读完整输出，安装 `default-libmysqlclient-dev` 并完成 Python 3.9 环境。Agent 在一个自建 fresh 环境中重放操作等价的完整程序，观察到零缺失导入且项目测试通过；随后的持久 shell 在末尾 Git 检查前无数值退出，记录为基础设施诊断异常。精确最终程序随后由独立 qualification 从零运行并通过，Official 也通过，仓库源码未修改。相同程序在 qualification 中因包索引超时耗时 209.81 秒，在 Official 中耗时 59.29 秒，说明成本轴受网络波动影响。该位置不提供自动 replay 或 live frontier 的相对增益证据。
 
-位置 5-20 已裁决：12 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 21。AgentHub 不加入本轮 census。
+位置 21 `pgeu/pgeu-system` 在 Spark 上通过 Official，缺失导入为零；另有 2501 个非目标 Pyright error 和 117 个 warning。该仓库没有标准安装元数据，自由 Agent 从 CI 和 `tools/devsetup` 恢复 Python 3.9 依赖流程，识别出 `qrencode` 构建失败被后续成功命令掩盖，补充 libqrencode、Cairo、libmagic 与可选 Python provider，并生成项目明确需要的本地 settings 和 skin 配置。Agent 还为一个 Python 2 开发工具在 `build_output` 中生成 `urllib2` 兼容模块；它满足缺失导入指标，但原脚本仍含 Python 2 语法，因此只算有限运行时完整性。首次达到零缺失导入后，`manage.py check` 暴露新版 setuptools 移除 `pkg_resources`，Agent 加入 `setuptools<81` 后系统检查通过。一个自建 fresh 环境通过增量修复达到最终状态，精确最终程序首次由独立 qualification 从零执行并通过，随后 Official 通过；tracked source 零修改。generation 阶段一度把五个合法或待审部署产物全部拒绝，qualification 却按既定开放审计将其列为 postepisode review 并认证，暴露出 harness 内部审计语义不一致，但没有覆盖 Official。该位置不提供自动 replay 或 live frontier 的相对增益证据。
+
+位置 5-21 已裁决：13 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 22。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -348,8 +350,26 @@ without repository-source changes. The same program took 209.81 seconds in quali
 package-index timeouts and 59.29 seconds in Official, exposing network-sensitive cost variance.
 The position provides no relative gain evidence for automatic replay or live frontier.
 
-Positions 5-20 are adjudicated: twelve Official passes, one Official failure, and three explicit
-infrastructure censors. Position 21 is next in the unchanged fixed order. AgentHub
+Position 21, `pgeu/pgeu-system`, passed Spark Official with zero missing imports (plus 2,501
+non-goal Pyright errors and 117 warnings). The repository has no standard installable metadata.
+The free Agent recovered its Python 3.9 workflow from CI and `tools/devsetup`, noticed that a
+qrencode build failure had been masked by a later successful command, and added libqrencode,
+Cairo, libmagic, and optional Python providers. It generated the documented local settings and
+deployment-specific skin configuration. It also placed an `urllib2` compatibility module in
+`build_output` for a Python 2 developer tool; this satisfies the missing-import metric, but the
+tool still contains Python 2 syntax and therefore has only limited runtime completeness. After
+first reaching zero missing imports, `manage.py check` exposed the removal of `pkg_resources`
+from current setuptools; the Agent pinned setuptools below 81 and passed the system check. One
+voluntary fresh environment reached the final state through incremental repair. Independent
+qualification first ran the exact final program from scratch and passed, followed by Official,
+with zero tracked-source changes. Generation initially rejected all five legitimate or
+review-required deployment artifacts, while qualification applied the intended open audit,
+classified them for postepisode review, and certified the program. This internal audit-semantic
+disagreement did not override Official. The position provides no relative gain evidence for
+automatic replay or live frontier.
+
+Positions 5-21 are adjudicated: thirteen Official passes, one Official failure, and three explicit
+infrastructure censors. Position 22 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately

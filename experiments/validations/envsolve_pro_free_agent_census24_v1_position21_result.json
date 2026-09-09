@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position21",
+  "recorded_at": "2026-09-09",
+  "position": 21,
+  "case_id": "envbench-python-pgeu__pgeu-system@dd0bd79ae43b3a0cb1b604bd7f5cae0081e5a4dc",
+  "run_id": "free-agent-census24-v1-21-A",
+  "artifacts": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-21-A/envbench-python-pgeu__pgeu-system__dd0bd79ae43b3a0cb1b604bd7f5cae0081e5a4dc",
+  "generation": {
+    "completed": true,
+    "candidate_submitted": true,
+    "candidate_policy": "open-candidate-program-v6.1",
+    "wall_clock_seconds": 1669.305734,
+    "construction_container_command_count": 25,
+    "successful_construction_container_command_count": 23,
+    "fresh_environments_created": 1,
+    "fresh_environments_closed": 1,
+    "voluntary_clean_environment_used": true,
+    "voluntary_complete_installation_attempted": true,
+    "exact_final_program_body_replayed_from_clean_environment": false,
+    "fresh_target_state_reached_after_incremental_repair": true,
+    "fresh_public_goal_pass_observed": true,
+    "initial_missing_import_count": 18,
+    "intermediate_missing_import_count": 5,
+    "final_missing_import_count": 0,
+    "runtime_django_system_check_passed": true,
+    "canonical_final_program_sha256": "f7500da33586abdedd1f89c71e6a89d58fb526079d183d6620e50c776ffd3f3a",
+    "serialized_program_sha256": "3808992d81e5927fb5b8702ee3090315950ff2bd9ee0441a258b2ad5bda078da",
+    "input_tokens": 2741589,
+    "cached_input_tokens": 2614016,
+    "output_tokens": 19348,
+    "reasoning_output_tokens": 11045,
+    "repository_tracked_content_modified": false,
+    "repair_tags": [
+      {
+        "tag": "repository-workflow-recovery",
+        "observation": "The repository has no standard installable package metadata. The Agent recovered the Python 3.9 dependency workflow from CI and tools/devsetup, including the documented Pillow and pycryptodomex wheel substitutions.",
+        "overrides_official": false
+      },
+      {
+        "tag": "native-and-optional-provider-repair",
+        "observation": "The first broad dependency command failed to build qrencode because qrencode.h was absent but returned exit zero after a later Pyright installation. The Agent read the output, installed libqrencode-dev plus Cairo and libmagic runtime libraries, and added the remaining optional Python providers, reducing missing imports from 18 to five.",
+        "overrides_official": false
+      },
+      {
+        "tag": "legal-local-deployment-configuration",
+        "observation": "The submitted program generated postgresqleu/local_settings.py and three skin modules. The repository ignores local_settings.py, documents local configuration in tools/devsetup, and expects deployment-specific skin code, so these artifacts are legitimate local deployment state and require provenance review rather than automatic rejection.",
+        "overrides_official": false
+      },
+      {
+        "tag": "legacy-tool-metric-compatibility-artifact",
+        "observation": "The program generated a functional subset of urllib2 under build_output for a legacy developer script. This resolves the Official missing-import criterion, but that script still contains Python 2 syntax and was not shown runnable under the selected Python 3.9 environment. The artifact therefore marks limited deployment completeness despite Official success.",
+        "overrides_official": false
+      },
+      {
+        "tag": "runtime-check-repair-beyond-official-goal",
+        "observation": "After reaching zero missing imports, python manage.py check failed because the old Markdown dependency imports pkg_resources, which setuptools 81 and later remove. The Agent pinned setuptools below 81 and then passed the Django system check in construction and the voluntary fresh environment.",
+        "overrides_official": false
+      },
+      {
+        "tag": "generation-qualification-audit-semantics-disagreement",
+        "observation": "The generation-stage integrity audit initially rejected all five untracked importable deployment artifacts, while independent qualification classified the same artifacts for postepisode executable-source review, found no tracked changes or violations, certified the program, and allowed Official evaluation. This internal inconsistency did not alter the Official outcome and should be repaired after the fixed census.",
+        "overrides_official": false
+      },
+      {
+        "tag": "fresh-provider-mode-only-mutation",
+        "observation": "The voluntary fresh provider reported widespread tracked changes after workspace permission setup. Independent qualification later audited zero tracked changes; the observed fresh diff is treated as provider-induced mode noise rather than project-source content modification.",
+        "overrides_official": false
+      },
+      {
+        "tag": "non-goal-source-type-errors",
+        "observation": "Official Pyright recorded 2,501 non-missing-import errors and 117 warnings across 598 files. These source diagnostics are descriptive and do not determine the benchmark objective.",
+        "overrides_official": false
+      }
+    ]
+  },
+  "postsession_qualification": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "status": "pass_with_postepisode_artifact_review",
+    "bootstrap_exit_code": 0,
+    "bootstrap_duration_seconds": 197.5758088749717,
+    "public_goal_passed": true,
+    "certified": true,
+    "replay_id": "minimal-b-replay-0001",
+    "canonical_program_sha256": "f7500da33586abdedd1f89c71e6a89d58fb526079d183d6620e50c776ffd3f3a",
+    "repository_integrity_valid": true,
+    "tracked_changes": [],
+    "disallowed_untracked_paths": [],
+    "review_required_import_artifact_count": 5
+  },
+  "official": {
+    "feedback_returned_to_agent": false,
+    "execution_host": "Spark",
+    "execution_backend": "ssh-remote-envbench",
+    "docker_context": "default",
+    "container_architecture": "linux-arm64",
+    "evaluation_completed": true,
+    "pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "missing_import_count": 0,
+    "error_count": 2501,
+    "warning_count": 117,
+    "files_analyzed": 598,
+    "execution_time_seconds": 126.10443329811096,
+    "submitted_program_sha256": "3808992d81e5927fb5b8702ee3090315950ff2bd9ee0441a258b2ad5bda078da",
+    "identity_matches": true,
+    "staging_cleaned": true,
+    "staging_absence_verified_on_spark": true
+  },
+  "cleanup": {
+    "matching_containers_remaining_on_spark": 0,
+    "voluntary_fresh_environment_absent_on_spark": true,
+    "qualification_replay_staging_absent_on_spark": true,
+    "official_staging_absent_on_spark": true,
+    "construction_checkout_retained_on_spark": true,
+    "construction_checkout_role": "non-running acquisition artifact"
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "Official Pass@1",
+    "primary_success": true,
+    "auxiliary_tags_override_official": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_that_clean_replay_can_expose_hidden_failure": false,
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_replay_mechanism_analysis": true,
+    "reason": "The unrestricted Agent recovered a nonstandard project workflow, repaired native and Python providers, created a voluntary clean environment, and reached a runtime-checked target state before submission. The exact final program was first run from scratch by independent qualification and then passed Official, so this position does not establish a causal advantage for automatic replay over the fair strong-Agent control.",
+    "measurement_implication": "Official success, legal local deployment configuration, and end-to-end runtime completeness are distinct axes. The case also demonstrates that blanket rejection of untracked importable files cannot distinguish legitimate deployment state from metric-oriented compatibility artifacts.",
+    "live_frontier_implication": "No promotion evidence; the successful path used free exploration, complete-state replay, and incremental same-session repair rather than frontier management."
+  }
+}

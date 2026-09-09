@@ -1,6 +1,6 @@
 {
   "study_id": "envsolve-pro-free-agent-census24-v1",
-  "status": "positions-1-4-protocol-discovery-complete-positions-5-20-single-host-adjudicated-position-21-next",
+  "status": "positions-1-4-protocol-discovery-complete-positions-5-21-single-host-adjudicated-position-22-next",
   "recorded_at": "2026-09-09",
   "purpose": "Estimate strong-Agent submission and terminal-failure prevalence; not treatment efficacy.",
   "population": {
@@ -44,11 +44,11 @@
       "role": "fixed single-host strong-Agent census",
       "topology": "Mac control only; Spark construction, Agent-visible replay, qualification, and Official",
       "positions": 20,
-      "completed_positions": 16,
-      "official_passes": 12,
+      "completed_positions": 17,
+      "official_passes": 13,
       "official_failures": 1,
       "explicit_infrastructure_censoring": 3,
-      "next_position": 21,
+      "next_position": 22,
       "sample_changed": false,
       "replacement_cases": false,
       "calibration": "experiments/validations/envsolve_pro_single_host_topology_calibration_v1.json"
