@@ -49,5 +49,17 @@
     "prior_outcome_reused": false,
     "agent_receives_only_exact_source_checkout": true
   },
-  "scientific_effect": "The failed launch contains no model or method information. Restoring the already-consumed exact Git object preserves the fixed case identity and enables its sole protocol-allowed pre-episode acquisition retry; it does not add an observation, rule, package recipe, or result-conditioned hint to the Agent."
+  "retry_outcome": {
+    "generation_started": false,
+    "model_requests": 0,
+    "candidate_programs": 0,
+    "construction_containers": 0,
+    "container_commands": 0,
+    "qualification_runs": 0,
+    "official_runs": 0,
+    "error": "The restored bare repository contained the exact commit and tree but omitted the source-cache implementation's required refs/envsolve/exact reference, so acquisition stopped before checkout or Agent execution.",
+    "additional_retry_allowed": false,
+    "final_disposition": "position source-infrastructure-censored"
+  },
+  "scientific_effect": "Both failed launches contain zero model or method information. The sole retry restored the correct Git objects but not the runner-specific cache reference and therefore remained a pre-episode non-attempt. The fixed identity is censored without replacement; no prior deployment program or outcome entered the Agent."
 }

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "result_id": "envsolve-pro-free-agent-census24-v1-position19-source-censoring",
+  "recorded_at": "2026-09-09",
+  "position": 19,
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "primary_run_id": "free-agent-census24-v1-19-A",
+  "source_retry_run_id": "free-agent-census24-v1-19-A-source-retry1",
+  "artifacts": [
+    "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-19-A/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+    "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-19-A-source-retry1/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59"
+  ],
+  "primary_attempt": {
+    "phase": "pre-episode repository acquisition",
+    "generation_completed": false,
+    "terminal_error": "The upstream Git server returned upload-pack: not our ref for the preregistered revision on all three acquisition attempts.",
+    "model_requests": 0,
+    "container_commands": 0,
+    "candidate_submitted": false,
+    "qualification_started": false,
+    "official_started": false
+  },
+  "source_retry": {
+    "preregistered_amendment": "experiments/validations/envsolve_pro_free_agent_census24_v1_position19_source_retry1_amendment.json",
+    "phase": "pre-episode restored-cache validation",
+    "generation_completed": false,
+    "terminal_error": "The exact bare Git repository lacked refs/envsolve/exact, which the source-cache implementation requires before checkout.",
+    "restored_revision": "ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+    "restored_tree": "9685e4245ba68306d876c2cc9b3102d7f058744c",
+    "restored_git_fsck": "pass",
+    "model_requests": 0,
+    "container_commands": 0,
+    "candidate_submitted": false,
+    "qualification_started": false,
+    "official_started": false,
+    "additional_retry_allowed": false
+  },
+  "benchmark_adjudication": {
+    "primary_outcome": "explicit source infrastructure censoring before Agent execution",
+    "primary_success": false,
+    "count_as_official_pass": false,
+    "count_as_official_failure": false,
+    "rerun_exhausted": true,
+    "replacement_case": false
+  },
+  "scientific_interpretation": {
+    "direct_evidence_for_automatic_clean_replay_gain": false,
+    "eligible_for_failure_conditioned_replay_treatment": false,
+    "reason": "No Agent episode, deployment operation, submitted program, qualification, or Official evaluator execution occurred in either launch. The position has no algorithm information and is censored from the Pass/Fail denominator.",
+    "infrastructure_lesson": "A content-valid bare Git repository is not by itself a valid remote immutable cache entry; the existing source-cache implementation also addresses the commit through refs/envsolve/exact. Ordinary source-cache construction tests already cover this format, so no new contract or gate is justified.",
+    "live_frontier_implication": "No evidence; the model never ran."
+  }
+}

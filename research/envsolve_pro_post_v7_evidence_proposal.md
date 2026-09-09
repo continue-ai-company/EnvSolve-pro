@@ -91,7 +91,9 @@ v7 在线返回 Official 路径结果，并使用已结束 P0 的无工具子会
 
 位置 18 `open-sdg/sdg-translations` 在 construction、一次自愿 clean replay 和独立 qualification 中均达到零缺失导入，且未修改仓库源码。项目没有可安装包元数据；自由 Agent 根据全部脚本导入，在 `requirements.txt` 之外补充 `PyPDF2` 和 `requests`。仓库源码本身有未闭合方括号，产生 10 个非目标 Pyright error，只作源码标签。Official 随后在候选容器启动前失败：EnvBench 先从 GitHub 获取精确 revision 失败，再从 Hugging Face CDN 下载时 TLS 握手超过 10 秒，结果文件为空，最后因不存在的 `json/results` 目录退出。该位置记为 evaluator 仓库获取阶段的显式基础设施 censor，不算 Pass 或 Fail，不重跑、不替换。当前 adapter 保留了完整 `evaluation.log`，但对空结果加非零进程退出没有自动填写 `adapter_error` 和 `termination`；这是 census 后的普通解析修复项，不在批次中途改协议。
 
-位置 5-18 已裁决：11 个 Official Pass、1 个 Official Fail、2 个显式基础设施 censor。固定顺序中的下一项是位置 19。AgentHub 不加入本轮 census。
+位置 19 `flask-middleware/flask-security` 在 Agent 启动前无法从上游 Git 获取预注册 revision。按 Dev census 的一次语义等价 infrastructure retry 规则，本轮从既有 consumed-development 干净 checkout 验证了相同 commit、tree、clean status 和 Git object 完整性，并将独立 bare repo 放入 Spark 缓存；但恢复项缺少当前 source-cache 实现要求的 `refs/envsolve/exact` 引用，唯一 retry 仍在 checkout 前终止。两次 launch 都没有模型请求、容器命令、候选、qualification 或 Official，故该位置按 source infrastructure censor 记账，不算 Pass 或 Fail，不再重试或替换。这个失误不支持任何算法结论；已有 source-cache 构造测试足以覆盖缓存格式，不据此增加新 gate。
+
+位置 5-19 已裁决：11 个 Official Pass、1 个 Official Fail、3 个显式基础设施 censor。固定顺序中的下一项是位置 20。AgentHub 不加入本轮 census。
 
 ### 当前授权边界
 
@@ -319,8 +321,20 @@ Fail, and will not be rerun or replaced. The adapter preserved the complete `eva
 left `adapter_error` and `termination` null for this empty-result/nonzero-process case; that is an
 ordinary parser repair after the census, not a reason to change the protocol mid-batch.
 
-Positions 5-18 are adjudicated: eleven Official passes, one Official failure, and two explicit
-infrastructure censors. Position 19 is next in the unchanged fixed order. AgentHub
+Position 19, `flask-middleware/flask-security`, could not acquire the preregistered revision
+from upstream Git before the Agent started. Under the Dev census's one semantics-identical
+infrastructure-retry rule, a retained consumed-development checkout was verified to have the
+same commit, tree, clean status, and complete Git objects, then transferred as an independent
+bare repository to the Spark cache. The restored entry omitted the `refs/envsolve/exact`
+reference required by the current source-cache implementation, so the sole retry also stopped
+before checkout. Both launches had zero model requests, container commands, candidates,
+qualification runs, or Official runs. The position is source-infrastructure-censored, is neither
+a Pass nor a Fail, and receives no further retry or replacement. This operator error supports
+no algorithmic conclusion; existing source-cache construction tests are sufficient, so it does
+not justify a new gate.
+
+Positions 5-19 are adjudicated: eleven Official passes, one Official failure, and three explicit
+infrastructure censors. Position 20 is next in the unchanged fixed order. AgentHub
 remains outside this census. Its Docker
 Desktop daemon is available as `linux/aarch64`, but the host has only about 5 GiB free;
 approximately 22 GiB is held by two old strong-A/B census workspaces. After separately
