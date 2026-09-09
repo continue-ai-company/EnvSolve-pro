@@ -13,6 +13,7 @@ from envsolve_harness.progress_state import (
     DeploymentCondition,
     ExecutionEvidence,
     ProjectProgressState,
+    load_progress_state,
     save_progress_snapshot,
 )
 from envsolve_harness.runners.free_agent_census import FreeAgentCensusRunner
@@ -242,3 +243,30 @@ def test_r1_invokes_full_history_agent_even_when_replay_passes(
     )
 
     assert calls == [PROGRESS_METHODS["R1"]]
+
+
+def test_unchanged_agent_program_reuses_passing_preflight_evidence(
+    tmp_path: Path,
+) -> None:
+    state = progress_state()
+    state_path = save_progress_snapshot(tmp_path / "input-state", state)
+    subject = runner(tmp_path, state_path, arm="R1", update_state=True)
+    subject._progress_state = state
+    subject._preflight = passing_preflight()
+    artifacts = RunArtifacts.create(tmp_path / "runs", "run", CASE.case_id)
+    artifacts.generated_script.write_text(state.current_program, encoding="utf-8")
+
+    metadata = subject._update_progress_state(
+        SolverResult(
+            True,
+            PROGRESS_METHODS["R1"],
+            script_path="scripts/generated.sh",
+            metadata={"process_exit_code": 0},
+        ),
+        artifacts,
+    )
+
+    updated = load_progress_state(Path(metadata["state_output_path"]))
+    assert updated.current_condition.condition_id == "d1"
+    assert updated.deployments[-1].evidence.status == "pass"
+    assert updated.deployments[-1].evidence.source == "target-condition-preflight"

@@ -7,7 +7,7 @@ from typing import Any, Literal
 from envsolve.runtime.docker import DockerFreshEnvironmentProvider
 from envsolve.runtime.goal import ExecutableGoalContract
 from envsolve_harness.boundary_v6 import BoundaryV6OpenCandidateProgramValidator
-from envsolve_harness.codex.minimal_b_mcp import CleanReplayService
+from envsolve_harness.codex.minimal_b_mcp import CleanReplayService, canonical_script
 from envsolve_harness.core.io import (
     read_json,
     read_jsonl,
@@ -461,6 +461,11 @@ failure requires. Return a complete self-contained bootstrap_script.
             self._require_preflight(),
             source="target-condition-preflight",
         )
+        program = (
+            artifacts.generated_script.read_text(encoding="utf-8")
+            if artifacts.generated_script.is_file()
+            else state.current_program
+        )
         qualification_path = (
             artifacts.generation_dir / "submission-qualification" / "result.json"
         )
@@ -471,7 +476,10 @@ failure requires. Return a complete self-contained bootstrap_script.
             )
         elif (
             preflight_evidence.status == "pass"
-            and result.metadata.get("process_exit_code") is None
+            and (
+                result.metadata.get("process_exit_code") is None
+                or canonical_script(program) == state.current_program
+            )
         ):
             evidence = preflight_evidence
         else:
@@ -482,11 +490,6 @@ failure requires. Return a complete self-contained bootstrap_script.
                 public_goal_passed=None,
                 failure_summary=result.error or "no qualification result",
             )
-        program = (
-            artifacts.generated_script.read_text(encoding="utf-8")
-            if artifacts.generated_script.is_file()
-            else state.current_program
-        )
         trigger = preflight_evidence if preflight_evidence.status != "pass" else None
         started = time.monotonic()
         updated = state.record(
