@@ -35,6 +35,26 @@ class RemoteBoundaryV6QualifiedCodexCliRunner(
     runner_name = "codex-cli-qualified-boundary-v6-remote-docker"
     runner_version = "6.0.1+remote.1"
 
+    def _submission_verifier(
+        self,
+        *,
+        case: Case,
+        artifacts: RunArtifacts,
+        adapter: RemoteDockerCommandAdapter,
+    ) -> BoundaryV6OfficialAlignedExecutableGoalVerifier:
+        if self.goal_contract is None:
+            raise ValueError("submission verifier requires a public goal contract")
+        return BoundaryV6OfficialAlignedExecutableGoalVerifier(
+            self.goal_contract,
+            observation_timeout=self.command_timeout,
+            effect_auditor=lambda worktree: inspect_repository(
+                worktree,
+                case.revision,
+                required_preconditions=self.workspace_preconditions,
+            ),
+            run_command=adapter,
+        )
+
     def _nonfeedback_submission_qualification(
         self,
         script: str,
@@ -66,15 +86,10 @@ class RemoteBoundaryV6QualifiedCodexCliRunner(
             create_timeout=self.container_create_timeout,
             run_command=adapter,
         )
-        verifier = BoundaryV6OfficialAlignedExecutableGoalVerifier(
-            self.goal_contract,
-            observation_timeout=self.command_timeout,
-            effect_auditor=lambda worktree: inspect_repository(
-                worktree,
-                case.revision,
-                required_preconditions=self.workspace_preconditions,
-            ),
-            run_command=adapter,
+        verifier = self._submission_verifier(
+            case=case,
+            artifacts=artifacts,
+            adapter=adapter,
         )
         service = CleanReplayService(
             provider=provider,
