@@ -1,0 +1,52 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 6,
+  "recorded_at": "2026-09-12T06:42:00+08:00",
+  "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-06-pygeo-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 64,
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 2581,
+      "execution_time_seconds": 260.3410806655884,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 6710537,
+      "cached_input_tokens": 6422400,
+      "output_tokens": 28831,
+      "reasoning_output_tokens": 16350
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "complete-but-high-cost-native-source-environment",
+    "summary": "The program installs system Fortran, CGNS, and MPI packages; builds several genuine mdolab native providers from source; installs the project and docs stack; and exposes genuine OpenVSP and EngSketchPad Python sources.",
+    "concerns": [
+      "Construction required 64 Agent container actions and more than 6.7 million input tokens.",
+      "The final replay compiles multiple upstream native projects and depends on several external Git downloads.",
+      "OpenVSP Python source is extracted from an amd64 Debian package on an ARM host; no amd64 binary is executed, but this is an architecture-awkward source acquisition path."
+    ]
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
