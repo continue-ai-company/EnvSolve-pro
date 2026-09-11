@@ -1,0 +1,55 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 4,
+  "recorded_at": "2026-09-12T03:52:00+08:00",
+  "case_id": "envbench-python-emi-group__evox@c67e704b19a087bd4d075a83a380aad611fda1d2",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m2-independent12-04-evox-C0-agenthub",
+    "session_id": "01a091d8-e677-73c1-a275-7fbbaa78dc06",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T19:01:20.759293+00:00",
+    "generation_finished_at": "2026-09-11T19:36:24.069736+00:00",
+    "construction_container_commands": 16,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T19:37:34.062752+00:00",
+      "finished_at": "2026-09-11T19:50:50.397907+00:00",
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 739,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 2359889,
+      "cached_input_tokens": 2273280,
+      "output_tokens": 12537,
+      "reasoning_output_tokens": 7038
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 Official-passed, so the preregistered failure-conditioned C1/T branches were not created."
+  },
+  "mechanism_observation": {
+    "failure_family_solved_inside_C0": "declared-dependency-api-generation-conflict",
+    "detail": "The free Agent observed that current JAX lacked jax.experimental.host_callback, constrained jax and jaxlib below 0.7, and reached zero reportMissingImports before submission. The unchanged submitted program then Official-passed."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "broad-cpu-compatible-environment",
+    "detail": "The program installs full, test, documentation, and optional dependencies and deliberately selects a JAX generation compatible with the pinned checkout. It is complete but high-cost relative to a minimal missing-import environment."
+  },
+  "measurement_observation": "A strong persistent Agent can solve a nontrivial API-generation conflict during C0 without target feedback. EnvSolve-Pro should claim incremental value only where the Official target state reveals information absent from construction and qualification.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
