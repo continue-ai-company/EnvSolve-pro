@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from envsolve_harness.core.io import read_json
+from experiments.analyze_m1b_artifact_replay import classify_result
 from experiments.run_m1b_artifact_replay import resolve_candidate, validate_project
 
 
@@ -38,3 +39,42 @@ def test_grouped_candidate_rejects_unequal_programs(tmp_path: Path) -> None:
     }
     with pytest.raises(ValueError, match="groups unequal programs"):
         resolve_candidate(candidate, tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("result", "expected"),
+    [
+        ({"status": "pass"}, "pass"),
+        (
+            {
+                "status": "infrastructure_error",
+                "infrastructure_error": (
+                    "dependency acquisition was interrupted by ssl-eof"
+                ),
+            },
+            "acquisition_failure",
+        ),
+        (
+            {
+                "status": "fail",
+                "verification": {"bootstrap": {"exit_code": 42}},
+            },
+            "interpreter_condition_mismatch",
+        ),
+        (
+            {
+                "status": "fail",
+                "verification": {
+                    "bootstrap": {
+                        "exit_code": 1,
+                        "stderr": "ERROR: Failed building wheel for example",
+                    }
+                },
+            },
+            "dependency_or_build_failure",
+        ),
+        ({"status": "not_started"}, "not_started"),
+    ],
+)
+def test_result_classification(result: dict[str, object], expected: str) -> None:
+    assert classify_result(result) == expected
