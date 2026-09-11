@@ -1,0 +1,81 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 2,
+  "recorded_at": "2026-09-11T23:52:00+08:00",
+  "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+  "branch_order": "T-first",
+  "live_C0": {
+    "run_id": "m1c-live-02-meshio-C0-v1-spark",
+    "session_id": "01a0907c-c89a-7d23-9ab6-367c150e911d",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 484,
+      "official_pass_condition": true
+    },
+    "token_usage": {
+      "input_tokens": 8213811,
+      "cached_input_tokens": 7981824,
+      "output_tokens": 29714,
+      "reasoning_output_tokens": 17906
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "T_program_changed": false,
+    "C1_program_changed": true,
+    "T": {
+      "child_session_id": "01a090b3-d6ad-7653-ad27-0e0483468fd0",
+      "input_tokens": 206057,
+      "output_tokens": 673,
+      "reasoning_output_tokens": 74
+    },
+    "C1": {
+      "child_session_id": "01a090b4-d9da-7f90-8015-5aa78e944672",
+      "input_tokens": 206050,
+      "output_tokens": 1585,
+      "reasoning_output_tokens": 934
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": false,
+      "pass": null,
+      "reason": "Not executed after the T arm exhausted its predeclared infrastructure retries; the independent online clean replay remains a valid C0 pass observation."
+    },
+    "C1": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 484,
+      "pass": true
+    },
+    "T": {
+      "completed": false,
+      "attempts": 3,
+      "pass": null,
+      "censored": true,
+      "reason": "All three exact-program executions ended during Conda package delivery: one classified Conda HTTP connection failure, one IncompleteRead truncation, and one classified Conda HTTP connection failure."
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": false,
+    "T_exclusive_win": null,
+    "C1_exclusive_win": null,
+    "replay_caused_repair_chain": false,
+    "reason": "T has no valid postepisode result after the three predeclared exact-program attempts. C0 already passed online, so this project could not count as a replay-caused repair chain."
+  },
+  "deployment_quality_annotation": {
+    "label": "official-pass-with-runtime-broken-optional-dependency",
+    "official_score_unchanged": true,
+    "detail": "The program installs optimesh==0.12.0, which is discoverable by Pyright but raises a license error when imported at runtime. The program also installs real VTK/ParaView packages and derives legacy compatibility paths from those installed packages."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

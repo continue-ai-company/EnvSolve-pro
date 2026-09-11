@@ -1,0 +1,143 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "recorded_at": "2026-09-12T02:10:26+08:00",
+  "status": "complete",
+  "preregistration": "experiments/validations/envsolve_pro_m1c_matched_replay_feedback_preregistration_20260911.json",
+  "scope": "Consumed Dev mechanism falsification only. No protected Canary or Official Test access, representative effect estimate, SOTA claim, or leaderboard claim.",
+  "scientific_question": "Does one real official-path target-state replay make a matched continuation repair more projects to EnvBench Official Pass than an equal continuation receiving typed-null feedback?",
+  "fixed_batch": {
+    "projects": 9,
+    "completed_positions": 9,
+    "valid_matched_pairs": 5,
+    "infrastructure_censored_pairs": 4,
+    "replacement_projects": 0
+  },
+  "primary_results": {
+    "T_exclusive_official_wins": 1,
+    "C1_exclusive_official_wins": 0,
+    "supporting_causal_chains": 1,
+    "secondary_mechanism_replications_without_terminal_T_result": 1,
+    "fresh_C0_online_official_passes": 6,
+    "fresh_C0_online_projects": 9
+  },
+  "case_results": [
+    {
+      "position": 1,
+      "short_name": "op-test",
+      "branch_order": "C1-first",
+      "C0_online": "pass",
+      "postepisode_C1": "pass",
+      "postepisode_T": "pass",
+      "valid_pair": true,
+      "causal_chain": false
+    },
+    {
+      "position": 2,
+      "short_name": "meshio",
+      "branch_order": "T-first",
+      "C0_online": "pass",
+      "postepisode_C1": "pass",
+      "postepisode_T": "infrastructure_censored",
+      "valid_pair": false,
+      "causal_chain": false
+    },
+    {
+      "position": 3,
+      "short_name": "pretalx",
+      "branch_order": "C1-first",
+      "C0_online": "pass",
+      "postepisode_C1": "pass",
+      "postepisode_T": "pass",
+      "valid_pair": true,
+      "causal_chain": false
+    },
+    {
+      "position": 4,
+      "short_name": "python-control",
+      "branch_order": "T-first",
+      "C0_online": "pass",
+      "postepisode_C1": "pass",
+      "postepisode_T": "pass",
+      "valid_pair": true,
+      "causal_chain": false
+    },
+    {
+      "position": 5,
+      "short_name": "tortoise-orm",
+      "branch_order": "C1-first",
+      "C0_online": "fail",
+      "postepisode_C1": "pass",
+      "postepisode_T": "infrastructure_censored",
+      "valid_pair": false,
+      "causal_chain": false
+    },
+    {
+      "position": 6,
+      "short_name": "flask-security",
+      "branch_order": "T-first",
+      "C0_online": "fail",
+      "postepisode_C1": "fail",
+      "postepisode_T": "pass",
+      "valid_pair": true,
+      "T_exclusive_win": true,
+      "causal_chain": true
+    },
+    {
+      "position": 7,
+      "short_name": "duino-coin",
+      "branch_order": "C1-first",
+      "C0_online": "pass",
+      "postepisode_C1": "pass",
+      "postepisode_T": "pass",
+      "valid_pair": true,
+      "causal_chain": false
+    },
+    {
+      "position": 8,
+      "short_name": "mflowgen",
+      "branch_order": "T-first",
+      "C0_online": "fail",
+      "postepisode_C1": "fail",
+      "postepisode_T": "infrastructure_censored",
+      "valid_pair": false,
+      "mechanism_replication": true,
+      "causal_chain": false
+    },
+    {
+      "position": 9,
+      "short_name": "qibo",
+      "branch_order": "C1-first",
+      "C0_online": "pass",
+      "postepisode_C1": "infrastructure_censored",
+      "postepisode_T": "not_run",
+      "valid_pair": false,
+      "causal_chain": false
+    }
+  ],
+  "decision": {
+    "rule": "retain_weak",
+    "trigger": "Exactly one supporting causal chain and no C1-exclusive win, with at least four valid pairs.",
+    "consequence": "Retain exact official-path replay feedback only as a weak, narrow challenger. Do not promote it into the EnvSolve-Pro core and do not enter protected evaluation.",
+    "live_frontier_status": "killed; not tested or revived by M1c"
+  },
+  "interpretation": [
+    "A strong continuous Agent solved six of nine historical nonpasses before a matched repair opportunity existed, so historical weak or earlier-session bad cases substantially overestimate the remaining repair surface.",
+    "Exact target-state feedback established one full causal repair chain for a bind-mounted Git ownership mismatch and induced the same targeted correction on a second Git-state case, but the second treatment never reached a terminal Official result.",
+    "The study does not establish a general dependency-resolution benefit. Tortoise-ORM showed a no-feedback pass while the treatment arm was censored, and qibo was already solved by C0.",
+    "Four of nine pairs were invalidated by external package delivery. This is a measurement bottleneck and must remain separate from semantic algorithm outcomes.",
+    "Official success alone hides large path-quality differences: qibo passed with a broad environment but required about 8.79 million input tokens and long repeated installations. Efficiency is a secondary evaluation axis, not a stopping threshold."
+  ],
+  "next_hypothesis_boundary": {
+    "retain": "Strong Agent continuous session plus complete-program target-state clean replay as an experimental primitive.",
+    "do_not_add_yet": [
+      "structured compatibility frontier",
+      "checkpoint graph",
+      "cross-case rules or memory",
+      "bootstrap minimization",
+      "automatic hypothesis search"
+    ],
+    "required_next_evidence": "A preregistered independent consumed-Dev set of genuine C0 Official deployment failures must show at least two terminal T-exclusive Official repair chains under more reliable package delivery before replay feedback can enter the core algorithm."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

@@ -1,0 +1,88 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 8,
+  "recorded_at": "2026-09-12T00:21:03+08:00",
+  "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+  "branch_order": "T-first",
+  "live_C0": {
+    "run_id": "m1c-live-08-mflowgen-C0-v1-spark",
+    "session_id": "01a0912a-8ebd-7f63-bec1-41615d09dbfc",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "error_count": null,
+      "official_pass_condition": false
+    },
+    "token_usage": {
+      "input_tokens": 637193,
+      "cached_input_tokens": 588288,
+      "output_tokens": 10017,
+      "reasoning_output_tokens": 6468
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "T_program_changed": true,
+    "C1_program_changed": false,
+    "T": {
+      "child_session_id": "01a09136-13fb-7622-829f-a352c2a668eb",
+      "input_tokens": 46009,
+      "output_tokens": 1215,
+      "reasoning_output_tokens": 1032,
+      "feedback_corresponding_change": "Added git config --global --add safe.directory $PWD before the Git-backed editable install."
+    },
+    "C1": {
+      "child_session_id": "01a09137-bf69-7ef3-82d9-dda38246b406",
+      "input_tokens": 46007,
+      "output_tokens": 474,
+      "reasoning_output_tokens": 299,
+      "program_byte_identical_to_C0": true
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "C1": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "T": {
+      "completed": false,
+      "attempts": 3,
+      "pass": null,
+      "censored": true,
+      "git_ownership_error_observed": false,
+      "reason": "All three exact-program executions ended during package-index access: two classified read timeouts and one empty setuptools bootstrap-tool index."
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": false,
+    "T_exclusive_win": null,
+    "C1_exclusive_win": null,
+    "replay_caused_repair_chain": false,
+    "mechanism_replication": true,
+    "reason": "The real replay caused the only targeted program change and removed the Git ownership failure, while byte-identical C0 and C1 independently retained it. T exhausted its three infrastructure-censored attempts before reaching Pyright, so the study cannot claim a second terminal repair chain from this project."
+  },
+  "infrastructure_notes": [
+    "T attempts 1 and 3 were censored by package-index read timeouts.",
+    "T attempt 2 returned an empty setuptools index without a lower-level transport diagnostic. A regression-tested classifier alignment with the existing clean-replay classifier now labels this narrow bootstrap-tool signature as infrastructure censoring.",
+    "The source-only exact-revision cache was used uniformly and did not contain generated environments, candidate scripts, or prior result trajectories."
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

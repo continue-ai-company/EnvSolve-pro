@@ -11,6 +11,10 @@ _NETWORK_FAILURES = tuple(
         ("connection-timeout", r"\bConnection timed out\b"),
         ("connection-error", r"ConnectionError"),
         (
+            "tls-stream-truncation",
+            r"SSLEOFError|unexpected[ _]eof[ _]while[ _]reading",
+        ),
+        (
             "conda-http-connection-failed",
             r"CondaHTTPError:\s*HTTP\s+000\s+CONNECTION FAILED",
         ),
@@ -26,6 +30,13 @@ _NETWORK_FAILURES = tuple(
             "package-index-read-timeout-exhaustion",
             r"ReadTimeout(?:Error)?[\s\S]{0,12000}"
             r"No matching distribution found",
+        ),
+        (
+            "package-index-empty-bootstrap-tool",
+            r"Could not find a version that satisfies the requirement "
+            r"(?P<bootstrap_package>pip|setuptools|wheel)[^\n]*"
+            r"\(from versions: none\)[\s\S]{0,2000}"
+            r"No matching distribution found for (?P=bootstrap_package)",
         ),
         ("tls-timeout", r"TLSV?\s+handshake.*timed out"),
         (

@@ -1,0 +1,97 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 9,
+  "recorded_at": "2026-09-12T02:10:26+08:00",
+  "case_id": "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+  "branch_order": "C1-first",
+  "live_C0": {
+    "run_id": "m1c-live-09-qibo-C0-v1-spark",
+    "session_id": "01a09148-572a-7ca3-88ca-43671a92a4f5",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "generation_started_at": "2026-09-11T16:22:41.317936+00:00",
+    "generation_finished_at": "2026-09-11T17:17:17.533247+00:00",
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_duration_seconds": 737.170603,
+      "missing_imports": 0
+    },
+    "online_clean_replay": {
+      "completed": true,
+      "started_at": "2026-09-11T17:18:09.576038+00:00",
+      "finished_at": "2026-09-11T17:29:15.186090+00:00",
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 2260,
+      "official_pass_condition": true
+    },
+    "token_usage": {
+      "input_tokens": 8789823,
+      "cached_input_tokens": 8590976,
+      "output_tokens": 28348,
+      "reasoning_output_tokens": 15567
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "T_program_changed": false,
+    "C1_program_changed": true,
+    "T": {
+      "child_session_id": "01a09186-3fe3-7f10-afed-413be0995929",
+      "input_tokens": 182996,
+      "output_tokens": 646,
+      "reasoning_output_tokens": 103,
+      "program_byte_identical_to_C0": true
+    },
+    "C1": {
+      "child_session_id": "01a09184-ae35-7121-a2d1-c0bbef9a5e42",
+      "input_tokens": 182988,
+      "output_tokens": 2096,
+      "reasoning_output_tokens": 1528,
+      "only_program_change": "Unset two temporary shell variables after returning to the project root."
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": false,
+      "pass": null,
+      "reason": "Not repeated after C1 exhausted all three infrastructure retries; the independent online exact-program execution remains a valid C0 pass observation."
+    },
+    "C1": {
+      "completed": false,
+      "attempts": 3,
+      "pass": null,
+      "censored": true,
+      "reason": "Attempt 1 returned an empty TensorFlow 2.16.1 index despite two prior successful same-platform installs; attempts 2 and 3 ended with explicit TLS stream truncation before Pyright."
+    },
+    "T": {
+      "completed": false,
+      "pass": null,
+      "reason": "Not executed after C1 exhausted its predeclared infrastructure retries, making the primary matched pair impossible. T is byte-identical to the independently Official-passing C0 program."
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": false,
+    "T_exclusive_win": null,
+    "C1_exclusive_win": null,
+    "replay_caused_repair_chain": false,
+    "reason": "C1 has no valid postepisode result after the three predeclared exact-program attempts. C0 already Official-passed online and T retained C0 byte-for-byte, so this project could not establish a replay-caused repair chain."
+  },
+  "deployment_quality_annotation": {
+    "label": "broad-complete-optional-backend-environment",
+    "official_score_unchanged": true,
+    "detail": "The program installs the editable project, scientific and documentation dependencies, CPU TensorFlow and Torch, and exact-revision optional Qibo backends. It copies TensorFlow's genuine generated experimental API into the same installed package so Pyright can discover an API that TensorFlow otherwise exposes dynamically; it does not create a synthetic provider or modify repository source.",
+    "efficiency": "The successful path required about 55 minutes of Agent generation, 737 seconds for internal clean qualification, 666 seconds for online Official execution, and 8.79 million input tokens."
+  },
+  "infrastructure_notes": [
+    "The first C1 attempt was adjudicated as infrastructure censoring before observing any T or C0 postepisode outcome and has a separate evidence record.",
+    "The generic classifier was deliberately not broadened for bare no-matching-distribution failures on ordinary dependencies, because those can represent real platform or version incompatibility.",
+    "The source-only exact-revision cache was used uniformly and did not contain generated environments, candidate scripts, or prior result trajectories."
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

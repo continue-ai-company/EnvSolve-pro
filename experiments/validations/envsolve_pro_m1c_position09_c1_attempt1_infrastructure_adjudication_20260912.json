@@ -1,0 +1,16 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 9,
+  "recorded_at": "2026-09-12T01:45:00+08:00",
+  "case_id": "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+  "arm": "C1",
+  "attempt": 1,
+  "adjudication": "infrastructure_censored",
+  "signature": "package-index-empty-known-compatible-target",
+  "reason": "The attempt ended before Pyright because the index returned no versions for tensorflow==2.16.1. Before this attempt, the identical platform (Linux aarch64), Python 3.11, image, and package target had completed in both the C0 clean qualification and the C0 online EnvBench execution. C1 differs from C0 only by two shell-variable unsets after all installs, so the package-index result cannot be caused by the treatment arm.",
+  "retry_policy": "Retry the exact C1 program, at most two more times under the preregistered three-attempt infrastructure limit.",
+  "automatic_classifier_changed": false,
+  "classifier_scope_note": "A bare no-matching-distribution result for an ordinary dependency can represent a real Python, platform, or version constraint, so the generic evaluator classifier remains conservative. This adjudication relies on the already-observed same-platform successful installation and is recorded before either T or C0 postepisode outcome is observed.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

@@ -63,6 +63,7 @@
     }
   },
   "primary_contrast": {
+    "valid_pair": true,
     "T_exclusive_win": false,
     "C1_exclusive_win": false,
     "replay_caused_repair_chain": false,

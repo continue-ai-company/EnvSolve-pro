@@ -1,0 +1,89 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 7,
+  "recorded_at": "2026-09-11T23:52:00+08:00",
+  "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+  "branch_order": "C1-first",
+  "live_C0": {
+    "run_id": "m1c-live-07-duino-coin-C0-v1-spark",
+    "session_id": "01a0910c-8ff6-70c2-bb78-f00204325ffd",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 743,
+      "official_pass_condition": true
+    },
+    "token_usage": {
+      "input_tokens": 841603,
+      "cached_input_tokens": 759040,
+      "output_tokens": 9469,
+      "reasoning_output_tokens": 5904
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "programs_byte_identical": true,
+    "C1": {
+      "child_session_id": "01a09116-5943-7bd2-8802-12ec2aedba8b",
+      "input_tokens": 80497,
+      "output_tokens": 1046,
+      "reasoning_output_tokens": 664
+    },
+    "T": {
+      "child_session_id": "01a09117-7841-7203-969a-eb7e167e8565",
+      "input_tokens": 80504,
+      "output_tokens": 448,
+      "reasoning_output_tokens": 74
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": true,
+      "attempt": 3,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 743,
+      "pass": true
+    },
+    "C1": {
+      "completed": true,
+      "attempt": 2,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 743,
+      "pass": true
+    },
+    "T": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 743,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": true,
+    "T_exclusive_win": false,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": false,
+    "reason": "C0 already Official-passed, and both matched continuations retained the exact C0 program."
+  },
+  "deployment_quality_annotation": {
+    "label": "runtime-project-server-binary",
+    "official_score_unchanged": true,
+    "detail": "The bootstrap selects and downloads the project's architecture-specific libducohasher shared object at execution time. The binary is a real dependency used by the project and passed on Linux aarch64, but long-term reproducibility depends on the project server URL remaining available."
+  },
+  "infrastructure_notes": [
+    "C0 postepisode attempts 1 and 2 were censored by PyPI and project-server TLS stream truncation; attempt 3 passed.",
+    "The first C1 postepisode produced no EnvBench result because source acquisition failed; exact-program attempt 2 used a verified source-only cache and passed.",
+    "The T postepisode passed on its first attempt."
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

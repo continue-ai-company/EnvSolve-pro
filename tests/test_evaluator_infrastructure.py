@@ -98,6 +98,14 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
         cases = {
             "ReadTimeoutError while downloading": "read-timeout",
             (
+                "SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] "
+                "EOF occurred in violation of protocol'))"
+            ): "tls-stream-truncation",
+            (
+                "curl: (35) error:0A000126:SSL routines::"
+                "unexpected eof while reading"
+            ): "tls-stream-truncation",
+            (
                 "WARNING: Connection timed out while downloading.\n"
                 "error: incomplete-download"
             ): "connection-timeout",
@@ -187,6 +195,37 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
                 }
             ),
             "package-index-read-timeout-exhaustion",
+        )
+
+    def test_classifies_empty_index_for_bootstrap_tool(self) -> None:
+        self.assertEqual(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "ERROR: Could not find a version that satisfies the "
+                        "requirement setuptools (from versions: none)\n"
+                        "ERROR: No matching distribution found for setuptools\n"
+                    ),
+                    "pyright": {},
+                }
+            ),
+            "package-index-empty-bootstrap-tool",
+        )
+
+    def test_does_not_classify_empty_index_for_project_requirement(self) -> None:
+        self.assertIsNone(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "ERROR: Could not find a version that satisfies the "
+                        "requirement unavailable-target (from versions: none)\n"
+                        "ERROR: No matching distribution found for unavailable-target\n"
+                    ),
+                    "pyright": {},
+                }
+            )
         )
 
     def test_does_not_censor_a_named_requirement_with_a_bad_hash(self) -> None:
