@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 9,
+  "recorded_at": "2026-09-12T07:05:43+08:00",
+  "case_id": "envbench-python-avaiga__taipy-core@62f0d8521cbb80ae13654c53620ddc856ba86d33",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-09-taipy-core-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 14,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 5331,
+      "execution_time_seconds": 68.53752017021179,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 576036,
+      "cached_input_tokens": 518784,
+      "output_tokens": 9833,
+      "reasoning_output_tokens": 6469
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "broad-versioned-project-environment",
+    "summary": "The program installs the checked-out project with real pinned Modin/Dask, NumPy, development, test, packaging, and Pyright dependencies without modifying repository source or configuration.",
+    "official_error_count_non_scoring": 5331
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
