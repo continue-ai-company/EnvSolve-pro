@@ -1,0 +1,76 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 11,
+  "recorded_at": "2026-09-12T04:38:00+08:00",
+  "case_id": "envbench-python-posit-dev__great-tables@c4cbd943e9376c62872c3c402e64d168264e5623",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m2-independent12-11-great-tables-C0-spark",
+    "session_id": "01a09217-a9ce-7633-8d26-142a1b5de65b",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T20:09:30.313341+00:00",
+    "generation_finished_at": "2026-09-11T20:21:26.298423+00:00",
+    "construction_container_commands": 10,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "online_official_path": {
+      "completed": false,
+      "started_at": "2026-09-11T20:22:18.589410+00:00",
+      "finished_at": "2026-09-11T20:23:36.056727+00:00",
+      "recorded_bootstrap_exit_code": 1,
+      "posthoc_status": "infrastructure_censored",
+      "signature": "read-timeout",
+      "evidence": "uv reported: Failed to download distribution due to network timeout."
+    },
+    "token_usage": {
+      "input_tokens": 364960,
+      "cached_input_tokens": 303616,
+      "output_tokens": 5011,
+      "reasoning_output_tokens": 2935
+    }
+  },
+  "protocol_deviation": {
+    "occurred": true,
+    "reason": "The runtime classifier did not recognize uv's explicit network-timeout wording, so it exposed a censored C0 as a semantic failure and incorrectly launched C1/T.",
+    "correction_commit": "610e930",
+    "primary_analysis_disposition": "Exclude both continuations and do not count this position as a valid feedback opportunity."
+  },
+  "exploratory_matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "C1": {
+      "child_session_id": "01a09224-fbba-7dd0-a4e7-4d8eb7194a6a",
+      "input_tokens": 34224,
+      "output_tokens": 471,
+      "reasoning_output_tokens": 331,
+      "official_pass": true,
+      "issues_count": 0,
+      "error_count": 1557,
+      "interpretation": "The materially unchanged installation succeeded on retry, confirming the C0 failure was transient infrastructure."
+    },
+    "T": {
+      "child_session_id": "01a09225-e0f7-7e43-93ab-6f020a5aa806",
+      "input_tokens": 34226,
+      "output_tokens": 2644,
+      "reasoning_output_tokens": 2482,
+      "official_pass": false,
+      "issues_count": 7,
+      "missing_family": "IPython and ipykernel",
+      "interpretation": "The treatment overreacted to a transient download failure by pruning the all extras and introduced new missing-import constraints."
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": false,
+    "T_exclusive_win": false,
+    "C1_exclusive_win": false,
+    "reason": "C0 was infrastructure-censored, so no causal branch comparison was eligible under the preregistration."
+  },
+  "measurement_observation": "Exact target feedback can be harmful when infrastructure noise is mislabeled as a deployment constraint. Reliable observation typing is therefore a precondition for the repair operation, not an optional reporting detail.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

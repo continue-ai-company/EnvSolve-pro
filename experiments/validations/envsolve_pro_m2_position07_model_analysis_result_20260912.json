@@ -1,0 +1,65 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 7,
+  "recorded_at": "2026-09-12T04:39:00+08:00",
+  "case_id": "envbench-python-tensorflow__model-analysis@807bd626f18613a5bfc8a5cc96cf29deee62f0ea",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m2-independent12-07-model-analysis-C0-spark",
+    "session_id": "01a091f4-42dc-7d93-8c37-dbf6f3ab0985",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T19:31:01.811850+00:00",
+    "generation_finished_at": "2026-09-11T20:08:19.579413+00:00",
+    "construction_container_commands": 24,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "repository_integrity": {
+      "valid": false,
+      "disallowed_untracked_paths": [
+        "tensorflow_model_analysis/proto/config_pb2.py",
+        "tensorflow_model_analysis/proto/metrics_for_slice_pb2.py",
+        "tensorflow_model_analysis/proto/validation_result_pb2.py"
+      ]
+    },
+    "online_official_path": {
+      "attempts": 2,
+      "first_attempt": {
+        "completed": false,
+        "status": "infrastructure_censored",
+        "signature": "read-timeout"
+      },
+      "unchanged_retry1": {
+        "completed": true,
+        "started_at": "2026-09-11T20:29:34.564665+00:00",
+        "finished_at": "2026-09-11T20:31:15.874473+00:00",
+        "bootstrap_exit_code": 1,
+        "pass": false,
+        "terminal_reason": "No ARM64 distribution exists for apache-beam==2.53.0."
+      }
+    },
+    "token_usage": {
+      "input_tokens": 3822019,
+      "cached_input_tokens": 3689984,
+      "output_tokens": 21755,
+      "reasoning_output_tokens": 12895
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The C0 program was inadmissible under the frozen repository-integrity boundary before its semantic Official failure."
+  },
+  "boundary_assessment": {
+    "classification": "mixed-legitimate-generation-and-incomplete-architecture-path",
+    "detail": "Generating protobuf modules from checked-in .proto files is legitimate build output that the current generic import-artifact rule cannot distinguish from fabricated code. Separately, extracting an x86_64 tfx-bsl wheel into an ARM64 environment cannot provide a runtime-complete deployment."
+  },
+  "measurement_observation": "This case separates Official target failure, source-generation provenance, and architecture completeness. The current boundary is too coarse for legitimate generated code, while the submitted dependency path is independently incomplete on ARM64.",
+  "valid_feedback_opportunity": false,
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

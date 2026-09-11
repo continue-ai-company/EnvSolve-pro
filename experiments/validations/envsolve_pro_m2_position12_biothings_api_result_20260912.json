@@ -1,0 +1,62 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 12,
+  "recorded_at": "2026-09-12T04:39:00+08:00",
+  "case_id": "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m2-independent12-12-biothings-api-C0-agenthub",
+    "session_id": "01a09215-e77a-7bb3-b123-1d0a982e2b6f",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T20:07:45.024118+00:00",
+    "generation_finished_at": "2026-09-11T20:26:58.806001+00:00",
+    "construction_container_commands": 23,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "repository_integrity": {
+      "valid": false,
+      "disallowed_untracked_paths": [
+        "biothings/config.py"
+      ],
+      "candidate_false_positive": true
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T20:28:21.596096+00:00",
+      "finished_at": "2026-09-11T20:32:56.255482+00:00",
+      "bootstrap_exit_code": 0,
+      "active_project_python": "/tmp/biothings-api-py310-6573562773ed66b9428aead1ba7ac187005bb031/bin/python",
+      "issues_count": 0,
+      "error_count": 1828,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 2208268,
+      "cached_input_tokens": 2113664,
+      "output_tokens": 18442,
+      "reasoning_output_tokens": 10679
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 Official-passed, so failure-conditioned branches were not created regardless of the frozen boundary annotation."
+  },
+  "boundary_assessment": {
+    "classification": "likely-false-positive",
+    "detail": "The rejected biothings/config.py is an exact copy of the checked-in config.py.example template, analogous to the root config.py copy already recognized by provenance. This is local runtime configuration rather than a fabricated dependency implementation."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "template-derived-local-configuration",
+    "detail": "The program creates a Python 3.10 environment, installs declared extras and compatible optional packages, and instantiates configuration from a checked-in template."
+  },
+  "measurement_observation": "Official Pass demonstrates that the frozen generic import-artifact boundary can reject a legitimate local configuration path. Future boundary logic should distinguish exact tracked-template derivation from authored substitute modules.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
