@@ -1,0 +1,26 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 6,
+  "recorded_at": "2026-09-11T23:17:00+08:00",
+  "status": "execution_amendment_recorded_after_source_recovery_and_before_matched_branch_generation",
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "trigger": "GitHub no longer served the exact benchmark commit, and the EnvBench Hugging Face fallback did not produce a repository result.",
+  "recovery": {
+    "source": "A Git-clean historical construction workspace for the same public Dev case and exact revision.",
+    "commit": "ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+    "tree": "9685e4245ba68306d876c2cc9b3102d7f058744c",
+    "content": "Git source objects only. No historical bootstrap program, trajectory, model output, replay feedback, or evaluator result was copied into the new C0 session or candidate environment.",
+    "official_path": "The exact checkout was preseeded into operation.dirs.repo_data. The unmodified EnvBench RepoDownloader then reset, cleaned, and checked out the requested revision before invoking the unmodified container evaluator."
+  },
+  "unchanged": [
+    "case and revision",
+    "C0 program bytes",
+    "EnvBench revision and image",
+    "candidate container lifecycle",
+    "success criteria",
+    "matched branch inputs and order"
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_note": "This enables an existing exact-revision source-cache input on the remote candidate CLI. It adds no runtime gate, hash requirement, or solver rule."
+}

@@ -1,0 +1,78 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 4,
+  "recorded_at": "2026-09-11T23:17:00+08:00",
+  "case_id": "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+  "branch_order": "T-first",
+  "live_C0": {
+    "run_id": "m1c-live-04-python-control-C0-v1-spark",
+    "session_id": "01a090ac-7277-79f2-90d7-4cdcedc0df6e",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 3255,
+      "official_pass_condition": true
+    },
+    "token_usage": {
+      "input_tokens": 894170,
+      "cached_input_tokens": 819328,
+      "output_tokens": 9581,
+      "reasoning_output_tokens": 6210
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "T_program_changed": false,
+    "C1_program_changed": true,
+    "T": {
+      "child_session_id": "01a090c1-1a82-7d71-b7bc-db063b17d4ed",
+      "input_tokens": 72420,
+      "output_tokens": 291,
+      "reasoning_output_tokens": 85
+    },
+    "C1": {
+      "child_session_id": "01a090c1-fa9f-7010-8a67-30f883579a05",
+      "input_tokens": 72412,
+      "output_tokens": 1213,
+      "reasoning_output_tokens": 1008
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 3255,
+      "pass": true
+    },
+    "C1": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 3255,
+      "pass": true
+    },
+    "T": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 3255,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": true,
+    "T_exclusive_win": false,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": false,
+    "reason": "C0 already Official-passed. T retained C0 byte-for-byte while C1 rewrote control flow, but all three postepisode executions passed."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

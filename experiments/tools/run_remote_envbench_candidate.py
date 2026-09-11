@@ -29,6 +29,7 @@ def main() -> int:
     parser.add_argument("--local-envbench-root", type=Path, required=True)
     parser.add_argument("--remote-envbench-root", required=True)
     parser.add_argument("--remote-workspace-root", required=True)
+    parser.add_argument("--source-cache-root", type=Path)
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--ssh-target", required=True)
     parser.add_argument("--ssh-executable", default="ssh")
@@ -88,7 +89,11 @@ def main() -> int:
                 repo_data=root / "repos",
                 temp_dir=root / "tmp",
                 image=args.image,
-                source_cache_root=None,
+                source_cache_root=(
+                    args.source_cache_root.resolve()
+                    if args.source_cache_root is not None
+                    else None
+                ),
                 max_workers=args.max_workers,
                 process_timeout=args.process_timeout,
                 create_container_timeout=args.create_container_timeout,

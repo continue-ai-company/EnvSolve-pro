@@ -252,6 +252,24 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
             )
         )
 
+    def test_recovered_network_error_does_not_hide_git_ownership_failure(
+        self,
+    ) -> None:
+        self.assertIsNone(
+            envbench_bootstrap_infrastructure_signature(
+                {
+                    "exit_code": 1,
+                    "container_logs": (
+                        "Retrying after ReadTimeoutError while requesting /simple/pip/\n"
+                        "Successfully installed pip-26.2.1\n"
+                        "fatal: detected dubious ownership in repository at "
+                        "'/data/project'\n"
+                    ),
+                    "pyright": {},
+                }
+            )
+        )
+
     @mock.patch(
         "envsolve_harness.adapters.envbench.docker_image_provenance",
         return_value={"reference": "test:image"},

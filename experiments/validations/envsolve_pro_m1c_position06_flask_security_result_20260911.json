@@ -1,0 +1,89 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 6,
+  "recorded_at": "2026-09-11T23:17:00+08:00",
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "branch_order": "T-first",
+  "live_C0": {
+    "run_id": "m1c-live-06-flask-security-C0-v1-spark-retry3",
+    "session_id": "01a090e5-bcac-79e2-8e00-2a0ccdb1b572",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 2,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "error_count": null,
+      "official_pass_condition": false
+    },
+    "token_usage": {
+      "input_tokens": 538754,
+      "cached_input_tokens": 445056,
+      "output_tokens": 8616,
+      "reasoning_output_tokens": 5120
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "T_program_changed": true,
+    "C1_program_changed": true,
+    "T": {
+      "child_session_id": "01a090fa-a0ef-7523-9189-93c6f8fb9bd1",
+      "input_tokens": 50016,
+      "output_tokens": 798,
+      "reasoning_output_tokens": 516,
+      "feedback_corresponding_change": "Replaced git archive HEAD with a tar copy excluding .git, so the bootstrap no longer reads repository ownership metadata."
+    },
+    "C1": {
+      "child_session_id": "01a090fb-aec5-7aa1-9824-f22cf806fa61",
+      "input_tokens": 50014,
+      "output_tokens": 1086,
+      "reasoning_output_tokens": 773,
+      "control_change": "Reorganized fail-fast control flow but retained git archive HEAD."
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": true,
+      "bootstrap_exit_code": 2,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "C1": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false,
+      "adjudication": "The raw EnvBench result is a semantic nonpass. An earlier adapter revision incorrectly censored it because a recovered pip ReadTimeout warning preceded the later fatal Git ownership error; the raw result is preserved and a regression-tested classifier fix now gives the semantic failure precedence."
+    },
+    "T": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "git_ownership_error": false,
+      "issues_count": 0,
+      "error_count": 818,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": true,
+    "T_exclusive_win": true,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": true,
+    "reason": "The real replay exposed a Git ownership failure, T removed the corresponding Git dependency and Official-passed, while the matched no-feedback C1 retained the same Git operation and Official-failed."
+  },
+  "infrastructure_notes": [
+    "Two C0 source-acquisition attempts ended before model execution because GitHub did not serve the exact revision.",
+    "The third C0 construction used a verified source-only exact-revision cache.",
+    "The first online replay produced no EnvBench result because neither upstream source path yielded the revision; the successful replay used the same source-only cache.",
+    "Source recovery happened before either matched branch was generated."
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

@@ -127,3 +127,84 @@ def test_null_feedback_has_same_ordered_schema_as_real_feedback() -> None:
     assert _schema_shape(real) == _schema_shape(withheld)
     assert withheld["status"] == "withheld"
     assert withheld["withheld"] is True
+
+
+def test_source_cache_preseeds_official_repository_directory() -> None:
+    acquisitions: list[dict[str, object]] = []
+
+    class RecordingSourceCache:
+        def __init__(self, root: Path, timeout: int) -> None:
+            acquisitions.append({"root": root, "timeout": timeout})
+
+        def acquire(
+            self,
+            *,
+            repository: str,
+            revision: str,
+            destination: Path,
+        ) -> dict[str, object]:
+            destination.mkdir(parents=True)
+            acquisitions.append(
+                {
+                    "repository": repository,
+                    "revision": revision,
+                    "destination": destination,
+                }
+            )
+            return {"source": "test-cache", "commit": revision}
+
+    def execute(
+        command: list[str],
+        *,
+        cwd: Path,
+        timeout: int,
+        env: dict[str, str],
+    ) -> subprocess.CompletedProcess[str]:
+        del cwd, timeout, env
+        output = next(
+            Path(item.split("=", 1)[1])
+            for item in command
+            if item.startswith("operation.dirs.json_results=")
+        )
+        write_jsonl(
+            output / "results.jsonl",
+            [
+                {
+                    "repo_name": "owner/repo",
+                    "commit_sha": "abc",
+                    "exit_code": 0,
+                    "issues_count": 0,
+                    "pyright": {"summary": {"errorCount": 0}},
+                }
+            ],
+        )
+        return subprocess.CompletedProcess(command, 0, "", "")
+
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        request = _request(root, "cached")
+        request = EnvBenchCandidateRequest(
+            **{
+                **request.__dict__,
+                "source_cache_root": root / "source-cache",
+            }
+        )
+        result = EnvBenchCandidateExecutor(
+            execute,
+            RecordingSourceCache,
+            lambda path: (),
+        ).execute(request)
+
+    assert result.completed is True
+    assert acquisitions == [
+        {"root": root / "source-cache", "timeout": 20},
+        {
+            "repository": "owner/repo",
+            "revision": "abc",
+            "destination": root / "cached" / "repos" / "owner__repo@abc",
+        },
+    ]
+    assert result.repository_acquisition == {
+        "source": "test-cache",
+        "commit": "abc",
+    }
