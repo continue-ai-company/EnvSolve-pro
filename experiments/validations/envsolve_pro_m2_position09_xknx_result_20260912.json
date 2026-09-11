@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 9,
+  "recorded_at": "2026-09-12T04:13:00+08:00",
+  "case_id": "envbench-python-xknx__xknx@69129602b7504b21c62fa085761d8b2e6697e4ae",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m2-independent12-09-xknx-C0-spark",
+    "session_id": "01a09208-6cdc-7ed2-b336-5a13a3bf1559",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": false,
+    "generation_started_at": "2026-09-11T19:53:15.270597+00:00",
+    "generation_finished_at": "2026-09-11T20:09:08.806316+00:00",
+    "construction_container_commands": 25,
+    "candidate_validation": {
+      "accepted": false,
+      "reason": "candidate program writes protected repository configuration",
+      "trigger_path": "build_output/myhouse-sensors-mqtt-provider/pyproject.toml"
+    },
+    "repository_integrity": {
+      "valid": false,
+      "disallowed_untracked_paths": [
+        "build_output/myhouse-sensors-mqtt-provider/pyproject.toml",
+        "build_output/myhouse-sensors-mqtt-provider/src/myhouse_sensors_mqtt/__init__.py"
+      ]
+    },
+    "token_usage": {
+      "input_tokens": 1497022,
+      "cached_input_tokens": 1412864,
+      "output_tokens": 16401,
+      "reasoning_output_tokens": 7924
+    }
+  },
+  "online_official_path": {
+    "executed": false,
+    "reason": "The submitted candidate was inadmissible before qualification and had no accepted script artifact."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The preregistration permits branches only for an admissible complete C0 program with a semantic Official failure."
+  },
+  "boundary_assessment": {
+    "classification": "justified-rejection",
+    "detail": "The candidate authored an unpublished myhouse_sensors_mqtt package, including behavioral classes and a new pyproject.toml, solely to satisfy an example import. This is a substitute implementation rather than environment deployment or deterministic generation from checked-in source."
+  },
+  "measurement_observation": "Open operation space still needs a minimal integrity boundary: a strong Agent may optimize the static missing-import metric by fabricating an absent dependency implementation. This terminal outcome is a method inadmissibility, not an infrastructure censor and not an Official failure.",
+  "valid_feedback_opportunity": false,
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
