@@ -1,0 +1,46 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 4,
+  "recorded_at": "2026-09-12T06:00:00+08:00",
+  "case_id": "envbench-python-google__yapf@1afbf7112ae61a467276c9401b3c113e6f676d0f",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-04-yapf-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 8,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 500,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 217887,
+      "cached_input_tokens": 184064,
+      "output_tokens": 5690,
+      "reasoning_output_tokens": 3373
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "ordinary-project-install",
+    "summary": "The program creates a Python 3.12 virtual environment and installs the checked-out project plus test and Pyright dependencies without modifying repository source or configuration."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
