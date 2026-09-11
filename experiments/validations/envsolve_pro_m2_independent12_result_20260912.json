@@ -1,0 +1,149 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "recorded_at": "2026-09-12T04:46:00+08:00",
+  "status": "complete",
+  "preregistration": "experiments/validations/envsolve_pro_m2_independent12_preregistration_20260912.json",
+  "scope": "Independent consumed-Dev mechanism replication only. No protected Canary or Official Test access, SOTA claim, or leaderboard claim.",
+  "scientific_question": "Does one exact Official-path failure payload let the same completed strong-Agent lineage repair more admissible C0 deployment programs than an equal tool-free continuation receiving typed-null feedback?",
+  "fixed_batch": {
+    "selected_positions": 12,
+    "completed_positions": 12,
+    "replacement_projects": 0,
+    "construction_hosts": {
+      "spark": 6,
+      "agenthub": 6
+    }
+  },
+  "raw_official_results": {
+    "positions_with_official_terminal_outcome": 11,
+    "C0_official_passes": 8,
+    "C0_official_failures": 3,
+    "final_pipeline_official_passes": 10,
+    "final_pipeline_official_failures": 1,
+    "positions_without_official_terminal_outcome": 1,
+    "note": "These raw counts include biothings.api despite its frozen-boundary false positive and model-analysis despite its inadmissible generated-source path. XKNX produced no accepted script and therefore had no Official attempt."
+  },
+  "frozen_boundary_primary_results": {
+    "admissible_positions_with_terminal_outcome": 9,
+    "C0_official_passes": 7,
+    "C0_official_failures": 2,
+    "C0_success_rate": 0.7777777778,
+    "final_pipeline_official_passes": 9,
+    "final_pipeline_success_rate": 1.0,
+    "absolute_success_rate_gain": 0.2222222222,
+    "valid_feedback_opportunities": 2,
+    "T_exclusive_official_wins": 2,
+    "C1_exclusive_official_wins": 0,
+    "both_branch_failures": 0,
+    "two_sided_exact_sign_test_p": 0.5
+  },
+  "valid_causal_chains": [
+    {
+      "position": 1,
+      "short_name": "basxconnect",
+      "family": "target-state-git-ownership",
+      "C0": "official_fail",
+      "C1": "official_fail",
+      "T": "official_pass",
+      "repair": "Add Git's emitted safe.directory exception for the target checkout."
+    },
+    {
+      "position": 5,
+      "short_name": "cheroot",
+      "family": "target-state-git-ownership",
+      "C0": "official_fail",
+      "C1": "official_fail",
+      "T": "official_pass",
+      "repair": "Remove Git from the local source-archive installation path."
+    }
+  ],
+  "C0_control_successes": [
+    "zappa",
+    "neuralforecast",
+    "evox",
+    "featuretools",
+    "rstcheck",
+    "luigi",
+    "great-tables"
+  ],
+  "excluded_or_annotated_positions": [
+    {
+      "position": 7,
+      "short_name": "model-analysis",
+      "primary_disposition": "inadmissible",
+      "official_outcome": "fail",
+      "reason": "The candidate generated importable protobuf modules in the checkout and extracted an x86_64 tfx-bsl wheel into an ARM64 environment; Official later failed because apache-beam==2.53.0 has no ARM64 distribution."
+    },
+    {
+      "position": 9,
+      "short_name": "xknx",
+      "primary_disposition": "justified-candidate-rejection",
+      "official_outcome": "not_run",
+      "reason": "The Agent authored a substitute package implementing an unpublished example dependency."
+    },
+    {
+      "position": 11,
+      "short_name": "great-tables",
+      "primary_disposition": "C0-official-pass-after-exact-infrastructure-retry",
+      "official_outcome": "pass",
+      "protocol_deviation": "A missing uv timeout signature triggered ineligible exploratory C1/T branches before the exact C0 retry. C1 passed and T failed with seven new imports; neither branch enters primary counts."
+    },
+    {
+      "position": 12,
+      "short_name": "biothings.api",
+      "primary_disposition": "raw-official-pass-frozen-boundary-false-positive",
+      "official_outcome": "pass",
+      "reason": "The generic import-artifact audit rejected an exact copy of the checked-in configuration template at a nested runtime path."
+    }
+  ],
+  "infrastructure_audit": {
+    "official_positions_requiring_unchanged_retry": [
+      3,
+      7,
+      11
+    ],
+    "advisory_qualification_network_censors_with_later_official_pass": [
+      2,
+      10
+    ],
+    "pre_agent_image_pull_failure_positions": [
+      2
+    ],
+    "classifier_corrections": [
+      {
+        "signature": "read-timeout",
+        "missing_phrase": "Failed to download distribution due to network timeout",
+        "regression_tests": "17 evaluator-infrastructure tests and 11 subtests plus 6 evaluation-retry tests passed."
+      }
+    ]
+  },
+  "cost_observation": {
+    "C0_input_tokens": 18842458,
+    "C0_cached_input_tokens": 17916160,
+    "C0_output_tokens": 142731,
+    "C0_reasoning_output_tokens": 81378,
+    "interpretation": "Success remains primary and token use is not a stopping threshold. The wide spread in C0 trajectory length and environment breadth motivates a later orthogonal efficiency treatment."
+  },
+  "decision": {
+    "rule": "promote_narrow",
+    "trigger": "Two independent valid T-exclusive Official repair chains, more T-exclusive than C1-exclusive wins, and no fidelity contradiction in the valid pairs.",
+    "consequence": "Promote exact Official target-state feedback as one narrow EnvSolve-Pro core step after a strong continuous C0 Agent and unchanged infrastructure retries. Do not promote live frontier, checkpoints, cross-case rules, structured search, or minimization.",
+    "statistical_limit": "The two valid repairs share one Git ownership family and are not statistically conclusive; no general dependency-solving or leaderboard claim follows."
+  },
+  "minimal_algorithm_after_M2": [
+    "Run one strong Agent in a continuous construction session until it submits a complete deployment program.",
+    "Execute that exact program in the real target state used by Official evaluation.",
+    "If the observation is infrastructure failure, retry the unchanged program up to the fixed attempt cap and do not update the deployment hypothesis.",
+    "If Official passes, stop. If an admissible program has a semantic Official failure, return the exact typed payload once to the same completed Agent lineage.",
+    "Execute the single revised complete program in a fresh target environment and report Official success separately from path quality."
+  ],
+  "required_next_evidence": [
+    "A larger independent consumed-Dev replication with enough genuine admissible C0 failures to estimate terminal success rather than only progress.",
+    "At least one valid non-Git target-state failure where T Official-passes and C1 does not.",
+    "A boundary correction for exact tracked-template configuration copies, followed by replay of the affected boundary cases without changing this M2 primary analysis.",
+    "Direct comparison against Repo2Run and native Codex under the same Official target and retry policy before any SOTA claim."
+  ],
+  "live_frontier_status": "killed; not revived by M2",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
