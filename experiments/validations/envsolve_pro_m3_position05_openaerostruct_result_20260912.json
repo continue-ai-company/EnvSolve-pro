@@ -1,0 +1,81 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 5,
+  "recorded_at": "2026-09-12T06:40:06+08:00",
+  "case_id": "envbench-python-mdolab__openaerostruct@0448bff067856093cdcec4bc8c271ecd4339a36d",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-05-openaerostruct-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 40,
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "issues_count": 0,
+      "goal_report_present": false,
+      "execution_time_seconds": 92.34560489654541,
+      "pass": false,
+      "failure": "Conda package transfers ended with several IncompleteRead exceptions before the environment was complete."
+    },
+    "token_usage": {
+      "input_tokens": 4699986,
+      "cached_input_tokens": 4519936,
+      "output_tokens": 24558,
+      "reasoning_output_tokens": 16608
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "observation",
+    "subtype": "interrupted-package-download-misclassified-as-semantic",
+    "observation": "Official logged multiple IncompleteRead exceptions while transferring large Conda packages, but the execution adapter recorded infrastructure=null.",
+    "constraint": "The target observation did not distinguish a network-interrupted environment transaction from a deployment-program defect.",
+    "operation": "C1 retained the C0 program; T removed the pySpline source build while retaining real pyGeo and OpenVSP providers."
+  },
+  "matched_continuations": {
+    "eligible": true,
+    "executed": true,
+    "tool_free": true,
+    "same_completed_parent": true,
+    "C1": {
+      "official_bootstrap_exit_code": 0,
+      "official_issues_count": 0,
+      "official_error_count": 1555,
+      "official_execution_time_seconds": 619.7921414375305,
+      "pass": true,
+      "input_tokens": 159403,
+      "output_tokens": 1133,
+      "reasoning_output_tokens": 472
+    },
+    "T": {
+      "official_bootstrap_exit_code": 0,
+      "official_issues_count": 0,
+      "official_error_count": 1555,
+      "official_execution_time_seconds": 1463.434151172638,
+      "pass": true,
+      "input_tokens": 159405,
+      "cached_input_tokens": 9728,
+      "output_tokens": 3038,
+      "reasoning_output_tokens": 2515
+    },
+    "paired_disposition": "both-pass",
+    "T_exclusive": false,
+    "C1_exclusive": false,
+    "causal_interpretation": "Both continuations repaired terminal success, so the observed recovery is consistent with another execution opportunity rather than target feedback. T was slower because its external Git provider fetch stalled despite removing one native build."
+  },
+  "path_quality": {
+    "C1": "Broad but complete CPU scientific environment with real native providers.",
+    "T": "Smaller source-build plan, but still dependent on external Git providers and slower in this execution.",
+    "official_completeness_note": "Both paths satisfy the Official missing-import metric; full OpenVSP runtime capability was not independently established."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": true,
+    "feedback_attributable_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
