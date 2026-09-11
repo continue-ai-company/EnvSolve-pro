@@ -1,0 +1,52 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 11,
+  "recorded_at": "2026-09-12T07:15:15+08:00",
+  "case_id": "envbench-python-mov-cli__mov-cli@32f8af4f15804dd6ce88d8f781a12b918119e64c",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-11-mov-cli-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 9,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 130,
+      "execution_time_seconds": 104.45131492614746,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 456770,
+      "cached_input_tokens": 390528,
+      "output_tokens": 6683,
+      "reasoning_output_tokens": 4645
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "ordinary-editable-plugin-environment",
+    "summary": "The program installs the checked-out project in editable compatibility mode with its development extras and genuine FastAPI, Uvicorn, and mov-cli-youtube dependencies without repository changes."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
