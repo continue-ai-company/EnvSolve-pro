@@ -1,0 +1,82 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "recorded_at": "2026-09-12T02:30:00+08:00",
+  "status": "preregistered_before_any_m2_model_or_execution_outcome",
+  "scientific_question": "On independent consumed-Dev projects, does one real Official-path target-state failure cause a matched continuation to achieve more terminal EnvBench Official repairs than an equal continuation receiving typed-null feedback?",
+  "scope": "Consumed Dev mechanism replication only. No protected Canary or Official Test access, representative effect estimate, SOTA claim, or leaderboard claim.",
+  "selection": {
+    "universe": "experiments/cases/dev_pro_bad_case_census_v1_209.jsonl",
+    "universe_count": 209,
+    "excluded_case_sources": [
+      "experiments/cases/envsolve_pro_free_agent_census24_v1.jsonl",
+      "experiments/validations/envsolve_pro_m1c_matched_replay_feedback_preregistration_20260911.json"
+    ],
+    "unique_excluded_projects": 31,
+    "eligible_projects": 178,
+    "algorithm": "random.Random(20260912).sample(sorted(eligible_rows, key=case_id), 12)",
+    "seed": 20260912,
+    "size": 12,
+    "case_file": "experiments/cases/dev_envsolve_pro_m2_independent12.jsonl",
+    "replacement": false,
+    "outcomes_read_for_selection": false
+  },
+  "method": {
+    "C0": "One fresh gpt-5.6-sol xhigh continuous Agent session with an unrestricted construction shell emits one complete bootstrap program. A post-session execution of those exact bytes through the Spark EnvBench Official path produces either Pass, semantic Fail, or infrastructure censoring.",
+    "C1": "For a valid semantic C0 Fail only, one tool-free native fork from the completed C0 session receives the typed-null replay schema and one revision opportunity.",
+    "T": "For the same valid semantic C0 Fail, one tool-free native fork from the identical completed C0 session receives the real C0 Official-path public replay payload and one revision opportunity.",
+    "unique_causal_difference": "Real target-state replay field values versus typed-null field values. Model, reasoning effort, completed parent prefix, output schema, disabled tools, revision count, and terminal executor are matched.",
+    "excluded_mechanisms": [
+      "live compatibility frontier",
+      "structured state or constraint ledger",
+      "checkpoint graph",
+      "cross-case rules or memory",
+      "bootstrap minimization",
+      "automatic hypothesis search"
+    ]
+  },
+  "execution": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "case_order": "fixed by position",
+    "construction_host_assignment": "Odd positions use Spark; even positions use AgentHub. Assignment was recorded before outcomes and does not change within a case.",
+    "construction_accelerator_exposure": "none on both hosts",
+    "target_state_executor": "Spark RemoteEnvBenchProcessRunner for every project and arm",
+    "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "source_cache": "Exact-revision source only; no environment, candidate, result, or trajectory reuse.",
+    "branch_order": "Fixed alternating order in the case file.",
+    "parallelism": "At most one construction session per host and at most two simultaneous target-state executions on Spark."
+  },
+  "eligibility_and_censoring": {
+    "matched_branch_eligibility": "C0 formed an admissible complete program and its exact bytes completed the Official-path executor with a semantic deployment nonpass.",
+    "C0_pass": "Record as a strong-Agent success and do not create C1 or T continuations.",
+    "pre_candidate_failure": "Record separately and do not create C1 or T continuations.",
+    "infrastructure_failure": "Retry the exact same program bytes up to three total attempts. Do not disclose a censored payload, regenerate a program, replace the project, or count it as semantic failure.",
+    "postepisode": "Execute C1 and T independently without returning results to either Agent. Apply the same three-attempt exact-program infrastructure policy."
+  },
+  "analysis": {
+    "primary_unit": "Project with a valid semantic C0 Official-path nonpass and valid C1 and T terminal outcomes.",
+    "primary_contrast": "T-exclusive Official wins versus C1-exclusive Official wins.",
+    "supporting_causal_chain": "C0 exposes a concrete target-state counterexample, T changes the program correspondingly, T Official-passes, and C1 does not.",
+    "secondary": [
+      "C0 Official Pass@1 and semantic-failure prevalence",
+      "Observation-Constraint-Operation failure class",
+      "program changes",
+      "generation, continuation, and target execution time",
+      "input, cached input, output, and reasoning tokens",
+      "infrastructure censoring",
+      "deployment completeness and path-quality annotations"
+    ],
+    "cost_is_not_a_stopping_threshold": true
+  },
+  "decision_rule": {
+    "promote_replay_into_core": "At least two independent full supporting causal chains, more T-exclusive than C1-exclusive Official wins, and no target-executor fidelity contradiction.",
+    "retain_weak": "Exactly one supporting causal chain with no C1-exclusive win; do not enter protected evaluation.",
+    "kill_replay_as_core": "No supporting causal chain after at least four valid matched opportunities, or T-exclusive wins do not exceed C1-exclusive wins.",
+    "insufficient": "Fewer than four valid matched opportunities; expand only with a new outcome-blind preregistered sample, without replacing projects."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_note": "This preregistration adds no runtime hash, frozen contract, or gate. Git records the protocol and ordinary tests cover runner and executor parity."
+}
