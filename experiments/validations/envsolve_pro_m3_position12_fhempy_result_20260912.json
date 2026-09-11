@@ -1,0 +1,73 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 12,
+  "recorded_at": "2026-09-12T07:55:01+08:00",
+  "case_id": "envbench-python-fhempy__fhempy@2c61a608c664b25c7b5ecdcba6195b521e7bc74a",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-12-fhempy-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 34,
+    "internal_clean_qualification": {
+      "certified": false,
+      "classification": "infrastructure-censored",
+      "signature": "connection-error",
+      "detail": "Poetry timed out while downloading greenlet before the trusted goal could run."
+    },
+    "online_official_attempts": [
+      {
+        "attempt": 0,
+        "completed": false,
+        "classification": "infrastructure-censored",
+        "signature": "connection-error"
+      },
+      {
+        "attempt": 1,
+        "completed": false,
+        "classification": "infrastructure-censored",
+        "signature": "connection-error"
+      },
+      {
+        "attempt": 2,
+        "completed": false,
+        "classification": "infrastructure-censored",
+        "signature": "package-download-hash-mismatch"
+      }
+    ],
+    "token_usage": {
+      "input_tokens": 5238969,
+      "cached_input_tokens": 5054720,
+      "output_tokens": 20360,
+      "reasoning_output_tokens": 12601
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "broad-optional-dependency-network-surface",
+    "observation": "The candidate requested the full Poetry dev and all dependency groups plus several large optional integrations; every clean or Official replay stopped during package transfer.",
+    "constraint": "No semantic compatibility result is observable until the dependency graph can be installed reliably.",
+    "operation": "The generated program installs 181 locked packages and additional Git and integration dependencies before invoking the trusted goal."
+  },
+  "infrastructure_disposition": {
+    "classification": "terminal-infrastructure-censored",
+    "retry_policy": "The exact unchanged program received the maximum two evaluator-only retries after its first Official attempt.",
+    "primary_disposition": "Report the case as censored and exclude it from terminal success-rate denominators; do not classify it as a semantic algorithm failure.",
+    "research_signal": "The path exposes a high-cost, high-network-surface operation choice, but M3 cannot infer whether a narrower admissible program would pass without a separate treatment."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "No semantic Official observation was obtained."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "primary_censored": true,
+    "C0_success": null,
+    "envsolve_pro_terminal_success": null
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
