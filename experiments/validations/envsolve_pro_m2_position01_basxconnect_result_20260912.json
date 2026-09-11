@@ -1,0 +1,92 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 1,
+  "recorded_at": "2026-09-12T02:46:32+08:00",
+  "case_id": "envbench-python-basxsoftwareassociation__basxconnect@a616dd61bb6012de1668ba0e3c289924e69cff68",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m2-independent12-01-basxconnect-C0-spark",
+    "session_id": "01a091b7-cfbb-7962-ba99-3b7a2319cb16",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T18:25:13.655103+00:00",
+    "generation_finished_at": "2026-09-11T18:34:00.106793+00:00",
+    "construction_container_commands": 10,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T18:35:50.888496+00:00",
+      "finished_at": "2026-09-11T18:36:34.042230+00:00",
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "token_usage": {
+      "input_tokens": 454755,
+      "cached_input_tokens": 405248,
+      "output_tokens": 5027,
+      "reasoning_output_tokens": 3339
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "C1": {
+      "child_session_id": "01a091c2-fc3b-7030-af53-cbd23c68f786",
+      "program_byte_identical_to_C0": true,
+      "input_tokens": 46903,
+      "output_tokens": 582,
+      "reasoning_output_tokens": 459
+    },
+    "T": {
+      "child_session_id": "01a091c4-0001-7292-9b7c-2e3ae45a1bc7",
+      "program_byte_identical_to_C0": false,
+      "only_program_change": "Added git config --global --add safe.directory $project_root before creating the virtual environment.",
+      "input_tokens": 46905,
+      "output_tokens": 1070,
+      "reasoning_output_tokens": 925
+    }
+  },
+  "postepisode_official": {
+    "C1": {
+      "completed": true,
+      "started_at": "2026-09-11T18:42:18.699826+00:00",
+      "finished_at": "2026-09-11T18:43:08.743819+00:00",
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "T": {
+      "completed": true,
+      "started_at": "2026-09-11T18:42:18.777153+00:00",
+      "finished_at": "2026-09-11T18:45:14.203016+00:00",
+      "bootstrap_exit_code": 0,
+      "git_ownership_error": false,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 694,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": true,
+    "T_exclusive_win": true,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": true,
+    "reason": "The real Official-path replay exposed a bind-mount Git ownership failure. T made the sole corresponding safe.directory change and Official-passed, while byte-identical C1 reproduced the C0 failure."
+  },
+  "mechanism_class": {
+    "observation": "Internal qualification passed, but target-state editable installation invoked Git against a host-owned bind mount and failed before Pyright.",
+    "constraint": "The checkout must be trusted by Git in the actual target ownership state.",
+    "operation": "Add Git's emitted global safe.directory exception for the current project root before installation."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
