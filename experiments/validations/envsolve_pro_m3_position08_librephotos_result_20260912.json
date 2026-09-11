@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 8,
+  "recorded_at": "2026-09-12T07:03:14+08:00",
+  "case_id": "envbench-python-librephotos__librephotos@0a9e63377333dc4947767fbac81055a07ccf5341",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-08-librephotos-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 16,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 834,
+      "execution_time_seconds": 381.7411880493164,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 1241356,
+      "cached_input_tokens": 1172608,
+      "output_tokens": 9730,
+      "reasoning_output_tokens": 5889
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "complete-broad-ml-environment",
+    "summary": "The program creates a Python 3.11 environment and installs the project's runtime, development, and ML validation requirements with real CPU Torch and Torchvision packages without repository changes.",
+    "official_execution_time_seconds": 381.7411880493164
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
