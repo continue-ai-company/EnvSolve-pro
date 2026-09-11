@@ -1,0 +1,100 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 5,
+  "recorded_at": "2026-09-12T03:42:00+08:00",
+  "case_id": "envbench-python-cherrypy__cheroot@1ff20b18e98e424e0616654c28c92524deef348a",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m2-independent12-05-cheroot-C0-spark",
+    "session_id": "01a091e8-7671-7ab2-8e97-d0b1be609294",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T19:18:25.198599+00:00",
+    "generation_finished_at": "2026-09-11T19:29:14.310228+00:00",
+    "construction_container_commands": 13,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T19:29:57.803944+00:00",
+      "finished_at": "2026-09-11T19:31:42.084178+00:00",
+      "bootstrap_exit_code": 128,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "token_usage": {
+      "input_tokens": 1048282,
+      "cached_input_tokens": 966144,
+      "output_tokens": 12018,
+      "reasoning_output_tokens": 7579
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "C1": {
+      "child_session_id": "01a091f5-3eb3-73c1-a91e-9d3ee382b62d",
+      "input_tokens": 79872,
+      "output_tokens": 1652,
+      "reasoning_output_tokens": 1411,
+      "program_change": "Moved the Git archive into build_output but retained the failing git archive HEAD operation."
+    },
+    "T": {
+      "child_session_id": "01a091f5-f2e6-7590-80b0-a1c5bfab43be",
+      "input_tokens": 79874,
+      "output_tokens": 1621,
+      "reasoning_output_tokens": 1354,
+      "program_change": "Replaced Git-based version discovery and git archive with a direct tar of the checked-out project files and a temporary setuptools-scm version override."
+    }
+  },
+  "postepisode_official": {
+    "C1": {
+      "completed": true,
+      "started_at": "2026-09-11T19:35:11.239735+00:00",
+      "finished_at": "2026-09-11T19:36:52.283130+00:00",
+      "bootstrap_exit_code": 128,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "T": {
+      "completed": true,
+      "started_at": "2026-09-11T19:35:10.937168+00:00",
+      "finished_at": "2026-09-11T19:37:04.103337+00:00",
+      "bootstrap_exit_code": 0,
+      "git_ownership_error": false,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 196,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "valid_pair": true,
+    "T_exclusive_win": true,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": true,
+    "reason": "Only the branch receiving the real Official-path ownership failure removed Git from the install path and Official-passed; typed-null C1 retained Git and reproduced the same failure."
+  },
+  "mechanism_class": {
+    "observation": "The clean qualification permitted Git access, while Official execution rejected git archive HEAD on the host-owned bind mount.",
+    "constraint": "The submitted program must install the exact checkout without requiring Git trust in the target ownership state.",
+    "operation": "Build a local source tar directly from checked-out files and supply a temporary setuptools-scm version during installation."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "repository-derived-source-archive",
+    "detail": "T installs an archive assembled only from checked-out project files. It avoids source mutation and evaluator changes, but uses a synthetic package version solely to satisfy setuptools-scm during local installation."
+  },
+  "study_decision_update": {
+    "decision": "promote",
+    "basis": "Together with position 1, this is the second independent full T-exclusive chain, with zero C1-exclusive chains and no fidelity contradiction. The remaining fixed sample is still required to estimate scope and failure-family generality."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

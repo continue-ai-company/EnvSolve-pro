@@ -1,0 +1,61 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 3,
+  "recorded_at": "2026-09-12T03:40:00+08:00",
+  "case_id": "envbench-python-nixtla__neuralforecast@90b6fd06dc59fa3f320c57f361d4ca8379aa6be7",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m2-independent12-03-neuralforecast-C0-spark",
+    "session_id": "01a091c4-062e-72d2-945c-8873aaaca77b",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T18:37:47.137120+00:00",
+    "generation_finished_at": "2026-09-11T19:15:56.178607+00:00",
+    "construction_container_commands": 11,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "online_official_path": {
+      "attempts": 2,
+      "first_attempt": {
+        "completed": false,
+        "started_at": "2026-09-11T19:17:13.317551+00:00",
+        "finished_at": "2026-09-11T19:18:25.836423+00:00",
+        "status": "infrastructure_censored",
+        "signature": "read-timeout"
+      },
+      "unchanged_retry1": {
+        "completed": true,
+        "started_at": "2026-09-11T19:19:30.586688+00:00",
+        "finished_at": "2026-09-11T19:31:52.695355+00:00",
+        "bootstrap_exit_code": 0,
+        "active_project_python": ".venv/bin/python",
+        "issues_count": 0,
+        "error_count": 388,
+        "pass": true
+      }
+    },
+    "token_usage": {
+      "input_tokens": 1410643,
+      "cached_input_tokens": 1350528,
+      "output_tokens": 10080,
+      "reasoning_output_tokens": 5161
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The unchanged C0 program Official-passed after one infrastructure-censored attempt, so failure-conditioned C1/T branches were not created."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "broad-cpu-development-environment",
+    "detail": "The program selects CPU-only PyTorch and installs the project with dev, AWS, and Spark extras plus direct development dependencies. This is a complete but relatively broad environment; path cost and completeness remain secondary axes."
+  },
+  "measurement_observation": "The same qualified program changed from infrastructure-censored to Official Pass without revision, reinforcing that transport failures must be censored rather than treated as deployment failures.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
