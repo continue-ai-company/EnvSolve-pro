@@ -1,0 +1,56 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 10,
+  "recorded_at": "2026-09-12T04:32:00+08:00",
+  "case_id": "envbench-python-spotify__luigi@3cafd155bbc35918cfce442f9cef445eaa97f13c",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m2-independent12-10-luigi-C0-agenthub",
+    "session_id": "01a09210-ccc4-77c0-89d9-9b08804123e2",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T20:02:25.547720+00:00",
+    "generation_finished_at": "2026-09-11T20:23:04.288483+00:00",
+    "construction_container_commands": 22,
+    "internal_clean_qualification": {
+      "certified": false,
+      "status": "infrastructure_error",
+      "reason": "A files.pythonhosted.org ReadTimeout interrupted the unchanged program during dependency acquisition."
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T20:23:46.076985+00:00",
+      "finished_at": "2026-09-11T20:30:40.965338+00:00",
+      "bootstrap_exit_code": 0,
+      "active_project_python": "env/bin/python",
+      "issues_count": 0,
+      "error_count": 2446,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 2933284,
+      "cached_input_tokens": 2852864,
+      "output_tokens": 15398,
+      "reasoning_output_tokens": 9252
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 Official-passed, so the preregistered failure-conditioned C1/T branches were not created."
+  },
+  "mechanism_observation": {
+    "failure_family_solved_inside_C0": "optional-integration-and-generated-binding-path",
+    "detail": "The free Agent installed Luigi's broad optional integration dependencies and exported the generated Hive Metastore Thrift package directory through PYTHONPATH."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "very-broad-integration-environment",
+    "detail": "The program installs many database, cloud, Hadoop, testing, and documentation integrations to cover repository-wide imports. It is Official-correct but expensive and is a clear candidate for later path minimization."
+  },
+  "measurement_observation": "The unchanged candidate failed advisory qualification because of network transport and then Official-passed. Its 2446 non-scoring Pyright errors must not be confused with the zero reportMissingImports issues used by EnvBench.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
