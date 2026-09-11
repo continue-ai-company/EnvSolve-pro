@@ -1,0 +1,28 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 2,
+  "recorded_at": "2026-09-12T02:27:11+08:00",
+  "status": "recorded_before_any_position02_model_execution_or_candidate_outcome",
+  "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+  "failed_run_id": "m2-independent12-02-zappa-C0-agenthub",
+  "failure": {
+    "stage": "base-image-acquisition-before-agent_start",
+    "message": "Docker registry request to ghcr.io/v2 ended with EOF.",
+    "generation_completed": false,
+    "codex_command": null,
+    "token_usage": null,
+    "container_command_trace": null,
+    "candidate_program": null
+  },
+  "amendment": "Pre-pull the exact preregistered EnvBench image on AgentHub, verify its image ID, then repeat the same position, host, runner, model, reasoning effort, accelerator exposure, case, and revision once under run ID m2-independent12-02-zappa-C0-agenthub-image-retry1.",
+  "prohibited_changes": [
+    "case replacement",
+    "construction-host reassignment",
+    "model or prompt change",
+    "algorithm change",
+    "reuse of an environment or candidate program"
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_note": "This is an experiment-provenance amendment, not a runtime gate or frozen software contract."
+}
