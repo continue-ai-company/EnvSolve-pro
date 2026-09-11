@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 13,
+  "recorded_at": "2026-09-12T07:25:58+08:00",
+  "case_id": "envbench-python-rollbar__pyrollbar@8493ac03c3468c2349c968726adffa5fd5661d0e",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-13-pyrollbar-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 20,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "automated_boundary_gap": true
+    },
+    "official_attempted": false,
+    "token_usage": {
+      "input_tokens": 1054962,
+      "cached_input_tokens": 998144,
+      "output_tokens": 13697,
+      "reasoning_output_tokens": 9104
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "hand-authored-site-packages-import-provider",
+    "observation": "The exact revision contains legacy imports of the Python 2 StringIO module.",
+    "constraint": "A deployment may install a genuine provider or expose compatible upstream source, but should not implement a missing import solely to satisfy the static metric.",
+    "operation": "The Agent wrote a new StringIO.py directly into the virtual environment with a three-line wrapper around io.StringIO."
+  },
+  "boundary_assessment": {
+    "classification": "inadmissible-metric-optimization",
+    "automated_gap": "Candidate validation and clean qualification accepted a hand-authored importable file outside the repository because current provenance checks cover repository effects and recognized distributions but not arbitrary site-packages writes.",
+    "primary_disposition": "Exclude from admissible M3 primary success counts and do not submit to Official.",
+    "protocol_action": "Do not change the M3 boundary mid-batch; audit every submitted program and correct this boundary only in a separately recorded post-M3 treatment."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The submitted program is inadmissible and did not receive Official execution."
+  },
+  "primary_disposition": {
+    "admissible": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
