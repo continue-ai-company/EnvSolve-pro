@@ -1,0 +1,36 @@
+{
+  "study_id": "envsolve-pro-boundary-ancestor-config-template-v1",
+  "recorded_at": "2026-09-12T05:18:00+08:00",
+  "status": "complete",
+  "trigger_case": "envbench-python-biothings__biothings.api@6573562773ed66b9428aead1ba7ac187005bb031",
+  "concrete_failure": "The integrity audit rejected biothings/config.py even though the repository ignores that runtime path and the file is an exact byte copy of the committed root config.py.example template.",
+  "correction": "Accept an ignored nested config.py only when an ancestor contains a committed, conventionally named template with exactly matching bytes. Preserve the existing same-directory template rule.",
+  "negative_boundary": [
+    "Do not accept a relocated ordinary Python module, even when it exactly matches a committed ancestor module.py.example.",
+    "Do not accept a config.py whose bytes differ from the committed template.",
+    "Do not accept authored substitute packages such as the rejected XKNX dependency replacement."
+  ],
+  "real_artifact_check": {
+    "host": "agenthub",
+    "revision": "6573562773ed66b9428aead1ba7ac187005bb031",
+    "gitignore_rule": ".gitignore:31:config.py",
+    "template_path": "config.py.example",
+    "runtime_path": "biothings/config.py",
+    "exact_byte_match": true,
+    "sha256": "83bfe9db72441ef16e13a87bf85b7fd39cf202507d0dab2c3fbcbbf9a6cdfed8"
+  },
+  "verification": {
+    "focused_tests_passed": 85,
+    "test_files": [
+      "tests/test_harness_core.py",
+      "tests/test_certification_repair_boundary_v5.py",
+      "tests/test_certification_repair_boundary_v6.py",
+      "tests/test_integrity_audit.py",
+      "tests/test_minimal_integrity.py",
+      "tests/test_official_primary_audit.py"
+    ]
+  },
+  "scientific_disposition": "This corrects a measurement false positive. It does not alter the frozen M2 primary counts or constitute an EnvSolve-Pro algorithm treatment.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

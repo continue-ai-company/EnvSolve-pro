@@ -734,6 +734,76 @@ class CoreIoTest(unittest.TestCase):
             self.assertFalse(rejected.valid)
             self.assertIn("config.py", rejected.disallowed_untracked_paths)
 
+    def test_repository_integrity_accepts_ancestor_config_template_only(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            REAL_SUBPROCESS_RUN(["git", "init", "-q"], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.email", "test@example.test"],
+                cwd=repo,
+                check=True,
+            )
+            REAL_SUBPROCESS_RUN(
+                ["git", "config", "user.name", "Test"],
+                cwd=repo,
+                check=True,
+            )
+            (repo / "config.py.example").write_text(
+                "SETTING = 'fixture'\n", encoding="utf-8"
+            )
+            (repo / "module.py.example").write_text(
+                "VALUE = 'fixture'\n", encoding="utf-8"
+            )
+            (repo / ".gitignore").write_text(
+                "package/config.py\npackage/module.py\n", encoding="utf-8"
+            )
+            REAL_SUBPROCESS_RUN(["git", "add", "."], cwd=repo, check=True)
+            REAL_SUBPROCESS_RUN(
+                ["git", "commit", "-qm", "fixture"], cwd=repo, check=True
+            )
+            head = REAL_SUBPROCESS_RUN(
+                ["git", "rev-parse", "HEAD"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            package = repo / "package"
+            package.mkdir()
+            runtime_config = package / "config.py"
+            runtime_config.write_bytes((repo / "config.py.example").read_bytes())
+            relocated_module = package / "module.py"
+            relocated_module.write_bytes((repo / "module.py.example").read_bytes())
+
+            report = inspect_repository(repo, head)
+
+            self.assertFalse(report.valid)
+            self.assertEqual(
+                [item.to_dict() for item in report.repository_derived_artifacts],
+                [
+                    {
+                        "path": "package/config.py",
+                        "source_path": "config.py.example",
+                        "sha256": (
+                            "53cb5ac0ed7e1f0f89bfd858c07412dd72d4715845b14e8f7"
+                            "1e27f65ca28951c"
+                        ),
+                        "derivation": (
+                            "exact-copy-of-tracked-ancestor-config-template"
+                        ),
+                    }
+                ],
+            )
+            self.assertEqual(
+                report.disallowed_untracked_paths,
+                ("package/module.py",),
+            )
+
+            runtime_config.write_text("SETTING = 'invented'\n", encoding="utf-8")
+            modified = inspect_repository(repo, head)
+            self.assertIn("package/config.py", modified.disallowed_untracked_paths)
+
     def test_repository_integrity_does_not_follow_venv_python_symlink(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)

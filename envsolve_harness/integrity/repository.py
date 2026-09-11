@@ -504,7 +504,6 @@ def _repository_derived_artifact(
         source
         for source in tracked_paths
         if source != path
-        and PurePosixPath(source).parent == target.parent
         and _is_repository_template(PurePosixPath(source), target)
     )
     for source in candidates:
@@ -515,12 +514,21 @@ def _repository_derived_artifact(
             path=path,
             source_path=source,
             sha256=hashlib.sha256(target_bytes).hexdigest(),
+            derivation=(
+                "exact-copy-of-tracked-sibling-template"
+                if PurePosixPath(source).parent == target.parent
+                else "exact-copy-of-tracked-ancestor-config-template"
+            ),
         )
     return None
 
 
 def _is_repository_template(source: PurePosixPath, target: PurePosixPath) -> bool:
-    if source.parent != target.parent:
+    same_directory = source.parent == target.parent
+    ancestor_config = (
+        target.name == "config.py" and source.parent in target.parents
+    )
+    if not same_directory and not ancestor_config:
         return False
     if (
         source.stem == target.stem
