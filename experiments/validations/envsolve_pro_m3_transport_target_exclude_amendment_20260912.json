@@ -1,0 +1,38 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "recorded_at": "2026-09-12T06:50:00+08:00",
+  "kind": "non-algorithmic-storage-preservation-amendment",
+  "trigger": {
+    "local_disk_free": "approximately 5.3 GiB",
+    "observed_case": "position 7 river",
+    "observed_rebuildable_payload": "373 MiB in the top-level Rust target directory",
+    "failure_risk": "Continuing the fixed 24-case batch could exhaust controller storage before terminal artifacts are recorded."
+  },
+  "change": "Add top-level target to the existing index-safe rebuildable workspace-download exclusions.",
+  "safety": {
+    "git_index_check": "The directory is excluded only when git ls-files reports no tracked path beneath it.",
+    "unchanged": [
+      "model and prompt",
+      "construction container and all Agent-visible state",
+      "candidate program",
+      "remote repository-effect audit",
+      "clean replay",
+      "EnvBench Official execution",
+      "terminal success criteria"
+    ],
+    "new_hash_contract_or_gate": false
+  },
+  "analysis_effect": {
+    "primary_terminal_success": "unchanged",
+    "paired_T_vs_C1": "unchanged",
+    "token_metrics": "unchanged",
+    "official_execution_time": "unchanged",
+    "controller_wall_time": "Do not directly compare positions 1-7 with positions 8-24 because post-session transport changed."
+  },
+  "verification": {
+    "command": ".venv/bin/python -m pytest tests/test_remote_docker.py -q",
+    "result": "11 passed, 3 skipped"
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

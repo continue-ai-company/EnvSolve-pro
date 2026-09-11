@@ -28,6 +28,7 @@ _REBUILDABLE_TOP_LEVEL_DIRECTORIES = (
     ".venv",
     "env",
     "node_modules",
+    "target",
     "venv",
 )
 

@@ -138,6 +138,7 @@ class SshDockerTransportTest(unittest.TestCase):
             self.assertNotIn("/.venv/", excludes)
             self.assertIn("/env/", excludes)
             self.assertIn("/node_modules/", excludes)
+            self.assertIn("/target/", excludes)
 
     def test_tracked_env_directory_is_not_excluded(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
