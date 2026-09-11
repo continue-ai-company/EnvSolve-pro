@@ -1,0 +1,83 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "recorded_at": "2026-09-12T05:35:00+08:00",
+  "status": "preregistered_before_any_m3_model_or_execution_outcome",
+  "scientific_question": "On a larger consumed-Dev batch, how much does one exact target-state repair opportunity improve terminal EnvBench Official success over a strong continuous Agent, and do valid repairs extend beyond Git ownership failures?",
+  "scope": "Consumed Dev algorithm development and mechanism replication only. Historical trajectories may exist for projects in the universe, but no M3 outcome was read for selection. No protected Canary or Official Test access, SOTA claim, or leaderboard claim.",
+  "selection": {
+    "universe": "experiments/cases/dev_pro_bad_case_census_v1_209.jsonl",
+    "universe_count": 209,
+    "excluded_case_sources": [
+      "experiments/cases/envsolve_pro_free_agent_census24_v1.jsonl",
+      "experiments/validations/envsolve_pro_m1c_matched_replay_feedback_preregistration_20260911.json",
+      "experiments/cases/dev_envsolve_pro_m2_independent12.jsonl"
+    ],
+    "unique_excluded_projects": 43,
+    "eligible_projects": 166,
+    "algorithm": "random.Random(20260913).sample(sorted(eligible_rows, key=case_id), 24)",
+    "seed": 20260913,
+    "size": 24,
+    "case_file": "experiments/cases/dev_envsolve_pro_m3_replication24.jsonl",
+    "replacement": false,
+    "outcomes_read_for_selection": false
+  },
+  "algorithm": {
+    "C0": "One fresh gpt-5.6-sol xhigh continuous Agent session uses an unrestricted construction shell and emits one complete bootstrap program.",
+    "target_observation": "Run the exact C0 program through the Spark EnvBench Official path. Classify the result as Pass, semantic Fail, or infrastructure censoring.",
+    "infrastructure_transition": "Retry unchanged program bytes up to three total Official attempts. Infrastructure feedback does not update the deployment hypothesis.",
+    "semantic_transition": "For an admissible semantic C0 Fail, give the exact public Official payload once to a tool-free continuation from the completed C0 lineage, then run its one revised complete program in a fresh Official target.",
+    "terminal_rule": "Stop after C0 Pass or after the single targeted semantic revision. Official terminal success is bootstrap exit code zero and issues_count zero.",
+    "excluded_mechanisms": [
+      "live compatibility frontier",
+      "checkpoint graph",
+      "cross-case rules or memory",
+      "automatic hypothesis search",
+      "bootstrap minimization"
+    ]
+  },
+  "paired_mechanism_control": {
+    "eligibility": "Every admissible semantic C0 Official Fail.",
+    "C1": "A tool-free continuation from the same completed C0 lineage receives the same replay schema with typed-null values and one revision opportunity.",
+    "T": "A matched tool-free continuation receives the real public C0 Official payload and one revision opportunity.",
+    "unique_difference": "Real target-state replay values versus typed-null values.",
+    "branch_order": "Fixed alternating order in the case file.",
+    "postepisode": "C1 and T do not observe each other's execution results. Only T is part of the proposed terminal algorithm; C1 is a causal control."
+  },
+  "execution": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "construction_host_assignment": "Odd positions use Spark; even positions use AgentHub. Mac coordinates both lanes and Official evaluation.",
+    "construction_accelerator_exposure": "none on both hosts",
+    "target_state_executor": "Spark RemoteEnvBenchProcessRunner for every project and arm",
+    "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "image_digest": "sha256:84ce9883484e67a023e870e9a95fe46eec4e9e4564a66161abbb5665a22490f0",
+    "source_cache": "Exact-revision source only; no environment, candidate, result, or trajectory reuse.",
+    "parallelism": "At most one construction session per remote host and at most two simultaneous target-state executions on Spark.",
+    "measurement_boundary": "Boundary v6 with the pre-M3 ancestor config-template correction recorded in envsolve_pro_boundary_ancestor_config_template_result_20260912.json. This boundary is fixed for all M3 positions."
+  },
+  "analysis": {
+    "primary_metric": "Terminal EnvSolve-Pro Official success among all admissible positions with a terminal outcome, compared with C0 Official success on the same positions.",
+    "primary_unit": "Project.",
+    "paired_secondary": "T-exclusive versus C1-exclusive Official wins among valid matched failure opportunities.",
+    "failure_taxonomy": "Classify observed failures by Observation, Constraint, and Operation layer, then record concrete subtype without changing selection or treatment.",
+    "cost_is_not_a_stopping_threshold": true,
+    "report_separately": [
+      "pre-candidate failures",
+      "boundary-inadmissible candidates",
+      "infrastructure-censored attempts",
+      "Official error_count",
+      "deployment completeness and path quality",
+      "input, cached input, output, and reasoning tokens"
+    ]
+  },
+  "decision_rule": {
+    "generalize_target_feedback": "At least two valid T-exclusive supporting chains across at least two non-Git failure subtypes, T-exclusive wins exceed C1-exclusive wins, and terminal success improves over C0.",
+    "retain_narrow": "Terminal success improves and T-exclusive wins exceed C1-exclusive wins, but valid gains remain confined to one failure family.",
+    "remove_from_core": "Across cumulative M2 and M3 evidence, at least six valid matched opportunities exist and T-exclusive wins do not exceed C1-exclusive wins, or the treatment produces no additional terminal Official success in M3.",
+    "insufficient": "Fewer than four valid matched M3 opportunities; report the fixed batch and do not replace projects. A later larger batch requires a new preregistration."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_note": "This preregistration adds no runtime hash, frozen contract, or gate. Git records the protocol; ordinary tests cover the executor, retry classifier, and measurement boundary."
+}
