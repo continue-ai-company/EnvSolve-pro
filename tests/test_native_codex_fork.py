@@ -6,6 +6,7 @@ import pytest
 
 from envsolve_harness.runners.native_codex_fork import (
     CompletedCodexPrefix,
+    build_named_tool_free_native_fork,
     build_tool_free_native_fork,
     fork_pair_has_same_completed_prefix,
 )
@@ -75,3 +76,26 @@ def test_incomplete_parent_is_rejected() -> None:
             ],
             "non-empty",
         )
+
+
+def test_named_forks_support_m1c_branch_labels_without_changing_tools() -> None:
+    parent = _completed_prefix()
+    plans = [
+        build_named_tool_free_native_fork(
+            branch=branch,
+            parent=parent,
+            codex_executable=Path("/Applications/ChatGPT.app/codex"),
+            model="gpt-5.6-sol",
+            reasoning_effort="xhigh",
+            schema_path=Path("schema.json"),
+            events_path=Path("branch.jsonl"),
+            output_path=Path("branch.json"),
+            prompt="matched continuation",
+        )
+        for branch in ("C1", "T")
+    ]
+
+    assert plans[0].parent == plans[1].parent
+    assert plans[0].command == plans[1].command
+    assert plans[0].branch == "C1"
+    assert plans[1].branch == "T"

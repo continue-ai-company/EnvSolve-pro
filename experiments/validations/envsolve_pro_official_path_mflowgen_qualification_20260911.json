@@ -1,0 +1,29 @@
+{
+  "qualification_id": "envsolve-pro-official-path-mflowgen-20260911",
+  "recorded_at": "2026-09-11T19:23:20+08:00",
+  "role": "model-free executor fidelity qualification; not an algorithm outcome or Official score",
+  "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+  "program": "historical v6 B replay program, byte-identical to the program previously certified by the old nested replay",
+  "historical_old_replay": {
+    "status": "pass",
+    "executor": "root-owned nested checkout",
+    "program_sha256": "c6bba5750b7201b2dafc8164d94c0e2a4e418c27b05bf0a683a6cf65c14c1080"
+  },
+  "new_execution": {
+    "executor": "EnvBenchCandidateExecutor plus RemoteEnvBenchProcessRunner",
+    "host": "spark-f21c",
+    "architecture": "aarch64",
+    "envbench_revision": "bf972d4d0404e6bfcc8241d9a820202cea76dade",
+    "image_id": "sha256:7bcf2ab3b1dec59e1f05cd96fbc0f41966dd1f957d1366e93b0c1e38b287c3d4",
+    "completed": true,
+    "bootstrap_exit_code": 1,
+    "issues_count": 0,
+    "goal_report_present": false,
+    "git_ownership_error": true,
+    "wall_time_seconds": 130.4175,
+    "raw_artifact": "/tmp/envsolve-official-path-mflowgen-20260911-v1/execution.json"
+  },
+  "decision": "pass",
+  "interpretation": "The replacement online replay reproduces the ownership-sensitive target-state failure that the old nested replay missed. This repairs the known executor false positive but provides no evidence yet that replay feedback improves a strong Agent over matched extra reasoning.",
+  "protected_data_accessed": false
+}

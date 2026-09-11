@@ -1,0 +1,134 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "recorded_at": "2026-09-11T19:40:00+08:00",
+  "status": "preregistered_before_any_m1c_continuation_or_treatment_outcome",
+  "scientific_question": "Given one completed strong-Agent session and its exact ready-to-submit program C0, does one official-path target-state execution result cause a matched continuation T to produce more final EnvBench Official passes than an equal continuation C1 receiving no execution result?",
+  "scope": "Consumed Dev mechanism falsification only. No protected Canary or Official Test access, representative effect estimate, SOTA claim, or leaderboard claim.",
+  "retained_mechanism": "One strong Agent active-session lineage plus complete-program target-state replay feedback. No structured state, checkpoint graph, frontier, cross-case memory, package rule, or bootstrap minimization.",
+  "eligible_population_definition": {
+    "source": "All previously consumed Dev projects found in completed gpt-5.6-sol xhigh strong-Agent studies as of preregistration that formed an admissible complete program and received a valid postepisode EnvBench Official nonpass for a deployment reason.",
+    "independent_unit": "project",
+    "included_studies": [
+      "envsolve-pro-strong-a-falsification-screen15-v1",
+      "envsolve-pro-strong-ab-census83-v6-v1"
+    ],
+    "excluded": [
+      "pure source-acquisition, package-delivery, evaluator-install, or transport censoring",
+      "pre-candidate failures",
+      "gpt-5.5 and DeepSeek episodes",
+      "weak-baseline failures",
+      "duplicate sessions for the same project",
+      "cases selected using a prior treatment outcome"
+    ],
+    "count": 9
+  },
+  "cases": [
+    {
+      "position": 1,
+      "branch_order": "C1-first",
+      "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+      "c0_artifacts": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-06-op-test-agenthub-A-F-v1/envbench-python-open-power__op-test__392e59a46ee10ff462e78ec884f21b785628190f",
+      "prior_nonpass": "bootstrap completed; 2 missing imports"
+    },
+    {
+      "position": 2,
+      "branch_order": "T-first",
+      "case_id": "envbench-python-nschloe__meshio@b2ee99842e119901349fdeee06b5bf61e01f450a",
+      "c0_artifacts": "runs/envsolve-pro-canary-phase0-v1/mac-central-remote/pro-strong-a-screen15-09-meshio-agenthub-A-F-source-retry2/envbench-python-nschloe__meshio__b2ee99842e119901349fdeee06b5bf61e01f450a",
+      "prior_nonpass": "bootstrap completed; 2 missing vtk.util imports"
+    },
+    {
+      "position": 3,
+      "branch_order": "C1-first",
+      "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-01-A1/envbench-python-pretalx__pretalx__64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+      "prior_nonpass": "bootstrap failed because pkg_resources was unavailable"
+    },
+    {
+      "position": 4,
+      "branch_order": "T-first",
+      "case_id": "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-02-A1/envbench-python-python-control__python-control__dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+      "prior_nonpass": "bootstrap completed; 2 missing imports"
+    },
+    {
+      "position": 5,
+      "branch_order": "C1-first",
+      "case_id": "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-04-A1/envbench-python-tortoise__tortoise-orm__bc18384bdb490cc14e96d27a18956fe1b122829d",
+      "prior_nonpass": "bootstrap completed; 5 missing imports"
+    },
+    {
+      "position": 6,
+      "branch_order": "T-first",
+      "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-06-A1-source-retry2/envbench-python-flask-middleware__flask-security__ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+      "prior_nonpass": "bootstrap failed on /data/project Git ownership"
+    },
+    {
+      "position": 7,
+      "branch_order": "C1-first",
+      "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-09-A1/envbench-python-revoxhere__duino-coin__2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+      "prior_nonpass": "bootstrap completed; 9 missing imports"
+    },
+    {
+      "position": 8,
+      "branch_order": "T-first",
+      "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-10-A1/envbench-python-mflowgen__mflowgen__354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+      "prior_nonpass": "bootstrap failed on /data/project Git ownership"
+    },
+    {
+      "position": 9,
+      "branch_order": "C1-first",
+      "case_id": "envbench-python-qiboteam__qibo@1bb08d9dab45205875073c371ea4fcefa982221f",
+      "c0_artifacts": "runs/envsolve-pro-strong-ab-census83-v6-v1/mac-central-remote/pro-v6-strong-ab-census83-14-A1/envbench-python-qiboteam__qibo__1bb08d9dab45205875073c371ea4fcefa982221f",
+      "prior_nonpass": "bootstrap completed; 3 missing imports"
+    }
+  ],
+  "paired_design": {
+    "C0": "The exact complete program already emitted by the historical completed strong-Agent session; no new model call.",
+    "C1": "One tool-free native Codex fork from the completed C0 session receiving the typed-null replay schema and one revision opportunity.",
+    "T": "One tool-free native Codex fork from the identical completed C0 session receiving one real official-path target-state replay payload and one revision opportunity.",
+    "unique_causal_difference": "Real target-state replay field values versus typed-null field values. Model, reasoning effort, completed prefix, output schema, tools, revision count, and postepisode executor are matched.",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "continuation_tools": "none for both C1 and T",
+    "branch_order": "fixed alternating order listed above"
+  },
+  "executor": {
+    "online": "EnvBenchCandidateExecutor on Spark through RemoteEnvBenchProcessRunner; result disclosed only to T.",
+    "postepisode": "C0, C1, and T each execute independently through the same EnvBench candidate-execution classes on Spark; no result returns to any Agent.",
+    "official_metric": "exit_code == 0 and issues_count == 0",
+    "qualification_is_not_official": true,
+    "known_fidelity_counterexample": "The old nested replay passed mflowgen while Official failed due bind-mount Git ownership. The replacement executor reproduced exit_code=1 and git_ownership_error=true on the same historical program before this preregistration."
+  },
+  "censoring": {
+    "online_execution": "Retry exact C0 bytes only after recognized source-acquisition, package-delivery, evaluator-install, or transport failure. Do not branch on a censored payload. After three unresolved attempts, retain the case as censored without replacement.",
+    "postepisode_execution": "Apply the same exact-program retry policy independently to each arm. Never regenerate a program after postepisode evidence.",
+    "semantic_nonpass": "Any completed candidate execution with bootstrap failure or nonzero issues remains a valid nonpass and is not retried as infrastructure."
+  },
+  "analysis": {
+    "primary_unit": "independent project",
+    "primary_contrast": "T-exclusive Official wins versus C1-exclusive Official wins",
+    "supporting_causal_chain": "The real replay exposes a concrete counterexample, T changes the program in a corresponding way, T Official-passes, and C1 does not.",
+    "secondary": [
+      "C0, C1, and T Official Pass@1",
+      "program changes",
+      "continuation input, cached input, output, and reasoning tokens",
+      "online replay and postepisode wall time",
+      "infrastructure censoring"
+    ],
+    "cost_is_not_a_stopping_threshold": true
+  },
+  "decision_rule": {
+    "retain_for_next_cross-progress_experiment": "At least two independent supporting causal chains, more T-exclusive than C1-exclusive Official wins, and no executor-fidelity contradiction.",
+    "retain_weak": "Exactly one supporting causal chain with no C1-exclusive win; do not promote or enter protected evaluation.",
+    "kill_current_replay_core": "No supporting causal chain, or T-exclusive wins do not exceed C1-exclusive wins after all valid pairs complete.",
+    "insufficient": "Fewer than four valid paired projects after predeclared censoring; do not replace cases or claim an effect."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_note": "This is a scientific preregistration, not a new runtime gate or frozen software contract. Git records it; ordinary tests check branch and executor parity."
+}

@@ -68,6 +68,33 @@ def build_tool_free_native_fork(
 ) -> NativeCodexForkPlan:
     if branch not in {"F", "N"}:
         raise ValueError("Native fork branch must be F or N")
+    return build_named_tool_free_native_fork(
+        branch=branch,
+        parent=parent,
+        codex_executable=codex_executable,
+        model=model,
+        reasoning_effort=reasoning_effort,
+        schema_path=schema_path,
+        events_path=events_path,
+        output_path=output_path,
+        prompt=prompt,
+    )
+
+
+def build_named_tool_free_native_fork(
+    *,
+    branch: str,
+    parent: CompletedCodexPrefix,
+    codex_executable: Path,
+    model: str,
+    reasoning_effort: str,
+    schema_path: Path,
+    events_path: Path,
+    output_path: Path,
+    prompt: str,
+) -> NativeCodexForkPlan:
+    if not branch or not branch.replace("-", "").isalnum():
+        raise ValueError("Native fork branch must be a simple non-empty label")
     if not prompt.strip():
         raise ValueError("Native fork prompt must be non-empty")
     overrides = {

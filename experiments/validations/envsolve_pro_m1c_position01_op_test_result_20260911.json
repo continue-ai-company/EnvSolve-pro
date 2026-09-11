@@ -1,0 +1,83 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 1,
+  "recorded_at": "2026-09-11T20:39:52+08:00",
+  "case_id": "envbench-python-open-power__op-test@392e59a46ee10ff462e78ec884f21b785628190f",
+  "branch_order": "C1-first",
+  "live_C0": {
+    "run_id": "m1c-live-01-op-test-C0-v1-spark-retry1",
+    "session_id": "01a09056-407b-7b73-85ca-a3fc6b396db0",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 1529,
+      "official_pass_condition": true
+    },
+    "token_usage": {
+      "input_tokens": 4340351,
+      "cached_input_tokens": 4187776,
+      "output_tokens": 20312,
+      "reasoning_output_tokens": 9566
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "programs_byte_identical": true,
+    "C1": {
+      "child_session_id": "01a09070-20d3-7fa3-b84e-5afac37b59a9",
+      "input_tokens": 145982,
+      "output_tokens": 2454,
+      "reasoning_output_tokens": 1336
+    },
+    "T": {
+      "child_session_id": "01a09071-9a04-7180-8040-8df0f1a8f443",
+      "input_tokens": 145990,
+      "output_tokens": 1218,
+      "reasoning_output_tokens": 96
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "pass": true
+    },
+    "C1": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "pass": true
+    },
+    "T": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "T_exclusive_win": false,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": false,
+    "reason": "C0 already passed, and C1 and T emitted the exact same program."
+  },
+  "deployment_quality_annotation": {
+    "label": "synthetic-compatibility-provider",
+    "official_score_unchanged": true,
+    "detail": "The program creates inferred engine.FWObject and connection.common.FWConnection implementations under the environment site-packages directory. EnvBench accepts the program, but these modules are not recovered from the project's declared or historical dependency source."
+  },
+  "infrastructure_notes": [
+    "The first historical-session fork attempt produced no branch output because the historical C0 used Codex --ephemeral.",
+    "The first live-C0 launch on AgentHub was stopped before model execution because the EnvBench image was absent and Docker began a large pull.",
+    "The identical live-C0 generation was rerun on Spark, where the pinned EnvBench image was already present."
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

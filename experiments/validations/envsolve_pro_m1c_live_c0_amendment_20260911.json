@@ -1,0 +1,34 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "recorded_at": "2026-09-11T19:49:25+08:00",
+  "status": "amended_before_any_C1_or_T_model_output",
+  "trigger": {
+    "attempted_case_position": 1,
+    "attempted_parent_session_id": "01a05999-bebb-7bb2-9661-0604a8be623d",
+    "codex_error": "thread/fork failed: no rollout found for thread id",
+    "cause": "The historical strong-Agent command used --ephemeral. Its public trajectory retained a thread id, but Codex intentionally retained no forkable rollout.",
+    "treatment_observed": false,
+    "C1_model_output_observed": false,
+    "T_model_output_observed": false
+  },
+  "unchanged": [
+    "the nine preselected consumed-Dev projects and their fixed order",
+    "selection based only on historical strong-Agent Official deployment failures",
+    "gpt-5.6-sol with xhigh reasoning",
+    "the strong-Agent goal-aware construction interface",
+    "one matched tool-free continuation for C1 and T",
+    "typed-null payload for C1 and real clean replay payload for T",
+    "postepisode EnvBench evaluation and all decision rules"
+  ],
+  "amendment": {
+    "C0": "For each already selected project, generate a fresh C0 with the persistent strong-Agent runner and stop after generation. The only retention change is removal of Codex --ephemeral so the completed active session can be forked.",
+    "online_replay": "Execute the fresh C0 through the preregistered official-path candidate executor. Retry only recognized infrastructure censoring.",
+    "branches": "Immediately fork C1 and T from the same fresh completed C0 rollout after a valid online replay. No historical transcript reconstruction or independent replacement session is allowed.",
+    "fresh_C0_pass": "Still run both matched branches and all postepisode arms. Analyze pass retention as secondary evidence; it cannot count as a replay-caused repair chain.",
+    "fresh_C0_generation_failure": "Apply the same predeclared infrastructure censoring rule. Do not substitute another project."
+  },
+  "scientific_reason": "Native same-session continuity is the treatment substrate. Reconstructing a session from logs or using independent continuations would destroy the matched-prefix causal contrast.",
+  "protected_canary_opened": false,
+  "official_test_opened": false,
+  "safeguard_note": "This amendment records an execution-feasibility correction, not a runtime gate or software contract."
+}

@@ -1,0 +1,78 @@
+{
+  "study_id": "envsolve-pro-m1c-matched-replay-feedback-v1",
+  "position": 3,
+  "recorded_at": "2026-09-11T21:33:21+08:00",
+  "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+  "branch_order": "C1-first",
+  "live_C0": {
+    "run_id": "m1c-live-03-pretalx-C0-v1-spark",
+    "session_id": "01a0908e-5f56-7903-b1ae-6cb84fcc2209",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "persistent_rollout": true,
+    "online_clean_replay": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 1807,
+      "official_pass_condition": true
+    },
+    "token_usage": {
+      "input_tokens": 1636327,
+      "cached_input_tokens": 1516288,
+      "output_tokens": 12663,
+      "reasoning_output_tokens": 7216
+    }
+  },
+  "matched_continuations": {
+    "same_parent": true,
+    "tool_free": true,
+    "programs_byte_identical": true,
+    "C1": {
+      "child_session_id": "01a090a3-f160-7f40-a29a-9c254cad11cd",
+      "input_tokens": 116222,
+      "output_tokens": 1678,
+      "reasoning_output_tokens": 1399
+    },
+    "T": {
+      "child_session_id": "01a090a4-dca3-7ab3-b8aa-f6d1f611e164",
+      "input_tokens": 116230,
+      "output_tokens": 364,
+      "reasoning_output_tokens": 83
+    }
+  },
+  "postepisode_official": {
+    "C0": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "pass": true
+    },
+    "C1": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "pass": true
+    },
+    "T": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "pass": true
+    }
+  },
+  "primary_contrast": {
+    "T_exclusive_win": false,
+    "C1_exclusive_win": false,
+    "replay_caused_repair_chain": false,
+    "reason": "C0 already passed, and C1 and T emitted the exact same program."
+  },
+  "deployment_quality_annotation": {
+    "label": "project-ignored-local-configuration",
+    "official_score_unchanged": true,
+    "detail": "The bootstrap creates src/pretalx/override_settings.py only when absent. The project explicitly ignores this local settings file, and the remainder of the environment uses the editable local checkout plus declared development dependencies."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
