@@ -19,13 +19,26 @@
       "status": "pass"
     },
     "online_official_path": {
-      "completed": false,
-      "started_at": "2026-09-11T20:22:18.589410+00:00",
-      "finished_at": "2026-09-11T20:23:36.056727+00:00",
-      "recorded_bootstrap_exit_code": 1,
-      "posthoc_status": "infrastructure_censored",
-      "signature": "read-timeout",
-      "evidence": "uv reported: Failed to download distribution due to network timeout."
+      "attempts": 2,
+      "first_attempt": {
+        "completed": false,
+        "started_at": "2026-09-11T20:22:18.589410+00:00",
+        "finished_at": "2026-09-11T20:23:36.056727+00:00",
+        "recorded_bootstrap_exit_code": 1,
+        "posthoc_status": "infrastructure_censored",
+        "signature": "read-timeout",
+        "evidence": "uv reported: Failed to download distribution due to network timeout."
+      },
+      "unchanged_retry1": {
+        "completed": true,
+        "started_at": "2026-09-11T20:40:44.122097+00:00",
+        "finished_at": "2026-09-11T20:43:17.389331+00:00",
+        "bootstrap_exit_code": 0,
+        "active_project_python": ".venv/bin/python",
+        "issues_count": 0,
+        "error_count": 1557,
+        "pass": true
+      }
     },
     "token_usage": {
       "input_tokens": 364960,
@@ -68,9 +81,9 @@
     "valid_pair": false,
     "T_exclusive_win": false,
     "C1_exclusive_win": false,
-    "reason": "C0 was infrastructure-censored, so no causal branch comparison was eligible under the preregistration."
+    "reason": "The unchanged C0 Official-passed on its required infrastructure retry, so no failure-conditioned causal branch comparison was eligible under the preregistration."
   },
-  "measurement_observation": "Exact target feedback can be harmful when infrastructure noise is mislabeled as a deployment constraint. Reliable observation typing is therefore a precondition for the repair operation, not an optional reporting detail.",
+  "measurement_observation": "The unchanged C0 retry passed, confirming that exact target feedback can be harmful when infrastructure noise is mislabeled as a deployment constraint. Reliable observation typing is therefore a precondition for the repair operation, not an optional reporting detail.",
   "protected_canary_opened": false,
   "official_test_opened": false
 }
