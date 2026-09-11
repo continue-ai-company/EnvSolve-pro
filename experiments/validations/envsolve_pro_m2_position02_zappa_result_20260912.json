@@ -1,0 +1,59 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 2,
+  "recorded_at": "2026-09-12T03:00:00+08:00",
+  "case_id": "envbench-python-zappa__zappa@39f75e76d28c1a08d4de6501e6f794fe988cbc98",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "pre_agent_infrastructure_attempt": {
+    "run_id": "m2-independent12-02-zappa-C0-agenthub",
+    "model_started": false,
+    "candidate_formed": false,
+    "failure": "EnvBench base-image pull ended with a registry EOF.",
+    "amendment": "experiments/validations/envsolve_pro_m2_position02_agenthub_image_retry_amendment_20260912.json"
+  },
+  "C0": {
+    "run_id": "m2-independent12-02-zappa-C0-agenthub-image-retry1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T18:40:14.521862+00:00",
+    "generation_finished_at": "2026-09-11T18:55:17.229953+00:00",
+    "construction_container_commands": 23,
+    "internal_clean_qualification": {
+      "certified": false,
+      "status": "infrastructure_error",
+      "bootstrap_exit_code": 2,
+      "reason": "A files.pythonhosted.org ReadTimeout interrupted dependency download before the public goal ran."
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T18:56:27.268698+00:00",
+      "finished_at": "2026-09-11T18:58:48.283830+00:00",
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 359,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 1448393,
+      "cached_input_tokens": 1371264,
+      "output_tokens": 14540,
+      "reasoning_output_tokens": 7627
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 Official-passed, so the preregistered failure-conditioned C1/T branches were not created."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "project-generated-local-modules",
+    "detail": "The program invokes Zappa's own save-python-settings-file command to create zappa_settings.py from the checked-in test configuration, then copies the checkout's tracked zappa/ext/django_zappa.py implementation to the top-level module name imported by the pinned project. These are executable local deployment artifacts, not evaluator modifications, but their runtime completeness remains a separate quality axis."
+  },
+  "measurement_observation": "A network-censored internal qualification and a later successful Official execution of the unchanged program demonstrate why qualification is advisory and Official remains the terminal outcome.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
