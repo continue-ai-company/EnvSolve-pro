@@ -27,7 +27,7 @@
     "paired_T_vs_C1": "unchanged",
     "token_metrics": "unchanged",
     "official_execution_time": "unchanged",
-    "controller_wall_time": "Do not directly compare positions 1-7 with positions 8-24 because post-session transport changed."
+    "controller_wall_time": "Do not directly compare positions 1-9 with positions 10-24 because the already-running position 8 and 9 controller processes loaded the prior transport code."
   },
   "verification": {
     "command": ".venv/bin/python -m pytest tests/test_remote_docker.py -q",
