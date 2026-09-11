@@ -185,9 +185,24 @@ class SshDockerTransportTest(unittest.TestCase):
 
         rendered = transport.remote_command(command)
 
-        self.assertEqual(rendered[:3], ["ssh", "-T", "user@spark"])
         self.assertEqual(
-            rendered[3],
+            rendered[:-1],
+            [
+                "ssh",
+                "-o",
+                "BatchMode=yes",
+                "-o",
+                "ConnectTimeout=10",
+                "-o",
+                "ServerAliveInterval=15",
+                "-o",
+                "ServerAliveCountMax=4",
+                "-T",
+                "user@spark",
+            ],
+        )
+        self.assertEqual(
+            rendered[-1],
             shlex.join(
                 [
                     "/usr/bin/env",
@@ -216,9 +231,17 @@ class SshDockerTransportTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            transport.remote_command(["true"])[:8],
+            transport.remote_command(["true"])[:-2],
             [
                 "ssh",
+                "-o",
+                "BatchMode=yes",
+                "-o",
+                "ConnectTimeout=10",
+                "-o",
+                "ServerAliveInterval=15",
+                "-o",
+                "ServerAliveCountMax=4",
                 "-i",
                 "/tmp/identity",
                 "-o",
@@ -232,7 +255,11 @@ class SshDockerTransportTest(unittest.TestCase):
             transport._rsync_transport(),
             [
                 "-e",
-                "ssh -i /tmp/identity -o IdentitiesOnly=yes -p 2222",
+                (
+                    "ssh -o BatchMode=yes -o ConnectTimeout=10 "
+                    "-o ServerAliveInterval=15 -o ServerAliveCountMax=4 "
+                    "-i /tmp/identity -o IdentitiesOnly=yes -p 2222"
+                ),
             ],
         )
 

@@ -64,6 +64,13 @@ def test_grouped_candidate_rejects_unequal_programs(tmp_path: Path) -> None:
         (
             {
                 "status": "fail",
+                "verification": {"bootstrap": {"exit_code": 255}},
+            },
+            "transport_failure",
+        ),
+        (
+            {
+                "status": "fail",
                 "verification": {
                     "bootstrap": {
                         "exit_code": 1,

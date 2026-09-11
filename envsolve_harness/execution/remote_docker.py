@@ -16,6 +16,12 @@ _SSH_TARGET = re.compile(
 _STANDARD_REMOTE_PATH = (
     "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 )
+_SSH_LIVENESS_OPTIONS = (
+    "BatchMode=yes",
+    "ConnectTimeout=10",
+    "ServerAliveInterval=15",
+    "ServerAliveCountMax=4",
+)
 _REBUILDABLE_TOP_LEVEL_DIRECTORIES = (
     ".nox",
     ".tox",
@@ -81,6 +87,8 @@ class SshDockerTransport:
 
     def ssh_command_prefix(self) -> list[str]:
         command = [self.ssh_executable]
+        for option in _SSH_LIVENESS_OPTIONS:
+            command.extend(["-o", option])
         if self.ssh_identity is not None:
             command.extend(
                 ["-i", self.ssh_identity, "-o", "IdentitiesOnly=yes"]

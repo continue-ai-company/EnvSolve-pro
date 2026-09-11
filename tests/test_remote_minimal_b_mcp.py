@@ -78,6 +78,29 @@ class RemoteMinimalBMcpTest(unittest.TestCase):
             self.assertEqual(executor.ssh_target, "user@executor")
             self.assertEqual(executor.ssh_identity, "/tmp/test-identity")
             self.assertEqual(executor.ssh_port, 2222)
+            self.assertEqual(
+                executor._ssh_docker_command(["ps"]),
+                [
+                    "ssh",
+                    "-o",
+                    "BatchMode=yes",
+                    "-o",
+                    "ConnectTimeout=10",
+                    "-o",
+                    "ServerAliveInterval=15",
+                    "-o",
+                    "ServerAliveCountMax=4",
+                    "-i",
+                    "/tmp/test-identity",
+                    "-o",
+                    "IdentitiesOnly=yes",
+                    "-p",
+                    "2222",
+                    "-T",
+                    "user@executor",
+                    "docker ps",
+                ],
+            )
             self.assertEqual(provider.run_command.transport.target, "user@executor")
             self.assertEqual(
                 provider.run_command.transport.ssh_identity,

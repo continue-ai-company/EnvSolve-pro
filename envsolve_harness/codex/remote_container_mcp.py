@@ -48,7 +48,17 @@ class SshProcessTreeSafePersistentContainerShell(
 
     def _ssh_docker_command(self, arguments: list[str]) -> list[str]:
         remote = shlex.join([self.docker_executable, *arguments])
-        command = [self.ssh_executable]
+        command = [
+            self.ssh_executable,
+            "-o",
+            "BatchMode=yes",
+            "-o",
+            "ConnectTimeout=10",
+            "-o",
+            "ServerAliveInterval=15",
+            "-o",
+            "ServerAliveCountMax=4",
+        ]
         if self.ssh_identity is not None:
             command.extend(
                 ["-i", self.ssh_identity, "-o", "IdentitiesOnly=yes"]

@@ -57,6 +57,8 @@ def classify_result(result: dict[str, Any]) -> str:
     verification = verification if isinstance(verification, dict) else {}
     bootstrap = verification.get("bootstrap")
     bootstrap = bootstrap if isinstance(bootstrap, dict) else {}
+    if status == "fail" and bootstrap.get("exit_code") == 255:
+        return "transport_failure"
     if status == "fail" and bootstrap.get("exit_code") == 42:
         return "interpreter_condition_mismatch"
 
