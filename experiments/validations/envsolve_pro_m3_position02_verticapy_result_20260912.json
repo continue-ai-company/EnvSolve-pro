@@ -1,0 +1,79 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 2,
+  "recorded_at": "2026-09-12T06:33:12+08:00",
+  "case_id": "envbench-python-vertica__verticapy@57bc0a58ca9736d0907d2e6043d206afb4b4f6eb",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-02-verticapy-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 18,
+    "internal_clean_qualification": {
+      "certified": false,
+      "bootstrap_exit_code": 1,
+      "reason": "The replay package index returned no TensorFlow 2.15.1 distribution."
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "issues_count": 0,
+      "goal_report_present": false,
+      "pass": false,
+      "failure": "TensorFlow resolution reached tensorflow-cpu-aws but then reported no compatible NumPy distribution despite compatible ARM wheels existing."
+    },
+    "token_usage": {
+      "input_tokens": 3086494,
+      "cached_input_tokens": 2952832,
+      "output_tokens": 12317,
+      "reasoning_output_tokens": 6890
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "observation",
+    "subtype": "transient-package-index-incompleteness-misclassified-as-semantic",
+    "observation": "Official could download the ARM TensorFlow metadata but pip then reported that no compatible NumPy distribution existed; the execution adapter recorded infrastructure=null.",
+    "constraint": "An exit-only observation cannot reliably distinguish a genuinely unsatisfiable requirement from a transiently incomplete package-index response.",
+    "operation": "T bypassed TensorFlow's transitive resolver with a real no-deps ARM distribution and a smaller explicit dependency set; C1 retained the complete C0 program."
+  },
+  "matched_continuations": {
+    "eligible": true,
+    "executed": true,
+    "tool_free": true,
+    "same_completed_parent": true,
+    "T": {
+      "official_bootstrap_exit_code": 0,
+      "official_issues_count": 0,
+      "official_error_count": 5820,
+      "official_execution_time_seconds": 483.8254482746124,
+      "pass": true,
+      "input_tokens": 124961,
+      "output_tokens": 5790,
+      "reasoning_output_tokens": 5540
+    },
+    "C1": {
+      "official_bootstrap_exit_code": 0,
+      "official_issues_count": 0,
+      "official_error_count": 5822,
+      "official_execution_time_seconds": 619.3687210083008,
+      "pass": true,
+      "input_tokens": 124959,
+      "output_tokens": 748,
+      "reasoning_output_tokens": 516
+    },
+    "paired_disposition": "both-pass",
+    "T_exclusive": false,
+    "C1_exclusive": false,
+    "causal_interpretation": "Target feedback changed the program and reduced observed execution time, but it did not add terminal success because the typed-null continuation also Official-passed."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": true,
+    "feedback_attributable_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
