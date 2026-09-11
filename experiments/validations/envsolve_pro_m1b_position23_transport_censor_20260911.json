@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-m1b-artifact-replay-v1",
+  "recorded_at": "2026-09-11",
+  "position": 23,
+  "candidate_id": "final-p",
+  "round": 2,
+  "sequence": 12,
+  "raw_result": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/06-final-p/result.json",
+  "raw_status": "fail",
+  "classification": "transport_failure",
+  "observations": [
+    "The local SSH process remained present for more than 50 minutes of wall time.",
+    "The remote replay command was no longer running; only an unrelated sleep process remained in the container.",
+    "Captured bootstrap output ended during dependency acquisition and contained no program-level terminal error.",
+    "The recorded bootstrap exit code was 255 and stderr was empty."
+  ],
+  "operator_action": "The stale local SSH process was terminated after confirming that the corresponding remote replay command was absent.",
+  "timing_note": "The runner recorded 1566.495 replay seconds, below its 1800-second monotonic timeout because host sleep does not advance the relevant macOS monotonic clock like ordinary wall time.",
+  "retry_performed": false,
+  "replacement_performed": false,
+  "disposition": "Retain the raw result and classify it as transport-censored. Do not count it as a program nonpass or replace it.",
+  "protected_data_used": false
+}

@@ -5,7 +5,11 @@ from pathlib import Path
 import pytest
 
 from envsolve_harness.core.io import read_json
-from experiments.analyze_m1b_artifact_replay import classify_result
+from experiments.analyze_m1b_artifact_replay import (
+    _global_arm_final_summary,
+    _historical_m1_context,
+    classify_result,
+)
 from experiments.run_m1b_artifact_replay import resolve_candidate, validate_project
 
 
@@ -85,3 +89,49 @@ def test_grouped_candidate_rejects_unequal_programs(tmp_path: Path) -> None:
 )
 def test_result_classification(result: dict[str, object], expected: str) -> None:
     assert classify_result(result) == expected
+
+
+def test_global_arm_summary_keeps_shared_measurements_visible() -> None:
+    projects = [
+        {
+            "final_artifacts_by_arm": {
+                "P": {
+                    "artifact_count": 1,
+                    "category_counts": {"pass": 3},
+                    "physical_measurements_shared_across_aliases": True,
+                },
+                "R0": {
+                    "artifact_count": 1,
+                    "category_counts": {"pass": 2, "acquisition_failure": 1},
+                    "physical_measurements_shared_across_aliases": False,
+                },
+                "R1": {
+                    "artifact_count": 1,
+                    "category_counts": {"pass": 3},
+                    "physical_measurements_shared_across_aliases": False,
+                },
+            }
+        }
+    ]
+
+    summary = _global_arm_final_summary(projects)
+
+    assert summary["P"] == {
+        "independent_projects": 1,
+        "artifact_count": 1,
+        "arm_attributed_replays": 3,
+        "category_counts": {"pass": 3},
+        "projects_with_measurements_shared_across_arm_aliases": 1,
+    }
+    assert summary["R0"]["category_counts"] == {
+        "acquisition_failure": 1,
+        "pass": 2,
+    }
+
+
+def test_historical_context_retains_invalid_attempts_and_state_bug() -> None:
+    context = _historical_m1_context()
+
+    assert context["invalid_engineering_attempts"]
+    assert context["historical_state_persistence_issue"]
+    assert context["all_condition_model_usage_not_additive_with_d0_or_d2_breakdowns"]

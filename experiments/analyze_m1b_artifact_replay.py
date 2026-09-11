@@ -220,6 +220,70 @@ def _arm_final_summary(
     }
 
 
+def _global_arm_final_summary(projects: list[dict[str, Any]]) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    for arm in ("P", "R0", "R1"):
+        rows = [project["final_artifacts_by_arm"][arm] for project in projects]
+        category_counts = sum(
+            (Counter(row["category_counts"]) for row in rows), Counter()
+        )
+        output[arm] = {
+            "independent_projects": len(rows),
+            "artifact_count": sum(int(row["artifact_count"]) for row in rows),
+            "arm_attributed_replays": sum(category_counts.values()),
+            "category_counts": dict(sorted(category_counts.items())),
+            "projects_with_measurements_shared_across_arm_aliases": sum(
+                bool(row["physical_measurements_shared_across_aliases"])
+                for row in rows
+            ),
+        }
+    return output
+
+
+def _category_counts_by_stage(trials: list[dict[str, Any]]) -> dict[str, Any]:
+    stages = sorted({str(trial["stage"]) for trial in trials})
+    output: dict[str, Any] = {}
+    for stage in stages:
+        selected = [trial for trial in trials if trial["stage"] == stage]
+        output[stage] = {
+            "physical_replays": len(selected),
+            "category_counts": dict(
+                sorted(Counter(trial["category"] for trial in selected).items())
+            ),
+        }
+    return output
+
+
+def _cost_totals(
+    rows: list[dict[str, Any]],
+    fields: tuple[str, ...],
+) -> dict[str, float | int]:
+    return {
+        field: sum(row.get(field) or 0 for row in rows)
+        for field in fields
+    }
+
+
+def _d2_cost_totals_by_arm(costs: dict[str, Any]) -> dict[str, Any]:
+    fields = (
+        "input_tokens",
+        "cached_input_tokens",
+        "uncached_input_tokens",
+        "output_tokens",
+        "preflight_seconds",
+        "qualification_seconds",
+        "generation_episode_wall_seconds",
+        "raw_official_execution_seconds",
+    )
+    return {
+        arm: _cost_totals(
+            [project[arm] for project in costs.values()],
+            fields,
+        )
+        for arm in ("P", "R0", "R1")
+    }
+
+
 def _historical_generation_wall(run_id: str) -> float | None:
     matches = list(
         (ROOT / "runs/envsolve-pro-m1-project-progress-v1/mac-controller" / run_id).glob(
@@ -315,6 +379,32 @@ def _shared_d0_costs(schedule: dict[str, Any]) -> dict[str, Any]:
     return output
 
 
+def _historical_m1_context() -> dict[str, Any]:
+    closeout_path = (
+        ROOT
+        / "experiments/analyses/"
+        "envsolve_pro_m1_project_progress_closeout_20260910.json"
+    )
+    payload = read_json(closeout_path)
+    model_usage = payload.get("model_usage")
+    model_usage = model_usage if isinstance(model_usage, dict) else {}
+    cumulative_gap = payload.get("cumulative_progress_gap")
+    cumulative_gap = cumulative_gap if isinstance(cumulative_gap, dict) else {}
+    return {
+        "source": str(closeout_path.relative_to(ROOT)),
+        "all_condition_model_usage_not_additive_with_d0_or_d2_breakdowns": model_usage.get(
+            "all_conditions"
+        ),
+        "accounting_note": model_usage.get("accounting"),
+        "invalid_engineering_attempts": payload.get(
+            "invalid_engineering_attempts", []
+        ),
+        "historical_state_persistence_issue": cumulative_gap.get(
+            "state_persistence_issue"
+        ),
+    }
+
+
 def _historical_generation_wall_from_result(result: dict[str, Any]) -> float | None:
     metadata = result.get("metadata")
     metadata = metadata if isinstance(metadata, dict) else {}
@@ -349,6 +439,8 @@ def analyze(schedule_path: Path, run_root: Path) -> dict[str, Any]:
         )
 
     categories = Counter(trial["category"] for trial in all_trials)
+    d0_costs = _shared_d0_costs(schedule)
+    d2_costs = _d2_costs()
     return {
         "schema_version": "1.0.0",
         "study_id": schedule["study_id"],
@@ -366,10 +458,24 @@ def analyze(schedule_path: Path, run_root: Path) -> dict[str, Any]:
                 trial["category"] != "missing_or_unknown" for trial in all_trials
             ),
         },
+        "category_counts_by_stage": _category_counts_by_stage(all_trials),
+        "global_final_artifacts_by_arm": _global_arm_final_summary(projects),
         "projects": projects,
         "costs": {
-            "shared_d0_first_deployment": _shared_d0_costs(schedule),
-            "historical_d2_update_and_validation": _d2_costs(),
+            "shared_d0_first_deployment": d0_costs,
+            "shared_d0_first_deployment_total": _cost_totals(
+                list(d0_costs.values()),
+                (
+                    "input_tokens",
+                    "cached_input_tokens",
+                    "uncached_input_tokens",
+                    "output_tokens",
+                    "generation_episode_wall_seconds",
+                ),
+            ),
+            "historical_d2_update_and_validation": d2_costs,
+            "historical_d2_totals_by_arm": _d2_cost_totals_by_arm(d2_costs),
+            "historical_m1_context": _historical_m1_context(),
             "m1b_replay_wall_seconds": _summary(
                 [
                     trial["replay_wall_seconds"]

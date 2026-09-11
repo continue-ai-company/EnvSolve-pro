@@ -1,6 +1,6 @@
 {
   "study_id": "envsolve-pro-m1b-artifact-replay-v1",
-  "status": "fixed-not-started",
+  "status": "complete-awaiting-stage-review",
   "recorded_at": "2026-09-10",
   "claim_scope": "consumed development artifact screen only",
   "question": "Do existing repaired programs become repeatably reusable artifacts, and are P artifacts more reliable or less execution-intensive than simple artifact controls?",

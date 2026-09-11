@@ -1,0 +1,2002 @@
+{
+  "category_counts_by_stage": {
+    "final-submitted": {
+      "category_counts": {
+        "acquisition_failure": 4,
+        "pass": 25,
+        "transport_failure": 1
+      },
+      "physical_replays": 30
+    },
+    "pre-update-v2": {
+      "category_counts": {
+        "acquisition_failure": 3,
+        "interpreter_condition_mismatch": 18
+      },
+      "physical_replays": 21
+    }
+  },
+  "claim_limits": [
+    "This does not identify a structured-state mechanism or progressive optimality.",
+    "A pre-update program that selects the old Python version can fail D2 by construction; interpreter mismatch is diagnostic, not an algorithmic contribution.",
+    "Three repeats test whether an observed pattern recurs; they do not establish significant reliability improvement or noninferiority.",
+    "Artifact replay is separate from the historical end-to-end method when the submitted program must be recovered by the researcher.",
+    "Zero-model replay does not estimate counterfactual future repair tokens or an empirical break-even count."
+  ],
+  "claim_scope": "consumed development artifact screen only",
+  "completion": {
+    "category_counts": {
+      "acquisition_failure": 7,
+      "interpreter_condition_mismatch": 18,
+      "pass": 25,
+      "transport_failure": 1
+    },
+    "complete": true,
+    "recorded_result_files": 51,
+    "scheduled_physical_replays": 51
+  },
+  "costs": {
+    "counterfactual_future_repair_tokens": null,
+    "empirical_break_even_count": null,
+    "historical_d2_totals_by_arm": {
+      "P": {
+        "cached_input_tokens": 3578240,
+        "generation_episode_wall_seconds": 3699.7052190000004,
+        "input_tokens": 3881243,
+        "output_tokens": 26059,
+        "preflight_seconds": 619.6469015850453,
+        "qualification_seconds": 532.5191979590454,
+        "raw_official_execution_seconds": 514.2959353923798,
+        "uncached_input_tokens": 303003
+      },
+      "R0": {
+        "cached_input_tokens": 1801856,
+        "generation_episode_wall_seconds": 2882.881559,
+        "input_tokens": 2040710,
+        "output_tokens": 16234,
+        "preflight_seconds": 629.3149582500337,
+        "qualification_seconds": 716.3922112499713,
+        "raw_official_execution_seconds": 441.34022760391235,
+        "uncached_input_tokens": 238854
+      },
+      "R1": {
+        "cached_input_tokens": 6253568,
+        "generation_episode_wall_seconds": 2261.597973,
+        "input_tokens": 6704631,
+        "output_tokens": 14583,
+        "preflight_seconds": 427.5445373748662,
+        "qualification_seconds": 69.96539425000083,
+        "raw_official_execution_seconds": 397.08364748954773,
+        "uncached_input_tokens": 451063
+      }
+    },
+    "historical_d2_update_and_validation": {
+      "10": {
+        "P": {
+          "cached_input_tokens": 644352,
+          "generation_episode_wall_seconds": 670.999766,
+          "historical_audit_valid": true,
+          "input_tokens": 712990,
+          "output_tokens": 4642,
+          "preflight_seconds": 64.94177533400944,
+          "qualification_seconds": 39.071104375005234,
+          "raw_official_execution_seconds": 86.2122528553009,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p10-d2-p-protocol-fix-retry1",
+          "uncached_input_tokens": 68638
+        },
+        "R0": {
+          "cached_input_tokens": 198272,
+          "generation_episode_wall_seconds": 383.935378,
+          "historical_audit_valid": true,
+          "input_tokens": 259260,
+          "output_tokens": 3708,
+          "preflight_seconds": 73.49258120899322,
+          "qualification_seconds": 73.89450987498276,
+          "raw_official_execution_seconds": 37.378758907318115,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p10-d2-r0",
+          "uncached_input_tokens": 60988
+        },
+        "R1": {
+          "cached_input_tokens": 769792,
+          "generation_episode_wall_seconds": 318.625988,
+          "historical_audit_valid": true,
+          "input_tokens": 847737,
+          "output_tokens": 2156,
+          "preflight_seconds": 43.06986433296697,
+          "qualification_seconds": 69.96539425000083,
+          "raw_official_execution_seconds": 82.99026107788086,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p10-d2-r1-protocol-fix-retry1",
+          "uncached_input_tokens": 77945
+        }
+      },
+      "17": {
+        "P": {
+          "cached_input_tokens": 632192,
+          "generation_episode_wall_seconds": 1046.916398,
+          "historical_audit_valid": true,
+          "input_tokens": 679859,
+          "output_tokens": 7363,
+          "preflight_seconds": 85.59839908400318,
+          "qualification_seconds": 90.96850120800082,
+          "raw_official_execution_seconds": 99.24912905693054,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p17-d2-p",
+          "uncached_input_tokens": 47667
+        },
+        "R0": {
+          "cached_input_tokens": 614272,
+          "generation_episode_wall_seconds": 961.010462,
+          "historical_audit_valid": true,
+          "input_tokens": 690484,
+          "output_tokens": 5112,
+          "preflight_seconds": 98.75792587501928,
+          "qualification_seconds": 203.16451254102867,
+          "raw_official_execution_seconds": 187.17673134803772,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p17-d2-r0",
+          "uncached_input_tokens": 76212
+        },
+        "R1": {
+          "cached_input_tokens": 2535040,
+          "generation_episode_wall_seconds": 743.981792,
+          "historical_audit_valid": true,
+          "input_tokens": 2636123,
+          "output_tokens": 3601,
+          "preflight_seconds": 87.52234749996569,
+          "qualification_seconds": null,
+          "raw_official_execution_seconds": 86.2809042930603,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p17-d2-r1",
+          "uncached_input_tokens": 101083
+        }
+      },
+      "22": {
+        "P": {
+          "cached_input_tokens": 1714048,
+          "generation_episode_wall_seconds": 1236.731819,
+          "historical_audit_valid": true,
+          "input_tokens": 1863470,
+          "output_tokens": 9775,
+          "preflight_seconds": 265.7297459170222,
+          "qualification_seconds": 170.13709079200635,
+          "raw_official_execution_seconds": 184.06295657157898,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p22-d2-p",
+          "uncached_input_tokens": 149422
+        },
+        "R0": {
+          "cached_input_tokens": 217600,
+          "generation_episode_wall_seconds": 764.213248,
+          "historical_audit_valid": true,
+          "input_tokens": 249115,
+          "output_tokens": 2240,
+          "preflight_seconds": 278.24524570803624,
+          "qualification_seconds": 249.5266662919894,
+          "raw_official_execution_seconds": 73.77316999435425,
+          "raw_official_status": "nonpass",
+          "run_id": "m1-primary-p22-d2-r0",
+          "uncached_input_tokens": 31515
+        },
+        "R1": {
+          "cached_input_tokens": 659328,
+          "generation_episode_wall_seconds": 515.980795,
+          "historical_audit_valid": false,
+          "input_tokens": 775619,
+          "output_tokens": 1186,
+          "preflight_seconds": 257.7755079579656,
+          "qualification_seconds": null,
+          "raw_official_execution_seconds": 104.02142906188965,
+          "raw_official_status": "nonpass",
+          "run_id": "m1-primary-p22-d2-r1",
+          "uncached_input_tokens": 116291
+        }
+      },
+      "23": {
+        "P": {
+          "cached_input_tokens": 587648,
+          "generation_episode_wall_seconds": 745.057236,
+          "historical_audit_valid": true,
+          "input_tokens": 624924,
+          "output_tokens": 4279,
+          "preflight_seconds": 203.37698125001043,
+          "qualification_seconds": 232.34250158403302,
+          "raw_official_execution_seconds": 144.77159690856934,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p23-d2-p",
+          "uncached_input_tokens": 37276
+        },
+        "R0": {
+          "cached_input_tokens": 771712,
+          "generation_episode_wall_seconds": 773.722471,
+          "historical_audit_valid": true,
+          "input_tokens": 841851,
+          "output_tokens": 5174,
+          "preflight_seconds": 178.81920545798494,
+          "qualification_seconds": 189.80652254197048,
+          "raw_official_execution_seconds": 143.01156735420227,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p23-d2-r0",
+          "uncached_input_tokens": 70139
+        },
+        "R1": {
+          "cached_input_tokens": 2289408,
+          "generation_episode_wall_seconds": 683.009398,
+          "historical_audit_valid": false,
+          "input_tokens": 2445152,
+          "output_tokens": 7640,
+          "preflight_seconds": 39.17681758396793,
+          "qualification_seconds": null,
+          "raw_official_execution_seconds": 123.79105305671692,
+          "raw_official_status": "pass",
+          "run_id": "m1-primary-p23-d2-r1",
+          "uncached_input_tokens": 155744
+        }
+      }
+    },
+    "historical_m1_context": {
+      "accounting_note": "All available model usage from scheduled arm executions is retained. Controller-only attempts and zero-model retries add no model tokens. Two interrupted Agent attempts have unavailable usage and are reported separately.",
+      "all_condition_model_usage_not_additive_with_d0_or_d2_breakdowns": {
+        "P": {
+          "cached_input_tokens": 3578240,
+          "input_tokens": 3881243,
+          "output_tokens": 26059,
+          "uncached_input_tokens": 303003
+        },
+        "R0": {
+          "cached_input_tokens": 3287168,
+          "input_tokens": 3639529,
+          "output_tokens": 23136,
+          "uncached_input_tokens": 352361
+        },
+        "R1": {
+          "cached_input_tokens": 8576640,
+          "input_tokens": 9355543,
+          "output_tokens": 24387,
+          "uncached_input_tokens": 778903
+        }
+      },
+      "historical_state_persistence_issue": "R1 v3 for positions 17 and 23 still records D1, and position 22 still records D0, despite D2 execution. Submitted program artifacts must therefore be treated as authoritative for any supplement; state-file persistence failures are retained as method cost.",
+      "invalid_engineering_attempts": [
+        {
+          "cause": "SSL EOF was misclassified as program failure and an Agent was started before interruption.",
+          "disposition": "engineering cost only; not a primary trial",
+          "model_usage": "unavailable",
+          "observed_wall_seconds": 317.24226862500655,
+          "recorded_container_commands": 6,
+          "run_id": "m1-primary-p10-d2-p"
+        },
+        {
+          "cause": "Recovered SSL EOF was treated as terminal infrastructure failure before the explicit Python-condition failure was handled.",
+          "disposition": "engineering cost only; not a primary trial",
+          "model_usage": "zero",
+          "observed_wall_seconds": 295.7027861250099,
+          "recorded_container_commands": 0,
+          "run_id": "m1-primary-p10-d2-r1"
+        },
+        {
+          "cause": "An empty package-index response was misclassified as program failure and an Agent was started before interruption.",
+          "disposition": "engineering cost only; not a primary trial",
+          "model_usage": "unavailable",
+          "observed_wall_seconds": 717.7677679170156,
+          "recorded_container_commands": 12,
+          "run_id": "m1-primary-p17-d1-r0"
+        },
+        {
+          "cause": "Required source session ID was omitted.",
+          "disposition": "controller setup only",
+          "model_usage": "zero",
+          "observed_wall_seconds": null,
+          "recorded_container_commands": 0,
+          "run_id": "m1-primary-p23-d1-r1"
+        }
+      ],
+      "source": "experiments/analyses/envsolve_pro_m1_project_progress_closeout_20260910.json"
+    },
+    "m1b_bootstrap_seconds": {
+      "count": 51,
+      "max": 1551.8824310420314,
+      "median": 140.3317565829493,
+      "min": 30.659380791999865,
+      "sum": 8370.94555696001
+    },
+    "m1b_model_tokens": 0,
+    "m1b_replay_wall_seconds": {
+      "count": 51,
+      "max": 1566.4947922090068,
+      "median": 150.84692916600034,
+      "min": 42.1101590829785,
+      "sum": 9356.819116379193
+    },
+    "shared_d0_first_deployment": {
+      "10": {
+        "cached_input_tokens": 788608,
+        "generation_episode_wall_seconds": 801.449639,
+        "input_tokens": 866247,
+        "output_tokens": 10169,
+        "shared_across_arms": true,
+        "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-10-A",
+        "uncached_input_tokens": 77639
+      },
+      "17": {
+        "cached_input_tokens": 1209984,
+        "generation_episode_wall_seconds": 1615.501457,
+        "input_tokens": 1266432,
+        "output_tokens": 11367,
+        "shared_across_arms": true,
+        "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-17-A",
+        "uncached_input_tokens": 56448
+      },
+      "22": {
+        "cached_input_tokens": 2335744,
+        "generation_episode_wall_seconds": 1397.574871,
+        "input_tokens": 2509618,
+        "output_tokens": 9888,
+        "shared_across_arms": true,
+        "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-22-A",
+        "uncached_input_tokens": 173874
+      },
+      "23": {
+        "cached_input_tokens": 1442048,
+        "generation_episode_wall_seconds": 903.619358,
+        "input_tokens": 1527336,
+        "output_tokens": 7081,
+        "shared_across_arms": true,
+        "source_run": "runs/envsolve-pro-free-agent-census-v1/mac-controller/free-agent-census24-v1-23-A",
+        "uncached_input_tokens": 85288
+      }
+    },
+    "shared_d0_first_deployment_total": {
+      "cached_input_tokens": 5776384,
+      "generation_episode_wall_seconds": 4718.145325,
+      "input_tokens": 6169633,
+      "output_tokens": 38505,
+      "uncached_input_tokens": 393249
+    }
+  },
+  "global_final_artifacts_by_arm": {
+    "P": {
+      "arm_attributed_replays": 12,
+      "artifact_count": 4,
+      "category_counts": {
+        "pass": 11,
+        "transport_failure": 1
+      },
+      "independent_projects": 4,
+      "projects_with_measurements_shared_across_arm_aliases": 1
+    },
+    "R0": {
+      "arm_attributed_replays": 12,
+      "artifact_count": 4,
+      "category_counts": {
+        "acquisition_failure": 2,
+        "pass": 10
+      },
+      "independent_projects": 4,
+      "projects_with_measurements_shared_across_arm_aliases": 2
+    },
+    "R1": {
+      "arm_attributed_replays": 12,
+      "artifact_count": 4,
+      "category_counts": {
+        "acquisition_failure": 3,
+        "pass": 9
+      },
+      "independent_projects": 4,
+      "projects_with_measurements_shared_across_arm_aliases": 1
+    }
+  },
+  "projects": [
+    {
+      "candidate_summaries": [
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 98.77273804199649,
+            "median": 33.29793358402094,
+            "min": 30.659380791999865,
+            "sum": 162.7300524180173
+          },
+          "candidate_id": "pre-p-r0",
+          "category_counts": {
+            "acquisition_failure": 1,
+            "interpreter_condition_mismatch": 2
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 114.03116600000067,
+            "median": 44.82094045798294,
+            "min": 42.1101590829785,
+            "sum": 200.9622655409621
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position10/P/state-v0002.json"
+            },
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position10/R0/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 73.40922425000463,
+            "median": 38.11145916697569,
+            "min": 36.565656165999826,
+            "sum": 148.08633958298014
+          },
+          "candidate_id": "final-p-r0",
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 85.06366654200247,
+            "median": 50.154993499978445,
+            "min": 48.19821512501221,
+            "sum": 183.41687516699312
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p10-d2-p-protocol-fix-retry1/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/scripts/generated.sh"
+            },
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p10-d2-r0/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 38.38343474996509,
+            "median": 34.345985708001535,
+            "min": 32.97640099999262,
+            "sum": 105.70582145795925
+          },
+          "candidate_id": "pre-r1",
+          "category_counts": {
+            "interpreter_condition_mismatch": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 49.457518250041176,
+            "median": 46.23400766600389,
+            "min": 45.0841287500225,
+            "sum": 140.77565466606757
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position10/R1/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 38.444246875005774,
+            "median": 37.558241875027306,
+            "min": 36.48612212494481,
+            "sum": 112.4886108749779
+          },
+          "candidate_id": "final-r1",
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 50.26381783297984,
+            "median": 49.286518250009976,
+            "min": 47.520527167012915,
+            "sum": 147.07086325000273
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p10-d2-r1-protocol-fix-retry1/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        }
+      ],
+      "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+      "final_artifacts_by_arm": {
+        "P": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_measurements_shared_across_aliases": true
+        },
+        "R0": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_measurements_shared_across_aliases": true
+        },
+        "R1": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_measurements_shared_across_aliases": false
+        }
+      },
+      "fixed_q": {
+        "condition_id": "M1b-fixed-D2-adjacent-python",
+        "python_version": "3.10"
+      },
+      "position": 10,
+      "trials": [
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 98.77273804199649,
+          "candidate_id": "pre-p-r0",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 10,
+          "replay_wall_seconds": 114.03116600000067,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round1/01-pre-p-r0/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 38.11145916697569,
+          "candidate_id": "final-p-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 10,
+          "replay_wall_seconds": 50.154993499978445,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round1/02-final-p-r0/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 32.97640099999262,
+          "candidate_id": "pre-r1",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 10,
+          "replay_wall_seconds": 45.0841287500225,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round1/03-pre-r1/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 37.558241875027306,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 10,
+          "replay_wall_seconds": 49.286518250009976,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round1/04-final-r1/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 34.345985708001535,
+          "candidate_id": "pre-r1",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 10,
+          "replay_wall_seconds": 46.23400766600389,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round2/01-pre-r1/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 38.444246875005774,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 10,
+          "replay_wall_seconds": 50.26381783297984,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round2/02-final-r1/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_exit_code": 2,
+          "bootstrap_seconds": 30.659380791999865,
+          "candidate_id": "pre-p-r0",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by read-timeout",
+          "order_in_round": 3,
+          "position": 10,
+          "replay_wall_seconds": 42.1101590829785,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round2/03-pre-p-r0/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "infrastructure_error"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 73.40922425000463,
+          "candidate_id": "final-p-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 10,
+          "replay_wall_seconds": 85.06366654200247,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round2/04-final-p-r0/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 36.565656165999826,
+          "candidate_id": "final-p-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 10,
+          "replay_wall_seconds": 48.19821512501221,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round3/01-final-p-r0/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 33.29793358402094,
+          "candidate_id": "pre-p-r0",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 10,
+          "replay_wall_seconds": 44.82094045798294,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round3/02-pre-p-r0/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 36.48612212494481,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 10,
+          "replay_wall_seconds": 47.520527167012915,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round3/03-final-r1/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 38.38343474996509,
+          "candidate_id": "pre-r1",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 10,
+          "replay_wall_seconds": 49.457518250041176,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position10/round3/04-pre-r1/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        }
+      ]
+    },
+    {
+      "candidate_summaries": [
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 172.37209749990143,
+            "median": 121.02489116694778,
+            "min": 91.59090475004632,
+            "sum": 384.98789341689553
+          },
+          "candidate_id": "pre-all",
+          "category_counts": {
+            "interpreter_condition_mismatch": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 184.09371391695458,
+            "median": 132.37948541692458,
+            "min": 106.05963508307468,
+            "sum": 422.53283441695385
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position17/P/state-v0002.json"
+            },
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position17/R0/state-v0002.json"
+            },
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position17/R1/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 375.49857737496495,
+            "median": 132.9973605419509,
+            "min": 132.94221629202366,
+            "sum": 641.4381542089395
+          },
+          "candidate_id": "final-p",
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 386.827189499978,
+            "median": 144.80417479097378,
+            "min": 144.00739133299794,
+            "sum": 675.6387556239497
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p17-d2-p/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 136.28915516694542,
+            "median": 122.87775958399288,
+            "min": 73.20914679206908,
+            "sum": 332.3760615430074
+          },
+          "candidate_id": "final-r0",
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 147.31721387500875,
+            "median": 134.2385808749823,
+            "min": 85.61167604196817,
+            "sum": 367.1674707919592
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p17-d2-r0/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 149.0752180410782,
+            "median": 107.99715795903467,
+            "min": 47.31784691696521,
+            "sum": 304.39022291707806
+          },
+          "candidate_id": "final-r1",
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 160.24805187503807,
+            "median": 119.66764920810238,
+            "min": 58.639937833999284,
+            "sum": 338.55563891713973
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p17-d2-r1/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        }
+      ],
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "final_artifacts_by_arm": {
+        "P": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_measurements_shared_across_aliases": false
+        },
+        "R0": {
+          "artifact_count": 1,
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_measurements_shared_across_aliases": false
+        },
+        "R1": {
+          "artifact_count": 1,
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_measurements_shared_across_aliases": false
+        }
+      },
+      "fixed_q": {
+        "condition_id": "M1b-fixed-D2-adjacent-python",
+        "python_version": "3.12"
+      },
+      "position": 17,
+      "trials": [
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 91.59090475004632,
+          "candidate_id": "pre-all",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 17,
+          "replay_wall_seconds": 106.05963508307468,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round1/01-pre-all/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 375.49857737496495,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 17,
+          "replay_wall_seconds": 386.827189499978,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round1/02-final-p/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 136.28915516694542,
+          "candidate_id": "final-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 17,
+          "replay_wall_seconds": 147.31721387500875,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round1/03-final-r0/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 1,
+          "bootstrap_seconds": 47.31784691696521,
+          "candidate_id": "final-r1",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by empty-bootstrap-index",
+          "order_in_round": 4,
+          "position": 17,
+          "replay_wall_seconds": 58.639937833999284,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round1/04-final-r1/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "infrastructure_error"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 122.87775958399288,
+          "candidate_id": "final-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 17,
+          "replay_wall_seconds": 134.2385808749823,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round2/01-final-r0/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 107.99715795903467,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 17,
+          "replay_wall_seconds": 119.66764920810238,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round2/02-final-r1/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 121.02489116694778,
+          "candidate_id": "pre-all",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 17,
+          "replay_wall_seconds": 132.37948541692458,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round2/03-pre-all/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 132.94221629202366,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 17,
+          "replay_wall_seconds": 144.80417479097378,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round2/04-final-p/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 132.9973605419509,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 17,
+          "replay_wall_seconds": 144.00739133299794,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round3/01-final-p/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 172.37209749990143,
+          "candidate_id": "pre-all",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 17,
+          "replay_wall_seconds": 184.09371391695458,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round3/02-pre-all/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 149.0752180410782,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 17,
+          "replay_wall_seconds": 160.24805187503807,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round3/03-final-r1/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 1,
+          "bootstrap_seconds": 73.20914679206908,
+          "candidate_id": "final-r0",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by empty-bootstrap-index",
+          "order_in_round": 4,
+          "position": 17,
+          "replay_wall_seconds": 85.61167604196817,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position17/round3/04-final-r0/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "infrastructure_error"
+        }
+      ]
+    },
+    {
+      "candidate_summaries": [
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 255.65223404101562,
+            "median": 175.71200149995275,
+            "min": 71.8933902499266,
+            "sum": 503.25762579089496
+          },
+          "candidate_id": "pre-all",
+          "category_counts": {
+            "acquisition_failure": 2,
+            "interpreter_condition_mismatch": 1
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 320.2998617499834,
+            "median": 214.1079002090264,
+            "min": 108.549470708007,
+            "sum": 642.9572326670168
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position22/P/state-v0002.json"
+            },
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position22/R0/state-v0002.json"
+            },
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position22/R1/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 235.98348591593094,
+            "median": 220.35952216607984,
+            "min": 144.0874758749269,
+            "sum": 600.4304839569377
+          },
+          "candidate_id": "final-p",
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 273.1622840000782,
+            "median": 261.61635995900724,
+            "min": 186.02236745902337,
+            "sum": 720.8010114181088
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p22-d2-p/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        },
+        {
+          "arm_aliases": [
+            "R0",
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 241.71253333298955,
+            "median": 208.82367495808285,
+            "min": 107.76006758294534,
+            "sum": 558.2962758740177
+          },
+          "candidate_id": "final-r0-r1",
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 280.6317817090312,
+            "median": 244.1243395829806,
+            "min": 147.5019905420486,
+            "sum": 672.2581118340604
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p22-d2-r0/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f/scripts/generated.sh"
+            },
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p22-d2-r1/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        }
+      ],
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "final_artifacts_by_arm": {
+        "P": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_measurements_shared_across_aliases": false
+        },
+        "R0": {
+          "artifact_count": 1,
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_measurements_shared_across_aliases": true
+        },
+        "R1": {
+          "artifact_count": 1,
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_measurements_shared_across_aliases": true
+        }
+      },
+      "fixed_q": {
+        "condition_id": "M1b-fixed-D2-adjacent-python",
+        "python_version": "3.11"
+      },
+      "position": 22,
+      "trials": [
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 1,
+          "bootstrap_seconds": 255.65223404101562,
+          "candidate_id": "pre-all",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by ssl-eof",
+          "order_in_round": 1,
+          "position": 22,
+          "replay_wall_seconds": 320.2998617499834,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round1/01-pre-all/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "infrastructure_error"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 235.98348591593094,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 22,
+          "replay_wall_seconds": 273.1622840000782,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round1/02-final-p/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 208.82367495808285,
+          "candidate_id": "final-r0-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 22,
+          "replay_wall_seconds": 244.1243395829806,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round1/03-final-r0-r1/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 144.0874758749269,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 22,
+          "replay_wall_seconds": 186.02236745902337,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round2/01-final-p/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 1,
+          "bootstrap_seconds": 107.76006758294534,
+          "candidate_id": "final-r0-r1",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by conda-http-connection-failed",
+          "order_in_round": 2,
+          "position": 22,
+          "replay_wall_seconds": 147.5019905420486,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round2/02-final-r0-r1/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "infrastructure_error"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 175.71200149995275,
+          "candidate_id": "pre-all",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 22,
+          "replay_wall_seconds": 214.1079002090264,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round2/03-pre-all/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 241.71253333298955,
+          "candidate_id": "final-r0-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 22,
+          "replay_wall_seconds": 280.6317817090312,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round3/01-final-r0-r1/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P",
+            "R0",
+            "R1"
+          ],
+          "bootstrap_exit_code": 1,
+          "bootstrap_seconds": 71.8933902499266,
+          "candidate_id": "pre-all",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by conda-http-connection-failed",
+          "order_in_round": 2,
+          "position": 22,
+          "replay_wall_seconds": 108.549470708007,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round3/02-pre-all/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "infrastructure_error"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 220.35952216607984,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 22,
+          "replay_wall_seconds": 261.61635995900724,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position22/round3/03-final-p/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "candidate_summaries": [
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 159.89951400004793,
+            "median": 146.6174764999887,
+            "min": 140.02925291704014,
+            "sum": 446.54624341707677
+          },
+          "candidate_id": "pre-p",
+          "category_counts": {
+            "interpreter_condition_mismatch": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 179.56650216702837,
+            "median": 172.40307291701902,
+            "min": 149.8337683340069,
+            "sum": 501.8033434180543
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position23/P/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 1551.8824310420314,
+            "median": 295.3042828340549,
+            "min": 150.31502350000665,
+            "sum": 1997.501737376093
+          },
+          "candidate_id": "final-p",
+          "category_counts": {
+            "pass": 2,
+            "transport_failure": 1
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 1566.4947922090068,
+            "median": 304.97444308397826,
+            "min": 183.49254908401053,
+            "sum": 2054.9617843769956
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p23-d2-p/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 197.6707232920453,
+            "median": 179.6676470830571,
+            "min": 161.0364535000408,
+            "sum": 538.3748238751432
+          },
+          "candidate_id": "pre-r0",
+          "category_counts": {
+            "interpreter_condition_mismatch": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 211.79437949997373,
+            "median": 207.47810258402023,
+            "min": 171.8462864169851,
+            "sum": 591.1187685009791
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position23/R0/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 200.29519487498328,
+            "median": 197.14941049995832,
+            "min": 196.65851504099555,
+            "sum": 594.1031204159372
+          },
+          "candidate_id": "final-r0",
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 234.75948212493677,
+            "median": 207.56009870790876,
+            "min": 207.44941858306993,
+            "sum": 649.7689994159155
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p23-d2-r0/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 208.3987492080778,
+            "median": 174.28242641699035,
+            "min": 30.847801208961755,
+            "sum": 413.5289768340299
+          },
+          "candidate_id": "pre-r1",
+          "category_counts": {
+            "interpreter_condition_mismatch": 3
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 221.15752829203848,
+            "median": 184.1053928330075,
+            "min": 63.28582874999847,
+            "sum": 468.54874987504445
+          },
+          "sources": [
+            {
+              "kind": "state-current-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/states/position23/R1/state-v0002.json"
+            }
+          ],
+          "stage": "pre-update-v2"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_seconds": {
+            "count": 3,
+            "max": 227.99652741698083,
+            "median": 158.3748290000949,
+            "min": 140.3317565829493,
+            "sum": 526.703113000025
+          },
+          "candidate_id": "final-r1",
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_trials": 3,
+          "replay_wall_seconds": {
+            "count": 3,
+            "max": 259.0562953329645,
+            "median": 168.5775320000248,
+            "min": 150.84692916600034,
+            "sum": 578.4807564989896
+          },
+          "sources": [
+            {
+              "kind": "submitted-program",
+              "path": "runs/envsolve-pro-m1-project-progress-v1/mac-controller/m1-primary-p23-d2-r1/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c/scripts/generated.sh"
+            }
+          ],
+          "stage": "final-submitted"
+        }
+      ],
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "final_artifacts_by_arm": {
+        "P": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 2,
+            "transport_failure": 1
+          },
+          "physical_measurements_shared_across_aliases": false
+        },
+        "R0": {
+          "artifact_count": 1,
+          "category_counts": {
+            "pass": 3
+          },
+          "physical_measurements_shared_across_aliases": false
+        },
+        "R1": {
+          "artifact_count": 1,
+          "category_counts": {
+            "acquisition_failure": 1,
+            "pass": 2
+          },
+          "physical_measurements_shared_across_aliases": false
+        }
+      },
+      "fixed_q": {
+        "condition_id": "M1b-fixed-D2-adjacent-python",
+        "python_version": "3.12"
+      },
+      "position": 23,
+      "trials": [
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 159.89951400004793,
+          "candidate_id": "pre-p",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 23,
+          "replay_wall_seconds": 172.40307291701902,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round1/01-pre-p/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 295.3042828340549,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 23,
+          "replay_wall_seconds": 304.97444308397826,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round1/02-final-p/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 197.6707232920453,
+          "candidate_id": "pre-r0",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 23,
+          "replay_wall_seconds": 207.47810258402023,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round1/03-pre-r0/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 196.65851504099555,
+          "candidate_id": "final-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 23,
+          "replay_wall_seconds": 207.44941858306993,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round1/04-final-r0/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 174.28242641699035,
+          "candidate_id": "pre-r1",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 5,
+          "position": 23,
+          "replay_wall_seconds": 184.1053928330075,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round1/05-pre-r1/result.json",
+          "round": 1,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 158.3748290000949,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 6,
+          "position": 23,
+          "replay_wall_seconds": 168.5775320000248,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round1/06-final-r1/result.json",
+          "round": 1,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 161.0364535000408,
+          "candidate_id": "pre-r0",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 23,
+          "replay_wall_seconds": 171.8462864169851,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/01-pre-r0/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 197.14941049995832,
+          "candidate_id": "final-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 2,
+          "position": 23,
+          "replay_wall_seconds": 207.56009870790876,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/02-final-r0/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 208.3987492080778,
+          "candidate_id": "pre-r1",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 23,
+          "replay_wall_seconds": 221.15752829203848,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/03-pre-r1/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 140.3317565829493,
+          "candidate_id": "final-r1",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 23,
+          "replay_wall_seconds": 150.84692916600034,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/04-final-r1/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 140.02925291704014,
+          "candidate_id": "pre-p",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 5,
+          "position": 23,
+          "replay_wall_seconds": 149.8337683340069,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/05-pre-p/result.json",
+          "round": 2,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 255,
+          "bootstrap_seconds": 1551.8824310420314,
+          "candidate_id": "final-p",
+          "category": "transport_failure",
+          "infrastructure_error": null,
+          "order_in_round": 6,
+          "position": 23,
+          "replay_wall_seconds": 1566.4947922090068,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round2/06-final-p/result.json",
+          "round": 2,
+          "stage": "final-submitted",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 30.847801208961755,
+          "candidate_id": "pre-r1",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 1,
+          "position": 23,
+          "replay_wall_seconds": 63.28582874999847,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round3/01-pre-r1/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R1"
+          ],
+          "bootstrap_exit_code": 2,
+          "bootstrap_seconds": 227.99652741698083,
+          "candidate_id": "final-r1",
+          "category": "acquisition_failure",
+          "infrastructure_error": "dependency acquisition was interrupted by read-timeout",
+          "order_in_round": 2,
+          "position": 23,
+          "replay_wall_seconds": 259.0562953329645,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round3/02-final-r1/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "infrastructure_error"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 146.6174764999887,
+          "candidate_id": "pre-p",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 3,
+          "position": 23,
+          "replay_wall_seconds": 179.56650216702837,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round3/03-pre-p/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "P"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 150.31502350000665,
+          "candidate_id": "final-p",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 4,
+          "position": 23,
+          "replay_wall_seconds": 183.49254908401053,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round3/04-final-p/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 42,
+          "bootstrap_seconds": 179.6676470830571,
+          "candidate_id": "pre-r0",
+          "category": "interpreter_condition_mismatch",
+          "infrastructure_error": null,
+          "order_in_round": 5,
+          "position": 23,
+          "replay_wall_seconds": 211.79437949997373,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round3/05-pre-r0/result.json",
+          "round": 3,
+          "stage": "pre-update-v2",
+          "status": "fail"
+        },
+        {
+          "arm_aliases": [
+            "R0"
+          ],
+          "bootstrap_exit_code": 0,
+          "bootstrap_seconds": 200.29519487498328,
+          "candidate_id": "final-r0",
+          "category": "pass",
+          "infrastructure_error": null,
+          "order_in_round": 6,
+          "position": 23,
+          "replay_wall_seconds": 234.75948212493677,
+          "result_path": "runs/envsolve-pro-m1b-artifact-replay-v1/position23/round3/06-final-r0/result.json",
+          "round": 3,
+          "stage": "final-submitted",
+          "status": "pass"
+        }
+      ]
+    }
+  ],
+  "protected_data_used": false,
+  "recorded_at": "2026-09-11T11:03:41.539860+00:00",
+  "run_root": "runs/envsolve-pro-m1b-artifact-replay-v1",
+  "schedule": "experiments/schedules/envsolve_pro_m1b_artifact_replay_v1.json",
+  "schema_version": "1.0.0",
+  "study_id": "envsolve-pro-m1b-artifact-replay-v1"
+}
