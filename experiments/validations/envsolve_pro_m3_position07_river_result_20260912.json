@@ -1,0 +1,54 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 7,
+  "recorded_at": "2026-09-12T06:48:35+08:00",
+  "case_id": "envbench-python-online-ml__river@6995f1522a9136fd3982890afac5c4a178e4cd57",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-07-river-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": false,
+    "construction_container_commands": 28,
+    "candidate_formed": false,
+    "candidate_program_validation": "accepted",
+    "candidate_rejection": {
+      "policy": "clean-tracked-tree-and-provenance-derived-files-v8",
+      "kind": "untracked_import_artifact",
+      "path": "river/compat/pytorch.py",
+      "reason": "untracked importable files and .pth files are prohibited"
+    },
+    "official_attempted": false,
+    "token_usage": {
+      "input_tokens": 6336537,
+      "cached_input_tokens": 6202368,
+      "output_tokens": 20821,
+      "reasoning_output_tokens": 11469
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "cross-version-project-source-injection",
+    "observation": "The exact revision imports river.compat.pytorch although that module is absent from the checked-out source tree.",
+    "constraint": "Deployment may install external providers but may not add or rewrite the project's own implementation to satisfy the evaluator.",
+    "operation": "The Agent installed a historical river-extra distribution, copied its genuine but cross-version pytorch.py into the current repository, edited an inheritance expression, and then uninstalled the source distribution."
+  },
+  "boundary_assessment": {
+    "classification": "justified-candidate-rejection",
+    "reason": "The candidate creates an importable project source file that is absent from the exact revision and modifies it for compatibility; provenance from an older release does not make it environment configuration.",
+    "transport_note": "Post-session workspace transfer also copied a 373 MiB untracked Rust target directory. This is rebuildable infrastructure overhead and is not the rejection reason."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "No admissible complete C0 program reached Official execution."
+  },
+  "primary_disposition": {
+    "admissible": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
