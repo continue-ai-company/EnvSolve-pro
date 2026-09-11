@@ -98,6 +98,11 @@ class EvaluatorInfrastructureClassifierTest(unittest.TestCase):
         cases = {
             "ReadTimeoutError while downloading": "read-timeout",
             (
+                "Failed to download `pip==26.2.1`\n"
+                "Failed to download distribution due to network timeout. "
+                "Try increasing UV_HTTP_TIMEOUT (current value: 30s)."
+            ): "read-timeout",
+            (
                 "SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] "
                 "EOF occurred in violation of protocol'))"
             ): "tls-stream-truncation",

@@ -7,7 +7,11 @@ from typing import Any
 _NETWORK_FAILURES = tuple(
     (name, re.compile(pattern, re.IGNORECASE))
     for name, pattern in (
-        ("read-timeout", r"ReadTimeout(?:Error)?|The read operation timed out"),
+        (
+            "read-timeout",
+            r"ReadTimeout(?:Error)?|The read operation timed out|"
+            r"Failed to download distribution due to network timeout",
+        ),
         ("connection-timeout", r"\bConnection timed out\b"),
         ("connection-error", r"ConnectionError"),
         (
