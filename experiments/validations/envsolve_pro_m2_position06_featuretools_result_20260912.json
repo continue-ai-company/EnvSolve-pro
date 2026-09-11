@@ -1,0 +1,55 @@
+{
+  "study_id": "envsolve-pro-m2-independent12-v1",
+  "position": 6,
+  "recorded_at": "2026-09-12T04:03:00+08:00",
+  "case_id": "envbench-python-alteryx__featuretools@8c99ff7d62d723e90d406ac56bae22aad82e6a47",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m2-independent12-06-featuretools-C0-agenthub",
+    "session_id": "01a091f8-e579-70e3-a9db-d1d4c9586b8b",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "generation_started_at": "2026-09-11T19:36:21.258149+00:00",
+    "generation_finished_at": "2026-09-11T19:54:45.727374+00:00",
+    "construction_container_commands": 9,
+    "internal_clean_qualification": {
+      "certified": true,
+      "status": "pass"
+    },
+    "online_official_path": {
+      "completed": true,
+      "started_at": "2026-09-11T19:55:30.732960+00:00",
+      "finished_at": "2026-09-11T20:01:19.432039+00:00",
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 483,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 692302,
+      "cached_input_tokens": 643584,
+      "output_tokens": 4851,
+      "reasoning_output_tokens": 2880
+    }
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 Official-passed, so the preregistered failure-conditioned C1/T branches were not created."
+  },
+  "mechanism_observation": {
+    "failure_family_solved_inside_C0": "python-and-build-tool-compatibility",
+    "detail": "The free Agent selected Conda Python 3.11, installed the checkout with declared development extras, and constrained setuptools below 81 to retain pkg_resources compatibility."
+  },
+  "deployment_quality_annotation": {
+    "official_score_unchanged": true,
+    "label": "declared-development-environment",
+    "detail": "The program uses the project's declared dev extras rather than a minimal import-only subset. It is a conventional complete local development environment with moderate dependency breadth."
+  },
+  "measurement_observation": "Another compatibility problem was solved entirely inside the persistent C0 session. The incremental treatment remains targeted at discrepancies only visible in the Official target execution state.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
