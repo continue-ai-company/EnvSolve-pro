@@ -12,6 +12,7 @@ from envsolve_harness.progress_state import (
 )
 from envsolve_harness.runners.sequential_installer import (
     SequentialInstallerRunner,
+    bind_default_target_python,
     verified_conditions,
 )
 from envsolve_harness.runners.progress_agent import ProgressAgentRunner
@@ -83,6 +84,20 @@ def runner(tmp_path: Path, arm: str) -> SequentialInstallerRunner:
 
 def test_verified_conditions_are_distinct_and_stable() -> None:
     assert [item.condition_id for item in verified_conditions(state())] == ["d0", "d1"]
+
+
+def test_target_binding_defaults_to_current_condition_but_remains_overridable() -> None:
+    program = bind_default_target_python(
+        '"python${ENVSOLVE_TARGET_PYTHON}" -m venv .venv',
+        "3.10",
+    )
+
+    assert program.splitlines()[0] == (
+        'export ENVSOLVE_TARGET_PYTHON="${ENVSOLVE_TARGET_PYTHON:-3.10}"'
+    )
+    updated = bind_default_target_python(program, "3.11")
+    assert updated.count("export ENVSOLVE_TARGET_PYTHON=") == 1
+    assert "${ENVSOLVE_TARGET_PYTHON:-3.11}" in updated
 
 
 def test_static_and_adaptive_prompts_share_program_but_only_adaptive_gets_regressions(

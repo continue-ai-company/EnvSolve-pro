@@ -1,0 +1,30 @@
+{
+  "study_id": "envsolve-pro-sequential-installer-pilot-v1",
+  "recorded_at": "2026-09-12T11:25:00+08:00",
+  "affected_run": "sequential-installer-pilot-v1-ceph-D1-adaptive",
+  "classification": "invalid-engineering-attempt",
+  "observed_problem": "The preregistered deployment semantics supplied ENVSOLVE_TARGET_PYTHON during explicit preflight replay, but the inherited post-session qualification and later Official path executed the raw artifact without that input. The Agent's candidate therefore used base-image Python 3.13.2 and failed a required-Python-3.10 check despite passing its construction probes on Python 3.10 and 3.11.",
+  "correction": "Normalize artifacts for both arms with one shell line that defaults ENVSOLVE_TARGET_PYTHON to the current requested version only when the caller did not supply it. Explicit inputs on historical or future deployment conditions remain authoritative.",
+  "scientific_effect": "This makes the public preflight, post-session qualification, historical replay, and Official artifact share the same declared deployment-input semantics. It does not expose evaluator output, add Agent memory, change the model, alter arm-specific information, or relax the verifier.",
+  "retry_rule": "Discard the affected run from paired outcomes, retain all of its time, commands, environments, downloads, and tokens as engineering cost, and rerun D1 adaptive once from the unchanged common D0 seed before starting static D1.",
+  "observed_invalid_attempt": {
+    "construction_commands": 4,
+    "voluntary_fresh_environments": 4,
+    "input_tokens": 702542,
+    "cached_input_tokens": 616064,
+    "output_tokens": 8577,
+    "reasoning_output_tokens": 3987,
+    "current_condition_qualification": "Fail: required Python 3.10, observed 3.13.2",
+    "historical_python_3_11_replay": "Pass",
+    "raw_official": {
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 239
+    },
+    "disposition": "Raw Official is retained as postepisode evidence but excluded from the sequential paired outcome because the declared D1 deployment condition was not supplied consistently. The old D0 installer remains the retained state."
+  },
+  "safeguard_note": "No hash, frozen contract, or new gate is added. The concrete failure was an ordinary input-plumbing mismatch; a focused test checks default and override behavior.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

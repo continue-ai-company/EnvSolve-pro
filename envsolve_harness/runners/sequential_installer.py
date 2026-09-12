@@ -6,6 +6,7 @@ import time
 from typing import Any, Literal
 
 from envsolve.runtime.goal import ExecutableGoalContract
+from envsolve.solver import CandidateValidation
 from envsolve_harness.core.io import read_json, write_json
 from envsolve_harness.core.models import Case, RunSpec, SolverResult
 from envsolve_harness.progress_replay import replay_evidence
@@ -41,6 +42,17 @@ def verified_conditions(state: ProjectProgressState) -> tuple[DeploymentConditio
     return tuple(by_id[key] for key in sorted(by_id))
 
 
+def bind_default_target_python(program: str, python_version: str) -> str:
+    prefix = 'export ENVSOLVE_TARGET_PYTHON="${ENVSOLVE_TARGET_PYTHON:-'
+    retained = [
+        line
+        for line in program.splitlines()
+        if not (line.startswith(prefix) and line.endswith('}"'))
+    ]
+    binding = f'{prefix}{python_version}}}"'
+    return "\n".join((binding, *retained)).strip()
+
+
 class SequentialInstallerRunner(ProgressAgentRunner):
     """Compare latest-program reuse with a regression-preserving installer."""
 
@@ -62,6 +74,26 @@ class SequentialInstallerRunner(ProgressAgentRunner):
         if run_spec.method != INSTALLER_METHODS[self.installer_arm]:
             return None
         return self.goal_contract
+
+    def _validate_bootstrap(self, script: str) -> CandidateValidation:
+        validation = super()._validate_bootstrap(script)
+        if not validation.accepted:
+            return validation
+        program = validation.normalized_script or script
+        return CandidateValidation(
+            accepted=True,
+            policy_id=validation.policy_id,
+            normalized_script=bind_default_target_python(
+                program,
+                self.target_condition.python_version,
+            ),
+            details={
+                **validation.details,
+                "sequential_installer_input_default": (
+                    self.target_condition.python_version
+                ),
+            },
+        )
 
     def run(
         self,
@@ -172,12 +204,25 @@ previous installer.
             metadata["historical_regressions"] = []
             return metadata
 
-        state = self._require_state()
-        program = (
-            artifacts.generated_script.read_text(encoding="utf-8")
-            if artifacts.generated_script.is_file()
-            else state.current_program
+        qualification = result.metadata.get("submission_qualification")
+        current_qualified = not isinstance(qualification, dict) or (
+            qualification.get("status") == "pass"
+            and qualification.get("certified") is True
         )
+        if (
+            not result.generation_completed
+            or not artifacts.generated_script.is_file()
+            or not current_qualified
+        ):
+            metadata = super()._update_progress_state(result, artifacts)
+            metadata["installer_arm"] = self.installer_arm
+            metadata["historical_regression_wall_seconds"] = 0.0
+            metadata["historical_regressions"] = []
+            metadata["installer_candidate_retained"] = False
+            return metadata
+
+        state = self._require_state()
+        program = artifacts.generated_script.read_text(encoding="utf-8")
         started = time.monotonic()
         replays: list[dict[str, Any]] = []
         for index, condition in enumerate(verified_conditions(state), start=1):
