@@ -1,0 +1,84 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 16,
+  "recorded_at": "2026-09-12T08:25:03+08:00",
+  "case_id": "envbench-python-basxsoftwareassociation__bread@b26203df8f81fcbf5f299dfe07dc808309349ecd",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-16-bread-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 11,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "execution_time_seconds": 51.310248,
+      "pass": false
+    },
+    "token_usage": {
+      "input_tokens": 581287,
+      "cached_input_tokens": 524288,
+      "output_tokens": 7786,
+      "reasoning_output_tokens": 5276
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "official-checkout-git-ownership",
+    "observation": "Editable metadata generation invoked Git in the Official container and failed with dubious ownership for /data/project.",
+    "constraint": "The mounted checkout must be trusted by Git before setuptools metadata generation can inspect it.",
+    "operation": "The typed-feedback branch added one scoped git safe.directory registration before repeating the otherwise unchanged program."
+  },
+  "matched_continuations": {
+    "eligible": true,
+    "executed": true,
+    "branch_order": "T-first",
+    "unique_branch_difference": "real typed Official payload versus a typed-null payload",
+    "T": {
+      "model_input_tokens": 56604,
+      "model_output_tokens": 1356,
+      "reasoning_output_tokens": 1180,
+      "program_change": "add git config --global --add safe.directory for the current checkout",
+      "official_completed": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 525,
+      "pass": true
+    },
+    "C1": {
+      "model_input_tokens": 56602,
+      "model_output_tokens": 662,
+      "reasoning_output_tokens": 486,
+      "program_change": "none",
+      "initial_official_attempt": "measurement-incomplete-before-result-record",
+      "exact_unchanged_retry_completed": true,
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "issues_count": 0,
+      "pass": false
+    },
+    "causal_result": "T-exclusive-terminal-success"
+  },
+  "generalization_assessment": {
+    "counts_as_target_feedback_gain": true,
+    "subtype_seen_before_m3": true,
+    "conclusion": "This is a strict additional replication of the Git-ownership mechanism, not evidence of cross-subtype generalization."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "primary_censored": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
