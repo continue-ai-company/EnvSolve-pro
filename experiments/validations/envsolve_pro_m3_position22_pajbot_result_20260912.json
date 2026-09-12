@@ -51,6 +51,25 @@
     "C0_success": false,
     "envsolve_pro_terminal_success": false
   },
+  "auxiliary_boundary_appeal": {
+    "primary_metric_eligible": false,
+    "candidate_changed": false,
+    "attempts": 2,
+    "attempt_1": {
+      "classification": "infrastructure-censored-package-index-incompleteness",
+      "bootstrap_exit_code": 1,
+      "goal_report_present": false,
+      "failure": "The package index returned no distribution for the existing black==24.4.2 release."
+    },
+    "attempt_2": {
+      "official_pass": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 224,
+      "execution_time_seconds": 116.49435210227966
+    },
+    "conclusion": "The exact unchanged candidate Official-passed, confirming that the frozen automatic boundary rejected a valid repository-declared local configuration operation."
+  },
   "protected_canary_opened": false,
   "official_test_opened": false
 }
