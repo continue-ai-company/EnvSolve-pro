@@ -148,12 +148,14 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
         *,
         case: Case,
         adapter: RemoteDockerCommandAdapter,
+        condition: DeploymentCondition | None = None,
     ) -> PythonConditionVerifier:
         if self.goal_contract is None:
             raise ValueError("progress replay requires a public goal contract")
+        selected = condition or self.target_condition
         return PythonConditionVerifier(
             self.goal_contract,
-            required_python=self.target_condition.python_version,
+            required_python=selected.python_version,
             observation_timeout=self.command_timeout,
             effect_auditor=lambda worktree: inspect_repository(
                 worktree,
@@ -187,6 +189,7 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
         *,
         program: str,
         root: Path,
+        condition: DeploymentCondition | None = None,
     ) -> dict[str, Any]:
         if self.goal_contract is None:
             raise ValueError("progress replay requires a public goal contract")
@@ -217,7 +220,12 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
             create_timeout=self.container_create_timeout,
             run_command=adapter,
         )
-        verifier = self._condition_verifier(case=case, adapter=adapter)
+        selected = condition or self.target_condition
+        verifier = self._condition_verifier(
+            case=case,
+            adapter=adapter,
+            condition=selected,
+        )
         service = CleanReplayService(
             provider=provider,
             verifier=verifier,
@@ -233,7 +241,7 @@ class ProgressAgentRunner(FreeAgentCensusRunner):
         result = service.submit(program)
         result["replay_wall_seconds"] = time.monotonic() - started
         result["repository_acquisition"] = acquisition
-        result["target_condition"] = self.target_condition.to_dict()
+        result["target_condition"] = selected.to_dict()
         write_json(root / "result.json", result)
         return result
 

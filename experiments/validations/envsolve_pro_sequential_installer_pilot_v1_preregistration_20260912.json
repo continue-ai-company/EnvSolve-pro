@@ -1,0 +1,91 @@
+{
+  "study_id": "envsolve-pro-sequential-installer-pilot-v1",
+  "recorded_at": "2026-09-12T10:55:00+08:00",
+  "status": "preregistered-before-any-pilot-execution",
+  "role": "Consumed-Dev falsification and implementation pilot only; no generalization, SOTA, or leaderboard claim.",
+  "scientific_question": "Can a project-level executable installer retain a verified repair across sequential deployment conditions better than the latest saved static program when both receive the same strong Agent fallback?",
+  "persistent_learned_object": "One executable Bash bootstrap program for the project. Trajectories, failure taxonomies, and natural-language summaries are analysis evidence and are not injected as memory into the next Agent.",
+  "project_selection": {
+    "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+    "repository": "ceph/ceph-ansible",
+    "revision": "59198f5bcdf2eca5cc99c25951d93513c508c01e",
+    "source": "Previously consumed M1 project at the first fixed schedule position; chosen without reading any outcome from the new sequential-installer method.",
+    "common_seed": "experiments/states/envsolve_pro_m1/ceph-ansible/state-v0001.json"
+  },
+  "sequence": [
+    {
+      "condition_id": "D0-common-seed",
+      "python": "3.11",
+      "action": "Use the exact same previously Official-successful bootstrap program as the initial artifact for both arms."
+    },
+    {
+      "condition_id": "D1-adjacent-python",
+      "python": "3.10",
+      "action": "Replay each arm's retained program, invoke the same-capability Agent only after real public-verifier failure, and save a successful candidate."
+    },
+    {
+      "condition_id": "D2-return-python",
+      "python": "3.11",
+      "action": "Deploy each arm's D1 artifact in a fresh environment; invoke the same fallback only if replay fails. This is the primary retention readout."
+    }
+  ],
+  "observable_condition_input": {
+    "name": "ENVSOLVE_TARGET_PYTHON",
+    "semantics": "The requested Python version is an explicit deployment requirement available to both arms, not evaluator feedback.",
+    "values": ["3.10", "3.11"]
+  },
+  "arms": {
+    "static": {
+      "method": "envsolve-pro-sequential-static",
+      "behavior": "Replay the latest saved program. On failure, give that program and current public replay feedback to a fresh gpt-5.6-sol xhigh Agent. Qualify on the current condition and save the latest successful program.",
+      "historical_regression": false
+    },
+    "adaptive": {
+      "method": "envsolve-pro-sequential-adaptive",
+      "behavior": "Replay P_t. Treat a current failure as a counterexample, give P_t and the same current public replay feedback to the same Agent, and require the candidate to remain executable on prior verified conditions. Qualify on current and fresh historical replays before retaining P_{t+1}.",
+      "historical_regression": true
+    }
+  },
+  "controlled_equalities": [
+    "same common seed program and evidence",
+    "same model gpt-5.6-sol and xhigh reasoning effort",
+    "same construction and replay host",
+    "same base image, repository revision, public verifier, shell tools, network, source cache policy, and target-condition input",
+    "same current-condition replay feedback",
+    "same fallback trigger and ability to replace the complete program"
+  ],
+  "unique_treatment_difference": "The adaptive arm exposes prior verified conditions to the updater and charges fresh historical regression replays before retaining its next installer. The static arm saves the latest current-condition program without historical regression.",
+  "execution_order": {
+    "D1": ["adaptive", "static"],
+    "D2": ["static", "adaptive"],
+    "reason": "Reverse order across steps to reduce a simple time-varying network advantage."
+  },
+  "evaluation": {
+    "online_feedback": "Only construction-shell and public clean-replay results. EnvBench Official output is postepisode and never enters either update.",
+    "primary": "At D2, terminal Official success and whether a new Agent fallback was required.",
+    "secondary": [
+      "D1 and D2 public and Official success",
+      "new exploration commands",
+      "input, cached-input, output, and reasoning tokens",
+      "Agent, preflight, current qualification, historical regression, and Official wall time",
+      "download bytes and retained environment or cache storage when available"
+    ],
+    "lifecycle_accounting": "Charge D0 acquisition where available plus every D1/D2 fallback, replay, failed attempt, regression, and optional deletion check to its arm. Token and time are reported metrics, not stopping thresholds.",
+    "official_success": "bootstrap exit code zero and issues_count zero; error_count is reported separately.",
+    "completeness": "Official success, executable deployment completeness, and path/resource quality are separate axes."
+  },
+  "decision_rule": {
+    "retain_for_replication": "Both arms retain Official success at D1 and D2, and adaptive requires less new D2 Agent exploration than static after charging all D1 historical regression cost.",
+    "kill_current_form": "Adaptive causes an unexplained Official regression, cannot produce one installer that replays on D0 and D1, or has no D2 exploration advantage while adding historical-regression cost.",
+    "insufficient": "Any infrastructure censoring or a tie on one project. A positive one-project result establishes feasibility only and requires a new outcome-blind multi-project preregistration."
+  },
+  "excluded": [
+    "protected Canary or Official Test data",
+    "cross-project memory",
+    "trajectory text as reusable Agent memory",
+    "cache, image, or checkpoint optimization",
+    "harness self-modification, RL, or broad verifier ablation",
+    "new hashes, frozen runtime contracts, or gates",
+    "forced minimization when no concrete removable command exists"
+  ]
+}
