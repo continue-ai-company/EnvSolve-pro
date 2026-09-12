@@ -1,0 +1,45 @@
+{
+  "benchmarks": {
+    "envbench": {
+      "adapter": "envbench",
+      "root": "/Users/admin/Documents/AnyDeploy/EnvBench",
+      "settings": {
+        "deterministic_script": "evaluation/scripts/python_baseline.sh",
+        "execution_backend": "ssh-remote-envbench",
+        "image": "ghcr.io/jetbrains-research/envbench-python:latest",
+        "remote_benchmark_root": "/home/avdpro/work/EnvSolve-pro/EnvBench",
+        "remote_workspace_root": "/home/avdpro/work/EnvSolve-pro/envbench-official"
+      }
+    }
+  },
+  "evaluation": {
+    "container_timeout": 2400,
+    "create_container_timeout": 600,
+    "git_fetch_timeout": 900,
+    "max_workers": 1,
+    "process_timeout": 3600
+  },
+  "generation": {
+    "bash_timeout": 1800,
+    "envsolve_max_candidates": 3,
+    "envsolve_max_commands": 3,
+    "envsolve_max_environments": 3,
+    "max_iterations": 100000,
+    "model_max_estimated_cost_usd": 1000000000.0,
+    "model_max_output_tokens": 32768,
+    "model_max_requests": 100000,
+    "model_max_retries": 5,
+    "model_max_total_tokens": 1000000000000,
+    "model_reasoning_effort": "xhigh",
+    "model_request_timeout": 600,
+    "timeout": 18000
+  },
+  "paths": {
+    "runs": "runs/envsolve-pro-sequential-installer-pilot-v1/mac-controller"
+  },
+  "solvers": {
+    "codex-cli": {
+      "root": "/Applications/ChatGPT.app/Contents/Resources/codex"
+    }
+  }
+}
