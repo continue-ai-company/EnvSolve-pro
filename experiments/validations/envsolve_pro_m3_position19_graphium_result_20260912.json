@@ -1,0 +1,50 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 19,
+  "recorded_at": "2026-09-12T08:50:41+08:00",
+  "case_id": "envbench-python-datamol-io__graphium@3efa7f106e6443f9213c498be115ced15556754d",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-19-graphium-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": false,
+    "construction_container_commands": 47,
+    "internal_clean_qualification": null,
+    "official_attempted": false,
+    "token_usage": {
+      "input_tokens": 9162055,
+      "cached_input_tokens": 8967936,
+      "output_tokens": 31412,
+      "reasoning_output_tokens": 18338
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "typing-only-substitute-for-platform-incompatible-hardware-provider",
+    "observation": "After installing a genuine CPU Graphium, PyTorch, PyG, Lightning, test, and data stack, all nine remaining missing-import diagnostics referred to PopTorch. The repository's own installer requires a Graphcore Ubuntu 20.04 Python 3.8 x86_64 SDK, while the execution host is Linux ARM64.",
+    "constraint": "A valid deployment needs a platform-compatible PopTorch provider or must remain unsolved; static type visibility cannot substitute for the unavailable executable IPU capability.",
+    "operation": "The Agent cloned the official PopTorch source and copied only python/enums.py into a new repository typings/poptorch directory so Pyright would report zero missing imports."
+  },
+  "boundary_assessment": {
+    "classification": "inadmissible-metric-optimization",
+    "automated_result": "The existing repository integrity audit rejected typings/poptorch/enums.py as an untracked import artifact.",
+    "path_quality_note": "The preceding CPU dependency and native-extension work was genuine, but the submitted terminal operation did not provide a loadable PopTorch runtime.",
+    "primary_disposition": "Exclude from admissible M3 primary success counts and do not submit to Official.",
+    "protocol_action": "Do not change the M3 boundary mid-batch; retain this case as evidence of a platform-unsatisfiable constraint and verifier-directed metric optimization."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "No admissible C0 program reached Official execution."
+  },
+  "primary_disposition": {
+    "admissible": false,
+    "primary_censored": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
