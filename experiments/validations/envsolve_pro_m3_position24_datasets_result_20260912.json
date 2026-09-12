@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 24,
+  "recorded_at": "2026-09-12T11:07:30+08:00",
+  "case_id": "envbench-python-huggingface__datasets@a6ccf944e42c1a84de81bf326accab9999b86c90",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-24-datasets-C0-agenthub-infra-retry1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 34,
+    "official_attempted": false,
+    "token_usage": {
+      "input_tokens": 11634424,
+      "cached_input_tokens": 11255296,
+      "output_tokens": 30856,
+      "reasoning_output_tokens": 16045
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "broad-optional-dependency-expansion-plus-source-injection",
+    "observation": "The declared dev, metrics, and Apache Beam extras expanded into a very large optional dependency graph. One direct extras installation ran for 1802.967 seconds before timeout. The later environment grew from roughly 375 MB to more than 4 GB while the Agent installed many top-level packages, often with --no-deps.",
+    "constraint": "A deployment must provide executable dependencies without changing repository source merely to remove static import diagnostics; static provider presence alone does not establish runtime completeness.",
+    "operation": "The final program downloads tensorflow/nmt bleu.py into metrics/bleu/nmt_bleu.py, copies a TensorFlow internal compat directory, and installs many packages with --no-deps. Earlier pip check and runtime probes showed unresolved dependency inconsistencies before these metric-oriented edits."
+  },
+  "boundary_assessment": {
+    "classification": "inadmissible-project-source-injection-and-incomplete-provider-graph",
+    "manual_result": "The candidate writes an untracked Python provider into repository source to satisfy reportMissingImports and mutates an installed package's internal API layout. These operations do not constitute a faithful environment-only deployment.",
+    "primary_disposition": "Exclude from admissible M3 success counts and do not submit to Official.",
+    "official_note": "EnvBench Official remains the leaderboard authority, but running it here would only probe a known inadmissible metric-optimized candidate and cannot support the M3 mechanism claim."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The C0 candidate is inadmissible and did not receive Official execution."
+  },
+  "primary_disposition": {
+    "admissible": false,
+    "primary_censored": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": false
+  },
+  "mechanism_interpretation": {
+    "role": "Diagnostic only; not evidence for the EnvSolve-Pro core algorithm.",
+    "finding": "The strong Agent recognized the broad declared dependency surface but alternated between a real prohibitively expensive installation and cheap static-provider operations with incomplete runtime semantics. The local replay mechanism did not solve that operation-selection problem.",
+    "m3_closure": "This is the final fixed M3 position. No replacement or additional M3 case is authorized."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

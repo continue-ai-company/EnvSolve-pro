@@ -1,0 +1,41 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1-closeout",
+  "recorded_at": "2026-09-12T11:10:00+08:00",
+  "scope": "Fixed consumed-Dev mechanism diagnostic only; no generalization, SOTA, or leaderboard claim.",
+  "completion": {
+    "fixed_positions": 24,
+    "replacement_positions": 0,
+    "generation_completed": 20,
+    "admissible_terminal_positions": 12,
+    "C0_official_passes_on_admissible_terminal_positions": 9,
+    "pipeline_terminal_passes_on_admissible_terminal_positions": 12,
+    "valid_M3_matched_opportunities": 3,
+    "T_exclusive_wins": 1,
+    "C1_exclusive_wins": 0,
+    "both_branch_passes": 2
+  },
+  "model_usage": {
+    "input_tokens": 66927870,
+    "cached_input_tokens": 64161408,
+    "output_tokens": 383954,
+    "reasoning_output_tokens": 234824,
+    "accounting_note": "Generation usage only across recorded M3 attempts with available usage; infrastructure retries and external evaluation costs are reported in position artifacts where available."
+  },
+  "main_contradiction": "Restarting a completed strong-Agent session with one exact target payload occasionally repairs a known failure, but it does not accumulate a reusable deployment capability across future environments and does not address the dominant operation-selection failures.",
+  "strongest_support": "Position 16 produced one valid T-exclusive Official recovery for Git safe-directory ownership. Together with M2, exact target feedback has two strict gains, both in the same Git-ownership family.",
+  "strongest_counterevidence": [
+    "M3 produced only three valid matched opportunities, below the preregistered minimum of four for generalization.",
+    "At positions 2 and 5, both typed-null control and real-feedback branches passed after transient acquisition failures, so the real payload was not the causal difference.",
+    "The strict gains remained confined to Git ownership; no non-Git failure family satisfied the preregistered generalization rule.",
+    "Positions 19, 20, 23, and 24 exposed operation-level failures where static import success diverged from executable dependency completeness.",
+    "Positions 21 and 22 showed boundary false positives: legitimate upstream-source extraction and local configuration passed auxiliary Official despite primary rejection."
+  ],
+  "decision": {
+    "candidate": "same-session exact target-state replay",
+    "verdict": "kill-as-paper-core-retain-as-diagnostic-ablation",
+    "reason": "The study measured local repair value but did not establish cross-deployment learning. More one-shot cases or verifier variants would not answer the core question."
+  },
+  "next_highest_information_experiment": "Run the preregistered same-project sequence comparing P_t plus the same strong-Agent fallback against latest-static-program reuse plus the same fallback. Require P_t updates to pass current and historical public clean replays, and evaluate whether a later fresh condition retains Official success with less new exploration after full lifecycle accounting.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
