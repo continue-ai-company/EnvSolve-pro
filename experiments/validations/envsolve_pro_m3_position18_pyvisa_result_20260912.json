@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 18,
+  "recorded_at": "2026-09-12T08:25:59+08:00",
+  "case_id": "envbench-python-pyvisa__pyvisa@df628ff00a0a4ae4efee5277738b12a9d2fd0da0",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-18-pyvisa-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 24,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 690,
+      "execution_time_seconds": 144.74258,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 1728556,
+      "cached_input_tokens": 1629184,
+      "output_tokens": 13800,
+      "reasoning_output_tokens": 8261
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "legacy-compatible-adapter-aware-editable-install",
+    "summary": "The program selects Python 3.11, installs declared development dependencies and a genuine legacy HTMLParser distribution, temporarily moves EnvBench's build_output directory during editable installation, and restores it before verification."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "primary_censored": false,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
