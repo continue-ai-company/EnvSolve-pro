@@ -1,0 +1,138 @@
+{
+  "study_id": "envsolve-pro-sequential-installer-pilot-v1",
+  "recorded_at": "2026-09-12T12:17:21+08:00",
+  "status": "completed-consumed-dev-feasibility-pilot",
+  "case_id": "envbench-python-ceph__ceph-ansible@59198f5bcdf2eca5cc99c25951d93513c508c01e",
+  "protocol": "experiments/protocols/envbench_python_public_goal_v2.json",
+  "preregistration": "experiments/validations/envsolve_pro_sequential_installer_pilot_v1_preregistration_20260912.json",
+  "protocol_amendment": "experiments/validations/envsolve_pro_sequential_installer_pilot_v1_target_input_amendment_20260912.json",
+  "valid_runs": {
+    "D1_adaptive": "runs/envsolve-pro-sequential-installer-pilot-v1/mac-controller/sequential-installer-pilot-v1-ceph-D1-adaptive-retry1/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e",
+    "D1_static": "runs/envsolve-pro-sequential-installer-pilot-v1/mac-controller/sequential-installer-pilot-v1-ceph-D1-static/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e",
+    "D2_static": "runs/envsolve-pro-sequential-installer-pilot-v1/mac-controller/sequential-installer-pilot-v1-ceph-D2-static/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e",
+    "D2_adaptive": "runs/envsolve-pro-sequential-installer-pilot-v1/mac-controller/sequential-installer-pilot-v1-ceph-D2-adaptive/envbench-python-ceph__ceph-ansible__59198f5bcdf2eca5cc99c25951d93513c508c01e"
+  },
+  "primary_outcome": {
+    "D1": {
+      "adaptive": {
+        "public_preflight": "fail",
+        "agent_invoked": true,
+        "current_qualification": "pass",
+        "historical_regression": "1/1 pass",
+        "official_pass": true
+      },
+      "static": {
+        "public_preflight": "fail",
+        "agent_invoked": true,
+        "current_qualification": "pass",
+        "historical_regression": "not run by arm definition",
+        "official_pass": true
+      }
+    },
+    "D2": {
+      "adaptive": {
+        "public_preflight": "pass",
+        "agent_invoked": false,
+        "historical_regression": "2/2 pass",
+        "official_pass": true
+      },
+      "static": {
+        "public_preflight": "fail",
+        "agent_invoked": true,
+        "current_qualification": "pass",
+        "historical_regression": "not run by arm definition",
+        "official_pass": true
+      }
+    }
+  },
+  "mechanism_trace": {
+    "adaptive_D1_program_behavior": "Selects python${ENVSOLVE_TARGET_PYTHON}; the same retained program passed Python 3.10 and 3.11 fresh replays.",
+    "static_D1_program_behavior": "Declares ENVSOLVE_TARGET_PYTHON but invokes hard-coded python3.10; D2 therefore observed Python 3.10.13 when Python 3.11 was required.",
+    "static_D2_repair": "A fresh gpt-5.6-sol xhigh Agent replaced the hard-coded interpreter with python${ENVSOLVE_TARGET_PYTHON}, then qualified and Official-passed."
+  },
+  "resource_outcome": {
+    "D1": {
+      "adaptive": {
+        "lifecycle_wall_seconds": 808.988612,
+        "agent_construction_commands": 4,
+        "input_tokens": 831590,
+        "cached_input_tokens": 739200,
+        "output_tokens": 6889,
+        "reasoning_output_tokens": 2586,
+        "historical_regression_wall_seconds": 100.26647070795298,
+        "official_execution_seconds": 119.10085439682007
+      },
+      "static": {
+        "lifecycle_wall_seconds": 729.946923,
+        "agent_construction_commands": 5,
+        "input_tokens": 1207628,
+        "cached_input_tokens": 1121536,
+        "output_tokens": 7419,
+        "reasoning_output_tokens": 3249,
+        "historical_regression_wall_seconds": 0.0,
+        "official_execution_seconds": 86.37759613990784
+      }
+    },
+    "D2": {
+      "adaptive": {
+        "lifecycle_wall_seconds": 284.450247,
+        "agent_construction_commands": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "historical_regression_wall_seconds": 146.86675687506795,
+        "official_execution_seconds": 33.369325160980225
+      },
+      "static": {
+        "lifecycle_wall_seconds": 777.604974,
+        "agent_construction_commands": 4,
+        "input_tokens": 656857,
+        "cached_input_tokens": 601984,
+        "output_tokens": 5899,
+        "reasoning_output_tokens": 3307,
+        "historical_regression_wall_seconds": 0.0,
+        "official_execution_seconds": 73.45188355445862
+      }
+    },
+    "paired_D1_D2_total": {
+      "adaptive": {
+        "official_passes": 2,
+        "agent_fallbacks": 1,
+        "lifecycle_wall_seconds": 1093.438859,
+        "input_tokens": 831590,
+        "output_tokens": 6889
+      },
+      "static": {
+        "official_passes": 2,
+        "agent_fallbacks": 2,
+        "lifecycle_wall_seconds": 1507.551897,
+        "input_tokens": 1864485,
+        "output_tokens": 13318
+      },
+      "adaptive_relative_reduction": {
+        "lifecycle_wall_fraction": 0.2746923928947834,
+        "input_token_fraction": 0.5539840760317192
+      }
+    },
+    "unavailable_secondary_measures": [
+      "download bytes",
+      "retained cache storage"
+    ]
+  },
+  "invalid_engineering_attempt": {
+    "run_id": "sequential-installer-pilot-v1-ceph-D1-adaptive",
+    "disposition": "Excluded from paired outcomes because the declared target input was not supplied consistently across replay paths; all costs remain recorded in the amendment.",
+    "raw_official_pass": true
+  },
+  "scientific_assessment": {
+    "main_contradiction": "The latest static program can remain Official-correct after every episode while forgetting a previously successful deployment condition and requiring repeated strong-Agent repair.",
+    "strongest_supporting_evidence": "On the preregistered D2 return condition, adaptive reused one executable installer with zero model tokens and passed D0, D1, D2, and Official; static failed preflight, spent 656857 input tokens on a new Agent repair, and then Official-passed.",
+    "strongest_counterevidence_or_alternative": "This is one consumed project, one model sample per arm, and one synthetic Python-version reversal. The adaptive D1 prompt may simply have induced parameterization that the equally capable static Agent could produce stochastically; both arms have identical 2/2 Official success.",
+    "decision": "retain-for-outcome-blind-multi-project-replication",
+    "why_not_promote": "The pilot establishes feasibility and a within-sequence efficiency advantage, not a general success-rate gain or benchmark-level generalization.",
+    "why_not_kill": "Adaptive met the preregistered retention criterion: it preserved Official success while eliminating the D2 Agent fallback even after charging historical regression replays.",
+    "next_highest_information_experiment": "Preregister a small outcome-blind set of previously consumed projects with naturally distinct deployment conditions, repeat the same static-versus-adaptive sequence, and test whether adaptive increases terminal success or consistently removes fallback calls after all lifecycle costs are charged."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
