@@ -50,6 +50,17 @@
     "C0_success": false,
     "envsolve_pro_terminal_success": false
   },
+  "auxiliary_official_metric_probe": {
+    "primary_metric_eligible": false,
+    "candidate_changed": false,
+    "official_pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "error_count": 141,
+    "execution_time_seconds": 41.55322790145874,
+    "known_capability_failure": "Importing conans.client.loader_parse raises ImportError against the installed Conan 1.66 package.",
+    "conclusion": "EnvBench Official accepted a statically resolvable provider that fails when imported, so Official success and executable deployment completeness must be reported as separate axes."
+  },
   "protected_canary_opened": false,
   "official_test_opened": false
 }
