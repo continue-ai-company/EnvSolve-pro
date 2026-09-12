@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 17,
+  "recorded_at": "2026-09-12T08:09:57+08:00",
+  "case_id": "envbench-python-python__importlib_metadata@f3901686abc47853523f3b211873fc2b9e0c5ab5",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-17-importlib-metadata-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 8,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": ".venv/bin/python",
+      "issues_count": 0,
+      "error_count": 76,
+      "execution_time_seconds": 217.552527,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 267062,
+      "cached_input_tokens": 232064,
+      "output_tokens": 11160,
+      "reasoning_output_tokens": 8908
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "adapter-aware-editable-install",
+    "summary": "The initial editable install observed that EnvBench's required build_output directory confused legacy setuptools flat-layout discovery. The final program temporarily moves that directory during installation, restores it before verification, and installs only the project's test extras plus a genuine compatibility dependency."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "primary_censored": false,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
