@@ -56,6 +56,17 @@
     "C0_success": false,
     "envsolve_pro_terminal_success": false
   },
+  "auxiliary_boundary_appeal": {
+    "primary_metric_eligible": false,
+    "candidate_changed": false,
+    "attempts": 1,
+    "official_pass": true,
+    "bootstrap_exit_code": 0,
+    "issues_count": 0,
+    "error_count": 743,
+    "execution_time_seconds": 107.13320302963257,
+    "conclusion": "The exact unchanged candidate Official-passed, confirming that the frozen automatic boundary rejected a valid provenance-bearing upstream source operation."
+  },
   "protected_canary_opened": false,
   "official_test_opened": false
 }
