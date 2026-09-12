@@ -1,0 +1,55 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 23,
+  "recorded_at": "2026-09-12T09:24:15+08:00",
+  "case_id": "envbench-python-conan-io__conan-package-tools@decb63a1a470a5ffd5adf3ae6074b740f086aef2",
+  "construction_host": "spark",
+  "branch_order": "C1-first",
+  "C0": {
+    "run_id": "m3-replication24-23-conan-package-tools-C0-spark",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 19,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "automated_boundary_gap": true
+    },
+    "official_attempted": false,
+    "token_usage": {
+      "input_tokens": 1261594,
+      "cached_input_tokens": 1163136,
+      "output_tokens": 14193,
+      "reasoning_output_tokens": 8763
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "operation",
+    "subtype": "cross-version-single-file-provider-static-false-negative",
+    "observation": "The checked-out project contains a conditional import of conans.client.loader_parse for Conan versions below 1.7, while the installed Conan 1.66 distribution no longer contains that module.",
+    "constraint": "A compatibility provider must be executable with the installed dependency graph, not merely make a static module path resolvable.",
+    "operation": "The program copied only loader_parse.py from the genuine Conan 1.6.1 source archive into the installed Conan 1.66 package. Pyright then reported zero missing imports, but importing the copied module failed because Conan 1.66 no longer exports its required registered_generators symbol."
+  },
+  "boundary_assessment": {
+    "classification": "inadmissible-metric-optimization",
+    "automated_gap": "Fresh replay and the trusted goal both passed because the copied path existed and Pyright did not execute the imported module.",
+    "manual_result": "The construction trajectory directly executed the copied provider and received ImportError: cannot import name registered_generators from conans.client.generators.",
+    "primary_disposition": "Exclude from admissible M3 primary success counts and do not submit to Official.",
+    "protocol_action": "Do not change the frozen M3 boundary mid-batch; retain this executable capability failure for a separately evaluated post-M3 operation-relevance treatment."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The submitted program is inadmissible and did not receive Official execution."
+  },
+  "primary_disposition": {
+    "admissible": false,
+    "primary_censored": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
