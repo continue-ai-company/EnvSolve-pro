@@ -1,0 +1,53 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 14,
+  "recorded_at": "2026-09-12T08:00:21+08:00",
+  "case_id": "envbench-python-cvxgrp__cvxportfolio@831fc7c6e691c4e5d27ecf870ba52d7440bf4784",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-14-cvxportfolio-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": true,
+    "construction_container_commands": 17,
+    "internal_clean_qualification": {
+      "certified": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0
+    },
+    "online_official_path": {
+      "completed": true,
+      "bootstrap_exit_code": 0,
+      "active_project_python": "env/bin/python",
+      "issues_count": 0,
+      "error_count": 1026,
+      "execution_time_seconds": 189.268076,
+      "pass": true
+    },
+    "token_usage": {
+      "input_tokens": 985201,
+      "cached_input_tokens": 924032,
+      "output_tokens": 9763,
+      "reasoning_output_tokens": 5903
+    }
+  },
+  "failure_taxonomy": null,
+  "path_quality": {
+    "classification": "complete-declared-development-environment",
+    "summary": "The program creates a Python 3.10 environment, installs the checked-out project with all declared development extras, and installs two genuine legacy example dependencies without changing repository source."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "C0 reached an admissible raw Official Pass."
+  },
+  "primary_disposition": {
+    "admissible": true,
+    "primary_censored": false,
+    "C0_success": true,
+    "envsolve_pro_terminal_success": true
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
