@@ -1,0 +1,89 @@
+{
+  "study_id": "envsolve-pro-sequential-installer-replication3-v1",
+  "recorded_at": "2026-09-12T12:24:00+08:00",
+  "status": "preregistered-before-any-replication-execution",
+  "role": "Consumed-Dev mechanism replication; eligibility for a larger Dev qualification, not a generalization, SOTA, or leaderboard claim.",
+  "scientific_question": "Does the adaptive executable installer preserve terminal Official success while reducing repeated strong-Agent repair across projects, or was the ceph pilot a one-sample parameterization accident?",
+  "selection_rule": "Include every remaining project with a pre-existing Official-successful envsolve_pro_m1 state-v0001 seed after excluding ceph, which was consumed by the feasibility pilot. No project is selected from a new-method outcome.",
+  "projects": [
+    {
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "seed": "experiments/states/envsolve_pro_m1/fontbakery/state-v0001.json",
+      "sequence": [
+        {"condition_id": "D0-seed-python", "python": "3.10"},
+        {"condition_id": "D1-adjacent-python", "python": "3.11"},
+        {"condition_id": "D2-return-python", "python": "3.10"}
+      ],
+      "D1_order": ["adaptive", "static"],
+      "D2_order": ["static", "adaptive"]
+    },
+    {
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "seed": "experiments/states/envsolve_pro_m1/mpmath/state-v0001.json",
+      "sequence": [
+        {"condition_id": "D0-seed-python", "python": "3.13"},
+        {"condition_id": "D1-adjacent-python", "python": "3.11"},
+        {"condition_id": "D2-return-python", "python": "3.13"}
+      ],
+      "D1_order": ["static", "adaptive"],
+      "D2_order": ["adaptive", "static"]
+    },
+    {
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "seed": "experiments/states/envsolve_pro_m1/reproject/state-v0001.json",
+      "sequence": [
+        {"condition_id": "D0-seed-python", "python": "3.13"},
+        {"condition_id": "D1-adjacent-python", "python": "3.11"},
+        {"condition_id": "D2-return-python", "python": "3.13"}
+      ],
+      "D1_order": ["adaptive", "static"],
+      "D2_order": ["static", "adaptive"]
+    }
+  ],
+  "condition_rationale": "Supported Python-version changes are ordinary deployment requirements and are observable before execution. Returning to D0 tests whether the D1 updater retains earlier compatibility. The sequence is fixed without observing replication outcomes.",
+  "arms": {
+    "static": "Replay the latest saved executable program; after current public failure, invoke a fresh gpt-5.6-sol xhigh Agent with the previous program and current feedback, qualify on the current condition, and save the latest success without historical replay.",
+    "adaptive": "Use the identical replay-first and Agent fallback path, expose prior verified conditions to the updater, and retain a candidate only after current qualification plus fresh replay on every prior verified condition. The only learned object is the executable program."
+  },
+  "controlled_equalities": [
+    "same project-specific D0 seed within each pair",
+    "same gpt-5.6-sol model and xhigh reasoning effort",
+    "same Spark arm64 execution host without GPU exposure",
+    "same repository revision, image, public verifier, shell tools, target-condition input, source-cache policy, and postepisode Official evaluator",
+    "same fallback trigger and ability to replace the full program"
+  ],
+  "unique_treatment_difference": "Adaptive receives the list of prior verified deployment conditions and must pass their fresh replays before retaining P_{t+1}; static retains the latest current-condition success.",
+  "execution_policy": {
+    "within_project": "Follow each project's fixed D1 and D2 arm order. Complete both D1 arms before either D2 arm.",
+    "between_projects": "Projects may run concurrently for throughput. Concurrency, network failures, and censored runs must be recorded; do not reorder within a project based on intermediate outcomes.",
+    "retry": "Retry only infrastructure-censored or invalid engineering runs from the same unchanged input state. Retain all invalid-run costs and reasons.",
+    "official_feedback": "EnvBench Official is postepisode only and is never returned to an Agent or used to alter a later arm."
+  },
+  "primary_outcomes": [
+    "D1 and D2 Official success for each arm",
+    "whether D2 required a new Agent fallback"
+  ],
+  "secondary_outcomes": [
+    "public preflight and qualification status",
+    "historical replay status",
+    "Agent construction commands",
+    "input, cached-input, output, and reasoning tokens",
+    "full lifecycle, preflight, qualification, regression, and Official wall time",
+    "download bytes and retained storage when available"
+  ],
+  "decision_rule": {
+    "promote_to_larger_dev_qualification": "Adaptive has no fewer D2 Official passes than static, has no unexplained historical or Official regression, and avoids a D2 Agent fallback required by static on at least two of three projects after all lifecycle costs are charged.",
+    "retain_without_promotion": "Adaptive preserves Official success and shows a fallback advantage on only one project, or infrastructure censoring leaves fewer than three valid pairs.",
+    "kill_current_form": "Adaptive loses terminal Official success, cannot retain prior verified conditions, or has no D2 fallback advantage on all three projects while adding historical replay cost."
+  },
+  "excluded": [
+    "ceph, whose sequential outcome is already observed",
+    "protected Canary or Official Test data",
+    "cross-project memory or natural-language trajectory memory",
+    "case-specific package rules",
+    "cache, image, checkpoint, RL, or harness-self-modification treatments",
+    "new hashes, frozen contracts, or gates"
+  ],
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
