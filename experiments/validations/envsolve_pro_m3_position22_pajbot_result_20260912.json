@@ -1,0 +1,56 @@
+{
+  "study_id": "envsolve-pro-m3-replication24-v1",
+  "position": 22,
+  "recorded_at": "2026-09-12T08:53:55+08:00",
+  "case_id": "envbench-python-pajbot__pajbot@a0d969a570c7bd06fcf1829b6f3465c1b250f0a3",
+  "construction_host": "agenthub",
+  "branch_order": "T-first",
+  "C0": {
+    "run_id": "m3-replication24-22-pajbot-C0-agenthub",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "generation_completed": false,
+    "construction_container_commands": 16,
+    "internal_clean_qualification": null,
+    "official_attempted": false,
+    "token_usage": {
+      "input_tokens": 672998,
+      "cached_input_tokens": 595200,
+      "output_tokens": 10183,
+      "reasoning_output_tokens": 5817
+    }
+  },
+  "failure_taxonomy": {
+    "layer": "constraint",
+    "subtype": "legitimate-local-configuration-misclassified-as-project-source-injection",
+    "observation": "The only remaining import was pajbot.userdispatch. The repository labels userdispatch.py as 'User created code' in .gitignore, gives pajbot.userdispatch a dedicated ignore rule in .mypy.ini, and catches ImportError at runtime to fall back to the built-in Dispatch class.",
+    "constraint": "Deployment-owned local configuration should be distinguished from replacement project implementation using repository-declared role and runtime fallback semantics.",
+    "operation": "The Agent generated a gitignored UserDispatch subclass that inherits the built-in callbacks without overriding project behavior."
+  },
+  "boundary_assessment": {
+    "classification": "frozen-automatic-boundary-false-positive",
+    "automated_result": "The existing repository integrity audit rejected pajbot/userdispatch.py as an untracked import artifact.",
+    "semantic_evidence": [
+      ".gitignore explicitly categorizes userdispatch.py as user-created code",
+      ".mypy.ini names pajbot.userdispatch as an optional missing import",
+      "pajbot.models.action catches its ImportError and falls back to the built-in Dispatch implementation",
+      "the generated class only inherits Dispatch and supplies no replacement callbacks"
+    ],
+    "primary_disposition": "Retain the frozen M3 rejection and exclude the case from primary success counts; do not relabel it as metric optimization.",
+    "post_m3_action": "Run the exact unchanged candidate as an explicitly auxiliary boundary appeal before considering a narrow repository-declared-local-config treatment."
+  },
+  "matched_continuations": {
+    "eligible": false,
+    "executed": false,
+    "reason": "The frozen automatic boundary rejected the candidate before Official execution."
+  },
+  "primary_disposition": {
+    "admissible_under_frozen_boundary": false,
+    "semantic_admissibility_assessment": "supported-but-not-yet-officially-validated",
+    "primary_metric_eligible": false,
+    "C0_success": false,
+    "envsolve_pro_terminal_success": false
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
