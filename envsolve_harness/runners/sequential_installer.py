@@ -153,6 +153,8 @@ class SequentialInstallerRunner(ProgressAgentRunner):
         result["installer_input"] = {
             "ENVSOLVE_TARGET_PYTHON": selected.python_version,
         }
+        root.mkdir(parents=True, exist_ok=True)
+        write_json(root / "result.json", result)
         return result
 
     def _prompt(
