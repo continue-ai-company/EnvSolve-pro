@@ -1,0 +1,83 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "pair_position": 1,
+  "case_id": "envbench-python-pretalx__pretalx@64e72619ce413bbcbbe5b838d0bc8cf690d1c3a8",
+  "recorded_at": "2026-09-14T14:05:30+08:00",
+  "status": "complete",
+  "control": {
+    "run_id": "pro-matched-replay-o8-v1-01-C-retry1",
+    "feedback_mode": "withheld",
+    "submission_count": 1,
+    "replay_statuses": [
+      "withheld"
+    ],
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T05:10:11.983017+00:00",
+    "generation_finished_at": "2026-09-14T05:19:56.172873+00:00",
+    "token_usage": {
+      "input_tokens": 587586,
+      "cached_input_tokens": 502272,
+      "output_tokens": 7770,
+      "reasoning_output_tokens": 3656
+    },
+    "official": {
+      "completed": true,
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 1807,
+      "missing_imports": [],
+      "started_at": "2026-09-14T05:29:05.296590+00:00",
+      "finished_at": "2026-09-14T05:34:03.549140+00:00",
+      "feedback_disclosed_to_agent": false
+    }
+  },
+  "treatment": {
+    "run_id": "pro-matched-replay-o8-v1-01-T",
+    "feedback_mode": "real",
+    "submission_count": 1,
+    "replay_statuses": [
+      "pass"
+    ],
+    "treatment_activation": false,
+    "activation_reason": "The first real clean replay passed, so no failure-conditioned repair occurred.",
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T05:36:55.136598+00:00",
+    "generation_finished_at": "2026-09-14T05:53:23.403469+00:00",
+    "token_usage": {
+      "input_tokens": 1185295,
+      "cached_input_tokens": 1118464,
+      "output_tokens": 10806,
+      "reasoning_output_tokens": 6304
+    },
+    "official": {
+      "completed": true,
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 1807,
+      "missing_imports": [],
+      "started_at": "2026-09-14T05:54:32.572315+00:00",
+      "finished_at": "2026-09-14T05:58:49.191946+00:00",
+      "feedback_disclosed_to_agent": false
+    }
+  },
+  "paired_outcome": {
+    "class": "both_official_pass",
+    "treatment_exclusive_win": false,
+    "control_exclusive_win": false,
+    "supporting_causal_chain": false,
+    "mechanism_information": "No treatment activation. Both independently sampled strong Agents produced an Official-passing program before any repair opportunity.",
+    "selection_stability_note": "This case entered the frozen cohort because the historical A1 post-session clean replay failed, but both newly sampled matched arms passed Official. It therefore supplies evidence of outcome instability or sampling variance, not replay-caused repair."
+  },
+  "path_quality": {
+    "control_source_tree_local_config": "src/pretalx/override_settings.py",
+    "treatment_source_tree_local_config": "src/pretalx/override_settings.py",
+    "disposition": "Flagged as a source-tree local configuration artifact. Per the study rule it does not override the EnvBench Official outcome."
+  },
+  "scientific_disposition": "valid_paired_tie_without_treatment_activation",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

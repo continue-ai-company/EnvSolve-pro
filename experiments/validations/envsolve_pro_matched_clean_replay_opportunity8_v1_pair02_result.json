@@ -1,0 +1,80 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "pair_position": 2,
+  "case_id": "envbench-python-python-control__python-control@dbc998dedf8e18dcdcc15acf15303f22adf9368f",
+  "recorded_at": "2026-09-14T14:08:00+08:00",
+  "status": "complete",
+  "control": {
+    "run_id": "pro-matched-replay-o8-v1-02-C",
+    "feedback_mode": "withheld",
+    "submission_count": 1,
+    "replay_statuses": [
+      "withheld"
+    ],
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T05:36:55.047642+00:00",
+    "generation_finished_at": "2026-09-14T05:59:51.607620+00:00",
+    "token_usage": {
+      "input_tokens": 2444654,
+      "cached_input_tokens": 2329984,
+      "output_tokens": 12579,
+      "reasoning_output_tokens": 6993
+    },
+    "deployment_path": "Conda Python 3.12 with NumPy 1.26 and conda-forge slycot 0.6.1, followed by editable project installation.",
+    "official": {
+      "completed": true,
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 3255,
+      "missing_imports": [],
+      "started_at": "2026-09-14T06:03:48.293728+00:00",
+      "finished_at": "2026-09-14T06:07:15.836183+00:00",
+      "feedback_disclosed_to_agent": false
+    }
+  },
+  "treatment": {
+    "run_id": "pro-matched-replay-o8-v1-02-T-retry1",
+    "feedback_mode": "real",
+    "submission_count": 1,
+    "replay_statuses": [
+      "pass"
+    ],
+    "treatment_activation": false,
+    "activation_reason": "The first real clean replay passed, so no failure-conditioned repair occurred.",
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T05:10:54.356120+00:00",
+    "generation_finished_at": "2026-09-14T05:34:19.073536+00:00",
+    "token_usage": {
+      "input_tokens": 2604891,
+      "cached_input_tokens": 2482944,
+      "output_tokens": 10765,
+      "reasoning_output_tokens": 5675
+    },
+    "deployment_path": "Python 3.12 venv with pinned NumPy/SciPy ecosystem and a no-deps slycot 0.7.0 wheel.",
+    "official": {
+      "completed": true,
+      "pass": true,
+      "bootstrap_exit_code": 0,
+      "issues_count": 0,
+      "error_count": 3248,
+      "missing_imports": [],
+      "started_at": "2026-09-14T06:00:13.973884+00:00",
+      "finished_at": "2026-09-14T06:02:47.366642+00:00",
+      "feedback_disclosed_to_agent": false
+    }
+  },
+  "paired_outcome": {
+    "class": "both_official_pass",
+    "treatment_exclusive_win": false,
+    "control_exclusive_win": false,
+    "supporting_causal_chain": false,
+    "mechanism_information": "No treatment activation. The matched strong Agents independently found two different Official-passing dependency solutions before any failure-conditioned repair.",
+    "selection_stability_note": "This case entered the cohort through a historical post-session clean-replay failure, but both newly sampled arms passed. The current evidence points to path and execution variability rather than a clean-replay repair effect."
+  },
+  "scientific_disposition": "valid_paired_tie_without_treatment_activation",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

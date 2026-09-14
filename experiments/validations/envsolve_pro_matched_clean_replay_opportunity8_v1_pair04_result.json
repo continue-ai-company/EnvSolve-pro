@@ -1,0 +1,93 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "pair_position": 4,
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "recorded_at": "2026-09-14T14:57:05+08:00",
+  "status": "complete",
+  "source_acquisition_amendment": "experiments/validations/envsolve_pro_matched_clean_replay_opportunity8_v1_position04_source_cache_amendment.json",
+  "control": {
+    "run_id": "pro-matched-replay-o8-v1-04-C",
+    "feedback_mode": "withheld",
+    "submission_count": 1,
+    "replay_statuses": [
+      "withheld"
+    ],
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T06:24:55.161821+00:00",
+    "generation_finished_at": "2026-09-14T06:34:51.452419+00:00",
+    "token_usage": {
+      "input_tokens": 537307,
+      "cached_input_tokens": 486528,
+      "output_tokens": 6790,
+      "reasoning_output_tokens": 3565
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": false,
+        "classification": "infrastructure_censored",
+        "signature": "read-timeout",
+        "started_at": "2026-09-14T06:44:08.041936+00:00",
+        "finished_at": "2026-09-14T06:50:46.216228+00:00"
+      },
+      {
+        "attempt": 2,
+        "program_changed": false,
+        "model_reexecuted": false,
+        "completed": true,
+        "pass": true,
+        "bootstrap_exit_code": 0,
+        "issues_count": 0,
+        "error_count": 818,
+        "missing_imports": [],
+        "started_at": "2026-09-14T06:52:11.666163+00:00",
+        "finished_at": "2026-09-14T06:54:23.071238+00:00"
+      }
+    ]
+  },
+  "treatment": {
+    "run_id": "pro-matched-replay-o8-v1-04-T-retry1",
+    "feedback_mode": "real",
+    "submission_count": 1,
+    "replay_statuses": [
+      "pass"
+    ],
+    "treatment_activation": false,
+    "activation_reason": "The first real clean replay passed, so no failure-conditioned repair occurred.",
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T06:07:56.214564+00:00",
+    "generation_finished_at": "2026-09-14T06:23:47.836216+00:00",
+    "token_usage": {
+      "input_tokens": 764472,
+      "cached_input_tokens": 706944,
+      "output_tokens": 7343,
+      "reasoning_output_tokens": 3364
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": true,
+        "pass": true,
+        "bootstrap_exit_code": 0,
+        "issues_count": 0,
+        "error_count": 824,
+        "missing_imports": [],
+        "started_at": "2026-09-14T06:38:02.022293+00:00",
+        "finished_at": "2026-09-14T06:40:13.749795+00:00"
+      }
+    ]
+  },
+  "paired_outcome": {
+    "class": "both_official_pass",
+    "treatment_exclusive_win": false,
+    "control_exclusive_win": false,
+    "supporting_causal_chain": false,
+    "mechanism_information": "No treatment activation. Both independently sampled strong Agents produced an Official-passing program before any repair opportunity.",
+    "infrastructure_note": "The control's first Official attempt was censored by a recognized read timeout; the unchanged-program retry passed and supplies the valid terminal outcome."
+  },
+  "scientific_disposition": "valid_paired_tie_without_treatment_activation",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

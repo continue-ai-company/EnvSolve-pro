@@ -1,0 +1,85 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "pair_position": 6,
+  "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+  "recorded_at": "2026-09-14T16:15:00+08:00",
+  "status": "complete-with-fidelity-contradiction",
+  "control": {
+    "run_id": "pro-matched-replay-o8-v1-06-C",
+    "feedback_mode": "withheld",
+    "submission_count": 1,
+    "replay_statuses": [
+      "withheld"
+    ],
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T07:00:23.110178+00:00",
+    "generation_finished_at": "2026-09-14T07:10:41.325158+00:00",
+    "token_usage": {
+      "input_tokens": 686480,
+      "cached_input_tokens": 647680,
+      "output_tokens": 5685,
+      "reasoning_output_tokens": 2699
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": true,
+        "pass": false,
+        "bootstrap_exit_code": 1,
+        "issues_count": 0,
+        "error_count": null,
+        "git_ownership_error": true,
+        "goal_report_present": false,
+        "started_at": "2026-09-14T07:39:10.342757+00:00",
+        "finished_at": "2026-09-14T07:40:22.180233+00:00"
+      }
+    ]
+  },
+  "treatment": {
+    "run_id": "pro-matched-replay-o8-v1-06-T",
+    "feedback_mode": "real",
+    "submission_count": 1,
+    "replay_statuses": [
+      "pass"
+    ],
+    "treatment_activation": false,
+    "activation_reason": "The old Docker clean replay returned Pass, so no failure-conditioned repair occurred.",
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T06:42:35.481346+00:00",
+    "generation_finished_at": "2026-09-14T06:55:20.074401+00:00",
+    "token_usage": {
+      "input_tokens": 937038,
+      "cached_input_tokens": 866048,
+      "output_tokens": 7814,
+      "reasoning_output_tokens": 4592
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": true,
+        "pass": false,
+        "bootstrap_exit_code": 1,
+        "issues_count": 0,
+        "error_count": null,
+        "git_ownership_error": true,
+        "goal_report_present": false,
+        "started_at": "2026-09-14T07:36:11.033512+00:00",
+        "finished_at": "2026-09-14T07:37:28.846782+00:00"
+      }
+    ],
+    "replay_official_fidelity": false,
+    "fidelity_contradiction": "The online replay chowned its mounted checkout to root and passed. EnvBench Official preserved host ownership while the container ran as root, so Git rejected /data/project as dubious ownership and package metadata generation failed."
+  },
+  "paired_outcome": {
+    "class": "both_official_fail",
+    "treatment_exclusive_win": false,
+    "control_exclusive_win": false,
+    "supporting_causal_chain": false,
+    "mechanism_information": "The treatment received a false Pass from a target-state-inaccurate replay. This pair identifies an implementation-level fidelity failure rather than evidence for or against same-session repair."
+  },
+  "scientific_disposition": "pair-terminal-but-causal-study-invalidated-by-target-state-fidelity",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

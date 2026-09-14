@@ -1,0 +1,92 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "pair_position": 5,
+  "case_id": "envbench-python-revoxhere__duino-coin@2d3d3dd61982ddc6fc6f9933d3ba4d2b60447259",
+  "recorded_at": "2026-09-14T15:37:19+08:00",
+  "status": "complete",
+  "control": {
+    "run_id": "pro-matched-replay-o8-v1-05-C",
+    "feedback_mode": "withheld",
+    "submission_count": 1,
+    "replay_statuses": [
+      "withheld"
+    ],
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T06:56:49.869592+00:00",
+    "generation_finished_at": "2026-09-14T07:07:52.693329+00:00",
+    "token_usage": {
+      "input_tokens": 483301,
+      "cached_input_tokens": 430080,
+      "output_tokens": 3229,
+      "reasoning_output_tokens": 1084
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": true,
+        "pass": true,
+        "bootstrap_exit_code": 0,
+        "issues_count": 0,
+        "error_count": 743,
+        "missing_imports": [],
+        "started_at": "2026-09-14T07:23:56.526647+00:00",
+        "finished_at": "2026-09-14T07:25:55.747139+00:00"
+      }
+    ]
+  },
+  "treatment": {
+    "run_id": "pro-matched-replay-o8-v1-05-T",
+    "feedback_mode": "real",
+    "submission_count": 1,
+    "replay_statuses": [
+      "pass"
+    ],
+    "treatment_activation": false,
+    "activation_reason": "The first real clean replay passed, so no failure-conditioned repair occurred.",
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T07:10:02.413052+00:00",
+    "generation_finished_at": "2026-09-14T07:22:06.689119+00:00",
+    "token_usage": {
+      "input_tokens": 750016,
+      "cached_input_tokens": 689792,
+      "output_tokens": 6909,
+      "reasoning_output_tokens": 2952
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": false,
+        "classification": "infrastructure_censored",
+        "signature": "read-timeout",
+        "started_at": "2026-09-14T07:30:55.736082+00:00",
+        "finished_at": "2026-09-14T07:31:43.439519+00:00"
+      },
+      {
+        "attempt": 2,
+        "program_changed": false,
+        "model_reexecuted": false,
+        "completed": true,
+        "pass": true,
+        "bootstrap_exit_code": 0,
+        "issues_count": 0,
+        "error_count": 743,
+        "missing_imports": [],
+        "started_at": "2026-09-14T07:32:57.003759+00:00",
+        "finished_at": "2026-09-14T07:34:01.481788+00:00"
+      }
+    ]
+  },
+  "paired_outcome": {
+    "class": "both_official_pass",
+    "treatment_exclusive_win": false,
+    "control_exclusive_win": false,
+    "supporting_causal_chain": false,
+    "mechanism_information": "No treatment activation. Both arms independently produced Official-passing programs with identical Official error and missing-import counts.",
+    "infrastructure_note": "Treatment Official attempt 1 was censored by a recognized read timeout; the unchanged-program retry passed and supplies the valid terminal outcome."
+  },
+  "scientific_disposition": "valid_paired_tie_without_treatment_activation",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

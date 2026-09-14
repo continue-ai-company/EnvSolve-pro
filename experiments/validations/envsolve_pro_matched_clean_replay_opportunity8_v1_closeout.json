@@ -1,0 +1,61 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "recorded_at": "2026-09-14T16:15:00+08:00",
+  "status": "invalidated-target-state-fidelity",
+  "preregistration": "experiments/validations/envsolve_pro_matched_clean_replay_opportunity8_v1_preregistration.json",
+  "scope": "Consumed-Dev mechanism experiment. Results are descriptive diagnostics only and cannot support a causal A/B claim.",
+  "terminal_pairs": 6,
+  "causally_eligible_pairs": 0,
+  "descriptive_results": {
+    "control_official_pass": 5,
+    "treatment_official_pass": 5,
+    "both_pass": 5,
+    "both_fail": 1,
+    "treatment_exclusive_wins": 0,
+    "control_exclusive_wins": 0,
+    "treatment_first_replay_pass": 6,
+    "treatment_activations": 0,
+    "supporting_causal_chains": 0,
+    "control_token_usage": {
+      "input_tokens": 5230242,
+      "cached_input_tokens": 4839168,
+      "output_tokens": 43065,
+      "reasoning_output_tokens": 21417
+    },
+    "treatment_token_usage": {
+      "input_tokens": 7184158,
+      "cached_input_tokens": 6722432,
+      "output_tokens": 49778,
+      "reasoning_output_tokens": 26511
+    }
+  },
+  "protocol_failure": {
+    "requirement": "Treatment replay must execute the complete program from a target state equivalent to the EnvBench postepisode candidate-execution path.",
+    "observed": "The matched-v1 treatment used DockerFreshEnvironmentProvider, which chowned the mounted checkout to 0:0. EnvBench Official retained remote host ownership while executing as root.",
+    "decisive_counterexample": "On pair 6 mflowgen, the treatment replay returned Pass but the unchanged final program failed Official because Git rejected /data/project as a dubious-ownership repository.",
+    "consequence": "The treatment intervention was not the preregistered target-state replay. All six pairs share the faulty implementation, so even matching replay and Official outcomes in pairs 1-5 do not restore causal eligibility."
+  },
+  "infrastructure_events": [
+    "Pair 3 treatment Official attempt 1 had a connection error; an unchanged-program retry passed.",
+    "Pair 4 control Official attempt 1 had a read timeout; an unchanged-program retry passed.",
+    "Pair 5 treatment Official attempt 1 had a read timeout; an unchanged-program retry passed.",
+    "Pair 4 treatment had a pre-Agent source-fetch failure; the exact revision cache was restored and a fresh session was run under the implementation-failure policy."
+  ],
+  "unused_frozen_positions": {
+    "positions": [
+      7,
+      8
+    ],
+    "position_8_treatment": "Started in parallel, then interrupted before semantic replay after the initial six-pair descriptive stop. It is excluded from every result.",
+    "reuse_policy": "Neither unused nor observed v1 positions may be presented as a confirmatory rerun of this study after the fidelity defect became known."
+  },
+  "scientific_judgment": {
+    "main_contradiction": "A clean replay is useful only if its clean state matches the deployment state that determines Official success. The old replay made all six candidate programs look valid and therefore never activated repair, while one was not actually deployable under Official semantics.",
+    "strongest_support": "All treatment sessions successfully formed and submitted complete programs inside the same active session, proving that the minimal interaction mechanism is operational.",
+    "strongest_counterevidence": "There were zero treatment activations and zero supporting causal chains; treatment also consumed more tokens descriptively. Pair 6 proves the replay observation itself could be wrong.",
+    "current_decision": "Kill the matched-v1 Docker replay implementation. Retain the conceptual same-session target-state replay hypothesis as unresolved, not promoted and not killed.",
+    "next_highest_information_experiment": "Route real and withheld matched feedback through the already conformance-tested EnvBenchCandidateExecutor path, verify ownership-sensitive equivalence without an Agent, then preregister a fresh untouched Dev opportunity cohort."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

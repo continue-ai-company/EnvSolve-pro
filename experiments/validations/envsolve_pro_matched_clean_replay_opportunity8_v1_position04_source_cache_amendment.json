@@ -1,0 +1,24 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "position": 4,
+  "case_id": "envbench-python-flask-middleware__flask-security@ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+  "recorded_at": "2026-09-14T14:06:58+08:00",
+  "failed_run_id": "pro-matched-replay-o8-v1-04-T",
+  "failure_stage": "pre-agent-source-acquisition",
+  "failure_class": "source_ref_unavailable_from_current_github_remote",
+  "observed_error": "Git upload-pack reported not our ref for the frozen exact revision on all three acquisition attempts.",
+  "semantic_outcome_observed": false,
+  "agent_session_started": false,
+  "correction": {
+    "source": "runs/envsolve-pro-m1c-source-cache-v1/flask-middleware__flask-security/ec70c1deac0530edfa8c4f4d1b545d0b5613af59.git",
+    "destination_host": "agenthub",
+    "destination_cache_policy": "remote-immutable-exact-revision-cache-v1",
+    "verified_commit": "ec70c1deac0530edfa8c4f4d1b545d0b5613af59",
+    "git_fsck": "pass",
+    "rerun_id": "pro-matched-replay-o8-v1-04-T-retry1",
+    "trajectory_reuse": false
+  },
+  "protocol_basis": "The preregistered implementation-failure policy permits correction and a fresh rerun before any Agent or semantic outcome. The case, arm, model, prompt, method, host, and revision remain unchanged.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

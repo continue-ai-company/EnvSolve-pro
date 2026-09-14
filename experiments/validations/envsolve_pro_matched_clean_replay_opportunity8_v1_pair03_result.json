@@ -1,0 +1,92 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "pair_position": 3,
+  "case_id": "envbench-python-tortoise__tortoise-orm@bc18384bdb490cc14e96d27a18956fe1b122829d",
+  "recorded_at": "2026-09-14T14:38:13+08:00",
+  "status": "complete",
+  "control": {
+    "run_id": "pro-matched-replay-o8-v1-03-C",
+    "feedback_mode": "withheld",
+    "submission_count": 1,
+    "replay_statuses": [
+      "withheld"
+    ],
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T06:09:18.504083+00:00",
+    "generation_finished_at": "2026-09-14T06:16:26.663746+00:00",
+    "token_usage": {
+      "input_tokens": 490914,
+      "cached_input_tokens": 442624,
+      "output_tokens": 7012,
+      "reasoning_output_tokens": 3420
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": true,
+        "pass": true,
+        "bootstrap_exit_code": 0,
+        "issues_count": 0,
+        "error_count": 593,
+        "missing_imports": [],
+        "started_at": "2026-09-14T06:17:53.852315+00:00",
+        "finished_at": "2026-09-14T06:19:28.218569+00:00"
+      }
+    ]
+  },
+  "treatment": {
+    "run_id": "pro-matched-replay-o8-v1-03-T",
+    "feedback_mode": "real",
+    "submission_count": 1,
+    "replay_statuses": [
+      "pass"
+    ],
+    "treatment_activation": false,
+    "activation_reason": "The first real clean replay passed, so no failure-conditioned repair occurred.",
+    "final_program_matches_last_submission": true,
+    "official_feedback_returned_to_agent": false,
+    "generation_started_at": "2026-09-14T06:20:14.491587+00:00",
+    "generation_finished_at": "2026-09-14T06:27:54.561413+00:00",
+    "token_usage": {
+      "input_tokens": 942446,
+      "cached_input_tokens": 858240,
+      "output_tokens": 6141,
+      "reasoning_output_tokens": 3624
+    },
+    "official_attempts": [
+      {
+        "attempt": 1,
+        "completed": false,
+        "classification": "infrastructure_censored",
+        "signature": "connection-error",
+        "started_at": "2026-09-14T06:30:23.461173+00:00",
+        "finished_at": "2026-09-14T06:31:45.742999+00:00"
+      },
+      {
+        "attempt": 2,
+        "program_changed": false,
+        "model_reexecuted": false,
+        "completed": true,
+        "pass": true,
+        "bootstrap_exit_code": 0,
+        "issues_count": 0,
+        "error_count": 596,
+        "missing_imports": [],
+        "started_at": "2026-09-14T06:32:50.284966+00:00",
+        "finished_at": "2026-09-14T06:34:09.974879+00:00"
+      }
+    ]
+  },
+  "paired_outcome": {
+    "class": "both_official_pass",
+    "treatment_exclusive_win": false,
+    "control_exclusive_win": false,
+    "supporting_causal_chain": false,
+    "mechanism_information": "No treatment activation. Both independently sampled strong Agents produced an Official-passing program before any repair opportunity.",
+    "infrastructure_note": "Treatment Official attempt 1 was censored by a recognized connection error; the unchanged-program retry passed and supplies the valid terminal outcome."
+  },
+  "scientific_disposition": "valid_paired_tie_without_treatment_activation",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
