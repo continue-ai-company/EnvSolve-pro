@@ -1,0 +1,209 @@
+{
+  "study_id": "envsolve-pro-sequential-installer-replication3-v1",
+  "recorded_at": "2026-09-14T00:00:00+08:00",
+  "status": "completed-consumed-dev-replication",
+  "protocol": "experiments/protocols/envbench_python_public_goal_v2.json",
+  "preregistration": "experiments/validations/envsolve_pro_sequential_installer_replication3_v1_preregistration_20260912.json",
+  "execution_host": "spark-linux-arm64",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "xhigh",
+  "projects": {
+    "fontbakery": {
+      "case_id": "envbench-python-fonttools__fontbakery@a5177215f7c8e168416771637af17ae8935f273f",
+      "D1": {
+        "adaptive": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-fontbakery-D1-adaptive/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+          "agent_invoked": true,
+          "candidate_retained": true,
+          "historical_regression": "1/1 pass",
+          "official_pass": false,
+          "official_note": "Evaluation completed with exit 1 after the package index returned no versions for fontTools>=4.46.0; the adapter did not classify this as infrastructure. The result remains an Official fail."
+        },
+        "static": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-fontbakery-D1-static-retry3/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+          "agent_invoked": true,
+          "candidate_retained": false,
+          "state_after_run": "The verified D0 program remained current; the D1 candidate was recorded with unknown evidence because no harness qualification completed.",
+          "official_pass": false,
+          "official_note": "Official evaluation was incomplete and classified as conda-http-connection-failed."
+        }
+      },
+      "D2": {
+        "adaptive": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-fontbakery-D2-adaptive-retry1/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+          "agent_invoked": false,
+          "official_pass": true,
+          "lifecycle_wall_seconds": 1524.194955541985,
+          "preflight_wall_seconds": 471.9154547919752,
+          "historical_regression_wall_seconds": 816.405923207989,
+          "historical_regression": "1/2 pass; D0 replay was infrastructure-censored and the candidate was not retained",
+          "official_execution_seconds": 185.11852431297302
+        },
+        "static": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-fontbakery-D2-static/envbench-python-fonttools__fontbakery__a5177215f7c8e168416771637af17ae8935f273f",
+          "agent_invoked": false,
+          "official_pass": true,
+          "lifecycle_wall_seconds": 685.6370903750649,
+          "preflight_wall_seconds": 465.50060404103715,
+          "historical_regression_wall_seconds": 0.0,
+          "official_execution_seconds": 169.2114531993866,
+          "mechanism": "The unpromoted D1 state conservatively retained the verified D0 Python 3.10 program, which matched the D2 return condition."
+        }
+      }
+    },
+    "mpmath": {
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "D1": {
+        "adaptive": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-mpmath-D1-adaptive-retry1/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+          "agent_invoked": true,
+          "candidate_retained": true,
+          "historical_regression": "1/1 pass",
+          "official_pass": true
+        },
+        "static": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-mpmath-D1-static/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+          "agent_invoked": true,
+          "candidate_retained": true,
+          "official_pass": true
+        }
+      },
+      "D2": {
+        "adaptive": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-mpmath-D2-adaptive-retry1/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+          "agent_invoked": false,
+          "official_pass": true,
+          "lifecycle_wall_seconds": 623.6302423750749,
+          "preflight_wall_seconds": 157.0592067919206,
+          "historical_regression_wall_seconds": 284.97504791698884,
+          "historical_regression": "2/2 pass",
+          "official_execution_seconds": 137.2640459537506
+        },
+        "static": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-mpmath-D2-static/envbench-python-mpmath__mpmath__ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+          "agent_invoked": false,
+          "official_pass": true,
+          "lifecycle_wall_seconds": 326.57665833295323,
+          "preflight_wall_seconds": 144.46136733400635,
+          "historical_regression_wall_seconds": 0.0,
+          "official_execution_seconds": 148.643967628479
+        }
+      }
+    },
+    "reproject": {
+      "case_id": "envbench-python-astropy__reproject@529fb3ad7c0d2ac79dd65f851228457a9691064c",
+      "D1": {
+        "adaptive": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-reproject-D1-adaptive/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c",
+          "agent_invoked": true,
+          "candidate_retained": true,
+          "historical_regression": "1/1 pass",
+          "official_pass": true
+        },
+        "static": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-reproject-D1-static/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c",
+          "agent_invoked": true,
+          "candidate_retained": true,
+          "official_pass": true
+        }
+      },
+      "D2": {
+        "adaptive": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-reproject-D2-adaptive-retry1/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c",
+          "agent_invoked": false,
+          "official_pass": true,
+          "lifecycle_wall_seconds": 1016.5907171249855,
+          "preflight_wall_seconds": 178.26074320904445,
+          "historical_regression_wall_seconds": 432.73481691698544,
+          "historical_regression": "2/2 pass",
+          "official_execution_seconds": 375.1533772945404
+        },
+        "static": {
+          "run": "runs/envsolve-pro-sequential-installer-replication3-v1/mac-controller/sequential-installer-replication3-v1-reproject-D2-static/envbench-python-astropy__reproject__529fb3ad7c0d2ac79dd65f851228457a9691064c",
+          "agent_invoked": false,
+          "official_pass": true,
+          "lifecycle_wall_seconds": 388.0811864590505,
+          "preflight_wall_seconds": 192.93357474997174,
+          "historical_regression_wall_seconds": 0.0,
+          "official_execution_seconds": 163.6574387550354
+        }
+      }
+    }
+  },
+  "primary_D2_outcome": {
+    "adaptive": {
+      "official_passes": 3,
+      "agent_fallbacks": 0,
+      "input_tokens": 0,
+      "lifecycle_wall_seconds_valid_endpoints": 3164.4159150420455,
+      "historical_regression_wall_seconds": 1534.1157880419632,
+      "additional_infrastructure_censored_attempt_wall_seconds": 901.8492536669364
+    },
+    "static": {
+      "official_passes": 3,
+      "agent_fallbacks": 0,
+      "input_tokens": 0,
+      "lifecycle_wall_seconds_valid_endpoints": 1400.2949351670686,
+      "historical_regression_wall_seconds": 0.0,
+      "additional_infrastructure_censored_attempt_wall_seconds": 0.0
+    },
+    "adaptive_to_static_lifecycle_ratio_valid_endpoints": 2.259821009392906,
+    "fallback_advantage_projects": 0,
+    "terminal_official_advantage_projects": 0
+  },
+  "mechanism_findings": [
+    "The static and adaptive D1 Agents independently generated target-Python-parameterized programs for mpmath and reproject, so both arms replayed D2 without a model call.",
+    "The fontbakery static D1 candidate was not harness-qualified, so the state machine retained the verified D0 program. Because D2 returned to the D0 condition, static again passed without a model call.",
+    "The D0-to-D1-to-D0 sequence therefore cannot establish that historical regression is needed: parameterized D1 programs pass D2, while conservative rejection of D1 also restores the D0 program for D2.",
+    "Adaptive historical replays increased package-download exposure. Two adaptive D2 attempts were infrastructure-censored, and the completed fontbakery adaptive D2 could not retain its candidate because one historical replay was infrastructure-censored even though Official passed."
+  ],
+  "invalid_or_censored_attempts": [
+    {
+      "run_id": "sequential-installer-replication3-v1-fontbakery-D1-static",
+      "lifecycle_wall_seconds": 1579.4033453329466,
+      "input_tokens": 1198986,
+      "disposition": "Excluded as the selected static D1 state because post-session qualification failed; Official also failed."
+    },
+    {
+      "run_id": "sequential-installer-replication3-v1-fontbakery-D1-static-retry1",
+      "lifecycle_wall_seconds": 0.0074848749209195375,
+      "input_tokens": 0,
+      "disposition": "Engineering-invalid before model invocation because the seed path was mistyped; retained for audit."
+    },
+    {
+      "run_id": "sequential-installer-replication3-v1-fontbakery-D1-static-retry2",
+      "lifecycle_wall_seconds": 363.49070245795883,
+      "input_tokens": 0,
+      "disposition": "Infrastructure-censored during preflight before model invocation."
+    },
+    {
+      "run_id": "sequential-installer-replication3-v1-fontbakery-D2-adaptive",
+      "lifecycle_wall_seconds": 399.5554921249859,
+      "input_tokens": 0,
+      "disposition": "Infrastructure-censored during D2 preflight before model invocation."
+    },
+    {
+      "run_id": "sequential-installer-replication3-v1-mpmath-D1-adaptive",
+      "lifecycle_wall_seconds": 1338.5826801250223,
+      "input_tokens": 797684,
+      "disposition": "Infrastructure-censored by historical replay and Official read timeout; retry used the unchanged D0 seed."
+    },
+    {
+      "run_id": "sequential-installer-replication3-v1-reproject-D2-adaptive",
+      "lifecycle_wall_seconds": 502.2937615419505,
+      "input_tokens": 0,
+      "disposition": "Current D2 preflight passed without Agent, then D0 historical replay timed out and Official was incomplete."
+    }
+  ],
+  "scientific_assessment": {
+    "main_contradiction": "The feasibility pilot suggested that a cross-episode compatibility frontier saves strong-Agent fallback calls, but outcome-blind replication shows that the equally capable static Agent usually writes a reusable parameterized installer itself, while a D0-to-D1-to-D0 sequence also lets conservative static rollback pass D2.",
+    "strongest_supporting_evidence": "All three adaptive D2 runs replayed successfully without an Agent and Official-passed, demonstrating that one executable installer can survive the tested condition reversal.",
+    "strongest_counterevidence_or_alternative": "Static also achieved 3/3 D2 Official Pass with zero Agent calls. Adaptive added 1534.12 seconds of historical replay in completed endpoints, took 2.26 times the static endpoint lifecycle, and created additional infrastructure failure opportunities.",
+    "decision": "kill-current-form-as-core-algorithm",
+    "decision_basis": "The preregistered kill condition was met: adaptive had no D2 fallback advantage on all three projects while adding historical replay cost. It also failed to retain the fontbakery D2 candidate after an infrastructure-censored historical replay despite an Official pass.",
+    "scope_of_kill": "Kill cross-episode monotonic compatibility-frontier maintenance as the EnvSolve-Pro core. Retain the runner and trajectories only as a diagnostic or negative ablation.",
+    "next_highest_information_experiment": "From consumed/Dev trajectories, freeze cases where a fair strong free-Agent baseline produced a complete final program but failed only when that complete program was executed in a clean target environment. Compare the same model and interface with versus without target-state complete-program replay returned to the same still-active Agent session. Exclude failures that occur before a complete candidate exists and infrastructure-censored episodes."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
