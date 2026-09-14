@@ -1,0 +1,65 @@
+{
+  "study_id": "envsolve-pro-matched-envbench-replay-v2-sequential-screen",
+  "recorded_at": "2026-09-14T16:45:00+08:00",
+  "status": "preregistered-before-screening-execution",
+  "scope": "Consumed Dev mechanism screening and conditional paired experiment only. It is not a held-out generalization, leaderboard, or SOTA estimate.",
+  "scientific_question": "On projects where a strong Agent forms a complete deployment program that still fails EnvBench Official, can same-session feedback from a target-state-faithful complete-program replay cause a fresh strong Agent to repair more programs to Official Pass than a matched fresh Agent receiving typed-null feedback?",
+  "implementation": {
+    "git_commit": "f6fd4fb",
+    "real_runner": "envsolve-pro-matched-envbench-replay-real-remote-v2",
+    "withheld_runner": "envsolve-pro-matched-envbench-replay-withheld-remote-v2",
+    "executor": "EnvBenchCandidateExecutor plus RemoteEnvBenchProcessRunner",
+    "fidelity_qualification": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_fidelity_qualification.json",
+    "algorithmic_difference_from_free_agent": "Only the values returned by submit_and_replay after the Agent submits a complete program. No live frontier, external constraint solver, package rule, checkpoint graph, cross-case memory, or Official feedback is added."
+  },
+  "screening": {
+    "source_case_file": "experiments/cases/dev_pro_strong_ab_census83_v1.jsonl",
+    "source_schedule": "experiments/schedules/envsolve_pro_strong_ab_census83_v6_v1.json",
+    "ordered_positions": "19 through 42 inclusive, without reordering or replacement",
+    "baseline": "One fresh codex-cli-goal-aware-boundary-v6 strong-Agent A1 session per position, gpt-5.6-sol xhigh, followed by postepisode EnvBench Official on Spark.",
+    "eligibility": "A1 completes, emits an admissible complete bootstrap program, and the unchanged program receives a valid terminal Official semantic Fail.",
+    "not_eligible": [
+      "Official Pass",
+      "failure before a complete candidate is formed",
+      "candidate boundary rejection",
+      "source unavailability",
+      "infrastructure-censored Official outcome after allowed unchanged retries"
+    ],
+    "stop_rule": "Stop after the first six eligible failures in position order, or after position 42 if fewer than six are found.",
+    "selection_blinding": "No matched-v2 control or treatment session is run until the six-case cohort is fixed. Selection uses only A1 candidate formation and postepisode Official status, never treatment outcome or perceived repairability.",
+    "prior_exposure": "Every source identity is already consumed by weaker methods, but positions 19-42 had no strong-model trajectory in the Census83 audit and were not used in matched-v1. Results remain Dev-only."
+  },
+  "screening_execution": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "host_assignment": "Use the construction host preassigned in the existing Census83 schedule; Spark and AgentHub each run at most one generation session. All terminal Official evaluations run on Spark.",
+    "official_visibility": "Official runs only after each A1 session ends and is never returned to that Agent.",
+    "retry_policy": "Retry unchanged bytes only for recognized infrastructure censoring. A pre-Agent implementation or source failure may be rerun fresh and recorded. Never rerun a semantic outcome with a changed prompt or program.",
+    "resource_policy": "Token, time, and cost are measured outcomes, not success thresholds. Existing safety caps remain unchanged."
+  },
+  "conditional_pair_design": {
+    "control": "Fresh gpt-5.6-sol xhigh session with the matched submit_and_replay schema returning withheld status and typed-null target-state values.",
+    "treatment": "Fresh gpt-5.6-sol xhigh session with the identical schema executing each submitted complete program through the EnvBench candidate path and returning public target-state feedback before the same session ends.",
+    "execution_host": "Both arms, all replays, and all postepisode Official evaluations run on Spark for each selected case.",
+    "arm_order": "Alternate C-first and T-first by selected-cohort position, fixed when the six IDs are recorded.",
+    "primary_endpoint": "Paired EnvBench Official Pass for each arm's final submitted program.",
+    "mechanism_endpoint": "A treatment first replay semantically fails, its feedback arrives before session end, a later complete program changes in response, and the final treatment program Official-passes.",
+    "primary_contrast": "T-exclusive Official wins versus C-exclusive Official wins, with both-pass and both-fail reported as ties.",
+    "secondary_metrics": [
+      "treatment activation rate",
+      "replay count and status sequence",
+      "input, cached input, output, and reasoning tokens",
+      "generation and replay wall time",
+      "infrastructure censoring"
+    ]
+  },
+  "decision_rule": {
+    "promote": "At least two valid treatment-exclusive supporting causal chains in non-equivalent failure families, more T-exclusive than C-exclusive Official wins, and no replay/Official fidelity contradiction.",
+    "retain": "One valid treatment-exclusive supporting causal chain, or multiple supporting chains confined to one failure family. Do not open protected evaluation.",
+    "kill": "After all six valid pairs, T-exclusive wins do not exceed C-exclusive wins and no supporting causal chain exists, or faithful replay systematically increases terminal failures without compensating Official gains.",
+    "insufficient": "Fewer than six eligible screening failures, fewer than six valid pairs because of nonreplaceable censoring, or fewer than two treatment activations without satisfying the kill rule."
+  },
+  "safeguard_note": "This file records sampling and analysis decisions; it adds no runtime hash, frozen contract, or gate. Existing safety measures are unchanged.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
