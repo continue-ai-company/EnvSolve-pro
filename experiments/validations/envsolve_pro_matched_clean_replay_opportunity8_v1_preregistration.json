@@ -1,0 +1,85 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "recorded_at": "2026-09-14T12:54:29+08:00",
+  "status": "preregistered-before-execution",
+  "scope": "Consumed-Dev conditional mechanism experiment only. It is not a representative Pass@1 estimate, SOTA result, leaderboard claim, or protected evaluation.",
+  "scientific_question": "After a strong Agent has formed a complete deployment program, does executable public-goal feedback from running that program in a clean target-state environment cause more terminal EnvBench Official passes than an otherwise identical tool response that withholds the target-state evidence?",
+  "selection": {
+    "source_census": "experiments/cases/dev_pro_strong_ab_census83_v1.jsonl",
+    "source_prefix": "The first 18 positions attempted by the frozen strong-A Census83 v6 execution.",
+    "rule": "Include every position whose valid A1 strong-Agent session emitted an admissible complete program and whose post-session public clean replay ended in a semantic Fail. Exclude A1 clean-replay Pass, infrastructure_error, pre-candidate failure, and unattempted positions.",
+    "outcomes_used": "Only the pre-existing A1 candidate-formation and public clean-replay status are used to define the opportunity cohort. Prior B, A2, and Official outcomes are not used to include or exclude a position.",
+    "selected_positions": [
+      1,
+      2,
+      4,
+      6,
+      9,
+      10,
+      14,
+      16
+    ],
+    "selected_count": 8,
+    "case_file": "experiments/cases/dev_envsolve_pro_matched_clean_replay_opportunity8_v1.jsonl",
+    "replacement": false,
+    "selection_limit": "This is a conditional repair-opportunity cohort. It cannot estimate prevalence or end-to-end gain over all EnvBench projects."
+  },
+  "arms": {
+    "C_withheld": "One fresh gpt-5.6-sol xhigh session receives the common prompt, construction shell, submit_and_replay tool schema, and one or more normal model requests. When it submits a complete program, the tool records the exact bytes but returns status=withheld and null target-state fields. The Agent must return the submitted program unchanged.",
+    "T_real": "One fresh gpt-5.6-sol xhigh session receives the identical prompt, construction shell, submit_and_replay tool schema, and normal model requests. The tool executes the submitted complete program in a fresh clean target state and returns only internal public-goal and integrity evidence to that same still-running session. Semantic Fail may be repaired and resubmitted.",
+    "unique_causal_difference": "The field values returned by submit_and_replay after candidate formation: real public clean-execution evidence versus typed withheld values. Model, reasoning effort, initial source, image, prompt, tool names and JSON shape, construction access, candidate boundary, safety limits, and post-episode Official evaluation are matched.",
+    "not_in_treatment": [
+      "Official evaluator feedback",
+      "scheduled compatibility observation",
+      "live frontier",
+      "constraint ledger",
+      "checkpoint graph",
+      "cross-case rules or memory",
+      "bootstrap minimization",
+      "automatic hypothesis search"
+    ]
+  },
+  "execution": {
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "prompt_visibility": "Both arms are told that the common tool can return pass, fail, unknown, infrastructure_error, or withheld; neither arm is identified to the Agent before the tool result.",
+    "session_requirement": "The submit call, returned payload, any repair reasoning, and any revised submit call must occur before the same Codex session terminates.",
+    "construction_hosts": "Pair members use the same host. Odd pair indices use Spark and even pair indices use AgentHub. At most one active pair member per host.",
+    "arm_order": "Fixed alternating order: C first for odd pair indices and T first for even pair indices.",
+    "target_state_replay": "Fresh exact-revision checkout and EnvBench Python image, using the public executable goal and repository-effect audit only.",
+    "official": "After the Agent session terminates, execute the final submitted program with EnvBench Official. Never return Official output to either Agent.",
+    "infrastructure_retry": "For an in-session infrastructure_error, retry the unchanged program once. For post-episode Official infrastructure censoring, retry unchanged bytes up to three total attempts. Never convert an infrastructure retry into a semantic repair.",
+    "resource_policy": "Token, time, and cost are measured outcomes, not success thresholds. Existing large safety caps remain unchanged."
+  },
+  "eligibility": {
+    "pair": "Both sessions complete, each calls submit_and_replay at least once, each final program matches its last submitted bytes, no Official result enters either session, and both final programs receive a valid terminal Official outcome after allowed unchanged infrastructure retries.",
+    "treatment_activation": "The first admissible real replay returns semantic Fail, the failure is delivered before the treatment session ends, and a later submitted complete program differs from the failed program.",
+    "supporting_causal_chain": "Treatment activation is followed by a program change that addresses the returned counterexample, T Official-passes, and C Official-fails.",
+    "pre_candidate_failure": "Record separately and exclude from the conditional pair contrast; do not relabel it as replay repair.",
+    "candidate_or_boundary_invalid": "Record and exclude under the same shared candidate policy without replacing the project.",
+    "infrastructure_censored": "Record separately and exclude from the paired semantic denominator without replacing the project."
+  },
+  "analysis": {
+    "primary_endpoint": "Paired EnvBench Official Pass for the final program from each arm.",
+    "primary_contrast": "T-exclusive Official wins versus C-exclusive Official wins, with the exact paired discordance table and two-sided exact McNemar result.",
+    "mechanism_analysis": "For every T replay, report status sequence, whether feedback arrived before session end, exact program changes, failure family, and whether Official passed. First-replay Pass validates a program but is not failure-conditioned repair evidence.",
+    "secondary": [
+      "all-arm and common-success wall time",
+      "input, cached input, output, and reasoning tokens",
+      "replay count and replay duration",
+      "infrastructure censoring",
+      "deployment completeness and path quality"
+    ],
+    "prior_exposure_note": "These projects are consumed and several have historical treatment trajectories. The new runner contains no case-specific rules or cross-case memory, and Codex memories remain disabled. Results qualify the mechanism only and do not support held-out generalization."
+  },
+  "decision_rule": {
+    "promote_for_independent_dev_replication": "At least two valid supporting causal chains in at least two non-equivalent failure families, more T-exclusive than C-exclusive Official wins, and no fidelity contradiction.",
+    "retain_narrow": "One valid supporting causal chain, or multiple chains confined to one failure family. Do not open protected evaluation.",
+    "kill_as_core": "After at least six valid pairs, T-exclusive wins do not exceed C-exclusive wins and no valid supporting causal chain exists, or real replay systematically increases terminal failures without a compensating Official gain.",
+    "insufficient": "Fewer than six valid pairs or fewer than two treatment activations without a kill condition. Complete the frozen cohort before selecting any new cases."
+  },
+  "implementation_failure_policy": "A pre-Agent or tool-wiring failure may be corrected and rerun from a fresh session with no prior trajectory supplied. Semantic outcomes may not be erased or rerun by changing code, prompt, boundary, or protocol.",
+  "safeguard_note": "No new hash, frozen contract, or runtime gate is introduced. Existing candidate and repository safeguards remain active. Final-program equality with the last tool submission is recorded for adjudication rather than enforced as a new generation gate.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

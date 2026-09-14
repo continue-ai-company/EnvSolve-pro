@@ -13,6 +13,10 @@ from envsolve_harness.boundary_v5 import (
     BoundaryV5OpenCandidateProgramValidator,
 )
 from envsolve_harness.codex.minimal_b_mcp import CleanReplayService, MinimalBMcpServer
+from envsolve_harness.codex.matched_replay_mcp import (
+    MatchedMinimalBMcpServer,
+    WithheldReplayService,
+)
 from envsolve_harness.codex.remote_container_mcp import (
     SshProcessTreeSafePersistentContainerShell,
 )
@@ -51,6 +55,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ssh-port", type=int)
     parser.add_argument("--docker", default="docker")
     parser.add_argument("--expose-gpus", action="store_true")
+    parser.add_argument(
+        "--feedback-mode",
+        choices=("legacy", "real", "withheld"),
+        default="legacy",
+    )
     return parser.parse_args()
 
 
@@ -62,6 +71,7 @@ def _workspace_preconditions(path: Path) -> tuple[WorkspacePrecondition, ...]:
 
 
 def build_server(args: argparse.Namespace) -> MinimalBMcpServer:
+    feedback_mode = getattr(args, "feedback_mode", "legacy")
     contract = ExecutableGoalContract.from_dict(read_json(args.goal_contract))
     preconditions = _workspace_preconditions(args.workspace_preconditions)
     transport = SshDockerTransport(
@@ -97,18 +107,29 @@ def build_server(args: argparse.Namespace) -> MinimalBMcpServer:
         ),
         run_command=adapter,
     )
-    replay_service = CleanReplayService(
-        provider=provider,
-        verifier=verifier,
-        repository=args.repository,
-        revision=args.revision,
-        image_digest=args.image,
-        goal_contract_sha256=contract.sha256,
-        trace_path=args.replay_trace,
-        certification_path=args.certification,
-        programs_root=args.programs_root,
-        max_output_chars=args.max_output_chars,
-    )
+    if feedback_mode == "withheld":
+        replay_service = WithheldReplayService(
+            repository=args.repository,
+            revision=args.revision,
+            image_digest=args.image,
+            goal_contract_sha256=contract.sha256,
+            trace_path=args.replay_trace,
+            certification_path=args.certification,
+            programs_root=args.programs_root,
+        )
+    else:
+        replay_service = CleanReplayService(
+            provider=provider,
+            verifier=verifier,
+            repository=args.repository,
+            revision=args.revision,
+            image_digest=args.image,
+            goal_contract_sha256=contract.sha256,
+            trace_path=args.replay_trace,
+            certification_path=args.certification,
+            programs_root=args.programs_root,
+            max_output_chars=args.max_output_chars,
+        )
     replay_service.validator = BoundaryV5OpenCandidateProgramValidator()
     executor = SshProcessTreeSafePersistentContainerShell(
         args.container_id,
@@ -121,7 +142,16 @@ def build_server(args: argparse.Namespace) -> MinimalBMcpServer:
         args.ssh_identity,
         args.ssh_port,
     )
-    return MinimalBMcpServer(executor, args.command_trace, replay_service)
+    server_type = (
+        MinimalBMcpServer
+        if feedback_mode == "legacy"
+        else MatchedMinimalBMcpServer
+    )
+    return server_type(  # type: ignore[arg-type]
+        executor,
+        args.command_trace,
+        replay_service,
+    )
 
 
 def main() -> int:

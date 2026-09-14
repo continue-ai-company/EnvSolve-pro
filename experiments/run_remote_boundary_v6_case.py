@@ -23,6 +23,12 @@ from envsolve_harness.runners.registry import (
     register_solver_runner,
     registered_solver_runners,
 )
+from envsolve_harness.runners.matched_replay import (
+    REAL_METHOD as MATCHED_REAL_METHOD,
+    WITHHELD_METHOD as MATCHED_WITHHELD_METHOD,
+    RemoteBoundaryV6MatchedReplayRealRunner,
+    RemoteBoundaryV6MatchedReplayWithheldRunner,
+)
 from envsolve_harness.runners.remote_boundary_v6 import (
     OfficialPrimaryRemoteBoundaryV6CodexCliRunner,
     RemoteBoundaryV6QualifiedCodexCliRunner,
@@ -117,6 +123,30 @@ def main() -> int:
         lambda config, protocol, run_spec, options: _factory(
             RemoteBoundaryV6QualifiedMinimalBRunner,
             MINIMAL_B_METHOD,
+            config,
+            protocol,
+            run_spec,
+            options,
+        ),
+    )
+    register_solver_runner(
+        RemoteBoundaryV6MatchedReplayRealRunner.runner_name,
+        MATCHED_REAL_METHOD,
+        lambda config, protocol, run_spec, options: _factory(
+            RemoteBoundaryV6MatchedReplayRealRunner,
+            MATCHED_REAL_METHOD,
+            config,
+            protocol,
+            run_spec,
+            options,
+        ),
+    )
+    register_solver_runner(
+        RemoteBoundaryV6MatchedReplayWithheldRunner.runner_name,
+        MATCHED_WITHHELD_METHOD,
+        lambda config, protocol, run_spec, options: _factory(
+            RemoteBoundaryV6MatchedReplayWithheldRunner,
+            MATCHED_WITHHELD_METHOD,
             config,
             protocol,
             run_spec,
