@@ -7,8 +7,8 @@ from envsolve_harness.boundary_v6 import REPOSITORY_POLICY
 from envsolve_harness.codex.minimal_b_mcp import canonical_script
 from envsolve_harness.core.io import read_jsonl
 from envsolve_harness.core.models import Case, RunSpec
+from envsolve_harness.runners.codex_cli import CodexCliRunner
 from envsolve_harness.runners.remote_boundary_v6 import (
-    RemoteBoundaryV6QualifiedCodexCliRunner,
     RemoteBoundaryV6QualifiedMinimalBRunner,
 )
 from envsolve_harness.storage.artifacts import RunArtifacts
@@ -41,7 +41,7 @@ class _RemoteBoundaryV6MatchedReplayRunner(
         case: Case,
         goal_contract: ExecutableGoalContract | None = None,
     ) -> str:
-        prompt = RemoteBoundaryV6QualifiedCodexCliRunner._prompt(
+        prompt = CodexCliRunner._prompt(
             self,
             case,
             goal_contract,

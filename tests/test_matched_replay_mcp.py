@@ -3,11 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 import tempfile
 
+from envsolve.runtime.goal import ExecutableGoalContract
 from envsolve_harness.codex.matched_replay_mcp import (
     WithheldReplayService,
     matched_replay_payload,
 )
 from envsolve_harness.core.io import read_json, read_jsonl
+from envsolve_harness.core.models import Case
 from envsolve_harness.runners.matched_replay import (
     RemoteBoundaryV6MatchedReplayRealRunner,
     RemoteBoundaryV6MatchedReplayWithheldRunner,
@@ -97,3 +99,19 @@ def test_matched_arms_inherit_one_agent_visible_prompt_implementation() -> None:
         RemoteBoundaryV6MatchedReplayRealRunner._prompt
         is RemoteBoundaryV6MatchedReplayWithheldRunner._prompt
     )
+
+
+def test_matched_prompt_does_not_include_the_legacy_pass_gate() -> None:
+    runner = object.__new__(RemoteBoundaryV6MatchedReplayWithheldRunner)
+    prompt = runner._prompt(
+        Case("owner/repo@abc", "owner/repo", "abc"),
+        ExecutableGoalContract(
+            contract_id="goal",
+            description="goal",
+            program="true",
+        ),
+    )
+
+    assert "frozen EnvSolve-Pro Minimal B interface" not in prompt
+    assert "only after the exact same program receives" not in prompt
+    assert "If `status=withheld`" in prompt

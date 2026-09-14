@@ -1,0 +1,19 @@
+{
+  "study_id": "envsolve-pro-matched-clean-replay-opportunity8-v1",
+  "recorded_at": "2026-09-14T13:06:00+08:00",
+  "classification": "pre-candidate implementation failure",
+  "affected_runs": [
+    "pro-matched-replay-o8-v1-01-C",
+    "pro-matched-replay-o8-v1-02-T"
+  ],
+  "observation": "The live prompt inherited the legacy Minimal B paragraph requiring status=pass and certified=true before final output, then appended the matched-arm instruction requiring status=withheld to return unchanged. The instructions were contradictory.",
+  "cause": "The experimental runner called an inherited _prompt attribute through the qualified control class, but Python method resolution reached the Minimal B override for the experimental runner instance.",
+  "correction": "Call CodexCliRunner._prompt directly, then append only the common matched replay instruction.",
+  "scientific_disposition": "Both runs were interrupted before any submit_and_replay call, replay payload, complete candidate, final output, or Official evaluation. Their directories remain as implementation-invalid audit artifacts and do not enter any denominator.",
+  "rerun_policy": "Restart both arms from fresh Agent sessions and fresh run IDs suffixed retry1. Do not supply either interrupted trajectory to the reruns.",
+  "tests": "The matched prompt test now asserts that neither legacy pass-gate sentence is present and that the common withheld instruction is present.",
+  "protocol_change": false,
+  "algorithm_change": false,
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
