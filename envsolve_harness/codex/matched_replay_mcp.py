@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from envsolve.solver import DeploymentCandidate
+from envsolve_harness.adapters.envbench_executor import (
+    withheld_envbench_feedback_payload,
+)
 from envsolve_harness.codex.minimal_b_mcp import (
     CERTIFICATION_SCHEMA,
     REPLAY_SCHEMA,
@@ -66,6 +69,54 @@ def matched_replay_payload(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def matched_envbench_replay_payload(result: dict[str, Any]) -> dict[str, Any]:
+    """Project EnvBench-path real and withheld results onto one response shape."""
+    raw_feedback = result.get("feedback")
+    if isinstance(raw_feedback, dict):
+        raw_bootstrap = raw_feedback.get("bootstrap")
+        raw_goal = raw_feedback.get("goal_report")
+        bootstrap = raw_bootstrap if isinstance(raw_bootstrap, dict) else {}
+        goal_report = raw_goal if isinstance(raw_goal, dict) else {}
+        feedback = {
+            "schema_version": raw_feedback.get("schema_version"),
+            "status": raw_feedback.get("status"),
+            "withheld": raw_feedback.get("withheld"),
+            "bootstrap": {
+                "terminal_class": bootstrap.get("terminal_class"),
+                "exit_code": bootstrap.get("exit_code"),
+                "git_ownership_error": bootstrap.get("git_ownership_error"),
+            },
+            "goal_report": {
+                "present": goal_report.get("present"),
+                "issues_count": goal_report.get("issues_count"),
+                "error_count": goal_report.get("error_count"),
+            },
+            "missing_imports": raw_feedback.get("missing_imports"),
+            "active_project_python": raw_feedback.get("active_project_python"),
+            "infrastructure": raw_feedback.get("infrastructure"),
+        }
+    else:
+        feedback = withheld_envbench_feedback_payload()
+        if result.get("status") != "withheld":
+            feedback = {**feedback, "status": "unavailable", "withheld": False}
+    return {
+        "schema": "envsolve-pro-matched-envbench-replay-feedback-v2",
+        "replay_id": result.get("replay_id"),
+        "replay_index": result.get("replay_index"),
+        "program_sha256": result.get("program_sha256"),
+        "program_artifact": result.get("program_artifact"),
+        "status": result.get("status"),
+        "phase": result.get("phase"),
+        "candidate_validation": result.get("candidate_validation"),
+        "environment_receipt": result.get("environment_receipt"),
+        "feedback": feedback,
+        "certified": result.get("certified") is True,
+        "certificate": result.get("certificate"),
+        "infrastructure_error": result.get("infrastructure_error"),
+        "withheld": result.get("status") == "withheld",
+    }
+
+
 class WithheldReplayService:
     """Record a candidate submission while withholding target-state evidence."""
 
@@ -79,6 +130,8 @@ class WithheldReplayService:
         trace_path: Path,
         certification_path: Path,
         programs_root: Path,
+        replay_id_prefix: str = "minimal-b-replay",
+        phase: str = "clean-replay",
     ) -> None:
         self.repository = repository
         self.revision = revision
@@ -87,6 +140,8 @@ class WithheldReplayService:
         self.trace_path = trace_path
         self.certification_path = certification_path
         self.programs_root = programs_root
+        self.replay_id_prefix = replay_id_prefix
+        self.phase = phase
         self.validator = OpenCandidateProgramValidator()
         self.sequence = 0
         self._write_certification()
@@ -124,7 +179,7 @@ class WithheldReplayService:
 
     def submit(self, program: str) -> dict[str, Any]:
         self.sequence += 1
-        replay_id = f"minimal-b-replay-{self.sequence:04d}"
+        replay_id = f"{self.replay_id_prefix}-{self.sequence:04d}"
         canonical = canonical_script(program)
         digest = script_sha256(canonical)
         program_path = self.programs_root / f"{replay_id}.sh"
@@ -157,7 +212,7 @@ class WithheldReplayService:
             {
                 **result,
                 "status": "withheld",
-                "phase": "clean-replay",
+                "phase": self.phase,
             }
         )
 
@@ -182,6 +237,37 @@ class MatchedMinimalBMcpServer(MinimalBMcpServer):
         if not isinstance(raw, dict):
             return response
         projected = matched_replay_payload(raw)
+        rpc_result["structuredContent"] = projected
+        rpc_result["content"] = [
+            {
+                "type": "text",
+                "text": json.dumps(projected, ensure_ascii=True, sort_keys=True),
+            }
+        ]
+        rpc_result["isError"] = projected["status"] == "infrastructure_error"
+        return response
+
+
+class MatchedEnvBenchMinimalBMcpServer(MinimalBMcpServer):
+    """Expose matched EnvBench-path replay feedback in both experiment arms."""
+
+    def handle(self, request: dict[str, Any]) -> dict[str, Any] | None:
+        response = super().handle(request)
+        params = request.get("params")
+        if (
+            response is None
+            or request.get("method") != "tools/call"
+            or not isinstance(params, dict)
+            or params.get("name") != self.replay_tool_name
+        ):
+            return response
+        rpc_result = response.get("result")
+        if not isinstance(rpc_result, dict):
+            return response
+        raw = rpc_result.get("structuredContent")
+        if not isinstance(raw, dict):
+            return response
+        projected = matched_envbench_replay_payload(raw)
         rpc_result["structuredContent"] = projected
         rpc_result["content"] = [
             {

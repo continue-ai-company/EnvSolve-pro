@@ -2,13 +2,15 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import json
 import os
-from pathlib import Path
 import sys
-from typing import Any, Callable
+from collections.abc import Callable
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
 
+from envsolve.solver import DeploymentCandidate
 from envsolve_harness.adapters.envbench_executor import (
     EnvBenchCandidateExecution,
     EnvBenchCandidateExecutor,
@@ -17,6 +19,10 @@ from envsolve_harness.adapters.envbench_executor import (
 )
 from envsolve_harness.adapters.envbench_remote import RemoteEnvBenchProcessRunner
 from envsolve_harness.boundary_v6 import BoundaryV6OpenCandidateProgramValidator
+from envsolve_harness.codex.matched_replay_mcp import (
+    MatchedEnvBenchMinimalBMcpServer,
+    WithheldReplayService,
+)
 from envsolve_harness.codex.minimal_b_mcp import (
     CERTIFICATION_SCHEMA,
     REPLAY_SCHEMA,
@@ -31,8 +37,6 @@ from envsolve_harness.core.io import write_json, write_text_atomic
 from envsolve_harness.core.models import Case
 from envsolve_harness.execution.remote_docker import SshDockerTransport
 from envsolve_harness.execution.source_cache import ExactRevisionSourceCache
-from envsolve.solver import DeploymentCandidate
-
 
 EXECUTOR_PROFILE = "envbench-candidate-executor-online-v1"
 
@@ -229,6 +233,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--ssh-identity")
     parser.add_argument("--ssh-port", type=int)
     parser.add_argument("--docker", default="docker")
+    parser.add_argument(
+        "--feedback-mode",
+        choices=("legacy", "real", "withheld"),
+        default="legacy",
+    )
     return parser.parse_args()
 
 
@@ -298,15 +307,29 @@ def _build_server(args: argparse.Namespace) -> MinimalBMcpServer:
                 )
         return execution, dict(process_runner.execution_metadata)
 
-    replay_service = EnvBenchReplayService(
-        case=case,
-        image_digest=args.image,
-        goal_contract_sha256=args.goal_contract_sha256,
-        trace_path=args.replay_trace,
-        certification_path=args.certification,
-        programs_root=args.programs_root,
-        execute_candidate=execute_candidate,
-    )
+    if args.feedback_mode == "withheld":
+        replay_service = WithheldReplayService(
+            repository=case.repository,
+            revision=case.revision,
+            image_digest=args.image,
+            goal_contract_sha256=args.goal_contract_sha256,
+            trace_path=args.replay_trace,
+            certification_path=args.certification,
+            programs_root=args.programs_root,
+            replay_id_prefix="envbench-replay",
+            phase="target-state-replay",
+        )
+        replay_service.validator = BoundaryV6OpenCandidateProgramValidator()
+    else:
+        replay_service = EnvBenchReplayService(
+            case=case,
+            image_digest=args.image,
+            goal_contract_sha256=args.goal_contract_sha256,
+            trace_path=args.replay_trace,
+            certification_path=args.certification,
+            programs_root=args.programs_root,
+            execute_candidate=execute_candidate,
+        )
     executor = SshProcessTreeSafePersistentContainerShell(
         args.container_id,
         args.workdir,
@@ -318,7 +341,16 @@ def _build_server(args: argparse.Namespace) -> MinimalBMcpServer:
         args.ssh_identity,
         args.ssh_port,
     )
-    return MinimalBMcpServer(executor, args.command_trace, replay_service)  # type: ignore[arg-type]
+    server_type = (
+        MinimalBMcpServer
+        if args.feedback_mode == "legacy"
+        else MatchedEnvBenchMinimalBMcpServer
+    )
+    return server_type(  # type: ignore[arg-type]
+        executor,
+        args.command_trace,
+        replay_service,
+    )
 
 
 def main() -> int:

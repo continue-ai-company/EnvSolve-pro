@@ -1,0 +1,46 @@
+{
+  "qualification_id": "envsolve-pro-matched-envbench-replay-v2-fidelity",
+  "recorded_at": "2026-09-14T16:20:00+08:00",
+  "role": "Model-free target-state fidelity qualification; not an algorithm outcome or Official score.",
+  "known_counterexample": {
+    "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+    "program": "Byte-identical treatment program from opportunity8 v1 pair 6.",
+    "old_matched_v1_replay": {
+      "status": "pass",
+      "git_ownership_error_observed": false
+    },
+    "postepisode_official": {
+      "status": "fail",
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "goal_report_present": false
+    },
+    "matched_v2_online_path": {
+      "executor": "EnvBenchCandidateExecutor plus RemoteEnvBenchProcessRunner",
+      "host": "spark-f21c",
+      "architecture": "aarch64",
+      "completed": true,
+      "bootstrap_terminal_class": "bootstrap_failed",
+      "bootstrap_exit_code": 1,
+      "git_ownership_error": true,
+      "goal_report_present": false,
+      "started_at": "2026-09-14T08:14:39.067193+00:00",
+      "finished_at": "2026-09-14T08:16:46.403404+00:00",
+      "raw_artifact": "runs/envsolve-pro-matched-envbench-replay-v2-conformance/mflowgen-online/execution.json"
+    }
+  },
+  "observable_match": {
+    "bootstrap_terminal_class": true,
+    "bootstrap_exit_code": true,
+    "git_ownership_error": true,
+    "goal_report_present": true
+  },
+  "implementation_tests": {
+    "focused_pytest": "10 passed",
+    "ruff": "passed"
+  },
+  "decision": "QUALIFIED_FOR_FRESH_DEV_PREREGISTRATION",
+  "interpretation": "The v2 online treatment path reproduces the exact ownership-sensitive failure missed by matched v1. This qualifies target-state fidelity for the known counterexample only; it does not show that feedback improves terminal Official Pass.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
