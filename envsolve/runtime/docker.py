@@ -155,6 +155,7 @@ class DockerFreshEnvironmentProvider:
         revision: str,
         image: str,
         workspace_preconditions: tuple[WorkspacePrecondition, ...] = (),
+        container_workdir: str | None = None,
         create_timeout: int = 180,
         run_command: RunCommand = subprocess.run,
     ) -> None:
@@ -164,6 +165,9 @@ class DockerFreshEnvironmentProvider:
         self.revision = revision
         self.image = image
         self.workspace_preconditions = workspace_preconditions
+        if container_workdir is not None and not container_workdir.startswith("/"):
+            raise ValueError("Container workdir must be an absolute path")
+        self.container_workdir = container_workdir
         self.create_timeout = create_timeout
         self.run_command = run_command
         self.base_image_digest: str | None = None
@@ -289,7 +293,7 @@ class DockerFreshEnvironmentProvider:
                 raise RuntimeError(
                     "Docker image identity changed after base-runtime observation"
                 )
-            container_workdir = (
+            container_workdir = self.container_workdir or (
                 f"/data/project/{self.repository.replace('/', '__')}@{self.revision}"
             )
             container_id = self._checked(

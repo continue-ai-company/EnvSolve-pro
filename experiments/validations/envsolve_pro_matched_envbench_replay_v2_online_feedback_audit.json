@@ -1,0 +1,39 @@
+{
+  "audit_id": "envsolve-pro-matched-envbench-replay-v2-online-feedback-audit",
+  "recorded_at": "2026-09-15T13:00:00+08:00",
+  "scope": "Protocol audit completed before any matched control/treatment pair was launched.",
+  "audited_implementation": {
+    "real_runner": "envsolve-pro-matched-envbench-replay-real-remote-v2",
+    "executor": "EnvBenchCandidateExecutor plus RemoteEnvBenchProcessRunner",
+    "feedback_builder": "envsolve_harness.adapters.envbench_executor.envbench_feedback_payload"
+  },
+  "findings": [
+    {
+      "severity": "disqualifying",
+      "finding": "The real arm runs the exact EnvBench candidate evaluation path during the active Agent episode and returns its Pyright summary, missing-import diagnostics, issue count, and error count.",
+      "conflict": "The preregistered scientific boundary permits EnvBench Official only as a postepisode endpoint that is never returned to the Agent. Naming the returned values public feedback does not change their evaluator origin."
+    },
+    {
+      "severity": "disqualifying",
+      "finding": "The v2 feedback payload omits raw bootstrap stdout and stderr and replaces them with a narrow summary.",
+      "counterexample": "On screening position 22, the raw EnvBench result reports that dunamai failed because of dubious ownership, while execution.json records git_ownership_error=false and exposes no actionable bootstrap text.",
+      "impact": "The active Agent can receive evaluator-derived diagnostics while missing the executable failure that the proposed mechanism is supposed to repair."
+    },
+    {
+      "severity": "reporting",
+      "finding": "Runner metadata states official_feedback_returned_to_agent=false even though the exact EnvBench evaluation path supplies the online values.",
+      "impact": "The metadata assertion is semantically false and cannot establish protocol compliance."
+    }
+  ],
+  "artifacts": {
+    "position22_postepisode_summary": "runs/envsolve-pro-matched-envbench-replay-v2-screen/position22-official/execution.json",
+    "position22_raw_envbench_result": "runs/envsolve-pro-matched-envbench-replay-v2-screen/position22-official/json/results/meltano__sdk.json",
+    "v2_fidelity_qualification": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_fidelity_qualification.json"
+  },
+  "decision": "KILL_V2_IMPLEMENTATION_BEFORE_MATCHED_PAIRING",
+  "hypothesis_disposition": "RETAIN_TARGET_STATE_REPLAY_HYPOTHESIS",
+  "replacement_requirement": "Replay the complete program in a clean target-state checkout using the public executable goal shared by both arms, return raw execution evidence only in the treatment arm, and reserve the unchanged EnvBench evaluator for postepisode scoring.",
+  "matched_pairs_run_under_v2": 0,
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

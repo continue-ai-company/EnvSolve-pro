@@ -16,6 +16,8 @@ from envsolve_harness.storage.artifacts import RunArtifacts
 
 REAL_METHOD = "envsolve-pro-matched-clean-replay-real-v1"
 WITHHELD_METHOD = "envsolve-pro-matched-clean-replay-withheld-v1"
+TARGET_STATE_REAL_METHOD = "envsolve-pro-matched-target-state-replay-real-v3"
+TARGET_STATE_WITHHELD_METHOD = "envsolve-pro-matched-target-state-replay-withheld-v3"
 
 
 class _RemoteBoundaryV6MatchedReplayRunner(
@@ -145,3 +147,72 @@ class RemoteBoundaryV6MatchedReplayWithheldRunner(
     runner_name = "envsolve-pro-matched-clean-replay-withheld-remote-docker"
     feedback_mode = "withheld"
     expected_method = WITHHELD_METHOD
+
+
+class _RemoteBoundaryV6MatchedTargetStateReplayRunner(
+    _RemoteBoundaryV6MatchedReplayRunner
+):
+    runner_version = "3.0.0"
+    agent_interface = "continuous-agent+matched-target-state-replay-mcp-v3"
+
+    def _mcp_server_args(self, **kwargs: Any) -> list[str]:
+        arguments = super()._mcp_server_args(**kwargs)
+        arguments.extend(
+            [
+                "--preserve-bind-mount-owner",
+                "--replay-container-workdir",
+                "/data/project",
+            ]
+        )
+        return arguments
+
+    def _augment_generation_metadata(
+        self,
+        artifacts: RunArtifacts,
+        metadata: dict[str, Any],
+    ) -> None:
+        super()._augment_generation_metadata(artifacts, metadata)
+        metadata["matched_replay"].update(
+            {
+                "replay_executor_path": "public-goal-clean-target-state",
+                "target_bind_mount_owner": "execution-host-user",
+                "target_container_workdir": "/data/project",
+                "target_state_feedback_returned_to_agent": (
+                    self.feedback_mode == "real"
+                ),
+            }
+        )
+
+    def _qualify_submission_integrity(
+        self,
+        script: str,
+        case: Case,
+        artifacts: RunArtifacts,
+        metadata: dict[str, Any],
+    ) -> dict[str, Any]:
+        result = super()._qualify_submission_integrity(
+            script,
+            case,
+            artifacts,
+            metadata,
+        )
+        return {
+            **result,
+            "feedback_returned_to_agent": self.feedback_mode == "real",
+        }
+
+
+class RemoteBoundaryV6MatchedTargetStateReplayRealRunner(
+    _RemoteBoundaryV6MatchedTargetStateReplayRunner
+):
+    runner_name = "envsolve-pro-matched-target-state-replay-real-remote-v3"
+    feedback_mode = "real"
+    expected_method = TARGET_STATE_REAL_METHOD
+
+
+class RemoteBoundaryV6MatchedTargetStateReplayWithheldRunner(
+    _RemoteBoundaryV6MatchedTargetStateReplayRunner
+):
+    runner_name = "envsolve-pro-matched-target-state-replay-withheld-remote-v3"
+    feedback_mode = "withheld"
+    expected_method = TARGET_STATE_WITHHELD_METHOD

@@ -55,6 +55,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ssh-port", type=int)
     parser.add_argument("--docker", default="docker")
     parser.add_argument("--expose-gpus", action="store_true")
+    parser.add_argument("--preserve-bind-mount-owner", action="store_true")
+    parser.add_argument("--replay-container-workdir")
     parser.add_argument(
         "--feedback-mode",
         choices=("legacy", "real", "withheld"),
@@ -86,6 +88,7 @@ def build_server(args: argparse.Namespace) -> MinimalBMcpServer:
         transport,
         sync_timeout=max(args.command_timeout, args.container_create_timeout),
         expose_gpus=args.expose_gpus,
+        preserve_bind_mount_owner=getattr(args, "preserve_bind_mount_owner", False),
     )
     provider = DockerFreshEnvironmentProvider(
         source_repository=args.source_repository,
@@ -94,6 +97,7 @@ def build_server(args: argparse.Namespace) -> MinimalBMcpServer:
         revision=args.revision,
         image=args.image,
         workspace_preconditions=preconditions,
+        container_workdir=getattr(args, "replay_container_workdir", None),
         create_timeout=args.container_create_timeout,
         run_command=adapter,
     )

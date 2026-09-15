@@ -1,0 +1,38 @@
+{
+  "amendment_id": "envsolve-pro-matched-replay-pre-pair-amendment-v3",
+  "recorded_at": "2026-09-15T13:00:00+08:00",
+  "amends": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_sequential_screen_preregistration.json",
+  "timing": "After screening began and before any matched control/treatment pair was launched.",
+  "reason": "A protocol audit found that the v2 treatment ran the exact EnvBench evaluator online and returned evaluator-derived values while omitting raw bootstrap logs. This contradicted the preregistered Official-postepisode-only boundary.",
+  "unchanged": [
+    "scientific question",
+    "ordered screening positions",
+    "eligibility and stopping rules",
+    "selected cohort construction",
+    "model and reasoning effort",
+    "matched arm ordering",
+    "Official Pass primary endpoint",
+    "mechanism endpoint",
+    "promotion, retention, kill, and insufficiency rules"
+  ],
+  "implementation_replacement": {
+    "killed_real_runner": "envsolve-pro-matched-envbench-replay-real-remote-v2",
+    "killed_withheld_runner": "envsolve-pro-matched-envbench-replay-withheld-remote-v2",
+    "replacement_real_runner": "envsolve-pro-matched-target-state-replay-real-remote-v3",
+    "replacement_withheld_runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3",
+    "real_method": "envsolve-pro-matched-target-state-replay-real-v3",
+    "withheld_method": "envsolve-pro-matched-target-state-replay-withheld-v3",
+    "arm_difference": "Both arms expose the same submit_and_replay interface. The treatment executes the submitted complete program in a fresh target-state checkout and returns raw public-goal execution evidence; control returns the same typed shape with values withheld.",
+    "target_state": "Spark EnvBench image, clean host-owned bind mount at /data/project, with a new checkout and container for each replay.",
+    "official_boundary": "EnvBench Official is run unchanged only after each Agent episode and is never returned to that Agent."
+  },
+  "evidence": {
+    "v2_audit": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_online_feedback_audit.json",
+    "v3_fidelity_qualification": "experiments/validations/envsolve_pro_matched_target_state_replay_v3_fidelity_qualification.json"
+  },
+  "scientific_effect": "This is a pre-pair implementation correction required to make the mechanism conform to the original hypothesis and endpoint. It does not use treatment outcomes and does not alter case selection.",
+  "safeguard_note": "This amendment is an evidence record, not a new runtime hash, frozen contract, or gate. Existing safety measures are unchanged.",
+  "matched_pairs_completed_before_amendment": 0,
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

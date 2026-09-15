@@ -443,6 +443,7 @@ class RemoteDockerCommandAdapter:
     transport: SshDockerTransport
     sync_timeout: int
     expose_gpus: bool = False
+    preserve_bind_mount_owner: bool = False
     local_run_command: RunCommand = subprocess.run
     _mounts: dict[str, tuple[Path, str, str, tuple[str, ...]]] = field(
         default_factory=dict,
@@ -559,7 +560,7 @@ class RemoteDockerCommandAdapter:
                 self._mounts[container_id] = pending_mount
         elif action == "start" and len(command) >= 3 and process.returncode == 0:
             mount = self._mounts.get(command[2])
-            if mount is not None:
+            if mount is not None and not self.preserve_bind_mount_owner:
                 ownership = self._chown_mount(command[2], mount[2], "0:0", **kwargs)
                 if ownership.returncode != 0:
                     return ownership

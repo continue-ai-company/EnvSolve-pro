@@ -1,0 +1,50 @@
+{
+  "qualification_id": "envsolve-pro-matched-target-state-replay-v3-fidelity",
+  "recorded_at": "2026-09-15T12:47:00+08:00",
+  "role": "Model-free target-state fidelity qualification; not an algorithm outcome or Official score.",
+  "known_counterexample": {
+    "case_id": "envbench-python-mflowgen__mflowgen@354619ca1c2a0f47b5db5f348fa5a7a12bc868d3",
+    "program": "Byte-identical control program from opportunity8 v1 pair 6.",
+    "prior_postepisode_official": {
+      "status": "fail",
+      "bootstrap_exit_code": 1,
+      "failure": "Git dubious ownership at /data/project"
+    },
+    "v3_public_goal_replay": {
+      "host": "spark-f21c",
+      "architecture": "aarch64",
+      "container_workdir": "/data/project",
+      "bind_mount_owner": "preserved execution-host user",
+      "status": "fail",
+      "bootstrap_exit_code": 1,
+      "infrastructure_error": null,
+      "stderr_truncated": false,
+      "actionable_failure_returned": "fatal: detected dubious ownership in repository at '/data/project'",
+      "duration_seconds": 69.95557337498758,
+      "raw_artifact": "runs/envsolve-pro-matched-target-state-replay-v3-fidelity/mflowgen/replay-trace.jsonl"
+    }
+  },
+  "protocol_properties": {
+    "exact_envbench_evaluator_called_online": false,
+    "public_executable_goal_used": true,
+    "raw_bootstrap_stdout_returned": true,
+    "raw_bootstrap_stderr_returned": true,
+    "clean_checkout_per_replay": true,
+    "replay_environment_released": true
+  },
+  "observable_match": {
+    "bootstrap_terminal_class": true,
+    "bootstrap_exit_code": true,
+    "git_ownership_failure": true,
+    "container_project_path": true
+  },
+  "implementation_tests": {
+    "focused_pytest": "73 passed, 3 skipped, 8 subtests passed",
+    "ruff": "passed with repository-existing warning classes excluded",
+    "diff_check": "passed"
+  },
+  "decision": "QUALIFIED_FOR_PREREGISTERED_MATCHED_PAIRING_AFTER_COHORT_FREEZE",
+  "interpretation": "v3 corrects the known v1 ownership mismatch without using EnvBench Official online and returns the concrete executable error that v2 discarded. This establishes fidelity on one known counterexample only; it does not establish treatment benefit.",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

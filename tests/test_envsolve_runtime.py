@@ -941,6 +941,36 @@ class EnvSolveRuntimeTest(unittest.TestCase):
             provider.release(second)
             self.assertFalse(first.handle.worktree.exists())
 
+    def test_provider_can_mount_checkout_at_target_workdir(self) -> None:
+        revision = "a" * 40
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source"
+            source.mkdir()
+            fake = FakeDockerGit(revision)
+            provider = DockerFreshEnvironmentProvider(
+                source_repository=source,
+                worktrees_root=root / "worktrees",
+                repository="owner/repo",
+                revision=revision,
+                image="test:image",
+                container_workdir="/data/project",
+                run_command=fake,
+            )
+
+            environment = provider.provision(
+                DeploymentCandidate("candidate-1", "true", "test")
+            )
+
+            self.assertEqual(environment.handle.container_workdir, "/data/project")
+            create = next(
+                command
+                for command in fake.commands
+                if command[:2] == ["docker", "create"]
+            )
+            self.assertIn("dst=/data/project", " ".join(create))
+            provider.release(environment)
+
     def test_provider_observes_base_runtime_without_network_or_repository_mount(self,
     ) -> None:
         revision = "a" * 40

@@ -25,9 +25,13 @@ from envsolve_harness.runners.registry import (
 )
 from envsolve_harness.runners.matched_replay import (
     REAL_METHOD as MATCHED_REAL_METHOD,
+    TARGET_STATE_REAL_METHOD,
+    TARGET_STATE_WITHHELD_METHOD,
     WITHHELD_METHOD as MATCHED_WITHHELD_METHOD,
     RemoteBoundaryV6MatchedReplayRealRunner,
     RemoteBoundaryV6MatchedReplayWithheldRunner,
+    RemoteBoundaryV6MatchedTargetStateReplayRealRunner,
+    RemoteBoundaryV6MatchedTargetStateReplayWithheldRunner,
 )
 from envsolve_harness.runners.remote_boundary_v6 import (
     OfficialPrimaryRemoteBoundaryV6CodexCliRunner,
@@ -147,6 +151,30 @@ def main() -> int:
         lambda config, protocol, run_spec, options: _factory(
             RemoteBoundaryV6MatchedReplayWithheldRunner,
             MATCHED_WITHHELD_METHOD,
+            config,
+            protocol,
+            run_spec,
+            options,
+        ),
+    )
+    register_solver_runner(
+        RemoteBoundaryV6MatchedTargetStateReplayRealRunner.runner_name,
+        TARGET_STATE_REAL_METHOD,
+        lambda config, protocol, run_spec, options: _factory(
+            RemoteBoundaryV6MatchedTargetStateReplayRealRunner,
+            TARGET_STATE_REAL_METHOD,
+            config,
+            protocol,
+            run_spec,
+            options,
+        ),
+    )
+    register_solver_runner(
+        RemoteBoundaryV6MatchedTargetStateReplayWithheldRunner.runner_name,
+        TARGET_STATE_WITHHELD_METHOD,
+        lambda config, protocol, run_spec, options: _factory(
+            RemoteBoundaryV6MatchedTargetStateReplayWithheldRunner,
+            TARGET_STATE_WITHHELD_METHOD,
             config,
             protocol,
             run_spec,

@@ -18,6 +18,8 @@ from envsolve_harness.runners.matched_official_replay import (
 from envsolve_harness.runners.matched_replay import (
     RemoteBoundaryV6MatchedReplayRealRunner,
     RemoteBoundaryV6MatchedReplayWithheldRunner,
+    RemoteBoundaryV6MatchedTargetStateReplayRealRunner,
+    RemoteBoundaryV6MatchedTargetStateReplayWithheldRunner,
 )
 
 
@@ -141,6 +143,42 @@ def test_matched_prompt_does_not_include_the_legacy_pass_gate() -> None:
     assert "frozen EnvSolve-Pro Minimal B interface" not in prompt
     assert "only after the exact same program receives" not in prompt
     assert "If `status=withheld`" in prompt
+
+
+def test_target_state_matched_arms_share_prompt_and_only_real_feedback() -> None:
+    assert (
+        RemoteBoundaryV6MatchedTargetStateReplayRealRunner._prompt
+        is RemoteBoundaryV6MatchedTargetStateReplayWithheldRunner._prompt
+    )
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        runner = RemoteBoundaryV6MatchedTargetStateReplayRealRunner(
+            ssh_target="user@spark",
+            remote_workspace_root="/srv/construction",
+            codex_executable=root / "codex",
+            harness_root=root,
+            source_cache_root=root / "cache",
+            image="envbench:test",
+            timeout=120,
+            command_timeout=30,
+            container_create_timeout=10,
+            git_fetch_timeout=20,
+            goal_contract=ExecutableGoalContract("goal", "Fixture", "true"),
+        )
+        arguments = runner._mcp_server_args(
+            trace_path=root / "trace.jsonl",
+            container_id="construction",
+            case=Case("owner/repo@abc", "owner/repo", "abc"),
+            image_digest="sha256:image",
+        )
+
+    assert arguments[-5:] == [
+        "--feedback-mode",
+        "real",
+        "--preserve-bind-mount-owner",
+        "--replay-container-workdir",
+        "/data/project",
+    ]
 
 
 def test_envbench_real_and_withheld_feedback_have_identical_shape() -> None:

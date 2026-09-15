@@ -358,11 +358,44 @@ class SshDockerTransportTest(unittest.TestCase):
             capture_output=True,
             text=True,
         )
-
         self.assertEqual(
             transport.remote_commands,
             [["/usr/local/bin/docker", "image", "inspect", "example"]],
         )
+
+    def test_adapter_can_preserve_host_owner_for_target_state_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            local = Path(directory).resolve()
+            transport = RecordingTransport()
+            adapter = RemoteDockerCommandAdapter(
+                transport,  # type: ignore[arg-type]
+                sync_timeout=30,
+                preserve_bind_mount_owner=True,
+            )
+
+            created = adapter(
+                [
+                    "docker",
+                    "create",
+                    "--mount",
+                    f"type=bind,src={local},dst=/data/project",
+                    "image",
+                ],
+                capture_output=True,
+                text=True,
+            )
+            adapter(
+                ["docker", "start", created.stdout.strip()],
+                capture_output=True,
+                text=True,
+            )
+
+            ownership_commands = [
+                command
+                for command in transport.remote_commands
+                if command[:3] == ["docker", "exec", "--user"]
+            ]
+            self.assertEqual(ownership_commands, [])
 
 
 @unittest.skipUnless(
