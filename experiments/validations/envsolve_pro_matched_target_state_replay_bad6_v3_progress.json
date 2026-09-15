@@ -1,0 +1,126 @@
+{
+  "study_id": "envsolve-pro-matched-target-state-replay-bad6-v3",
+  "recorded_at": "2026-09-15T14:40:27+08:00",
+  "schedule": "experiments/schedules/envsolve_pro_matched_target_state_replay_bad6_v3.json",
+  "primary_endpoint": "EnvBench Official Pass@1 after the Agent episode",
+  "completed_pairs": 1,
+  "planned_pairs": 6,
+  "aggregate": {
+    "control_official_passes": 1,
+    "treatment_official_passes": 1,
+    "treatment_exclusive_official_wins": 0,
+    "control_exclusive_official_wins": 0,
+    "official_ties": 1,
+    "treatment_causal_repair_chains": 1
+  },
+  "pairs": [
+    {
+      "cohort_position": 1,
+      "source_position": 20,
+      "case_id": "envbench-python-jaraco__keyring@afe0abd3165da8fd68d2812f483ba429008442d5",
+      "arm_order": [
+        "C-withheld",
+        "T-real"
+      ],
+      "control": {
+        "run_id": "pro-matched-target-v3-01-C",
+        "generation_completed": true,
+        "submission_count": 1,
+        "replay_status_counts": {
+          "withheld": 1
+        },
+        "generation_started_at": "2026-09-15T05:26:48.530273+00:00",
+        "generation_finished_at": "2026-09-15T05:56:50.580389+00:00",
+        "token_usage": {
+          "input_tokens": 566819,
+          "cached_input_tokens": 512000,
+          "output_tokens": 7074,
+          "reasoning_output_tokens": 4346
+        },
+        "official": {
+          "pass": true,
+          "bootstrap_exit_code": 0,
+          "active_project_python": "/opt/conda/bin/python",
+          "issues_count": 0,
+          "error_count": 129,
+          "missing_imports": [],
+          "feedback_disclosed_to_agent": false,
+          "started_at": "2026-09-15T05:58:03.577199+00:00",
+          "finished_at": "2026-09-15T06:01:18.121451+00:00",
+          "artifact": "runs/envsolve-pro-matched-target-state-replay-bad6-v3/postepisode/01-C/execution.json"
+        }
+      },
+      "treatment": {
+        "run_id": "pro-matched-target-v3-01-T",
+        "generation_completed": true,
+        "submission_count": 6,
+        "replay_status_counts": {
+          "fail": 3,
+          "infrastructure_error": 2,
+          "pass": 1
+        },
+        "final_program_matches_last_submission": true,
+        "generation_started_at": "2026-09-15T06:06:36.797773+00:00",
+        "generation_finished_at": "2026-09-15T06:34:32.829988+00:00",
+        "token_usage": {
+          "input_tokens": 3672579,
+          "cached_input_tokens": 3522432,
+          "output_tokens": 14453,
+          "reasoning_output_tokens": 7974
+        },
+        "causal_repair_chain": {
+          "present": true,
+          "initial_deterministic_failure": "git dubious ownership blocked git archive in /data/project",
+          "repair_sequence": [
+            "add command-local safe.directory to git archive; target replay still failed",
+            "replace git archive with a source-copy plan; existing candidate boundary rejected the legal read-and-copy command",
+            "replace archive/copy with temporary build_output removal and editable install",
+            "retry the unchanged program after one transient conda failure",
+            "add bounded conda retries after a second transient conda failure"
+          ],
+          "terminal_replay_status": "pass"
+        },
+        "official": {
+          "pass": true,
+          "bootstrap_exit_code": 0,
+          "active_project_python": ".venv/bin/python",
+          "issues_count": 0,
+          "error_count": 129,
+          "missing_imports": [],
+          "feedback_disclosed_to_agent": false,
+          "started_at": "2026-09-15T06:35:55.269616+00:00",
+          "finished_at": "2026-09-15T06:39:50.367905+00:00",
+          "artifact": "runs/envsolve-pro-matched-target-state-replay-bad6-v3/postepisode/01-T/execution.json"
+        }
+      },
+      "pair_outcome": "official_tie",
+      "mechanism_outcome": "causal_repair_chain_observed_but_no_treatment-exclusive_official_win",
+      "harness_interference": [
+        {
+          "replay_index": 3,
+          "kind": "candidate-boundary-false-positive",
+          "detail": "A command that copied pyproject.toml, README.rst, LICENSE, and keyring source into a temporary build directory was rejected as writing protected repository configuration. The command did not target the repository files for mutation."
+        }
+      ],
+      "infrastructure_events": [
+        {
+          "replay_index": 4,
+          "kind": "conda-network-failure"
+        },
+        {
+          "replay_index": 5,
+          "kind": "conda-network-failure"
+        }
+      ]
+    }
+  ],
+  "current_decision": {
+    "status": "retain-as-unresolved-challenger",
+    "main_contradiction": "The treatment produced a genuine replay-driven repair chain, but the matched strong control already Official-passed the same selected failure case.",
+    "strongest_support": "Treatment repaired deterministic target-state failures inside one continuous Agent session and its final complete program independently Official-passed.",
+    "strongest_counterevidence": "There is no treatment-exclusive Official win, and treatment used more submissions, wall time, and tokens than control on pair 1.",
+    "next_high_information_experiment": "Run cohort position 2 in its fixed T-real then C-withheld order and evaluate each arm with postepisode Official."
+  },
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}
