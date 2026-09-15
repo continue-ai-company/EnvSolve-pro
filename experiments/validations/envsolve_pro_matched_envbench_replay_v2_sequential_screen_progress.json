@@ -1,10 +1,10 @@
 {
   "study_id": "envsolve-pro-matched-envbench-replay-v2-sequential-screen",
-  "recorded_at": "2026-09-15T12:15:00+08:00",
+  "recorded_at": "2026-09-15T13:05:00+08:00",
   "status": "screening-in-progress",
   "preregistration": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_sequential_screen_preregistration.json",
   "screened_through_position": 23,
-  "eligible_failure_count": 4,
+  "eligible_failure_count": 5,
   "target_eligible_failure_count": 6,
   "records": [
     {
@@ -78,6 +78,21 @@
       "official_issues_count": 19,
       "official_error_count": 1352,
       "postepisode_failure_family": "static-import-closure-optional-native-and-scientific-integrations"
+    },
+    {
+      "position": 25,
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "construction_host": "spark",
+      "a1_run_id": "pro-v6-strong-ab-census83-25-A1",
+      "candidate_formed": true,
+      "official_completed": true,
+      "official_pass": false,
+      "eligible": true,
+      "official_bootstrap_exit_code": 1,
+      "official_issues_count": 0,
+      "official_error_count": null,
+      "postepisode_failure_family": "target-state-git-ownership-breaks-editable-build",
+      "postepisode_evidence": "Official bootstrap failed during editable installation because the clean host-owned checkout at /data/project was dubious to container-root Git."
     }
   ],
   "running_positions": [
@@ -85,18 +100,14 @@
       "position": 24,
       "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
       "construction_host": "agenthub"
-    },
-    {
-      "position": 25,
-      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
-      "construction_host": "spark"
     }
   ],
-  "selection_statement": "Positions were screened in the preregistered order. Eligibility was determined only from complete A1 candidate formation and postepisode Official status; no matched-v2 arm has been run.",
+  "selection_statement": "Positions were launched in the preregistered order with the existing host schedule. Position 25 completed before the already-running position 24, but cohort membership remains ordered by source position. Eligibility used only complete A1 candidate formation and postepisode Official status; no matched control or treatment arm has been run.",
+  "pre_pair_implementation_amendment": "experiments/validations/envsolve_pro_matched_replay_pre_pair_amendment_v3.json",
   "scientific_status": {
-    "support": "Four consecutive strong-Agent complete programs failed only when evaluated through the clean Official path; position 22 is a direct target-state mismatch opportunity for complete-program replay.",
-    "counterevidence": "No treatment replay has activated and no treatment-exclusive Official win exists. Three of the four eligible outcomes are dominated by static import closure, so failure-family diversity is limited.",
-    "decision": "retain-v2-as-unresolved-challenger"
+    "support": "Five strong-Agent complete programs failed on postepisode Official. Positions 22 and 25 are direct target-state Git-ownership mismatch opportunities, and model-free v3 replay reproduces that failure while returning its raw executable evidence.",
+    "counterevidence": "No treatment replay has activated and no treatment-exclusive Official win exists. Three eligible outcomes are dominated by static import closure, and target-state replay benefit remains unmeasured.",
+    "decision": "retain-v3-as-unresolved-challenger"
   },
   "protected_canary_opened": false,
   "official_test_opened": false,
