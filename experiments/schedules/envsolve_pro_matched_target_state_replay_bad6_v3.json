@@ -1,0 +1,64 @@
+{
+  "study_id": "envsolve-pro-matched-target-state-replay-bad6-v3",
+  "case_file": "experiments/cases/dev_envsolve_pro_matched_target_state_replay_bad6_v3.jsonl",
+  "config": "experiments/configs/local_mac_envsolve_pro_matched_target_state_replay_bad6_v3.json",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "xhigh",
+  "construction_and_replay_host": "spark",
+  "official_host": "spark",
+  "max_parallel_generation_sessions": 1,
+  "cases": [
+    {
+      "cohort_position": 1,
+      "source_position": 20,
+      "case_id": "envbench-python-jaraco__keyring@afe0abd3165da8fd68d2812f483ba429008442d5",
+      "arm_order": ["C-withheld", "T-real"],
+      "control": {"run_id": "pro-matched-target-v3-01-C", "runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3", "method": "envsolve-pro-matched-target-state-replay-withheld-v3"},
+      "treatment": {"run_id": "pro-matched-target-v3-01-T", "runner": "envsolve-pro-matched-target-state-replay-real-remote-v3", "method": "envsolve-pro-matched-target-state-replay-real-v3"}
+    },
+    {
+      "cohort_position": 2,
+      "source_position": 21,
+      "case_id": "envbench-python-neurogym__neurogym@ee0a140cf2c6f14f36f524997c269cf110afc73d",
+      "arm_order": ["T-real", "C-withheld"],
+      "control": {"run_id": "pro-matched-target-v3-02-C", "runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3", "method": "envsolve-pro-matched-target-state-replay-withheld-v3"},
+      "treatment": {"run_id": "pro-matched-target-v3-02-T", "runner": "envsolve-pro-matched-target-state-replay-real-remote-v3", "method": "envsolve-pro-matched-target-state-replay-real-v3"}
+    },
+    {
+      "cohort_position": 3,
+      "source_position": 22,
+      "case_id": "envbench-python-meltano__sdk@e4881b182b96f4f8c14bff059320dcf04715f65c",
+      "arm_order": ["C-withheld", "T-real"],
+      "control": {"run_id": "pro-matched-target-v3-03-C", "runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3", "method": "envsolve-pro-matched-target-state-replay-withheld-v3"},
+      "treatment": {"run_id": "pro-matched-target-v3-03-T", "runner": "envsolve-pro-matched-target-state-replay-real-remote-v3", "method": "envsolve-pro-matched-target-state-replay-real-v3"}
+    },
+    {
+      "cohort_position": 4,
+      "source_position": 23,
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "arm_order": ["T-real", "C-withheld"],
+      "control": {"run_id": "pro-matched-target-v3-04-C", "runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3", "method": "envsolve-pro-matched-target-state-replay-withheld-v3"},
+      "treatment": {"run_id": "pro-matched-target-v3-04-T", "runner": "envsolve-pro-matched-target-state-replay-real-remote-v3", "method": "envsolve-pro-matched-target-state-replay-real-v3"}
+    },
+    {
+      "cohort_position": 5,
+      "source_position": 24,
+      "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+      "arm_order": ["C-withheld", "T-real"],
+      "control": {"run_id": "pro-matched-target-v3-05-C", "runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3", "method": "envsolve-pro-matched-target-state-replay-withheld-v3"},
+      "treatment": {"run_id": "pro-matched-target-v3-05-T", "runner": "envsolve-pro-matched-target-state-replay-real-remote-v3", "method": "envsolve-pro-matched-target-state-replay-real-v3"}
+    },
+    {
+      "cohort_position": 6,
+      "source_position": 25,
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "arm_order": ["T-real", "C-withheld"],
+      "control": {"run_id": "pro-matched-target-v3-06-C", "runner": "envsolve-pro-matched-target-state-replay-withheld-remote-v3", "method": "envsolve-pro-matched-target-state-replay-withheld-v3"},
+      "treatment": {"run_id": "pro-matched-target-v3-06-T", "runner": "envsolve-pro-matched-target-state-replay-real-remote-v3", "method": "envsolve-pro-matched-target-state-replay-real-v3"}
+    }
+  ],
+  "selection_evidence": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_sequential_screen_progress.json",
+  "pre_pair_amendment": "experiments/validations/envsolve_pro_matched_replay_pre_pair_amendment_v3.json",
+  "protected_canary_opened": false,
+  "official_test_opened": false
+}

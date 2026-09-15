@@ -1,10 +1,10 @@
 {
   "study_id": "envsolve-pro-matched-envbench-replay-v2-sequential-screen",
-  "recorded_at": "2026-09-15T13:05:00+08:00",
-  "status": "screening-in-progress",
+  "recorded_at": "2026-09-15T13:25:00+08:00",
+  "status": "cohort-fixed-stop-rule-satisfied",
   "preregistration": "experiments/validations/envsolve_pro_matched_envbench_replay_v2_sequential_screen_preregistration.json",
-  "screened_through_position": 23,
-  "eligible_failure_count": 5,
+  "screened_through_position": 25,
+  "eligible_failure_count": 6,
   "target_eligible_failure_count": 6,
   "records": [
     {
@@ -80,6 +80,21 @@
       "postepisode_failure_family": "static-import-closure-optional-native-and-scientific-integrations"
     },
     {
+      "position": 24,
+      "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
+      "construction_host": "agenthub",
+      "a1_run_id": "pro-v6-strong-ab-census83-24-A1",
+      "candidate_formed": true,
+      "official_completed": true,
+      "official_pass": false,
+      "eligible": true,
+      "official_bootstrap_exit_code": 0,
+      "official_issues_count": 3,
+      "official_error_count": 1437,
+      "postepisode_failure_family": "static-import-closure-legacy-tooling-and-repository-local-provider",
+      "postepisode_evidence": "Official reported one unresolved pkg_resources import and two unresolved biopsykit.carwatch_logs imports after a successful bootstrap."
+    },
+    {
       "position": 25,
       "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
       "construction_host": "spark",
@@ -95,18 +110,50 @@
       "postepisode_evidence": "Official bootstrap failed during editable installation because the clean host-owned checkout at /data/project was dubious to container-root Git."
     }
   ],
-  "running_positions": [
+  "running_positions": [],
+  "fixed_cohort": [
     {
-      "position": 24,
+      "cohort_position": 1,
+      "source_position": 20,
+      "case_id": "envbench-python-jaraco__keyring@afe0abd3165da8fd68d2812f483ba429008442d5",
+      "arm_order": ["control", "treatment"]
+    },
+    {
+      "cohort_position": 2,
+      "source_position": 21,
+      "case_id": "envbench-python-neurogym__neurogym@ee0a140cf2c6f14f36f524997c269cf110afc73d",
+      "arm_order": ["treatment", "control"]
+    },
+    {
+      "cohort_position": 3,
+      "source_position": 22,
+      "case_id": "envbench-python-meltano__sdk@e4881b182b96f4f8c14bff059320dcf04715f65c",
+      "arm_order": ["control", "treatment"]
+    },
+    {
+      "cohort_position": 4,
+      "source_position": 23,
+      "case_id": "envbench-python-mdolab__pygeo@4c762ab13e4b8847e346e4c269f7d63c375bec74",
+      "arm_order": ["treatment", "control"]
+    },
+    {
+      "cohort_position": 5,
+      "source_position": 24,
       "case_id": "envbench-python-mad-lab-fau__biopsykit@2ad99fba5f55328109c72bd3cbb72ba2444da078",
-      "construction_host": "agenthub"
+      "arm_order": ["control", "treatment"]
+    },
+    {
+      "cohort_position": 6,
+      "source_position": 25,
+      "case_id": "envbench-python-mpmath__mpmath@ee1a8102665a2fba0faba6c2c0f0a064de92b522",
+      "arm_order": ["treatment", "control"]
     }
   ],
   "selection_statement": "Positions were launched in the preregistered order with the existing host schedule. Position 25 completed before the already-running position 24, but cohort membership remains ordered by source position. Eligibility used only complete A1 candidate formation and postepisode Official status; no matched control or treatment arm has been run.",
   "pre_pair_implementation_amendment": "experiments/validations/envsolve_pro_matched_replay_pre_pair_amendment_v3.json",
   "scientific_status": {
-    "support": "Five strong-Agent complete programs failed on postepisode Official. Positions 22 and 25 are direct target-state Git-ownership mismatch opportunities, and model-free v3 replay reproduces that failure while returning its raw executable evidence.",
-    "counterevidence": "No treatment replay has activated and no treatment-exclusive Official win exists. Three eligible outcomes are dominated by static import closure, and target-state replay benefit remains unmeasured.",
+    "support": "Six strong-Agent complete programs failed on postepisode Official. Positions 22 and 25 are direct target-state Git-ownership mismatch opportunities, and model-free v3 replay reproduces that failure while returning its raw executable evidence.",
+    "counterevidence": "No treatment replay has activated and no treatment-exclusive Official win exists. Four eligible outcomes are dominated by static import closure, and target-state replay benefit remains unmeasured.",
     "decision": "retain-v3-as-unresolved-challenger"
   },
   "protected_canary_opened": false,
